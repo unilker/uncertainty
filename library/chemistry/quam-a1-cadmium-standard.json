@@ -125,6 +125,9 @@
         "tolerance": 0.001
       }
     },
-    "reference": "QUAM:2012 Table A1.3 (spreadsheet value u = 0.8633 mg/L)."
+    "reference": {
+      "en": "QUAM:2012 Table A1.3 (spreadsheet value u = 0.8633 mg/L).",
+      "tr": "QUAM:2012 Tablo A1.3 (tablolama değeri u = 0,8633 mg/L)."
+    }
   }
 }

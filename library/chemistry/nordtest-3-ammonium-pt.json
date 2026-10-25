@@ -1,0 +1,164 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-3-ammonium-pt",
+    "title": {
+      "en": "Ammonium in water from control limits and proficiency tests",
+      "tr": "Kontrol sınırları ve yeterlilik testlerinden sudaki amonyum"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §3.2 and Appendix 4: NH₄-N, u(Rw) from the control chart and u(bias) from six proficiency tests (raw PT data).",
+      "tr": "Nordtest TR 537 §3.2 ve Ek 4: NH₄-N; u(Rw) kontrol grafiğinden, u(bias) altı yeterlilik testinden (ham YT verisi)."
+    },
+    "explanation": [
+      {
+        "en": "The control chart warning limits are ±3.34 % (2s), so u(Rw) = 3.34/2 = 1.67 %.",
+        "tr": "Kontrol grafiği uyarı sınırları ±%3,34'tür (2s); bu nedenle u(Rw) = 3,34/2 = %1,67."
+      },
+      {
+        "en": "For each PT round the bias is (x_lab − x_assigned)/x_assigned and the uncertainty of the assigned value u(C_ref,i) = s_R/√n_Lab; RMS_bias = 2.26 %, ū(C_ref) = 1.52 %.",
+        "tr": "Her YT turu için sapma (x_lab − x_atanan)/x_atanan, atanan değerin belirsizliği u(C_ref,i) = s_R/√n_Lab'dır; RMS_bias = %2,26, ū(C_ref) = %1,52."
+      },
+      {
+        "en": "u(bias) = √(2.26² + 1.52²) = 2.73 %; u_c = √(1.67² + 2.73²) = 3.20 %; U = 6.4 % → 7 %.",
+        "tr": "u(bias) = √(2,26² + 1,52²) = %2,73; u_c = √(1,67² + 2,73²) = %3,20; U = %6,4 → %7."
+      },
+      {
+        "en": "u_c = √(u(Rw)² + u(bias)²) and U = 2u_c, rounded up to a whole per cent (Nordtest §3).",
+        "tr": "u_c = √(u(Rw)² + u(bias)²) ve U = 2u_c; tam yüzdeye yukarı yuvarlanır (Nordtest §3)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§3.2 and Appendix 4",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "proficiency-tests"
+    ]
+  },
+  "topdown": {
+    "quantity": "c(NH₄-N)",
+    "unit": "µg/L",
+    "precision": [
+      {
+        "name": "u(Rw)",
+        "description": {
+          "en": "Control chart warning limits ±3.34 % (2s)",
+          "tr": "Kontrol grafiği uyarı sınırları ±%3,34 (2s)"
+        },
+        "data": {
+          "type": "control_limits",
+          "limit_percent": 3.34,
+          "k": 2
+        }
+      }
+    ],
+    "bias": [
+      {
+        "name": "u(bias)",
+        "kind": "proficiency_tests",
+        "references": [
+          {
+            "label": "PT 1",
+            "reference": 81.0,
+            "mean": 83.0,
+            "sd_reproducibility_percent": 10.0,
+            "labs": 31
+          },
+          {
+            "label": "PT 2",
+            "reference": 73.0,
+            "mean": 75.0,
+            "sd_reproducibility_percent": 7.0,
+            "labs": 36
+          },
+          {
+            "label": "PT 3",
+            "reference": 264.0,
+            "mean": 269.0,
+            "sd_reproducibility_percent": 8.0,
+            "labs": 32
+          },
+          {
+            "label": "PT 4",
+            "reference": 210.0,
+            "mean": 213.0,
+            "sd_reproducibility_percent": 10.0,
+            "labs": 35
+          },
+          {
+            "label": "PT 5",
+            "reference": 110.0,
+            "mean": 112.0,
+            "sd_reproducibility_percent": 7.0,
+            "labs": 36
+          },
+          {
+            "label": "PT 6",
+            "reference": 140.0,
+            "mean": 144.0,
+            "sd_reproducibility_percent": 11.0,
+            "labs": 34
+          }
+        ]
+      }
+    ]
+  },
+  "reporting": {
+    "decimal_places": 0,
+    "rounding": "up"
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "u(Rw)": {
+          "value": 1.67,
+          "tolerance": 1e-09
+        },
+        "u(bias)": {
+          "value": 2.73,
+          "tolerance": 0.005
+        }
+      },
+      "bias": {
+        "u(bias)": {
+          "mean": {
+            "value": 2.2,
+            "tolerance": 0.005
+          },
+          "rms": {
+            "value": 2.26,
+            "tolerance": 0.005
+          },
+          "mean_u_reference": {
+            "value": 1.52,
+            "tolerance": 0.005
+          }
+        }
+      },
+      "levels": [
+        {
+          "relative_standard_percent": {
+            "value": 3.2,
+            "tolerance": 0.005
+          },
+          "relative_expanded_percent": {
+            "value": 6.4,
+            "tolerance": 0.01
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §3.2 and Appendix 4 (RMS_bias 2.26 %, ū(C_ref) 1.52 %, u(bias) 2.73 %, u_c 3.20 %, U 6.4 → 7 %).",
+      "tr": "Nordtest TR 537 §3.2 ve Ek 4 (RMS_bias %2,26, ū(C_ref) %1,52, u(bias) %2,73, u_c %3,20, U %6,4 → %7)."
+    }
+  }
+}

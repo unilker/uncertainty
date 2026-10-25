@@ -4,11 +4,12 @@
 //!
 //! Turkish reports use the decimal comma, as in Turkish standards.
 
-use crate::schema::{DistributionSpec, Project, RoundingSpec};
-use crate::{check, Analysis, Lang, CITATION, SOFTWARE_NAME, SOFTWARE_VERSION};
+use crate::schema::{DistributionSpec, Project, ReportingSpec, RoundingSpec};
+use crate::topdown::{At, BiasKind, LevelRange, PrecisionMethod, TopDownAnalysis};
+use crate::{check, Analysis, CheckOutcome, Evaluation, Lang, CITATION, SOFTWARE_NAME, SOFTWARE_VERSION};
 use std::fmt::Write as _;
 use uncertainty_core::mcm::IntervalKind;
-use uncertainty_core::report::{report_result, Rounding};
+use uncertainty_core::report::{format_at_place, report_result, Rounding};
 use uncertainty_core::special::{normal_pdf, student_t_pdf};
 
 struct Labels {
@@ -331,19 +332,27 @@ fn rounding(spec: RoundingSpec) -> Rounding {
     }
 }
 
-/// The reported value and expanded uncertainty as strings, rounded per the
-/// project's reporting rule.
+/// A value and its expanded uncertainty rounded for reporting: U to the
+/// stated number of significant digits (or decimal places) by the stated
+/// rule, the value to the same decimal place (half to even).
+pub fn round_reported(value: f64, expanded: f64, spec: &ReportingSpec, lang: Lang) -> (String, String) {
+    let rule = rounding(spec.rounding);
+    let (v, u) = match spec.decimal_places {
+        Some(d) => (format_at_place(value, -d, Rounding::HalfEvenFirstDiscarded), format_at_place(expanded, -d, rule)),
+        None => {
+            let r = report_result(value, expanded, spec.significant_digits, rule, Rounding::HalfEvenFirstDiscarded);
+            (r.value, r.uncertainty)
+        }
+    };
+    let fix = |s: String| if lang == Lang::Tr { s.replace('.', ",") } else { s };
+    (fix(v), fix(u))
+}
+
+/// The reported value and expanded uncertainty of a model project as
+/// strings, rounded per the project's reporting rule.
 pub fn reported_strings(p: &Project, a: &Analysis, lang: Lang) -> Option<(String, String)> {
     let g = a.gum.as_ref()?;
-    let r = report_result(
-        g.estimate,
-        g.expanded_uncertainty,
-        p.reporting.significant_digits,
-        rounding(p.reporting.rounding),
-        Rounding::HalfEvenFirstDiscarded,
-    );
-    let fix = |s: String| if lang == Lang::Tr { s.replace('.', ",") } else { s };
-    Some((fix(r.value), fix(r.uncertainty)))
+    Some(round_reported(g.estimate, g.expanded_uncertainty, &p.reporting, lang))
 }
 
 fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
@@ -367,8 +376,17 @@ fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
 }
 
 /// Markdown report.
-pub fn markdown(p: &Project, a: &Analysis, lang: Lang, generated: Option<&str>) -> String {
+pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) -> String {
+    let checks = check(p, e);
+    match e {
+        Evaluation::Model(a) => model_markdown(p, a, &checks, lang, generated),
+        Evaluation::TopDown(t) => topdown_markdown(p, t, &checks, lang, generated),
+    }
+}
+
+fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang, generated: Option<&str>) -> String {
     let l = labels(lang);
+    let Some(spec) = p.model.as_ref() else { return String::new() };
     let n = |x: f64| fmt_num(x, 6, lang);
     let n3 = |x: f64| fmt_num(x, 3, lang);
     let mut s = String::new();
@@ -379,17 +397,17 @@ pub fn markdown(p: &Project, a: &Analysis, lang: Lang, generated: Option<&str>) 
     }
     let _ = writeln!(s, "## {}\n", l.model);
     let unit = a.model.output_unit.clone().map(|u| format!("  [{u}]")).unwrap_or_default();
-    let _ = writeln!(s, "```\n{} = {}{unit}\n```\n", a.model.output_name, p.model.output.expression);
-    if !p.model.intermediates.is_empty() {
+    let _ = writeln!(s, "```\n{} = {}{unit}\n```\n", a.model.output_name, spec.output.expression);
+    if !spec.intermediates.is_empty() {
         let _ = writeln!(s, "{}:\n\n```", l.intermediates);
-        for i in &p.model.intermediates {
+        for i in &spec.intermediates {
             let _ = writeln!(s, "{} = {}", i.name, i.expression);
         }
         let _ = writeln!(s, "```\n");
     }
     let _ = writeln!(s, "## {}\n", l.inputs);
     let _ = writeln!(s, "| {} | {} | {} | {} |\n|---|---|---|---|", l.quantity, l.unit, l.distribution, l.information);
-    for q in &p.model.inputs {
+    for q in &spec.inputs {
         let desc = q.description.as_ref().map(|d| format!(" — {}", d.get(lang))).unwrap_or_default();
         let _ = writeln!(
             s,
@@ -470,6 +488,16 @@ pub fn markdown(p: &Project, a: &Analysis, lang: Lang, generated: Option<&str>) 
         }
         let _ = writeln!(s);
     }
+    tail(&mut s, p, checks, lang, "JCGM 100:2008 (GUM); JCGM 101:2008 (GUM-S1)", generated);
+    s
+}
+
+/// Explanation, notes, comparison with reference values, sources and the
+/// citation footer, common to all reports.
+fn tail(s: &mut String, p: &Project, checks: &[CheckOutcome], lang: Lang, methods: &str, generated: Option<&str>) {
+    let l = labels(lang);
+    let n = |x: f64| fmt_num(x, 6, lang);
+    let n3 = |x: f64| fmt_num(x, 3, lang);
     if !p.metadata.explanation.is_empty() {
         let _ = writeln!(s, "## {}\n", l.explanation);
         for (i, e) in p.metadata.explanation.iter().enumerate() {
@@ -484,14 +512,13 @@ pub fn markdown(p: &Project, a: &Analysis, lang: Lang, generated: Option<&str>) 
         }
         let _ = writeln!(s);
     }
-    let checks = check(p, a);
     if !checks.is_empty() {
         let _ = writeln!(s, "## {}\n", l.checks);
         if let Some(r) = p.expected.as_ref().and_then(|e| e.reference.as_ref()) {
-            let _ = writeln!(s, "{r}\n");
+            let _ = writeln!(s, "{}\n", r.get(lang));
         }
         let _ = writeln!(s, "| | {} | {} | ± | |\n|---|---:|---:|---:|---|", l.computed, l.expected);
-        for c in &checks {
+        for c in checks {
             let _ = writeln!(
                 s,
                 "| {} | {} | {} | {} | {} |",
@@ -510,11 +537,481 @@ pub fn markdown(p: &Project, a: &Analysis, lang: Lang, generated: Option<&str>) 
         let url = src.url.as_ref().map(|x| format!(" <{x}>")).unwrap_or_default();
         let _ = writeln!(s, "- {}{sec}{url}", src.document);
     }
-    let _ = writeln!(s, "\n**{}:** JCGM 100:2008 (GUM); JCGM 101:2008 (GUM-S1).\n", l.methods);
+    let _ = writeln!(s, "\n**{}:** {methods}.\n", l.methods);
     let _ = writeln!(s, "---\n");
     let gen = generated.map(|g| format!(", {g}")).unwrap_or_default();
     let _ = writeln!(s, "{} {SOFTWARE_NAME} {SOFTWARE_VERSION}{gen}.  ", l.generated_by);
     let _ = writeln!(s, "{}: {CITATION}", l.cite);
+}
+
+// ---------------------------------------------------------------------------
+// Top-down reports
+// ---------------------------------------------------------------------------
+
+struct TdLabels {
+    title: &'static str,
+    measurand: &'static str,
+    precision: &'static str,
+    component: &'static str,
+    method: &'static str,
+    mean: &'static str,
+    sd: &'static str,
+    in_budget: &'static str,
+    range: &'static str,
+    all: &'static str,
+    bias: &'static str,
+    crm: &'static str,
+    pt: &'static str,
+    recovery_exp: &'static str,
+    reference: &'static str,
+    bias_col: &'static str,
+    mean_bias: &'static str,
+    rms: &'static str,
+    mean_uref: &'static str,
+    single: &'static str,
+    rms_formula: &'static str,
+    recovery: &'static str,
+    test: &'static str,
+    mean_recovery: &'static str,
+    u_recovery: &'static str,
+    sd_recoveries: &'static str,
+    u_used: &'static str,
+    significance: &'static str,
+    significant: &'static str,
+    not_significant: &'static str,
+    corrected: &'static str,
+    not_corrected: &'static str,
+    homogeneity: &'static str,
+    equivalent: &'static str,
+    not_equivalent: &'static str,
+    budget: &'static str,
+    kind: &'static str,
+    absolute: &'static str,
+    relative: &'static str,
+    multiplicity: &'static str,
+    results: &'static str,
+    level: &'static str,
+    result: &'static str,
+    u_rel: &'static str,
+    exp_rel: &'static str,
+    shares: &'static str,
+    corrected_note: &'static str,
+    relative_statement: &'static str,
+    m_series: &'static str,
+    m_groups: &'static str,
+    m_dup: &'static str,
+    m_dup_norm: &'static str,
+    m_dup_range: &'static str,
+    m_limits: &'static str,
+    m_given: &'static str,
+    mean_of: &'static str,
+    rel_at: &'static str,
+    abs_at: &'static str,
+}
+
+const TD_EN: TdLabels = TdLabels {
+    title: "Top-down evaluation from validation and quality-control data",
+    measurand: "Measurand",
+    precision: "Precision (within-laboratory reproducibility)",
+    component: "Component",
+    method: "Method",
+    mean: "Mean",
+    sd: "Standard deviation",
+    in_budget: "In budget",
+    range: "Range",
+    all: "all",
+    bias: "Bias",
+    crm: "certified reference materials",
+    pt: "proficiency tests",
+    recovery_exp: "recovery experiments",
+    reference: "Reference",
+    bias_col: "Bias",
+    mean_bias: "Mean bias",
+    rms: "RMS of the biases",
+    mean_uref: "Mean reference uncertainty ū(C_ref)",
+    single: "u(bias) = √(b² + s²/n + u²(C_ref)) (one reference material)",
+    rms_formula: "u(bias) = √(RMS² + ū²(C_ref))",
+    recovery: "Recovery",
+    test: "Test",
+    mean_recovery: "Mean recovery R̄",
+    u_recovery: "Standard uncertainty of R̄",
+    sd_recoveries: "Standard deviation of the recoveries s(R)",
+    u_used: "Uncertainty used (with s(R))",
+    significance: "Significance test",
+    significant: "R̄ differs significantly from 1",
+    not_significant: "R̄ does not differ significantly from 1",
+    corrected: "results are corrected for recovery (c/R̄)",
+    not_corrected: "results are not corrected",
+    homogeneity: "Equivalence of the recoveries",
+    equivalent: "equivalent",
+    not_equivalent: "not equivalent",
+    budget: "Uncertainty budget",
+    kind: "Type",
+    absolute: "absolute",
+    relative: "relative",
+    multiplicity: "Multiplicity",
+    results: "Results",
+    level: "Measured value",
+    result: "Result",
+    u_rel: "Relative standard uncertainty",
+    exp_rel: "Relative expanded uncertainty",
+    shares: "Variance shares",
+    corrected_note: "Results are corrected for recovery: value = measured value / R̄.",
+    relative_statement: "relative to the measured value",
+    m_series: "standard deviation of a series",
+    m_groups: "pooled standard deviation",
+    m_dup: "duplicates (pooled)",
+    m_dup_norm: "duplicates, normalised differences",
+    m_dup_range: "duplicates, mean range / 1.128",
+    m_limits: "control limits / k",
+    m_given: "stated value",
+    mean_of: "mean of {p} days × {n} results",
+    rel_at: "relative to {v}",
+    abs_at: "absolute at {v}",
+};
+
+const TD_TR: TdLabels = TdLabels {
+    title: "Validasyon ve kalite kontrol verilerinden yukarıdan aşağı (top-down) değerlendirme",
+    measurand: "Ölçülen büyüklük",
+    precision: "Kesinlik (laboratuvar içi tekrarüretilebilirlik)",
+    component: "Bileşen",
+    method: "Yöntem",
+    mean: "Ortalama",
+    sd: "Standart sapma",
+    in_budget: "Bütçede",
+    range: "Aralık",
+    all: "tümü",
+    bias: "Sapma (bias)",
+    crm: "sertifikalı referans malzemeler",
+    pt: "yeterlilik testleri",
+    recovery_exp: "geri kazanım deneyleri",
+    reference: "Referans",
+    bias_col: "Sapma",
+    mean_bias: "Ortalama sapma",
+    rms: "Sapmaların karesel ortalamasının karekökü (RMS)",
+    mean_uref: "Ortalama referans belirsizliği ū(C_ref)",
+    single: "u(bias) = √(b² + s²/n + u²(C_ref)) (tek referans malzeme)",
+    rms_formula: "u(bias) = √(RMS² + ū²(C_ref))",
+    recovery: "Geri kazanım",
+    test: "Deney",
+    mean_recovery: "Ortalama geri kazanım R̄",
+    u_recovery: "R̄'nin standart belirsizliği",
+    sd_recoveries: "Geri kazanımların standart sapması s(R)",
+    u_used: "Kullanılan belirsizlik (s(R) dahil)",
+    significance: "Anlamlılık testi",
+    significant: "R̄ 1'den anlamlı olarak farklıdır",
+    not_significant: "R̄ 1'den anlamlı olarak farklı değildir",
+    corrected: "sonuçlar geri kazanım için düzeltilir (c/R̄)",
+    not_corrected: "sonuçlar düzeltilmez",
+    homogeneity: "Geri kazanımların eşdeğerliği",
+    equivalent: "eşdeğer",
+    not_equivalent: "eşdeğer değil",
+    budget: "Belirsizlik bütçesi",
+    kind: "Tür",
+    absolute: "mutlak",
+    relative: "bağıl",
+    multiplicity: "Çokluk",
+    results: "Sonuçlar",
+    level: "Ölçülen değer",
+    result: "Sonuç",
+    u_rel: "Bağıl standart belirsizlik",
+    exp_rel: "Bağıl genişletilmiş belirsizlik",
+    shares: "Varyans payları",
+    corrected_note: "Sonuçlar geri kazanım için düzeltilmiştir: değer = ölçülen değer / R̄.",
+    relative_statement: "ölçülen değere göre bağıl",
+    m_series: "seri standart sapması",
+    m_groups: "birleştirilmiş standart sapma",
+    m_dup: "mükerrer ölçümler (birleştirilmiş)",
+    m_dup_norm: "mükerrer ölçümler, normalize farklar",
+    m_dup_range: "mükerrer ölçümler, ortalama açıklık / 1,128",
+    m_limits: "kontrol sınırları / k",
+    m_given: "verilen değer",
+    mean_of: "{p} gün × {n} sonucun ortalaması",
+    rel_at: "{v} değerine göre bağıl",
+    abs_at: "{v} değerinde mutlak",
+};
+
+fn td_labels(lang: Lang) -> &'static TdLabels {
+    match lang {
+        Lang::En => &TD_EN,
+        Lang::Tr => &TD_TR,
+    }
+}
+
+fn range_text(r: &LevelRange, lang: Lang) -> String {
+    let n = |x: f64| fmt_given(x, lang);
+    match (r.min, r.max) {
+        (None, None) => td_labels(lang).all.to_string(),
+        (Some(a), None) => format!("≥ {}", n(a)),
+        (None, Some(b)) => format!("< {}", n(b)),
+        (Some(a), Some(b)) => format!("[{}; {})", n(a), n(b)),
+    }
+}
+
+fn topdown_markdown(
+    p: &Project,
+    t: &TopDownAnalysis,
+    checks: &[CheckOutcome],
+    lang: Lang,
+    generated: Option<&str>,
+) -> String {
+    let l = labels(lang);
+    let d = td_labels(lang);
+    let Some(spec) = p.topdown.as_ref() else { return String::new() };
+    let unit = spec.unit.clone().map(|u| format!(" {u}")).unwrap_or_default();
+    let n3 = |x: f64| fmt_num(x, 3, lang);
+    let u_of =
+        |u: f64, rel: bool| if rel { fmt_pct(u, 3, lang, false) } else { format!("{}{unit}", fmt_num(u, 3, lang)) };
+    let dof = |v: f64| if v.is_finite() { fmt_given(v, lang) } else { "∞".to_string() };
+    let mut s = String::new();
+    let _ = writeln!(s, "# {}\n", p.metadata.title.get(lang));
+    let _ = writeln!(s, "*{}*\n", l.report);
+    if let Some(x) = &p.metadata.description {
+        let _ = writeln!(s, "{}\n", x.get(lang));
+    }
+    let _ = writeln!(s, "## {}\n", d.title);
+    let _ = writeln!(
+        s,
+        "{}: {}{}\n",
+        d.measurand,
+        spec.quantity,
+        spec.unit.clone().map(|u| format!(" [{u}]")).unwrap_or_default()
+    );
+
+    if !t.precision.is_empty() {
+        let _ = writeln!(s, "## {}\n", d.precision);
+        let _ = writeln!(
+            s,
+            "| {} | {} | n | {} | {} | {} | {} | {} |\n|---|---|---:|---:|---:|---:|---|---:|",
+            d.component, d.method, d.mean, d.sd, l.dof, d.range, d.in_budget
+        );
+        for (pr, ps) in t.precision.iter().zip(&spec.precision) {
+            let mut method = match pr.method {
+                PrecisionMethod::Series => d.m_series,
+                PrecisionMethod::Groups => d.m_groups,
+                PrecisionMethod::DuplicatesPooled => d.m_dup,
+                PrecisionMethod::DuplicatesNormalised => d.m_dup_norm,
+                PrecisionMethod::DuplicatesRange => d.m_dup_range,
+                PrecisionMethod::ControlLimits => d.m_limits,
+                PrecisionMethod::Given => d.m_given,
+            }
+            .to_string();
+            if let Some(m) = &ps.mean_of {
+                let _ = write!(
+                    method,
+                    "; {}",
+                    d.mean_of.replace("{p}", &m.days.to_string()).replace("{n}", &m.replicates.to_string())
+                );
+            }
+            if let Some(at) = &ps.to_relative_at {
+                let v = match at {
+                    At::Value(v) => fmt_given(*v, lang),
+                    At::Keyword(_) => pr.mean.map(|m| fmt_num(m, 4, lang)).unwrap_or_default(),
+                };
+                let _ = write!(method, "; {}", d.rel_at.replace("{v}", &v));
+            }
+            if let Some(v) = ps.to_absolute_at {
+                let _ = write!(method, "; {}", d.abs_at.replace("{v}", &fmt_given(v, lang)));
+            }
+            let _ = writeln!(
+                s,
+                "| {} | {method} | {} | {} | {} | {} | {} | {} |",
+                pr.name,
+                if pr.n > 0 { pr.n.to_string() } else { "—".into() },
+                pr.mean.map(|m| fmt_num(m, 4, lang)).unwrap_or_else(|| "—".into()),
+                u_of(pr.raw_sd, pr.raw_relative),
+                dof(pr.dof),
+                range_text(&pr.range, lang),
+                u_of(pr.sd, pr.relative)
+            );
+        }
+        let _ = writeln!(s);
+    }
+
+    for b in &t.bias {
+        let kind = match b.kind {
+            BiasKind::Crm => d.crm,
+            BiasKind::ProficiencyTests => d.pt,
+            BiasKind::Recovery => d.recovery_exp,
+        };
+        let _ = writeln!(s, "## {}: {} ({kind})\n", d.bias, b.name);
+        let _ = writeln!(s, "| {} | {} | u(C_ref) | s | n |\n|---|---:|---:|---:|---:|", d.reference, d.bias_col);
+        for e in &b.entries {
+            let _ = writeln!(
+                s,
+                "| {} | {} | {} | {} | {} |",
+                e.label,
+                u_of(e.bias, b.relative),
+                u_of(e.u_reference, b.relative),
+                e.sd.map(|x| u_of(x, b.relative)).unwrap_or_else(|| "—".into()),
+                e.n.map(|x| x.to_string()).unwrap_or_else(|| "—".into())
+            );
+        }
+        let _ = writeln!(s, "\n- {}: {}", d.mean_bias, u_of(b.mean_bias, b.relative));
+        let _ = writeln!(s, "- {}: {}", d.rms, u_of(b.rms_bias, b.relative));
+        let _ = writeln!(s, "- {}: {}", d.mean_uref, u_of(b.mean_u_reference, b.relative));
+        let f = if b.single_reference { d.single } else { d.rms_formula };
+        let _ = writeln!(s, "- {f} = **{}**\n", u_of(b.u, b.relative));
+    }
+
+    if let Some(r) = &t.recovery {
+        let _ = writeln!(s, "## {}: {}\n", d.recovery, r.name);
+        let _ = writeln!(s, "| {} | R | u(R) |\n|---|---:|---:|", d.test);
+        for e in &r.entries {
+            let _ = writeln!(
+                s,
+                "| {} | {} | {} |",
+                e.label,
+                fmt_pct(e.recovery, 4, lang, false),
+                fmt_pct(e.u, 3, lang, false)
+            );
+        }
+        let _ = writeln!(s, "\n- {}: {}", d.mean_recovery, fmt_pct(r.mean, 4, lang, false));
+        let _ = writeln!(s, "- {}: {}", d.u_recovery, fmt_pct(r.u_mean, 3, lang, false));
+        if let Some(sd) = r.sd_of_recoveries {
+            let _ = writeln!(s, "- {}: {}", d.sd_recoveries, fmt_pct(sd, 3, lang, false));
+        }
+        if (r.u_used - r.u_mean).abs() > 0.0 {
+            let _ = writeln!(s, "- {}: {}", d.u_used, fmt_pct(r.u_used, 3, lang, false));
+        }
+        let cmp = if r.significant { ">" } else { "≤" };
+        let _ = writeln!(
+            s,
+            "- {}: |1 − R̄|/u = {} {cmp} t = {} (ν = {}, {}): {}; {}.",
+            d.significance,
+            n3(r.statistic),
+            n3(r.critical),
+            dof(r.dof),
+            fmt_pct(r.confidence, 3, lang, true),
+            if r.significant { d.significant } else { d.not_significant },
+            if r.corrected { d.corrected } else { d.not_corrected }
+        );
+        if let Some(h) = &r.homogeneity {
+            let cmp = if h.equivalent { "≤" } else { ">" };
+            let _ = writeln!(
+                s,
+                "- {} (χ²): χ² = {} {cmp} χ²_crit = {}: {}.",
+                d.homogeneity,
+                n3(h.chi_squared),
+                n3(h.critical),
+                if h.equivalent { d.equivalent } else { d.not_equivalent }
+            );
+        }
+        let _ = writeln!(s);
+    }
+
+    let _ = writeln!(s, "## {}\n", d.budget);
+    let _ = writeln!(
+        s,
+        "| {} | {} | {} | {} | {} |\n|---|---|---:|---:|---|",
+        d.component, d.kind, l.std_unc, d.multiplicity, d.range
+    );
+    for b in &t.budget {
+        let _ = writeln!(
+            s,
+            "| {} | {} | {} | {} | {} |",
+            b.name,
+            if b.relative { d.relative } else { d.absolute },
+            u_of(b.u, b.relative),
+            b.multiplicity,
+            range_text(&b.range, lang)
+        );
+    }
+    let _ = writeln!(s);
+
+    let _ = writeln!(s, "## {}\n", d.results);
+    let k = fmt_num(t.coverage_factor, 3, lang);
+    let corrected = t.recovery.as_ref().is_some_and(|r| r.corrected);
+    let absolute = t.levels.iter().any(|x| x.level.is_some());
+    if absolute {
+        let _ = writeln!(
+            s,
+            "| {} | {} | u_c | U (k = {k}) | {} |\n|---:|---:|---:|---:|---:|",
+            d.level, d.result, d.exp_rel
+        );
+    } else {
+        let _ = writeln!(s, "| {} | {} (k = {k}) |\n|---:|---:|", d.u_rel, d.exp_rel);
+    }
+    for lv in &t.levels {
+        match (lv.level, lv.value, lv.standard_uncertainty, lv.expanded_uncertainty) {
+            (Some(x), Some(v), Some(u), Some(big)) => {
+                let _ = writeln!(
+                    s,
+                    "| {} | {} | {} | {} | {} |",
+                    fmt_given(x, lang),
+                    fmt_num(v, 5, lang),
+                    n3(u),
+                    n3(big),
+                    fmt_pct(lv.relative_expanded, 3, lang, false)
+                );
+            }
+            _ => {
+                let _ = writeln!(
+                    s,
+                    "| {} | {} |",
+                    fmt_pct(lv.relative_standard, 3, lang, false),
+                    fmt_pct(lv.relative_expanded, 3, lang, false)
+                );
+            }
+        }
+    }
+    let _ = writeln!(s);
+    if corrected {
+        let _ = writeln!(s, "{}\n", d.corrected_note);
+    }
+    let _ = writeln!(s, "**{}:**\n", l.reported);
+    for lv in &t.levels {
+        match (lv.value, lv.expanded_uncertainty) {
+            (Some(v), Some(big)) => {
+                let (vs, us) = round_reported(v, big, &p.reporting, lang);
+                let _ = writeln!(s, "- {} = ({vs} ± {us}){unit} (k = {k})", spec.quantity);
+            }
+            _ => {
+                let (_, us) = round_reported(0.0, 100.0 * lv.relative_expanded, &p.reporting, lang);
+                let pct = match lang {
+                    Lang::En => format!("{us} %"),
+                    Lang::Tr => format!("%{us}"),
+                };
+                let _ = writeln!(s, "- U = {pct} (k = {k}), {}", d.relative_statement);
+            }
+        }
+    }
+    let _ = writeln!(s);
+    if t.budget.len() > 1 {
+        let _ = writeln!(s, "## {}\n", d.shares);
+        let heads: Vec<String> = t
+            .levels
+            .iter()
+            .map(|lv| {
+                lv.level.map(|x| format!("{}{unit}", fmt_given(x, lang))).unwrap_or_else(|| d.relative.to_string())
+            })
+            .collect();
+        let _ = writeln!(s, "| {} | {} |", d.component, heads.join(" | "));
+        let _ = writeln!(s, "|---|{}", "---:|".repeat(heads.len()));
+        for (i, b) in t.budget.iter().enumerate() {
+            let cells: Vec<String> = t
+                .levels
+                .iter()
+                .map(|lv| {
+                    lv.shares
+                        .iter()
+                        .find(|(j, _)| *j == i)
+                        .map(|(_, sh)| fmt_pct(*sh, 3, lang, false))
+                        .unwrap_or_else(|| "—".into())
+                })
+                .collect();
+            let _ = writeln!(s, "| {} | {} |", b.name, cells.join(" | "));
+        }
+        let _ = writeln!(s);
+    }
+    tail(
+        &mut s,
+        p,
+        checks,
+        lang,
+        "Nordtest TR 537 ed. 4 (2017); Eurachem/CITAC MUPR (2026); JCGM 100:2008 (GUM)",
+        generated,
+    );
     s
 }
 
@@ -523,10 +1020,8 @@ fn esc(s: &str) -> String {
 }
 
 /// Horizontal bar chart of variance shares (SVG).
-fn contributions_svg(a: &Analysis, lang: Lang) -> Option<String> {
-    let g = a.gum.as_ref()?;
-    let mut rows: Vec<(&str, f64)> =
-        g.budget.iter().filter(|r| r.variance_share > 0.0).map(|r| (r.name.as_str(), r.variance_share)).collect();
+fn contributions_svg(rows: &[(&str, f64)], lang: Lang) -> Option<String> {
+    let mut rows: Vec<(&str, f64)> = rows.iter().copied().filter(|r| r.1 > 0.0).collect();
     if rows.is_empty() {
         return None;
     }
@@ -787,19 +1282,41 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0 1em}@media print{figur
 "#;
 
 /// Self-contained HTML report with charts.
-pub fn html(p: &Project, a: &Analysis, lang: Lang, generated: Option<&str>) -> String {
+pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) -> String {
     let l = labels(lang);
-    let body = md_to_html(&markdown(p, a, lang, generated));
+    let body = md_to_html(&markdown(p, e, lang, generated));
     let mut figures = String::new();
-    if let Some(svg) = contributions_svg(a, lang) {
-        let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(l.contributions_chart));
+    let mut anchor = format!("<h2>{}</h2>", esc(l.mcm));
+    match e {
+        Evaluation::Model(a) => {
+            let rows: Vec<(&str, f64)> =
+                a.gum.iter().flat_map(|g| g.budget.iter().map(|r| (r.name.as_str(), r.variance_share))).collect();
+            if let Some(svg) = contributions_svg(&rows, lang) {
+                let _ =
+                    write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(l.contributions_chart));
+            }
+            if let Some(svg) = histogram_svg(a, lang) {
+                let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(l.histogram_chart));
+            }
+        }
+        Evaluation::TopDown(t) => {
+            let unit = p.topdown.as_ref().and_then(|s| s.unit.clone()).map(|u| format!(" {u}")).unwrap_or_default();
+            for lv in t.levels.iter().take(4) {
+                let rows: Vec<(&str, f64)> = lv.shares.iter().map(|&(i, sh)| (t.budget[i].name.as_str(), sh)).collect();
+                let caption = match lv.level {
+                    Some(x) => format!("{} — {}{unit}", l.contributions_chart, fmt_given(x, lang)),
+                    None => l.contributions_chart.to_string(),
+                };
+                if let Some(svg) = contributions_svg(&rows, lang) {
+                    let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(&caption));
+                }
+            }
+            anchor = format!("<h2>{}</h2>", esc(l.explanation));
+        }
     }
-    if let Some(svg) = histogram_svg(a, lang) {
-        let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(l.histogram_chart));
-    }
-    // Place the figures before the Monte Carlo section (or before the sources).
-    let anchor = format!("<h2>{}</h2>", esc(l.mcm));
-    let body = if let Some(i) = body.find(&anchor) {
+    // Place the figures before the Monte Carlo section (top-down: before the
+    // explanation), or else before the sources.
+    let body = if let Some(i) = body.find(&anchor).or_else(|| body.find(&format!("<h2>{}</h2>", esc(l.notes)))) {
         format!("{}{figures}{}", &body[..i], &body[i..])
     } else if let Some(i) = body.find(&format!("<h2>{}</h2>", esc(l.sources))) {
         format!("{}{figures}{}", &body[..i], &body[i..])

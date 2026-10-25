@@ -135,6 +135,9 @@
         "tolerance": 5e-07
       }
     },
-    "reference": "QUAM:2012 Table A2.3 (c = 0.102136 mol/L, u_c = 0.000099 mol/L)."
+    "reference": {
+      "en": "QUAM:2012 Table A2.3 (c = 0.102136 mol/L, u_c = 0.000099 mol/L).",
+      "tr": "QUAM:2012 Tablo A2.3 (c = 0,102136 mol/L, u_c = 0,000099 mol/L)."
+    }
   }
 }

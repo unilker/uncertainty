@@ -114,6 +114,9 @@
       },
       "gum_validated": true
     },
-    "reference": "JCGM 101:2008 Table 2 (exact: N(0, 4)); MCM tolerances ≈ 5 × Monte Carlo dispersion at M = 10⁶."
+    "reference": {
+      "en": "JCGM 101:2008 Table 2 (exact: N(0, 4)); MCM tolerances ≈ 5 × Monte Carlo dispersion at M = 10⁶.",
+      "tr": "JCGM 101:2008 Tablo 2 (kesin: N(0, 4)); MCM toleransları M = 10⁶'da Monte Carlo saçılımının ≈ 5 katı."
+    }
   }
 }

@@ -243,6 +243,9 @@
         "tolerance": 5e-05
       }
     },
-    "reference": "QUAM:2012 A2.4–A2.6, result (0.1021 ± 0.0002) mol/L."
+    "reference": {
+      "en": "QUAM:2012 A2.4–A2.6, result (0.1021 ± 0.0002) mol/L.",
+      "tr": "QUAM:2012 A2.4–A2.6, sonuç (0,1021 ± 0,0002) mol/L."
+    }
   }
 }

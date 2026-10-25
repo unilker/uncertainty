@@ -8,12 +8,14 @@ use uncertainty_project::{self as project, report, Lang, Overrides, CITATION, SO
 
 const HELP: &str = "\
 Uncertainty Calculations (Belirsizlik Hesaplamaları) — measurement uncertainty
-evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101).
+evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101), or
+top-down from validation and quality-control data (Nordtest TR 537,
+Eurachem/CITAC MUPR).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm]
-    uncertainty template
+    uncertainty template [--topdown]
     uncertainty --version | --help
 
 RUN OPTIONS:
@@ -30,7 +32,8 @@ CHECK:
     The exit status is 1 if any comparison fails.
 
 TEMPLATE:
-    Prints a minimal project file to start from.
+    Prints a minimal project file to start from: a measurement model, or with
+    --topdown a top-down evaluation from raw validation data.
 ";
 
 const TEMPLATE: &str = r#"{
@@ -57,6 +60,33 @@ const TEMPLATE: &str = r#"{
 }
 "#;
 
+const TEMPLATE_TOPDOWN: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Ammonium in water (top-down)", "tr": "Suda amonyum (top-down)" },
+    "field": "chemistry"
+  },
+  "topdown": {
+    "quantity": "c(NH4-N)",
+    "unit": "µg/L",
+    "levels": [10, 100],
+    "precision": [
+      { "name": "u(Rw), control sample", "data": { "type": "series", "values": [101.2, 98.7, 100.4, 99.1, 102.3, 100.8], "relative": true } },
+      { "name": "s_r, duplicates", "data": { "type": "duplicates", "pairs": [[7.46, 7.25], [9.01, 9.17], [3.60, 3.10]] },
+        "range": { "max": 30 } }
+    ],
+    "bias": [
+      { "kind": "proficiency_tests", "references": [
+          { "label": "PT 1", "reference": 81, "mean": 83, "sd_reproducibility_percent": 10, "labs": 31 },
+          { "label": "PT 2", "reference": 73, "mean": 75, "sd_reproducibility_percent": 7, "labs": 36 } ] }
+    ],
+    "components": [ { "name": "stock solution", "u_percent": 0.5 } ]
+  },
+  "reporting": { "significant_digits": 2 }
+}
+"#;
+
 #[derive(Clone, Copy, PartialEq)]
 enum Format {
     Markdown,
@@ -73,6 +103,10 @@ fn main() -> ExitCode {
         }
         Some("-V" | "--version" | "version") => {
             println!("{SOFTWARE_NAME} {SOFTWARE_VERSION}\n{CITATION}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--topdown") => {
+            print!("{TEMPLATE_TOPDOWN}");
             Ok(true)
         }
         Some("template") => {

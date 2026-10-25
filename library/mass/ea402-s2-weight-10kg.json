@@ -152,6 +152,9 @@
         "tolerance": 0.6
       }
     },
-    "reference": "EA-4/02 M:2022 S2.10–S2.11 (u = 29.2 mg, U = 58 mg)."
+    "reference": {
+      "en": "EA-4/02 M:2022 S2.10–S2.11 (u = 29.2 mg, U = 58 mg).",
+      "tr": "EA-4/02 M:2022 S2.10–S2.11 (u = 29,2 mg, U = 58 mg)."
+    }
   }
 }

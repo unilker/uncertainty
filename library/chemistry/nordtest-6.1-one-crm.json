@@ -1,0 +1,91 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-6.1-one-crm",
+    "title": {
+      "en": "Bias from one certified reference material",
+      "tr": "Tek sertifikalı referans malzemeden sapma"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §6.1: u(bias) from a CRM (11.5 ± 0.5) measured 12 times.",
+      "tr": "Nordtest TR 537 §6.1: 12 kez ölçülmüş bir CRM'den (11,5 ± 0,5) u(bias)."
+    },
+    "explanation": [
+      {
+        "en": "Bias b = (11.9 − 11.5)/11.5 = 3.48 %; s_bias = 2.2 % (n = 12); u(C_ref) = 0.25/11.5 = 2.17 %.",
+        "tr": "Sapma b = (11,9 − 11,5)/11,5 = %3,48; s_bias = %2,2 (n = 12); u(C_ref) = 0,25/11,5 = %2,17."
+      },
+      {
+        "en": "For one reference material u(bias) = √(b² + (s_bias/√n)² + u(C_ref)²) = 4.15 %.",
+        "tr": "Tek referans malzeme için u(bias) = √(b² + (s_bias/√n)² + u(C_ref)²) = %4,15."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§6.1",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "crm",
+      "bias"
+    ],
+    "notes": [
+      {
+        "en": "Finding (F5): the handbook prints u(C_ref) = 0.25/11.5 = 2.16 % but 0.25/11.5 = 2.17 %, and its result u(bias) = 4.1 % follows from 2.16 %; the correct value is 4.15 %.",
+        "tr": "Bulgu (F5): el kitabı u(C_ref) = 0,25/11,5 = %2,16 yazar, oysa 0,25/11,5 = %2,17'dir; u(bias) = %4,1 sonucu %2,16'dan elde edilir, doğru değer %4,15'tir."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "c",
+    "bias": [
+      {
+        "name": "u(bias)",
+        "kind": "crm",
+        "references": [
+          {
+            "label": "CRM",
+            "reference": 11.5,
+            "expanded": 0.5,
+            "k": 2,
+            "mean": 11.9,
+            "sd_percent": 2.2,
+            "n": 12
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "u(bias)": {
+          "value": 4.15,
+          "tolerance": 0.005
+        }
+      },
+      "bias": {
+        "u(bias)": {
+          "mean": {
+            "value": 3.48,
+            "tolerance": 0.005
+          },
+          "mean_u_reference": {
+            "value": 2.174,
+            "tolerance": 0.0005
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §6.1, recomputed (the handbook prints 4.1 %, see notes).",
+      "tr": "Nordtest TR 537 §6.1, yeniden hesaplanmış (el kitabı %4,1 yazar, notlara bakınız)."
+    }
+  }
+}

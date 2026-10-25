@@ -122,6 +122,9 @@
         "tolerance": 1.1
       }
     },
-    "reference": "JCGM 101:2008 Table 9 and an independent 2 × 10⁸-trial reference; tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶."
+    "reference": {
+      "en": "JCGM 101:2008 Table 9 and an independent 2 × 10⁸-trial reference; tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶.",
+      "tr": "JCGM 101:2008 Tablo 9 ve bağımsız 2 × 10⁸ denemeli referans; toleranslar M = 2 × 10⁶'da motor saçılımının ≈ 5 katı."
+    }
   }
 }

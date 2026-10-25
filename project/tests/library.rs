@@ -21,7 +21,7 @@ fn every_library_example_reproduces_its_reference_values() {
     let mut files = Vec::new();
     collect(&root, &mut files);
     files.sort();
-    assert!(files.len() >= 38, "library has only {} files", files.len());
+    assert!(files.len() >= 59, "library has only {} files", files.len());
     let mut failures = Vec::new();
     for f in &files {
         let text = std::fs::read_to_string(f).unwrap();
@@ -35,6 +35,8 @@ fn every_library_example_reproduces_its_reference_values() {
         );
         assert!(p.metadata.title.tr.is_some(), "{id}: Turkish title missing");
         assert!(!p.metadata.sources.is_empty(), "{id}: no source");
+        let reference = p.expected.as_ref().and_then(|e| e.reference.as_ref());
+        assert!(reference.is_some_and(|r| r.tr.is_some()), "{id}: bilingual reference text missing");
         let a = run(&p, &Overrides::default()).unwrap_or_else(|e| panic!("{id}: {e}"));
         let checks = check(&p, &a);
         assert!(!checks.is_empty(), "{id}: no reference values");
@@ -46,6 +48,7 @@ fn every_library_example_reproduces_its_reference_values() {
             assert!(md.contains(uncertainty_project::CITATION), "{id}: citation missing from report");
             let html = report::html(&p, &a, lang, None);
             assert!(html.contains("<svg"), "{id}: charts missing from HTML report");
+            assert!(!md.contains("{p}") && !md.contains("{v}"), "{id}: unfilled label template");
         }
     }
     assert!(failures.is_empty(), "{} failures:\n{}", failures.len(), failures.join("\n"));

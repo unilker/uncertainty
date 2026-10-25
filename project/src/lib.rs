@@ -2,12 +2,14 @@
 //!
 //! Project files (JSON) for *Uncertainty Calculations / Belirsizlik
 //! Hesaplamaları*: reading and validating them ([`schema`]), running the GUM
-//! and Monte Carlo evaluations defined in them ([`run`]), checking results
+//! and Monte Carlo evaluations or the top-down evaluation ([`topdown`])
+//! defined in them ([`run`]), checking results
 //! against expected reference values ([`check`]) and producing reports in
 //! English or Turkish ([`report`]).
 
 pub mod report;
 pub mod schema;
+pub mod topdown;
 
 use schema::*;
 use std::fmt;
@@ -80,6 +82,9 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
             "unsupported version {} (this program reads {FORMAT_VERSION})",
             p.version
         )));
+    }
+    if p.model.is_some() == p.topdown.is_some() {
+        return Err(ProjectError::Format("a project contains either a \"model\" or a \"topdown\" section".into()));
     }
     Ok(p)
 }
@@ -154,8 +159,9 @@ pub fn to_distribution(name: &str, d: &DistributionSpec) -> Result<Distribution,
 
 /// Builds the engine model described by a project.
 pub fn build_model(p: &Project) -> Result<Model, ProjectError> {
+    let spec = p.model.as_ref().ok_or_else(|| ProjectError::Format("the project has no \"model\" section".into()))?;
     let mut b = Model::builder();
-    for q in &p.model.inputs {
+    for q in &spec.inputs {
         let mut iq = InputQuantity::new(&q.name, to_distribution(&q.name, &q.distribution)?);
         if let Some(nu) = q.dof {
             iq = iq.with_dof(nu);
@@ -165,14 +171,14 @@ pub fn build_model(p: &Project) -> Result<Model, ProjectError> {
         }
         b = b.input(iq);
     }
-    for i in &p.model.intermediates {
+    for i in &spec.intermediates {
         b = b.intermediate(&i.name, &i.expression);
     }
-    for c in &p.model.correlations {
+    for c in &spec.correlations {
         b = b.correlation(&c.a, &c.b, c.r);
     }
-    b = b.output(&p.model.output.name, &p.model.output.expression);
-    if let Some(u) = &p.model.output.unit {
+    b = b.output(&spec.output.name, &spec.output.expression);
+    if let Some(u) = &spec.output.unit {
         b = b.output_unit(u);
     }
     Ok(b.build()?)
@@ -213,8 +219,41 @@ pub fn gum_options(spec: &GumSpec) -> GumOptions {
     }
 }
 
-/// Runs the GUM and Monte Carlo evaluations requested by a project.
-pub fn run(p: &Project, overrides: &Overrides) -> Result<Analysis, ProjectError> {
+/// The outcome of running a project.
+#[derive(Clone, Debug)]
+pub enum Evaluation {
+    /// GUM and Monte Carlo evaluation of a measurement model.
+    Model(Box<Analysis>),
+    /// Top-down evaluation from validation data.
+    TopDown(Box<topdown::TopDownAnalysis>),
+}
+
+impl Evaluation {
+    pub fn model(&self) -> Option<&Analysis> {
+        match self {
+            Evaluation::Model(a) => Some(a),
+            Evaluation::TopDown(_) => None,
+        }
+    }
+
+    pub fn topdown(&self) -> Option<&topdown::TopDownAnalysis> {
+        match self {
+            Evaluation::TopDown(t) => Some(t),
+            Evaluation::Model(_) => None,
+        }
+    }
+}
+
+/// Runs the evaluation a project describes.
+pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectError> {
+    match &p.topdown {
+        Some(spec) => Ok(Evaluation::TopDown(Box::new(topdown::evaluate(spec)?))),
+        None => Ok(Evaluation::Model(Box::new(run_model(p, overrides)?))),
+    }
+}
+
+/// Runs the GUM and Monte Carlo evaluations of a model project.
+pub fn run_model(p: &Project, overrides: &Overrides) -> Result<Analysis, ProjectError> {
     let model = build_model(p)?;
     let gum = match &p.analysis.gum {
         Some(spec) => Some(gum::evaluate(&model, &gum_options(spec))?),
@@ -269,9 +308,22 @@ pub struct CheckOutcome {
     pub passed: bool,
 }
 
-/// Compares an analysis with the project's expected values. Returns an empty
-/// list if the project states none.
-pub fn check(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
+/// Compares an evaluation with the project's expected values. Returns an
+/// empty list if the project states none.
+pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
+    match e {
+        Evaluation::Model(a) => check_model(p, a),
+        Evaluation::TopDown(t) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.topdown.as_ref()) {
+                topdown::check(exp, t, &mut out);
+            }
+            out
+        }
+    }
+}
+
+fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
     let mut out = Vec::new();
     let Some(exp) = &p.expected else { return out };
     let mut push = |what: &str, computed: Option<f64>, c: &Option<Check>| {
@@ -316,8 +368,27 @@ pub fn check(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
 }
 
 /// Machine-readable results (JSON).
-pub fn results_json(p: &Project, a: &Analysis) -> serde_json::Value {
+pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
     use serde_json::json;
+    let checks: Vec<_> = check(p, e)
+        .into_iter()
+        .map(|c| json!({"what": c.what, "computed": c.computed, "expected": c.expected, "tolerance": c.tolerance, "passed": c.passed}))
+        .collect();
+    let software = json!({ "name": SOFTWARE_NAME, "version": SOFTWARE_VERSION, "citation": CITATION });
+    let project = json!({ "id": p.metadata.id, "title": p.metadata.title.en });
+    let a = match e {
+        Evaluation::Model(a) => a,
+        Evaluation::TopDown(t) => {
+            let spec = p.topdown.as_ref();
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": spec.map(|s| &s.quantity), "unit": spec.and_then(|s| s.unit.as_ref()) },
+                "topdown": topdown::results_json(t),
+                "checks": checks,
+            });
+        }
+    };
     let gum = a.gum.as_ref().map(|g| {
         json!({
             "estimate": g.estimate,
@@ -363,13 +434,9 @@ pub fn results_json(p: &Project, a: &Analysis) -> serde_json::Value {
     let validation = a.validation.as_ref().map(|v| {
         json!({"ndig": v.ndig, "tolerance": v.tolerance, "d_low": v.d_low, "d_high": v.d_high, "validated": v.validated})
     });
-    let checks: Vec<_> = check(p, a)
-        .into_iter()
-        .map(|c| json!({"what": c.what, "computed": c.computed, "expected": c.expected, "tolerance": c.tolerance, "passed": c.passed}))
-        .collect();
     json!({
-        "software": { "name": SOFTWARE_NAME, "version": SOFTWARE_VERSION, "citation": CITATION },
-        "project": { "id": p.metadata.id, "title": p.metadata.title.en },
+        "software": software,
+        "project": project,
         "output": { "name": a.model.output_name, "unit": a.model.output_unit },
         "gum": gum,
         "mcm": mcm,
@@ -402,13 +469,14 @@ mod tests {
     #[test]
     fn parse_run_and_check() {
         let p = parse(A1).unwrap();
-        let a = run(&p, &Overrides::default()).unwrap();
-        let checks = check(&p, &a);
+        let e = run(&p, &Overrides::default()).unwrap();
+        let checks = check(&p, &e);
+        let a = e.model().unwrap();
         assert_eq!(checks.len(), 2);
         assert!(checks.iter().all(|c| c.passed), "{checks:?}");
         // k = 2 with ν_eff = ∞ gives p = 95.45 %, which the MCM inherits, so validation is performed.
         assert!(a.validation.is_some());
-        let j = results_json(&p, &a);
+        let j = results_json(&p, &e);
         assert_eq!(j["gum"]["budget"].as_array().unwrap().len(), 3);
     }
 

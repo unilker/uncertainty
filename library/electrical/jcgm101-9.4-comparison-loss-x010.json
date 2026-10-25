@@ -116,6 +116,9 @@
         "tolerance": 1.5
       }
     },
-    "reference": "JCGM 101:2008 Table 8 and the analytic non-central χ² solution (Annex F); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶."
+    "reference": {
+      "en": "JCGM 101:2008 Table 8 and the analytic non-central χ² solution (Annex F); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶.",
+      "tr": "JCGM 101:2008 Tablo 8 ve analitik merkezî olmayan χ² çözümü (Ek F); toleranslar M = 2 × 10⁶'da motor saçılımının ≈ 5 katı."
+    }
   }
 }

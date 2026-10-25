@@ -1,7 +1,9 @@
 //! Project file format (JSON), version 1.
 //!
-//! A project file fully describes one uncertainty evaluation: the measurement
-//! model, the information about each input quantity, the analysis options and,
+//! A project file fully describes one uncertainty evaluation — either a
+//! measurement model with the information about each input quantity
+//! (`model`), or a top-down evaluation from validation data (`topdown`, see
+//! [`crate::topdown`]) — together with the analysis options and,
 //! optionally, the results expected from a published reference — so that every
 //! example in the library checks itself.
 //!
@@ -19,18 +21,44 @@
 //! }
 //! ```
 
+use crate::topdown::{ExpectedTopDown, TopDownSpec};
 use serde::{Deserialize, Serialize};
 
 pub const FORMAT_ID: &str = "uncertainty-calculations/project";
 pub const FORMAT_VERSION: u32 = 1;
 
-/// Text in English with an optional Turkish translation.
+/// Text in English with an optional Turkish translation. In a file it is
+/// written `{"en": "…", "tr": "…"}`, or as a plain string (English only).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
-#[serde(deny_unknown_fields)]
+#[serde(from = "TextRepr")]
 pub struct Text {
     pub en: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tr: Option<String>,
+}
+
+#[derive(Deserialize)]
+#[serde(untagged)]
+enum TextRepr {
+    Plain(String),
+    Full(TextFull),
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct TextFull {
+    en: String,
+    #[serde(default)]
+    tr: Option<String>,
+}
+
+impl From<TextRepr> for Text {
+    fn from(t: TextRepr) -> Self {
+        match t {
+            TextRepr::Plain(en) => Text { en, tr: None },
+            TextRepr::Full(TextFull { en, tr }) => Text { en, tr },
+        }
+    }
 }
 
 impl Text {
@@ -48,7 +76,12 @@ pub struct Project {
     pub format: String,
     pub version: u32,
     pub metadata: Metadata,
-    pub model: ModelSpec,
+    /// Measurement model (bottom-up GUM and Monte Carlo evaluation).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub model: Option<ModelSpec>,
+    /// Top-down evaluation from validation and quality-control data.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub topdown: Option<TopDownSpec>,
     #[serde(default)]
     pub analysis: AnalysisSpec,
     #[serde(default)]
@@ -380,6 +413,11 @@ pub struct ReportingSpec {
     pub significant_digits: u32,
     #[serde(default)]
     pub rounding: RoundingSpec,
+    /// Round the expanded uncertainty to this number of decimal places
+    /// instead of to significant digits (e.g. 0 for whole per cent,
+    /// Nordtest TR 537).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub decimal_places: Option<i32>,
 }
 
 fn default_sig() -> u32 {
@@ -388,7 +426,7 @@ fn default_sig() -> u32 {
 
 impl Default for ReportingSpec {
     fn default() -> Self {
-        Self { significant_digits: default_sig(), rounding: RoundingSpec::default() }
+        Self { significant_digits: default_sig(), rounding: RoundingSpec::default(), decimal_places: None }
     }
 }
 
@@ -418,9 +456,11 @@ pub struct Expected {
     pub gum: Option<ExpectedGum>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub mcm: Option<ExpectedMcm>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub topdown: Option<ExpectedTopDown>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub reference: Option<String>,
+    pub reference: Option<Text>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

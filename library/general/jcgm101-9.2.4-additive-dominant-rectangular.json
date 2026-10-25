@@ -110,6 +110,9 @@
       },
       "gum_validated": false
     },
-    "reference": "JCGM 101:2008 Table 4 (u(y) = √103 = 10.149)."
+    "reference": {
+      "en": "JCGM 101:2008 Table 4 (u(y) = √103 = 10.149).",
+      "tr": "JCGM 101:2008 Tablo 4 (u(y) = √103 = 10,149)."
+    }
   }
 }

@@ -527,6 +527,9 @@
         "tolerance": 5e-06
       }
     },
-    "reference": "QUAM:2012 Example A7, Table A7.8 (replicate 1)."
+    "reference": {
+      "en": "QUAM:2012 Example A7, Table A7.8 (replicate 1).",
+      "tr": "QUAM:2012 Örnek A7, Tablo A7.8 (1. tekrar)."
+    }
   }
 }

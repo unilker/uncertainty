@@ -120,6 +120,9 @@
       },
       "gum_validated": true
     },
-    "reference": "JCGM 101:2008 Table 3 and Annex E (analytic endpoints ±3.8812)."
+    "reference": {
+      "en": "JCGM 101:2008 Table 3 and Annex E (analytic endpoints ±3.8812).",
+      "tr": "JCGM 101:2008 Tablo 3 ve Ek E (analitik uç noktalar ±3,8812)."
+    }
   }
 }

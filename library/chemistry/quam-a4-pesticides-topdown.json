@@ -1,0 +1,199 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a4-pesticides-topdown",
+    "title": {
+      "en": "Organophosphorus pesticides in bread from validation data",
+      "tr": "Validasyon verilerinden ekmekte organofosforlu pestisitler"
+    },
+    "description": {
+      "en": "EURACHEM QUAM Example A4 as a top-down evaluation: precision from 15 duplicates (raw data), recovery from 42 spikes, homogeneity.",
+      "tr": "EURACHEM QUAM Örnek A4, top-down değerlendirme olarak: 15 mükerrer ölçümden kesinlik (ham veri), 42 katkıdan geri kazanım, homojenlik."
+    },
+    "explanation": [
+      {
+        "en": "Duplicates measured in different runs: the standard deviation of the normalised differences (x₁ − x₂)/x̄ is 0.382, so the relative intermediate precision is 0.382/√2 = 27 %.",
+        "tr": "Farklı serilerde ölçülen mükerrerler: normalize farkların (x₁ − x₂)/x̄ standart sapması 0,382'dir; bağıl ara kesinlik 0,382/√2 = %27'dir."
+      },
+      {
+        "en": "Recovery: mean 90 %, s = 28 % from 42 spikes, u = 28/√42 = 4.3 %; t = 2.31 > t₄₁ = 2.02: the result is corrected and u′ = 4.3/90 = 4.8 %.",
+        "tr": "Geri kazanım: 42 katkıdan ortalama %90, s = %28, u = 28/√42 = %4,3; t = 2,31 > t₄₁ = 2,02: sonuç düzeltilir ve u′ = 4,3/90 = %4,8."
+      },
+      {
+        "en": "Inhomogeneity of the loaf (binomial model, scenario b): 20 %.",
+        "tr": "Somunun homojensizliği (binom model, senaryo b): %20."
+      },
+      {
+        "en": "At a measured level of 1: P = 1/0.90 = 1.111 with u = 1.111 × √(0.27² + 0.048² + 0.20²) = 0.377.",
+        "tr": "Ölçülen düzey 1'de: P = 1/0,90 = 1,111, u = 1,111 × √(0,27² + 0,048² + 0,20²) = 0,377."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A4, Tables A4.2–A4.5",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "quam",
+      "duplicates",
+      "recovery-correction"
+    ],
+    "notes": [
+      {
+        "en": "Finding: Table A4.2 contains typographical errors in derived columns (mean 0.75 for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); the statistics are recomputed from D1 and D2. The guide quotes t_crit = 2.021, i.e. t(40), for 41 degrees of freedom (t(41) = 2.0195).",
+        "tr": "Bulgu: Tablo A4.2'nin türetilmiş sütunlarında yazım hataları vardır (0,075 yerine ortalama 0,75, −0,01 yerine fark −0,10, 0,01 yerine ortalama 0,10); istatistikler D1 ve D2'den yeniden hesaplanmıştır. Rehber 41 serbestlik derecesi için t_kritik = 2,021, yani t(40) kullanır (t(41) = 2,0195)."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "P_op",
+    "levels": [
+      1.0
+    ],
+    "precision": [
+      {
+        "name": "precision",
+        "description": {
+          "en": "15 duplicate pairs in different runs (Table A4.2)",
+          "tr": "Farklı serilerde 15 mükerrer çift (Tablo A4.2)"
+        },
+        "data": {
+          "type": "duplicates",
+          "pairs": [
+            [
+              1.3,
+              1.3
+            ],
+            [
+              1.3,
+              0.9
+            ],
+            [
+              0.57,
+              0.53
+            ],
+            [
+              0.16,
+              0.26
+            ],
+            [
+              0.65,
+              0.58
+            ],
+            [
+              0.04,
+              0.04
+            ],
+            [
+              0.08,
+              0.09
+            ],
+            [
+              0.02,
+              0.02
+            ],
+            [
+              0.01,
+              0.02
+            ],
+            [
+              0.02,
+              0.01
+            ],
+            [
+              0.03,
+              0.02
+            ],
+            [
+              0.04,
+              0.06
+            ],
+            [
+              0.07,
+              0.08
+            ],
+            [
+              0.01,
+              0.01
+            ],
+            [
+              0.06,
+              0.03
+            ]
+          ],
+          "relative": true,
+          "method": "normalised_differences"
+        }
+      }
+    ],
+    "recovery": {
+      "name": "recovery",
+      "tests": [
+        {
+          "type": "recoveries",
+          "label": "bread, 42 spikes",
+          "mean_percent": 90.0,
+          "sd_percent": 28.0,
+          "n": 42
+        }
+      ]
+    },
+    "components": [
+      {
+        "name": "homogeneity",
+        "description": {
+          "en": "Binomial sampling model, scenario (b)",
+          "tr": "Binom örnekleme modeli, senaryo (b)"
+        },
+        "u_percent": 20.0
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "precision": {
+          "value": 27.0,
+          "tolerance": 0.05
+        },
+        "recovery": {
+          "value": 4.8,
+          "tolerance": 0.005
+        }
+      },
+      "recovery": {
+        "statistic": {
+          "value": 2.31,
+          "tolerance": 0.005
+        },
+        "significant": true
+      },
+      "levels": [
+        {
+          "level": 1.0,
+          "value": {
+            "value": 1.1111,
+            "tolerance": 5e-05
+          },
+          "standard_uncertainty": {
+            "value": 0.377,
+            "tolerance": 0.001
+          },
+          "relative_standard_percent": {
+            "value": 34.0,
+            "tolerance": 0.5
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "QUAM:2012 Tables A4.3–A4.5 (0.27, 0.048, 0.2 → 0.34; u = 0.377 at P = 1.1111).",
+      "tr": "QUAM:2012 Tablo A4.3–A4.5 (0,27, 0,048, 0,2 → 0,34; P = 1,1111'de u = 0,377)."
+    }
+  }
+}

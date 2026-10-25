@@ -1,0 +1,294 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-5.3-oxygen-duplicates",
+    "title": {
+      "en": "Dissolved oxygen: reproducibility from duplicates",
+      "tr": "Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §5.3 and Appendix 6: dissolved oxygen in sea water, 51 duplicate pairs (raw data) and a control-sample component.",
+      "tr": "Nordtest TR 537 §5.3 ve Ek 6: deniz suyunda çözünmüş oksijen, 51 mükerrer çift (ham veri) ve kontrol numunesi bileşeni."
+    },
+    "explanation": [
+      {
+        "en": "s_r = √(Σd²/2N) = 0.0252 mg/L at a mean of 7.50 mg/L, i.e. 0.34 %.",
+        "tr": "s_r = √(Σd²/2N) = 0,0252 mg/L, ortalama 7,50 mg/L'de, yani %0,34."
+      },
+      {
+        "en": "With the control-sample reproducibility (0.5 %) u(Rw) = √(0.34² + 0.5²) = 0.60 %.",
+        "tr": "Kontrol numunesi tekrarüretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§5.3 and Appendix 6",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "duplicates"
+    ]
+  },
+  "topdown": {
+    "quantity": "c(O₂)",
+    "unit": "mg/L",
+    "precision": [
+      {
+        "name": "s_r, duplicates",
+        "description": {
+          "en": "Duplicate titrations of sea-water samples",
+          "tr": "Deniz suyu numunelerinin mükerrer titrasyonları"
+        },
+        "data": {
+          "type": "duplicates",
+          "pairs": [
+            [
+              8.9,
+              8.91
+            ],
+            [
+              8.99,
+              9.01
+            ],
+            [
+              8.9,
+              8.9
+            ],
+            [
+              9.11,
+              9.12
+            ],
+            [
+              8.68,
+              8.64
+            ],
+            [
+              8.6,
+              8.51
+            ],
+            [
+              8.61,
+              8.61
+            ],
+            [
+              8.02,
+              8.0
+            ],
+            [
+              7.05,
+              7.08
+            ],
+            [
+              6.98,
+              7.01
+            ],
+            [
+              7.13,
+              7.1
+            ],
+            [
+              6.79,
+              6.78
+            ],
+            [
+              6.55,
+              6.55
+            ],
+            [
+              6.53,
+              6.53
+            ],
+            [
+              4.68,
+              4.68
+            ],
+            [
+              5.28,
+              5.33
+            ],
+            [
+              7.42,
+              7.4
+            ],
+            [
+              7.62,
+              7.63
+            ],
+            [
+              5.88,
+              5.88
+            ],
+            [
+              6.03,
+              6.06
+            ],
+            [
+              6.33,
+              6.33
+            ],
+            [
+              5.9,
+              5.9
+            ],
+            [
+              6.24,
+              6.27
+            ],
+            [
+              6.02,
+              6.02
+            ],
+            [
+              9.13,
+              9.11
+            ],
+            [
+              9.1,
+              9.14
+            ],
+            [
+              8.5,
+              8.44
+            ],
+            [
+              8.73,
+              8.71
+            ],
+            [
+              8.09,
+              8.09
+            ],
+            [
+              7.56,
+              7.58
+            ],
+            [
+              6.3,
+              6.32
+            ],
+            [
+              6.43,
+              6.44
+            ],
+            [
+              7.25,
+              7.34
+            ],
+            [
+              7.25,
+              7.31
+            ],
+            [
+              8.0,
+              8.03
+            ],
+            [
+              8.38,
+              8.29
+            ],
+            [
+              9.23,
+              9.29
+            ],
+            [
+              9.09,
+              9.08
+            ],
+            [
+              9.37,
+              9.36
+            ],
+            [
+              9.38,
+              9.37
+            ],
+            [
+              9.32,
+              9.25
+            ],
+            [
+              8.47,
+              8.49
+            ],
+            [
+              8.27,
+              8.28
+            ],
+            [
+              8.37,
+              8.31
+            ],
+            [
+              8.09,
+              8.15
+            ],
+            [
+              8.05,
+              8.03
+            ],
+            [
+              7.38,
+              7.4
+            ],
+            [
+              7.49,
+              7.49
+            ],
+            [
+              4.52,
+              4.49
+            ],
+            [
+              4.45,
+              4.44
+            ],
+            [
+              4.29,
+              4.27
+            ]
+          ]
+        },
+        "to_relative_at": "mean"
+      },
+      {
+        "name": "u(Rw), control",
+        "description": {
+          "en": "Control sample",
+          "tr": "Kontrol numunesi"
+        },
+        "data": {
+          "type": "given",
+          "sd_percent": 0.5
+        }
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s_r, duplicates": {
+          "value": 0.34,
+          "tolerance": 0.005
+        }
+      },
+      "levels": [
+        {
+          "relative_standard_percent": {
+            "value": 0.6,
+            "tolerance": 0.005
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §5.3 and Appendix 6 (s = 0.0252 mg/L, 0.34 %; u(Rw) = 0.60 %).",
+      "tr": "Nordtest TR 537 §5.3 ve Ek 6 (s = 0,0252 mg/L, %0,34; u(Rw) = %0,60)."
+    }
+  }
+}

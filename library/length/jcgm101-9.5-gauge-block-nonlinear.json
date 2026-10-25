@@ -230,6 +230,9 @@
         "tolerance": 1.5
       }
     },
-    "reference": "JCGM 101:2008 Table 11 (values rounded to 1 nm)."
+    "reference": {
+      "en": "JCGM 101:2008 Table 11 (values rounded to 1 nm).",
+      "tr": "JCGM 101:2008 Tablo 11 (değerler 1 nm'ye yuvarlanmış)."
+    }
   }
 }

@@ -38,8 +38,14 @@ Türkçe ve İngilizce.
 - Project files (JSON) with bilingual metadata; reports in English or Turkish
   as Markdown or self-contained HTML (budget, contribution chart, MCM
   histogram with the GUM PDF, validation statement, citation).
-- [Example library](library/README.md): 38 published examples (chemistry,
-  mass, length, temperature, electrical, flow) as self-checking projects.
+- Top-down project files with **raw validation data**: control-chart series,
+  replicate groups, duplicate pairs (pooled, normalised differences, mean
+  range), CRMs, proficiency-test rounds, spike recoveries; concentration
+  ranges, recovery significance test and correction, χ² equivalence of
+  recoveries (Nordtest TR 537, Eurachem/CITAC MUPR).
+- [Example library](library/README.md): 59 published examples (38 model-based:
+  chemistry, mass, length, temperature, electrical, flow; 21 top-down:
+  Nordtest, MUPR, QUAM A4/A6) as self-checking projects.
 
 ## Usage / Kullanım
 
@@ -47,6 +53,7 @@ Türkçe ve İngilizce.
 cargo build --release
 B=target/release/uncertainty
 $B template > my.json                                   # start a project / proje başlat
+$B template --topdown > td.json                         # top-down project from raw data
 $B run library/chemistry/quam-a1-cadmium-standard.json  # Markdown report (English)
 $B run my.json --lang tr -o rapor.html                  # Türkçe HTML rapor
 $B run my.json --format json --no-mcm                   # machine-readable results
@@ -56,7 +63,7 @@ $B check library                                        # re-verify all examples
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (100 tests; one of them reruns all 38 library projects): GUM H.1, all four examples of JCGM 101 clause 9,
+automated test (103 tests; one of them reruns all 59 library projects): GUM H.1, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
 their raw data), and all twelve calibration examples of EA-4/02 M:2022. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).

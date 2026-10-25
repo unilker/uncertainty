@@ -202,6 +202,9 @@
         "tolerance": 0.02
       }
     },
-    "reference": "EA-4/02 M:2022 S13.10–S13.12 (u = 0.411 µm, U = 0.82 µm reported as 0.9 µm; the tolerance covers u(Δl) = 0.29 µm here vs 0.30 µm printed); estimate recomputed from the observations, 0.7 − 0.464 − 0.0037 µm (printed 90.000 25 mm, see notes)."
+    "reference": {
+      "en": "EA-4/02 M:2022 S13.10–S13.12 (u = 0.411 µm, U = 0.82 µm reported as 0.9 µm; the tolerance covers u(Δl) = 0.29 µm here vs 0.30 µm printed); estimate recomputed from the observations, 0.7 − 0.464 − 0.0037 µm (printed 90.000 25 mm, see notes).",
+      "tr": "EA-4/02 M:2022 S13.10–S13.12 (u = 0,411 µm, U = 0,82 µm, 0,9 µm olarak raporlanmış; tolerans, burada u(Δl) = 0,29 µm, basılı değer 0,30 µm olmasını kapsar); tahmin gözlemlerden yeniden hesaplanmıştır: 0,7 − 0,464 − 0,0037 µm (basılı 90,000 25 mm, notlara bakınız)."
+    }
   }
 }

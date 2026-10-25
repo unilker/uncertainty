@@ -1,0 +1,444 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-5.3-ammonium-duplicates",
+    "title": {
+      "en": "Ammonium: within-laboratory reproducibility from control samples and duplicates",
+      "tr": "Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §5.3 and Appendix 5: NH₄-N duplicates of natural samples in two ranges (raw data), combined with the control-sample reproducibility.",
+      "tr": "Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrarüretilebilirliğiyle birleştirilmiştir."
+    },
+    "explanation": [
+      {
+        "en": "The control sample does not cover sample-to-sample variation, so the repeatability from duplicates of real samples is added: u(Rw) = √(u(Rw, control)² + s_r(duplicates)²).",
+        "tr": "Kontrol numunesi numuneden numuneye değişimi kapsamadığından gerçek numunelerin mükerrer ölçümlerinden gelen tekrarlanabilirlik eklenir: u(Rw) = √(u(Rw, kontrol)² + s_r(mükerrer)²)."
+      },
+      {
+        "en": "Below 30 µg/L the standard deviation is constant: s_r = √(Σd²/2N) = 0.44 µg/L from 46 pairs; with the control sample (0.5 µg/L) u(Rw) = 0.67 µg/L.",
+        "tr": "30 µg/L'nin altında standart sapma sabittir: 46 çiftten s_r = √(Σd²/2N) = 0,44 µg/L; kontrol numunesiyle (0,5 µg/L) u(Rw) = 0,67 µg/L."
+      },
+      {
+        "en": "At and above 30 µg/L it is proportional to the concentration: pooled relative s_r = 3.8 % from 26 pairs; with the control sample (1.5 %) u(Rw) = 4.1 %.",
+        "tr": "30 µg/L ve üzerinde derişimle orantılıdır: 26 çiftten birleştirilmiş bağıl s_r = %3,8; kontrol numunesiyle (%1,5) u(Rw) = %4,1."
+      },
+      {
+        "en": "Each component is restricted to its range; the budget is shown at 10 and 100 µg/L.",
+        "tr": "Her bileşen kendi aralığıyla sınırlandırılmıştır; bütçe 10 ve 100 µg/L'de gösterilmiştir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§5.3 and Appendix 5",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "duplicates",
+      "ranges"
+    ],
+    "notes": [
+      {
+        "en": "Appendix 5 lists 46 pairs below 30 µg/L; §5.3 states n = 47. The statistics are recomputed from the 46 listed pairs.",
+        "tr": "Ek 5, 30 µg/L'nin altında 46 çift listeler; §5.3 n = 47 yazar. İstatistikler listelenen 46 çiftten yeniden hesaplanmıştır."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "c(NH₄-N)",
+    "unit": "µg/L",
+    "levels": [
+      10.0,
+      100.0
+    ],
+    "precision": [
+      {
+        "name": "u(Rw), control < 30",
+        "description": {
+          "en": "Control sample, low range",
+          "tr": "Kontrol numunesi, düşük aralık"
+        },
+        "data": {
+          "type": "given",
+          "sd": 0.5
+        },
+        "range": {
+          "max": 30.0
+        }
+      },
+      {
+        "name": "s_r, duplicates < 30",
+        "description": {
+          "en": "Duplicates of natural samples below 30 µg/L",
+          "tr": "30 µg/L altındaki doğal numunelerin mükerrerleri"
+        },
+        "data": {
+          "type": "duplicates",
+          "pairs": [
+            [
+              7.46,
+              7.25
+            ],
+            [
+              9.01,
+              9.17
+            ],
+            [
+              3.6,
+              3.1
+            ],
+            [
+              6.48,
+              6.48
+            ],
+            [
+              14.49,
+              14.12
+            ],
+            [
+              10.84,
+              10.89
+            ],
+            [
+              4.61,
+              5.0
+            ],
+            [
+              2.6,
+              2.42
+            ],
+            [
+              2.8,
+              2.62
+            ],
+            [
+              5.84,
+              6.19
+            ],
+            [
+              2.12,
+              2.5
+            ],
+            [
+              2.3,
+              2.11
+            ],
+            [
+              2.52,
+              2.89
+            ],
+            [
+              3.71,
+              3.71
+            ],
+            [
+              7.43,
+              7.43
+            ],
+            [
+              8.83,
+              8.51
+            ],
+            [
+              9.12,
+              8.79
+            ],
+            [
+              8.24,
+              7.9
+            ],
+            [
+              2.62,
+              2.78
+            ],
+            [
+              3.33,
+              3.33
+            ],
+            [
+              2.69,
+              2.69
+            ],
+            [
+              12.09,
+              12.09
+            ],
+            [
+              4.24,
+              4.24
+            ],
+            [
+              10.49,
+              10.64
+            ],
+            [
+              3.68,
+              3.52
+            ],
+            [
+              2.22,
+              2.06
+            ],
+            [
+              6.1,
+              6.1
+            ],
+            [
+              2.96,
+              2.86
+            ],
+            [
+              14.02,
+              13.7
+            ],
+            [
+              4.24,
+              3.62
+            ],
+            [
+              5.1,
+              4.61
+            ],
+            [
+              2.78,
+              2.62
+            ],
+            [
+              8.52,
+              6.81
+            ],
+            [
+              12.82,
+              14.05
+            ],
+            [
+              3.17,
+              2.4
+            ],
+            [
+              11.28,
+              11.43
+            ],
+            [
+              14.31,
+              13.82
+            ],
+            [
+              4.01,
+              4.48
+            ],
+            [
+              3.27,
+              3.58
+            ],
+            [
+              9.98,
+              10.29
+            ],
+            [
+              12.56,
+              13.66
+            ],
+            [
+              16.2,
+              16.6
+            ],
+            [
+              28.8,
+              28.7
+            ],
+            [
+              15.8,
+              18.5
+            ],
+            [
+              17.7,
+              16.7
+            ],
+            [
+              3.35,
+              2.88
+            ]
+          ]
+        },
+        "range": {
+          "max": 30.0
+        }
+      },
+      {
+        "name": "u(Rw), control ≥ 30",
+        "description": {
+          "en": "Control sample, high range",
+          "tr": "Kontrol numunesi, yüksek aralık"
+        },
+        "data": {
+          "type": "given",
+          "sd_percent": 1.5
+        },
+        "range": {
+          "min": 30.0
+        }
+      },
+      {
+        "name": "s_r, duplicates ≥ 30",
+        "description": {
+          "en": "Duplicates of natural samples at or above 30 µg/L",
+          "tr": "30 µg/L ve üzerindeki doğal numunelerin mükerrerleri"
+        },
+        "data": {
+          "type": "duplicates",
+          "pairs": [
+            [
+              37.6,
+              36.9
+            ],
+            [
+              4490.0,
+              4413.0
+            ],
+            [
+              136.0,
+              125.0
+            ],
+            [
+              62.6,
+              62.3
+            ],
+            [
+              159.0,
+              159.0
+            ],
+            [
+              16540.0,
+              16080.0
+            ],
+            [
+              31.3,
+              30.1
+            ],
+            [
+              58.5,
+              60.1
+            ],
+            [
+              741.0,
+              796.0
+            ],
+            [
+              130.0,
+              127.0
+            ],
+            [
+              29.4,
+              29.2
+            ],
+            [
+              1372.0,
+              1388.0
+            ],
+            [
+              36.6,
+              44.7
+            ],
+            [
+              22.6,
+              23.4
+            ],
+            [
+              34.8,
+              33.2
+            ],
+            [
+              92.9,
+              94.0
+            ],
+            [
+              40.6,
+              42.2
+            ],
+            [
+              80.4,
+              86.4
+            ],
+            [
+              78.2,
+              73.8
+            ],
+            [
+              48.9,
+              50.9
+            ],
+            [
+              36.6,
+              35.3
+            ],
+            [
+              51.9,
+              52.2
+            ],
+            [
+              198.0,
+              207.0
+            ],
+            [
+              70.3,
+              69.2
+            ],
+            [
+              29.9,
+              30.6
+            ],
+            [
+              31.9,
+              32.4
+            ]
+          ],
+          "relative": true
+        },
+        "range": {
+          "min": 30.0
+        }
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s_r, duplicates < 30": {
+          "value": 0.44,
+          "tolerance": 0.005
+        },
+        "s_r, duplicates ≥ 30": {
+          "value": 3.8,
+          "tolerance": 0.05
+        }
+      },
+      "levels": [
+        {
+          "level": 10.0,
+          "standard_uncertainty": {
+            "value": 0.67,
+            "tolerance": 0.005
+          }
+        },
+        {
+          "level": 100.0,
+          "relative_standard_percent": {
+            "value": 4.1,
+            "tolerance": 0.05
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §5.3 and Appendix 5 (s_r 0.44 µg/L and 3.8 %; u(Rw) 0.7 µg/L and 4.1 %).",
+      "tr": "Nordtest TR 537 §5.3 ve Ek 5 (s_r 0,44 µg/L ve %3,8; u(Rw) 0,7 µg/L ve %4,1)."
+    }
+  }
+}

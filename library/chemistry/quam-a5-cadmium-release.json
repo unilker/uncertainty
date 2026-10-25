@@ -165,6 +165,9 @@
         "tolerance": 0.0005
       }
     },
-    "reference": "QUAM:2012 Table A5.4 (r = 0.015065 mg/dm², spreadsheet u = 0.001465) and result (0.015 ± 0.003) mg/dm²."
+    "reference": {
+      "en": "QUAM:2012 Table A5.4 (r = 0.015065 mg/dm², spreadsheet u = 0.001465) and result (0.015 ± 0.003) mg/dm².",
+      "tr": "QUAM:2012 Tablo A5.4 (r = 0,015065 mg/dm², tablolama değeri u = 0,001465) ve sonuç (0,015 ± 0,003) mg/dm²."
+    }
   }
 }

@@ -1,0 +1,147 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a6-crude-fibre",
+    "title": {
+      "en": "Crude fibre in animal feed (empirical method)",
+      "tr": "Hayvan yeminde ham lif (ampirik yöntem)"
+    },
+    "description": {
+      "en": "EURACHEM QUAM Example A6: reproducibility s_R from a collaborative trial at three levels plus a drying allowance.",
+      "tr": "EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrarüretilebilirlik s_R ve kurutma payı."
+    },
+    "explanation": [
+      {
+        "en": "For an empirical method the collaborative-trial reproducibility s_R (Table A6.4) is the main component; values are in % m/m (absolute), so the fields have no _percent suffix.",
+        "tr": "Ampirik yöntemde ortak çalışma tekrarüretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur."
+      },
+      {
+        "en": "Drying to constant weight: ±2 mg on a 1 g sample = ±0.2 % m/m, rectangular, u = 0.115 % m/m; it is included only where it exceeds s_R/3, i.e. at the 2.5 % level.",
+        "tr": "Sabit tartıma kurutma: 1 g numunede ±2 mg = ±0,2 % m/m, dikdörtgen, u = 0,115 % m/m; yalnızca s_R/3'ü aştığı yerde, yani %2,5 düzeyinde dahil edilir."
+      },
+      {
+        "en": "U = 2u_c: 0.62, 0.8 and 1.2 % m/m at 2.5, 5 and 10 % m/m.",
+        "tr": "U = 2u_c: 2,5, 5 ve 10 % m/m'de 0,62, 0,8 ve 1,2 % m/m."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A6, Tables A6.4–A6.5",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "quam",
+      "reproducibility",
+      "empirical-method"
+    ],
+    "notes": [
+      {
+        "en": "Finding: Table A6.5 prints U = 0.12 % m/m at 10 % fibre; 2 × 0.6 = 1.2 % m/m (the percentage column, 12 %, is correct).",
+        "tr": "Bulgu: Tablo A6.5, %10 lifte U = 0,12 % m/m yazar; 2 × 0,6 = 1,2 % m/m'dir (yüzde sütunu, %12, doğrudur)."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(crude fibre)",
+    "unit": "% m/m",
+    "levels": [
+      2.5,
+      5.0,
+      10.0
+    ],
+    "precision": [
+      {
+        "name": "s_R (2.5)",
+        "data": {
+          "type": "given",
+          "sd": 0.29
+        },
+        "range": {
+          "max": 3.75
+        }
+      },
+      {
+        "name": "s_R (5)",
+        "data": {
+          "type": "given",
+          "sd": 0.4
+        },
+        "range": {
+          "min": 3.75,
+          "max": 7.5
+        }
+      },
+      {
+        "name": "s_R (10)",
+        "data": {
+          "type": "given",
+          "sd": 0.6
+        },
+        "range": {
+          "min": 7.5
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "drying",
+        "description": {
+          "en": "Drying to constant weight, ±2 mg on 1 g",
+          "tr": "Sabit tartıma kurutma, 1 g'da ±2 mg"
+        },
+        "half_width": 0.2,
+        "range": {
+          "max": 3.75
+        }
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "levels": [
+        {
+          "level": 2.5,
+          "standard_uncertainty": {
+            "value": 0.31,
+            "tolerance": 0.005
+          },
+          "expanded_uncertainty": {
+            "value": 0.62,
+            "tolerance": 0.01
+          }
+        },
+        {
+          "level": 5.0,
+          "standard_uncertainty": {
+            "value": 0.4,
+            "tolerance": 0.005
+          },
+          "expanded_uncertainty": {
+            "value": 0.8,
+            "tolerance": 0.01
+          }
+        },
+        {
+          "level": 10.0,
+          "standard_uncertainty": {
+            "value": 0.6,
+            "tolerance": 0.005
+          },
+          "expanded_uncertainty": {
+            "value": 1.2,
+            "tolerance": 0.01
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "QUAM:2012 Tables A6.4–A6.5.",
+      "tr": "QUAM:2012 Tablo A6.4–A6.5."
+    }
+  }
+}

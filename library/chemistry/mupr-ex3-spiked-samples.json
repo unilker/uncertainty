@@ -1,0 +1,94 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-ex3-spiked-samples",
+    "title": {
+      "en": "Recovery from spiked river waters",
+      "tr": "Katkılı nehir sularından geri kazanım"
+    },
+    "description": {
+      "en": "MUPR Example 3: two spiked samples with native analyte (Eq. 10–11).",
+      "tr": "MUPR Örnek 3: doğal analit içeren iki katkılı numune (Eş. 10–11)."
+    },
+    "explanation": [
+      {
+        "en": "Rᵢ = (c̄ − c̄₀)/c₊: 103.6 % and 88.8 %; the uncertainty of B (one result before spiking, small spike) dominates.",
+        "tr": "Rᵢ = (c̄ − c̄₀)/c₊: %103,6 ve %88,8; B'nin belirsizliği (katkıdan önce tek sonuç, küçük katkı) baskındır."
+      },
+      {
+        "en": "R̄ = 96.2 %, u(R̄) = 10.0 % (1.5 % with sample A alone).",
+        "tr": "R̄ = %96,2, u(R̄) = %10,0 (yalnız A numunesiyle %1,5)."
+      },
+      {
+        "en": "The mean recovery R̄ = ΣRᵢ/N has u(R̄) = √Σu²(Rᵢ)/N (MUPR Eq. 8–12); it is corrected for only if |1 − R̄|/u(R̄) exceeds the two-sided t value (Eq. 13).",
+        "tr": "Ortalama geri kazanım R̄ = ΣRᵢ/N'nin belirsizliği u(R̄) = √Σu²(Rᵢ)/N'dir (MUPR Eş. 8–12); yalnızca |1 − R̄|/u(R̄) iki taraflı t değerini aşarsa düzeltme yapılır (Eş. 13)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example 3",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "recovery",
+      "spike"
+    ]
+  },
+  "topdown": {
+    "quantity": "c",
+    "unit": "µg/L",
+    "recovery": {
+      "name": "u(R̄)",
+      "tests": [
+        {
+          "type": "spiked",
+          "label": "A",
+          "mean_after": 66.3,
+          "sd_after": 1.405,
+          "n_after": 16,
+          "mean_before": 35.21,
+          "sd_before": 1.054,
+          "n_before": 16,
+          "spike": 30.0,
+          "u_spike": 0.1
+        },
+        {
+          "type": "spiked",
+          "label": "B",
+          "mean_after": 64.02,
+          "sd_after": 1.934,
+          "n_after": 5,
+          "mean_before": 55.14,
+          "sd_before": 1.802,
+          "n_before": 1,
+          "spike": 10.0,
+          "u_spike": 0.04
+        }
+      ]
+    }
+  },
+  "expected": {
+    "topdown": {
+      "recovery": {
+        "mean_percent": {
+          "value": 96.2,
+          "tolerance": 0.05
+        },
+        "standard_uncertainty_percent": {
+          "value": 10.02,
+          "tolerance": 0.01
+        }
+      }
+    },
+    "reference": {
+      "en": "MUPR Example 3 (R̄ = 96.2 %, u(R̄) = 10.02 %).",
+      "tr": "MUPR Örnek 3 (R̄ = %96,2, u(R̄) = %10,02)."
+    }
+  }
+}

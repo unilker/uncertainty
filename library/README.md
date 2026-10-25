@@ -1,11 +1,13 @@
 # Example library / Örnek kütüphanesi
 
-Every file is a complete project (`uncertainty run <file>`) and contains the reference values of the
+Every file is a complete project — a measurement model (GUM and Monte Carlo) or a
+top-down evaluation from raw validation data — (`uncertainty run <file>`) and contains the reference values of the
 published example with documented tolerances. `uncertainty check library` and `cargo test` rerun all of
 them; a failing comparison fails the build. Notes in each file record where the published example is
 internally inconsistent (findings of `docs/research/research-log.md`).
 
-Her dosya eksiksiz bir projedir (`uncertainty run <dosya>`) ve yayımlanmış örneğin referans değerlerini
+Her dosya eksiksiz bir projedir — bir ölçüm modeli (GUM ve Monte Carlo) ya da ham
+validasyon verilerinden top-down değerlendirme — (`uncertainty run <dosya>`) ve yayımlanmış örneğin referans değerlerini
 belgelenmiş toleranslarla içerir. `uncertainty check library` ve `cargo test` hepsini yeniden hesaplar;
 başarısız bir karşılaştırma derlemeyi başarısız kılar. Dosyalardaki notlar, yayımlanmış örneğin kendi içinde
 tutarsız olduğu yerleri kaydeder (`docs/research/research-log.md` bulguları).
@@ -18,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**38 examples / örnek.**
+**59 examples / örnek** (38 model, 21 top-down).
 
 ## Chemistry / Kimya
 
@@ -33,6 +35,32 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`quam-a5-cadmium-release`](chemistry/quam-a5-cadmium-release.json) | Cadmium released from ceramic ware | Seramik kaplardan salınan kadmiyum | EURACHEM/CITAC Guide CG 4 Example A5, Tables A5.3 and A5.4 |
 | [`quam-a7-assay-standard`](chemistry/quam-a7-assay-standard.json) | Lead assay standard for IDMS | IDMS için kurşun tayin standardı | EURACHEM/CITAC Guide CG 4 Example A7, Eq. (8), Table A7.3 |
 | [`quam-a7-lead-double-idms`](chemistry/quam-a7-lead-double-idms.json) | Lead in water by double isotope dilution | Suda kurşunun çift izotop seyreltmesiyle tayini | EURACHEM/CITAC Guide CG 4 Example A7, Eq. (5), Tables A7.4–A7.8 |
+
+## Chemistry, top-down / Kimya, top-down
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`mupr-b1-nitrate`](chemistry/mupr-b1-nitrate.json) | Nitrate in drinking water: two precision intervals | İçme suyunda nitrat: iki kesinlik aralığı | Eurachem/CITAC Guide Example B1 |
+| [`mupr-b2-pooled-precision`](chemistry/mupr-b2-pooled-precision.json) | Nitrate: pooled precision and two recovery levels | Nitrat: birleştirilmiş kesinlik ve iki geri kazanım düzeyi | Eurachem/CITAC Guide Example B2, Tables B2.1–B2.3 |
+| [`mupr-b2-replicates-on-two-days`](chemistry/mupr-b2-replicates-on-two-days.json) | Nitrate: result as the mean of 3 replicates on 2 days | Nitrat: 2 günde 3 tekrarın ortalaması olarak sonuç | Eurachem/CITAC Guide Example B2, Eq. (B2.8)–(B2.9) |
+| [`mupr-b4-arsenic-one-crm`](chemistry/mupr-b4-arsenic-one-crm.json) | Arsenic in sediment: one CRM | Sedimentte arsenik: tek CRM | Eurachem/CITAC Guide Example B4 |
+| [`mupr-b5-crm-and-spiked-samples`](chemistry/mupr-b5-crm-and-spiked-samples.json) | Arsenic: CRM and spiked samples with matrix-dependent recovery | Arsenik: matrise bağlı geri kazanımlı CRM ve katkılı numuneler | Eurachem/CITAC Guide Example B5 |
+| [`mupr-b6-sediment-22-pt`](chemistry/mupr-b6-sediment-22-pt.json) | Trace element in sediment: heterogeneity and 22 proficiency tests | Sedimentte iz element: heterojenlik ve 22 yeterlilik testi | Eurachem/CITAC Guide Example B6, Tables B6.1–B6.3 |
+| [`mupr-ex2-reference-materials`](chemistry/mupr-ex2-reference-materials.json) | Recovery from two CRMs and a proficiency-test sample | İki CRM ve bir yeterlilik testi numunesinden geri kazanım | Eurachem/CITAC Guide Example 2 |
+| [`mupr-ex3-spiked-samples`](chemistry/mupr-ex3-spiked-samples.json) | Recovery from spiked river waters | Katkılı nehir sularından geri kazanım | Eurachem/CITAC Guide Example 3 |
+| [`nordtest-3-ammonium-pt`](chemistry/nordtest-3-ammonium-pt.json) | Ammonium in water from control limits and proficiency tests | Kontrol sınırları ve yeterlilik testlerinden sudaki amonyum | Nordtest TR 537 ed. 4 §3.2 and Appendix 4 |
+| [`nordtest-5.3-ammonium-duplicates`](chemistry/nordtest-5.3-ammonium-duplicates.json) | Ammonium: within-laboratory reproducibility from control samples and duplicates | Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik | Nordtest TR 537 ed. 4 §5.3 and Appendix 5 |
+| [`nordtest-5.3-oxygen-duplicates`](chemistry/nordtest-5.3-oxygen-duplicates.json) | Dissolved oxygen: reproducibility from duplicates | Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik | Nordtest TR 537 ed. 4 §5.3 and Appendix 6 |
+| [`nordtest-6.1-one-crm`](chemistry/nordtest-6.1-one-crm.json) | Bias from one certified reference material | Tek sertifikalı referans malzemeden sapma | Nordtest TR 537 ed. 4 §6.1 |
+| [`nordtest-6.1-three-crms`](chemistry/nordtest-6.1-three-crms.json) | Bias from several certified reference materials | Birden fazla sertifikalı referans malzemeden sapma | Nordtest TR 537 ed. 4 §6.1 |
+| [`nordtest-6.2-proficiency-tests`](chemistry/nordtest-6.2-proficiency-tests.json) | Bias from proficiency tests | Yeterlilik testlerinden sapma | Nordtest TR 537 ed. 4 §6.2 |
+| [`nordtest-6.3-recovery`](chemistry/nordtest-6.3-recovery.json) | Bias from recovery experiments | Geri kazanım deneylerinden sapma | Nordtest TR 537 ed. 4 §6.3 |
+| [`nordtest-8-bod-crm`](chemistry/nordtest-8-bod-crm.json) | BOD in wastewater: control chart and one CRM | Atık suda BOİ: kontrol grafiği ve tek CRM | Nordtest TR 537 ed. 4 §8.2 Example A, Appendix 7 |
+| [`nordtest-8-bod-pt`](chemistry/nordtest-8-bod-pt.json) | BOD in wastewater: control chart and proficiency tests | Atık suda BOİ: kontrol grafiği ve yeterlilik testleri | Nordtest TR 537 ed. 4 §8.2 Example B, Table 6 |
+| [`nordtest-8-pcb-crm`](chemistry/nordtest-8-pcb-crm.json) | PCB in sediment: control sample and one CRM | Sedimentte PCB: kontrol numunesi ve tek CRM | Nordtest TR 537 ed. 4 §8.3 Example C |
+| [`nordtest-8-pcb-pt`](chemistry/nordtest-8-pcb-pt.json) | PCB in sediment: control sample and proficiency tests | Sedimentte PCB: kontrol numunesi ve yeterlilik testleri | Nordtest TR 537 ed. 4 §8.3 Example D |
+| [`quam-a4-pesticides-topdown`](chemistry/quam-a4-pesticides-topdown.json) | Organophosphorus pesticides in bread from validation data | Validasyon verilerinden ekmekte organofosforlu pestisitler | EURACHEM/CITAC Guide CG 4 Example A4, Tables A4.2–A4.5 |
+| [`quam-a6-crude-fibre`](chemistry/quam-a6-crude-fibre.json) | Crude fibre in animal feed (empirical method) | Hayvan yeminde ham lif (ampirik yöntem) | EURACHEM/CITAC Guide CG 4 Example A6, Tables A6.4–A6.5 |
 
 ## Electrical and RF / Elektrik ve RF
 

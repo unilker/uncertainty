@@ -171,6 +171,9 @@
         "tolerance": 0.05
       }
     },
-    "reference": "QUAM:2012 A1.4: u(V) = 0.066 mL; U = 2u_c = 1.7 mg/L before the guide's rounding of u_c to 0.9 mg/L."
+    "reference": {
+      "en": "QUAM:2012 A1.4: u(V) = 0.066 mL; U = 2u_c = 1.7 mg/L before the guide's rounding of u_c to 0.9 mg/L.",
+      "tr": "QUAM:2012 A1.4: u(V) = 0,066 mL; rehberin u_c'yi 0,9 mg/L'ye yuvarlamasından önce U = 2u_c = 1,7 mg/L."
+    }
   }
 }

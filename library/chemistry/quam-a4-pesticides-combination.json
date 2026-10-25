@@ -112,6 +112,9 @@
         "tolerance": 0.0005
       }
     },
-    "reference": "QUAM:2012 Table A4.5 (P = 1.1111, u = 0.377)."
+    "reference": {
+      "en": "QUAM:2012 Table A4.5 (P = 1.1111, u = 0.377).",
+      "tr": "QUAM:2012 Tablo A4.5 (P = 1,1111, u = 0,377)."
+    }
   }
 }

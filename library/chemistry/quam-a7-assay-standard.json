@@ -146,6 +146,9 @@
         "tolerance": 5e-07
       }
     },
-    "reference": "QUAM:2012 Example A7, Table A7.3."
+    "reference": {
+      "en": "QUAM:2012 Example A7, Table A7.3.",
+      "tr": "QUAM:2012 Örnek A7, Tablo A7.3."
+    }
   }
 }

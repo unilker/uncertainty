@@ -1,0 +1,150 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-8-bod-pt",
+    "title": {
+      "en": "BOD in wastewater: control chart and proficiency tests",
+      "tr": "Atık suda BOİ: kontrol grafiği ve yeterlilik testleri"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §8.2 Example B: u(bias) from three proficiency tests (Table 6, raw data).",
+      "tr": "Nordtest TR 537 §8.2 Örnek B: üç yeterlilik testinden u(bias) (Tablo 6, ham veri)."
+    },
+    "explanation": [
+      {
+        "en": "u(Rw) = 2.6 % as in Example A.",
+        "tr": "u(Rw) = %2,6, Örnek A'daki gibi."
+      },
+      {
+        "en": "u(C_ref,i) = s_R/√n: 1.50, 1.32, 2.25 % (mean 1.69 %); RMS of the biases 3.77 % (3.76 % from the rounded biases of Table 6).",
+        "tr": "u(C_ref,i) = s_R/√n: %1,50, 1,32, 2,25 (ortalama %1,69); sapmaların RMS'i %3,77 (Tablo 6'daki yuvarlanmış sapmalardan %3,76)."
+      },
+      {
+        "en": "u(bias) = 4.13 %, u_c = 4.88 %, U = 9.8 % → 10 %.",
+        "tr": "u(bias) = %4,13, u_c = %4,88, U = %9,8 → %10."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§8.2 Example B, Table 6",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "proficiency-tests"
+    ]
+  },
+  "topdown": {
+    "quantity": "BOD",
+    "unit": "mg/L",
+    "precision": [
+      {
+        "name": "u(Rw)",
+        "description": {
+          "en": "Averages of the duplicate control analyses of the CRM (Appendix 7)",
+          "tr": "CRM'nin mükerrer kontrol analizlerinin ortalamaları (Ek 7)"
+        },
+        "data": {
+          "type": "series",
+          "values": [
+            217.0,
+            213.5,
+            215.5,
+            211.0,
+            208.5,
+            218.0,
+            214.5,
+            205.5,
+            208.5,
+            225.5,
+            218.0,
+            207.5,
+            219.0,
+            207.5,
+            221.0,
+            217.5,
+            217.0,
+            220.5
+          ],
+          "relative": true
+        }
+      }
+    ],
+    "bias": [
+      {
+        "name": "u(bias)",
+        "kind": "proficiency_tests",
+        "references": [
+          {
+            "label": "PT 1",
+            "reference": 154.0,
+            "mean": 161.0,
+            "sd_reproducibility_percent": 7.2,
+            "labs": 23
+          },
+          {
+            "label": "PT 2",
+            "reference": 219.0,
+            "mean": 210.0,
+            "sd_reproducibility_percent": 6.6,
+            "labs": 25
+          },
+          {
+            "label": "PT 3",
+            "reference": 176.0,
+            "mean": 180.0,
+            "sd_reproducibility_percent": 9.8,
+            "labs": 19
+          }
+        ]
+      }
+    ]
+  },
+  "reporting": {
+    "decimal_places": 0,
+    "rounding": "up"
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "u(bias)": {
+          "value": 4.12,
+          "tolerance": 0.015
+        }
+      },
+      "bias": {
+        "u(bias)": {
+          "rms": {
+            "value": 3.77,
+            "tolerance": 0.005
+          },
+          "mean_u_reference": {
+            "value": 1.69,
+            "tolerance": 0.005
+          }
+        }
+      },
+      "levels": [
+        {
+          "relative_standard_percent": {
+            "value": 4.87,
+            "tolerance": 0.015
+          },
+          "relative_expanded_percent": {
+            "value": 9.74,
+            "tolerance": 0.03
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §8.2 Example B (u(bias) 4.12 %, u_c 4.87 %, U 9.7 → 10 %); tolerances cover the rounded biases of Table 6.",
+      "tr": "Nordtest TR 537 §8.2 Örnek B (u(bias) %4,12, u_c %4,87, U %9,7 → %10); toleranslar Tablo 6'daki yuvarlanmış sapmaları kapsar."
+    }
+  }
+}

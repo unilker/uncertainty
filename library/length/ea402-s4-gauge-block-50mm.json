@@ -195,6 +195,9 @@
         "tolerance": 0.5
       }
     },
-    "reference": "EA-4/02 M:2022 S4.12–S4.14 (u = 34.3 nm, U = 69 nm)."
+    "reference": {
+      "en": "EA-4/02 M:2022 S4.12–S4.14 (u = 34.3 nm, U = 69 nm).",
+      "tr": "EA-4/02 M:2022 S4.12–S4.14 (u = 34,3 nm, U = 69 nm)."
+    }
   }
 }

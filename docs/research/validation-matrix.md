@@ -122,8 +122,16 @@ model → GUM/MCM → comparison → TR/EN reports). Reference-value policy: D15
 in the research log. EA-4/02 S13 in the library uses the raw observations
 (estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget.
 
+The top-down cases (Nordtest §3, §5.3, §6.1–6.3, §8 A–D; MUPR Ex. 2, 3, B1,
+B2, B4, B5, B6; QUAM A4, A6) are stored as 21 top-down project files that
+start from the raw data wherever the documents give them (duplicate pairs,
+control-chart results, replicate groups, PT rounds, the 22 PT results of B6).
+Tolerances reflect the documents' printed rounding; where a guide computes
+from rounded intermediates the tolerance is widened and the reason stated in
+the file (MUPR B1 at 50 mg/L, B5 with t = 4.30; Nordtest §8 B, C).
+
 ## Planned cases
 
-NIST TN 1900 examples; ISO/TS 28037 data sets; top-down project files for
-the Nordtest and MUPR examples (Q13); cross-checks against the NIST
-Uncertainty Machine and Suncal.
+NIST TN 1900 examples; ISO/TS 28037 data sets; MUPR B3 (linear precision
+model) and Appendix C allowance as project files; cross-checks against the
+NIST Uncertainty Machine and Suncal.

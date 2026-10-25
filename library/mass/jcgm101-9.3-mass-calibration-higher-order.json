@@ -164,6 +164,9 @@
       },
       "gum_validated": true
     },
-    "reference": "JCGM 101:2008 Table 6 (GUF2) and the independent MCM reference."
+    "reference": {
+      "en": "JCGM 101:2008 Table 6 (GUF2) and the independent MCM reference.",
+      "tr": "JCGM 101:2008 Tablo 6 (GUF2) ve bağımsız MCM referansı."
+    }
   }
 }

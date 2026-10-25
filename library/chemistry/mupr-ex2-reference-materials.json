@@ -1,0 +1,100 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-ex2-reference-materials",
+    "title": {
+      "en": "Recovery from two CRMs and a proficiency-test sample",
+      "tr": "İki CRM ve bir yeterlilik testi numunesinden geri kazanım"
+    },
+    "description": {
+      "en": "MUPR Example 2: ortho-phosphate; mean recovery and its uncertainty from three reference materials.",
+      "tr": "MUPR Örnek 2: orto-fosfat; üç referans malzemeden ortalama geri kazanım ve belirsizliği."
+    },
+    "explanation": [
+      {
+        "en": "Rᵢ = c̄ᵢ/Cᵢ with u²(Rᵢ) = Rᵢ²[(sᵢ/(c̄ᵢ√nᵢ))² + (u(Cᵢ)/Cᵢ)²] (Eq. 9); terms 0.000731, 0.001476, 0.01015.",
+        "tr": "Rᵢ = c̄ᵢ/Cᵢ, u²(Rᵢ) = Rᵢ²[(sᵢ/(c̄ᵢ√nᵢ))² + (u(Cᵢ)/Cᵢ)²] (Eş. 9); terimler 0,000731, 0,001476, 0,01015."
+      },
+      {
+        "en": "R̄ = 1.008, u(R̄) = 0.0371: not significantly different from 1.",
+        "tr": "R̄ = 1,008, u(R̄) = 0,0371: 1'den anlamlı olarak farklı değildir."
+      },
+      {
+        "en": "The mean recovery R̄ = ΣRᵢ/N has u(R̄) = √Σu²(Rᵢ)/N (MUPR Eq. 8–12); it is corrected for only if |1 − R̄|/u(R̄) exceeds the two-sided t value (Eq. 13).",
+        "tr": "Ortalama geri kazanım R̄ = ΣRᵢ/N'nin belirsizliği u(R̄) = √Σu²(Rᵢ)/N'dir (MUPR Eş. 8–12); yalnızca |1 − R̄|/u(R̄) iki taraflı t değerini aşarsa düzeltme yapılır (Eş. 13)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example 2",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "recovery"
+    ]
+  },
+  "topdown": {
+    "quantity": "c(PO₄-P)",
+    "unit": "mg/L",
+    "recovery": {
+      "name": "u(R̄)",
+      "tests": [
+        {
+          "type": "reference",
+          "label": "CRM 1",
+          "mean": 2.31,
+          "sd": 0.11,
+          "n": 12,
+          "reference": 2.24,
+          "expanded": 0.1,
+          "k": 2
+        },
+        {
+          "type": "reference",
+          "label": "CRM 2",
+          "mean": 1.032,
+          "sd": 0.09,
+          "n": 10,
+          "reference": 1.0,
+          "expanded": 0.05,
+          "k": 2
+        },
+        {
+          "type": "reference",
+          "label": "PT",
+          "mean": 1.7,
+          "sd": 0.14,
+          "n": 1,
+          "reference": 1.77,
+          "expanded": 0.23,
+          "k": 2
+        }
+      ]
+    }
+  },
+  "expected": {
+    "topdown": {
+      "recovery": {
+        "mean_percent": {
+          "value": 100.8,
+          "tolerance": 0.05
+        },
+        "standard_uncertainty_percent": {
+          "value": 3.705,
+          "tolerance": 0.001
+        },
+        "significant": false
+      }
+    },
+    "reference": {
+      "en": "MUPR Example 2 (R̄ = 1.008, u(R̄) = 0.03705).",
+      "tr": "MUPR Örnek 2 (R̄ = 1,008, u(R̄) = 0,03705)."
+    }
+  }
+}

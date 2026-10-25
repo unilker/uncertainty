@@ -208,6 +208,9 @@
         "tolerance": 0.6
       }
     },
-    "reference": "JCGM 100:2008 H.1.4–H.1.6 (u_c = 32 nm, ν_eff = 16.7, k = 2.92, U = 93 nm)."
+    "reference": {
+      "en": "JCGM 100:2008 H.1.4–H.1.6 (u_c = 32 nm, ν_eff = 16.7, k = 2.92, U = 93 nm).",
+      "tr": "JCGM 100:2008 H.1.4–H.1.6 (u_c = 32 nm, ν_eff = 16,7, k = 2,92, U = 93 nm)."
+    }
   }
 }

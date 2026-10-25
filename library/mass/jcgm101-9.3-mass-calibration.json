@@ -167,6 +167,9 @@
       },
       "gum_validated": false
     },
-    "reference": "GUM: JCGM 101:2008 Table 6. MCM: independent 2 × 10⁸-trial reference (validation/reference_values.json); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶."
+    "reference": {
+      "en": "GUM: JCGM 101:2008 Table 6. MCM: independent 2 × 10⁸-trial reference (validation/reference_values.json); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶.",
+      "tr": "GUM: JCGM 101:2008 Tablo 6. MCM: bağımsız 2 × 10⁸ denemeli referans (validation/reference_values.json); toleranslar M = 2 × 10⁶'da motor saçılımının ≈ 5 katı."
+    }
   }
 }

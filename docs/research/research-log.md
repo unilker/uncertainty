@@ -464,3 +464,87 @@ printed U is 1.8 mg/L; unrounded U = 1.7 mg/L.
 2. Flutter UI on top of the project format (the JSON file is the UI's
    document model).
 3. Bilingual user guide generated from the library explanations.
+
+---
+
+## 2026-10-25 (session 5) — Bilingual reference texts; top-down projects from raw data
+
+Author's decisions on Q12 and Q13: reference texts are bilingual; top-down
+projects accept raw validation data directly.
+
+**D16. Bilingual text everywhere (closes Q12).** Every `Text` field — now
+including `expected.reference` — is written `{"en": …, "tr": …}`; a plain
+string is accepted and read as English only, so hand-written files stay
+short. The library test requires a Turkish title and reference text in every
+library file.
+
+**D17. Top-down project type (closes Q13).** A project contains either a
+`model` or a `topdown` section (checked when the file is read). The top-down
+section lists the budget components:
+
+* `precision` — from a control-chart `series`, pooled `groups` (raw values or
+  s with n), duplicate `pairs` (Nordtest pooled formula, EURACHEM normalised
+  differences, MUPR mean range / 1.128; optional selection by pair mean),
+  `control_limits` (L/k) or a `given` value; optionally the precision of a
+  mean of n results on p days (MUPR Eq. 5) and conversion between absolute
+  and relative (at a value or at the data mean);
+* `bias` — CRMs, proficiency-test rounds (u(C_ref) = s_R/√n_Lab) or recovery
+  experiments; single-CRM formula √(b² + s²/n + u²(C_ref)) when one CRM with
+  measured results is given, otherwise √(RMS_bias² + ū²(C_ref));
+* `recovery` — reference-material, spiked-sample and recovery-list tests
+  (MUPR Eq. 8–12), optional s(R), the significance test (Eq. 13) with a
+  documented default for ν, correction rule, and the χ² equivalence test with
+  the weighted mean of Eq. (16);
+* `components` — further standard uncertainties or rectangular/triangular
+  limits, with multiplicity (e.g. a stock solution used twice).
+
+Any component can be restricted to a concentration range [min, max), which
+expresses the two-interval precision models of Nordtest and MUPR Appendix A.
+The budget is evaluated at the listed `levels`; without levels every
+component must be relative and a relative uncertainty is reported.
+**Convention:** relative quantities are entered and reported in per cent, in
+fields whose names end in `_percent`; all other values are in the unit of the
+measurand (QUAM A6 shows why: its values are in % m/m, an absolute unit).
+
+**D18. Recovery-corrected results.** When results are corrected (y = x/R̄),
+absolute components are divided by R̄ and relative components are
+unchanged: u(y)² = Σ(uᵢ/R̄)² + y²Σu′ᵢ². This is the correct propagation for
+y = x/R̄ (cf. finding on MUPR Eq. B6.8, where 1/R̄ is missing on the
+precision term); for all-relative budgets it coincides with the guide.
+
+**D19. Rounding to decimal places.** `reporting.decimal_places` rounds U to
+a fixed decimal place instead of to significant digits; with
+`"rounding": "up"` and 0 decimal places it reproduces Nordtest's "round up
+to a whole per cent" (6.4 → 7, 10.4 → 11, 9.7 → 10, 21.5 → 22, 22.8 → 23).
+
+**F25. Nordtest TR 537 §8.2 Example A — n (class b).** s_bias is stated with
+n = 19, but Appendix 7 lists 18 duplicate control results; u(bias) is
+4.5 % either way.
+
+**F26. Rounded intermediates in MUPR B1 and B5 (class a).** B1 computes U at
+50 mg/L with u′(R̄) rounded to 0.0285 (9.26 mg/L; unrounded 9.27 mg/L); B5
+uses t₀.₉₇₅(2) rounded to 4.30 (U = 0.395 w; 0.3955 w with 4.303). The
+library tolerances are widened accordingly, with the reason in the file.
+
+**Library.** 21 top-down projects added (Nordtest 11, MUPR 8, QUAM 2), all
+from raw data where the documents give them; 59 projects in total, all
+passing (`cargo test`, `uncertainty check library`). The previously recorded
+findings — Nordtest F5 (§6.1), §6.2 mean u(C_ref) 2.7 vs 2.6 %, Example C
+summary table, the MUPR B1 statistic (0.982 vs 0.963), B6 χ² (8.80 vs 8.70)
+and Eq. (B6.8), QUAM A4 and A6 table errors — are attached to the
+respective files as notes.
+
+### Open questions (new)
+
+- **Q14.** MUPR B3 uses a linear precision model s(c) = a + b·c fitted to
+  (c, s) pairs; add a `linear` precision model (fit from raw pairs) or keep
+  the two-interval and continuous models only?
+- **Q15.** ISO 21748 / ISO 5725 reproducibility-based budgets (s_R with
+  bias and additional terms) fit the top-down type already; validate against
+  the standards' examples when the documents are available.
+
+### Next steps
+
+1. Bilingual user guide generated from the library explanations (TR/EN).
+2. Flutter UI using the project file as the document model.
+3. NIST TN 1900 examples; ISO-based parts when the standards arrive.

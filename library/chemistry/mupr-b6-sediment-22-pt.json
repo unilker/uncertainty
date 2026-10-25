@@ -1,0 +1,701 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-b6-sediment-22-pt",
+    "title": {
+      "en": "Trace element in sediment: heterogeneity and 22 proficiency tests",
+      "tr": "Sedimentte iz element: heterojenlik ve 22 yeterlilik testi"
+    },
+    "description": {
+      "en": "MUPR Example B6: precision from a homogeneous material plus the heterogeneity of real samples (duplicate ranges), recovery from 22 PT results (raw data).",
+      "tr": "MUPR Örnek B6: homojen bir malzemeden kesinlik ve gerçek numunelerin heterojenliği (mükerrer açıklıklar), 22 YT sonucundan geri kazanım (ham veri)."
+    },
+    "explanation": [
+      {
+        "en": "A homogeneous material measured 30 times gives s′_I(DS) = 7.34 %; the ranges of 30 duplicate real samples give s_r(h) = Ā/1.128 = 0.191 mg/kg below 7.5 mg/kg and s′_r(h) = 2.66 % above.",
+        "tr": "30 kez ölçülen homojen bir malzeme s′_I(DS) = %7,34 verir; 30 mükerrer gerçek numunenin açıklıkları 7,5 mg/kg altında s_r(h) = Ā/1,128 = 0,191 mg/kg ve üstünde s′_r(h) = %2,66 verir."
+      },
+      {
+        "en": "Interval I: s_I = √((7.5 × 7.34 %)² + 0.191²) = 0.583 mg/kg; interval II: s′_I = √(7.34² + 2.66²) = 7.81 %.",
+        "tr": "Aralık I: s_I = √((7,5 × %7,34)² + 0,191²) = 0,583 mg/kg; aralık II: s′_I = √(7,34² + 2,66²) = %7,81."
+      },
+      {
+        "en": "The 22 PT recoveries are equivalent (χ² = 8.70 ≤ 32.7), so s(R) is not added; R̿ = 91.7 %, u = 1.59 %, |1 − R̿|/u = 5.2 > t₂₁: results are corrected (w/R̿) and u′ = u/R̿.",
+        "tr": "22 YT geri kazanımı eşdeğerdir (χ² = 8,70 ≤ 32,7), bu nedenle s(R) eklenmez; R̿ = %91,7, u = %1,59, |1 − R̿|/u = 5,2 > t₂₁: sonuçlar düzeltilir (w/R̿) ve u′ = u/R̿."
+      },
+      {
+        "en": "Interval II: U = 2(w/R̿)√(0.0781² + 0.0173²) = 0.160 w/R̿.",
+        "tr": "Aralık II: U = 2(w/R̿)√(0,0781² + 0,0173²) = 0,160 w/R̿."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example B6, Tables B6.1–B6.3",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "proficiency-tests",
+      "heterogeneity",
+      "recovery-correction"
+    ],
+    "notes": [
+      {
+        "en": "Finding: Eq. (B6.7) computes χ² about the unweighted mean (8.80); Eq. (16) prescribes the weighted mean, giving 8.70. The conclusion is the same.",
+        "tr": "Bulgu: Eş. (B6.7) χ²'yi ağırlıksız ortalamaya göre hesaplar (8,80); Eş. (16) ağırlıklı ortalamayı öngörür ve 8,70 verir. Sonuç aynıdır."
+      },
+      {
+        "en": "Finding: Eq. (B6.8) as printed omits 1/R̿ on the precision term of the corrected result; for absolute components the program uses u(w/R̿)² = (s_I/R̿)² + (w u_R̿/R̿²)². In interval II (all relative) both agree.",
+        "tr": "Bulgu: Eş. (B6.8) basılı haliyle düzeltilmiş sonucun kesinlik teriminde 1/R̿'yi atlar; program mutlak bileşenler için u(w/R̿)² = (s_I/R̿)² + (w u_R̿/R̿²)² kullanır. Aralık II'de (tümü bağıl) ikisi aynıdır."
+      },
+      {
+        "en": "The standard deviation of each single PT result is taken from the homogeneous-material model (7.34 % above 7.5 mg/kg, 7.5 × 7.34 % below), as in Table B6.3.",
+        "tr": "Her tekil YT sonucunun standart sapması, Tablo B6.3'teki gibi homojen malzeme modelinden alınmıştır (7,5 mg/kg üzerinde %7,34, altında 7,5 × %7,34)."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w",
+    "unit": "mg/kg",
+    "levels": [
+      5.0,
+      20.0
+    ],
+    "precision": [
+      {
+        "name": "s_I(DS)⟨I⟩",
+        "description": {
+          "en": "Homogeneous material, 30 results, at 7.5 mg/kg",
+          "tr": "Homojen malzeme, 30 sonuç, 7,5 mg/kg'da"
+        },
+        "data": {
+          "type": "series",
+          "values": [
+            76.05,
+            75.1,
+            88.27,
+            87.2,
+            73.73,
+            83.27,
+            77.2,
+            80.85,
+            70.57,
+            92.12,
+            75.06,
+            76.55,
+            79.13,
+            73.06,
+            78.16,
+            86.99,
+            73.24,
+            77.83,
+            74.08,
+            73.0,
+            77.92,
+            66.17,
+            76.22,
+            85.24,
+            80.07,
+            74.74,
+            76.55,
+            79.66,
+            85.32,
+            80.49
+          ],
+          "relative": true
+        },
+        "to_absolute_at": 7.5,
+        "range": {
+          "max": 7.5
+        }
+      },
+      {
+        "name": "s_r(h)⟨I⟩",
+        "description": {
+          "en": "Duplicate real samples below 7.5 mg/kg",
+          "tr": "7,5 mg/kg altındaki mükerrer gerçek numuneler"
+        },
+        "data": {
+          "type": "duplicates",
+          "pairs": [
+            [
+              5.93,
+              5.74
+            ],
+            [
+              4.36,
+              4.01
+            ],
+            [
+              13.66,
+              13.65
+            ],
+            [
+              15.77,
+              16.46
+            ],
+            [
+              8.51,
+              8.15
+            ],
+            [
+              10.19,
+              10.4
+            ],
+            [
+              8.19,
+              8.16
+            ],
+            [
+              6.25,
+              6.34
+            ],
+            [
+              8.16,
+              7.68
+            ],
+            [
+              13.16,
+              13.0
+            ],
+            [
+              10.07,
+              9.65
+            ],
+            [
+              14.21,
+              14.01
+            ],
+            [
+              17.94,
+              18.67
+            ],
+            [
+              9.67,
+              9.23
+            ],
+            [
+              21.15,
+              20.72
+            ],
+            [
+              19.64,
+              20.02
+            ],
+            [
+              2.81,
+              2.64
+            ],
+            [
+              11.11,
+              11.03
+            ],
+            [
+              10.0,
+              10.11
+            ],
+            [
+              2.3,
+              2.25
+            ],
+            [
+              17.75,
+              16.81
+            ],
+            [
+              8.59,
+              8.01
+            ],
+            [
+              20.1,
+              21.67
+            ],
+            [
+              11.98,
+              11.98
+            ],
+            [
+              27.85,
+              27.23
+            ],
+            [
+              5.58,
+              5.85
+            ],
+            [
+              7.37,
+              7.71
+            ],
+            [
+              4.62,
+              4.23
+            ],
+            [
+              20.13,
+              19.78
+            ],
+            [
+              11.79,
+              11.54
+            ]
+          ],
+          "method": "mean_range",
+          "max_mean": 7.5
+        },
+        "range": {
+          "max": 7.5
+        }
+      },
+      {
+        "name": "s′_I(DS)⟨II⟩",
+        "description": {
+          "en": "Homogeneous material, 30 results",
+          "tr": "Homojen malzeme, 30 sonuç"
+        },
+        "data": {
+          "type": "series",
+          "values": [
+            76.05,
+            75.1,
+            88.27,
+            87.2,
+            73.73,
+            83.27,
+            77.2,
+            80.85,
+            70.57,
+            92.12,
+            75.06,
+            76.55,
+            79.13,
+            73.06,
+            78.16,
+            86.99,
+            73.24,
+            77.83,
+            74.08,
+            73.0,
+            77.92,
+            66.17,
+            76.22,
+            85.24,
+            80.07,
+            74.74,
+            76.55,
+            79.66,
+            85.32,
+            80.49
+          ],
+          "relative": true
+        },
+        "range": {
+          "min": 7.5
+        }
+      },
+      {
+        "name": "s′_r(h)⟨II⟩",
+        "description": {
+          "en": "Duplicate real samples at or above 7.5 mg/kg",
+          "tr": "7,5 mg/kg ve üzerindeki mükerrer gerçek numuneler"
+        },
+        "data": {
+          "type": "duplicates",
+          "pairs": [
+            [
+              5.93,
+              5.74
+            ],
+            [
+              4.36,
+              4.01
+            ],
+            [
+              13.66,
+              13.65
+            ],
+            [
+              15.77,
+              16.46
+            ],
+            [
+              8.51,
+              8.15
+            ],
+            [
+              10.19,
+              10.4
+            ],
+            [
+              8.19,
+              8.16
+            ],
+            [
+              6.25,
+              6.34
+            ],
+            [
+              8.16,
+              7.68
+            ],
+            [
+              13.16,
+              13.0
+            ],
+            [
+              10.07,
+              9.65
+            ],
+            [
+              14.21,
+              14.01
+            ],
+            [
+              17.94,
+              18.67
+            ],
+            [
+              9.67,
+              9.23
+            ],
+            [
+              21.15,
+              20.72
+            ],
+            [
+              19.64,
+              20.02
+            ],
+            [
+              2.81,
+              2.64
+            ],
+            [
+              11.11,
+              11.03
+            ],
+            [
+              10.0,
+              10.11
+            ],
+            [
+              2.3,
+              2.25
+            ],
+            [
+              17.75,
+              16.81
+            ],
+            [
+              8.59,
+              8.01
+            ],
+            [
+              20.1,
+              21.67
+            ],
+            [
+              11.98,
+              11.98
+            ],
+            [
+              27.85,
+              27.23
+            ],
+            [
+              5.58,
+              5.85
+            ],
+            [
+              7.37,
+              7.71
+            ],
+            [
+              4.62,
+              4.23
+            ],
+            [
+              20.13,
+              19.78
+            ],
+            [
+              11.79,
+              11.54
+            ]
+          ],
+          "method": "mean_range",
+          "relative": true,
+          "min_mean": 7.5
+        },
+        "range": {
+          "min": 7.5
+        }
+      }
+    ],
+    "recovery": {
+      "name": "u(R̿)",
+      "tests": [
+        {
+          "type": "reference",
+          "label": "PT 1",
+          "mean": 12.0,
+          "sd": 0.8808,
+          "n": 1,
+          "reference": 14.46,
+          "u_reference": 0.234
+        },
+        {
+          "type": "reference",
+          "label": "PT 2",
+          "mean": 7.0,
+          "sd": 0.5505,
+          "n": 1,
+          "reference": 7.396,
+          "u_reference": 0.1904
+        },
+        {
+          "type": "reference",
+          "label": "PT 3",
+          "mean": 6.9,
+          "sd": 0.5505,
+          "n": 1,
+          "reference": 7.495,
+          "u_reference": 0.2254
+        },
+        {
+          "type": "reference",
+          "label": "PT 4",
+          "mean": 6.6,
+          "sd": 0.5505,
+          "n": 1,
+          "reference": 7.213,
+          "u_reference": 0.1951
+        },
+        {
+          "type": "reference",
+          "label": "PT 5",
+          "mean": 12.8,
+          "sd": 0.93952,
+          "n": 1,
+          "reference": 14.22,
+          "u_reference": 0.4887
+        },
+        {
+          "type": "reference",
+          "label": "PT 6",
+          "mean": 19.2,
+          "sd": 1.40928,
+          "n": 1,
+          "reference": 21.36,
+          "u_reference": 0.7165
+        },
+        {
+          "type": "reference",
+          "label": "PT 7",
+          "mean": 17.4,
+          "sd": 1.27716,
+          "n": 1,
+          "reference": 18.192,
+          "u_reference": 0.4227
+        },
+        {
+          "type": "reference",
+          "label": "PT 8",
+          "mean": 8.13,
+          "sd": 0.596742,
+          "n": 1,
+          "reference": 8.299,
+          "u_reference": 0.1992
+        },
+        {
+          "type": "reference",
+          "label": "PT 9",
+          "mean": 13.4,
+          "sd": 0.98356,
+          "n": 1,
+          "reference": 14.875,
+          "u_reference": 0.5777
+        },
+        {
+          "type": "reference",
+          "label": "PT 10",
+          "mean": 16.2,
+          "sd": 1.18908,
+          "n": 1,
+          "reference": 18.442,
+          "u_reference": 0.7851
+        },
+        {
+          "type": "reference",
+          "label": "PT 11",
+          "mean": 7.654,
+          "sd": 0.561804,
+          "n": 1,
+          "reference": 8.36,
+          "u_reference": 0.2457
+        },
+        {
+          "type": "reference",
+          "label": "PT 12",
+          "mean": 6.636,
+          "sd": 0.5505,
+          "n": 1,
+          "reference": 7.16,
+          "u_reference": 0.2136
+        },
+        {
+          "type": "reference",
+          "label": "PT 13",
+          "mean": 8.496,
+          "sd": 0.623606,
+          "n": 1,
+          "reference": 9.44,
+          "u_reference": 0.3262
+        },
+        {
+          "type": "reference",
+          "label": "PT 14",
+          "mean": 18.6,
+          "sd": 1.36524,
+          "n": 1,
+          "reference": 22.1,
+          "u_reference": 0.2363
+        },
+        {
+          "type": "reference",
+          "label": "PT 15",
+          "mean": 10.0,
+          "sd": 0.734,
+          "n": 1,
+          "reference": 11.5,
+          "u_reference": 0.3129
+        },
+        {
+          "type": "reference",
+          "label": "PT 16",
+          "mean": 12.8,
+          "sd": 0.93952,
+          "n": 1,
+          "reference": 14.1,
+          "u_reference": 0.5563
+        },
+        {
+          "type": "reference",
+          "label": "PT 17",
+          "mean": 10.1,
+          "sd": 0.74134,
+          "n": 1,
+          "reference": 11.3,
+          "u_reference": 0.49
+        },
+        {
+          "type": "reference",
+          "label": "PT 18",
+          "mean": 17.4,
+          "sd": 1.27716,
+          "n": 1,
+          "reference": 17.8,
+          "u_reference": 0.3002
+        },
+        {
+          "type": "reference",
+          "label": "PT 19",
+          "mean": 8.24,
+          "sd": 0.604816,
+          "n": 1,
+          "reference": 8.72,
+          "u_reference": 0.3258
+        },
+        {
+          "type": "reference",
+          "label": "PT 20",
+          "mean": 16.5,
+          "sd": 1.2111,
+          "n": 1,
+          "reference": 17.0,
+          "u_reference": 0.4053
+        },
+        {
+          "type": "reference",
+          "label": "PT 21",
+          "mean": 8.48,
+          "sd": 0.622432,
+          "n": 1,
+          "reference": 9.58,
+          "u_reference": 0.2885
+        },
+        {
+          "type": "reference",
+          "label": "PT 22",
+          "mean": 11.7,
+          "sd": 0.85878,
+          "n": 1,
+          "reference": 11.45,
+          "u_reference": 0.3637
+        }
+      ]
+    }
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s′_I(DS)⟨II⟩": {
+          "value": 7.34,
+          "tolerance": 0.005
+        },
+        "s′_r(h)⟨II⟩": {
+          "value": 2.66,
+          "tolerance": 0.005
+        },
+        "s_r(h)⟨I⟩": {
+          "value": 0.1912,
+          "tolerance": 5e-05
+        }
+      },
+      "recovery": {
+        "mean_percent": {
+          "value": 91.735,
+          "tolerance": 0.0005
+        },
+        "standard_uncertainty_percent": {
+          "value": 1.585,
+          "tolerance": 0.001
+        },
+        "sd_percent": {
+          "value": 4.607,
+          "tolerance": 0.0005
+        },
+        "statistic": {
+          "value": 5.21,
+          "tolerance": 0.01
+        },
+        "chi_squared": {
+          "value": 8.7,
+          "tolerance": 0.005
+        },
+        "significant": true
+      },
+      "levels": [
+        {
+          "level": 20.0,
+          "value": {
+            "value": 21.80192947075816,
+            "tolerance": 0.001
+          },
+          "relative_expanded_percent": {
+            "value": 16.0,
+            "tolerance": 0.05
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "MUPR Example B6, Tables B6.1–B6.3 and Eq. (B6.1)–(B6.9); χ² recomputed with the weighted mean of Eq. (16).",
+      "tr": "MUPR Örnek B6, Tablo B6.1–B6.3 ve Eş. (B6.1)–(B6.9); χ², Eş. (16)'daki ağırlıklı ortalama ile yeniden hesaplanmıştır."
+    }
+  }
+}
