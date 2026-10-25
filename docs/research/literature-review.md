@@ -17,9 +17,9 @@ Nothing marked *to verify* may be cited in the article until it is checked.
 | JCGM GUM-6:2020 | Developing and using measurement models | intermediate quantities, guide | listed |
 | JCGM 106:2012 | conformity assessment, decision rules | planned (ISO 17025 statements) | to verify |
 | JCGM 200:2012 (VIM 3) | vocabulary | TR/EN glossary | to verify |
-| EURACHEM/CITAC CG4 QUAM:2012 (3rd ed.) | uncertainty in analytical chemistry (bottom-up, Kragten spreadsheet, examples A1–A7) | chemistry module, validation A1 | read (A1); A2–A7 pending |
-| Eurachem/CITAC MUPR 1st ed. (2026) | uncertainty from in-house precision and recovery data | top-down module | listed (published 2026-03) |
-| Nordtest TR 537 ed. 4 (2017) | top-down for environmental labs (R_w, bias, RMS bias) | top-down module | listed |
+| EURACHEM/CITAC CG4 QUAM:2012 (3rd ed.) | uncertainty in analytical chemistry (bottom-up, Kragten spreadsheet, examples A1–A7) | chemistry module, validation A1–A2 | read (A1, A2); A3–A7 pending |
+| Eurachem/CITAC MUPR 1st ed. (2026) | uncertainty from in-house precision and recovery data | `topdown` module; validation Ex. 2, 3, B1 | read (§1–12, App. A, B1); B2–B6, App. C pending |
+| Nordtest TR 537 ed. 4 (2017) | top-down for environmental labs (R_w, bias, RMS bias) | `topdown` module; validation §3–8, App. 4–7 | read |
 | ISO 11352:2012 | water quality — uncertainty from validation and QC data | top-down module | to verify |
 | ISO 21748:2017 | use of repeatability, reproducibility and trueness estimates | top-down module | to verify |
 | ISO 5725 (parts 1–6) | accuracy (trueness and precision) | top-down inputs | to verify |
@@ -53,6 +53,10 @@ Nothing marked *to verify* may be cited in the article until it is checked.
 | MUkit | SYKE Finland | Nordtest top-down | free, Windows | top-down only | listed |
 | GUM Workbench | Metrodata | GUM, EA-4/02; MC support unconfirmed | Windows, commercial | listed |
 | QMSys GUM | Qualisyst | GUM, MC | Windows, commercial | to verify |
+
+Note: the Eurachem MUPR working group includes P. Yolcu Omeroglu (Eurachem
+TR, Türkiye); the Nordtest handbook has an official Turkish translation
+(nordtest.info). Both are relevant for Turkish terminology in the guide.
 
 ### Gap analysis (working hypothesis — to be confirmed by a systematic search)
 

@@ -346,6 +346,41 @@ pub fn coverage_factor(p: f64, nu: f64) -> f64 {
     student_t_quantile(0.5 * (1.0 + p), nu)
 }
 
+/// Quantile of the chi-squared distribution with ν degrees of freedom: the
+/// value x with P(ν/2, x/2) = p (e.g. the critical value χ²₀.₉₅,ν).
+pub fn chi_squared_quantile(p: f64, nu: f64) -> f64 {
+    assert!(p > 0.0 && p < 1.0, "chi_squared_quantile requires 0 < p < 1");
+    assert!(nu > 0.0, "degrees of freedom must be positive");
+    let a = 0.5 * nu;
+    let cdf = |x: f64| gamma_p(a, 0.5 * x);
+    let pdf = |x: f64| ((a - 1.0) * (0.5 * x).ln() - 0.5 * x - ln_gamma(a)).exp() * 0.5;
+    let mut lo = 0.0_f64;
+    let mut hi = nu.max(1.0);
+    while cdf(hi) < p {
+        lo = hi;
+        hi *= 2.0;
+    }
+    let mut x = 0.5 * (lo + hi);
+    for _ in 0..200 {
+        let f = cdf(x) - p;
+        if f < 0.0 {
+            lo = x;
+        } else {
+            hi = x;
+        }
+        let d = pdf(x);
+        let mut next = if d > 0.0 { x - f / d } else { f64::NAN };
+        if !(next > lo && next < hi) {
+            next = 0.5 * (lo + hi);
+        }
+        if (next - x).abs() <= 1e-15 * x.abs().max(1e-300) {
+            return next;
+        }
+        x = next;
+    }
+    x
+}
+
 /// Compensated (Neumaier) summation of a slice.
 pub fn accurate_sum(values: &[f64]) -> f64 {
     let mut sum = 0.0_f64;
@@ -429,6 +464,22 @@ mod tests {
         assert!((coverage_factor(0.99, 16.0) - 2.92).abs() < 0.005);
         assert!((coverage_factor(0.95, f64::INFINITY) - 1.96).abs() < 0.005);
         assert!((coverage_factor(0.9545, f64::INFINITY) - 2.00).abs() < 0.005);
+    }
+
+    #[test]
+    fn chi_squared_quantile_reference_values() {
+        // scipy.stats.chi2.ppf(p, ν)
+        let table = [
+            (1.0, 3.841_458_820_694_124, 0.003_932_140_000_019_522),
+            (2.0, 5.991_464_547_107_979, 0.102_586_588_775_101_06),
+            (5.0, 11.070_497_693_516_351, 1.145_476_226_061_769_2),
+            (10.0, 18.307_038_053_275_146, 3.940_299_136_119_060_5),
+            (30.0, 43.772_971_825_742_19, 18.492_660_981_953_47),
+        ];
+        for (nu, q95, q05) in table {
+            assert!(rel(chi_squared_quantile(0.95, nu), q95) < 1e-11, "nu={nu}");
+            assert!(rel(chi_squared_quantile(0.05, nu), q05) < 1e-9, "nu={nu}");
+        }
     }
 
     #[test]

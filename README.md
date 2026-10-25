@@ -1,4 +1,4 @@
-# Uncertainty *(working title)*
+# Uncertainty Calculations · Belirsizlik Hesaplamaları
 
 **EN** — Open software for evaluating measurement uncertainty with the GUM
 uncertainty framework (JCGM 100:2008) and the Monte Carlo method of GUM
@@ -10,6 +10,8 @@ Monte Carlo yöntemi (JCGM 101:2008) ile hesaplayan açık yazılım; analitik
 kimya, kalibrasyon ve akredite laboratuvarlar için. Masaüstü ve mobil,
 Türkçe ve İngilizce.
 
+> Author / Yazar: İlker Ün, TÜBİTAK UME ([ORCID 0000-0001-5089-4602](https://orcid.org/0000-0001-5089-4602))
+>
 > Status / Durum: **v0.1.0 — computation core only** (no user interface yet).
 > See [docs/ROADMAP.md](docs/ROADMAP.md).
 
@@ -24,12 +26,18 @@ Türkçe ve İngilizce.
   automatic **validation of GUM against MCM** (clause 8).
 - Measurement models typed as formulas (`1000 * m * P / V`), with
   intermediate quantities and exact symbolic sensitivity coefficients.
+- Top-down (chemistry): within-laboratory reproducibility, bias from CRMs,
+  proficiency tests and recovery (Nordtest TR 537); mean recovery, its
+  uncertainty and significance, precision models over the working range and
+  combination with contributions (Eurachem/CITAC MUPR 2026).
+- Reporting: rounding of results by the GUM, MUPR or round-up rule.
 
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
 automated test: GUM H.1, all four examples of JCGM 101 clause 9, EURACHEM
-CG4 A1. Details, tolerances and findings:
+CG4 A1–A2, Nordtest TR 537 (recomputed from its raw data) and Eurachem MUPR
+examples 2, 3 and B1. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

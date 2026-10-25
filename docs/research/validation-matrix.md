@@ -10,7 +10,8 @@ primary reference is an analytic solution or an independent 2 × 10⁸-trial
 PCG64 run (`validation/reference_values.py` → `reference_values.json`).
 
 Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
-`core/tests/eurachem_examples.rs`; unit tests in `core/src/*`.
+`core/tests/eurachem_examples.rs`, `core/tests/topdown_examples.rs`; unit
+tests in `core/src/*`.
 
 ## Numerical building blocks
 
@@ -25,6 +26,8 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | CTrap example 10.0 V ± 0.1 V → 0.060 V | JCGM 101 6.4.3 | exact | `distribution::tests` |
 | Numerical tolerance δ, examples 1–3 | JCGM 101 7.9.2 | exact | `mcm::tests` |
 | Coverage interval indices | JCGM 101 7.7.2 | exact | `mcm::tests` |
+| χ² quantiles ν = 1…30 | SciPy `stats.chi2.ppf` | ≤ 1e-9 relative | `special::tests` |
+| Rounding rules (MUPR Table 2, Nordtest round-up) | MUPR §12, Nordtest | exact strings | `report::tests` |
 | Symbolic derivatives | central differences | ≤ 1e-6 relative | `expr::tests` |
 
 ## Reference examples
@@ -45,6 +48,27 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | S1-9.5 | JCGM 101 Tables 10–11 | gauge block (models 36, 37) | GUF 838, 32, [745, 931]; MCM 838, 36, [745, 932] | agrees | ✅ |
 | EU-A1a | QUAM:2012 Table A1.3 | Cd standard, u(V) = 0.07 | 1002.7 mg/L, u = 0.86 (0.9) | 1002.6997, 0.8638 | ✅ |
 | EU-A1b | QUAM:2012 A1.4 | volume sub-model | u(V) = 0.066 (0.07) | 0.0665; u_c 0.835 | ✅ (F4) |
+| EU-A2a | QUAM:2012 Tables A2.2–A2.3 | NaOH standardisation | 0.102136 mol/L, u = 0.000099, 5 contributions | identical | ✅ |
+| EU-A2b | QUAM:2012 A2.4 | sub-models (weighing, IUPAC molar mass, burette) | u(m) 0.13 mg, u(M) 0.0038, u(V) 0.013 mL, u_c 0.000099 | 0.122 mg, 0.0038, 0.0137 mL, 0.000101; MCM agrees | ✅ (F10) |
+| EU-A2c | QUAM:2012 Table A2.4 | distribution choice | 0.00011 / 0.000099 / 0.000085 | not reproducible | ⚠️ not tested (F10) |
+
+## Top-down examples (relative values in %)
+
+| ID | Source | Quantity | Published | Engine | Status |
+|---|---|---|---|---|---|
+| NT-A5 | Nordtest App. 5 | NH₄-N duplicates: s_r < 30 µg/L; s′_r > 30 µg/L | 0.44 µg/L; 3.8 % | 0.441 (46 pairs); 3.82 (26 pairs) | ✅ (F7) |
+| NT-A6 | Nordtest App. 6, §5.3 | O₂ duplicates: pooled s, mean, s′; u(Rw) | 0.0252 mg/L, 7.50, 0.34 %; 0.60 % | same | ✅ |
+| NT-3 | Nordtest §3.2, App. 4 (raw PT data) | NH₄-N: RMS_bias, ū(C_ref), u(bias), u_c, U | 2.26, 1.52, 2.73, 3.20, 6.4 → 7 % | same | ✅ |
+| NT-6.1a | Nordtest §6.1 | one CRM | u(C_ref) 2.16, u(bias) 4.1 % | 2.17, 4.15 % (4.1 with printed 2.16) | ✅ (F5) |
+| NT-6.1b | Nordtest §6.1 | three CRMs | 2.53, 1.92, 3.2 % | same | ✅ |
+| NT-6.2 | Nordtest §6.2 | proficiency tests | 1.8; 2.7/2.6; 4.6; 5.3 % | 1.81; 2.60; 4.60; 5.28 | ✅ (F6) |
+| NT-6.3 | Nordtest §6.3 | recovery | 3.44, 0.76, 1.0, 3.6 % | same | ✅ |
+| NT-8.2 | Nordtest §8.2, App. 7 (raw data) | BOD: mean, s, s′; Examples A and B | 214.8, 5.6, 2.6 %; 4.5/5.2/11 %; 1.69/3.76/4.12/4.87/10 % | same (RMS 3.77 unrounded) | ✅ (F8) |
+| NT-8.3 | Nordtest §8.3 | PCB Examples C and D | 7.22/10.8/22 %; 7.6/8.1/11.4/23 % | same | ✅ (F8) |
+| MUPR-E2 | MUPR Example 2 | mean recovery, 2 CRMs + PT | R̄ 1.008, u 0.03705 (3 terms) | same | ✅ |
+| MUPR-E3 | MUPR Example 3 | spiked samples with native analyte | 96.2 %, 10.02 %; 1.5 % (A only) | same | ✅ |
+| MUPR-B1 | MUPR Example B1 | nitrate by IC: R̄, u_R̄, Eq. 13, limits, U⟨I⟩, U⟨II⟩, contributions, B1.16, B1.18, reporting | 97.2 %, 0.0285, 0.982 ≤ 2.093, 0.794/1.15, 0.729/1.21, 0.0676, 0.185c, 94.1/4.8/1.1 %, 82.9/9.5/2.1/5.6 %, 7.13, 0.57 ≤ 1.27, (0.261 ± 0.068), (50.0 ± 9.3) | same (0.963 and 0.0849 unrounded) | ✅ (F9) |
+| MUPR-12 | MUPR §12, Table 2 | rounding of reported results | (0.156 ± 0.012), (5360 ± 240), (5360 ± 260) | same | ✅ |
 
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
@@ -60,6 +84,6 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 
 ## Planned cases
 
-EURACHEM A2–A7; EA-4/02 S-examples; NIST TN 1900 examples; Nordtest TR 537
+EURACHEM A3–A7; MUPR B2–B6; EA-4/02 S-examples; NIST TN 1900 examples; Nordtest TR 537
 worked examples; Eurachem MUPR (2026) examples; ISO/TS 28037 data sets;
 cross-checks against the NIST Uncertainty Machine and Suncal.

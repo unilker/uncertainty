@@ -35,6 +35,9 @@ bottom-up and top-down approaches.*
 4. Validated example library with explanations (TR/EN) — educational value.
 5. Native desktop + mobile, offline, reproducible (seeded) results.
 6. Methodological findings from the validation (F1–F4), if novel.
+7. Systematic recomputation of guidance-document examples from raw data,
+   with a documented list of rounding and transcription discrepancies
+   (F1, F5–F11) — a reproducible validation methodology.
 
 ## Manuscript outline
 
@@ -58,7 +61,7 @@ bottom-up and top-down approaches.*
 
 ## Before submission (checklist)
 
-- [ ] Author metadata (name, ORCID, affiliation) — Q5
+- [x] Author metadata (name, ORCID, affiliation) — Q5
 - [ ] Systematic literature search (literature-review.md §4)
 - [ ] All "to verify" references checked
 - [ ] Independent review by a metrologist (e.g. NMI / accredited laboratory)

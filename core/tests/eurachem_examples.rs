@@ -75,3 +75,81 @@ fn a1_calibration_standard_with_volume_sub_model() {
     close(v2.d_high, 0.015, 0.006, "d_high");
     assert!(m.symmetric_interval.1 - m.symmetric_interval.0 < 2.0 * g.expanded_uncertainty);
 }
+
+/// Example A2, Tables A2.2 and A2.3: standardising NaOH against KHP,
+/// c = 1000 m P / (M V) × rep, with the rounded standard uncertainties of the
+/// guide. Spreadsheet results: c = 0.102136 mol/L, u_c = 0.000099 mol/L,
+/// contributions 0.000051, 0.000034, 0.000030, −0.000002, −0.000071.
+#[test]
+fn a2_naoh_standardisation_table_values() {
+    let model = Model::builder()
+        .quantity("rep", Distribution::Normal { mean: 1.0, sd: 0.0005 })
+        .quantity("m_KHP", Distribution::Normal { mean: 0.3888, sd: 0.00013 })
+        .quantity("P_KHP", Distribution::Normal { mean: 1.0, sd: 0.00029 })
+        .quantity("M_KHP", Distribution::Normal { mean: 204.2212, sd: 0.0038 })
+        .quantity("V_T", Distribution::Normal { mean: 18.64, sd: 0.013 })
+        .output("c_NaOH", "1000 * m_KHP * P_KHP / (M_KHP * V_T) * rep")
+        .build()
+        .unwrap();
+    let g = gum::evaluate(&model, &GumOptions { coverage: CoverageSpec::Factor(2.0), ..Default::default() }).unwrap();
+    close(g.estimate, 0.102136, 5e-7, "c(NaOH), Table A2.3 B11");
+    close(g.combined_standard_uncertainty, 0.000099, 5e-7, "u_c");
+    for (row, expected) in g.budget.iter().zip([0.000051, 0.000034, 0.000030, -0.000002, -0.000071]) {
+        close(row.contribution, expected, 1e-6, &format!("u(y, {})", row.name));
+    }
+}
+
+/// Example A2 with the sub-models of A2.4: m = m_gross − m_tare with balance
+/// linearity ±0.15 mg (rectangular) on each weighing; M(KHP) from IUPAC
+/// atomic weights (rectangular, the 8, 5 and 4 atoms of one element fully
+/// correlated); V_T with burette calibration ±0.03 mL (triangular) and a
+/// temperature effect 19 × 2.1e-4 × 3/1.96 mL (normal).
+///
+/// The guide rounds 0.15/√3 = 0.087 to 0.09 mg, giving u(m) = 0.13 mg; the
+/// unrounded value is 0.12 mg. Likewise u(V) = 0.0137 (0.013) mL. The
+/// combined uncertainty becomes 0.000101 mol/L (guide: 0.000099); both report
+/// as (0.1021 ± 0.0002) mol/L with k = 2.
+#[test]
+fn a2_naoh_standardisation_with_sub_models() {
+    let lin = 0.15e-3;
+    let model = Model::builder()
+        .quantity("rep", Distribution::Normal { mean: 1.0, sd: 0.0005 })
+        .quantity("m_gross", Distribution::rectangular_half_width(60.5450, lin))
+        .quantity("m_tare", Distribution::rectangular_half_width(60.1562, lin))
+        .quantity("P_KHP", Distribution::rectangular_half_width(1.0, 0.0005))
+        .quantity("A_C", Distribution::rectangular_half_width(12.0107, 0.0008))
+        .quantity("A_H", Distribution::rectangular_half_width(1.00794, 0.00007))
+        .quantity("A_O", Distribution::rectangular_half_width(15.9994, 0.0003))
+        .quantity("A_K", Distribution::rectangular_half_width(39.0983, 0.0001))
+        .quantity("dV_cal", Distribution::triangular_half_width(0.0, 0.03))
+        .quantity("dV_temp", Distribution::Normal { mean: 0.0, sd: 19.0 * 2.1e-4 * 3.0 / 1.96 })
+        .intermediate("m_KHP", "m_gross - m_tare")
+        .intermediate("M_KHP", "8*A_C + 5*A_H + 4*A_O + A_K")
+        .intermediate("V_T", "18.64 + dV_cal + dV_temp")
+        .output("c_NaOH", "1000 * m_KHP * P_KHP / (M_KHP * V_T) * rep")
+        .build()
+        .unwrap();
+    let g = gum::evaluate(&model, &GumOptions { coverage: CoverageSpec::Factor(2.0), ..Default::default() }).unwrap();
+    close(g.estimate, 0.102136, 5e-7, "c(NaOH)");
+    let u = |name: &str| g.budget.iter().find(|r| r.name == name).unwrap().standard_uncertainty;
+    close((u("m_gross").powi(2) + u("m_tare").powi(2)).sqrt() * 1e3, 0.122, 0.0005, "u(m) / mg");
+    let u_m =
+        ((8.0 * u("A_C")).powi(2) + (5.0 * u("A_H")).powi(2) + (4.0 * u("A_O")).powi(2) + u("A_K").powi(2)).sqrt();
+    close(u_m, 0.0038, 0.00005, "u(M_KHP)");
+    close((u("dV_cal").powi(2) + u("dV_temp").powi(2)).sqrt(), 0.0137, 0.00005, "u(V_T)");
+    close(g.combined_standard_uncertainty, 0.000101, 5e-7, "u_c");
+    let rep = uncertainty_core::report::report_result(
+        g.estimate,
+        g.expanded_uncertainty,
+        1,
+        uncertainty_core::report::Rounding::HalfEvenFirstDiscarded,
+        uncertainty_core::report::Rounding::HalfEvenFirstDiscarded,
+    );
+    assert_eq!((rep.value.as_str(), rep.uncertainty.as_str()), ("0.1021", "0.0002"));
+
+    // The volume calibration term dominates the remaining budget; MCM agrees
+    // with the GUM framework to two significant digits of u.
+    let m = mcm::evaluate(&model, &McmOptions { trials: Trials::Fixed(1_000_000), seed: 21, ..Default::default() })
+        .unwrap();
+    close(m.standard_uncertainty, g.combined_standard_uncertainty, 1e-6, "MCM u");
+}

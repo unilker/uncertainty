@@ -4,16 +4,15 @@ message: >-
   below. Citation is also required by the attribution terms in
   ADDITIONAL-TERMS.md for redistributed or modified versions.
 type: software
-title: "Uncertainty: measurement uncertainty evaluation software (GUM and Monte Carlo)"
+title: "Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement uncertainty evaluation software (GUM and Monte Carlo)"
 version: 0.1.0
 license: GPL-3.0-or-later
 repository-code: "https://github.com/unilker/uncertainty"
 authors:
-  # TODO: complete with full name, ORCID and affiliation before the first release.
-  - family-names: "[FAMILY NAME]"
-    given-names: "[GIVEN NAME]"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
-    # affiliation: "[AFFILIATION]"
+  - family-names: "Ün"
+    given-names: "İlker"
+    orcid: "https://orcid.org/0000-0001-5089-4602"
+    affiliation: "TÜBİTAK Ulusal Metroloji Enstitüsü (UME), Gebze, Kocaeli, Türkiye"
 keywords:
   - measurement uncertainty
   - GUM

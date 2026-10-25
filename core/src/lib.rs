@@ -5,7 +5,10 @@
 //! * JCGM 100:2008 — *Guide to the expression of uncertainty in measurement*
 //!   (GUM uncertainty framework, module [`gum`]);
 //! * JCGM 101:2008 — *Supplement 1: Propagation of distributions using a Monte
-//!   Carlo method* (module [`mcm`]).
+//!   Carlo method* (module [`mcm`]);
+//! * top-down evaluation from validation and quality-control data —
+//!   Nordtest TR 537 and Eurachem/CITAC MUPR (2026) (module [`topdown`]);
+//! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
 //! distributions ([`distribution`]) and a measurement function written as a
@@ -41,8 +44,10 @@ pub mod expr;
 pub mod gum;
 pub mod mcm;
 pub mod model;
+pub mod report;
 pub mod rng;
 pub mod special;
+pub mod topdown;
 
 pub use distribution::{Distribution, TypeA};
 pub use error::UncError;

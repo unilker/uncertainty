@@ -122,7 +122,7 @@ worth a systematic study across the example library (open question Q4).
 - **Q3.** Literature search on the dispersion of MCM shortest coverage
   intervals (F3).
 - **Q4.** Systematic GUF-vs-MCM study over the chemistry example library (F4).
-- **Q5.** Author metadata (full name, ORCID, affiliation) for `CITATION.cff`.
+- **Q5.** Author metadata (full name, ORCID, affiliation) for `CITATION.cff`. *(closed 2026-10-25, D6)*
 
 ### Next steps
 
@@ -134,3 +134,116 @@ worth a systematic study across the example library (open question Q4).
 3. Calibration curves (ISO/TS 28037), multivariate output (JCGM 102).
 4. Report generation (budget table, contribution chart, citation footer).
 5. Flutter UI and the bilingual guide.
+
+---
+
+## 2026-10-25 (session 2) — Author metadata, top-down module, EURACHEM A2
+
+### Decisions
+
+**D6. Author and name.** Author: İlker Ün, TÜBİTAK Ulusal Metroloji Enstitüsü
+(UME), ORCID 0000-0001-5089-4602. Program name: *Uncertainty Calculations*;
+Turkish name: *Belirsizlik Hesaplamaları*. Entered in `CITATION.cff`, `NOTICE`
+and `README.md` (closes Q5).
+
+**D7. Sources for the top-down module.** Primary documents obtained and read
+(2026-10-25):
+- Nordtest TR 537 ed. 4 (2017) —
+  https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf
+- Eurachem/CITAC MUPR, 1st ed. (2026), ISBN 978-972-9348-30-3 —
+  https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf
+ISO 11352, ISO 21748 and ISO 5725 are paywalled and have **not** been read;
+the module implements them only as far as Nordtest and MUPR reproduce them.
+
+**D8. Recomputation from raw data.** Wherever a guide gives raw data
+(Nordtest Appendices 4–7), the tests recompute the statistics from the raw
+data instead of using the printed summaries. Raw data were extracted
+programmatically from the PDF text and every derived per-pair value was
+checked against the printed column.
+
+**D9. Rounding for reports is a selectable rule.** MUPR §12 rounds a
+discarded 5 to even and ignores figures beyond the first discarded one;
+GUM 7.2.6 allows rounding uncertainties up; Nordtest rounds U up to whole
+per cent. All three are implemented (`report::Rounding`), operating on the
+decimal representation (so 0.285 is treated as 0.285, not 0.28499…).
+
+### Implemented
+
+| Module | Content | Source |
+|---|---|---|
+| `special` | χ² quantile (critical values for Eq. 16) | checked against SciPy |
+| `topdown` | pooled s (Eq. 1–2), s from duplicates and mean ranges, u(Rw) from control limits, s of means (Eq. 5–7), precision models (App. A), u(bias) from CRM/PT/recovery, recovery from RMs and spikes (Eq. 8–12), significance (Eq. 13), equivalence and χ² homogeneity (Eq. 15–16), uncorrected-recovery allowance (Eq. 17–18), acceptance limits and compatibility (B1), combination with contributions (Eq. 19–24) | Nordtest TR 537; MUPR 2026 |
+| `report` | significant-figure and decimal-place rounding, three rules, value/uncertainty formatting | GUM 7.2.6; MUPR §12 |
+
+### Findings
+
+**F5. Nordtest TR 537 §6.1 (one CRM): arithmetic slip.** u(C_ref) is
+printed as 0.25/11.5 × 100 = 2.16 %; the quotient is 2.17 %. The printed
+u(bias) = 4.1 % follows from 2.16 %; with 2.17 % it is 4.15 % (4.2 % to two
+figures).
+
+**F6. Nordtest §6.2 (PT).** The mean of the six listed u(C_ref,i) is first
+printed as 2.7 % and then used as 2.6 %; the mean of the listed values is
+2.60 %. The final u(bias) = 5.3 % is consistent with 2.6 %.
+
+**F7. Nordtest Appendix 5.** 46 duplicate pairs are listed below 30 µg/L
+while §5.3 states n = 47; the pooled s = 0.44 µg/L is nonetheless reproduced
+(0.441). Above 30 µg/L the 26 pairs reproduce 3.82 % (printed 3.8 %).
+Oxygen (Appendix 6, 51 pairs): 0.0252 mg/L reproduced; BOD (Appendix 7):
+214.75 mg/L, s = 5.58 mg/L, 2.60 % reproduced.
+
+**F8. Nordtest §8.** BOD Example B: RMS_bias = 3.76 % is obtained from the
+biases rounded to one decimal; from the raw PT values it is 3.77 %. PCB
+Example C uses u(C_ref) = 7/152 = 4.6 % (u(bias) 7.22 %), whereas the summary
+table prints 4.7 % and 7.29 % — internally consistent but not with the
+example.
+
+**F9. MUPR Example B1: intermediate rounding.** The guide rounds
+R̄ = 0.389/0.400 = 0.9725 to 0.972 before using it, so the test statistic of
+Eq. (B1.3) is printed as 0.982 (0.963 unrounded) and u(R) for one test as
+0.0848 (0.0849). Conclusions are unaffected. The 99 % duplicate-range factor
+is printed as 3.69, whereas z₀.₉₉₅·√2 = 3.64 — **to verify** against the
+source the guide relies on (e.g. ISO 5725-6 critical range factors).
+
+**F10. EURACHEM CG4 Example A2.** The guide rounds the balance linearity
+0.15/√3 = 0.087 mg to 0.09 mg, giving u(m) = 0.13 mg instead of 0.12 mg, and
+u(V_T) = 0.013 mL instead of 0.0137 mL; u_c becomes 0.000099 instead of
+0.000101 mol/L, with the same reported result (0.1021 ± 0.0002) mol/L.
+Table A2.4 (effect of the distribution chosen for the burette calibration)
+could not be reproduced under any of three readings tried (u(V) from
+calibration and temperature; the tabulated u(V) column; with volume
+repeatability added). Its u(V) column appears shifted by one row relative to
+the text (the triangular value 0.013 mL appears in the *Normal* row). **To
+check against the printed edition / errata before citing.**
+
+**F11. Guidance documents round at intermediate steps.** F1, F5–F10 show a
+recurring pattern: published worked examples round intermediate values, so
+exact recomputation differs in the last printed digit, and occasionally
+(F5, F10) arithmetic or tabulation slips occur. For software validation this
+means (a) tolerances must be justified case by case and (b) a validation
+suite that recomputes from raw data adds value beyond reproducing printed
+numbers. This is a candidate contribution for the article (method section
+"validation against guidance documents") and should be reported neutrally,
+with the corrected values, and ideally communicated to the document owners.
+
+### Open questions (new)
+
+- **Q6.** Should results be corrected for recovery by default when Eq. (13)
+  indicates a significant deviation? MUPR leaves this to the documented
+  procedure; the UI must ask, not decide.
+- **Q7.** Top-down budgets currently combine by root sum of squares only.
+  Linking them to the general GUM/MCM model (precision and recovery as
+  multiplicative factors f ~ N(1, u′)) would allow MCM validation of top-down
+  budgets — design decision pending.
+- **Q8.** Permission to reproduce raw data tables from Nordtest/Eurachem in
+  the program's example library (copyright of both documents is held by the
+  authors).
+
+### Next steps
+
+1. EURACHEM A3–A7 (A4–A6 contain in-house validation / empirical-method data
+   relevant to the top-down workflow).
+2. MUPR examples B2–B6 (precision modelling over the range, heterogeneity,
+   matrix-dependent recovery).
+3. Project file format (JSON), CLI and report generation.
+4. Flutter UI.
