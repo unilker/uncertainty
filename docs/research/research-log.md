@@ -353,7 +353,7 @@ than match printed numbers.
 - **Q10.** Warn when a first-order sensitivity vanishes at the estimate but
   the model is non-linear in that input (S4, S13, JCGM 101 9.4).
 - **Q11.** Report discrepancies F5, F10, F12–F15, F18 to the document owners
-  (Nordtest, Eurachem, EA)? Decision for the author.
+  (Nordtest, Eurachem, EA)? Decision for the author. *(closed 2026-10-25, D12)*
 
 ### Next steps
 
@@ -363,3 +363,25 @@ than match printed numbers.
 3. NIST TN 1900 examples (downloaded) and remaining JCGM 102 multivariate
    cases.
 4. Flutter UI.
+
+---
+
+## 2026-10-25 (session 3, addendum) — Reporting of discrepancies
+
+**D12. Discrepancies are reported in the article, not to the document
+owners beforehand (author's decision, closes Q11).** The article documents
+the recomputation of the guidance examples and the corrected values; the
+owners can revise their guides after publication. Conditions adopted:
+
+1. Classify every finding as (a) intermediate rounding (legitimate
+   practice), (b) typographical/transcription slip without effect on the
+   result, or (c) inconsistency affecting a printed result (currently
+   Nordtest §6.1 and EURACHEM A5). Only (c) is called an error.
+2. Before submission, check the current editions and any errata
+   (documents-needed.md §D); drop or annotate findings already corrected.
+3. Report each finding with document edition, page/table, printed value,
+   corrected value and the test that reproduces it; neutral wording.
+4. Frame the contribution as a validation methodology (recompute from
+   inputs with documented tolerances), not as criticism of the guides.
+5. A courtesy notice to the owners before submission remains optional;
+   default is none.

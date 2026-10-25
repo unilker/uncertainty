@@ -67,3 +67,5 @@ bottom-up and top-down approaches.*
 - [ ] Independent review by a metrologist (e.g. NMI / accredited laboratory)
 - [ ] Benchmarks against NUM and Suncal
 - [ ] Permissions for any reproduced example material
+- [ ] Discrepancy table classified (a)/(b)/(c) and checked against current
+      editions and errata (D12)
