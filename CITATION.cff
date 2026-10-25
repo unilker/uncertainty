@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or results obtained with it, please cite it as
+  below. Citation is also required by the attribution terms in
+  ADDITIONAL-TERMS.md for redistributed or modified versions.
+type: software
+title: "Uncertainty: measurement uncertainty evaluation software (GUM and Monte Carlo)"
+version: 0.1.0
+license: GPL-3.0-or-later
+repository-code: "https://github.com/unilker/uncertainty"
+authors:
+  # TODO: complete with full name, ORCID and affiliation before the first release.
+  - family-names: "[FAMILY NAME]"
+    given-names: "[GIVEN NAME]"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    # affiliation: "[AFFILIATION]"
+keywords:
+  - measurement uncertainty
+  - GUM
+  - Monte Carlo method
+  - JCGM 101
+  - metrology
+  - analytical chemistry
+  - uncertainty budget
+abstract: >-
+  Open software for the evaluation of measurement uncertainty according to
+  the GUM uncertainty framework (JCGM 100:2008) and the Monte Carlo method of
+  GUM Supplement 1 (JCGM 101:2008), with bottom-up and top-down approaches for
+  analytical chemistry and calibration, a validated library of worked
+  examples, and Turkish and English user guides.

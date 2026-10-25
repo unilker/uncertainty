@@ -1,0 +1,17 @@
+Uncertainty — measurement uncertainty evaluation software (working title)
+Copyright (C) 2026 [AUTHOR FULL NAME — to be completed]
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version, with the additional terms of Section 7 given in
+ADDITIONAL-TERMS.md.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+If you use this program or results obtained with it, please cite:
+  [AUTHOR FULL NAME]. Uncertainty: measurement uncertainty evaluation
+  software (version 0.1.0). 2026. https://github.com/unilker/uncertainty
+  (see CITATION.cff; to be replaced by the journal article once published)
