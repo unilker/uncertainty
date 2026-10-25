@@ -8,6 +8,8 @@
 //!   Carlo method* (module [`mcm`]);
 //! * top-down evaluation from validation and quality-control data —
 //!   Nordtest TR 537 and Eurachem/CITAC MUPR (2026) (module [`topdown`]);
+//! * straight-line calibration and inverse prediction — EURACHEM CG4
+//!   Appendix E.4 (module [`calibration`]);
 //! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
@@ -38,6 +40,7 @@
 // index loops mirror the subscripts of the formulas in the standards.
 #![allow(clippy::neg_cmp_op_on_partial_ord, clippy::needless_range_loop)]
 
+pub mod calibration;
 pub mod distribution;
 pub mod error;
 pub mod expr;

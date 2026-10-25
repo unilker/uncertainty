@@ -93,6 +93,41 @@ pub fn relative_sd_from_duplicates(pairs: &[(f64, f64)]) -> Result<PooledSd, Unc
     Ok(PooledSd { sd: (ss / n).sqrt(), dof: n })
 }
 
+/// Relative intermediate precision from duplicates measured in different
+/// runs: the standard deviation of the normalised differences
+/// (x₁ − x₂)/x̄ divided by √2 [EURACHEM CG4 (2012) Example A4.4]; ν = N − 1.
+///
+/// Unlike [`relative_sd_from_duplicates`] (Nordtest), the mean normalised
+/// difference is subtracted, so a systematic difference between the two runs
+/// is not counted as imprecision.
+pub fn relative_sd_from_normalised_differences(pairs: &[(f64, f64)]) -> Result<PooledSd, UncError> {
+    if pairs.len() < 2 {
+        return Err(invalid("at least two duplicate pairs are needed"));
+    }
+    let mut r = Vec::with_capacity(pairs.len());
+    for &(a, b) in pairs {
+        let mean = 0.5 * (a + b);
+        if !(mean.is_finite() && mean != 0.0) || !(a - b).is_finite() {
+            return Err(invalid("duplicates need finite values with a non-zero mean"));
+        }
+        r.push((a - b) / mean);
+    }
+    let n = r.len() as f64;
+    let m = r.iter().sum::<f64>() / n;
+    let s = (r.iter().map(|v| (v - m).powi(2)).sum::<f64>() / (n - 1.0)).sqrt();
+    Ok(PooledSd { sd: s / 2f64.sqrt(), dof: n - 1.0 })
+}
+
+/// Relative standard deviation of the analyte amount in n portions drawn at
+/// random from a sample in which a fraction p₁ of the portions contains an
+/// amount l₁ and the rest l₂ (binomial model) [EURACHEM CG4 (2012) A4.6]:
+/// μ = n p₁ (l₁ − l₂) + n l₂, σ² = n p₁ (1 − p₁)(l₁ − l₂)².
+pub fn binomial_inhomogeneity_rsd(n_portions: f64, p1: f64, l1: f64, l2: f64) -> f64 {
+    let mu = n_portions * p1 * (l1 - l2) + n_portions * l2;
+    let sigma = (n_portions * p1 * (1.0 - p1)).sqrt() * (l1 - l2).abs();
+    sigma / mu
+}
+
 /// d₂ constant for ranges of two values (expected range / σ = 2/√π).
 pub const D2_DUPLICATES: f64 = 1.128;
 
