@@ -1,0 +1,187 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s11-block-calibrator-180c",
+    "title": {
+      "en": "Calibration of a temperature block calibrator at 180 °C",
+      "tr": "Sıcaklık blok kalibratörünün 180 °C'de kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S11: temperature of the block measured with a calibrated platinum resistance thermometer (values in mK).",
+      "tr": "EA-4/02 S11: bloğun sıcaklığının kalibre edilmiş platin direnç termometresiyle ölçülmesi (değerler mK)."
+    },
+    "explanation": [
+      {
+        "en": "t_X = t_S + δt_S + δt_D − δt_iX + δt_R + δt_A + δt_H + δt_V (mK).",
+        "tr": "t_X = t_S + δt_S + δt_D − δt_iX + δt_R + δt_A + δt_H + δt_V (mK)."
+      },
+      {
+        "en": "Axial inhomogeneity (±250 mK) and radial differences (±100 mK) dominate: trapezoid with β = 0.43; EA-4/02 quotes k = 1.81 (Eq. S10.9 gives 1.80); t_X = (180.1 ± 0.3) °C.",
+        "tr": "Eksenel homojensizlik (±250 mK) ve radyal farklar (±100 mK) baskındır: β = 0,43 olan yamuk; EA-4/02 k = 1,81 verir (Eş. S10.9 1,80 verir); t_X = (180,1 ± 0,3) °C."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S11",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "dominant-rectangular",
+      "trapezoidal"
+    ],
+    "notes": [
+      {
+        "en": "Finding: the guide quotes k = 1.81 for β = 0.43; Eq. (S10.9) gives 1.80. The reported (180.1 ± 0.3) °C is unchanged.",
+        "tr": "Bulgu: rehber β = 0,43 için k = 1,81 verir; Eş. (S10.9) 1,80 verir. Raporlanan (180,1 ± 0,3) °C değişmez."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "t_X",
+      "unit": "mK",
+      "expression": "t_S + dt_S + dt_D - dt_iX + dt_R + dt_A + dt_H + dt_V",
+      "description": {
+        "en": "Temperature of the block (in mK)",
+        "tr": "Bloğun sıcaklığı (mK)"
+      }
+    },
+    "inputs": [
+      {
+        "name": "t_S",
+        "unit": "mK",
+        "description": {
+          "en": "Reference thermometer reading",
+          "tr": "Referans termometre okuması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 180100.0,
+          "expanded": 30.0,
+          "k": 2
+        }
+      },
+      {
+        "name": "dt_S",
+        "unit": "mK",
+        "description": {
+          "en": "Calibration of the reference thermometer",
+          "tr": "Referans termometrenin kalibrasyonu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 10.0
+        }
+      },
+      {
+        "name": "dt_D",
+        "unit": "mK",
+        "description": {
+          "en": "Drift of the reference thermometer",
+          "tr": "Referans termometrenin sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 40.0
+        }
+      },
+      {
+        "name": "dt_iX",
+        "unit": "mK",
+        "description": {
+          "en": "Resolution of the calibrator display",
+          "tr": "Kalibratör ekranının çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 50.0
+        }
+      },
+      {
+        "name": "dt_R",
+        "unit": "mK",
+        "description": {
+          "en": "Radial temperature differences",
+          "tr": "Radyal sıcaklık farkları"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 100.0
+        }
+      },
+      {
+        "name": "dt_A",
+        "unit": "mK",
+        "description": {
+          "en": "Axial inhomogeneity",
+          "tr": "Eksenel homojensizlik"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 250.0
+        }
+      },
+      {
+        "name": "dt_H",
+        "unit": "mK",
+        "description": {
+          "en": "Hysteresis",
+          "tr": "Histerezis"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 50.0
+        }
+      },
+      {
+        "name": "dt_V",
+        "unit": "mK",
+        "description": {
+          "en": "Temperature variation during measurement",
+          "tr": "Ölçüm sırasında sıcaklık değişimi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 30.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 11,
+      "coverage_probability": 0.95
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 180100.0,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 164.0,
+        "tolerance": 0.5
+      }
+    },
+    "reference": "EA-4/02 M:2022 S11.9–S11.11 (u = 164 mK)."
+  }
+}

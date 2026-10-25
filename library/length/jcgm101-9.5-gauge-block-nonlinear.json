@@ -1,0 +1,235 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.5-gauge-block-nonlinear",
+    "title": {
+      "en": "Gauge block calibration, non-linear model",
+      "tr": "Mastar kalibrasyonu, doğrusal olmayan model"
+    },
+    "description": {
+      "en": "JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (t, arc sine, curvilinear trapezoid); 99 % coverage.",
+      "tr": "JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, eğrisel yamuk) GUM H.1 mastarı; %99 kapsam."
+    },
+    "explanation": [
+      {
+        "en": "The length of an end gauge is obtained by comparison with a standard of the same nominal length (50 mm): l = l_s + d − l_s(δα θ + α_s δθ), with θ = θ̄ + Δ the temperature deviation from 20 °C.",
+        "tr": "Bir uç mastarının boyu, aynı anma boyundaki (50 mm) bir standartla karşılaştırılarak bulunur: l = l_s + d − l_s(δα θ + α_s δθ); burada θ = θ̄ + Δ, 20 °C'den sıcaklık sapmasıdır."
+      },
+      {
+        "en": "At the estimates δα = 0, δθ = 0, θ = −0.1 °C, the sensitivity coefficients of α_s, θ̄ and Δ vanish: their contributions appear only in second order (GUM H.1.7).",
+        "tr": "Tahmin değerlerinde (δα = 0, δθ = 0, θ = −0,1 °C) α_s, θ̄ ve Δ'nın duyarlılık katsayıları sıfırdır; katkıları yalnızca ikinci mertebede ortaya çıkar (GUM H.1.7)."
+      },
+      {
+        "en": "Type A inputs become scaled and shifted t distributions (JCGM 101 6.4.9); limits that are themselves inexactly known become curvilinear trapezoids (6.4.3), whose GUM degrees of freedom express the reliability of the limits.",
+        "tr": "A tipi girdiler ölçekli ve kaydırılmış t dağılımlarına dönüşür (JCGM 101 6.4.9); kendisi tam bilinmeyen sınırlar eğrisel yamuk dağılımlara dönüşür (6.4.3) ve GUM serbestlik dereceleri bu sınırların güvenilirliğini ifade eder."
+      },
+      {
+        "en": "The MCM gives u = 36 nm (GUM: 32 nm) because the product terms δα·θ and α_s·δθ are neglected to first order; the 99 % shortest interval is [745, 932] nm relative to 50 mm.",
+        "tr": "MCM u = 36 nm verir (GUM: 32 nm), çünkü δα·θ ve α_s·δθ çarpım terimleri birinci mertebede ihmal edilir; %99 en kısa aralık 50 mm'ye göre [745, 932] nm'dir."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.5, Tables 10 and 11",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      },
+      {
+        "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement (GUM)",
+        "section": "H.1",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm101",
+      "validation",
+      "dimensional",
+      "t-distribution",
+      "curvilinear-trapezoid"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dL",
+      "unit": "nm",
+      "expression": "(Ls*(1 + alpha_s*(theta0 + Delta - d_theta)) + D + d1 + d2) / (1 + (alpha_s + d_alpha)*(theta0 + Delta)) - 50000000",
+      "description": {
+        "en": "Deviation of the gauge length from 50 mm",
+        "tr": "Mastar boyunun 50 mm'den sapması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "Ls",
+        "unit": "nm",
+        "description": {
+          "en": "Length of the standard at 20 °C",
+          "tr": "Standardın 20 °C'deki boyu"
+        },
+        "distribution": {
+          "type": "t",
+          "mean": 50000623.0,
+          "scale": 25.0,
+          "dof": 18.0
+        }
+      },
+      {
+        "name": "D",
+        "unit": "nm",
+        "description": {
+          "en": "Mean difference of five indications",
+          "tr": "Beş göstergenin ortalama farkı"
+        },
+        "distribution": {
+          "type": "t",
+          "mean": 215.0,
+          "scale": 6.0,
+          "dof": 24.0
+        }
+      },
+      {
+        "name": "d1",
+        "unit": "nm",
+        "description": {
+          "en": "Random effects of the comparator",
+          "tr": "Komparatörün rastgele etkileri"
+        },
+        "distribution": {
+          "type": "t",
+          "mean": 0.0,
+          "scale": 4.0,
+          "dof": 5.0
+        }
+      },
+      {
+        "name": "d2",
+        "unit": "nm",
+        "description": {
+          "en": "Systematic effects of the comparator",
+          "tr": "Komparatörün sistematik etkileri"
+        },
+        "distribution": {
+          "type": "t",
+          "mean": 0.0,
+          "scale": 7.0,
+          "dof": 8.0
+        }
+      },
+      {
+        "name": "alpha_s",
+        "unit": "1/°C",
+        "description": {
+          "en": "Thermal expansion coefficient of the standard",
+          "tr": "Standardın ısıl genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 9.5e-06,
+          "upper": 1.35e-05
+        }
+      },
+      {
+        "name": "theta0",
+        "unit": "°C",
+        "description": {
+          "en": "Mean temperature deviation",
+          "tr": "Ortalama sıcaklık sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -0.1,
+          "sd": 0.2
+        }
+      },
+      {
+        "name": "Delta",
+        "unit": "°C",
+        "description": {
+          "en": "Cyclic temperature variation",
+          "tr": "Periyodik sıcaklık değişimi"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "lower": -0.5,
+          "upper": 0.5
+        }
+      },
+      {
+        "name": "d_alpha",
+        "unit": "1/°C",
+        "description": {
+          "en": "Difference of expansion coefficients (limits known to ±10 %)",
+          "tr": "Genleşme katsayıları farkı (sınırlar ±%10 belirsiz)"
+        },
+        "distribution": {
+          "type": "curvilinear_trapezoid",
+          "lower": -1e-06,
+          "upper": 1e-06,
+          "d": 1e-07
+        },
+        "dof": 50
+      },
+      {
+        "name": "d_theta",
+        "unit": "°C",
+        "description": {
+          "en": "Temperature difference of the gauges (limits known to ±50 %)",
+          "tr": "Mastarlar arası sıcaklık farkı (sınırlar ±%50 belirsiz)"
+        },
+        "distribution": {
+          "type": "curvilinear_trapezoid",
+          "lower": -0.05,
+          "upper": 0.05,
+          "d": 0.025
+        },
+        "dof": 2
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.99
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 40
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 838.0,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 32.0,
+        "tolerance": 0.5
+      },
+      "coverage_factor": {
+        "value": 2.92,
+        "tolerance": 0.005
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 838.0,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 36.0,
+        "tolerance": 0.5
+      },
+      "interval_low": {
+        "value": 745.0,
+        "tolerance": 1.5
+      },
+      "interval_high": {
+        "value": 932.0,
+        "tolerance": 1.5
+      }
+    },
+    "reference": "JCGM 101:2008 Table 11 (values rounded to 1 nm)."
+  }
+}

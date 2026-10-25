@@ -1,0 +1,248 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a2-naoh-standardisation-submodels",
+    "title": {
+      "en": "NaOH standardisation with sub-models",
+      "tr": "Alt modellerle NaOH ayarlanması"
+    },
+    "description": {
+      "en": "QUAM Example A2 with mass, molar mass and volume built from their components.",
+      "tr": "Kütle, molar kütle ve hacmin bileşenlerinden oluşturulduğu QUAM Örnek A2."
+    },
+    "explanation": [
+      {
+        "en": "m_KHP = m_gross − m_tare; each weighing carries a balance linearity term ±0.15 mg (rectangular).",
+        "tr": "m_KHP = m_brüt − m_dara; her tartım ±0,15 mg'lık terazi doğrusallık terimi (dikdörtgen) içerir."
+      },
+      {
+        "en": "M_KHP = 8A_C + 5A_H + 4A_O + A_K from IUPAC atomic weights; the atoms of one element are fully correlated, which the model expresses by multiplying the single atomic weight by the number of atoms.",
+        "tr": "M_KHP = 8A_C + 5A_H + 4A_O + A_K, IUPAC atom ağırlıklarından; bir elementin atomları tam korelasyonludur ve model bunu tek atom ağırlığını atom sayısıyla çarparak ifade eder."
+      },
+      {
+        "en": "V_T = 18.64 mL + burette calibration (±0.03 mL, triangular) + temperature effect (19 mL × 2.1 × 10⁻⁴ °C⁻¹ × 3 °C / 1.96, normal).",
+        "tr": "V_T = 18,64 mL + büret kalibrasyonu (±0,03 mL, üçgen) + sıcaklık etkisi (19 mL × 2,1 × 10⁻⁴ °C⁻¹ × 3 °C / 1,96, normal)."
+      },
+      {
+        "en": "Result: (0.1021 ± 0.0002) mol/L with k = 2, as in the guide.",
+        "tr": "Sonuç: rehberdeki gibi k = 2 ile (0,1021 ± 0,0002) mol/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A2, A2.4",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "sub-model",
+      "titration",
+      "atomic-weights"
+    ],
+    "notes": [
+      {
+        "en": "Finding: the guide rounds 0.15/√3 = 0.087 mg to 0.09 mg, giving u(m) = 0.13 mg; unrounded u(m) = 0.12 mg. Likewise u(V_T) = 0.0137 mL (guide 0.013). The unrounded combined uncertainty is 0.000101 mol/L (guide 0.000099); the reported result is unchanged.",
+        "tr": "Bulgu: rehber 0,15/√3 = 0,087 mg değerini 0,09 mg'ye yuvarlayarak u(m) = 0,13 mg bulur; yuvarlanmamış u(m) = 0,12 mg'dir. Benzer şekilde u(V_T) = 0,0137 mL'dir (rehber 0,013). Yuvarlanmamış birleşik belirsizlik 0,000101 mol/L'dir (rehber 0,000099); raporlanan sonuç değişmez."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_NaOH",
+      "unit": "mol/L",
+      "expression": "1000 * m_KHP * P_KHP / (M_KHP * V_T) * rep",
+      "description": {
+        "en": "Concentration of the NaOH solution",
+        "tr": "NaOH çözeltisinin derişimi"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "m_KHP",
+        "expression": "m_gross - m_tare",
+        "unit": "g",
+        "description": {
+          "en": "Mass of KHP",
+          "tr": "KHP kütlesi"
+        }
+      },
+      {
+        "name": "M_KHP",
+        "expression": "8*A_C + 5*A_H + 4*A_O + A_K",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of KHP",
+          "tr": "KHP'nin molar kütlesi"
+        }
+      },
+      {
+        "name": "V_T",
+        "expression": "18.64 + dV_cal + dV_temp",
+        "unit": "mL",
+        "description": {
+          "en": "Titration volume",
+          "tr": "Titrasyon hacmi"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "name": "rep",
+        "description": {
+          "en": "Repeatability factor",
+          "tr": "Tekrarlanabilirlik çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.0005
+        }
+      },
+      {
+        "name": "m_gross",
+        "unit": "g",
+        "description": {
+          "en": "Container and KHP",
+          "tr": "Kap ve KHP"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 60.545,
+          "half_width": 0.00015
+        }
+      },
+      {
+        "name": "m_tare",
+        "unit": "g",
+        "description": {
+          "en": "Empty container",
+          "tr": "Boş kap"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 60.1562,
+          "half_width": 0.00015
+        }
+      },
+      {
+        "name": "P_KHP",
+        "description": {
+          "en": "Purity of KHP (1.0000 ± 0.0005)",
+          "tr": "KHP saflığı (1,0000 ± 0,0005)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.0,
+          "half_width": 0.0005
+        }
+      },
+      {
+        "name": "A_C",
+        "unit": "g/mol",
+        "description": {
+          "en": "Atomic weight of C",
+          "tr": "C atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 12.0107,
+          "half_width": 0.0008
+        }
+      },
+      {
+        "name": "A_H",
+        "unit": "g/mol",
+        "description": {
+          "en": "Atomic weight of H",
+          "tr": "H atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.00794,
+          "half_width": 7e-05
+        }
+      },
+      {
+        "name": "A_O",
+        "unit": "g/mol",
+        "description": {
+          "en": "Atomic weight of O",
+          "tr": "O atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 15.9994,
+          "half_width": 0.0003
+        }
+      },
+      {
+        "name": "A_K",
+        "unit": "g/mol",
+        "description": {
+          "en": "Atomic weight of K",
+          "tr": "K atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 39.0983,
+          "half_width": 0.0001
+        }
+      },
+      {
+        "name": "dV_cal",
+        "unit": "mL",
+        "description": {
+          "en": "Burette calibration",
+          "tr": "Büret kalibrasyonu"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 0.03
+        }
+      },
+      {
+        "name": "dV_temp",
+        "unit": "mL",
+        "description": {
+          "en": "Temperature effect (±3 °C at 95 %)",
+          "tr": "Sıcaklık etkisi (%95'te ±3 °C)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.006107142857142858
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 21
+    }
+  },
+  "reporting": {
+    "significant_digits": 1
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.102136,
+        "tolerance": 5e-07
+      },
+      "expanded_uncertainty": {
+        "value": 0.0002,
+        "tolerance": 5e-05
+      }
+    },
+    "reference": "QUAM:2012 A2.4–A2.6, result (0.1021 ± 0.0002) mol/L."
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.4-comparison-loss-x050",
+    "title": {
+      "en": "Comparison loss, x₁ = 0.05",
+      "tr": "Karşılaştırma kaybı, x₁ = 0,05"
+    },
+    "description": {
+      "en": "JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).",
+      "tr": "JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde)."
+    },
+    "explanation": [
+      {
+        "en": "The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.",
+        "tr": "Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir."
+      },
+      {
+        "en": "Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.",
+        "tr": "∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir."
+      },
+      {
+        "en": "Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.",
+        "tr": "Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır."
+      },
+      {
+        "en": "The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.",
+        "tr": "Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.4, Table 8",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm101",
+      "validation",
+      "non-linear",
+      "asymmetric"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dY",
+      "unit": "10⁻⁶",
+      "expression": "1e6 * (X1^2 + X2^2)",
+      "description": {
+        "en": "Comparison loss",
+        "tr": "Karşılaştırma kaybı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "X1",
+        "description": {
+          "en": "Real part of the reflection coefficient",
+          "tr": "Yansıma katsayısının gerçel kısmı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.05,
+          "sd": 0.005
+        }
+      },
+      {
+        "name": "X2",
+        "description": {
+          "en": "Imaginary part of the reflection coefficient",
+          "tr": "Yansıma katsayısının sanal kısmı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.005
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "higher_order": true
+    },
+    "mcm": {
+      "trials": 2000000,
+      "seed": 12,
+      "coverage_probability": 0.95
+    }
+  },
+  "expected": {
+    "gum": {
+      "standard_uncertainty": {
+        "value": 502.0,
+        "tolerance": 0.5
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 2550.0,
+        "tolerance": 2.5
+      },
+      "standard_uncertainty": {
+        "value": 502.494,
+        "tolerance": 1.0
+      },
+      "interval_low": {
+        "value": 1593.57,
+        "tolerance": 16.0
+      },
+      "interval_high": {
+        "value": 3548.57,
+        "tolerance": 17.0
+      }
+    },
+    "reference": "JCGM 101:2008 Table 8 and the analytic non-central χ² solution (Annex F); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶."
+  }
+}

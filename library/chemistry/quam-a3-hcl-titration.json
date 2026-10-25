@@ -1,0 +1,179 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a3-hcl-titration",
+    "title": {
+      "en": "Acid–base titration of hydrochloric acid",
+      "tr": "Hidroklorik asidin asit–baz titrasyonu"
+    },
+    "description": {
+      "en": "QUAM Example A3: HCl titrated with NaOH that was itself standardised against KHP.",
+      "tr": "QUAM Örnek A3: KHP'ye karşı ayarlanmış NaOH ile HCl titrasyonu."
+    },
+    "explanation": [
+      {
+        "en": "c_HCl = 1000 · m_KHP · P_KHP · V_T2 / (V_T1 · M_KHP · V_HCl) · rep: V_T1 is the NaOH volume in the standardisation, V_T2 in the titration of 15 mL of HCl.",
+        "tr": "c_HCl = 1000 · m_KHP · P_KHP · V_T2 / (V_T1 · M_KHP · V_HCl) · rep: V_T1 ayarlamadaki, V_T2 ise 15 mL HCl'nin titrasyonundaki NaOH hacmidir."
+      },
+      {
+        "en": "The repeatability of the whole two-step procedure is 0.1 % (rep), the largest single contribution.",
+        "tr": "İki adımlı işlemin tamamının tekrarlanabilirliği %0,1'dir (rep); en büyük tekil katkı budur."
+      },
+      {
+        "en": "c = (0.1014 ± 0.0004) mol/L with k = 2.",
+        "tr": "k = 2 ile c = (0,1014 ± 0,0004) mol/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A3, Tables A3.2 and A3.3",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "validation",
+      "titration"
+    ],
+    "notes": [
+      {
+        "en": "Finding: summary Table A3.1 states u_c = 0.00016 mol/L, but its own inputs give 0.00019 mol/L; 0.00016 is the result of the triple determination (Table A3.4).",
+        "tr": "Bulgu: Özet Tablo A3.1 u_c = 0,00016 mol/L verir, ancak kendi girdileri 0,00019 mol/L sonucunu verir; 0,00016 üçlü tayinin sonucudur (Tablo A3.4)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_HCl",
+      "unit": "mol/L",
+      "expression": "1000 * m_KHP * P_KHP * V_T2 / (V_T1 * M_KHP * V_HCl) * rep",
+      "description": {
+        "en": "Concentration of HCl",
+        "tr": "HCl derişimi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "rep",
+        "description": {
+          "en": "Repeatability factor",
+          "tr": "Tekrarlanabilirlik çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "m_KHP",
+        "unit": "g",
+        "description": {
+          "en": "Mass of KHP",
+          "tr": "KHP kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.3888,
+          "sd": 0.00012
+        }
+      },
+      {
+        "name": "P_KHP",
+        "description": {
+          "en": "Purity of KHP",
+          "tr": "KHP saflığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.00029
+        }
+      },
+      {
+        "name": "V_T2",
+        "unit": "mL",
+        "description": {
+          "en": "NaOH volume for the HCl titration",
+          "tr": "HCl titrasyonu için NaOH hacmi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 14.89,
+          "sd": 0.014
+        }
+      },
+      {
+        "name": "V_T1",
+        "unit": "mL",
+        "description": {
+          "en": "NaOH volume for the standardisation",
+          "tr": "Ayarlama için NaOH hacmi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 18.64,
+          "sd": 0.015
+        }
+      },
+      {
+        "name": "M_KHP",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of KHP",
+          "tr": "KHP'nin molar kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 204.2212,
+          "sd": 0.0038
+        }
+      },
+      {
+        "name": "V_HCl",
+        "unit": "mL",
+        "description": {
+          "en": "Aliquot of HCl",
+          "tr": "HCl hacmi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 15.0,
+          "sd": 0.011
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 3
+    }
+  },
+  "reporting": {
+    "significant_digits": 1
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.101387,
+        "tolerance": 5e-07
+      },
+      "standard_uncertainty": {
+        "value": 0.00018276,
+        "tolerance": 5e-07
+      },
+      "expanded_uncertainty": {
+        "value": 0.0004,
+        "tolerance": 5e-05
+      }
+    },
+    "reference": "QUAM:2012 Table A3.3 (u_c = √3.34 × 10⁻⁸ mol/L) and result (0.1014 ± 0.0004) mol/L."
+  }
+}

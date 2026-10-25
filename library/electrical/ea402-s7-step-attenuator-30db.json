@@ -1,0 +1,211 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s7-step-attenuator-30db",
+    "title": {
+      "en": "Calibration of a coaxial step attenuator (30 dB)",
+      "tr": "Koaksiyel kademeli zayıflatıcının kalibrasyonu (30 dB)"
+    },
+    "description": {
+      "en": "EA-4/02 S7: 30 dB step of a coaxial attenuator at 10 GHz, with mismatch from S-parameters.",
+      "tr": "EA-4/02 S7: koaksiyel zayıflatıcının 10 GHz'de 30 dB kademesi; uyumsuzluk S parametrelerinden."
+    },
+    "explanation": [
+      {
+        "en": "L_X = L_S + δL_S + δL_D + δL_M + δL_K + δL_ib − δL_ia + δL_0b − δL_0a (dB).",
+        "tr": "L_X = L_S + δL_S + δL_D + δL_M + δL_K + δL_ib − δL_ia + δL_0b − δL_0a (dB)."
+      },
+      {
+        "en": "L_S is the mean of four observations (Type A, 3 degrees of freedom); the mismatch term is computed from the reflection coefficients of source, load and attenuator (Eq. S7.2): u(δL_M) = 0.0198 dB.",
+        "tr": "L_S dört gözlemin ortalamasıdır (A tipi, 3 serbestlik derecesi); uyumsuzluk terimi kaynak, yük ve zayıflatıcının yansıma katsayılarından hesaplanır (Eş. S7.2): u(δL_M) = 0,0198 dB."
+      },
+      {
+        "en": "L_X = (30.043 ± 0.045) dB (k = 2).",
+        "tr": "L_X = (30,043 ± 0,045) dB (k = 2)."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S7",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "type-a",
+      "rf"
+    ],
+    "notes": [
+      {
+        "en": "Finding: the budget prints the contribution of δL_ib as 0.0019 dB although its standard uncertainty is 0.0003 dB; the printed total 0.0223 dB includes the 0.0019 value (0.0222 dB without it). The reported result is unchanged.",
+        "tr": "Bulgu: bütçe δL_ib'nin katkısını 0,0019 dB olarak verir, oysa standart belirsizliği 0,0003 dB'dir; basılı toplam 0,0223 dB bu 0,0019 değerini içerir (onsuz 0,0222 dB). Raporlanan sonuç değişmez."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "L_X",
+      "unit": "dB",
+      "expression": "L_S + dL_S + dL_D + dL_M + dL_K + dL_ib - dL_ia + dL_0b - dL_0a",
+      "description": {
+        "en": "Attenuation of the 30 dB step",
+        "tr": "30 dB kademesinin zayıflatması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "L_S",
+        "unit": "dB",
+        "description": {
+          "en": "Observed attenuation (4 readings)",
+          "tr": "Gözlenen zayıflatma (4 okuma)"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            30.033,
+            30.058,
+            30.018,
+            30.052
+          ]
+        }
+      },
+      {
+        "name": "dL_S",
+        "unit": "dB",
+        "description": {
+          "en": "Calibration of the standard",
+          "tr": "Standardın kalibrasyonu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.003,
+          "expanded": 0.005,
+          "k": 2
+        }
+      },
+      {
+        "name": "dL_D",
+        "unit": "dB",
+        "description": {
+          "en": "Drift of the standard",
+          "tr": "Standardın sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.002
+        }
+      },
+      {
+        "name": "dL_M",
+        "unit": "dB",
+        "description": {
+          "en": "Mismatch (Eq. S7.2)",
+          "tr": "Uyumsuzluk (Eş. S7.2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.01978783548021852
+        }
+      },
+      {
+        "name": "dL_K",
+        "unit": "dB",
+        "description": {
+          "en": "Leakage",
+          "tr": "Kaçak"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.003
+        }
+      },
+      {
+        "name": "dL_ia",
+        "unit": "dB",
+        "description": {
+          "en": "Resolution, reference setting",
+          "tr": "Çözünürlük, referans ayarı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.0005
+        }
+      },
+      {
+        "name": "dL_ib",
+        "unit": "dB",
+        "description": {
+          "en": "Resolution, attenuation setting",
+          "tr": "Çözünürlük, zayıflatma ayarı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.0005
+        }
+      },
+      {
+        "name": "dL_0a",
+        "unit": "dB",
+        "description": {
+          "en": "Noise, reference setting",
+          "tr": "Gürültü, referans ayarı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.002
+        }
+      },
+      {
+        "name": "dL_0b",
+        "unit": "dB",
+        "description": {
+          "en": "Noise, attenuation setting",
+          "tr": "Gürültü, zayıflatma ayarı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.002
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 30.043,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.0223,
+        "tolerance": 0.00015
+      },
+      "expanded_uncertainty": {
+        "value": 0.045,
+        "tolerance": 0.0006
+      }
+    },
+    "reference": "EA-4/02 M:2022 S7.12–S7.13 (u = 0.0223 dB, U = 0.045 dB)."
+  }
+}

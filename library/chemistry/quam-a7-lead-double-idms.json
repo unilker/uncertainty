@@ -1,0 +1,532 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a7-lead-double-idms",
+    "title": {
+      "en": "Lead in water by double isotope dilution",
+      "tr": "Suda kurşunun çift izotop seyreltmesiyle tayini"
+    },
+    "description": {
+      "en": "QUAM Example A7, Eq. (5): double IDMS with mass-bias-corrected isotope ratios (replicate 1).",
+      "tr": "QUAM Örnek A7, Eş. (5): kütle ayrımı düzeltilmiş izotop oranlarıyla çift IDMS (1. tekrar)."
+    },
+    "explanation": [
+      {
+        "en": "c_x = c_z · (m_y/m_x) · (m_z/m_y') · (K_y1R_y1 − K_bR_b)/(K_bR_b − K_x1R_x1) · (K_b'R_b' − K_z1R_z1)/(K_y1R_y1 − K_b'R_b') · ΣK_xiR_xi/ΣK_ziR_zi − c_blank, with every K = K₀ + K_bias.",
+        "tr": "c_x = c_z · (m_y/m_x) · (m_z/m_y') · (K_y1R_y1 − K_bR_b)/(K_bR_b − K_x1R_x1) · (K_b'R_b' − K_z1R_z1)/(K_y1R_y1 − K_b'R_b') · ΣK_xiR_xi/ΣK_ziR_zi − c_kör; her K = K₀ + K_sapma."
+      },
+      {
+        "en": "Type A uncertainties of the ratios and K₀ are divided by √8 (mean of eight measurements); the bias terms K_bias (u = 0.001 each) contribute about 38 % of the variance.",
+        "tr": "Oranların ve K₀'ın A tipi belirsizlikleri √8'e bölünür (sekiz ölçümün ortalaması); K_sapma terimleri (her biri u = 0,001) varyansın yaklaşık %38'ini oluşturur."
+      },
+      {
+        "en": "c_x = 0.053738 µmol/g with u_c = 0.00018 µmol/g.",
+        "tr": "c_x = 0,053738 µmol/g, u_c = 0,00018 µmol/g."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A7, Eq. (5), Tables A7.4–A7.8",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "validation",
+      "idms",
+      "isotope-ratios"
+    ],
+    "notes": [
+      {
+        "en": "The reported (0.05370 ± 0.00036) µmol/g uses the mean of four replicates; without the division by √8 the experimental u_c would be 0.00041 µmol/g.",
+        "tr": "Raporlanan (0,05370 ± 0,00036) µmol/g dört tekrarın ortalamasını kullanır; √8'e bölme yapılmasaydı deneysel u_c 0,00041 µmol/g olurdu."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_x",
+      "unit": "µmol/g",
+      "expression": "c_z * m_y/m_x * m_z/m_y2 * (K_y1*R_y1 - K_b*R_b)/(K_b*R_b - K_x1*R_x1) * (K_b2*R_b2 - K_z1*R_z1)/(K_y1*R_y1 - K_b2*R_b2) * sum_x/sum_z - c_blank",
+      "description": {
+        "en": "Amount content of lead in the water sample",
+        "tr": "Su numunesindeki kurşunun madde miktarı içeriği"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "K_b",
+        "expression": "K0_b + Kbias_b"
+      },
+      {
+        "name": "K_b2",
+        "expression": "K0_b2 + Kbias_b2"
+      },
+      {
+        "name": "K_x1",
+        "expression": "K0_x1 + Kbias_x1"
+      },
+      {
+        "name": "K_x3",
+        "expression": "K0_x3 + Kbias_x3"
+      },
+      {
+        "name": "K_x4",
+        "expression": "K0_x4 + Kbias_x4"
+      },
+      {
+        "name": "K_y1",
+        "expression": "K0_y1 + Kbias_y1"
+      },
+      {
+        "name": "K_z1",
+        "expression": "K0_z1 + Kbias_z1"
+      },
+      {
+        "name": "K_z3",
+        "expression": "K0_z3 + Kbias_z3"
+      },
+      {
+        "name": "K_z4",
+        "expression": "K0_z4 + Kbias_z4"
+      },
+      {
+        "name": "sum_x",
+        "expression": "K_x1*R_x1 + 1 + K_x3*R_x3 + K_x4*R_x4"
+      },
+      {
+        "name": "sum_z",
+        "expression": "K_z1*R_z1 + 1 + K_z3*R_z3 + K_z4*R_z4"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "c_z",
+        "unit": "µmol/g",
+        "description": {
+          "en": "Amount content of the assay standard",
+          "tr": "Tayin standardının madde miktarı içeriği"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.092605,
+          "sd": 2.8e-05
+        }
+      },
+      {
+        "name": "m_x",
+        "unit": "g",
+        "description": {
+          "en": "Mass of sample in blend b",
+          "tr": "b karışımındaki numune kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.044,
+          "sd": 0.0002
+        }
+      },
+      {
+        "name": "m_y",
+        "unit": "g",
+        "description": {
+          "en": "Mass of spike in blend b",
+          "tr": "b karışımındaki işaretleyici kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.136,
+          "sd": 0.0002
+        }
+      },
+      {
+        "name": "m_y2",
+        "unit": "g",
+        "description": {
+          "en": "Mass of spike in blend b'",
+          "tr": "b' karışımındaki işaretleyici kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0654,
+          "sd": 0.0002
+        }
+      },
+      {
+        "name": "m_z",
+        "unit": "g",
+        "description": {
+          "en": "Mass of assay standard in blend b'",
+          "tr": "b' karışımındaki tayin standardı kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.1029,
+          "sd": 0.0002
+        }
+      },
+      {
+        "name": "K0_b",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.0025/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,0025/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9987,
+          "sd": 0.0008838834764831843
+        }
+      },
+      {
+        "name": "K0_b2",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.0025/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,0025/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9983,
+          "sd": 0.0008838834764831843
+        }
+      },
+      {
+        "name": "K0_x1",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.0025/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,0025/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9992,
+          "sd": 0.0008838834764831843
+        }
+      },
+      {
+        "name": "K0_x3",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.0035/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,0035/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0004,
+          "sd": 0.0012374368670764581
+        }
+      },
+      {
+        "name": "K0_x4",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.006/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,006/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.001,
+          "sd": 0.0021213203435596424
+        }
+      },
+      {
+        "name": "K0_y1",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.0025/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,0025/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9999,
+          "sd": 0.0008838834764831843
+        }
+      },
+      {
+        "name": "K0_z1",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.0025/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,0025/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9989,
+          "sd": 0.0008838834764831843
+        }
+      },
+      {
+        "name": "K0_z3",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.0035/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,0035/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9993,
+          "sd": 0.0012374368670764581
+        }
+      },
+      {
+        "name": "K0_z4",
+        "description": {
+          "en": "Mass-bias correction factor (measured); u = 0.006/√8",
+          "tr": "Kütle ayrımı düzeltme çarpanı (ölçülen); u = 0,006/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0002,
+          "sd": 0.0021213203435596424
+        }
+      },
+      {
+        "name": "R_b",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.00073/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,00073/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.2936,
+          "sd": 0.0002580939751330898
+        }
+      },
+      {
+        "name": "R_b2",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.0013/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,0013/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.505,
+          "sd": 0.0004596194077712558
+        }
+      },
+      {
+        "name": "R_x1",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.0054/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,0054/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 2.1402,
+          "sd": 0.0019091883092036783
+        }
+      },
+      {
+        "name": "R_x3",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.0032/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,0032/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9142,
+          "sd": 0.001131370849898476
+        }
+      },
+      {
+        "name": "R_x4",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.00035/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,00035/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.05901,
+          "sd": 0.0001237436867076458
+        }
+      },
+      {
+        "name": "R_y1",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 4e-05/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 4e-05/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.00064,
+          "sd": 1.4142135623730951e-05
+        }
+      },
+      {
+        "name": "R_z1",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.0054/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,0054/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 2.1429,
+          "sd": 0.0019091883092036783
+        }
+      },
+      {
+        "name": "R_z3",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.0032/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,0032/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9147,
+          "sd": 0.001131370849898476
+        }
+      },
+      {
+        "name": "R_z4",
+        "description": {
+          "en": "Measured isotope amount ratio; u = 0.00035/√8",
+          "tr": "Ölçülen izotop madde miktarı oranı; u = 0,00035/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0587,
+          "sd": 0.0001237436867076458
+        }
+      },
+      {
+        "name": "c_blank",
+        "unit": "µmol/g",
+        "description": {
+          "en": "Procedure blank; u = 4.0 × 10⁻⁷/√8",
+          "tr": "Yöntem körü; u = 4,0 × 10⁻⁷/√8"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 4.5e-07,
+          "sd": 1.414213562373095e-07
+        }
+      },
+      {
+        "name": "Kbias_b",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_b2",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_x1",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_x3",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_x4",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_y1",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_z1",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_z3",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "Kbias_z4",
+        "description": {
+          "en": "Bias of the mass-bias correction",
+          "tr": "Kütle ayrımı düzeltmesinin sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.001
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 8
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.053738,
+        "tolerance": 3e-06
+      },
+      "standard_uncertainty": {
+        "value": 0.00018,
+        "tolerance": 5e-06
+      }
+    },
+    "reference": "QUAM:2012 Example A7, Table A7.8 (replicate 1)."
+  }
+}

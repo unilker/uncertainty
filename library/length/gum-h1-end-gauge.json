@@ -1,0 +1,213 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum-h1-end-gauge",
+    "title": {
+      "en": "End-gauge calibration (GUM H.1)",
+      "tr": "Uç mastarı kalibrasyonu (GUM H.1)"
+    },
+    "description": {
+      "en": "JCGM 100 Annex H.1: calibration of a 50 mm end gauge; Welch–Satterthwaite effective degrees of freedom and k for 99 %.",
+      "tr": "JCGM 100 Ek H.1: 50 mm'lik bir uç mastarının kalibrasyonu; Welch–Satterthwaite etkin serbestlik derecesi ve %99 için k."
+    },
+    "explanation": [
+      {
+        "en": "The length of an end gauge is obtained by comparison with a standard of the same nominal length (50 mm): l = l_s + d − l_s(δα θ + α_s δθ), with θ = θ̄ + Δ the temperature deviation from 20 °C.",
+        "tr": "Bir uç mastarının boyu, aynı anma boyundaki (50 mm) bir standartla karşılaştırılarak bulunur: l = l_s + d − l_s(δα θ + α_s δθ); burada θ = θ̄ + Δ, 20 °C'den sıcaklık sapmasıdır."
+      },
+      {
+        "en": "At the estimates δα = 0, δθ = 0, θ = −0.1 °C, the sensitivity coefficients of α_s, θ̄ and Δ vanish: their contributions appear only in second order (GUM H.1.7).",
+        "tr": "Tahmin değerlerinde (δα = 0, δθ = 0, θ = −0,1 °C) α_s, θ̄ ve Δ'nın duyarlılık katsayıları sıfırdır; katkıları yalnızca ikinci mertebede ortaya çıkar (GUM H.1.7)."
+      },
+      {
+        "en": "Degrees of freedom: l_s 18, d 25.6, δα 50 (10 % reliable), δθ 2 (50 % reliable, GUM G.4.2). The Welch–Satterthwaite formula gives ν_eff = 16.7, truncated to 16, and k₉₉ = t₀.₉₉(16) = 2.92.",
+        "tr": "Serbestlik dereceleri: l_s 18, d 25,6, δα 50 (%10 güvenilir), δθ 2 (%50 güvenilir, GUM G.4.2). Welch–Satterthwaite formülü ν_eff = 16,7 verir; 16'ya kesilir ve k₉₉ = t₀,₉₉(16) = 2,92 olur."
+      },
+      {
+        "en": "u_c = 32 nm and U₉₉ = 2.92 × 32 nm = 93 nm; l = (50.000 838 ± 0.000 093) mm.",
+        "tr": "u_c = 32 nm ve U₉₉ = 2,92 × 32 nm = 93 nm; l = (50,000 838 ± 0,000 093) mm."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement (GUM)",
+        "section": "H.1, Table H.1",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "gum",
+      "validation",
+      "welch-satterthwaite",
+      "dimensional"
+    ],
+    "notes": [
+      {
+        "en": "The GUM multiplies the rounded u_c = 32 nm (2.92 × 32 = 93 nm); the unrounded value 31.7 nm gives U = 92.5 nm. Including the second-order terms 11.7 and 1.7 nm (H.1.7) raises u_c to 34 nm.",
+        "tr": "GUM yuvarlanmış u_c = 32 nm değerini çarpar (2,92 × 32 = 93 nm); yuvarlanmamış 31,7 nm ile U = 92,5 nm bulunur. İkinci mertebe 11,7 ve 1,7 nm terimleri (H.1.7) eklendiğinde u_c 34 nm'ye çıkar."
+      },
+      {
+        "en": "The Monte Carlo result treats d as Gaussian; JCGM 101 9.5 (projects jcgm101-9.5-*) uses t distributions and curvilinear trapezoids for the inputs instead.",
+        "tr": "Monte Carlo sonucu d'yi normal dağılımlı kabul eder; JCGM 101 9.5 (jcgm101-9.5-* projeleri) bunun yerine girdiler için t dağılımları ve eğrisel yamuk dağılımlar kullanır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "l",
+      "unit": "nm",
+      "expression": "l_s + d - l_s*(d_alpha*theta + alpha_s*d_theta)",
+      "description": {
+        "en": "Length of the end gauge",
+        "tr": "Uç mastarının boyu"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "theta",
+        "expression": "theta_bar + Delta",
+        "unit": "°C",
+        "description": {
+          "en": "Temperature deviation from 20 °C",
+          "tr": "20 °C'den sıcaklık sapması"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "name": "l_s",
+        "unit": "nm",
+        "description": {
+          "en": "Length of the standard (calibration certificate)",
+          "tr": "Standardın boyu (kalibrasyon sertifikası)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 50000623.0,
+          "sd": 25.0
+        },
+        "dof": 18
+      },
+      {
+        "name": "d",
+        "unit": "nm",
+        "description": {
+          "en": "Measured length difference (mean of 5 readings, comparator)",
+          "tr": "Ölçülen boy farkı (5 okumanın ortalaması, komparatör)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 215.0,
+          "sd": 9.7
+        },
+        "dof": 25.6
+      },
+      {
+        "name": "alpha_s",
+        "unit": "1/°C",
+        "description": {
+          "en": "Thermal expansion coefficient of the standard",
+          "tr": "Standardın ısıl genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.15e-05,
+          "half_width": 2e-06
+        }
+      },
+      {
+        "name": "theta_bar",
+        "unit": "°C",
+        "description": {
+          "en": "Mean temperature deviation of the bed",
+          "tr": "Tablanın ortalama sıcaklık sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -0.1,
+          "sd": 0.2
+        }
+      },
+      {
+        "name": "Delta",
+        "unit": "°C",
+        "description": {
+          "en": "Cyclic temperature variation",
+          "tr": "Periyodik sıcaklık değişimi"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "d_alpha",
+        "unit": "1/°C",
+        "description": {
+          "en": "Difference of expansion coefficients",
+          "tr": "Genleşme katsayıları farkı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1e-06
+        },
+        "dof": 50
+      },
+      {
+        "name": "d_theta",
+        "unit": "°C",
+        "description": {
+          "en": "Temperature difference of the gauges",
+          "tr": "Mastarlar arası sıcaklık farkı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        },
+        "dof": 2
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.99
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 40
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 50000838.0,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 32.0,
+        "tolerance": 0.5
+      },
+      "effective_dof": {
+        "value": 16.7,
+        "tolerance": 0.1
+      },
+      "coverage_factor": {
+        "value": 2.92,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 93.0,
+        "tolerance": 0.6
+      }
+    },
+    "reference": "JCGM 100:2008 H.1.4–H.1.6 (u_c = 32 nm, ν_eff = 16.7, k = 2.92, U = 93 nm)."
+  }
+}

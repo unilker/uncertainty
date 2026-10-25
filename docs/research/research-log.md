@@ -341,7 +341,7 @@ from raw data wherever given. Every reported *result* was reproduced, but
 roughly half of the examples contain at least one printed inconsistency
 (intermediate rounding, transcription slips, or a value inconsistent with
 the stated inputs). Only two affect a printed final value beyond rounding
-(Nordtest §6.1: 4.1 → 4.2 %; EURACHEM A5: u(a_V) 0.19 → 0.15 dm²). This
+(Nordtest §6.1: 4.1 → 4.2 %; EURACHEM A5: u(a_V) 0.19 → 0.15 dm²; see also F21, EA-4/02 S13). This
 supports the argument that validation of uncertainty software should
 recompute examples from their inputs, with documented tolerances, rather
 than match printed numbers.
@@ -385,3 +385,82 @@ owners can revise their guides after publication. Conditions adopted:
    inputs with documented tolerances), not as criticism of the guides.
 5. A courtesy notice to the owners before submission remains optional;
    default is none.
+
+---
+
+## 2026-10-25 (session 4) — Project files, reports, CLI, example library
+
+**D13. Project file format.** Projects are JSON documents
+(`"format": "uncertainty-calculations/project"`, `"version": 1`) read with
+`deny_unknown_fields`, so a misspelt key is an error rather than a silently
+ignored setting. A file holds bilingual metadata (title, description,
+step-by-step explanation, notes, sources), the model, analysis options,
+reporting rule and — optionally — reference values with tolerances. The
+format lives in a separate crate (`project`, serde) so that the
+computation core keeps no dependencies. Distributions accept the forms in
+which information is found in certificates and guides (limits or
+value ± half-width; u or U with k; raw observations → Type A, JCGM 101
+6.4.9).
+
+**D14. Reports.** Markdown and self-contained HTML (inline SVG, no external
+resources, light/dark) in English or Turkish; Turkish uses the decimal
+comma and the prefixed percent sign (%95), following TDK usage. Every
+report states the methods, sources, the MCM seed and number of trials
+(reproducibility), the JCGM 101 clause 8 validation, and the citation
+required by ADDITIONAL-TERMS.md. The MCM coverage probability defaults to
+that of the GUM result (k = 2 → 95.45 %), so the validation compares like
+with like.
+
+**D15. Reference values in the example library.** A library file states a
+published value only where the document reproduces it from its own inputs
+(within its printed rounding); otherwise the value is recomputed (analytic
+solution or independent high-precision MC, `validation/`) and the
+discrepancy is recorded in `notes`. An engine's own Monte Carlo output is
+never used as its own reference. MC tolerances ≈ 5σ of the measured
+dispersion (unchanged from D9). `cargo test` runs the whole library
+(`project/tests/library.rs`); 38 projects, all passing.
+
+**F21. EA-4/02 S13 — printed diameter not reproducible from the data
+(class c).** The budget (S13.10) uses Δl = 49.999 55 mm although the mean
+of the five observations is 49.999 536 mm, and the coaxiality correction
++0.000 004 mm although Eq. (S13.5) gives −0.0037 µm. It obtains
+d_X = 90.000 25 mm, reported as (90.000 3 ± 0.000 9) mm. From the data,
+d_X = 90.000 232 mm → (90.000 2 ± 0.000 9) mm. The change (0.1 µm) is far
+inside U but alters the printed value; F20 now lists three class (c)
+findings (Nordtest §6.1, EURACHEM A5, EA-4/02 S13). Also: u(Δl) is printed
+0.30 µm, √(0.15² + 0.25²) = 0.29 µm, which gives u_c = 0.404 instead of
+0.411 µm (U still reported 0.9 µm with round-up).
+
+**F22. EA-4/02 S12 — s rounded before use (class a).** s of the three
+relative errors is 0.00104 (printed 0.001); u = s/√3 = 0.60 × 10⁻³ is used,
+consistent with u_c = 0.91 × 10⁻³ and ν_eff = 10. Computing from the
+printed s = 0.001 gives 0.89 × 10⁻³ and ν_eff = 11.5 (→ 11), k = 2.25.
+
+**F23. JCGM 101 9.2.3 — validation on the threshold.** For four rectangular
+inputs the exact endpoint difference (0.039) lies just below δ = 0.05;
+JCGM 101 reports the GUM result validated in one adaptive run and not in
+the other (9.2.3.4). With an analytic reference the correct verdict is
+"validated". This illustrates that the clause 8 verdict is itself a random
+quantity near the threshold — a point worth making in the article
+(possible recommendation: report d_low, d_high with their MC standard
+deviations).
+
+**F24. QUAM A1 with the volume sub-model (class a).** u(V) = 0.066 mL is
+rounded to 0.07 mL and u_c = 0.86 to 0.9 mg/L before k is applied, so the
+printed U is 1.8 mg/L; unrounded U = 1.7 mg/L.
+
+### Open questions (new)
+
+- **Q12.** Should `expected.reference` (and source titles) be bilingual
+  `Text` like the rest of the metadata? Currently English only.
+- **Q13.** Top-down evaluations (Nordtest, MUPR) are not yet expressible
+  as project files; design a `topdown` project type with raw validation
+  data so that those examples join the library.
+
+### Next steps
+
+1. Top-down project type (Q13) and the Nordtest/MUPR examples in the
+   library; NIST TN 1900 examples.
+2. Flutter UI on top of the project format (the JSON file is the UI's
+   document model).
+3. Bilingual user guide generated from the library explanations.

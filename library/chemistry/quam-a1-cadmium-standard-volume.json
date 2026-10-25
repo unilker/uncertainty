@@ -1,0 +1,176 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a1-cadmium-standard-volume",
+    "title": {
+      "en": "Cadmium standard with the volume sub-model",
+      "tr": "Hacim alt modelli kadmiyum standardı"
+    },
+    "description": {
+      "en": "QUAM Example A1 with the volume of the flask modelled from its three components.",
+      "tr": "Balon hacmi üç bileşeninden modellenmiş QUAM Örnek A1."
+    },
+    "explanation": [
+      {
+        "en": "c_Cd = 1000 · m · P / V: 100.28 mg of Cd of purity 0.9999 dissolved and made up to 100 mL.",
+        "tr": "c_Cd = 1000 · m · P / V: saflığı 0,9999 olan 100,28 mg Cd çözülüp 100 mL'ye tamamlanır."
+      },
+      {
+        "en": "The purity is given as limits without a confidence level: rectangular distribution, u(P) = 0.0001/√3.",
+        "tr": "Saflık güven düzeyi belirtilmeden sınırlar olarak verilmiştir: dikdörtgen dağılım, u(P) = 0,0001/√3."
+      },
+      {
+        "en": "V = V_nom + δV_cal + δV_rep + δV_temp: calibration ±0.1 mL (triangular, 0.04 mL), repeatability s = 0.02 mL, temperature ±4 °C × 2.1 × 10⁻⁴ °C⁻¹ × 100 mL = ±0.084 mL (rectangular, 0.05 mL) → u(V) = 0.066 mL.",
+        "tr": "V = V_nom + δV_cal + δV_rep + δV_temp: kalibrasyon ±0,1 mL (üçgen, 0,04 mL), tekrarlanabilirlik s = 0,02 mL, sıcaklık ±4 °C × 2,1 × 10⁻⁴ °C⁻¹ × 100 mL = ±0,084 mL (dikdörtgen, 0,05 mL) → u(V) = 0,066 mL."
+      },
+      {
+        "en": "Rectangular and triangular components dominate, so the output PDF has lighter tails than a Gaussian: the Monte Carlo interval is about 0.015 mg/L shorter at each end, and the GUM interval is validated only for one significant digit of u.",
+        "tr": "Dikdörtgen ve üçgen bileşenler baskın olduğundan çıktı dağılımının kuyrukları normal dağılımdan daha incedir: Monte Carlo aralığı her uçta yaklaşık 0,015 mg/L daha kısadır ve GUM aralığı u'nun yalnızca bir anlamlı basamağı için doğrulanır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A1, A1.4",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "sub-model",
+      "volumetric",
+      "mcm-validation"
+    ],
+    "notes": [
+      {
+        "en": "The guide rounds u(V) = 0.066 mL to 0.07 mL and u_c to 0.9 mg/L before multiplying by k; with unrounded values u_c = 0.835 mg/L and U = 1.7 mg/L, against the printed (1002.7 ± 1.8) mg/L.",
+        "tr": "Rehber k ile çarpmadan önce u(V) = 0,066 mL'yi 0,07 mL'ye ve u_c'yi 0,9 mg/L'ye yuvarlar; yuvarlanmamış değerlerle u_c = 0,835 mg/L ve U = 1,7 mg/L bulunur, basılı sonuç ise (1002,7 ± 1,8) mg/L'dir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_Cd",
+      "unit": "mg/L",
+      "expression": "1000 * m * P / V",
+      "description": {
+        "en": "Concentration of the calibration standard",
+        "tr": "Kalibrasyon standardının derişimi"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "V",
+        "expression": "V_nom + dV_cal + dV_rep + dV_temp",
+        "unit": "mL",
+        "description": {
+          "en": "Volume of the flask",
+          "tr": "Balonun hacmi"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "name": "P",
+        "description": {
+          "en": "Purity of the cadmium metal (certificate: 99.99 ± 0.01 %)",
+          "tr": "Kadmiyum metalinin saflığı (sertifika: %99,99 ± 0,01)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.9999,
+          "half_width": 0.0001
+        }
+      },
+      {
+        "name": "m",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of the cadmium (weighing by difference)",
+          "tr": "Kadmiyumun kütlesi (fark tartımı)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100.28,
+          "sd": 0.05
+        }
+      },
+      {
+        "name": "V_nom",
+        "unit": "mL",
+        "description": {
+          "en": "Nominal volume",
+          "tr": "Anma hacmi"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 100.0
+        }
+      },
+      {
+        "name": "dV_cal",
+        "unit": "mL",
+        "description": {
+          "en": "Flask calibration (±0.1 mL)",
+          "tr": "Balon kalibrasyonu (±0,1 mL)"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 0.1
+        }
+      },
+      {
+        "name": "dV_rep",
+        "unit": "mL",
+        "description": {
+          "en": "Filling repeatability",
+          "tr": "Doldurma tekrarlanabilirliği"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.02
+        }
+      },
+      {
+        "name": "dV_temp",
+        "unit": "mL",
+        "description": {
+          "en": "Temperature effect (±4 °C)",
+          "tr": "Sıcaklık etkisi (±4 °C)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.084
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 2000000,
+      "seed": 9,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1002.7,
+        "tolerance": 0.05
+      },
+      "expanded_uncertainty": {
+        "value": 1.7,
+        "tolerance": 0.05
+      }
+    },
+    "reference": "QUAM:2012 A1.4: u(V) = 0.066 mL; U = 2u_c = 1.7 mg/L before the guide's rounding of u_c to 0.9 mg/L."
+  }
+}

@@ -1,0 +1,52 @@
+//! Runs every project file of the example library (`library/`) and compares
+//! the results with the reference values stored in the file.
+
+use std::path::{Path, PathBuf};
+use uncertainty_project::{check, parse, report, run, Lang, Overrides};
+
+fn collect(dir: &Path, out: &mut Vec<PathBuf>) {
+    for entry in std::fs::read_dir(dir).unwrap() {
+        let path = entry.unwrap().path();
+        if path.is_dir() {
+            collect(&path, out);
+        } else if path.extension().is_some_and(|e| e == "json") {
+            out.push(path);
+        }
+    }
+}
+
+#[test]
+fn every_library_example_reproduces_its_reference_values() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../library");
+    let mut files = Vec::new();
+    collect(&root, &mut files);
+    files.sort();
+    assert!(files.len() >= 38, "library has only {} files", files.len());
+    let mut failures = Vec::new();
+    for f in &files {
+        let text = std::fs::read_to_string(f).unwrap();
+        let p = parse(&text).unwrap_or_else(|e| panic!("{}: {e}", f.display()));
+        let id = p.metadata.id.clone().unwrap_or_default();
+        assert_eq!(
+            Some(id.as_str()),
+            f.file_stem().and_then(|s| s.to_str()),
+            "{}: id must match the file name",
+            f.display()
+        );
+        assert!(p.metadata.title.tr.is_some(), "{id}: Turkish title missing");
+        assert!(!p.metadata.sources.is_empty(), "{id}: no source");
+        let a = run(&p, &Overrides::default()).unwrap_or_else(|e| panic!("{id}: {e}"));
+        let checks = check(&p, &a);
+        assert!(!checks.is_empty(), "{id}: no reference values");
+        for c in checks.iter().filter(|c| !c.passed) {
+            failures.push(format!("{id}: {} = {} (reference {} ± {})", c.what, c.computed, c.expected, c.tolerance));
+        }
+        for lang in [Lang::En, Lang::Tr] {
+            let md = report::markdown(&p, &a, lang, None);
+            assert!(md.contains(uncertainty_project::CITATION), "{id}: citation missing from report");
+            let html = report::html(&p, &a, lang, None);
+            assert!(html.contains("<svg"), "{id}: charts missing from HTML report");
+        }
+    }
+    assert!(failures.is_empty(), "{} failures:\n{}", failures.len(), failures.join("\n"));
+}

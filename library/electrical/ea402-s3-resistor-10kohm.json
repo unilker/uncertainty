@@ -1,0 +1,168 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s3-resistor-10kohm",
+    "title": {
+      "en": "Calibration of a 10 kΩ standard resistor",
+      "tr": "10 kΩ'luk standart direncin kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S3: four-terminal resistor calibrated by substitution against a standard, using a DMM as a ratio device.",
+      "tr": "EA-4/02 S3: dört uçlu direncin, oran cihazı olarak sayısal multimetre kullanılarak standartla yer değiştirme yöntemiyle kalibrasyonu."
+    },
+    "explanation": [
+      {
+        "en": "R_X = (R_S + δR_D + δR_TS) · r_C · r − δR_TX (values in mΩ relative to 10 kΩ).",
+        "tr": "R_X = (R_S + δR_D + δR_TS) · r_C · r − δR_TX (değerler 10 kΩ'a göre mΩ)."
+      },
+      {
+        "en": "The ratio r is the mean of five observations: a Type A evaluation (s/√5 = 0.071 × 10⁻⁶, 4 degrees of freedom).",
+        "tr": "r oranı beş gözlemin ortalamasıdır: A tipi değerlendirme (s/√5 = 0,071 × 10⁻⁶, 4 serbestlik derecesi)."
+      },
+      {
+        "en": "The drift of the standard (+20 ± 10 mΩ) and the temperature effects are rectangular; the ratio correction r_C is triangular (±1 × 10⁻⁶).",
+        "tr": "Standardın sürüklenmesi (+20 ± 10 mΩ) ve sıcaklık etkileri dikdörtgen; oran düzeltmesi r_C üçgen (±1 × 10⁻⁶) dağılımlıdır."
+      },
+      {
+        "en": "R_X = (10 000.178 ± 0.017) Ω (k = 2).",
+        "tr": "R_X = (10 000,178 ± 0,017) Ω (k = 2)."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S3",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "type-a"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "R_X",
+      "unit": "mΩ",
+      "expression": "(R_S + dR_D + dR_TS) * r_C * r - dR_TX",
+      "description": {
+        "en": "Resistance of the unknown (mΩ, offset 10 kΩ = 10⁷ mΩ)",
+        "tr": "Bilinmeyen direnç (mΩ)"
+      }
+    },
+    "inputs": [
+      {
+        "name": "R_S",
+        "unit": "mΩ",
+        "description": {
+          "en": "Standard resistor (certificate)",
+          "tr": "Standart direnç (sertifika)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 10000053.0,
+          "expanded": 5.0,
+          "k": 2
+        }
+      },
+      {
+        "name": "dR_D",
+        "unit": "mΩ",
+        "description": {
+          "en": "Drift since last calibration",
+          "tr": "Son kalibrasyondan beri sürüklenme"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 20.0,
+          "half_width": 10.0
+        }
+      },
+      {
+        "name": "dR_TS",
+        "unit": "mΩ",
+        "description": {
+          "en": "Temperature effect on the standard",
+          "tr": "Standarda sıcaklık etkisi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.75
+        }
+      },
+      {
+        "name": "r_C",
+        "description": {
+          "en": "Correction of the ratio (DMM)",
+          "tr": "Oran düzeltmesi (multimetre)"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 1.0,
+          "half_width": 1e-06
+        }
+      },
+      {
+        "name": "r",
+        "description": {
+          "en": "Observed ratio R_iX/R_iS (5 readings)",
+          "tr": "Gözlenen oran R_iX/R_iS (5 okuma)"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            1.0000104,
+            1.0000107,
+            1.0000106,
+            1.0000103,
+            1.0000105
+          ]
+        }
+      },
+      {
+        "name": "dR_TX",
+        "unit": "mΩ",
+        "description": {
+          "en": "Temperature effect on the unknown",
+          "tr": "Bilinmeyene sıcaklık etkisi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5.5
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 10000178.0,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 8.33,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 17.0,
+        "tolerance": 0.5
+      }
+    },
+    "reference": "EA-4/02 M:2022 S3.10–S3.11 (u = 8.33 mΩ, U = 0.017 Ω)."
+  }
+}

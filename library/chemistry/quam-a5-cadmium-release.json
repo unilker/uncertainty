@@ -1,0 +1,170 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a5-cadmium-release",
+    "title": {
+      "en": "Cadmium released from ceramic ware",
+      "tr": "Seramik kaplardan salınan kadmiyum"
+    },
+    "description": {
+      "en": "QUAM Example A5: empirical method (BS 6748); amount of Cd leached per unit area.",
+      "tr": "QUAM Örnek A5: ampirik yöntem (BS 6748); birim alan başına çözünen Cd miktarı."
+    },
+    "explanation": [
+      {
+        "en": "r = c₀ · V_L / a_V · f_acid · f_time · f_temp (mg/dm²): c₀ from a straight-line AAS calibration (u(c₀) = 0.018 mg/L, see calibration module), leach volume 0.332 L, surface area 5.73 dm².",
+        "tr": "r = c₀ · V_L / a_V · f_asit · f_süre · f_sıcaklık (mg/dm²): c₀ doğrusal AAS kalibrasyonundan (u(c₀) = 0,018 mg/L, kalibrasyon modülüne bakınız), özütleme hacmi 0,332 L, yüzey alanı 5,73 dm²."
+      },
+      {
+        "en": "The f factors represent the effects of the empirical method's conditions (acid concentration, time, temperature); for an empirical method they are 1 by definition but carry uncertainty.",
+        "tr": "f çarpanları ampirik yöntemin koşullarının (asit derişimi, süre, sıcaklık) etkilerini temsil eder; ampirik yöntemde tanım gereği 1'dir ancak belirsizlik taşırlar."
+      },
+      {
+        "en": "The calibration (c₀) and the temperature factor dominate; r = (0.015 ± 0.003) mg/dm² with k = 2.",
+        "tr": "Kalibrasyon (c₀) ve sıcaklık çarpanı baskındır; k = 2 ile r = (0,015 ± 0,003) mg/dm²."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A5, Tables A5.3 and A5.4",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "validation",
+      "empirical-method",
+      "aas"
+    ],
+    "notes": [
+      {
+        "en": "Finding: a_V = πd²/4 with d = 2.70 dm (the guide's formula shows 2.77, a typo); its components 0.042 and 0.146 dm² combine to 0.152 dm², not the 0.19 dm² printed and used here. With 0.152 dm², u_c = 0.00144 mg/dm² instead of 0.00147; the reported result is unchanged.",
+        "tr": "Bulgu: a_V = πd²/4, d = 2,70 dm (rehberin formülünde 2,77 yazım hatası); bileşenleri 0,042 ve 0,146 dm² olup 0,152 dm² verir, burada da kullanılan basılı 0,19 dm² değil. 0,152 dm² ile u_c = 0,00147 yerine 0,00144 mg/dm² bulunur; raporlanan sonuç değişmez."
+      },
+      {
+        "en": "The exact first-order u_c is 0.001470 mg/dm²; the spreadsheet value 0.001465 differs because of the 1/a_V non-linearity in the finite differences.",
+        "tr": "Kesin birinci mertebe u_c 0,001470 mg/dm²'dir; tablolama değeri 0,001465, sonlu farklardaki 1/a_V doğrusalsızlığı nedeniyle farklıdır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "r",
+      "unit": "mg/dm²",
+      "expression": "c0 * V_L / a_V * f_acid * f_time * f_temp",
+      "description": {
+        "en": "Cd released per unit area",
+        "tr": "Birim alan başına salınan Cd"
+      }
+    },
+    "inputs": [
+      {
+        "name": "c0",
+        "unit": "mg/L",
+        "description": {
+          "en": "Cd concentration in the leach solution",
+          "tr": "Özütleme çözeltisindeki Cd derişimi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.26,
+          "sd": 0.018
+        }
+      },
+      {
+        "name": "V_L",
+        "unit": "L",
+        "description": {
+          "en": "Volume of the leachate",
+          "tr": "Özütleme çözeltisinin hacmi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.332,
+          "sd": 0.0018
+        }
+      },
+      {
+        "name": "a_V",
+        "unit": "dm²",
+        "description": {
+          "en": "Surface area of the vessel",
+          "tr": "Kabın yüzey alanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 5.73,
+          "sd": 0.19
+        }
+      },
+      {
+        "name": "f_acid",
+        "description": {
+          "en": "Acid concentration factor",
+          "tr": "Asit derişimi çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.0008
+        }
+      },
+      {
+        "name": "f_time",
+        "description": {
+          "en": "Leaching time factor",
+          "tr": "Özütleme süresi çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.001
+        }
+      },
+      {
+        "name": "f_temp",
+        "description": {
+          "en": "Temperature factor",
+          "tr": "Sıcaklık çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.06
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5
+    }
+  },
+  "reporting": {
+    "significant_digits": 1
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.015065,
+        "tolerance": 5e-07
+      },
+      "standard_uncertainty": {
+        "value": 0.001465,
+        "tolerance": 6e-06
+      },
+      "expanded_uncertainty": {
+        "value": 0.003,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": "QUAM:2012 Table A5.4 (r = 0.015065 mg/dm², spreadsheet u = 0.001465) and result (0.015 ± 0.003) mg/dm²."
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a1-cadmium-standard",
+    "title": {
+      "en": "Preparation of a cadmium calibration standard",
+      "tr": "Kadmiyum kalibrasyon standardının hazırlanması"
+    },
+    "description": {
+      "en": "EURACHEM/CITAC QUAM Example A1: 1000 mg/L Cd standard from high-purity metal (summary budget).",
+      "tr": "EURACHEM/CITAC QUAM Örnek A1: yüksek saflıkta metalden 1000 mg/L Cd standardı (özet bütçe)."
+    },
+    "explanation": [
+      {
+        "en": "c_Cd = 1000 · m · P / V: 100.28 mg of Cd of purity 0.9999 dissolved and made up to 100 mL.",
+        "tr": "c_Cd = 1000 · m · P / V: saflığı 0,9999 olan 100,28 mg Cd çözülüp 100 mL'ye tamamlanır."
+      },
+      {
+        "en": "The purity is given as limits without a confidence level: rectangular distribution, u(P) = 0.0001/√3.",
+        "tr": "Saflık güven düzeyi belirtilmeden sınırlar olarak verilmiştir: dikdörtgen dağılım, u(P) = 0,0001/√3."
+      },
+      {
+        "en": "The volume of the 100 mL flask combines calibration, repeatability and temperature effects into u(V) = 0.07 mL (see the project with the volume sub-model).",
+        "tr": "100 mL'lik balonun hacmi kalibrasyon, tekrarlanabilirlik ve sıcaklık etkilerini birleştirerek u(V) = 0,07 mL verir (hacim alt modeli içeren projeye bakınız)."
+      },
+      {
+        "en": "The volume dominates; u_c = 0.86 mg/L and U = 2 × 0.86 ≈ 1.7 mg/L. The guide rounds u_c to 0.9 and reports (1002.7 ± 1.8) mg/L.",
+        "tr": "Baskın katkı hacimdir; u_c = 0,86 mg/L ve U = 2 × 0,86 ≈ 1,7 mg/L. Rehber u_c'yi 0,9'a yuvarlar ve (1002,7 ± 1,8) mg/L olarak raporlar."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A1, Tables A1.2 and A1.3",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "validation",
+      "gravimetric",
+      "volumetric"
+    ],
+    "notes": [
+      {
+        "en": "The guide's spreadsheet (Kragten) value 0.8633 mg/L differs from the exact first-order value 0.8638 mg/L only by the finite-difference approximation; the reported result is unchanged.",
+        "tr": "Rehberin tablolama (Kragten) değeri 0,8633 mg/L ile kesin birinci mertebe değeri 0,8638 mg/L arasındaki fark yalnızca sonlu fark yaklaşımından kaynaklanır; raporlanan sonuç değişmez."
+      },
+      {
+        "en": "Doubling the rounded u_c (0.9 → U = 1.8 mg/L) is more conservative than 2 × 0.86 = 1.7 mg/L; the program rounds U itself to two significant digits.",
+        "tr": "Yuvarlanmış u_c'nin iki katını almak (0,9 → U = 1,8 mg/L) 2 × 0,86 = 1,7 mg/L'den daha temkinlidir; program U'nun kendisini iki anlamlı basamağa yuvarlar."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_Cd",
+      "unit": "mg/L",
+      "expression": "1000 * m * P / V",
+      "description": {
+        "en": "Concentration of the calibration standard",
+        "tr": "Kalibrasyon standardının derişimi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "P",
+        "description": {
+          "en": "Purity of the cadmium metal (certificate: 99.99 ± 0.01 %)",
+          "tr": "Kadmiyum metalinin saflığı (sertifika: %99,99 ± 0,01)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.9999,
+          "half_width": 0.0001
+        }
+      },
+      {
+        "name": "m",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of the cadmium (weighing by difference)",
+          "tr": "Kadmiyumun kütlesi (fark tartımı)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100.28,
+          "sd": 0.05
+        }
+      },
+      {
+        "name": "V",
+        "unit": "mL",
+        "description": {
+          "en": "Volume of the flask",
+          "tr": "Balonun hacmi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100.0,
+          "sd": 0.07
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1002.7,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 0.8633,
+        "tolerance": 0.001
+      }
+    },
+    "reference": "QUAM:2012 Table A1.3 (spreadsheet value u = 0.8633 mg/L)."
+  }
+}

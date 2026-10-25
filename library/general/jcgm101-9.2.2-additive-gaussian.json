@@ -1,0 +1,119 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.2.2-additive-gaussian",
+    "title": {
+      "en": "Additive model with Gaussian inputs",
+      "tr": "Normal dağılımlı girdilerle toplamsal model"
+    },
+    "description": {
+      "en": "JCGM 101 9.2.2: four independent inputs, each N(0, 1).",
+      "tr": "JCGM 101 9.2.2: her biri N(0, 1) olan dört bağımsız girdi."
+    },
+    "explanation": [
+      {
+        "en": "The model Y = X1 + X2 + X3 + X4 is linear with unit sensitivity coefficients, so the GUM law of propagation gives u(y)² = Σ u(xᵢ)² exactly.",
+        "tr": "Y = X1 + X2 + X3 + X4 modeli doğrusaldır ve tüm duyarlılık katsayıları 1'dir; bu nedenle GUM belirsizlik yayılım yasası u(y)² = Σ u(xᵢ)² sonucunu tam olarak verir."
+      },
+      {
+        "en": "The output is exactly Gaussian, N(0, 2²); the GUM 95 % interval ±1.96 × 2 = ±3.92 is exact and the Monte Carlo method reproduces it, so the GUM result is validated.",
+        "tr": "Çıktı tam olarak normal dağılımlıdır, N(0, 2²); GUM %95 aralığı ±1,96 × 2 = ±3,92 tamdır, Monte Carlo yöntemi bunu yeniden üretir ve GUM sonucu doğrulanır."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.2.2",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm101",
+      "validation",
+      "linear"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "Y",
+      "expression": "X1 + X2 + X3 + X4"
+    },
+    "inputs": [
+      {
+        "name": "X1",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 1.0
+        }
+      },
+      {
+        "name": "X2",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 1.0
+        }
+      },
+      {
+        "name": "X3",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 1.0
+        }
+      },
+      {
+        "name": "X4",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 1.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1,
+      "interval": "symmetric",
+      "validation_ndig": 2
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0,
+        "tolerance": 1e-12
+      },
+      "standard_uncertainty": {
+        "value": 2.0,
+        "tolerance": 1e-12
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 0.0,
+        "tolerance": 0.01
+      },
+      "standard_uncertainty": {
+        "value": 2.0,
+        "tolerance": 0.005
+      },
+      "interval_low": {
+        "value": -3.92,
+        "tolerance": 0.02
+      },
+      "interval_high": {
+        "value": 3.92,
+        "tolerance": 0.02
+      },
+      "gum_validated": true
+    },
+    "reference": "JCGM 101:2008 Table 2 (exact: N(0, 4)); MCM tolerances ≈ 5 × Monte Carlo dispersion at M = 10⁶."
+  }
+}

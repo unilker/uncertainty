@@ -1,0 +1,169 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.3-mass-calibration-higher-order",
+    "title": {
+      "en": "Mass calibration (GUM with second-order terms)",
+      "tr": "Kütle kalibrasyonu (ikinci mertebe terimli GUM)"
+    },
+    "description": {
+      "en": "JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.",
+      "tr": "JCGM 101 9.3: aynı model, GUM 5.1.2'nin yüksek mertebe terimleriyle değerlendirilmiştir."
+    },
+    "explanation": [
+      {
+        "en": "The conventional mass of W follows from weighing against R in air: m_W = (m_R,c + δm_R,c)[1 + (ρ_a − ρ_a0)(1/ρ_W − 1/ρ_R)], reported as the deviation δm = m_W − 100 g (in mg).",
+        "tr": "W ağırlığının konvansiyonel kütlesi, havada R ile karşılaştırmalı tartımdan elde edilir: m_W = (m_R,c + δm_R,c)[1 + (ρ_a − ρ_a0)(1/ρ_W − 1/ρ_R)]; sonuç δm = m_W − 100 g sapması olarak (mg) verilir."
+      },
+      {
+        "en": "At the estimates, ρ_a = ρ_a0 = 1.2 kg/m³, so the sensitivity coefficients of the three densities are zero: a first-order evaluation ignores the buoyancy correction entirely (u = 0.0539 mg).",
+        "tr": "Tahmin değerlerinde ρ_a = ρ_a0 = 1,2 kg/m³ olduğundan üç yoğunluğun duyarlılık katsayıları sıfırdır: birinci mertebe değerlendirme kaldırma kuvveti düzeltmesini tamamen yok sayar (u = 0,0539 mg)."
+      },
+      {
+        "en": "The second-order terms ½ΣΣ(∂²f/∂xᵢ∂xⱼ)²u²(xᵢ)u²(xⱼ) + ... capture the products (ρ_a − 1.2)(1/ρ_W − 1/ρ_R) and give u = 0.0750 mg, in agreement with the Monte Carlo result: validated for n_dig = 1.",
+        "tr": "İkinci mertebe terimler (ρ_a − 1,2)(1/ρ_W − 1/ρ_R) çarpımlarını yakalar ve u = 0,0750 mg verir; bu değer Monte Carlo sonucuyla uyumludur ve n_dig = 1 için doğrulanır."
+      },
+      {
+        "en": "GUM 5.1.2 note derives these terms for Gaussian inputs; the program warns because the densities are rectangular. The Monte Carlo method has no such restriction.",
+        "tr": "GUM 5.1.2 notu bu terimleri normal dağılımlı girdiler için türetir; yoğunluklar dikdörtgen dağılımlı olduğundan program uyarı verir. Monte Carlo yönteminde böyle bir kısıt yoktur."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.3, Table 6",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      },
+      {
+        "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement (GUM)",
+        "section": "5.1.2",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm101",
+      "validation",
+      "non-linear",
+      "higher-order"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dm",
+      "unit": "mg",
+      "expression": "(m_Rc + dm_Rc) * (1 + (rho_a - 1.2) * (1/rho_W - 1/rho_R)) - 100000",
+      "description": {
+        "en": "Deviation of the conventional mass of W from 100 g",
+        "tr": "W'nin konvansiyonel kütlesinin 100 g'dan sapması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "m_Rc",
+        "unit": "mg",
+        "description": {
+          "en": "Conventional mass of the reference weight",
+          "tr": "Referans ağırlığın konvansiyonel kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100000.0,
+          "sd": 0.05
+        }
+      },
+      {
+        "name": "dm_Rc",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of the small weight added to balance",
+          "tr": "Dengelemek için eklenen küçük ağırlığın kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.234,
+          "sd": 0.02
+        }
+      },
+      {
+        "name": "rho_a",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Air density",
+          "tr": "Hava yoğunluğu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.2,
+          "half_width": 0.1
+        }
+      },
+      {
+        "name": "rho_W",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the weight W",
+          "tr": "W ağırlığının yoğunluğu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 8000.0,
+          "half_width": 1000.0
+        }
+      },
+      {
+        "name": "rho_R",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the reference weight R",
+          "tr": "R referans ağırlığının yoğunluğu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 8000.0,
+          "half_width": 50.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "higher_order": true
+    },
+    "mcm": {
+      "trials": 2000000,
+      "seed": 4,
+      "interval": "symmetric",
+      "validation_ndig": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.234,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.075,
+        "tolerance": 5e-05
+      }
+    },
+    "mcm": {
+      "standard_uncertainty": {
+        "value": 0.075484,
+        "tolerance": 0.0002
+      },
+      "interval_low": {
+        "value": 1.08443,
+        "tolerance": 0.0006
+      },
+      "interval_high": {
+        "value": 1.38359,
+        "tolerance": 0.0006
+      },
+      "gum_validated": true
+    },
+    "reference": "JCGM 101:2008 Table 6 (GUF2) and the independent MCM reference."
+  }
+}

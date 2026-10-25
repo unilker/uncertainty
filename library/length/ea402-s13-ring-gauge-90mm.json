@@ -1,0 +1,207 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s13-ring-gauge-90mm",
+    "title": {
+      "en": "Calibration of a 90 mm ring gauge",
+      "tr": "90 mm'lik halka mastarın kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S13: diameter of a ring gauge compared with a 40 mm setting ring on a one-coordinate measuring machine (µm relative to 90 mm).",
+      "tr": "EA-4/02 S13: halka mastar çapının tek koordinatlı ölçüm makinesinde 40 mm'lik ayar halkasıyla karşılaştırılması (90 mm'ye göre µm)."
+    },
+    "explanation": [
+      {
+        "en": "d_X = d_S + Δl + δl_0 + δl_i + δl_T + δl_P + δl_E + δl_A: the measured diameter difference Δl (Type A from 5 observations, 0.15 µm) and the zeroing of the comparator (0.25 µm) dominates together with the temperature term of the sub-budget (0.15 µm).",
+        "tr": "d_X = d_S + Δl + δl_0 + δl_i + δl_T + δl_P + δl_E + δl_A: ölçülen çap farkı Δl (5 gözlemden A tipi, 0,15 µm) ve komparatörün sıfırlanması (0,25 µm) ile alt bütçedeki sıcaklık terimi (0,15 µm) baskındır."
+      },
+      {
+        "en": "The coaxiality error is a second-order (cosine) effect with a non-zero mean: δl_P = 2(1/D_X − 1/D_S)u²(Δc) = −0.004 µm, u = 0.0065 µm.",
+        "tr": "Eş eksenlilik hatası sıfırdan farklı ortalamalı ikinci mertebe (kosinüs) etkidir: δl_P = 2(1/D_X − 1/D_S)u²(Δc) = −0,004 µm, u = 0,0065 µm."
+      },
+      {
+        "en": "u(d_X) = 0.41 µm; U = 0.82 µm, which EA-4/02 rounds up to 0.9 µm: d_X = (90.000 3 ± 0.000 9) mm. The project uses one significant digit with rounding up to reproduce this.",
+        "tr": "u(d_X) = 0,41 µm; U = 0,82 µm, EA-4/02 bunu yukarı yuvarlayarak 0,9 µm verir: d_X = (90,000 3 ± 0,000 9) mm. Proje bunu yeniden üretmek için tek anlamlı basamak ve yukarı yuvarlama kullanır."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S13",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "dimensional",
+      "rounding"
+    ],
+    "notes": [
+      {
+        "en": "Finding (affects the reported value): the budget uses Δl = 49.999 55 mm instead of the mean 49.999 536 mm of the observations and δl_P = +0.004 µm instead of −0.0037 µm, and so obtains d_X = 90.000 25 mm, reported as 90.000 3 mm. From the data, d_X = 90.000 232 mm, i.e. (90.000 2 ± 0.000 9) mm. The difference, 0.1 µm, is well inside U.",
+        "tr": "Bulgu (raporlanan değeri etkiler): bütçe, gözlemlerin ortalaması olan 49,999 536 mm yerine Δl = 49,999 55 mm ve −0,0037 µm yerine δl_P = +0,004 µm kullanarak d_X = 90,000 25 mm bulur ve 90,000 3 mm olarak raporlar. Verilerden d_X = 90,000 232 mm, yani (90,000 2 ± 0,000 9) mm elde edilir. 0,1 µm'lik fark U'nun çok içindedir."
+      },
+      {
+        "en": "Findings: the mean Δl is 49.999 54 mm but the budget uses 49.999 55; the text quotes s = 0.18 µm for the standard deviation of a single observation (0.33 µm from the data, 0.15 µm for the mean); √(0.15² + 0.25²) = 0.29 µm (printed 0.30); the coaxiality correction is −0.004 µm (budget +0.000 004 mm).",
+        "tr": "Bulgular: Δl ortalaması 49,999 54 mm iken bütçe 49,999 55 kullanır; metin tek gözlemin standart sapması için s = 0,18 µm verir (veriden 0,33 µm, ortalama için 0,15 µm); √(0,15² + 0,25²) = 0,29 µm'dir (basılı 0,30); eş eksenlilik düzeltmesi −0,004 µm'dir (bütçede +0,000 004 mm)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "d_X",
+      "unit": "µm",
+      "expression": "d_S + dl + dl_0 + dl_i + dl_T + dl_P + dl_E + dl_A",
+      "description": {
+        "en": "Diameter deviation from 90 mm",
+        "tr": "Çapın 90 mm'den sapması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "d_S",
+        "unit": "µm",
+        "description": {
+          "en": "Setting ring diameter deviation (40 mm)",
+          "tr": "Ayar halkası çap sapması (40 mm)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.7,
+          "expanded": 0.2,
+          "k": 2
+        }
+      },
+      {
+        "name": "dl",
+        "unit": "µm",
+        "description": {
+          "en": "Observed diameter difference relative to 50 mm (5 readings)",
+          "tr": "50 mm'ye göre gözlenen çap farkı (5 okuma)"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            -0.65,
+            -0.89,
+            -0.28,
+            -0.46,
+            -0.04
+          ]
+        }
+      },
+      {
+        "name": "dl_0",
+        "unit": "µm",
+        "description": {
+          "en": "Zeroing of the comparator (s_p(0) = 0.25 µm)",
+          "tr": "Komparatörün sıfırlanması (s_p(0) = 0,25 µm)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.25
+        }
+      },
+      {
+        "name": "dl_i",
+        "unit": "µm",
+        "description": {
+          "en": "Machine scale calibration and linearity",
+          "tr": "Makine skalasının kalibrasyonu ve doğrusallığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.375
+        }
+      },
+      {
+        "name": "dl_T",
+        "unit": "µm",
+        "description": {
+          "en": "Temperature correction (sub-budget)",
+          "tr": "Sıcaklık düzeltmesi (alt bütçe)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.148
+        }
+      },
+      {
+        "name": "dl_P",
+        "unit": "µm",
+        "description": {
+          "en": "Coaxiality (cosine) error",
+          "tr": "Eş eksenlilik (kosinüs) hatası"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -0.003704,
+          "sd": 0.006525
+        }
+      },
+      {
+        "name": "dl_E",
+        "unit": "µm",
+        "description": {
+          "en": "Elastic deformation",
+          "tr": "Elastik deformasyon"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.03
+        }
+      },
+      {
+        "name": "dl_A",
+        "unit": "µm",
+        "description": {
+          "en": "Abbe error",
+          "tr": "Abbe hatası"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.02
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "reporting": {
+    "significant_digits": 1,
+    "rounding": "up"
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.23229599999999992,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 0.411,
+        "tolerance": 0.01
+      },
+      "expanded_uncertainty": {
+        "value": 0.82,
+        "tolerance": 0.02
+      }
+    },
+    "reference": "EA-4/02 M:2022 S13.10–S13.12 (u = 0.411 µm, U = 0.82 µm reported as 0.9 µm; the tolerance covers u(Δl) = 0.29 µm here vs 0.30 µm printed); estimate recomputed from the observations, 0.7 − 0.464 − 0.0037 µm (printed 90.000 25 mm, see notes)."
+  }
+}

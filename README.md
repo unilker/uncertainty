@@ -12,7 +12,7 @@ Türkçe ve İngilizce.
 
 > Author / Yazar: İlker Ün, TÜBİTAK UME ([ORCID 0000-0001-5089-4602](https://orcid.org/0000-0001-5089-4602))
 >
-> Status / Durum: **v0.1.0 — computation core only** (no user interface yet).
+> Status / Durum: **v0.1.0 — computation core, project files, reports and command-line tool** (graphical interface in development).
 > See [docs/ROADMAP.md](docs/ROADMAP.md).
 
 ## What works now / Şu an çalışanlar
@@ -35,11 +35,28 @@ Türkçe ve İngilizce.
 - Coverage factors for dominant rectangular/trapezoidal contributions
   (EA-4/02).
 - Reporting: rounding of results by the GUM, MUPR or round-up rule.
+- Project files (JSON) with bilingual metadata; reports in English or Turkish
+  as Markdown or self-contained HTML (budget, contribution chart, MCM
+  histogram with the GUM PDF, validation statement, citation).
+- [Example library](library/README.md): 38 published examples (chemistry,
+  mass, length, temperature, electrical, flow) as self-checking projects.
+
+## Usage / Kullanım
+
+```sh
+cargo build --release
+B=target/release/uncertainty
+$B template > my.json                                   # start a project / proje başlat
+$B run library/chemistry/quam-a1-cadmium-standard.json  # Markdown report (English)
+$B run my.json --lang tr -o rapor.html                  # Türkçe HTML rapor
+$B run my.json --format json --no-mcm                   # machine-readable results
+$B check library                                        # re-verify all examples / tüm örnekleri doğrula
+```
 
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (94 tests): GUM H.1, all four examples of JCGM 101 clause 9,
+automated test (100 tests; one of them reruns all 38 library projects): GUM H.1, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
 their raw data), and all twelve calibration examples of EA-4/02 M:2022. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).

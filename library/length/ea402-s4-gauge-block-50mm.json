@@ -1,0 +1,200 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s4-gauge-block-50mm",
+    "title": {
+      "en": "Calibration of a 50 mm gauge block",
+      "tr": "50 mm'lik mastar bloğunun kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S4: grade 0 steel gauge block compared with a calibrated standard; a product of two zero-mean quantities needs second-order terms.",
+      "tr": "EA-4/02 S4: 0 sınıfı çelik mastar bloğunun kalibre edilmiş standartla karşılaştırılması; iki sıfır ortalamalı büyüklüğün çarpımı ikinci mertebe terim gerektirir."
+    },
+    "explanation": [
+      {
+        "en": "l_X = l_S + δl_D + δl + δl_C − L(ᾱ·δt + δα·θ) − δl_V, in nm relative to 50 mm (L = 50 mm).",
+        "tr": "l_X = l_S + δl_D + δl + δl_C − L(ᾱ·δt + δα·θ) − δl_V, 50 mm'ye göre nm cinsinden (L = 50 mm)."
+      },
+      {
+        "en": "δα (difference of expansion coefficients) and θ (deviation from 20 °C) both have zero expectation, so their product has zero first-order sensitivity: its contribution L·u(δα)·u(θ) = 11.8 nm appears only through the second-order terms (S4.13), which the project enables.",
+        "tr": "δα (genleşme katsayıları farkı) ve θ (20 °C'den sapma) beklenen değerleri sıfırdır; çarpımlarının birinci mertebe duyarlılığı sıfırdır: katkısı L·u(δα)·u(θ) = 11,8 nm yalnızca ikinci mertebe terimlerle ortaya çıkar (S4.13); proje bunları etkinleştirir."
+      },
+      {
+        "en": "l_X = 49.999 926 mm ± 69 nm (k = 2).",
+        "tr": "l_X = 49,999 926 mm ± 69 nm (k = 2)."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S4",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "higher-order",
+      "dimensional"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "l_X",
+      "unit": "nm",
+      "expression": "l_S + dl_D + dl + dl_C - 50000000*(alpha*dt + d_alpha*theta) - dl_V",
+      "description": {
+        "en": "Length of the gauge block",
+        "tr": "Mastar bloğunun boyu"
+      }
+    },
+    "inputs": [
+      {
+        "name": "l_S",
+        "unit": "nm",
+        "description": {
+          "en": "Standard (certificate: 50.000 02 mm, U = 30 nm)",
+          "tr": "Standart (sertifika: 50,000 02 mm, U = 30 nm)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 50000020.0,
+          "sd": 15.0
+        }
+      },
+      {
+        "name": "dl_D",
+        "unit": "nm",
+        "description": {
+          "en": "Drift of the standard",
+          "tr": "Standardın sürüklenmesi"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 30.0
+        }
+      },
+      {
+        "name": "dl",
+        "unit": "nm",
+        "description": {
+          "en": "Observed difference (mean of 5, s_p = 12 nm)",
+          "tr": "Gözlenen fark (5 ölçüm ortalaması, s_p = 12 nm)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -94.0,
+          "sd": 5.366563145999495
+        }
+      },
+      {
+        "name": "dl_C",
+        "unit": "nm",
+        "description": {
+          "en": "Comparator linearity and offset",
+          "tr": "Komparatörün doğrusallık ve sıfır hatası"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 32.0
+        }
+      },
+      {
+        "name": "alpha",
+        "unit": "1/K",
+        "description": {
+          "en": "Mean expansion coefficient",
+          "tr": "Ortalama genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 1.15e-05
+        }
+      },
+      {
+        "name": "dt",
+        "unit": "K",
+        "description": {
+          "en": "Temperature difference of the blocks",
+          "tr": "Bloklar arası sıcaklık farkı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        }
+      },
+      {
+        "name": "d_alpha",
+        "unit": "1/K",
+        "description": {
+          "en": "Difference of expansion coefficients",
+          "tr": "Genleşme katsayıları farkı"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 2e-06
+        }
+      },
+      {
+        "name": "theta",
+        "unit": "K",
+        "description": {
+          "en": "Deviation of the mean temperature from 20 °C",
+          "tr": "Ortalama sıcaklığın 20 °C'den sapması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dl_V",
+        "unit": "nm",
+        "description": {
+          "en": "Non-central contact",
+          "tr": "Merkez dışı temas"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 6.7
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2,
+      "higher_order": true
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 49999926.0,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 34.3,
+        "tolerance": 0.05
+      },
+      "expanded_uncertainty": {
+        "value": 69.0,
+        "tolerance": 0.5
+      }
+    },
+    "reference": "EA-4/02 M:2022 S4.12–S4.14 (u = 34.3 nm, U = 69 nm)."
+  }
+}

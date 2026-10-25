@@ -1,0 +1,140 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s10-vernier-calliper",
+    "title": {
+      "en": "Calibration of a vernier calliper at 150 mm",
+      "tr": "Kumpasın 150 mm'de kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S10: error of a vernier calliper measured with a gauge block; two rectangular terms dominate (trapezoidal output).",
+      "tr": "EA-4/02 S10: kumpas hatasının mastar bloğuyla ölçülmesi; iki dikdörtgen terim baskındır (yamuk çıktı)."
+    },
+    "explanation": [
+      {
+        "en": "E_X = l_iX − l_S + L·ᾱ·Δt + δl_iX + δl_M (µm).",
+        "tr": "E_X = l_iX − l_S + L·ᾱ·Δt + δl_iX + δl_M (µm)."
+      },
+      {
+        "en": "The resolution (±25 µm) and the mechanical effects (±50 µm) are rectangular; their convolution is trapezoidal with β = (50 − 25)/(50 + 25) = 0.33, giving k = 1.83 for 95 % (Eq. S10.9) and U ≈ 60 µm.",
+        "tr": "Çözünürlük (±25 µm) ve mekanik etkiler (±50 µm) dikdörtgen dağılımlıdır; konvolüsyonları β = (50 − 25)/(50 + 25) = 0,33 olan yamuk dağılımdır ve %95 için k = 1,83 (Eş. S10.9), U ≈ 60 µm verir."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S10",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "dominant-rectangular",
+      "trapezoidal"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "E_X",
+      "unit": "µm",
+      "expression": "l_iX - l_S + 150000*11.5e-6*dt + dl_iX + dl_M",
+      "description": {
+        "en": "Error of indication",
+        "tr": "Gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "l_iX",
+        "unit": "µm",
+        "description": {
+          "en": "Indication",
+          "tr": "Gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 150100.0
+        }
+      },
+      {
+        "name": "l_S",
+        "unit": "µm",
+        "description": {
+          "en": "Length of the gauge block",
+          "tr": "Mastar bloğunun boyu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 150000.0,
+          "half_width": 0.8
+        }
+      },
+      {
+        "name": "dt",
+        "unit": "K",
+        "description": {
+          "en": "Temperature difference calliper–block",
+          "tr": "Kumpas–blok sıcaklık farkı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        }
+      },
+      {
+        "name": "dl_iX",
+        "unit": "µm",
+        "description": {
+          "en": "Resolution of the scale",
+          "tr": "Skala çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 25.0
+        }
+      },
+      {
+        "name": "dl_M",
+        "unit": "µm",
+        "description": {
+          "en": "Mechanical effects (force, flatness, parallelism)",
+          "tr": "Mekanik etkiler (kuvvet, düzlemsellik, paralellik)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 50.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 10,
+      "coverage_probability": 0.95
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 100.0,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 32.0,
+        "tolerance": 0.5
+      }
+    },
+    "reference": "EA-4/02 M:2022 S10.10–S10.12 (u = 32 µm)."
+  }
+}

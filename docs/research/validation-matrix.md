@@ -113,8 +113,17 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | loss x₁ = 0.01, r = 0.9 | 0.10 | 0.12 | 0.34 | 0.50 | 0.34 | 0.03 | 0.40 |
 | loss x₁ = 0.05, r = 0.9 | 0.48 | 0.23 | 5.0 | 4.9 | 1.0 | 0.77 | 0.97 |
 
+## Example library (project files)
+
+The GUM/MCM cases above are also stored as 38 self-checking project files in
+`library/` (see `library/README.md`), run by `project/tests/library.rs` and
+`uncertainty check library` through the complete path a user takes (JSON →
+model → GUM/MCM → comparison → TR/EN reports). Reference-value policy: D15
+in the research log. EA-4/02 S13 in the library uses the raw observations
+(estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget.
+
 ## Planned cases
 
- EA-4/02 S-examples; NIST TN 1900 examples; Nordtest TR 537
-worked examples; Eurachem MUPR (2026) examples; ISO/TS 28037 data sets;
-cross-checks against the NIST Uncertainty Machine and Suncal.
+NIST TN 1900 examples; ISO/TS 28037 data sets; top-down project files for
+the Nordtest and MUPR examples (Q13); cross-checks against the NIST
+Uncertainty Machine and Suncal.

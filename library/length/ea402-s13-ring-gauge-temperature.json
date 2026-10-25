@@ -1,0 +1,185 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s13-ring-gauge-temperature",
+    "title": {
+      "en": "Ring gauge calibration: temperature correction",
+      "tr": "Halka mastar kalibrasyonu: sıcaklık düzeltmesi"
+    },
+    "description": {
+      "en": "EA-4/02 S13: temperature sub-budget of the ring-gauge comparison; products of zero-mean temperature deviations with expansion coefficients.",
+      "tr": "EA-4/02 S13: halka mastar karşılaştırmasının sıcaklık alt bütçesi; sıfır ortalamalı sıcaklık sapmalarının genleşme katsayılarıyla çarpımları."
+    },
+    "explanation": [
+      {
+        "en": "δl_T = [D_S(α_S − α_R) − D_X(α_X − α_R)]Δt_A + D_S α_S δt_S − D_X α_X δt_X + (D_S − D_X) α_R δt_R (µm), with D_S = 40 mm and D_X = 90 mm.",
+        "tr": "δl_T = [D_S(α_S − α_R) − D_X(α_X − α_R)]Δt_A + D_S α_S δt_S − D_X α_X δt_X + (D_S − D_X) α_R δt_R (µm); D_S = 40 mm ve D_X = 90 mm."
+      },
+      {
+        "en": "All temperature deviations have zero expectation, so the first term has zero first-order sensitivity; the second-order terms give the exact variance of the products: 0.018, 0.053, 0.12, 0.066 µm → u(δl_T) = 0.15 µm.",
+        "tr": "Tüm sıcaklık sapmalarının beklenen değeri sıfırdır; bu nedenle birinci terimin birinci mertebe duyarlılığı sıfırdır; ikinci mertebe terimler çarpımların varyansını tam verir: 0,018, 0,053, 0,12, 0,066 µm → u(δl_T) = 0,15 µm."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S13",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "higher-order",
+      "dimensional"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dl_T",
+      "unit": "µm",
+      "expression": "l_TA + l_TS - l_TX + l_TR",
+      "description": {
+        "en": "Temperature correction",
+        "tr": "Sıcaklık düzeltmesi"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "l_TA",
+        "expression": "(40000*(a_S - a_R) - 90000*(a_X - a_R))*dt_A"
+      },
+      {
+        "name": "l_TS",
+        "expression": "40000*a_S*dt_S"
+      },
+      {
+        "name": "l_TX",
+        "expression": "90000*a_X*dt_X"
+      },
+      {
+        "name": "l_TR",
+        "expression": "(40000 - 90000)*a_R*dt_R"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "a_S",
+        "unit": "1/K",
+        "description": {
+          "en": "Expansion coefficient of the setting ring",
+          "tr": "Ayar halkasının genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.15e-05,
+          "half_width": 1e-06
+        }
+      },
+      {
+        "name": "a_X",
+        "unit": "1/K",
+        "description": {
+          "en": "Expansion coefficient of the ring gauge",
+          "tr": "Halka mastarın genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.15e-05,
+          "half_width": 1e-06
+        }
+      },
+      {
+        "name": "a_R",
+        "unit": "1/K",
+        "description": {
+          "en": "Expansion coefficient of the machine scale",
+          "tr": "Makine skalasının genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.15e-05,
+          "half_width": 1e-06
+        }
+      },
+      {
+        "name": "dt_A",
+        "unit": "K",
+        "description": {
+          "en": "Deviation of the mean temperature from 20 °C",
+          "tr": "Ortalama sıcaklığın 20 °C'den sapması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dt_S",
+        "unit": "K",
+        "description": {
+          "en": "Temperature difference, setting ring",
+          "tr": "Sıcaklık farkı, ayar halkası"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.2
+        }
+      },
+      {
+        "name": "dt_X",
+        "unit": "K",
+        "description": {
+          "en": "Temperature difference, ring gauge",
+          "tr": "Sıcaklık farkı, halka mastar"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.2
+        }
+      },
+      {
+        "name": "dt_R",
+        "unit": "K",
+        "description": {
+          "en": "Temperature difference, scale",
+          "tr": "Sıcaklık farkı, skala"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.2
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2,
+      "higher_order": true
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0,
+        "tolerance": 1e-12
+      },
+      "standard_uncertainty": {
+        "value": 0.15,
+        "tolerance": 0.005
+      }
+    },
+    "reference": "EA-4/02 M:2022 S13.5 (u(δl_T) = 0.15 µm)."
+  }
+}
