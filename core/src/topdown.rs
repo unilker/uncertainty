@@ -419,6 +419,26 @@ pub fn recovery_uncertainty_uncorrected(tests: &[RecoveryTest]) -> Result<f64, U
     Ok(mr.mean.abs() * inner.sqrt())
 }
 
+/// Standard deviation s(R̄) of the individual recoveries R_i, used as an
+/// additional component when recoveries vary with the matrix and the scope
+/// cannot be divided [MUPR §8.2.7; Examples B5, B6]: combine as
+/// √(u²_R̄ + s²(R̄)).
+pub fn recovery_standard_deviation(tests: &[RecoveryTest]) -> Result<f64, UncError> {
+    if tests.len() < 2 {
+        return Err(invalid("at least two recovery tests are needed"));
+    }
+    let r: Vec<f64> = tests.iter().map(RecoveryTest::recovery).collect();
+    let n = r.len() as f64;
+    let m = r.iter().sum::<f64>() / n;
+    Ok((r.iter().map(|x| (x - m).powi(2)).sum::<f64>() / (n - 1.0)).sqrt())
+}
+
+/// |R_i − R_j| / √(u²(R_i) + u²(R_j)), the statistic of MUPR Eq. (15) and
+/// (B5.7); compare with a coverage factor (e.g. 2).
+pub fn recovery_difference_statistic(r1: f64, u1: f64, r2: f64, u2: f64) -> f64 {
+    (r1 - r2).abs() / (u1 * u1 + u2 * u2).sqrt()
+}
+
 /// Pairwise equivalence of two recoveries [MUPR Eq. (15)]:
 /// |R_i − R_j| ≤ k √(u²(R_i) + u²(R_j)).
 pub fn recoveries_equivalent(r1: f64, u1: f64, r2: f64, u2: f64, k: f64) -> bool {
@@ -472,6 +492,37 @@ pub fn metrological_compatibility(
     let diff = (measured - reference).abs();
     let limit = k * (u_measured * u_measured + u_reference * u_reference).sqrt();
     (diff, limit, diff <= limit)
+}
+
+/// Criterion used to accept a measured recovery against a permitted
+/// interval [MUPR Appendix C1.2].
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum RecoveryAcceptance {
+    /// Stringent acceptance (e.g. TOST): Δa = ΔP − 2 k_a u_R.
+    Stringent,
+    /// Simple acceptance: Δa = ΔP.
+    Simple,
+    /// Relaxed acceptance: Δa = ΔP + 2 k_a u_R.
+    Relaxed,
+}
+
+/// Additional standard uncertainty allowing for an accepted but uncorrected
+/// recovery, for a permitted interval of width ΔP symmetric about 100 %:
+/// u_a = Δa/(2√3) [MUPR Eq. (C1)–(C2)].
+pub fn acceptable_recovery_allowance(permitted_width: f64, k_a: f64, u_recovery: f64, rule: RecoveryAcceptance) -> f64 {
+    let delta_a = match rule {
+        RecoveryAcceptance::Stringent => permitted_width - 2.0 * k_a * u_recovery,
+        RecoveryAcceptance::Simple => permitted_width,
+        RecoveryAcceptance::Relaxed => permitted_width + 2.0 * k_a * u_recovery,
+    };
+    delta_a.max(0.0) / (2.0 * 3f64.sqrt())
+}
+
+/// Target (maximum admissible) expanded uncertainty from the width of a
+/// classification interval, U_tg = (Q_max − Q_min)/8 [Eurachem/CITAC guide
+/// on target uncertainty (2015), as applied in MUPR Example B4.4].
+pub fn target_uncertainty_from_interval(q_min: f64, q_max: f64) -> f64 {
+    (q_max - q_min) / 8.0
 }
 
 // ---------------------------------------------------------------------------

@@ -520,3 +520,370 @@ fn mupr_uncorrected_recovery_allowance() {
     close(u, expected, 1e-15, "Eq. (17)");
     assert!(u > 0.0285);
 }
+
+fn mean_sd(v: &[f64]) -> (f64, f64) {
+    let n = v.len() as f64;
+    let m = v.iter().sum::<f64>() / n;
+    (m, (v.iter().map(|x| (x - m).powi(2)).sum::<f64>() / (n - 1.0)).sqrt())
+}
+
+/// Combined uncertainty of the additional components common to B1–B3:
+/// u′²_R̄ + 2u′²_DSS + u′²_F.
+fn b_additional(u_r: f64) -> Vec<Component> {
+    vec![
+        Component::relative("recovery", u_r),
+        Component::relative("DSS", 0.0095).times(2),
+        Component::relative("dilution", 0.022),
+    ]
+}
+
+#[test]
+fn mupr_example_b2_pooled_precision_and_two_recoveries() {
+    // Tables B2.1 and B2.3 (raw data).
+    let (m2, s2) = mean_sd(&[0.288, 0.345, 0.315, 0.272, 0.303, 0.297]);
+    close(m2, 0.3033, 0.00005, "c̄₂");
+    close(s2, 0.0250, 0.00005, "s_I(2)");
+    // The guide divides the rounded 0.0250 by 0.3033 (8.24 %); unrounded 8.25 %.
+    close(100.0 * s2 / m2, 8.24, 0.01, "s′_I(2)");
+    let (m4, s4) = mean_sd(&[0.773, 0.732, 0.772, 0.817, 0.803, 0.812]);
+    close(m4, 0.7848, 0.00005, "c̄₄");
+    close(s4, 0.0322, 0.00005, "s_I(4)");
+    close(100.0 * s4 / m4, 4.11, 0.005, "s′_I(4)");
+
+    // Eq. (B2.1)–(B2.2): pooled precision 0.0285 mg/L and 7.73 %.
+    let p1 = pool_standard_deviations(&[(0.0328, 20), (0.0250, 6), (0.0245, 20)]).unwrap();
+    close(p1.sd, 0.0285, 0.00005, "s_I(P)⟨I⟩");
+    let p2 = pool_standard_deviations(&[(0.0843, 20), (0.0411, 6)]).unwrap();
+    close(p2.sd, 0.0773, 0.00005, "s′_I(P)⟨II⟩");
+    // Transition c_T = 0.0285/0.0773 = 0.37 mg/L.
+    if let PrecisionModel::TwoIntervals { split, .. } = PrecisionModel::transition(0.0285, 0.0773) {
+        close(split, 0.37, 0.005, "c_T");
+    }
+
+    // Recoveries at 0.4 and 0.2 mg/L, compatibility (B2.3), overall (B2.4–B2.5).
+    let r1 = RecoveryTest::Reference { mean: 0.389, sd: 0.0328, n: 20, reference: 0.4, u_reference: 0.009 };
+    let r2 = RecoveryTest::Reference { mean: 0.204, sd: 0.0245, n: 20, reference: 0.2, u_reference: 0.0041 };
+    close(r2.recovery(), 1.020, 1e-12, "R̄₂");
+    close(r2.standard_uncertainty(), 0.0345, 0.00005, "u_R̄₂");
+    let (d, lim, ok) = metrological_compatibility(0.972, 0.0285, 1.02, 0.0345, 3.0);
+    close(d, 0.048, 1e-12, "|R̄₁ − R̄₂|");
+    close(lim, 0.134, 0.0005, "3√(u₁² + u₂²)");
+    assert!(ok);
+    let overall = mean_recovery(&[r1, r2]).unwrap();
+    close(overall.mean, 0.996, 0.0005, "R̿ (99.6 %)");
+    close(overall.standard_uncertainty, 0.0224, 0.00005, "u_R̿ (2.24 %)");
+    assert!(!recovery_significance(&overall, 38.0, 0.95).significant);
+
+    // Eq. (B2.6)–(B2.7): 0.001166 and U⟨II⟩ = 0.169 c; 8.45 mg/L at 50 mg/L.
+    let add: f64 = b_additional(0.0224)
+        .iter()
+        .map(|c| match c.kind {
+            ComponentKind::Relative(u) => c.multiplicity as f64 * u * u,
+            ComponentKind::Absolute(_) => 0.0,
+        })
+        .sum();
+    close(add, 0.001166, 0.0000005, "u′²_R̿ + 2u′²_DSS + u′²_F");
+    let mut comps = vec![Component::relative("precision", 0.0773)];
+    comps.extend(b_additional(0.0224));
+    let r = TopDownBudget::new(comps, 2.0).evaluate(50.0);
+    close(r.expanded_uncertainty / 50.0, 0.169, 0.0005, "U⟨II⟩/c");
+    close(r.expanded_uncertainty, 8.45, 0.005, "U⟨II⟩ at 50 mg/L");
+
+    // Eq. (B2.8): two days, one result per day at 57.5 mg/L → 7.41 mg/L;
+    // Eq. (B2.9): two days × three replicates with s′_r = 0.034 → 7.06 mg/L.
+    for ((n, p, s_r), expected) in [((1, 2, 0.0), 7.41), ((3, 2, 0.034), 7.06)] {
+        let s = intermediate_precision_of_mean(s_r, 0.0773, n, p).unwrap();
+        let mut comps = vec![Component::relative("precision", s)];
+        comps.extend(b_additional(0.0224));
+        close(TopDownBudget::new(comps, 2.0).evaluate(57.5).expanded_uncertainty, expected, 0.005, "U, replicates");
+    }
+}
+
+#[test]
+fn mupr_example_b3_regression_precision_model() {
+    use uncertainty_core::calibration::StraightLine;
+    use uncertainty_core::special::coverage_factor;
+    // Table B3.1: s_I = 0.0233 + 0.0128 c (r = 0.7266).
+    let c = [0.3890, 0.3033, 0.2040, 0.7848];
+    let s = [0.0328, 0.0250, 0.0245, 0.0322];
+    let f = StraightLine::fit(&c, &s).unwrap();
+    // Least squares gives 0.02324 (printed 0.0233); slope and r agree.
+    close(f.intercept, 0.02324, 0.000005, "intercept");
+    close(f.intercept, 0.0233, 0.0001, "printed intercept");
+    close(f.slope, 0.0128, 0.00005, "slope");
+    close(f.correlation, 0.7266, 0.0001, "r (0.72666, printed 0.7266)");
+    // Eq. (B3.1): c_IA = 0.575 mg/L, F = 100, c_s = 57.5 mg/L → 7.28 mg/L.
+    let s_abs = 100.0 * (0.0233 + 0.0128 * 0.575);
+    let mut comps = vec![Component::absolute("precision", s_abs)];
+    comps.extend(b_additional(0.0224));
+    close(TopDownBudget::new(comps, 2.0).evaluate(57.5).expanded_uncertainty, 7.28, 0.005, "U⟨I⟩");
+    // Eq. (B3.2): k = t₀.₉₇₅(5) = 2.57; U⟨II⟩ = 0.137 c_s.
+    let k = coverage_factor(0.95, 5.0);
+    close(k, 2.57, 0.005, "t(5)");
+    let mut comps = vec![Component::relative("precision", 0.0411)];
+    comps.extend(b_additional(0.0224));
+    close(TopDownBudget::new(comps, k).evaluate(1.0).expanded_uncertainty, 0.137, 0.0005, "U⟨II⟩/c");
+}
+
+#[test]
+fn mupr_example_b4_arsenic_one_crm() {
+    // Eq. (B4.1): pooled s′_I from A1, B, C = 4.52 %; s_I⟨I⟩ = 4.52 % × 6.46 = 0.292.
+    let p = pool_standard_deviations(&[(2.93, 10), (5.46, 10), (4.83, 9)]).unwrap();
+    close(p.sd, 4.52, 0.005, "s′_I(P)⟨II⟩ %");
+    close(p.sd / 100.0 * 6.46, 0.292, 0.0005, "s_I⟨I⟩");
+    // Eq. (B4.2)–(B4.3): CRM WQB-1 (23.00 ± 1.84) mg/kg, mean 21.040, s 0.779, n 10.
+    let crm = RecoveryTest::Reference { mean: 21.040, sd: 0.779, n: 10, reference: 23.00, u_reference: 1.84 / 2.0 };
+    let r = mean_recovery(&[crm]).unwrap();
+    close(r.mean, 0.9148, 0.00005, "R̄");
+    close(r.standard_uncertainty, 0.0381, 0.00005, "u_R̄");
+    let sig = recovery_significance(&r, 9.0, 0.95);
+    close(sig.statistic, 2.24, 0.005, "|1 − R̄|/u");
+    close(sig.critical, 2.26, 0.005, "t(9)");
+    assert!(!sig.significant);
+    // Eq. (B4.5): U⟨II⟩ = 0.118 w; (16.0 ± 1.9) mg/kg at 16 mg/kg.
+    let b = TopDownBudget::new(
+        vec![Component::relative("precision", 0.0452), Component::relative("recovery", 0.0381)],
+        2.0,
+    );
+    let res = b.evaluate(16.0);
+    close(res.expanded_uncertainty / 16.0, 0.118, 0.0005, "U⟨II⟩/w");
+    close(res.expanded_uncertainty, 1.89, 0.005, "U at 16 mg/kg");
+    let rep = report_result(
+        16.0,
+        res.expanded_uncertainty,
+        2,
+        Rounding::HalfEvenFirstDiscarded,
+        Rounding::HalfEvenFirstDiscarded,
+    );
+    assert_eq!((rep.value.as_str(), rep.uncertainty.as_str()), ("16.0", "1.9"));
+    // B4.4 target uncertainties U_tg = (Q_max − Q_min)/8 for classes 2, 3, 4.
+    for (lo, hi, e) in [(20.0, 50.0, 3.75), (50.0, 100.0, 6.25), (100.0, 500.0, 50.0)] {
+        close(target_uncertainty_from_interval(lo, hi), e, 1e-12, "U_tg");
+    }
+}
+
+#[test]
+fn mupr_example_b5_crm_and_spiked_samples() {
+    let u_s = (0.0092f64.powi(2) + 0.0016f64.powi(2)).sqrt();
+    close(u_s, 0.0093, 0.00005, "u′_S");
+    let crm = RecoveryTest::Reference { mean: 21.040, sd: 0.779, n: 10, reference: 23.00, u_reference: 0.92 };
+    let a = RecoveryTest::Spiked {
+        mean_after: 22.546,
+        sd_after: 0.782,
+        n_after: 10,
+        mean_before: 15.79,
+        sd_before: 0.106,
+        n_before: 10,
+        spike: 7.501,
+        u_spike: 0.0093 * 7.501,
+    };
+    let c = RecoveryTest::Spiked {
+        mean_after: 14.31,
+        sd_after: 1.83,
+        n_after: 9,
+        mean_before: 6.461,
+        sd_before: 0.312,
+        n_before: 9,
+        spike: 7.591,
+        u_spike: 0.0093 * 7.591,
+    };
+    let tests = [crm, a, c];
+    // Eq. (B5.1)–(B5.3): R̿ = 0.9498, s(R̄) = 0.0732, u_R̿ = 0.0800.
+    let r = mean_recovery(&tests).unwrap();
+    close(r.mean, 0.9498, 0.00005, "R̿");
+    let s_r = recovery_standard_deviation(&tests).unwrap();
+    close(s_r, 0.0732, 0.00005, "s(R̄)");
+    let u_total = root_sum_of_squares(&[r.standard_uncertainty, s_r]);
+    close(u_total, 0.0800, 0.00005, "u_R̿ with s(R̄)");
+    // Eq. (B5.4): 0.6275 ≤ t(2) = 4.30.
+    let sig = recovery_significance(&MeanRecovery { standard_uncertainty: u_total, ..r }, 2.0, 0.95);
+    close(sig.statistic, 0.6275, 0.0005, "statistic");
+    close(sig.critical, 4.30, 0.005, "t(2)");
+    // Eq. (B5.6): U⟨II⟩ = 4.30 w √(0.0452² + 0.0800²) = 0.395 w.
+    let b = TopDownBudget::new(
+        vec![Component::relative("precision", 0.0452), Component::relative("recovery", 0.0800)],
+        4.30,
+    );
+    close(b.evaluate(1.0).expanded_uncertainty, 0.395, 0.0005, "U⟨II⟩/w");
+    // Eq. (B5.7)–(B5.8): pairwise statistics 0.275 (CRM–A), 1.32 (CRM–C), 1.50 (A–C).
+    let stat = |x: &RecoveryTest, y: &RecoveryTest| {
+        recovery_difference_statistic(x.recovery(), x.standard_uncertainty(), y.recovery(), y.standard_uncertainty())
+    };
+    close(stat(&crm, &a), 0.275, 0.0005, "CRM vs A");
+    close(stat(&crm, &c), 1.32, 0.005, "CRM vs C");
+    close(stat(&a, &c), 1.50, 0.005, "A vs C");
+    // Eq. (B5.9)–(B5.11): without s(R̄): u_R̿ = 0.0323, statistic 1.554, U⟨II⟩ = 0.111 w.
+    close(r.standard_uncertainty, 0.0323, 0.00005, "u_R̿ without s(R̄)");
+    close(recovery_significance(&r, 27.0, 0.95).statistic, 1.554, 0.002, "|1 − R̿|/u (1.554 from rounded values)");
+    let b = TopDownBudget::new(
+        vec![Component::relative("precision", 0.0452), Component::relative("recovery", 0.0323)],
+        2.0,
+    );
+    close(b.evaluate(1.0).expanded_uncertainty, 0.111, 0.0005, "U⟨II⟩/w");
+}
+
+#[test]
+fn mupr_example_b6_heterogeneity_and_22_proficiency_tests() {
+    // Table B6.1 (raw data): mean 78.46, s 5.76, 7.34 %.
+    let ds = [
+        76.05, 75.10, 88.27, 87.20, 73.73, 83.27, 77.20, 80.85, 70.57, 92.12, 75.06, 76.55, 79.13, 73.06, 78.16, 86.99,
+        73.24, 77.83, 74.08, 73.00, 77.92, 66.17, 76.22, 85.24, 80.07, 74.74, 76.55, 79.66, 85.32, 80.49,
+    ];
+    let (m, s) = mean_sd(&ds);
+    close(m, 78.46, 0.005, "mean");
+    close(s, 5.76, 0.005, "s_I(DS)");
+    close(100.0 * s / m, 7.34, 0.005, "s′_I(DS)");
+
+    // Table B6.2 (raw data): 7 absolute ranges below 7.5 mg/kg, mean 0.2157;
+    // 23 relative ranges above, mean 3.00 %; s_r(h) = Ā/1.128.
+    let dup = [
+        (5.93, 5.74),
+        (4.36, 4.01),
+        (13.66, 13.65),
+        (15.77, 16.46),
+        (8.51, 8.15),
+        (10.19, 10.40),
+        (8.19, 8.16),
+        (6.25, 6.34),
+        (8.16, 7.68),
+        (13.16, 13.00),
+        (10.07, 9.65),
+        (14.21, 14.01),
+        (17.94, 18.67),
+        (9.67, 9.23),
+        (21.15, 20.72),
+        (19.64, 20.02),
+        (2.81, 2.64),
+        (11.11, 11.03),
+        (10.00, 10.11),
+        (2.30, 2.25),
+        (17.75, 16.81),
+        (8.59, 8.01),
+        (20.10, 21.67),
+        (11.98, 11.98),
+        (27.85, 27.23),
+        (5.58, 5.85),
+        (7.37, 7.71),
+        (4.62, 4.23),
+        (20.13, 19.78),
+        (11.79, 11.54),
+    ];
+    let low: Vec<f64> = dup.iter().filter(|(a, b)| (a + b) / 2.0 < 7.5).map(|(a, b)| (a - b as &f64).abs()).collect();
+    let high: Vec<f64> = dup
+        .iter()
+        .filter(|(a, b)| (a + b) / 2.0 >= 7.5)
+        .map(|(a, b)| 100.0 * (a - b).abs() / ((a + b) / 2.0))
+        .collect();
+    assert_eq!((low.len(), high.len()), (7, 23));
+    let a_low = low.iter().sum::<f64>() / 7.0;
+    let a_high = high.iter().sum::<f64>() / 23.0;
+    close(a_low, 0.2157, 0.00005, "Ā(h)");
+    close(a_high, 3.00, 0.005, "Ā′(h)");
+    close(sd_from_mean_range(a_low), 0.1912, 0.00005, "s_r(h)");
+    close(sd_from_mean_range(a_high), 2.66, 0.005, "s′_r(h)");
+    // Eq. (B6.1)–(B6.2): s_I⟨I⟩ = 0.5828 mg/kg; s′_I⟨II⟩ = 7.808 %.
+    close(root_sum_of_squares(&[7.5 * 0.0734, sd_from_mean_range(0.2157)]), 0.5828, 0.00005, "s_I⟨I⟩");
+    close(root_sum_of_squares(&[7.341, 3.000 / D2_DUPLICATES]), 7.808, 0.0005, "s′_I⟨II⟩");
+
+    // Table B6.3: 22 single PT results; R and u_R recomputed with the
+    // homogeneous-sample precision model (7.34 % above 7.5 mg/kg, 7.5 × 7.34 % below).
+    let pt = [
+        (12.000, 14.460, 0.2340, 0.8299, 0.0624),
+        (7.000, 7.396, 0.1904, 0.9465, 0.0783),
+        (6.900, 7.495, 0.2254, 0.9206, 0.0785),
+        (6.600, 7.213, 0.1951, 0.9150, 0.0802),
+        (12.800, 14.220, 0.4887, 0.9001, 0.0730),
+        (19.200, 21.360, 0.7165, 0.8989, 0.0726),
+        (17.400, 18.192, 0.4227, 0.9565, 0.0736),
+        (8.130, 8.299, 0.1992, 0.9796, 0.0757),
+        (13.400, 14.875, 0.5777, 0.9009, 0.0748),
+        (16.200, 18.442, 0.7851, 0.8784, 0.0745),
+        (7.654, 8.360, 0.2457, 0.9156, 0.0724),
+        (6.636, 7.160, 0.2136, 0.9268, 0.0817),
+        (8.496, 9.440, 0.3262, 0.9000, 0.0730),
+        (18.600, 22.100, 0.2363, 0.8416, 0.0624),
+        (10.000, 11.500, 0.3129, 0.8696, 0.0681),
+        (12.800, 14.100, 0.5563, 0.9078, 0.0757),
+        (10.100, 11.300, 0.4900, 0.8938, 0.0762),
+        (17.400, 17.800, 0.3002, 0.9775, 0.0736),
+        (8.240, 8.720, 0.3258, 0.945, 0.0778),
+        (16.500, 17.000, 0.4053, 0.9706, 0.0749),
+        (8.480, 9.580, 0.2885, 0.8852, 0.0702),
+        (11.700, 11.450, 0.3637, 1.0218, 0.0817),
+    ];
+    let precision = PrecisionModel::TwoIntervals { split: 7.5, sd_low: 7.5 * 0.0734, rsd_high: 0.0734 };
+    let tests: Vec<RecoveryTest> = pt
+        .iter()
+        .map(|&(w, big_w, u_w, _, _)| RecoveryTest::Reference {
+            mean: w,
+            sd: precision.sd_at(w),
+            n: 1,
+            reference: big_w,
+            u_reference: u_w,
+        })
+        .collect();
+    for (t, &(_, _, _, r, u)) in tests.iter().zip(&pt) {
+        close(t.recovery(), r, 0.00006, "R (Table B6.3)");
+        close(t.standard_uncertainty(), u, 0.00006, "u_R (Table B6.3)");
+    }
+    let r = mean_recovery(&tests).unwrap();
+    close(r.mean, 0.91735, 0.000005, "R̿ (printed 0.9174)");
+    close(r.standard_uncertainty, 0.01585, 0.00001, "u_R̿ without s(R) (0.015845)");
+    let s_r = recovery_standard_deviation(&tests).unwrap();
+    close(s_r, 0.04607, 0.000005, "s(R)");
+    close(root_sum_of_squares(&[r.standard_uncertainty, s_r]), 0.04872, 0.000005, "u_R̿ with s(R)");
+
+    // Eq. (B6.7): χ² about the unweighted mean = 8.80 (printed); Eq. (16)
+    // prescribes the weighted mean, giving 8.70; critical χ²₀.₉₅(21) = 32.7.
+    let values: Vec<(f64, f64)> = tests.iter().map(|t| (t.recovery(), t.standard_uncertainty())).collect();
+    let chi_unweighted: f64 = values.iter().map(|(x, u)| ((x - r.mean) / u).powi(2)).sum();
+    close(chi_unweighted, 8.80, 0.005, "χ² about R̿ (printed)");
+    let h = recovery_homogeneity(&values, 0.95).unwrap();
+    close(h.chi_squared, 8.70, 0.005, "χ² about weighted mean (Eq. 16)");
+    close(h.critical, 32.7, 0.05, "χ²₀.₉₅(21)");
+    assert!(h.equivalent);
+    // Without s(R): 5.21 → correction required; with s(R): 1.70.
+    close(recovery_significance(&r, 21.0, 0.95).statistic, 5.21, 0.01, "statistic without s(R) (5.217; printed 5.21)");
+    assert!(recovery_significance(&r, 21.0, 0.95).significant);
+    let with_s = MeanRecovery { standard_uncertainty: 0.04872, ..r };
+    close(recovery_significance(&with_s, 21.0, 0.95).statistic, 1.70, 0.005, "statistic with s(R)");
+
+    // Eq. (B6.9)–(B6.10): U⟨II⟩ = 0.160 w/R̿; two days: 0.1157 w/R̿; interval
+    // limits 21.5 and 29.7 mg/kg for U_tg = 3.75 mg/kg.
+    let u_rel_r = 0.01585 / 0.9174;
+    let u2 = TopDownBudget::new(
+        vec![Component::relative("precision", 0.07808), Component::relative("recovery", u_rel_r)],
+        2.0,
+    )
+    .evaluate(1.0)
+    .expanded_uncertainty;
+    close(u2, 0.160, 0.0005, "U⟨II⟩ / (w/R̿)");
+    let s2 = intermediate_precision_of_mean(0.0, 0.07808, 1, 2).unwrap();
+    let u3 =
+        TopDownBudget::new(vec![Component::relative("precision", s2), Component::relative("recovery", u_rel_r)], 2.0)
+            .evaluate(1.0)
+            .expanded_uncertainty;
+    close(u3, 0.1157, 0.00005, "U⟨III⟩ / (w/R̿)");
+    close(3.75 / u2 * 0.9174, 21.5, 0.05, "upper limit of Interval II");
+    close(3.75 / u3 * 0.9174, 29.7, 0.05, "upper limit of Interval III");
+    // Eq. (B6.8) as printed omits 1/R̿ on the precision term of the
+    // recovery-corrected result: u(w/R̿)² = (s_I/R̿)² + (w u_R̿/R̿²)².
+}
+
+#[test]
+fn mupr_appendix_c_example_c1() {
+    // Permitted (100 ± 10) %, relaxed acceptance, one-sided k_a = 1.64,
+    // u_R̄ = 2.4 % → Δa = 27.87 %, u_a = 8.05 % (printed 8.1 % after
+    // rounding √3 to 1.73).
+    let u_a = acceptable_recovery_allowance(20.0, 1.64, 2.4, RecoveryAcceptance::Relaxed);
+    close(20.0 + 2.0 * 1.64 * 2.4, 27.87, 0.005, "Δa");
+    close(u_a, 8.05, 0.005, "u_a");
+    close(27.87 / (2.0 * 1.73), 8.055, 0.0005, "printed computation (→ 8.1)");
+    close(
+        acceptable_recovery_allowance(20.0, 1.64, 2.4, RecoveryAcceptance::Simple),
+        20.0 / (2.0 * 3f64.sqrt()),
+        1e-12,
+        "simple",
+    );
+    assert!(acceptable_recovery_allowance(20.0, 1.64, 2.4, RecoveryAcceptance::Stringent) < 20.0 / (2.0 * 3f64.sqrt()));
+}
