@@ -3,8 +3,8 @@
 Bu liste, programın ve makalenin eksiksiz olması için gerekli olup **ücretli
 olduğu veya erişimimiz olmadığı için** henüz okunamayan belgeleri içerir.
 Ücretsiz belgeler (JCGM 100/101/102/104/106/200, GUM-6, GUM-1, EA-4/02 M:2022,
-NIST TN 1900, Eurachem QUAM 2012, Eurachem MUPR 2026, Nordtest TR 537)
-zaten indirilmiş ve okunmaktadır.
+NIST TN 1900, Eurachem QUAM 2012, Eurachem MUPR 2026, Nordtest TR 537,
+Suncal makalesi) indirildi; okunanlar `literature-review.md`'de işaretli.
 
 Öneri: TÜBİTAK UME kütüphanesi / TSE aboneliği (TS EN ISO karşılıkları da
 kabul edilir) ve kurumsal ScienceDirect, Springer, RSC, IOP erişimi.
@@ -52,8 +52,9 @@ eklerim. Durum sütununu belge geldikçe güncelleyeceğim.
 
 | # | Belge | Kontrol edilecek |
 |---|---|---|
-| 1 | EURACHEM/CITAC QUAM:2012, Tablo A2.4 | Basılı baskı veya errata: sütun kayması şüphesi (bulgu F10) |
+| 1 | EURACHEM/CITAC QUAM:2012, Tablo A2.4, A3.1, A5 (u(a_V)), A6.5 | Basılı baskı veya errata: F10, F12, F14, F15 |
 | 2 | Nordtest TR 537 ed. 4, §6.1 | 2.16 % / 2.17 % hesap hatası (F5) için güncel düzeltme var mı |
+| 3 | EA-4/02 M:2022 (S5, S7, S13) | güncel revizyon / errata (F18) |
 
 ## E. Yazar tarafından sağlanabilecek veriler (isteğe bağlı, çok değerli)
 

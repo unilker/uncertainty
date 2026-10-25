@@ -30,14 +30,18 @@ Türkçe ve İngilizce.
   proficiency tests and recovery (Nordtest TR 537); mean recovery, its
   uncertainty and significance, precision models over the working range and
   combination with contributions (Eurachem/CITAC MUPR 2026).
+- Calibration curves: straight-line least squares and uncertainty of
+  predicted concentrations (EURACHEM CG4 Appendix E.4).
+- Coverage factors for dominant rectangular/trapezoidal contributions
+  (EA-4/02).
 - Reporting: rounding of results by the GUM, MUPR or round-up rule.
 
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test: GUM H.1, all four examples of JCGM 101 clause 9, EURACHEM
-CG4 A1–A2, Nordtest TR 537 (recomputed from its raw data) and Eurachem MUPR
-examples 2, 3 and B1. Details, tolerances and findings:
+automated test (94 tests): GUM H.1, all four examples of JCGM 101 clause 9,
+EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
+their raw data), and all twelve calibration examples of EA-4/02 M:2022. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

@@ -247,3 +247,119 @@ with the corrected values, and ideally communicated to the document owners.
    matrix-dependent recovery).
 3. Project file format (JSON), CLI and report generation.
 4. Flutter UI.
+
+---
+
+## 2026-10-25 (session 3) — EURACHEM A3–A7, MUPR B2–B6, EA-4/02 S2–S13
+
+### Decisions
+
+**D10. Division of labour on sources.** Paywalled or unavailable documents
+are listed in `documents-needed.md`; the author obtains them (UME library /
+TSE). Freely available documents are downloaded directly: JCGM 102, 104,
+106, 200, GUM-6, EA-4/02 M:2022, NIST TN 1900 and the Suncal paper
+(Delker, SAND2021-8022J) were obtained on 2026-10-25; of these EA-4/02 has
+been read in full so far.
+
+**D11. Analytic sensitivities, not Kragten differences.** The engine uses
+exact derivatives. Where a guide uses Kragten's spreadsheet (one-sided
+finite differences), tests check both the guide's numbers (with a stated
+tolerance) and the exact value. Offering a Kragten view for comparability
+with QUAM is a possible UI feature (Q9).
+
+### Implemented
+
+| Module | Content | Source |
+|---|---|---|
+| `calibration` | OLS/WLS straight line, parameter covariance, inverse prediction and its uncertainty | QUAM 2012 App. E.4 |
+| `topdown` | normalised-difference precision, binomial inhomogeneity model, s(R) of recoveries, pairwise recovery statistic, allowance for accepted recovery intervals, target uncertainty from class width | QUAM A4; MUPR §8.2.7, B5, B6, App. C, B4.4 |
+| `special` | coverage factor for dominant trapezoidal/rectangular distributions | EA-4/02 S9.14, S10.13 |
+
+### Findings
+
+**F12. EURACHEM A3.** The summary Table A3.1 states u_c = 0.00016 mol/L,
+but its own inputs give 0.00019; 0.00016 is the triple-determination result
+(Table A3.4); the detailed single-run value is 0.00018. u(V_HCl) contains an
+unexplained 0.0037 mL term; with unrounded components it is 0.0115 mL
+(0.011 printed). Typos: M = 204.2236 in the 25 °C formula, "0.12 mL" for
+0.012 mL and "2 × 0.87²" for 0.087² in the replicated section; Table A3.4
+uses u(m) = 0.00013 g while the text gives 0.12 mg.
+
+**F13. EURACHEM A4.** Table A4.2 has errors in derived columns (mean 0.75
+for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); recomputed from
+D1/D2 the statistic 0.382 is reproduced. t_crit is quoted as 2.021 (t(40))
+for 41 degrees of freedom (2.0195). "0.373/1.1111" is printed for
+0.377/1.1111. With 27 % relative uncertainties, Kragten's one-sided
+difference for Rec (−0.0507) differs from the derivative (−0.0531).
+
+**F14. EURACHEM A5.** The calibration line (b₁, b₀, their s, r, S, S_xx)
+and u(c₀) = 0.018 mg/L are reproduced from the raw absorbances. The area
+uncertainty components 0.042 and 0.146 dm² combine to 0.152 dm², but
+0.19 dm² is printed and used (u_c 0.00147 vs 0.00144 mg/dm²; reported
+result unchanged). The area formula shows d = 2.77 dm for the measured
+2.70 dm, and Table A5.4 cells C2/C3 show 10.01 and 0.27 for a_V.
+
+**F15. EURACHEM A6.** Table A6.5 prints U = 0.12 % m/m at 10 % fibre; it is
+1.2 % m/m (the 12 % column is right).
+
+**F16. EURACHEM A7 (double IDMS).** Fully reproduced from Tables A7.3–A7.8:
+c_z, M(Pb), c_x = 0.053738 µmol/g, u_c = 0.00018 (0.00041 without the √8
+division), ΣK_bias = 37.6 % of the variance. No discrepancy found.
+
+**F17. MUPR B2–B6, Appendix C.** All examples reproduced from the raw tables
+(B2.1, B2.3, B6.1, B6.2, all 22 rows of B6.3). Minor points: values computed
+from rounded intermediates (B2 s′_I(2), B5 statistic 1.554, B6 R̿); B3
+regression intercept 0.02324 printed 0.0233; B6 χ² = 8.80 is computed
+about the unweighted mean, whereas Eq. (16) prescribes the weighted mean
+(8.70; same conclusion); Eq. (B6.8) omits the 1/R̿ factor on the absolute
+precision term of the recovery-corrected result; Example C1 uses √3 ≈ 1.73
+(u_a 8.1 % instead of 8.05 %).
+
+**F18. EA-4/02 M:2022.** All twelve examples reproduced; Table E.1 agrees
+with t₉₅.₄₅(ν) for all 26 entries. Printed inconsistencies: S2 total
+combines rounded contributions (29.2 vs 29.26 mg); S5 δt contribution
+24.5 µV vs 0.641 × 38.46 = 24.65 µV (the printed total uses 24.65) and the
+δt estimate is −0.5 °C, not +0.5 °C; S6 heading says 19 GHz, text and result
+18 GHz; S7 δL_ib contribution printed 0.0019 dB for u = 0.0003 dB, and the
+printed total 0.0223 dB includes it (0.0222 dB without); S11 k = 1.81 vs
+1.80 from Eq. (S10.9); S13 mean Δl 49.999 54 vs 49.999 55 mm in the budget,
+s = 0.33 µm vs "0.18 µm" in the text, √(0.15² + 0.25²) = 0.29 vs 0.30 µm,
+δl_P sign, and U = 0.82 µm reported as 0.9 µm (round-up). None of these
+changes a reported result materially.
+
+**F19. Second-order GUM terms for products.** EA-4/02 S4 and S13 need the
+variance of products whose factors have zero expectation; the GUM 5.1.2-note
+terms implemented in `gum` give these variances exactly (they are exact for
+products of independent quantities). First-order LPU silently gives zero for
+such terms — the UI should warn when a sensitivity coefficient is zero but
+the input has non-zero uncertainty (Q10).
+
+**F20. Overall picture (candidate result for the article).** About 45
+worked examples from seven guidance documents (GUM, JCGM 101, EURACHEM
+QUAM, Nordtest TR 537, Eurachem MUPR, EA-4/02) have now been recomputed,
+from raw data wherever given. Every reported *result* was reproduced, but
+roughly half of the examples contain at least one printed inconsistency
+(intermediate rounding, transcription slips, or a value inconsistent with
+the stated inputs). Only two affect a printed final value beyond rounding
+(Nordtest §6.1: 4.1 → 4.2 %; EURACHEM A5: u(a_V) 0.19 → 0.15 dm²). This
+supports the argument that validation of uncertainty software should
+recompute examples from their inputs, with documented tolerances, rather
+than match printed numbers.
+
+### Open questions (new)
+
+- **Q9.** Offer a Kragten (one-sided difference) view next to the exact
+  sensitivities, for comparability with QUAM-style spreadsheets?
+- **Q10.** Warn when a first-order sensitivity vanishes at the estimate but
+  the model is non-linear in that input (S4, S13, JCGM 101 9.4).
+- **Q11.** Report discrepancies F5, F10, F12–F15, F18 to the document owners
+  (Nordtest, Eurachem, EA)? Decision for the author.
+
+### Next steps
+
+1. Project file format (JSON) and CLI, so every example can be stored and
+   reported reproducibly.
+2. Report generation (budget table, contributions, citation footer).
+3. NIST TN 1900 examples (downloaded) and remaining JCGM 102 multivariate
+   cases.
+4. Flutter UI.

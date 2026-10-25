@@ -10,8 +10,8 @@ primary reference is an analytic solution or an independent 2 × 10⁸-trial
 PCG64 run (`validation/reference_values.py` → `reference_values.json`).
 
 Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
-`core/tests/eurachem_examples.rs`, `core/tests/topdown_examples.rs`; unit
-tests in `core/src/*`.
+`core/tests/eurachem_examples.rs`, `core/tests/topdown_examples.rs`,
+`core/tests/ea402_examples.rs`; unit tests in `core/src/*`.
 
 ## Numerical building blocks
 
@@ -51,6 +51,14 @@ tests in `core/src/*`.
 | EU-A2a | QUAM:2012 Tables A2.2–A2.3 | NaOH standardisation | 0.102136 mol/L, u = 0.000099, 5 contributions | identical | ✅ |
 | EU-A2b | QUAM:2012 A2.4 | sub-models (weighing, IUPAC molar mass, burette) | u(m) 0.13 mg, u(M) 0.0038, u(V) 0.013 mL, u_c 0.000099 | 0.122 mg, 0.0038, 0.0137 mL, 0.000101; MCM agrees | ✅ (F10) |
 | EU-A2c | QUAM:2012 Table A2.4 | distribution choice | 0.00011 / 0.000099 / 0.000085 | not reproducible | ⚠️ not tested (F10) |
+| EU-A3a | QUAM:2012 Tables A3.2–A3.3 | HCl titration (Kragten) | 0.101387, u 0.00018, 7 contributions, (0.1014 ± 0.0004) | identical | ✅ |
+| EU-A3b | QUAM:2012 A3.1, A3.4, A3.6 | summary table, triple determination, 25 °C, visual end-point | 0.00016 (summary), 0.00016, 0.10149, 0.0003 | 0.00019 from summary inputs; others reproduced | ✅ (F12) |
+| EU-A4 | QUAM:2012 Tables A4.2–A4.5, A4.6 | pesticides: precision 0.27 (from raw duplicates), recovery t-test, binomial inhomogeneity (a)–(c), u_c/P 0.34, u 0.377 | reproduced | ✅ (F13) |
+| EU-A5a | QUAM:2012 Table A5.2, App. E.4 | calibration from 15 raw points; u(c₀) | b₁ 0.2410 (0.0050), b₀ 0.0087 (0.0029), r 0.997, S 0.005486, u 0.018 | identical | ✅ |
+| EU-A5b | QUAM:2012 Tables A5.3–A5.4 | Cd release budget and sub-models | r 0.015065, u 0.001465, u(V_L) 1.83, u(a_V) 0.19 | 0.001470 (exact), 1.83, u(a_V) 0.152 | ✅ (F14) |
+| EU-A6 | QUAM:2012 Tables A6.2–A6.5 | crude fibre: s_R + drying allowance | 0.31/0.4/0.6; U 0.62/0.8/0.12 | U at 10 % = 1.2 | ✅ (F15) |
+| EU-A7a | QUAM:2012 Tables A7.3–A7.8 | lead by double IDMS, Eq. (5) | c_x 0.053738, u_c 0.00018 / 0.00041, ΣK_bias 37.6 % | reproduced | ✅ (F16) |
+| EU-A7b | QUAM:2012 Eq. (8), (12) | c_z, M(Pb) | 0.092605 (0.000028), 207.2103 | reproduced | ✅ |
 
 ## Top-down examples (relative values in %)
 
@@ -69,6 +77,29 @@ tests in `core/src/*`.
 | MUPR-E3 | MUPR Example 3 | spiked samples with native analyte | 96.2 %, 10.02 %; 1.5 % (A only) | same | ✅ |
 | MUPR-B1 | MUPR Example B1 | nitrate by IC: R̄, u_R̄, Eq. 13, limits, U⟨I⟩, U⟨II⟩, contributions, B1.16, B1.18, reporting | 97.2 %, 0.0285, 0.982 ≤ 2.093, 0.794/1.15, 0.729/1.21, 0.0676, 0.185c, 94.1/4.8/1.1 %, 82.9/9.5/2.1/5.6 %, 7.13, 0.57 ≤ 1.27, (0.261 ± 0.068), (50.0 ± 9.3) | same (0.963 and 0.0849 unrounded) | ✅ (F9) |
 | MUPR-12 | MUPR §12, Table 2 | rounding of reported results | (0.156 ± 0.012), (5360 ± 240), (5360 ± 260) | same | ✅ |
+| MUPR-B2 | MUPR B2 (raw Tables B2.1, B2.3) | pooled precision, two recoveries, compatibility, overall recovery, U, replicates | 0.0285, 7.73 %, 0.048 ≤ 0.134, 99.6 %, 2.24 %, 0.169c, 7.41, 7.06 | same | ✅ (F17) |
+| MUPR-B3 | MUPR B3 | regression precision model; U with F = 100; k = t(5) | 0.0233 + 0.0128c (r 0.7266), 7.28, 0.137c | intercept 0.02324 | ✅ (F17) |
+| MUPR-B4 | MUPR B4 | As in sediments, one CRM | 4.52 %, 0.0381, 2.24 ≤ 2.26, (16.0 ± 1.9), U_tg | same | ✅ |
+| MUPR-B5 | MUPR B5 | CRM + 2 spiked samples, matrix variability | R̿ 0.9498, s(R) 0.0732, u 0.0800 / 0.0323, pairwise 0.275/1.32/1.50 | same | ✅ |
+| MUPR-B6 | MUPR B6 (raw Tables B6.1–B6.3) | heterogeneity from 30 duplicates, 22 PT recoveries, χ², intervals | 7.34 %, 0.2157, 3.00 %, 0.5828, 7.808 %, R̿ 0.9174, u 0.01585 / 0.04872, χ² 8.80, 0.160, 0.1157, 21.5, 29.7 | same (χ² 8.70 with weighted mean) | ✅ (F17) |
+| MUPR-C1 | MUPR App. C, Example C1 | allowance for an accepted recovery interval | Δa 27.87 %, u_a 8.1 % | 8.05 % | ✅ (F17) |
+
+## Calibration examples (EA-4/02 M:2022)
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| EA-E1 | Table E.1 coverage factors (26 values) | 13.97 … 2.00 | t₉₅.₄₅(ν) agrees | ✅ |
+| EA-S2 | weight 10 kg | 29.2 mg, U 58 mg | 29.26 (29.2 from rounded contributions) | ✅ (F18) |
+| EA-S3 | resistor 10 kΩ (Type A from 5 ratios) | 10 000.178 Ω, 8.33 mΩ, U 17 mΩ | same | ✅ |
+| EA-S4 | gauge block 50 mm (second-order δα·θ) | 49.999 926 mm, 34.3 nm, U 69 nm | same | ✅ (F19) |
+| EA-S5 | thermocouple 1000 °C (two budgets) | 0.641 °C; 36 229 µV, 25.0 µV | same (δt term 24.65) | ✅ (F18) |
+| EA-S6 | power sensor (U-shaped mismatch) | 0.933, 0.01623, U 0.032, ν_eff ≈ 310 | same | ✅ (F18) |
+| EA-S7 | step attenuator | 30.043 dB, 0.0223 dB, U 0.045 dB | 0.0222 dB | ✅ (F18) |
+| EA-S9 | DMM 100 V, rectangular output | 0.030 V, k 1.65, (0.10 ± 0.05) V | same | ✅ |
+| EA-S10 | vernier calliper, trapezoid β = 0.33 | 32 µm, k 1.83, (0.10 ± 0.06) mm | same | ✅ |
+| EA-S11 | temperature block, β = 0.43 | 164 mK, k 1.81, (180.1 ± 0.3) °C | k = 1.80 | ✅ (F18) |
+| EA-S12 | water meter (ν_eff = 10) | 199.93 l, 0.109 l; 0.68e-3; 0.91e-3, k 2.28, U 0.002 | same | ✅ |
+| EA-S13 | ring gauge 90 mm (temperature products) | 0.15 µm sub-budget, 0.411 µm, U 0.9 µm | 0.148, 0.41, 0.82 → 0.9 only with round-up | ✅ (F18) |
 
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
@@ -84,6 +115,6 @@ tests in `core/src/*`.
 
 ## Planned cases
 
-EURACHEM A3–A7; MUPR B2–B6; EA-4/02 S-examples; NIST TN 1900 examples; Nordtest TR 537
+ EA-4/02 S-examples; NIST TN 1900 examples; Nordtest TR 537
 worked examples; Eurachem MUPR (2026) examples; ISO/TS 28037 data sets;
 cross-checks against the NIST Uncertainty Machine and Suncal.
