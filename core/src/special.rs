@@ -381,6 +381,23 @@ pub fn chi_squared_quantile(p: f64, nu: f64) -> f64 {
     x
 }
 
+/// Coverage factor for an output whose distribution is a symmetric
+/// trapezoid with edge parameter β = b/a (half-width of the top over
+/// half-width of the base), as when one or two rectangular contributions
+/// dominate [EA-4/02 M:2022 S9.14, Eq. (S10.9)]. β = 1 is the rectangular
+/// case k = p√3 (k = 1.65 for p = 0.95); β = 0 the triangular case.
+pub fn trapezoidal_coverage_factor(p: f64, beta: f64) -> f64 {
+    assert!(p > 0.0 && p < 1.0, "coverage probability must lie in (0, 1)");
+    assert!((0.0..=1.0).contains(&beta), "edge parameter must lie in [0, 1]");
+    let u_over_a = ((1.0 + beta * beta) / 6.0).sqrt();
+    if beta >= p / (2.0 - p) {
+        // Interval end inside the plateau.
+        p * (1.0 + beta) / (2.0 * u_over_a)
+    } else {
+        (1.0 - ((1.0 - p) * (1.0 - beta * beta)).sqrt()) / u_over_a
+    }
+}
+
 /// Compensated (Neumaier) summation of a slice.
 pub fn accurate_sum(values: &[f64]) -> f64 {
     let mut sum = 0.0_f64;
@@ -480,6 +497,53 @@ mod tests {
             assert!(rel(chi_squared_quantile(0.95, nu), q95) < 1e-11, "nu={nu}");
             assert!(rel(chi_squared_quantile(0.05, nu), q05) < 1e-9, "nu={nu}");
         }
+    }
+
+    #[test]
+    fn ea_4_02_table_e1_and_trapezoidal_factors() {
+        // EA-4/02 Table E.1: k = t_95.45(ν) to two decimals.
+        let table = [
+            (1.0, 13.97),
+            (2.0, 4.53),
+            (3.0, 3.31),
+            (4.0, 2.87),
+            (5.0, 2.65),
+            (6.0, 2.52),
+            (7.0, 2.43),
+            (8.0, 2.37),
+            (9.0, 2.32),
+            (10.0, 2.28),
+            (11.0, 2.25),
+            (12.0, 2.23),
+            (13.0, 2.21),
+            (14.0, 2.20),
+            (15.0, 2.18),
+            (16.0, 2.17),
+            (17.0, 2.16),
+            (18.0, 2.15),
+            (19.0, 2.14),
+            (20.0, 2.13),
+            (25.0, 2.11),
+            (30.0, 2.09),
+            (35.0, 2.07),
+            (40.0, 2.06),
+            (45.0, 2.06),
+            (50.0, 2.05),
+        ];
+        for (nu, k) in table {
+            assert!((coverage_factor(0.9545, nu) - k).abs() < 0.005, "nu={nu}");
+        }
+        // S9.14: rectangular, k = 0.95·√3 = 1.65; S10.10: β = 0.33 → 1.83.
+        assert!((trapezoidal_coverage_factor(0.95, 1.0) - 0.95 * 3f64.sqrt()).abs() < 1e-14);
+        assert!((trapezoidal_coverage_factor(0.95, 1.0 / 3.0) - 1.83).abs() < 0.005);
+        // Triangular limit β = 0: U = a(1 − √(1 − p)), u = a/√6.
+        let tri = (1.0 - 0.05f64.sqrt()) * 6f64.sqrt();
+        assert!((trapezoidal_coverage_factor(0.95, 0.0) - tri).abs() < 1e-14);
+        // Continuity at the branch point β = p/(2 − p).
+        let b = 0.95 / 1.05;
+        let k1 = trapezoidal_coverage_factor(0.95, b);
+        let k2 = trapezoidal_coverage_factor(0.95, b - 1e-12);
+        assert!((k1 - k2).abs() < 1e-9);
     }
 
     #[test]
