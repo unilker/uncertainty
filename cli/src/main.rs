@@ -17,7 +17,7 @@ experiments (ISO 5725-2); models with several output quantities (JCGM 102).
 
 USAGE:
     uncertainty run <project.json> [options]
-    uncertainty check <file-or-directory>... [--no-mcm]
+    uncertainty check <file-or-directory>... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
     uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
@@ -33,7 +33,9 @@ RUN OPTIONS:
 CHECK:
     Runs every project file (directories are searched recursively for *.json)
     and compares the results with the reference values stored in the file.
-    The exit status is 1 if any comparison fails.
+    The exit status is 1 if any comparison fails. With --report, writes a
+    software validation report (ISO/IEC 17025 7.11.2) for the laboratory's
+    records.
 
 CATALOGUE:
     Writes the worked-examples chapter of the user guide (Markdown) from the
@@ -356,23 +358,33 @@ fn collect(path: &Path, out: &mut Vec<PathBuf>) -> Result<(), String> {
 fn cmd_check(args: &[String]) -> Result<bool, String> {
     let mut ov = Overrides::default();
     let mut files = Vec::new();
-    for a in args {
-        match a.as_str() {
+    let mut report_path: Option<PathBuf> = None;
+    let mut lang = Lang::En;
+    let mut i = 0;
+    while i < args.len() {
+        match args[i].as_str() {
             "--no-mcm" => ov.skip_mcm = true,
+            "--report" => report_path = Some(value(args, &mut i, "--report")?.into()),
+            "--lang" => lang = value(args, &mut i, "--lang")?.parse()?,
             o if o.starts_with('-') => return Err(format!("unknown option '{o}'")),
             p => collect(Path::new(p), &mut files)?,
         }
+        i += 1;
     }
     if files.is_empty() {
         return Err("check needs at least one file or directory".into());
     }
     let (mut passed, mut failed, mut without) = (0, 0, 0);
+    let mut items = Vec::new();
     for f in &files {
-        let outcome = load(f).and_then(|p| project::run(&p, &ov).map(|a| (p, a)).map_err(|e| e.to_string()));
+        let loaded = load(f);
+        let outcome = loaded.clone().and_then(|p| project::run(&p, &ov).map(|a| (p, a)).map_err(|e| e.to_string()));
+        let file = f.display().to_string().replace('\\', "/");
         match outcome {
             Err(e) => {
                 failed += 1;
                 println!("ERROR {}: {e}", f.display());
+                items.push(report::ValidationItem { file, project: loaded.ok(), result: Err(e) });
             }
             Ok((p, a)) => {
                 let checks = project::check(&p, &a);
@@ -392,10 +404,22 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
                         );
                     }
                 }
+                items.push(report::ValidationItem { file, project: Some(p), result: Ok(checks) });
             }
         }
     }
     println!("\n{passed} passed, {failed} failed, {without} without reference values ({} files)", files.len());
+    if let Some(path) = report_path {
+        let html = path.extension().is_some_and(|e| e.eq_ignore_ascii_case("html") || e.eq_ignore_ascii_case("htm"));
+        let date = today();
+        let text = if html {
+            report::validation_html(&items, !ov.skip_mcm, lang, &date)
+        } else {
+            report::validation_markdown(&items, !ov.skip_mcm, lang, &date)
+        };
+        std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+        println!("validation report written to {}", path.display());
+    }
     Ok(failed == 0)
 }
 

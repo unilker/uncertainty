@@ -281,6 +281,11 @@ pub fn check(e: &ExpectedMultivariate, a: &MultivariateAnalysis, out: &mut Vec<c
     ];
     for (tag, exp, view) in views {
         let Some(x) = exp else { continue };
+        // Monte Carlo reference values are not compared when the method was
+        // not run (`--no-mcm`).
+        if tag == "mcm" && view.is_none() {
+            continue;
+        }
         for (name, c) in &x.estimate {
             push(
                 format!("multivariate.{tag}.estimate[{name}]"),
@@ -331,7 +336,7 @@ pub fn check(e: &ExpectedMultivariate, a: &MultivariateAnalysis, out: &mut Vec<c
             a.validation.as_ref().map(|v| v.rectangle_validated),
         ),
     ] {
-        if let Some(w) = want {
+        if let (Some(w), true) = (want, a.mcm.is_some()) {
             let b = |x: bool| if x { 1.0 } else { 0.0 };
             push(what.into(), got.map(b), b(w), 0.0);
         }

@@ -35,6 +35,26 @@ Options of `run`:
 | `--trials N` | fixed number of Monte Carlo trials (overrides the project) |
 | `--seed S` | random-number seed (overrides the project) |
 
+Options of `check`:
+
+| Option | Meaning |
+|---|---|
+| `--no-mcm` | skip the Monte Carlo evaluations and their reference values |
+| `--report FILE` | write a software validation report, as HTML if FILE ends in `.html`, otherwise Markdown |
+| `--lang en` / `--lang tr` | language of the validation report |
+
+The validation report is the record that ISO/IEC 17025:2017 7.11.2 asks for when software is validated before
+use and after changes. It names the program version, platform, date and options; summarizes the outcome by
+method; lists every project with its source, the number of values compared and the largest ratio of
+difference to tolerance; and lists any value outside its tolerance. It ends with a line for the signature of
+the person who checked it. A laboratory would typically run
+
+```sh
+uncertainty check library --report validation-2026-10.html
+```
+
+after installing a new version, and file the report with its own projects checked the same way.
+
 ## 2.3 A first evaluation
 
 The library example `library/chemistry/quam-a1-cadmium-standard.json` is EURACHEM/CITAC QUAM Example A1, the

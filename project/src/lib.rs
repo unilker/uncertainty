@@ -505,7 +505,9 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
             &e.kragten_uncertainty,
         );
     }
-    if let Some(e) = &exp.mcm {
+    // Monte Carlo reference values are not compared when the Monte Carlo
+    // method was not run (`--no-mcm`).
+    if let (Some(e), true) = (&exp.mcm, a.mcm.is_some()) {
         let m = a.mcm.as_ref();
         let iv = m.map(|m| m.interval(a.interval_kind));
         push("mcm.estimate", m.map(|m| m.estimate), &e.estimate);
@@ -860,8 +862,12 @@ mod tests {
             "multivariate": {"outputs": OUT, "inputs": [{"name": "a", "distribution": {"type": "normal", "mean": 2, "sd": 0.1}},
               {"name": "b", "distribution": {"type": "normal", "mean": 3, "sd": 0.2}}] EXTRA },
             "analysis": {"mcm": {"trials": 20000}}}"#;
-        let p = parse(&base.replace("OUT", r#"[{"name": "s", "expression": "a + b"}, {"name": "d", "expression": "a - b"}]"#).replace("EXTRA", ""))
-            .unwrap();
+        let p = parse(
+            &base
+                .replace("OUT", r#"[{"name": "s", "expression": "a + b"}, {"name": "d", "expression": "a - b"}]"#)
+                .replace("EXTRA", ""),
+        )
+        .unwrap();
         let e = run(&p, &Overrides::default()).unwrap();
         let Evaluation::Multivariate(a) = &e else { panic!("not multivariate") };
         let g = a.gum.as_ref().unwrap();
@@ -870,13 +876,14 @@ mod tests {
         assert!(a.mcm.is_some() && a.validation.is_some() && a.points.len() == multivariate::CHART_POINTS);
         assert_eq!(report::reported_statements(&p, &e, Lang::En).len(), 3);
         // An implicit model needs starting values.
-        let imp = base.replace("OUT", r#"[{"name": "y", "expression": "y^2 - a"}]"#).replace("EXTRA", r#", "implicit": true"#);
+        let imp = base
+            .replace("OUT", r#"[{"name": "y", "expression": "y^2 - a"}]"#)
+            .replace("EXTRA", r#", "implicit": true"#);
         assert!(run(&parse(&imp).unwrap(), &Overrides::default()).is_err());
         // Indications need more sets than quantities, and one unit per quantity.
-        let few = base.replace("OUT", r#"[{"name": "s", "expression": "a + u + v"}]"#).replace(
-            "EXTRA",
-            r#", "indications": [{"inputs": ["u", "v"], "values": [[1, 2], [1.1, 2.1]]}]"#,
-        );
+        let few = base
+            .replace("OUT", r#"[{"name": "s", "expression": "a + u + v"}]"#)
+            .replace("EXTRA", r#", "indications": [{"inputs": ["u", "v"], "values": [[1, 2], [1.1, 2.1]]}]"#);
         assert!(run(&parse(&few).unwrap(), &Overrides::default()).is_err());
         let units = few.replace(r#""values""#, r#""units": ["V"], "values""#);
         assert!(matches!(run(&parse(&units).unwrap(), &Overrides::default()), Err(ProjectError::Input { .. })));

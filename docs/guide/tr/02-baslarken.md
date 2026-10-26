@@ -35,6 +35,26 @@ cargo build --release
 | `--trials N` | sabit Monte Carlo deneme sayısı (projedekini geçersiz kılar) |
 | `--seed S` | rastgele sayı tohumu (projedekini geçersiz kılar) |
 
+`check` seçenekleri:
+
+| Seçenek | Anlamı |
+|---|---|
+| `--no-mcm` | Monte Carlo hesaplarını ve bunların referans değerlerini atlar |
+| `--report DOSYA` | yazılım doğrulama raporu yazar; DOSYA `.html` ile bitiyorsa HTML, aksi halde Markdown |
+| `--lang en` / `--lang tr` | doğrulama raporunun dili |
+
+Doğrulama raporu, ISO/IEC 17025:2017 7.11.2'nin yazılımın kullanımdan önce ve değişikliklerden sonra
+doğrulanması için istediği kayıttır. Raporda program sürümü, platform, tarih ve seçenekler yer alır. Sonuçlar
+yönteme göre özetlenir. Her proje kaynağı, karşılaştırılan değer sayısı ve farkın toleransa en büyük oranıyla
+listelenir. Toleransı dışında kalan değerler ayrıca sıralanır. Rapor, kontrol eden kişinin imzası için bir
+satırla biter. Bir laboratuvar genellikle yeni bir sürümü kurduktan sonra
+
+```sh
+uncertainty check library --report dogrulama-2026-10.html --lang tr
+```
+
+komutunu çalıştırır ve raporu, aynı biçimde denetlediği kendi projeleriyle birlikte dosyalar.
+
 ## 2.3 İlk hesaplama
 
 Kütüphanedeki `library/chemistry/quam-a1-cadmium-standard.json` örneği, EURACHEM/CITAC QUAM Örnek A1'dir:

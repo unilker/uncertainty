@@ -11,6 +11,7 @@
 | 2g | Proficiency testing (ISO 13528:2022): robust statistics, assigned value, scores, homogeneity and stability | **done** |
 | 2h | Calibration with uncertainties in both variables (ISO 6143:2025): GLS fit of linear, polynomial, power and exponential analysis functions, covariances, validation, drift control | **done** |
 | 2i | Interlaboratory precision experiments (ISO 5725-2:2019): outlier tests, s_r/s_R by ANOVA or REML, relationships I–IV | **done** |
+| 2j | ISO/IEC 17025 support: software validation report (`check --report`, 7.11.2); internal quality control charts after Nordtest TR 569 ed. 6 (7.7.1) | **in progress**: validation report done; control charts in progress |
 | 2f | ISO/TS 28037 data sets (awaiting the standard); TN 1900 observation-equation examples | planned |
 | 3 | JSON project files; CLI (`run`, `check`, `template`); TR/EN reports (Markdown, HTML with SVG charts, JSON) with citation footer | **done** (PDF/CSV export: planned) |
 | 4 | Flutter UI (desktop + mobile), Rust bridge, TR/EN localisation | **in progress**: C interface crate, Flutter app (library, editors, results, export), Linux build tested; Android APK (engine for three ABIs), Windows/Linux packages, universal macOS app and unsigned iOS build (engine linked statically) built by the Package workflow; signing/store distribution pending |

@@ -18,6 +18,9 @@ mod conformity;
 mod interlab;
 mod multivariate;
 mod proficiency;
+mod validation;
+
+pub use validation::{validation_html, validation_markdown, ValidationItem};
 
 struct Labels {
     report: &'static str,
@@ -1800,13 +1803,18 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
     } else {
         format!("{body}{figures}")
     };
+    page(p.metadata.title.get(lang), &body, lang)
+}
+
+/// A self-contained HTML page with the report style.
+fn page(title: &str, body: &str, lang: Lang) -> String {
     let html_lang = match lang {
         Lang::En => "en",
         Lang::Tr => "tr",
     };
     format!(
         "<!doctype html>\n<html lang=\"{html_lang}\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>{}</title><style>{CSS}</style></head><body><main>\n{body}</main></body></html>\n",
-        esc(p.metadata.title.get(lang))
+        esc(title)
     )
 }
 
