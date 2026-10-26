@@ -23,7 +23,7 @@ String fmtNum(num? x, int sig, String lang) {
     var e = (math.log(v.abs()) / math.ln10).floor();
     final scale = math.pow(10, sig - 1 - e).toDouble();
     if ((v.abs() * scale).round() >= math.pow(10, sig)) e += 1;
-    if (e >= -4 && e < 7) {
+    if (e >= -4 && e < 10) {
       final decimals = math.max(0, sig - 1 - e);
       s = v.toStringAsFixed(decimals);
     } else {
@@ -32,6 +32,18 @@ String fmtNum(num? x, int sig, String lang) {
     }
   }
   return lang == 'tr' ? s.replaceAll('.', ',') : s;
+}
+
+/// An estimate with enough significant digits to show two digits of its
+/// standard uncertainty (at least six), as in the engine's reports.
+String fmtEstimate(num? x, num? u, String lang) {
+  if (x == null) return '—';
+  var sig = 6;
+  if (x != 0 && u != null && u > 0 && x.isFinite && u.isFinite) {
+    final d = (math.log(x.abs()) / math.ln10).floor() - (math.log(u) / math.ln10).floor() + 2;
+    sig = d.clamp(6, 15);
+  }
+  return fmtNum(x, sig, lang);
 }
 
 /// A fraction as a percentage: "95.45 %" in English, "%95,45" in Turkish.

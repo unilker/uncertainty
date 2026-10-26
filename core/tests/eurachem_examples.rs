@@ -32,6 +32,12 @@ fn a1_calibration_standard_summary_budget() {
     close(g.budget[1].contribution, 0.49995, 0.0002, "u(y,m)");
     close(g.budget[2].contribution, -0.70140, 0.0007, "u(y,V)");
     close(g.expanded_uncertainty, 1.73, 0.01, "U (1.8 mg/L after rounding u to 0.9)");
+    // Kragten's spreadsheet (QUAM Appendix E.2) reproduces the guide's
+    // u = √0.74529 = 0.86330 mg/L; the guide uses u(P) rounded to 0.000058.
+    let k = gum::kragten(&model).unwrap();
+    close(k.combined_standard_uncertainty, 0.86330, 0.00005, "Kragten u_c (Table A1.3)");
+    close(k.contributions[2], -0.70140, 0.000005, "Kragten u(y,V)");
+    close(k.contributions[1], 0.49995, 0.000005, "Kragten u(y,m)");
 }
 
 /// Example A1 with the volume sub-model of A1.4: calibration (±0.1 mL,

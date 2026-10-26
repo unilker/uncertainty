@@ -14,7 +14,7 @@ pub mod topdown;
 use schema::*;
 use std::fmt;
 use uncertainty_core::distribution::TypeA;
-use uncertainty_core::gum::{self, CoverageSpec, DofRounding, GumOptions, GumResult};
+use uncertainty_core::gum::{self, CoverageSpec, DofRounding, GumOptions, GumResult, Kragten};
 use uncertainty_core::mcm::{self, IntervalKind, McmOptions, McmResult, Trials, Validation};
 use uncertainty_core::{Distribution, InputQuantity, Model, UncError};
 
@@ -202,6 +202,8 @@ pub struct Analysis {
     pub interval_kind: IntervalKind,
     /// Symbolic sensitivity coefficients ∂f/∂x_i.
     pub sensitivities: Vec<String>,
+    /// Kragten's spreadsheet approximation, if requested.
+    pub kragten: Option<Kragten>,
 }
 
 pub fn gum_options(spec: &GumSpec) -> GumOptions {
@@ -295,7 +297,11 @@ pub fn run_model(p: &Project, overrides: &Overrides) -> Result<Analysis, Project
         _ => None,
     };
     let sensitivities = gum::sensitivity_expressions(&model);
-    Ok(Analysis { model, gum, mcm, validation, interval_kind, sensitivities })
+    let kragten = match &p.analysis.gum {
+        Some(spec) if spec.kragten => Some(gum::kragten(&model)?),
+        _ => None,
+    };
+    Ok(Analysis { model, gum, mcm, validation, interval_kind, sensitivities, kragten })
 }
 
 /// Result of comparing one computed value with an expected reference value.
@@ -345,6 +351,11 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
         push("gum.expanded_uncertainty", g.map(|g| g.expanded_uncertainty), &e.expanded_uncertainty);
         push("gum.coverage_factor", g.map(|g| g.coverage_factor), &e.coverage_factor);
         push("gum.effective_dof", g.map(|g| g.effective_dof), &e.effective_dof);
+        push(
+            "gum.kragten_uncertainty",
+            a.kragten.as_ref().map(|k| k.combined_standard_uncertainty),
+            &e.kragten_uncertainty,
+        );
     }
     if let Some(e) = &exp.mcm {
         let m = a.mcm.as_ref();
@@ -365,6 +376,15 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
         }
     }
     out
+}
+
+/// Stable identifier of a GUM warning in machine-readable results.
+pub fn warning_code(w: &gum::GumWarning) -> &'static str {
+    match w {
+        gum::GumWarning::HigherOrderNonGaussian => "higher_order_non_gaussian",
+        gum::GumWarning::WelchSatterthwaiteCorrelated => "welch_satterthwaite_correlated",
+        gum::GumWarning::ZeroSensitivity { .. } => "zero_sensitivity",
+    }
 }
 
 /// Machine-readable results (JSON).
@@ -412,7 +432,11 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "contribution": r.contribution,
                 "variance_share": r.variance_share,
             })).collect::<Vec<_>>(),
-            "warnings": g.warnings,
+            "warnings": g.warnings.iter().map(|w| json!({ "code": warning_code(w), "message": w.to_string() })).collect::<Vec<_>>(),
+            "kragten": a.kragten.as_ref().map(|k| json!({
+                "contributions": k.contributions,
+                "combined_standard_uncertainty": k.combined_standard_uncertainty,
+            })),
         })
     });
     let mcm = a.mcm.as_ref().map(|m| {

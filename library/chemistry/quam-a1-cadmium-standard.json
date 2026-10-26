@@ -51,6 +51,10 @@
       {
         "en": "Doubling the rounded u_c (0.9 → U = 1.8 mg/L) is more conservative than 2 × 0.86 = 1.7 mg/L; the program rounds U itself to two significant digits.",
         "tr": "Yuvarlanmış u_c'nin iki katını almak (0,9 → U = 1,8 mg/L) 2 × 0,86 = 1,7 mg/L'den daha temkinlidir; program U'nun kendisini iki anlamlı basamağa yuvarlar."
+      },
+      {
+        "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.8633 mg/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+        "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,8633 mg/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
       }
     ]
   },
@@ -107,7 +111,8 @@
   },
   "analysis": {
     "gum": {
-      "coverage_factor": 2
+      "coverage_factor": 2,
+      "kragten": true
     },
     "mcm": {
       "trials": 1000000,
@@ -123,6 +128,10 @@
       "standard_uncertainty": {
         "value": 0.8633,
         "tolerance": 0.001
+      },
+      "kragten_uncertainty": {
+        "value": 0.8633,
+        "tolerance": 5e-05
       }
     },
     "reference": {

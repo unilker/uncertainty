@@ -82,7 +82,86 @@ pub struct GumResult {
     pub expanded_uncertainty: f64,
     pub interval: (f64, f64),
     pub budget: Vec<BudgetRow>,
-    pub warnings: Vec<String>,
+    pub warnings: Vec<GumWarning>,
+}
+
+/// A condition the user should know about when reading a GUM result.
+#[derive(Clone, Debug, PartialEq)]
+pub enum GumWarning {
+    /// Higher-order terms were requested but some inputs are not Gaussian.
+    HigherOrderNonGaussian,
+    /// The Welch–Satterthwaite formula was applied with correlated inputs.
+    WelchSatterthwaiteCorrelated,
+    /// Inputs with non-zero uncertainty have a zero sensitivity coefficient
+    /// at the estimates but contribute through second-order terms, which a
+    /// first-order evaluation misses; `missing_share` is the estimated share
+    /// of the variance missed (GUM 5.1.2 note).
+    ZeroSensitivity { inputs: Vec<String>, missing_share: f64 },
+}
+
+impl std::fmt::Display for GumWarning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GumWarning::HigherOrderNonGaussian => write!(
+                f,
+                "higher-order terms (GUM 5.1.2 note) are derived for normally distributed inputs; \
+                 non-Gaussian inputs are present — validate with the Monte Carlo method (JCGM 101 8)"
+            ),
+            GumWarning::WelchSatterthwaiteCorrelated => write!(
+                f,
+                "the Welch–Satterthwaite formula is not valid for correlated inputs (GUM G.4.1); \
+                 the effective degrees of freedom is approximate"
+            ),
+            GumWarning::ZeroSensitivity { inputs, missing_share } => write!(
+                f,
+                "the sensitivity coefficient of {} is zero at the estimates although the uncertainty is not: \
+                 the first-order evaluation misses about {:.0} % of the variance (second-order terms, GUM 5.1.2 \
+                 note) — enable the higher-order terms or use the Monte Carlo method",
+                inputs.join(", "),
+                100.0 * missing_share
+            ),
+        }
+    }
+}
+
+/// Kragten's spreadsheet approximation of the law of propagation of
+/// uncertainty: the contribution of each input is the change of the output
+/// when the input is moved by its standard uncertainty,
+/// Δᵢ = f(…, xᵢ + u(xᵢ), …) − f(x), and u_c² = ΣΔᵢ² + 2ΣΣ ΔᵢΔⱼ r(xᵢ, xⱼ)
+/// [Kragten, Analyst 119 (1994) 2161; EURACHEM/CITAC QUAM:2012 Appendix E.2].
+/// It differs from the exact first-order result when the model is not linear
+/// over ±u(xᵢ); it is provided for comparison with spreadsheet evaluations.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Kragten {
+    pub contributions: Vec<f64>,
+    pub combined_standard_uncertainty: f64,
+}
+
+/// Evaluates the Kragten approximation for a model.
+pub fn kragten(model: &Model) -> Result<Kragten, UncError> {
+    let x = model.estimates();
+    let y = model.evaluate(&x);
+    let n = model.n_inputs();
+    let mut contributions = Vec::with_capacity(n);
+    for i in 0..n {
+        let mut xi = x.clone();
+        xi[i] += model.inputs[i].gum_standard_uncertainty();
+        let d = model.evaluate(&xi) - y;
+        if !d.is_finite() {
+            return Err(UncError::ModelNotDefined(format!(
+                "the model is not defined at {} + u({})",
+                model.inputs[i].name, model.inputs[i].name
+            )));
+        }
+        contributions.push(d);
+    }
+    let mut var: f64 = contributions.iter().map(|d| d * d).sum();
+    for i in 0..n {
+        for j in (i + 1)..n {
+            var += 2.0 * contributions[i] * contributions[j] * model.correlation[i][j];
+        }
+    }
+    Ok(Kragten { contributions, combined_standard_uncertainty: var.max(0.0).sqrt() })
 }
 
 /// Applies the GUM uncertainty framework to a model.
@@ -126,11 +205,7 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
             ));
         }
         if model.inputs.iter().any(|q| !q.distribution.is_gaussian() && u_nonzero(q)) {
-            warnings.push(
-                "higher-order terms (GUM 5.1.2 note) are derived for normally distributed inputs; \
-                 non-Gaussian inputs are present — validate with the Monte Carlo method (JCGM 101 8)"
-                    .into(),
-            );
+            warnings.push(GumWarning::HigherOrderNonGaussian);
         }
         // Σ_i Σ_j [ ½ (∂²f/∂x_i∂x_j)² + ∂f/∂x_i ∂³f/∂x_i∂x_j² ] u²(x_i) u²(x_j)
         for i in 0..n {
@@ -149,6 +224,43 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         }
     }
 
+    // Inputs whose first-order contribution vanishes although they are
+    // uncertain: estimate the second-order variance a first-order evaluation
+    // misses (terms of the GUM 5.1.2 note involving these inputs).
+    if !options.higher_order {
+        let scale = first_order_var.sqrt();
+        let zero: Vec<usize> =
+            (0..n).filter(|&i| u[i] > 0.0 && (ui_y[i].abs() <= 1e-12 * scale || c[i] == 0.0)).collect();
+        if !zero.is_empty() {
+            let mut missed = 0.0;
+            for i in 0..n {
+                for j in 0..n {
+                    if u[i] == 0.0 || u[j] == 0.0 || !(zero.contains(&i) || zero.contains(&j)) {
+                        continue;
+                    }
+                    let dij = first[i].diff(j);
+                    let second = dij.eval(&x);
+                    let third = dij.diff(j).eval(&x);
+                    if second.is_finite() && third.is_finite() {
+                        missed += (0.5 * second * second + c[i] * third) * u[i].powi(2) * u[j].powi(2);
+                    }
+                }
+            }
+            let total = first_order_var + missed;
+            if missed > 0.0 && total > 0.0 && missed / total > 0.01 {
+                let mut inputs: Vec<String> = zero
+                    .iter()
+                    .filter(|&&i| (0..n).any(|j| u[j] > 0.0 && first[i].diff(j).eval(&x) != 0.0))
+                    .map(|&i| model.inputs[i].name.clone())
+                    .collect();
+                if inputs.is_empty() {
+                    inputs = zero.iter().map(|&i| model.inputs[i].name.clone()).collect();
+                }
+                warnings.push(GumWarning::ZeroSensitivity { inputs, missing_share: missed / total });
+            }
+        }
+    }
+
     let combined_var = first_order_var + correlation_var + higher_order_var;
     if !(combined_var >= 0.0) {
         return Err(UncError::ModelNotDefined(
@@ -160,11 +272,7 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
     // Welch–Satterthwaite [GUM G.2b]. Higher-order variance is treated as
     // having infinite degrees of freedom (documented assumption).
     if model.has_correlations() && nu.iter().any(|v| v.is_finite()) {
-        warnings.push(
-            "the Welch–Satterthwaite formula is not valid for correlated inputs (GUM G.4.1); \
-             the effective degrees of freedom is approximate"
-                .into(),
-        );
+        warnings.push(GumWarning::WelchSatterthwaiteCorrelated);
     }
     let mut denom = 0.0;
     for i in 0..n {

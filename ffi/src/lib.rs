@@ -107,7 +107,8 @@ pub unsafe extern "C" fn uc_validate(project_json: *const c_char) -> *mut c_char
 ///   "markdown": bool, "html": bool, "generated": "date text"}`.
 /// The response holds `results` (as `uncertainty run --format json`,
 /// including the comparison with reference values), `reported` (the result
-/// statements in the requested language) and the requested reports.
+/// statements in the requested language), `warnings` (in that language)
+/// and the requested reports.
 ///
 /// # Safety
 /// Both arguments must be null or valid NUL-terminated strings.
@@ -156,6 +157,11 @@ fn evaluate(text: Result<String, String>, opts: Result<String, String>) -> Value
         "ok": true,
         "results": project::results_json(&p, &e),
         "reported": report::reported_statements(&p, &e, lang),
+        "warnings": e
+            .model()
+            .and_then(|a| a.gum.as_ref())
+            .map(|g| g.warnings.iter().map(|w| report::warning_text(w, lang)).collect::<Vec<_>>())
+            .unwrap_or_default(),
     });
     if opts.get("markdown").and_then(Value::as_bool).unwrap_or(false) {
         out["markdown"] = json!(report::markdown(&p, &e, lang, generated));

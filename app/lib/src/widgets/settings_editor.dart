@@ -62,6 +62,12 @@ class _SettingsEditorState extends State<SettingsEditor> {
           value: gum['higher_order'] == true,
           onChanged: (v) => _edit(() => gum['higher_order'] = v),
         ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(s['kragten']),
+          value: gum['kragten'] == true,
+          onChanged: (v) => _edit(() => v ? gum['kragten'] = true : gum.remove('kragten')),
+        ),
         Section(s['mcm']),
         SwitchListTile(
           contentPadding: EdgeInsets.zero,

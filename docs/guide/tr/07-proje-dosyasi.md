@@ -56,7 +56,8 @@ kendileri belirler).
 
 ```json
 "analysis": {
-  "gum": { "coverage_probability": 0.95, "coverage_factor": null, "higher_order": false, "dof_rounding": "truncate" },
+  "gum": { "coverage_probability": 0.95, "coverage_factor": null, "higher_order": false, "dof_rounding": "truncate",
+           "kragten": false },
   "mcm": { "trials": 1000000, "adaptive": { "ndig": 2, "tolerance_divisor": 1, "max_trials": 10000000 },
            "coverage_probability": null, "seed": 1, "interval": "shortest", "validation_ndig": 2 }
 }
@@ -149,7 +150,8 @@ korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
 
-* `gum`: `estimate`, `standard_uncertainty`, `expanded_uncertainty`, `coverage_factor`, `effective_dof`
+* `gum`: `estimate`, `standard_uncertainty`, `expanded_uncertainty`, `coverage_factor`, `effective_dof`,
+  `kragten_uncertainty`
 * `mcm`: `estimate`, `standard_uncertainty`, `interval_low`, `interval_high`, `gum_validated` (true/false)
 * `topdown`:
   * `components`: `{ "<ad>": değer }` — bir bileşenin standart belirsizliği (bağılsa yüzde)

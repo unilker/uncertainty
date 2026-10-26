@@ -35,6 +35,7 @@ EURACHEM/CITAC QUAM Örnek A1: yüksek saflıkta metalden 1000 mg/L Cd standard�
 
 - Rehberin tablolama (Kragten) değeri 0,8633 mg/L ile kesin birinci mertebe değeri 0,8638 mg/L arasındaki fark yalnızca sonlu fark yaklaşımından kaynaklanır; raporlanan sonuç değişmez.
 - Yuvarlanmış u_c'nin iki katını almak (0,9 → U = 1,8 mg/L) 2 × 0,86 = 1,7 mg/L'den daha temkinlidir; program U'nun kendisini iki anlamlı basamağa yuvarlar.
+- Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,8633 mg/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a1-cadmium-standard.json --lang tr`
 
@@ -80,6 +81,10 @@ QUAM Örnek A2: NaOH çözeltisinin potasyum hidrojen ftalata (KHP) karşı ayar
 **Sonuç:**
 
 - c_NaOH = (0,10214 ± 0,00020) mol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,000099 mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a2-naoh-standardisation.json --lang tr`
 
@@ -129,6 +134,7 @@ QUAM Örnek A3: KHP'ye karşı ayarlanmış NaOH ile HCl titrasyonu.
 **Notlar:**
 
 - Bulgu: Özet Tablo A3.1 u_c = 0,00016 mol/L verir, ancak kendi girdileri 0,00019 mol/L sonucunu verir; 0,00016 üçlü tayinin sonucudur (Tablo A3.4).
+- Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (√3,34 × 10⁻⁸ mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a3-hcl-titration.json --lang tr`
 
@@ -153,6 +159,7 @@ QUAM Örnek A4: laboratuvar içi validasyon verilerinden (kesinlik, geri kazanı
 **Notlar:**
 
 - Bulgu: Tablo A4.2'nin türetilmiş sütunlarında yazım hataları vardır (0,075 yerine ortalama 0,75, −0,01 yerine fark −0,10, 0,01 yerine ortalama 0,10); rehber 41 serbestlik derecesi için t_kritik = 2,021, yani t(40) kullanır (t(41) = 2,0195). Hiçbiri sonucu değiştirmez.
+- Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,377) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a4-pesticides-combination.json --lang tr`
 
@@ -178,6 +185,7 @@ QUAM Örnek A5: ampirik yöntem (BS 6748); birim alan başına çözünen Cd mik
 
 - Bulgu: a_V = πd²/4, d = 2,70 dm (rehberin formülünde 2,77 yazım hatası); bileşenleri 0,042 ve 0,146 dm² olup 0,152 dm² verir, burada da kullanılan basılı 0,19 dm² değil. 0,152 dm² ile u_c = 0,00147 yerine 0,00144 mg/dm² bulunur; raporlanan sonuç değişmez.
 - Kesin birinci mertebe u_c 0,001470 mg/dm²'dir; tablolama değeri 0,001465, sonlu farklardaki 1/a_V doğrusalsızlığı nedeniyle farklıdır.
+- Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,001465 mg/dm²) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a5-cadmium-release.json --lang tr`
 

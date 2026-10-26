@@ -47,6 +47,10 @@
       {
         "en": "The exact first-order u_c is 0.001470 mg/dm²; the spreadsheet value 0.001465 differs because of the 1/a_V non-linearity in the finite differences.",
         "tr": "Kesin birinci mertebe u_c 0,001470 mg/dm²'dir; tablolama değeri 0,001465, sonlu farklardaki 1/a_V doğrusalsızlığı nedeniyle farklıdır."
+      },
+      {
+        "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.001465 mg/dm² to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+        "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,001465 mg/dm²) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
       }
     ]
   },
@@ -140,7 +144,8 @@
   },
   "analysis": {
     "gum": {
-      "coverage_factor": 2
+      "coverage_factor": 2,
+      "kragten": true
     },
     "mcm": {
       "trials": 1000000,
@@ -163,6 +168,10 @@
       "expanded_uncertainty": {
         "value": 0.003,
         "tolerance": 0.0005
+      },
+      "kragten_uncertainty": {
+        "value": 0.001465,
+        "tolerance": 5e-07
       }
     },
     "reference": {

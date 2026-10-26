@@ -43,6 +43,10 @@
       {
         "en": "Finding: Table A4.2 contains typographical errors in derived columns (mean 0.75 for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); the guide quotes t_crit = 2.021, i.e. t(40), for 41 degrees of freedom (t(41) = 2.0195). Neither changes the conclusion.",
         "tr": "Bulgu: Tablo A4.2'nin türetilmiş sütunlarında yazım hataları vardır (0,075 yerine ortalama 0,75, −0,01 yerine fark −0,10, 0,01 yerine ortalama 0,10); rehber 41 serbestlik derecesi için t_kritik = 2,021, yani t(40) kullanır (t(41) = 2,0195). Hiçbiri sonucu değiştirmez."
+      },
+      {
+        "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.377 to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+        "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,377) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
       }
     ]
   },
@@ -95,7 +99,9 @@
     ]
   },
   "analysis": {
-    "gum": {},
+    "gum": {
+      "kragten": true
+    },
     "mcm": {
       "trials": 1000000,
       "seed": 4
@@ -108,6 +114,10 @@
         "tolerance": 5e-05
       },
       "standard_uncertainty": {
+        "value": 0.377,
+        "tolerance": 0.0005
+      },
+      "kragten_uncertainty": {
         "value": 0.377,
         "tolerance": 0.0005
       }

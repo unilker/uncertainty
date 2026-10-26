@@ -56,7 +56,8 @@ themselves).
 
 ```json
 "analysis": {
-  "gum": { "coverage_probability": 0.95, "coverage_factor": null, "higher_order": false, "dof_rounding": "truncate" },
+  "gum": { "coverage_probability": 0.95, "coverage_factor": null, "higher_order": false, "dof_rounding": "truncate",
+           "kragten": false },
   "mcm": { "trials": 1000000, "adaptive": { "ndig": 2, "tolerance_divisor": 1, "max_trials": 10000000 },
            "coverage_probability": null, "seed": 1, "interval": "shortest", "validation_ndig": 2 }
 }
@@ -149,7 +150,8 @@ Carlo method; non-finite data.
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
 
-* `gum`: `estimate`, `standard_uncertainty`, `expanded_uncertainty`, `coverage_factor`, `effective_dof`
+* `gum`: `estimate`, `standard_uncertainty`, `expanded_uncertainty`, `coverage_factor`, `effective_dof`,
+  `kragten_uncertainty`
 * `mcm`: `estimate`, `standard_uncertainty`, `interval_low`, `interval_high`, `gum_validated` (true/false)
 * `topdown`:
   * `components`: `{ "<name>": check }` — standard uncertainty of a component (per cent if relative)

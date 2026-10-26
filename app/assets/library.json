@@ -4003,6 +4003,10 @@
      {
       "en": "Doubling the rounded u_c (0.9 → U = 1.8 mg/L) is more conservative than 2 × 0.86 = 1.7 mg/L; the program rounds U itself to two significant digits.",
       "tr": "Yuvarlanmış u_c'nin iki katını almak (0,9 → U = 1,8 mg/L) 2 × 0,86 = 1,7 mg/L'den daha temkinlidir; program U'nun kendisini iki anlamlı basamağa yuvarlar."
+     },
+     {
+      "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.8633 mg/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+      "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,8633 mg/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
      }
     ]
    },
@@ -4059,7 +4063,8 @@
    },
    "analysis": {
     "gum": {
-     "coverage_factor": 2
+     "coverage_factor": 2,
+     "kragten": true
     },
     "mcm": {
      "trials": 1000000,
@@ -4075,6 +4080,10 @@
      "standard_uncertainty": {
       "value": 0.8633,
       "tolerance": 0.001
+     },
+     "kragten_uncertainty": {
+      "value": 0.8633,
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -4379,6 +4388,12 @@
      "quam",
      "validation",
      "titration"
+    ],
+    "notes": [
+     {
+      "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.000099 mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+      "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,000099 mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
+     }
     ]
    },
    "model": {
@@ -4459,7 +4474,8 @@
    },
    "analysis": {
     "gum": {
-     "coverage_factor": 2
+     "coverage_factor": 2,
+     "kragten": true
     },
     "mcm": {
      "trials": 1000000,
@@ -4473,6 +4489,10 @@
       "tolerance": 5e-7
      },
      "standard_uncertainty": {
+      "value": 0.000099,
+      "tolerance": 5e-7
+     },
+     "kragten_uncertainty": {
       "value": 0.000099,
       "tolerance": 5e-7
      }
@@ -4530,6 +4550,10 @@
      {
       "en": "Finding: summary Table A3.1 states u_c = 0.00016 mol/L, but its own inputs give 0.00019 mol/L; 0.00016 is the result of the triple determination (Table A3.4).",
       "tr": "Bulgu: Özet Tablo A3.1 u_c = 0,00016 mol/L verir, ancak kendi girdileri 0,00019 mol/L sonucunu verir; 0,00016 üçlü tayinin sonucudur (Tablo A3.4)."
+     },
+     {
+      "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value √3.34 × 10⁻⁸ mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+      "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (√3,34 × 10⁻⁸ mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
      }
     ]
    },
@@ -4637,7 +4661,8 @@
    },
    "analysis": {
     "gum": {
-     "coverage_factor": 2
+     "coverage_factor": 2,
+     "kragten": true
     },
     "mcm": {
      "trials": 1000000,
@@ -4660,6 +4685,10 @@
      "expanded_uncertainty": {
       "value": 0.0004,
       "tolerance": 0.00005
+     },
+     "kragten_uncertainty": {
+      "value": 0.00018276,
+      "tolerance": 1e-7
      }
     },
     "reference": {
@@ -4716,6 +4745,10 @@
      {
       "en": "Finding: Table A4.2 contains typographical errors in derived columns (mean 0.75 for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); the guide quotes t_crit = 2.021, i.e. t(40), for 41 degrees of freedom (t(41) = 2.0195). Neither changes the conclusion.",
       "tr": "Bulgu: Tablo A4.2'nin türetilmiş sütunlarında yazım hataları vardır (0,075 yerine ortalama 0,75, −0,01 yerine fark −0,10, 0,01 yerine ortalama 0,10); rehber 41 serbestlik derecesi için t_kritik = 2,021, yani t(40) kullanır (t(41) = 2,0195). Hiçbiri sonucu değiştirmez."
+     },
+     {
+      "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.377 to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+      "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,377) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
      }
     ]
    },
@@ -4768,7 +4801,9 @@
     ]
    },
    "analysis": {
-    "gum": {},
+    "gum": {
+     "kragten": true
+    },
     "mcm": {
      "trials": 1000000,
      "seed": 4
@@ -4781,6 +4816,10 @@
       "tolerance": 0.00005
      },
      "standard_uncertainty": {
+      "value": 0.377,
+      "tolerance": 0.0005
+     },
+     "kragten_uncertainty": {
       "value": 0.377,
       "tolerance": 0.0005
      }
@@ -5045,6 +5084,10 @@
      {
       "en": "The exact first-order u_c is 0.001470 mg/dm²; the spreadsheet value 0.001465 differs because of the 1/a_V non-linearity in the finite differences.",
       "tr": "Kesin birinci mertebe u_c 0,001470 mg/dm²'dir; tablolama değeri 0,001465, sonlu farklardaki 1/a_V doğrusalsızlığı nedeniyle farklıdır."
+     },
+     {
+      "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.001465 mg/dm² to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+      "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,001465 mg/dm²) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
      }
     ]
    },
@@ -5138,7 +5181,8 @@
    },
    "analysis": {
     "gum": {
-     "coverage_factor": 2
+     "coverage_factor": 2,
+     "kragten": true
     },
     "mcm": {
      "trials": 1000000,
@@ -5161,6 +5205,10 @@
      "expanded_uncertainty": {
       "value": 0.003,
       "tolerance": 0.0005
+     },
+     "kragten_uncertainty": {
+      "value": 0.001465,
+      "tolerance": 5e-7
      }
     },
     "reference": {

@@ -37,6 +37,12 @@
       "quam",
       "validation",
       "titration"
+    ],
+    "notes": [
+      {
+        "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.000099 mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+        "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,000099 mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
+      }
     ]
   },
   "model": {
@@ -117,7 +123,8 @@
   },
   "analysis": {
     "gum": {
-      "coverage_factor": 2
+      "coverage_factor": 2,
+      "kragten": true
     },
     "mcm": {
       "trials": 1000000,
@@ -131,6 +138,10 @@
         "tolerance": 5e-07
       },
       "standard_uncertainty": {
+        "value": 9.9e-05,
+        "tolerance": 5e-07
+      },
+      "kragten_uncertainty": {
         "value": 9.9e-05,
         "tolerance": 5e-07
       }

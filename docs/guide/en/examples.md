@@ -35,6 +35,7 @@ EURACHEM/CITAC QUAM Example A1: 1000 mg/L Cd standard from high-purity metal (su
 
 - The guide's spreadsheet (Kragten) value 0.8633 mg/L differs from the exact first-order value 0.8638 mg/L only by the finite-difference approximation; the reported result is unchanged.
 - Doubling the rounded u_c (0.9 → U = 1.8 mg/L) is more conservative than 2 × 0.86 = 1.7 mg/L; the program rounds U itself to two significant digits.
+- The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.8633 mg/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
 **Run:** `uncertainty run library/chemistry/quam-a1-cadmium-standard.json --lang en`
 
@@ -80,6 +81,10 @@ QUAM Example A2: NaOH standardised against potassium hydrogen phthalate (KHP); s
 **Result:**
 
 - c_NaOH = (0.10214 ± 0.00020) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.000099 mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
 **Run:** `uncertainty run library/chemistry/quam-a2-naoh-standardisation.json --lang en`
 
@@ -129,6 +134,7 @@ QUAM Example A3: HCl titrated with NaOH that was itself standardised against KHP
 **Notes:**
 
 - Finding: summary Table A3.1 states u_c = 0.00016 mol/L, but its own inputs give 0.00019 mol/L; 0.00016 is the result of the triple determination (Table A3.4).
+- The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value √3.34 × 10⁻⁸ mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
 **Run:** `uncertainty run library/chemistry/quam-a3-hcl-titration.json --lang en`
 
@@ -153,6 +159,7 @@ QUAM Example A4: the relative uncertainty from in-house validation data (precisi
 **Notes:**
 
 - Finding: Table A4.2 contains typographical errors in derived columns (mean 0.75 for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); the guide quotes t_crit = 2.021, i.e. t(40), for 41 degrees of freedom (t(41) = 2.0195). Neither changes the conclusion.
+- The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.377 to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
 **Run:** `uncertainty run library/chemistry/quam-a4-pesticides-combination.json --lang en`
 
@@ -178,6 +185,7 @@ QUAM Example A5: empirical method (BS 6748); amount of Cd leached per unit area.
 
 - Finding: a_V = πd²/4 with d = 2.70 dm (the guide's formula shows 2.77, a typo); its components 0.042 and 0.146 dm² combine to 0.152 dm², not the 0.19 dm² printed and used here. With 0.152 dm², u_c = 0.00144 mg/dm² instead of 0.00147; the reported result is unchanged.
 - The exact first-order u_c is 0.001470 mg/dm²; the spreadsheet value 0.001465 differs because of the 1/a_V non-linearity in the finite differences.
+- The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.001465 mg/dm² to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
 **Run:** `uncertainty run library/chemistry/quam-a5-cadmium-release.json --lang en`
 

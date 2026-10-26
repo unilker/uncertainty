@@ -78,6 +78,13 @@ katsayılar kesindir (Kragten gibi tablolama yöntemleri sonlu farklar kullanır
 biraz farklı sonuç verir; QUAM A4 ve A5 notlarına bakınız). Her katsayının sembolik ifadesi JSON sonuçlarında
 yer alır.
 
+**Kragten görünümü.** Yayımlanmış birçok örnek (özellikle EURACHEM/CITAC QUAM) Kragten'in tablolama yöntemiyle
+(QUAM Ek E.2) hesaplanmıştır; bu yöntem türevin yerine Δᵢ = f(…, xᵢ + u(xᵢ), …) − f(x) sonlu farkını kullanır.
+`"gum": { "kragten": true }` ile program bu sütunu bütçeye ekler ve Kragten u_c değerini kesin birinci mertebe
+değerin yanında verir. QUAM tablolama örneklerinde (A1–A5) basılı değerleri basılı tüm basamaklarda yeniden
+üretir; bu, o değerlerle kesin yayılım yasası arasındaki küçük farkların yalnızca sonlu farklardan kaynaklandığını
+gösterir.
+
 Saf bir çarpım veya bölüm Y = c · X₁^{p₁} X₂^{p₂} ⋯ için bağıl belirsizlikler doğrudan birleşir:
 (u(y)/y)² = Σ pᵢ² (u(xᵢ)/xᵢ)² (GUM 5.1.6).
 
@@ -105,8 +112,10 @@ $$u_c^2(y) = \sum_i c_i^2 u^2(x_i) + \sum_i\sum_j \left[\tfrac12\left(\frac{\par
 Bu terimler özellikle, girdinin belirsizliği olduğu halde **duyarlılık katsayısı tahmin değerlerinde sıfırsa**
 önemlidir — tipik olarak beklenen değerleri sıfır olan iki büyüklüğün çarpımı, örneğin bir sıcaklık sapması ile
 genleşme katsayıları farkı (GUM H.1, EA-4/02 S4 ve S13, JCGM 101 9.3). Birinci mertebe sonuç bu katkıyı tamamen
-yok sayar. Terimleri `"gum": { "higher_order": true }` ile etkinleştiriniz; program notun normal dağılımlı
-girdiler varsaydığı konusunda uyarır. Bu durumlarda güvenilir denetim Monte Carlo yöntemidir (4. bölüm).
+yok sayar. **Program bu durumu algılar:** belirsiz bir girdinin duyarlılık katsayısı sıfır olduğu halde ikinci
+mertebe terimlerle katkıda bulunuyorsa rapor uyarır ve birinci mertebe değerlendirmenin kaçırdığı varyans payını
+belirtir (GUM H.1'de %12). Terimleri `"gum": { "higher_order": true }` ile etkinleştiriniz; program bu durumda
+notun normal dağılımlı girdiler varsaydığı konusunda uyarır. Bu durumlarda güvenilir denetim Monte Carlo yöntemidir (4. bölüm).
 
 ## 3.6 Serbestlik dereceleri ve Welch–Satterthwaite formülü
 

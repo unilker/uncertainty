@@ -318,6 +318,10 @@ pub struct GumSpec {
     pub higher_order: bool,
     #[serde(default)]
     pub dof_rounding: DofRoundingSpec,
+    /// Also evaluate Kragten's spreadsheet approximation (QUAM Appendix E.2),
+    /// for comparison with spreadsheet evaluations.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub kragten: bool,
 }
 
 impl Default for GumSpec {
@@ -327,6 +331,7 @@ impl Default for GumSpec {
             coverage_factor: None,
             higher_order: false,
             dof_rounding: DofRoundingSpec::Truncate,
+            kragten: false,
         }
     }
 }
@@ -476,6 +481,9 @@ pub struct ExpectedGum {
     pub coverage_factor: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub effective_dof: Option<Check>,
+    /// Combined standard uncertainty by Kragten's spreadsheet method.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub kragten_uncertainty: Option<Check>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

@@ -37,7 +37,8 @@ class ResultsView extends StatelessWidget {
           ),
         ),
     ];
-    if (results['gum'] != null) children.addAll(_gum(context, results, unit));
+    final warnings = (r['warnings'] as List?)?.cast<String>() ?? const [];
+    if (results['gum'] != null) children.addAll(_gum(context, results, unit, warnings));
     if (results['mcm'] != null) children.addAll(_mcm(context, results));
     if (results['topdown'] != null) children.addAll(_topdown(context, results['topdown'] as Map<String, dynamic>, unit));
     final checks = (results['checks'] as List?) ?? const [];
@@ -57,41 +58,51 @@ class ResultsView extends StatelessWidget {
     return ListView(padding: const EdgeInsets.fromLTRB(16, 8, 16, 96), children: children);
   }
 
-  List<Widget> _gum(BuildContext context, Map<String, dynamic> results, String unit) {
+  List<Widget> _gum(BuildContext context, Map<String, dynamic> results, String unit, List<String> warnings) {
     final s = strings;
     final g = results['gum'] as Map<String, dynamic>;
     final u = unit.isEmpty ? '' : ' $unit';
     final budget = (g['budget'] as List).cast<Map<String, dynamic>>();
-    final warnings = (g['warnings'] as List?)?.cast<String>() ?? const [];
+    final kragten = g['kragten'] as Map<String, dynamic>?;
+    final kc = (kragten?['contributions'] as List?)?.map(_d).toList();
     return [
+      if (warnings.isNotEmpty)
+        Card(
+          color: Theme.of(context).colorScheme.tertiaryContainer,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(s['warnings'], style: Theme.of(context).textTheme.titleSmall),
+              for (final w in warnings) Text('• $w', key: const Key('warning')),
+            ]),
+          ),
+        ),
       Section(s['gum']),
       _table(context, ['', ''], [
-        [s['estimate'], '${fmtNum(_d(g['estimate']), 6, s.lang)}$u'],
+        [s['estimate'], '${fmtEstimate(_d(g['estimate']), _d(g['standard_uncertainty']), s.lang)}$u'],
         [s['combined'], '${fmtNum(_d(g['standard_uncertainty']), 3, s.lang)}$u'],
         [s['eff_dof'], fmtNum(_d(g['effective_dof']), 3, s.lang)],
         [s['k'], fmtNum(_d(g['coverage_factor']), 3, s.lang)],
         [s['p'], fmtPct(_d(g['coverage_probability']), 4, s.lang)],
         [s['expanded'], '${fmtNum(_d(g['expanded_uncertainty']), 3, s.lang)}$u'],
+        if (kragten != null) ['Kragten u_c', '${fmtNum(_d(kragten['combined_standard_uncertainty']), 3, s.lang)}$u'],
       ]),
       Section(s['budget']),
-      _table(context, [s['quantity'], s['estimate'], s['std_unc'], s['dof'], s['sensitivity'], s['contribution'], s['share']], [
-        for (final b in budget)
+      _table(context, [s['quantity'], s['estimate'], s['std_unc'], s['dof'], s['sensitivity'], s['contribution'], s['share'], if (kc != null) 'Kragten Δᵢ'], [
+        for (final (i, b) in budget.indexed)
           [
             b['name'].toString(),
-            fmtNum(_d(b['estimate']), 6, s.lang),
+            fmtEstimate(_d(b['estimate']), _d(b['standard_uncertainty']), s.lang),
             fmtNum(_d(b['standard_uncertainty']), 3, s.lang),
             fmtNum(_d(b['dof']), 3, s.lang),
             fmtNum(_d(b['sensitivity']), 3, s.lang),
             fmtNum(_d(b['contribution']), 3, s.lang),
             fmtPct(_d(b['variance_share']), 3, s.lang),
+            if (kc != null) fmtNum(kc[i], 3, s.lang),
           ]
       ]),
       Section(s['contributions_chart']),
       SharesChart(rows: [for (final b in budget) MapEntry(b['name'].toString(), _d(b['variance_share']) ?? 0)], lang: s.lang),
-      if (warnings.isNotEmpty) ...[
-        Section(s['warnings']),
-        for (final w in warnings) Text('• $w'),
-      ],
     ];
   }
 
@@ -109,7 +120,7 @@ class ResultsView extends StatelessWidget {
       Section(s['mcm']),
       _table(context, ['', ''], [
         [s['trials'], '${m['trials']} (${s['seed']}: ${m['seed']})'],
-        [s['estimate'], fmtNum(_d(m['estimate']), 6, s.lang)],
+        [s['estimate'], fmtEstimate(_d(m['estimate']), _d(m['standard_uncertainty']), s.lang)],
         [s['std_unc'], fmtNum(_d(m['standard_uncertainty']), 3, s.lang)],
         ['${s['shortest']} ($pct)', '[${fmtNum(shortest[0], 6, s.lang)}; ${fmtNum(shortest[1], 6, s.lang)}]'],
         ['${s['symmetric']} ($pct)', '[${fmtNum(symmetric[0], 6, s.lang)}; ${fmtNum(symmetric[1], 6, s.lang)}]'],

@@ -104,7 +104,20 @@ fn h1_end_gauge() {
     close(t2, 1.7, 0.05, "l_s u(α_s) u(δθ)");
     close(g2.higher_order_variance, t1 * t1 + t2 * t2, 1e-6, "second-order variance");
     // Non-Gaussian inputs: the engine warns that the 5.1.2 note assumes normality.
-    assert!(!g2.warnings.is_empty());
+    assert_eq!(g2.warnings, vec![gum::GumWarning::HigherOrderNonGaussian]);
+
+    // The first-order evaluation warns that α_s, θ̄ and Δ have zero sensitivity
+    // but contribute in second order: (11.7² + 1.7²)/(31.7² + 11.7² + 1.7²) ≈ 12 %.
+    let missed = t1 * t1 + t2 * t2;
+    let expected_share = missed / (g.combined_standard_uncertainty.powi(2) + missed);
+    match g.warnings.as_slice() {
+        [gum::GumWarning::ZeroSensitivity { inputs, missing_share }] => {
+            assert_eq!(inputs, &["alpha_s", "theta_bar", "Delta"]);
+            close(*missing_share, expected_share, 1e-9, "missed variance share");
+            close(*missing_share, 0.122, 0.001, "≈ 12 %");
+        }
+        other => panic!("expected one zero-sensitivity warning, got {other:?}"),
+    }
 }
 
 /// GUM 4.3.7 / 4.3.9: Type B standard uncertainties from limits.
@@ -155,4 +168,34 @@ fn correlation_terms() {
     close(g.combined_standard_uncertainty, 0.1, 1e-12, "difference, r = 1");
     let g = gum::evaluate(&build("a - b", -1.0), &GumOptions::default()).unwrap();
     close(g.combined_standard_uncertainty, 0.7, 1e-12, "difference, r = −1");
+}
+
+/// No warning for a linear model, nor for an input whose sensitivity is zero
+/// because the model does not depend on it at all.
+#[test]
+fn zero_sensitivity_warning_only_when_second_order_matters() {
+    let model = Model::builder()
+        .input(q("a", 1.0, 0.1, None))
+        .input(q("b", 0.0, 0.1, None))
+        .output("y", "2*a + 0*b")
+        .build()
+        .unwrap();
+    assert!(gum::evaluate(&model, &GumOptions::default()).unwrap().warnings.is_empty());
+    // y = a·b at b = 0: c(a) = 0 but the product contributes u(a)u(b), here
+    // as much as the first-order term (share 50 %); below 1 % no warning.
+    let model = Model::builder()
+        .input(q("a", 1.0, 1.0, None))
+        .input(q("b", 0.0, 0.1, None))
+        .output("y", "a*b")
+        .build()
+        .unwrap();
+    let g = gum::evaluate(&model, &GumOptions::default()).unwrap();
+    assert!(
+        matches!(&g.warnings[..], [gum::GumWarning::ZeroSensitivity { inputs, missing_share }]
+            if inputs == &["a"] && (missing_share - 0.5).abs() < 1e-12),
+        "{:?}",
+        g.warnings
+    );
+    let g2 = gum::evaluate(&model, &GumOptions { higher_order: true, ..Default::default() }).unwrap();
+    assert!(g2.warnings.is_empty());
 }

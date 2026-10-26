@@ -80,6 +80,13 @@ a contribution to the uncertainty of the output (GUM 5.1.3). The program differe
 which differ slightly for non-linear models; see the notes of QUAM A4 and A5). The symbolic expression of each
 coefficient is included in the JSON results.
 
+**Kragten view.** Many published examples (EURACHEM/CITAC QUAM in particular) were computed with Kragten's
+spreadsheet method (QUAM Appendix E.2), which replaces the derivative by the finite difference
+Δᵢ = f(…, xᵢ + u(xᵢ), …) − f(x). With `"gum": { "kragten": true }` the program adds this column to the budget
+and reports the Kragten u_c next to the exact first-order value. For the QUAM spreadsheet examples (A1–A5) it
+reproduces the printed values to all printed digits, which shows that the small differences between those values
+and the exact law of propagation come only from the finite differences.
+
 For a pure product or quotient Y = c · X₁^{p₁} X₂^{p₂} ⋯ the relative uncertainties combine directly:
 (u(y)/y)² = Σ pᵢ² (u(xᵢ)/xᵢ)² (GUM 5.1.6).
 
@@ -108,8 +115,10 @@ $$u_c^2(y) = \sum_i c_i^2 u^2(x_i) + \sum_i\sum_j \left[\tfrac12\left(\frac{\par
 These terms matter in particular when a **sensitivity coefficient is zero** at the estimates although the input
 has an uncertainty — typically a product of two quantities whose expectations are zero, such as a temperature
 deviation and a difference of expansion coefficients (GUM H.1, EA-4/02 S4 and S13, JCGM 101 9.3). The
-first-order result then ignores the contribution entirely. Enable the terms with
-`"gum": { "higher_order": true }`; the program warns that the note assumes Gaussian inputs. In such cases the
+first-order result then ignores the contribution entirely. **The program detects this case:** when an uncertain
+input has a zero sensitivity coefficient but contributes through second-order terms, the report warns and states
+the share of the variance the first-order evaluation misses (12 % in GUM H.1). Enable the terms with
+`"gum": { "higher_order": true }`; the program then warns that the note assumes Gaussian inputs. In such cases the
 Monte Carlo method (chapter 4) is the reliable check.
 
 ## 3.6 Degrees of freedom and the Welch–Satterthwaite formula

@@ -42,6 +42,10 @@
       {
         "en": "Finding: summary Table A3.1 states u_c = 0.00016 mol/L, but its own inputs give 0.00019 mol/L; 0.00016 is the result of the triple determination (Table A3.4).",
         "tr": "Bulgu: Özet Tablo A3.1 u_c = 0,00016 mol/L verir, ancak kendi girdileri 0,00019 mol/L sonucunu verir; 0,00016 üçlü tayinin sonucudur (Tablo A3.4)."
+      },
+      {
+        "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value √3.34 × 10⁻⁸ mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+        "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (√3,34 × 10⁻⁸ mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
       }
     ]
   },
@@ -149,7 +153,8 @@
   },
   "analysis": {
     "gum": {
-      "coverage_factor": 2
+      "coverage_factor": 2,
+      "kragten": true
     },
     "mcm": {
       "trials": 1000000,
@@ -172,6 +177,10 @@
       "expanded_uncertainty": {
         "value": 0.0004,
         "tolerance": 5e-05
+      },
+      "kragten_uncertainty": {
+        "value": 0.00018276,
+        "tolerance": 1e-07
       }
     },
     "reference": {

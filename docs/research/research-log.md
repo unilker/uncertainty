@@ -348,9 +348,9 @@ than match printed numbers.
 
 ### Open questions (new)
 
-- **Q9.** Offer a Kragten (one-sided difference) view next to the exact
+- **Q9.** *(closed 2026-10-26, D24)* Offer a Kragten (one-sided difference) view next to the exact
   sensitivities, for comparability with QUAM-style spreadsheets?
-- **Q10.** Warn when a first-order sensitivity vanishes at the estimate but
+- **Q10.** *(closed 2026-10-26, D23)* Warn when a first-order sensitivity vanishes at the estimate but
   the model is non-linear in that input (S4, S13, JCGM 101 9.4).
 - **Q11.** Report discrepancies F5, F10, F12–F15, F18 to the document owners
   (Nordtest, Eurachem, EA)? Decision for the author. *(closed 2026-10-25, D12)*
@@ -598,3 +598,33 @@ binding, an end-to-end test that opens a library example, calculates it
 and checks the reported result), Linux release build run under Xvfb.
 Windows has a build rule but is untested; macOS, Android and iOS packaging
 are documented as next steps.
+
+**D23. Zero-sensitivity warning (closes Q10).** GUM warnings are now
+structured (`GumWarning`) and localised in reports and in the interface.
+When an input with non-zero uncertainty has a zero first-order contribution,
+the engine evaluates the second-order terms of the GUM 5.1.2 note that
+involve it and, if they exceed 1 % of the variance, warns with the share the
+first-order evaluation misses (GUM H.1: α_s, θ̄, Δ, 12 % — exactly
+(11.7² + 1.7²)/(31.7² + 11.7² + 1.7²); JCGM 101 9.3 mass; EA-4/02 S4, S13).
+Inputs on which the model does not depend at all raise no warning.
+
+**D24. Kragten view (closes Q9).** `"gum": {"kragten": true}` adds Kragten's
+finite-difference contributions Δᵢ = f(xᵢ + uᵢ) − f(x) and u_c = √ΣΔᵢ²
+(with correlations) to the budget, for comparison with spreadsheet
+evaluations; the exact symbolic result remains the GUM result.
+
+**F27. The QUAM spreadsheet values are Kragten values (class a,
+explanatory).** With the Kragten view the program reproduces the printed
+spreadsheet results of QUAM A1 (0.8633 mg/L), A2 (0.000099 mol/L and all five
+contributions), A3 (√3.34 × 10⁻⁸ mol/L), A4 (0.377; contribution of Rec
+−0.0507) and A5 (0.001465 mg/dm²; a_V −0.000483) to all printed digits. The
+small differences against the exact first-order law of propagation noted
+earlier (e.g. A1 0.8638, A4 0.3771, A5 0.001470) are therefore entirely due to
+the finite-difference approximation, not to errors. For the article: a
+validation that compares software with spreadsheet-based examples must state
+which method the reference used; the library now checks both. Large relative
+uncertainties (A4: 27 %) make the difference visible in the third digit.
+
+**Estimates in reports** are now shown with enough significant digits to
+resolve two digits of their standard uncertainty (e.g. 50 000 838 nm instead
+of 5.00008 × 10⁷ nm).

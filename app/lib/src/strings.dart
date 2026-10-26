@@ -144,6 +144,7 @@ class S {
     'u_ref': ['Mean reference uncertainty', 'Ortalama referans belirsizliği'],
     'file_error': ['The file could not be read', 'Dosya okunamadı'],
     'form': ['Form', 'Form'],
+    'kragten': ['Kragten spreadsheet view (QUAM Appendix E.2)', 'Kragten tablolama görünümü (QUAM Ek E.2)'],
     'label': ['Label', 'Etiket'],
     'bias_crm': ['certified reference materials', 'sertifikalı referans malzemeler'],
     'bias_proficiency_tests': ['proficiency tests', 'yeterlilik testleri'],

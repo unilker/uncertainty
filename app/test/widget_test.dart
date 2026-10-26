@@ -1,6 +1,7 @@
 // Tests of the interface. The engine library must be built first:
 //   cargo build --release -p uncertainty-ffi
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -32,6 +33,8 @@ void main() {
       expect(fmtNum(1002.69972, 6, 'tr'), '1002,70');
       expect(fmtNum(9.999, 3, 'en'), '10.0');
       expect(fmtNum(2.5e-7, 2, 'en'), '2.5 × 10⁻⁷');
+      expect(fmtEstimate(50000838, 31.7, 'en'), '50000838');
+      expect(fmtEstimate(1002.69972, 0.86, 'tr'), '1002,70');
       expect(fmtNum(double.infinity, 3, 'en'), '∞');
       expect(fmtPct(0.9545, 4, 'tr'), '%95,45');
       expect(fmtPct(0.594, 3, 'en'), '59.4 %');
@@ -60,6 +63,13 @@ void main() {
         final r = e.evaluateSync(p, const EvaluateOptions(lang: 'tr', trials: 10000));
         expect((r['reported'] as List).first, contains('±'));
       }
+      // Localised warnings and the Kragten view come from the engine.
+      final h1 = jsonDecode(File('../library/length/gum-h1-end-gauge.json').readAsStringSync()) as Map<String, dynamic>;
+      final w = e.evaluateSync(h1, const EvaluateOptions(lang: 'tr', skipMcm: true));
+      expect((w['warnings'] as List).single, contains('alpha_s, theta_bar, Delta için duyarlılık katsayısı'));
+      final a1 = jsonDecode(File('../library/chemistry/quam-a1-cadmium-standard.json').readAsStringSync()) as Map<String, dynamic>;
+      final k = e.evaluateSync(a1, const EvaluateOptions(skipMcm: true));
+      expect((k['results']['gum']['kragten']['combined_standard_uncertainty'] as num).toDouble(), closeTo(0.8633, 0.00005));
       final bad = e.template('model')..remove('model');
       expect(e.validate(bad), contains('model'));
       expect(() => e.evaluateSync(bad, const EvaluateOptions()), throwsA(isA<EngineException>()));

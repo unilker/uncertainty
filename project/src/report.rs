@@ -8,6 +8,7 @@ use crate::schema::{DistributionSpec, Project, ReportingSpec, RoundingSpec};
 use crate::topdown::{At, BiasKind, LevelModel, LevelRange, PrecisionMethod, TopDownAnalysis};
 use crate::{check, Analysis, CheckOutcome, Evaluation, Lang, CITATION, SOFTWARE_NAME, SOFTWARE_VERSION};
 use std::fmt::Write as _;
+use uncertainty_core::gum::GumWarning;
 use uncertainty_core::mcm::IntervalKind;
 use uncertainty_core::report::{format_at_place, report_result, Rounding};
 use uncertainty_core::special::{normal_pdf, student_t_pdf};
@@ -193,7 +194,7 @@ pub fn fmt_num(x: f64, sig: usize, lang: Lang) -> String {
         if (x.abs() * scale).round() >= 10f64.powi(sig as i32) {
             e += 1;
         }
-        if (-4..7).contains(&e) {
+        if (-4..10).contains(&e) {
             let decimals = (sig as i32 - 1 - e).max(0) as usize;
             format!("{x:.decimals$}")
         } else {
@@ -225,6 +226,17 @@ fn superscript(e: i32) -> String {
             other => other,
         })
         .collect()
+}
+
+/// An estimate with enough significant digits to show two digits of its
+/// standard uncertainty (at least six).
+pub fn fmt_estimate(x: f64, u: f64, lang: Lang) -> String {
+    let sig = if x != 0.0 && u > 0.0 && x.is_finite() && u.is_finite() {
+        (x.abs().log10().floor() - u.log10().floor() + 2.0).clamp(6.0, 15.0) as usize
+    } else {
+        6
+    };
+    fmt_num(x, sig, lang)
 }
 
 /// Formats an input value as given (shortest round-trip representation).
@@ -375,6 +387,27 @@ fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
     })
 }
 
+/// A GUM warning in the report language.
+pub fn warning_text(w: &GumWarning, lang: Lang) -> String {
+    match (w, lang) {
+        (_, Lang::En) => w.to_string(),
+        (GumWarning::HigherOrderNonGaussian, Lang::Tr) => "yüksek mertebe terimler (GUM 5.1.2 notu) normal dağılımlı \
+             girdiler için türetilmiştir; normal olmayan girdiler var — sonucu Monte Carlo yöntemiyle doğrulayınız \
+             (JCGM 101 Madde 8)"
+            .into(),
+        (GumWarning::WelchSatterthwaiteCorrelated, Lang::Tr) => "Welch–Satterthwaite formülü korelasyonlu girdiler \
+             için geçerli değildir (GUM G.4.1); etkin serbestlik derecesi yaklaşıktır"
+            .into(),
+        (GumWarning::ZeroSensitivity { inputs, missing_share }, Lang::Tr) => format!(
+            "{} için duyarlılık katsayısı tahmin değerlerinde sıfırdır, ancak belirsizliği sıfır değildir: birinci \
+             mertebe değerlendirme varyansın yaklaşık %{:.0} kadarını kaçırır (ikinci mertebe terimler, GUM 5.1.2 notu) — \
+             yüksek mertebe terimleri etkinleştiriniz veya Monte Carlo yöntemini kullanınız",
+            inputs.join(", "),
+            100.0 * missing_share
+        ),
+    }
+}
+
 /// Markdown report.
 pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) -> String {
     let checks = check(p, e);
@@ -421,17 +454,31 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
     let _ = writeln!(s);
     if let Some(g) = &a.gum {
         let _ = writeln!(s, "## {}\n", l.budget);
+        let kragten_head = match lang {
+            Lang::En => "Kragten Δᵢ",
+            Lang::Tr => "Kragten Δᵢ",
+        };
+        let kragten = a.kragten.as_ref();
         let _ = writeln!(
             s,
-            "| {} | {} | {} | {} | {} | {} | {} |\n|---|---:|---:|---:|---:|---:|---:|",
-            l.quantity, l.estimate, l.std_unc, l.dof, l.sensitivity, l.contribution, l.share
+            "| {} | {} | {} | {} | {} | {} | {} |{}\n|---|---:|---:|---:|---:|---:|---:|{}",
+            l.quantity,
+            l.estimate,
+            l.std_unc,
+            l.dof,
+            l.sensitivity,
+            l.contribution,
+            l.share,
+            if kragten.is_some() { format!(" {kragten_head} |") } else { String::new() },
+            if kragten.is_some() { "---:|" } else { "" }
         );
-        for r in &g.budget {
+        for (i, r) in g.budget.iter().enumerate() {
+            let k = kragten.map(|k| format!(" {} |", n3(k.contributions[i]))).unwrap_or_default();
             let _ = writeln!(
                 s,
-                "| {} | {} | {} | {} | {} | {} | {} |",
+                "| {} | {} | {} | {} | {} | {} | {} |{k}",
                 r.name,
-                n(r.estimate),
+                fmt_estimate(r.estimate, r.standard_uncertainty, lang),
                 n3(r.standard_uncertainty),
                 n3(r.dof),
                 n3(r.sensitivity),
@@ -439,9 +486,27 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
                 fmt_pct(r.variance_share, 3, lang, false)
             );
         }
+        if let Some(k) = kragten {
+            let note = match lang {
+                Lang::En => format!(
+                    "Kragten's spreadsheet method (QUAM:2012 Appendix E.2): Δᵢ = f(…, xᵢ + u(xᵢ), …) − f(x), \
+                     u_c = √ΣΔᵢ² = {}; it differs from the exact first-order result when the model is not linear \
+                     over ±u(xᵢ).",
+                    n3(k.combined_standard_uncertainty)
+                ),
+                Lang::Tr => format!(
+                    "Kragten tablolama yöntemi (QUAM:2012 Ek E.2): Δᵢ = f(…, xᵢ + u(xᵢ), …) − f(x), \
+                     u_c = √ΣΔᵢ² = {}; model ±u(xᵢ) aralığında doğrusal değilse kesin birinci mertebe sonuçtan \
+                     farklıdır.",
+                    n3(k.combined_standard_uncertainty)
+                ),
+            };
+            let _ = writeln!(s, "\n{note}");
+        }
         let _ = writeln!(s, "\n## {}\n", l.result);
         let unit = a.model.output_unit.clone().map(|u| format!(" {u}")).unwrap_or_default();
-        let _ = writeln!(s, "- {}: {}{unit}", l.estimate, n(g.estimate));
+        let _ =
+            writeln!(s, "- {}: {}{unit}", l.estimate, fmt_estimate(g.estimate, g.combined_standard_uncertainty, lang));
         let _ = writeln!(s, "- {}: {}{unit}", l.combined, n3(g.combined_standard_uncertainty));
         let _ = writeln!(s, "- {}: {}", l.eff_dof, n3(g.effective_dof));
         let _ = writeln!(s, "- {}: {}", l.k, n3(g.coverage_factor));
@@ -457,7 +522,7 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
         if !m.converged {
             let _ = writeln!(s, "- ⚠ {}", l.not_converged);
         }
-        let _ = writeln!(s, "- {}: {}", l.mcm_estimate, n(m.estimate));
+        let _ = writeln!(s, "- {}: {}", l.mcm_estimate, fmt_estimate(m.estimate, m.standard_uncertainty, lang));
         let _ = writeln!(s, "- {}: {}", l.mcm_u, n3(m.standard_uncertainty));
         let (sl, sh) = m.shortest_interval;
         let (yl, yh) = m.symmetric_interval;
@@ -480,7 +545,7 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
             let _ = writeln!(s);
         }
     }
-    let warnings: Vec<&String> = a.gum.iter().flat_map(|g| g.warnings.iter()).collect();
+    let warnings: Vec<String> = a.gum.iter().flat_map(|g| g.warnings.iter()).map(|w| warning_text(w, lang)).collect();
     if !warnings.is_empty() {
         let _ = writeln!(s, "## {}\n", l.warnings);
         for w in warnings {
@@ -1536,8 +1601,12 @@ mod tests {
         assert_eq!(fmt_num(0.000058, 2, Lang::En), "5.8 × 10⁻⁵");
         assert_eq!(fmt_num(2.5e-7, 2, Lang::En), "2.5 × 10⁻⁷");
         assert_eq!(fmt_num(f64::INFINITY, 3, Lang::En), "∞");
-        assert_eq!(fmt_num(50_000_838.0, 8, Lang::En), "5.0000838 × 10⁷");
+        assert_eq!(fmt_num(50_000_838.0, 8, Lang::En), "50000838");
+        assert_eq!(fmt_num(5.0e10, 3, Lang::En), "5.00 × 10¹⁰");
         assert_eq!(fmt_num(9.999, 3, Lang::En), "10.0");
+        assert_eq!(fmt_estimate(50_000_838.0, 31.7, Lang::En), "50000838");
+        assert_eq!(fmt_estimate(1002.69972, 0.86, Lang::Tr), "1002,70");
+        assert_eq!(fmt_estimate(0.102136, 0.000099, Lang::En), "0.102136");
         assert_eq!(fmt_given(0.05, Lang::Tr), "0,05");
         assert_eq!(fmt_given(2.5e-7, Lang::En), "2.5 × 10⁻⁷");
         assert_eq!(fmt_pct(0.9545, 4, Lang::Tr, true), "%95,45");
