@@ -34,8 +34,13 @@ DynamicLibrary _openLibrary() {
   if (override != null && override.isNotEmpty) return DynamicLibrary.open(override);
   if (Platform.isLinux || Platform.isAndroid) return DynamicLibrary.open('libuncertainty_ffi.so');
   if (Platform.isWindows) return DynamicLibrary.open('uncertainty_ffi.dll');
-  if (Platform.isMacOS) return DynamicLibrary.open('libuncertainty_ffi.dylib');
-  // iOS links the static library into the executable.
+  if (Platform.isMacOS) {
+    // The application links the static library (macos/Runner/Configs/Engine.xcconfig);
+    // `flutter test` and other hosts load the dynamic one.
+    final self = DynamicLibrary.process();
+    return self.providesSymbol('uc_version') ? self : DynamicLibrary.open('libuncertainty_ffi.dylib');
+  }
+  // iOS links the static library into the executable (ios/Flutter/Engine.xcconfig).
   return DynamicLibrary.process();
 }
 

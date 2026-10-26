@@ -1,6 +1,6 @@
 name: Package
-# Builds the installable application for Windows, Linux and Android and
-# uploads the packages as workflow artifacts. Runs for release tags, on
+# Builds the installable application for Windows, Linux, Android, macOS and
+# iOS (unsigned) and uploads the packages as workflow artifacts. Runs for release tags, on
 # demand (Actions → Package → Run workflow) and when the packaging or the
 # engine interface changes.
 on:
@@ -11,6 +11,10 @@ on:
       - "app/android/**"
       - "app/linux/**"
       - "app/windows/**"
+      - "app/macos/**"
+      - "app/ios/**"
+      - "app/tool/build_engine_apple.sh"
+      - "app/lib/src/engine.dart"
       - "app/pubspec.yaml"
       - "ffi/**"
       - ".github/workflows/package.yml"
@@ -88,3 +92,63 @@ jobs:
         with:
           name: uncertainty-calculations-android
           path: uncertainty-calculations-android.apk
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin, x86_64-apple-darwin
+      # Dynamic library for the widget tests, static universal library for the application.
+      - run: cargo build --release -p uncertainty-ffi
+      - run: app/tool/build_engine_apple.sh macos
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+      - run: flutter pub get
+        working-directory: app
+      - run: flutter test
+        working-directory: app
+      - run: flutter build macos --release
+        working-directory: app
+      - name: Check that the engine is linked and exported
+        run: |
+          app=app/build/macos/Build/Products/Release/uncertainty_app.app
+          lipo -info "$app/Contents/MacOS/uncertainty_app"
+          xcrun objdump --macho --exports-trie "$app/Contents/MacOS/uncertainty_app" | tee exports.txt | grep -E "_uc_(version|template|validate|evaluate|free)$"
+          test "$(grep -cE '_uc_(version|template|validate|evaluate|free)$' exports.txt)" = 5
+      - run: ditto -c -k --keepParent app/build/macos/Build/Products/Release/uncertainty_app.app uncertainty-calculations-macos.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: uncertainty-calculations-macos
+          path: uncertainty-calculations-macos.zip
+
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios, aarch64-apple-ios-sim, x86_64-apple-ios
+      - run: app/tool/build_engine_apple.sh ios
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+      - run: flutter pub get
+        working-directory: app
+      # Unsigned device build: signing and distribution need the developer account.
+      - run: flutter build ios --release --no-codesign
+        working-directory: app
+      - name: Check that the engine is linked and exported
+        run: |
+          bin=app/build/ios/iphoneos/Runner.app/Runner
+          xcrun objdump --macho --exports-trie "$bin" | tee exports.txt | grep -E "_uc_(version|template|validate|evaluate|free)$"
+          test "$(grep -cE '_uc_(version|template|validate|evaluate|free)$' exports.txt)" = 5
+      - run: ditto -c -k --keepParent app/build/ios/iphoneos/Runner.app uncertainty-calculations-ios-unsigned.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: uncertainty-calculations-ios-unsigned
+          path: uncertainty-calculations-ios-unsigned.zip

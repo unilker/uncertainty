@@ -27,12 +27,14 @@ Requirements: Flutter (stable, ≥ 3.47), Rust (≥ 1.75).
 | Linux | built and tested | needs clang, cmake, ninja, GTK 3 development files; `flutter build linux --release` (the CMake build runs `cargo build --release -p uncertainty-ffi` and bundles `libuncertainty_ffi.so`) |
 | Windows | built and tested by the *Package* workflow on `windows-latest` (all widget tests pass against `uncertainty_ffi.dll`; zip with the executable, the engine DLL and the library) | Visual Studio with the C++ desktop workload, Rust (MSVC); `flutter build windows --release` (the CMake build runs cargo and bundles `uncertainty_ffi.dll`) |
 | Android | APK built and checked (engine for arm64-v8a, armeabi-v7a, x86_64) | Android SDK with NDK 28.2, Rust targets `aarch64-linux-android armv7-linux-androideabi x86_64-linux-android`; `flutter build apk --release` (the Gradle task `buildEngine` cross-compiles the engine with the NDK's clang and packages it as `jniLibs`) |
-| macOS | planned | build `libuncertainty_ffi.dylib` and add it to the app bundle's Frameworks |
-| iOS | planned | link the static library (`crate-type = staticlib`) into the Runner |
+| macOS | built by the *Package* workflow on `macos-latest` (widget tests against `libuncertainty_ffi.dylib`; universal arm64/x86_64 app with the engine linked statically) | Xcode, Rust targets `aarch64-apple-darwin x86_64-apple-darwin`; `tool/build_engine_apple.sh macos`, then `flutter build macos --release` (`macos/Runner/Configs/Engine.xcconfig` links `target/apple/macos/libuncertainty_ffi.a` with `-force_load`) |
+| iOS | unsigned device build by the *Package* workflow | Xcode, Rust targets `aarch64-apple-ios aarch64-apple-ios-sim x86_64-apple-ios`; `tool/build_engine_apple.sh ios`, then `flutter build ios` (`ios/Flutter/Engine.xcconfig` links the static library for the device or the simulator); signing needs an Apple developer account |
 
 The *Package* workflow (`.github/workflows/package.yml`; release tags `v*`
-or *Run workflow*) builds the Windows zip, the Linux bundle and the Android
-APK and attaches them to the run as artifacts. The APK is signed with the
+or *Run workflow*) builds the Windows zip, the Linux bundle, the Android
+APK, the macOS application and an unsigned iOS build and attaches them to the
+run as artifacts. The macOS application is not notarised (open it with
+right-click → Open the first time). The APK is signed with the
 debug key until a release key is configured. The Windows build needs the
 Microsoft Visual C++ runtime, which is present on most systems (otherwise
 install the Visual C++ Redistributable).
@@ -56,5 +58,5 @@ fails while the bundle is out of date).
 Rust motoru üzerinde Flutter uygulaması (masaüstü ve mobil). Arayüz JSON proje
 dosyasını düzenler ve küçük bir C arayüzüyle motora gönderir; tüm hesaplar
 doğrulanmış Rust çekirdeğinde yapılır. Derleme adımları yukarıdaki tablodadır;
-Linux sürümü derlenmiş ve test edilmiştir; Android APK'sı ve Windows paketi *Package* iş akışıyla üretilir;
-macOS ve iOS sıradadır.
+Linux sürümü derlenmiş ve test edilmiştir; Android APK'sı, Windows paketi, macOS uygulaması ve imzasız iOS
+derlemesi *Package* iş akışıyla üretilir. iOS'un imzalanması ve dağıtımı Apple geliştirici hesabı gerektirir.
