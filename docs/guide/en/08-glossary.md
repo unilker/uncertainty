@@ -61,3 +61,8 @@ Turkish reports.
 | homogeneity / stability check | homojenlik / kararlılık kontrolü | ISO 13528 Annex B |
 | action signal / warning signal | eylem sinyali / uyarı sinyali | ISO 13528 9.4.2 |
 | censored result | sansürlü sonuç | ISO 13528 5.5.3 |
+| analysis function / calibration function | analiz fonksiyonu / kalibrasyon fonksiyonu | ISO 6143 3.4.2, 3.4.1 |
+| generalized least squares | genelleştirilmiş en küçük kareler | ISO 6143 Annex A |
+| weighted deviation / goodness of fit Γ | ağırlıklı sapma / uyum iyiliği Γ | ISO 6143 6.2.2 |
+| adjusted calibration point | düzeltilmiş kalibrasyon noktası | ISO 6143 6.2.2 |
+| drift control | kayma kontrolü | ISO 6143 6.2.4 |

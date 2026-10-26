@@ -11,12 +11,13 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the three | measurement model (7.3) |
-| `topdown` | one of the three | top-down evaluation (7.6) |
-| `proficiency` | one of the three | proficiency test round, ISO 13528 (7.7) |
+| `model` | one of the four | measurement model (7.3) |
+| `topdown` | one of the four | top-down evaluation (7.6) |
+| `proficiency` | one of the four | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the four | calibration with uncertainties in both variables, ISO 6143 (7.8) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); only for model projects |
 | `reporting` | no | rounding of the reported result (7.5) |
-| `expected` | no | reference values with tolerances (7.9) |
+| `expected` | no | reference values with tolerances (7.10) |
 
 ## 7.2 `metadata`
 
@@ -167,14 +168,38 @@ zero or s(R) is included.
 
 `results` may be empty for a homogeneity and stability study before the round.
 
-## 7.8 Errors
+## 7.8 `calibration`
+
+```json
+"calibration": {
+  "analyte": "NO", "unit": "µmol/mol", "response_unit": "absorbance",
+  "points": [ { "name": "M1", "x": 4.5, "u_x": 0.045, "y": 0.1969, "u_y": 0.003938 }, … ],
+  "covariances": [ { "between": ["M4", "M7"], "value": 0.00016 } ],
+  "function": "linear",
+  "samples": [ { "name": "S1", "y": 0.6, "u_y": 0.012 } ]
+}
+```
+
+| Field | Content |
+|---|---|
+| `points` | reference mixtures: `name` (unique), content `x` with standard uncertainty `u_x`, response `y` with `u_y` (> 0) |
+| `covariances` | optional covariances u(xᵢ, xₕ) of the contents of two named points |
+| `function` | `linear`, `quadratic`, `cubic`, `power` or `exponential` (chapter 10) |
+| `compare` | fit and list the other functions too (default `true`) |
+| `samples` | mixtures to analyse: `name`, `y`, `u_y` |
+| `coverage_factor` | k of the expanded uncertainties of the samples (default 2) |
+| `target_uncertainty` | acceptable standard uncertainty, compared with the upper bound of 6.2.3 |
+| `drift` | `reference` (a point name), mean responses `before` and `after`, `n` and `n_calib` (default 10) |
+| `validation` | mismatching reference mixtures: `name`, `y`, `u_y`, `x_ref`, `u_x_ref` (Formula 13) |
+
+## 7.9 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown` and `proficiency`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency` and `calibration`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
-## 7.9 `expected`
+## 7.10 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
@@ -192,3 +217,5 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
 * `proficiency`: `assigned_value`, `u_assigned`, `sd_pt`, `median`, `made`, `niqr`, `robust_mean`, `robust_sd`,
   `iterations`, `mean`, `sd`; `scores`: `{ "<lab>": { "d", "d_percent", "pa", "z", "z_prime", "zeta", "en" } }`;
   `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
+* `calibration`: `params`, `u_params` and `cov_params` (lists; covariances in the order (0,1), (0,2), …, (1,2), …),
+  `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<name>": { "x", "u" } }`, `drift_passed`

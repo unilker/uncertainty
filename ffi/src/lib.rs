@@ -63,6 +63,26 @@ const TEMPLATE_PROFICIENCY: &str = r#"{
   }
 }"#;
 
+const TEMPLATE_CALIBRATION: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Calibration with uncertainties in both variables", "tr": "Her iki değişkende belirsizlikli kalibrasyon" },
+    "field": "chemistry"
+  },
+  "calibration": {
+    "analyte": "NO",
+    "unit": "µmol/mol",
+    "points": [
+      { "name": "M1", "x": 4.5, "u_x": 0.045, "y": 0.1969, "u_y": 0.003938 },
+      { "name": "M2", "x": 18.75, "u_x": 0.1875, "y": 0.7874, "u_y": 0.015748 },
+      { "name": "M3", "x": 50.0, "u_x": 0.5, "y": 2.0228, "u_y": 0.040456 }
+    ],
+    "function": "linear",
+    "samples": [ { "name": "S1", "y": 0.6, "u_y": 0.012 } ]
+  }
+}"#;
+
 fn into_c(v: Value) -> *mut c_char {
     let s = v.to_string();
     // JSON text never contains a NUL byte (it would be escaped as \u0000).
@@ -97,8 +117,8 @@ pub extern "C" fn uc_version() -> *mut c_char {
     guarded(|| json!({ "ok": true, "name": SOFTWARE_NAME, "version": SOFTWARE_VERSION, "citation": CITATION }))
 }
 
-/// A starting project: `kind` is `"model"` (default), `"topdown"` or
-/// `"proficiency"`.
+/// A starting project: `kind` is `"model"` (default), `"topdown"`,
+/// `"proficiency"` or `"calibration"`.
 ///
 /// # Safety
 /// `kind` must be null or a valid NUL-terminated string.
@@ -108,6 +128,7 @@ pub unsafe extern "C" fn uc_template(kind: *const c_char) -> *mut c_char {
     guarded(move || match kind.as_deref() {
         Ok("topdown") => json!({ "ok": true, "project": TEMPLATE_TOPDOWN }),
         Ok("proficiency") => json!({ "ok": true, "project": TEMPLATE_PROFICIENCY }),
+        Ok("calibration") => json!({ "ok": true, "project": TEMPLATE_CALIBRATION }),
         Ok("" | "model") => json!({ "ok": true, "project": TEMPLATE_MODEL }),
         Ok(other) => error(format!("unknown template '{other}'")),
         Err(e) => error(e.clone()),
@@ -222,7 +243,7 @@ mod tests {
     #[test]
     fn version_templates_and_evaluation() {
         assert_eq!(call(uc_version())["version"], SOFTWARE_VERSION);
-        for kind in ["model", "topdown", "proficiency"] {
+        for kind in ["model", "topdown", "proficiency", "calibration"] {
             let k = CString::new(kind).unwrap();
             let t = call(unsafe { uc_template(k.as_ptr()) });
             let project = CString::new(t["project"].as_str().unwrap()).unwrap();

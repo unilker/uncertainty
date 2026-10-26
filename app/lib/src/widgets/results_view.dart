@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../format.dart';
@@ -34,7 +36,7 @@ class ResultsView extends StatelessWidget {
               children: [
                 Text(s['reported'], style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
-                for (final line in reported) SelectableText(line, key: const Key('reported')),
+                for (final (i, line) in reported.indexed) SelectableText(line, key: i == 0 ? const Key('reported') : null),
               ],
             ),
           ),
@@ -46,6 +48,9 @@ class ResultsView extends StatelessWidget {
     if (results['topdown'] != null) children.addAll(_topdown(context, results['topdown'] as Map<String, dynamic>, unit));
     if (results['proficiency'] != null) {
       children.addAll(_proficiency(context, results['proficiency'] as Map<String, dynamic>, unit));
+    }
+    if (results['calibration'] != null) {
+      children.addAll(_calibration(context, results['calibration'] as Map<String, dynamic>, unit));
     }
     final checks = (results['checks'] as List?) ?? const [];
     if (checks.isNotEmpty) {
@@ -374,6 +379,127 @@ class ResultsView extends StatelessWidget {
         Text(
           '${s['pt_difference']} ${n(st['difference'], 3)}$u; ${s['pt_criterion']} ${n(st['criterion'], 3)}$u — '
           '${st['sufficient'] == true ? s['pt_sufficient'] : s['pt_not_sufficient']}',
+        ),
+      ]);
+    }
+    return out;
+  }
+
+  List<Widget> _calibration(BuildContext context, Map<String, dynamic> r, String unit) {
+    final s = strings;
+    final u = unit.isEmpty ? '' : ' $unit';
+    String n(dynamic v, [int sig = 5]) => v == null ? '—' : fmtNum(_d(v), sig, s.lang);
+    const subs = ['₀', '₁', '₂', '₃'];
+    final params = (r['params'] as List).map(_d).toList();
+    final cov = (r['covariance'] as List).map((row) => (row as List).map(_d).toList()).toList();
+    final dof = r['dof'] as int? ?? 0;
+    final admissible = r['admissible'] == true;
+    final out = <Widget>[
+      Section('${s['cal_parameters']} — ${s['cal_${r['function']}']}'),
+      _table(
+        context,
+        ['', s['value'], 'u'],
+        [
+          for (var j = 0; j < params.length; j++) ['b${subs[j.clamp(0, 3)]}', n(params[j]), n(math.sqrt(math.max(0, cov[j][j] ?? 0)))],
+        ],
+      ),
+      Section(s['cal_fit']),
+      _table(
+        context,
+        ['', ''],
+        [
+          ['S_res', '${n(r['s_res'])} (${s['cal_limit']} 2(n − N − 1) = ${2 * dof})'],
+          ['Γ', n(r['gamma'], 3)],
+        ],
+      ),
+      Text(admissible ? s['cal_admissible'] : s['cal_not_admissible'], style: admissible ? null : TextStyle(color: Theme.of(context).colorScheme.error)),
+    ];
+    final cands = (r['candidates'] as List? ?? const []).cast<Map<String, dynamic>>();
+    if (cands.length > 1) {
+      out.addAll([
+        Section(s['cal_compare']),
+        _table(
+          context,
+          ['', 'Γ', 'S_res'],
+          [
+            for (final c in cands) [s['cal_${c['function']}'], c['gamma'] == null ? '—' : n(c['gamma'], 3), c['s_res'] == null ? '—' : n(c['s_res'])],
+          ],
+        ),
+      ]);
+    }
+    final samples = (r['samples'] as List? ?? const []).cast<Map<String, dynamic>>();
+    if (samples.isNotEmpty) {
+      out.addAll([
+        Section(s['cal_results']),
+        _table(
+          context,
+          ['', 'y', 'u(y)', 'x', 'u(x)', 'U(x) (k = ${n(r['coverage_factor'], 3)})', ''],
+          [
+            for (final x in samples)
+              [
+                x['name'].toString(),
+                fmtGivenIn(_d(x['y']), s.lang),
+                fmtGivenIn(_d(x['u_y']), s.lang),
+                '${n(x['x'])}$u',
+                '${n(x['u'])}$u',
+                '${n(x['expanded'], 3)}$u',
+                x['in_range'] == false ? s['cal_out_of_range'] : '',
+              ],
+          ],
+        ),
+      ]);
+    }
+    out.addAll([Section(s['cal_bound']), Text('u(x_lo) = ${n(r['u_lo'], 3)}$u, u(x_hi) = ${n(r['u_hi'], 3)}$u')]);
+    final dev = (r['weighted_deviations'] as List? ?? const []).cast<Map<String, dynamic>>();
+    final names = (r['point_names'] as List?)?.cast<String>();
+    if (dev.isNotEmpty) {
+      out.addAll([
+        Section(s['cal_deviations']),
+        ZScoreChart(
+          rows: [
+            for (var i = 0; i < dev.length; i++) ...[
+              MapEntry('${names?[i] ?? 'M${i + 1}'} x', _d(dev[i]['x']) ?? 0),
+              MapEntry('${names?[i] ?? 'M${i + 1}'} y', _d(dev[i]['y']) ?? 0),
+            ],
+          ],
+          lang: s.lang,
+          limits: const [2.0],
+        ),
+      ]);
+    }
+    final drift = r['drift'] as Map<String, dynamic>?;
+    if (drift != null) {
+      final d = (drift['differences'] as List).map(_d).toList();
+      final c = (drift['critical'] as List).map(_d).toList();
+      out.addAll([
+        Section('${s['cal_drift']} — ${drift['reference']}: ${drift['passed'] == true ? s['cal_passed'] : s['cal_failed']}'),
+        _table(
+          context,
+          ['', s['value'], '≤'],
+          [
+            for (final (i, l) in ['|ȳ₁ − y_c|', '|y_c − ȳ₂|', '|ȳ₁ − ȳ₂|'].indexed) [l, n(d[i], 3), n(c[i], 3)],
+          ],
+        ),
+      ]);
+    }
+    final val = (r['validation'] as List? ?? const []).cast<Map<String, dynamic>>();
+    if (val.isNotEmpty) {
+      out.addAll([
+        Section(s['cal_validation']),
+        _table(
+          context,
+          ['', 'x_obs', 'x_ref', '|Δ|', '2√(u² + u²)', ''],
+          [
+            for (final v in val)
+              [
+                v['name'].toString(),
+                n(v['x_obs']),
+                fmtGivenIn(_d(v['x_ref']), s.lang),
+                n(v['difference'], 3),
+                n(v['limit'], 3),
+                v['passed'] == true ? s['cal_passed'] : s['cal_failed'],
+              ],
+          ],
         ),
       ]);
     }

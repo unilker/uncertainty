@@ -3,9 +3,8 @@
 //! Appendix E.4, Eq. E3.1–E3.8].
 //!
 //! Only uncertainty in y is treated here (ordinary or weighted least squares).
-//! Calibration with uncertainties in both variables and correlated data
-//! (ISO/TS 28037) is not yet implemented — see
-//! docs/research/documents-needed.md.
+//! Calibration with uncertainties in both variables and correlated contents
+//! is in [`crate::gls`] (ISO 6143:2025).
 
 use crate::error::UncError;
 

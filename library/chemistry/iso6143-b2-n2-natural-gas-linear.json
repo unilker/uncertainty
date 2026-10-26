@@ -1,0 +1,189 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso6143-b2-n2-natural-gas-linear",
+    "title": {
+      "en": "N₂ in natural gas by GC-TCD: straight line (ISO 6143 Example 2)",
+      "tr": "Doğal gazda N₂, GC-TCD: doğrusal fonksiyon (ISO 6143 Örnek 2)"
+    },
+    "description": {
+      "en": "ISO 6143:2025 B.2.3: generalized least-squares straight line through eight calibration points with uncertainties in both variables, the comparison with the other analysis functions and the contents of two mixtures.",
+      "tr": "ISO 6143:2025 B.2.3: her iki değişkende belirsizlikli sekiz kalibrasyon noktasından genelleştirilmiş en küçük kareler doğrusu, diğer analiz fonksiyonlarıyla karşılaştırma ve iki karışımın içerikleri."
+    },
+    "explanation": [
+      {
+        "en": "Eight calibration points: a blank (M1, x = 0.0015 %) and seven reference gas mixtures; N₂ in a synthetic natural gas by gas chromatography with a thermal conductivity detector (peak areas y).",
+        "tr": "Sekiz kalibrasyon noktası: bir kör (M1, x = %0,0015) ve yedi referans gaz karışımı; sentetik doğal gazda N₂, ısıl iletkenlik dedektörlü gaz kromatografisiyle (pik alanları y)."
+      },
+      {
+        "en": "Straight line: b₀ = 3.981 × 10⁻⁴ %, b₁ = 2.4285 × 10⁻⁵ %/area; S_res = 6.05 (limit 2(n − N − 1) = 12) and Γ = 1.63 ≤ 2: admissible.",
+        "tr": "Doğru: b₀ = 3,981 × 10⁻⁴ %, b₁ = 2,4285 × 10⁻⁵ %/alan; S_res = 6,05 (sınır 2(n − N − 1) = 12) ve Γ = 1,63 ≤ 2: kabul edilebilir."
+      },
+      {
+        "en": "The comparison table shows that the quadratic polynomial fits better (Γ = 0.87); ISO 6143 6.2.2 b) recommends the simplest admissible function when no physical model demands more.",
+        "tr": "Karşılaştırma tablosu ikinci derece polinomun daha iyi uyduğunu gösterir (Γ = 0,87); ISO 6143 6.2.2 b), fiziksel bir model daha fazlasını gerektirmiyorsa kabul edilebilir en basit fonksiyonu önerir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 6143:2025, Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures",
+        "section": "Annex B.2.3 (Tables B.7, B.8)",
+        "url": "https://www.iso.org/standard/84420.html"
+      }
+    ],
+    "tags": [
+      "iso6143",
+      "gas-analysis",
+      "calibration",
+      "generalized-least-squares",
+      "errors-in-variables",
+      "gas-chromatography"
+    ]
+  },
+  "calibration": {
+    "analyte": "N₂",
+    "unit": "%",
+    "response_unit": "peak area",
+    "points": [
+      {
+        "name": "M1",
+        "x": 0.0015,
+        "u_x": 0.0009,
+        "y": 60,
+        "u_y": 35
+      },
+      {
+        "name": "M2",
+        "x": 0.1888,
+        "u_x": 0.00045,
+        "y": 7786,
+        "u_y": 135.7
+      },
+      {
+        "name": "M3",
+        "x": 1.99,
+        "u_x": 0.004,
+        "y": 81700,
+        "u_y": 36.7
+      },
+      {
+        "name": "M4",
+        "x": 3.796,
+        "u_x": 0.039,
+        "y": 156200,
+        "u_y": 223.2
+      },
+      {
+        "name": "M5",
+        "x": 5.677,
+        "u_x": 0.0125,
+        "y": 233300,
+        "u_y": 137.2
+      },
+      {
+        "name": "M6",
+        "x": 7.118,
+        "u_x": 0.0125,
+        "y": 293000,
+        "u_y": 245.5
+      },
+      {
+        "name": "M7",
+        "x": 9.21,
+        "u_x": 0.02,
+        "y": 380600,
+        "u_y": 125.1
+      },
+      {
+        "name": "M8",
+        "x": 10.9,
+        "u_x": 0.025,
+        "y": 449700,
+        "u_y": 321.8
+      }
+    ],
+    "function": "linear",
+    "samples": [
+      {
+        "name": "S1",
+        "y": 70000,
+        "u_y": 40
+      },
+      {
+        "name": "S2",
+        "y": 370000,
+        "u_y": 200
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "calibration": {
+      "params": [
+        {
+          "value": 0.0003981,
+          "tolerance": 3.981e-07
+        },
+        {
+          "value": 2.4285e-05,
+          "tolerance": 1.21425e-09
+        }
+      ],
+      "u_params": [
+        {
+          "value": 0.0011458,
+          "tolerance": 1.1458000000000001e-06
+        },
+        {
+          "value": 2.4159e-08,
+          "tolerance": 2.4159e-11
+        }
+      ],
+      "cov_params": [
+        {
+          "value": -7.2739e-12,
+          "tolerance": 7.2739e-15
+        }
+      ],
+      "s_res": {
+        "value": 6.0455,
+        "tolerance": 0.0060455
+      },
+      "gamma": {
+        "value": 1.6266,
+        "tolerance": 0.0016266000000000002
+      },
+      "admissible": true,
+      "samples": {
+        "S1": {
+          "x": {
+            "value": 1.7004,
+            "tolerance": 0.00017004
+          },
+          "u": {
+            "value": 0.0020244,
+            "tolerance": 2.0244e-06
+          }
+        },
+        "S2": {
+          "x": {
+            "value": 8.9859,
+            "tolerance": 0.0008985900000000001
+          },
+          "u": {
+            "value": 0.0099712,
+            "tolerance": 9.9712e-06
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 6143:2025 B.2.3, linear parameters and Table B.8 (B_LEAST).",
+      "tr": "ISO 6143:2025 B.2.3, doğrusal parametreler ve Tablo B.8 (B_LEAST)."
+    }
+  }
+}

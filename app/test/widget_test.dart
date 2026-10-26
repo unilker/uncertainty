@@ -11,6 +11,7 @@ import 'package:uncertainty_app/src/app_state.dart';
 import 'package:uncertainty_app/src/engine.dart';
 import 'package:uncertainty_app/src/format.dart';
 import 'package:uncertainty_app/src/widgets/charts.dart';
+import 'package:uncertainty_app/src/widgets/calibration_editor.dart';
 import 'package:uncertainty_app/src/widgets/proficiency_editor.dart';
 
 /// Pumps until [finder] matches, letting real asynchronous work (asset
@@ -29,8 +30,8 @@ void main() {
     final name = Platform.isWindows
         ? 'uncertainty_ffi.dll'
         : Platform.isMacOS
-            ? 'libuncertainty_ffi.dylib'
-            : 'libuncertainty_ffi.so';
+        ? 'libuncertainty_ffi.dylib'
+        : 'libuncertainty_ffi.so';
     engineLibraryPath = Platform.environment['UNCERTAINTY_FFI'] ?? '${Directory.current.path}/../target/release/$name';
   });
 
@@ -54,7 +55,7 @@ void main() {
       expect(parseList('1 x'), isNull);
       expect(parsePairs('7.46\t7.25\n9,01 9,17\n'), [
         [7.46, 7.25],
-        [9.01, 9.17]
+        [9.01, 9.17],
       ]);
       expect(parsePairs('1 2 3'), isNull);
     });
@@ -64,7 +65,7 @@ void main() {
     test('templates evaluate and errors are reported', () {
       const e = Engine();
       expect(e.version()['version'], isNotEmpty);
-      for (final kind in ['model', 'topdown']) {
+      for (final kind in ['model', 'topdown', 'calibration']) {
         final p = e.template(kind);
         expect(e.validate(p), isNull);
         final r = e.evaluateSync(p, const EvaluateOptions(lang: 'tr', trials: 10000));
@@ -159,6 +160,38 @@ void main() {
     expect(find.text('-7.10'), findsOneWidget); // ζ of L04
     final list = find.ancestor(of: find.text('Performance statistics'), matching: find.byType(Scrollable)).first;
     await tester.scrollUntilVisible(find.text('z scores (±2 warning, ±3 action)'), 400, scrollable: list);
+    expect(find.byType(ZScoreChart), findsOneWidget);
+  });
+
+  test('calibration points are read from pasted lines', () {
+    final (rows, bad) = parseNamedRows('M1\t4,5\t0,045\t0,1969\t0,003938\n18.75 0.1875 0.7874 0.015748\n', const ['x', 'u_x', 'y', 'u_y'], 'M');
+    expect(bad, isNull);
+    expect(rows![0], {'name': 'M1', 'x': 4.5, 'u_x': 0.045, 'y': 0.1969, 'u_y': 0.003938});
+    expect(rows[1]['name'], 'M2');
+    expect(parseNamedRows('S1 0.2', const ['y', 'u_y'], 'S').$2, 1);
+    expect(namedRowsToText(rows, const ['x', 'u_x', 'y', 'u_y'], 'tr').split('\n').first, 'M1\t4,5\t0,045\t0,1969\t0,003938');
+  });
+
+  testWidgets('a calibration in both variables reproduces ISO 6143 Example 1', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'iso6143-b1');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('NO in N₂ by UV absorption'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('cal-points')), findsOneWidget);
+    expect(find.textContaining('M2\t18.75\t0.1875'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.text('Contents of the mixtures'));
+    expect(find.text('14.409 µmol/mol'), findsOneWidget); // Table B.6
+    expect(find.text('0.35599 µmol/mol'), findsOneWidget);
+    expect(find.textContaining('Γ ≤ 2'), findsOneWidget);
+    final list = find.ancestor(of: find.text('Contents of the mixtures'), matching: find.byType(Scrollable)).first;
+    await tester.scrollUntilVisible(find.text('Weighted deviations (x and y) with the limits ±2'), 400, scrollable: list);
     expect(find.byType(ZScoreChart), findsOneWidget);
   });
 

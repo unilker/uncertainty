@@ -112,6 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: s['new_pt_sub'],
                     onTap: () => _openProject(const Engine().template('proficiency')),
                   ),
+                  _ActionCard(
+                    icon: Icons.show_chart,
+                    title: s['new_cal'],
+                    subtitle: s['new_cal_sub'],
+                    onTap: () => _openProject(const Engine().template('calibration')),
+                  ),
                   _ActionCard(icon: Icons.folder_open, title: s['open'], subtitle: s['open_sub'], onTap: _openFile),
                 ],
               ),

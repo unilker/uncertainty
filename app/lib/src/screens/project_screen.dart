@@ -11,6 +11,7 @@ import '../strings.dart';
 import '../widgets/json_editor.dart';
 import '../widgets/model_editor.dart';
 import '../widgets/overview.dart';
+import '../widgets/calibration_editor.dart';
 import '../widgets/proficiency_editor.dart';
 import '../widgets/results_view.dart';
 import '../widgets/settings_editor.dart';
@@ -46,6 +47,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
 
   bool get _isTopDown => _project.containsKey('topdown');
   bool get _isProficiency => _project.containsKey('proficiency');
+  bool get _isCalibration => _project.containsKey('calibration');
 
   @override
   void initState() {
@@ -184,7 +186,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
           isScrollable: true,
           tabs: [
             Tab(text: s['overview']),
-            Tab(text: _isTopDown || _isProficiency ? s['data'] : s['model']),
+            Tab(text: _isTopDown || _isProficiency || _isCalibration ? s['data'] : s['model']),
             Tab(text: s['settings']),
             Tab(text: s['json']),
             Tab(key: const Key('results-tab'), text: s['results']),
@@ -211,6 +213,8 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
                     ? TopDownEditor(key: ValueKey('t$_revision'), project: _project, onChanged: _changed)
                     : _isProficiency
                     ? ProficiencyEditor(key: ValueKey('p$_revision'), project: _project, onChanged: _changed)
+                    : _isCalibration
+                    ? CalibrationEditor(key: ValueKey('c$_revision'), project: _project, onChanged: _changed)
                     : ModelEditor(key: ValueKey('m$_revision'), project: _project, onChanged: _changed),
                 SettingsEditor(key: ValueKey('s$_revision'), project: _project, onChanged: _changed),
                 JsonEditor(key: ValueKey('j$_revision'), project: _project, onApply: _replace),

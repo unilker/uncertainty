@@ -887,3 +887,69 @@ s_r). No exclusion of up to three laboratories and no permutation of the
 columns reproduces them. Also, the column "Average (%)" of Table J.5 carries
 a spurious "× 10⁻³". Before reporting, the extracted data should be compared
 with the printed table.
+
+## 2026-10-26 (session 9) — Calibration with uncertainties in both variables (ISO 6143:2025)
+
+**D33. Generalized least squares with exact covariance propagation.** New
+core module `gls` and project type `calibration`. The analysis function
+x = G(y; b) — linear, quadratic, cubic, power b₀ + b₁y^(1+b₂) or exponential
+b₀ + b₁e^(b₂y) (ISO 6143 Formulae 1–5) — is fitted by minimising
+S = Σ[(G(ŷᵢ) − xᵢ)²/u²(xᵢ) + (ŷᵢ − yᵢ)²/u²(yᵢ)] over b and the adjusted
+responses (A.3), with Levenberg–Marquardt from a weighted least-squares
+start. ISO 6143 A.2 propagates the input uncertainties with derivatives
+∂b/∂z obtained by numerical differentiation of the whole fit. A first
+implementation that way gave covariances varying with the step (for the power function u(b₀, b₁)
+changed by 6 % at h = 10⁻⁵u) because each refit stops at its own tolerance; the program therefore computes ∂θ/∂z = −H⁻¹ ∂(∇S)/∂z
+at the minimum, θ = (b, ŷ), with the full Hessian H including the second
+derivatives of G (implicit-function theorem). This is the exact limit of the
+standard's procedure, needs no refits and no step, and handles covariances of
+the contents (A.7). Validation: all printed results of Examples 1 and 2
+(linear, quadratic, with covariances) to the printed digits; Example 3 power
+function within 0.3 % in the covariances (B.1 itself says recalculation "can
+exhibit slight deviations … in particular for the power function and the
+exponential function"); ODRPACK's Gauss–Newton covariance differs by 0.9 %
+for the power function, as expected for a non-zero residual. Reports (EN/TR)
+give the weighted deviations, Γ, S_res against 2(n − N − 1), the comparison
+of the candidate functions (6.2.2), the contents of samples with their
+correlation matrix, the upper bound of 6.2.3, drift control (6.2.4) and the
+check of Formula (13) for mismatching mixtures. Six library projects (96 in
+total); an editor and results view in the application.
+
+**F41. ISO 6143:2025 Formula (12) — critical value of the drift test (class c).**
+The Note to 6.2.4 states that with n = 10 measurements before and after,
+the critical value for each of the three differences is 2√2 u[yᵢ(calib)]. The
+generalisation for n < 10 prints 2√(1 + 10/n) u for the differences from the
+calibration mean (Formulae 10, 11; 2√2 u at n = 10 ✓) and 2√(1 + 20/n) u for
+the difference between the means before and after (Formula 12), which gives
+2√3 u = 3.46 u at n = 10, not 2√2 u. Both means have standard deviation
+u√(10/n), so their difference has u√(20/n), and Formula (12) should read
+2√(20/n) u (2√2 u at n = 10, consistent with the Note). The program uses the
+derived form, with the number of calibration measurements n_calib (default
+10) in place of the 10 of the formulae. Verified on the rendered page of the
+licensed copy (BS EN ISO 6143:2025, p. 11).
+
+**F42. ISO 6143:2025 Example 3 — exponential function: parameter
+uncertainties and u(x) (class c; partly acknowledged by the standard).** B.1
+and B.2.4 state that B_LEAST "provides incorrect values for the parameter
+uncertainties of the exponential function" (found at METAS) and print them
+anyway: u(b) = 8.1404 × 10⁻², 7.3965 × 10⁻², 3.7068 × 10⁻¹¹. The correct values
+are 3.18, 3.17 and 1.274 × 10⁻⁶ (this program), 3.18, 3.17, 1.274 × 10⁻⁶
+(ODRPACK, scipy.odr cov_beta) and 3.13, 3.12, 1.24 × 10⁻⁶ (Monte Carlo
+simulation of the calibration, 4000 refits with all xᵢ, yᵢ and y drawn from
+their normal distributions). The printed values are about 39 times too small
+for b₀, b₁ and 3.4 × 10⁴ times for b₂. Not acknowledged: the content of
+the mixture in Table B.12 with the exponential function carries
+u(x) = 0.013280 µmol/mol, whereas the correct first-order value is 0.014246 and
+the Monte Carlo value 0.01406 µmol/mol. The printed value is 6.8 % (5.6 %)
+too low. This exceeds the "about 3 % relative" that B.2.4 gives as the largest
+effect of iteration settings on assigned contents. The standard's conclusion
+that the two functions give the same content within their uncertainties
+holds either way (|5.3456 − 5.3357| = 0.0099 < 0.0142). For the power
+function, Table B.12 (0.014169) agrees with the program (0.014171) and with
+Monte Carlo (0.01420). Note also that the quadratic polynomial, not tried in
+the standard, fits Example 3 with Γ = 0.44 (exponential 0.35, power 1.16).
+
+**Note on ISO/TS 28037 (roadmap 2f).** The GLS engine covers the
+straight-line cases of ISO/TS 28037 (uncertainties in both variables,
+correlated x). The standard's own data sets are still needed for validation
+(documents-needed.md).

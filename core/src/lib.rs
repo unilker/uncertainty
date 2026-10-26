@@ -45,6 +45,7 @@ pub mod calibration;
 pub mod distribution;
 pub mod error;
 pub mod expr;
+pub mod gls;
 pub mod gum;
 pub mod mcm;
 pub mod model;

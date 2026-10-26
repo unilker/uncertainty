@@ -21,6 +21,7 @@
 //! }
 //! ```
 
+use crate::calibration::{CalibrationSpec, ExpectedCalibration};
 use crate::proficiency::{ExpectedProficiency, ProficiencySpec};
 use crate::topdown::{ExpectedTopDown, TopDownSpec};
 use serde::{Deserialize, Serialize};
@@ -86,6 +87,9 @@ pub struct Project {
     /// One round of a proficiency testing scheme (ISO 13528).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub proficiency: Option<ProficiencySpec>,
+    /// Calibration with uncertainties in both variables (ISO 6143).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub calibration: Option<CalibrationSpec>,
     #[serde(default)]
     pub analysis: AnalysisSpec,
     #[serde(default)]
@@ -469,6 +473,8 @@ pub struct Expected {
     pub topdown: Option<ExpectedTopDown>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub proficiency: Option<ExpectedProficiency>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub calibration: Option<ExpectedCalibration>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,

@@ -3,11 +3,13 @@
 //! Project files (JSON) for *Uncertainty Calculations / Belirsizlik
 //! Hesaplamaları*: reading and validating them ([`schema`]), running the GUM
 //! and Monte Carlo evaluations, the top-down evaluation ([`topdown`]) or the
-//! statistics of a proficiency test round ([`proficiency`])
+//! statistics of a proficiency test round ([`proficiency`]) or a
+//! calibration with uncertainties in both variables ([`calibration`])
 //! defined in them ([`run`]), checking results
 //! against expected reference values ([`check`]) and producing reports in
 //! English or Turkish ([`report`]).
 
+pub mod calibration;
 pub mod proficiency;
 pub mod report;
 pub mod schema;
@@ -85,9 +87,15 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
             p.version
         )));
     }
-    if [p.model.is_some(), p.topdown.is_some(), p.proficiency.is_some()].iter().filter(|&&b| b).count() != 1 {
+    if [p.model.is_some(), p.topdown.is_some(), p.proficiency.is_some(), p.calibration.is_some()]
+        .iter()
+        .filter(|&&b| b)
+        .count()
+        != 1
+    {
         return Err(ProjectError::Format(
-            "a project contains exactly one of the sections \"model\", \"topdown\" and \"proficiency\"".into(),
+            "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\" and \"calibration\""
+                .into(),
         ));
     }
     Ok(p)
@@ -234,6 +242,8 @@ pub enum Evaluation {
     TopDown(Box<topdown::TopDownAnalysis>),
     /// Statistics of one round of a proficiency testing scheme.
     Proficiency(Box<proficiency::ProficiencyAnalysis>),
+    /// Calibration with uncertainties in both variables (ISO 6143).
+    Calibration(Box<calibration::CalibrationAnalysis>),
 }
 
 impl Evaluation {
@@ -257,6 +267,13 @@ impl Evaluation {
             _ => None,
         }
     }
+
+    pub fn calibration(&self) -> Option<&calibration::CalibrationAnalysis> {
+        match self {
+            Evaluation::Calibration(a) => Some(a),
+            _ => None,
+        }
+    }
 }
 
 /// Runs the evaluation a project describes.
@@ -266,6 +283,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     }
     if let Some(spec) = &p.proficiency {
         return Ok(Evaluation::Proficiency(Box::new(proficiency::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.calibration {
+        return Ok(Evaluation::Calibration(Box::new(calibration::evaluate(spec)?)));
     }
     Ok(Evaluation::Model(Box::new(run_model(p, overrides)?)))
 }
@@ -346,6 +366,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             let mut out = Vec::new();
             if let Some(exp) = p.expected.as_ref().and_then(|x| x.proficiency.as_ref()) {
                 proficiency::check(exp, a, &mut out);
+            }
+            out
+        }
+        Evaluation::Calibration(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.calibration.as_ref()) {
+                calibration::check(exp, a, &mut out);
             }
             out
         }
@@ -438,6 +465,16 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": spec.map(|s| &s.quantity), "unit": spec.and_then(|s| s.unit.as_ref()) },
                 "proficiency": proficiency::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::Calibration(a) => {
+            let spec = p.calibration.as_ref();
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": spec.map(|s| &s.analyte), "unit": spec.and_then(|s| s.unit.as_ref()) },
+                "calibration": calibration::results_json(a),
                 "checks": checks,
             });
         }

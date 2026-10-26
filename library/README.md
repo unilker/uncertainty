@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**90 examples / örnek** (57 model, 29 top-down, 4 proficiency testing / yeterlilik testi).
+**96 examples / örnek** (57 model, 29 top-down, 4 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon).
 
 ## Chemistry / Kimya
 
@@ -77,6 +77,17 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`iso13528-e3-atrazine-algorithm-a`](chemistry/iso13528-e3-atrazine-algorithm-a.json) | Atrazine in drinking water: robust average by Algorithm A (ISO 13528 E.3) | İçme suyunda atrazin: Algoritma A ile robust ortalama (ISO 13528 E.3) | ISO 13528:2022 E.3, Tables E.4 and E.5 |
 | [`iso13528-e3-atrazine-median`](chemistry/iso13528-e3-atrazine-median.json) | Atrazine in drinking water: median and nIQR (ISO 13528 E.3) | İçme suyunda atrazin: medyan ve nIQR (ISO 13528 E.3) | ISO 13528:2022 E.3, Table E.5 |
 | [`iso13528-e4-mercury-feed`](chemistry/iso13528-e4-mercury-feed.json) | Mercury in animal feed: z, z′, ζ and E_n scores (ISO 13528 E.4) | Hayvan yeminde cıva: z, z′, ζ ve E_n skorları (ISO 13528 E.4) | ISO 13528:2022 E.4, Tables E.6 and E.7 |
+
+## Chemistry, calibration (ISO 6143) / Kimya, kalibrasyon (ISO 6143)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`iso6143-b1-no-uv-linear`](chemistry/iso6143-b1-no-uv-linear.json) | NO in N₂ by UV absorption: straight-line analysis function (ISO 6143 Example 1) | N₂ içinde NO, UV absorpsiyonu: doğrusal analiz fonksiyonu (ISO 6143 Örnek 1) | ISO 6143:2025 Annex B.2.2 (Tables B.1–B.6) |
+| [`iso6143-b2-n2-natural-gas-covariances`](chemistry/iso6143-b2-n2-natural-gas-covariances.json) | N₂ in natural gas by GC-TCD: correlated reference mixtures (ISO 6143 Example 2) | Doğal gazda N₂, GC-TCD: korelasyonlu referans karışımlar (ISO 6143 Örnek 2) | ISO 6143:2025 Annex B.2.3 (Table B.10) |
+| [`iso6143-b2-n2-natural-gas-linear`](chemistry/iso6143-b2-n2-natural-gas-linear.json) | N₂ in natural gas by GC-TCD: straight line (ISO 6143 Example 2) | Doğal gazda N₂, GC-TCD: doğrusal fonksiyon (ISO 6143 Örnek 2) | ISO 6143:2025 Annex B.2.3 (Tables B.7, B.8) |
+| [`iso6143-b2-n2-natural-gas-quadratic`](chemistry/iso6143-b2-n2-natural-gas-quadratic.json) | N₂ in natural gas by GC-TCD: second-order polynomial (ISO 6143 Example 2) | Doğal gazda N₂, GC-TCD: ikinci derece polinom (ISO 6143 Örnek 2) | ISO 6143:2025 Annex B.2.3 (Table B.9) |
+| [`iso6143-b3-no-ndir-exponential`](chemistry/iso6143-b3-no-ndir-exponential.json) | NO in N₂ by NDIR: exponential function (ISO 6143 Example 3) | N₂ içinde NO, NDIR: üstel fonksiyon (ISO 6143 Örnek 3) | ISO 6143:2025 Annex B.1 and B.2.4 (Tables B.11, B.12) |
+| [`iso6143-b3-no-ndir-power`](chemistry/iso6143-b3-no-ndir-power.json) | NO in N₂ by NDIR: power function (ISO 6143 Example 3) | N₂ içinde NO, NDIR: üslü fonksiyon (ISO 6143 Örnek 3) | ISO 6143:2025 Annex B.2.4 (Tables B.11, B.12) |
 
 ## Electrical and RF / Elektrik ve RF
 

@@ -189,17 +189,26 @@ class _HistogramPainter extends CustomPainter {
 }
 
 /// z scores of a proficiency test round as bars around zero, with the
-/// warning (±2) and action (±3) limits.
+/// warning (±2) and action (±3) limits; with a single limit (weighted
+/// deviations of a calibration, ±2) the bars beyond it are marked.
 class ZScoreChart extends StatelessWidget {
-  const ZScoreChart({super.key, required this.rows, required this.lang});
+  const ZScoreChart({super.key, required this.rows, required this.lang, this.limits = const [2.0, 3.0]});
   final List<MapEntry<String, double>> rows;
   final String lang;
+  final List<double> limits;
 
   @override
   Widget build(BuildContext context) {
     if (rows.isEmpty) return const SizedBox.shrink();
-    final zmax = math.min(10.0, rows.fold<double>(3.5, (m, r) => math.max(m, r.value.abs())));
+    final zmax = math.min(10.0, rows.fold<double>(limits.last + 0.5, (m, r) => math.max(m, r.value.abs())));
     final c = Theme.of(context).colorScheme;
+    final ticks = [for (final l in limits.reversed) -l, 0.0, ...limits];
+    Color bar(double v) {
+      final a = v.abs();
+      if (limits.length == 1) return a > limits[0] ? c.error : c.primary;
+      return a >= limits[1] ? c.error : (a > limits[0] ? c.tertiary : c.primary);
+    }
+
     return LayoutBuilder(
       builder: (context, box) {
         const label = 80.0;
@@ -221,21 +230,18 @@ class ZScoreChart extends StatelessWidget {
                       width: w,
                       child: Stack(
                         children: [
-                          for (final z in [-3.0, -2.0, 0.0, 2.0, 3.0])
+                          for (final z in ticks)
                             Positioned(
                               left: x(z),
                               top: 0,
                               bottom: 0,
-                              child: Container(width: 1, color: z == 0 ? c.outline : (z.abs() == 2 ? c.tertiary : c.error)),
+                              child: Container(width: 1, color: z == 0 ? c.outline : (limits.length > 1 && z.abs() == limits[0] ? c.tertiary : c.error)),
                             ),
                           Positioned(
                             left: math.min(x(0), x(r.value)),
                             top: 3,
                             bottom: 3,
-                            child: Container(
-                              width: math.max(1.0, (x(r.value) - x(0)).abs()),
-                              color: r.value.abs() >= 3 ? c.error : (r.value.abs() > 2 ? c.tertiary : c.primary),
-                            ),
+                            child: Container(width: math.max(1.0, (x(r.value) - x(0)).abs()), color: bar(r.value)),
                           ),
                         ],
                       ),
@@ -251,7 +257,7 @@ class ZScoreChart extends StatelessWidget {
                   height: 16,
                   child: Stack(
                     children: [
-                      for (final z in [-3.0, -2.0, 0.0, 2.0, 3.0])
+                      for (final z in ticks)
                         Positioned(
                           left: math.max(0, x(z) - 8),
                           child: Text(fmtNum(z, 1, lang), style: Theme.of(context).textTheme.bodySmall),

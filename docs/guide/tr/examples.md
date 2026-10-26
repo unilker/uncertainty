@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (41)
+- Kimya (47)
 - Elektrik ve RF (15)
 - Akış ve hacim (4)
 - Genel (yöntem doğrulama) (8)
@@ -123,6 +123,145 @@ ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirs
 - Tablo C.1 bağıl belirsizlikleri (0,017; 0,014; 0,022) birleştirmeden önce yuvarlar ve u = %1,98 basar; yuvarlanmamış terimlerle u = %1,99'dur. İkisi de U = %4,0 verir.
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang tr`
+
+### N₂ içinde NO, UV absorpsiyonu: doğrusal analiz fonksiyonu (ISO 6143 Örnek 1)
+
+`iso6143-b1-no-uv-linear` — ISO 6143:2025, Annex B.2.2 (Tables B.1–B.6)
+
+ISO 6143:2025 B.2.2: hem içeriklerinde hem de UV yanıtlarında belirsizlik bulunan üç referans gaz karışımı (5 µmol/mol – 50 µmol/mol), genelleştirilmiş en küçük karelerle doğrusal analiz fonksiyonu ve üç karışımın içerikleri ile kovaryansları.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. ISO 6143 6.1 adım A–G: yanıtlar on ölçümün ortalamaları, u(y) ortalamanın standart sapmalarıdır; x'in bağıl belirsizliği %1, y'ninki %2'dir.
+2. Adım H: x = b₀ + b₁y, S = Σ[(x̂ᵢ − xᵢ)²/u²(xᵢ) + (ŷᵢ − yᵢ)²/u²(yᵢ)] toplamı b ve düzeltilmiş yanıtlar ŷᵢ üzerinden en küçüklenerek uydurulur (Ek A): b₀ = −0,3575 µmol/mol, b₁ = 24,612 µmol/mol.
+3. Doğrulama (6.2.2): S_res = 0,674, kabul sınırı 2(n − N − 1) = 2 ile karşılaştırılır; en büyük ağırlıklı sapma Γ = 0,568 ≤ 2: doğru, verilerle uyumludur.
+4. Adım I–K (6.3): her karışım için x = G(y) ve u²(x) = (∂G/∂y)²u²(y) + Σ (∂G/∂bⱼ)(∂G/∂bₗ)u(bⱼ, bₗ); üç sonuç ortak kalibrasyon nedeniyle koreledir.
+
+**Sonuç:**
+
+- x(S1) = (5,99 ± 0,33) µmol/mol (k = 2,00)
+- x(S2) = (14,41 ± 0,71) µmol/mol (k = 2,00)
+- x(S3) = (43,9 ± 2,3) µmol/mol (k = 2,00)
+
+**Notlar:**
+
+- B.2.2'de basılan üç sonucun kovaryansları (1,16 × 10⁻², 1,48 × 10⁻², 1,37 × 10⁻¹ (µmol/mol)²) yeniden üretilir; rapor bunları korelasyon katsayıları olarak verir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b1-no-uv-linear.json --lang tr`
+
+### Doğal gazda N₂, GC-TCD: korelasyonlu referans karışımlar (ISO 6143 Örnek 2)
+
+`iso6143-b2-n2-natural-gas-covariances` — ISO 6143:2025, Annex B.2.3 (Table B.10)
+
+ISO 6143:2025 B.2.3: yine doğru; bu kez geçmişi ortak olan referans karışımların (bir seyreltme serisi ve ortak bir birincil standart seti) kovaryanslarıyla.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. Sekiz kalibrasyon noktası: bir kör (M1, x = %0,0015) ve yedi referans gaz karışımı; sentetik doğal gazda N₂, ısıl iletkenlik dedektörlü gaz kromatografisiyle (pik alanları y).
+2. M7, M4'ten seyreltilmiştir (yaklaşık 3 kat): u(x₄, x₇) = 0,00016 %²; M5 ve M8 ortak bir kalibrasyonla sertifikalandırılmıştır: u(x₅, x₈) = 0,0001 %².
+3. Kovaryanslar yalnızca yayılıma girer (Formül A.7): parametreler değişmez, u(b₁) 2,416 × 10⁻⁸'den 2,550 × 10⁻⁸'e, iki karışımın u(x) değerleri %3–4 artar.
+
+**Sonuç:**
+
+- x(S1) = (1,7004 ± 0,0042) % (k = 2,00)
+- x(S2) = (8,986 ± 0,021) % (k = 2,00)
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-covariances.json --lang tr`
+
+### Doğal gazda N₂, GC-TCD: doğrusal fonksiyon (ISO 6143 Örnek 2)
+
+`iso6143-b2-n2-natural-gas-linear` — ISO 6143:2025, Annex B.2.3 (Tables B.7, B.8)
+
+ISO 6143:2025 B.2.3: her iki değişkende belirsizlikli sekiz kalibrasyon noktasından genelleştirilmiş en küçük kareler doğrusu, diğer analiz fonksiyonlarıyla karşılaştırma ve iki karışımın içerikleri.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. Sekiz kalibrasyon noktası: bir kör (M1, x = %0,0015) ve yedi referans gaz karışımı; sentetik doğal gazda N₂, ısıl iletkenlik dedektörlü gaz kromatografisiyle (pik alanları y).
+2. Doğru: b₀ = 3,981 × 10⁻⁴ %, b₁ = 2,4285 × 10⁻⁵ %/alan; S_res = 6,05 (sınır 2(n − N − 1) = 12) ve Γ = 1,63 ≤ 2: kabul edilebilir.
+3. Karşılaştırma tablosu ikinci derece polinomun daha iyi uyduğunu gösterir (Γ = 0,87); ISO 6143 6.2.2 b), fiziksel bir model daha fazlasını gerektirmiyorsa kabul edilebilir en basit fonksiyonu önerir.
+
+**Sonuç:**
+
+- x(S1) = (1,7004 ± 0,0040) % (k = 2,00)
+- x(S2) = (8,986 ± 0,020) % (k = 2,00)
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-linear.json --lang tr`
+
+### Doğal gazda N₂, GC-TCD: ikinci derece polinom (ISO 6143 Örnek 2)
+
+`iso6143-b2-n2-natural-gas-quadratic` — ISO 6143:2025, Annex B.2.3 (Table B.9)
+
+ISO 6143:2025 B.2.3: aynı kalibrasyon verileri, ikinci derece polinom analiz fonksiyonuyla.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. Sekiz kalibrasyon noktası: bir kör (M1, x = %0,0015) ve yedi referans gaz karışımı; sentetik doğal gazda N₂, ısıl iletkenlik dedektörlü gaz kromatografisiyle (pik alanları y).
+2. x = b₀ + b₁y + b₂y²: b₂ = −4,09 × 10⁻¹³, u(b₂) = 1,9 × 10⁻¹³; S_res = 1,40 (sınır 10) ve Γ = 0,87.
+3. Birinci derece katsayısı %0,5'ten az değişir ve iki karışımın içerikleri belirsizlikleri içinde doğrusal sonuçlarla uyumludur; standart seçimi 6.2.2'ye bırakır (kabul edilebilir en basit fonksiyon).
+
+**Sonuç:**
+
+- x(S1) = (1,7059 ± 0,0066) % (k = 2,00)
+- x(S2) = (8,972 ± 0,024) % (k = 2,00)
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-quadratic.json --lang tr`
+
+### N₂ içinde NO, NDIR: üstel fonksiyon (ISO 6143 Örnek 3)
+
+`iso6143-b3-no-ndir-exponential` — ISO 6143:2025, Annex B.1 and B.2.4 (Tables B.11, B.12)
+
+ISO 6143:2025 B.2.4: aynı NDIR kalibrasyonu, standardın tercih ettiği x = b₀ + b₁e^(b₂y) üstel analiz fonksiyonuyla; orada basılan parametre belirsizliklerinin yanlış olduğu bilinmektedir.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. N₂ içinde 1 µmol/mol – 10 µmol/mol NO içeren on iki referans gaz karışımı, dağılmasız kızılötesi absorpsiyonla ölçülmüştür; yanıt belirgin biçimde doğrusal değildir: doğru S_res = 273 (sınır 20) ve Γ = 6,84 > 2 verir.
+2. Üstel fonksiyon: b₀ = −47,96, b₁ = 47,97, b₂ = 2,128 × 10⁻⁵ (b₀ ile b₁ neredeyse birbirini götürür: korelasyonları −1,000'dir); S_res = 0,657 (sınır 18) ve Γ = 0,353; standardın denediği üç parametreli fonksiyonların en iyi uyumu (karşılaştırma tablosu standardın denemediği ikinci derece polinomu da ekler, Γ = 0,44).
+3. y = 4950,6 ± 11 olan karışım: x = 5,3357 µmol/mol, u(x) = 0,0142 µmol/mol; üslü fonksiyon 5,3456 µmol/mol verir, bir standart belirsizlik içinde.
+
+**Sonuç:**
+
+- x(S1) = (5,336 ± 0,028) µmol/mol (k = 2,00)
+
+**Notlar:**
+
+- ISO 6143 B.1 ve B.2.4, B_LEAST'in üstel fonksiyon için yanlış parametre belirsizlikleri verdiğini belirtir (METAS'ta bulunmuştur). Basılan u(b) = 8,14 × 10⁻², 7,40 × 10⁻², 3,71 × 10⁻¹¹ değerleri yaklaşık 39 kat küçüktür; bu program 3,18, 3,17 ve 1,27 × 10⁻⁶ verir; ODRPACK (scipy.odr) ve kalibrasyonun Monte Carlo benzetimiyle (3,13, 3,12, 1,24 × 10⁻⁶) uyumludur.
+- Tablo B.12 üstel fonksiyon için u(x) = 0,01328 µmol/mol verir; doğru kovaryanslarla birinci mertebe yayılım 0,01425, Monte Carlo benzetimi 0,01406 µmol/mol verir: basılı değer %6–7 küçüktür; bu, standardın iterasyon ayarları için öngördüğü 'yaklaşık %3'ten fazladır (araştırma günlüğü F42). Proje parametreleri ve x'i standarda, u(x)'i bağımsız hesaplara göre kontrol eder.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-exponential.json --lang tr`
+
+### N₂ içinde NO, NDIR: üslü fonksiyon (ISO 6143 Örnek 3)
+
+`iso6143-b3-no-ndir-power` — ISO 6143:2025, Annex B.2.4 (Tables B.11, B.12)
+
+ISO 6143:2025 B.2.4: on iki noktalı doğrusal olmayan bir NDIR kalibrasyonu; x = b₀ + b₁y^(1+b₂) üslü analiz fonksiyonu genelleştirilmiş en küçük karelerle uydurulur.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. N₂ içinde 1 µmol/mol – 10 µmol/mol NO içeren on iki referans gaz karışımı, dağılmasız kızılötesi absorpsiyonla ölçülmüştür; yanıt belirgin biçimde doğrusal değildir: doğru S_res = 273 (sınır 20) ve Γ = 6,84 > 2 verir.
+2. Üslü fonksiyon: b₂ = 0,0850 ± 0,0051; S_res = 8,38 (sınır 18) ve Γ = 1,16 ≤ 2: kabul edilebilir.
+3. y = 4950,6 ± 11 olan karışım: x = 5,3456 µmol/mol, u(x) = 0,0142 µmol/mol.
+
+**Sonuç:**
+
+- x(S1) = (5,346 ± 0,028) µmol/mol (k = 2,00)
+
+**Notlar:**
+
+- Bu doğrusal olmayan fonksiyon için parametre kovaryansları, en küçük koşulunun kapalı türevlenmesiyle, yani A.2'deki sayısal türevlemenin tam biçimiyle hesaplanır; B_LEAST ile %0,3 içinde uyumludur. Tüm kalibrasyonun Monte Carlo benzetimi (4000 yeniden uydurma, araştırma günlüğü F42) de u(x) = 0,0142 µmol/mol verir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang tr`
 
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 

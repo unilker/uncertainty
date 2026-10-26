@@ -10,12 +10,13 @@ const HELP: &str = "\
 Uncertainty Calculations (Belirsizlik Hesaplamaları) — measurement uncertainty
 evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101), or
 top-down from validation and quality-control data (Nordtest TR 537,
-Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528).
+Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
+calibration with uncertainties in both variables (ISO 6143).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm]
-    uncertainty template [--topdown | --proficiency]
+    uncertainty template [--topdown | --proficiency | --calibration]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -39,7 +40,8 @@ CATALOGUE:
 TEMPLATE:
     Prints a minimal project file to start from: a measurement model, with
     --topdown a top-down evaluation from raw validation data, or with
-    --proficiency a proficiency test round (ISO 13528).
+    --proficiency a proficiency test round (ISO 13528), or with --calibration a
+    calibration with uncertainties in both variables (ISO 6143).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -117,6 +119,27 @@ const TEMPLATE_PROFICIENCY: &str = r#"{
 }
 "#;
 
+const TEMPLATE_CALIBRATION: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Calibration with uncertainties in both variables", "tr": "Her iki değişkende belirsizlikli kalibrasyon" },
+    "field": "chemistry"
+  },
+  "calibration": {
+    "analyte": "NO",
+    "unit": "µmol/mol",
+    "points": [
+      { "name": "M1", "x": 4.5, "u_x": 0.045, "y": 0.1969, "u_y": 0.003938 },
+      { "name": "M2", "x": 18.75, "u_x": 0.1875, "y": 0.7874, "u_y": 0.015748 },
+      { "name": "M3", "x": 50.0, "u_x": 0.5, "y": 2.0228, "u_y": 0.040456 }
+    ],
+    "function": "linear",
+    "samples": [ { "name": "S1", "y": 0.6, "u_y": 0.012 } ]
+  }
+}
+"#;
+
 #[derive(Clone, Copy, PartialEq)]
 enum Format {
     Markdown,
@@ -141,6 +164,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--proficiency") => {
             print!("{TEMPLATE_PROFICIENCY}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--calibration") => {
+            print!("{TEMPLATE_CALIBRATION}");
             Ok(true)
         }
         Some("template") => {

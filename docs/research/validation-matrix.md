@@ -146,6 +146,22 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | ISO5725-3-J.1 | carbon in steel, 27 day-pairs | s_I(TO) 2.87 × 10⁻³ % | same | ✅ |
 | ISO5725-3-J.2 | vanadium, staggered-nested, levels 1–2 | SS, MS, s₀², s₍₁₎², s_r, s_I(T), s_R | same (levels 3–6: F40) | ✅ |
 
+## ISO 6143:2025 Annex B — library projects
+
+Reference: B_LEAST output printed in the standard. Independent checks with ODRPACK (scipy.odr 1.18,
+`cov_beta`) and a Monte Carlo simulation of the whole calibration (4000 refits).
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| ISO6143-B.2.2 | NO by UV, linear, 3 points | b, u(b), cov, S_res 0.6743, Γ 0.568, weighted deviations (Table B.4), 3 contents with u and covariances (Table B.6) | same | ✅ |
+| ISO6143-B.2.3 | N₂ by GC-TCD, linear, 8 points | b, u(b), cov, S_res 6.0455, Γ 1.6266, Table B.8 | same | ✅ |
+| ISO6143-B.2.3 | quadratic | b, u(b), 3 covariances, S_res 1.3964, Γ 0.8664, Table B.9 | same | ✅ |
+| ISO6143-B.2.3 | linear with u(x₄, x₇), u(x₅, x₈) | u(b), cov, Table B.10 | same | ✅ |
+| ISO6143-B.2.4 | NO by NDIR, 12 points, linear (rejected) | S_res 272.6392, Γ 6.8352 | same | ✅ |
+| ISO6143-B.2.4 | power function | b, u(b) and covariances within 0.3 % (ODRPACK 0.9 %), S_res 8.3804, Γ 1.1594, x 5.3456, u 0.014169 | same | ✅ |
+| ISO6143-B.2.4 | exponential function | b, S_res 0.6572, Γ 0.3529, x 5.3357; u(b) 8.14 × 10⁻², 7.40 × 10⁻², 3.71 × 10⁻¹¹; u(x) 0.013280 | b, S_res, Γ, x same; u(b) 3.18, 3.17, 1.27 × 10⁻⁶ and u(x) 0.014246 as ODRPACK (MC: 3.13, 3.12, 1.24 × 10⁻⁶; 0.01406) | ✅ (F42) |
+| ISO6143-6.2.4 | drift-test critical values | 2√2 u for n = 10 (Note); Formula (12) 2√(1 + 20/n) u | 2√(1 + 10/n) u, 2√(20/n) u | ✅ (F41) |
+
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
 | Case | y | u | shortest lo | shortest hi | shortest length | symmetric lo | symmetric hi |
@@ -178,6 +194,6 @@ the file (MUPR B1 at 50 mg/L, B5 with t = 4.30; Nordtest §8 B, C).
 ## Planned cases
 
 TN 1900 observation-equation examples (regression, random effects); TN 1900
-E5 (truncated Gaussian inputs); ISO/TS 28037 data sets; MUPR Appendix C
+E5 (truncated Gaussian inputs); ISO/TS 28037 data sets (the GLS engine of ISO 6143 covers the method); MUPR Appendix C
 allowance as a project file; cross-checks against the NIST Uncertainty
 Machine (F29) and Suncal.

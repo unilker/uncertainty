@@ -11,12 +11,13 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | üçünden biri | ölçüm modeli (7.3) |
-| `topdown` | üçünden biri | top-down değerlendirme (7.6) |
-| `proficiency` | üçünden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `model` | dördünden biri | ölçüm modeli (7.3) |
+| `topdown` | dördünden biri | top-down değerlendirme (7.6) |
+| `proficiency` | dördünden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | dördünden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); yalnızca model projelerinde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.9) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.10) |
 
 ## 7.2 `metadata`
 
@@ -167,14 +168,38 @@ s(R) dahil edilmişse N − 1'dir.
 
 Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş bırakılabilir.
 
-## 7.8 Hatalar
+## 7.8 `calibration`
 
-Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown` ve
-`proficiency` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+```json
+"calibration": {
+  "analyte": "NO", "unit": "µmol/mol", "response_unit": "absorbans",
+  "points": [ { "name": "M1", "x": 4.5, "u_x": 0.045, "y": 0.1969, "u_y": 0.003938 }, … ],
+  "covariances": [ { "between": ["M4", "M7"], "value": 0.00016 } ],
+  "function": "linear",
+  "samples": [ { "name": "S1", "y": 0.6, "u_y": 0.012 } ]
+}
+```
+
+| Alan | İçerik |
+|---|---|
+| `points` | referans karışımlar: `name` (benzersiz), standart belirsizliği `u_x` olan içerik `x`, belirsizliği `u_y` (> 0) olan yanıt `y` |
+| `covariances` | adlandırılmış iki noktanın içeriklerinin isteğe bağlı kovaryansları u(xᵢ, xₕ) |
+| `function` | `linear`, `quadratic`, `cubic`, `power` veya `exponential` (bölüm 10) |
+| `compare` | diğer fonksiyonları da uydurup listele (varsayılan `true`) |
+| `samples` | analiz edilecek karışımlar: `name`, `y`, `u_y` |
+| `coverage_factor` | numunelerin genişletilmiş belirsizliklerinin k değeri (varsayılan 2) |
+| `target_uncertainty` | 6.2.3'ün üst sınırıyla karşılaştırılan kabul edilebilir standart belirsizlik |
+| `drift` | `reference` (bir nokta adı), ortalama yanıtlar `before` ve `after`, `n` ve `n_calib` (varsayılan 10) |
+| `validation` | uyumsuz bileşimli referans karışımlar: `name`, `y`, `u_y`, `x_ref`, `u_x_ref` (Formül 13) |
+
+## 7.9 Hatalar
+
+Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
+`proficiency` ve `calibration` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.9 `expected`
+## 7.10 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -192,3 +217,5 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
 * `proficiency`: `assigned_value`, `u_assigned`, `sd_pt`, `median`, `made`, `niqr`, `robust_mean`, `robust_sd`,
   `iterations`, `mean`, `sd`; `scores`: `{ "<laboratuvar>": { "d", "d_percent", "pa", "z", "z_prime", "zeta", "en" } }`;
   `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
+* `calibration`: `params`, `u_params` ve `cov_params` (listeler; kovaryanslar (0,1), (0,2), …, (1,2), … sırasıyla),
+  `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<ad>": { "x", "u" } }`, `drift_passed`

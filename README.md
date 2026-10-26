@@ -49,10 +49,15 @@ Türkçe ve İngilizce.
 - Precision from collaborative studies: s_R-based budgets with the
   laboratory's own repeatability, method-bias uncertainty and bias-control
   check (ISO 21748:2017); staggered-nested designs (ISO 5725-3:2023).
-- [Example library](library/README.md): 90 published examples (57 model-based:
+- Calibration with uncertainties in both the contents and the responses
+  (ISO 6143:2025): generalized least squares for linear, polynomial, power and
+  exponential analysis functions, covariances of correlated standards,
+  goodness of fit Γ and comparison of functions, contents of samples with
+  their covariances, upper bound of the uncertainty, drift control.
+- [Example library](library/README.md): 96 published examples (57 model-based:
   chemistry, mass, length, temperature, electrical, flow, physical properties;
   29 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3; 4 proficiency
-  testing: ISO 13528) as self-checking projects.
+  testing: ISO 13528; 6 calibrations: ISO 6143) as self-checking projects.
 
 ## Usage / Kullanım
 
@@ -62,6 +67,7 @@ B=target/release/uncertainty
 $B template > my.json                                   # start a project / proje başlat
 $B template --topdown > td.json                         # top-down project from raw data
 $B template --proficiency > pt.json                     # proficiency test round (ISO 13528)
+$B template --calibration > cal.json                    # calibration in both variables (ISO 6143)
 $B run library/chemistry/quam-a1-cadmium-standard.json  # Markdown report (English)
 $B run my.json --lang tr -o rapor.html                  # Türkçe HTML rapor
 $B run my.json --format json --no-mcm                   # machine-readable results
@@ -73,29 +79,29 @@ $B check library                                        # re-verify all examples
 [app/](app/README.md) — Flutter application (Linux, Windows and Android packages built and tested by the
 Package workflow; macOS and iOS next) using the same Rust engine through a C interface
 ([ffi/](ffi/src/lib.rs)): library browser, model, top-down and proficiency-test editors with direct entry of
-raw data, results with budget, charts and validation, HTML/Markdown report export, English and Turkish.
+raw data, a calibration editor (ISO 6143), results with budget, charts and validation, HTML/Markdown report export, English and Turkish.
 
 Flutter uygulaması (Linux, Windows ve Android paketleri Package iş akışıyla derlenir ve test edilir; macOS
-ve iOS sırada); aynı Rust motorunu kullanır: örnek kütüphanesi, ham veri girişli model, top-down ve
-yeterlilik testi düzenleyicileri, bütçe, grafikler ve doğrulamayla sonuçlar, HTML/Markdown rapor, Türkçe ve
+ve iOS sırada); aynı Rust motorunu kullanır: örnek kütüphanesi, ham veri girişli model, top-down,
+yeterlilik testi ve kalibrasyon (ISO 6143) düzenleyicileri, bütçe, grafikler ve doğrulamayla sonuçlar, HTML/Markdown rapor, Türkçe ve
 İngilizce.
 
 ## User guide / Kullanım rehberi
 
 [docs/guide](docs/guide/README.md) — in English and Turkish: getting started, the GUM uncertainty framework,
 the Monte Carlo method, top-down evaluation, reporting, the project file reference, an English–Turkish
-glossary, proficiency testing and all library examples with their results recomputed by the program.
+glossary, proficiency testing, calibration in both variables and all library examples with their results recomputed by the program.
 
 İngilizce ve Türkçe: başlarken, GUM belirsizlik yaklaşımı, Monte Carlo yöntemi, top-down değerlendirme,
-raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük, yeterlilik testi ve sonuçları program tarafından yeniden
+raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük, yeterlilik testi, iki değişkenli kalibrasyon ve sonuçları program tarafından yeniden
 hesaplanan tüm kütüphane örnekleri.
 
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (107 tests; one of them reruns all 90 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
+automated test (123 tests; one of them reruns all 96 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
-their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11) the worked examples E.2–E.4 of ISO 13528:2022, Annex C of ISO 21748:2017 and Annex J of ISO 5725-3:2023. Details, tolerances and findings:
+their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.2–E.4 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 and Annex B of ISO 6143:2025. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

@@ -82,7 +82,7 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 
 1. **ISO 5725-2:2019** — temel tekrarlanabilirlik/tekrarüretilebilirlik yöntemi, Cochran ve Grubbs testleri, kritik aralık faktörleri (F9). Alınan 5725-3 ara kesinliği kapsıyor; 5725-2 olmadan s_r/s_R hesabının kendisi ve aykırı değer testleri doğrulanamıyor.
 2. **ISO 11352:2012** — top-down modülünün dayandığı su kalitesi standardı.
-3. **ISO/TS 28037:2010** — doğru kalibrasyon fonksiyonları (her iki eksende belirsizlik); standarttaki örnek veri setleri doğrulama için gerekli. ISO 6143:2025 kısmen karşılıyor.
+3. **ISO/TS 28037:2010** — doğru kalibrasyon fonksiyonları (her iki eksende belirsizlik); standarttaki örnek veri setleri doğrulama için gerekli. ISO 6143:2025 ile genelleştirilmiş en küçük kareler motoru yazıldı ve doğrulandı (D33); ISO/TS 28037'nin kendi veri setleri ek doğrulama için hâlâ gerekli.
 4. **Cordeiro ve ark. (2018)**, *Accred. Qual. Assur.* 23:57–71 — MUPR geri kazanım eşitliklerinin kaynağı.
 5. **Kragten (1994)**, *Analyst* 119:2161 — Kragten görünümünün birincil kaynağı.
 6. **O'Donnell ve Hibbert (2005)**, *Analyst* 130:721 — sapma yaklaşımlarının karşılaştırması.

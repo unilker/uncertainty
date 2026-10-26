@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (41)
+- Chemistry (47)
 - Electrical and RF (15)
 - Flow and volume (4)
 - General (method validation) (8)
@@ -123,6 +123,145 @@ ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs 
 - Table C.1 rounds the relative uncertainties (0.017, 0.014, 0.022) before combining and prints u = 1.98 %; with the unrounded terms u = 1.99 %. Both give U = 4.0 %.
 
 **Run:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang en`
+
+### NO in N₂ by UV absorption: straight-line analysis function (ISO 6143 Example 1)
+
+`iso6143-b1-no-uv-linear` — ISO 6143:2025, Annex B.2.2 (Tables B.1–B.6)
+
+ISO 6143:2025 B.2.2: three reference gas mixtures (5 µmol/mol to 50 µmol/mol) with uncertainties in both the contents and the UV responses, a straight-line analysis function by generalized least squares and the contents of three mixtures with their covariances.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. Steps A–G of ISO 6143 6.1: the responses are the means of ten measurements, u(y) their standard deviations of the mean; the relative uncertainty of both x and y is 1 % (contents) and 2 % (responses).
+2. Step H: x = b₀ + b₁y is fitted by minimising S = Σ[(x̂ᵢ − xᵢ)²/u²(xᵢ) + (ŷᵢ − yᵢ)²/u²(yᵢ)] over b and the adjusted responses ŷᵢ (Annex A): b₀ = −0.3575 µmol/mol, b₁ = 24.612 µmol/mol.
+3. Validation (6.2.2): S_res = 0.674 against the acceptance limit 2(n − N − 1) = 2, and the largest weighted deviation Γ = 0.568 ≤ 2: the straight line is compatible with the data.
+4. Steps I–K (6.3): for each mixture x = G(y) and u²(x) = (∂G/∂y)²u²(y) + Σ (∂G/∂bⱼ)(∂G/∂bₗ)u(bⱼ, bₗ); the three results are correlated through the common calibration.
+
+**Result:**
+
+- x(S1) = (5.99 ± 0.33) µmol/mol (k = 2.00)
+- x(S2) = (14.41 ± 0.71) µmol/mol (k = 2.00)
+- x(S3) = (43.9 ± 2.3) µmol/mol (k = 2.00)
+
+**Notes:**
+
+- The covariances of the three results printed in B.2.2 (1.16 × 10⁻², 1.48 × 10⁻², 1.37 × 10⁻¹ (µmol/mol)²) are reproduced; the report gives them as correlation coefficients.
+
+**Run:** `uncertainty run library/chemistry/iso6143-b1-no-uv-linear.json --lang en`
+
+### N₂ in natural gas by GC-TCD: correlated reference mixtures (ISO 6143 Example 2)
+
+`iso6143-b2-n2-natural-gas-covariances` — ISO 6143:2025, Annex B.2.3 (Table B.10)
+
+ISO 6143:2025 B.2.3: the straight line again, now with the covariances of reference mixtures that share their history (a dilution series and a common set of primary standards).
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. Eight calibration points: a blank (M1, x = 0.0015 %) and seven reference gas mixtures; N₂ in a synthetic natural gas by gas chromatography with a thermal conductivity detector (peak areas y).
+2. M7 was diluted from M4 (factor about 3): u(x₄, x₇) = 0.00016 %²; M5 and M8 were certified with a common calibration: u(x₅, x₈) = 0.0001 %².
+3. The covariances enter only the propagation (Formula A.7): the parameters are unchanged, u(b₁) rises from 2.416 × 10⁻⁸ to 2.550 × 10⁻⁸ and u(x) of the two mixtures by 3 % to 4 %.
+
+**Result:**
+
+- x(S1) = (1.7004 ± 0.0042) % (k = 2.00)
+- x(S2) = (8.986 ± 0.021) % (k = 2.00)
+
+**Run:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-covariances.json --lang en`
+
+### N₂ in natural gas by GC-TCD: straight line (ISO 6143 Example 2)
+
+`iso6143-b2-n2-natural-gas-linear` — ISO 6143:2025, Annex B.2.3 (Tables B.7, B.8)
+
+ISO 6143:2025 B.2.3: generalized least-squares straight line through eight calibration points with uncertainties in both variables, the comparison with the other analysis functions and the contents of two mixtures.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. Eight calibration points: a blank (M1, x = 0.0015 %) and seven reference gas mixtures; N₂ in a synthetic natural gas by gas chromatography with a thermal conductivity detector (peak areas y).
+2. Straight line: b₀ = 3.981 × 10⁻⁴ %, b₁ = 2.4285 × 10⁻⁵ %/area; S_res = 6.05 (limit 2(n − N − 1) = 12) and Γ = 1.63 ≤ 2: admissible.
+3. The comparison table shows that the quadratic polynomial fits better (Γ = 0.87); ISO 6143 6.2.2 b) recommends the simplest admissible function when no physical model demands more.
+
+**Result:**
+
+- x(S1) = (1.7004 ± 0.0040) % (k = 2.00)
+- x(S2) = (8.986 ± 0.020) % (k = 2.00)
+
+**Run:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-linear.json --lang en`
+
+### N₂ in natural gas by GC-TCD: second-order polynomial (ISO 6143 Example 2)
+
+`iso6143-b2-n2-natural-gas-quadratic` — ISO 6143:2025, Annex B.2.3 (Table B.9)
+
+ISO 6143:2025 B.2.3: the same calibration data with a second-order polynomial analysis function.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. Eight calibration points: a blank (M1, x = 0.0015 %) and seven reference gas mixtures; N₂ in a synthetic natural gas by gas chromatography with a thermal conductivity detector (peak areas y).
+2. x = b₀ + b₁y + b₂y²: b₂ = −4.09 × 10⁻¹³ with u(b₂) = 1.9 × 10⁻¹³; S_res = 1.40 (limit 10) and Γ = 0.87.
+3. The first-order coefficient changes by less than 0.5 % and the contents of the two mixtures agree with the straight-line results within their uncertainties; the standard leaves the choice to 6.2.2 (simplest admissible function).
+
+**Result:**
+
+- x(S1) = (1.7059 ± 0.0066) % (k = 2.00)
+- x(S2) = (8.972 ± 0.024) % (k = 2.00)
+
+**Run:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-quadratic.json --lang en`
+
+### NO in N₂ by NDIR: exponential function (ISO 6143 Example 3)
+
+`iso6143-b3-no-ndir-exponential` — ISO 6143:2025, Annex B.1 and B.2.4 (Tables B.11, B.12)
+
+ISO 6143:2025 B.2.4: the same NDIR calibration with the exponential analysis function x = b₀ + b₁e^(b₂y), the function of choice in the standard; the parameter uncertainties printed there are known to be wrong.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. Twelve reference gas mixtures from 1 µmol/mol to 10 µmol/mol NO in N₂ measured by non-dispersive infrared absorption; the response is clearly non-linear: the straight line gives S_res = 273 (limit 20) and Γ = 6.84 > 2.
+2. Exponential function: b₀ = −47.96, b₁ = 47.97, b₂ = 2.128 × 10⁻⁵ (b₀ and b₁ almost cancel: their correlation is −1.000); S_res = 0.657 (limit 18) and Γ = 0.353, the best fit of the three-parameter functions considered in the standard (the comparison table adds the quadratic polynomial, Γ = 0.44, which the standard does not try).
+3. Mixture with y = 4950.6 ± 11: x = 5.3357 µmol/mol, u(x) = 0.0142 µmol/mol; the power function gives 5.3456 µmol/mol, within one standard uncertainty.
+
+**Result:**
+
+- x(S1) = (5.336 ± 0.028) µmol/mol (k = 2.00)
+
+**Notes:**
+
+- ISO 6143 B.1 and B.2.4 state that B_LEAST gives incorrect parameter uncertainties for the exponential function (found at METAS). The printed u(b) = 8.14 × 10⁻², 7.40 × 10⁻², 3.71 × 10⁻¹¹ are about 39 times too small; this program gives 3.18, 3.17 and 1.27 × 10⁻⁶, in agreement with ODRPACK (scipy.odr) and a Monte Carlo simulation of the calibration (3.13, 3.12, 1.24 × 10⁻⁶).
+- Table B.12 gives u(x) = 0.01328 µmol/mol for the exponential function; first-order propagation with the correct covariances gives 0.01425 and the Monte Carlo simulation 0.01406 µmol/mol: the printed value is 6 % to 7 % too low, more than the 'about 3 %' the standard allows for iteration settings (research log F42). The project checks the parameters and x against the standard and u(x) against the independent calculations.
+
+**Run:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-exponential.json --lang en`
+
+### NO in N₂ by NDIR: power function (ISO 6143 Example 3)
+
+`iso6143-b3-no-ndir-power` — ISO 6143:2025, Annex B.2.4 (Tables B.11, B.12)
+
+ISO 6143:2025 B.2.4: a non-linear NDIR calibration with twelve points; the power analysis function x = b₀ + b₁y^(1+b₂) fitted by generalized least squares.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. Twelve reference gas mixtures from 1 µmol/mol to 10 µmol/mol NO in N₂ measured by non-dispersive infrared absorption; the response is clearly non-linear: the straight line gives S_res = 273 (limit 20) and Γ = 6.84 > 2.
+2. Power function: b₂ = 0.0850 ± 0.0051; S_res = 8.38 (limit 18) and Γ = 1.16 ≤ 2: admissible.
+3. Mixture with y = 4950.6 ± 11: x = 5.3456 µmol/mol, u(x) = 0.0142 µmol/mol.
+
+**Result:**
+
+- x(S1) = (5.346 ± 0.028) µmol/mol (k = 2.00)
+
+**Notes:**
+
+- For this non-linear function the parameter covariances are computed by implicit differentiation of the minimum condition, the exact form of the numerical differentiation of A.2; they agree with B_LEAST within 0.3 %. A Monte Carlo simulation of the whole calibration (4000 refits, research log F42) gives u(x) = 0.0142 µmol/mol as well.
+
+**Run:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang en`
 
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
