@@ -66,6 +66,11 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 | 3 | EA-4/02 M:2022 (S5, S7, S13) | güncel revizyon / errata (F18) |
 | 4 | NIST TN 1900 (2015) E3, E4, E9 | errata / güncel sürüm (F28–F30) |
 | 5 | NIST Uncertainty Machine kılavuzu v1.4, §3 ve §9 | daha yeni sürüm (F29, F33) |
+| 6 | ISO 6143:2025, Formül (12) ve Tablo B.12 | düzeltme (corrigendum/amendment) yayımlanmış mı; B_LEAST'in güncel sürümü üstel fonksiyon belirsizliklerini düzeltmiş mi (F41, F42) |
+| 7 | ISO 5725-3:2023, Tablo J.2 ve J.5 | basılı tablodaki veriler PDF'ten çıkarılanlarla aynı mı (F40) |
+| 8 | ISO 13528:2022, Tablo E.6 | belirsizlik bayraklarının ölçütü (F36) |
+| 9 | ISO 21748:2017, C.3 ve C.4.7 | un için %6,4 / %12,8 ve "3'e bölme" (F38, F39) |
+| 10 | Magnusson ve Ellison (2008), Tablo 3 | SUMU işaret hatası için düzeltme notu var mı (F43) |
 
 ## E. Yazar tarafından sağlanabilecek veriler (isteğe bağlı, çok değerli)
 
@@ -93,5 +98,6 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 9. **ISO 11843-1/-2** — tespit sınırı modülü (düşük öncelik).
 10. **ISO/TS 20914:2019** — tıbbi laboratuvarlar (düşük öncelik; Kallner makalesi başlangıç için yeterli).
 
-Erişim ihtiyaçları (C bölümü) ve errata kontrolleri (D bölümü) değişmedi;
-D bölümüne NIST TN 1900 (F28–F30) ve NUM kılavuzu (F29, F33) eklendi.
+Erişim ihtiyaçları (C bölümü) değişmedi. D bölümüne NIST TN 1900 (F28–F30), NUM kılavuzu (F29, F33),
+ISO 6143 (F41, F42), ISO 5725-3 (F40), ISO 13528 (F36), ISO 21748 (F38, F39) ve Magnusson ve Ellison (F43)
+eklendi.
