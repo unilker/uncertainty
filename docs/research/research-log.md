@@ -1078,3 +1078,28 @@ u_c(60 mg/kg) is 6.04 against 10.08 % × 60 = 6.05. The raw data needed to
 implement the paper's recovery-compatibility tests (Formulae 11–12) and the
 weighted mean recovery are only in the electronic supplement (Cordeiro et al.
 2018 describes the method; both are on the missing-documents list).
+
+**F46. Mateos et al. (2020), Tables 2 and 3 — Interval II not reproducible
+from the listed components (class b, to verify with the supplementary
+data).** The relative combined uncertainty above the spiking level should be
+u′ = √(u′_I² + (u_T/R̄_w)²), the relative form of the Interval I combination
+u = √(u_I² + (u_T γ_SL/R̄_w)²) (Section 2). Interval I reproduces for all
+eight cases (4 PAH × neat and adjusted calibrators) within rounding.
+Interval II reproduces for only two of them; for neat calibrators:
+
+| PAH | printed u′ | computed u′ |
+|---|---|---|
+| Pyr | 1.9 % | 1.75 % |
+| BaP | 2.8 % | 2.62 % |
+| Phe | 5.9 % | 6.06 % |
+| Nap | 5.0 % | 5.04 % |
+
+The headline result, naphthalene U′ falling from 9.9 % to 3.5 %, does not
+follow from the tables either:
+- neat calibrators: the printed components give U′ between 9.99 % and
+  10.16 % for any u_T that rounds to 0.010;
+- adjusted calibrators: 2 × 1.7 % = 3.4 %, not 3.5 %.
+
+The paper's conclusion (a large reduction for Nap) is unaffected. No library
+projects are made from this paper until the electronic supplement is
+available.

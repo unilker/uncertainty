@@ -47,7 +47,7 @@ Nothing marked *to verify* may be cited in the article until it is checked.
 | Synek (2005), *Talanta* 65:829 — Ue | primary source of Ue (exact-coverage symmetric interval); implemented from its definition as given by Magnusson & Ellison | to verify |
 | O'Donnell & Hibbert (2005), *Analyst* 130:721 | coverage of bias strategies (conflicting with Magnusson & Ellison) | to verify |
 | Palma, Morgado & Bettencourt da Silva (2019), *Talanta* 192:278 — matrix effects | top-down contribution of matrix effects: intermediate precision vs dispersion of recoveries across matrices; two concentration intervals (LOD–2LOQ, above); Pb in marine sediment worked through | read; seven projects from Table 9 (D39); compatibility tests need the electronic supplement |
-| Mateos et al. (2020), *Talanta* 207:120274 — recovery correction vs adjusted calibrators | PAH in water: neat vs processed calibrators; trueness from a weighted mean recovery with weights depending on u and ν; naphthalene U 9.9 % → 3.5 % | read; the ν-dependent weighting is not in the program |
+| Mateos et al. (2020), *Talanta* 207:120274 — recovery correction vs adjusted calibrators | PAH in water: neat vs processed calibrators; trueness from a weighted mean recovery with weights depending on u and ν; naphthalene U 9.9 % → 3.5 % | read; Interval II of Tables 2–3 not reproducible (F46); the ν-dependent weighting is not in the program |
 | Kallner (2002), *eJIFCC* 13 — uncertainty in laboratory medicine | introduction and examples for clinical laboratories | read; starting point for ISO/TS 20914 |
 
 ## 3. Existing software (competitor and benchmark landscape)

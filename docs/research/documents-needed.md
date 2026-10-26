@@ -92,6 +92,7 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 5. **Kragten (1994)**, *Analyst* 119:2161 — Kragten görünümünün birincil kaynağı.
 6. **O'Donnell ve Hibbert (2005)**, *Analyst* 130:721 — sapma yaklaşımlarının karşılaştırması; Magnusson ve Ellison'un benzetimiyle çelişen kapsam sonuçları var (D34), karşılaştırmak için gerekli.
 6a. **Synek (2005)**, *Talanta* 65:829–837 — U_e yaklaşımının birincil kaynağı; program U_e'yi tanımından hesaplıyor, Synek'in E çarpanlarıyla karşılaştırmak için gerekli.
+6c. **Palma ve ark. (2019) ve Mateos ve ark. (2020) elektronik ekleri** (Excel dosyaları) — ham veriler; Palma'nın geri kazanım uyumluluk testlerini (D39) ve Mateos'un Aralık II tutarsızlığını (F46) kontrol etmek için. Talanta'nın sayfasından "Supplementary material" olarak indirilebilir.
 6b. **Maroto ve ark. (2002)**, *Accred. Qual. Assur.* — düzeltilmemiş sapma için Monte Carlo kapsam çalışması (düşük öncelik).
 7. **Lafarge ve Possolo (2015)**, *NCSLI Measure* 10(3):20 — NIST Uncertainty Machine makalesi (atıf için).
 8. **ISO 5725-1, -4, -6** — terimler, doğruluk (trueness) tayini, uygulamada kullanım (düşük öncelik).
