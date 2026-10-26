@@ -429,8 +429,37 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
             "median": m.median,
             "skewness": m.skewness,
             "excess_kurtosis": m.excess_kurtosis,
+            "histogram": {
+                "lower": m.histogram.lower,
+                "bin_width": m.histogram.bin_width,
+                "counts": m.histogram.counts,
+                "underflow": m.histogram.underflow,
+                "overflow": m.histogram.overflow,
+            },
         })
     });
+    // GUM probability density over the histogram range, for plotting.
+    let gum_pdf = match (&a.gum, &a.mcm) {
+        (Some(g), Some(m)) if g.combined_standard_uncertainty > 0.0 && m.histogram.bin_width > 0.0 => {
+            let x0 = m.histogram.lower;
+            let x1 = x0 + m.histogram.bin_width * m.histogram.counts.len() as f64;
+            let u = g.combined_standard_uncertainty;
+            let pts: Vec<[f64; 2]> = (0..=200)
+                .map(|i| {
+                    let x = x0 + (x1 - x0) * i as f64 / 200.0;
+                    let z = (x - g.estimate) / u;
+                    let d = if g.effective_dof.is_finite() {
+                        uncertainty_core::special::student_t_pdf(z, g.effective_dof)
+                    } else {
+                        uncertainty_core::special::normal_pdf(z)
+                    };
+                    [x, d / u]
+                })
+                .collect();
+            Some(pts)
+        }
+        _ => None,
+    };
     let validation = a.validation.as_ref().map(|v| {
         json!({"ndig": v.ndig, "tolerance": v.tolerance, "d_low": v.d_low, "d_high": v.d_high, "validated": v.validated})
     });
@@ -441,6 +470,7 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
         "gum": gum,
         "mcm": mcm,
         "validation": validation,
+        "gum_pdf": gum_pdf,
         "checks": checks,
     })
 }

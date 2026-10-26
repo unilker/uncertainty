@@ -100,6 +100,14 @@ name = "uncertainty-core"
 version = "0.1.0"
 
 [[package]]
+name = "uncertainty-ffi"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "uncertainty-project",
+]
+
+[[package]]
 name = "uncertainty-project"
 version = "0.1.0"
 dependencies = [

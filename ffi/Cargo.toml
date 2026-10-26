@@ -1,0 +1,16 @@
+[package]
+name = "uncertainty-ffi"
+description = "C interface of Uncertainty Calculations for the graphical user interface (JSON in, JSON out)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lib]
+name = "uncertainty_ffi"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+uncertainty-project = { path = "../project" }
+serde_json = "1"
