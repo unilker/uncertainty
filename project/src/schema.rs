@@ -431,6 +431,60 @@ pub struct ReportingSpec {
     /// Nordtest TR 537).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub decimal_places: Option<i32>,
+    /// A known bias of a model result that is not corrected (Magnusson &
+    /// Ellison 2008): adds an interval that accounts for it.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub uncorrected_bias: Option<UncorrectedBiasSpec>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct UncorrectedBiasSpec {
+    /// Estimated bias b (result minus reference value), in the output unit.
+    pub bias: f64,
+    /// Standard uncertainty of the bias estimate.
+    pub u_bias: f64,
+    #[serde(default)]
+    pub strategy: BiasStrategySpec,
+}
+
+/// Strategies of Magnusson & Ellison (2008) Table 3.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum BiasStrategySpec {
+    /// Symmetric interval with exact coverage of the corrected-value
+    /// distribution (Synek; preferred by Magnusson & Ellison).
+    #[default]
+    Ue,
+    #[serde(rename = "rssu")]
+    RssU,
+    #[serde(rename = "rssu_k")]
+    RssUk,
+    Sumu,
+    SumuMax,
+}
+
+impl BiasStrategySpec {
+    pub fn strategy(self) -> uncertainty_core::bias::BiasStrategy {
+        use uncertainty_core::bias::BiasStrategy as B;
+        match self {
+            BiasStrategySpec::Ue => B::Ue,
+            BiasStrategySpec::RssU => B::RssU,
+            BiasStrategySpec::RssUk => B::RssUk,
+            BiasStrategySpec::Sumu => B::Sumu,
+            BiasStrategySpec::SumuMax => B::SumuMax,
+        }
+    }
+
+    pub fn label(self) -> &'static str {
+        match self {
+            BiasStrategySpec::Ue => "U_e",
+            BiasStrategySpec::RssU => "RSSu",
+            BiasStrategySpec::RssUk => "RSSU",
+            BiasStrategySpec::Sumu => "SUMU",
+            BiasStrategySpec::SumuMax => "SUMU_MAX",
+        }
+    }
 }
 
 fn default_sig() -> u32 {
@@ -439,7 +493,12 @@ fn default_sig() -> u32 {
 
 impl Default for ReportingSpec {
     fn default() -> Self {
-        Self { significant_digits: default_sig(), rounding: RoundingSpec::default(), decimal_places: None }
+        Self {
+            significant_digits: default_sig(),
+            rounding: RoundingSpec::default(),
+            decimal_places: None,
+            uncorrected_bias: None,
+        }
     }
 }
 

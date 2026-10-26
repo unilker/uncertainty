@@ -276,8 +276,32 @@ impl Evaluation {
     }
 }
 
+/// The interval [y − U₋, y + U₊] of a model result with an uncorrected bias
+/// (`reporting.uncorrected_bias`): the strategy, U₋ and U₊.
+pub fn uncorrected_bias_interval(p: &Project, a: &Analysis) -> Option<(schema::BiasStrategySpec, f64, f64)> {
+    let b = p.reporting.uncorrected_bias.as_ref()?;
+    let g = a.gum.as_ref()?;
+    uncertainty_core::bias::uncorrected_interval(
+        g.combined_standard_uncertainty,
+        -b.bias,
+        b.u_bias,
+        g.coverage_factor,
+        b.strategy.strategy(),
+    )
+    .ok()
+    .map(|(lo, hi)| (b.strategy, lo, hi))
+}
+
 /// Runs the evaluation a project describes.
 pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectError> {
+    if let Some(b) = &p.reporting.uncorrected_bias {
+        if p.model.is_none() {
+            return Err(input_err("reporting.uncorrected_bias", "applies to model projects only"));
+        }
+        if !(b.bias.is_finite() && b.u_bias.is_finite() && b.u_bias >= 0.0) {
+            return Err(input_err("reporting.uncorrected_bias", "finite bias and non-negative u_bias required"));
+        }
+    }
     if let Some(spec) = &p.topdown {
         return Ok(Evaluation::TopDown(Box::new(topdown::evaluate(spec)?)));
     }
@@ -562,6 +586,10 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
         "project": project,
         "output": { "name": a.model.output_name, "unit": a.model.output_unit },
         "gum": gum,
+        "uncorrected_bias": uncorrected_bias_interval(p, a).map(|(s, lo, hi)| json!({
+            "strategy": s.label(), "bias": p.reporting.uncorrected_bias.as_ref().map(|b| b.bias),
+            "u_minus": lo, "u_plus": hi,
+        })),
         "mcm": mcm,
         "validation": validation,
         "gum_pdf": gum_pdf,
@@ -614,6 +642,35 @@ mod tests {
         let both = A1.replace("\"value\": 0.9999, \"half_width\": 0.0001", "\"lower\": 0.9998, \"value\": 0.9999");
         let p = parse(&both).unwrap();
         assert!(matches!(run(&p, &Overrides::default()), Err(ProjectError::Input { .. })));
+    }
+
+    #[test]
+    fn uncorrected_bias_statement() {
+        let with = |strategy: &str| {
+            let j = A1.replace(
+                "\"expected\":",
+                &format!(r#""reporting": {{ "uncorrected_bias": {{ "bias": 1.5, "u_bias": 0.3, "strategy": "{strategy}" }} }}, "expected":"#),
+            );
+            let p = parse(&j).unwrap();
+            let e = run(&p, &Overrides { skip_mcm: true, ..Default::default() }).unwrap();
+            let a = e.model().unwrap();
+            (uncorrected_bias_interval(&p, a).unwrap(), report::reported_statements(&p, &e, Lang::En))
+        };
+        // u_c = √(0.8633² + 0.3²), Δ = −1.5: SUMU moves the interval down.
+        let uc = (0.8633f64.powi(2) + 0.09).sqrt();
+        let ((_, lo, hi), st) = with("sumu");
+        assert!((lo - (2.0 * uc + 1.5)).abs() < 2e-3 && (hi - (2.0 * uc - 1.5)).abs() < 2e-3, "{lo} {hi}");
+        assert!(st[1].contains("1002.7 mg/L (−3.3, +0.3)"), "{}", st[1]);
+        let ((_, lo, hi), st) = with("rssu");
+        assert_eq!(lo, hi);
+        assert!((lo - 2.0 * (0.8633f64.powi(2) + 2.25 + 0.09).sqrt()).abs() < 2e-3);
+        assert!(st[1].contains("(1002.7 ± 3.5) mg/L") && st[1].contains("RSSu"), "{}", st[1]);
+        let td = parse(&A1.replace(
+            "\"expected\":",
+            r#""reporting": { "uncorrected_bias": { "bias": 1, "u_bias": -1 } }, "expected":"#,
+        ))
+        .unwrap();
+        assert!(matches!(run(&td, &Overrides::default()), Err(ProjectError::Input { .. })));
     }
 
     #[test]

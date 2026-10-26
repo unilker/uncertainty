@@ -162,6 +162,15 @@ Reference: B_LEAST output printed in the standard. Independent checks with ODRPA
 | ISO6143-B.2.4 | exponential function | b, S_res 0.6572, Γ 0.3529, x 5.3357; u(b) 8.14 × 10⁻², 7.40 × 10⁻², 3.71 × 10⁻¹¹; u(x) 0.013280 | b, S_res, Γ, x same; u(b) 3.18, 3.17, 1.27 × 10⁻⁶ and u(x) 0.014246 as ODRPACK (MC: 3.13, 3.12, 1.24 × 10⁻⁶; 0.01406) | ✅ (F42) |
 | ISO6143-6.2.4 | drift-test critical values | 2√2 u for n = 10 (Note); Formula (12) 2√(1 + 20/n) u | 2√(1 + 10/n) u, 2√(20/n) u | ✅ (F41) |
 
+## Uncorrected bias (Magnusson & Ellison 2008) — core tests
+
+| ID | Claim | Published | Engine | Status |
+|---|---|---|---|---|
+| ME2008-T3 | formulae of Table 3 | RSSu, RSSU, SUMU, SUMU_MAX, Ue | same (SUMU signs per Phillips et al. 1997, F43) | ✅ |
+| ME2008-Ue | Ue ≈ 1.65u_c + \|Δ\| for \|Δ\| > 0.8u_c | stated | within 3 % for \|Δ\|/u_c = 0.8 … 4 | ✅ |
+| ME2008-F1 | coverage, u(y) = 1, u_Δ = 0.5 | SUMU ≈ 95 % → 97.5 % at 3u_c; Ue ≈ 98 % → 95 %; RSSu, SUMU_MAX > 95 % | 95.2/97.5 %; 98.1/95.0 %; > 95 % | ✅ |
+| ME2008-F2 | interval widths, u_Δ = 0.3 | RSSU < Ue ≈ RSSu < SUMU_MAX for \|b\| ≤ u(y); RSSu largest at 2u(y) | same | ✅ |
+
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
 | Case | y | u | shortest lo | shortest hi | shortest length | symmetric lo | symmetric hi |

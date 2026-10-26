@@ -953,3 +953,48 @@ the standard, fits Example 3 with Γ = 0.44 (exponential 0.35, power 1.16).
 straight-line cases of ISO/TS 28037 (uncertainties in both variables,
 correlated x). The standard's own data sets are still needed for validation
 (documents-needed.md).
+
+## 2026-10-26 (session 10) — Uncorrected bias; ISO/IEC 17025 mapping; literature
+
+**D34. Results not corrected for a known bias.** New core module `bias` and
+the model-project option `reporting.uncorrected_bias` (`bias`, `u_bias`,
+`strategy`): the five strategies of Magnusson & Ellison (2008, Table 3) —
+RSSu, RSSU, SUMU (asymmetric), SUMU_MAX and Ue. Ue (Synek 2005) is
+implemented from its definition: the symmetric interval about the
+uncorrected result that contains the fraction 2Φ(k) − 1 of the distribution
+N(y + Δ, u_c²) of the corrected value. It is the default, as Magnusson & Ellison
+recommend it for large degrees of freedom. Validation:
+(i) the formulae; (ii) Ue tends to 1.645u_c + |Δ| for |Δ| > 0.8u_c, as stated;
+(iii) a simulation of their Fig. 1 (u(y) = 1, u_Δ = 0.5, 40 000 trials; the test uses 20 000) gives
+SUMU 95.2 % at zero bias and 97.5 % at 3u_c, Ue 98.1 % and 95.0 %, and RSSu
+and SUMU_MAX above 95 % at 0, 1 and 3u_c. All of these agree with their text and
+contradict the poorer SUMU coverage reported by O'Donnell & Hibbert (2005);
+(iv) the ordering of interval widths in their Fig. 2. Reports add a second
+statement naming the strategy, e.g. "c_Cd = 1002.7 mg/L (−3.3, +0.3), not
+corrected for the estimated bias b = 1.50 mg/L …". The correction with its
+uncertainty remains the recommended treatment (GUM 6.3.1).
+
+**F43. Magnusson & Ellison (2008), Table 3 — sign of Δ in SUMU (class b).**
+The table defines Δ = −b as the correction, but gives U₊ = max(0, ku_c − Δ),
+U₋ = max(0, ku_c + Δ). That is the form of Phillips, Eberhardt & Parry (1997),
+U₊ = U − d, U₋ = U + d, but there d is the bias, so with Δ = −d it should read
+U₊ = max(0, ku_c + Δ), U₋ = max(0, ku_c − Δ). Taken literally with their Δ, a
+positive bias would move the interval further up, away from the measurand.
+The program uses the primary source. The table also states that the equation
+applies when k·u(y_obs) ≥ Δ, whereas Phillips et al. define it for all d (with
+the max(0, ·) limits).
+
+**D35. ISO/IEC 17025 mapping.** `iso17025-mapping.md` maps clauses 7.2.2,
+7.6, 7.7, 7.8.3, 7.8.4, 7.8.6 and 7.11 to the program and names the gaps:
+sampling uncertainty (7.6.1), control-chart rules (7.7.1), conformity
+statements with decision rules (7.8.6, JCGM 106) and a printable software
+validation report (7.11.2). These are candidates for the next phases.
+
+**Literature read in this session** (literature-review.md): Palma et al.
+(2019) on matrix effects and Mateos et al. (2020) on recovery correction are
+both top-down methods from the Lisbon group, with worked data (Pb in
+sediments; PAH in water) that could become library projects. They need the
+recovery-compatibility tests and the ν-dependent weighted mean recovery,
+which the program does not have yet. Kallner (2002) is an introduction for
+clinical laboratories. Zeier et al. (2012) describes METAS UncLib, the
+METAS library whose authors found the B_LEAST error of ISO 6143 (F42).

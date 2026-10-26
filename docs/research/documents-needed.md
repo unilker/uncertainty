@@ -85,7 +85,9 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 3. **ISO/TS 28037:2010** — doğru kalibrasyon fonksiyonları (her iki eksende belirsizlik); standarttaki örnek veri setleri doğrulama için gerekli. ISO 6143:2025 ile genelleştirilmiş en küçük kareler motoru yazıldı ve doğrulandı (D33); ISO/TS 28037'nin kendi veri setleri ek doğrulama için hâlâ gerekli.
 4. **Cordeiro ve ark. (2018)**, *Accred. Qual. Assur.* 23:57–71 — MUPR geri kazanım eşitliklerinin kaynağı.
 5. **Kragten (1994)**, *Analyst* 119:2161 — Kragten görünümünün birincil kaynağı.
-6. **O'Donnell ve Hibbert (2005)**, *Analyst* 130:721 — sapma yaklaşımlarının karşılaştırması.
+6. **O'Donnell ve Hibbert (2005)**, *Analyst* 130:721 — sapma yaklaşımlarının karşılaştırması; Magnusson ve Ellison'un benzetimiyle çelişen kapsam sonuçları var (D34), karşılaştırmak için gerekli.
+6a. **Synek (2005)**, *Talanta* 65:829–837 — U_e yaklaşımının birincil kaynağı; program U_e'yi tanımından hesaplıyor, Synek'in E çarpanlarıyla karşılaştırmak için gerekli.
+6b. **Maroto ve ark. (2002)**, *Accred. Qual. Assur.* — düzeltilmemiş sapma için Monte Carlo kapsam çalışması (düşük öncelik).
 7. **Lafarge ve Possolo (2015)**, *NCSLI Measure* 10(3):20 — NIST Uncertainty Machine makalesi (atıf için).
 8. **ISO 5725-1, -4, -6** — terimler, doğruluk (trueness) tayini, uygulamada kullanım (düşük öncelik).
 9. **ISO 11843-1/-2** — tespit sınırı modülü (düşük öncelik).

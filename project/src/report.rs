@@ -390,6 +390,48 @@ fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
     })
 }
 
+/// The result with an uncorrected bias (Magnusson & Ellison 2008, Table 3).
+fn bias_statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
+    let g = a.gum.as_ref()?;
+    let b = p.reporting.uncorrected_bias.as_ref()?;
+    let (strategy, lo, hi) = crate::uncorrected_bias_interval(p, a)?;
+    let unit = a.model.output_unit.clone().map(|u| format!(" {u}")).unwrap_or_default();
+    let (v, big) = round_reported(g.estimate, lo.max(hi), &p.reporting, lang);
+    let interval = if (lo - hi).abs() <= 1e-12 * hi.abs().max(1e-300) {
+        format!("({v} ± {big}){unit}")
+    } else {
+        // Both half-widths at the decimal place of the larger one.
+        let places = big.rsplit([',', '.']).next().filter(|_| big.contains(['.', ','])).map_or(0, str::len);
+        let f = |x: f64| {
+            let t = format!("{x:.places$}");
+            if lang == Lang::Tr {
+                t.replace('.', ",")
+            } else {
+                t
+            }
+        };
+        format!("{v}{unit} (−{}, +{})", f(lo), f(hi))
+    };
+    let (bv, bu) = (fmt_num(b.bias, 3, lang), fmt_num(b.u_bias, 2, lang));
+    let name = &a.model.output_name;
+    let k = fmt_num(g.coverage_factor, 3, lang);
+    let s = strategy.label();
+    Some(match lang {
+        Lang::En => format!(
+            "{name} = {interval}, not corrected for the estimated bias b = {bv}{unit} (u(b) = {bu}{unit}); the interval \
+             includes the bias by the {s} approach of Magnusson & Ellison (2008), k = {k}."
+        ),
+        Lang::Tr => format!(
+            "{name} = {interval}; tahmin edilen sapma b = {bv}{unit} (u(b) = {bu}{unit}) için düzeltme yapılmamıştır; \
+             aralık sapmayı Magnusson ve Ellison'un (2008) {s} yaklaşımıyla içerir, k = {k}."
+        ),
+    })
+}
+
+fn model_statements(p: &Project, a: &Analysis, lang: Lang) -> Vec<String> {
+    statement(p, a, lang).into_iter().chain(bias_statement(p, a, lang)).collect()
+}
+
 /// A GUM warning in the report language.
 pub fn warning_text(w: &GumWarning, lang: Lang) -> String {
     match (w, lang) {
@@ -517,7 +559,7 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
         let _ = writeln!(s, "- {}: {}", l.k, n3(g.coverage_factor));
         let _ = writeln!(s, "- {}: {}", l.p, fmt_pct(g.coverage_probability, 4, lang, true));
         let _ = writeln!(s, "- {}: {}{unit}", l.expanded, n3(g.expanded_uncertainty));
-        if let Some(st) = statement(p, a, lang) {
+        for st in model_statements(p, a, lang) {
             let _ = writeln!(s, "\n**{}:** {st}\n", l.reported);
         }
     }
@@ -840,7 +882,7 @@ fn range_text(r: &LevelRange, lang: Lang) -> String {
 /// (GUM), one per level for a top-down project.
 pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<String> {
     match e {
-        Evaluation::Model(a) => statement(p, a, lang).into_iter().collect(),
+        Evaluation::Model(a) => model_statements(p, a, lang),
         Evaluation::TopDown(t) => topdown_statements(p, t, lang),
         Evaluation::Proficiency(a) => proficiency::statements(p, a, lang),
         Evaluation::Calibration(a) => calibration::statements(p, a, lang),
@@ -1460,7 +1502,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             let _ = writeln!(s);
         }
         let results: Vec<String> = match e {
-            Evaluation::Model(a) => statement(p, a, lang).into_iter().collect(),
+            Evaluation::Model(a) => model_statements(p, a, lang),
             Evaluation::TopDown(t) => topdown_statements(p, t, lang),
             Evaluation::Proficiency(a) => proficiency::statements(p, a, lang),
             Evaluation::Calibration(a) => calibration::statements(p, a, lang),

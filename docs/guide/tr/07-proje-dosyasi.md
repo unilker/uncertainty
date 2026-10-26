@@ -72,7 +72,8 @@ birini atlamak için `"gum": null` veya `"mcm": null` yazınız.
 ## 7.5 `reporting`
 
 `significant_digits` (varsayılan 2), `decimal_places` (anlamlı basamak yerine), `rounding` (`half_even`,
-`half_up`, `up`).
+`half_up`, `up`), `uncorrected_bias` (model projeleri: `bias`, `u_bias`, `strategy` `ue` | `rssu` | `rssu_k` |
+`sumu` | `sumu_max`; bölüm 6.3).
 
 ## 7.6 `topdown`
 

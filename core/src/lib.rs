@@ -41,6 +41,7 @@
 // index loops mirror the subscripts of the formulas in the standards.
 #![allow(clippy::neg_cmp_op_on_partial_ord, clippy::needless_range_loop)]
 
+pub mod bias;
 pub mod calibration;
 pub mod distribution;
 pub mod error;

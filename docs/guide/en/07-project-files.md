@@ -72,7 +72,8 @@ or `"mcm": null` to skip one of the methods.
 ## 7.5 `reporting`
 
 `significant_digits` (default 2), `decimal_places` (instead of significant digits), `rounding`
-(`half_even`, `half_up`, `up`).
+(`half_even`, `half_up`, `up`), `uncorrected_bias` (model projects: `bias`, `u_bias`, `strategy` `ue` | `rssu` |
+`rssu_k` | `sumu` | `sumu_max`; section 6.3).
 
 ## 7.6 `topdown`
 
