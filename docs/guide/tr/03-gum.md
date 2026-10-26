@@ -22,7 +22,7 @@ Proje dosyasında model formül olarak yazılır:
 
 İfadelerde `+ - * /`, üs alma (`^` veya `**` ya da `pow(x, y)`), parantezler, `pi` sabiti ve `sqrt`, `exp`,
 `ln`, `log10`, `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `sinh`, `cosh`, `tanh`, `abs` fonksiyonları
-kullanılabilir. Adlar her alfabeden harf, rakam ve `_` içerebilir (örneğin `ρ_a`, `dV_cal`). Uzun modeller
+ve dört bölgeli ters tanjant `atan2(y, x)` kullanılabilir. Adlar her alfabeden harf, rakam ve `_` içerebilir (örneğin `ρ_a`, `dV_cal`). Uzun modeller
 **ara büyüklüklerle** daha okunaklı olur; bunlar modele sembolik olarak açılır (hiçbir yaklaşıklık yoktur):
 
 ```json

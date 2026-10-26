@@ -67,11 +67,19 @@ void main() {
     test('templates evaluate and errors are reported', () {
       const e = Engine();
       expect(e.version()['version'], isNotEmpty);
-      for (final kind in ['model', 'topdown', 'calibration', 'conformity', 'precision']) {
+      for (final kind in ['model', 'topdown', 'calibration', 'conformity', 'precision', 'multivariate']) {
         final p = e.template(kind);
         expect(e.validate(p), isNull);
         final r = e.evaluateSync(p, const EvaluateOptions(lang: 'tr', trials: 10000));
-        expect((r['reported'] as List).first, contains(kind == 'conformity' ? 'p_c' : (kind == 'precision' ? 's_R' : '±')));
+        expect(
+          (r['reported'] as List).first,
+          contains(switch (kind) {
+            'conformity' => 'p_c',
+            'precision' => 's_R',
+            'multivariate' => 'u(R)',
+            _ => '±',
+          }),
+        );
       }
       // Localised warnings and the Kragten view come from the engine.
       final h1 = jsonDecode(File('../library/length/gum-h1-end-gauge.json').readAsStringSync()) as Map<String, dynamic>;
@@ -263,6 +271,24 @@ void main() {
     await pumpUntilFound(tester, find.text('Stragglers and outliers (all results)'));
     expect(find.text('outlier **'), findsNWidgets(2)); // Grubbs, laboratory 1 at levels 3 and 4
     expect(find.text('0.3368 %'), findsOneWidget); // s_r at level 4, Table C.18: 0.337
+  });
+
+  testWidgets('a model with several outputs (JCGM 102 9.4) shows its correlation matrix', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'jcgm102-9.4-resistance-reactance-alternative');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('t covariance'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Model'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('mv-implicit')), findsOneWidget);
+    expect(find.textContaining('Indication values: V, I, phi'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.text('GUM uncertainty framework (JCGM 102)'));
+    expect(find.text('0.130 Ω'), findsWidgets); // u(R), Table 11, Alt. GUF
+    expect(find.text('-0.588'), findsWidgets); // r(R, X)
   });
 
   testWidgets('top-down forms show and edit the raw data', (tester) async {

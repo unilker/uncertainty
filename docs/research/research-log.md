@@ -1226,3 +1226,74 @@ finding. It goes into the article; the institutions are not contacted (D12).
 **F9 (status).** The 99 % duplicate-range factor 3.69 of MUPR B1 is a
 critical range factor f(n) of ISO 5725-6. ISO 5725-2 does not tabulate these
 factors, and the point stays open until ISO 5725-6 is available.
+
+## 2026-10-26 (session 13) — Several output quantities (JCGM 102:2011)
+
+**D42. Multivariate models (JCGM 102).** New core module `multivariate` and
+project section `multivariate` (133 library projects). It covers:
+
+- Explicit models Y = f(X) and implicit models h(Y, X) = 0. Implicit models
+  are solved by Newton's method with exact symbolic derivatives. The step
+  test is relative to the size of the variable or of its starting value,
+  with a stagnation rule at the level of rounding (needed for θ₁ = 0.01 °C in
+  9.5.3).
+- The generalized law of propagation, U_y = C_x U_x C_xᵀ (formula 3). For
+  implicit models ∂Y/∂X = −C_y⁻¹C_x is obtained by solving the linear system,
+  as Annex B recommends.
+- Coverage factors for N(y, U_y): k_p from χ²_m and k_q from q = 1 − (1 − p)/m.
+  Tables 1 and 2 are reproduced.
+- Monte Carlo coverage factors: k_p from the draws transformed with the
+  Cholesky factor of U_y (7.7.2), k_q from the largest standardized deviation
+  (7.7.3), and the area of the smallest coverage region on a 100 × 100 mesh
+  for m = 2 (7.7.4). The fraction of the draws inside the GUM ellipsoid and
+  rectangle is also given.
+- The adaptive procedure of 7.8.3, with at least eleven batches; it requires
+  y_j, u(y_j), λ_max, k_p and k_q to stabilize, as in 9.2.2.3.
+- The validation of clause 8, reported separately for the ellipsoid and the
+  rectangle.
+- Inputs from series of vector indication values (5.3.2). The GUM framework
+  uses U_x = M/(n(n − 1)) or V(X) = M/((ν − 2)n); the Monte Carlo method draws
+  from t_ν(x̄, S/n) as ξ = x̄ + Lz√(ν/w), w ~ χ²_ν, with the existing gamma
+  generator.
+- The expression language gains `atan2(y, x)`, with its derivative
+  ∂atan2(a, b) = (b a′ − a b′)/(a² + b²).
+
+The library has 13 projects. 9.2.2–9.2.4: the GUM and Monte Carlo rows of
+Tables 3–5 and the validation outcomes. 9.3: six co-ordinate-transformation
+cases (Tables 6 and 7, Monte Carlo with 10⁶ instead of 10⁷ trials). 9.4: the
+GUF, Alt. GUF and MCM rows of Table 11. 9.5.2 and 9.5.3: implicit models with
+θ, u(θ), Table 15 and the correlations of Table 16. Core tests also cover
+6.5.2.3 (areas 26.6, 28.4, 11.8), 6.5.4 (F₂,₁₀ = 4.10) and 7.7.4 (smallest
+region 9.4 unit² for 10⁶ draws).
+
+Two observations on Monte Carlo values printed from few draws:
+
+- The 7.7.2 example gives k_p = 2.33 and an area of 10.6 from 1 000 draws.
+  With 10⁶ draws the values are k_p = 2.27 and 10.1. This is the counterpart
+  of k_p = 2.28 in Table 5 for a similarly dominant rectangular effect, so
+  the difference is sampling variation, not an error.
+- In 9.4 the inputs follow t₃, which has no fourth moment, so the sample
+  standard deviations of the outputs converge slowly. With 10⁶ trials, seeds
+  1–6 give u(R) between 0.128 and 0.136 Ω (printed 0.130) and r(R, X) between
+  −0.580 and −0.600. The library tolerances cover this spread, and the guide
+  (13.5) warns about ν ≤ 4.
+
+**F50. JCGM 102:2011 7.7.2 example — transposed Cholesky factor (class a).**
+Step a) of 7.7.2 requires L to be the lower triangular matrix with U_y = LLᵀ.
+The example prints L = [[1.414, 1.344], [0.000, 0.442]], which is upper
+triangular, and its inverse [[0.707, −2.151], [0.000, 2.265]]. This L
+satisfies LᵀL = U_y = [[2.0, 1.9], [1.9, 2.0]], while LLᵀ = [[3.806, 0.594],
+[0.594, 0.195]] ≠ U_y. The printed matrices are therefore the transposes of the
+Cholesky factor and of its inverse. Applying the printed L⁻¹ in formula (21)
+would sort the draws by (y − ŷ)ᵀ(LLᵀ)⁻¹(y − ŷ), the wrong metric. The figure
+and the stated results are consistent with the correct factor. A related
+small point: 6.5.2.3 example 2 gives the rectangle area 40.1 unit², which
+follows from k_q rounded to 2.24; the unrounded k_q = 2.2414 gives 40.2.
+
+**F51. JCGM 102:2011 Table 8 — set 6 is a rounded average (class a).** The
+note to 9.4.1.3 states that set 6 is the average of sets 1 to 5. φ is printed
+as 1.0445 rad, but the average is 1.04446 rad, the estimate of Table 9. With
+the printed 1.0445 the average over six sets is 1.044467 rad, and R̂ becomes
+127.7307 Ω instead of the printed 127.732 Ω (X̂ and Ẑ are unaffected at the
+printed digits). The library uses 1.04446 and records the point. Table 15
+also labels its seventh column θ6 instead of θ7.

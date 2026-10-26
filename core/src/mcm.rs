@@ -106,18 +106,36 @@ impl McmResult {
 /// Correlated Gaussian group: input indices, means, lower Cholesky factor.
 type GaussianGroup = (Vec<usize>, Vec<f64>, Vec<Vec<f64>>);
 
+/// Multivariate t-distribution t_ν(x̄, S/n) for a group of inputs
+/// [JCGM 102 5.3.2]: input indices, x̄, lower Cholesky factor of S/n, ν.
+pub(crate) type StudentGroup = (Vec<usize>, Vec<f64>, Vec<Vec<f64>>, f64);
+
 /// Draws input vectors from the assigned (joint) distribution.
-struct Sampler {
+pub(crate) struct Sampler {
     independent: Vec<(usize, Distribution)>,
     groups: Vec<GaussianGroup>,
+    students: Vec<StudentGroup>,
     z: Vec<f64>,
 }
 
 impl Sampler {
-    fn new(model: &Model) -> Result<Self, UncError> {
+    pub(crate) fn new(model: &Model) -> Result<Self, UncError> {
+        Self::with_students(model, Vec::new())
+    }
+
+    /// As [`Sampler::new`], with groups of inputs drawn jointly from
+    /// multivariate t-distributions; their correlations in `model` are used
+    /// by the GUM framework only.
+    pub(crate) fn with_students(model: &Model, students: Vec<StudentGroup>) -> Result<Self, UncError> {
         let n = model.n_inputs();
+        let in_student = |i: usize| students.iter().any(|g| g.0.contains(&i));
         // Connected components of the correlation graph.
         let mut group_of = vec![usize::MAX; n];
+        for i in 0..n {
+            if in_student(i) {
+                group_of[i] = usize::MAX - 1;
+            }
+        }
         let mut groups_idx: Vec<Vec<usize>> = Vec::new();
         for start in 0..n {
             if group_of[start] != usize::MAX {
@@ -142,7 +160,7 @@ impl Sampler {
 
         let mut independent = Vec::new();
         let mut groups = Vec::new();
-        let mut max_group = 0;
+        let mut max_group = students.iter().map(|g| g.0.len()).max().unwrap_or(0);
         for members in groups_idx {
             if members.len() == 1 {
                 let i = members[0];
@@ -184,11 +202,11 @@ impl Sampler {
             max_group = max_group.max(m);
             groups.push((members, means, l));
         }
-        Ok(Self { independent, groups, z: vec![0.0; max_group] })
+        Ok(Self { independent, groups, students, z: vec![0.0; max_group] })
     }
 
     #[inline]
-    fn draw(&mut self, rng: &mut Rng, x: &mut [f64]) {
+    pub(crate) fn draw(&mut self, rng: &mut Rng, x: &mut [f64]) {
         for (i, d) in &self.independent {
             x[*i] = d.sample(rng);
         }
@@ -206,13 +224,28 @@ impl Sampler {
                 x[members[a]] = v;
             }
         }
+        // ξ = x̄ + L z √(ν/w), w ~ χ²_ν  [JCGM 102 5.3.2.4]
+        for (members, means, l, nu) in &self.students {
+            let m = members.len();
+            for k in 0..m {
+                self.z[k] = rng.normal();
+            }
+            let f = (nu / (2.0 * rng.gamma(0.5 * nu))).sqrt();
+            for a in 0..m {
+                let mut v = 0.0;
+                for b in 0..=a {
+                    v += l[a][b] * self.z[b];
+                }
+                x[members[a]] = means[a] + f * v;
+            }
+        }
     }
 }
 
 /// Lower-triangular Cholesky factor L with V = L Lᵀ, or None if V is not
 /// positive semi-definite (within rounding). A zero pivot is accepted when the
 /// corresponding row is fully determined by earlier rows (|r| = 1).
-fn cholesky(v: &[Vec<f64>]) -> Option<Vec<Vec<f64>>> {
+pub(crate) fn cholesky(v: &[Vec<f64>]) -> Option<Vec<Vec<f64>>> {
     let n = v.len();
     let mut l = vec![vec![0.0; n]; n];
     for i in 0..n {
@@ -267,7 +300,7 @@ impl Runner {
 
 /// Number of model values q covering probability p among M sorted values
 /// [JCGM 101 7.7.2].
-fn coverage_count(m: usize, p: f64) -> usize {
+pub(crate) fn coverage_count(m: usize, p: f64) -> usize {
     let pm = p * m as f64;
     if (pm - pm.round()).abs() < 1e-9 * pm.max(1.0) {
         pm.round() as usize

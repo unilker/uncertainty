@@ -16,6 +16,7 @@ use uncertainty_core::special::{normal_pdf, student_t_pdf};
 mod calibration;
 mod conformity;
 mod interlab;
+mod multivariate;
 mod proficiency;
 
 struct Labels {
@@ -469,6 +470,7 @@ pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>
         Evaluation::Calibration(a) => calibration::markdown(p, a, &checks, lang, generated),
         Evaluation::Conformity(a) => conformity::markdown(p, a, &checks, lang, generated),
         Evaluation::Interlab(a) => interlab::markdown(p, a, &checks, lang, generated),
+        Evaluation::Multivariate(a) => multivariate::markdown(p, a, &checks, lang, generated),
     }
 }
 
@@ -904,6 +906,7 @@ pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<Strin
         Evaluation::Calibration(a) => calibration::statements(p, a, lang),
         Evaluation::Conformity(a) => conformity::statements(a, lang),
         Evaluation::Interlab(a) => interlab::statements(a, lang),
+        Evaluation::Multivariate(a) => multivariate::statements(a, lang),
     }
 }
 
@@ -1423,7 +1426,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
 /// run without the Monte Carlo method so that the text is reproducible on
 /// every platform.
 pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String {
-    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l, il_l) = match lang {
+    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l, il_l, mv_l) = match lang {
         Lang::En => (
             "Worked examples",
             "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
@@ -1443,6 +1446,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "calibration with uncertainties in both variables (ISO 6143)",
             "conformity assessment (JCGM 106)",
             "repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)",
+            "GUM uncertainty framework for several output quantities (JCGM 102)",
         ),
         Lang::Tr => (
             "Çözümlü örnekler",
@@ -1463,6 +1467,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "her iki değişkende belirsizlikli kalibrasyon (ISO 6143)",
             "uygunluk değerlendirmesi (JCGM 106)",
             "laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)",
+            "birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)",
         ),
     };
     let mut sorted: Vec<&(String, Project, Evaluation)> = items.iter().collect();
@@ -1516,6 +1521,13 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::Calibration(_) => cal_l.to_string(),
             Evaluation::Conformity(_) => cf_l.to_string(),
             Evaluation::Interlab(_) => il_l.to_string(),
+            Evaluation::Multivariate(a) => {
+                if a.mcm.is_some() || p.analysis.mcm.is_some() {
+                    format!("{mv_l} {mcm_l}")
+                } else {
+                    mv_l.to_string()
+                }
+            }
         };
         let _ = writeln!(s, "**{approach_l}:** {approach}\n");
         if !p.metadata.explanation.is_empty() {
@@ -1532,6 +1544,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::Calibration(a) => calibration::statements(p, a, lang),
             Evaluation::Conformity(a) => conformity::statements(a, lang),
             Evaluation::Interlab(a) => interlab::statements(a, lang),
+            Evaluation::Multivariate(a) => multivariate::statements(a, lang),
         };
         if !results.is_empty() {
             let _ = writeln!(s, "**{result_l}:**\n");
@@ -1760,6 +1773,22 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
             }
             let excluded = p.precision_experiment.as_ref().is_some_and(|s| !s.exclude.is_empty());
             anchor = format!("<h2>{}</h2>", esc(if excluded { d.exclusions } else { d.precision }));
+        }
+        Evaluation::Multivariate(a) => {
+            if let Some(svg) = multivariate::regions_svg(a, lang) {
+                let _ = write!(
+                    figures,
+                    "<figure><figcaption>{}</figcaption>{svg}</figure>",
+                    esc(multivariate::mv_labels(lang).chart)
+                );
+            } else if let Some(svg) = multivariate::uncertainties_svg(a, lang) {
+                let _ = write!(
+                    figures,
+                    "<figure><figcaption>{}</figcaption>{svg}</figure>",
+                    esc(multivariate::mv_labels(lang).u_chart)
+                );
+            }
+            anchor = format!("<h2>{}</h2>", esc(l.explanation));
         }
     }
     // Place the figures before the Monte Carlo section (top-down: before the

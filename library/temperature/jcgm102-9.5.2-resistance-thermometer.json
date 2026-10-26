@@ -1,0 +1,141 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm102-9.5.2-resistance-thermometer",
+    "title": {
+      "en": "Celsius temperature from a resistance thermometer, implicit model (JCGM 102 9.5.2)",
+      "tr": "Direnç termometresiyle Celsius sıcaklığı, örtük model (JCGM 102 9.5.2)"
+    },
+    "description": {
+      "en": "JCGM 102:2011 9.5.2: one temperature from a measured resistance ratio, with the correlated calibration constants of the thermometer.",
+      "tr": "JCGM 102:2011 9.5.2: termometrenin korelasyonlu kalibrasyon sabitleriyle ölçülen bir direnç oranından tek bir sıcaklık."
+    },
+    "explanation": [
+      {
+        "en": "Implicit model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): the thermometer resistance R(θ) compared with a standard resistor R_S by a bridge measuring r = R(θ)/R_S.",
+        "tr": "Örtük model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): termometre direnci R(θ), r = R(θ)/R_S oranını ölçen bir köprüyle standart direnç R_S ile karşılaştırılır."
+      },
+      {
+        "en": "The calibration constants R₀, A and B are correlated (Table 13); θ is found by Newton's method and u(θ) from C_y U_y C_yᵀ = C_x U_x C_xᵀ with C_y = (A + 2Bθ)R₀ (6.3.1.3, 9.5.2.6).",
+        "tr": "Kalibrasyon sabitleri R₀, A ve B koreledir (Tablo 13); θ Newton yöntemiyle, u(θ) ise C_y = (A + 2Bθ)R₀ ile C_y U_y C_yᵀ = C_x U_x C_xᵀ bağıntısından bulunur (6.3.1.3, 9.5.2.6)."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "JCGM 102:2011, Evaluation of measurement data — Supplement 2 to the “Guide to the expression of uncertainty in measurement” — Extension to any number of output quantities",
+        "section": "9.5.2 (Tables 12, 13)",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_102_2011_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm102",
+      "multivariate",
+      "implicit-model",
+      "resistance-thermometer"
+    ]
+  },
+  "multivariate": {
+    "implicit": true,
+    "outputs": [
+      {
+        "name": "theta",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta + B*theta^2) - r*RS",
+        "start": 20
+      }
+    ],
+    "inputs": [
+      {
+        "name": "R0",
+        "unit": "Ω",
+        "distribution": {
+          "type": "normal",
+          "mean": 99.9961,
+          "sd": 0.0005
+        }
+      },
+      {
+        "name": "A",
+        "unit": "°C⁻¹",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0039096,
+          "sd": 2.7e-06
+        }
+      },
+      {
+        "name": "B",
+        "unit": "°C⁻²",
+        "distribution": {
+          "type": "normal",
+          "mean": -6e-07,
+          "sd": 1.1e-07
+        }
+      },
+      {
+        "name": "RS",
+        "unit": "Ω",
+        "distribution": {
+          "type": "normal",
+          "mean": 99.99947,
+          "sd": 0.0001
+        }
+      },
+      {
+        "name": "r",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0780057,
+          "sd": 5e-06
+        }
+      }
+    ],
+    "correlations": [
+      {
+        "a": "R0",
+        "b": "A",
+        "r": -0.155
+      },
+      {
+        "a": "R0",
+        "b": "B",
+        "r": 0.092
+      },
+      {
+        "a": "A",
+        "b": "B",
+        "r": -0.959
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.95
+    },
+    "mcm": null
+  },
+  "expected": {
+    "multivariate": {
+      "gum": {
+        "estimate": {
+          "theta": {
+            "value": 20.0232,
+            "tolerance": 5e-05
+          }
+        },
+        "standard_uncertainty": {
+          "theta": {
+            "value": 0.0045,
+            "tolerance": 5e-05
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "JCGM 102:2011 9.5.2.5 and 9.5.2.6 (θ = 20.023 2 °C, u = 0.004 5 °C).",
+      "tr": "JCGM 102:2011 9.5.2.5 ve 9.5.2.6 (θ = 20,023 2 °C, u = 0,004 5 °C)."
+    }
+  }
+}

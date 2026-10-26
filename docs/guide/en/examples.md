@@ -3,13 +3,13 @@
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
 - Chemistry (62)
-- Electrical and RF (15)
+- Electrical and RF (23)
 - Flow and volume (4)
-- General (method validation) (15)
+- General (method validation) (18)
 - Length (8)
 - Mass (4)
 - Physical properties (8)
-- Temperature (4)
+- Temperature (6)
 
 ## Chemistry
 
@@ -1790,6 +1790,195 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang en`
 
+### Cartesian to polar co-ordinates, x₁ = 0.001 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x001` — JCGM 102:2011, 9.3 (Table 6)
+
+JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ = 0.001, x₂ = 0; GUM and Monte Carlo results compared (Table 6).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Cartesian to polar co-ordinates of a complex quantity Z = X₁ + iX₂: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (expressions 25), with x₁ = 0.001, x₂ = 0, u(x₁) = u(x₂) = 0.010 and independent inputs.
+2. GUM framework: the sensitivity matrix at (x₁, 0) is [[1, 0], [0, 1/x₁]], so u(θ) = u(x₂)/x₁; this linearization fails when x₁ is comparable to u(x₁).
+3. Monte Carlo method with 10⁶ trials (the Supplement uses 10⁷): the distribution of Θ spreads over (−π, π] and, with correlated inputs near the origin, becomes bimodal (9.3.3.3); ellipses and rectangles are then inappropriate coverage regions (9.3.4.4).
+
+**Result:**
+
+- R = 0.0010, u(R) = 0.010 (GUM)
+- Theta = 0.0 rad, u(Theta) = 10 rad (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001.json --lang en`
+
+### Cartesian to polar co-ordinates, x₁ = 0.001, r = 0.9 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x001-correlated` — JCGM 102:2011, 9.3 (Table 7)
+
+JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ = 0.001, x₂ = 0; GUM and Monte Carlo results compared (Table 7).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Cartesian to polar co-ordinates of a complex quantity Z = X₁ + iX₂: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (expressions 25), with x₁ = 0.001, x₂ = 0, u(x₁) = u(x₂) = 0.010 and r(x₁, x₂) = 0.9.
+2. GUM framework: the sensitivity matrix at (x₁, 0) is [[1, 0], [0, 1/x₁]], so u(θ) = u(x₂)/x₁; this linearization fails when x₁ is comparable to u(x₁).
+3. Monte Carlo method with 10⁶ trials (the Supplement uses 10⁷): the distribution of Θ spreads over (−π, π] and, with correlated inputs near the origin, becomes bimodal (9.3.3.3); ellipses and rectangles are then inappropriate coverage regions (9.3.4.4).
+
+**Result:**
+
+- R = 0.0010, u(R) = 0.010 (GUM)
+- Theta = 0.0 rad, u(Theta) = 10 rad (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001-correlated.json --lang en`
+
+### Cartesian to polar co-ordinates, x₁ = 0.01 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x010` — JCGM 102:2011, 9.3 (Table 6)
+
+JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ = 0.01, x₂ = 0; GUM and Monte Carlo results compared (Table 6).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Cartesian to polar co-ordinates of a complex quantity Z = X₁ + iX₂: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (expressions 25), with x₁ = 0.01, x₂ = 0, u(x₁) = u(x₂) = 0.010 and independent inputs.
+2. GUM framework: the sensitivity matrix at (x₁, 0) is [[1, 0], [0, 1/x₁]], so u(θ) = u(x₂)/x₁; this linearization fails when x₁ is comparable to u(x₁).
+3. Monte Carlo method with 10⁶ trials (the Supplement uses 10⁷): the distribution of Θ spreads over (−π, π] and, with correlated inputs near the origin, becomes bimodal (9.3.3.3); ellipses and rectangles are then inappropriate coverage regions (9.3.4.4).
+
+**Result:**
+
+- R = 0.0100, u(R) = 0.010 (GUM)
+- Theta = 0.00 rad, u(Theta) = 1.0 rad (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010.json --lang en`
+
+### Cartesian to polar co-ordinates, x₁ = 0.01, r = 0.9 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x010-correlated` — JCGM 102:2011, 9.3 (Table 7)
+
+JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ = 0.01, x₂ = 0; GUM and Monte Carlo results compared (Table 7).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Cartesian to polar co-ordinates of a complex quantity Z = X₁ + iX₂: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (expressions 25), with x₁ = 0.01, x₂ = 0, u(x₁) = u(x₂) = 0.010 and r(x₁, x₂) = 0.9.
+2. GUM framework: the sensitivity matrix at (x₁, 0) is [[1, 0], [0, 1/x₁]], so u(θ) = u(x₂)/x₁; this linearization fails when x₁ is comparable to u(x₁).
+3. Monte Carlo method with 10⁶ trials (the Supplement uses 10⁷): the distribution of Θ spreads over (−π, π] and, with correlated inputs near the origin, becomes bimodal (9.3.3.3); ellipses and rectangles are then inappropriate coverage regions (9.3.4.4).
+
+**Result:**
+
+- R = 0.0100, u(R) = 0.010 (GUM)
+- Theta = 0.00 rad, u(Theta) = 1.0 rad (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010-correlated.json --lang en`
+
+### Cartesian to polar co-ordinates, x₁ = 0.1 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x100` — JCGM 102:2011, 9.3 (Table 6)
+
+JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ = 0.1, x₂ = 0; GUM and Monte Carlo results compared (Table 6).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Cartesian to polar co-ordinates of a complex quantity Z = X₁ + iX₂: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (expressions 25), with x₁ = 0.1, x₂ = 0, u(x₁) = u(x₂) = 0.010 and independent inputs.
+2. GUM framework: the sensitivity matrix at (x₁, 0) is [[1, 0], [0, 1/x₁]], so u(θ) = u(x₂)/x₁; this linearization fails when x₁ is comparable to u(x₁).
+3. Monte Carlo method with 10⁶ trials (the Supplement uses 10⁷): the distribution of Θ spreads over (−π, π] and, with correlated inputs near the origin, becomes bimodal (9.3.3.3); ellipses and rectangles are then inappropriate coverage regions (9.3.4.4).
+
+**Result:**
+
+- R = 0.1000, u(R) = 0.010 (GUM)
+- Theta = 0.000 rad, u(Theta) = 0.10 rad (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100.json --lang en`
+
+### Cartesian to polar co-ordinates, x₁ = 0.1, r = 0.9 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x100-correlated` — JCGM 102:2011, 9.3 (Table 7)
+
+JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ = 0.1, x₂ = 0; GUM and Monte Carlo results compared (Table 7).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Cartesian to polar co-ordinates of a complex quantity Z = X₁ + iX₂: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (expressions 25), with x₁ = 0.1, x₂ = 0, u(x₁) = u(x₂) = 0.010 and r(x₁, x₂) = 0.9.
+2. GUM framework: the sensitivity matrix at (x₁, 0) is [[1, 0], [0, 1/x₁]], so u(θ) = u(x₂)/x₁; this linearization fails when x₁ is comparable to u(x₁).
+3. Monte Carlo method with 10⁶ trials (the Supplement uses 10⁷): the distribution of Θ spreads over (−π, π] and, with correlated inputs near the origin, becomes bimodal (9.3.3.3); ellipses and rectangles are then inappropriate coverage regions (9.3.4.4).
+
+**Result:**
+
+- R = 0.1000, u(R) = 0.010 (GUM)
+- Theta = 0.000 rad, u(Theta) = 0.10 rad (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100-correlated.json --lang en`
+
+### Resistance, reactance and impedance from simultaneous indication values (JCGM 102 9.4)
+
+`jcgm102-9.4-resistance-reactance` — JCGM 102:2011, 9.4 (Tables 8–11)
+
+JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated averages; GUM framework with U_x = M/(n(n − 1)) and Monte Carlo method with the multivariate t-distribution.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Ohm's law for an alternating current: R = (V/I) cos φ, X = (V/I) sin φ, Z = V/I (model 26), with n = 6 sets of simultaneous indication values of V, I and φ (Table 8; set 6 is the average of sets 1 to 5).
+2. The estimates are the averages; the matrix of sums of squares and products M gives the covariance matrix of the averages and the correlation coefficients of Table 10.
+3. Monte Carlo method: X is drawn from the multivariate t-distribution t_ν(x̄, S/n), ν = n − N = 3, S = M/ν (5.3.2.4). Because Z² = R² + X², U_y is singular in theory (9.4.2.3 note 2).
+
+**Result:**
+
+- R = 127.7322 Ω, u(R) = 0.058 Ω (GUM)
+- X = 219.847 Ω, u(X) = 0.24 Ω (GUM)
+- Z = 254.260 Ω, u(Z) = 0.19 Ω (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+
+**Notes:**
+
+- With ν = 3 the multivariate t-distribution has no fourth moment, so the Monte Carlo standard deviations converge slowly: with 10⁶ trials, seeds 1 to 6 give u(R) between 0.128 Ω and 0.136 Ω and r(R, X) between −0.580 and −0.600. The tolerances of the Monte Carlo values cover this spread; the printed MCM row is one such realization.
+- Table 8 prints set 6 as φ = 1.0445 rad, the rounded average of sets 1 to 5 (1.04446). With the rounded value the estimate of R is 127.7307 Ω instead of the printed 127.732 Ω; the project uses 1.04446 rad, the value of Table 9 (research log F51).
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance.json --lang en`
+
+### Resistance, reactance and impedance from simultaneous indication values, t covariance (JCGM 102 9.4)
+
+`jcgm102-9.4-resistance-reactance-alternative` — JCGM 102:2011, 9.4 (Tables 8–11)
+
+JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated averages; GUM framework with the covariance matrix of the multivariate t-distribution and Monte Carlo method with the multivariate t-distribution.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Ohm's law for an alternating current: R = (V/I) cos φ, X = (V/I) sin φ, Z = V/I (model 26), with n = 6 sets of simultaneous indication values of V, I and φ (Table 8; set 6 is the average of sets 1 to 5).
+2. The estimates are the averages; the matrix of sums of squares and products M gives the covariance matrix of the averages and the correlation coefficients of Table 10.
+3. Monte Carlo method: X is drawn from the multivariate t-distribution t_ν(x̄, S/n), ν = n − N = 3, S = M/ν (5.3.2.4). Because Z² = R² + X², U_y is singular in theory (9.4.2.3 note 2).
+4. The alternative GUM evaluation uses V(X) = M/((ν − 2)n), which agrees with the Monte Carlo results (9.4.2.5–9.4.2.7).
+
+**Result:**
+
+- R = 127.732 Ω, u(R) = 0.13 Ω (GUM)
+- X = 219.847 Ω, u(X) = 0.54 Ω (GUM)
+- Z = 254.260 Ω, u(Z) = 0.43 Ω (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+
+**Notes:**
+
+- With ν = 3 the multivariate t-distribution has no fourth moment, so the Monte Carlo standard deviations converge slowly: with 10⁶ trials, seeds 1 to 6 give u(R) between 0.128 Ω and 0.136 Ω and r(R, X) between −0.580 and −0.600. The tolerances of the Monte Carlo values cover this spread; the printed MCM row is one such realization.
+- Table 8 prints set 6 as φ = 1.0445 rad, the rounded average of sets 1 to 5 (1.04446). With the rounded value the estimate of R is 127.7307 Ω instead of the printed 127.732 Ω; the project uses 1.04446 rad, the value of Table 9 (research log F51).
+
+**Run:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang en`
+
 ### Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)
 
 `nist-tn1900-e11-step-attenuator` — NIST Technical Note 1900, Example E11, Exhibits 16 and 17
@@ -1978,6 +2167,73 @@ JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.
 - Y = (0 ± 20), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
 
 **Run:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang en`
+
+### Additive bivariate model, Gaussian inputs (JCGM 102 9.2.2)
+
+`jcgm102-9.2.2-additive-gaussian` — JCGM 102:2011, 9.2.2 (Table 3)
+
+JCGM 102:2011 9.2.2: two outputs sharing a common Gaussian effect; the GUM results are exact and validated by the Monte Carlo method.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Bivariate additive model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃ with independent inputs; X₃ is an effect common to both outputs (9.2.1).
+2. GUM framework: U_y = C_x U_x C_xᵀ with C_x = [[1, 0, 1], [0, 1, 1]] (formula 3); 95 % regions for N(y, U_y): ellipse with k_p = 2.45 (χ²₂) and rectangle with k_q = 2.24 (q = 0.975, Tables 1 and 2).
+3. Monte Carlo method with 10⁶ trials: k_p from the draws sorted by their distance (y_r − y)ᵀ U_y⁻¹ (y_r − y) (7.7.2) and k_q from max_j |y_j,r − y_j|/u(y_j) (7.7.3); validation as in clause 8 with two significant digits.
+
+**Result:**
+
+- Y1 = 0.00, u(Y1) = 1.4 (GUM)
+- Y2 = 0.00, u(Y2) = 1.4 (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/general/jcgm102-9.2.2-additive-gaussian.json --lang en`
+
+### Additive bivariate model, rectangular common effect (JCGM 102 9.2.3)
+
+`jcgm102-9.2.3-additive-rectangular` — JCGM 102:2011, 9.2.3 (Table 4)
+
+JCGM 102:2011 9.2.3: as 9.2.2 with the common effect X₃ rectangular (standard deviation 1); the GUM coverage factors are not validated.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Bivariate additive model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃ with independent inputs; X₃ is an effect common to both outputs (9.2.1).
+2. GUM framework: U_y = C_x U_x C_xᵀ with C_x = [[1, 0, 1], [0, 1, 1]] (formula 3); 95 % regions for N(y, U_y): ellipse with k_p = 2.45 (χ²₂) and rectangle with k_q = 2.24 (q = 0.975, Tables 1 and 2).
+3. Monte Carlo method with 10⁶ trials: k_p from the draws sorted by their distance (y_r − y)ᵀ U_y⁻¹ (y_r − y) (7.7.2) and k_q from max_j |y_j,r − y_j|/u(y_j) (7.7.3); validation as in clause 8 with two significant digits.
+4. The estimates, standard uncertainties and the correlation coefficient agree, but k_p (2.38 against 2.45) and k_q (2.15 against 2.24) differ by more than the tolerance 0.05 (9.2.3.4).
+
+**Result:**
+
+- Y1 = 0.00, u(Y1) = 1.4 (GUM)
+- Y2 = 0.00, u(Y2) = 1.4 (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/general/jcgm102-9.2.3-additive-rectangular.json --lang en`
+
+### Additive bivariate model, dominant rectangular common effect (JCGM 102 9.2.4)
+
+`jcgm102-9.2.4-additive-dominant-rectangular` — JCGM 102:2011, 9.2.4 (Table 5)
+
+JCGM 102:2011 9.2.4: the common rectangular effect has standard deviation 3; r(y₁, y₂) = 0.9 and the GUM k_p and k_q are about 7 % and 20 % too large.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Bivariate additive model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃ with independent inputs; X₃ is an effect common to both outputs (9.2.1).
+2. GUM framework: U_y = C_x U_x C_xᵀ with C_x = [[1, 0, 1], [0, 1, 1]] (formula 3); 95 % regions for N(y, U_y): ellipse with k_p = 2.45 (χ²₂) and rectangle with k_q = 2.24 (q = 0.975, Tables 1 and 2).
+3. Monte Carlo method with 10⁶ trials: k_p from the draws sorted by their distance (y_r − y)ᵀ U_y⁻¹ (y_r − y) (7.7.2) and k_q from max_j |y_j,r − y_j|/u(y_j) (7.7.3); validation as in clause 8 with two significant digits.
+
+**Result:**
+
+- Y1 = 0.00, u(Y1) = 3.2 (GUM)
+- Y2 = 0.00, u(Y2) = 3.2 (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
+
+**Run:** `uncertainty run library/general/jcgm102-9.2.4-additive-dominant-rectangular.json --lang en`
 
 ### Bursting strength of a container: probability of conformity (JCGM 106 7.3)
 
@@ -2753,6 +3009,59 @@ EA-4/02 S5 (first budget): temperature of a furnace at 1000 °C measured with a 
 - t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang en`
+
+### Celsius temperature from a resistance thermometer, implicit model (JCGM 102 9.5.2)
+
+`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13)
+
+JCGM 102:2011 9.5.2: one temperature from a measured resistance ratio, with the correlated calibration constants of the thermometer.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. Implicit model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): the thermometer resistance R(θ) compared with a standard resistor R_S by a bridge measuring r = R(θ)/R_S.
+2. The calibration constants R₀, A and B are correlated (Table 13); θ is found by Newton's method and u(θ) from C_y U_y C_yᵀ = C_x U_x C_xᵀ with C_y = (A + 2Bθ)R₀ (6.3.1.3, 9.5.2.6).
+
+**Result:**
+
+- theta = 20.02317 °C, u(theta) = 0.0045 °C (GUM)
+
+**Run:** `uncertainty run library/temperature/jcgm102-9.5.2-resistance-thermometer.json --lang en`
+
+### Ten Celsius temperatures with one resistance thermometer, implicit model (JCGM 102 9.5.3)
+
+`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16)
+
+JCGM 102:2011 9.5.3: ten temperatures measured with the same calibrated thermometer are correlated through its calibration constants (Tables 15 and 16).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. Implicit model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): the thermometer resistance R(θ) compared with a standard resistor R_S by a bridge measuring r = R(θ)/R_S.
+2. The calibration constants R₀, A and B are correlated (Table 13); θ is found by Newton's method and u(θ) from C_y U_y C_yᵀ = C_x U_x C_xᵀ with C_y = (A + 2Bθ)R₀ (6.3.1.3, 9.5.2.6).
+3. The ten equations (32) share R₀, A, B and R_S; C_y is diagonal and C_x = [C_x⁽¹⁾ C_x⁽²⁾] (9.5.3.5). The uncertainty is smallest near 0 °C and grows above 25 °C, outside the calibration points (9.5.3.6).
+
+**Result:**
+
+- theta1 = 0.00998 °C, u(theta1) = 0.0018 °C (GUM)
+- theta2 = 3.84911 °C, u(theta2) = 0.0027 °C (GUM)
+- theta3 = 7.69279 °C, u(theta3) = 0.0040 °C (GUM)
+- theta4 = 11.54101 °C, u(theta4) = 0.0046 °C (GUM)
+- theta5 = 15.39378 °C, u(theta5) = 0.0047 °C (GUM)
+- theta6 = 20.02317 °C, u(theta6) = 0.0045 °C (GUM)
+- theta7 = 23.11312 °C, u(theta7) = 0.0046 °C (GUM)
+- theta8 = 26.97971 °C, u(theta8) = 0.0060 °C (GUM)
+- theta9 = 30.85093 °C, u(theta9) = 0.0089 °C (GUM)
+- theta10 = 20.02317 °C, u(theta10) = 0.0045 °C (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 4.28; rectangle k_q = 2.81
+
+**Notes:**
+
+- Table 15 labels the seventh column θ6 instead of θ7.
+
+**Run:** `uncertainty run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang en`
 
 ### Monthly mean of daily maximum temperature (NIST TN 1900 E2)
 

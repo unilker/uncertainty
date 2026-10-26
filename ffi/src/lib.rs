@@ -101,6 +101,28 @@ const TEMPLATE_PRECISION: &str = r#"{
   }
 }"#;
 
+const TEMPLATE_MULTIVARIATE: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Resistance and reactance", "tr": "Direnç ve reaktans" },
+    "field": "electrical"
+  },
+  "multivariate": {
+    "outputs": [
+      { "name": "R", "unit": "Ω", "expression": "V/I*cos(phi)" },
+      { "name": "X", "unit": "Ω", "expression": "V/I*sin(phi)" }
+    ],
+    "inputs": [
+      { "name": "V", "unit": "V", "distribution": { "type": "normal", "mean": 4.999, "sd": 0.0032 } },
+      { "name": "I", "unit": "A", "distribution": { "type": "normal", "mean": 0.019661, "sd": 0.0000095 } },
+      { "name": "phi", "unit": "rad", "distribution": { "type": "normal", "mean": 1.04446, "sd": 0.00075 } }
+    ],
+    "correlations": [ { "a": "V", "b": "I", "r": -0.36 }, { "a": "V", "b": "phi", "r": 0.86 }, { "a": "I", "b": "phi", "r": -0.65 } ]
+  },
+  "analysis": { "mcm": { "trials": 200000 } }
+}"#;
+
 const TEMPLATE_CONFORMITY: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -155,7 +177,7 @@ pub extern "C" fn uc_version() -> *mut c_char {
 }
 
 /// A starting project: `kind` is `"model"` (default), `"topdown"`,
-/// `"proficiency"`, `"calibration"`, `"conformity"` or `"precision"`.
+/// `"proficiency"`, `"calibration"`, `"conformity"`, `"precision"` or `"multivariate"`.
 ///
 /// # Safety
 /// `kind` must be null or a valid NUL-terminated string.
@@ -168,6 +190,7 @@ pub unsafe extern "C" fn uc_template(kind: *const c_char) -> *mut c_char {
         Ok("calibration") => json!({ "ok": true, "project": TEMPLATE_CALIBRATION }),
         Ok("conformity") => json!({ "ok": true, "project": TEMPLATE_CONFORMITY }),
         Ok("precision") => json!({ "ok": true, "project": TEMPLATE_PRECISION }),
+        Ok("multivariate") => json!({ "ok": true, "project": TEMPLATE_MULTIVARIATE }),
         Ok("" | "model") => json!({ "ok": true, "project": TEMPLATE_MODEL }),
         Ok(other) => error(format!("unknown template '{other}'")),
         Err(e) => error(e.clone()),
@@ -282,7 +305,7 @@ mod tests {
     #[test]
     fn version_templates_and_evaluation() {
         assert_eq!(call(uc_version())["version"], SOFTWARE_VERSION);
-        for kind in ["model", "topdown", "proficiency", "calibration", "conformity", "precision"] {
+        for kind in ["model", "topdown", "proficiency", "calibration", "conformity", "precision", "multivariate"] {
             let k = CString::new(kind).unwrap();
             let t = call(unsafe { uc_template(k.as_ptr()) });
             let project = CString::new(t["project"].as_str().unwrap()).unwrap();

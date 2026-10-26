@@ -13,12 +13,12 @@ top-down from validation and quality-control data (Nordtest TR 537,
 Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
 calibration with uncertainties in both variables (ISO 6143); conformity
 assessment (JCGM 106); repeatability and reproducibility from interlaboratory
-experiments (ISO 5725-2).
+experiments (ISO 5725-2); models with several output quantities (JCGM 102).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -44,8 +44,9 @@ TEMPLATE:
     --topdown a top-down evaluation from raw validation data, or with
     --proficiency a proficiency test round (ISO 13528), with --calibration a
     calibration with uncertainties in both variables (ISO 6143), with
-    --conformity a conformity assessment (JCGM 106), or with --precision an
-    interlaboratory precision experiment (ISO 5725-2).
+    --conformity a conformity assessment (JCGM 106), with --precision an
+    interlaboratory precision experiment (ISO 5725-2), or with --multivariate
+    a model with several output quantities (JCGM 102).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -163,6 +164,29 @@ const TEMPLATE_PRECISION: &str = r#"{
 }
 "#;
 
+const TEMPLATE_MULTIVARIATE: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Resistance and reactance", "tr": "Direnç ve reaktans" },
+    "field": "electrical"
+  },
+  "multivariate": {
+    "outputs": [
+      { "name": "R", "unit": "Ω", "expression": "V/I*cos(phi)" },
+      { "name": "X", "unit": "Ω", "expression": "V/I*sin(phi)" }
+    ],
+    "inputs": [
+      { "name": "V", "unit": "V", "distribution": { "type": "normal", "mean": 4.999, "sd": 0.0032 } },
+      { "name": "I", "unit": "A", "distribution": { "type": "normal", "mean": 0.019661, "sd": 0.0000095 } },
+      { "name": "phi", "unit": "rad", "distribution": { "type": "normal", "mean": 1.04446, "sd": 0.00075 } }
+    ],
+    "correlations": [ { "a": "V", "b": "I", "r": -0.36 }, { "a": "V", "b": "phi", "r": 0.86 }, { "a": "I", "b": "phi", "r": -0.65 } ]
+  },
+  "analysis": { "mcm": { "trials": 200000 } }
+}
+"#;
+
 const TEMPLATE_CONFORMITY: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -211,6 +235,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--conformity") => {
             print!("{TEMPLATE_CONFORMITY}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--multivariate") => {
+            print!("{TEMPLATE_MULTIVARIATE}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--precision") => {

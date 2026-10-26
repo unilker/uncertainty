@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**120 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 7 conformity assessment / uygunluk değerlendirmesi).
+**133 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -129,6 +129,19 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`nist-tn1900-e11-step-attenuator`](electrical/nist-tn1900-e11-step-attenuator.json) | Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11) | Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11) | NIST Technical Note 1900 Example E11, Exhibits 16 and 17 |
 | [`num-10-resistance`](electrical/num-10-resistance.json) | Resistance with the rounded values of GUM Table H.2 (NIST Uncertainty Machine §10) | GUM Tablo H.2'nin yuvarlanmış değerleriyle direnç (NIST Uncertainty Machine §10) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
 
+## Electrical and RF, several output quantities (JCGM 102) / Elektrik ve RF, birden çok çıktı büyüklüğü (JCGM 102)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`jcgm102-9.3-polar-x001-correlated`](electrical/jcgm102-9.3-polar-x001-correlated.json) | Cartesian to polar co-ordinates, x₁ = 0.001, r = 0.9 (JCGM 102 9.3) | Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001, r = 0,9 (JCGM 102 9.3) | JCGM 102:2011 9.3 (Table 7) |
+| [`jcgm102-9.3-polar-x001`](electrical/jcgm102-9.3-polar-x001.json) | Cartesian to polar co-ordinates, x₁ = 0.001 (JCGM 102 9.3) | Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001 (JCGM 102 9.3) | JCGM 102:2011 9.3 (Table 6) |
+| [`jcgm102-9.3-polar-x010-correlated`](electrical/jcgm102-9.3-polar-x010-correlated.json) | Cartesian to polar co-ordinates, x₁ = 0.01, r = 0.9 (JCGM 102 9.3) | Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,01, r = 0,9 (JCGM 102 9.3) | JCGM 102:2011 9.3 (Table 7) |
+| [`jcgm102-9.3-polar-x010`](electrical/jcgm102-9.3-polar-x010.json) | Cartesian to polar co-ordinates, x₁ = 0.01 (JCGM 102 9.3) | Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,01 (JCGM 102 9.3) | JCGM 102:2011 9.3 (Table 6) |
+| [`jcgm102-9.3-polar-x100-correlated`](electrical/jcgm102-9.3-polar-x100-correlated.json) | Cartesian to polar co-ordinates, x₁ = 0.1, r = 0.9 (JCGM 102 9.3) | Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,1, r = 0,9 (JCGM 102 9.3) | JCGM 102:2011 9.3 (Table 7) |
+| [`jcgm102-9.3-polar-x100`](electrical/jcgm102-9.3-polar-x100.json) | Cartesian to polar co-ordinates, x₁ = 0.1 (JCGM 102 9.3) | Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,1 (JCGM 102 9.3) | JCGM 102:2011 9.3 (Table 6) |
+| [`jcgm102-9.4-resistance-reactance-alternative`](electrical/jcgm102-9.4-resistance-reactance-alternative.json) | Resistance, reactance and impedance from simultaneous indication values, t covariance (JCGM 102 9.4) | Eşzamanlı gösterge değerlerinden direnç, reaktans ve empedans, t kovaryansı (JCGM 102 9.4) | JCGM 102:2011 9.4 (Tables 8–11) |
+| [`jcgm102-9.4-resistance-reactance`](electrical/jcgm102-9.4-resistance-reactance.json) | Resistance, reactance and impedance from simultaneous indication values (JCGM 102 9.4) | Eşzamanlı gösterge değerlerinden direnç, reaktans ve empedans (JCGM 102 9.4) | JCGM 102:2011 9.4 (Tables 8–11) |
+
 ## Flow and volume / Akış ve hacim
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
@@ -146,6 +159,14 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`jcgm101-9.2.3-additive-rectangular`](general/jcgm101-9.2.3-additive-rectangular.json) | Additive model with rectangular inputs | Dikdörtgen dağılımlı girdilerle toplamsal model | JCGM 101:2008 9.2.3 |
 | [`jcgm101-9.2.4-additive-dominant-rectangular`](general/jcgm101-9.2.4-additive-dominant-rectangular.json) | Additive model with a dominant rectangular input | Baskın dikdörtgen girdili toplamsal model | JCGM 101:2008 9.2.4 |
 | [`num-3-ratio-abc`](general/num-3-ratio-abc.json) | Product and ratio y = ab/c with a wide triangular divisor (NIST Uncertainty Machine §3) | Geniş üçgen bölenli çarpım ve oran y = ab/c (NIST Uncertainty Machine §3) | T. Lafarge §3, Figure 1 |
+
+## General (method validation), several output quantities (JCGM 102) / Genel (yöntem doğrulama), birden çok çıktı büyüklüğü (JCGM 102)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`jcgm102-9.2.2-additive-gaussian`](general/jcgm102-9.2.2-additive-gaussian.json) | Additive bivariate model, Gaussian inputs (JCGM 102 9.2.2) | Toplamalı iki değişkenli model, Gauss girdiler (JCGM 102 9.2.2) | JCGM 102:2011 9.2.2 (Table 3) |
+| [`jcgm102-9.2.3-additive-rectangular`](general/jcgm102-9.2.3-additive-rectangular.json) | Additive bivariate model, rectangular common effect (JCGM 102 9.2.3) | Toplamalı iki değişkenli model, dikdörtgen ortak etki (JCGM 102 9.2.3) | JCGM 102:2011 9.2.3 (Table 4) |
+| [`jcgm102-9.2.4-additive-dominant-rectangular`](general/jcgm102-9.2.4-additive-dominant-rectangular.json) | Additive bivariate model, dominant rectangular common effect (JCGM 102 9.2.4) | Toplamalı iki değişkenli model, baskın dikdörtgen ortak etki (JCGM 102 9.2.4) | JCGM 102:2011 9.2.4 (Table 5) |
 
 ## General (method validation), top-down / Genel (yöntem doğrulama), top-down
 
@@ -216,6 +237,13 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s5-thermocouple-emf`](temperature/ea402-s5-thermocouple-emf.json) | Thermocouple calibration: emf of the unknown | Termokupl kalibrasyonu: bilinmeyenin emk'sı | EA-4/02 M:2022 S5 |
 | [`ea402-s5-thermocouple-furnace`](temperature/ea402-s5-thermocouple-furnace.json) | Thermocouple calibration: furnace temperature | Termokupl kalibrasyonu: fırın sıcaklığı | EA-4/02 M:2022 S5 |
 | [`nist-tn1900-e2-surface-temperature`](temperature/nist-tn1900-e2-surface-temperature.json) | Monthly mean of daily maximum temperature (NIST TN 1900 E2) | Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2) | NIST Technical Note 1900 Example E2, Exhibit 2 |
+
+## Temperature, several output quantities (JCGM 102) / Sıcaklık, birden çok çıktı büyüklüğü (JCGM 102)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`jcgm102-9.5.2-resistance-thermometer`](temperature/jcgm102-9.5.2-resistance-thermometer.json) | Celsius temperature from a resistance thermometer, implicit model (JCGM 102 9.5.2) | Direnç termometresiyle Celsius sıcaklığı, örtük model (JCGM 102 9.5.2) | JCGM 102:2011 9.5.2 (Tables 12, 13) |
+| [`jcgm102-9.5.3-ten-temperatures`](temperature/jcgm102-9.5.3-ten-temperatures.json) | Ten Celsius temperatures with one resistance thermometer, implicit model (JCGM 102 9.5.3) | Tek direnç termometresiyle on Celsius sıcaklığı, örtük model (JCGM 102 9.5.3) | JCGM 102:2011 9.5.3 (Tables 14–16) |
 
 ## Adding an example / Örnek ekleme
 

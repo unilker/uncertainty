@@ -3,13 +3,13 @@
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
 - Kimya (62)
-- Elektrik ve RF (15)
+- Elektrik ve RF (23)
 - Akış ve hacim (4)
-- Genel (yöntem doğrulama) (15)
+- Genel (yöntem doğrulama) (18)
 - Uzunluk (8)
 - Kütle (4)
 - Fiziksel özellikler (8)
-- Sıcaklık (4)
+- Sıcaklık (6)
 
 ## Kimya
 
@@ -1790,6 +1790,195 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang tr`
 
+### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x001` — JCGM 102:2011, 9.3 (Table 6)
+
+JCGM 102:2011 9.3: x₁ = 0,001, x₂ = 0 tahminli karmaşık bir büyüklüğün genliği ve fazı; GUM ve Monte Carlo sonuçlarının karşılaştırılması (Tablo 6).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Karmaşık bir Z = X₁ + iX₂ büyüklüğünün Kartezyen koordinatlardan kutupsal koordinatlara dönüşümü: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (ifade 25); x₁ = 0,001, x₂ = 0, u(x₁) = u(x₂) = 0,010 ve bağımsız girdiler.
+2. GUM yaklaşımı: (x₁, 0) noktasında duyarlılık matrisi [[1, 0], [0, 1/x₁]] olduğundan u(θ) = u(x₂)/x₁'dir; x₁, u(x₁) ile karşılaştırılabilir olduğunda bu doğrusallaştırma geçersizdir.
+3. 10⁶ denemeli Monte Carlo yöntemi (Ek 10⁷ kullanır): Θ'nın dağılımı (−π, π] aralığına yayılır ve başlangıç noktasının yakınında korelasyonlu girdilerle iki tepeli olur (9.3.3.3); bu durumda elips ve dikdörtgen uygun kapsam bölgeleri değildir (9.3.4.4).
+
+**Sonuç:**
+
+- R = 0,0010, u(R) = 0,010 (GUM)
+- Theta = 0,0 rad, u(Theta) = 10 rad (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001.json --lang tr`
+
+### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001, r = 0,9 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x001-correlated` — JCGM 102:2011, 9.3 (Table 7)
+
+JCGM 102:2011 9.3: x₁ = 0,001, x₂ = 0 tahminli karmaşık bir büyüklüğün genliği ve fazı; GUM ve Monte Carlo sonuçlarının karşılaştırılması (Tablo 7).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Karmaşık bir Z = X₁ + iX₂ büyüklüğünün Kartezyen koordinatlardan kutupsal koordinatlara dönüşümü: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (ifade 25); x₁ = 0,001, x₂ = 0, u(x₁) = u(x₂) = 0,010 ve r(x₁, x₂) = 0,9.
+2. GUM yaklaşımı: (x₁, 0) noktasında duyarlılık matrisi [[1, 0], [0, 1/x₁]] olduğundan u(θ) = u(x₂)/x₁'dir; x₁, u(x₁) ile karşılaştırılabilir olduğunda bu doğrusallaştırma geçersizdir.
+3. 10⁶ denemeli Monte Carlo yöntemi (Ek 10⁷ kullanır): Θ'nın dağılımı (−π, π] aralığına yayılır ve başlangıç noktasının yakınında korelasyonlu girdilerle iki tepeli olur (9.3.3.3); bu durumda elips ve dikdörtgen uygun kapsam bölgeleri değildir (9.3.4.4).
+
+**Sonuç:**
+
+- R = 0,0010, u(R) = 0,010 (GUM)
+- Theta = 0,0 rad, u(Theta) = 10 rad (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001-correlated.json --lang tr`
+
+### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,01 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x010` — JCGM 102:2011, 9.3 (Table 6)
+
+JCGM 102:2011 9.3: x₁ = 0,01, x₂ = 0 tahminli karmaşık bir büyüklüğün genliği ve fazı; GUM ve Monte Carlo sonuçlarının karşılaştırılması (Tablo 6).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Karmaşık bir Z = X₁ + iX₂ büyüklüğünün Kartezyen koordinatlardan kutupsal koordinatlara dönüşümü: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (ifade 25); x₁ = 0,01, x₂ = 0, u(x₁) = u(x₂) = 0,010 ve bağımsız girdiler.
+2. GUM yaklaşımı: (x₁, 0) noktasında duyarlılık matrisi [[1, 0], [0, 1/x₁]] olduğundan u(θ) = u(x₂)/x₁'dir; x₁, u(x₁) ile karşılaştırılabilir olduğunda bu doğrusallaştırma geçersizdir.
+3. 10⁶ denemeli Monte Carlo yöntemi (Ek 10⁷ kullanır): Θ'nın dağılımı (−π, π] aralığına yayılır ve başlangıç noktasının yakınında korelasyonlu girdilerle iki tepeli olur (9.3.3.3); bu durumda elips ve dikdörtgen uygun kapsam bölgeleri değildir (9.3.4.4).
+
+**Sonuç:**
+
+- R = 0,0100, u(R) = 0,010 (GUM)
+- Theta = 0,00 rad, u(Theta) = 1,0 rad (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010.json --lang tr`
+
+### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,01, r = 0,9 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x010-correlated` — JCGM 102:2011, 9.3 (Table 7)
+
+JCGM 102:2011 9.3: x₁ = 0,01, x₂ = 0 tahminli karmaşık bir büyüklüğün genliği ve fazı; GUM ve Monte Carlo sonuçlarının karşılaştırılması (Tablo 7).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Karmaşık bir Z = X₁ + iX₂ büyüklüğünün Kartezyen koordinatlardan kutupsal koordinatlara dönüşümü: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (ifade 25); x₁ = 0,01, x₂ = 0, u(x₁) = u(x₂) = 0,010 ve r(x₁, x₂) = 0,9.
+2. GUM yaklaşımı: (x₁, 0) noktasında duyarlılık matrisi [[1, 0], [0, 1/x₁]] olduğundan u(θ) = u(x₂)/x₁'dir; x₁, u(x₁) ile karşılaştırılabilir olduğunda bu doğrusallaştırma geçersizdir.
+3. 10⁶ denemeli Monte Carlo yöntemi (Ek 10⁷ kullanır): Θ'nın dağılımı (−π, π] aralığına yayılır ve başlangıç noktasının yakınında korelasyonlu girdilerle iki tepeli olur (9.3.3.3); bu durumda elips ve dikdörtgen uygun kapsam bölgeleri değildir (9.3.4.4).
+
+**Sonuç:**
+
+- R = 0,0100, u(R) = 0,010 (GUM)
+- Theta = 0,00 rad, u(Theta) = 1,0 rad (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010-correlated.json --lang tr`
+
+### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,1 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x100` — JCGM 102:2011, 9.3 (Table 6)
+
+JCGM 102:2011 9.3: x₁ = 0,1, x₂ = 0 tahminli karmaşık bir büyüklüğün genliği ve fazı; GUM ve Monte Carlo sonuçlarının karşılaştırılması (Tablo 6).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Karmaşık bir Z = X₁ + iX₂ büyüklüğünün Kartezyen koordinatlardan kutupsal koordinatlara dönüşümü: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (ifade 25); x₁ = 0,1, x₂ = 0, u(x₁) = u(x₂) = 0,010 ve bağımsız girdiler.
+2. GUM yaklaşımı: (x₁, 0) noktasında duyarlılık matrisi [[1, 0], [0, 1/x₁]] olduğundan u(θ) = u(x₂)/x₁'dir; x₁, u(x₁) ile karşılaştırılabilir olduğunda bu doğrusallaştırma geçersizdir.
+3. 10⁶ denemeli Monte Carlo yöntemi (Ek 10⁷ kullanır): Θ'nın dağılımı (−π, π] aralığına yayılır ve başlangıç noktasının yakınında korelasyonlu girdilerle iki tepeli olur (9.3.3.3); bu durumda elips ve dikdörtgen uygun kapsam bölgeleri değildir (9.3.4.4).
+
+**Sonuç:**
+
+- R = 0,1000, u(R) = 0,010 (GUM)
+- Theta = 0,000 rad, u(Theta) = 0,10 rad (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100.json --lang tr`
+
+### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,1, r = 0,9 (JCGM 102 9.3)
+
+`jcgm102-9.3-polar-x100-correlated` — JCGM 102:2011, 9.3 (Table 7)
+
+JCGM 102:2011 9.3: x₁ = 0,1, x₂ = 0 tahminli karmaşık bir büyüklüğün genliği ve fazı; GUM ve Monte Carlo sonuçlarının karşılaştırılması (Tablo 7).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Karmaşık bir Z = X₁ + iX₂ büyüklüğünün Kartezyen koordinatlardan kutupsal koordinatlara dönüşümü: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (ifade 25); x₁ = 0,1, x₂ = 0, u(x₁) = u(x₂) = 0,010 ve r(x₁, x₂) = 0,9.
+2. GUM yaklaşımı: (x₁, 0) noktasında duyarlılık matrisi [[1, 0], [0, 1/x₁]] olduğundan u(θ) = u(x₂)/x₁'dir; x₁, u(x₁) ile karşılaştırılabilir olduğunda bu doğrusallaştırma geçersizdir.
+3. 10⁶ denemeli Monte Carlo yöntemi (Ek 10⁷ kullanır): Θ'nın dağılımı (−π, π] aralığına yayılır ve başlangıç noktasının yakınında korelasyonlu girdilerle iki tepeli olur (9.3.3.3); bu durumda elips ve dikdörtgen uygun kapsam bölgeleri değildir (9.3.4.4).
+
+**Sonuç:**
+
+- R = 0,1000, u(R) = 0,010 (GUM)
+- Theta = 0,000 rad, u(Theta) = 0,10 rad (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100-correlated.json --lang tr`
+
+### Eşzamanlı gösterge değerlerinden direnç, reaktans ve empedans (JCGM 102 9.4)
+
+`jcgm102-9.4-resistance-reactance` — JCGM 102:2011, 9.4 (Tables 8–11)
+
+JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan üç çıktı büyüklüğü; U_x = M/(n(n − 1)) ile GUM yaklaşımı ve çok değişkenli t dağılımıyla Monte Carlo yöntemi.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Alternatif akım için Ohm yasası: R = (V/I) cos φ, X = (V/I) sin φ, Z = V/I (model 26); V, I ve φ'nin n = 6 eşzamanlı gösterge değeri takımıyla (Tablo 8; 6. takım 1–5. takımların ortalamasıdır).
+2. Tahminler ortalamalardır; kareler ve çarpımlar toplamı matrisi M, ortalamaların kovaryans matrisini ve Tablo 10'daki korelasyon katsayılarını verir.
+3. Monte Carlo yöntemi: X, çok değişkenli t dağılımından t_ν(x̄, S/n), ν = n − N = 3, S = M/ν olarak çekilir (5.3.2.4). Z² = R² + X² olduğundan U_y teoride tekildir (9.4.2.3 not 2).
+
+**Sonuç:**
+
+- R = 127,7322 Ω, u(R) = 0,058 Ω (GUM)
+- X = 219,847 Ω, u(X) = 0,24 Ω (GUM)
+- Z = 254,260 Ω, u(Z) = 0,19 Ω (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+
+**Notlar:**
+
+- ν = 3 olduğunda çok değişkenli t dağılımının dördüncü momenti yoktur; bu yüzden Monte Carlo standart sapmaları yavaş yakınsar: 10⁶ denemeyle 1–6 tohumları u(R) için 0,128 Ω ile 0,136 Ω, r(R, X) için −0,580 ile −0,600 arasında değerler verir. Monte Carlo değerlerinin toleransları bu yayılımı kapsar; basılı MCM satırı bu tür bir gerçekleşmedir.
+- Tablo 8, 6. takımı φ = 1,0445 rad olarak, yani 1–5. takımların yuvarlanmış ortalaması (1,04446) olarak basar. Yuvarlanmış değerle R'nin tahmini basılı 127,732 Ω yerine 127,7307 Ω olur; proje Tablo 9'daki değer olan 1,04446 rad'ı kullanır (araştırma günlüğü F51).
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance.json --lang tr`
+
+### Eşzamanlı gösterge değerlerinden direnç, reaktans ve empedans, t kovaryansı (JCGM 102 9.4)
+
+`jcgm102-9.4-resistance-reactance-alternative` — JCGM 102:2011, 9.4 (Tables 8–11)
+
+JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan üç çıktı büyüklüğü; çok değişkenli t dağılımının kovaryans matrisi ile GUM yaklaşımı ve çok değişkenli t dağılımıyla Monte Carlo yöntemi.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Alternatif akım için Ohm yasası: R = (V/I) cos φ, X = (V/I) sin φ, Z = V/I (model 26); V, I ve φ'nin n = 6 eşzamanlı gösterge değeri takımıyla (Tablo 8; 6. takım 1–5. takımların ortalamasıdır).
+2. Tahminler ortalamalardır; kareler ve çarpımlar toplamı matrisi M, ortalamaların kovaryans matrisini ve Tablo 10'daki korelasyon katsayılarını verir.
+3. Monte Carlo yöntemi: X, çok değişkenli t dağılımından t_ν(x̄, S/n), ν = n − N = 3, S = M/ν olarak çekilir (5.3.2.4). Z² = R² + X² olduğundan U_y teoride tekildir (9.4.2.3 not 2).
+4. Alternatif GUM değerlendirmesi V(X) = M/((ν − 2)n) kullanır; bu Monte Carlo sonuçlarıyla uyuşur (9.4.2.5–9.4.2.7).
+
+**Sonuç:**
+
+- R = 127,732 Ω, u(R) = 0,13 Ω (GUM)
+- X = 219,847 Ω, u(X) = 0,54 Ω (GUM)
+- Z = 254,260 Ω, u(Z) = 0,43 Ω (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+
+**Notlar:**
+
+- ν = 3 olduğunda çok değişkenli t dağılımının dördüncü momenti yoktur; bu yüzden Monte Carlo standart sapmaları yavaş yakınsar: 10⁶ denemeyle 1–6 tohumları u(R) için 0,128 Ω ile 0,136 Ω, r(R, X) için −0,580 ile −0,600 arasında değerler verir. Monte Carlo değerlerinin toleransları bu yayılımı kapsar; basılı MCM satırı bu tür bir gerçekleşmedir.
+- Tablo 8, 6. takımı φ = 1,0445 rad olarak, yani 1–5. takımların yuvarlanmış ortalaması (1,04446) olarak basar. Yuvarlanmış değerle R'nin tahmini basılı 127,732 Ω yerine 127,7307 Ω olur; proje Tablo 9'daki değer olan 1,04446 rad'ı kullanır (araştırma günlüğü F51).
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang tr`
+
 ### Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11)
 
 `nist-tn1900-e11-step-attenuator` — NIST Technical Note 1900, Example E11, Exhibits 16 and 17
@@ -1978,6 +2167,73 @@ JCGM 101 9.2.4: 9.2.3 ile aynı, ancak X4'ün standart sapması 10'dur.
 - Y = (0 ± 20); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang tr`
+
+### Toplamalı iki değişkenli model, Gauss girdiler (JCGM 102 9.2.2)
+
+`jcgm102-9.2.2-additive-gaussian` — JCGM 102:2011, 9.2.2 (Table 3)
+
+JCGM 102:2011 9.2.2: ortak bir Gauss etkisini paylaşan iki çıktı; GUM sonuçları kesindir ve Monte Carlo yöntemiyle doğrulanır.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. İki değişkenli toplamalı model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃, bağımsız girdilerle; X₃ her iki çıktıda ortak olan bir etkidir (9.2.1).
+2. GUM yaklaşımı: C_x = [[1, 0, 1], [0, 1, 1]] ile U_y = C_x U_x C_xᵀ (formül 3); N(y, U_y) için %95 bölgeler: k_p = 2,45 (χ²₂) ile elips ve k_q = 2,24 (q = 0,975) ile dikdörtgen (Tablo 1 ve 2).
+3. 10⁶ denemeli Monte Carlo yöntemi: k_p, (y_r − y)ᵀ U_y⁻¹ (y_r − y) uzaklığına göre sıralanan çekilişlerden (7.7.2), k_q ise max_j |y_j,r − y_j|/u(y_j) ile (7.7.3); doğrulama Madde 8'deki gibi iki anlamlı basamakla.
+
+**Sonuç:**
+
+- Y1 = 0,00, u(Y1) = 1,4 (GUM)
+- Y2 = 0,00, u(Y2) = 1,4 (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/general/jcgm102-9.2.2-additive-gaussian.json --lang tr`
+
+### Toplamalı iki değişkenli model, dikdörtgen ortak etki (JCGM 102 9.2.3)
+
+`jcgm102-9.2.3-additive-rectangular` — JCGM 102:2011, 9.2.3 (Table 4)
+
+JCGM 102:2011 9.2.3: ortak etki X₃ dikdörtgen (standart sapma 1) olmak üzere 9.2.2 ile aynı; GUM kapsam faktörleri doğrulanmaz.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. İki değişkenli toplamalı model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃, bağımsız girdilerle; X₃ her iki çıktıda ortak olan bir etkidir (9.2.1).
+2. GUM yaklaşımı: C_x = [[1, 0, 1], [0, 1, 1]] ile U_y = C_x U_x C_xᵀ (formül 3); N(y, U_y) için %95 bölgeler: k_p = 2,45 (χ²₂) ile elips ve k_q = 2,24 (q = 0,975) ile dikdörtgen (Tablo 1 ve 2).
+3. 10⁶ denemeli Monte Carlo yöntemi: k_p, (y_r − y)ᵀ U_y⁻¹ (y_r − y) uzaklığına göre sıralanan çekilişlerden (7.7.2), k_q ise max_j |y_j,r − y_j|/u(y_j) ile (7.7.3); doğrulama Madde 8'deki gibi iki anlamlı basamakla.
+4. Tahminler, standart belirsizlikler ve korelasyon katsayısı uyuşur; ancak k_p (2,45'e karşı 2,38) ve k_q (2,24'e karşı 2,15) 0,05 toleransından fazla farklıdır (9.2.3.4).
+
+**Sonuç:**
+
+- Y1 = 0,00, u(Y1) = 1,4 (GUM)
+- Y2 = 0,00, u(Y2) = 1,4 (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/general/jcgm102-9.2.3-additive-rectangular.json --lang tr`
+
+### Toplamalı iki değişkenli model, baskın dikdörtgen ortak etki (JCGM 102 9.2.4)
+
+`jcgm102-9.2.4-additive-dominant-rectangular` — JCGM 102:2011, 9.2.4 (Table 5)
+
+JCGM 102:2011 9.2.4: ortak dikdörtgen etkinin standart sapması 3'tür; r(y₁, y₂) = 0,9 ve GUM k_p ile k_q değerleri yaklaşık %7 ve %20 büyüktür.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. İki değişkenli toplamalı model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃, bağımsız girdilerle; X₃ her iki çıktıda ortak olan bir etkidir (9.2.1).
+2. GUM yaklaşımı: C_x = [[1, 0, 1], [0, 1, 1]] ile U_y = C_x U_x C_xᵀ (formül 3); N(y, U_y) için %95 bölgeler: k_p = 2,45 (χ²₂) ile elips ve k_q = 2,24 (q = 0,975) ile dikdörtgen (Tablo 1 ve 2).
+3. 10⁶ denemeli Monte Carlo yöntemi: k_p, (y_r − y)ᵀ U_y⁻¹ (y_r − y) uzaklığına göre sıralanan çekilişlerden (7.7.2), k_q ise max_j |y_j,r − y_j|/u(y_j) ile (7.7.3); doğrulama Madde 8'deki gibi iki anlamlı basamakla.
+
+**Sonuç:**
+
+- Y1 = 0,00, u(Y1) = 3,2 (GUM)
+- Y2 = 0,00, u(Y2) = 3,2 (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
+
+**Çalıştırma:** `uncertainty run library/general/jcgm102-9.2.4-additive-dominant-rectangular.json --lang tr`
 
 ### Bir kabın patlama dayanımı: uygunluk olasılığı (JCGM 106 7.3)
 
@@ -2753,6 +3009,59 @@ EA-4/02 S5 (birinci bütçe): 1000 °C'deki fırının sıcaklığının N tipi 
 - t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang tr`
+
+### Direnç termometresiyle Celsius sıcaklığı, örtük model (JCGM 102 9.5.2)
+
+`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13)
+
+JCGM 102:2011 9.5.2: termometrenin korelasyonlu kalibrasyon sabitleriyle ölçülen bir direnç oranından tek bir sıcaklık.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. Örtük model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): termometre direnci R(θ), r = R(θ)/R_S oranını ölçen bir köprüyle standart direnç R_S ile karşılaştırılır.
+2. Kalibrasyon sabitleri R₀, A ve B koreledir (Tablo 13); θ Newton yöntemiyle, u(θ) ise C_y = (A + 2Bθ)R₀ ile C_y U_y C_yᵀ = C_x U_x C_xᵀ bağıntısından bulunur (6.3.1.3, 9.5.2.6).
+
+**Sonuç:**
+
+- theta = 20,02317 °C, u(theta) = 0,0045 °C (GUM)
+
+**Çalıştırma:** `uncertainty run library/temperature/jcgm102-9.5.2-resistance-thermometer.json --lang tr`
+
+### Tek direnç termometresiyle on Celsius sıcaklığı, örtük model (JCGM 102 9.5.3)
+
+`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16)
+
+JCGM 102:2011 9.5.3: aynı kalibre termometreyle ölçülen on sıcaklık, kalibrasyon sabitleri üzerinden koreledir (Tablo 15 ve 16).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. Örtük model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): termometre direnci R(θ), r = R(θ)/R_S oranını ölçen bir köprüyle standart direnç R_S ile karşılaştırılır.
+2. Kalibrasyon sabitleri R₀, A ve B koreledir (Tablo 13); θ Newton yöntemiyle, u(θ) ise C_y = (A + 2Bθ)R₀ ile C_y U_y C_yᵀ = C_x U_x C_xᵀ bağıntısından bulunur (6.3.1.3, 9.5.2.6).
+3. On denklem (32) R₀, A, B ve R_S'yi paylaşır; C_y köşegendir ve C_x = [C_x⁽¹⁾ C_x⁽²⁾] (9.5.3.5). Belirsizlik 0 °C yakınında en küçüktür ve kalibrasyon noktalarının dışında, 25 °C'nin üzerinde artar (9.5.3.6).
+
+**Sonuç:**
+
+- theta1 = 0,00998 °C, u(theta1) = 0,0018 °C (GUM)
+- theta2 = 3,84911 °C, u(theta2) = 0,0027 °C (GUM)
+- theta3 = 7,69279 °C, u(theta3) = 0,0040 °C (GUM)
+- theta4 = 11,54101 °C, u(theta4) = 0,0046 °C (GUM)
+- theta5 = 15,39378 °C, u(theta5) = 0,0047 °C (GUM)
+- theta6 = 20,02317 °C, u(theta6) = 0,0045 °C (GUM)
+- theta7 = 23,11312 °C, u(theta7) = 0,0046 °C (GUM)
+- theta8 = 26,97971 °C, u(theta8) = 0,0060 °C (GUM)
+- theta9 = 30,85093 °C, u(theta9) = 0,0089 °C (GUM)
+- theta10 = 20,02317 °C, u(theta10) = 0,0045 °C (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 4,28; dikdörtgen k_q = 2,81
+
+**Notlar:**
+
+- Tablo 15 yedinci sütunu θ7 yerine θ6 olarak adlandırır.
+
+**Çalıştırma:** `uncertainty run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang tr`
 
 ### Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2)
 

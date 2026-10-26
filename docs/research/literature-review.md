@@ -11,7 +11,7 @@ Nothing marked *to verify* may be cited in the article until it is checked.
 |---|---|---|---|
 | JCGM 100:2008 (GUM) | uncertainty framework, LPU, Type A/B, ν_eff, k | `gum` module; validation H.1 | read |
 | JCGM 101:2008 (GUM-S1) | Monte Carlo propagation of distributions | `rng`, `distribution`, `mcm`; validation clause 9 | read |
-| JCGM 102:2011 (GUM-S2) | multivariate output quantities | planned | obtained (not yet read) |
+| JCGM 102:2011 (GUM-S2) | multivariate output quantities | implemented (D42) | read; examples reproduced (F50, F51) |
 | JCGM 104:2009 | introduction to the GUM documents | guide | obtained (not yet read) |
 | JCGM GUM-1:2023 | Part 1: Introduction (ISO/IEC Guide 98-1) | guide | listed |
 | JCGM GUM-6:2020 | Developing and using measurement models | intermediate quantities, guide | obtained (not yet read) |

@@ -1,0 +1,156 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm102-9.3-polar-x010",
+    "title": {
+      "en": "Cartesian to polar co-ordinates, x₁ = 0.01 (JCGM 102 9.3)",
+      "tr": "Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,01 (JCGM 102 9.3)"
+    },
+    "description": {
+      "en": "JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ = 0.01, x₂ = 0; GUM and Monte Carlo results compared (Table 6).",
+      "tr": "JCGM 102:2011 9.3: x₁ = 0,01, x₂ = 0 tahminli karmaşık bir büyüklüğün genliği ve fazı; GUM ve Monte Carlo sonuçlarının karşılaştırılması (Tablo 6)."
+    },
+    "explanation": [
+      {
+        "en": "Cartesian to polar co-ordinates of a complex quantity Z = X₁ + iX₂: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (expressions 25), with x₁ = 0.01, x₂ = 0, u(x₁) = u(x₂) = 0.010 and independent inputs.",
+        "tr": "Karmaşık bir Z = X₁ + iX₂ büyüklüğünün Kartezyen koordinatlardan kutupsal koordinatlara dönüşümü: R = √(X₁² + X₂²), Θ = atan2(X₂, X₁) (ifade 25); x₁ = 0,01, x₂ = 0, u(x₁) = u(x₂) = 0,010 ve bağımsız girdiler."
+      },
+      {
+        "en": "GUM framework: the sensitivity matrix at (x₁, 0) is [[1, 0], [0, 1/x₁]], so u(θ) = u(x₂)/x₁; this linearization fails when x₁ is comparable to u(x₁).",
+        "tr": "GUM yaklaşımı: (x₁, 0) noktasında duyarlılık matrisi [[1, 0], [0, 1/x₁]] olduğundan u(θ) = u(x₂)/x₁'dir; x₁, u(x₁) ile karşılaştırılabilir olduğunda bu doğrusallaştırma geçersizdir."
+      },
+      {
+        "en": "Monte Carlo method with 10⁶ trials (the Supplement uses 10⁷): the distribution of Θ spreads over (−π, π] and, with correlated inputs near the origin, becomes bimodal (9.3.3.3); ellipses and rectangles are then inappropriate coverage regions (9.3.4.4).",
+        "tr": "10⁶ denemeli Monte Carlo yöntemi (Ek 10⁷ kullanır): Θ'nın dağılımı (−π, π] aralığına yayılır ve başlangıç noktasının yakınında korelasyonlu girdilerle iki tepeli olur (9.3.3.3); bu durumda elips ve dikdörtgen uygun kapsam bölgeleri değildir (9.3.4.4)."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "JCGM 102:2011, Evaluation of measurement data — Supplement 2 to the “Guide to the expression of uncertainty in measurement” — Extension to any number of output quantities",
+        "section": "9.3 (Table 6)",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_102_2011_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm102",
+      "multivariate",
+      "complex-quantity",
+      "nonlinear"
+    ]
+  },
+  "multivariate": {
+    "outputs": [
+      {
+        "name": "R",
+        "expression": "sqrt(X1^2 + X2^2)"
+      },
+      {
+        "name": "Theta",
+        "unit": "rad",
+        "expression": "atan2(X2, X1)"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "X1",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.01,
+          "sd": 0.01
+        }
+      },
+      {
+        "name": "X2",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.01
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.95
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 4,
+      "validation_ndig": 2
+    }
+  },
+  "expected": {
+    "multivariate": {
+      "gum": {
+        "estimate": {
+          "R": {
+            "value": 0.01,
+            "tolerance": 1e-09
+          },
+          "Theta": {
+            "value": 0.0,
+            "tolerance": 1e-12
+          }
+        },
+        "standard_uncertainty": {
+          "R": {
+            "value": 0.01,
+            "tolerance": 0.0005
+          },
+          "Theta": {
+            "value": 1.0,
+            "tolerance": 0.0005
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "R",
+              "Theta"
+            ],
+            "value": 0.0,
+            "tolerance": 0.0005
+          }
+        ]
+      },
+      "mcm": {
+        "estimate": {
+          "R": {
+            "value": 0.015,
+            "tolerance": 0.0006
+          },
+          "Theta": {
+            "value": 0.0,
+            "tolerance": 0.006
+          }
+        },
+        "standard_uncertainty": {
+          "R": {
+            "value": 0.008,
+            "tolerance": 0.0006
+          },
+          "Theta": {
+            "value": 1.117,
+            "tolerance": 0.004
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "R",
+              "Theta"
+            ],
+            "value": 0.0,
+            "tolerance": 0.004
+          }
+        ]
+      }
+    },
+    "reference": {
+      "en": "JCGM 102:2011 Table 6, x₁ = 0.01 (MCM with M = 10⁷; tolerances include the Monte Carlo dispersion for 10⁶ trials).",
+      "tr": "JCGM 102:2011 Tablo 6, x₁ = 0,01 (M = 10⁷ ile MCM; toleranslar 10⁶ deneme için Monte Carlo saçılımını içerir)."
+    }
+  }
+}

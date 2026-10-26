@@ -81,3 +81,8 @@ Turkish reports.
 | consistency statistics h and k | h ve k tutarlılık istatistikleri | ISO 5725-2 8.3.2 |
 | between-laboratory standard deviation | laboratuvarlar arası standart sapma | ISO 5725-2 8.4.5.2 |
 | restricted maximum likelihood (REML) | kısıtlı en çok olabilirlik (REML) | ISO 5725-2 Annex B.2 |
+| covariance matrix / correlation matrix | kovaryans matrisi / korelasyon matrisi | JCGM 102 3.20, 3.21 |
+| sensitivity matrix | duyarlılık matrisi | JCGM 102 3.22 |
+| coverage region (hyper-ellipsoidal, hyper-rectangular) | kapsam bölgesi (hiper-elipsoit, hiper-dikdörtgen) | JCGM 102 3.24, 6.5 |
+| implicit measurement model | örtük ölçüm modeli | JCGM 102 6.3 |
+| multivariate t-distribution | çok değişkenli t dağılımı | JCGM 102 5.3.2 |

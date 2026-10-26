@@ -1,0 +1,184 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm102-9.2.3-additive-rectangular",
+    "title": {
+      "en": "Additive bivariate model, rectangular common effect (JCGM 102 9.2.3)",
+      "tr": "Toplamalı iki değişkenli model, dikdörtgen ortak etki (JCGM 102 9.2.3)"
+    },
+    "description": {
+      "en": "JCGM 102:2011 9.2.3: as 9.2.2 with the common effect X₃ rectangular (standard deviation 1); the GUM coverage factors are not validated.",
+      "tr": "JCGM 102:2011 9.2.3: ortak etki X₃ dikdörtgen (standart sapma 1) olmak üzere 9.2.2 ile aynı; GUM kapsam faktörleri doğrulanmaz."
+    },
+    "explanation": [
+      {
+        "en": "Bivariate additive model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃ with independent inputs; X₃ is an effect common to both outputs (9.2.1).",
+        "tr": "İki değişkenli toplamalı model Y₁ = X₁ + X₃, Y₂ = X₂ + X₃, bağımsız girdilerle; X₃ her iki çıktıda ortak olan bir etkidir (9.2.1)."
+      },
+      {
+        "en": "GUM framework: U_y = C_x U_x C_xᵀ with C_x = [[1, 0, 1], [0, 1, 1]] (formula 3); 95 % regions for N(y, U_y): ellipse with k_p = 2.45 (χ²₂) and rectangle with k_q = 2.24 (q = 0.975, Tables 1 and 2).",
+        "tr": "GUM yaklaşımı: C_x = [[1, 0, 1], [0, 1, 1]] ile U_y = C_x U_x C_xᵀ (formül 3); N(y, U_y) için %95 bölgeler: k_p = 2,45 (χ²₂) ile elips ve k_q = 2,24 (q = 0,975) ile dikdörtgen (Tablo 1 ve 2)."
+      },
+      {
+        "en": "Monte Carlo method with 10⁶ trials: k_p from the draws sorted by their distance (y_r − y)ᵀ U_y⁻¹ (y_r − y) (7.7.2) and k_q from max_j |y_j,r − y_j|/u(y_j) (7.7.3); validation as in clause 8 with two significant digits.",
+        "tr": "10⁶ denemeli Monte Carlo yöntemi: k_p, (y_r − y)ᵀ U_y⁻¹ (y_r − y) uzaklığına göre sıralanan çekilişlerden (7.7.2), k_q ise max_j |y_j,r − y_j|/u(y_j) ile (7.7.3); doğrulama Madde 8'deki gibi iki anlamlı basamakla."
+      },
+      {
+        "en": "The estimates, standard uncertainties and the correlation coefficient agree, but k_p (2.38 against 2.45) and k_q (2.15 against 2.24) differ by more than the tolerance 0.05 (9.2.3.4).",
+        "tr": "Tahminler, standart belirsizlikler ve korelasyon katsayısı uyuşur; ancak k_p (2,45'e karşı 2,38) ve k_q (2,24'e karşı 2,15) 0,05 toleransından fazla farklıdır (9.2.3.4)."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 102:2011, Evaluation of measurement data — Supplement 2 to the “Guide to the expression of uncertainty in measurement” — Extension to any number of output quantities",
+        "section": "9.2.3 (Table 4)",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_102_2011_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm102",
+      "multivariate",
+      "coverage-region"
+    ]
+  },
+  "multivariate": {
+    "outputs": [
+      {
+        "name": "Y1",
+        "expression": "X1 + X3"
+      },
+      {
+        "name": "Y2",
+        "expression": "X2 + X3"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "X1",
+        "distribution": {
+          "type": "normal",
+          "mean": 0,
+          "sd": 1
+        }
+      },
+      {
+        "name": "X2",
+        "distribution": {
+          "type": "normal",
+          "mean": 0,
+          "sd": 1
+        }
+      },
+      {
+        "name": "X3",
+        "distribution": {
+          "type": "rectangular",
+          "lower": -1.7320508075688772,
+          "upper": 1.7320508075688772
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.95
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 2,
+      "validation_ndig": 2
+    }
+  },
+  "expected": {
+    "multivariate": {
+      "gum": {
+        "estimate": {
+          "Y1": {
+            "value": 0,
+            "tolerance": 1e-12
+          },
+          "Y2": {
+            "value": 0,
+            "tolerance": 1e-12
+          }
+        },
+        "standard_uncertainty": {
+          "Y1": {
+            "value": 1.414,
+            "tolerance": 0.0005
+          },
+          "Y2": {
+            "value": 1.414,
+            "tolerance": 0.0005
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "Y1",
+              "Y2"
+            ],
+            "value": 0.5,
+            "tolerance": 0.0005
+          }
+        ],
+        "k_ellipsoid": {
+          "value": 2.45,
+          "tolerance": 0.005
+        },
+        "k_rectangle": {
+          "value": 2.24,
+          "tolerance": 0.005
+        }
+      },
+      "mcm": {
+        "estimate": {
+          "Y1": {
+            "value": 0,
+            "tolerance": 0.00707
+          },
+          "Y2": {
+            "value": 0,
+            "tolerance": 0.00707
+          }
+        },
+        "standard_uncertainty": {
+          "Y1": {
+            "value": 1.414,
+            "tolerance": 0.002121
+          },
+          "Y2": {
+            "value": 1.414,
+            "tolerance": 0.002121
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "Y1",
+              "Y2"
+            ],
+            "value": 0.5,
+            "tolerance": 0.003
+          }
+        ],
+        "k_ellipsoid": {
+          "value": 2.38,
+          "tolerance": 0.01
+        },
+        "k_rectangle": {
+          "value": 2.15,
+          "tolerance": 0.01
+        }
+      },
+      "ellipsoid_validated": false,
+      "rectangle_validated": false
+    },
+    "reference": {
+      "en": "JCGM 102:2011 Table 4 (GUF and MCM with M = 10⁶).",
+      "tr": "JCGM 102:2011 Tablo 4 (GUF ve M = 10⁶ ile MCM)."
+    }
+  }
+}

@@ -55,6 +55,9 @@ class ResultsView extends StatelessWidget {
     if (results['conformity'] != null) {
       children.addAll(_conformity(context, results['conformity'] as Map<String, dynamic>));
     }
+    if (results['multivariate'] != null) {
+      children.addAll(_multivariate(context, results['multivariate'] as Map<String, dynamic>));
+    }
     if (results['precision_experiment'] != null) {
       children.addAll(_precision(context, results['precision_experiment'] as Map<String, dynamic>, unit));
     }
@@ -663,6 +666,58 @@ class ResultsView extends StatelessWidget {
           ],
         ),
       ]);
+    }
+    return out;
+  }
+
+  List<Widget> _multivariate(BuildContext context, Map<String, dynamic> r) {
+    final s = strings;
+    final outputs = (r['outputs'] as List).cast<Map<String, dynamic>>();
+    final names = [for (final o in outputs) o['name'].toString()];
+    String n(dynamic v, [int sig = 4]) => v == null ? '—' : fmtNum(_d(v), sig, s.lang);
+    String unit(int j) => outputs[j]['unit'] == null ? '' : ' ${outputs[j]['unit']}';
+    List<Widget> block(String title, Map<String, dynamic> m) {
+      final y = (m['estimate'] as List).map(_d).toList();
+      final u = (m['standard_uncertainties'] as List).map(_d).toList();
+      final corr = (m['correlation'] as List).map((row) => (row as List).map(_d).toList()).toList();
+      return [
+        Section(title),
+        _table(
+          context,
+          ['', s['value'], 'u'],
+          [
+            for (var j = 0; j < names.length; j++) [names[j], '${n(y[j], 7)}${unit(j)}', '${n(u[j], 3)}${unit(j)}'],
+          ],
+        ),
+        if (names.length > 1) ...[
+          Text(s['mv_correlation'], style: Theme.of(context).textTheme.titleSmall),
+          _table(
+            context,
+            ['', ...names],
+            [
+              for (var i = 0; i < names.length; i++) [names[i], for (var j = 0; j < names.length; j++) fmtNum(corr[i][j], 3, s.lang)],
+            ],
+          ),
+          Text('${s['mv_regions']}: k_p = ${n(m['k_ellipsoid'], 3)}, k_q = ${n(m['k_rectangle'], 3)}'),
+        ],
+      ];
+    }
+
+    final out = <Widget>[];
+    if (r['gum'] != null) out.addAll(block(s['mv_gum'], r['gum'] as Map<String, dynamic>));
+    if (r['mcm'] != null) {
+      final m = r['mcm'] as Map<String, dynamic>;
+      out.addAll(block('${s['mv_mcm']} (M = ${m['trials']})', m));
+    }
+    final v = r['validation'] as Map<String, dynamic>?;
+    if (v != null) {
+      final ok = v['ellipsoid_validated'] == true;
+      out.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(ok ? s['mv_validated'] : s['mv_not_validated'], style: ok ? null : TextStyle(color: Theme.of(context).colorScheme.error)),
+        ),
+      );
     }
     return out;
   }

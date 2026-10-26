@@ -22,7 +22,8 @@ const distributionParameters = <String, List<String>>{
 };
 
 /// Editor of the measurement model: output, intermediates, inputs,
-/// correlations.
+/// correlations. For a `multivariate` section (JCGM 102) it edits a list of
+/// output quantities and whether the model is implicit.
 class ModelEditor extends StatefulWidget {
   const ModelEditor({super.key, required this.project, required this.onChanged});
   final Map<String, dynamic> project;
@@ -33,7 +34,8 @@ class ModelEditor extends StatefulWidget {
 }
 
 class _ModelEditorState extends State<ModelEditor> {
-  Map<String, dynamic> get _model => widget.project['model'] as Map<String, dynamic>;
+  bool get _multi => widget.project.containsKey('multivariate');
+  Map<String, dynamic> get _model => widget.project[_multi ? 'multivariate' : 'model'] as Map<String, dynamic>;
 
   List<dynamic> _list(String key) => (_model[key] ??= <dynamic>[]) as List<dynamic>;
 
@@ -45,24 +47,126 @@ class _ModelEditorState extends State<ModelEditor> {
   @override
   Widget build(BuildContext context) {
     final s = AppScope.of(context).s;
-    final output = _model['output'] as Map<String, dynamic>;
     final inputs = _list('inputs');
     final intermediates = _list('intermediates');
     final correlations = _list('correlations');
+    final implicit = _model['implicit'] == true;
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
       children: [
-        Section(s['output']),
-        Wrap(
-          spacing: 12,
-          runSpacing: 8,
-          children: [
-            StringField(map: output, field: 'name', label: s['name'], width: 160, keepEmpty: true, onChanged: widget.onChanged),
-            StringField(map: output, field: 'unit', label: s['unit'], width: 120, onChanged: widget.onChanged),
-          ],
-        ),
-        const SizedBox(height: 8),
-        StringField(map: output, field: 'expression', label: s['expression'], keepEmpty: true, monospace: true, onChanged: widget.onChanged),
+        if (!_multi) ...[
+          Section(s['output']),
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            children: [
+              StringField(
+                map: _model['output'] as Map<String, dynamic>,
+                field: 'name',
+                label: s['name'],
+                width: 160,
+                keepEmpty: true,
+                onChanged: widget.onChanged,
+              ),
+              StringField(map: _model['output'] as Map<String, dynamic>, field: 'unit', label: s['unit'], width: 120, onChanged: widget.onChanged),
+            ],
+          ),
+          const SizedBox(height: 8),
+          StringField(
+            map: _model['output'] as Map<String, dynamic>,
+            field: 'expression',
+            label: s['expression'],
+            keepEmpty: true,
+            monospace: true,
+            onChanged: widget.onChanged,
+          ),
+        ] else ...[
+          Section(
+            s['mv_outputs'],
+            trailing: IconButton(
+              key: const Key('add-output'),
+              tooltip: s['add'],
+              icon: const Icon(Icons.add),
+              onPressed: () => _edit(() {
+                final outs = _list('outputs');
+                outs.add(<String, dynamic>{'name': 'Y${outs.length + 1}', 'expression': '0', if (implicit) 'start': 0.0});
+              }),
+            ),
+          ),
+          SwitchListTile(
+            key: const Key('mv-implicit'),
+            contentPadding: EdgeInsets.zero,
+            title: Text(s['mv_implicit']),
+            subtitle: Text(s['mv_implicit_help']),
+            value: implicit,
+            onChanged: (v) => _edit(() {
+              if (v) {
+                _model['implicit'] = true;
+                for (final o in _list('outputs')) {
+                  (o as Map<String, dynamic>).putIfAbsent('start', () => 0.0);
+                }
+              } else {
+                _model.remove('implicit');
+                for (final o in _list('outputs')) {
+                  (o as Map<String, dynamic>).remove('start');
+                }
+              }
+            }),
+          ),
+          for (var j = 0; j < _list('outputs').length; j++)
+            Padding(
+              key: ObjectKey(_list('outputs')[j]),
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  StringField(
+                    map: _list('outputs')[j] as Map<String, dynamic>,
+                    field: 'name',
+                    label: s['name'],
+                    width: 120,
+                    keepEmpty: true,
+                    onChanged: widget.onChanged,
+                  ),
+                  StringField(map: _list('outputs')[j] as Map<String, dynamic>, field: 'unit', label: s['unit'], width: 90, onChanged: widget.onChanged),
+                  SizedBox(
+                    width: 420,
+                    child: StringField(
+                      map: _list('outputs')[j] as Map<String, dynamic>,
+                      field: 'expression',
+                      label: implicit ? s['mv_equation'] : s['expression'],
+                      keepEmpty: true,
+                      monospace: true,
+                      onChanged: widget.onChanged,
+                    ),
+                  ),
+                  if (implicit)
+                    NumberField(
+                      map: _list('outputs')[j] as Map<String, dynamic>,
+                      field: 'start',
+                      label: s['mv_start'],
+                      width: 110,
+                      onChanged: widget.onChanged,
+                    ),
+                  IconButton(
+                    tooltip: s['remove'],
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: _list('outputs').length <= 1 ? null : () => _edit(() => _list('outputs').removeAt(j)),
+                  ),
+                ],
+              ),
+            ),
+          for (final g in (_model['indications'] as List?) ?? const [])
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.table_chart_outlined),
+                title: Text('${s['mv_indications']}: ${((g as Map)['inputs'] as List).join(', ')}'),
+                subtitle: Text('n = ${(g['values'] as List).length}; ${s['mv_indications_help']}'),
+              ),
+            ),
+        ],
         Section(
           s['intermediates'],
           trailing: IconButton(

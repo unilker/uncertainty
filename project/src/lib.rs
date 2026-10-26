@@ -13,6 +13,7 @@
 pub mod calibration;
 pub mod conformity;
 pub mod interlab;
+pub mod multivariate;
 pub mod proficiency;
 pub mod report;
 pub mod schema;
@@ -96,6 +97,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
         p.proficiency.is_some(),
         p.calibration.is_some(),
         p.precision_experiment.is_some(),
+        p.multivariate.is_some(),
     ]
     .iter()
     .filter(|&&b| b)
@@ -103,7 +105,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
     if primary > 1 || (primary == 0 && p.conformity.is_none()) {
         return Err(ProjectError::Format(
             "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\", \
-             \"precision_experiment\" and \"conformity\" (which may also accompany \"model\")"
+             \"precision_experiment\", \"multivariate\" and \"conformity\" (which may also accompany \"model\")"
                 .into(),
         ));
     }
@@ -262,6 +264,8 @@ pub enum Evaluation {
     Conformity(Box<conformity::ConformityAnalysis>),
     /// Interlaboratory precision experiment (ISO 5725-2).
     Interlab(Box<interlab::InterlabAnalysis>),
+    /// Model with several output quantities (JCGM 102).
+    Multivariate(Box<multivariate::MultivariateAnalysis>),
 }
 
 impl Evaluation {
@@ -328,6 +332,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     }
     if let Some(spec) = &p.calibration {
         return Ok(Evaluation::Calibration(Box::new(calibration::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.multivariate {
+        return Ok(Evaluation::Multivariate(Box::new(multivariate::evaluate(spec, &p.analysis, overrides)?)));
     }
     if let Some(spec) = &p.precision_experiment {
         return Ok(Evaluation::Interlab(Box::new(interlab::evaluate(spec)?)));
@@ -460,6 +467,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             }
             out
         }
+        Evaluation::Multivariate(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.multivariate.as_ref()) {
+                multivariate::check(exp, a, &mut out);
+            }
+            out
+        }
     }
 }
 
@@ -580,6 +594,15 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": a.quantity, "unit": a.unit },
                 "precision_experiment": interlab::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::Multivariate(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.output_names().join(", "), "unit": serde_json::Value::Null },
+                "multivariate": multivariate::results_json(a),
                 "checks": checks,
             });
         }
@@ -829,6 +852,40 @@ mod tests {
             r#""topdown": {"quantity": "c", "precision": [], "bias": []}, "precision_experiment""#,
         );
         assert!(matches!(parse(&both), Err(ProjectError::Format(_))));
+    }
+
+    #[test]
+    fn multivariate_projects_and_errors() {
+        let base = r#"{"format": "uncertainty-calculations/project", "version": 1, "metadata": {"title": "x"},
+            "multivariate": {"outputs": OUT, "inputs": [{"name": "a", "distribution": {"type": "normal", "mean": 2, "sd": 0.1}},
+              {"name": "b", "distribution": {"type": "normal", "mean": 3, "sd": 0.2}}] EXTRA },
+            "analysis": {"mcm": {"trials": 20000}}}"#;
+        let p = parse(&base.replace("OUT", r#"[{"name": "s", "expression": "a + b"}, {"name": "d", "expression": "a - b"}]"#).replace("EXTRA", ""))
+            .unwrap();
+        let e = run(&p, &Overrides::default()).unwrap();
+        let Evaluation::Multivariate(a) = &e else { panic!("not multivariate") };
+        let g = a.gum.as_ref().unwrap();
+        // u² = 0.01 + 0.04 for both; r = (0.01 − 0.04)/0.05 = −0.6.
+        assert!((g.correlation[0][1] + 0.6).abs() < 1e-12);
+        assert!(a.mcm.is_some() && a.validation.is_some() && a.points.len() == multivariate::CHART_POINTS);
+        assert_eq!(report::reported_statements(&p, &e, Lang::En).len(), 3);
+        // An implicit model needs starting values.
+        let imp = base.replace("OUT", r#"[{"name": "y", "expression": "y^2 - a"}]"#).replace("EXTRA", r#", "implicit": true"#);
+        assert!(run(&parse(&imp).unwrap(), &Overrides::default()).is_err());
+        // Indications need more sets than quantities, and one unit per quantity.
+        let few = base.replace("OUT", r#"[{"name": "s", "expression": "a + u + v"}]"#).replace(
+            "EXTRA",
+            r#", "indications": [{"inputs": ["u", "v"], "values": [[1, 2], [1.1, 2.1]]}]"#,
+        );
+        assert!(run(&parse(&few).unwrap(), &Overrides::default()).is_err());
+        let units = few.replace(r#""values""#, r#""units": ["V"], "values""#);
+        assert!(matches!(run(&parse(&units).unwrap(), &Overrides::default()), Err(ProjectError::Input { .. })));
+        // Higher-order terms do not apply.
+        let ho = base
+            .replace("OUT", r#"[{"name": "s", "expression": "a * b"}]"#)
+            .replace("EXTRA", "")
+            .replace(r#""analysis": {"mcm": {"trials": 20000}}"#, r#""analysis": {"gum": {"higher_order": true}}"#);
+        assert!(matches!(run(&parse(&ho).unwrap(), &Overrides::default()), Err(ProjectError::Input { .. })));
     }
 
     #[test]

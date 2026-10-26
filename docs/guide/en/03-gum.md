@@ -21,8 +21,8 @@ In a project file the model is typed as a formula:
 ```
 
 Expressions may use `+ - * /`, powers (`^` or `**`, or `pow(x, y)`), parentheses, the constant `pi`, and the
-functions `sqrt`, `exp`, `ln`, `log10`, `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `sinh`, `cosh`, `tanh` and
-`abs`. Names may contain letters of any alphabet, digits and `_` (e.g. `ρ_a`, `dV_cal`). Long models are
+functions `sqrt`, `exp`, `ln`, `log10`, `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `sinh`, `cosh`, `tanh`,
+`abs` and the four-quadrant inverse tangent `atan2(y, x)`. Names may contain letters of any alphabet, digits and `_` (e.g. `ρ_a`, `dV_cal`). Long models are
 easier to read with **intermediate quantities**, which are expanded into the model symbolically (no
 approximation is involved):
 

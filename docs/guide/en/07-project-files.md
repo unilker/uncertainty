@@ -11,15 +11,16 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the five | measurement model (7.3) |
-| `topdown` | one of the five | top-down evaluation (7.6) |
-| `proficiency` | one of the five | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the five | calibration with uncertainties in both variables, ISO 6143 (7.8) |
-| `precision_experiment` | one of the five | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `model` | one of the six | measurement model (7.3) |
+| `topdown` | one of the six | top-down evaluation (7.6) |
+| `proficiency` | one of the six | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the six | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the six | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `multivariate` | one of the six | model with several output quantities, JCGM 102 (7.11) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
-| `analysis` | no | GUM and Monte Carlo options (7.4); only for model projects |
+| `analysis` | no | GUM and Monte Carlo options (7.4); for model and multivariate projects |
 | `reporting` | no | rounding of the reported result (7.5) |
-| `expected` | no | reference values with tolerances (7.12) |
+| `expected` | no | reference values with tolerances (7.13) |
 
 ## 7.2 `metadata`
 
@@ -231,14 +232,33 @@ The basic method of ISO 5725-2 (chapter 12).
 | `form_decimals` | decimals of the cell means and standard deviations recorded in Forms B and C; used for the tests and the variances, as in the examples of the standard (full precision if absent) |
 | `relationships` | relationships fitted when there are three or more levels: any of `"I"`, `"II"`, `"III"`, `"IV"` (default all four; `[]` for none) |
 
-## 7.11 Errors
+## 7.11 `multivariate`
+
+A model with several output quantities (JCGM 102; chapter 13). The options of `analysis` apply: `gum.coverage_probability`
+and `mcm` (`trials`, `adaptive`, `seed`, `validation_ndig`, `coverage_probability`).
+
+```json
+"multivariate": {
+  "outputs": [ { "name": "R", "unit": "Ω", "expression": "V/I*cos(phi)" }, { "name": "X", "unit": "Ω", "expression": "V/I*sin(phi)" } ],
+  "indications": [ { "inputs": ["V", "I", "phi"], "units": ["V", "A", "rad"], "values": [[5.007, 0.019663, 1.0456], …], "covariance": "mean" } ]
+}
+```
+
+| Field | Content |
+|---|---|
+| `outputs` | `name`, `unit`, `expression`: f_j(X), or the equation h_j(Y, X) = 0 when `implicit`; `start`: starting value of an implicit model |
+| `implicit` | `true` for a model h(Y, X) = 0 solved by Newton's method (default `false`) |
+| `inputs`, `correlations`, `intermediates` | as in `model` (7.3) |
+| `indications` | input quantities from series of vector indication values: `inputs` (names), optional `units`, `values` (one row per set, n > N), `covariance` `mean` (M/(n(n − 1)), default) or `t` (M/((ν − 2)n)); the Monte Carlo method draws them from the multivariate t-distribution |
+
+## 7.12 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown`, `proficiency`, `calibration` and `precision_experiment`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment` and `multivariate`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
-## 7.12 `expected`
+## 7.13 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
@@ -264,3 +284,6 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
   "grubbs_high", "grubbs_double_low", "grubbs_double_high", "final_cochran" } }` (`p` is an integer; the test
   statistics refer to all results, `final_cochran` to the retained ones); `relationships`: list of
   `{ "of": "s_r" | "s_R", "relationship": "I" … "IV", "params": [checks] }`
+* `multivariate`: `gum` and `mcm`, each with `estimate` and `standard_uncertainty` (`{ "<output>": check }`),
+  `correlations` (list of `{ "between": [a, b], "value", "tolerance" }`), `k_ellipsoid`, `k_rectangle`,
+  `smallest_region_area` (Monte Carlo, two outputs); `ellipsoid_validated`, `rectangle_validated` (true/false)

@@ -128,6 +128,8 @@ pub enum Expr {
     Div(Box<Expr>, Box<Expr>),
     Pow(Box<Expr>, Box<Expr>),
     Call(Func, Box<Expr>),
+    /// Four-quadrant inverse tangent atan2(y, x) in (−π, π].
+    Atan2(Box<Expr>, Box<Expr>),
 }
 
 // ---------------------------------------------------------------------------
@@ -224,6 +226,7 @@ impl Expr {
             Expr::Div(a, b) => a.eval(x) / b.eval(x),
             Expr::Pow(a, b) => power(a.eval(x), b.eval(x)),
             Expr::Call(f, a) => f.apply(a.eval(x)),
+            Expr::Atan2(a, b) => a.eval(x).atan2(b.eval(x)),
         }
     }
 
@@ -233,9 +236,12 @@ impl Expr {
             Expr::Num(_) => false,
             Expr::Var(i) => *i == var,
             Expr::Neg(a) | Expr::Call(_, a) => a.depends_on(var),
-            Expr::Add(a, b) | Expr::Sub(a, b) | Expr::Mul(a, b) | Expr::Div(a, b) | Expr::Pow(a, b) => {
-                a.depends_on(var) || b.depends_on(var)
-            }
+            Expr::Add(a, b)
+            | Expr::Sub(a, b)
+            | Expr::Mul(a, b)
+            | Expr::Div(a, b)
+            | Expr::Pow(a, b)
+            | Expr::Atan2(a, b) => a.depends_on(var) || b.depends_on(var),
         }
     }
 
@@ -299,6 +305,11 @@ impl Expr {
                 };
                 mul(outer, da)
             }
+            Expr::Atan2(a, b) => {
+                // d atan2(a, b) = (b a' − a b') / (a² + b²)
+                let num_ = sub(mul((**b).clone(), a.diff(var)), mul((**a).clone(), b.diff(var)));
+                div(num_, add(pow((**a).clone(), num(2.0)), pow((**b).clone(), num(2.0))))
+            }
         }
     }
 
@@ -312,7 +323,7 @@ impl Expr {
         for op in &ops {
             match op {
                 Op::Push(_) | Op::Load(_) => depth += 1,
-                Op::Add | Op::Sub | Op::Mul | Op::Div | Op::Pow => depth -= 1,
+                Op::Add | Op::Sub | Op::Mul | Op::Div | Op::Pow | Op::Atan2 => depth -= 1,
                 Op::Neg | Op::Call(_) | Op::PowI(_) => {}
             }
             max_depth = max_depth.max(depth);
@@ -346,6 +357,7 @@ impl Expr {
                 a.emit(ops);
                 ops.push(Op::Call(*f));
             }
+            Expr::Atan2(a, b) => bin(ops, a, b, Op::Atan2),
         }
     }
 
@@ -401,6 +413,13 @@ impl Expr {
                 a.write(s, names, 0);
                 s.push(')');
             }
+            Expr::Atan2(a, b) => {
+                s.push_str("atan2(");
+                a.write(s, names, 0);
+                s.push_str(", ");
+                b.write(s, names, 0);
+                s.push(')');
+            }
         }
         if paren {
             s.push(')');
@@ -414,7 +433,7 @@ impl Expr {
             Expr::Neg(_) => 3,
             Expr::Num(v) if *v < 0.0 => 3,
             Expr::Pow(..) => 4,
-            Expr::Num(_) | Expr::Var(_) | Expr::Call(..) => 5,
+            Expr::Num(_) | Expr::Var(_) | Expr::Call(..) | Expr::Atan2(..) => 5,
         }
     }
 }
@@ -454,6 +473,7 @@ pub enum Op {
     Pow,
     PowI(i32),
     Call(Func),
+    Atan2,
 }
 
 /// Compiled expression (postfix program).
@@ -489,7 +509,7 @@ impl Program {
                     let a = stack.last_mut().unwrap();
                     *a = f.apply(*a);
                 }
-                Op::Add | Op::Sub | Op::Mul | Op::Div | Op::Pow => {
+                Op::Add | Op::Sub | Op::Mul | Op::Div | Op::Pow | Op::Atan2 => {
                     let b = stack.pop().unwrap();
                     let a = stack.last_mut().unwrap();
                     *a = match *op {
@@ -497,6 +517,7 @@ impl Program {
                         Op::Sub => *a - b,
                         Op::Mul => *a * b,
                         Op::Div => *a / b,
+                        Op::Atan2 => a.atan2(b),
                         _ => power(*a, b),
                     };
                 }
@@ -751,6 +772,14 @@ impl<S: SymbolTable> Parser<'_, S> {
             let a = args.pop().unwrap();
             return Ok(Expr::Pow(Box::new(a), Box::new(b)));
         }
+        if name == "atan2" {
+            if args.len() != 2 {
+                return Err(arity_err(2));
+            }
+            let b = args.pop().unwrap();
+            let a = args.pop().unwrap();
+            return Ok(Expr::Atan2(Box::new(a), Box::new(b)));
+        }
         if name == "log" {
             return Err(UncError::Parse { message: "'log' is ambiguous; use ln (natural) or log10".into(), position });
         }
@@ -776,7 +805,7 @@ fn max_var(e: &Expr) -> usize {
         Expr::Num(_) => 0,
         Expr::Var(i) => *i,
         Expr::Neg(a) | Expr::Call(_, a) => max_var(a),
-        Expr::Add(a, b) | Expr::Sub(a, b) | Expr::Mul(a, b) | Expr::Div(a, b) | Expr::Pow(a, b) => {
+        Expr::Add(a, b) | Expr::Sub(a, b) | Expr::Mul(a, b) | Expr::Div(a, b) | Expr::Pow(a, b) | Expr::Atan2(a, b) => {
             max_var(a).max(max_var(b))
         }
     }
@@ -890,5 +919,21 @@ mod tests {
             let again = p(&shown);
             assert_eq!(again.eval(&x0), e.eval(&x0), "{src} -> {shown}");
         }
+    }
+
+    #[test]
+    fn atan2_four_quadrants_and_derivative() {
+        let e = p("atan2(y, x)");
+        for (x, y) in [(1.0, 1.0), (-1.0, 1.0), (-1.0, -1.0), (1.0, -1.0), (-2.0, 0.0)] {
+            let v = [x, y, 0.0, 0.0, 0.0];
+            assert_eq!(e.eval(&v), f64::atan2(y, x));
+            assert_eq!(e.compile().eval(&v), f64::atan2(y, x));
+            // ∂/∂x = −y/(x² + y²), ∂/∂y = x/(x² + y²)
+            assert!((e.diff(0).eval(&v) + y / (x * x + y * y)).abs() < 1e-15);
+            assert!((e.diff(1).eval(&v) - x / (x * x + y * y)).abs() < 1e-15);
+        }
+        let names: Vec<String> = ["x", "y", "z", "a", "b"].iter().map(|s| s.to_string()).collect();
+        assert_eq!(e.to_string_with(&names), "atan2(y, x)");
+        assert!(parse("atan2(x)", &|_: &str| Some(Expr::Var(0))).is_err());
     }
 }

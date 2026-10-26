@@ -150,6 +150,22 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | ISO5725-3-J.2 | vanadium, staggered-nested, levels 1–2 | SS, MS, s₀², s₍₁₎², s_r, s_I(T), s_R | same | ✅ |
 | ISO5725-3:1994-D.2 | vanadium, levels 3–6 from the 1994 data (core test) | Table D.5 = J.5: s_r, s_I(T), s_R | same at levels 3–5; level 6 s_R 16.331 against 15.962 (negative s₍₁₎² kept, D41) | ✅ (F40, D41) |
 
+## JCGM 102:2011 — library projects and core tests
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| JCGM102-T1–T2 | coverage factors, m = 1 … 50 | k_p (Table 1), k_q (Table 2) | same | ✅ (core) |
+| JCGM102-6.5.2.3 | ellipse and rectangle areas | 26.6, 28.4; 11.8, 40.1 unit² | 26.6, 28.4; 11.8, 40.2 (40.1 with k_q = 2.24) | ✅ (F50) |
+| JCGM102-6.5.4 | coverage region for an expectation | F₂,₁₀(0.95) = 4.10 | same | ✅ (core) |
+| JCGM102-7.7 | L, k_p, smallest region | L (transposed, F50); k_p 2.33 and 10.6 unit² from 1 000 draws; smallest region 9.4 unit² (10⁶ draws) | k_p 2.27, 10.1 unit² (10⁶ draws); smallest region 9.36 unit² | ✅ |
+| JCGM102-9.2.2 | additive model, Gaussian | Table 3: GUF 1.414, 0.500, 2.45, 2.24; MCM 2.45, 2.21; validated | same | ✅ |
+| JCGM102-9.2.3 | rectangular common effect | Table 4: MCM k_p 2.38, k_q 2.15; regions not validated | same | ✅ |
+| JCGM102-9.2.4 | dominant rectangular effect | Table 5: GUF 3.162, 0.900; MCM 2.28, 1.87 | same | ✅ |
+| JCGM102-9.3 | polar co-ordinates, six cases | Tables 6, 7 (MCM, M = 10⁷) | same (M = 10⁶) | ✅ |
+| JCGM102-9.4 | resistance, reactance, impedance | Table 11: GUF, Alt. GUF, MCM (t₃) | same; MCM within the seed-to-seed spread of t₃ | ✅ (F51) |
+| JCGM102-9.5.2 | resistance thermometer, implicit | θ 20.023 2 °C, u 0.004 5 °C | same | ✅ |
+| JCGM102-9.5.3 | ten temperatures, implicit | Tables 15, 16 | same | ✅ |
+
 ## ISO 5725-2:2019 — library projects and core tests
 
 | ID | Example | Published | Engine | Status |

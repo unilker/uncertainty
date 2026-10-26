@@ -11,15 +11,16 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | beşinden biri | ölçüm modeli (7.3) |
-| `topdown` | beşinden biri | top-down değerlendirme (7.6) |
-| `proficiency` | beşinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | beşinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
-| `precision_experiment` | beşinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `model` | altısından biri | ölçüm modeli (7.3) |
+| `topdown` | altısından biri | top-down değerlendirme (7.6) |
+| `proficiency` | altısından biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | altısından biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | altısından biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `multivariate` | altısından biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
-| `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); yalnızca model projelerinde |
+| `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); model ve çok çıktılı projelerde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.12) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.13) |
 
 ## 7.2 `metadata`
 
@@ -231,14 +232,33 @@ ISO 5725-2'nin temel yöntemi (bölüm 12).
 | `form_decimals` | Form B ve C'ye kaydedilen hücre ortalamaları ve standart sapmalarının ondalık sayısı; standardın örneklerinde olduğu gibi testlerde ve varyanslarda kullanılır (yoksa tam duyarlılık) |
 | `relationships` | üç veya daha fazla düzey varken uydurulan ilişkiler: `"I"`, `"II"`, `"III"`, `"IV"` (varsayılan dördü; hiçbiri için `[]`) |
 
-## 7.11 Hatalar
+## 7.11 `multivariate`
+
+Birden çok çıktı büyüklüğü olan bir model (JCGM 102; bölüm 13). `analysis` seçenekleri geçerlidir:
+`gum.coverage_probability` ve `mcm` (`trials`, `adaptive`, `seed`, `validation_ndig`, `coverage_probability`).
+
+```json
+"multivariate": {
+  "outputs": [ { "name": "R", "unit": "Ω", "expression": "V/I*cos(phi)" }, { "name": "X", "unit": "Ω", "expression": "V/I*sin(phi)" } ],
+  "indications": [ { "inputs": ["V", "I", "phi"], "units": ["V", "A", "rad"], "values": [[5.007, 0.019663, 1.0456], …], "covariance": "mean" } ]
+}
+```
+
+| Alan | İçerik |
+|---|---|
+| `outputs` | `name`, `unit`, `expression`: f_j(X) veya `implicit` ise h_j(Y, X) = 0 denklemi; `start`: örtük modelin başlangıç değeri |
+| `implicit` | Newton yöntemiyle çözülen h(Y, X) = 0 modeli için `true` (varsayılan `false`) |
+| `inputs`, `correlations`, `intermediates` | `model` bölümündeki gibi (7.3) |
+| `indications` | vektör gösterge değeri serilerinden girdi büyüklükleri: `inputs` (adlar), isteğe bağlı `units`, `values` (takım başına bir satır, n > N), `covariance` `mean` (M/(n(n − 1)), varsayılan) veya `t` (M/((ν − 2)n)); Monte Carlo yöntemi bunları çok değişkenli t dağılımından çeker |
+
+## 7.12 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
-`proficiency`, `calibration` ve `precision_experiment` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+`proficiency`, `calibration`, `precision_experiment` ve `multivariate` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.12 `expected`
+## 7.13 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -264,3 +284,6 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
   "grubbs_high", "grubbs_double_low", "grubbs_double_high", "final_cochran" } }` (`p` bir tamsayıdır; test
   istatistikleri tüm sonuçlara, `final_cochran` kalan sonuçlara aittir); `relationships`:
   `{ "of": "s_r" | "s_R", "relationship": "I" … "IV", "params": [değerler] }` listesi
+* `multivariate`: `gum` ve `mcm`, her biri `estimate` ve `standard_uncertainty` (`{ "<çıktı>": değer }`), `correlations`
+  (`{ "between": [a, b], "value", "tolerance" }` listesi), `k_ellipsoid`, `k_rectangle`, `smallest_region_area` (Monte
+  Carlo, iki çıktı) ile; `ellipsoid_validated`, `rectangle_validated` (true/false)
