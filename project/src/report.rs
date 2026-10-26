@@ -754,6 +754,15 @@ fn range_text(r: &LevelRange, lang: Lang) -> String {
     }
 }
 
+/// The reported result(s) in words: one statement for a model project
+/// (GUM), one per level for a top-down project.
+pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<String> {
+    match e {
+        Evaluation::Model(a) => statement(p, a, lang).into_iter().collect(),
+        Evaluation::TopDown(t) => topdown_statements(p, t, lang),
+    }
+}
+
 /// The reported result at each level of a top-down evaluation.
 fn topdown_statements(p: &Project, t: &TopDownAnalysis, lang: Lang) -> Vec<String> {
     let Some(spec) = p.topdown.as_ref() else { return Vec::new() };

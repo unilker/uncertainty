@@ -12,7 +12,7 @@ Türkçe ve İngilizce.
 
 > Author / Yazar: İlker Ün, TÜBİTAK UME ([ORCID 0000-0001-5089-4602](https://orcid.org/0000-0001-5089-4602))
 >
-> Status / Durum: **v0.1.0 — computation core, project files, reports and command-line tool** (graphical interface in development).
+> Status / Durum: **v0.1.0 — computation core, project files, reports, command-line tool, user guide; graphical interface (Linux) in development.**
 > See [docs/ROADMAP.md](docs/ROADMAP.md).
 
 ## What works now / Şu an çalışanlar
@@ -59,6 +59,17 @@ $B run my.json --lang tr -o rapor.html                  # Türkçe HTML rapor
 $B run my.json --format json --no-mcm                   # machine-readable results
 $B check library                                        # re-verify all examples / tüm örnekleri doğrula
 ```
+
+## Graphical interface / Grafik arayüz
+
+[app/](app/README.md) — Flutter application (Linux built and tested; Windows, macOS, Android, iOS
+packaging in progress) using the same Rust engine through a C interface ([ffi/](ffi/src/lib.rs)):
+library browser, model and top-down editors with direct entry of raw data, results with budget, charts
+and validation, HTML/Markdown report export, English and Turkish.
+
+Flutter uygulaması (Linux derlenmiş ve test edilmiş; diğer platformlar sırada); aynı Rust motorunu
+kullanır: örnek kütüphanesi, model ve ham veri girişli top-down düzenleyicileri, bütçe, grafikler ve
+doğrulamayla sonuçlar, HTML/Markdown rapor, Türkçe ve İngilizce.
 
 ## User guide / Kullanım rehberi
 

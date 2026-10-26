@@ -577,3 +577,24 @@ double as a compact guide to uncertainty evaluation; they will be the basis
 of the in-app help of the graphical interface. The Turkish terminology
 (glossary) remains to be confirmed against UME/TSE usage
 (documents-needed.md §E).
+
+**D22. Graphical interface architecture.** Flutter (stable 3.47.8) for
+desktop and mobile, on top of the Rust engine through a C interface
+(`ffi` crate, JSON in / JSON out: `uc_evaluate`, `uc_validate`,
+`uc_template`, `uc_version`, `uc_free`; panics are caught and returned as
+errors). Reasons: (1) every number shown in the interface comes from the
+same validated code as the command-line tool and the reports — the
+interface never re-implements a formula (even the reported statement and
+its rounding are returned by the engine); (2) the project file is the
+interface's document model, so anything the interface can do can be saved,
+reviewed and checked with `uncertainty check`; (3) the interface stays thin
+and testable. Calculations run on a background isolate. The 60 library
+projects are bundled (`app/assets/library.json`, kept in sync by a test).
+Top-down data are entered directly — control-chart series, duplicate pairs
+and precision-model points as pasted columns (decimal comma accepted) —
+while bias, recovery and further components are edited as JSON entries for
+now. Verified: `flutter analyze`, 4 Flutter tests (formatting, engine
+binding, an end-to-end test that opens a library example, calculates it
+and checks the reported result), Linux release build run under Xvfb.
+Windows has a build rule but is untested; macOS, Android and iOS packaging
+are documented as next steps.

@@ -80,3 +80,28 @@ fn guide_catalogue_is_up_to_date() {
         );
     }
 }
+
+/// The library bundled with the graphical interface must match `library/`.
+#[test]
+fn app_library_bundle_is_up_to_date() {
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let mut files = Vec::new();
+    collect(&repo.join("library"), &mut files);
+    files.sort();
+    let bundle_path = repo.join("app/assets/library.json");
+    let bundle: serde_json::Value =
+        serde_json::from_str(&std::fs::read_to_string(&bundle_path).unwrap_or_else(|_| "[]".into())).unwrap();
+    let expected: Vec<serde_json::Value> = files
+        .iter()
+        .map(|f| {
+            let rel = f.strip_prefix(&repo).unwrap().to_string_lossy().replace('\\', "/");
+            let project: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(f).unwrap()).unwrap();
+            serde_json::json!({ "path": rel, "project": project })
+        })
+        .collect();
+    assert!(
+        bundle == serde_json::Value::Array(expected),
+        "{} is out of date: run `dart run tool/bundle_library.dart` in app/",
+        bundle_path.display()
+    );
+}

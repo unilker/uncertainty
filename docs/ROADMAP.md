@@ -9,7 +9,7 @@
 | 2d | Linear and continuous precision models (MUPR B3, App. A) | **done** |
 | 2e | ISO/TS 28037 (both-axes uncertainty; awaiting the standard), NIST TN 1900 examples | next |
 | 3 | JSON project files; CLI (`run`, `check`, `template`); TR/EN reports (Markdown, HTML with SVG charts, JSON) with citation footer | **done** (PDF/CSV export: planned) |
-| 4 | Flutter UI (desktop + mobile), Rust bridge, TR/EN localisation | planned |
+| 4 | Flutter UI (desktop + mobile), Rust bridge, TR/EN localisation | **in progress**: C interface crate, Flutter app (library, editors, results, export), Linux build tested; Windows/macOS/Android/iOS packaging next |
 | 5 | Calibration (EA-4/02 examples), conformity assessment (JCGM 106), multivariate outputs (JCGM 102) | planned |
 | 6 | Example library (hundreds of validated, explained cases) and the TR/EN guide | **in progress**: 60 self-checking projects; TR/EN user guide (8 chapters + generated examples chapter) |
 | 7 | Independent review, benchmarks vs NUM/Suncal, release with DOI, manuscript | planned |

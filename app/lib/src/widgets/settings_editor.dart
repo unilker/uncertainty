@@ -1,0 +1,129 @@
+import 'package:flutter/material.dart';
+
+import '../app_state.dart';
+import 'fields.dart';
+
+/// GUM, Monte Carlo and reporting options of a project.
+class SettingsEditor extends StatefulWidget {
+  const SettingsEditor({super.key, required this.project, required this.onChanged});
+  final Map<String, dynamic> project;
+  final VoidCallback onChanged;
+
+  @override
+  State<SettingsEditor> createState() => _SettingsEditorState();
+}
+
+class _SettingsEditorState extends State<SettingsEditor> {
+  Map<String, dynamic> get _analysis => (widget.project['analysis'] ??= <String, dynamic>{}) as Map<String, dynamic>;
+  Map<String, dynamic> get _reporting => (widget.project['reporting'] ??= <String, dynamic>{}) as Map<String, dynamic>;
+
+  void _edit(VoidCallback f) {
+    setState(f);
+    widget.onChanged();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = AppScope.of(context).s;
+    final topdown = widget.project.containsKey('topdown');
+    final children = <Widget>[];
+    if (!topdown) {
+      final gum = (_analysis['gum'] ??= <String, dynamic>{}) as Map<String, dynamic>;
+      final byFactor = gum.containsKey('coverage_factor');
+      final mcmOn = _analysis['mcm'] != null || !_analysis.containsKey('mcm');
+      children.addAll([
+        Section(s['gum']),
+        SegmentedButton<bool>(
+          segments: [
+            ButtonSegment(value: false, label: Text(s['by_probability'])),
+            ButtonSegment(value: true, label: Text(s['by_factor'])),
+          ],
+          selected: {byFactor},
+          onSelectionChanged: (v) => _edit(() {
+            if (v.first) {
+              gum.remove('coverage_probability');
+              gum['coverage_factor'] = 2;
+            } else {
+              gum.remove('coverage_factor');
+              gum['coverage_probability'] = 0.95;
+            }
+          }),
+        ),
+        const SizedBox(height: 8),
+        KeyedSubtree(
+          key: ValueKey(byFactor),
+          child: byFactor
+              ? NumberField(map: gum, field: 'coverage_factor', label: s['k'], onChanged: widget.onChanged)
+              : NumberField(map: gum, field: 'coverage_probability', label: s['p'], onChanged: widget.onChanged),
+        ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(s['higher_order']),
+          value: gum['higher_order'] == true,
+          onChanged: (v) => _edit(() => gum['higher_order'] = v),
+        ),
+        Section(s['mcm']),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(s['mcm_on']),
+          value: mcmOn,
+          onChanged: (v) => _edit(() => _analysis['mcm'] = v ? <String, dynamic>{'trials': 1000000} : null),
+        ),
+      ]);
+      if (mcmOn) {
+        final mcm = (_analysis['mcm'] ??= <String, dynamic>{}) as Map<String, dynamic>;
+        final adaptive = mcm['adaptive'] != null;
+        children.addAll([
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(s['adaptive']),
+            value: adaptive,
+            onChanged: (v) => _edit(() {
+              if (v) {
+                mcm['adaptive'] = <String, dynamic>{'ndig': 2};
+              } else {
+                mcm.remove('adaptive');
+              }
+            }),
+          ),
+          Wrap(spacing: 12, runSpacing: 8, children: [
+            if (!adaptive) NumberField(map: mcm, field: 'trials', label: s['trials'], integer: true, onChanged: widget.onChanged),
+            if (adaptive)
+              NumberField(map: mcm['adaptive'] as Map<String, dynamic>, field: 'ndig', label: 'n_dig', integer: true, onChanged: widget.onChanged),
+            NumberField(map: mcm, field: 'seed', label: s['seed'], integer: true, onChanged: widget.onChanged),
+            SizedBox(
+              width: 260,
+              child: DropdownButtonFormField<String>(
+                initialValue: (mcm['interval'] as String?) ?? 'shortest',
+                decoration: InputDecoration(labelText: s['interval'], isDense: true),
+                items: [
+                  DropdownMenuItem(value: 'shortest', child: Text(s['shortest'])),
+                  DropdownMenuItem(value: 'symmetric', child: Text(s['symmetric'])),
+                ],
+                onChanged: (v) => _edit(() => mcm['interval'] = v),
+              ),
+            ),
+          ]),
+        ]);
+      }
+    }
+    children.addAll([
+      Section(s['reporting']),
+      Wrap(spacing: 12, runSpacing: 8, children: [
+        NumberField(map: _reporting, field: 'significant_digits', label: s['sig_digits'], integer: true, onChanged: widget.onChanged),
+        SizedBox(
+          width: 260,
+          child: DropdownButtonFormField<String>(
+            initialValue: (_reporting['rounding'] as String?) ?? 'half_even',
+            decoration: InputDecoration(labelText: s['rounding'], isDense: true),
+            items: [
+              for (final r in ['half_even', 'half_up', 'up']) DropdownMenuItem(value: r, child: Text(s[r])),
+            ],
+            onChanged: (v) => _edit(() => _reporting['rounding'] = v),
+          ),
+        ),
+      ]),
+    ]);
+    return ListView(padding: const EdgeInsets.fromLTRB(16, 8, 16, 96), children: children);
+  }
+}

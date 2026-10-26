@@ -1,0 +1,37 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart' show rootBundle;
+
+/// One validated example of the library bundled with the application.
+class LibraryEntry {
+  LibraryEntry(this.path, this.project);
+  final String path;
+  final Map<String, dynamic> project;
+
+  Map<String, dynamic> get metadata => (project['metadata'] as Map).cast<String, dynamic>();
+  String get id => (metadata['id'] ?? path).toString();
+  String? get field => metadata['field'] as String?;
+  bool get isTopDown => project.containsKey('topdown');
+
+  /// Title, description and id in both languages, for searching.
+  String get searchText => [
+        id,
+        jsonEncode(metadata['title']),
+        jsonEncode(metadata['description']),
+        (metadata['tags'] as List?)?.join(' ') ?? '',
+      ].join(' ').toLowerCase();
+}
+
+/// Loads assets/library.json (written by tool/bundle_library.dart).
+Future<List<LibraryEntry>> loadLibrary() async {
+  final text = await rootBundle.loadString('assets/library.json');
+  final items = jsonDecode(text) as List;
+  return [
+    for (final i in items)
+      LibraryEntry((i as Map)['path'] as String, (i['project'] as Map).cast<String, dynamic>()),
+  ];
+}
+
+/// A deep copy of a JSON value, so that editing a project never changes the
+/// library entry it came from.
+T deepCopy<T>(T value) => jsonDecode(jsonEncode(value)) as T;

@@ -105,8 +105,9 @@ pub unsafe extern "C" fn uc_validate(project_json: *const c_char) -> *mut c_char
 /// Evaluates a project. `options` (JSON, may be null):
 /// `{"lang": "en"|"tr", "skip_mcm": bool, "trials": n, "seed": s,
 ///   "markdown": bool, "html": bool, "generated": "date text"}`.
-/// The response holds `results` (as `uncertainty run --format json`),
-/// `checks`, and the requested reports.
+/// The response holds `results` (as `uncertainty run --format json`,
+/// including the comparison with reference values), `reported` (the result
+/// statements in the requested language) and the requested reports.
 ///
 /// # Safety
 /// Both arguments must be null or valid NUL-terminated strings.
@@ -151,7 +152,11 @@ fn evaluate(text: Result<String, String>, opts: Result<String, String>) -> Value
         Err(e) => return error(e.to_string()),
     };
     let generated = opts.get("generated").and_then(Value::as_str);
-    let mut out = json!({ "ok": true, "results": project::results_json(&p, &e) });
+    let mut out = json!({
+        "ok": true,
+        "results": project::results_json(&p, &e),
+        "reported": report::reported_statements(&p, &e, lang),
+    });
     if opts.get("markdown").and_then(Value::as_bool).unwrap_or(false) {
         out["markdown"] = json!(report::markdown(&p, &e, lang, generated));
     }
@@ -195,6 +200,7 @@ mod tests {
             let r = call(unsafe { uc_evaluate(project.as_ptr(), opts.as_ptr()) });
             assert_eq!(r["ok"], true, "{r}");
             assert!(r["html"].as_str().unwrap().contains("<svg"));
+            assert!(!r["reported"].as_array().unwrap().is_empty());
         }
         let k = CString::new("model").unwrap();
         let t = call(unsafe { uc_template(k.as_ptr()) });
