@@ -170,6 +170,7 @@ ISO 13528:2022 E.4 (IMEP 111): bir referans değere ve amaca uygun σ_pt'ye kar�
 **Notlar:**
 
 - Tablo E.6, bildirilen belirsizlikleri '9.8'de tartışılan ölçütlere göre' a/b/c olarak işaretler; ancak bayraklar u_min = u(x_pt) = 0,0041 mg/kg (9.8.3) ile yeniden üretilemez: L05 (u = 0,0035) ve L09 (u = 0,0040) 'a' olarak işaretlenmiştir. Bayraklar 0,0018 ile 0,0035 mg/kg arasında bir alt sınıra (belki homojensizlik içermeyen karakterizasyon belirsizliği) ve 0,005 ile 0,015 mg/kg arasında bir üst sınıra (1,5σ_pt = 0,0099 ile tutarlı) işaret eder. Bu nedenle bayraklar burada kontrol edilmemiştir.
+- ISO 13528 E.7 bu turu referans değeri uzlaşma değeriyle karşılaştırmak için kullanır: 21 sayısal sonuca Algoritma A x* = 0,03161 ve s* = 0,0164 mg/kg verir (yeniden üretildi), u(x*) = 1,25 s*/√21 = 0,0045, u_fark = √(0,0041² + 0,0045²) = 0,0061 mg/kg ve x_ref − x* = 0,012 mg/kg, u_fark'ın yaklaşık iki katıdır (7.8, Formül 7).
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang tr`
 

@@ -49,6 +49,10 @@
       {
         "en": "Table E.6 flags the reported uncertainties a/b/c 'following criteria discussed in 9.8', but the flags are not reproduced with u_min = u(x_pt) = 0.0041 mg/kg (9.8.3): L05 (u = 0.0035) and L09 (u = 0.0040) are flagged 'a'. The flags imply a lower limit between 0.0018 and 0.0035 mg/kg (possibly the characterisation uncertainty without inhomogeneity) and an upper limit between 0.005 and 0.015 mg/kg (consistent with 1.5σ_pt = 0.0099). The flags are therefore not checked here.",
         "tr": "Tablo E.6, bildirilen belirsizlikleri '9.8'de tartışılan ölçütlere göre' a/b/c olarak işaretler; ancak bayraklar u_min = u(x_pt) = 0,0041 mg/kg (9.8.3) ile yeniden üretilemez: L05 (u = 0,0035) ve L09 (u = 0,0040) 'a' olarak işaretlenmiştir. Bayraklar 0,0018 ile 0,0035 mg/kg arasında bir alt sınıra (belki homojensizlik içermeyen karakterizasyon belirsizliği) ve 0,005 ile 0,015 mg/kg arasında bir üst sınıra (1,5σ_pt = 0,0099 ile tutarlı) işaret eder. Bu nedenle bayraklar burada kontrol edilmemiştir."
+      },
+      {
+        "en": "ISO 13528 E.7 uses this round to compare the reference value with the consensus: Algorithm A on the 21 numerical results gives x* = 0.03161 and s* = 0.0164 mg/kg (reproduced), u(x*) = 1.25 s*/√21 = 0.0045, u_diff = √(0.0041² + 0.0045²) = 0.0061 mg/kg, and x_ref − x* = 0.012 mg/kg, about twice u_diff (7.8, Formula 7).",
+        "tr": "ISO 13528 E.7 bu turu referans değeri uzlaşma değeriyle karşılaştırmak için kullanır: 21 sayısal sonuca Algoritma A x* = 0,03161 ve s* = 0,0164 mg/kg verir (yeniden üretildi), u(x*) = 1,25 s*/√21 = 0,0045, u_fark = √(0,0041² + 0,0045²) = 0,0061 mg/kg ve x_ref − x* = 0,012 mg/kg, u_fark'ın yaklaşık iki katıdır (7.8, Formül 7)."
       }
     ]
   },
@@ -798,11 +802,19 @@
             "tolerance": 0.0051
           }
         }
+      },
+      "robust_mean": {
+        "value": 0.03161,
+        "tolerance": 5e-06
+      },
+      "robust_sd": {
+        "value": 0.0164,
+        "tolerance": 5e-05
       }
     },
     "reference": {
-      "en": "ISO 13528:2022 Table E.7 (D %, PA, z, z′, ζ and E_n of the 21 numerical results; tolerances half a unit of the printed digit).",
-      "tr": "ISO 13528:2022 Tablo E.7 (21 sayısal sonucun D %, PA, z, z′, ζ ve E_n değerleri; toleranslar basılı son basamağın yarım birimi)."
+      "en": "ISO 13528:2022 Table E.7 (D %, PA, z, z′, ζ and E_n of the 21 numerical results; tolerances half a unit of the printed digit). Robust x* and s* from E.7.",
+      "tr": "ISO 13528:2022 Tablo E.7 (21 sayısal sonucun D %, PA, z, z′, ζ ve E_n değerleri; toleranslar basılı son basamağın yarım birimi). Robust x* ve s*, E.7'den."
     }
   }
 }

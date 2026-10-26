@@ -170,6 +170,7 @@ ISO 13528:2022 E.4 (IMEP 111): scores of 21 laboratories against a reference val
 **Notes:**
 
 - Table E.6 flags the reported uncertainties a/b/c 'following criteria discussed in 9.8', but the flags are not reproduced with u_min = u(x_pt) = 0.0041 mg/kg (9.8.3): L05 (u = 0.0035) and L09 (u = 0.0040) are flagged 'a'. The flags imply a lower limit between 0.0018 and 0.0035 mg/kg (possibly the characterisation uncertainty without inhomogeneity) and an upper limit between 0.005 and 0.015 mg/kg (consistent with 1.5σ_pt = 0.0099). The flags are therefore not checked here.
+- ISO 13528 E.7 uses this round to compare the reference value with the consensus: Algorithm A on the 21 numerical results gives x* = 0.03161 and s* = 0.0164 mg/kg (reproduced), u(x*) = 1.25 s*/√21 = 0.0045, u_diff = √(0.0041² + 0.0045²) = 0.0061 mg/kg, and x_ref − x* = 0.012 mg/kg, about twice u_diff (7.8, Formula 7).
 
 **Run:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang en`
 

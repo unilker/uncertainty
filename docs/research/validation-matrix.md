@@ -135,6 +135,7 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | ISO13528-E.4 | mercury, reference value, 21 laboratories | D %, PA, z, z′, ζ, E_n (126 values) | same | ✅ (flags: F36) |
 | ISO13528-B.1 | factors F₁, F₂ | Table B.1 (g = 7 … 20) | from χ² and F quantiles | ✅ |
 | ISO13528-E.1 | 23 results, 5 censored, Algorithm A | ‘<’ ignored 26.01/7.23; deleted 26.81/5.29; 0.5 × limit 23.95/8.60 | same; 0.5 × limit converged 23.959/8.600 | ✅ (F44) |
+| ISO13528-E.7 | robust mean of E.4 vs reference value | x* 0.03161, s* 0.0164 (21 results) | same | ✅ |
 | ISO13528-E.5 | reference value from a CRM, 20 paired samples | d 1.73, s 1.07, u(d) 0.24; x_pt 23.35, u 0.35 | same | ✅ |
 
 ## ISO 21748:2017 Annex C and ISO 5725-3:2023 Annex J — library projects
