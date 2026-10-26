@@ -16,6 +16,7 @@ USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm]
     uncertainty template [--topdown]
+    uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
 RUN OPTIONS:
@@ -30,6 +31,10 @@ CHECK:
     Runs every project file (directories are searched recursively for *.json)
     and compares the results with the reference values stored in the file.
     The exit status is 1 if any comparison fails.
+
+CATALOGUE:
+    Writes the worked-examples chapter of the user guide (Markdown) from the
+    given project files, recomputing every result (without Monte Carlo).
 
 TEMPLATE:
     Prints a minimal project file to start from: a measurement model, or with
@@ -115,6 +120,7 @@ fn main() -> ExitCode {
         }
         Some("run") => cmd_run(&args[1..]),
         Some("check") => cmd_check(&args[1..]),
+        Some("catalogue" | "catalog") => cmd_catalogue(&args[1..]),
         Some(other) => Err(format!("unknown command '{other}' (see uncertainty --help)")),
     };
     match result {
@@ -256,6 +262,38 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
     }
     println!("\n{passed} passed, {failed} failed, {without} without reference values ({} files)", files.len());
     Ok(failed == 0)
+}
+
+fn cmd_catalogue(args: &[String]) -> Result<bool, String> {
+    let mut lang = Lang::En;
+    let mut output: Option<PathBuf> = None;
+    let mut files = Vec::new();
+    let mut i = 0;
+    while i < args.len() {
+        match args[i].as_str() {
+            "--lang" => lang = value(args, &mut i, "--lang")?.parse()?,
+            "--output" | "-o" => output = Some(value(args, &mut i, "--output")?.into()),
+            o if o.starts_with('-') => return Err(format!("unknown option '{o}'")),
+            p => collect(Path::new(p), &mut files)?,
+        }
+        i += 1;
+    }
+    if files.is_empty() {
+        return Err("catalogue needs at least one file or directory".into());
+    }
+    let ov = Overrides { skip_mcm: true, ..Overrides::default() };
+    let mut items = Vec::new();
+    for f in &files {
+        let p = load(f)?;
+        let e = project::run(&p, &ov).map_err(|e| format!("{}: {e}", f.display()))?;
+        items.push((f.display().to_string().replace('\\', "/"), p, e));
+    }
+    let text = report::catalogue(&items, lang);
+    match output {
+        Some(path) => std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?,
+        None => print!("{text}"),
+    }
+    Ok(true)
 }
 
 /// Today's date (UTC) as YYYY-MM-DD, from the system clock.

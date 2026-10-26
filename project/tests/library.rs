@@ -53,3 +53,30 @@ fn every_library_example_reproduces_its_reference_values() {
     }
     assert!(failures.is_empty(), "{} failures:\n{}", failures.len(), failures.join("\n"));
 }
+
+/// The worked-examples chapter of the user guide must match the library.
+#[test]
+fn guide_catalogue_is_up_to_date() {
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let mut files = Vec::new();
+    collect(&repo.join("library"), &mut files);
+    let ov = Overrides { skip_mcm: true, ..Overrides::default() };
+    let items: Vec<_> = files
+        .iter()
+        .map(|f| {
+            let p = parse(&std::fs::read_to_string(f).unwrap()).unwrap();
+            let e = run(&p, &ov).unwrap();
+            let rel = f.strip_prefix(&repo).unwrap().to_string_lossy().replace('\\', "/");
+            (rel, p, e)
+        })
+        .collect();
+    for (lang, code) in [(Lang::En, "en"), (Lang::Tr, "tr")] {
+        let path = repo.join(format!("docs/guide/{code}/examples.md"));
+        let committed = std::fs::read_to_string(&path).unwrap_or_default();
+        assert!(
+            committed == report::catalogue(&items, lang),
+            "{} is out of date: run `uncertainty catalogue library --lang {code} -o docs/guide/{code}/examples.md`",
+            path.display()
+        );
+    }
+}

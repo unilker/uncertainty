@@ -754,6 +754,30 @@ fn range_text(r: &LevelRange, lang: Lang) -> String {
     }
 }
 
+/// The reported result at each level of a top-down evaluation.
+fn topdown_statements(p: &Project, t: &TopDownAnalysis, lang: Lang) -> Vec<String> {
+    let Some(spec) = p.topdown.as_ref() else { return Vec::new() };
+    let unit = spec.unit.clone().map(|u| format!(" {u}")).unwrap_or_default();
+    let k = fmt_num(t.coverage_factor, 3, lang);
+    t.levels
+        .iter()
+        .map(|lv| match (lv.value, lv.expanded_uncertainty) {
+            (Some(v), Some(big)) => {
+                let (vs, us) = round_reported(v, big, &p.reporting, lang);
+                format!("{} = ({vs} ± {us}){unit} (k = {k})", spec.quantity)
+            }
+            _ => {
+                let (_, us) = round_reported(0.0, 100.0 * lv.relative_expanded, &p.reporting, lang);
+                let pct = match lang {
+                    Lang::En => format!("{us} %"),
+                    Lang::Tr => format!("%{us}"),
+                };
+                format!("U = {pct} (k = {k}), {}", td_labels(lang).relative_statement)
+            }
+        })
+        .collect()
+}
+
 /// s(c) of a level-dependent precision model, e.g. "0.0233 + 0.0128·c".
 fn model_text(m: &LevelModel, lang: Lang) -> String {
     let n = |x: f64| fmt_num(x, 4, lang);
@@ -989,21 +1013,8 @@ fn topdown_markdown(
         let _ = writeln!(s, "{}\n", d.corrected_note);
     }
     let _ = writeln!(s, "**{}:**\n", l.reported);
-    for lv in &t.levels {
-        match (lv.value, lv.expanded_uncertainty) {
-            (Some(v), Some(big)) => {
-                let (vs, us) = round_reported(v, big, &p.reporting, lang);
-                let _ = writeln!(s, "- {} = ({vs} ± {us}){unit} (k = {k})", spec.quantity);
-            }
-            _ => {
-                let (_, us) = round_reported(0.0, 100.0 * lv.relative_expanded, &p.reporting, lang);
-                let pct = match lang {
-                    Lang::En => format!("{us} %"),
-                    Lang::Tr => format!("%{us}"),
-                };
-                let _ = writeln!(s, "- U = {pct} (k = {k}), {}", d.relative_statement);
-            }
-        }
+    for st in topdown_statements(p, t, lang) {
+        let _ = writeln!(s, "- {st}");
     }
     let _ = writeln!(s);
     if t.budget.len() > 1 {
@@ -1192,6 +1203,148 @@ fn histogram_svg(a: &Analysis, lang: Lang) -> Option<String> {
     );
     s.push_str("</svg>");
     Some(s)
+}
+
+// ---------------------------------------------------------------------------
+// Catalogue of worked examples (user guide)
+// ---------------------------------------------------------------------------
+
+/// Name of a field of metrology.
+pub fn field_name(field: &str, lang: Lang) -> String {
+    let (en, tr) = match field {
+        "chemistry" => ("Chemistry", "Kimya"),
+        "electrical" => ("Electrical and RF", "Elektrik ve RF"),
+        "flow" => ("Flow and volume", "Akış ve hacim"),
+        "general" => ("General (method validation)", "Genel (yöntem doğrulama)"),
+        "length" => ("Length", "Uzunluk"),
+        "mass" => ("Mass", "Kütle"),
+        "temperature" => ("Temperature", "Sıcaklık"),
+        other => (other, other),
+    };
+    match lang {
+        Lang::En => en.to_string(),
+        Lang::Tr => tr.to_string(),
+    }
+}
+
+/// A Markdown catalogue of worked examples: for each project its source,
+/// approach, step-by-step explanation, reported result (recomputed) and
+/// notes. `items` are (path, project, evaluation); the evaluations should be
+/// run without the Monte Carlo method so that the text is reproducible on
+/// every platform.
+pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String {
+    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l) = match lang {
+        Lang::En => (
+            "Worked examples",
+            "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
+             every result is recomputed by the program from the inputs stored in the project file, and the test suite \
+             fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them \
+             together with the full budget, charts and the comparison with the published reference values.",
+            "Approach",
+            "Steps",
+            "Result",
+            "Notes",
+            "Run",
+            "GUM uncertainty framework (JCGM 100)",
+            "top-down (validation and quality-control data)",
+            "and Monte Carlo method (JCGM 101)",
+        ),
+        Lang::Tr => (
+            "Çözümlü örnekler",
+            "Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; \
+             her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel \
+             değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve \
+             yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.",
+            "Yaklaşım",
+            "Adımlar",
+            "Sonuç",
+            "Notlar",
+            "Çalıştırma",
+            "GUM belirsizlik yaklaşımı (JCGM 100)",
+            "top-down (validasyon ve kalite kontrol verileri)",
+            "ve Monte Carlo yöntemi (JCGM 101)",
+        ),
+    };
+    let mut sorted: Vec<&(String, Project, Evaluation)> = items.iter().collect();
+    sorted.sort_by(|a, b| {
+        let key = |x: &(String, Project, Evaluation)| {
+            (
+                x.1.metadata.field.clone().unwrap_or_default(),
+                x.1.topdown.is_some(),
+                x.1.metadata.id.clone().unwrap_or_default(),
+            )
+        };
+        key(a).cmp(&key(b))
+    });
+    let mut s = String::new();
+    let _ = writeln!(s, "# {title}\n\n{intro}\n");
+    let mut fields: Vec<String> = sorted.iter().map(|x| x.1.metadata.field.clone().unwrap_or_default()).collect();
+    fields.dedup();
+    for f in &fields {
+        let n = sorted.iter().filter(|x| x.1.metadata.field.as_deref().unwrap_or("") == f).count();
+        let _ = writeln!(s, "- {} ({n})", field_name(f, lang));
+    }
+    let _ = writeln!(s);
+    let mut current = None;
+    for (path, p, e) in sorted {
+        let field = p.metadata.field.clone().unwrap_or_default();
+        if current.as_ref() != Some(&field) {
+            let _ = writeln!(s, "## {}\n", field_name(&field, lang));
+            current = Some(field);
+        }
+        let id = p.metadata.id.clone().unwrap_or_default();
+        let _ = writeln!(s, "### {}\n", p.metadata.title.get(lang));
+        let srcs: Vec<String> = p
+            .metadata
+            .sources
+            .iter()
+            .map(|x| match &x.section {
+                Some(sec) => format!("{}, {sec}", x.document.split(',').next().unwrap_or(&x.document)),
+                None => x.document.clone(),
+            })
+            .collect();
+        let _ = writeln!(s, "`{id}` — {}\n", srcs.join("; "));
+        if let Some(d) = &p.metadata.description {
+            let _ = writeln!(s, "{}\n", d.get(lang));
+        }
+        let approach = match e {
+            Evaluation::Model(a) if a.mcm.is_some() || p.analysis.mcm.is_some() => format!("{gum_l} {mcm_l}"),
+            Evaluation::Model(_) => gum_l.to_string(),
+            Evaluation::TopDown(_) => td_l.to_string(),
+        };
+        let _ = writeln!(s, "**{approach_l}:** {approach}\n");
+        if !p.metadata.explanation.is_empty() {
+            let _ = writeln!(s, "**{steps_l}:**\n");
+            for (i, x) in p.metadata.explanation.iter().enumerate() {
+                let _ = writeln!(s, "{}. {}", i + 1, x.get(lang));
+            }
+            let _ = writeln!(s);
+        }
+        let results: Vec<String> = match e {
+            Evaluation::Model(a) => statement(p, a, lang).into_iter().collect(),
+            Evaluation::TopDown(t) => topdown_statements(p, t, lang),
+        };
+        if !results.is_empty() {
+            let _ = writeln!(s, "**{result_l}:**\n");
+            for r in results {
+                let _ = writeln!(s, "- {r}");
+            }
+            let _ = writeln!(s);
+        }
+        if !p.metadata.notes.is_empty() {
+            let _ = writeln!(s, "**{notes_l}:**\n");
+            for x in &p.metadata.notes {
+                let _ = writeln!(s, "- {}", x.get(lang));
+            }
+            let _ = writeln!(s);
+        }
+        let code = match lang {
+            Lang::En => "en",
+            Lang::Tr => "tr",
+        };
+        let _ = writeln!(s, "**{run_l}:** `uncertainty run {path} --lang {code}`\n");
+    }
+    s
 }
 
 /// Converts the Markdown subset produced by [`markdown`] to HTML.

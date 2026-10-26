@@ -60,6 +60,16 @@ $B run my.json --format json --no-mcm                   # machine-readable resul
 $B check library                                        # re-verify all examples / tüm örnekleri doğrula
 ```
 
+## User guide / Kullanım rehberi
+
+[docs/guide](docs/guide/README.md) — in English and Turkish: getting started, the GUM uncertainty framework,
+the Monte Carlo method, top-down evaluation, reporting, the project file reference, an English–Turkish
+glossary and all library examples with their results recomputed by the program.
+
+İngilizce ve Türkçe: başlarken, GUM belirsizlik yaklaşımı, Monte Carlo yöntemi, top-down değerlendirme,
+raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük ve sonuçları program tarafından yeniden
+hesaplanan tüm kütüphane örnekleri.
+
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an

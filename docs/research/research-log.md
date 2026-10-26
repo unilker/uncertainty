@@ -562,3 +562,18 @@ s(c) = √(s₀² + (c·s′₁)²) (MUPR Eq. A.1). They are evaluated at each l
 and divided by R̄ for recovery-corrected results (D18). The library gains
 MUPR B3 from the raw points of Table B3.1 (U = 7.27 mg/L; printed 7.28 with
 the intercept rounded to 0.0233).
+
+**D21. User guide (docs/guide, EN and TR).** Eight hand-written chapters per
+language — introduction, getting started, GUM framework, Monte Carlo method,
+top-down evaluation, reporting, project-file reference, English–Turkish
+glossary — and a ninth, *Worked examples*, generated from the library by
+`uncertainty catalogue` (results recomputed without Monte Carlo so that the
+text is identical on every platform). A test fails if the generated chapter
+is out of date, so the guide cannot drift from the program. Every statement
+about the program in the guide was checked against the code (supported
+functions, defaults, distribution formulas, the behaviour of `"gum": null`).
+The method chapters cite clause numbers of the reference documents, so they
+double as a compact guide to uncertainty evaluation; they will be the basis
+of the in-app help of the graphical interface. The Turkish terminology
+(glossary) remains to be confirmed against UME/TSE usage
+(documents-needed.md §E).

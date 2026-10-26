@@ -1,0 +1,55 @@
+# 8. Sözlük (İngilizce–Türkçe)
+
+Program ve bu rehberde kullanılan terimler. Tanımlar Uluslararası Metroloji Sözlüğü (JCGM 200:2012, VIM) ve
+GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlarda tutarlı olarak kullanılır.
+
+| English | Türkçe | Not |
+|---|---|---|
+| measurand | ölçülen büyüklük | VIM 2.3 |
+| measurement model | ölçüm modeli | VIM 2.48 |
+| input quantity / output quantity | girdi büyüklüğü / çıktı büyüklüğü | VIM 2.50, 2.51 |
+| estimate | tahmin | |
+| measurement uncertainty | ölçüm belirsizliği | VIM 2.26 |
+| standard uncertainty | standart belirsizlik | VIM 2.30 |
+| combined standard uncertainty | birleşik standart belirsizlik | VIM 2.31 |
+| expanded uncertainty | genişletilmiş belirsizlik | VIM 2.35 |
+| relative standard uncertainty | bağıl standart belirsizlik | VIM 2.32 |
+| coverage factor | kapsam faktörü | VIM 2.38 |
+| coverage probability | kapsam olasılığı | VIM 2.37 |
+| coverage interval | kapsam aralığı | VIM 2.36 |
+| shortest / probabilistically symmetric coverage interval | en kısa / olasılıksal simetrik kapsam aralığı | JCGM 101 |
+| Type A / Type B evaluation | A tipi / B tipi değerlendirme | VIM 2.28, 2.29 |
+| uncertainty budget | belirsizlik bütçesi | VIM 2.33 |
+| sensitivity coefficient | duyarlılık katsayısı | GUM 5.1.3 |
+| uncertainty contribution | belirsizlik katkısı | |
+| share of variance | varyans payı | |
+| degrees of freedom / effective degrees of freedom | serbestlik derecesi / etkin serbestlik derecesi | GUM G.4 |
+| law of propagation of uncertainty | belirsizliğin yayılımı yasası | GUM 5.1.2 |
+| propagation of distributions | dağılımların yayılımı | JCGM 101 |
+| probability distribution | olasılık dağılımı | |
+| normal (Gaussian), rectangular, triangular, trapezoidal, arc sine | normal (Gauss), dikdörtgen, üçgen, yamuk, ark sinüs (U biçimli) | |
+| curvilinear trapezoid | eğrisel yamuk | JCGM 101 6.4.3 |
+| correlation coefficient / covariance | korelasyon katsayısı / kovaryans | |
+| Monte Carlo trial | Monte Carlo denemesi | |
+| adaptive Monte Carlo procedure | uyarlamalı Monte Carlo yöntemi | JCGM 101 7.9 |
+| numerical tolerance | sayısal tolerans | JCGM 101 8.2 |
+| validation (of the GUM result) | (GUM sonucunun) doğrulanması | JCGM 101 Madde 8 |
+| precision / trueness / accuracy | kesinlik / gerçeklik / doğruluk | VIM 2.15, 2.14, 2.13 |
+| bias | sapma (bias) | VIM 2.18 |
+| repeatability | tekrarlanabilirlik | VIM 2.21 |
+| intermediate precision | ara kesinlik | VIM 2.22 |
+| within-laboratory reproducibility | laboratuvar içi tekrarüretilebilirlik | Nordtest |
+| reproducibility | tekrarüretilebilirlik | VIM 2.25 |
+| recovery | geri kazanım | |
+| spike / spiked sample | katkı / katkılı numune | |
+| certified reference material (CRM) | sertifikalı referans malzeme (SRM) | VIM 5.14 |
+| proficiency test (PT) | yeterlilik testi (YT) | |
+| assigned value | atanan değer | |
+| control chart / control sample | kontrol grafiği / kontrol numunesi | |
+| duplicate | mükerrer (ölçüm) | |
+| pooled standard deviation | birleştirilmiş standart sapma | |
+| calibration | kalibrasyon | VIM 2.39 |
+| metrological traceability | metrolojik izlenebilirlik | VIM 2.41 |
+| limit of quantification | tayin sınırı | |
+| dilution factor | seyreltme faktörü | |
+| top-down / bottom-up evaluation | yukarıdan aşağı (top-down) / aşağıdan yukarı (bottom-up) değerlendirme | |
