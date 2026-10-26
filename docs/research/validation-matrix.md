@@ -247,6 +247,26 @@ Table 9 (raw data only in the electronic supplement).
 | TR569-E12 | 3 × 8 replicate control results | s_r 0.15 (Eq. 10), s_Rw 0.270 (simplified), 0.272 (ANOVA; footnote: s_r 0.1541, s_I 0.2246) | 0.1541, 0.2705, 0.2724 (s_r 0.1541, s_I 0.2247) | ✅ (F53) |
 | TR569-9 | daily and statistical-control rules | Chapter 9 | core tests: action limit, two out of three (D43), trend of seven, ten of eleven (Example 4: twelve values on one side) | ✅ (core) |
 
+## UKAS M3003 ed. 6 (2024) — library projects and core tests
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| M3003-B | t-table for p = 68.27, 95, 95.45, 99.73 %; B.10 | table; ν_eff 21.1, k 2.13 | same | ✅ (core) |
+| M3003-C7 | k(95.45 %) for rectangular ⊛ normal, u_N/u_R = 0 … 2.5 | 26 values, 1.65 … 2.00 | all within ±0.005 | ✅ (core) |
+| M3003-C5 | DVM with dominant resolution | u_c 0.305 mV, k 1.77, U 0.54 mV | same; MCM interval ±0.54 mV, validated | ✅ |
+| M3003-K1 | 10 kΩ resistor | u_c 0.445 ppm; 10 000.1050 Ω ± 0.0089 Ω | same | ✅ |
+| M3003-K2 | power sensor, 18 GHz | u_c 1.69 %, U 3.39 % | same | ✅ |
+| M3003-K3 | 30 dB attenuator | u_c 0.0245 dB, U 0.0491 dB | same (0.024 57); with E5 mismatch 0.0202 dB | ✅ (F57) |
+| M3003-K4 | 10 kg weight | u_c 24.56 mg, U 49.12 mg | same | ✅ (F55) |
+| M3003-K5 | weighing machine, 200 g | u_c 0.150 mg, U 0.300 mg, +0.10 mg | 0.153 mg, 0.306 mg, −0.10 mg | ❌ printed (F56) |
+| M3003-K6 | 10 mm gauge block | u_c 40.7 nm, U 81.5 nm | same; with the model's temperature terms 41.0 nm | ✅ (F58) |
+| M3003-K7 | N-type thermocouple, 1000 °C | u_c(t) 0.641 °C; u_c(V) 25.9 µV, U 51.9 µV, 36 230 µV | 0.641; 25.84, 51.7, 36 228.8 | ✅ (F59) |
+| M3003-K8 | DPI at 2 MPa | u_c 43.0 ppm, U 86.0 ppm, +17 ppm | same | ✅ (F60) |
+| M3003-K9 | flowrate at standard conditions | 12.53 L/s, u_c 0.275, ν_eff 130, U 0.55 | same | ✅ |
+| M3003-K10 | sheet thickness | 1.514 mm, u_c 0.009 63 mm, ν_eff 50, U 0.019 mm | same | ✅ |
+| M3003-K11 | PT100 probe; gas temperature | u_c 0.042 25 °C; 22.97 °C, u_c 0.086 38 °C | same; 0.086 35 °C | ✅ |
+| M3003-L3 | DMM, 1 V range | 0.95 V: u_c 5.37 µV; 500 mV: U 6.2 µV; 1 V: k 1.898 | same | ✅ (F61) |
+
 ## Uncorrected bias (Magnusson & Ellison 2008) — core tests
 
 | ID | Claim | Published | Engine | Status |

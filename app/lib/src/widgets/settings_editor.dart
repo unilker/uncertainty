@@ -53,6 +53,7 @@ class _SettingsEditorState extends State<SettingsEditor> {
             onSelectionChanged: (v) => _edit(() {
               if (v.first) {
                 gum.remove('coverage_probability');
+                gum.remove('dominant_rectangular');
                 gum['coverage_factor'] = 2;
               } else {
                 gum.remove('coverage_factor');
@@ -67,6 +68,15 @@ class _SettingsEditorState extends State<SettingsEditor> {
                 ? NumberField(map: gum, field: 'coverage_factor', label: s['k'], onChanged: widget.onChanged)
                 : NumberField(map: gum, field: 'coverage_probability', label: s['p'], onChanged: widget.onChanged),
           ),
+          if (!byFactor)
+            SwitchListTile(
+              key: const Key('dominant-rectangular'),
+              contentPadding: EdgeInsets.zero,
+              title: Text(s['dominant_rectangular']),
+              subtitle: Text(s['dominant_rectangular_help']),
+              value: gum['dominant_rectangular'] == true,
+              onChanged: (v) => _edit(() => v ? gum['dominant_rectangular'] = true : gum.remove('dominant_rectangular')),
+            ),
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(s['higher_order']),

@@ -1,0 +1,375 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k7-thermocouple-emf",
+    "title": {
+      "en": "N-type thermocouple at 1000 °C: EMF with its full budget (UKAS M3003 K.7)",
+      "tr": "1000 °C'de N tipi termoçift: tam bütçesiyle EMK (UKAS M3003 K.7)"
+    },
+    "description": {
+      "en": "Both budgets of K.7 in one model: the furnace temperature enters the EMF of the unknown thermocouple through its sensitivity 1/c_X = 38.5 µV/°C.",
+      "tr": "K.7'nin iki bütçesi tek modelde: fırın sıcaklığı bilinmeyen termoçiftin EMK'sına 1/c_X = 38,5 µV/°C duyarlılığıyla girer."
+    },
+    "explanation": [
+      {
+        "en": "An N-type thermocouple is compared with two R-type reference thermocouples at 1000 °C; four readings each with reversed polarity give 10 502.5 µV and 10 504.0 µV (1000.4 °C and 1000.6 °C) for the standards and 36 248 µV for the unknown.",
+        "tr": "N tipi bir termoçift 1000 °C'de iki R tipi referans termoçiftle karşılaştırılır; ters çevrilmiş kutuplamayla dörder okuma standartlar için 10 502,5 µV ve 10 504,0 µV (1000,4 °C ve 1000,6 °C), bilinmeyen için 36 248 µV verir."
+      },
+      {
+        "en": "Furnace temperature t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), mean 1000.5 °C; u_c(t_X) = 0.641 °C (K.7.19), dominated by the furnace non-uniformity ±1 °C.",
+        "tr": "Fırın sıcaklığı t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), ortalama 1000,5 °C; u_c(t_X) = 0,641 °C (K.7.19); ±1 °C fırın homojensizliği baskındır."
+      },
+      {
+        "en": "V_X(1000 °C) = V_iX + (1000 °C − t_X)/c_X + δV_iX1 + δV_iX2 + δV_LX + δt_TH/c_X + δV_R − δt_0X/c_X0 + δV_r (K.7.2, K.7.20) with c_X = 0.026 °C/µV and c_X0 = 0.038 °C/µV.",
+        "tr": "V_X(1000 °C) = V_iX + (1000 °C − t_X)/c_X + δV_iX1 + δV_iX2 + δV_LX + δt_TH/c_X + δV_R − δt_0X/c_X0 + δV_r (K.7.2, K.7.20); c_X = 0,026 °C/µV ve c_X0 = 0,038 °C/µV."
+      },
+      {
+        "en": "u_c = 25.8 µV; V_X = 36 230 µV ± 52 µV (k = 2) at 1000 °C with the reference junction at 0 °C.",
+        "tr": "u_c = 25,8 µV; referans bağlantı 0 °C'de iken 1000 °C'de V_X = 36 230 µV ± 52 µV (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.7",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "temperature",
+      "thermocouple",
+      "emf",
+      "intermediate"
+    ],
+    "notes": [
+      {
+        "en": "Research log F59: the reported EMF 36 230 µV is obtained by scaling, 36 248·1000/1000.5, whereas the uncertainty budget uses the thermocouple sensitivity 38.5 µV/°C, which gives 36 248 − 0.5·38.46 = 36 228.8 µV. The printed u_c = 25.9 µV and U = 51.9 µV follow from rounded sensitivities (38.5 and 26.3); the exact ones give 25.84 µV and 51.7 µV.",
+        "tr": "Araştırma günlüğü F59: raporlanan 36 230 µV EMK ölçeklemeyle, 36 248·1000/1000,5, elde edilir; belirsizlik bütçesi ise termoçiftin 38,5 µV/°C duyarlılığını kullanır, bu da 36 248 − 0,5·38,46 = 36 228,8 µV verir. Basılı u_c = 25,9 µV ve U = 51,9 µV yuvarlanmış duyarlılıklardan (38,5 ve 26,3) çıkar; tam değerler 25,84 µV ve 51,7 µV verir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "V_X",
+      "unit": "µV",
+      "expression": "V_iX + (1000 - t_X)/c_X + dV_iX1 + dV_iX2 + dV_LX + dt_TH/c_X + dV_R2 - dt_0X/c_X0 + dV_r",
+      "description": {
+        "en": "EMF of the N-type thermocouple at 1000 °C",
+        "tr": "N tipi termoçiftin 1000 °C'deki EMK'sı"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "t_X",
+        "unit": "°C",
+        "expression": "t_S + c_S*dV_iS1 + c_S*dV_iS2 + c_S*dV_R - c_S/c_S0*dt_0S + dt_D + dt_F + dt_r",
+        "description": {
+          "en": "Furnace temperature (first budget)",
+          "tr": "Fırın sıcaklığı (birinci bütçe)"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "name": "t_S",
+        "description": {
+          "en": "Reference thermocouples, mean of the two (certificate U = 0.3 °C, k = 2)",
+          "tr": "Referans termoçiftler, ikisinin ortalaması (sertifika U = 0,3 °C, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1000.5,
+          "expanded": 0.3,
+          "k": 2
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "c_S",
+        "description": {
+          "en": "Sensitivity of the R-type thermocouple at 1000 °C",
+          "tr": "R tipi termoçiftin 1000 °C'deki duyarlılığı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.077
+        },
+        "unit": "°C/µV"
+      },
+      {
+        "name": "c_S0",
+        "description": {
+          "en": "Sensitivity of the R-type thermocouple at 0 °C",
+          "tr": "R tipi termoçiftin 0 °C'deki duyarlılığı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.189
+        },
+        "unit": "°C/µV"
+      },
+      {
+        "name": "dV_iS1",
+        "description": {
+          "en": "Microvoltmeter calibration (U = 2.0 µV, k = 2)",
+          "tr": "Mikrovoltmetre kalibrasyonu (U = 2,0 µV, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 2.0,
+          "k": 2
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dV_iS2",
+        "description": {
+          "en": "Microvoltmeter resolution (1 µV digit)",
+          "tr": "Mikrovoltmetre çözünürlüğü (1 µV basamak)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dV_R",
+        "description": {
+          "en": "Parasitic voltages of the switch contacts",
+          "tr": "Anahtar kontaklarının parazit gerilimleri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dt_0S",
+        "description": {
+          "en": "Reference junction temperature of the standards",
+          "tr": "Standartların referans bağlantı sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dt_D",
+        "description": {
+          "en": "Drift of the reference thermocouples",
+          "tr": "Referans termoçiftlerin sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.3
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dt_F",
+        "description": {
+          "en": "Non-uniformity of the furnace",
+          "tr": "Fırının homojen olmaması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dt_r",
+        "description": {
+          "en": "Repeatability of the furnace temperature (s = 0.10 °C, ν = 9)",
+          "tr": "Fırın sıcaklığının tekrarlanabilirliği (s = 0,10 °C, ν = 9)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.1,
+          "pooled_dof": 9,
+          "n": 1
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "V_iX",
+        "description": {
+          "en": "Mean indication for the unknown thermocouple",
+          "tr": "Bilinmeyen termoçift için ortalama gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 36248.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "c_X",
+        "description": {
+          "en": "Sensitivity of the N-type thermocouple at 1000 °C",
+          "tr": "N tipi termoçiftin 1000 °C'deki duyarlılığı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.026
+        },
+        "unit": "°C/µV"
+      },
+      {
+        "name": "c_X0",
+        "description": {
+          "en": "Sensitivity of the N-type thermocouple at 0 °C",
+          "tr": "N tipi termoçiftin 0 °C'deki duyarlılığı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.038
+        },
+        "unit": "°C/µV"
+      },
+      {
+        "name": "dV_iX1",
+        "description": {
+          "en": "Microvoltmeter calibration (U = 2.0 µV, k = 2)",
+          "tr": "Mikrovoltmetre kalibrasyonu (U = 2,0 µV, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 2.0,
+          "k": 2
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dV_iX2",
+        "description": {
+          "en": "Microvoltmeter resolution",
+          "tr": "Mikrovoltmetre çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dV_LX",
+        "description": {
+          "en": "Compensating leads",
+          "tr": "Kompanzasyon kabloları"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dt_TH",
+        "description": {
+          "en": "Inhomogeneity of the unknown thermocouple",
+          "tr": "Bilinmeyen termoçiftin homojen olmaması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.3
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dV_R2",
+        "description": {
+          "en": "Switch contacts (reading of the unknown)",
+          "tr": "Anahtar kontakları (bilinmeyenin okuması)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dt_0X",
+        "description": {
+          "en": "Reference junction temperature of the unknown",
+          "tr": "Bilinmeyenin referans bağlantı sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dV_r",
+        "description": {
+          "en": "Repeatability of the voltage (s = 1.6 µV, ν = 9)",
+          "tr": "Gerilimin tekrarlanabilirliği (s = 1,6 µV, ν = 9)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 1.6,
+          "pooled_dof": 9,
+          "n": 1
+        },
+        "unit": "µV"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 36230.0,
+        "tolerance": 5.0
+      },
+      "standard_uncertainty": {
+        "value": 25.9,
+        "tolerance": 0.1
+      },
+      "expanded_uncertainty": {
+        "value": 51.9,
+        "tolerance": 0.3
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.7.20–K.7.21: u_c = 25.9 µV, U = 51.9 µV; 36 230 µV ± 52 µV (the estimate to the printed 10 µV).",
+      "tr": "UKAS M3003 6. baskı K.7.20–K.7.21: u_c = 25,9 µV, U = 51,9 µV; 36 230 µV ± 52 µV (tahmin basılı 10 µV çözünürlükte)."
+    }
+  }
+}

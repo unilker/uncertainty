@@ -313,6 +313,14 @@ class S {
     'p': ['Coverage probability', 'Kapsam olasılığı'],
     'k': ['Coverage factor', 'Kapsam faktörü'],
     'higher_order': ['Second-order terms (GUM 5.1.2 note)', 'İkinci mertebe terimler (GUM 5.1.2 notu)'],
+    'dominant_rectangular': [
+      'Coverage factor for a dominant rectangular term (UKAS M3003 Appendix C)',
+      'Baskın dikdörtgen terim için kapsam faktörü (UKAS M3003 Ek C)',
+    ],
+    'dominant_rectangular_help': [
+      'k from the convolution of the largest rectangular contribution with a normal distribution for the others',
+      'k, en büyük dikdörtgen katkının diğerleri için normal dağılımla konvolüsyonundan',
+    ],
     'gum_on': ['Evaluate with the GUM framework', 'GUM yaklaşımıyla değerlendir'],
     'mcm_on': ['Run the Monte Carlo method', 'Monte Carlo yöntemini çalıştır'],
     'trials': ['Number of trials', 'Deneme sayısı'],

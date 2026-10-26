@@ -32,6 +32,11 @@ pub enum CoverageSpec {
     /// Fixed coverage factor (e.g. k = 2) [GUM 6.3.3]; the reported coverage
     /// probability is then the one implied for a normal distribution.
     Factor(f64),
+    /// Coverage factor for the stated coverage probability from the
+    /// convolution of the largest rectangular contribution with a normal
+    /// distribution for the others [UKAS M3003 ed. 6, Appendix C]; without a
+    /// rectangular input, as `Probability`.
+    DominantRectangular(f64),
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -83,6 +88,9 @@ pub struct GumResult {
     pub interval: (f64, f64),
     pub budget: Vec<BudgetRow>,
     pub warnings: Vec<GumWarning>,
+    /// With [`CoverageSpec::DominantRectangular`]: the rectangular input whose
+    /// contribution was convolved, and u_N/u_R.
+    pub dominant_rectangular: Option<(String, f64)>,
 }
 
 /// A condition the user should know about when reading a GUM result.
@@ -292,7 +300,7 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
             }
             (k, 2.0 * crate::special::normal_cdf(k) - 1.0)
         }
-        CoverageSpec::Probability(p) => {
+        CoverageSpec::Probability(p) | CoverageSpec::DominantRectangular(p) => {
             if !(p > 0.0 && p < 1.0) {
                 return Err(UncError::InvalidOption("coverage probability must lie in (0, 1)".into()));
             }
@@ -304,6 +312,19 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
             (coverage_factor(p, nu_k), p)
         }
     };
+    let mut dominant_rectangular = None;
+    let mut k = k;
+    if let CoverageSpec::DominantRectangular(p) = options.coverage {
+        let largest = (0..n)
+            .filter(|&i| model.inputs[i].distribution.kind() == "rectangular" && ui_y[i] != 0.0)
+            .max_by(|&a, &b| ui_y[a].abs().total_cmp(&ui_y[b].abs()));
+        if let Some(i) = largest {
+            let ur = ui_y[i].abs();
+            let ratio = (combined_var - ur * ur).max(0.0).sqrt() / ur;
+            k = crate::special::rectangular_normal_coverage_factor(p, ratio);
+            dominant_rectangular = Some((model.inputs[i].name.clone(), ratio));
+        }
+    }
     let expanded = k * uc;
 
     let budget = (0..n)
@@ -332,6 +353,7 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         interval: (y - expanded, y + expanded),
         budget,
         warnings,
+        dominant_rectangular,
     })
 }
 

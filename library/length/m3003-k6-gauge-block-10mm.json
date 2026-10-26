@@ -1,0 +1,191 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k6-gauge-block-10mm",
+    "title": {
+      "en": "Grade 2 gauge block of 10 mm (UKAS M3003 K.6)",
+      "tr": "10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6)"
+    },
+    "description": {
+      "en": "Comparison with a standard gauge block; the budget as printed, with the two temperature effects added linearly into one triangular term.",
+      "tr": "Standart mastar blokla karşılaştırma; iki sıcaklık etkisinin doğrusal toplanıp tek üçgen terim yapıldığı basılı bütçe."
+    },
+    "explanation": [
+      {
+        "en": "L_X = L_S + δL_D + ΔL − L(α·Δt + Δα·ΔT) + ΔD_C + δC + L_V(X) + δL_r (K.6.1); grade 2 block of 10 mm against a grade K standard.",
+        "tr": "L_X = L_S + δL_D + ΔL − L(α·Δt + Δα·ΔT) + ΔD_C + δC + L_V(X) + δL_r (K.6.1); 10 mm'lik 2. sınıf blok, K sınıfı standarda karşı."
+      },
+      {
+        "en": "Temperature effects as in K.6.4: ±1.6 nm from Δt and ±4 nm from ΔT, both through Δα = ±2 µm m⁻¹ °C⁻¹, treated as correlated and added: ±5.6 nm, triangular.",
+        "tr": "K.6.4'teki gibi sıcaklık etkileri: Δt'den ±1,6 nm ve ΔT'den ±4 nm, ikisi de Δα = ±2 µm m⁻¹ °C⁻¹ üzerinden, korelasyonlu kabul edilip toplanır: ±5,6 nm, üçgen."
+      },
+      {
+        "en": "u_c = 40.7 nm; L_X = 9.999 940 mm ± 0.081 µm (k = 2).",
+        "tr": "u_c = 40,7 nm; L_X = 9,999 940 mm ± 0,081 µm (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.6",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "length",
+      "gauge-block",
+      "comparator"
+    ],
+    "notes": [
+      {
+        "en": "Research log F58: by the model of K.6.1 the temperature difference Δt acts through the mean expansion coefficient α (L·α = 115 nm/°C, ±9.2 nm), not through Δα; the product Δα·ΔT has zero first-order sensitivity. See m3003-k6-gauge-block-10mm-temperature-model.",
+        "tr": "Araştırma günlüğü F58: K.6.1 modeline göre Δt sıcaklık farkı Δα üzerinden değil ortalama genleşme katsayısı α üzerinden etki eder (L·α = 115 nm/°C, ±9,2 nm); Δα·ΔT çarpımının birinci mertebe duyarlılığı sıfırdır. m3003-k6-gauge-block-10mm-temperature-model projesine bakınız."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "L_X",
+      "unit": "mm",
+      "expression": "L_SdL + dL_D + dD_C + dC + dT_SX + L_V + dL_r",
+      "description": {
+        "en": "Length of the unknown gauge block",
+        "tr": "Bilinmeyen mastar bloğun uzunluğu"
+      }
+    },
+    "inputs": [
+      {
+        "name": "L_SdL",
+        "description": {
+          "en": "L_S + ΔL: certified length of the standard plus the measured difference (only the sum is given, K.6.9); certificate U = 30 nm (k = 2)",
+          "tr": "L_S + ΔL: standardın sertifikalı uzunluğu artı ölçülen fark (yalnızca toplam verilmiştir, K.6.9); sertifika U = 30 nm (k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 9.99994,
+          "expanded": 3e-05,
+          "k": 2
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "dL_D",
+        "description": {
+          "en": "Drift of the standard (±15 nm, triangular)",
+          "tr": "Standardın sürüklenmesi (±15 nm, üçgen)"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 1.5e-05
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "dD_C",
+        "description": {
+          "en": "Comparator discrimination and linearity (±0.05 µm)",
+          "tr": "Karşılaştırıcı ayırma gücü ve doğrusallığı (±0,05 µm)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5e-05
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "dC",
+        "description": {
+          "en": "Difference in elastic compression (±0.005 µm)",
+          "tr": "Elastik sıkışma farkı (±0,005 µm)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5e-06
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "dT_SX",
+        "description": {
+          "en": "Temperature effects, added linearly (±5.6 nm, triangular)",
+          "tr": "Sıcaklık etkileri, doğrusal toplanmış (±5,6 nm, üçgen)"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 5.6e-06
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "L_V",
+        "description": {
+          "en": "Length variation of the unknown block (±42 nm, triangular)",
+          "tr": "Bilinmeyen bloğun uzunluk değişimi (±42 nm, üçgen)"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 4.2e-05
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "dL_r",
+        "description": {
+          "en": "Repeatability (s = 16 nm from 11 earlier measurements, one reading)",
+          "tr": "Tekrarlanabilirlik (11 önceki ölçümden s = 16 nm, tek okuma)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 1.6e-05,
+          "pooled_dof": 10,
+          "n": 1
+        },
+        "unit": "mm"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 9.99994,
+        "tolerance": 5e-09
+      },
+      "standard_uncertainty": {
+        "value": 4.07e-05,
+        "tolerance": 5e-08
+      },
+      "expanded_uncertainty": {
+        "value": 8.15e-05,
+        "tolerance": 5e-08
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.6.10–K.6.11: u_c = 40.7 nm, U = 81.5 nm; 9.999 940 mm ± 0.081 µm.",
+      "tr": "UKAS M3003 6. baskı K.6.10–K.6.11: u_c = 40,7 nm, U = 81,5 nm; 9,999 940 mm ± 0,081 µm."
+    }
+  }
+}

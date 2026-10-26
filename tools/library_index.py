@@ -16,6 +16,7 @@ FIELDS = {
     "length": "Length / Uzunluk",
     "mass": "Mass / Kütle",
     "physical": "Physical properties / Fiziksel özellikler",
+    "pressure": "Pressure / Basınç",
     "temperature": "Temperature / Sıcaklık",
 }
 START = "**"

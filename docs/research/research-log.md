@@ -1376,3 +1376,87 @@ None of these changes a conclusion. In Examples 3 and 8, the s called the
 (Equation 4): 0.559/1.128 = 0.496 and 0.11/1.128 = 0.0975. Table 1 has three
 values outside the warning limits, not four: 65.4 µg/L is just inside the upper
 warning limit of 65.47 µg/L.
+
+## 2026-10-26 (session 15) — UKAS M3003 ed. 6 examples; coverage factor for a dominant rectangular term
+
+**D46. UKAS M3003 ed. 6 (2024) in the library.** M3003 is free from UKAS and
+is the uncertainty guide most accredited calibration laboratories in the UK
+follow. Its Appendix K says the examples "may also be used for the purpose of
+software validation". The library gains 19 projects: K.1–K.11 (K.7 and K.11 as
+both of their budgets), the dominant-term example of Appendix C and three
+points of the range example L.3. Each model is written as the example states
+it, with M3003's distributions and degrees of freedom; Type A terms from an
+earlier evaluation use `type_a_pooled`. Two variants show what the model
+implies where the budget departs from it: K.3 with the mismatch term from
+formula E5 (F57), and K.6 with the temperature terms of its model (F58).
+
+**D47. Coverage factor for a dominant rectangular term (M3003 Appendix C).**
+`analysis.gum.dominant_rectangular` takes the largest rectangular
+contribution u_R, sets u_N = √(u_c² − u_R²) and solves
+P(|R + N| ≤ k u_c) = p for the convolution of a rectangular and a normal
+distribution. The distribution function uses ψ(z) = zΦ(z) + φ(z), and k is
+found by bisection. All 26 entries of the C.7 table (p = 95.45 %) and the
+values of C.8 (k = 1.77) and L.3.20 (k = 1.898) are reproduced to their
+printed decimals. The Appendix B t-table is checked as well. In C.5 the Monte
+Carlo interval agrees with the resulting y ± U (validated, n_dig = 2).
+
+**F55. M3003 K.4.7 — degrees of freedom (class b).** "𝜐 = (𝑚 − 1) = 10" for
+m = 10 comparisons; the budget uses 9.
+
+**F56. M3003 K.5 — combined uncertainty and sign of the result (class c).**
+The u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg)
+combines to 0.153 mg, not the printed 0.150 mg. The printed value would
+follow if the drift limit 0.1 mg were divided by 2 instead of √3. U is
+therefore 0.31 mg, not 0.30 mg. By the model of K.5.1, the error of
+indication is I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while K.5.10
+reports +0.10 mg.
+
+**F57. M3003 K.3 — mismatch term (class c).** K.3.6 gives the coefficients
+for formula E5 of E.9.5 (Γ_G = Γ_L = 0.03, s11a = s11b = 0.05, s22a = 0.05,
+s22b = 0.01, s21a = 1, s21b = 0.31). E5 gives M = 0.0170 dB, but the budget
+uses 0.022 dB. With 0.0170 dB, u_c = 0.0202 dB and U = 0.040 dB instead of
+0.049 dB. Raising Γ_G and Γ_L to 0.036 by E.9.6 gives 0.0209 dB, still not
+0.022 dB. EA-4/02 S7 (the same attenuator) uses 0.020 dB (library project
+`ea402-s7-step-attenuator-30db`).
+
+**F58. M3003 K.6 — temperature terms of the gauge-block model (class c).**
+The model has the term −L(α·Δt + Δα·ΔT). K.6.4 evaluates both influences
+through Δα: ±1.6 nm for Δt = ±0.08 °C at 20 nm/°C, and ±4 nm for
+ΔT = ±0.2 °C. It then adds them linearly as "correlated" (±5.6 nm,
+triangular). By the model, Δt acts through α: L·α = 115 nm/°C, so ±9.2 nm
+(rectangular, u = 5.3 nm). The product Δα·ΔT has zero first-order
+sensitivity and contributes only L·u(Δα)·u(ΔT) = 0.94 nm through the
+second-order term. EA-4/02 S4 evaluates the same model in this way. The
+effect is small here (u_c = 41.0 nm instead of 40.7 nm, U = 82 nm instead of
+81.5 nm), but the reasoning would underestimate the Δt term for longer
+blocks.
+
+**F59. M3003 K.7 — EMF estimate and rounding (class a).** The EMF of the
+unknown thermocouple is corrected by scaling, 36 248 × 1000/1000.5 =
+36 230 µV. The uncertainty budget uses the sensitivity 1/c_X = 38.5 µV/°C,
+which gives 36 248 − 0.5 × 38.46 = 36 228.8 µV. The printed u_c = 25.9 µV
+and U = 51.9 µV follow from the rounded sensitivities 38.5 and 26.3; the
+exact ones give 25.84 µV and 51.7 µV.
+
+**F60. M3003 K.8 — distribution of the mass term (class b).** K.8.5.1 says
+the 7.3 ppm relative mass uncertainty is the semi-range of a rectangular
+distribution. The budget instead treats it as an expanded uncertainty with
+divisor 2 (3.65 ppm instead of 4.21 ppm). u_c is 43.0 ppm either way.
+
+**F61. M3003 — typographical slips (class b).**
+
+- C.5 gives the drift and temperature limit as "±50 V" (it is 50 µV).
+- The L.3 budget is headed "evaluated at ΔI_DMM = 0.95 V" (it means I_DMM).
+- L.3.15 defines Q[a, b] = [a² + ab]^½, which should be [a² + b²]^½.
+- The note in Appendix Q writes u(R) = u(R) × R, which should be w(R) × R.
+- K.4.1 lists W_S twice.
+- K.8.17 drops the ± in "34 Pa  170 Pa".
+- K.9.12 reports T_s = 293 K, not 293.15 K.
+
+None of these affects a result.
+
+**Note on k = 2 (not a finding).** K.9 (ν_eff = 130) and K.10 (ν_eff = 50)
+report U with k = 2. By Appendix B, k for 95.45 % would be 2.03 and 2.05,
+giving 0.56 L/s and 0.020 mm instead of 0.55 L/s and 0.019 mm. Appendix B
+asks for the t-factor when a Type A term is significant but sets no
+threshold. The projects use k = 2 as printed and note the difference.

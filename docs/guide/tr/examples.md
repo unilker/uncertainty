@@ -3,13 +3,14 @@
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
 - Kimya (82)
-- Elektrik ve RF (23)
-- Akış ve hacim (4)
+- Elektrik ve RF (31)
+- Akış ve hacim (5)
 - Genel (yöntem doğrulama) (19)
-- Uzunluk (8)
-- Kütle (4)
+- Uzunluk (11)
+- Kütle (6)
 - Fiziksel özellikler (8)
-- Sıcaklık (6)
+- Basınç (1)
+- Sıcaklık (10)
 
 ## Kimya
 
@@ -2381,6 +2382,187 @@ JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan ü�
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang tr`
 
+### Baskın çözünürlük terimli dijital voltmetre (UKAS M3003 Ek C)
+
+`m3003-c5-dvm-dominant-rectangular` — UKAS M3003 ed. 6 (2024), Appendix C.5–C.10
+
+Uygulanan 1,000 00 V için 1,001 V okuyan bir DVM; 1 mV basamağının yuvarlanması baskındır; bu nedenle %95,45 için k, dikdörtgen ve normal dağılımın konvolüsyonundan gelir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ΔV = V_ind − V_ref + δI_T (C.10): referans U = 0,19 mV (k = 2), sürüklenme ve sıcaklık ±0,05 mV, yuvarlama ±0,5 mV.
+2. u_R = 0,289 mV, u_N = 0,099 mV, u_N/u_R = 0,344 < 0,70: dikdörtgen terim baskındır (C.4, C.5).
+3. Program konvolüsyon için P(|R + N| ≤ k·u_c) = 0,9545 eşitliğini çözer; bu C.7 tablosunu yeniden üretir: k = 1,77, U = 1,77 × 0,305 mV = 0,54 mV.
+
+**Sonuç:**
+
+- dV = (1,00 ± 0,54) mV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,77 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F61: C.5 sürüklenme ve sıcaklık sınırını ±50 V olarak yazar; hesap 0,05 mV, yani ±50 µV kullanır.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-c5-dvm-dominant-rectangular.json --lang tr`
+
+### Gerilim karşılaştırmasıyla 10 kΩ direnç (UKAS M3003 K.1)
+
+`m3003-k1-resistor-10kohm` — UKAS M3003 ed. 6 (2024), Appendix K.1
+
+Seri bağlı standart ve bilinmeyen 10 kΩ dirençler üzerindeki gerilimler tek bir DVM ile karşılaştırılır; her iki direnç 20,0 °C ± 0,1 °C yağ banyosundadır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. R_X = (R_S + δR_D + R_TC·Δt)·V_X/V_S (K.1.1); DVM doğrusallığı ve çözünürlüğü her okumanın göreli hatası olarak, ±0,2 ppm, dikdörtgen (K.1.6).
+2. R_S = 10 000,000 Ω, 10 000,1050 Ω = R_S·(1 + 10,50 ppm) sonucundan çıkar; sertifika ±0,5 ppm (k = 2), düzeltilmemiş sürüklenme ±0,5 ppm, ±0,1 °C üzerinde 2,5 ppm/°C sıcaklık katsayısı.
+3. Oran sapmasının beş okuması (+10,4 … +10,7 ppm): ortalama +10,50 ppm, s = 0,158 ppm, u = s/√5 = 0,071 ppm, 4 serbestlik derecesi.
+4. u_c = 0,445 ppm = 0,004 45 Ω; R_X = 10 000,1050 Ω ± 0,0089 Ω (k = 2).
+5. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- R_X = (10000,1050 ± 0,0089) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-k1-resistor-10kohm.json --lang tr`
+
+### 18 GHz'de koaksiyel güç sensörü (UKAS M3003 K.2)
+
+`m3003-k2-power-sensor-18ghz` — UKAS M3003 ed. 6 (2024), Appendix K.2
+
+Bilinmeyen bir güç sensörünün kalibrasyon faktörü, izlenen bir kaynakta standart sensörle yer değiştirme yöntemiyle; dört bağlantı.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. K_X = (K_S + δD_S)·f_DC·f_M·f_REF (K.2.1). M3003 tüm terimleri kalibrasyon faktörünün yüzde puanı olarak birleştirir; model bu nedenle onları gözlenen K_X'e ekler.
+2. Uyumsuzluk sınırları 200·|Γ_G|·|Γ| %: her iki sensör için 50 MHz'de %0,08, 18 GHz'de %1,40 (standart) ve %1,68 (bilinmeyen), U biçimli (ark sinüs, u = a/√2).
+3. Dört değer 93,45, 92,20, 93,95, 93,02 %: ortalama %93,16, s = %0,7415, u = s/√4 = %0,37 (3 serbestlik derecesi).
+4. u_c = %1,69, 18 GHz uyumsuzluk terimleri baskındır; K_X = %93,2 ± %3,4 (k = 2).
+5. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- K_X = (93,2 ± 3,4) %; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-k2-power-sensor-18ghz.json --lang tr`
+
+### 10 GHz'de 30 dB koaksiyel zayıflatıcı (UKAS M3003 K.3)
+
+`m3003-k3-attenuator-30db` — UKAS M3003 ed. 6 (2024), Appendix K.3
+
+Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyumsuzluk terimi baskındır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), 10 GHz'de çift kanallı 30 MHz IF yer değiştirme.
+2. Dört okuma 30,04, 30,07, 30,03, 30,06 dB: ortalama 30,050 dB, s = 0,018 dB, u = 0,009 dB (3 serbestlik derecesi).
+3. Bütçedeki gibi uyumsuzluk standart belirsizliği 0,022 dB (K.3.9); u_c = 0,0245 dB; A_X = 30,050 dB ± 0,049 dB (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- A_X = (30,050 ± 0,049) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F57: K.3.6'daki yansıma ve saçılma katsayılarıyla E5 formülü 0,022 dB değil 0,0170 dB uyumsuzluk standart sapması verir; m3003-k3-attenuator-30db-mismatch-e5 projesine bakınız.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-k3-attenuator-30db.json --lang tr`
+
+### E5 formülünden uyumsuzluk terimiyle 30 dB zayıflatıcı (UKAS M3003 K.3, E.9.5)
+
+`m3003-k3-attenuator-30db-mismatch-e5` — UKAS M3003 ed. 6 (2024), Appendix K.3 and E.9.5
+
+Örneğin verdiği katsayılardan yeniden hesaplanan uyumsuzluk standart sapmasıyla K.3 bütçesi (bulgu F57).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), 10 GHz'de çift kanallı 30 MHz IF yer değiştirme.
+2. Dört okuma 30,04, 30,07, 30,03, 30,06 dB: ortalama 30,050 dB, s = 0,018 dB, u = 0,009 dB (3 serbestlik derecesi).
+3. E5 formülü (Harris ve Warner): M = 8,686/√2 · [M_G + M_L + M_GL]^½ dB; M_G = |Γ_G|²(|s11a|² + |s11b|²), M_L = |Γ_L|²(|s22a|² + |s22b|²), M_GL = |Γ_G|²|Γ_L|²(|s21a|⁴ + |s21b|⁴).
+4. Γ_G = Γ_L = 0,03, s11a = s11b = 0,05, s22a = 0,05, s22b = 0,01, s21a = 1, s21b = 0,31 ile (K.3.6): M = 0,0170 dB ve u_c = 0,0245 dB yerine 0,0202 dB.
+5. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- A_X = (30,050 ± 0,040) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang tr`
+
+### 1 V kademesinde DMM: 0,95 V'taki bütçe (UKAS M3003 L.3)
+
+`m3003-l3-dmm-1v-range-095v` — UKAS M3003 ed. 6 (2024), Appendix L.3
+
+Çok fonksiyonlu kalibratörle kalibre edilen 6½ basamaklı bir DMM'nin 1 V kademesinde 0,95 V'taki hatası; göreli (ppm) ve mutlak (µV) katkılar bir okumada birleştirilir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r, V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); belirsizlik için okuma gerekmez; tahmin sıfırdır.
+2. Göreli terimler (× I_DMM): kalibrasyon 2,8 ppm (k = 2), şartname ±8 ppm, tekrarlanabilirlik 2,5 ppm (ν = 9). Mutlak terimler: kalibrasyon 0,5 µV (k = 2), şartname ±2 µV, termoelektrik ±1 µV, ortak mod ±1 µV, çözünürlük ±0,5 µV.
+3. I_DMM = 0,95 V'ta: u_c = 5,37 µV, U = 10,73 µV (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- dI = (0 ± 11) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F61: bütçe başlığı 'ΔI_DMM = 0,95 V'ta değerlendirilmiş' der, kastedilen I_DMM = 0,95 V'tur; L.3.15, [a² + b²]^½ yerine Q[a, b] = [a² + ab]^½ tanımlar; Ek Q'nun notu u(R) = w(R) × R yerine u(R) = u(R) × R yazar.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-095v.json --lang tr`
+
+### Tam ölçekte 1 V kademesinde DMM: baskın şartname terimi için kapsam faktörü (UKAS M3003 L.3.20)
+
+`m3003-l3-dmm-1v-range-1v-dominant` — UKAS M3003 ed. 6 (2024), Appendix L.3
+
+Çok fonksiyonlu kalibratörle kalibre edilen 6½ basamaklı bir DMM'nin 1 V kademesinde 1,0 V'taki hatası; göreli (ppm) ve mutlak (µV) katkılar bir okumada birleştirilir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r, V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); belirsizlik için okuma gerekmez; tahmin sıfırdır.
+2. Göreli terimler (× I_DMM): kalibrasyon 2,8 ppm (k = 2), şartname ±8 ppm, tekrarlanabilirlik 2,5 ppm (ν = 9). Mutlak terimler: kalibrasyon 0,5 µV (k = 2), şartname ±2 µV, termoelektrik ±1 µV, ortak mod ±1 µV, çözünürlük ±0,5 µV.
+3. |I_DMM| = 1 V'ta şartname terimi sınırda baskındır: u_R/u_N = 1,435; konvolüsyon %95,45 için k = 1,898 verir (L.3.20); bu, 1,42 kritik oranına karşılık gelen k = 1,900'den anlamlı olarak farklı değildir.
+
+**Sonuç:**
+
+- dI = (0 ± 11) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,90 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang tr`
+
+### 1 V kademesinde DMM: kademe formülünden 500 mV'taki belirsizlik (UKAS M3003 L.3)
+
+`m3003-l3-dmm-1v-range-500mv` — UKAS M3003 ed. 6 (2024), Appendix L.3
+
+Çok fonksiyonlu kalibratörle kalibre edilen 6½ basamaklı bir DMM'nin 1 V kademesinde 0,5 V'taki hatası; göreli (ppm) ve mutlak (µV) katkılar bir okumada birleştirilir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r, V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); belirsizlik için okuma gerekmez; tahmin sıfırdır.
+2. Göreli terimler (× I_DMM): kalibrasyon 2,8 ppm (k = 2), şartname ±8 ppm, tekrarlanabilirlik 2,5 ppm (ν = 9). Mutlak terimler: kalibrasyon 0,5 µV (k = 2), şartname ±2 µV, termoelektrik ±1 µV, ortak mod ±1 µV, çözünürlük ±0,5 µV.
+3. I_DMM = 500 mV'ta: U = √((500 mV × 11 ppm)² + (2,9 µV)²) = 6,2 µV (L.3.14).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- dI = (0,0 ± 6,2) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang tr`
+
 ### Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11)
 
 `nist-tn1900-e11-step-attenuator` — NIST Technical Note 1900, Example E11, Exhibits 16 and 17
@@ -2480,6 +2662,31 @@ EA-4/02 S12 (birinci bütçe): 2500 L/h'te bir konut tipi su sayacından geçen 
 - V_X = (199,93 ± 0,22) L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang tr`
+
+### Standart basınç ve sıcaklığa indirgenmiş hacimsel debi (UKAS M3003 K.9)
+
+`m3003-k9-flowrate-standard-conditions` — UKAS M3003 ed. 6 (2024), Appendix K.9
+
+1018 hPa ve 295,1 K'de 4–20 mA'lik bir debimetreden debi, 1013,25 hPa ve 293,15 K'de ifade edilir; üç kısmi bütçe tek modelde.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Q_s = Q_m·(P_m/P_s)·(T_s/T_m) + δQ_s (K.9.2); Q_m = A·i + B, A = 6,25 L s⁻¹ mA⁻¹, B = −24,95 L s⁻¹ (K.9.4): i = 6,0 mA, Q_m = 12,55 L s⁻¹ verir.
+2. Kısmi bütçeler: u(Q_m) = 0,207 L s⁻¹ (kalibrasyon, sürüklenme, ortam, akım); u(P_m) = 1,322 hPa; u(T_m) = 0,144 K; Q_s tekrarlanabilirliği s = 0,18 L s⁻¹ (ν = 24, tek okuma).
+3. Q_s = 12,53 L s⁻¹, u_c = 0,275 L s⁻¹, ν_eff = 130; Q_s = (12,53 ± 0,55) L s⁻¹ (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- Q_s = (12,52 ± 0,55) L/s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- ν_eff = 130 ile %95,45 için kapsam faktörü 2,03'tür (Ek B tablosu: 100'de 2,025); bu U = 0,56 L/s verirdi; örnek k = 2 kullanır.
+
+**Çalıştırma:** `uncertainty run library/flow/m3003-k9-flowrate-standard-conditions.json --lang tr`
 
 ### Pitot tüpüyle hava hızı (NIST TN 1900 E4)
 
@@ -3052,6 +3259,77 @@ JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, e
 
 **Çalıştırma:** `uncertainty run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang tr`
 
+### Alüminyum deney numunesinin kalınlığı (UKAS M3003 K.10)
+
+`m3003-k10-sheet-thickness` — UKAS M3003 ed. 6 (2024), Appendix K.10
+
+Bir numunenin merkezinde beş kalınlık okumasının ortalaması, kontrolsüz bir ortamda; kalibrasyon düzeltmesi uygulanmaz.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. w = w_ave + Δw_cal + δw_T (K.10.1): 1,51, 1,51, 1,52, 1,50, 1,53 mm okumaları 1,514 mm, s = 0,0114 mm, u = 0,0051 mm (ν = 4) verir.
+2. Çözünürlük ±0,005 mm; kalibrasyon U = 0,015 mm (k = 2); sürüklenme sınırı max(0,002, ort(0,002, 0,004, 0,001)) = 0,002 33 mm; düzeltilmemiş hata ±0,001 mm; sıcaklık ±10 K, 11,9·10⁻⁶ K⁻¹ × 3 mm = 3,57·10⁻⁵ mm/K (K.10.7).
+3. u_c = 0,009 63 mm, ν_eff = 50; w = 1,514 mm ± 0,019 mm (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- w = (1,514 ± 0,019) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- ν_eff = 50 ile %95,45 için kapsam faktörü 2,05'tir (Ek B); bu U = 0,020 mm verirdi; örnek k = 2 kullanır.
+
+**Çalıştırma:** `uncertainty run library/length/m3003-k10-sheet-thickness.json --lang tr`
+
+### 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6)
+
+`m3003-k6-gauge-block-10mm` — UKAS M3003 ed. 6 (2024), Appendix K.6
+
+Standart mastar blokla karşılaştırma; iki sıcaklık etkisinin doğrusal toplanıp tek üçgen terim yapıldığı basılı bütçe.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. L_X = L_S + δL_D + ΔL − L(α·Δt + Δα·ΔT) + ΔD_C + δC + L_V(X) + δL_r (K.6.1); 10 mm'lik 2. sınıf blok, K sınıfı standarda karşı.
+2. K.6.4'teki gibi sıcaklık etkileri: Δt'den ±1,6 nm ve ΔT'den ±4 nm, ikisi de Δα = ±2 µm m⁻¹ °C⁻¹ üzerinden, korelasyonlu kabul edilip toplanır: ±5,6 nm, üçgen.
+3. u_c = 40,7 nm; L_X = 9,999 940 mm ± 0,081 µm (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- L_X = (9,999940 ± 0,000081) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F58: K.6.1 modeline göre Δt sıcaklık farkı Δα üzerinden değil ortalama genleşme katsayısı α üzerinden etki eder (L·α = 115 nm/°C, ±9,2 nm); Δα·ΔT çarpımının birinci mertebe duyarlılığı sıfırdır. m3003-k6-gauge-block-10mm-temperature-model projesine bakınız.
+
+**Çalıştırma:** `uncertainty run library/length/m3003-k6-gauge-block-10mm.json --lang tr`
+
+### Modelinin sıcaklık terimleriyle 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6, EA-4/02 S4)
+
+`m3003-k6-gauge-block-10mm-temperature-model` — UKAS M3003 ed. 6 (2024), Appendix K.6
+
+−L(α·Δt + Δα·ΔT) teriminin modelin belirttiği gibi değerlendirildiği K.6 bütçesi; EA-4/02 S4'ün 50 mm'lik blok için yaptığı gibi (bulgu F58).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. L_X = L_S + δL_D + ΔL − L(α·Δt + Δα·ΔT) + ΔD_C + δC + L_V(X) + δL_r (K.6.1); 10 mm'lik 2. sınıf blok, K sınıfı standarda karşı.
+2. Δt (±0,08 °C, dikdörtgen) −L·α = −115 nm/°C duyarlılıkla etki eder: u = 5,3 nm. Δα (±2 µm m⁻¹ °C⁻¹, üçgen) ve ΔT (±0,2 °C, dikdörtgen) beklenen değerleri sıfırdır; çarpımları yalnızca ikinci mertebe terim L·u(Δα)·u(ΔT) = 0,94 nm ile katkı verir (GUM 5.1.2 notu).
+3. u_c = 40,7 nm yerine 41,0 nm; U = 82 nm (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- L_X = (9,999940 ± 0,000082) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang tr`
+
 ### Normal girdilerle uç mastarı kalibrasyonu (NIST Uncertainty Machine §8)
 
 `num-8-end-gauge-gaussian` — T. Lafarge, §8, Table 3 and Figure 3; JCGM 100:2008, H.1, Table H.1
@@ -3148,6 +3426,56 @@ JCGM 101 9.3: aynı model, GUM 5.1.2'nin yüksek mertebe terimleriyle değerlend
 - dm = (1,23 ± 0,15) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang tr`
+
+### OIML M1 sınıfı 10 kg ağırlık (UKAS M3003 K.4)
+
+`m3003-k4-weight-10kg` — UKAS M3003 ed. 6 (2024), Appendix K.4
+
+Kütle karşılaştırıcısında F2 sınıfı bir standartla üç ara-okumalı karşılaştırma.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. W_X = W_S + ΔW + δD_S + δI_d + ΔC + ΔA_b + δW_r (K.4.1): sertifika 30 mg (k = 2), sürüklenme ±30 mg, yuvarlama ±10 mg (üçgen, iki okuma), doğrusal olmama ±3 mg, kaldırma kuvveti ±10 mg.
+2. Üç karşılaştırmadan ortalama fark ΔW = +0,020 g; tekrarlanabilirlik önceki bir değerlendirmeden, s = 8,7 mg, 9 serbestlik derecesi; u = 8,7/√3 = 5,0 mg.
+3. u_c = 24,56 mg; W_X = 10 000,025 g ± 0,049 g (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- W_X = (10000,025 ± 0,049) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F55: K.4.7, m = 10 karşılaştırma için ν = (m − 1) = 10 serbestlik derecesi yazar; bütçe m − 1 olan 9'u kullanır. Bütçenin altındaki not 10 okumadan söz eder.
+
+**Çalıştırma:** `uncertainty run library/mass/m3003-k4-weight-10kg.json --lang tr`
+
+### 200 g'de 205 g kapasiteli tartı aleti (UKAS M3003 K.5)
+
+`m3003-k5-weighing-machine-200g` — UKAS M3003 ed. 6 (2024), Appendix K.5
+
+0,1 mg basamaklı elektronik terazinin E2 sınıfı 200 g ağırlıkla gösterge hatası; tek okuma.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ΔI_X = I_X − W_S + δD_S + δI_d0 + δI_d + ΔA_b + δI_r (K.5.1): sertifika 0,1 mg (k = 2), sürüklenme ±0,1 mg, sıfırda ve yükte ±0,05 mg yuvarlama, kaldırma kuvveti ±0,2 mg, tekrarlanabilirlik s = 0,05 mg (ν = 9, tek okuma).
+2. 200 g standart için I_X = 199,9999 g (kütlesi nominal değer alınmıştır); model ile ΔI_X = −0,10 mg.
+3. Bütçe katkılarından u_c = 0,153 mg; ΔI_X = −0,10 mg ± 0,31 mg (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- dI_X = (-0,10 ± 0,30) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F56: K.5.9'un u_i sütunundaki katkılar (0,05, 0,058, 0,029, 0,029, 0,115, 0,05 mg) 0,150 mg değil 0,153 mg verir; basılı değer, sürüklenme sınırı √3 yerine 2'ye bölünseydi elde edilirdi. K.5.1 modeline göre ΔI_X = I_X − W_S = 199,9999 g − 200 g = −0,10 mg iken raporlanan gösterge hatası +0,10 mg'dir.
+
+**Çalıştırma:** `uncertainty run library/mass/m3003-k5-weighing-machine-200g.json --lang tr`
 
 ### Tartımla toz kütlesi (NIST TN 1900 E1)
 
@@ -3363,6 +3691,33 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 
 **Çalıştırma:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang tr`
 
+## Basınç
+
+### Ölü ağırlık test cihazına karşı 2 MPa'da dijital basınç göstergesi (UKAS M3003 K.8)
+
+`m3003-k8-pressure-indicator-2mpa` — UKAS M3003 ed. 6 (2024), Appendix K.8
+
+2 MPa'da bir dijital basınç göstergesinin hatası; bütçe, basınçta alışıldığı gibi göreli (ppm) olarak verilir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Kütlelerden, etkin alan A₀ = 80,6516 mm², yerçekimi, kaldırma kuvveti ve sıvı yükünden üretilen basınç P_X = 2,000 806 MPa (K.8.15); gösterge I_X = 2,000 84 MPa.
+2. P_X'e göreli katkılar: alan 32,2 ppm (k = 2) ve sürüklenme ±30 ppm; deformasyon 1,0 ppm (k = 2); kütleler 7,3 ppm (k = 2, bütçedeki gibi) ve sürüklenme ±7,6 ppm; piston sıcaklığı ±0,5 °C × 23 ppm/°C; yerçekimi 3 ppm (k = 2); kaldırma kuvveti ±13 ppm; sıvı yükü ±13,5 ppm; diğer sıvı etkileri ±2 ppm; düşeylik ±3,4 ppm.
+3. Gösterge: yuvarlama ±50 ppm (200 Pa adım) ve tekrarlanabilirlik 16 ppm (ν = 9, tek okuma). u_c = 43,0 ppm; ΔI_X = 17 ppm ± 86 ppm (k = 2), yani 34 Pa ± 170 Pa.
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- e = (17 ± 86) ppm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F60: K.8.5.1, 7,3 ppm'lik göreli kütle belirsizliğinin dikdörtgen dağılımın yarı genişliği olarak alınacağını söyler; bütçe ise onu k = 2 ile genişletilmiş belirsizlik olarak alır (u = 4,21 ppm yerine 3,65 ppm). u_c'ye etkisi son basılı basamağın altındadır (her iki durumda 43,0 ppm).
+
+**Çalıştırma:** `uncertainty run library/pressure/m3003-k8-pressure-indicator-2mpa.json --lang tr`
+
 ## Sıcaklık
 
 ### Sıcaklık blok kalibratörünün 180 °C'de kalibrasyonu
@@ -3482,6 +3837,94 @@ JCGM 102:2011 9.5.3: aynı kalibre termometreyle ölçülen on sıcaklık, kalib
 - Tablo 15 yedinci sütunu θ7 yerine θ6 olarak adlandırır.
 
 **Çalıştırma:** `uncertainty run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang tr`
+
+### Kalibre edilmiş PT100 probdan kaptaki gazın sıcaklığı (UKAS M3003 K.11, ikinci bütçe)
+
+`m3003-k11-gas-temperature` — UKAS M3003 ed. 6 (2024), Appendix K.11 (K.11.17–K.11.18)
+
+L probu kabın dışına bağlanır; düzeltmesi ΔT_u = 0,000 55·I_u + 0,419 °C kalibrasyon fonksiyonundan gelir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. T_g = (I_u − ΔT_u) − ΔT_ug − δT_h − δT_r (K.11.11): I_u = 23,4 °C (dördün ortalaması), ΔT_u = 0,431 °C.
+2. L'nin kalibrasyonu U = 0,084 49 °C (k = 2, birinci bütçe), uydurma ±0,012 °C, sürüklenme ±0,004 67 °C, prob–gaz farkı ±0,1 °C, kendi kendine ısınma ±4 mK, dört okumanın ortalaması için tekrarlanabilirlik s = 0,076 °C (ν = 49).
+3. u_c = 0,0864 °C; T_g = 22,97 °C ± 0,17 °C (k = 2).
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- T_g = (22,97 ± 0,17) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/temperature/m3003-k11-gas-temperature.json --lang tr`
+
+### Kuru blokta referans proba karşı PT100 prob kalibrasyonu (UKAS M3003 K.11, birinci bütçe)
+
+`m3003-k11-probe-calibration` — UKAS M3003 ed. 6 (2024), Appendix K.11 (K.11.9)
+
+Laboratuvar probu L'nin 20,4 °C'de, kalibrasyon fonksiyonu ΔT_S = 0,000 01·I_S + 0,0108 °C olan referans prob S'ye karşı hatası.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ΔT_L = I_L − (I_S − ΔT_S − ΔT_SL) − δΔT_L (K.11.2): çözünürlük 0,1 °C (L) ve 0,01 °C (S), S'nin kalibrasyonu U = 0,024 °C (k = 2), uydurma ±0,005 °C, sürüklenme ±0,008 °C, blok gradyanları ±0,048 °C, tekrarlanabilirlik 0,001 23 °C (ν = 24).
+2. I_S = 19,979 °C, K.11.10 tablosundaki gibi I_L = 20,4 °C'de ΔT_L = 0,432 °C olacak biçimde türetilmiştir (S'nin göstergesi basılmamıştır).
+3. u_c = 0,042 25 °C, U = 0,084 °C (k = 2); bu U ikinci bütçeye L'nin kalibrasyon belirsizliği olarak girer.
+4. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- dT_L = (0,432 ± 0,084) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/temperature/m3003-k11-probe-calibration.json --lang tr`
+
+### 1000 °C'de N tipi termoçift: tam bütçesiyle EMK (UKAS M3003 K.7)
+
+`m3003-k7-thermocouple-emf` — UKAS M3003 ed. 6 (2024), Appendix K.7
+
+K.7'nin iki bütçesi tek modelde: fırın sıcaklığı bilinmeyen termoçiftin EMK'sına 1/c_X = 38,5 µV/°C duyarlılığıyla girer.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. N tipi bir termoçift 1000 °C'de iki R tipi referans termoçiftle karşılaştırılır; ters çevrilmiş kutuplamayla dörder okuma standartlar için 10 502,5 µV ve 10 504,0 µV (1000,4 °C ve 1000,6 °C), bilinmeyen için 36 248 µV verir.
+2. Fırın sıcaklığı t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), ortalama 1000,5 °C; u_c(t_X) = 0,641 °C (K.7.19); ±1 °C fırın homojensizliği baskındır.
+3. V_X(1000 °C) = V_iX + (1000 °C − t_X)/c_X + δV_iX1 + δV_iX2 + δV_LX + δt_TH/c_X + δV_R − δt_0X/c_X0 + δV_r (K.7.2, K.7.20); c_X = 0,026 °C/µV ve c_X0 = 0,038 °C/µV.
+4. u_c = 25,8 µV; referans bağlantı 0 °C'de iken 1000 °C'de V_X = 36 230 µV ± 52 µV (k = 2).
+5. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- V_X = (36229 ± 52) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F59: raporlanan 36 230 µV EMK ölçeklemeyle, 36 248·1000/1000,5, elde edilir; belirsizlik bütçesi ise termoçiftin 38,5 µV/°C duyarlılığını kullanır, bu da 36 248 − 0,5·38,46 = 36 228,8 µV verir. Basılı u_c = 25,9 µV ve U = 51,9 µV yuvarlanmış duyarlılıklardan (38,5 ve 26,3) çıkar; tam değerler 25,84 µV ve 51,7 µV verir.
+
+**Çalıştırma:** `uncertainty run library/temperature/m3003-k7-thermocouple-emf.json --lang tr`
+
+### 1000 °C'de termoçift kalibrasyonunda fırın sıcaklığı (UKAS M3003 K.7, birinci bütçe)
+
+`m3003-k7-thermocouple-furnace` — UKAS M3003 ed. 6 (2024), Appendix K.7 (K.7.19)
+
+K.7'nin birinci kısmı: iki referans termoçiftten sıcak bağlantılardaki sıcaklık.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. N tipi bir termoçift 1000 °C'de iki R tipi referans termoçiftle karşılaştırılır; ters çevrilmiş kutuplamayla dörder okuma standartlar için 10 502,5 µV ve 10 504,0 µV (1000,4 °C ve 1000,6 °C), bilinmeyen için 36 248 µV verir.
+2. Fırın sıcaklığı t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), ortalama 1000,5 °C; u_c(t_X) = 0,641 °C (K.7.19); ±1 °C fırın homojensizliği baskındır.
+3. M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik.
+
+**Sonuç:**
+
+- t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/temperature/m3003-k7-thermocouple-furnace.json --lang tr`
 
 ### Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2)
 

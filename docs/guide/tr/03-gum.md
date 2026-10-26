@@ -144,6 +144,14 @@ uzaktır ve k = 2 ciddi biçimde yanlış olabilir. EA-4/02 (S9, S10) bir veya i
 kural verir (yamuk çıktı; tek dikdörtgen terim için k = 1,65, β = 0,33 için 1,83); ancak genel ve daha
 güvenilir çözüm, kapsam aralığını doğrudan veren Monte Carlo yöntemidir.
 
+UKAS M3003 (Ek C) yaygın bir durumu, örneğin dijital bir göstergenin çözünürlüğü gibi tek bir baskın
+dikdörtgen terimi, diğer terimleri normal kabul ederek ele alır. `"dominant_rectangular": true` ile program en
+büyük dikdörtgen katkı u_R'yi bulur, u_N = √(u_c² − u_R²) alır ve iki dağılımın konvolüsyonu için
+P(|R + N| ≤ k u_c) = p eşitliğini çözer. Bu, p = %95,45 için M3003 C.7 tablosunu yeniden üretir: u_N = 0 için
+k = 1,65, u_N/u_R = 0,35 için 1,77, 0,70 için 1,90 ve dikdörtgen terim artık baskın değilken 2,00. Rapor girdiyi
+ve oranı belirtir. M3003 C.5 örneğinde (`m3003-c5-dvm-dominant-rectangular` kütüphane projesi) Monte Carlo
+aralığı bulunan y ± U ile uyuşur.
+
 ## 3.8 Bütçenin okunması
 
 * Tek bir girdinin **varyans payı** %100'e yakınsa sonuç o girdi kadar iyidir; diğerleri önemsizdir. %2'lik bir

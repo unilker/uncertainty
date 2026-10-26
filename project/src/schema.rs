@@ -339,6 +339,11 @@ pub struct GumSpec {
     /// Fixed coverage factor (e.g. 2); overrides `coverage_probability`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub coverage_factor: Option<f64>,
+    /// k from the convolution of the largest rectangular contribution with a
+    /// normal distribution for the others, at `coverage_probability` (UKAS
+    /// M3003 Appendix C); not with `coverage_factor`.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub dominant_rectangular: bool,
     #[serde(default)]
     pub higher_order: bool,
     #[serde(default)]
@@ -354,6 +359,7 @@ impl Default for GumSpec {
         Self {
             coverage_probability: None,
             coverage_factor: None,
+            dominant_rectangular: false,
             higher_order: false,
             dof_rounding: DofRoundingSpec::Truncate,
             kragten: false,

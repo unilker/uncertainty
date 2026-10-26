@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**154 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 21 control charts / kontrol grafiği, 7 conformity assessment / uygunluk değerlendirmesi).
+**173 examples / örnek** (77 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 21 control charts / kontrol grafiği, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -151,6 +151,14 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`jcgm101-9.4-comparison-loss-x010`](electrical/jcgm101-9.4-comparison-loss-x010.json) | Comparison loss, x₁ = 0.01 | Karşılaştırma kaybı, x₁ = 0,01 | JCGM 101:2008 9.4, Table 8 |
 | [`jcgm101-9.4-comparison-loss-x050-correlated`](electrical/jcgm101-9.4-comparison-loss-x050-correlated.json) | Comparison loss, x₁ = 0.05, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,05, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x050`](electrical/jcgm101-9.4-comparison-loss-x050.json) | Comparison loss, x₁ = 0.05 | Karşılaştırma kaybı, x₁ = 0,05 | JCGM 101:2008 9.4, Table 8 |
+| [`m3003-c5-dvm-dominant-rectangular`](electrical/m3003-c5-dvm-dominant-rectangular.json) | Digital voltmeter with a dominant resolution term (UKAS M3003 Appendix C) | Baskın çözünürlük terimli dijital voltmetre (UKAS M3003 Ek C) | UKAS M3003 ed. 6 (2024) Appendix C.5–C.10 |
+| [`m3003-k1-resistor-10kohm`](electrical/m3003-k1-resistor-10kohm.json) | 10 kΩ resistor by voltage intercomparison (UKAS M3003 K.1) | Gerilim karşılaştırmasıyla 10 kΩ direnç (UKAS M3003 K.1) | UKAS M3003 ed. 6 (2024) Appendix K.1 |
+| [`m3003-k2-power-sensor-18ghz`](electrical/m3003-k2-power-sensor-18ghz.json) | Coaxial power sensor at 18 GHz (UKAS M3003 K.2) | 18 GHz'de koaksiyel güç sensörü (UKAS M3003 K.2) | UKAS M3003 ed. 6 (2024) Appendix K.2 |
+| [`m3003-k3-attenuator-30db-mismatch-e5`](electrical/m3003-k3-attenuator-30db-mismatch-e5.json) | 30 dB attenuator with the mismatch term from formula E5 (UKAS M3003 K.3, E.9.5) | E5 formülünden uyumsuzluk terimiyle 30 dB zayıflatıcı (UKAS M3003 K.3, E.9.5) | UKAS M3003 ed. 6 (2024) Appendix K.3 and E.9.5 |
+| [`m3003-k3-attenuator-30db`](electrical/m3003-k3-attenuator-30db.json) | 30 dB coaxial attenuator at 10 GHz (UKAS M3003 K.3) | 10 GHz'de 30 dB koaksiyel zayıflatıcı (UKAS M3003 K.3) | UKAS M3003 ed. 6 (2024) Appendix K.3 |
+| [`m3003-l3-dmm-1v-range-095v`](electrical/m3003-l3-dmm-1v-range-095v.json) | DMM on the 1 V range: budget at 0.95 V (UKAS M3003 L.3) | 1 V kademesinde DMM: 0,95 V'taki bütçe (UKAS M3003 L.3) | UKAS M3003 ed. 6 (2024) Appendix L.3 |
+| [`m3003-l3-dmm-1v-range-1v-dominant`](electrical/m3003-l3-dmm-1v-range-1v-dominant.json) | DMM on the 1 V range at full scale: coverage factor for a dominant specification term (UKAS M3003 L.3.20) | Tam ölçekte 1 V kademesinde DMM: baskın şartname terimi için kapsam faktörü (UKAS M3003 L.3.20) | UKAS M3003 ed. 6 (2024) Appendix L.3 |
+| [`m3003-l3-dmm-1v-range-500mv`](electrical/m3003-l3-dmm-1v-range-500mv.json) | DMM on the 1 V range: uncertainty at 500 mV from the range formula (UKAS M3003 L.3) | 1 V kademesinde DMM: kademe formülünden 500 mV'taki belirsizlik (UKAS M3003 L.3) | UKAS M3003 ed. 6 (2024) Appendix L.3 |
 | [`nist-tn1900-e11-step-attenuator`](electrical/nist-tn1900-e11-step-attenuator.json) | Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11) | Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11) | NIST Technical Note 1900 Example E11, Exhibits 16 and 17 |
 | [`num-10-resistance`](electrical/num-10-resistance.json) | Resistance with the rounded values of GUM Table H.2 (NIST Uncertainty Machine §10) | GUM Tablo H.2'nin yuvarlanmış değerleriyle direnç (NIST Uncertainty Machine §10) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
 
@@ -174,6 +182,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s12-water-meter-error`](flow/ea402-s12-water-meter-error.json) | Water meter calibration: relative error of one run | Su sayacı kalibrasyonu: tek çalışmanın bağıl hatası | EA-4/02 M:2022 S12 |
 | [`ea402-s12-water-meter-mean-error`](flow/ea402-s12-water-meter-mean-error.json) | Water meter calibration: mean of three runs | Su sayacı kalibrasyonu: üç çalışmanın ortalaması | EA-4/02 M:2022 S12 |
 | [`ea402-s12-water-meter-volume`](flow/ea402-s12-water-meter-volume.json) | Water meter calibration: reference volume | Su sayacı kalibrasyonu: referans hacim | EA-4/02 M:2022 S12 |
+| [`m3003-k9-flowrate-standard-conditions`](flow/m3003-k9-flowrate-standard-conditions.json) | Volume flowrate referred to standard pressure and temperature (UKAS M3003 K.9) | Standart basınç ve sıcaklığa indirgenmiş hacimsel debi (UKAS M3003 K.9) | UKAS M3003 ed. 6 (2024) Appendix K.9 |
 | [`nist-tn1900-e4-pitot-tube`](flow/nist-tn1900-e4-pitot-tube.json) | Airspeed with a Pitot tube (NIST TN 1900 E4) | Pitot tüpüyle hava hızı (NIST TN 1900 E4) | NIST Technical Note 1900 Example E4 |
 
 ## General (method validation) / Genel (yöntem doğrulama)
@@ -231,6 +240,9 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`gum-h1-end-gauge`](length/gum-h1-end-gauge.json) | End-gauge calibration (GUM H.1) | Uç mastarı kalibrasyonu (GUM H.1) | JCGM 100:2008 H.1, Table H.1 |
 | [`jcgm101-9.5-gauge-block-approximate`](length/jcgm101-9.5-gauge-block-approximate.json) | Gauge block calibration, approximate model | Mastar kalibrasyonu, yaklaşık model | JCGM 101:2008 9.5, Tables 10 and 11 |
 | [`jcgm101-9.5-gauge-block-nonlinear`](length/jcgm101-9.5-gauge-block-nonlinear.json) | Gauge block calibration, non-linear model | Mastar kalibrasyonu, doğrusal olmayan model | JCGM 101:2008 9.5, Tables 10 and 11 |
+| [`m3003-k10-sheet-thickness`](length/m3003-k10-sheet-thickness.json) | Thickness of an aluminium test sample (UKAS M3003 K.10) | Alüminyum deney numunesinin kalınlığı (UKAS M3003 K.10) | UKAS M3003 ed. 6 (2024) Appendix K.10 |
+| [`m3003-k6-gauge-block-10mm-temperature-model`](length/m3003-k6-gauge-block-10mm-temperature-model.json) | Grade 2 gauge block of 10 mm with the temperature terms of its model (UKAS M3003 K.6, EA-4/02 S4) | Modelinin sıcaklık terimleriyle 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6, EA-4/02 S4) | UKAS M3003 ed. 6 (2024) Appendix K.6 |
+| [`m3003-k6-gauge-block-10mm`](length/m3003-k6-gauge-block-10mm.json) | Grade 2 gauge block of 10 mm (UKAS M3003 K.6) | 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6) | UKAS M3003 ed. 6 (2024) Appendix K.6 |
 | [`num-8-end-gauge-gaussian`](length/num-8-end-gauge-gaussian.json) | End-gauge calibration with Gaussian inputs (NIST Uncertainty Machine §8) | Normal girdilerle uç mastarı kalibrasyonu (NIST Uncertainty Machine §8) | T. Lafarge §8, Table 3 and Figure 3 |
 
 ## Mass / Kütle
@@ -240,6 +252,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s2-weight-10kg`](mass/ea402-s2-weight-10kg.json) | Calibration of a 10 kg weight | 10 kg'lık bir ağırlığın kalibrasyonu | EA-4/02 M:2022 S2 |
 | [`jcgm101-9.3-mass-calibration-higher-order`](mass/jcgm101-9.3-mass-calibration-higher-order.json) | Mass calibration (GUM with second-order terms) | Kütle kalibrasyonu (ikinci mertebe terimli GUM) | JCGM 101:2008 9.3, Table 6 |
 | [`jcgm101-9.3-mass-calibration`](mass/jcgm101-9.3-mass-calibration.json) | Mass calibration (first-order GUM) | Kütle kalibrasyonu (birinci mertebe GUM) | JCGM 101:2008 9.3, Tables 6 and 7 |
+| [`m3003-k4-weight-10kg`](mass/m3003-k4-weight-10kg.json) | 10 kg weight of OIML class M1 (UKAS M3003 K.4) | OIML M1 sınıfı 10 kg ağırlık (UKAS M3003 K.4) | UKAS M3003 ed. 6 (2024) Appendix K.4 |
+| [`m3003-k5-weighing-machine-200g`](mass/m3003-k5-weighing-machine-200g.json) | Weighing machine of 205 g capacity at 200 g (UKAS M3003 K.5) | 200 g'de 205 g kapasiteli tartı aleti (UKAS M3003 K.5) | UKAS M3003 ed. 6 (2024) Appendix K.5 |
 | [`nist-tn1900-e1-weighing`](mass/nist-tn1900-e1-weighing.json) | Mass of a powder by weighing (NIST TN 1900 E1) | Tartımla toz kütlesi (NIST TN 1900 E1) | NIST Technical Note 1900 Example E1, Exhibit 1 |
 
 ## Physical properties / Fiziksel özellikler
@@ -260,6 +274,12 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`iso5725-2-c2-softening-point-pitch-reml`](physical/iso5725-2-c2-softening-point-pitch-reml.json) | Softening point of pitch: REML estimates (ISO 5725-2 Example C.2) | Ziftin yumuşama noktası: REML tahminleri (ISO 5725-2 Örnek C.2) | ISO 5725-2:2019 Annex C.2.9 (Table C.13), Annex B.2 |
 | [`iso5725-2-c2-softening-point-pitch`](physical/iso5725-2-c2-softening-point-pitch.json) | Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2) | Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.2) | ISO 5725-2:2019 Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33) |
 
+## Pressure / Basınç
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`m3003-k8-pressure-indicator-2mpa`](pressure/m3003-k8-pressure-indicator-2mpa.json) | Digital pressure indicator at 2 MPa against a dead weight tester (UKAS M3003 K.8) | Ölü ağırlık test cihazına karşı 2 MPa'da dijital basınç göstergesi (UKAS M3003 K.8) | UKAS M3003 ed. 6 (2024) Appendix K.8 |
+
 ## Temperature / Sıcaklık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
@@ -267,6 +287,10 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s11-block-calibrator-180c`](temperature/ea402-s11-block-calibrator-180c.json) | Calibration of a temperature block calibrator at 180 °C | Sıcaklık blok kalibratörünün 180 °C'de kalibrasyonu | EA-4/02 M:2022 S11 |
 | [`ea402-s5-thermocouple-emf`](temperature/ea402-s5-thermocouple-emf.json) | Thermocouple calibration: emf of the unknown | Termokupl kalibrasyonu: bilinmeyenin emk'sı | EA-4/02 M:2022 S5 |
 | [`ea402-s5-thermocouple-furnace`](temperature/ea402-s5-thermocouple-furnace.json) | Thermocouple calibration: furnace temperature | Termokupl kalibrasyonu: fırın sıcaklığı | EA-4/02 M:2022 S5 |
+| [`m3003-k11-gas-temperature`](temperature/m3003-k11-gas-temperature.json) | Temperature of gas in a container from a calibrated PT100 probe (UKAS M3003 K.11, second budget) | Kalibre edilmiş PT100 probdan kaptaki gazın sıcaklığı (UKAS M3003 K.11, ikinci bütçe) | UKAS M3003 ed. 6 (2024) Appendix K.11 (K.11.17–K.11.18) |
+| [`m3003-k11-probe-calibration`](temperature/m3003-k11-probe-calibration.json) | Calibration of a PT100 probe in a dry block against a reference probe (UKAS M3003 K.11, first budget) | Kuru blokta referans proba karşı PT100 prob kalibrasyonu (UKAS M3003 K.11, birinci bütçe) | UKAS M3003 ed. 6 (2024) Appendix K.11 (K.11.9) |
+| [`m3003-k7-thermocouple-emf`](temperature/m3003-k7-thermocouple-emf.json) | N-type thermocouple at 1000 °C: EMF with its full budget (UKAS M3003 K.7) | 1000 °C'de N tipi termoçift: tam bütçesiyle EMK (UKAS M3003 K.7) | UKAS M3003 ed. 6 (2024) Appendix K.7 |
+| [`m3003-k7-thermocouple-furnace`](temperature/m3003-k7-thermocouple-furnace.json) | Temperature of the furnace in a thermocouple calibration at 1000 °C (UKAS M3003 K.7, first budget) | 1000 °C'de termoçift kalibrasyonunda fırın sıcaklığı (UKAS M3003 K.7, birinci bütçe) | UKAS M3003 ed. 6 (2024) Appendix K.7 (K.7.19) |
 | [`nist-tn1900-e2-surface-temperature`](temperature/nist-tn1900-e2-surface-temperature.json) | Monthly mean of daily maximum temperature (NIST TN 1900 E2) | Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2) | NIST Technical Note 1900 Example E2, Exhibit 2 |
 
 ## Temperature, several output quantities (JCGM 102) / Sıcaklık, birden çok çıktı büyüklüğü (JCGM 102)

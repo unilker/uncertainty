@@ -1,0 +1,139 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-c5-dvm-dominant-rectangular",
+    "title": {
+      "en": "Digital voltmeter with a dominant resolution term (UKAS M3003 Appendix C)",
+      "tr": "Baskın çözünürlük terimli dijital voltmetre (UKAS M3003 Ek C)"
+    },
+    "description": {
+      "en": "A DVM reading 1.001 V for an applied 1.000 00 V; the rounding of the 1 mV digit dominates, so k for 95.45 % comes from the convolution of a rectangular and a normal distribution.",
+      "tr": "Uygulanan 1,000 00 V için 1,001 V okuyan bir DVM; 1 mV basamağının yuvarlanması baskındır; bu nedenle %95,45 için k, dikdörtgen ve normal dağılımın konvolüsyonundan gelir."
+    },
+    "explanation": [
+      {
+        "en": "ΔV = V_ind − V_ref + δI_T (C.10): reference U = 0.19 mV (k = 2), drift and temperature ±0.05 mV, rounding ±0.5 mV.",
+        "tr": "ΔV = V_ind − V_ref + δI_T (C.10): referans U = 0,19 mV (k = 2), sürüklenme ve sıcaklık ±0,05 mV, yuvarlama ±0,5 mV."
+      },
+      {
+        "en": "u_R = 0.289 mV, u_N = 0.099 mV, u_N/u_R = 0.344 < 0.70: the rectangular term dominates (C.4, C.5).",
+        "tr": "u_R = 0,289 mV, u_N = 0,099 mV, u_N/u_R = 0,344 < 0,70: dikdörtgen terim baskındır (C.4, C.5)."
+      },
+      {
+        "en": "The program solves P(|R + N| ≤ k·u_c) = 0.9545 for the convolution, which reproduces the table of C.7: k = 1.77, U = 1.77 × 0.305 mV = 0.54 mV.",
+        "tr": "Program konvolüsyon için P(|R + N| ≤ k·u_c) = 0,9545 eşitliğini çözer; bu C.7 tablosunu yeniden üretir: k = 1,77, U = 1,77 × 0,305 mV = 0,54 mV."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix C.5–C.10",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "voltage",
+      "dvm",
+      "dominant-rectangular",
+      "coverage-factor"
+    ],
+    "notes": [
+      {
+        "en": "Research log F61: C.5 states the drift and temperature limit as ±50 V; the calculation uses 0.05 mV, i.e. ±50 µV.",
+        "tr": "Araştırma günlüğü F61: C.5 sürüklenme ve sıcaklık sınırını ±50 V olarak yazar; hesap 0,05 mV, yani ±50 µV kullanır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dV",
+      "unit": "mV",
+      "expression": "V_ind - V_ref + d_IT",
+      "description": {
+        "en": "Error of the voltmeter at 1 V",
+        "tr": "Voltmetrenin 1 V'taki hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "V_ind",
+        "description": {
+          "en": "Indication (1 mV digit)",
+          "tr": "Gösterge (1 mV basamak)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1001.0,
+          "half_width": 0.5
+        },
+        "unit": "mV"
+      },
+      {
+        "name": "V_ref",
+        "description": {
+          "en": "Applied reference voltage (U = 0.19 mV, k = 2)",
+          "tr": "Uygulanan referans gerilim (U = 0,19 mV, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1000.0,
+          "expanded": 0.19,
+          "k": 2
+        },
+        "unit": "mV"
+      },
+      {
+        "name": "d_IT",
+        "description": {
+          "en": "Drift and temperature effects",
+          "tr": "Sürüklenme ve sıcaklık etkileri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        },
+        "unit": "mV"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545,
+      "dominant_rectangular": true
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.0,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 0.305,
+        "tolerance": 0.0005
+      },
+      "coverage_factor": {
+        "value": 1.77,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 0.54,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 C.8–C.10: u_c = 0.305 mV, k = 1.77, U = 0.54 mV.",
+      "tr": "UKAS M3003 6. baskı C.8–C.10: u_c = 0,305 mV, k = 1,77, U = 0,54 mV."
+    }
+  }
+}

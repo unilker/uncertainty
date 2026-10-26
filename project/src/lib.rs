@@ -239,10 +239,11 @@ pub struct Analysis {
 
 pub fn gum_options(spec: &GumSpec) -> GumOptions {
     GumOptions {
-        coverage: match (spec.coverage_factor, spec.coverage_probability) {
-            (Some(k), _) => CoverageSpec::Factor(k),
-            (None, Some(p)) => CoverageSpec::Probability(p),
-            (None, None) => CoverageSpec::Probability(0.95),
+        coverage: match (spec.coverage_factor, spec.coverage_probability, spec.dominant_rectangular) {
+            (Some(k), _, _) => CoverageSpec::Factor(k),
+            (None, p, true) => CoverageSpec::DominantRectangular(p.unwrap_or(0.95)),
+            (None, Some(p), false) => CoverageSpec::Probability(p),
+            (None, None, false) => CoverageSpec::Probability(0.95),
         },
         higher_order: spec.higher_order,
         dof_rounding: match spec.dof_rounding {
@@ -355,6 +356,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
 
 /// Runs the GUM and Monte Carlo evaluations of a model project.
 pub fn run_model(p: &Project, overrides: &Overrides) -> Result<Analysis, ProjectError> {
+    if p.analysis.gum.as_ref().is_some_and(|g| g.dominant_rectangular && g.coverage_factor.is_some()) {
+        return Err(input_err("analysis.gum.dominant_rectangular", "cannot be combined with coverage_factor"));
+    }
     let model = build_model(p)?;
     let gum = match &p.analysis.gum {
         Some(spec) => Some(gum::evaluate(&model, &gum_options(spec))?),
@@ -643,6 +647,7 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
             "effective_dof": if g.effective_dof.is_finite() { json!(g.effective_dof) } else { json!("inf") },
             "coverage_factor": g.coverage_factor,
             "coverage_probability": g.coverage_probability,
+            "dominant_rectangular": g.dominant_rectangular.as_ref().map(|(name, r)| json!({"input": name, "ratio_uN_uR": r})),
             "expanded_uncertainty": g.expanded_uncertainty,
             "interval": [g.interval.0, g.interval.1],
             "budget": g.budget.iter().zip(&a.sensitivities).map(|(r, s)| json!({

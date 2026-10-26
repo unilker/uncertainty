@@ -1,0 +1,191 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k5-weighing-machine-200g",
+    "title": {
+      "en": "Weighing machine of 205 g capacity at 200 g (UKAS M3003 K.5)",
+      "tr": "200 g'de 205 g kapasiteli tartı aleti (UKAS M3003 K.5)"
+    },
+    "description": {
+      "en": "Error of indication of an electronic balance with a 0.1 mg digit, loaded with a class E2 200 g weight; one reading.",
+      "tr": "0,1 mg basamaklı elektronik terazinin E2 sınıfı 200 g ağırlıkla gösterge hatası; tek okuma."
+    },
+    "explanation": [
+      {
+        "en": "ΔI_X = I_X − W_S + δD_S + δI_d0 + δI_d + ΔA_b + δI_r (K.5.1): certificate 0.1 mg (k = 2), drift ±0.1 mg, rounding ±0.05 mg at zero and at load, buoyancy ±0.2 mg, repeatability s = 0.05 mg (ν = 9, one reading).",
+        "tr": "ΔI_X = I_X − W_S + δD_S + δI_d0 + δI_d + ΔA_b + δI_r (K.5.1): sertifika 0,1 mg (k = 2), sürüklenme ±0,1 mg, sıfırda ve yükte ±0,05 mg yuvarlama, kaldırma kuvveti ±0,2 mg, tekrarlanabilirlik s = 0,05 mg (ν = 9, tek okuma)."
+      },
+      {
+        "en": "I_X = 199.9999 g for the 200 g standard (nominal value taken as its mass), so ΔI_X = −0.10 mg by the model.",
+        "tr": "200 g standart için I_X = 199,9999 g (kütlesi nominal değer alınmıştır); model ile ΔI_X = −0,10 mg."
+      },
+      {
+        "en": "u_c = 0.153 mg from the contributions of the budget; ΔI_X = −0.10 mg ± 0.31 mg (k = 2).",
+        "tr": "Bütçe katkılarından u_c = 0,153 mg; ΔI_X = −0,10 mg ± 0,31 mg (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.5",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "mass",
+      "balance",
+      "error-of-indication",
+      "finding"
+    ],
+    "notes": [
+      {
+        "en": "Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.",
+        "tr": "Araştırma günlüğü F56: K.5.9'un u_i sütunundaki katkılar (0,05, 0,058, 0,029, 0,029, 0,115, 0,05 mg) 0,150 mg değil 0,153 mg verir; basılı değer, sürüklenme sınırı √3 yerine 2'ye bölünseydi elde edilirdi. K.5.1 modeline göre ΔI_X = I_X − W_S = 199,9999 g − 200 g = −0,10 mg iken raporlanan gösterge hatası +0,10 mg'dir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dI_X",
+      "unit": "mg",
+      "expression": "I_X - W_S + dD_S + dI_d0 + dI_d + dA_b + dI_r",
+      "description": {
+        "en": "Error of indication at 200 g",
+        "tr": "200 g'de gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_X",
+        "description": {
+          "en": "Indication (199.9999 g)",
+          "tr": "Gösterge (199,9999 g)"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 199999.9
+        },
+        "unit": "mg"
+      },
+      {
+        "name": "W_S",
+        "description": {
+          "en": "Standard weight (U = 0.1 mg, k = 2)",
+          "tr": "Standart ağırlık (U = 0,1 mg, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 200000.0,
+          "expanded": 0.1,
+          "k": 2
+        },
+        "unit": "mg"
+      },
+      {
+        "name": "dD_S",
+        "description": {
+          "en": "Drift of the standard",
+          "tr": "Standardın sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        },
+        "unit": "mg"
+      },
+      {
+        "name": "dI_d0",
+        "description": {
+          "en": "Rounding at zero",
+          "tr": "Sıfırda yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        },
+        "unit": "mg"
+      },
+      {
+        "name": "dI_d",
+        "description": {
+          "en": "Rounding of the indication",
+          "tr": "Göstergenin yuvarlanması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        },
+        "unit": "mg"
+      },
+      {
+        "name": "dA_b",
+        "description": {
+          "en": "Air buoyancy (±1 ppm)",
+          "tr": "Hava kaldırma kuvveti (±1 ppm)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.2
+        },
+        "unit": "mg"
+      },
+      {
+        "name": "dI_r",
+        "description": {
+          "en": "Repeatability (s = 0.05 mg, ν = 9, one reading)",
+          "tr": "Tekrarlanabilirlik (s = 0,05 mg, ν = 9, tek okuma)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.05,
+          "pooled_dof": 9,
+          "n": 1
+        },
+        "unit": "mg"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": -0.1,
+        "tolerance": 1e-06
+      },
+      "standard_uncertainty": {
+        "value": 0.15275,
+        "tolerance": 5e-06
+      },
+      "expanded_uncertainty": {
+        "value": 0.3055,
+        "tolerance": 0.0001
+      }
+    },
+    "reference": {
+      "en": "Recomputed from the contributions of K.5.9 (research log F56). M3003 prints u_c = 0.150 mg, U = 0.300 mg and the result 0.10 mg ± 0.30 mg.",
+      "tr": "K.5.9'daki katkılardan yeniden hesaplanmıştır (araştırma günlüğü F56). M3003 u_c = 0,150 mg, U = 0,300 mg ve 0,10 mg ± 0,30 mg sonucunu verir."
+    }
+  }
+}

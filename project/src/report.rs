@@ -571,7 +571,29 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
             writeln!(s, "- {}: {}{unit}", l.estimate, fmt_estimate(g.estimate, g.combined_standard_uncertainty, lang));
         let _ = writeln!(s, "- {}: {}{unit}", l.combined, n3(g.combined_standard_uncertainty));
         let _ = writeln!(s, "- {}: {}", l.eff_dof, n3(g.effective_dof));
-        let _ = writeln!(s, "- {}: {}", l.k, n3(g.coverage_factor));
+        match (&g.dominant_rectangular, lang) {
+            (Some((name, r)), Lang::En) => {
+                let _ = writeln!(
+                    s,
+                    "- {}: {} (convolution of the rectangular contribution of {name} with a normal distribution for the others, u_N/u_R = {}; UKAS M3003 Appendix C)",
+                    l.k,
+                    n3(g.coverage_factor),
+                    fmt_num(*r, 3, lang)
+                );
+            }
+            (Some((name, r)), Lang::Tr) => {
+                let _ = writeln!(
+                    s,
+                    "- {}: {} ({name} girdisinin dikdörtgen katkısının diğerleri için normal dağılımla konvolüsyonu, u_N/u_R = {}; UKAS M3003 Ek C)",
+                    l.k,
+                    n3(g.coverage_factor),
+                    fmt_num(*r, 3, lang)
+                );
+            }
+            (None, _) => {
+                let _ = writeln!(s, "- {}: {}", l.k, n3(g.coverage_factor));
+            }
+        }
         let _ = writeln!(s, "- {}: {}", l.p, fmt_pct(g.coverage_probability, 4, lang, true));
         let _ = writeln!(s, "- {}: {}{unit}", l.expanded, n3(g.expanded_uncertainty));
         for st in model_statements(p, a, lang) {
@@ -1417,6 +1439,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
         "length" => ("Length", "Uzunluk"),
         "mass" => ("Mass", "Kütle"),
         "physical" => ("Physical properties", "Fiziksel özellikler"),
+        "pressure" => ("Pressure", "Basınç"),
         "temperature" => ("Temperature", "Sıcaklık"),
         other => (other, other),
     };

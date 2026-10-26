@@ -15,6 +15,8 @@ Lisanslı standartlar (ISO, BS, TSE kopyaları) yalnızca çalışma ortamında
 kullanılır, depoya konmaz; kütüphaneye yalnızca standartlardaki örneklerin
 sayısal verileri ve sonuçları kaynak gösterilerek alınır.
 
+**2026-10-26 güncellemesi (4):** UKAS M3003 6. baskı (2024, ücretsiz) indirildi ve kalibrasyon örnekleri için kullanıldı (D46, D47). EURAMET kalibrasyon kılavuzları (cg-18 teraziler vb.) da ücretsizdir; ağ erişimi olduğunda kütüphaneye eklenebilir.
+
 **2026-10-26 güncellemesi (3):** Nordtest TR 569 6. baskı (2026, ücretsiz) indirildi ve kontrol grafiği modülünde kullanıldı (D43–D45); F9 bu belgeyle çözüldü (3,69 = ISO 8258 D₂ eylem sınırı katsayısı). ISO 8258 / ISO 7870-2 (Shewhart grafikleri) isteğe bağlıdır: katsayılar sayısal integrasyonla doğrulandı.
 
 **2026-10-26 güncellemesi (2):** ISO 5725-2 (2019 ve 1994) ve ISO 5725-3 (2023 ve 1994, düzeltmesiyle) alındı ve kullanıldı (D40, D41).

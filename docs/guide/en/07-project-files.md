@@ -63,13 +63,13 @@ themselves).
 ```json
 "analysis": {
   "gum": { "coverage_probability": 0.95, "coverage_factor": null, "higher_order": false, "dof_rounding": "truncate",
-           "kragten": false },
+           "kragten": false, "dominant_rectangular": false },
   "mcm": { "trials": 1000000, "adaptive": { "ndig": 2, "tolerance_divisor": 1, "max_trials": 10000000 },
            "coverage_probability": null, "seed": 1, "interval": "shortest", "validation_ndig": 2 }
 }
 ```
 
-Omitted fields take the defaults shown. `coverage_factor` overrides `coverage_probability`; `adaptive`
+Omitted fields take the defaults shown. `coverage_factor` overrides `coverage_probability`; `"dominant_rectangular": true` takes k from the convolution of the largest rectangular contribution with a normal distribution (UKAS M3003 Appendix C, section 3.7) and cannot be combined with `coverage_factor`; `adaptive`
 overrides `trials`; the Monte Carlo coverage probability defaults to that of the GUM result. Set `"gum": null`
 or `"mcm": null` to skip one of the methods.
 

@@ -63,13 +63,13 @@ kendileri belirler).
 ```json
 "analysis": {
   "gum": { "coverage_probability": 0.95, "coverage_factor": null, "higher_order": false, "dof_rounding": "truncate",
-           "kragten": false },
+           "kragten": false, "dominant_rectangular": false },
   "mcm": { "trials": 1000000, "adaptive": { "ndig": 2, "tolerance_divisor": 1, "max_trials": 10000000 },
            "coverage_probability": null, "seed": 1, "interval": "shortest", "validation_ndig": 2 }
 }
 ```
 
-Yazılmayan alanlar gösterilen varsayılanları alır. `coverage_factor`, `coverage_probability`'yi; `adaptive`,
+Yazılmayan alanlar gösterilen varsayılanları alır. `coverage_factor`, `coverage_probability`'yi geçersiz kılar; `"dominant_rectangular": true`, k'yı en büyük dikdörtgen katkının normal dağılımla konvolüsyonundan alır (UKAS M3003 Ek C, bölüm 3.7) ve `coverage_factor` ile birlikte kullanılamaz; `adaptive`,
 `trials`'ı geçersiz kılar; Monte Carlo kapsam olasılığı varsayılan olarak GUM sonucununkidir. Yöntemlerden
 birini atlamak için `"gum": null` veya `"mcm": null` yazınız.
 

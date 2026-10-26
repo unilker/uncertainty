@@ -1,0 +1,188 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k1-resistor-10kohm",
+    "title": {
+      "en": "10 kΩ resistor by voltage intercomparison (UKAS M3003 K.1)",
+      "tr": "Gerilim karşılaştırmasıyla 10 kΩ direnç (UKAS M3003 K.1)"
+    },
+    "description": {
+      "en": "The voltages across a standard and an unknown 10 kΩ resistor in series are compared with one DVM; both resistors are in an oil bath at 20.0 °C ± 0.1 °C.",
+      "tr": "Seri bağlı standart ve bilinmeyen 10 kΩ dirençler üzerindeki gerilimler tek bir DVM ile karşılaştırılır; her iki direnç 20,0 °C ± 0,1 °C yağ banyosundadır."
+    },
+    "explanation": [
+      {
+        "en": "R_X = (R_S + δR_D + R_TC·Δt)·V_X/V_S (K.1.1), with the DVM linearity and resolution as relative errors of each reading, ±0.2 ppm, rectangular (K.1.6).",
+        "tr": "R_X = (R_S + δR_D + R_TC·Δt)·V_X/V_S (K.1.1); DVM doğrusallığı ve çözünürlüğü her okumanın göreli hatası olarak, ±0,2 ppm, dikdörtgen (K.1.6)."
+      },
+      {
+        "en": "R_S = 10 000.000 Ω is implied by the result 10 000.1050 Ω = R_S·(1 + 10.50 ppm); certificate ±0.5 ppm (k = 2), uncorrected drift ±0.5 ppm, temperature coefficient 2.5 ppm/°C over ±0.1 °C.",
+        "tr": "R_S = 10 000,000 Ω, 10 000,1050 Ω = R_S·(1 + 10,50 ppm) sonucundan çıkar; sertifika ±0,5 ppm (k = 2), düzeltilmemiş sürüklenme ±0,5 ppm, ±0,1 °C üzerinde 2,5 ppm/°C sıcaklık katsayısı."
+      },
+      {
+        "en": "Five readings of the ratio departure (+10.4 … +10.7 ppm): mean +10.50 ppm, s = 0.158 ppm, u = s/√5 = 0.071 ppm with 4 degrees of freedom.",
+        "tr": "Oran sapmasının beş okuması (+10,4 … +10,7 ppm): ortalama +10,50 ppm, s = 0,158 ppm, u = s/√5 = 0,071 ppm, 4 serbestlik derecesi."
+      },
+      {
+        "en": "u_c = 0.445 ppm = 0.004 45 Ω; R_X = 10 000.1050 Ω ± 0.0089 Ω (k = 2).",
+        "tr": "u_c = 0,445 ppm = 0,004 45 Ω; R_X = 10 000,1050 Ω ± 0,0089 Ω (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.1",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "resistance",
+      "dc",
+      "type-a"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "R_X",
+      "unit": "Ω",
+      "expression": "(R_S + dR_D + R_TC*dt) * r * (1 + d_VX) / (1 + d_VS)",
+      "description": {
+        "en": "Resistance of the unknown resistor",
+        "tr": "Bilinmeyen direncin değeri"
+      }
+    },
+    "inputs": [
+      {
+        "name": "R_S",
+        "description": {
+          "en": "Standard resistor (certificate, ±0.5 ppm, k = 2)",
+          "tr": "Standart direnç (sertifika, ±0,5 ppm, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 10000.0,
+          "expanded": 0.005,
+          "k": 2
+        },
+        "unit": "Ω"
+      },
+      {
+        "name": "dR_D",
+        "description": {
+          "en": "Drift of the standard since calibration (±0.5 ppm)",
+          "tr": "Kalibrasyondan beri standardın sürüklenmesi (±0,5 ppm)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.005
+        },
+        "unit": "Ω"
+      },
+      {
+        "name": "R_TC",
+        "description": {
+          "en": "Temperature coefficient of R_S (2.5 ppm/°C)",
+          "tr": "R_S'nin sıcaklık katsayısı (2,5 ppm/°C)"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.025
+        },
+        "unit": "Ω/°C"
+      },
+      {
+        "name": "dt",
+        "description": {
+          "en": "Deviation of the oil bath from 20.0 °C",
+          "tr": "Yağ banyosunun 20,0 °C'den sapması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "d_VS",
+        "description": {
+          "en": "DVM linearity and resolution, reading across R_S (relative)",
+          "tr": "DVM doğrusallığı ve çözünürlüğü, R_S üzerindeki okuma (göreli)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2e-07
+        }
+      },
+      {
+        "name": "d_VX",
+        "description": {
+          "en": "DVM linearity and resolution, reading across R_X (relative)",
+          "tr": "DVM doğrusallığı ve çözünürlüğü, R_X üzerindeki okuma (göreli)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2e-07
+        }
+      },
+      {
+        "name": "r",
+        "description": {
+          "en": "Voltage ratio V_X/V_S, five readings",
+          "tr": "V_X/V_S gerilim oranı, beş okuma"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            1.0000104,
+            1.0000107,
+            1.0000106,
+            1.0000103,
+            1.0000105
+          ]
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 10000.105,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.00445,
+        "tolerance": 5e-06
+      },
+      "expanded_uncertainty": {
+        "value": 0.0089,
+        "tolerance": 5e-05
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.1.8–K.1.9: u_c = 0.445 ppm, U = 0.891 ppm; 10 000.1050 Ω ± 0.0089 Ω.",
+      "tr": "UKAS M3003 6. baskı K.1.8–K.1.9: u_c = 0,445 ppm, U = 0,891 ppm; 10 000,1050 Ω ± 0,0089 Ω."
+    }
+  }
+}

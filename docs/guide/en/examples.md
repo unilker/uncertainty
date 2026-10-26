@@ -3,13 +3,14 @@
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
 - Chemistry (82)
-- Electrical and RF (23)
-- Flow and volume (4)
+- Electrical and RF (31)
+- Flow and volume (5)
 - General (method validation) (19)
-- Length (8)
-- Mass (4)
+- Length (11)
+- Mass (6)
 - Physical properties (8)
-- Temperature (6)
+- Pressure (1)
+- Temperature (10)
 
 ## Chemistry
 
@@ -2381,6 +2382,187 @@ JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated av
 
 **Run:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang en`
 
+### Digital voltmeter with a dominant resolution term (UKAS M3003 Appendix C)
+
+`m3003-c5-dvm-dominant-rectangular` — UKAS M3003 ed. 6 (2024), Appendix C.5–C.10
+
+A DVM reading 1.001 V for an applied 1.000 00 V; the rounding of the 1 mV digit dominates, so k for 95.45 % comes from the convolution of a rectangular and a normal distribution.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ΔV = V_ind − V_ref + δI_T (C.10): reference U = 0.19 mV (k = 2), drift and temperature ±0.05 mV, rounding ±0.5 mV.
+2. u_R = 0.289 mV, u_N = 0.099 mV, u_N/u_R = 0.344 < 0.70: the rectangular term dominates (C.4, C.5).
+3. The program solves P(|R + N| ≤ k·u_c) = 0.9545 for the convolution, which reproduces the table of C.7: k = 1.77, U = 1.77 × 0.305 mV = 0.54 mV.
+
+**Result:**
+
+- dV = (1.00 ± 0.54) mV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.77, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F61: C.5 states the drift and temperature limit as ±50 V; the calculation uses 0.05 mV, i.e. ±50 µV.
+
+**Run:** `uncertainty run library/electrical/m3003-c5-dvm-dominant-rectangular.json --lang en`
+
+### 10 kΩ resistor by voltage intercomparison (UKAS M3003 K.1)
+
+`m3003-k1-resistor-10kohm` — UKAS M3003 ed. 6 (2024), Appendix K.1
+
+The voltages across a standard and an unknown 10 kΩ resistor in series are compared with one DVM; both resistors are in an oil bath at 20.0 °C ± 0.1 °C.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. R_X = (R_S + δR_D + R_TC·Δt)·V_X/V_S (K.1.1), with the DVM linearity and resolution as relative errors of each reading, ±0.2 ppm, rectangular (K.1.6).
+2. R_S = 10 000.000 Ω is implied by the result 10 000.1050 Ω = R_S·(1 + 10.50 ppm); certificate ±0.5 ppm (k = 2), uncorrected drift ±0.5 ppm, temperature coefficient 2.5 ppm/°C over ±0.1 °C.
+3. Five readings of the ratio departure (+10.4 … +10.7 ppm): mean +10.50 ppm, s = 0.158 ppm, u = s/√5 = 0.071 ppm with 4 degrees of freedom.
+4. u_c = 0.445 ppm = 0.004 45 Ω; R_X = 10 000.1050 Ω ± 0.0089 Ω (k = 2).
+5. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- R_X = (10000.1050 ± 0.0089) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/electrical/m3003-k1-resistor-10kohm.json --lang en`
+
+### Coaxial power sensor at 18 GHz (UKAS M3003 K.2)
+
+`m3003-k2-power-sensor-18ghz` — UKAS M3003 ed. 6 (2024), Appendix K.2
+
+Calibration factor of an unknown power sensor by substitution against a standard sensor on a monitored source; four connections.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. K_X = (K_S + δD_S)·f_DC·f_M·f_REF (K.2.1). M3003 combines all terms in percentage points of the calibration factor, so the model adds them to the observed K_X.
+2. Mismatch limits 200·|Γ_G|·|Γ| %: 0.08 % at 50 MHz for both sensors, 1.40 % (standard) and 1.68 % (unknown) at 18 GHz, U-shaped (arc sine, u = a/√2).
+3. Four values 93.45, 92.20, 93.95, 93.02 %: mean 93.16 %, s = 0.7415 %, u = s/√4 = 0.37 % (3 degrees of freedom).
+4. u_c = 1.69 %, dominated by the 18 GHz mismatch terms; K_X = 93.2 % ± 3.4 % (k = 2).
+5. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- K_X = (93.2 ± 3.4) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/electrical/m3003-k2-power-sensor-18ghz.json --lang en`
+
+### 30 dB coaxial attenuator at 10 GHz (UKAS M3003 K.3)
+
+`m3003-k3-attenuator-30db` — UKAS M3003 ed. 6 (2024), Appendix K.3
+
+Calibration of a coaxial step attenuator by IF substitution; the mismatch term dominates.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), dual-channel 30 MHz IF substitution at 10 GHz.
+2. Four readings 30.04, 30.07, 30.03, 30.06 dB: mean 30.050 dB, s = 0.018 dB, u = 0.009 dB (3 degrees of freedom).
+3. Mismatch standard uncertainty 0.022 dB as printed in the budget (K.3.9); u_c = 0.0245 dB; A_X = 30.050 dB ± 0.049 dB (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- A_X = (30.050 ± 0.049) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F57: Formula E5 with the reflection and scattering coefficients of K.3.6 gives a mismatch standard deviation of 0.0170 dB, not the 0.022 dB of the budget; see the project m3003-k3-attenuator-30db-mismatch-e5.
+
+**Run:** `uncertainty run library/electrical/m3003-k3-attenuator-30db.json --lang en`
+
+### 30 dB attenuator with the mismatch term from formula E5 (UKAS M3003 K.3, E.9.5)
+
+`m3003-k3-attenuator-30db-mismatch-e5` — UKAS M3003 ed. 6 (2024), Appendix K.3 and E.9.5
+
+The budget of K.3 with the mismatch standard deviation recomputed from the coefficients the example gives (finding F57).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), dual-channel 30 MHz IF substitution at 10 GHz.
+2. Four readings 30.04, 30.07, 30.03, 30.06 dB: mean 30.050 dB, s = 0.018 dB, u = 0.009 dB (3 degrees of freedom).
+3. Formula E5 (Harris and Warner): M = 8.686/√2 · [M_G + M_L + M_GL]^½ dB with M_G = |Γ_G|²(|s11a|² + |s11b|²), M_L = |Γ_L|²(|s22a|² + |s22b|²), M_GL = |Γ_G|²|Γ_L|²(|s21a|⁴ + |s21b|⁴).
+4. With Γ_G = Γ_L = 0.03, s11a = s11b = 0.05, s22a = 0.05, s22b = 0.01, s21a = 1, s21b = 0.31 (K.3.6): M = 0.0170 dB, and u_c = 0.0202 dB instead of 0.0245 dB.
+5. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- A_X = (30.050 ± 0.040) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang en`
+
+### DMM on the 1 V range: budget at 0.95 V (UKAS M3003 L.3)
+
+`m3003-l3-dmm-1v-range-095v` — UKAS M3003 ed. 6 (2024), Appendix L.3
+
+Error of a 6½-digit DMM on its 1 V range at 0.95 V, calibrated with a multifunction calibrator; relative (ppm) and absolute (µV) contributions combined at one reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r with V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); no readings are needed for the uncertainty, so the estimate is zero.
+2. Relative terms (× I_DMM): calibration 2.8 ppm (k = 2), specification ±8 ppm, repeatability 2.5 ppm (ν = 9). Absolute terms: calibration 0.5 µV (k = 2), specification ±2 µV, thermoelectric ±1 µV, common mode ±1 µV, resolution ±0.5 µV.
+3. At I_DMM = 0.95 V: u_c = 5.37 µV, U = 10.73 µV (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F61: the budget is headed 'evaluated at ΔI_DMM = 0.95 V', meaning I_DMM = 0.95 V; L.3.15 defines Q[a, b] = [a² + ab]^½ for [a² + b²]^½; Appendix Q's note writes u(R) = u(R) × R for u(R) = w(R) × R.
+
+**Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-095v.json --lang en`
+
+### DMM on the 1 V range at full scale: coverage factor for a dominant specification term (UKAS M3003 L.3.20)
+
+`m3003-l3-dmm-1v-range-1v-dominant` — UKAS M3003 ed. 6 (2024), Appendix L.3
+
+Error of a 6½-digit DMM on its 1 V range at 1.0 V, calibrated with a multifunction calibrator; relative (ppm) and absolute (µV) contributions combined at one reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r with V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); no readings are needed for the uncertainty, so the estimate is zero.
+2. Relative terms (× I_DMM): calibration 2.8 ppm (k = 2), specification ±8 ppm, repeatability 2.5 ppm (ν = 9). Absolute terms: calibration 0.5 µV (k = 2), specification ±2 µV, thermoelectric ±1 µV, common mode ±1 µV, resolution ±0.5 µV.
+3. At |I_DMM| = 1 V the specification term is marginally dominant: u_R/u_N = 1.435; the convolution gives k = 1.898 for 95.45 % (L.3.20), not significantly different from the k = 1.900 of the critical ratio 1.42.
+
+**Result:**
+
+- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.90, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang en`
+
+### DMM on the 1 V range: uncertainty at 500 mV from the range formula (UKAS M3003 L.3)
+
+`m3003-l3-dmm-1v-range-500mv` — UKAS M3003 ed. 6 (2024), Appendix L.3
+
+Error of a 6½-digit DMM on its 1 V range at 0.5 V, calibrated with a multifunction calibrator; relative (ppm) and absolute (µV) contributions combined at one reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r with V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); no readings are needed for the uncertainty, so the estimate is zero.
+2. Relative terms (× I_DMM): calibration 2.8 ppm (k = 2), specification ±8 ppm, repeatability 2.5 ppm (ν = 9). Absolute terms: calibration 0.5 µV (k = 2), specification ±2 µV, thermoelectric ±1 µV, common mode ±1 µV, resolution ±0.5 µV.
+3. At I_DMM = 500 mV: U = √((500 mV × 11 ppm)² + (2.9 µV)²) = 6.2 µV (L.3.14).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- dI = (0.0 ± 6.2) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang en`
+
 ### Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)
 
 `nist-tn1900-e11-step-attenuator` — NIST Technical Note 1900, Example E11, Exhibits 16 and 17
@@ -2480,6 +2662,31 @@ EA-4/02 S12 (first budget): volume passed through a household water meter, measu
 - V_X = (199.93 ± 0.22) L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang en`
+
+### Volume flowrate referred to standard pressure and temperature (UKAS M3003 K.9)
+
+`m3003-k9-flowrate-standard-conditions` — UKAS M3003 ed. 6 (2024), Appendix K.9
+
+Flowrate from a 4–20 mA flowmeter at 1018 hPa and 295.1 K, expressed at 1013.25 hPa and 293.15 K; three partial budgets in one model.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Q_s = Q_m·(P_m/P_s)·(T_s/T_m) + δQ_s (K.9.2), with Q_m = A·i + B and A = 6.25 L s⁻¹ mA⁻¹, B = −24.95 L s⁻¹ (K.9.4): i = 6.0 mA gives Q_m = 12.55 L s⁻¹.
+2. Partial budgets: u(Q_m) = 0.207 L s⁻¹ (calibration, drift, environment, current); u(P_m) = 1.322 hPa; u(T_m) = 0.144 K; repeatability of Q_s s = 0.18 L s⁻¹ (ν = 24, one reading).
+3. Q_s = 12.53 L s⁻¹, u_c = 0.275 L s⁻¹, ν_eff = 130; Q_s = (12.53 ± 0.55) L s⁻¹ (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- Q_s = (12.52 ± 0.55) L/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- With ν_eff = 130 the coverage factor for 95.45 % is 2.03 (Appendix B table: 2.025 at 100), which would give U = 0.56 L/s; the example uses k = 2.
+
+**Run:** `uncertainty run library/flow/m3003-k9-flowrate-standard-conditions.json --lang en`
 
 ### Airspeed with a Pitot tube (NIST TN 1900 E4)
 
@@ -3052,6 +3259,77 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 **Run:** `uncertainty run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang en`
 
+### Thickness of an aluminium test sample (UKAS M3003 K.10)
+
+`m3003-k10-sheet-thickness` — UKAS M3003 ed. 6 (2024), Appendix K.10
+
+Mean of five thickness readings at the centre of a sample, measured in an uncontrolled environment; the calibration correction is not applied.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. w = w_ave + Δw_cal + δw_T (K.10.1): readings 1.51, 1.51, 1.52, 1.50, 1.53 mm give 1.514 mm, s = 0.0114 mm, u = 0.0051 mm (ν = 4).
+2. Resolution ±0.005 mm; calibration U = 0.015 mm (k = 2); drift limit max(0.002, mean(0.002, 0.004, 0.001)) = 0.002 33 mm; uncorrected error ±0.001 mm; temperature ±10 K with 11.9·10⁻⁶ K⁻¹ × 3 mm = 3.57·10⁻⁵ mm/K (K.10.7).
+3. u_c = 0.009 63 mm, ν_eff = 50; w = 1.514 mm ± 0.019 mm (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- w = (1.514 ± 0.019) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- With ν_eff = 50 the coverage factor for 95.45 % is 2.05 (Appendix B), which would give U = 0.020 mm; the example uses k = 2.
+
+**Run:** `uncertainty run library/length/m3003-k10-sheet-thickness.json --lang en`
+
+### Grade 2 gauge block of 10 mm (UKAS M3003 K.6)
+
+`m3003-k6-gauge-block-10mm` — UKAS M3003 ed. 6 (2024), Appendix K.6
+
+Comparison with a standard gauge block; the budget as printed, with the two temperature effects added linearly into one triangular term.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. L_X = L_S + δL_D + ΔL − L(α·Δt + Δα·ΔT) + ΔD_C + δC + L_V(X) + δL_r (K.6.1); grade 2 block of 10 mm against a grade K standard.
+2. Temperature effects as in K.6.4: ±1.6 nm from Δt and ±4 nm from ΔT, both through Δα = ±2 µm m⁻¹ °C⁻¹, treated as correlated and added: ±5.6 nm, triangular.
+3. u_c = 40.7 nm; L_X = 9.999 940 mm ± 0.081 µm (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- L_X = (9.999940 ± 0.000081) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F58: by the model of K.6.1 the temperature difference Δt acts through the mean expansion coefficient α (L·α = 115 nm/°C, ±9.2 nm), not through Δα; the product Δα·ΔT has zero first-order sensitivity. See m3003-k6-gauge-block-10mm-temperature-model.
+
+**Run:** `uncertainty run library/length/m3003-k6-gauge-block-10mm.json --lang en`
+
+### Grade 2 gauge block of 10 mm with the temperature terms of its model (UKAS M3003 K.6, EA-4/02 S4)
+
+`m3003-k6-gauge-block-10mm-temperature-model` — UKAS M3003 ed. 6 (2024), Appendix K.6
+
+The budget of K.6 with −L(α·Δt + Δα·ΔT) evaluated as the model states, as EA-4/02 S4 does for a 50 mm block (finding F58).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. L_X = L_S + δL_D + ΔL − L(α·Δt + Δα·ΔT) + ΔD_C + δC + L_V(X) + δL_r (K.6.1); grade 2 block of 10 mm against a grade K standard.
+2. Δt (±0.08 °C, rectangular) acts with sensitivity −L·α = −115 nm/°C: u = 5.3 nm. Δα (±2 µm m⁻¹ °C⁻¹, triangular) and ΔT (±0.2 °C, rectangular) both have zero expectation, so their product contributes only through the second-order term L·u(Δα)·u(ΔT) = 0.94 nm (GUM 5.1.2 note).
+3. u_c = 41.0 nm instead of 40.7 nm; U = 82 nm (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- L_X = (9.999940 ± 0.000082) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang en`
+
 ### End-gauge calibration with Gaussian inputs (NIST Uncertainty Machine §8)
 
 `num-8-end-gauge-gaussian` — T. Lafarge, §8, Table 3 and Figure 3; JCGM 100:2008, H.1, Table H.1
@@ -3148,6 +3426,56 @@ JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.
 - dm = (1.23 ± 0.15) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
 
 **Run:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang en`
+
+### 10 kg weight of OIML class M1 (UKAS M3003 K.4)
+
+`m3003-k4-weight-10kg` — UKAS M3003 ed. 6 (2024), Appendix K.4
+
+Comparison with a class F2 standard on a mass comparator, three bracketed comparisons.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. W_X = W_S + ΔW + δD_S + δI_d + ΔC + ΔA_b + δW_r (K.4.1): certificate 30 mg (k = 2), drift ±30 mg, rounding ±10 mg (triangular, two readings), non-linearity ±3 mg, buoyancy ±10 mg.
+2. Mean difference ΔW = +0.020 g from three comparisons; repeatability from an earlier evaluation, s = 8.7 mg with 9 degrees of freedom, so u = 8.7/√3 = 5.0 mg.
+3. u_c = 24.56 mg; W_X = 10 000.025 g ± 0.049 g (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- W_X = (10000.025 ± 0.049) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F55: K.4.7 states ν = (m − 1) = 10 degrees of freedom for m = 10 comparisons; the budget uses 9, which is m − 1. The note below the budget refers to 10 readings.
+
+**Run:** `uncertainty run library/mass/m3003-k4-weight-10kg.json --lang en`
+
+### Weighing machine of 205 g capacity at 200 g (UKAS M3003 K.5)
+
+`m3003-k5-weighing-machine-200g` — UKAS M3003 ed. 6 (2024), Appendix K.5
+
+Error of indication of an electronic balance with a 0.1 mg digit, loaded with a class E2 200 g weight; one reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ΔI_X = I_X − W_S + δD_S + δI_d0 + δI_d + ΔA_b + δI_r (K.5.1): certificate 0.1 mg (k = 2), drift ±0.1 mg, rounding ±0.05 mg at zero and at load, buoyancy ±0.2 mg, repeatability s = 0.05 mg (ν = 9, one reading).
+2. I_X = 199.9999 g for the 200 g standard (nominal value taken as its mass), so ΔI_X = −0.10 mg by the model.
+3. u_c = 0.153 mg from the contributions of the budget; ΔI_X = −0.10 mg ± 0.31 mg (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- dI_X = (-0.10 ± 0.30) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.
+
+**Run:** `uncertainty run library/mass/m3003-k5-weighing-machine-200g.json --lang en`
 
 ### Mass of a powder by weighing (NIST TN 1900 E1)
 
@@ -3363,6 +3691,33 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 
 **Run:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang en`
 
+## Pressure
+
+### Digital pressure indicator at 2 MPa against a dead weight tester (UKAS M3003 K.8)
+
+`m3003-k8-pressure-indicator-2mpa` — UKAS M3003 ed. 6 (2024), Appendix K.8
+
+Error of a DPI at 2 MPa; the budget is in relative terms (ppm), as is the convention for pressure.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Generated pressure P_X = 2.000 806 MPa from the masses, the effective area A₀ = 80.6516 mm², gravity, buoyancy and fluid head (K.8.15); indication I_X = 2.000 84 MPa.
+2. Relative contributions to P_X: area 32.2 ppm (k = 2) and drift ±30 ppm; distortion 1.0 ppm (k = 2); masses 7.3 ppm (k = 2, as in the budget) and drift ±7.6 ppm; piston temperature ±0.5 °C × 23 ppm/°C; gravity 3 ppm (k = 2); buoyancy ±13 ppm; fluid head ±13.5 ppm; other fluid effects ±2 ppm; verticality ±3.4 ppm.
+3. Indication: rounding ±50 ppm (200 Pa steps) and repeatability 16 ppm (ν = 9, one reading). u_c = 43.0 ppm; ΔI_X = 17 ppm ± 86 ppm (k = 2), i.e. 34 Pa ± 170 Pa.
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- e = (17 ± 86) ppm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F60: K.8.5.1 says the relative mass uncertainty of 7.3 ppm is to be treated as the semi-range of a rectangular distribution, but the budget treats it as an expanded uncertainty with k = 2 (u = 3.65 ppm instead of 4.21 ppm). The effect on u_c is below its last printed digit (43.0 ppm either way).
+
+**Run:** `uncertainty run library/pressure/m3003-k8-pressure-indicator-2mpa.json --lang en`
+
 ## Temperature
 
 ### Calibration of a temperature block calibrator at 180 °C
@@ -3482,6 +3837,94 @@ JCGM 102:2011 9.5.3: ten temperatures measured with the same calibrated thermome
 - Table 15 labels the seventh column θ6 instead of θ7.
 
 **Run:** `uncertainty run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang en`
+
+### Temperature of gas in a container from a calibrated PT100 probe (UKAS M3003 K.11, second budget)
+
+`m3003-k11-gas-temperature` — UKAS M3003 ed. 6 (2024), Appendix K.11 (K.11.17–K.11.18)
+
+The probe L is attached to the outside of the vessel; its correction comes from the calibration function ΔT_u = 0.000 55·I_u + 0.419 °C.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. T_g = (I_u − ΔT_u) − ΔT_ug − δT_h − δT_r (K.11.11): I_u = 23.4 °C (mean of four), ΔT_u = 0.431 °C.
+2. Calibration of L U = 0.084 49 °C (k = 2, first budget), fit ±0.012 °C, drift ±0.004 67 °C, probe–gas difference ±0.1 °C, self-heating ±4 mK, repeatability s = 0.076 °C (ν = 49) for the mean of four.
+3. u_c = 0.0864 °C; T_g = 22.97 °C ± 0.17 °C (k = 2).
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- T_g = (22.97 ± 0.17) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/temperature/m3003-k11-gas-temperature.json --lang en`
+
+### Calibration of a PT100 probe in a dry block against a reference probe (UKAS M3003 K.11, first budget)
+
+`m3003-k11-probe-calibration` — UKAS M3003 ed. 6 (2024), Appendix K.11 (K.11.9)
+
+Error of the laboratory probe L at 20.4 °C against the reference probe S, whose calibration function is ΔT_S = 0.000 01·I_S + 0.0108 °C.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ΔT_L = I_L − (I_S − ΔT_S − ΔT_SL) − δΔT_L (K.11.2): resolution 0.1 °C (L) and 0.01 °C (S), calibration of S U = 0.024 °C (k = 2), fit ±0.005 °C, drift ±0.008 °C, block gradients ±0.048 °C, repeatability 0.001 23 °C (ν = 24).
+2. I_S = 19.979 °C is derived so that ΔT_L = 0.432 °C at I_L = 20.4 °C, as in the table of K.11.10 (the indication of S is not printed).
+3. u_c = 0.042 25 °C, U = 0.084 °C (k = 2); this U enters the second budget as the calibration uncertainty of L.
+4. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- dT_L = (0.432 ± 0.084) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/temperature/m3003-k11-probe-calibration.json --lang en`
+
+### N-type thermocouple at 1000 °C: EMF with its full budget (UKAS M3003 K.7)
+
+`m3003-k7-thermocouple-emf` — UKAS M3003 ed. 6 (2024), Appendix K.7
+
+Both budgets of K.7 in one model: the furnace temperature enters the EMF of the unknown thermocouple through its sensitivity 1/c_X = 38.5 µV/°C.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. An N-type thermocouple is compared with two R-type reference thermocouples at 1000 °C; four readings each with reversed polarity give 10 502.5 µV and 10 504.0 µV (1000.4 °C and 1000.6 °C) for the standards and 36 248 µV for the unknown.
+2. Furnace temperature t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), mean 1000.5 °C; u_c(t_X) = 0.641 °C (K.7.19), dominated by the furnace non-uniformity ±1 °C.
+3. V_X(1000 °C) = V_iX + (1000 °C − t_X)/c_X + δV_iX1 + δV_iX2 + δV_LX + δt_TH/c_X + δV_R − δt_0X/c_X0 + δV_r (K.7.2, K.7.20) with c_X = 0.026 °C/µV and c_X0 = 0.038 °C/µV.
+4. u_c = 25.8 µV; V_X = 36 230 µV ± 52 µV (k = 2) at 1000 °C with the reference junction at 0 °C.
+5. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- V_X = (36229 ± 52) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F59: the reported EMF 36 230 µV is obtained by scaling, 36 248·1000/1000.5, whereas the uncertainty budget uses the thermocouple sensitivity 38.5 µV/°C, which gives 36 248 − 0.5·38.46 = 36 228.8 µV. The printed u_c = 25.9 µV and U = 51.9 µV follow from rounded sensitivities (38.5 and 26.3); the exact ones give 25.84 µV and 51.7 µV.
+
+**Run:** `uncertainty run library/temperature/m3003-k7-thermocouple-emf.json --lang en`
+
+### Temperature of the furnace in a thermocouple calibration at 1000 °C (UKAS M3003 K.7, first budget)
+
+`m3003-k7-thermocouple-furnace` — UKAS M3003 ed. 6 (2024), Appendix K.7 (K.7.19)
+
+First part of K.7: the temperature at the hot junctions from the two reference thermocouples.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. An N-type thermocouple is compared with two R-type reference thermocouples at 1000 °C; four readings each with reversed polarity give 10 502.5 µV and 10 504.0 µV (1000.4 °C and 1000.6 °C) for the standards and 36 248 µV for the unknown.
+2. Furnace temperature t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), mean 1000.5 °C; u_c(t_X) = 0.641 °C (K.7.19), dominated by the furnace non-uniformity ±1 °C.
+3. Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.
+
+**Result:**
+
+- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/temperature/m3003-k7-thermocouple-furnace.json --lang en`
 
 ### Monthly mean of daily maximum temperature (NIST TN 1900 E2)
 

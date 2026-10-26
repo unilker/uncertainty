@@ -433,6 +433,43 @@ pub fn trapezoidal_coverage_factor(p: f64, beta: f64) -> f64 {
     }
 }
 
+/// Coverage factor for the convolution of a rectangular distribution with
+/// standard deviation u_R and a normal distribution with standard deviation
+/// u_N, relative to u_c = √(u_R² + u_N²), for coverage probability p: the k
+/// with P(|R + N| ≤ k u_c) = p [UKAS M3003 ed. 6, Appendix C.7, table for
+/// p = 95.45 %]. `ratio` = u_N/u_R; ratio = 0 gives the rectangular case
+/// k = p√3, a large ratio the normal one.
+pub fn rectangular_normal_coverage_factor(p: f64, ratio: f64) -> f64 {
+    assert!(p > 0.0 && p < 1.0, "coverage probability must lie in (0, 1)");
+    assert!(ratio >= 0.0, "ratio must be non-negative");
+    let a = 3.0_f64.sqrt(); // half-width for u_R = 1
+    let uc = (1.0 + ratio * ratio).sqrt();
+    if ratio == 0.0 {
+        return p * a / uc;
+    }
+    if ratio > 1e3 {
+        return normal_quantile(0.5 + p / 2.0);
+    }
+    // P(|X| ≤ x) for X = R + N: (r/2a)[ψ((x + a)/r) − ψ((x − a)/r)] − (same at −x),
+    // with ψ(z) = zΦ(z) + φ(z).
+    let psi = |z: f64| z * normal_cdf(z) + normal_pdf(z);
+    let cdf = |x: f64| ratio / (2.0 * a) * (psi((x + a) / ratio) - psi((x - a) / ratio));
+    let coverage = |k: f64| cdf(k * uc) - cdf(-k * uc);
+    let (mut lo, mut hi) = (0.0_f64, 10.0_f64);
+    for _ in 0..200 {
+        let mid = 0.5 * (lo + hi);
+        if coverage(mid) < p {
+            lo = mid;
+        } else {
+            hi = mid;
+        }
+        if hi - lo < 1e-13 {
+            break;
+        }
+    }
+    0.5 * (lo + hi)
+}
+
 /// Compensated (Neumaier) summation of a slice.
 pub fn accurate_sum(values: &[f64]) -> f64 {
     let mut sum = 0.0_f64;
@@ -455,6 +492,77 @@ mod tests {
 
     fn rel(a: f64, b: f64) -> f64 {
         ((a - b) / b).abs()
+    }
+
+    /// UKAS M3003 ed. 6 Appendix B: t_p(ν) for p = 68.27 %, 95 %, 95.45 %
+    /// and 99.73 % (to the printed decimals), and the example of B.10:
+    /// ν_eff = 3·(5.7/3.5)⁴ = 21.1 and k = 2.13 for the next lower ν = 20.
+    #[test]
+    fn coverage_factors_m3003_appendix_b() {
+        let rows: [(f64, [f64; 4]); 9] = [
+            (1.0, [1.84, 12.71, 13.97, 235.78]),
+            (2.0, [1.32, 4.30, 4.53, 19.21]),
+            (3.0, [1.20, 3.18, 3.31, 9.22]),
+            (5.0, [1.11, 2.57, 2.65, 5.51]),
+            (10.0, [1.05, 2.23, 2.28, 3.96]),
+            (20.0, [1.03, 2.09, 2.13, 3.42]),
+            (50.0, [1.01, 2.01, 2.05, 3.16]),
+            (100.0, [1.005, 1.984, 2.025, 3.077]),
+            (f64::INFINITY, [1.000, 1.960, 2.000, 3.000]),
+        ];
+        for (nu, ts) in rows {
+            for (p, t) in [0.6827, 0.95, 0.9545, 0.9973].into_iter().zip(ts) {
+                let c = coverage_factor(p, nu);
+                let tol: f64 = if t < 10.0 { 0.0051 } else { 0.011 } * if nu == 100.0 { 0.1 } else { 1.0 };
+                assert!((c - t).abs() <= tol.max(0.0006), "ν = {nu}, p = {p}: {c} vs {t}");
+            }
+        }
+        let nu_eff = 5.7f64.powi(4) / (3.5f64.powi(4) / 3.0);
+        assert!((nu_eff - 21.1).abs() < 0.05);
+        assert!((coverage_factor(0.9545, 20.0) - 2.13).abs() < 0.005);
+    }
+
+    /// UKAS M3003 ed. 6 Appendix C.7: k(95.45 %) for a rectangular
+    /// distribution convolved with a normal one, by u_N/u_R (to the printed
+    /// two decimals), and the example of C.5–C.8 (k = 1.77).
+    #[test]
+    fn rectangular_normal_coverage_m3003_c7() {
+        let table = [
+            (0.0, 1.65),
+            (0.1, 1.66),
+            (0.15, 1.68),
+            (0.2, 1.70),
+            (0.25, 1.72),
+            (0.3, 1.75),
+            (0.35, 1.77),
+            (0.4, 1.79),
+            (0.45, 1.82),
+            (0.5, 1.84),
+            (0.55, 1.85),
+            (0.6, 1.87),
+            (0.65, 1.89),
+            (0.7, 1.90),
+            (0.75, 1.91),
+            (0.8, 1.92),
+            (0.85, 1.93),
+            (0.9, 1.94),
+            (0.95, 1.95),
+            (1.0, 1.95),
+            (1.1, 1.96),
+            (1.2, 1.97),
+            (1.4, 1.98),
+            (1.8, 1.99),
+            (2.0, 1.99),
+            (2.5, 2.00),
+        ];
+        for (r, k) in table {
+            let c = rectangular_normal_coverage_factor(0.9545, r);
+            assert!((c - k).abs() <= 0.005, "u_N/u_R = {r}: {c} vs {k}");
+        }
+        assert!((rectangular_normal_coverage_factor(0.9545, 0.344) - 1.77).abs() < 0.005);
+        // Limits: rectangular p√3 and normal z.
+        assert!((rectangular_normal_coverage_factor(0.95, 0.0) - 0.95 * 3f64.sqrt()).abs() < 1e-12);
+        assert!((rectangular_normal_coverage_factor(0.95, 50.0) - 1.95996).abs() < 1e-3);
     }
 
     #[test]

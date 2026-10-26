@@ -1,0 +1,218 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-l3-dmm-1v-range-095v",
+    "title": {
+      "en": "DMM on the 1 V range: budget at 0.95 V (UKAS M3003 L.3)",
+      "tr": "1 V kademesinde DMM: 0,95 V'taki bütçe (UKAS M3003 L.3)"
+    },
+    "description": {
+      "en": "Error of a 6½-digit DMM on its 1 V range at 0.95 V, calibrated with a multifunction calibrator; relative (ppm) and absolute (µV) contributions combined at one reading.",
+      "tr": "Çok fonksiyonlu kalibratörle kalibre edilen 6½ basamaklı bir DMM'nin 1 V kademesinde 0,95 V'taki hatası; göreli (ppm) ve mutlak (µV) katkılar bir okumada birleştirilir."
+    },
+    "explanation": [
+      {
+        "en": "ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r with V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); no readings are needed for the uncertainty, so the estimate is zero.",
+        "tr": "ΔI_DMM = I_DMM − V_REF + δI_RES + δΔ_r, V_REF = V_CAL + δV_D + δV_UE + δV_TC + δV_LIN + δV_T + δV_CM (L.3.4); belirsizlik için okuma gerekmez; tahmin sıfırdır."
+      },
+      {
+        "en": "Relative terms (× I_DMM): calibration 2.8 ppm (k = 2), specification ±8 ppm, repeatability 2.5 ppm (ν = 9). Absolute terms: calibration 0.5 µV (k = 2), specification ±2 µV, thermoelectric ±1 µV, common mode ±1 µV, resolution ±0.5 µV.",
+        "tr": "Göreli terimler (× I_DMM): kalibrasyon 2,8 ppm (k = 2), şartname ±8 ppm, tekrarlanabilirlik 2,5 ppm (ν = 9). Mutlak terimler: kalibrasyon 0,5 µV (k = 2), şartname ±2 µV, termoelektrik ±1 µV, ortak mod ±1 µV, çözünürlük ±0,5 µV."
+      },
+      {
+        "en": "At I_DMM = 0.95 V: u_c = 5.37 µV, U = 10.73 µV (k = 2).",
+        "tr": "I_DMM = 0,95 V'ta: u_c = 5,37 µV, U = 10,73 µV (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix L.3",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "voltage",
+      "dmm",
+      "range-of-values",
+      "relative"
+    ],
+    "notes": [
+      {
+        "en": "Research log F61: the budget is headed 'evaluated at ΔI_DMM = 0.95 V', meaning I_DMM = 0.95 V; L.3.15 defines Q[a, b] = [a² + ab]^½ for [a² + b²]^½; Appendix Q's note writes u(R) = u(R) × R for u(R) = w(R) × R.",
+        "tr": "Araştırma günlüğü F61: bütçe başlığı 'ΔI_DMM = 0,95 V'ta değerlendirilmiş' der, kastedilen I_DMM = 0,95 V'tur; L.3.15, [a² + b²]^½ yerine Q[a, b] = [a² + ab]^½ tanımlar; Ek Q'nun notu u(R) = w(R) × R yerine u(R) = u(R) × R yazar."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dI",
+      "unit": "µV",
+      "expression": "I_DMM*1e-6*(r_cal + r_spec + r_rep) + a_cal + a_spec + a_T + a_CM + a_res",
+      "description": {
+        "en": "Error of the DMM indication",
+        "tr": "DMM göstergesinin hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_DMM",
+        "description": {
+          "en": "Indication",
+          "tr": "Gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 950000.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "r_cal",
+        "description": {
+          "en": "Calibration of the calibrator, relative (U = 2.8 ppm, k = 2)",
+          "tr": "Kalibratörün kalibrasyonu, göreli (U = 2,8 ppm, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 2.8,
+          "k": 2
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "r_spec",
+        "description": {
+          "en": "Specification of the calibrator, relative (±8 ppm)",
+          "tr": "Kalibratör şartnamesi, göreli (±8 ppm)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 8.0
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "r_rep",
+        "description": {
+          "en": "Repeatability (2.5 ppm, ν = 9, one reading)",
+          "tr": "Tekrarlanabilirlik (2,5 ppm, ν = 9, tek okuma)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 2.5,
+          "pooled_dof": 9,
+          "n": 1
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "a_cal",
+        "description": {
+          "en": "Calibration of the calibrator, absolute (U = 0.5 µV, k = 2)",
+          "tr": "Kalibratörün kalibrasyonu, mutlak (U = 0,5 µV, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.5,
+          "k": 2
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "a_spec",
+        "description": {
+          "en": "Specification of the calibrator, absolute (±2 µV)",
+          "tr": "Kalibratör şartnamesi, mutlak (±2 µV)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "a_T",
+        "description": {
+          "en": "Thermoelectric voltages",
+          "tr": "Termoelektrik gerilimler"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "a_CM",
+        "description": {
+          "en": "Common-mode effects",
+          "tr": "Ortak mod etkileri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "a_res",
+        "description": {
+          "en": "Resolution of the DMM",
+          "tr": "DMM çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        },
+        "unit": "µV"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0,
+        "tolerance": 1e-12
+      },
+      "standard_uncertainty": {
+        "value": 5.37,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 10.73,
+        "tolerance": 0.01
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 L.3.19 (budget at 0.95 V): u_c = 5.37 µV, U = 10.73 µV.",
+      "tr": "UKAS M3003 6. baskı L.3.19 (0,95 V'taki bütçe): u_c = 5,37 µV, U = 10,73 µV."
+    }
+  }
+}

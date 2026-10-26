@@ -148,6 +148,14 @@ from normal and k = 2 can be badly wrong. EA-4/02 (S9, S10) gives the rule for o
 contributions (trapezoidal output, k = 1.65 for one rectangular term, 1.83 for β = 0.33), but the general and
 more reliable remedy is the Monte Carlo method, which gives the coverage interval directly.
 
+UKAS M3003 (Appendix C) treats the common case of one dominant rectangular term, such as the resolution of a
+digital indicator, with the other terms taken as normal. With `"dominant_rectangular": true` the program finds
+the largest rectangular contribution u_R, sets u_N = √(u_c² − u_R²) and solves P(|R + N| ≤ k u_c) = p for the
+convolution of the two distributions. This reproduces the table of M3003 C.7 for p = 95.45 %: k = 1.65 when
+u_N = 0, 1.77 for u_N/u_R = 0.35, 1.90 for 0.70, and 2.00 when the rectangular term no longer dominates. The
+report names the input and the ratio. In the example of M3003 C.5 (library project
+`m3003-c5-dvm-dominant-rectangular`), the Monte Carlo interval agrees with the resulting y ± U.
+
 ## 3.8 Reading the budget
 
 * A **share of variance** close to 100 % for one input means that the result is as good as that input; the

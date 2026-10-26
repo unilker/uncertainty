@@ -1,0 +1,179 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k4-weight-10kg",
+    "title": {
+      "en": "10 kg weight of OIML class M1 (UKAS M3003 K.4)",
+      "tr": "OIML M1 sınıfı 10 kg ağırlık (UKAS M3003 K.4)"
+    },
+    "description": {
+      "en": "Comparison with a class F2 standard on a mass comparator, three bracketed comparisons.",
+      "tr": "Kütle karşılaştırıcısında F2 sınıfı bir standartla üç ara-okumalı karşılaştırma."
+    },
+    "explanation": [
+      {
+        "en": "W_X = W_S + ΔW + δD_S + δI_d + ΔC + ΔA_b + δW_r (K.4.1): certificate 30 mg (k = 2), drift ±30 mg, rounding ±10 mg (triangular, two readings), non-linearity ±3 mg, buoyancy ±10 mg.",
+        "tr": "W_X = W_S + ΔW + δD_S + δI_d + ΔC + ΔA_b + δW_r (K.4.1): sertifika 30 mg (k = 2), sürüklenme ±30 mg, yuvarlama ±10 mg (üçgen, iki okuma), doğrusal olmama ±3 mg, kaldırma kuvveti ±10 mg."
+      },
+      {
+        "en": "Mean difference ΔW = +0.020 g from three comparisons; repeatability from an earlier evaluation, s = 8.7 mg with 9 degrees of freedom, so u = 8.7/√3 = 5.0 mg.",
+        "tr": "Üç karşılaştırmadan ortalama fark ΔW = +0,020 g; tekrarlanabilirlik önceki bir değerlendirmeden, s = 8,7 mg, 9 serbestlik derecesi; u = 8,7/√3 = 5,0 mg."
+      },
+      {
+        "en": "u_c = 24.56 mg; W_X = 10 000.025 g ± 0.049 g (k = 2).",
+        "tr": "u_c = 24,56 mg; W_X = 10 000,025 g ± 0,049 g (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.4",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "mass",
+      "weight",
+      "comparator",
+      "pooled-repeatability"
+    ],
+    "notes": [
+      {
+        "en": "Research log F55: K.4.7 states ν = (m − 1) = 10 degrees of freedom for m = 10 comparisons; the budget uses 9, which is m − 1. The note below the budget refers to 10 readings.",
+        "tr": "Araştırma günlüğü F55: K.4.7, m = 10 karşılaştırma için ν = (m − 1) = 10 serbestlik derecesi yazar; bütçe m − 1 olan 9'u kullanır. Bütçenin altındaki not 10 okumadan söz eder."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "W_X",
+      "unit": "g",
+      "expression": "W_S + dW + dD_S + dI_d + dC + dA_b",
+      "description": {
+        "en": "Mass of the unknown weight",
+        "tr": "Bilinmeyen ağırlığın kütlesi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "W_S",
+        "description": {
+          "en": "Standard weight (certificate, U = 30 mg, k = 2)",
+          "tr": "Standart ağırlık (sertifika, U = 30 mg, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 10000.005,
+          "expanded": 0.03,
+          "k": 2
+        },
+        "unit": "g"
+      },
+      {
+        "name": "dW",
+        "description": {
+          "en": "Mean difference of three comparisons (repeatability s = 8.7 mg, ν = 9)",
+          "tr": "Üç karşılaştırmanın ortalama farkı (tekrarlanabilirlik s = 8,7 mg, ν = 9)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.02,
+          "pooled_sd": 0.0087,
+          "pooled_dof": 9,
+          "n": 3
+        },
+        "unit": "g"
+      },
+      {
+        "name": "dD_S",
+        "description": {
+          "en": "Drift of the standard",
+          "tr": "Standardın sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.03
+        },
+        "unit": "g"
+      },
+      {
+        "name": "dI_d",
+        "description": {
+          "en": "Rounding of the two indications (10 mg digit)",
+          "tr": "İki göstergenin yuvarlanması (10 mg basamak)"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 0.01
+        },
+        "unit": "g"
+      },
+      {
+        "name": "dC",
+        "description": {
+          "en": "Comparator non-linearity",
+          "tr": "Karşılaştırıcı doğrusal olmama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.003
+        },
+        "unit": "g"
+      },
+      {
+        "name": "dA_b",
+        "description": {
+          "en": "Air buoyancy (±1 ppm of nominal value)",
+          "tr": "Hava kaldırma kuvveti (nominal değerin ±1 ppm'i)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.01
+        },
+        "unit": "g"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 10000.025,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.02456,
+        "tolerance": 5e-06
+      },
+      "expanded_uncertainty": {
+        "value": 0.04912,
+        "tolerance": 1e-05
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.4.10–K.4.11: u_c = 24.56 mg, U = 49.12 mg; 10 000.025 g ± 0.049 g.",
+      "tr": "UKAS M3003 6. baskı K.4.10–K.4.11: u_c = 24,56 mg, U = 49,12 mg; 10 000,025 g ± 0,049 g."
+    }
+  }
+}
