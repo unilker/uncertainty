@@ -4,7 +4,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 
 - Chemistry (82)
 - Electrical and RF (31)
-- Flow and volume (5)
+- Flow and volume (7)
 - General (method validation) (19)
 - Length (11)
 - Mass (6)
@@ -2604,6 +2604,60 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 **Run:** `uncertainty run library/electrical/num-10-resistance.json --lang en`
 
 ## Flow and volume
+
+### Gravimetric calibration of a 1000 mL volumetric flask (EURAMET cg-19 Example 1)
+
+`cg19-ex1-flask-1000ml` — EURAMET Calibration Guide No. 19 v4.1 (2025), 7.1 (Tables 1 and 2)
+
+A 1000 mL glass flask filled to the mark and weighed ten times; water at 19.11 °C, air 0.2 °C warmer.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. V₂₀ = m/(ρ_W − ρ_A)·(1 − ρ_A/ρ_B)·[1 − γ(t − 20 °C)] + δV_men + δV_rep (equation 5), with the instrument temperature t = t_W + δt_s.
+2. Water density from Tanaka's formula at t_W, ρ_W = a₅[1 − (t + a₁)²(t + a₂)/(a₃(t + a₄))], with its own uncertainty 4.5·10⁻⁷ g/mL and 5 ppm (rectangular) for the purity of the water (6.3.3). The temperature of the water thus enters both the density and the expansion of the instrument, with their correlation.
+3. Thermometer U = 0.009 °C (k = 2) and resolution 0.001 °C; difference between water and instrument from |t_A − t_W|/(8√3) (6.3.2); air density, density of the weights and expansion coefficient as in the example.
+4. m = 996.9505 g with u(m) = 0.0013 g from U(balance) = 0.0018 g (k = 2) and the 0.1 mg resolution for both weighings; meniscus ±0.015 mL (rectangular, optical aids); s(V₀) = 0.044 mL for n = 10.
+5. Repeatability (0.014 mL) and meniscus (0.0087 mL) dominate: u(V₂₀) = 0.017 mL, ν_eff = 19, k = 2.14; V₂₀ = 999.628 mL ± 0.036 mL.
+6. The example states k for 'approximately 95 %', but k = t(ν_eff) for 95.45 %, as in EA-4/02; the project uses p = 95.45 %.
+
+**Result:**
+
+- V_20 = (999.622 ± 0.036) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.14, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F62: with the inputs stated in 7.1.1.4 (0.16 °C, 6 Pa — 60 in the formula —, 0.6 %rh and the 2.4·10⁻⁴ formula uncertainty), the air-density formula gives u(ρ_A) = 6.0·10⁻⁷ g/mL, not 1.76·10⁻⁶ g/mL; 7.1.1.5 gives u(ρ_B) = 0.06/2 = 0.03 g/mL while Table 2 uses 0.0346 g/mL (= 0.06/√3); 7.1.1.3 writes u(ρ_W,t) as 1.024·10⁻⁶ g/mL in the text and 1.24·10⁻⁶ g/mL in the formula, and β·ρ_W·u(t_W) = 8.9·10⁻⁷ g/mL; Table 2 gives ν = 50 for the mass without a stated basis. None changes u(V₂₀) at its printed digits.
+
+**Run:** `uncertainty run library/flow/cg19-ex1-flask-1000ml.json --lang en`
+
+### Gravimetric calibration of a 100 mL glass pycnometer (EURAMET cg-19 Example 2)
+
+`cg19-ex2-pycnometer-100ml` — EURAMET Calibration Guide No. 19 v4.1 (2025), 7.2 (Tables 3 and 4)
+
+A 100 mL pycnometer weighed ten times; water at 18.94 °C, air 0.23 °C warmer; the meniscus contribution is negligible.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. V₂₀ = m/(ρ_W − ρ_A)·(1 − ρ_A/ρ_B)·[1 − γ(t − 20 °C)] + δV_men + δV_rep (equation 5), with the instrument temperature t = t_W + δt_s.
+2. Water density from Tanaka's formula at t_W, ρ_W = a₅[1 − (t + a₁)²(t + a₂)/(a₃(t + a₄))], with its own uncertainty 4.5·10⁻⁷ g/mL and 5 ppm (rectangular) for the purity of the water (6.3.3). The temperature of the water thus enters both the density and the expansion of the instrument, with their correlation.
+3. Thermometer U = 0.009 °C (k = 2) and resolution 0.001 °C; difference between water and instrument from |t_A − t_W|/(8√3) (6.3.2); air density, density of the weights and expansion coefficient as in the example.
+4. m = 99.7500 g with u(m) = 0.000 11 g from U(balance) = 0.000 15 g (k = 2) and the 0.1 mg resolution for both weighings; s(V₀) = 0.0026 mL for n = 10.
+5. Repeatability dominates: u(V₂₀) = 0.89 µL, ν_eff = 13, k = 2.21; V₂₀ = 100.014 mL ± 0.0020 mL.
+6. The example states k for 'approximately 95 %', but k = t(ν_eff) for 95.45 %, as in EA-4/02; the project uses p = 95.45 %.
+
+**Result:**
+
+- V_20 = (100.0142 ± 0.0020) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.23, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Research log F62: Table 4 gives ν_eff(V₂₀) = 1727, whereas 7.2.5 gives 13, which the Welch–Satterthwaite formula reproduces and which k = 2.21 corresponds to. As in Example 1, u(ρ_A) = 1.74·10⁻⁶ g/mL does not follow from the stated inputs (4.8·10⁻⁷ g/mL).
+
+**Run:** `uncertainty run library/flow/cg19-ex2-pycnometer-100ml.json --lang en`
 
 ### Water meter calibration: relative error of one run
 

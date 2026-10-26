@@ -4,7 +4,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Kimya (82)
 - Elektrik ve RF (31)
-- Akış ve hacim (5)
+- Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
 - Uzunluk (11)
 - Kütle (6)
@@ -2604,6 +2604,60 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 **Çalıştırma:** `uncertainty run library/electrical/num-10-resistance.json --lang tr`
 
 ## Akış ve hacim
+
+### 1000 mL'lik ölçülü balonun gravimetrik kalibrasyonu (EURAMET cg-19 Örnek 1)
+
+`cg19-ex1-flask-1000ml` — EURAMET Calibration Guide No. 19 v4.1 (2025), 7.1 (Tables 1 and 2)
+
+İşaretine kadar doldurulup on kez tartılan 1000 mL'lik cam balon; su 19,11 °C, hava 0,2 °C daha sıcak.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. V₂₀ = m/(ρ_W − ρ_A)·(1 − ρ_A/ρ_B)·[1 − γ(t − 20 °C)] + δV_men + δV_rep (eşitlik 5); alet sıcaklığı t = t_W + δt_s.
+2. Su yoğunluğu t_W'de Tanaka formülünden, ρ_W = a₅[1 − (t + a₁)²(t + a₂)/(a₃(t + a₄))]; formülün kendi belirsizliği 4,5·10⁻⁷ g/mL ve suyun saflığı için 5 ppm (dikdörtgen) (6.3.3). Suyun sıcaklığı böylece hem yoğunluğa hem de aletin genleşmesine, korelasyonlarıyla birlikte girer.
+3. Termometre U = 0,009 °C (k = 2) ve çözünürlük 0,001 °C; su ile alet arasındaki fark |t_A − t_W|/(8√3) ile (6.3.2); hava yoğunluğu, ağırlıkların yoğunluğu ve genleşme katsayısı örnekteki gibi.
+4. m = 996,9505 g, u(m) = 0,0013 g; her iki tartım için U(terazi) = 0,0018 g (k = 2) ve 0,1 mg çözünürlükten; menisküs ±0,015 mL (dikdörtgen, optik yardımcılar); n = 10 için s(V₀) = 0,044 mL.
+5. Tekrarlanabilirlik (0,014 mL) ve menisküs (0,0087 mL) baskındır: u(V₂₀) = 0,017 mL, ν_eff = 19, k = 2,14; V₂₀ = 999,628 mL ± 0,036 mL.
+6. Örnek k'yı 'yaklaşık %95' için verir, ancak k, EA-4/02'deki gibi %95,45 için t(ν_eff)'dir; proje p = %95,45 kullanır.
+
+**Sonuç:**
+
+- V_20 = (999,622 ± 0,036) mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,14 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F62: 7.1.1.4'te belirtilen girdilerle (0,16 °C, 6 Pa — formülde 60 —, %0,6 bağıl nem ve 2,4·10⁻⁴ formül belirsizliği) hava yoğunluğu formülü 1,76·10⁻⁶ g/mL değil u(ρ_A) = 6,0·10⁻⁷ g/mL verir; 7.1.1.5 u(ρ_B) = 0,06/2 = 0,03 g/mL verirken Tablo 2 0,0346 g/mL (= 0,06/√3) kullanır; 7.1.1.3 u(ρ_W,t)'yi metinde 1,024·10⁻⁶ g/mL, formülde 1,24·10⁻⁶ g/mL yazar; β·ρ_W·u(t_W) = 8,9·10⁻⁷ g/mL'dir; Tablo 2 kütle için gerekçesiz ν = 50 verir. Hiçbiri u(V₂₀)'yi basılı basamaklarda değiştirmez.
+
+**Çalıştırma:** `uncertainty run library/flow/cg19-ex1-flask-1000ml.json --lang tr`
+
+### 100 mL'lik cam piknometrenin gravimetrik kalibrasyonu (EURAMET cg-19 Örnek 2)
+
+`cg19-ex2-pycnometer-100ml` — EURAMET Calibration Guide No. 19 v4.1 (2025), 7.2 (Tables 3 and 4)
+
+On kez tartılan 100 mL'lik piknometre; su 18,94 °C, hava 0,23 °C daha sıcak; menisküs katkısı ihmal edilebilir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. V₂₀ = m/(ρ_W − ρ_A)·(1 − ρ_A/ρ_B)·[1 − γ(t − 20 °C)] + δV_men + δV_rep (eşitlik 5); alet sıcaklığı t = t_W + δt_s.
+2. Su yoğunluğu t_W'de Tanaka formülünden, ρ_W = a₅[1 − (t + a₁)²(t + a₂)/(a₃(t + a₄))]; formülün kendi belirsizliği 4,5·10⁻⁷ g/mL ve suyun saflığı için 5 ppm (dikdörtgen) (6.3.3). Suyun sıcaklığı böylece hem yoğunluğa hem de aletin genleşmesine, korelasyonlarıyla birlikte girer.
+3. Termometre U = 0,009 °C (k = 2) ve çözünürlük 0,001 °C; su ile alet arasındaki fark |t_A − t_W|/(8√3) ile (6.3.2); hava yoğunluğu, ağırlıkların yoğunluğu ve genleşme katsayısı örnekteki gibi.
+4. m = 99,7500 g, u(m) = 0,000 11 g; her iki tartım için U(terazi) = 0,000 15 g (k = 2) ve 0,1 mg çözünürlükten; n = 10 için s(V₀) = 0,0026 mL.
+5. Tekrarlanabilirlik baskındır: u(V₂₀) = 0,89 µL, ν_eff = 13, k = 2,21; V₂₀ = 100,014 mL ± 0,0020 mL.
+6. Örnek k'yı 'yaklaşık %95' için verir, ancak k, EA-4/02'deki gibi %95,45 için t(ν_eff)'dir; proje p = %95,45 kullanır.
+
+**Sonuç:**
+
+- V_20 = (100,0142 ± 0,0020) mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,23 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Araştırma günlüğü F62: Tablo 4 ν_eff(V₂₀) = 1727 verir; 7.2.5 ise Welch–Satterthwaite formülünün yeniden ürettiği ve k = 2,21'in karşılık geldiği 13 değerini verir. Örnek 1'deki gibi u(ρ_A) = 1,74·10⁻⁶ g/mL belirtilen girdilerden çıkmaz (4,8·10⁻⁷ g/mL).
+
+**Çalıştırma:** `uncertainty run library/flow/cg19-ex2-pycnometer-100ml.json --lang tr`
 
 ### Su sayacı kalibrasyonu: tek çalışmanın bağıl hatası
 

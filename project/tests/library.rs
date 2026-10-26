@@ -21,7 +21,7 @@ fn every_library_example_reproduces_its_reference_values() {
     let mut files = Vec::new();
     collect(&root, &mut files);
     files.sort();
-    assert!(files.len() >= 173, "library has only {} files", files.len());
+    assert!(files.len() >= 175, "library has only {} files", files.len());
     let mut failures = Vec::new();
     for f in &files {
         let text = std::fs::read_to_string(f).unwrap();

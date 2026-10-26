@@ -265,6 +265,8 @@ Table 9 (raw data only in the electronic supplement).
 | M3003-K9 | flowrate at standard conditions | 12.53 L/s, u_c 0.275, ν_eff 130, U 0.55 | same | ✅ |
 | M3003-K10 | sheet thickness | 1.514 mm, u_c 0.009 63 mm, ν_eff 50, U 0.019 mm | same | ✅ |
 | M3003-K11 | PT100 probe; gas temperature | u_c 0.042 25 °C; 22.97 °C, u_c 0.086 38 °C | same; 0.086 35 °C | ✅ |
+| CG19-E1 | 1000 mL flask (Tanaka density) | V₂₀ 999.628 mL, u 0.017 mL, ν_eff 19, k 2.15, U 0.036 mL | 999.622; 0.0169; 19.5; 2.14; 0.036 | ✅ (F62) |
+| CG19-E2 | 100 mL pycnometer | 100.014 mL, u 0.89 µL, ν_eff 13, k 2.21, U 2.0 µL | 100.0142; 0.90 µL; 12.9; 2.23 (G.6.4 truncation); 2.0 µL | ✅ (F62) |
 | M3003-L3 | DMM, 1 V range | 0.95 V: u_c 5.37 µV; 500 mV: U 6.2 µV; 1 V: k 1.898 | same | ✅ (F61) |
 
 ## Uncorrected bias (Magnusson & Ellison 2008) — core tests

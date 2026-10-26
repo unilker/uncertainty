@@ -1460,3 +1460,34 @@ report U with k = 2. By Appendix B, k for 95.45 % would be 2.03 and 2.05,
 giving 0.56 L/s and 0.020 mm instead of 0.55 L/s and 0.019 mm. Appendix B
 asks for the t-factor when a Type A term is significant but sets no
 threshold. The projects use k = 2 as printed and note the difference.
+
+**D48. EURAMET cg-19 v4.1 (12/2025), gravimetric volume calibration.** The
+guide is free from EURAMET; its version 4 was written with contributions from
+UME. Its two numerical examples, a 1000 mL flask and a 100 mL pycnometer,
+are library projects. The water density is computed from Tanaka's formula at
+the water temperature (intermediate quantity). The water temperature then
+enters both the density and the expansion of the instrument, with the
+correlation the guide's budget leaves out; the effect is below the printed
+digits. Both examples use k = t(ν_eff) for 95.45 % while the text says
+"approximately 95 %"; the projects use p = 95.45 %.
+
+**F62. EURAMET cg-19 v4.1 Examples 1 and 2 (classes a and b).**
+
+- With the inputs stated in 7.1.1.4 and 7.2.1.4, the air-density formula
+  gives u(ρ_A) = 6.0·10⁻⁷ and 4.8·10⁻⁷ g/mL, not the printed 1.76·10⁻⁶ and
+  1.74·10⁻⁶ g/mL. The inputs are 0.16 °C, 6 Pa (60 in the formula of
+  Example 1), 0.6 %rh and the formula uncertainty 2.4·10⁻⁴.
+- u(ρ_B) = 0.06/2 = 0.03 g/mL in the text, but 0.0346 g/mL (= 0.06/√3) in
+  Tables 2 and 4.
+- u(ρ_W,t) is 1.024·10⁻⁶ g/mL in the text of 7.1.1.3 and 1.24·10⁻⁶ g/mL in
+  its formula. The combined value 3.09·10⁻⁶ follows from 1.024·10⁻⁶, while
+  β·ρ_W·u(t_W) is 8.9·10⁻⁷ g/mL.
+- The sensitivity to γ is +890.66 °C·mL in 7.1.2.6 and −890.66 in Table 2.
+- Table 4 gives ν_eff = 1727, whereas 7.2.5 gives 13. Welch–Satterthwaite
+  gives 12.9; GUM G.6.4 truncates it to 12 (k = 2.23), and the example
+  rounds it to 13 (k = 2.21). U is 2.0 µL either way.
+- In Table 1, V₂₀ = 999.628 mL rests on unrounded densities. With Tanaka's
+  formula and ρ_A = 0.0012 g/mL the model gives 999.622 mL. Example 2
+  (100.014 mL) is reproduced.
+
+None of these changes a printed u_c or U.
