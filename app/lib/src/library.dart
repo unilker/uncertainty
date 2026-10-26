@@ -24,7 +24,9 @@ class LibraryEntry {
 
 /// Loads assets/library.json (written by tool/bundle_library.dart).
 Future<List<LibraryEntry>> loadLibrary() async {
-  final text = await rootBundle.loadString('assets/library.json');
+  // Read once per screen; not cached by the bundle (a cached future can
+  // outlive the zone that created it, e.g. between widget tests).
+  final text = await rootBundle.loadString('assets/library.json', cache: false);
   final items = jsonDecode(text) as List;
   return [
     for (final i in items)

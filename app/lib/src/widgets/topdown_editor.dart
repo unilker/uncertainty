@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../app_state.dart';
 import '../format.dart';
 import '../strings.dart';
+import 'entry_forms.dart';
 import 'fields.dart';
 
 /// Fields offered for each precision data type (besides the raw-data lists).
@@ -20,7 +21,8 @@ const precisionFields = <String, List<String>>{
 
 /// Editor of a top-down project. Precision data are entered directly as raw
 /// values, duplicate pairs or points; bias, recovery and further components
-/// are edited as JSON entries (see chapter 7 of the user guide).
+/// have forms, and every entry can also be edited as JSON (chapter 7 of the
+/// user guide).
 class TopDownEditor extends StatefulWidget {
   const TopDownEditor({super.key, required this.project, required this.onChanged});
   final Map<String, dynamic> project;
@@ -98,14 +100,11 @@ class _TopDownEditorState extends State<TopDownEditor> {
                   })),
             )),
         for (var i = 0; i < bias.length; i++)
-          JsonEntryCard(
+          BiasCard(
             key: ObjectKey(bias[i]),
-            value: bias[i],
+            entry: bias[i] as Map<String, dynamic>,
             strings: s,
-            onChanged: (v) {
-              bias[i] = v;
-              widget.onChanged();
-            },
+            onChanged: widget.onChanged,
             onRemove: () => _edit(() => bias.removeAt(i)),
           ),
         Section(s['recovery'],
@@ -121,14 +120,11 @@ class _TopDownEditorState extends State<TopDownEditor> {
                   )
                 : null),
         if (_td['recovery'] != null)
-          JsonEntryCard(
+          RecoveryCard(
             key: ObjectKey(_td['recovery']),
-            value: _td['recovery'],
+            entry: _td['recovery'] as Map<String, dynamic>,
             strings: s,
-            onChanged: (v) {
-              _td['recovery'] = v;
-              widget.onChanged();
-            },
+            onChanged: widget.onChanged,
             onRemove: () => _edit(() => _td.remove('recovery')),
           ),
         Section(s['components'],
@@ -138,14 +134,11 @@ class _TopDownEditorState extends State<TopDownEditor> {
               onPressed: () => _edit(() => components.add(<String, dynamic>{'name': 'component ${components.length + 1}', 'u_percent': 1.0})),
             )),
         for (var i = 0; i < components.length; i++)
-          JsonEntryCard(
+          ComponentCard(
             key: ObjectKey(components[i]),
-            value: components[i],
+            entry: components[i] as Map<String, dynamic>,
             strings: s,
-            onChanged: (v) {
-              components[i] = v;
-              widget.onChanged();
-            },
+            onChanged: widget.onChanged,
             onRemove: () => _edit(() => components.removeAt(i)),
           ),
       ],
@@ -243,8 +236,8 @@ class _PrecisionCardState extends State<PrecisionCard> {
               Wrap(spacing: 12, runSpacing: 8, children: [
                 for (final p in precisionFields[type] ?? const <String>[])
                   NumberField(map: _data, field: p, label: s.parameter(p), width: 170, onChanged: widget.onChanged),
-                NumberField(map: _range, field: 'min', label: s['range_min'], width: 150, onChanged: _cleanRange),
-                NumberField(map: _range, field: 'max', label: s['range_max'], width: 150, onChanged: _cleanRange),
+                NumberField(map: _range, field: 'min', label: s['range_min'], width: 200, onChanged: _cleanRange),
+                NumberField(map: _range, field: 'max', label: s['range_max'], width: 200, onChanged: _cleanRange),
               ]),
             ]),
           ),

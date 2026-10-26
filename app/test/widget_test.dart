@@ -10,6 +10,17 @@ import 'package:uncertainty_app/src/app_state.dart';
 import 'package:uncertainty_app/src/engine.dart';
 import 'package:uncertainty_app/src/format.dart';
 
+/// Pumps until [finder] matches, letting real asynchronous work (asset
+/// loading, the engine isolate) progress in between.
+Future<void> pumpUntilFound(WidgetTester tester, Finder finder, {int attempts = 100}) async {
+  for (var i = 0; i < attempts; i++) {
+    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
+    await tester.pump();
+    if (finder.evaluate().isNotEmpty) break;
+  }
+  await tester.pumpAndSettle();
+}
+
 void main() {
   setUpAll(() {
     engineLibraryPath = Platform.environment['UNCERTAINTY_FFI'] ?? '${Directory.current.path}/../target/release/libuncertainty_ffi.so';
@@ -58,8 +69,7 @@ void main() {
   testWidgets('open a library example and calculate it', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1200, 900));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 200)));
-    await tester.pumpAndSettle();
+    await pumpUntilFound(tester, find.textContaining('Example library (60'));
     expect(find.textContaining('Example library (60'), findsOneWidget);
 
     await tester.enterText(find.byKey(const Key('search')), 'quam-a1-cadmium-standard-volume');
@@ -69,16 +79,32 @@ void main() {
     expect(find.text('Input quantities'), findsNothing); // on the overview tab
     expect(find.textContaining('QUAM Example A1'), findsWidgets);
 
-    await tester.runAsync(() async {
-      await tester.tap(find.byKey(const Key('run')));
-      await Future<void>.delayed(const Duration(seconds: 3));
-    });
-    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.textContaining('c_Cd = (1002.7 ± 1.7) mg/L'));
     expect(find.textContaining('c_Cd = (1002.7 ± 1.7) mg/L'), findsOneWidget);
 
     // The language switch re-labels the interface.
     await tester.tap(find.text('TR'));
     await tester.pumpAndSettle();
     expect(find.text('Sonuçlar'), findsOneWidget);
+  });
+
+  testWidgets('top-down forms show and edit the raw data', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library (60'));
+    await tester.enterText(find.byKey(const Key('search')), 'nordtest-8-bod-pt');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('BOD in wastewater: control chart and proficiency tests'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('s_R (%)').first, 300, scrollable: find.byType(Scrollable).last);
+    expect(find.text('s_R (%)'), findsNWidgets(3)); // one per proficiency-test round
+    expect(find.text('proficiency tests'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.textContaining('U = 10 % (k = 2.00)'));
+    expect(find.textContaining('U = 10 % (k = 2.00)'), findsOneWidget);
   });
 }
