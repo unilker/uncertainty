@@ -7,7 +7,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Flow and volume (7)
 - General (method validation) (19)
 - Length (11)
-- Mass (6)
+- Mass (11)
 - Physical properties (8)
 - Pressure (1)
 - Temperature (10)
@@ -3409,6 +3409,120 @@ NUM manual §8: GUM H.1 with the six inputs of the GUM's first-order budget, all
 **Run:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang en`
 
 ## Mass
+
+### Laboratory balance 220 g / 0.1 mg: error at 100 g with the buoyancy correction (EURAMET cg-18 H1, option 2)
+
+`cg18-h1-100g-option2` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m³), so the buoyancy correction is applied; the test weights are 2 K from room temperature (convection).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E = I − m_ref (7.1-1): the indication I with the rounding at zero and at load (d/2√3 each, d = 0.1 mg), repeatability and eccentricity; the reference mass m_ref with the conventional mass of the E2 weights, their drift and air buoyancy (7.1.2-14).
+2. Repeatability from five readings of 100 g (100.0006, 100.0003, 100.0005, 100.0004, 100.0005 g): s = 0.000 114 g with ν = 4, applied to a single reading at each load (7.1.1-5).
+3. Eccentricity: ±|ΔI_ecc,max|·L/(2L_ecc) with ΔI_ecc,max = 0.2 mg at L_ecc = 100 g, rectangular (7.1.1-10). Drift: D = k_D·U(m_c) with k_D = 1.25, rectangular (7.1.2-10, -11).
+4. ν_eff by Welch–Satterthwaite (B3-1) and k for 95.45 % from the t-distribution.
+5. δm_B = −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) (7.1.2-4) with ρ_a = (1.173 ± 0.014) kg/m³ and ρ = (7950 ± 70) kg/m³; its uncertainty (7.1.2-5a) follows from the model: about 3·10⁻⁸ relative.
+6. u(E) = 0.000149 g, ν_eff = 11, k = 2.25, U = 0.00033 g.
+
+**Result:**
+
+- E = (0.00070 ± 0.00033) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.25, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h1-100g-option2.json --lang en`
+
+### Laboratory balance 220 g / 0.1 mg: error at 220 g without buoyancy correction (EURAMET cg-18 H1, option 1)
+
+`cg18-h1-220g-max-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+Not adjusted before calibration and no air density known: the buoyancy term is the conservative limit of formula 7.1.2-5d and dominates.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E = I − m_ref (7.1-1): the indication I with the rounding at zero and at load (d/2√3 each, d = 0.1 mg), repeatability and eccentricity; the reference mass m_ref with the conventional mass of the E2 weights, their drift and air buoyancy (7.1.2-14).
+2. Repeatability from five readings of 100 g (100.0006, 100.0003, 100.0005, 100.0004, 100.0005 g): s = 0.000 114 g with ν = 4, applied to a single reading at each load (7.1.1-5).
+3. Eccentricity: ±|ΔI_ecc,max|·L/(2L_ecc) with ΔI_ecc,max = 0.2 mg at L_ecc = 100 g, rectangular (7.1.1-10). Drift: D = k_D·U(m_c) with k_D = 1.25, rectangular (7.1.2-10, -11).
+4. ν_eff by Welch–Satterthwaite (B3-1) and k for 95.45 % from the t-distribution.
+5. Load 200 g + 20 g, m_c = 220.0001 g, u(m_c) = 0.000 062 g; mpe(E2) = 0.30 + 0.08 mg. Buoyancy u_rel = (0.1ρ₀/ρ_c + mpe/(4m_N))/√3 = 8.9·10⁻⁶: u = 0.001 96 g.
+6. I = 220.0014 g, E = 0.0013 g, u(E) = 0.001 97 g, ν_eff ≈ 3.6·10⁵, k = 2.00, U = 0.003 94 g.
+
+**Result:**
+
+- E = (0.0013 ± 0.0039) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1.json --lang en`
+
+### Laboratory balance 220 g / 0.1 mg: error at 220 g with the buoyancy term for ΔT = 5 K (EURAMET cg-18 H1, option 1, formula 7.1.2-5e)
+
+`cg18-h1-220g-max-option1-delta-t` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+As option 1, but the buoyancy uncertainty follows from the estimated temperature variation of the room, 5 K, instead of the worst case.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E = I − m_ref (7.1-1): the indication I with the rounding at zero and at load (d/2√3 each, d = 0.1 mg), repeatability and eccentricity; the reference mass m_ref with the conventional mass of the E2 weights, their drift and air buoyancy (7.1.2-14).
+2. Repeatability from five readings of 100 g (100.0006, 100.0003, 100.0005, 100.0004, 100.0005 g): s = 0.000 114 g with ν = 4, applied to a single reading at each load (7.1.1-5).
+3. Eccentricity: ±|ΔI_ecc,max|·L/(2L_ecc) with ΔI_ecc,max = 0.2 mg at L_ecc = 100 g, rectangular (7.1.1-10). Drift: D = k_D·U(m_c) with k_D = 1.25, rectangular (7.1.2-10, -11).
+4. ν_eff by Welch–Satterthwaite (B3-1) and k for 95.45 % from the t-distribution.
+5. u_rel = √(1.07·10⁻⁴ + 1.33·10⁻⁶ K⁻²·ΔT²)·ρ₀/ρ_c + mpe/(4m_N√3) = 2.03·10⁻⁶: u = 0.000 446 g.
+6. u(E) = 0.000 491 g, ν_eff = 1377, k = 2.00, U = 0.000 98 g: the conservative buoyancy limit of option 1 inflates U fourfold.
+
+**Result:**
+
+- E = (0.00130 ± 0.00098) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang en`
+
+### Laboratory balance 220 g / 0.1 mg: error at 220 g with the buoyancy correction (EURAMET cg-18 H1, option 2)
+
+`cg18-h1-220g-max-option2` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m³), so the buoyancy correction is applied; the test weights are 2 K from room temperature (convection).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E = I − m_ref (7.1-1): the indication I with the rounding at zero and at load (d/2√3 each, d = 0.1 mg), repeatability and eccentricity; the reference mass m_ref with the conventional mass of the E2 weights, their drift and air buoyancy (7.1.2-14).
+2. Repeatability from five readings of 100 g (100.0006, 100.0003, 100.0005, 100.0004, 100.0005 g): s = 0.000 114 g with ν = 4, applied to a single reading at each load (7.1.1-5).
+3. Eccentricity: ±|ΔI_ecc,max|·L/(2L_ecc) with ΔI_ecc,max = 0.2 mg at L_ecc = 100 g, rectangular (7.1.1-10). Drift: D = k_D·U(m_c) with k_D = 1.25, rectangular (7.1.2-10, -11).
+4. ν_eff by Welch–Satterthwaite (B3-1) and k for 95.45 % from the t-distribution.
+5. δm_B = −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) (7.1.2-4) with ρ_a = (1.173 ± 0.014) kg/m³ and ρ = (7950 ± 70) kg/m³; its uncertainty (7.1.2-5a) follows from the model: about 3·10⁻⁸ relative.
+6. u(E) = 0.000226 g, ν_eff = 62, k = 2.05, U = 0.00046 g.
+
+**Result:**
+
+- E = (0.00130 ± 0.00046) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.04, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h1-220g-max-option2.json --lang en`
+
+### Laboratory balance 220 g / 0.1 mg: error at zero load (EURAMET cg-18 H1)
+
+`cg18-h1-220g-zero` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+At zero load only the rounding at zero and the repeatability contribute; the repeatability with ν = 4 sets the coverage factor.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E = I − m_ref (7.1-1): the indication I with the rounding at zero and at load (d/2√3 each, d = 0.1 mg), repeatability and eccentricity; the reference mass m_ref with the conventional mass of the E2 weights, their drift and air buoyancy (7.1.2-14).
+2. Repeatability from five readings of 100 g (100.0006, 100.0003, 100.0005, 100.0004, 100.0005 g): s = 0.000 114 g with ν = 4, applied to a single reading at each load (7.1.1-5).
+3. Eccentricity: ±|ΔI_ecc,max|·L/(2L_ecc) with ΔI_ecc,max = 0.2 mg at L_ecc = 100 g, rectangular (7.1.1-10). Drift: D = k_D·U(m_c) with k_D = 1.25, rectangular (7.1.2-10, -11).
+4. ν_eff by Welch–Satterthwaite (B3-1) and k for 95.45 % from the t-distribution.
+5. u(E) = √(0.000 114² + 0.000 029²) g = 0.000 118 g, ν_eff = 4.5, truncated to 4: k = 2.87, U = 0.000 34 g.
+
+**Result:**
+
+- E = (0.00000 ± 0.00034) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.87, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang en`
 
 ### Calibration of a 10 kg weight
 

@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**175 examples / örnek** (79 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 21 control charts / kontrol grafiği, 7 conformity assessment / uygunluk değerlendirmesi).
+**180 examples / örnek** (84 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 21 control charts / kontrol grafiği, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -251,6 +251,11 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`cg18-h1-100g-option2`](mass/cg18-h1-100g-option2.json) | Laboratory balance 220 g / 0.1 mg: error at 100 g with the buoyancy correction (EURAMET cg-18 H1, option 2) | Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesiyle 100 g'da hata (EURAMET cg-18 H1, seçenek 2) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
+| [`cg18-h1-220g-max-option1-delta-t`](mass/cg18-h1-220g-max-option1-delta-t.json) | Laboratory balance 220 g / 0.1 mg: error at 220 g with the buoyancy term for ΔT = 5 K (EURAMET cg-18 H1, option 1, formula 7.1.2-5e) | Laboratuvar terazisi 220 g / 0,1 mg: ΔT = 5 K için kaldırma kuvveti terimiyle 220 g'da hata (EURAMET cg-18 H1, seçenek 1, 7.1.2-5e formülü) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
+| [`cg18-h1-220g-max-option1`](mass/cg18-h1-220g-max-option1.json) | Laboratory balance 220 g / 0.1 mg: error at 220 g without buoyancy correction (EURAMET cg-18 H1, option 1) | Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesi olmadan 220 g'da hata (EURAMET cg-18 H1, seçenek 1) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
+| [`cg18-h1-220g-max-option2`](mass/cg18-h1-220g-max-option2.json) | Laboratory balance 220 g / 0.1 mg: error at 220 g with the buoyancy correction (EURAMET cg-18 H1, option 2) | Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesiyle 220 g'da hata (EURAMET cg-18 H1, seçenek 2) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
+| [`cg18-h1-220g-zero`](mass/cg18-h1-220g-zero.json) | Laboratory balance 220 g / 0.1 mg: error at zero load (EURAMET cg-18 H1) | Laboratuvar terazisi 220 g / 0,1 mg: sıfır yükte hata (EURAMET cg-18 H1) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
 | [`ea402-s2-weight-10kg`](mass/ea402-s2-weight-10kg.json) | Calibration of a 10 kg weight | 10 kg'lık bir ağırlığın kalibrasyonu | EA-4/02 M:2022 S2 |
 | [`jcgm101-9.3-mass-calibration-higher-order`](mass/jcgm101-9.3-mass-calibration-higher-order.json) | Mass calibration (GUM with second-order terms) | Kütle kalibrasyonu (ikinci mertebe terimli GUM) | JCGM 101:2008 9.3, Table 6 |
 | [`jcgm101-9.3-mass-calibration`](mass/jcgm101-9.3-mass-calibration.json) | Mass calibration (first-order GUM) | Kütle kalibrasyonu (birinci mertebe GUM) | JCGM 101:2008 9.3, Tables 6 and 7 |

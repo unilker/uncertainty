@@ -71,7 +71,7 @@ Türkçe ve İngilizce.
   (multivariate t-distribution).
 - Results not corrected for a known bias: RSSu, RSSU, SUMU, SUMU_MAX and Ue
   intervals (Magnusson & Ellison 2008), with their coverage checked by simulation.
-- [Example library](library/README.md): 175 published examples (79 model-based, 13 with several outputs:
+- [Example library](library/README.md): 180 published examples (84 model-based, 13 with several outputs:
   chemistry, mass, length, temperature, electrical, flow, pressure, physical properties;
   36 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3, Palma et al.
   2019; 7 proficiency
@@ -123,9 +123,9 @@ hesaplanan tüm kütüphane örnekleri.
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (165 tests; one of them reruns all 175 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
+automated test (165 tests; one of them reruns all 180 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
-their raw data), all twelve calibration examples of EA-4/02 M:2022, the examples of UKAS M3003 ed. 6 (Appendices C, K, L) and of EURAMET cg-19 v4.1, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 (with the data of the 1994 edition), Annex C of ISO 5725-2:2019 (including REML) and its Tables 1–8, Annex B of ISO 6143:2025, the examples of JCGM 106:2012 clauses 7–9 and Table 1, Chapter 7 and Examples 1–12 of Nordtest TR 569 ed. 6. Details, tolerances and findings:
+their raw data), all twelve calibration examples of EA-4/02 M:2022, the examples of UKAS M3003 ed. 6 (Appendices C, K, L) and of EURAMET cg-18 (H1) and cg-19 v4.1, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 (with the data of the 1994 edition), Annex C of ISO 5725-2:2019 (including REML) and its Tables 1–8, Annex B of ISO 6143:2025, the examples of JCGM 106:2012 clauses 7–9 and Table 1, Chapter 7 and Examples 1–12 of Nordtest TR 569 ed. 6. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

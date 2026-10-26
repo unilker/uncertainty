@@ -7,7 +7,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
 - Uzunluk (11)
-- Kütle (6)
+- Kütle (11)
 - Fiziksel özellikler (8)
 - Basınç (1)
 - Sıcaklık (10)
@@ -3409,6 +3409,120 @@ NUM kılavuzu §8: GUM H.1'in birinci mertebe bütçesindeki altı girdiyle, hep
 **Çalıştırma:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang tr`
 
 ## Kütle
+
+### Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesiyle 100 g'da hata (EURAMET cg-18 H1, seçenek 2)
+
+`cg18-h1-100g-option2` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+Kalibrasyon sırasında hava yoğunluğu bilinir (990 hPa, %50 bağıl nem, 21 °C: 1,173 kg/m³); bu nedenle kaldırma kuvveti düzeltmesi uygulanır; deney ağırlıkları oda sıcaklığından 2 K farklıdır (konveksiyon).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E = I − m_ref (7.1-1): sıfırda ve yükte yuvarlamayla (her biri d/2√3, d = 0,1 mg), tekrarlanabilirlik ve eksantriklikle gösterge I; E2 ağırlıklarının konvansiyonel kütlesi, sürüklenmesi ve hava kaldırma kuvvetiyle referans kütle m_ref (7.1.2-14).
+2. 100 g'ın beş okumasından tekrarlanabilirlik (100,0006, 100,0003, 100,0005, 100,0004, 100,0005 g): s = 0,000 114 g, ν = 4; her yükte tek okumaya uygulanır (7.1.1-5).
+3. Eksantriklik: ±|ΔI_ecc,maks|·L/(2L_ecc), L_ecc = 100 g'da ΔI_ecc,maks = 0,2 mg, dikdörtgen (7.1.1-10). Sürüklenme: k_D = 1,25 ile D = k_D·U(m_c), dikdörtgen (7.1.2-10, -11).
+4. Welch–Satterthwaite ile ν_eff (B3-1) ve %95,45 için t dağılımından k.
+5. δm_B = −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) (7.1.2-4), ρ_a = (1,173 ± 0,014) kg/m³ ve ρ = (7950 ± 70) kg/m³; belirsizliği (7.1.2-5a) modelden çıkar: göreli yaklaşık 3·10⁻⁸.
+6. u(E) = 0,000149 g, ν_eff = 11, k = 2,25, U = 0,00033 g,
+
+**Sonuç:**
+
+- E = (0,00070 ± 0,00033) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,25 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h1-100g-option2.json --lang tr`
+
+### Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesi olmadan 220 g'da hata (EURAMET cg-18 H1, seçenek 1)
+
+`cg18-h1-220g-max-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+Kalibrasyondan önce ayarlanmamış ve hava yoğunluğu bilinmiyor: kaldırma kuvveti terimi 7.1.2-5d formülünün temkinli sınırıdır ve baskındır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E = I − m_ref (7.1-1): sıfırda ve yükte yuvarlamayla (her biri d/2√3, d = 0,1 mg), tekrarlanabilirlik ve eksantriklikle gösterge I; E2 ağırlıklarının konvansiyonel kütlesi, sürüklenmesi ve hava kaldırma kuvvetiyle referans kütle m_ref (7.1.2-14).
+2. 100 g'ın beş okumasından tekrarlanabilirlik (100,0006, 100,0003, 100,0005, 100,0004, 100,0005 g): s = 0,000 114 g, ν = 4; her yükte tek okumaya uygulanır (7.1.1-5).
+3. Eksantriklik: ±|ΔI_ecc,maks|·L/(2L_ecc), L_ecc = 100 g'da ΔI_ecc,maks = 0,2 mg, dikdörtgen (7.1.1-10). Sürüklenme: k_D = 1,25 ile D = k_D·U(m_c), dikdörtgen (7.1.2-10, -11).
+4. Welch–Satterthwaite ile ν_eff (B3-1) ve %95,45 için t dağılımından k.
+5. Yük 200 g + 20 g, m_c = 220,0001 g, u(m_c) = 0,000 062 g; mpe(E2) = 0,30 + 0,08 mg. Kaldırma kuvveti u_rel = (0,1ρ₀/ρ_c + mpe/(4m_N))/√3 = 8,9·10⁻⁶: u = 0,001 96 g.
+6. I = 220,0014 g, E = 0,0013 g, u(E) = 0,001 97 g, ν_eff ≈ 3,6·10⁵, k = 2,00, U = 0,003 94 g.
+
+**Sonuç:**
+
+- E = (0,0013 ± 0,0039) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option1.json --lang tr`
+
+### Laboratuvar terazisi 220 g / 0,1 mg: ΔT = 5 K için kaldırma kuvveti terimiyle 220 g'da hata (EURAMET cg-18 H1, seçenek 1, 7.1.2-5e formülü)
+
+`cg18-h1-220g-max-option1-delta-t` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+Seçenek 1 gibi, ancak kaldırma kuvveti belirsizliği en kötü durum yerine odanın tahmini 5 K sıcaklık değişiminden çıkar.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E = I − m_ref (7.1-1): sıfırda ve yükte yuvarlamayla (her biri d/2√3, d = 0,1 mg), tekrarlanabilirlik ve eksantriklikle gösterge I; E2 ağırlıklarının konvansiyonel kütlesi, sürüklenmesi ve hava kaldırma kuvvetiyle referans kütle m_ref (7.1.2-14).
+2. 100 g'ın beş okumasından tekrarlanabilirlik (100,0006, 100,0003, 100,0005, 100,0004, 100,0005 g): s = 0,000 114 g, ν = 4; her yükte tek okumaya uygulanır (7.1.1-5).
+3. Eksantriklik: ±|ΔI_ecc,maks|·L/(2L_ecc), L_ecc = 100 g'da ΔI_ecc,maks = 0,2 mg, dikdörtgen (7.1.1-10). Sürüklenme: k_D = 1,25 ile D = k_D·U(m_c), dikdörtgen (7.1.2-10, -11).
+4. Welch–Satterthwaite ile ν_eff (B3-1) ve %95,45 için t dağılımından k.
+5. u_rel = √(1,07·10⁻⁴ + 1,33·10⁻⁶ K⁻²·ΔT²)·ρ₀/ρ_c + mpe/(4m_N√3) = 2,03·10⁻⁶: u = 0,000 446 g.
+6. u(E) = 0,000 491 g, ν_eff = 1377, k = 2,00, U = 0,000 98 g: seçenek 1'in temkinli kaldırma kuvveti sınırı U'yu dört kat büyütür.
+
+**Sonuç:**
+
+- E = (0,00130 ± 0,00098) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang tr`
+
+### Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesiyle 220 g'da hata (EURAMET cg-18 H1, seçenek 2)
+
+`cg18-h1-220g-max-option2` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+Kalibrasyon sırasında hava yoğunluğu bilinir (990 hPa, %50 bağıl nem, 21 °C: 1,173 kg/m³); bu nedenle kaldırma kuvveti düzeltmesi uygulanır; deney ağırlıkları oda sıcaklığından 2 K farklıdır (konveksiyon).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E = I − m_ref (7.1-1): sıfırda ve yükte yuvarlamayla (her biri d/2√3, d = 0,1 mg), tekrarlanabilirlik ve eksantriklikle gösterge I; E2 ağırlıklarının konvansiyonel kütlesi, sürüklenmesi ve hava kaldırma kuvvetiyle referans kütle m_ref (7.1.2-14).
+2. 100 g'ın beş okumasından tekrarlanabilirlik (100,0006, 100,0003, 100,0005, 100,0004, 100,0005 g): s = 0,000 114 g, ν = 4; her yükte tek okumaya uygulanır (7.1.1-5).
+3. Eksantriklik: ±|ΔI_ecc,maks|·L/(2L_ecc), L_ecc = 100 g'da ΔI_ecc,maks = 0,2 mg, dikdörtgen (7.1.1-10). Sürüklenme: k_D = 1,25 ile D = k_D·U(m_c), dikdörtgen (7.1.2-10, -11).
+4. Welch–Satterthwaite ile ν_eff (B3-1) ve %95,45 için t dağılımından k.
+5. δm_B = −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) (7.1.2-4), ρ_a = (1,173 ± 0,014) kg/m³ ve ρ = (7950 ± 70) kg/m³; belirsizliği (7.1.2-5a) modelden çıkar: göreli yaklaşık 3·10⁻⁸.
+6. u(E) = 0,000226 g, ν_eff = 62, k = 2,05, U = 0,00046 g,
+
+**Sonuç:**
+
+- E = (0,00130 ± 0,00046) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,04 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option2.json --lang tr`
+
+### Laboratuvar terazisi 220 g / 0,1 mg: sıfır yükte hata (EURAMET cg-18 H1)
+
+`cg18-h1-220g-zero` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1
+
+Sıfır yükte yalnızca sıfırda yuvarlama ve tekrarlanabilirlik katkı verir; ν = 4 ile tekrarlanabilirlik kapsam faktörünü belirler.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E = I − m_ref (7.1-1): sıfırda ve yükte yuvarlamayla (her biri d/2√3, d = 0,1 mg), tekrarlanabilirlik ve eksantriklikle gösterge I; E2 ağırlıklarının konvansiyonel kütlesi, sürüklenmesi ve hava kaldırma kuvvetiyle referans kütle m_ref (7.1.2-14).
+2. 100 g'ın beş okumasından tekrarlanabilirlik (100,0006, 100,0003, 100,0005, 100,0004, 100,0005 g): s = 0,000 114 g, ν = 4; her yükte tek okumaya uygulanır (7.1.1-5).
+3. Eksantriklik: ±|ΔI_ecc,maks|·L/(2L_ecc), L_ecc = 100 g'da ΔI_ecc,maks = 0,2 mg, dikdörtgen (7.1.1-10). Sürüklenme: k_D = 1,25 ile D = k_D·U(m_c), dikdörtgen (7.1.2-10, -11).
+4. Welch–Satterthwaite ile ν_eff (B3-1) ve %95,45 için t dağılımından k.
+5. u(E) = √(0,000 114² + 0,000 029²) g = 0,000 118 g, ν_eff = 4,5, 4'e kesilir: k = 2,87, U = 0,000 34 g.
+
+**Sonuç:**
+
+- E = (0,00000 ± 0,00034) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,87 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang tr`
 
 ### 10 kg'lık bir ağırlığın kalibrasyonu
 

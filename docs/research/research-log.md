@@ -1491,3 +1491,22 @@ digits. Both examples use k = t(ν_eff) for 95.45 % while the text says
   (100.014 mL) is reproduced.
 
 None of these changes a printed u_c or U.
+
+**D49. EURAMET cg-18 v4.0 (2015), Example H1.** Five library projects cover
+the error of indication of a 220 g / 0.1 mg laboratory balance:
+
+- at zero (ν = 4 from the repeatability test, so k = 2.87);
+- at 220 g without buoyancy correction, with the conservative formula
+  7.1.2-5d and with the ΔT-based formula 7.1.2-5e;
+- at 100 g and 220 g with the buoyancy correction of option 2.
+
+Each contribution is built from the guide's formulas rather than copied
+from the budget: the repeatability s from the five readings; the
+eccentricity from 7.1.1-10; the drift D = k_D·U(m_c); the buoyancy limits
+from 7.1.2-5d and 5e with the E2 mpe. In option 2 the correction
+−m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) is part of the model, so its uncertainty
+(7.1.2-5a) follows from the propagation. Every printed u(E), ν_eff, k and U
+is reproduced. One difference is practice: the guide reads k from GUM
+Table G.2 (2.05 at ν = 62, from the row for ν = 50), where the exact
+t-value is 2.04. Examples H2–H4 (multi-interval, 30 t with substitution
+loads, error-approximation function) remain for a later session.

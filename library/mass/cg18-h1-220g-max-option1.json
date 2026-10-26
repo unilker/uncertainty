@@ -1,0 +1,207 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg18-h1-220g-max-option1",
+    "title": {
+      "en": "Laboratory balance 220 g / 0.1 mg: error at 220 g without buoyancy correction (EURAMET cg-18 H1, option 1)",
+      "tr": "Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesi olmadan 220 g'da hata (EURAMET cg-18 H1, seçenek 1)"
+    },
+    "description": {
+      "en": "Not adjusted before calibration and no air density known: the buoyancy term is the conservative limit of formula 7.1.2-5d and dominates.",
+      "tr": "Kalibrasyondan önce ayarlanmamış ve hava yoğunluğu bilinmiyor: kaldırma kuvveti terimi 7.1.2-5d formülünün temkinli sınırıdır ve baskındır."
+    },
+    "explanation": [
+      {
+        "en": "E = I − m_ref (7.1-1): the indication I with the rounding at zero and at load (d/2√3 each, d = 0.1 mg), repeatability and eccentricity; the reference mass m_ref with the conventional mass of the E2 weights, their drift and air buoyancy (7.1.2-14).",
+        "tr": "E = I − m_ref (7.1-1): sıfırda ve yükte yuvarlamayla (her biri d/2√3, d = 0,1 mg), tekrarlanabilirlik ve eksantriklikle gösterge I; E2 ağırlıklarının konvansiyonel kütlesi, sürüklenmesi ve hava kaldırma kuvvetiyle referans kütle m_ref (7.1.2-14)."
+      },
+      {
+        "en": "Repeatability from five readings of 100 g (100.0006, 100.0003, 100.0005, 100.0004, 100.0005 g): s = 0.000 114 g with ν = 4, applied to a single reading at each load (7.1.1-5).",
+        "tr": "100 g'ın beş okumasından tekrarlanabilirlik (100,0006, 100,0003, 100,0005, 100,0004, 100,0005 g): s = 0,000 114 g, ν = 4; her yükte tek okumaya uygulanır (7.1.1-5)."
+      },
+      {
+        "en": "Eccentricity: ±|ΔI_ecc,max|·L/(2L_ecc) with ΔI_ecc,max = 0.2 mg at L_ecc = 100 g, rectangular (7.1.1-10). Drift: D = k_D·U(m_c) with k_D = 1.25, rectangular (7.1.2-10, -11).",
+        "tr": "Eksantriklik: ±|ΔI_ecc,maks|·L/(2L_ecc), L_ecc = 100 g'da ΔI_ecc,maks = 0,2 mg, dikdörtgen (7.1.1-10). Sürüklenme: k_D = 1,25 ile D = k_D·U(m_c), dikdörtgen (7.1.2-10, -11)."
+      },
+      {
+        "en": "ν_eff by Welch–Satterthwaite (B3-1) and k for 95.45 % from the t-distribution.",
+        "tr": "Welch–Satterthwaite ile ν_eff (B3-1) ve %95,45 için t dağılımından k."
+      },
+      {
+        "en": "Load 200 g + 20 g, m_c = 220.0001 g, u(m_c) = 0.000 062 g; mpe(E2) = 0.30 + 0.08 mg. Buoyancy u_rel = (0.1ρ₀/ρ_c + mpe/(4m_N))/√3 = 8.9·10⁻⁶: u = 0.001 96 g.",
+        "tr": "Yük 200 g + 20 g, m_c = 220,0001 g, u(m_c) = 0,000 062 g; mpe(E2) = 0,30 + 0,08 mg. Kaldırma kuvveti u_rel = (0,1ρ₀/ρ_c + mpe/(4m_N))/√3 = 8,9·10⁻⁶: u = 0,001 96 g."
+      },
+      {
+        "en": "I = 220.0014 g, E = 0.0013 g, u(E) = 0.001 97 g, ν_eff ≈ 3.6·10⁵, k = 2.00, U = 0.003 94 g.",
+        "tr": "I = 220,0014 g, E = 0,0013 g, u(E) = 0,001 97 g, ν_eff ≈ 3,6·10⁵, k = 2,00, U = 0,003 94 g."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 18 v4.0 (2015), Guidelines on the Calibration of Non-Automatic Weighing Instruments",
+        "section": "Appendix H1",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg18",
+      "balance",
+      "weighing-instrument",
+      "calibration",
+      "validation"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "E",
+      "unit": "g",
+      "expression": "I_L + dI_dig0 + dI_rep + dI_digL + dI_ecc - (m_c + dm_D + dm_B)",
+      "description": {
+        "en": "Error of indication",
+        "tr": "Gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_L",
+        "unit": "g",
+        "description": {
+          "en": "Indication at the load",
+          "tr": "Yükteki gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 220.0014
+        }
+      },
+      {
+        "name": "dI_dig0",
+        "unit": "g",
+        "description": {
+          "en": "Rounding at zero",
+          "tr": "Sıfırda yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5e-05
+        }
+      },
+      {
+        "name": "dI_rep",
+        "unit": "g",
+        "description": {
+          "en": "Repeatability (s from five readings, ν = 4, one reading)",
+          "tr": "Tekrarlanabilirlik (beş okumadan s, ν = 4, tek okuma)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.00011401754251369879,
+          "pooled_dof": 4,
+          "n": 1
+        }
+      },
+      {
+        "name": "dI_digL",
+        "unit": "g",
+        "description": {
+          "en": "Rounding at the load",
+          "tr": "Yükte yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5e-05
+        }
+      },
+      {
+        "name": "dI_ecc",
+        "unit": "g",
+        "description": {
+          "en": "Eccentricity",
+          "tr": "Eksantriklik"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.00022000000000000003
+        }
+      },
+      {
+        "name": "m_c",
+        "unit": "g",
+        "description": {
+          "en": "Conventional mass of the weights (certificate U/k)",
+          "tr": "Ağırlıkların konvansiyonel kütlesi (sertifika U/k)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 220.0001,
+          "sd": 6.2e-05
+        }
+      },
+      {
+        "name": "dm_D",
+        "unit": "g",
+        "description": {
+          "en": "Drift of the weights (D = 1.25·U)",
+          "tr": "Ağırlıkların sürüklenmesi (D = 1,25·U)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.000155
+        }
+      },
+      {
+        "name": "dm_B",
+        "unit": "g",
+        "description": {
+          "en": "Air buoyancy, not corrected (7.1.2-5d)",
+          "tr": "Hava kaldırma kuvveti, düzeltilmemiş (7.1.2-5d)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.0033949999999999996
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0013,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 0.001971,
+        "tolerance": 1e-06
+      },
+      "coverage_factor": {
+        "value": 2.0,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 0.00394,
+        "tolerance": 5e-06
+      }
+    },
+    "reference": {
+      "en": "EURAMET cg-18 v4.0 H1.3/A, option 1 (7.1.2-5d), 220 g: u(E) = 0.001 971 g, ν_eff = 357 098, k = 2.00, U = 0.003 94 g.",
+      "tr": "EURAMET cg-18 v4.0 H1.3/A, seçenek 1 (7.1.2-5d), 220 g: u(E) = 0,001 971 g, ν_eff = 357 098, k = 2,00, U = 0,003 94 g."
+    }
+  }
+}

@@ -15,6 +15,6 @@
 | 2f | ISO/TS 28037 data sets (awaiting the standard); TN 1900 observation-equation examples | planned |
 | 3 | JSON project files; CLI (`run`, `check`, `template`); TR/EN reports (Markdown, HTML with SVG charts, JSON) with citation footer | **done** (PDF/CSV export: planned) |
 | 4 | Flutter UI (desktop + mobile), Rust bridge, TR/EN localisation | **in progress**: C interface crate, Flutter app (library, editors, results, export), Linux build tested; Android APK (engine for three ABIs), Windows/Linux packages, universal macOS app and unsigned iOS build (engine linked statically) built by the Package workflow; signing/store distribution pending |
-| 5 | Calibration (EA-4/02 and UKAS M3003 examples), conformity assessment (JCGM 106), multivariate outputs (JCGM 102) | **done**: EA-4/02 S2–S13, UKAS M3003 K.1–K.11, C, L.3, EURAMET cg-19 Examples 1–2, JCGM 106 clauses 7–9, JCGM 102 clauses 6–9 |
-| 6 | Example library (hundreds of validated, explained cases) and the TR/EN guide | **in progress**: 175 self-checking projects; TR/EN user guide (14 chapters + generated examples chapter) |
+| 5 | Calibration (EA-4/02 and UKAS M3003 examples), conformity assessment (JCGM 106), multivariate outputs (JCGM 102) | **done**: EA-4/02 S2–S13, UKAS M3003 K.1–K.11, C, L.3, EURAMET cg-18 H1 and cg-19 Examples 1–2, JCGM 106 clauses 7–9, JCGM 102 clauses 6–9 |
+| 6 | Example library (hundreds of validated, explained cases) and the TR/EN guide | **in progress**: 180 self-checking projects; TR/EN user guide (14 chapters + generated examples chapter) |
 | 7 | Independent review, benchmarks vs NUM/Suncal, release with DOI, manuscript | planned |
