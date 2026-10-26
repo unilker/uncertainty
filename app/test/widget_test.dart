@@ -24,7 +24,12 @@ Future<void> pumpUntilFound(WidgetTester tester, Finder finder, {int attempts = 
 
 void main() {
   setUpAll(() {
-    engineLibraryPath = Platform.environment['UNCERTAINTY_FFI'] ?? '${Directory.current.path}/../target/release/libuncertainty_ffi.so';
+    final name = Platform.isWindows
+        ? 'uncertainty_ffi.dll'
+        : Platform.isMacOS
+            ? 'libuncertainty_ffi.dylib'
+            : 'libuncertainty_ffi.so';
+    engineLibraryPath = Platform.environment['UNCERTAINTY_FFI'] ?? '${Directory.current.path}/../target/release/$name';
   });
 
   group('format', () {

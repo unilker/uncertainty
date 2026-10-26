@@ -722,9 +722,24 @@ exact trapezoidal interval ±0.00136, so the GUM result is not validated
 (n_dig = 2) — a compact example of a linear model with only rectangular
 inputs where the Gaussian approximation is conservative.
 
+**D27. Android and Windows packaging.** Android: a Gradle task
+(`buildEngine`, run before every build) cross-compiles the engine with cargo
+and the NDK's clang (API level = minSdk 24) for arm64-v8a, armeabi-v7a and
+x86_64 and packages it as `jniLibs`; the release APK was built in this
+environment (NDK 28.2, 57 MB) and contains the engine for the three ABIs,
+16 KB-aligned and linked only against the Android system libraries. It has
+not yet been run on a device or emulator (no hardware virtualisation here).
+Because Android and iOS have no save dialog, projects are saved in the
+application's documents folder there, while reports and "Save as" go to the
+system share sheet (`share_plus`). Windows: the CMake rule builds
+`uncertainty_ffi.dll` with cargo; the engine type-checks for Windows, and the
+new *Package* workflow (`windows-latest`) runs the widget tests against the
+DLL and builds the Windows zip, together with the Linux bundle and the APK.
+The APK is signed with the debug key until a release key exists.
+
 ### Next steps
 
-- Android and Windows packaging of the interface.
+- Check the Package workflow results on Windows; run the APK on a device.
 - Observation-equation examples of TN 1900 (regression, random effects) as
   a later module; E5 after truncated distributions are supported.
 - Errata check of TN 1900 before submission (F28–F30).

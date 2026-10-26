@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../app_state.dart';
 import '../engine.dart';
+import '../files.dart';
 import '../strings.dart';
 import '../widgets/json_editor.dart';
 import '../widgets/model_editor.dart';
@@ -111,14 +112,18 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
 
   Future<void> _save({bool saveAs = false}) async {
     final s = AppScope.of(context).s;
+    final text = '${const JsonEncoder.withIndent('  ').convert(_project)}\n';
+    if (saveAs && isMobile) {
+      await shareText(_suggestedName('json'), text);
+      return;
+    }
     var path = _path;
     if (path == null || saveAs) {
       const group = XTypeGroup(label: 'JSON', extensions: ['json']);
-      final loc = await getSaveLocation(suggestedName: _suggestedName('json'), acceptedTypeGroups: [group]);
-      if (loc == null) return;
-      path = loc.path;
+      path = await chooseSavePath(_suggestedName('json'), group);
+      if (path == null) return;
     }
-    await File(path).writeAsString('${const JsonEncoder.withIndent('  ').convert(_project)}\n');
+    await File(path).writeAsString(text);
     if (!mounted) return;
     setState(() {
       _path = path;
@@ -136,12 +141,16 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
         EvaluateOptions(lang: app.lang, html: format == 'html', markdown: format == 'md', generated: _today()),
       );
       final text = r[format == 'html' ? 'html' : 'markdown'] as String;
+      if (isMobile) {
+        await shareText(_suggestedName(format), text);
+        return;
+      }
       final group = XTypeGroup(label: format.toUpperCase(), extensions: [format]);
-      final loc = await getSaveLocation(suggestedName: _suggestedName(format), acceptedTypeGroups: [group]);
-      if (loc == null) return;
-      await File(loc.path).writeAsString(text);
+      final path = await chooseSavePath(_suggestedName(format), group);
+      if (path == null) return;
+      await File(path).writeAsString(text);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${s['saved']}: ${loc.path}')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${s['saved']}: $path')));
     } on Object catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${s['engine_error']}: $e')));
