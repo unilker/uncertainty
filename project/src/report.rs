@@ -5,7 +5,7 @@
 //! Turkish reports use the decimal comma, as in Turkish standards.
 
 use crate::schema::{DistributionSpec, Project, ReportingSpec, RoundingSpec};
-use crate::topdown::{At, BiasKind, LevelRange, PrecisionMethod, TopDownAnalysis};
+use crate::topdown::{At, BiasKind, LevelModel, LevelRange, PrecisionMethod, TopDownAnalysis};
 use crate::{check, Analysis, CheckOutcome, Evaluation, Lang, CITATION, SOFTWARE_NAME, SOFTWARE_VERSION};
 use std::fmt::Write as _;
 use uncertainty_core::mcm::IntervalKind;
@@ -604,6 +604,8 @@ struct TdLabels {
     m_dup_range: &'static str,
     m_limits: &'static str,
     m_given: &'static str,
+    m_linear: &'static str,
+    m_continuous: &'static str,
     mean_of: &'static str,
     rel_at: &'static str,
     abs_at: &'static str,
@@ -665,6 +667,8 @@ const TD_EN: TdLabels = TdLabels {
     m_dup_range: "duplicates, mean range / 1.128",
     m_limits: "control limits / k",
     m_given: "stated value",
+    m_linear: "linear model",
+    m_continuous: "continuous model",
     mean_of: "mean of {p} days × {n} results",
     rel_at: "relative to {v}",
     abs_at: "absolute at {v}",
@@ -726,6 +730,8 @@ const TD_TR: TdLabels = TdLabels {
     m_dup_range: "mükerrer ölçümler, ortalama açıklık / 1,128",
     m_limits: "kontrol sınırları / k",
     m_given: "verilen değer",
+    m_linear: "doğrusal model",
+    m_continuous: "sürekli model",
     mean_of: "{p} gün × {n} sonucun ortalaması",
     rel_at: "{v} değerine göre bağıl",
     abs_at: "{v} değerinde mutlak",
@@ -745,6 +751,24 @@ fn range_text(r: &LevelRange, lang: Lang) -> String {
         (Some(a), None) => format!("≥ {}", n(a)),
         (None, Some(b)) => format!("< {}", n(b)),
         (Some(a), Some(b)) => format!("[{}; {})", n(a), n(b)),
+    }
+}
+
+/// s(c) of a level-dependent precision model, e.g. "0.0233 + 0.0128·c".
+fn model_text(m: &LevelModel, lang: Lang) -> String {
+    let n = |x: f64| fmt_num(x, 4, lang);
+    match *m {
+        LevelModel::Linear { intercept, slope, dilution_factor, .. } if dilution_factor != 1.0 => {
+            format!(
+                "{}·({} + {}·c/{})",
+                fmt_given(dilution_factor, lang),
+                n(intercept),
+                n(slope),
+                fmt_given(dilution_factor, lang)
+            )
+        }
+        LevelModel::Linear { intercept, slope, .. } => format!("{} + {}·c", n(intercept), n(slope)),
+        LevelModel::Continuous { sd0, rsd1 } => format!("√({}² + (c·{})²)", n(sd0), fmt_pct(rsd1, 4, lang, false)),
     }
 }
 
@@ -794,6 +818,8 @@ fn topdown_markdown(
                 PrecisionMethod::DuplicatesRange => d.m_dup_range,
                 PrecisionMethod::ControlLimits => d.m_limits,
                 PrecisionMethod::Given => d.m_given,
+                PrecisionMethod::Linear => d.m_linear,
+                PrecisionMethod::Continuous => d.m_continuous,
             }
             .to_string();
             if let Some(m) = &ps.mean_of {
@@ -810,6 +836,9 @@ fn topdown_markdown(
                 };
                 let _ = write!(method, "; {}", d.rel_at.replace("{v}", &v));
             }
+            if let Some(LevelModel::Linear { correlation: Some(r), .. }) = pr.model {
+                let _ = write!(method, "; r = {}", fmt_num(r, 4, lang));
+            }
             if let Some(v) = ps.to_absolute_at {
                 let _ = write!(method, "; {}", d.abs_at.replace("{v}", &fmt_given(v, lang)));
             }
@@ -819,10 +848,10 @@ fn topdown_markdown(
                 pr.name,
                 if pr.n > 0 { pr.n.to_string() } else { "—".into() },
                 pr.mean.map(|m| fmt_num(m, 4, lang)).unwrap_or_else(|| "—".into()),
-                u_of(pr.raw_sd, pr.raw_relative),
+                pr.model.map(|m| model_text(&m, lang)).unwrap_or_else(|| u_of(pr.raw_sd, pr.raw_relative)),
                 dof(pr.dof),
                 range_text(&pr.range, lang),
-                u_of(pr.sd, pr.relative)
+                pr.model.map(|m| model_text(&m, lang)).unwrap_or_else(|| u_of(pr.sd, pr.relative))
             );
         }
         let _ = writeln!(s);
@@ -912,7 +941,7 @@ fn topdown_markdown(
             "| {} | {} | {} | {} | {} |",
             b.name,
             if b.relative { d.relative } else { d.absolute },
-            u_of(b.u, b.relative),
+            b.model.map(|m| model_text(&m, lang)).unwrap_or_else(|| u_of(b.u, b.relative)),
             b.multiplicity,
             range_text(&b.range, lang)
         );

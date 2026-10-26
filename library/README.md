@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**59 examples / örnek** (38 model, 21 top-down).
+**60 examples / örnek** (38 model, 22 top-down).
 
 ## Chemistry / Kimya
 
@@ -43,6 +43,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`mupr-b1-nitrate`](chemistry/mupr-b1-nitrate.json) | Nitrate in drinking water: two precision intervals | İçme suyunda nitrat: iki kesinlik aralığı | Eurachem/CITAC Guide Example B1 |
 | [`mupr-b2-pooled-precision`](chemistry/mupr-b2-pooled-precision.json) | Nitrate: pooled precision and two recovery levels | Nitrat: birleştirilmiş kesinlik ve iki geri kazanım düzeyi | Eurachem/CITAC Guide Example B2, Tables B2.1–B2.3 |
 | [`mupr-b2-replicates-on-two-days`](chemistry/mupr-b2-replicates-on-two-days.json) | Nitrate: result as the mean of 3 replicates on 2 days | Nitrat: 2 günde 3 tekrarın ortalaması olarak sonuç | Eurachem/CITAC Guide Example B2, Eq. (B2.8)–(B2.9) |
+| [`mupr-b3-linear-precision`](chemistry/mupr-b3-linear-precision.json) | Nitrate: precision as a linear function of concentration | Nitrat: derişimin doğrusal fonksiyonu olarak kesinlik | Eurachem/CITAC Guide Example B3, Table B3.1, Eq. (B3.1) |
 | [`mupr-b4-arsenic-one-crm`](chemistry/mupr-b4-arsenic-one-crm.json) | Arsenic in sediment: one CRM | Sedimentte arsenik: tek CRM | Eurachem/CITAC Guide Example B4 |
 | [`mupr-b5-crm-and-spiked-samples`](chemistry/mupr-b5-crm-and-spiked-samples.json) | Arsenic: CRM and spiked samples with matrix-dependent recovery | Arsenik: matrise bağlı geri kazanımlı CRM ve katkılı numuneler | Eurachem/CITAC Guide Example B5 |
 | [`mupr-b6-sediment-22-pt`](chemistry/mupr-b6-sediment-22-pt.json) | Trace element in sediment: heterogeneity and 22 proficiency tests | Sedimentte iz element: heterojenlik ve 22 yeterlilik testi | Eurachem/CITAC Guide Example B6, Tables B6.1–B6.3 |

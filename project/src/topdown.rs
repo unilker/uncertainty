@@ -187,6 +187,41 @@ pub enum PrecisionData {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         dof: Option<f64>,
     },
+    /// Standard deviation as a straight-line function of the level,
+    /// s(c) = a + b·c, stated or fitted by least squares to (c, s) points
+    /// [MUPR Example B3]. With a dilution factor F the line describes the
+    /// diluted test solution: s(c) = F·(a + b·c/F).
+    Linear {
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        points: Option<Vec<[f64; 2]>>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        intercept: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        slope: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        dilution_factor: Option<f64>,
+    },
+    /// s(c) = √(s₀² + (c·s′₁)²) [MUPR Eq. (A.1)–(A.4)].
+    Continuous { sd0: f64, rsd1_percent: f64 },
+}
+
+/// A precision standard deviation that depends on the level (absolute).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum LevelModel {
+    Linear { intercept: f64, slope: f64, dilution_factor: f64, correlation: Option<f64> },
+    Continuous { sd0: f64, rsd1: f64 },
+}
+
+impl LevelModel {
+    /// Absolute standard deviation at level c.
+    pub fn sd_at(&self, c: f64) -> f64 {
+        match *self {
+            LevelModel::Linear { intercept, slope, dilution_factor, .. } => {
+                dilution_factor * (intercept + slope * c / dilution_factor)
+            }
+            LevelModel::Continuous { sd0, rsd1 } => td::PrecisionModel::Continuous { sd0, rsd1 }.sd_at(c),
+        }
+    }
 }
 
 /// One group of replicate results, as raw values or as (s, n).
@@ -522,6 +557,8 @@ pub enum PrecisionMethod {
     DuplicatesRange,
     ControlLimits,
     Given,
+    Linear,
+    Continuous,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -541,6 +578,8 @@ pub struct PrecisionResult {
     pub relative: bool,
     pub dof: f64,
     pub range: LevelRange,
+    /// Level-dependent model (then `sd` and `raw_sd` are not used).
+    pub model: Option<LevelModel>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -614,6 +653,8 @@ pub struct BudgetItem {
     pub relative: bool,
     pub multiplicity: u32,
     pub range: LevelRange,
+    /// Level-dependent absolute standard uncertainty (overrides `u`).
+    pub model: Option<LevelModel>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -667,6 +708,51 @@ fn one_of(name: &str, abs: Option<f64>, pct: Option<f64>, what: &str) -> Result<
 
 fn precision(p: &PrecisionSpec) -> Result<PrecisionResult, ProjectError> {
     let name = p.name.as_str();
+    let model = match &p.data {
+        PrecisionData::Linear { points, intercept, slope, dilution_factor } => {
+            let f = dilution_factor.unwrap_or(1.0);
+            if !(f.is_finite() && f > 0.0) {
+                return Err(err(name, "dilution_factor must be positive"));
+            }
+            let (a, b, r, n) = match (points, intercept, slope) {
+                (Some(pts), None, None) => {
+                    let x: Vec<f64> = pts.iter().map(|q| q[0]).collect();
+                    let y: Vec<f64> = pts.iter().map(|q| q[1]).collect();
+                    let fit = uncertainty_core::calibration::StraightLine::fit(&x, &y)?;
+                    (fit.intercept, fit.slope, Some(fit.correlation), pts.len())
+                }
+                (None, Some(a), Some(b)) => (*a, *b, None, 0),
+                _ => return Err(err(name, "give points, or intercept and slope")),
+            };
+            Some((
+                LevelModel::Linear { intercept: a, slope: b, dilution_factor: f, correlation: r },
+                PrecisionMethod::Linear,
+                n,
+            ))
+        }
+        PrecisionData::Continuous { sd0, rsd1_percent } => {
+            Some((LevelModel::Continuous { sd0: *sd0, rsd1: rsd1_percent / 100.0 }, PrecisionMethod::Continuous, 0))
+        }
+        _ => None,
+    };
+    if let Some((m, method, n)) = model {
+        if p.mean_of.is_some() || p.to_relative_at.is_some() || p.to_absolute_at.is_some() {
+            return Err(err(name, "mean_of and conversions are not available for level-dependent models"));
+        }
+        return Ok(PrecisionResult {
+            name: p.name.clone(),
+            method,
+            n,
+            mean: None,
+            raw_sd: f64::NAN,
+            raw_relative: false,
+            sd: f64::NAN,
+            relative: false,
+            dof: if n > 2 { n as f64 - 2.0 } else { f64::INFINITY },
+            range: p.range.unwrap_or_default(),
+            model: Some(m),
+        });
+    }
     let (method, n, mean, sd, relative, dof) = match &p.data {
         PrecisionData::Series { values, relative } => {
             let (m, s) = mean_sd(values, name)?;
@@ -737,6 +823,7 @@ fn precision(p: &PrecisionSpec) -> Result<PrecisionResult, ProjectError> {
             let (s, rel) = one_of(name, *sd, *sd_percent, "sd")?;
             (PrecisionMethod::Given, 0, None, s, rel, dof.unwrap_or(f64::INFINITY))
         }
+        PrecisionData::Linear { .. } | PrecisionData::Continuous { .. } => unreachable!("handled above"),
     };
     if !(sd.is_finite() && sd >= 0.0) {
         return Err(err(name, "the standard deviation is not a finite non-negative number"));
@@ -783,6 +870,7 @@ fn precision(p: &PrecisionSpec) -> Result<PrecisionResult, ProjectError> {
         relative,
         dof,
         range: p.range.unwrap_or_default(),
+        model: None,
     })
 }
 
@@ -1052,6 +1140,7 @@ fn component(c: &ComponentSpec) -> Result<BudgetItem, ProjectError> {
         relative: *relative,
         multiplicity: c.multiplicity,
         range: c.range.unwrap_or_default(),
+        model: None,
     })
 }
 
@@ -1069,6 +1158,7 @@ pub fn evaluate(spec: &TopDownSpec) -> Result<TopDownAnalysis, ProjectError> {
             relative: p.relative,
             multiplicity: 1,
             range: p.range,
+            model: p.model,
         })
         .collect();
     budget.extend(bias.iter().map(|b| BudgetItem {
@@ -1078,6 +1168,7 @@ pub fn evaluate(spec: &TopDownSpec) -> Result<TopDownAnalysis, ProjectError> {
         relative: b.relative,
         multiplicity: 1,
         range: b.range,
+        model: None,
     }));
     if let Some(r) = &recovery {
         budget.push(BudgetItem {
@@ -1087,6 +1178,7 @@ pub fn evaluate(spec: &TopDownSpec) -> Result<TopDownAnalysis, ProjectError> {
             relative: true,
             multiplicity: 1,
             range: r.range,
+            model: None,
         });
     }
     for c in &spec.components {
@@ -1127,7 +1219,9 @@ pub fn evaluate(spec: &TopDownSpec) -> Result<TopDownAnalysis, ProjectError> {
             .iter()
             .map(|&i| {
                 let b = &budget[i];
-                let c = if b.relative {
+                let c = if let (Some(m), Some(x)) = (b.model, level) {
+                    Component::absolute(&b.name, m.sd_at(x) / r)
+                } else if b.relative {
                     Component::relative(&b.name, b.u)
                 } else {
                     let u = if b.source == ComponentSource::Recovery { b.u } else { b.u / r };
@@ -1267,6 +1361,11 @@ pub fn results_json(a: &TopDownAnalysis) -> serde_json::Value {
         })),
         "budget": a.budget.iter().map(|b| json!({
             "name": b.name, "u": b.u, "relative": b.relative, "multiplicity": b.multiplicity,
+            "model": b.model.map(|m| match m {
+                LevelModel::Linear { intercept, slope, dilution_factor, .. } =>
+                    json!({"type": "linear", "intercept": intercept, "slope": slope, "dilution_factor": dilution_factor}),
+                LevelModel::Continuous { sd0, rsd1 } => json!({"type": "continuous", "sd0": sd0, "rsd1": rsd1}),
+            }),
             "min": b.range.min, "max": b.range.max,
         })).collect::<Vec<_>>(),
         "coverage_factor": a.coverage_factor,
@@ -1344,6 +1443,27 @@ mod tests {
         );
         assert!(evaluate(&dup).is_err(), "duplicate names");
         assert!(serde_json::from_str::<TopDownSpec>(r#"{ "quantity": "x", "colour": 1 }"#).is_err());
+    }
+
+    #[test]
+    fn level_dependent_precision_models() {
+        let s = spec(
+            r#"{
+            "quantity": "c", "levels": [10.0, 40.0],
+            "precision": [
+                { "name": "lin", "data": { "type": "linear", "points": [[1, 1.1], [2, 1.2], [3, 1.3]], "dilution_factor": 10 },
+                  "range": { "max": 20 } },
+                { "name": "cont", "data": { "type": "continuous", "sd0": 3, "rsd1_percent": 10 }, "range": { "min": 20 } } ]
+        }"#,
+        );
+        let a = evaluate(&s).unwrap();
+        // s(c) = 10·(1 + 0.1·c/10) = 10 + 0.1 c → 11 at c = 10; √(3² + 4²) = 5 at 40.
+        assert!((a.levels[0].standard_uncertainty.unwrap() - 11.0).abs() < 1e-12);
+        assert!((a.levels[1].standard_uncertainty.unwrap() - 5.0).abs() < 1e-12);
+        let rel = spec(
+            r#"{ "quantity": "c", "precision": [ { "name": "m", "data": { "type": "continuous", "sd0": 1, "rsd1_percent": 1 } } ] }"#,
+        );
+        assert!(evaluate(&rel).is_err(), "a level-dependent model needs levels");
     }
 
     #[test]

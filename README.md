@@ -43,8 +43,8 @@ Türkçe ve İngilizce.
   range), CRMs, proficiency-test rounds, spike recoveries; concentration
   ranges, recovery significance test and correction, χ² equivalence of
   recoveries (Nordtest TR 537, Eurachem/CITAC MUPR).
-- [Example library](library/README.md): 59 published examples (38 model-based:
-  chemistry, mass, length, temperature, electrical, flow; 21 top-down:
+- [Example library](library/README.md): 60 published examples (38 model-based:
+  chemistry, mass, length, temperature, electrical, flow; 22 top-down:
   Nordtest, MUPR, QUAM A4/A6) as self-checking projects.
 
 ## Usage / Kullanım
@@ -63,7 +63,7 @@ $B check library                                        # re-verify all examples
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (103 tests; one of them reruns all 59 library projects): GUM H.1, all four examples of JCGM 101 clause 9,
+automated test (104 tests; one of them reruns all 60 library projects): GUM H.1, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
 their raw data), and all twelve calibration examples of EA-4/02 M:2022. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).

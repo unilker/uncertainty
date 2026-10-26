@@ -548,3 +548,17 @@ respective files as notes.
 1. Bilingual user guide generated from the library explanations (TR/EN).
 2. Flutter UI using the project file as the document model.
 3. NIST TN 1900 examples; ISO-based parts when the standards arrive.
+
+---
+
+## 2026-10-26 (session 6) — Level-dependent precision models; user guide
+
+**D20. Linear and continuous precision models (closes Q14, author's
+decision).** Two precision data types give an absolute standard deviation
+that depends on the level: `linear`, s(c) = a + b·c, stated or fitted by
+least squares to raw (c, s) points (MUPR Example B3), optionally for a
+diluted test solution, s(c) = F·(a + b·c/F); and `continuous`,
+s(c) = √(s₀² + (c·s′₁)²) (MUPR Eq. A.1). They are evaluated at each level
+and divided by R̄ for recovery-corrected results (D18). The library gains
+MUPR B3 from the raw points of Table B3.1 (U = 7.27 mg/L; printed 7.28 with
+the intercept rounded to 0.0233).
