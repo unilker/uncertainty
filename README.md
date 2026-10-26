@@ -56,9 +56,9 @@ Türkçe ve İngilizce.
   their covariances, upper bound of the uncertainty, drift control.
 - Results not corrected for a known bias: RSSu, RSSU, SUMU, SUMU_MAX and Ue
   intervals (Magnusson & Ellison 2008), with their coverage checked by simulation.
-- [Example library](library/README.md): 96 published examples (57 model-based:
+- [Example library](library/README.md): 100 published examples (58 model-based:
   chemistry, mass, length, temperature, electrical, flow, physical properties;
-  29 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3; 4 proficiency
+  29 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3; 7 proficiency
   testing: ISO 13528; 6 calibrations: ISO 6143) as self-checking projects.
 
 ## Usage / Kullanım
@@ -101,9 +101,9 @@ hesaplanan tüm kütüphane örnekleri.
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (127 tests; one of them reruns all 96 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
+automated test (127 tests; one of them reruns all 100 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
-their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.2–E.4 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 and Annex B of ISO 6143:2025. Details, tolerances and findings:
+their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 and Annex B of ISO 6143:2025. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

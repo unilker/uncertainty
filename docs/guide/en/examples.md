@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (47)
+- Chemistry (51)
 - Electrical and RF (15)
 - Flow and volume (4)
 - General (method validation) (8)
@@ -12,6 +12,79 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Temperature (4)
 
 ## Chemistry
+
+### Censored results in a PT round: censored results deleted (ISO 13528 E.1)
+
+`iso13528-e1-censored-deleted` — ISO 13528:2022, Annex E.1 (Table E.1)
+
+ISO 13528:2022 E.1: 23 results of which five are ‘less than’ values; the robust average and standard deviation of Algorithm A depend on how the censored results are treated.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. 23 participants, five of them reporting ‘<10’, ‘<10’, ‘<20’, ‘<30’ and ‘<50’ (Table E.1).
+2. The five censored results are reported as ‘less than’ and excluded from the statistics (5.5.3), leaving p = 18.
+3. Algorithm A (C.3.1) on the p = 18 values: x* = 26.81, s* = 5.29. The three treatments give x* from 23.95 to 26.81 and s* from 5.29 to 8.60: the proficiency testing provider has to decide the treatment beforehand (5.5.3.3).
+
+**Result:**
+
+- x_pt = 26.8, U(x_pt) = 3.1 (k = 2.00)
+
+**Notes:**
+
+- Table E.1 marks with ‘#’ the results outside x* ± 3s*; with the robust values here the z scores of those results exceed 3 in absolute value (Z = 50 when the ‘<’ is ignored, Y = 45 when the censored results are deleted).
+
+**Run:** `uncertainty run library/chemistry/iso13528-e1-censored-deleted.json --lang en`
+
+### Censored results in a PT round: 0.5 × the limit (ISO 13528 E.1)
+
+`iso13528-e1-censored-half` — ISO 13528:2022, Annex E.1 (Table E.1)
+
+ISO 13528:2022 E.1: 23 results of which five are ‘less than’ values; the robust average and standard deviation of Algorithm A depend on how the censored results are treated.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. 23 participants, five of them reporting ‘<10’, ‘<10’, ‘<20’, ‘<30’ and ‘<50’ (Table E.1).
+2. Each censored result is replaced by half its limit (5, 5, 10, 15, 25).
+3. Algorithm A (C.3.1) on the p = 23 values: x* = 23.95, s* = 8.60. The three treatments give x* from 23.95 to 26.81 and s* from 5.29 to 8.60: the proficiency testing provider has to decide the treatment beforehand (5.5.3.3).
+
+**Result:**
+
+- x_pt = 24.0, U(x_pt) = 4.5 (k = 2.00)
+
+**Notes:**
+
+- Table E.1 marks with ‘#’ the results outside x* ± 3s*; with the robust values here the z scores of those results exceed 3 in absolute value (Z = 50 when the ‘<’ is ignored, Y = 45 when the censored results are deleted).
+- With the stopping rule of C.3.1 (third significant figure) Algorithm A stops after 11 iterations at x* = 23.96, s* = 8.59; iterated to convergence it gives x* = 23.959, s* = 8.600. Table E.1 prints 23.95 and 8.60, i.e. the converged values with x* truncated rather than rounded (research log F44). The project iterates to convergence and checks x* within 0.01.
+
+**Run:** `uncertainty run library/chemistry/iso13528-e1-censored-half.json --lang en`
+
+### Censored results in a PT round: ‘<’ ignored (ISO 13528 E.1)
+
+`iso13528-e1-censored-ignored` — ISO 13528:2022, Annex E.1 (Table E.1)
+
+ISO 13528:2022 E.1: 23 results of which five are ‘less than’ values; the robust average and standard deviation of Algorithm A depend on how the censored results are treated.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. 23 participants, five of them reporting ‘<10’, ‘<10’, ‘<20’, ‘<30’ and ‘<50’ (Table E.1).
+2. The ‘<’ signs are discarded and the five limits analysed as quantitative results (10, 10, 20, 30, 50).
+3. Algorithm A (C.3.1) on the p = 23 values: x* = 26.01, s* = 7.23. The three treatments give x* from 23.95 to 26.81 and s* from 5.29 to 8.60: the proficiency testing provider has to decide the treatment beforehand (5.5.3.3).
+
+**Result:**
+
+- x_pt = 26.0, U(x_pt) = 3.8 (k = 2.00)
+
+**Notes:**
+
+- Table E.1 marks with ‘#’ the results outside x* ± 3s*; with the robust values here the z scores of those results exceed 3 in absolute value (Z = 50 when the ‘<’ is ignored, Y = 45 when the censored results are deleted).
+
+**Run:** `uncertainty run library/chemistry/iso13528-e1-censored-ignored.json --lang en`
 
 ### Arsenic in chocolate: homogeneity and stability of PT items (ISO 13528 E.2)
 
@@ -99,6 +172,30 @@ ISO 13528:2022 E.4 (IMEP 111): scores of 21 laboratories against a reference val
 - Table E.6 flags the reported uncertainties a/b/c 'following criteria discussed in 9.8', but the flags are not reproduced with u_min = u(x_pt) = 0.0041 mg/kg (9.8.3): L05 (u = 0.0035) and L09 (u = 0.0040) are flagged 'a'. The flags imply a lower limit between 0.0018 and 0.0035 mg/kg (possibly the characterisation uncertainty without inhomogeneity) and an upper limit between 0.005 and 0.015 mg/kg (consistent with 1.5σ_pt = 0.0099). The flags are therefore not checked here.
 
 **Run:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang en`
+
+### Assigned value from a comparison with a CRM: Los Angeles value of aggregates (ISO 13528 E.5)
+
+`iso13528-e5-los-angeles-reference-value` — ISO 13528:2022, Annex E.5 (Table E.8)
+
+ISO 13528:2022 E.5 (7.5): the proficiency test item and a similar CRM are tested in duplicate on 20 samples; x_pt is the certified value plus the average difference, u(x_pt) combines the CRM uncertainty and the standard uncertainty of the difference.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Certified value of the CRM 21.62 LA units with standard uncertainty 0.26 LA units, which already includes inhomogeneity, transport and long-term stability.
+2. Differences of the duplicate means, PT item − CRM, for the 20 samples (Table E.8): mean d = 1.727, s = 1.071, u(d) = s/√20 = 0.239 LA units.
+3. x_pt = 21.62 + 1.73 = 23.35 LA units and u(x_pt) = √(0.26² + 0.239²) = 0.35 LA units.
+
+**Result:**
+
+- x_pt = (23.35 ± 0.71) LA units, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The differences are recomputed from the duplicate results of Table E.8 and agree with its last column. The Monte Carlo method uses the scaled and shifted t distribution with 19 degrees of freedom for d (JCGM 101 6.4.9).
+
+**Run:** `uncertainty run library/chemistry/iso13528-e5-los-angeles-reference-value.json --lang en`
 
 ### Meat content from nitrogen and fat (ISO 21748 C.2)
 

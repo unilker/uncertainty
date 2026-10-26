@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (47)
+- Kimya (51)
 - Elektrik ve RF (15)
 - Akış ve hacim (4)
 - Genel (yöntem doğrulama) (8)
@@ -12,6 +12,79 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Sıcaklık (4)
 
 ## Kimya
+
+### Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1)
+
+`iso13528-e1-censored-deleted` — ISO 13528:2022, Annex E.1 (Table E.1)
+
+ISO 13528:2022 E.1: beşi ‘küçüktür’ değeri olan 23 sonuç; Algoritma A'nın robust ortalaması ve standart sapması sansürlü sonuçların nasıl işlendiğine bağlıdır.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. 23 katılımcı; beşi ‘<10’, ‘<10’, ‘<20’, ‘<30’ ve ‘<50’ bildirmiştir (Tablo E.1).
+2. Beş sansürlü sonuç ‘küçüktür’ olarak bildirilir ve istatistiklerin dışında kalır (5.5.3); p = 18 kalır.
+3. p = 18 değer üzerinde Algoritma A (C,3,1): x* = 26,81, s* = 5,29. Üç yaklaşım x* için 23,95–26,81 ve s* için 5,29–8,60 verir: yeterlilik testi sağlayıcısı yaklaşımı önceden belirlemelidir (5.5.3.3).
+
+**Sonuç:**
+
+- x_pt = 26,8, U(x_pt) = 3,1 (k = 2,00)
+
+**Notlar:**
+
+- Tablo E.1, x* ± 3s* dışındaki sonuçları ‘#’ ile işaretler; buradaki robust değerlerle bu sonuçların z skorlarının mutlak değeri 3'ü aşar (‘<’ yok sayıldığında Z = 50, sansürlü sonuçlar çıkarıldığında Y = 45).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e1-censored-deleted.json --lang tr`
+
+### Bir YT turunda sansürlü sonuçlar: sınırın 0,5 katı (ISO 13528 E.1)
+
+`iso13528-e1-censored-half` — ISO 13528:2022, Annex E.1 (Table E.1)
+
+ISO 13528:2022 E.1: beşi ‘küçüktür’ değeri olan 23 sonuç; Algoritma A'nın robust ortalaması ve standart sapması sansürlü sonuçların nasıl işlendiğine bağlıdır.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. 23 katılımcı; beşi ‘<10’, ‘<10’, ‘<20’, ‘<30’ ve ‘<50’ bildirmiştir (Tablo E.1).
+2. Her sansürlü sonuç sınırının yarısıyla değiştirilir (5, 5, 10, 15, 25).
+3. p = 23 değer üzerinde Algoritma A (C,3,1): x* = 23,95, s* = 8,60. Üç yaklaşım x* için 23,95–26,81 ve s* için 5,29–8,60 verir: yeterlilik testi sağlayıcısı yaklaşımı önceden belirlemelidir (5.5.3.3).
+
+**Sonuç:**
+
+- x_pt = 24,0, U(x_pt) = 4,5 (k = 2,00)
+
+**Notlar:**
+
+- Tablo E.1, x* ± 3s* dışındaki sonuçları ‘#’ ile işaretler; buradaki robust değerlerle bu sonuçların z skorlarının mutlak değeri 3'ü aşar (‘<’ yok sayıldığında Z = 50, sansürlü sonuçlar çıkarıldığında Y = 45).
+- C.3.1'in durma kuralıyla (üçüncü anlamlı basamak) Algoritma A 11 iterasyondan sonra x* = 23,96, s* = 8,59'da durur; yakınsamaya kadar sürdürüldüğünde x* = 23,959, s* = 8,600 verir. Tablo E.1 23,95 ve 8,60 basar; yani yakınsamış değerler, x* yuvarlanmak yerine kesilmiş (araştırma günlüğü F44). Proje yakınsamaya kadar iterasyon yapar ve x*'ı 0,01 içinde kontrol eder.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e1-censored-half.json --lang tr`
+
+### Bir YT turunda sansürlü sonuçlar: ‘<’ işareti yok sayılarak (ISO 13528 E.1)
+
+`iso13528-e1-censored-ignored` — ISO 13528:2022, Annex E.1 (Table E.1)
+
+ISO 13528:2022 E.1: beşi ‘küçüktür’ değeri olan 23 sonuç; Algoritma A'nın robust ortalaması ve standart sapması sansürlü sonuçların nasıl işlendiğine bağlıdır.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. 23 katılımcı; beşi ‘<10’, ‘<10’, ‘<20’, ‘<30’ ve ‘<50’ bildirmiştir (Tablo E.1).
+2. ‘<’ işaretleri atılır ve beş sınır nicel sonuç olarak işlenir (10, 10, 20, 30, 50).
+3. p = 23 değer üzerinde Algoritma A (C,3,1): x* = 26,01, s* = 7,23. Üç yaklaşım x* için 23,95–26,81 ve s* için 5,29–8,60 verir: yeterlilik testi sağlayıcısı yaklaşımı önceden belirlemelidir (5.5.3.3).
+
+**Sonuç:**
+
+- x_pt = 26,0, U(x_pt) = 3,8 (k = 2,00)
+
+**Notlar:**
+
+- Tablo E.1, x* ± 3s* dışındaki sonuçları ‘#’ ile işaretler; buradaki robust değerlerle bu sonuçların z skorlarının mutlak değeri 3'ü aşar (‘<’ yok sayıldığında Z = 50, sansürlü sonuçlar çıkarıldığında Y = 45).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e1-censored-ignored.json --lang tr`
 
 ### Çikolatada arsenik: YT numunelerinin homojenliği ve kararlılığı (ISO 13528 E.2)
 
@@ -99,6 +172,30 @@ ISO 13528:2022 E.4 (IMEP 111): bir referans değere ve amaca uygun σ_pt'ye kar�
 - Tablo E.6, bildirilen belirsizlikleri '9.8'de tartışılan ölçütlere göre' a/b/c olarak işaretler; ancak bayraklar u_min = u(x_pt) = 0,0041 mg/kg (9.8.3) ile yeniden üretilemez: L05 (u = 0,0035) ve L09 (u = 0,0040) 'a' olarak işaretlenmiştir. Bayraklar 0,0018 ile 0,0035 mg/kg arasında bir alt sınıra (belki homojensizlik içermeyen karakterizasyon belirsizliği) ve 0,005 ile 0,015 mg/kg arasında bir üst sınıra (1,5σ_pt = 0,0099 ile tutarlı) işaret eder. Bu nedenle bayraklar burada kontrol edilmemiştir.
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang tr`
+
+### CRM ile karşılaştırmadan atanan değer: agregaların Los Angeles değeri (ISO 13528 E.5)
+
+`iso13528-e5-los-angeles-reference-value` — ISO 13528:2022, Annex E.5 (Table E.8)
+
+ISO 13528:2022 E.5 (7.5): yeterlilik testi numunesi ve benzer bir CRM 20 numunede ikişer kez test edilir; x_pt sertifikalı değer artı ortalama farktır, u(x_pt) CRM belirsizliğini ve farkın standart belirsizliğini birleştirir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. CRM'nin sertifikalı değeri 21,62 LA birimi, standart belirsizliği 0,26 LA birimi; bu belirsizlik homojensizlik, taşıma ve uzun süreli kararlılığı zaten içerir.
+2. 20 numune için ikili ortalamaların farkları, YT numunesi − CRM (Tablo E.8): ortalama d = 1,727, s = 1,071, u(d) = s/√20 = 0,239 LA birimi,
+3. x_pt = 21,62 + 1,73 = 23,35 LA birimi ve u(x_pt) = √(0,26² + 0,239²) = 0,35 LA birimi,
+
+**Sonuç:**
+
+- x_pt = (23,35 ± 0,71) LA units; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Farklar Tablo E.8'deki ikili sonuçlardan yeniden hesaplanır ve tablonun son sütunuyla uyumludur. Monte Carlo yöntemi d için 19 serbestlik dereceli ölçeklenmiş ve kaydırılmış t dağılımını kullanır (JCGM 101 6.4.9).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e5-los-angeles-reference-value.json --lang tr`
 
 ### Azot ve yağdan et içeriği (ISO 21748 C.2)
 

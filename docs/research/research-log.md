@@ -1009,3 +1009,18 @@ uncertainty.nist.gov (software version 1.6.4) is version 1.4 of 2020-11-26,
 identical to the supplied copy. F28–F32 (TN 1900) and F29, F33, F35 (NUM)
 therefore refer to the current versions. No companion code or errata
 page for the TN 1900 examples was found.
+
+**D37. ISO 13528 E.1 and E.5 in the library (100 projects).** E.1: the 23
+results with five censored values in its three treatments (‘<’ ignored,
+censored results deleted, half the limit), Algorithm A reproduced. E.5:
+assigned value from a comparison with a CRM, written as the model
+x_pt = x_CRM + d with d a Type A input from the 20 differences of Table E.8;
+the differences recomputed from the duplicate results agree with the
+table's last column, and x_pt = 23.35, u = 0.35 LA units are reproduced.
+
+**F44. ISO 13528 Table E.1 — x* for "0.5 × ‘<’ value" (class a).** With the
+stopping rule of C.3.1 Algorithm A stops after 11 iterations at
+x* = 23.960, s* = 8.591; iterated to convergence x* = 23.9585, s* = 8.600.
+The table prints 23.95 and 8.60, i.e. the converged values with x* truncated
+(23.9585 rounds to 23.96). The other two columns (26.01/7.23, 26.81/5.29) are
+reproduced with the C.3.1 stopping rule.

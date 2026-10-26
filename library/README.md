@@ -20,12 +20,13 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**96 examples / örnek** (57 model, 29 top-down, 4 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon).
+**100 examples / örnek** (58 model, 29 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon).
 
 ## Chemistry / Kimya
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`iso13528-e5-los-angeles-reference-value`](chemistry/iso13528-e5-los-angeles-reference-value.json) | Assigned value from a comparison with a CRM: Los Angeles value of aggregates (ISO 13528 E.5) | CRM ile karşılaştırmadan atanan değer: agregaların Los Angeles değeri (ISO 13528 E.5) | ISO 13528:2022 Annex E.5 (Table E.8) |
 | [`iso21748-c2-meat-content`](chemistry/iso21748-c2-meat-content.json) | Meat content from nitrogen and fat (ISO 21748 C.2) | Azot ve yağdan et içeriği (ISO 21748 C.2) | ISO 21748:2017 Annex C.2, Table C.1 |
 | [`nist-tn1900-e8-molecular-weight-co2`](chemistry/nist-tn1900-e8-molecular-weight-co2.json) | Molecular weight of carbon dioxide (NIST TN 1900 E8) | Karbondioksitin molekül ağırlığı (NIST TN 1900 E8) | NIST Technical Note 1900 Example E8, Exhibit 12 |
 | [`nist-tn1900-e9-cadmium-standard`](chemistry/nist-tn1900-e9-cadmium-standard.json) | Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9) | Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9) | NIST Technical Note 1900 Example E9 |
@@ -73,6 +74,9 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`iso13528-e1-censored-deleted`](chemistry/iso13528-e1-censored-deleted.json) | Censored results in a PT round: censored results deleted (ISO 13528 E.1) | Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1) | ISO 13528:2022 Annex E.1 (Table E.1) |
+| [`iso13528-e1-censored-half`](chemistry/iso13528-e1-censored-half.json) | Censored results in a PT round: 0.5 × the limit (ISO 13528 E.1) | Bir YT turunda sansürlü sonuçlar: sınırın 0,5 katı (ISO 13528 E.1) | ISO 13528:2022 Annex E.1 (Table E.1) |
+| [`iso13528-e1-censored-ignored`](chemistry/iso13528-e1-censored-ignored.json) | Censored results in a PT round: ‘<’ ignored (ISO 13528 E.1) | Bir YT turunda sansürlü sonuçlar: ‘<’ işareti yok sayılarak (ISO 13528 E.1) | ISO 13528:2022 Annex E.1 (Table E.1) |
 | [`iso13528-e2-arsenic-homogeneity`](chemistry/iso13528-e2-arsenic-homogeneity.json) | Arsenic in chocolate: homogeneity and stability of PT items (ISO 13528 E.2) | Çikolatada arsenik: YT numunelerinin homojenliği ve kararlılığı (ISO 13528 E.2) | ISO 13528:2022 E.2, Tables E.2 and E.3 |
 | [`iso13528-e3-atrazine-algorithm-a`](chemistry/iso13528-e3-atrazine-algorithm-a.json) | Atrazine in drinking water: robust average by Algorithm A (ISO 13528 E.3) | İçme suyunda atrazin: Algoritma A ile robust ortalama (ISO 13528 E.3) | ISO 13528:2022 E.3, Tables E.4 and E.5 |
 | [`iso13528-e3-atrazine-median`](chemistry/iso13528-e3-atrazine-median.json) | Atrazine in drinking water: median and nIQR (ISO 13528 E.3) | İçme suyunda atrazin: medyan ve nIQR (ISO 13528 E.3) | ISO 13528:2022 E.3, Table E.5 |
