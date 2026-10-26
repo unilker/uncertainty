@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (51)
+- Kimya (58)
 - Elektrik ve RF (15)
 - Akış ve hacim (4)
 - Genel (yöntem doğrulama) (15)
@@ -1140,6 +1140,203 @@ Nordtest TR 537 §8.3 Örnek D.
 - U = %23 (k = 2,00), ölçülen değere göre bağıl
 
 **Çalıştırma:** `uncertainty run library/chemistry/nordtest-8-pcb-pt.json --lang tr`
+
+### Deniz sedimentlerinde krom, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
+
+`palma2019-cr-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde toplam Cr belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. İki belirsizlik modeli: tespit sınırından 2w_LOQ = 10 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); OSPAR yöntemiyle toplam Cr, alevli AAS.
+2. Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,285 mg/kg (I) ve %2,85 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,565 mg/kg (I) ve %5,65 (II).
+3. Matris etkileri: yeterlilik testlerinin sedimentlerinde Cr geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,818 mg/kg (I) ve %8,18 (II) (Formül 16, 17).
+4. Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %108, u(R̄) = %1,89; yani sonucun u′_T = %1,75'si; Aralık I'de 2w_LOQ'da alınır: 0,175 mg/kg.
+5. Aralık I'de u_c = 1,05 mg/kg ve Aralık II'de u′_c = %10,49 (Formül 20, 21); U = 2u_c.
+6. Matris etkileri varyansın %60,8 (I) ve %60,8 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %60,8 ve %60,9).
+
+**Sonuç:**
+
+- w(Cr) = (5,0 ± 2,1) mg/kg (k = 2,00)
+- w(Cr) = (50 ± 10) mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/palma2019-cr-marine-sediment.json --lang tr`
+
+### Deniz sedimentlerinde bakır, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
+
+`palma2019-cu-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde toplam Cu belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. İki belirsizlik modeli: tespit sınırından 2w_LOQ = 10 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); OSPAR yöntemiyle toplam Cu, alevli AAS.
+2. Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,242 mg/kg (I) ve %2,43 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,248 mg/kg (I) ve %2,48 (II).
+3. Matris etkileri: yeterlilik testlerinin sedimentlerinde Cu geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,493 mg/kg (I) ve %4,92 (II) (Formül 16, 17).
+4. Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %99,9, u(R̄) = %1,11; yani sonucun u′_T = %1,11'si; Aralık I'de 2w_LOQ'da alınır: 0,111 mg/kg.
+5. Aralık I'de u_c = 0,613 mg/kg ve Aralık II'de u′_c = %6,12 (Formül 20, 21); U = 2u_c.
+6. Matris etkileri varyansın %64,7 (I) ve %64,6 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %64,7 ve %64,5).
+
+**Sonuç:**
+
+- w(Cu) = (5,0 ± 1,2) mg/kg (k = 2,00)
+- w(Cu) = (50,0 ± 6,1) mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/palma2019-cu-marine-sediment.json --lang tr`
+
+### Deniz sedimentlerinde lityum, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
+
+`palma2019-li-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde toplam Li belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. İki belirsizlik modeli: tespit sınırından 2w_LOQ = 1 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); OSPAR yöntemiyle toplam Li, alevli AAS.
+2. Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,0345 mg/kg (I) ve %3,45 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,058 mg/kg (I) ve %5,8 (II).
+3. Matris etkileri: yeterlilik testlerinin sedimentlerinde Li geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,1 mg/kg (I) ve %10 (II) (Formül 16, 17).
+4. Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %102, u(R̄) = %3,95; yani sonucun u′_T = %3,87'si; Aralık I'de 2w_LOQ'da alınır: 0,0387 mg/kg.
+5. Aralık I'de u_c = 0,127 mg/kg ve Aralık II'de u′_c = %12,67 (Formül 20, 21); U = 2u_c.
+6. Matris etkileri varyansın %62,3 (I) ve %62,3 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %62,3 ve %62,4).
+
+**Sonuç:**
+
+- w(Li) = (0,50 ± 0,25) mg/kg (k = 2,00)
+- w(Li) = (5,0 ± 1,3) mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/palma2019-li-marine-sediment.json --lang tr`
+
+### Deniz sedimentlerinde mangan, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
+
+`palma2019-mn-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde toplam Mn belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. İki belirsizlik modeli: tespit sınırından 2w_LOQ = 10 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); OSPAR yöntemiyle toplam Mn, alevli AAS.
+2. Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,179 mg/kg (I) ve %1,79 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,656 mg/kg (I) ve %6,56 (II).
+3. Matris etkileri: yeterlilik testlerinin sedimentlerinde Mn geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,6 mg/kg (I) ve %6 (II) (Formül 16, 17).
+4. Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %97,6, u(R̄) = %1,5; yani sonucun u′_T = %1,54'si; Aralık I'de 2w_LOQ'da alınır: 0,154 mg/kg.
+5. Aralık I'de u_c = 0,92 mg/kg ve Aralık II'de u′_c = %9,20 (Formül 20, 21); U = 2u_c.
+6. Matris etkileri varyansın %42,6 (I) ve %42,6 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %42,6 ve %42,6).
+
+**Sonuç:**
+
+- w(Mn) = (5,0 ± 1,8) mg/kg (k = 2,00)
+- w(Mn) = (50,0 ± 9,2) mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/palma2019-mn-marine-sediment.json --lang tr`
+
+### Deniz sedimentlerinde nikel, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
+
+`palma2019-ni-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde asitte ekstrakte edilebilir Ni belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. İki belirsizlik modeli: tespit sınırından 2w_LOQ = 15 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); EPA 3051A yöntemiyle asitte ekstrakte edilebilir Ni, alevli AAS.
+2. Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,346 mg/kg (I) ve %2,58 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 1,13 mg/kg (I) ve %7,54 (II).
+3. Matris etkileri: yeterlilik testlerinin sedimentlerinde Ni geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,352 mg/kg (I) ve %2,35 (II) (Formül 16, 17).
+4. Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %87,7, u(R̄) = %1,31; yani sonucun u′_T = %1,49'si; Aralık I'de 2w_LOQ'da alınır: 0,224 mg/kg.
+5. Aralık I'de u_c = 1,25 mg/kg ve Aralık II'de u′_c = %8,44 (Formül 20, 21); U = 2u_c.
+6. Matris etkileri varyansın %7,9 (I) ve %7,7 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %7,9 ve %7,7).
+
+**Sonuç:**
+
+- w(Ni) = (7,5 ± 2,5) mg/kg (k = 2,00)
+- w(Ni) = (75 ± 13) mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/palma2019-ni-marine-sediment.json --lang tr`
+
+### Deniz sedimentlerinde kurşun, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
+
+`palma2019-pb-marine-sediment` — C. Palma, Table 9, Section 4.1
+
+Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde asitte ekstrakte edilebilir Pb belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. İki belirsizlik modeli: tespit sınırından 2w_LOQ = 20 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); EPA 3051A yöntemiyle asitte ekstrakte edilebilir Pb, alevli AAS.
+2. Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,714 mg/kg (I) ve %4,95 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,804 mg/kg (I) ve %4,02 (II).
+3. Matris etkileri: yeterlilik testlerinin sedimentlerinde Pb geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 1,53 mg/kg (I) ve %7,65 (II) (Formül 16, 17).
+4. Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %91,9, u(R̄) = %1,41; yani sonucun u′_T = %1,53'si; Aralık I'de 2w_LOQ'da alınır: 0,307 mg/kg.
+5. Aralık I'de u_c = 1,9 mg/kg ve Aralık II'de u′_c = %10,08 (Formül 20, 21); U = 2u_c.
+6. Matris etkileri varyansın %65,2 (I) ve %57,6 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %65,2 ve %57,6).
+
+**Sonuç:**
+
+- w(Pb) = (10,0 ± 3,8) mg/kg (k = 2,00)
+- w(Pb) = (100 ± 20) mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir.
+- Kurşun için metin u′_P = %6,38, Tablo 9 ise %6,37 verir; √((5,583/1,128)² + 4,02²) = %6,38'dir. Metin 60 mg/kg'da u_c = 6,04 mg/kg verir; oysa %10,08 × 60 mg/kg = 6,05 mg/kg'dır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/palma2019-pb-marine-sediment.json --lang tr`
+
+### Deniz sedimentlerinde çinko, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
+
+`palma2019-zn-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde toplam Zn belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. İki belirsizlik modeli: tespit sınırından 2w_LOQ = 4 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); OSPAR yöntemiyle toplam Zn, alevli AAS.
+2. Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,108 mg/kg (I) ve %2,69 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,117 mg/kg (I) ve %2,92 (II).
+3. Matris etkileri: yeterlilik testlerinin sedimentlerinde Zn geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,324 mg/kg (I) ve %8,1 (II) (Formül 16, 17).
+4. Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %102, u(R̄) = %1,45; yani sonucun u′_T = %1,42'si; Aralık I'de 2w_LOQ'da alınır: 0,0569 mg/kg.
+5. Aralık I'de u_c = 0,365 mg/kg ve Aralık II'de u′_c = %9,13 (Formül 20, 21); U = 2u_c.
+6. Matris etkileri varyansın %78,6 (I) ve %78,7 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %78,7 ve %78,6).
+
+**Sonuç:**
+
+- w(Zn) = (2,00 ± 0,73) mg/kg (k = 2,00)
+- w(Zn) = (20,0 ± 3,6) mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/palma2019-zn-marine-sediment.json --lang tr`
 
 ### Validasyon verilerinden ekmekte organofosforlu pestisitler
 

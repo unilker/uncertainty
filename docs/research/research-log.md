@@ -1062,3 +1062,19 @@ text and of Figure 16. R_C is the same either way (the term Φ(−η/u_m) is
 negligible for η ≥ 2 µm), and so are r ≈ 0.65 and A ≈ 1.7 µm. The library
 project uses the acceptance interval Y_m ≤ A, which reproduces the printed
 numbers, and states the inconsistency.
+
+**D39. Palma et al. (2019) in the library (114 projects).** Seven top-down
+projects (Cr, Cu, Li, Mn, Zn by OSPAR; Ni, Pb by EPA 3051A in marine
+sediments) combine the components of Table 9 in two intervals with the
+existing range mechanism. The components are subsampling-inclusive
+repeatability, intermediate precision of a homogeneous sample, matrix
+effects from the recoveries of 36 proficiency tests, and trueness
+u(R̄)/R̄_w. The combined uncertainties of both intervals and the matrix-effect
+shares χ_ME are reproduced within the rounding of the printed components.
+The recovery significance test of Formula (10) classifies Cr, Ni and Pb as
+different from 100 %, as in the paper. Two small inconsistencies are recorded
+in the Pb project: u′_P is 6.38 % in the text and 6.37 % in Table 9, and
+u_c(60 mg/kg) is 6.04 against 10.08 % × 60 = 6.05. The raw data needed to
+implement the paper's recovery-compatibility tests (Formulae 11–12) and the
+weighted mean recovery are only in the electronic supplement (Cordeiro et al.
+2018 describes the method; both are on the missing-documents list).

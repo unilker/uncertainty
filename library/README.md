@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**107 examples / örnek** (58 model, 29 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 7 conformity assessment / uygunluk değerlendirmesi).
+**114 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -67,6 +67,13 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`nordtest-8-bod-pt`](chemistry/nordtest-8-bod-pt.json) | BOD in wastewater: control chart and proficiency tests | Atık suda BOİ: kontrol grafiği ve yeterlilik testleri | Nordtest TR 537 ed. 4 (2017) §8.2 Example B, Table 6 |
 | [`nordtest-8-pcb-crm`](chemistry/nordtest-8-pcb-crm.json) | PCB in sediment: control sample and one CRM | Sedimentte PCB: kontrol numunesi ve tek CRM | Nordtest TR 537 ed. 4 (2017) §8.3 Example C |
 | [`nordtest-8-pcb-pt`](chemistry/nordtest-8-pcb-pt.json) | PCB in sediment: control sample and proficiency tests | Sedimentte PCB: kontrol numunesi ve yeterlilik testleri | Nordtest TR 537 ed. 4 (2017) §8.3 Example D |
+| [`palma2019-cr-marine-sediment`](chemistry/palma2019-cr-marine-sediment.json) | Chromium in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019) | Deniz sedimentlerinde krom, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019) | C. Palma Table 9 |
+| [`palma2019-cu-marine-sediment`](chemistry/palma2019-cu-marine-sediment.json) | Copper in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019) | Deniz sedimentlerinde bakır, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019) | C. Palma Table 9 |
+| [`palma2019-li-marine-sediment`](chemistry/palma2019-li-marine-sediment.json) | Lithium in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019) | Deniz sedimentlerinde lityum, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019) | C. Palma Table 9 |
+| [`palma2019-mn-marine-sediment`](chemistry/palma2019-mn-marine-sediment.json) | Manganese in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019) | Deniz sedimentlerinde mangan, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019) | C. Palma Table 9 |
+| [`palma2019-ni-marine-sediment`](chemistry/palma2019-ni-marine-sediment.json) | Nickel in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019) | Deniz sedimentlerinde nikel, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019) | C. Palma Table 9 |
+| [`palma2019-pb-marine-sediment`](chemistry/palma2019-pb-marine-sediment.json) | Lead in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019) | Deniz sedimentlerinde kurşun, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019) | C. Palma Table 9, Section 4.1 |
+| [`palma2019-zn-marine-sediment`](chemistry/palma2019-zn-marine-sediment.json) | Zinc in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019) | Deniz sedimentlerinde çinko, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019) | C. Palma Table 9 |
 | [`quam-a4-pesticides-topdown`](chemistry/quam-a4-pesticides-topdown.json) | Organophosphorus pesticides in bread from validation data | Validasyon verilerinden ekmekte organofosforlu pestisitler | EURACHEM/CITAC Guide CG 4 Example A4, Tables A4.2–A4.5 |
 | [`quam-a6-crude-fibre`](chemistry/quam-a6-crude-fibre.json) | Crude fibre in animal feed (empirical method) | Hayvan yeminde ham lif (ampirik yöntem) | EURACHEM/CITAC Guide CG 4 Example A6, Tables A6.4–A6.5 |
 

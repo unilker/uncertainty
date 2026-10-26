@@ -7,7 +7,7 @@ small C interface (`ffi/`, functions `uc_evaluate`, `uc_validate`,
 Rust core, so the application, the command-line tool and the reports always
 agree.
 
-Features: the 107 validated library examples (search, open, recalculate);
+Features: the 114 validated library examples (search, open, recalculate);
 new measurement models, top-down evaluations, proficiency test rounds
 (ISO 13528), calibrations with uncertainties in both variables (ISO 6143)
 and conformity assessments (JCGM 106, also attached to a model result); editing of inputs and

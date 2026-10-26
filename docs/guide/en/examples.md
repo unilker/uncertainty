@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (51)
+- Chemistry (58)
 - Electrical and RF (15)
 - Flow and volume (4)
 - General (method validation) (15)
@@ -1140,6 +1140,203 @@ Nordtest TR 537 §8.3 Example D.
 - U = 23 % (k = 2.00), relative to the measured value
 
 **Run:** `uncertainty run library/chemistry/nordtest-8-pcb-pt.json --lang en`
+
+### Chromium in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
+
+`palma2019-cr-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Cr in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 10 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); total Cr by the OSPAR procedure, flame AAS.
+2. Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.285 mg/kg (I) and 2.85 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.565 mg/kg (I) and 5.65 % (II).
+3. Matrix effects: the recoveries of Cr in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.818 mg/kg (I) and 8.18 % (II) (Formulae 16, 17).
+4. Trueness: weighted mean recovery R̄_w = 108 % with u(R̄) = 1.89 %, i.e. u′_T = 1.75 % of the result; in Interval I it is taken at 2w_LOQ: 0.175 mg/kg.
+5. u_c = 1.05 mg/kg in Interval I and u′_c = 10.49 % in Interval II (Formulae 20, 21); U = 2u_c.
+6. Matrix effects contribute 60.8 % (I) and 60.8 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 60.8 % and 60.9 %).
+
+**Result:**
+
+- w(Cr) = (5.0 ± 2.1) mg/kg (k = 2.00)
+- w(Cr) = (50 ± 10) mg/kg (k = 2.00)
+
+**Notes:**
+
+- The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.
+
+**Run:** `uncertainty run library/chemistry/palma2019-cr-marine-sediment.json --lang en`
+
+### Copper in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
+
+`palma2019-cu-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Cu in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 10 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); total Cu by the OSPAR procedure, flame AAS.
+2. Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.242 mg/kg (I) and 2.43 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.248 mg/kg (I) and 2.48 % (II).
+3. Matrix effects: the recoveries of Cu in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.493 mg/kg (I) and 4.92 % (II) (Formulae 16, 17).
+4. Trueness: weighted mean recovery R̄_w = 99.9 % with u(R̄) = 1.11 %, i.e. u′_T = 1.11 % of the result; in Interval I it is taken at 2w_LOQ: 0.111 mg/kg.
+5. u_c = 0.613 mg/kg in Interval I and u′_c = 6.12 % in Interval II (Formulae 20, 21); U = 2u_c.
+6. Matrix effects contribute 64.7 % (I) and 64.6 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 64.7 % and 64.5 %).
+
+**Result:**
+
+- w(Cu) = (5.0 ± 1.2) mg/kg (k = 2.00)
+- w(Cu) = (50.0 ± 6.1) mg/kg (k = 2.00)
+
+**Notes:**
+
+- The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
+
+**Run:** `uncertainty run library/chemistry/palma2019-cu-marine-sediment.json --lang en`
+
+### Lithium in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
+
+`palma2019-li-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Li in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 1 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); total Li by the OSPAR procedure, flame AAS.
+2. Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.0345 mg/kg (I) and 3.45 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.058 mg/kg (I) and 5.8 % (II).
+3. Matrix effects: the recoveries of Li in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.1 mg/kg (I) and 10 % (II) (Formulae 16, 17).
+4. Trueness: weighted mean recovery R̄_w = 102 % with u(R̄) = 3.95 %, i.e. u′_T = 3.87 % of the result; in Interval I it is taken at 2w_LOQ: 0.0387 mg/kg.
+5. u_c = 0.127 mg/kg in Interval I and u′_c = 12.67 % in Interval II (Formulae 20, 21); U = 2u_c.
+6. Matrix effects contribute 62.3 % (I) and 62.3 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 62.3 % and 62.4 %).
+
+**Result:**
+
+- w(Li) = (0.50 ± 0.25) mg/kg (k = 2.00)
+- w(Li) = (5.0 ± 1.3) mg/kg (k = 2.00)
+
+**Notes:**
+
+- The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
+
+**Run:** `uncertainty run library/chemistry/palma2019-li-marine-sediment.json --lang en`
+
+### Manganese in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
+
+`palma2019-mn-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Mn in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 10 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); total Mn by the OSPAR procedure, flame AAS.
+2. Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.179 mg/kg (I) and 1.79 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.656 mg/kg (I) and 6.56 % (II).
+3. Matrix effects: the recoveries of Mn in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.6 mg/kg (I) and 6 % (II) (Formulae 16, 17).
+4. Trueness: weighted mean recovery R̄_w = 97.6 % with u(R̄) = 1.5 %, i.e. u′_T = 1.54 % of the result; in Interval I it is taken at 2w_LOQ: 0.154 mg/kg.
+5. u_c = 0.92 mg/kg in Interval I and u′_c = 9.20 % in Interval II (Formulae 20, 21); U = 2u_c.
+6. Matrix effects contribute 42.6 % (I) and 42.6 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 42.6 % and 42.6 %).
+
+**Result:**
+
+- w(Mn) = (5.0 ± 1.8) mg/kg (k = 2.00)
+- w(Mn) = (50.0 ± 9.2) mg/kg (k = 2.00)
+
+**Notes:**
+
+- The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
+
+**Run:** `uncertainty run library/chemistry/palma2019-mn-marine-sediment.json --lang en`
+
+### Nickel in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
+
+`palma2019-ni-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of acid-extractable Ni in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 15 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); acid-extractable Ni by the EPA 3051A procedure, flame AAS.
+2. Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.346 mg/kg (I) and 2.58 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 1.13 mg/kg (I) and 7.54 % (II).
+3. Matrix effects: the recoveries of Ni in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.352 mg/kg (I) and 2.35 % (II) (Formulae 16, 17).
+4. Trueness: weighted mean recovery R̄_w = 87.7 % with u(R̄) = 1.31 %, i.e. u′_T = 1.49 % of the result; in Interval I it is taken at 2w_LOQ: 0.224 mg/kg.
+5. u_c = 1.25 mg/kg in Interval I and u′_c = 8.44 % in Interval II (Formulae 20, 21); U = 2u_c.
+6. Matrix effects contribute 7.9 % (I) and 7.7 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 7.9 % and 7.7 %).
+
+**Result:**
+
+- w(Ni) = (7.5 ± 2.5) mg/kg (k = 2.00)
+- w(Ni) = (75 ± 13) mg/kg (k = 2.00)
+
+**Notes:**
+
+- The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.
+
+**Run:** `uncertainty run library/chemistry/palma2019-ni-marine-sediment.json --lang en`
+
+### Lead in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
+
+`palma2019-pb-marine-sediment` — C. Palma, Table 9, Section 4.1
+
+Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of acid-extractable Pb in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 20 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); acid-extractable Pb by the EPA 3051A procedure, flame AAS.
+2. Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.714 mg/kg (I) and 4.95 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.804 mg/kg (I) and 4.02 % (II).
+3. Matrix effects: the recoveries of Pb in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 1.53 mg/kg (I) and 7.65 % (II) (Formulae 16, 17).
+4. Trueness: weighted mean recovery R̄_w = 91.9 % with u(R̄) = 1.41 %, i.e. u′_T = 1.53 % of the result; in Interval I it is taken at 2w_LOQ: 0.307 mg/kg.
+5. u_c = 1.9 mg/kg in Interval I and u′_c = 10.08 % in Interval II (Formulae 20, 21); U = 2u_c.
+6. Matrix effects contribute 65.2 % (I) and 57.6 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 65.2 % and 57.6 %).
+
+**Result:**
+
+- w(Pb) = (10.0 ± 3.8) mg/kg (k = 2.00)
+- w(Pb) = (100 ± 20) mg/kg (k = 2.00)
+
+**Notes:**
+
+- The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.
+- For lead the text gives u′_P = 6.38 % and Table 9 6.37 %; √((5.583/1.128)² + 4.02²) = 6.38 %. The text gives u_c = 6.04 mg/kg at 60 mg/kg, whereas 10.08 % × 60 mg/kg = 6.05 mg/kg.
+
+**Run:** `uncertainty run library/chemistry/palma2019-pb-marine-sediment.json --lang en`
+
+### Zinc in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
+
+`palma2019-zn-marine-sediment` — C. Palma, Table 9
+
+Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Zn in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 4 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); total Zn by the OSPAR procedure, flame AAS.
+2. Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.108 mg/kg (I) and 2.69 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.117 mg/kg (I) and 2.92 % (II).
+3. Matrix effects: the recoveries of Zn in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.324 mg/kg (I) and 8.1 % (II) (Formulae 16, 17).
+4. Trueness: weighted mean recovery R̄_w = 102 % with u(R̄) = 1.45 %, i.e. u′_T = 1.42 % of the result; in Interval I it is taken at 2w_LOQ: 0.0569 mg/kg.
+5. u_c = 0.365 mg/kg in Interval I and u′_c = 9.13 % in Interval II (Formulae 20, 21); U = 2u_c.
+6. Matrix effects contribute 78.6 % (I) and 78.7 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 78.7 % and 78.6 %).
+
+**Result:**
+
+- w(Zn) = (2.00 ± 0.73) mg/kg (k = 2.00)
+- w(Zn) = (20.0 ± 3.6) mg/kg (k = 2.00)
+
+**Notes:**
+
+- The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
+
+**Run:** `uncertainty run library/chemistry/palma2019-zn-marine-sediment.json --lang en`
 
 ### Organophosphorus pesticides in bread from validation data
 

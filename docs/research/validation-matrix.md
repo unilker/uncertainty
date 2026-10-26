@@ -165,6 +165,21 @@ Reference: B_LEAST output printed in the standard. Independent checks with ODRPA
 | ISO6143-B.2.4 | exponential function | b, S_res 0.6572, Γ 0.3529, x 5.3357; u(b) 8.14 × 10⁻², 7.40 × 10⁻², 3.71 × 10⁻¹¹; u(x) 0.013280 | b, S_res, Γ, x same; u(b) 3.18, 3.17, 1.27 × 10⁻⁶ and u(x) 0.014246 as ODRPACK (MC: 3.13, 3.12, 1.24 × 10⁻⁶; 0.01406) | ✅ (F42) |
 | ISO6143-6.2.4 | drift-test critical values | 2√2 u for n = 10 (Note); Formula (12) 2√(1 + 20/n) u | 2√(1 + 10/n) u, 2√(20/n) u | ✅ (F41) |
 
+## Palma et al. (2019), marine sediments — library projects
+
+Two-interval top-down models (LOD … 2w_LOQ absolute, above 2w_LOQ relative) combined from the components of
+Table 9 (raw data only in the electronic supplement).
+
+| ID | Element | Published u_c⟨I⟩ / u′_c⟨II⟩ | Engine | χ_ME⟨I⟩ / ⟨II⟩ published / engine | Status |
+|---|---|---|---|---|---|
+| Palma-Cr | Cr (OSPAR) | 1.05 mg/kg / 10.5 % | 1.049 / 10.49 | 60.8 / 60.9 — 60.8 / 60.8 | ✅ |
+| Palma-Cu | Cu (OSPAR) | 0.612 / 6.13 | 0.6128 / 6.123 | 64.7 / 64.5 — 64.7 / 64.6 | ✅ (rounded components) |
+| Palma-Li | Li (OSPAR) | 0.127 / 12.7 | 0.1267 / 12.67 | 62.3 / 62.4 — 62.3 / 62.3 | ✅ |
+| Palma-Mn | Mn (OSPAR) | 0.920 / 9.20 | 0.9198 / 9.198 | 42.6 / 42.6 — 42.6 / 42.6 | ✅ |
+| Palma-Ni | Ni (EPA 3051A) | 1.25 / 8.44 | 1.253 / 8.442 | 7.9 / 7.7 — 7.9 / 7.7 | ✅ |
+| Palma-Pb | Pb (EPA 3051A) | 1.90 / 10.1 (10.08 in Eq. 21) | 1.895 / 10.08 | 65.2 / 57.6 — 65.2 / 57.6 | ✅ |
+| Palma-Zn | Zn (OSPAR) | 0.365 / 9.13 | 0.3655 / 9.132 | 78.7 / 78.6 — 78.6 / 78.7 | ✅ |
+
 ## JCGM 106:2012 — conformity assessment (library projects and core tests)
 
 | ID | Example | Published | Engine | Status |
