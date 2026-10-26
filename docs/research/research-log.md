@@ -736,10 +736,15 @@ system share sheet (`share_plus`). Windows: the CMake rule builds
 new *Package* workflow (`windows-latest`) runs the widget tests against the
 DLL and builds the Windows zip, together with the Linux bundle and the APK.
 The APK is signed with the debug key until a release key exists.
+First run of the workflow: all three jobs succeeded; on Windows the six
+widget tests (including the end-to-end calculation of a library example and
+the Monte-Carlo-only project) pass against the MSVC-built DLL, and the zip
+contains `uncertainty_app.exe`, `uncertainty_ffi.dll` and the bundled
+library.
 
 ### Next steps
 
-- Check the Package workflow results on Windows; run the APK on a device.
+- Run the APK on a device; release signing key; macOS and iOS packaging.
 - Observation-equation examples of TN 1900 (regression, random effects) as
   a later module; E5 after truncated distributions are supported.
 - Errata check of TN 1900 before submission (F28–F30).

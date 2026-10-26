@@ -24,7 +24,7 @@ Requirements: Flutter (stable, ≥ 3.47), Rust (≥ 1.75).
 | Platform | Status | Steps |
 |---|---|---|
 | Linux | built and tested | needs clang, cmake, ninja, GTK 3 development files; `flutter build linux --release` (the CMake build runs `cargo build --release -p uncertainty-ffi` and bundles `libuncertainty_ffi.so`) |
-| Windows | built by the *Package* workflow on `windows-latest` (widget tests run there against `uncertainty_ffi.dll`) | Visual Studio with the C++ desktop workload, Rust (MSVC); `flutter build windows --release` (the CMake build runs cargo and bundles `uncertainty_ffi.dll`) |
+| Windows | built and tested by the *Package* workflow on `windows-latest` (all widget tests pass against `uncertainty_ffi.dll`; zip with the executable, the engine DLL and the library) | Visual Studio with the C++ desktop workload, Rust (MSVC); `flutter build windows --release` (the CMake build runs cargo and bundles `uncertainty_ffi.dll`) |
 | Android | APK built and checked (engine for arm64-v8a, armeabi-v7a, x86_64) | Android SDK with NDK 28.2, Rust targets `aarch64-linux-android armv7-linux-androideabi x86_64-linux-android`; `flutter build apk --release` (the Gradle task `buildEngine` cross-compiles the engine with the NDK's clang and packages it as `jniLibs`) |
 | macOS | planned | build `libuncertainty_ffi.dylib` and add it to the app bundle's Frameworks |
 | iOS | planned | link the static library (`crate-type = staticlib`) into the Runner |
@@ -32,7 +32,9 @@ Requirements: Flutter (stable, ≥ 3.47), Rust (≥ 1.75).
 The *Package* workflow (`.github/workflows/package.yml`; release tags `v*`
 or *Run workflow*) builds the Windows zip, the Linux bundle and the Android
 APK and attaches them to the run as artifacts. The APK is signed with the
-debug key until a release key is configured.
+debug key until a release key is configured. The Windows build needs the
+Microsoft Visual C++ runtime, which is present on most systems (otherwise
+install the Visual C++ Redistributable).
 
 ```sh
 cd app
