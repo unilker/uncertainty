@@ -1,5 +1,1464 @@
 [
  {
+  "path": "library/chemistry/iso13528-e2-arsenic-homogeneity.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso13528-e2-arsenic-homogeneity",
+    "title": {
+     "en": "Arsenic in chocolate: homogeneity and stability of PT items (ISO 13528 E.2)",
+     "tr": "Çikolatada arsenik: YT numunelerinin homojenliği ve kararlılığı (ISO 13528 E.2)"
+    },
+    "description": {
+     "en": "ISO 13528:2022 E.2: between-sample standard deviation from 10 items measured in duplicate, compared with 0.3σ_pt, and a stability check after six weeks at 60 °C.",
+     "tr": "ISO 13528:2022 E.2: ikişer kez ölçülen 10 numuneden numuneler arası standart sapma, 0,3σ_pt ile karşılaştırma ve 60 °C'de altı hafta sonra kararlılık kontrolü."
+    },
+    "explanation": [
+     {
+      "en": "Ten vials, selected by stratified random sampling from 1 000, are each tested twice under repeatability conditions (Table E.2).",
+      "tr": "1 000 şişeden tabakalı rastgele örneklemeyle seçilen on şişe, tekrarlanabilirlik koşullarında ikişer kez test edilmiştir (Tablo E.2)."
+     },
+     {
+      "en": "Analysis of variance (B.3): general average 0.18715 mg/kg, standard deviation of the item averages s_x = 0.00398, within-sample s_w = 0.00556 and between-sample s_s = √(s_x² − s_w²/2) = 0.00060 mg/kg.",
+      "tr": "Varyans analizi (B.3): genel ortalama 0,18715 mg/kg, numune ortalamalarının standart sapması s_x = 0,00398, numune içi s_w = 0,00556 ve numuneler arası s_s = √(s_x² − s_w²/2) = 0,00060 mg/kg."
+     },
+     {
+      "en": "With the provisional σ_pt = 15 % of the average = 0.02807 mg/kg, s_s is far below 0.3σ_pt = 0.00842 mg/kg: the items are sufficiently homogeneous. The expanded criterion of B.2.3 (F₁ = 1.88, F₂ = 1.01 for g = 10) gives √c = 0.0133 mg/kg.",
+      "tr": "Ortalamanın %15'i olan geçici σ_pt = 0,02807 mg/kg ile s_s, 0,3σ_pt = 0,00842 mg/kg'nin çok altındadır: numuneler yeterince homojendir. B.2.3'ün genişletilmiş ölçütü (g = 10 için F₁ = 1,88, F₂ = 1,01) √c = 0,0133 mg/kg verir."
+     },
+     {
+      "en": "Stability: two items stored at 60 °C for six weeks give an average of 0.19375 mg/kg; the difference 0.00660 mg/kg from the homogeneity mean is below 0.3σ_pt, so stability is sufficient (B.5.1).",
+      "tr": "Kararlılık: 60 °C'de altı hafta saklanan iki numune 0,19375 mg/kg ortalama verir; homojenlik ortalamasından 0,00660 mg/kg'lik fark 0,3σ_pt'nin altındadır, dolayısıyla kararlılık yeterlidir (B.5.1)."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+      "section": "E.2, Tables E.2 and E.3",
+      "url": "https://www.iso.org/standard/78879.html"
+     }
+    ],
+    "tags": [
+     "iso13528",
+     "proficiency-testing",
+     "homogeneity",
+     "stability"
+    ]
+   },
+   "proficiency": {
+    "quantity": "As",
+    "unit": "mg/kg",
+    "homogeneity": {
+     "items": [
+      [
+       0.185,
+       0.194
+      ],
+      [
+       0.187,
+       0.189
+      ],
+      [
+       0.182,
+       0.186
+      ],
+      [
+       0.188,
+       0.196
+      ],
+      [
+       0.191,
+       0.181
+      ],
+      [
+       0.188,
+       0.18
+      ],
+      [
+       0.187,
+       0.196
+      ],
+      [
+       0.177,
+       0.186
+      ],
+      [
+       0.179,
+       0.187
+      ],
+      [
+       0.188,
+       0.196
+      ]
+     ],
+     "sd_pt_percent_of_mean": 15
+    },
+    "stability": {
+     "values": [
+      0.191,
+      0.198,
+      0.19,
+      0.196
+     ]
+    }
+   },
+   "expected": {
+    "proficiency": {
+     "homogeneity": {
+      "mean": {
+       "value": 0.18715,
+       "tolerance": 0.000005
+      },
+      "s_x": {
+       "value": 0.00398,
+       "tolerance": 0.000005
+      },
+      "s_w": {
+       "value": 0.00556,
+       "tolerance": 0.000005
+      },
+      "s_s": {
+       "value": 0.0006,
+       "tolerance": 0.000005
+      },
+      "criterion": {
+       "value": 0.00842,
+       "tolerance": 0.000005
+      },
+      "sufficient": true
+     },
+     "stability": {
+      "difference": {
+       "value": 0.0066,
+       "tolerance": 0.000005
+      },
+      "sufficient": true
+     }
+    },
+    "reference": {
+     "en": "ISO 13528:2022 E.2 (Tables E.2 and E.3 and the summary statistics printed with them).",
+     "tr": "ISO 13528:2022 E.2 (Tablo E.2 ve E.3 ile bunlarla birlikte basılı özet istatistikler)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iso13528-e3-atrazine-algorithm-a.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso13528-e3-atrazine-algorithm-a",
+    "title": {
+     "en": "Atrazine in drinking water: robust average by Algorithm A (ISO 13528 E.3)",
+     "tr": "İçme suyunda atrazin: Algoritma A ile robust ortalama (ISO 13528 E.3)"
+    },
+    "description": {
+     "en": "ISO 13528:2022 E.3: assigned value and standard deviation for proficiency assessment from 34 participant results with Algorithm A; z scores.",
+     "tr": "ISO 13528:2022 E.3: 34 katılımcı sonucundan Algoritma A ile atanan değer ve yeterlilik değerlendirmesi için standart sapma; z skorları."
+    },
+    "explanation": [
+     {
+      "en": "34 participants reported atrazine in drinking water (Table E.4, ordered by value). Two very low results (0.040 and 0.055 mg/L) and one high result (0.4246 mg/L) lie far from the majority.",
+      "tr": "34 katılımcı içme suyunda atrazin sonucu bildirmiştir (Tablo E.4, değere göre sıralı). İki çok düşük (0,040 ve 0,055 mg/L) ve bir yüksek (0,4246 mg/L) sonuç çoğunluktan çok uzaktır."
+     },
+     {
+      "en": "Algorithm A (C.3.1) starts from x* = median = 0.2620 and s* = MADe = 0.0386 mg/L, replaces every result outside x* ± 1.5s* by the nearer limit and recomputes x* as the mean and s* as 1.134 × the standard deviation of the modified values.",
+      "tr": "Algoritma A (C.3.1) x* = medyan = 0,2620 ve s* = MADe = 0,0386 mg/L değerleriyle başlar, x* ± 1,5s* dışındaki her sonucu yakın sınırla değiştirir ve x*'ı değiştirilmiş değerlerin ortalaması, s*'ı standart sapmalarının 1,134 katı olarak yeniden hesaplar."
+     },
+     {
+      "en": "After six iterations the third significant figures no longer change: x* = 0.2570 mg/L, s* = 0.0395 mg/L. The arithmetic mean 0.2512 and standard deviation 0.0672 mg/L are pulled by the three outlying results.",
+      "tr": "Altı iterasyondan sonra üçüncü anlamlı basamaklar değişmez: x* = 0,2570 mg/L, s* = 0,0395 mg/L. Aritmetik ortalama 0,2512 ve standart sapma 0,0672 mg/L, üç uç sonuç tarafından çekilir."
+     },
+     {
+      "en": "The assigned value is x_pt = x* with u(x_pt) = 1.25 s*/√p = 1.25 × 0.0395/√34 = 0.0085 mg/L (Formula 6) and σ_pt = s*. Since u(x_pt) < 0.3σ_pt = 0.0119 mg/L the uncertainty of the assigned value is negligible (9.2.1) and z scores are used; laboratories 1, 2 and 34 receive action signals.",
+      "tr": "Atanan değer x_pt = x*, u(x_pt) = 1,25 s*/√p = 1,25 × 0,0395/√34 = 0,0085 mg/L (Formül 6) ve σ_pt = s*'tır. u(x_pt) < 0,3σ_pt = 0,0119 mg/L olduğundan atanan değerin belirsizliği ihmal edilebilir (9.2.1) ve z skorları kullanılır; 1, 2 ve 34 numaralı laboratuvarlar eylem sinyali alır."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+      "section": "E.3, Tables E.4 and E.5",
+      "url": "https://www.iso.org/standard/78879.html"
+     }
+    ],
+    "tags": [
+     "iso13528",
+     "proficiency-testing",
+     "algorithm-a",
+     "robust-statistics"
+    ],
+    "notes": [
+     {
+      "en": "The stopping rule of C.3.1 (no change in the third significant figures) is used; iterating to full convergence gives x* = 0.257011 and s* = 0.039520 mg/L, the same to the printed digits. The nIQR of Table E.5 (0.0402) corresponds to quartiles by linear interpolation between order statistics; other quartile definitions give 0.0379 to 0.0423 (Table E.5, note).",
+      "tr": "C.3.1'in durma kuralı (üçüncü anlamlı basamaklarda değişiklik olmaması) kullanılmıştır; tam yakınsamaya kadar iterasyon x* = 0,257011 ve s* = 0,039520 mg/L verir, basılı basamaklara kadar aynıdır. Tablo E.5'teki nIQR (0,0402), sıra istatistikleri arasında doğrusal enterpolasyonla bulunan çeyreklere karşılık gelir; diğer çeyrek tanımları 0,0379 ile 0,0423 arası değerler verir (Tablo E.5, not)."
+     }
+    ]
+   },
+   "proficiency": {
+    "quantity": "atrazine",
+    "unit": "mg/L",
+    "results": [
+     {
+      "lab": "1",
+      "value": 0.04
+     },
+     {
+      "lab": "2",
+      "value": 0.055
+     },
+     {
+      "lab": "3",
+      "value": 0.178
+     },
+     {
+      "lab": "4",
+      "value": 0.202
+     },
+     {
+      "lab": "5",
+      "value": 0.206
+     },
+     {
+      "lab": "6",
+      "value": 0.227
+     },
+     {
+      "lab": "7",
+      "value": 0.228
+     },
+     {
+      "lab": "8",
+      "value": 0.23
+     },
+     {
+      "lab": "9",
+      "value": 0.23
+     },
+     {
+      "lab": "10",
+      "value": 0.235
+     },
+     {
+      "lab": "11",
+      "value": 0.236
+     },
+     {
+      "lab": "12",
+      "value": 0.237
+     },
+     {
+      "lab": "13",
+      "value": 0.243
+     },
+     {
+      "lab": "14",
+      "value": 0.244
+     },
+     {
+      "lab": "15",
+      "value": 0.245
+     },
+     {
+      "lab": "16",
+      "value": 0.2555
+     },
+     {
+      "lab": "17",
+      "value": 0.26
+     },
+     {
+      "lab": "18",
+      "value": 0.264
+     },
+     {
+      "lab": "19",
+      "value": 0.267
+     },
+     {
+      "lab": "20",
+      "value": 0.27
+     },
+     {
+      "lab": "21",
+      "value": 0.273
+     },
+     {
+      "lab": "22",
+      "value": 0.274
+     },
+     {
+      "lab": "23",
+      "value": 0.274
+     },
+     {
+      "lab": "24",
+      "value": 0.278
+     },
+     {
+      "lab": "25",
+      "value": 0.2811
+     },
+     {
+      "lab": "26",
+      "value": 0.287
+     },
+     {
+      "lab": "27",
+      "value": 0.287
+     },
+     {
+      "lab": "28",
+      "value": 0.288
+     },
+     {
+      "lab": "29",
+      "value": 0.289
+     },
+     {
+      "lab": "30",
+      "value": 0.295
+     },
+     {
+      "lab": "31",
+      "value": 0.296
+     },
+     {
+      "lab": "32",
+      "value": 0.311
+     },
+     {
+      "lab": "33",
+      "value": 0.331
+     },
+     {
+      "lab": "34",
+      "value": 0.4246
+     }
+    ],
+    "assigned_value": {
+     "method": "algorithm_a"
+    },
+    "sd_pt": {
+     "method": "robust"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "proficiency": {
+     "median": {
+      "value": 0.262,
+      "tolerance": 0.00005
+     },
+     "made": {
+      "value": 0.0386,
+      "tolerance": 0.00005
+     },
+     "niqr": {
+      "value": 0.0402,
+      "tolerance": 0.00005
+     },
+     "robust_mean": {
+      "value": 0.257,
+      "tolerance": 0.00005
+     },
+     "robust_sd": {
+      "value": 0.0395,
+      "tolerance": 0.00005
+     },
+     "iterations": {
+      "value": 6,
+      "tolerance": 0
+     },
+     "mean": {
+      "value": 0.2512,
+      "tolerance": 0.00005
+     },
+     "sd": {
+      "value": 0.0672,
+      "tolerance": 0.00005
+     },
+     "assigned_value": {
+      "value": 0.257,
+      "tolerance": 0.00005
+     },
+     "u_assigned": {
+      "value": 0.0085,
+      "tolerance": 0.00005
+     },
+     "sd_pt": {
+      "value": 0.0395,
+      "tolerance": 0.00005
+     },
+     "scores": {
+      "1": {
+       "z": {
+        "value": -5.491169028340081,
+        "tolerance": 0.02
+       }
+      },
+      "34": {
+       "z": {
+        "value": 4.2406123481781375,
+        "tolerance": 0.02
+       }
+      }
+     }
+    },
+    "reference": {
+     "en": "ISO 13528:2022 Table E.4 (x* = 0.2570, s* = 0.0395 mg/L after 6 iterations) and Table E.5 (median 0.2620, nIQR 0.0402, MADe 0.0386, u(x_pt) = 0.0085, arithmetic 0.2512 and 0.0672 mg/L); z scores recomputed from these values.",
+     "tr": "ISO 13528:2022 Tablo E.4 (6 iterasyondan sonra x* = 0,2570, s* = 0,0395 mg/L) ve Tablo E.5 (medyan 0,2620, nIQR 0,0402, MADe 0,0386, u(x_pt) = 0,0085, aritmetik 0,2512 ve 0,0672 mg/L); z skorları bu değerlerden yeniden hesaplanmıştır."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iso13528-e3-atrazine-median.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso13528-e3-atrazine-median",
+    "title": {
+     "en": "Atrazine in drinking water: median and nIQR (ISO 13528 E.3)",
+     "tr": "İçme suyunda atrazin: medyan ve nIQR (ISO 13528 E.3)"
+    },
+    "description": {
+     "en": "ISO 13528:2022 E.3, first row of Table E.5: the median as assigned value with u(x_pt) = 1.25 nIQR/√p and the nIQR as σ_pt.",
+     "tr": "ISO 13528:2022 E.3, Tablo E.5'in ilk satırı: atanan değer olarak medyan, u(x_pt) = 1,25 nIQR/√p ve σ_pt olarak nIQR."
+    },
+    "explanation": [
+     {
+      "en": "34 participants reported atrazine in drinking water (Table E.4, ordered by value). Two very low results (0.040 and 0.055 mg/L) and one high result (0.4246 mg/L) lie far from the majority.",
+      "tr": "34 katılımcı içme suyunda atrazin sonucu bildirmiştir (Tablo E.4, değere göre sıralı). İki çok düşük (0,040 ve 0,055 mg/L) ve bir yüksek (0,4246 mg/L) sonuç çoğunluktan çok uzaktır."
+     },
+     {
+      "en": "The simple robust estimators of C.2: median 0.2620 mg/L, MADe = 1.483 × median absolute deviation = 0.0386 mg/L and nIQR = 0.7413 (Q₃ − Q₁) = 0.0402 mg/L.",
+      "tr": "C.2'nin basit robust tahmin edicileri: medyan 0,2620 mg/L, MADe = 1,483 × medyan mutlak sapma = 0,0386 mg/L ve nIQR = 0,7413 (Q₃ − Q₁) = 0,0402 mg/L."
+     },
+     {
+      "en": "With the median as assigned value, u(x_pt) = 1.25 × 0.0402/√34 = 0.0086 mg/L, practically the same as with Algorithm A (0.0085 mg/L); the nIQR has a breakdown point of 25 %, the MADe of 50 % (C.2.3, Note 1).",
+      "tr": "Atanan değer medyan olduğunda u(x_pt) = 1,25 × 0,0402/√34 = 0,0086 mg/L olur; bu, Algoritma A ile bulunan değerle (0,0085 mg/L) pratik olarak aynıdır; nIQR'nin kırılma noktası %25, MADe'ninki %50'dir (C.2.3, Not 1)."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+      "section": "E.3, Table E.5",
+      "url": "https://www.iso.org/standard/78879.html"
+     }
+    ],
+    "tags": [
+     "iso13528",
+     "proficiency-testing",
+     "median",
+     "niqr",
+     "robust-statistics"
+    ]
+   },
+   "proficiency": {
+    "quantity": "atrazine",
+    "unit": "mg/L",
+    "results": [
+     {
+      "lab": "1",
+      "value": 0.04
+     },
+     {
+      "lab": "2",
+      "value": 0.055
+     },
+     {
+      "lab": "3",
+      "value": 0.178
+     },
+     {
+      "lab": "4",
+      "value": 0.202
+     },
+     {
+      "lab": "5",
+      "value": 0.206
+     },
+     {
+      "lab": "6",
+      "value": 0.227
+     },
+     {
+      "lab": "7",
+      "value": 0.228
+     },
+     {
+      "lab": "8",
+      "value": 0.23
+     },
+     {
+      "lab": "9",
+      "value": 0.23
+     },
+     {
+      "lab": "10",
+      "value": 0.235
+     },
+     {
+      "lab": "11",
+      "value": 0.236
+     },
+     {
+      "lab": "12",
+      "value": 0.237
+     },
+     {
+      "lab": "13",
+      "value": 0.243
+     },
+     {
+      "lab": "14",
+      "value": 0.244
+     },
+     {
+      "lab": "15",
+      "value": 0.245
+     },
+     {
+      "lab": "16",
+      "value": 0.2555
+     },
+     {
+      "lab": "17",
+      "value": 0.26
+     },
+     {
+      "lab": "18",
+      "value": 0.264
+     },
+     {
+      "lab": "19",
+      "value": 0.267
+     },
+     {
+      "lab": "20",
+      "value": 0.27
+     },
+     {
+      "lab": "21",
+      "value": 0.273
+     },
+     {
+      "lab": "22",
+      "value": 0.274
+     },
+     {
+      "lab": "23",
+      "value": 0.274
+     },
+     {
+      "lab": "24",
+      "value": 0.278
+     },
+     {
+      "lab": "25",
+      "value": 0.2811
+     },
+     {
+      "lab": "26",
+      "value": 0.287
+     },
+     {
+      "lab": "27",
+      "value": 0.287
+     },
+     {
+      "lab": "28",
+      "value": 0.288
+     },
+     {
+      "lab": "29",
+      "value": 0.289
+     },
+     {
+      "lab": "30",
+      "value": 0.295
+     },
+     {
+      "lab": "31",
+      "value": 0.296
+     },
+     {
+      "lab": "32",
+      "value": 0.311
+     },
+     {
+      "lab": "33",
+      "value": 0.331
+     },
+     {
+      "lab": "34",
+      "value": 0.4246
+     }
+    ],
+    "assigned_value": {
+     "method": "median"
+    },
+    "sd_pt": {
+     "method": "niqr"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "proficiency": {
+     "median": {
+      "value": 0.262,
+      "tolerance": 0.00005
+     },
+     "made": {
+      "value": 0.0386,
+      "tolerance": 0.00005
+     },
+     "niqr": {
+      "value": 0.0402,
+      "tolerance": 0.00005
+     },
+     "assigned_value": {
+      "value": 0.262,
+      "tolerance": 0.00005
+     },
+     "u_assigned": {
+      "value": 0.0086,
+      "tolerance": 0.00005
+     },
+     "sd_pt": {
+      "value": 0.0402,
+      "tolerance": 0.00005
+     }
+    },
+    "reference": {
+     "en": "ISO 13528:2022 Table E.5, row 'Robust: Median, nIQR (MADe)': 0.2620, 0.0402 (0.0386), u(x_pt) = 0.0086 mg/L.",
+     "tr": "ISO 13528:2022 Tablo E.5, 'Robust: Median, nIQR (MADe)' satırı: 0,2620; 0,0402 (0,0386); u(x_pt) = 0,0086 mg/L."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iso13528-e4-mercury-feed.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso13528-e4-mercury-feed",
+    "title": {
+     "en": "Mercury in animal feed: z, z′, ζ and E_n scores (ISO 13528 E.4)",
+     "tr": "Hayvan yeminde cıva: z, z′, ζ ve E_n skorları (ISO 13528 E.4)"
+    },
+    "description": {
+     "en": "ISO 13528:2022 E.4 (IMEP 111): scores of 21 laboratories against a reference value with a fitness-for-purpose σ_pt, using the uncertainties the laboratories reported.",
+     "tr": "ISO 13528:2022 E.4 (IMEP 111): bir referans değere ve amaca uygun σ_pt'ye karşı 21 laboratuvarın, bildirdikleri belirsizlikler kullanılarak hesaplanan skorları."
+    },
+    "explanation": [
+     {
+      "en": "x_pt = 0.044 mg/kg is a reference value with U(x_pt) = 0.0082 mg/kg (k = 2, characterisation and inhomogeneity); σ_pt = 0.0066 mg/kg (15 %) is a fitness-for-purpose value and δ_E = 3σ_pt for the PA scores. Three results reported as 'less than' are not scored.",
+      "tr": "x_pt = 0,044 mg/kg, U(x_pt) = 0,0082 mg/kg (k = 2, karakterizasyon ve homojensizlik) olan bir referans değerdir; σ_pt = 0,0066 mg/kg (%15) amaca uygunluk değeridir ve PA skorları için δ_E = 3σ_pt'dir. 'Küçüktür' olarak bildirilen üç sonuç skorlanmaz."
+     },
+     {
+      "en": "The laboratories' standard uncertainties are their expanded uncertainties divided by their coverage factors (L23: k = 1.732); unrounded values are used.",
+      "tr": "Laboratuvarların standart belirsizlikleri, genişletilmiş belirsizliklerinin kapsam faktörlerine bölünmesiyle bulunur (L23: k = 1,732); yuvarlanmamış değerler kullanılır."
+     },
+     {
+      "en": "z = D/σ_pt, z′ = D/√(σ_pt² + u²(x_pt)), ζ = D/√(u²(x) + u²(x_pt)) and E_n = D/√(U²(x) + U²(x_pt)). Here u(x_pt) = 0.0041 > 0.3σ_pt = 0.0020, so the uncertainty of the assigned value is not negligible and z′ is about 15 % smaller than z.",
+      "tr": "z = D/σ_pt, z′ = D/√(σ_pt² + u²(x_pt)), ζ = D/√(u²(x) + u²(x_pt)) ve E_n = D/√(U²(x) + U²(x_pt)). Burada u(x_pt) = 0,0041 > 0,3σ_pt = 0,0020 olduğundan atanan değerin belirsizliği ihmal edilemez ve z′, z'den yaklaşık %15 küçüktür."
+     },
+     {
+      "en": "The results are bimodal by method: the eight laboratories using a direct mercury analyser (AMA) and one using AAS obtain 30 % to 54 % of the reference value and receive action signals (|z| ≥ 3), whereas all laboratories using CV-AAS, HG-AAS or ICP-MS are acceptable.",
+      "tr": "Sonuçlar yönteme göre iki tepelidir: doğrudan cıva analizörü (AMA) kullanan sekiz laboratuvar ile AAS kullanan bir laboratuvar referans değerin %30 ile %54'ünü bulur ve eylem sinyali alır (|z| ≥ 3); CV-AAS, HG-AAS veya ICP-MS kullanan laboratuvarların hepsi kabul edilebilir sonuç verir."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+      "section": "E.4, Tables E.6 and E.7",
+      "url": "https://www.iso.org/standard/78879.html"
+     }
+    ],
+    "tags": [
+     "iso13528",
+     "proficiency-testing",
+     "z-score",
+     "zeta-score",
+     "en-score",
+     "reference-value"
+    ],
+    "notes": [
+     {
+      "en": "Table E.6 flags the reported uncertainties a/b/c 'following criteria discussed in 9.8', but the flags are not reproduced with u_min = u(x_pt) = 0.0041 mg/kg (9.8.3): L05 (u = 0.0035) and L09 (u = 0.0040) are flagged 'a'. The flags imply a lower limit between 0.0018 and 0.0035 mg/kg (possibly the characterisation uncertainty without inhomogeneity) and an upper limit between 0.005 and 0.015 mg/kg (consistent with 1.5σ_pt = 0.0099). The flags are therefore not checked here.",
+      "tr": "Tablo E.6, bildirilen belirsizlikleri '9.8'de tartışılan ölçütlere göre' a/b/c olarak işaretler; ancak bayraklar u_min = u(x_pt) = 0,0041 mg/kg (9.8.3) ile yeniden üretilemez: L05 (u = 0,0035) ve L09 (u = 0,0040) 'a' olarak işaretlenmiştir. Bayraklar 0,0018 ile 0,0035 mg/kg arasında bir alt sınıra (belki homojensizlik içermeyen karakterizasyon belirsizliği) ve 0,005 ile 0,015 mg/kg arasında bir üst sınıra (1,5σ_pt = 0,0099 ile tutarlı) işaret eder. Bu nedenle bayraklar burada kontrol edilmemiştir."
+     }
+    ]
+   },
+   "proficiency": {
+    "quantity": "total Hg",
+    "unit": "mg/kg",
+    "results": [
+     {
+      "lab": "L04",
+      "value": 0.013,
+      "expanded": 0.003,
+      "k": 2,
+      "method": "AMA"
+     },
+     {
+      "lab": "L05",
+      "value": 0.013,
+      "expanded": 0.007,
+      "k": 2,
+      "method": "AMA"
+     },
+     {
+      "lab": "L23",
+      "value": 0.0135,
+      "expanded": 0.00108,
+      "k": 1.732,
+      "method": "AMA"
+     },
+     {
+      "lab": "L02",
+      "value": 0.014,
+      "expanded": 0.004,
+      "k": 2,
+      "method": "AMA"
+     },
+     {
+      "lab": "L15",
+      "value": 0.014,
+      "expanded": 0.0005,
+      "k": 2,
+      "method": "AMA"
+     },
+     {
+      "lab": "L17",
+      "less_than": 0.015,
+      "method": "CV-ICP-AES"
+     },
+     {
+      "lab": "L06",
+      "value": 0.016,
+      "expanded": 0.003,
+      "k": 2,
+      "method": "AMA"
+     },
+     {
+      "lab": "L09",
+      "value": 0.017,
+      "expanded": 0.008,
+      "k": 2,
+      "method": "AMA"
+     },
+     {
+      "lab": "L26",
+      "value": 0.019,
+      "expanded": 0.003,
+      "k": 2,
+      "method": "AAS"
+     },
+     {
+      "lab": "L12",
+      "value": 0.0239,
+      "expanded": 0.0036,
+      "k": 2,
+      "method": "AMA"
+     },
+     {
+      "lab": "L13",
+      "less_than": 0.034,
+      "method": "TDA-AAS"
+     },
+     {
+      "lab": "L03",
+      "value": 0.037,
+      "expanded": 0.013,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L29",
+      "value": 0.039,
+      "expanded": 0.007,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L07",
+      "value": 0.04,
+      "expanded": 0.008,
+      "k": 2,
+      "method": "ICP-MS"
+     },
+     {
+      "lab": "L21",
+      "value": 0.04,
+      "expanded": 0.03,
+      "k": 2,
+      "method": "HG-AAS"
+     },
+     {
+      "lab": "L25",
+      "value": 0.04,
+      "expanded": 0.01,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L16",
+      "value": 0.0424,
+      "expanded": 0.008,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L08",
+      "value": 0.044,
+      "expanded": 0.007,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L10",
+      "value": 0.045,
+      "expanded": 0.007,
+      "k": 2,
+      "method": "ICP-MS"
+     },
+     {
+      "lab": "L24",
+      "value": 0.045,
+      "expanded": 0.005,
+      "k": 2,
+      "method": "HG-AAS"
+     },
+     {
+      "lab": "L18",
+      "value": 0.046,
+      "expanded": 0.007,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L28",
+      "value": 0.049,
+      "expanded": 0.0072,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L01",
+      "value": 0.053,
+      "expanded": 0.007,
+      "k": 2,
+      "method": "CV-AAS"
+     },
+     {
+      "lab": "L14",
+      "less_than": 0.1,
+      "method": "ICP-MS"
+     }
+    ],
+    "assigned_value": {
+     "method": "reference",
+     "value": 0.044,
+     "expanded": 0.0082,
+     "k": 2
+    },
+    "sd_pt": {
+     "method": "given",
+     "value": 0.0066
+    },
+    "uncertainty_screening": {
+     "u_min": "u_assigned",
+     "u_max": "1.5_sd_pt"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "proficiency": {
+     "assigned_value": {
+      "value": 0.044,
+      "tolerance": 1e-9
+     },
+     "u_assigned": {
+      "value": 0.0041,
+      "tolerance": 1e-9
+     },
+     "sd_pt": {
+      "value": 0.0066,
+      "tolerance": 1e-9
+     },
+     "scores": {
+      "L04": {
+       "d_percent": {
+        "value": -70.5,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -156.6,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -4.7,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.99,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -7.1,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -3.55,
+        "tolerance": 0.0051
+       }
+      },
+      "L05": {
+       "d_percent": {
+        "value": -70.5,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -156.6,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -4.7,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.99,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -5.75,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -2.88,
+        "tolerance": 0.0051
+       }
+      },
+      "L23": {
+       "d_percent": {
+        "value": -69.3,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -154.0,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -4.62,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.93,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -7.35,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -3.69,
+        "tolerance": 0.0051
+       }
+      },
+      "L02": {
+       "d_percent": {
+        "value": -68.2,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -151.5,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -4.55,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.86,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -6.58,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -3.29,
+        "tolerance": 0.0051
+       }
+      },
+      "L15": {
+       "d_percent": {
+        "value": -68.2,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -151.5,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -4.55,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.86,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -7.3,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -3.65,
+        "tolerance": 0.0051
+       }
+      },
+      "L06": {
+       "d_percent": {
+        "value": -63.6,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -141.4,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -4.24,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.6,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -6.41,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -3.21,
+        "tolerance": 0.0051
+       }
+      },
+      "L09": {
+       "d_percent": {
+        "value": -61.4,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -136.4,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -4.09,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.47,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -4.71,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -2.36,
+        "tolerance": 0.0051
+       }
+      },
+      "L26": {
+       "d_percent": {
+        "value": -56.8,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -126.3,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -3.79,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -3.22,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -5.73,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -2.86,
+        "tolerance": 0.0051
+       }
+      },
+      "L12": {
+       "d_percent": {
+        "value": -45.7,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -101.5,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -3.05,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -2.59,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -4.49,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -2.24,
+        "tolerance": 0.0051
+       }
+      },
+      "L03": {
+       "d_percent": {
+        "value": -15.9,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -35.4,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -1.06,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -0.9,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -0.91,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -0.46,
+        "tolerance": 0.0051
+       }
+      },
+      "L29": {
+       "d_percent": {
+        "value": -11.4,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -25.3,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -0.76,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -0.64,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -0.93,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -0.46,
+        "tolerance": 0.0051
+       }
+      },
+      "L07": {
+       "d_percent": {
+        "value": -9.1,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -20.2,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -0.61,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -0.51,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -0.7,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -0.35,
+        "tolerance": 0.0051
+       }
+      },
+      "L21": {
+       "d_percent": {
+        "value": -9.1,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -20.2,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -0.61,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -0.51,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -0.26,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -0.13,
+        "tolerance": 0.0051
+       }
+      },
+      "L25": {
+       "d_percent": {
+        "value": -9.1,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -20.2,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -0.61,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -0.51,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -0.62,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -0.31,
+        "tolerance": 0.0051
+       }
+      },
+      "L16": {
+       "d_percent": {
+        "value": -3.6,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": -8.1,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": -0.24,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": -0.21,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": -0.28,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": -0.14,
+        "tolerance": 0.0051
+       }
+      },
+      "L08": {
+       "d_percent": {
+        "value": 0.0,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": 0.0,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": 0.0,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": 0.0,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": 0.0,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": 0.0,
+        "tolerance": 0.0051
+       }
+      },
+      "L10": {
+       "d_percent": {
+        "value": 2.3,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": 5.1,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": 0.15,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": 0.13,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": 0.19,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": 0.09,
+        "tolerance": 0.0051
+       }
+      },
+      "L24": {
+       "d_percent": {
+        "value": 2.3,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": 5.1,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": 0.15,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": 0.13,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": 0.21,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": 0.1,
+        "tolerance": 0.0051
+       }
+      },
+      "L18": {
+       "d_percent": {
+        "value": 4.5,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": 10.1,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": 0.3,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": 0.26,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": 0.37,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": 0.19,
+        "tolerance": 0.0051
+       }
+      },
+      "L28": {
+       "d_percent": {
+        "value": 11.4,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": 25.3,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": 0.76,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": 0.64,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": 0.92,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": 0.46,
+        "tolerance": 0.0051
+       }
+      },
+      "L01": {
+       "d_percent": {
+        "value": 20.5,
+        "tolerance": 0.051
+       },
+       "pa": {
+        "value": 45.5,
+        "tolerance": 0.051
+       },
+       "z": {
+        "value": 1.36,
+        "tolerance": 0.0051
+       },
+       "z_prime": {
+        "value": 1.16,
+        "tolerance": 0.0051
+       },
+       "zeta": {
+        "value": 1.67,
+        "tolerance": 0.0051
+       },
+       "en": {
+        "value": 0.83,
+        "tolerance": 0.0051
+       }
+      }
+     }
+    },
+    "reference": {
+     "en": "ISO 13528:2022 Table E.7 (D %, PA, z, z′, ζ and E_n of the 21 numerical results; tolerances half a unit of the printed digit).",
+     "tr": "ISO 13528:2022 Tablo E.7 (21 sayısal sonucun D %, PA, z, z′, ζ ve E_n değerleri; toleranslar basılı son basamağın yarım birimi)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/mupr-b1-nitrate.json",
   "project": {
    "format": "uncertainty-calculations/project",

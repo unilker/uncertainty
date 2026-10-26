@@ -25,9 +25,9 @@ class _SettingsEditorState extends State<SettingsEditor> {
   @override
   Widget build(BuildContext context) {
     final s = AppScope.of(context).s;
-    final topdown = widget.project.containsKey('topdown');
+    final isModel = widget.project.containsKey('model');
     final children = <Widget>[];
-    if (!topdown) {
+    if (isModel) {
       final gumOn = _analysis['gum'] != null || !_analysis.containsKey('gum');
       final mcmOn = _analysis['mcm'] != null || !_analysis.containsKey('mcm');
       children.addAll([

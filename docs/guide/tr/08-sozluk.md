@@ -53,3 +53,10 @@ GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlard
 | limit of quantification | tayin sınırı | |
 | dilution factor | seyreltme faktörü | |
 | top-down / bottom-up evaluation | yukarıdan aşağı (top-down) / aşağıdan yukarı (bottom-up) değerlendirme | |
+| assigned value | atanan değer | ISO 13528 3.3 |
+| standard deviation for proficiency assessment | yeterlilik değerlendirmesi için standart sapma | ISO 13528 3.13 |
+| robust average / robust standard deviation | robust ortalama / robust standart sapma | ISO 13528 C.3 |
+| between-sample standard deviation | numuneler arası standart sapma | ISO 13528 B.3 |
+| homogeneity / stability check | homojenlik / kararlılık kontrolü | ISO 13528 Ek B |
+| action signal / warning signal | eylem sinyali / uyarı sinyali | ISO 13528 9.4.2 |
+| censored result | sansürlü sonuç | ISO 13528 5.5.3 |

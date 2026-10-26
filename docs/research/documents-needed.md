@@ -11,34 +11,43 @@ kabul edilir) ve kurumsal ScienceDirect, Springer, RSC, IOP erişimi.
 Belgeyi bana verdiğinizde ilgili modülü tamamlayıp doğrulama testlerine
 eklerim. Durum sütununu belge geldikçe güncelleyeceğim.
 
+Lisanslı standartlar (ISO, BS, TSE kopyaları) yalnızca çalışma ortamında
+kullanılır, depoya konmaz; kütüphaneye yalnızca standartlardaki örneklerin
+sayısal verileri ve sonuçları kaynak gösterilerek alınır.
+
+**2026-10-26 güncellemesi:** 13 belge alındı (A2, A4'ün 3. bölümü, A5, A6,
+A7; B2, B4, B6, B8, B9, B10, B7 yerine NUM kılavuzu ve ek olarak Kallner).
+Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
+
 ## A. Standartlar (öncelik sırasıyla)
 
 | # | Belge | Ne için gerekli | Öncelik | Durum |
 |---|---|---|---|---|
 | 1 | **ISO 11352:2012** Water quality — Estimation of measurement uncertainty based on validation and quality control data | Top-down modülünün dayandığı standart; Nordtest bunu uygular, kendi örnekleri doğrulama vakası olur | Yüksek | bekleniyor |
-| 2 | **ISO 21748:2017** Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation | Tekrarüretilebilirlik (s_R) tabanlı belirsizlik; top-down modülü | Yüksek | bekleniyor |
+| 2 | **ISO 21748:2017** Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation | Tekrarüretilebilirlik (s_R) tabanlı belirsizlik; top-down modülü | Yüksek | **alındı (2026-10-26)** |
 | 3 | **ISO/TS 28037:2010** Determination and use of straight-line calibration functions | Kalibrasyon eğrisi belirsizliği (kimyada temel); standarttaki örnek veri setleri doğrulama için şart | Yüksek | bekleniyor |
-| 4 | **ISO 5725-2** (2019) ve mümkünse **ISO 5725-1, -3, -4, -6** (güncel baskılar) Accuracy (trueness and precision) of measurement methods and results | Tekrarlanabilirlik/tekrarüretilebilirlik, ara kesinlik, ANOVA, Cochran/Grubbs testleri, kritik aralık faktörleri (bulgu F9: 3.69 vs 3.64) | Yüksek | bekleniyor |
-| 5 | **ISO 13528:2022** Statistical methods for use in proficiency testing by interlaboratory comparison | Yeterlilik testi verisinden u(C_ref), robust istatistikler (Nordtest'teki 1.25 faktörü), z/ζ/En skorları | Orta | bekleniyor |
-| 6 | **ISO/IEC 17025:2017** (TS EN ISO/IEC 17025) | 7.6 belirsizlik, 7.8.6 uygunluk beyanı, 7.11 yazılım validasyonu — rapor şablonu ve validasyon raporu | Orta | bekleniyor |
-| 7 | **ISO 6143** (güncel baskı) Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures | Her iki eksende belirsizlik olan kalibrasyon (gaz analizi) | Düşük | bekleniyor |
+| 4 | **ISO 5725-2** (2019) ve mümkünse **ISO 5725-1, -4, -6** (güncel baskılar) Accuracy (trueness and precision) of measurement methods and results | Tekrarlanabilirlik/tekrarüretilebilirlik, ANOVA, Cochran/Grubbs testleri, kritik aralık faktörleri (bulgu F9: 3.69 vs 3.64) | Yüksek | **ISO 5725-3:2023 alındı**; 5725-2 (en önemlisi), -1, -4, -6 bekleniyor |
+| 5 | **ISO 13528:2022** Statistical methods for use in proficiency testing by interlaboratory comparison | Yeterlilik testi verisinden u(C_ref), robust istatistikler (Nordtest'teki 1.25 faktörü), z/ζ/En skorları | Orta | **alındı** |
+| 6 | **ISO/IEC 17025:2017** (TS EN ISO/IEC 17025) | 7.6 belirsizlik, 7.8.6 uygunluk beyanı, 7.11 yazılım validasyonu — rapor şablonu ve validasyon raporu | Orta | **alındı (TS EN, Aralık 2017)** |
+| 7 | **ISO 6143** (güncel baskı) Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures | Her iki eksende belirsizlik olan kalibrasyon (gaz analizi) | Düşük | **alındı (EN ISO 6143:2025)** |
 | 8 | **ISO 11843-1/-2** Capability of detection | Tespit ve tayin sınırı modülü | Düşük | bekleniyor |
 | 9 | **ISO/TS 20914:2019** Medical laboratories — Practical guidance for the estimation of measurement uncertainty | Klinik/tıbbi laboratuvar örnekleri (ileride) | Düşük | bekleniyor |
 
 ## B. Makaleler
 
-| # | Kaynak | Ne için gerekli | Öncelik |
-|---|---|---|---|
-| 1 | Cordeiro R., Rosa C., Bettencourt da Silva R., "Measurements recovery evaluation from the analysis of independent reference materials…", *Accred. Qual. Assur.* 23 (2018) 57–71 | MUPR Eq. (9)–(12)'nin türetildiği kaynak | Yüksek |
-| 2 | Magnusson B., Ellison S.L.R., "Treatment of uncorrected measurement bias in uncertainty estimation for chemical measurements", *Anal. Bioanal. Chem.* 390 (2008) 201–213 | Düzeltilmeyen sapma yaklaşımları (Q6) | Yüksek |
-| 3 | O'Donnell G.E., Hibbert D.B., "Treatment of bias in estimating measurement uncertainty", *Analyst* 130 (2005) 721–729 | Aynı konu, alternatif yöntemler | Orta |
-| 4 | Palma C., Morgado V., Bettencourt da Silva R., "Top-down evaluation of matrix effects uncertainty", *Talanta* 192 (2019) 278–287 | Matris etkisi belirsizliği (MUPR B5–B6) | Orta |
-| 5 | Kragten J., "Calculating standard deviations and confidence intervals with a universally applicable spreadsheet technique", *Analyst* 119 (1994) 2161–2166 | EURACHEM'in kullandığı sayısal yöntem; makalede karşılaştırma | Orta |
-| 6 | Wichmann B.A., Hill I.D., "Generating good pseudo-random numbers", *Comput. Stat. Data Anal.* 51 (2006) 1614–1622 | Kullandığımız rastgele sayı üreticisinin birincil kaynağı | Orta |
-| 7 | Lafarge T., Possolo A., "The NIST Uncertainty Machine", *NCSLI Measure* 10(3) (2015) 20–27 | Karşılaştırmalı değerlendirme (benchmark) | Orta |
-| 8 | Zeier M., Hoffmann J., Wollensack M., "Metas.UncLib — a measurement uncertainty calculator for advanced problems", *Metrologia* 49 (2012) | Rakip yazılım analizi | Düşük |
-| 9 | Marsaglia G., Tsang W.W., "A simple method for generating gamma variables", *ACM TOMS* 26 (2000) 363–372 | Gamma dağılımı üreticisinin kaynağı | Düşük |
-| 10 | Mateo R. ve ark., "Impact of recovery correction or subjecting calibrators to sample preparation on measurement uncertainty: PAH determinations in waters", *Talanta* 207 (2020) 120274 | Ağırlıklı geri kazanım (MUPR dipnot) | Düşük |
+| # | Kaynak | Ne için gerekli | Öncelik | Durum |
+|---|---|---|---|---|
+| 1 | Cordeiro R., Rosa C., Bettencourt da Silva R., "Measurements recovery evaluation from the analysis of independent reference materials…", *Accred. Qual. Assur.* 23 (2018) 57–71 | MUPR Eq. (9)–(12)'nin türetildiği kaynak | Yüksek | bekleniyor |
+| 2 | Magnusson B., Ellison S.L.R., *Anal. Bioanal. Chem.* 390 (2008) 201–213 | Düzeltilmeyen sapma yaklaşımları (Q6) | Yüksek | **alındı** |
+| 3 | O'Donnell G.E., Hibbert D.B., "Treatment of bias in estimating measurement uncertainty", *Analyst* 130 (2005) 721–729 | Aynı konu, alternatif yöntemler | Orta | bekleniyor |
+| 4 | Palma C., Morgado V., Bettencourt da Silva R., *Talanta* 192 (2019) 278–287 | Matris etkisi belirsizliği (MUPR B5–B6) | Orta | **alındı** |
+| 5 | Kragten J., "Calculating standard deviations and confidence intervals with a universally applicable spreadsheet technique", *Analyst* 119 (1994) 2161–2166 | EURACHEM'in kullandığı sayısal yöntem; Kragten görünümünün birincil kaynağı | Orta | bekleniyor |
+| 6 | Wichmann B.A., Hill I.D., *Comput. Stat. Data Anal.* 51 (2006) 1614–1622 | Rastgele sayı üreticisinin birincil kaynağı | Orta | **alındı, doğrulandı (D29)** |
+| 7 | Lafarge T., Possolo A., "The NIST Uncertainty Machine", *NCSLI Measure* 10(3) (2015) 20–27 | Karşılaştırmalı değerlendirme; makalede atıf | Orta | kullanıcı kılavuzu (v1.4) alındı ve kullanıldı (D30); makalenin kendisi bekleniyor |
+| 8 | Zeier M. ve ark., *Metrologia* 49 (2012) 809 | Rakip yazılım analizi | Düşük | **alındı** |
+| 9 | Marsaglia G., Tsang W.W., *ACM TOMS* 26 (2000) 363–372 | Gamma üreticisinin kaynağı | Düşük | **alındı, doğrulandı (D29)** |
+| 10 | Mateos R. ve ark., *Talanta* 207 (2020) 120274 | Ağırlıklı geri kazanım (MUPR dipnot) | Düşük | **alındı** |
+| 11 | Kallner A., "Uncertainty in measurement — introduction and examples from laboratory medicine", *eJIFCC* 13(1) (2002) | Klinik laboratuvar örnekleri (ek, istenmemişti) | — | **alındı** |
 
 ## C. Literatür taraması için erişim
 
@@ -55,6 +64,8 @@ eklerim. Durum sütununu belge geldikçe güncelleyeceğim.
 | 1 | EURACHEM/CITAC QUAM:2012, Tablo A2.4, A3.1, A5 (u(a_V)), A6.5 | Basılı baskı veya errata: F10, F12, F14, F15 |
 | 2 | Nordtest TR 537 ed. 4, §6.1 | 2.16 % / 2.17 % hesap hatası (F5) için güncel düzeltme var mı |
 | 3 | EA-4/02 M:2022 (S5, S7, S13) | güncel revizyon / errata (F18) |
+| 4 | NIST TN 1900 (2015) E3, E4, E9 | errata / güncel sürüm (F28–F30) |
+| 5 | NIST Uncertainty Machine kılavuzu v1.4, §3 ve §9 | daha yeni sürüm (F29, F33) |
 
 ## E. Yazar tarafından sağlanabilecek veriler (isteğe bağlı, çok değerli)
 
@@ -64,3 +75,21 @@ eklerim. Durum sütununu belge geldikçe güncelleyeceğim.
   kullanılabilir, özgün katkıyı güçlendirir.
 - Kullanılması planlanan **Türkçe terim karşılıkları** (UME/TSE kullanımı):
   rehberin Türkçe sözlüğü için.
+
+## Hâlâ eksik olanlar (2026-10-26)
+
+Öncelik sırasıyla:
+
+1. **ISO 5725-2:2019** — temel tekrarlanabilirlik/tekrarüretilebilirlik yöntemi, Cochran ve Grubbs testleri, kritik aralık faktörleri (F9). Alınan 5725-3 ara kesinliği kapsıyor; 5725-2 olmadan s_r/s_R hesabının kendisi ve aykırı değer testleri doğrulanamıyor.
+2. **ISO 11352:2012** — top-down modülünün dayandığı su kalitesi standardı.
+3. **ISO/TS 28037:2010** — doğru kalibrasyon fonksiyonları (her iki eksende belirsizlik); standarttaki örnek veri setleri doğrulama için gerekli. ISO 6143:2025 kısmen karşılıyor.
+4. **Cordeiro ve ark. (2018)**, *Accred. Qual. Assur.* 23:57–71 — MUPR geri kazanım eşitliklerinin kaynağı.
+5. **Kragten (1994)**, *Analyst* 119:2161 — Kragten görünümünün birincil kaynağı.
+6. **O'Donnell ve Hibbert (2005)**, *Analyst* 130:721 — sapma yaklaşımlarının karşılaştırması.
+7. **Lafarge ve Possolo (2015)**, *NCSLI Measure* 10(3):20 — NIST Uncertainty Machine makalesi (atıf için).
+8. **ISO 5725-1, -4, -6** — terimler, doğruluk (trueness) tayini, uygulamada kullanım (düşük öncelik).
+9. **ISO 11843-1/-2** — tespit sınırı modülü (düşük öncelik).
+10. **ISO/TS 20914:2019** — tıbbi laboratuvarlar (düşük öncelik; Kallner makalesi başlangıç için yeterli).
+
+Erişim ihtiyaçları (C bölümü) ve errata kontrolleri (D bölümü) değişmedi;
+D bölümüne NIST TN 1900 (F28–F30) ve NUM kılavuzu (F29, F33) eklendi.

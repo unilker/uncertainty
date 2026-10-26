@@ -21,24 +21,29 @@ class SharesChart extends StatelessWidget {
         for (final r in sorted)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 3),
-            child: Row(children: [
-              SizedBox(width: 130, child: Text(r.key, textAlign: TextAlign.end, overflow: TextOverflow.ellipsis)),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: FractionallySizedBox(
-                    widthFactor: math.max(0.002, r.value / max),
-                    child: Container(
-                      height: 16,
-                      decoration: BoxDecoration(color: c.primary, borderRadius: BorderRadius.circular(3)),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 130,
+                  child: Text(r.key, textAlign: TextAlign.end, overflow: TextOverflow.ellipsis),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: FractionallySizedBox(
+                      widthFactor: math.max(0.002, r.value / max),
+                      child: Container(
+                        height: 16,
+                        decoration: BoxDecoration(color: c.primary, borderRadius: BorderRadius.circular(3)),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 6),
-              SizedBox(width: 64, child: Text(fmtPct(r.value, 3, lang), style: Theme.of(context).textTheme.bodySmall)),
-            ]),
+                const SizedBox(width: 6),
+                SizedBox(width: 64, child: Text(fmtPct(r.value, 3, lang), style: Theme.of(context).textTheme.bodySmall)),
+              ],
+            ),
           ),
       ],
     );
@@ -70,20 +75,23 @@ class HistogramChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Theme.of(context).colorScheme;
-    return Column(children: [
-      SizedBox(
-        height: 260,
-        width: double.infinity,
-        child: CustomPaint(
-          painter: _HistogramPainter(this, c, Theme.of(context).textTheme.bodySmall!),
+    return Column(
+      children: [
+        SizedBox(
+          height: 260,
+          width: double.infinity,
+          child: CustomPaint(painter: _HistogramPainter(this, c, Theme.of(context).textTheme.bodySmall!)),
         ),
-      ),
-      const SizedBox(height: 4),
-      Wrap(spacing: 16, children: [
-        _Legend(color: c.primaryContainer, label: 'MCM', box: true),
-        if (gumPdf != null) _Legend(color: c.tertiary, label: 'GUM'),
-      ]),
-    ]);
+        const SizedBox(height: 4),
+        Wrap(
+          spacing: 16,
+          children: [
+            _Legend(color: c.primaryContainer, label: 'MCM', box: true),
+            if (gumPdf != null) _Legend(color: c.tertiary, label: 'GUM'),
+          ],
+        ),
+      ],
+    );
   }
 }
 
@@ -95,11 +103,14 @@ class _Legend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisSize: MainAxisSize.min, children: [
-      Container(width: box ? 12 : 18, height: box ? 12 : 3, color: color),
-      const SizedBox(width: 6),
-      Text(label, style: Theme.of(context).textTheme.bodySmall),
-    ]);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(width: box ? 12 : 18, height: box ? 12 : 3, color: color),
+        const SizedBox(width: 6),
+        Text(label, style: Theme.of(context).textTheme.bodySmall),
+      ],
+    );
   }
 }
 
@@ -136,11 +147,12 @@ class _HistogramPainter extends CustomPainter {
         path.lineTo(sx(p[0]), sy(p[1]));
       }
       canvas.drawPath(
-          path,
-          Paint()
-            ..color = colors.tertiary
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2);
+        path,
+        Paint()
+          ..color = colors.tertiary
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
     }
     void vline(double x, Color color, double dash) {
       if (x < x0 || x > x1) return;
@@ -160,7 +172,10 @@ class _HistogramPainter extends CustomPainter {
     }
     canvas.drawLine(Offset(0, sy(0)), Offset(size.width, sy(0)), Paint()..color = colors.outline);
     void label(String t, double x, TextAlign align) {
-      final tp = TextPainter(text: TextSpan(text: t, style: textStyle), textDirection: TextDirection.ltr)..layout();
+      final tp = TextPainter(
+        text: TextSpan(text: t, style: textStyle),
+        textDirection: TextDirection.ltr,
+      )..layout();
       final dx = align == TextAlign.end ? x - tp.width : x;
       tp.paint(canvas, Offset(dx, size.height - pad + 4));
     }
@@ -171,4 +186,84 @@ class _HistogramPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _HistogramPainter old) => old.h != h || old.colors != colors;
+}
+
+/// z scores of a proficiency test round as bars around zero, with the
+/// warning (±2) and action (±3) limits.
+class ZScoreChart extends StatelessWidget {
+  const ZScoreChart({super.key, required this.rows, required this.lang});
+  final List<MapEntry<String, double>> rows;
+  final String lang;
+
+  @override
+  Widget build(BuildContext context) {
+    if (rows.isEmpty) return const SizedBox.shrink();
+    final zmax = math.min(10.0, rows.fold<double>(3.5, (m, r) => math.max(m, r.value.abs())));
+    final c = Theme.of(context).colorScheme;
+    return LayoutBuilder(
+      builder: (context, box) {
+        const label = 80.0;
+        final w = math.max(100.0, box.maxWidth - label - 8);
+        double x(double z) => w * (z.clamp(-zmax, zmax) + zmax) / (2 * zmax);
+        return Column(
+          children: [
+            for (final r in rows)
+              SizedBox(
+                height: 20,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: label,
+                      child: Text(r.key, textAlign: TextAlign.end, overflow: TextOverflow.ellipsis),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: w,
+                      child: Stack(
+                        children: [
+                          for (final z in [-3.0, -2.0, 0.0, 2.0, 3.0])
+                            Positioned(
+                              left: x(z),
+                              top: 0,
+                              bottom: 0,
+                              child: Container(width: 1, color: z == 0 ? c.outline : (z.abs() == 2 ? c.tertiary : c.error)),
+                            ),
+                          Positioned(
+                            left: math.min(x(0), x(r.value)),
+                            top: 3,
+                            bottom: 3,
+                            child: Container(
+                              width: math.max(1.0, (x(r.value) - x(0)).abs()),
+                              color: r.value.abs() >= 3 ? c.error : (r.value.abs() > 2 ? c.tertiary : c.primary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            Row(
+              children: [
+                const SizedBox(width: label + 8),
+                SizedBox(
+                  width: w,
+                  height: 16,
+                  child: Stack(
+                    children: [
+                      for (final z in [-3.0, -2.0, 0.0, 2.0, 3.0])
+                        Positioned(
+                          left: math.max(0, x(z) - 8),
+                          child: Text(fmtNum(z, 1, lang), style: Theme.of(context).textTheme.bodySmall),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

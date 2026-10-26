@@ -10,6 +10,7 @@
 //!   Nordtest TR 537 and Eurachem/CITAC MUPR (2026) (module [`topdown`]);
 //! * straight-line calibration and inverse prediction — EURACHEM CG4
 //!   Appendix E.4 (module [`calibration`]);
+//! * statistics for proficiency testing — ISO 13528:2022 (module [`pt`]);
 //! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
@@ -47,6 +48,7 @@ pub mod expr;
 pub mod gum;
 pub mod mcm;
 pub mod model;
+pub mod pt;
 pub mod report;
 pub mod rng;
 pub mod special;

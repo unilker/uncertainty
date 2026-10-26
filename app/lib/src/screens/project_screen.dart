@@ -11,14 +11,14 @@ import '../strings.dart';
 import '../widgets/json_editor.dart';
 import '../widgets/model_editor.dart';
 import '../widgets/overview.dart';
+import '../widgets/proficiency_editor.dart';
 import '../widgets/results_view.dart';
 import '../widgets/settings_editor.dart';
 import '../widgets/topdown_editor.dart';
 
 /// Editing, calculating and exporting one project.
 class ProjectScreen extends StatefulWidget {
-  const ProjectScreen(
-      {super.key, required this.project, this.filePath, this.fromLibrary = false, this.runOnOpen = false});
+  const ProjectScreen({super.key, required this.project, this.filePath, this.fromLibrary = false, this.runOnOpen = false});
   final Map<String, dynamic> project;
   final String? filePath;
   final bool fromLibrary;
@@ -45,6 +45,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
   int _revision = 0;
 
   bool get _isTopDown => _project.containsKey('topdown');
+  bool get _isProficiency => _project.containsKey('proficiency');
 
   @override
   void initState() {
@@ -136,10 +137,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
     final app = AppScope.of(context);
     final s = app.s;
     try {
-      final r = await const Engine().evaluate(
-        _project,
-        EvaluateOptions(lang: app.lang, html: format == 'html', markdown: format == 'md', generated: _today()),
-      );
+      final r = await const Engine().evaluate(_project, EvaluateOptions(lang: app.lang, html: format == 'html', markdown: format == 'md', generated: _today()));
       final text = r[format == 'html' ? 'html' : 'markdown'] as String;
       if (isMobile) {
         await shareText(_suggestedName(format), text);
@@ -186,7 +184,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
           isScrollable: true,
           tabs: [
             Tab(text: s['overview']),
-            Tab(text: _isTopDown ? s['data'] : s['model']),
+            Tab(text: _isTopDown || _isProficiency ? s['data'] : s['model']),
             Tab(text: s['settings']),
             Tab(text: s['json']),
             Tab(key: const Key('results-tab'), text: s['results']),
@@ -196,9 +194,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('run'),
         onPressed: _running || _invalid != null ? null : _run,
-        icon: _running
-            ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-            : const Icon(Icons.play_arrow),
+        icon: _running ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)) : const Icon(Icons.play_arrow),
         label: Text(_running ? s['running'] : s['run']),
       ),
       body: Column(
@@ -213,6 +209,8 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
                 OverviewTab(key: ValueKey('o$_revision'), project: _project, onChanged: _changed),
                 _isTopDown
                     ? TopDownEditor(key: ValueKey('t$_revision'), project: _project, onChanged: _changed)
+                    : _isProficiency
+                    ? ProficiencyEditor(key: ValueKey('p$_revision'), project: _project, onChanged: _changed)
                     : ModelEditor(key: ValueKey('m$_revision'), project: _project, onChanged: _changed),
                 SettingsEditor(key: ValueKey('s$_revision'), project: _project, onChanged: _changed),
                 JsonEditor(key: ValueKey('j$_revision'), project: _project, onApply: _replace),
@@ -238,13 +236,15 @@ class _Banner extends StatelessWidget {
       color: error ? c.errorContainer : c.secondaryContainer,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(children: [
-          Icon(error ? Icons.error_outline : Icons.edit_note,
-              color: error ? c.onErrorContainer : c.onSecondaryContainer),
-          const SizedBox(width: 8),
-          Expanded(
-              child: Text(text, style: TextStyle(color: error ? c.onErrorContainer : c.onSecondaryContainer))),
-        ]),
+        child: Row(
+          children: [
+            Icon(error ? Icons.error_outline : Icons.edit_note, color: error ? c.onErrorContainer : c.onSecondaryContainer),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(text, style: TextStyle(color: error ? c.onErrorContainer : c.onSecondaryContainer)),
+            ),
+          ],
+        ),
       ),
     );
   }

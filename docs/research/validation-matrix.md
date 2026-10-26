@@ -125,6 +125,16 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | GUM-H.2 | R, X, Z from the raw sets of Table H.2 | 0.071, 0.295, 0.236 Ω | 0.0711, 0.2956, 0.2363 | ✅ (F34) |
 | NUM-7, NUM-9 | thermal expansion (t₃), viscosity | = TN 1900 E13, E3 | see above | ✅ (F29, F35) |
 
+## ISO 13528:2022 Annex E — library projects
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| ISO13528-E.2 | homogeneity and stability, As in chocolate | x̄ 0.18715, s_x 0.00398, s_w 0.00556, s_s 0.00060, 0.3σ_pt 0.00842; Δ 0.00660 | same | ✅ |
+| ISO13528-E.3 | atrazine, 34 results, Algorithm A | x* 0.2570, s* 0.0395 (6 iterations, x* ± δ of each), u 0.0085; median 0.2620, MADe 0.0386, nIQR 0.0402 | same | ✅ |
+| ISO13528-E.3 | median and nIQR | 0.2620, 0.0402, u 0.0086 | same | ✅ |
+| ISO13528-E.4 | mercury, reference value, 21 laboratories | D %, PA, z, z′, ζ, E_n (126 values) | same | ✅ (flags: F36) |
+| ISO13528-B.1 | factors F₁, F₂ | Table B.1 (g = 7 … 20) | from χ² and F quantiles | ✅ |
+
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
 | Case | y | u | shortest lo | shortest hi | shortest length | symmetric lo | symmetric hi |

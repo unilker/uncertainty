@@ -10,6 +10,8 @@ import 'package:uncertainty_app/main.dart';
 import 'package:uncertainty_app/src/app_state.dart';
 import 'package:uncertainty_app/src/engine.dart';
 import 'package:uncertainty_app/src/format.dart';
+import 'package:uncertainty_app/src/widgets/charts.dart';
+import 'package:uncertainty_app/src/widgets/proficiency_editor.dart';
 
 /// Pumps until [finder] matches, letting real asynchronous work (asset
 /// loading, the engine isolate) progress in between.
@@ -124,6 +126,40 @@ void main() {
     expect(find.textContaining('30.04'), findsWidgets);
     expect(find.text('Monte Carlo method (JCGM 101)'), findsOneWidget);
     expect(find.text('GUM uncertainty framework (JCGM 100)'), findsNothing);
+  });
+
+  test('proficiency results are read from pasted lines', () {
+    final (rows, bad) = parseResults('L04\t0,013\t0,003\t2\tAMA\nL17 <0.015\nL23;0.0135;0.00108;1.732\n\nL08 0.044');
+    expect(bad, isNull);
+    expect(rows!.length, 4);
+    expect(rows[0], {'lab': 'L04', 'value': 0.013, 'expanded': 0.003, 'k': 2.0, 'method': 'AMA'});
+    expect(rows[1], {'lab': 'L17', 'less_than': 0.015});
+    expect(rows[2]['k'], 1.732);
+    expect(rows[3], {'lab': 'L08', 'value': 0.044});
+    expect(parseResults('L01 abc').$2, 1);
+    expect(resultsToText(rows, 'en').split('\n').first, 'L04\t0.013\t0.003\t2\tAMA');
+  });
+
+  testWidgets('a proficiency test round shows the scores of ISO 13528 E.4', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'iso13528-e4');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('Mercury in animal feed'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('pt-results')), findsOneWidget);
+    expect(find.textContaining('L17\t<0.015'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.text('Performance statistics'));
+    expect(find.text('-4.70'), findsWidgets); // z of L04 and L05, Table E.7
+    expect(find.text('-7.10'), findsOneWidget); // ζ of L04
+    final list = find.ancestor(of: find.text('Performance statistics'), matching: find.byType(Scrollable)).first;
+    await tester.scrollUntilVisible(find.text('z scores (±2 warning, ±3 action)'), 400, scrollable: list);
+    expect(find.byType(ZScoreChart), findsOneWidget);
   });
 
   testWidgets('top-down forms show and edit the raw data', (tester) async {

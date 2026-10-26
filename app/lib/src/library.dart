@@ -12,14 +12,14 @@ class LibraryEntry {
   String get id => (metadata['id'] ?? path).toString();
   String? get field => metadata['field'] as String?;
   bool get isTopDown => project.containsKey('topdown');
+  bool get isProficiency => project.containsKey('proficiency');
+
+  /// Short description of the method for the library list.
+  String get methodLabel => isTopDown ? 'top-down' : (isProficiency ? 'ISO 13528' : 'GUM + MCM');
 
   /// Title, description and id in both languages, for searching.
-  String get searchText => [
-        id,
-        jsonEncode(metadata['title']),
-        jsonEncode(metadata['description']),
-        (metadata['tags'] as List?)?.join(' ') ?? '',
-      ].join(' ').toLowerCase();
+  String get searchText =>
+      [id, jsonEncode(metadata['title']), jsonEncode(metadata['description']), (metadata['tags'] as List?)?.join(' ') ?? ''].join(' ').toLowerCase();
 }
 
 /// Loads assets/library.json (written by tool/bundle_library.dart).
@@ -28,10 +28,7 @@ Future<List<LibraryEntry>> loadLibrary() async {
   // outlive the zone that created it, e.g. between widget tests).
   final text = await rootBundle.loadString('assets/library.json', cache: false);
   final items = jsonDecode(text) as List;
-  return [
-    for (final i in items)
-      LibraryEntry((i as Map)['path'] as String, (i['project'] as Map).cast<String, dynamic>()),
-  ];
+  return [for (final i in items) LibraryEntry((i as Map)['path'] as String, (i['project'] as Map).cast<String, dynamic>())];
 }
 
 /// A deep copy of a JSON value, so that editing a project never changes the

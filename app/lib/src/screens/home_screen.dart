@@ -21,9 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
   String _query = '';
 
   void _openProject(Map<String, dynamic> project, {String? path, bool fromLibrary = false}) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (_) => ProjectScreen(project: deepCopy(project), filePath: path, fromLibrary: fromLibrary),
-    ));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ProjectScreen(project: deepCopy(project), filePath: path, fromLibrary: fromLibrary),
+      ),
+    );
   }
 
   Future<void> _openFile() async {
@@ -53,9 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(s['app']),
-        content: SelectableText(error ??
-            '${v!['name']} ${v['version']}\n\nİlker Ün, TÜBİTAK UME\nORCID 0000-0001-5089-4602\n\n'
-                'GPL-3.0-or-later\n\n${s['cite']}:\n${v['citation']}'),
+        content: SelectableText(
+          error ??
+              '${v!['name']} ${v['version']}\n\nİlker Ün, TÜBİTAK UME\nORCID 0000-0001-5089-4602\n\n'
+                  'GPL-3.0-or-later\n\n${s['cite']}:\n${v['citation']}',
+        ),
         actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(s['close']))],
       ),
     );
@@ -69,11 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(s['app']),
         actions: [
-          TextButton(
-            key: const Key('language'),
-            onPressed: app.toggleLanguage,
-            child: Text(app.lang == 'en' ? 'TR' : 'EN'),
-          ),
+          TextButton(key: const Key('language'), onPressed: app.toggleLanguage, child: Text(app.lang == 'en' ? 'TR' : 'EN')),
           IconButton(tooltip: s['about'], onPressed: _about, icon: const Icon(Icons.info_outline)),
         ],
       ),
@@ -90,24 +90,33 @@ class _HomeScreenState extends State<HomeScreen> {
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              Wrap(spacing: 12, runSpacing: 12, children: [
-                _ActionCard(
-                  icon: Icons.functions,
-                  title: s['new_model'],
-                  subtitle: s['new_model_sub'],
-                  onTap: () => _openProject(const Engine().template('model')),
-                ),
-                _ActionCard(
-                  icon: Icons.science_outlined,
-                  title: s['new_topdown'],
-                  subtitle: s['new_topdown_sub'],
-                  onTap: () => _openProject(const Engine().template('topdown')),
-                ),
-                _ActionCard(icon: Icons.folder_open, title: s['open'], subtitle: s['open_sub'], onTap: _openFile),
-              ]),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _ActionCard(
+                    icon: Icons.functions,
+                    title: s['new_model'],
+                    subtitle: s['new_model_sub'],
+                    onTap: () => _openProject(const Engine().template('model')),
+                  ),
+                  _ActionCard(
+                    icon: Icons.science_outlined,
+                    title: s['new_topdown'],
+                    subtitle: s['new_topdown_sub'],
+                    onTap: () => _openProject(const Engine().template('topdown')),
+                  ),
+                  _ActionCard(
+                    icon: Icons.groups_outlined,
+                    title: s['new_pt'],
+                    subtitle: s['new_pt_sub'],
+                    onTap: () => _openProject(const Engine().template('proficiency')),
+                  ),
+                  _ActionCard(icon: Icons.folder_open, title: s['open'], subtitle: s['open_sub'], onTap: _openFile),
+                ],
+              ),
               const SizedBox(height: 24),
-              Text('${s['library']} (${entries.length} ${s['examples']})',
-                  style: Theme.of(context).textTheme.titleLarge),
+              Text('${s['library']} (${entries.length} ${s['examples']})', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               TextField(
                 key: const Key('search'),
@@ -125,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     for (final e in f.value)
                       ListTile(
                         title: Text(s.text(e.metadata['title'])),
-                        subtitle: Text('${e.id} · ${e.isTopDown ? 'top-down' : 'GUM + MCM'}'),
+                        subtitle: Text('${e.id} · ${e.methodLabel}'),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => _openProject(e.project, fromLibrary: true),
                       ),
@@ -155,16 +164,21 @@ class _ActionCard extends StatelessWidget {
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Row(children: [
-              Icon(icon, size: 32, color: Theme.of(context).colorScheme.primary),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(title, style: Theme.of(context).textTheme.titleMedium),
-                  Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
-                ]),
-              ),
-            ]),
+            child: Row(
+              children: [
+                Icon(icon, size: 32, color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title, style: Theme.of(context).textTheme.titleMedium),
+                      Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

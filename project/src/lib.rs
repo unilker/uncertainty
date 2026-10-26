@@ -2,11 +2,13 @@
 //!
 //! Project files (JSON) for *Uncertainty Calculations / Belirsizlik
 //! Hesaplamaları*: reading and validating them ([`schema`]), running the GUM
-//! and Monte Carlo evaluations or the top-down evaluation ([`topdown`])
+//! and Monte Carlo evaluations, the top-down evaluation ([`topdown`]) or the
+//! statistics of a proficiency test round ([`proficiency`])
 //! defined in them ([`run`]), checking results
 //! against expected reference values ([`check`]) and producing reports in
 //! English or Turkish ([`report`]).
 
+pub mod proficiency;
 pub mod report;
 pub mod schema;
 pub mod topdown;
@@ -83,8 +85,10 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
             p.version
         )));
     }
-    if p.model.is_some() == p.topdown.is_some() {
-        return Err(ProjectError::Format("a project contains either a \"model\" or a \"topdown\" section".into()));
+    if [p.model.is_some(), p.topdown.is_some(), p.proficiency.is_some()].iter().filter(|&&b| b).count() != 1 {
+        return Err(ProjectError::Format(
+            "a project contains exactly one of the sections \"model\", \"topdown\" and \"proficiency\"".into(),
+        ));
     }
     Ok(p)
 }
@@ -228,30 +232,42 @@ pub enum Evaluation {
     Model(Box<Analysis>),
     /// Top-down evaluation from validation data.
     TopDown(Box<topdown::TopDownAnalysis>),
+    /// Statistics of one round of a proficiency testing scheme.
+    Proficiency(Box<proficiency::ProficiencyAnalysis>),
 }
 
 impl Evaluation {
     pub fn model(&self) -> Option<&Analysis> {
         match self {
             Evaluation::Model(a) => Some(a),
-            Evaluation::TopDown(_) => None,
+            _ => None,
         }
     }
 
     pub fn topdown(&self) -> Option<&topdown::TopDownAnalysis> {
         match self {
             Evaluation::TopDown(t) => Some(t),
-            Evaluation::Model(_) => None,
+            _ => None,
+        }
+    }
+
+    pub fn proficiency(&self) -> Option<&proficiency::ProficiencyAnalysis> {
+        match self {
+            Evaluation::Proficiency(a) => Some(a),
+            _ => None,
         }
     }
 }
 
 /// Runs the evaluation a project describes.
 pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectError> {
-    match &p.topdown {
-        Some(spec) => Ok(Evaluation::TopDown(Box::new(topdown::evaluate(spec)?))),
-        None => Ok(Evaluation::Model(Box::new(run_model(p, overrides)?))),
+    if let Some(spec) = &p.topdown {
+        return Ok(Evaluation::TopDown(Box::new(topdown::evaluate(spec)?)));
     }
+    if let Some(spec) = &p.proficiency {
+        return Ok(Evaluation::Proficiency(Box::new(proficiency::evaluate(spec)?)));
+    }
+    Ok(Evaluation::Model(Box::new(run_model(p, overrides)?)))
 }
 
 /// Runs the GUM and Monte Carlo evaluations of a model project.
@@ -323,6 +339,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             let mut out = Vec::new();
             if let Some(exp) = p.expected.as_ref().and_then(|x| x.topdown.as_ref()) {
                 topdown::check(exp, t, &mut out);
+            }
+            out
+        }
+        Evaluation::Proficiency(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.proficiency.as_ref()) {
+                proficiency::check(exp, a, &mut out);
             }
             out
         }
@@ -405,6 +428,16 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": spec.map(|s| &s.quantity), "unit": spec.and_then(|s| s.unit.as_ref()) },
                 "topdown": topdown::results_json(t),
+                "checks": checks,
+            });
+        }
+        Evaluation::Proficiency(a) => {
+            let spec = p.proficiency.as_ref();
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": spec.map(|s| &s.quantity), "unit": spec.and_then(|s| s.unit.as_ref()) },
+                "proficiency": proficiency::results_json(a),
                 "checks": checks,
             });
         }

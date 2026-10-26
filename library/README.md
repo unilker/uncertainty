@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**78 examples / örnek** (56 model, 22 top-down).
+**82 examples / örnek** (56 model, 22 top-down, 4 proficiency testing / yeterlilik testi).
 
 ## Chemistry / Kimya
 
@@ -64,6 +64,15 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`nordtest-8-pcb-pt`](chemistry/nordtest-8-pcb-pt.json) | PCB in sediment: control sample and proficiency tests | Sedimentte PCB: kontrol numunesi ve yeterlilik testleri | Nordtest TR 537 ed. 4 (2017) §8.3 Example D |
 | [`quam-a4-pesticides-topdown`](chemistry/quam-a4-pesticides-topdown.json) | Organophosphorus pesticides in bread from validation data | Validasyon verilerinden ekmekte organofosforlu pestisitler | EURACHEM/CITAC Guide CG 4 Example A4, Tables A4.2–A4.5 |
 | [`quam-a6-crude-fibre`](chemistry/quam-a6-crude-fibre.json) | Crude fibre in animal feed (empirical method) | Hayvan yeminde ham lif (ampirik yöntem) | EURACHEM/CITAC Guide CG 4 Example A6, Tables A6.4–A6.5 |
+
+## Chemistry, proficiency testing / Kimya, yeterlilik testi
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`iso13528-e2-arsenic-homogeneity`](chemistry/iso13528-e2-arsenic-homogeneity.json) | Arsenic in chocolate: homogeneity and stability of PT items (ISO 13528 E.2) | Çikolatada arsenik: YT numunelerinin homojenliği ve kararlılığı (ISO 13528 E.2) | ISO 13528:2022 E.2, Tables E.2 and E.3 |
+| [`iso13528-e3-atrazine-algorithm-a`](chemistry/iso13528-e3-atrazine-algorithm-a.json) | Atrazine in drinking water: robust average by Algorithm A (ISO 13528 E.3) | İçme suyunda atrazin: Algoritma A ile robust ortalama (ISO 13528 E.3) | ISO 13528:2022 E.3, Tables E.4 and E.5 |
+| [`iso13528-e3-atrazine-median`](chemistry/iso13528-e3-atrazine-median.json) | Atrazine in drinking water: median and nIQR (ISO 13528 E.3) | İçme suyunda atrazin: medyan ve nIQR (ISO 13528 E.3) | ISO 13528:2022 E.3, Table E.5 |
+| [`iso13528-e4-mercury-feed`](chemistry/iso13528-e4-mercury-feed.json) | Mercury in animal feed: z, z′, ζ and E_n scores (ISO 13528 E.4) | Hayvan yeminde cıva: z, z′, ζ ve E_n skorları (ISO 13528 E.4) | ISO 13528:2022 E.4, Tables E.6 and E.7 |
 
 ## Electrical and RF / Elektrik ve RF
 

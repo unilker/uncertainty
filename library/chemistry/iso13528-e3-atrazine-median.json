@@ -1,0 +1,227 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso13528-e3-atrazine-median",
+    "title": {
+      "en": "Atrazine in drinking water: median and nIQR (ISO 13528 E.3)",
+      "tr": "İçme suyunda atrazin: medyan ve nIQR (ISO 13528 E.3)"
+    },
+    "description": {
+      "en": "ISO 13528:2022 E.3, first row of Table E.5: the median as assigned value with u(x_pt) = 1.25 nIQR/√p and the nIQR as σ_pt.",
+      "tr": "ISO 13528:2022 E.3, Tablo E.5'in ilk satırı: atanan değer olarak medyan, u(x_pt) = 1,25 nIQR/√p ve σ_pt olarak nIQR."
+    },
+    "explanation": [
+      {
+        "en": "34 participants reported atrazine in drinking water (Table E.4, ordered by value). Two very low results (0.040 and 0.055 mg/L) and one high result (0.4246 mg/L) lie far from the majority.",
+        "tr": "34 katılımcı içme suyunda atrazin sonucu bildirmiştir (Tablo E.4, değere göre sıralı). İki çok düşük (0,040 ve 0,055 mg/L) ve bir yüksek (0,4246 mg/L) sonuç çoğunluktan çok uzaktır."
+      },
+      {
+        "en": "The simple robust estimators of C.2: median 0.2620 mg/L, MADe = 1.483 × median absolute deviation = 0.0386 mg/L and nIQR = 0.7413 (Q₃ − Q₁) = 0.0402 mg/L.",
+        "tr": "C.2'nin basit robust tahmin edicileri: medyan 0,2620 mg/L, MADe = 1,483 × medyan mutlak sapma = 0,0386 mg/L ve nIQR = 0,7413 (Q₃ − Q₁) = 0,0402 mg/L."
+      },
+      {
+        "en": "With the median as assigned value, u(x_pt) = 1.25 × 0.0402/√34 = 0.0086 mg/L, practically the same as with Algorithm A (0.0085 mg/L); the nIQR has a breakdown point of 25 %, the MADe of 50 % (C.2.3, Note 1).",
+        "tr": "Atanan değer medyan olduğunda u(x_pt) = 1,25 × 0,0402/√34 = 0,0086 mg/L olur; bu, Algoritma A ile bulunan değerle (0,0085 mg/L) pratik olarak aynıdır; nIQR'nin kırılma noktası %25, MADe'ninki %50'dir (C.2.3, Not 1)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+        "section": "E.3, Table E.5",
+        "url": "https://www.iso.org/standard/78879.html"
+      }
+    ],
+    "tags": [
+      "iso13528",
+      "proficiency-testing",
+      "median",
+      "niqr",
+      "robust-statistics"
+    ]
+  },
+  "proficiency": {
+    "quantity": "atrazine",
+    "unit": "mg/L",
+    "results": [
+      {
+        "lab": "1",
+        "value": 0.04
+      },
+      {
+        "lab": "2",
+        "value": 0.055
+      },
+      {
+        "lab": "3",
+        "value": 0.178
+      },
+      {
+        "lab": "4",
+        "value": 0.202
+      },
+      {
+        "lab": "5",
+        "value": 0.206
+      },
+      {
+        "lab": "6",
+        "value": 0.227
+      },
+      {
+        "lab": "7",
+        "value": 0.228
+      },
+      {
+        "lab": "8",
+        "value": 0.23
+      },
+      {
+        "lab": "9",
+        "value": 0.23
+      },
+      {
+        "lab": "10",
+        "value": 0.235
+      },
+      {
+        "lab": "11",
+        "value": 0.236
+      },
+      {
+        "lab": "12",
+        "value": 0.237
+      },
+      {
+        "lab": "13",
+        "value": 0.243
+      },
+      {
+        "lab": "14",
+        "value": 0.244
+      },
+      {
+        "lab": "15",
+        "value": 0.245
+      },
+      {
+        "lab": "16",
+        "value": 0.2555
+      },
+      {
+        "lab": "17",
+        "value": 0.26
+      },
+      {
+        "lab": "18",
+        "value": 0.264
+      },
+      {
+        "lab": "19",
+        "value": 0.267
+      },
+      {
+        "lab": "20",
+        "value": 0.27
+      },
+      {
+        "lab": "21",
+        "value": 0.273
+      },
+      {
+        "lab": "22",
+        "value": 0.274
+      },
+      {
+        "lab": "23",
+        "value": 0.274
+      },
+      {
+        "lab": "24",
+        "value": 0.278
+      },
+      {
+        "lab": "25",
+        "value": 0.2811
+      },
+      {
+        "lab": "26",
+        "value": 0.287
+      },
+      {
+        "lab": "27",
+        "value": 0.287
+      },
+      {
+        "lab": "28",
+        "value": 0.288
+      },
+      {
+        "lab": "29",
+        "value": 0.289
+      },
+      {
+        "lab": "30",
+        "value": 0.295
+      },
+      {
+        "lab": "31",
+        "value": 0.296
+      },
+      {
+        "lab": "32",
+        "value": 0.311
+      },
+      {
+        "lab": "33",
+        "value": 0.331
+      },
+      {
+        "lab": "34",
+        "value": 0.4246
+      }
+    ],
+    "assigned_value": {
+      "method": "median"
+    },
+    "sd_pt": {
+      "method": "niqr"
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "proficiency": {
+      "median": {
+        "value": 0.262,
+        "tolerance": 5e-05
+      },
+      "made": {
+        "value": 0.0386,
+        "tolerance": 5e-05
+      },
+      "niqr": {
+        "value": 0.0402,
+        "tolerance": 5e-05
+      },
+      "assigned_value": {
+        "value": 0.262,
+        "tolerance": 5e-05
+      },
+      "u_assigned": {
+        "value": 0.0086,
+        "tolerance": 5e-05
+      },
+      "sd_pt": {
+        "value": 0.0402,
+        "tolerance": 5e-05
+      }
+    },
+    "reference": {
+      "en": "ISO 13528:2022 Table E.5, row 'Robust: Median, nIQR (MADe)': 0.2620, 0.0402 (0.0386), u(x_pt) = 0.0086 mg/L.",
+      "tr": "ISO 13528:2022 Tablo E.5, 'Robust: Median, nIQR (MADe)' satırı: 0,2620; 0,0402 (0,0386); u(x_pt) = 0,0086 mg/L."
+    }
+  }
+}

@@ -35,7 +35,7 @@ okunabilecek kısa bir belirsizlik değerlendirme rehberi olarak tasarlanmışt�
 Her hesaplama yöntemi yayımlanmış çözümlü örneklerle doğrulanmıştır. Örnekler basılı sonuçlarla eşleştirilmez,
 *girdilerinden* (belgeler veriyorsa ham verilerden) yeniden hesaplanır; her karşılaştırmanın belgelenmiş bir
 toleransı vardır: belgenin basılı yuvarlaması ya da ölçülen Monte Carlo saçılımının yaklaşık beş katı.
-Kütüphanedeki 78 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
+Kütüphanedeki 82 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
 ötesinde değiştirirse derleme başarısız olur.
 
 Örneklerin girdilerinden yeniden hesaplanması, yayımlanmış örneklerin kendi içinde tutarsız olduğu yerleri de

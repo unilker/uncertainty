@@ -95,3 +95,16 @@ List<List<double>>? parsePairs(String s) {
   }
   return out;
 }
+
+/// Parses rows of numbers (one row per line), each with the same number of
+/// values, at least [min] of them.
+List<List<double>>? parseRows(String s, {int min = 1}) {
+  final out = <List<double>>[];
+  for (final line in s.split('\n')) {
+    if (line.trim().isEmpty) continue;
+    final v = parseList(line);
+    if (v == null || v.length < min || (out.isNotEmpty && v.length != out.first.length)) return null;
+    out.add(v);
+  }
+  return out;
+}

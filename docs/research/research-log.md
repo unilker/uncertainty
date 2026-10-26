@@ -817,3 +817,40 @@ Student t₃ inputs "with standard deviations" u, i.e. the rescaled
 convention of TN 1900 (F31), not JCGM 101 6.4.9. Its results for the thermal
 expansion coefficient (95 % interval (1.4, 2.05) × 10⁻⁵ K⁻¹) agree with the
 library project `nist-tn1900-e13-thermal-expansion-student-95`.
+
+**D31. Proficiency-testing projects (ISO 13528:2022).** A third project type,
+`proficiency`, evaluates one round of a proficiency testing scheme: median,
+MADe, nIQR, Algorithm A (C.3.1, with the stopping rule of the third
+significant figure or full convergence) and Algorithm S (C.4); the assigned
+value from Algorithm A, the median, the mean or a reference value, with
+u(x_pt) = 1.25 s*/√p (Formula 6) and optional inhomogeneity, transport and
+stability components (Formula 3); σ_pt from the results or given; the scores
+D, D %, PA, z, z′, ζ and E_n with their signals; the screening of reported
+uncertainties (9.8); and the homogeneity (B.3, with the expanded criterion
+of B.2.3, F₁ and F_m computed exactly from χ² and F quantiles) and stability
+(B.5) checks. Validation: Tables E.4 and E.5 (Algorithm A reproduced at every
+one of the six iterations, including the limits x* ± δ), Table E.7 (all 126
+scores of the 21 laboratories) and E.2 (homogeneity and stability); Table
+B.1's F₁ and F₂ are reproduced from their definitions. Reports (EN/TR) with a
+z-score chart and a homogeneity chart; the interface has a data editor in
+which results are pasted from a spreadsheet, and a results view. Relevance:
+TÜBİTAK UME organises proficiency tests and the same statistics are needed by
+participants (ζ and E_n against their own uncertainty). 82 library projects.
+
+**F36. ISO 13528 E.4 — uncertainty flags not reproducible from 9.8
+(class b, to clarify).** Table E.6 flags the reported uncertainties a/b/c
+"following criteria discussed in 9.8", but with u_min = u(x_pt) = 0.0041
+mg/kg (9.8.3) L05 (u = 0.0035) and L09 (u = 0.0040) would be flagged b,
+whereas the table flags them a. The printed flags imply a lower limit between
+0.0018 and 0.0035 mg/kg (perhaps the characterisation uncertainty without the
+inhomogeneity component) and an upper limit between 0.005 and 0.015 mg/kg
+(consistent with 1.5σ_pt = 0.0099 mg/kg rather than with 1.5 s*). The scores
+of Table E.7 are all reproduced; the flags are not checked.
+
+**F37. Bimodal results and Algorithm A.** In ISO 13528 E.4 (two groups of
+methods) Algorithm A converges in three iterations to the arithmetic mean
+and 1.134 × the standard deviation: with a robust scale that grows at each
+step no result remains outside x* ± 1.5s*. A robust average is therefore no
+safeguard against a mixture of populations; ISO 13528 handles this case by a
+reference value (as in E.4) or separate assigned values per method (9.2.2 c).
+A note for the guide chapter and the article.

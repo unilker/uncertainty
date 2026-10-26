@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (33)
+- Kimya (37)
 - Elektrik ve RF (15)
 - Akış ve hacim (4)
 - Genel (yöntem doğrulama) (4)
@@ -12,6 +12,93 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Sıcaklık (4)
 
 ## Kimya
+
+### Çikolatada arsenik: YT numunelerinin homojenliği ve kararlılığı (ISO 13528 E.2)
+
+`iso13528-e2-arsenic-homogeneity` — ISO 13528:2022, E.2, Tables E.2 and E.3
+
+ISO 13528:2022 E.2: ikişer kez ölçülen 10 numuneden numuneler arası standart sapma, 0,3σ_pt ile karşılaştırma ve 60 °C'de altı hafta sonra kararlılık kontrolü.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. 1 000 şişeden tabakalı rastgele örneklemeyle seçilen on şişe, tekrarlanabilirlik koşullarında ikişer kez test edilmiştir (Tablo E.2).
+2. Varyans analizi (B.3): genel ortalama 0,18715 mg/kg, numune ortalamalarının standart sapması s_x = 0,00398, numune içi s_w = 0,00556 ve numuneler arası s_s = √(s_x² − s_w²/2) = 0,00060 mg/kg.
+3. Ortalamanın %15'i olan geçici σ_pt = 0,02807 mg/kg ile s_s, 0,3σ_pt = 0,00842 mg/kg'nin çok altındadır: numuneler yeterince homojendir. B.2.3'ün genişletilmiş ölçütü (g = 10 için F₁ = 1,88, F₂ = 1,01) √c = 0,0133 mg/kg verir.
+4. Kararlılık: 60 °C'de altı hafta saklanan iki numune 0,19375 mg/kg ortalama verir; homojenlik ortalamasından 0,00660 mg/kg'lik fark 0,3σ_pt'nin altındadır, dolayısıyla kararlılık yeterlidir (B.5.1).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e2-arsenic-homogeneity.json --lang tr`
+
+### İçme suyunda atrazin: Algoritma A ile robust ortalama (ISO 13528 E.3)
+
+`iso13528-e3-atrazine-algorithm-a` — ISO 13528:2022, E.3, Tables E.4 and E.5
+
+ISO 13528:2022 E.3: 34 katılımcı sonucundan Algoritma A ile atanan değer ve yeterlilik değerlendirmesi için standart sapma; z skorları.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. 34 katılımcı içme suyunda atrazin sonucu bildirmiştir (Tablo E.4, değere göre sıralı). İki çok düşük (0,040 ve 0,055 mg/L) ve bir yüksek (0,4246 mg/L) sonuç çoğunluktan çok uzaktır.
+2. Algoritma A (C.3.1) x* = medyan = 0,2620 ve s* = MADe = 0,0386 mg/L değerleriyle başlar, x* ± 1,5s* dışındaki her sonucu yakın sınırla değiştirir ve x*'ı değiştirilmiş değerlerin ortalaması, s*'ı standart sapmalarının 1,134 katı olarak yeniden hesaplar.
+3. Altı iterasyondan sonra üçüncü anlamlı basamaklar değişmez: x* = 0,2570 mg/L, s* = 0,0395 mg/L. Aritmetik ortalama 0,2512 ve standart sapma 0,0672 mg/L, üç uç sonuç tarafından çekilir.
+4. Atanan değer x_pt = x*, u(x_pt) = 1,25 s*/√p = 1,25 × 0,0395/√34 = 0,0085 mg/L (Formül 6) ve σ_pt = s*'tır. u(x_pt) < 0,3σ_pt = 0,0119 mg/L olduğundan atanan değerin belirsizliği ihmal edilebilir (9.2.1) ve z skorları kullanılır; 1, 2 ve 34 numaralı laboratuvarlar eylem sinyali alır.
+
+**Sonuç:**
+
+- x_pt = 0,257 mg/L, U(x_pt) = 0,017 mg/L (k = 2,00)
+
+**Notlar:**
+
+- C.3.1'in durma kuralı (üçüncü anlamlı basamaklarda değişiklik olmaması) kullanılmıştır; tam yakınsamaya kadar iterasyon x* = 0,257011 ve s* = 0,039520 mg/L verir, basılı basamaklara kadar aynıdır. Tablo E.5'teki nIQR (0,0402), sıra istatistikleri arasında doğrusal enterpolasyonla bulunan çeyreklere karşılık gelir; diğer çeyrek tanımları 0,0379 ile 0,0423 arası değerler verir (Tablo E.5, not).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e3-atrazine-algorithm-a.json --lang tr`
+
+### İçme suyunda atrazin: medyan ve nIQR (ISO 13528 E.3)
+
+`iso13528-e3-atrazine-median` — ISO 13528:2022, E.3, Table E.5
+
+ISO 13528:2022 E.3, Tablo E.5'in ilk satırı: atanan değer olarak medyan, u(x_pt) = 1,25 nIQR/√p ve σ_pt olarak nIQR.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. 34 katılımcı içme suyunda atrazin sonucu bildirmiştir (Tablo E.4, değere göre sıralı). İki çok düşük (0,040 ve 0,055 mg/L) ve bir yüksek (0,4246 mg/L) sonuç çoğunluktan çok uzaktır.
+2. C.2'nin basit robust tahmin edicileri: medyan 0,2620 mg/L, MADe = 1,483 × medyan mutlak sapma = 0,0386 mg/L ve nIQR = 0,7413 (Q₃ − Q₁) = 0,0402 mg/L.
+3. Atanan değer medyan olduğunda u(x_pt) = 1,25 × 0,0402/√34 = 0,0086 mg/L olur; bu, Algoritma A ile bulunan değerle (0,0085 mg/L) pratik olarak aynıdır; nIQR'nin kırılma noktası %25, MADe'ninki %50'dir (C.2.3, Not 1).
+
+**Sonuç:**
+
+- x_pt = 0,262 mg/L, U(x_pt) = 0,017 mg/L (k = 2,00)
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e3-atrazine-median.json --lang tr`
+
+### Hayvan yeminde cıva: z, z′, ζ ve E_n skorları (ISO 13528 E.4)
+
+`iso13528-e4-mercury-feed` — ISO 13528:2022, E.4, Tables E.6 and E.7
+
+ISO 13528:2022 E.4 (IMEP 111): bir referans değere ve amaca uygun σ_pt'ye karşı 21 laboratuvarın, bildirdikleri belirsizlikler kullanılarak hesaplanan skorları.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. x_pt = 0,044 mg/kg, U(x_pt) = 0,0082 mg/kg (k = 2, karakterizasyon ve homojensizlik) olan bir referans değerdir; σ_pt = 0,0066 mg/kg (%15) amaca uygunluk değeridir ve PA skorları için δ_E = 3σ_pt'dir. 'Küçüktür' olarak bildirilen üç sonuç skorlanmaz.
+2. Laboratuvarların standart belirsizlikleri, genişletilmiş belirsizliklerinin kapsam faktörlerine bölünmesiyle bulunur (L23: k = 1,732); yuvarlanmamış değerler kullanılır.
+3. z = D/σ_pt, z′ = D/√(σ_pt² + u²(x_pt)), ζ = D/√(u²(x) + u²(x_pt)) ve E_n = D/√(U²(x) + U²(x_pt)). Burada u(x_pt) = 0,0041 > 0,3σ_pt = 0,0020 olduğundan atanan değerin belirsizliği ihmal edilemez ve z′, z'den yaklaşık %15 küçüktür.
+4. Sonuçlar yönteme göre iki tepelidir: doğrudan cıva analizörü (AMA) kullanan sekiz laboratuvar ile AAS kullanan bir laboratuvar referans değerin %30 ile %54'ünü bulur ve eylem sinyali alır (|z| ≥ 3); CV-AAS, HG-AAS veya ICP-MS kullanan laboratuvarların hepsi kabul edilebilir sonuç verir.
+
+**Sonuç:**
+
+- x_pt = 0,0440 mg/kg, U(x_pt) = 0,0082 mg/kg (k = 2,00)
+
+**Notlar:**
+
+- Tablo E.6, bildirilen belirsizlikleri '9.8'de tartışılan ölçütlere göre' a/b/c olarak işaretler; ancak bayraklar u_min = u(x_pt) = 0,0041 mg/kg (9.8.3) ile yeniden üretilemez: L05 (u = 0,0035) ve L09 (u = 0,0040) 'a' olarak işaretlenmiştir. Bayraklar 0,0018 ile 0,0035 mg/kg arasında bir alt sınıra (belki homojensizlik içermeyen karakterizasyon belirsizliği) ve 0,005 ile 0,015 mg/kg arasında bir üst sınıra (1,5σ_pt = 0,0099 ile tutarlı) işaret eder. Bu nedenle bayraklar burada kontrol edilmemiştir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang tr`
 
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 

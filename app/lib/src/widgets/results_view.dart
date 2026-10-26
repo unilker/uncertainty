@@ -29,11 +29,14 @@ class ResultsView extends StatelessWidget {
           color: Theme.of(context).colorScheme.primaryContainer,
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(s['reported'], style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 8),
-              for (final line in reported) SelectableText(line, key: const Key('reported')),
-            ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(s['reported'], style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 8),
+                for (final line in reported) SelectableText(line, key: const Key('reported')),
+              ],
+            ),
           ),
         ),
     ];
@@ -41,19 +44,28 @@ class ResultsView extends StatelessWidget {
     if (results['gum'] != null) children.addAll(_gum(context, results, unit, warnings));
     if (results['mcm'] != null) children.addAll(_mcm(context, results));
     if (results['topdown'] != null) children.addAll(_topdown(context, results['topdown'] as Map<String, dynamic>, unit));
+    if (results['proficiency'] != null) {
+      children.addAll(_proficiency(context, results['proficiency'] as Map<String, dynamic>, unit));
+    }
     final checks = (results['checks'] as List?) ?? const [];
     if (checks.isNotEmpty) {
       children.add(Section(s['checks']));
-      children.add(_table(context, ['', s['computed'], s['expected'], '±', ''], [
-        for (final c in checks.cast<Map<String, dynamic>>())
+      children.add(
+        _table(
+          context,
+          ['', s['computed'], s['expected'], '±', ''],
           [
-            c['what'].toString(),
-            fmtNum(_d(c['computed']), 6, s.lang),
-            fmtNum(_d(c['expected']), 6, s.lang),
-            fmtNum(_d(c['tolerance']), 3, s.lang),
-            c['passed'] == true ? s['passed'] : s['failed'],
-          ]
-      ]));
+            for (final c in checks.cast<Map<String, dynamic>>())
+              [
+                c['what'].toString(),
+                fmtNum(_d(c['computed']), 6, s.lang),
+                fmtNum(_d(c['expected']), 6, s.lang),
+                fmtNum(_d(c['tolerance']), 3, s.lang),
+                c['passed'] == true ? s['passed'] : s['failed'],
+              ],
+          ],
+        ),
+      );
     }
     return ListView(padding: const EdgeInsets.fromLTRB(16, 8, 16, 96), children: children);
   }
@@ -71,36 +83,47 @@ class ResultsView extends StatelessWidget {
           color: Theme.of(context).colorScheme.tertiaryContainer,
           child: Padding(
             padding: const EdgeInsets.all(12),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(s['warnings'], style: Theme.of(context).textTheme.titleSmall),
-              for (final w in warnings) Text('• $w', key: const Key('warning')),
-            ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(s['warnings'], style: Theme.of(context).textTheme.titleSmall),
+                for (final w in warnings) Text('• $w', key: const Key('warning')),
+              ],
+            ),
           ),
         ),
       Section(s['gum']),
-      _table(context, ['', ''], [
-        [s['estimate'], '${fmtEstimate(_d(g['estimate']), _d(g['standard_uncertainty']), s.lang)}$u'],
-        [s['combined'], '${fmtNum(_d(g['standard_uncertainty']), 3, s.lang)}$u'],
-        [s['eff_dof'], fmtNum(_d(g['effective_dof']), 3, s.lang)],
-        [s['k'], fmtNum(_d(g['coverage_factor']), 3, s.lang)],
-        [s['p'], fmtPct(_d(g['coverage_probability']), 4, s.lang)],
-        [s['expanded'], '${fmtNum(_d(g['expanded_uncertainty']), 3, s.lang)}$u'],
-        if (kragten != null) ['Kragten u_c', '${fmtNum(_d(kragten['combined_standard_uncertainty']), 3, s.lang)}$u'],
-      ]),
+      _table(
+        context,
+        ['', ''],
+        [
+          [s['estimate'], '${fmtEstimate(_d(g['estimate']), _d(g['standard_uncertainty']), s.lang)}$u'],
+          [s['combined'], '${fmtNum(_d(g['standard_uncertainty']), 3, s.lang)}$u'],
+          [s['eff_dof'], fmtNum(_d(g['effective_dof']), 3, s.lang)],
+          [s['k'], fmtNum(_d(g['coverage_factor']), 3, s.lang)],
+          [s['p'], fmtPct(_d(g['coverage_probability']), 4, s.lang)],
+          [s['expanded'], '${fmtNum(_d(g['expanded_uncertainty']), 3, s.lang)}$u'],
+          if (kragten != null) ['Kragten u_c', '${fmtNum(_d(kragten['combined_standard_uncertainty']), 3, s.lang)}$u'],
+        ],
+      ),
       Section(s['budget']),
-      _table(context, [s['quantity'], s['estimate'], s['std_unc'], s['dof'], s['sensitivity'], s['contribution'], s['share'], if (kc != null) 'Kragten Δᵢ'], [
-        for (final (i, b) in budget.indexed)
-          [
-            b['name'].toString(),
-            fmtEstimate(_d(b['estimate']), _d(b['standard_uncertainty']), s.lang),
-            fmtNum(_d(b['standard_uncertainty']), 3, s.lang),
-            fmtNum(_d(b['dof']), 3, s.lang),
-            fmtNum(_d(b['sensitivity']), 3, s.lang),
-            fmtNum(_d(b['contribution']), 3, s.lang),
-            fmtPct(_d(b['variance_share']), 3, s.lang),
-            if (kc != null) fmtNum(kc[i], 3, s.lang),
-          ]
-      ]),
+      _table(
+        context,
+        [s['quantity'], s['estimate'], s['std_unc'], s['dof'], s['sensitivity'], s['contribution'], s['share'], if (kc != null) 'Kragten Δᵢ'],
+        [
+          for (final (i, b) in budget.indexed)
+            [
+              b['name'].toString(),
+              fmtEstimate(_d(b['estimate']), _d(b['standard_uncertainty']), s.lang),
+              fmtNum(_d(b['standard_uncertainty']), 3, s.lang),
+              fmtNum(_d(b['dof']), 3, s.lang),
+              fmtNum(_d(b['sensitivity']), 3, s.lang),
+              fmtNum(_d(b['contribution']), 3, s.lang),
+              fmtPct(_d(b['variance_share']), 3, s.lang),
+              if (kc != null) fmtNum(kc[i], 3, s.lang),
+            ],
+        ],
+      ),
       Section(s['contributions_chart']),
       SharesChart(rows: [for (final b in budget) MapEntry(b['name'].toString(), _d(b['variance_share']) ?? 0)], lang: s.lang),
     ];
@@ -118,20 +141,24 @@ class ResultsView extends StatelessWidget {
     final pct = fmtPct(_d(m['coverage_probability']), 4, s.lang);
     return [
       Section(s['mcm']),
-      _table(context, ['', ''], [
-        [s['trials'], '${m['trials']} (${s['seed']}: ${m['seed']})'],
-        [s['estimate'], fmtEstimate(_d(m['estimate']), _d(m['standard_uncertainty']), s.lang)],
-        [s['std_unc'], fmtNum(_d(m['standard_uncertainty']), 3, s.lang)],
-        ['${s['shortest']} ($pct)', '[${fmtNum(shortest[0], 6, s.lang)}; ${fmtNum(shortest[1], 6, s.lang)}]'],
-        ['${s['symmetric']} ($pct)', '[${fmtNum(symmetric[0], 6, s.lang)}; ${fmtNum(symmetric[1], 6, s.lang)}]'],
-        if (v != null)
-          [
-            s['validation'],
-            '${v['validated'] == true ? s['validated'] : s['not_validated']} '
-                '(n_dig = ${v['ndig']}, ${s['tolerance']} δ = ${fmtNum(_d(v['tolerance']), 3, s.lang)}; '
-                'd_low = ${fmtNum(_d(v['d_low']), 3, s.lang)}, d_high = ${fmtNum(_d(v['d_high']), 3, s.lang)})',
-          ],
-      ]),
+      _table(
+        context,
+        ['', ''],
+        [
+          [s['trials'], '${m['trials']} (${s['seed']}: ${m['seed']})'],
+          [s['estimate'], fmtEstimate(_d(m['estimate']), _d(m['standard_uncertainty']), s.lang)],
+          [s['std_unc'], fmtNum(_d(m['standard_uncertainty']), 3, s.lang)],
+          ['${s['shortest']} ($pct)', '[${fmtNum(shortest[0], 6, s.lang)}; ${fmtNum(shortest[1], 6, s.lang)}]'],
+          ['${s['symmetric']} ($pct)', '[${fmtNum(symmetric[0], 6, s.lang)}; ${fmtNum(symmetric[1], 6, s.lang)}]'],
+          if (v != null)
+            [
+              s['validation'],
+              '${v['validated'] == true ? s['validated'] : s['not_validated']} '
+                  '(n_dig = ${v['ndig']}, ${s['tolerance']} δ = ${fmtNum(_d(v['tolerance']), 3, s.lang)}; '
+                  'd_low = ${fmtNum(_d(v['d_low']), 3, s.lang)}, d_high = ${fmtNum(_d(v['d_high']), 3, s.lang)})',
+            ],
+        ],
+      ),
       if (h != null) ...[
         Section(s['histogram']),
         HistogramChart(
@@ -178,37 +205,53 @@ class ResultsView extends StatelessWidget {
     final k = fmtNum(_d(t['coverage_factor']), 3, s.lang);
     return [
       Section(s['budget']),
-      _table(context, [s['name'], s['type'], s['std_unc'], '×', s['range']], [
-        for (final b in budget) [b['name'].toString(), b['relative'] == true ? s['rel_kind'] : s['absolute'], uOf(b), '${b['multiplicity']}', range(b)]
-      ]),
+      _table(
+        context,
+        [s['name'], s['type'], s['std_unc'], '×', s['range']],
+        [
+          for (final b in budget) [b['name'].toString(), b['relative'] == true ? s['rel_kind'] : s['absolute'], uOf(b), '${b['multiplicity']}', range(b)],
+        ],
+      ),
       for (final b in biases)
         Padding(
           padding: const EdgeInsets.only(top: 8),
-          child: Text('${b['name']}: ${s['rms_bias']} ${b['relative'] == true ? fmtPct(_d(b['rms_bias']), 3, s.lang) : fmtNum(_d(b['rms_bias']), 3, s.lang)}, '
-              '${s['u_ref']} ${b['relative'] == true ? fmtPct(_d(b['mean_u_reference']), 3, s.lang) : fmtNum(_d(b['mean_u_reference']), 3, s.lang)}'),
+          child: Text(
+            '${b['name']}: ${s['rms_bias']} ${b['relative'] == true ? fmtPct(_d(b['rms_bias']), 3, s.lang) : fmtNum(_d(b['rms_bias']), 3, s.lang)}, '
+            '${s['u_ref']} ${b['relative'] == true ? fmtPct(_d(b['mean_u_reference']), 3, s.lang) : fmtNum(_d(b['mean_u_reference']), 3, s.lang)}',
+          ),
         ),
       if (rec != null)
         Padding(
           padding: const EdgeInsets.only(top: 8),
-          child: Text('${s['mean_recovery']} ${fmtPct(_d(rec['mean']), 4, s.lang)}, u = ${fmtPct(_d(rec['u_used']), 3, s.lang)}; '
-              '|1 − R̄|/u = ${fmtNum(_d(rec['statistic']), 3, s.lang)}, t = ${fmtNum(_d(rec['critical']), 3, s.lang)}: '
-              '${rec['corrected'] == true ? s['significant'] : s['not_significant']}'),
+          child: Text(
+            '${s['mean_recovery']} ${fmtPct(_d(rec['mean']), 4, s.lang)}, u = ${fmtPct(_d(rec['u_used']), 3, s.lang)}; '
+            '|1 − R̄|/u = ${fmtNum(_d(rec['statistic']), 3, s.lang)}, t = ${fmtNum(_d(rec['critical']), 3, s.lang)}: '
+            '${rec['corrected'] == true ? s['significant'] : s['not_significant']}',
+          ),
         ),
       Section(s['results']),
       absolute
-          ? _table(context, [s['level'], s['result'], 'u_c', 'U (k = $k)', s['rel_expanded']], [
-              for (final l in levels)
-                [
-                  fmtGivenIn(_d(l['level']), s.lang),
-                  fmtNum(_d(l['value']), 5, s.lang),
-                  fmtNum(_d(l['standard_uncertainty']), 3, s.lang),
-                  fmtNum(_d(l['expanded_uncertainty']), 3, s.lang),
-                  fmtPct(_d(l['relative_expanded']), 3, s.lang),
-                ]
-            ])
-          : _table(context, [s['rel_standard'], '${s['rel_expanded']} (k = $k)'], [
-              for (final l in levels) [fmtPct(_d(l['relative_standard']), 3, s.lang), fmtPct(_d(l['relative_expanded']), 3, s.lang)]
-            ]),
+          ? _table(
+              context,
+              [s['level'], s['result'], 'u_c', 'U (k = $k)', s['rel_expanded']],
+              [
+                for (final l in levels)
+                  [
+                    fmtGivenIn(_d(l['level']), s.lang),
+                    fmtNum(_d(l['value']), 5, s.lang),
+                    fmtNum(_d(l['standard_uncertainty']), 3, s.lang),
+                    fmtNum(_d(l['expanded_uncertainty']), 3, s.lang),
+                    fmtPct(_d(l['relative_expanded']), 3, s.lang),
+                  ],
+              ],
+            )
+          : _table(
+              context,
+              [s['rel_standard'], '${s['rel_expanded']} (k = $k)'],
+              [
+                for (final l in levels) [fmtPct(_d(l['relative_standard']), 3, s.lang), fmtPct(_d(l['relative_expanded']), 3, s.lang)],
+              ],
+            ),
       for (final l in levels.take(4)) ...[
         Section(l['level'] == null ? s['contributions_chart'] : '${s['contributions_chart']} — ${fmtGivenIn(_d(l['level']), s.lang)}$u'),
         SharesChart(
@@ -217,6 +260,124 @@ class ResultsView extends StatelessWidget {
         ),
       ],
     ];
+  }
+
+  List<Widget> _proficiency(BuildContext context, Map<String, dynamic> r, String unit) {
+    final s = strings;
+    final u = unit.isEmpty ? '' : ' $unit';
+    String n(dynamic v, [int sig = 4]) => v == null ? '—' : fmtNum(_d(v), sig, s.lang);
+    String z(dynamic v) {
+      final d = _d(v);
+      if (d == null) return '—';
+      final t = d.toStringAsFixed(2);
+      return s.lang == 'tr' ? t.replaceAll('.', ',') : t;
+    }
+
+    final out = <Widget>[];
+    final sm = r['summary'] as Map<String, dynamic>?;
+    if (sm != null) {
+      final robust = sm['robust'] as Map<String, dynamic>?;
+      out.addAll([
+        Section(s['pt_summary']),
+        _table(
+          context,
+          ['', ''],
+          [
+            [s['pt_p'], '${sm['p']}'],
+            [s['pt_median'], '${n(sm['median'])}$u'],
+            ['MADe', '${n(sm['made'])}$u'],
+            ['nIQR', '${n(sm['niqr'])}$u'],
+            if (robust != null) [s['pt_robust_mean'], '${n(robust['mean'])}$u'],
+            if (robust != null) [s['pt_robust_sd'], '${n(robust['sd'])}$u (${robust['iterations']} ${s['pt_iterations']})'],
+            [s['pt_mean'], '${n(sm['mean'])}$u'],
+            [s['sd'], '${n(sm['sd'])}$u'],
+          ],
+        ),
+      ]);
+    }
+    final a = r['assigned'] as Map<String, dynamic>?;
+    if (a != null) {
+      out.addAll([
+        Section(s['pt_assigned']),
+        _table(
+          context,
+          ['', ''],
+          [
+            ['x_pt', '${n(a['value'])}$u'],
+            [s['pt_u_assigned'], '${n(a['u'], 3)}$u'],
+            ['U(x_pt) (k = ${n(r['coverage_factor'], 3)})', '${n(a['expanded'], 3)}$u'],
+            if (r['sd_pt'] != null) ['σ_pt', '${n(r['sd_pt'], 3)}$u'],
+            if (r['delta_e'] != null) ['δ_E', '${n(r['delta_e'], 3)}$u'],
+          ],
+        ),
+        if (r['u_negligible'] != null) Text(r['u_negligible'] == true ? s['pt_negligible'] : s['pt_not_negligible']),
+      ]);
+    }
+    final parts = (r['participants'] as List? ?? const []).cast<Map<String, dynamic>>();
+    if (parts.isNotEmpty) {
+      final hasU = parts.any((p) => p['u'] != null);
+      String signal(Map<String, dynamic> p) => switch (p['z_signal']) {
+        'acceptable' => s['pt_acceptable'],
+        'warning' => s['pt_warning'],
+        'action' => s['pt_action'],
+        _ => p['censored'] != null ? s['pt_censored'] : '—',
+      };
+      out.addAll([
+        Section(s['pt_scores']),
+        _table(
+          context,
+          [s['pt_lab'], s['result'], if (hasU) 'u(x)', 'D %', 'z', 'z′', if (hasU) 'ζ', if (hasU) 'E_n', s['pt_signal']],
+          [
+            for (final p in parts)
+              [
+                p['lab'].toString(),
+                p['value'] != null ? fmtGivenIn(_d(p['value']), s.lang) : (p['censored'] ?? '—').toString(),
+                if (hasU) n(p['u'], 2),
+                p['d_percent'] == null ? '—' : fmtNum(_d(p['d_percent']), 3, s.lang),
+                z(p['z']),
+                z(p['z_prime']),
+                if (hasU) z(p['zeta']),
+                if (hasU) '${z(p['en'])}${p['en_satisfactory'] == false ? ' ⚠' : ''}',
+                signal(p),
+              ],
+          ],
+        ),
+      ]);
+      final zs = [
+        for (final p in parts)
+          if (_d(p['z']) != null) MapEntry(p['lab'].toString(), _d(p['z'])!),
+      ];
+      if (zs.isNotEmpty) out.addAll([Section(s['pt_z_chart']), ZScoreChart(rows: zs, lang: s.lang)]);
+    }
+    final h = r['homogeneity'] as Map<String, dynamic>?;
+    if (h != null) {
+      out.addAll([
+        Section(s['pt_hom_result']),
+        _table(
+          context,
+          ['', ''],
+          [
+            ['g × m', '${h['items']} × ${h['replicates']}'],
+            ['x̄', '${n(h['mean'], 5)}$u'],
+            ['s_x', '${n(h['s_x'], 3)}$u'],
+            ['s_w', '${n(h['s_w'], 3)}$u'],
+            ['s_s', '${n(h['s_s'], 3)}$u'],
+            [s['pt_criterion'], '${n(h['criterion'], 3)}$u — ${h['sufficient'] == true ? s['pt_sufficient'] : s['pt_not_sufficient']}'],
+          ],
+        ),
+      ]);
+    }
+    final st = r['stability'] as Map<String, dynamic>?;
+    if (st != null) {
+      out.addAll([
+        Section(s['pt_stab_result']),
+        Text(
+          '${s['pt_difference']} ${n(st['difference'], 3)}$u; ${s['pt_criterion']} ${n(st['criterion'], 3)}$u — '
+          '${st['sufficient'] == true ? s['pt_sufficient'] : s['pt_not_sufficient']}',
+        ),
+      ]);
+    }
+    return out;
   }
 
   Widget _table(BuildContext context, List<String> head, List<List<String>> rows) {

@@ -11,11 +11,12 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | ikisinden biri | ölçüm modeli (7.3) |
-| `topdown` | ikisinden biri | top-down değerlendirme (7.6) |
-| `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); top-down projelerde dikkate alınmaz |
+| `model` | üçünden biri | ölçüm modeli (7.3) |
+| `topdown` | üçünden biri | top-down değerlendirme (7.6) |
+| `proficiency` | üçünden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); yalnızca model projelerinde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.8) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.9) |
 
 ## 7.2 `metadata`
 
@@ -138,14 +139,40 @@ s(R) dahil edilmişse N − 1'dir.
 `{ "name", "u" | "u_percent" | "half_width" | "half_width_percent", "distribution": "rectangular" |
 "triangular", "multiplicity": 1, "range" }`.
 
-## 7.7 Hatalar
+## 7.7 `proficiency`
 
-Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; hem `model` hem `topdown`
-içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+```json
+"proficiency": {
+  "quantity": "atrazine", "unit": "mg/L",
+  "results": [ { "lab": "L01", "value": 0.262, "expanded": 0.03, "k": 2, "method": "GC-MS" },
+               { "lab": "L17", "less_than": 0.015 } ],
+  "assigned_value": { "method": "algorithm_a" },
+  "sd_pt": { "method": "robust" }
+}
+```
+
+| Alan | İçerik |
+|---|---|
+| `results` | her katılımcı için bir giriş: `lab` (benzersiz), `value` ya da `less_than`/`greater_than` (sansürlü, skorlanmaz), `u` ya da `k` ile `expanded` (varsayılan k = 2), `method` |
+| `assigned_value` | `method`: `algorithm_a` (x*, u = `u_factor`·s*/√p, `u_factor` 1,25), `median` (u = 1,25·`scale`/√p, `scale` `niqr` veya `made`), `mean` (u = s/√p), `reference` (`value` ile `u` ya da `expanded` ve `k`); isteğe bağlı `u_hom`, `u_trans`, `u_stab` kareler toplamıyla eklenir (ISO 13528 Formül 3) |
+| `sd_pt` | `method`: `robust` (s*), `made`, `niqr`, `sd` ya da `value` veya `percent` (x_pt'nin yüzdesi) ile `given` |
+| `delta_e`, `delta_e_percent` | PA skorları için ölçüm hatası izni δ_E (varsayılan 3σ_pt) |
+| `coverage_factor` | E_n için U(x_pt)'nin k değeri (varsayılan 2; referans değerin verilmiş genişletilmiş belirsizliği olduğu gibi kullanılır) |
+| `uncertainty_screening` | `u_min`, `u_max`: sayı ya da `"u_assigned"`, `"1.5_robust_sd"`, `"1.5_sd_pt"` (ISO 13528 9.8) |
+| `homogeneity` | `items` (her numune için tekrar sonuçları listesi, sayıları eşit), `sd_pt` veya `sd_pt_percent_of_mean` (varsayılan: turun σ_pt'si) |
+| `stability` | `values`; `reference` (varsayılan: homojenlik ortalaması); Formül (B.18) için `u_reference` ve `u_values` |
+| `algorithm_a` | `"third_significant_figure"` (C.3.1'in durma kuralı, varsayılan) veya `"converged"` |
+
+Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş bırakılabilir.
+
+## 7.8 Hatalar
+
+Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown` ve
+`proficiency` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.8 `expected`
+## 7.9 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -160,3 +187,6 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
     `chi_squared`, `significant`
   * `levels`: `{ "level", "value", "standard_uncertainty", "expanded_uncertainty",
     "relative_standard_percent", "relative_expanded_percent" }` listesi
+* `proficiency`: `assigned_value`, `u_assigned`, `sd_pt`, `median`, `made`, `niqr`, `robust_mean`, `robust_sd`,
+  `iterations`, `mean`, `sd`; `scores`: `{ "<laboratuvar>": { "d", "d_percent", "pa", "z", "z_prime", "zeta", "en" } }`;
+  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`

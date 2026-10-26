@@ -43,9 +43,13 @@ Türkçe ve İngilizce.
   range), CRMs, proficiency-test rounds, spike recoveries; concentration
   ranges, recovery significance test and correction, χ² equivalence of
   recoveries (Nordtest TR 537, Eurachem/CITAC MUPR).
-- [Example library](library/README.md): 60 published examples (38 model-based:
-  chemistry, mass, length, temperature, electrical, flow; 22 top-down:
-  Nordtest, MUPR, QUAM A4/A6) as self-checking projects.
+- Proficiency testing (ISO 13528:2022): median, MADe, nIQR, Algorithm A and S,
+  assigned value and its uncertainty, D, D %, PA, z, z′, ζ and E_n scores,
+  screening of reported uncertainties, homogeneity and stability checks.
+- [Example library](library/README.md): 82 published examples (56 model-based:
+  chemistry, mass, length, temperature, electrical, flow, physical properties;
+  22 top-down: Nordtest, MUPR, QUAM A4/A6; 4 proficiency testing: ISO 13528)
+  as self-checking projects.
 
 ## Usage / Kullanım
 
@@ -54,6 +58,7 @@ cargo build --release
 B=target/release/uncertainty
 $B template > my.json                                   # start a project / proje başlat
 $B template --topdown > td.json                         # top-down project from raw data
+$B template --proficiency > pt.json                     # proficiency test round (ISO 13528)
 $B run library/chemistry/quam-a1-cadmium-standard.json  # Markdown report (English)
 $B run my.json --lang tr -o rapor.html                  # Türkçe HTML rapor
 $B run my.json --format json --no-mcm                   # machine-readable results
@@ -62,31 +67,32 @@ $B check library                                        # re-verify all examples
 
 ## Graphical interface / Grafik arayüz
 
-[app/](app/README.md) — Flutter application (Linux built and tested; Windows, macOS, Android, iOS
-packaging in progress) using the same Rust engine through a C interface ([ffi/](ffi/src/lib.rs)):
-library browser, model and top-down editors with direct entry of raw data, results with budget, charts
-and validation, HTML/Markdown report export, English and Turkish.
+[app/](app/README.md) — Flutter application (Linux, Windows and Android packages built and tested by the
+Package workflow; macOS and iOS next) using the same Rust engine through a C interface
+([ffi/](ffi/src/lib.rs)): library browser, model, top-down and proficiency-test editors with direct entry of
+raw data, results with budget, charts and validation, HTML/Markdown report export, English and Turkish.
 
-Flutter uygulaması (Linux derlenmiş ve test edilmiş; diğer platformlar sırada); aynı Rust motorunu
-kullanır: örnek kütüphanesi, model ve ham veri girişli top-down düzenleyicileri, bütçe, grafikler ve
-doğrulamayla sonuçlar, HTML/Markdown rapor, Türkçe ve İngilizce.
+Flutter uygulaması (Linux, Windows ve Android paketleri Package iş akışıyla derlenir ve test edilir; macOS
+ve iOS sırada); aynı Rust motorunu kullanır: örnek kütüphanesi, ham veri girişli model, top-down ve
+yeterlilik testi düzenleyicileri, bütçe, grafikler ve doğrulamayla sonuçlar, HTML/Markdown rapor, Türkçe ve
+İngilizce.
 
 ## User guide / Kullanım rehberi
 
 [docs/guide](docs/guide/README.md) — in English and Turkish: getting started, the GUM uncertainty framework,
 the Monte Carlo method, top-down evaluation, reporting, the project file reference, an English–Turkish
-glossary and all library examples with their results recomputed by the program.
+glossary, proficiency testing and all library examples with their results recomputed by the program.
 
 İngilizce ve Türkçe: başlarken, GUM belirsizlik yaklaşımı, Monte Carlo yöntemi, top-down değerlendirme,
-raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük ve sonuçları program tarafından yeniden
+raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük, yeterlilik testi ve sonuçları program tarafından yeniden
 hesaplanan tüm kütüphane örnekleri.
 
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (107 tests; one of them reruns all 78 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
+automated test (107 tests; one of them reruns all 82 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
-their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11). Details, tolerances and findings:
+their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11) and the worked examples E.2–E.4 of ISO 13528:2022. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

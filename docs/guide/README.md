@@ -10,7 +10,8 @@
 6. [Reporting](en/06-reporting.md)
 7. [Project file reference](en/07-project-files.md)
 8. [Glossary (English–Turkish)](en/08-glossary.md)
-9. [Worked examples](en/examples.md) (generated)
+9. [Proficiency testing (ISO 13528)](en/09-proficiency-testing.md)
+10. [Worked examples](en/examples.md) (generated)
 
 **Türkçe**
 
@@ -22,7 +23,8 @@
 6. [Raporlama](tr/06-raporlama.md)
 7. [Proje dosyası başvurusu](tr/07-proje-dosyasi.md)
 8. [Sözlük (İngilizce–Türkçe)](tr/08-sozluk.md)
-9. [Çözümlü örnekler](tr/examples.md) (otomatik üretilir)
+9. [Yeterlilik testi (ISO 13528)](tr/09-yeterlilik-testi.md)
+10. [Çözümlü örnekler](tr/examples.md) (otomatik üretilir)
 
 The worked-examples chapters are generated from the example library and checked by the test suite
 (`project/tests/library.rs`). After changing the library, regenerate them with

@@ -21,6 +21,7 @@
 //! }
 //! ```
 
+use crate::proficiency::{ExpectedProficiency, ProficiencySpec};
 use crate::topdown::{ExpectedTopDown, TopDownSpec};
 use serde::{Deserialize, Serialize};
 
@@ -82,6 +83,9 @@ pub struct Project {
     /// Top-down evaluation from validation and quality-control data.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub topdown: Option<TopDownSpec>,
+    /// One round of a proficiency testing scheme (ISO 13528).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub proficiency: Option<ProficiencySpec>,
     #[serde(default)]
     pub analysis: AnalysisSpec,
     #[serde(default)]
@@ -463,6 +467,8 @@ pub struct Expected {
     pub mcm: Option<ExpectedMcm>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub topdown: Option<ExpectedTopDown>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub proficiency: Option<ExpectedProficiency>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,

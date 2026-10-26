@@ -10,12 +10,12 @@ const HELP: &str = "\
 Uncertainty Calculations (Belirsizlik Hesaplamaları) — measurement uncertainty
 evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101), or
 top-down from validation and quality-control data (Nordtest TR 537,
-Eurachem/CITAC MUPR).
+Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm]
-    uncertainty template [--topdown]
+    uncertainty template [--topdown | --proficiency]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -37,8 +37,9 @@ CATALOGUE:
     given project files, recomputing every result (without Monte Carlo).
 
 TEMPLATE:
-    Prints a minimal project file to start from: a measurement model, or with
-    --topdown a top-down evaluation from raw validation data.
+    Prints a minimal project file to start from: a measurement model, with
+    --topdown a top-down evaluation from raw validation data, or with
+    --proficiency a proficiency test round (ISO 13528).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -92,6 +93,30 @@ const TEMPLATE_TOPDOWN: &str = r#"{
 }
 "#;
 
+const TEMPLATE_PROFICIENCY: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Proficiency test round", "tr": "Yeterlilik testi turu" },
+    "field": "chemistry"
+  },
+  "proficiency": {
+    "quantity": "c(Pb)",
+    "unit": "mg/kg",
+    "results": [
+      { "lab": "L01", "value": 10.2, "expanded": 0.8, "k": 2 },
+      { "lab": "L02", "value": 9.7, "expanded": 0.9, "k": 2 },
+      { "lab": "L03", "value": 10.5, "expanded": 1.0, "k": 2 },
+      { "lab": "L04", "value": 12.9, "expanded": 0.6, "k": 2 },
+      { "lab": "L05", "value": 9.9, "expanded": 0.7, "k": 2 },
+      { "lab": "L06", "value": 10.1, "expanded": 1.2, "k": 2 }
+    ],
+    "assigned_value": { "method": "algorithm_a" },
+    "sd_pt": { "method": "given", "percent": 10 }
+  }
+}
+"#;
+
 #[derive(Clone, Copy, PartialEq)]
 enum Format {
     Markdown,
@@ -112,6 +137,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--topdown") => {
             print!("{TEMPLATE_TOPDOWN}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--proficiency") => {
+            print!("{TEMPLATE_PROFICIENCY}");
             Ok(true)
         }
         Some("template") => {

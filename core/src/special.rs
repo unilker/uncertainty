@@ -381,6 +381,41 @@ pub fn chi_squared_quantile(p: f64, nu: f64) -> f64 {
     x
 }
 
+/// Distribution function of the F distribution with (ν₁, ν₂) degrees of
+/// freedom: P(F ≤ x) = I_{ν₁x/(ν₁x + ν₂)}(ν₁/2, ν₂/2).
+pub fn f_cdf(x: f64, nu1: f64, nu2: f64) -> f64 {
+    if !(x > 0.0) {
+        return 0.0;
+    }
+    beta_inc(0.5 * nu1, 0.5 * nu2, nu1 * x / (nu1 * x + nu2))
+}
+
+/// Quantile of the F distribution with (ν₁, ν₂) degrees of freedom, by
+/// bisection on [`f_cdf`] (e.g. F₀.₉₅(ν₁, ν₂), the value exceeded with
+/// probability 0.05).
+pub fn f_quantile(p: f64, nu1: f64, nu2: f64) -> f64 {
+    assert!(p > 0.0 && p < 1.0, "f_quantile requires 0 < p < 1");
+    assert!(nu1 > 0.0 && nu2 > 0.0, "degrees of freedom must be positive");
+    let mut lo = 0.0_f64;
+    let mut hi = 1.0_f64;
+    while f_cdf(hi, nu1, nu2) < p {
+        lo = hi;
+        hi *= 2.0;
+    }
+    for _ in 0..200 {
+        let mid = 0.5 * (lo + hi);
+        if f_cdf(mid, nu1, nu2) < p {
+            lo = mid;
+        } else {
+            hi = mid;
+        }
+        if hi - lo <= 1e-14 * hi {
+            break;
+        }
+    }
+    0.5 * (lo + hi)
+}
+
 /// Coverage factor for an output whose distribution is a symmetric
 /// trapezoid with edge parameter β = b/a (half-width of the top over
 /// half-width of the base), as when one or two rectangular contributions
@@ -481,6 +516,17 @@ mod tests {
         assert!((coverage_factor(0.99, 16.0) - 2.92).abs() < 0.005);
         assert!((coverage_factor(0.95, f64::INFINITY) - 1.96).abs() < 0.005);
         assert!((coverage_factor(0.9545, f64::INFINITY) - 2.00).abs() < 0.005);
+    }
+
+    #[test]
+    fn f_quantile_reference_values() {
+        // F₀.₉₅ critical values (e.g. NIST/SEMATECH e-Handbook 1.3.6.7.3).
+        for &(n1, n2, f) in
+            &[(1.0, 10.0, 4.965), (5.0, 10.0, 3.326), (9.0, 10.0, 3.020), (10.0, 20.0, 2.348), (3.0, 3.0, 9.277)]
+        {
+            assert!((f_quantile(0.95, n1, n2) - f).abs() < 0.0015, "F({n1}, {n2})");
+        }
+        assert!((f_cdf(f_quantile(0.3, 4.0, 7.0), 4.0, 7.0) - 0.3).abs() < 1e-12);
     }
 
     #[test]

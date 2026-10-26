@@ -13,6 +13,8 @@ use uncertainty_core::mcm::IntervalKind;
 use uncertainty_core::report::{format_at_place, report_result, Rounding};
 use uncertainty_core::special::{normal_pdf, student_t_pdf};
 
+mod proficiency;
+
 struct Labels {
     report: &'static str,
     model: &'static str,
@@ -414,6 +416,7 @@ pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>
     match e {
         Evaluation::Model(a) => model_markdown(p, a, &checks, lang, generated),
         Evaluation::TopDown(t) => topdown_markdown(p, t, &checks, lang, generated),
+        Evaluation::Proficiency(a) => proficiency::markdown(p, a, &checks, lang, generated),
     }
 }
 
@@ -825,6 +828,7 @@ pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<Strin
     match e {
         Evaluation::Model(a) => statement(p, a, lang).into_iter().collect(),
         Evaluation::TopDown(t) => topdown_statements(p, t, lang),
+        Evaluation::Proficiency(a) => proficiency::statements(p, a, lang),
     }
 }
 
@@ -1308,7 +1312,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
 /// run without the Monte Carlo method so that the text is reproducible on
 /// every platform.
 pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String {
-    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l) = match lang {
+    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l) = match lang {
         Lang::En => (
             "Worked examples",
             "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
@@ -1324,6 +1328,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "top-down (validation and quality-control data)",
             "and Monte Carlo method (JCGM 101)",
             "Monte Carlo method (JCGM 101) only; run the project for its results",
+            "statistics for proficiency testing (ISO 13528)",
         ),
         Lang::Tr => (
             "Çözümlü örnekler",
@@ -1340,6 +1345,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "top-down (validasyon ve kalite kontrol verileri)",
             "ve Monte Carlo yöntemi (JCGM 101)",
             "Yalnızca Monte Carlo yöntemi (JCGM 101); sonuçlar için projeyi çalıştırın",
+            "yeterlilik testi istatistikleri (ISO 13528)",
         ),
     };
     let mut sorted: Vec<&(String, Project, Evaluation)> = items.iter().collect();
@@ -1389,6 +1395,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::Model(a) if a.mcm.is_some() || p.analysis.mcm.is_some() => format!("{gum_l} {mcm_l}"),
             Evaluation::Model(_) => gum_l.to_string(),
             Evaluation::TopDown(_) => td_l.to_string(),
+            Evaluation::Proficiency(_) => pt_l.to_string(),
         };
         let _ = writeln!(s, "**{approach_l}:** {approach}\n");
         if !p.metadata.explanation.is_empty() {
@@ -1401,6 +1408,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
         let results: Vec<String> = match e {
             Evaluation::Model(a) => statement(p, a, lang).into_iter().collect(),
             Evaluation::TopDown(t) => topdown_statements(p, t, lang),
+            Evaluation::Proficiency(a) => proficiency::statements(p, a, lang),
         };
         if !results.is_empty() {
             let _ = writeln!(s, "**{result_l}:**\n");
@@ -1570,6 +1578,23 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
                 if let Some(svg) = contributions_svg(&rows, lang) {
                     let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(&caption));
                 }
+            }
+            anchor = format!("<h2>{}</h2>", esc(l.explanation));
+        }
+        Evaluation::Proficiency(a) => {
+            if let Some(svg) = p.proficiency.as_ref().and_then(|spec| proficiency::homogeneity_svg(spec, a, lang)) {
+                let _ = write!(
+                    figures,
+                    "<figure><figcaption>{}</figcaption>{svg}</figure>",
+                    esc(proficiency::pt_labels(lang).homogeneity_chart)
+                );
+            }
+            if let Some(svg) = proficiency::z_scores_svg(a, lang) {
+                let _ = write!(
+                    figures,
+                    "<figure><figcaption>{}</figcaption>{svg}</figure>",
+                    esc(proficiency::pt_labels(lang).chart)
+                );
             }
             anchor = format!("<h2>{}</h2>", esc(l.explanation));
         }

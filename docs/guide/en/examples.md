@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (33)
+- Chemistry (37)
 - Electrical and RF (15)
 - Flow and volume (4)
 - General (method validation) (4)
@@ -12,6 +12,93 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Temperature (4)
 
 ## Chemistry
+
+### Arsenic in chocolate: homogeneity and stability of PT items (ISO 13528 E.2)
+
+`iso13528-e2-arsenic-homogeneity` — ISO 13528:2022, E.2, Tables E.2 and E.3
+
+ISO 13528:2022 E.2: between-sample standard deviation from 10 items measured in duplicate, compared with 0.3σ_pt, and a stability check after six weeks at 60 °C.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. Ten vials, selected by stratified random sampling from 1 000, are each tested twice under repeatability conditions (Table E.2).
+2. Analysis of variance (B.3): general average 0.18715 mg/kg, standard deviation of the item averages s_x = 0.00398, within-sample s_w = 0.00556 and between-sample s_s = √(s_x² − s_w²/2) = 0.00060 mg/kg.
+3. With the provisional σ_pt = 15 % of the average = 0.02807 mg/kg, s_s is far below 0.3σ_pt = 0.00842 mg/kg: the items are sufficiently homogeneous. The expanded criterion of B.2.3 (F₁ = 1.88, F₂ = 1.01 for g = 10) gives √c = 0.0133 mg/kg.
+4. Stability: two items stored at 60 °C for six weeks give an average of 0.19375 mg/kg; the difference 0.00660 mg/kg from the homogeneity mean is below 0.3σ_pt, so stability is sufficient (B.5.1).
+
+**Run:** `uncertainty run library/chemistry/iso13528-e2-arsenic-homogeneity.json --lang en`
+
+### Atrazine in drinking water: robust average by Algorithm A (ISO 13528 E.3)
+
+`iso13528-e3-atrazine-algorithm-a` — ISO 13528:2022, E.3, Tables E.4 and E.5
+
+ISO 13528:2022 E.3: assigned value and standard deviation for proficiency assessment from 34 participant results with Algorithm A; z scores.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. 34 participants reported atrazine in drinking water (Table E.4, ordered by value). Two very low results (0.040 and 0.055 mg/L) and one high result (0.4246 mg/L) lie far from the majority.
+2. Algorithm A (C.3.1) starts from x* = median = 0.2620 and s* = MADe = 0.0386 mg/L, replaces every result outside x* ± 1.5s* by the nearer limit and recomputes x* as the mean and s* as 1.134 × the standard deviation of the modified values.
+3. After six iterations the third significant figures no longer change: x* = 0.2570 mg/L, s* = 0.0395 mg/L. The arithmetic mean 0.2512 and standard deviation 0.0672 mg/L are pulled by the three outlying results.
+4. The assigned value is x_pt = x* with u(x_pt) = 1.25 s*/√p = 1.25 × 0.0395/√34 = 0.0085 mg/L (Formula 6) and σ_pt = s*. Since u(x_pt) < 0.3σ_pt = 0.0119 mg/L the uncertainty of the assigned value is negligible (9.2.1) and z scores are used; laboratories 1, 2 and 34 receive action signals.
+
+**Result:**
+
+- x_pt = 0.257 mg/L, U(x_pt) = 0.017 mg/L (k = 2.00)
+
+**Notes:**
+
+- The stopping rule of C.3.1 (no change in the third significant figures) is used; iterating to full convergence gives x* = 0.257011 and s* = 0.039520 mg/L, the same to the printed digits. The nIQR of Table E.5 (0.0402) corresponds to quartiles by linear interpolation between order statistics; other quartile definitions give 0.0379 to 0.0423 (Table E.5, note).
+
+**Run:** `uncertainty run library/chemistry/iso13528-e3-atrazine-algorithm-a.json --lang en`
+
+### Atrazine in drinking water: median and nIQR (ISO 13528 E.3)
+
+`iso13528-e3-atrazine-median` — ISO 13528:2022, E.3, Table E.5
+
+ISO 13528:2022 E.3, first row of Table E.5: the median as assigned value with u(x_pt) = 1.25 nIQR/√p and the nIQR as σ_pt.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. 34 participants reported atrazine in drinking water (Table E.4, ordered by value). Two very low results (0.040 and 0.055 mg/L) and one high result (0.4246 mg/L) lie far from the majority.
+2. The simple robust estimators of C.2: median 0.2620 mg/L, MADe = 1.483 × median absolute deviation = 0.0386 mg/L and nIQR = 0.7413 (Q₃ − Q₁) = 0.0402 mg/L.
+3. With the median as assigned value, u(x_pt) = 1.25 × 0.0402/√34 = 0.0086 mg/L, practically the same as with Algorithm A (0.0085 mg/L); the nIQR has a breakdown point of 25 %, the MADe of 50 % (C.2.3, Note 1).
+
+**Result:**
+
+- x_pt = 0.262 mg/L, U(x_pt) = 0.017 mg/L (k = 2.00)
+
+**Run:** `uncertainty run library/chemistry/iso13528-e3-atrazine-median.json --lang en`
+
+### Mercury in animal feed: z, z′, ζ and E_n scores (ISO 13528 E.4)
+
+`iso13528-e4-mercury-feed` — ISO 13528:2022, E.4, Tables E.6 and E.7
+
+ISO 13528:2022 E.4 (IMEP 111): scores of 21 laboratories against a reference value with a fitness-for-purpose σ_pt, using the uncertainties the laboratories reported.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. x_pt = 0.044 mg/kg is a reference value with U(x_pt) = 0.0082 mg/kg (k = 2, characterisation and inhomogeneity); σ_pt = 0.0066 mg/kg (15 %) is a fitness-for-purpose value and δ_E = 3σ_pt for the PA scores. Three results reported as 'less than' are not scored.
+2. The laboratories' standard uncertainties are their expanded uncertainties divided by their coverage factors (L23: k = 1.732); unrounded values are used.
+3. z = D/σ_pt, z′ = D/√(σ_pt² + u²(x_pt)), ζ = D/√(u²(x) + u²(x_pt)) and E_n = D/√(U²(x) + U²(x_pt)). Here u(x_pt) = 0.0041 > 0.3σ_pt = 0.0020, so the uncertainty of the assigned value is not negligible and z′ is about 15 % smaller than z.
+4. The results are bimodal by method: the eight laboratories using a direct mercury analyser (AMA) and one using AAS obtain 30 % to 54 % of the reference value and receive action signals (|z| ≥ 3), whereas all laboratories using CV-AAS, HG-AAS or ICP-MS are acceptable.
+
+**Result:**
+
+- x_pt = 0.0440 mg/kg, U(x_pt) = 0.0082 mg/kg (k = 2.00)
+
+**Notes:**
+
+- Table E.6 flags the reported uncertainties a/b/c 'following criteria discussed in 9.8', but the flags are not reproduced with u_min = u(x_pt) = 0.0041 mg/kg (9.8.3): L05 (u = 0.0035) and L09 (u = 0.0040) are flagged 'a'. The flags imply a lower limit between 0.0018 and 0.0035 mg/kg (possibly the characterisation uncertainty without inhomogeneity) and an upper limit between 0.005 and 0.015 mg/kg (consistent with 1.5σ_pt = 0.0099). The flags are therefore not checked here.
+
+**Run:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang en`
 
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
