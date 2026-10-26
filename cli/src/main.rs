@@ -11,12 +11,13 @@ Uncertainty Calculations (Belirsizlik Hesaplamaları) — measurement uncertaint
 evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101), or
 top-down from validation and quality-control data (Nordtest TR 537,
 Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
-calibration with uncertainties in both variables (ISO 6143).
+calibration with uncertainties in both variables (ISO 6143); conformity
+assessment (JCGM 106).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm]
-    uncertainty template [--topdown | --proficiency | --calibration]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -40,8 +41,9 @@ CATALOGUE:
 TEMPLATE:
     Prints a minimal project file to start from: a measurement model, with
     --topdown a top-down evaluation from raw validation data, or with
-    --proficiency a proficiency test round (ISO 13528), or with --calibration a
-    calibration with uncertainties in both variables (ISO 6143).
+    --proficiency a proficiency test round (ISO 13528), with --calibration a
+    calibration with uncertainties in both variables (ISO 6143), or with
+    --conformity a conformity assessment (JCGM 106).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -140,6 +142,26 @@ const TEMPLATE_CALIBRATION: &str = r#"{
 }
 "#;
 
+const TEMPLATE_CONFORMITY: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Conformity assessment", "tr": "Uygunluk değerlendirmesi" },
+    "field": "general"
+  },
+  "conformity": {
+    "quantity": "Y",
+    "unit": "mm²/s",
+    "lower": 12.5,
+    "upper": 16.3,
+    "rule": "guarded_acceptance",
+    "r": 1,
+    "u": 0.2,
+    "results": [ { "name": "sample 1", "value": 13.6 }, { "name": "sample 2", "value": 16.1 } ]
+  }
+}
+"#;
+
 #[derive(Clone, Copy, PartialEq)]
 enum Format {
     Markdown,
@@ -164,6 +186,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--proficiency") => {
             print!("{TEMPLATE_PROFICIENCY}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--conformity") => {
+            print!("{TEMPLATE_CONFORMITY}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--calibration") => {

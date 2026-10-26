@@ -1,0 +1,73 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm106-7.4-motor-oil-viscosity",
+    "title": {
+      "en": "Kinematic viscosity of a motor oil: two-sided tolerance (JCGM 106 7.4)",
+      "tr": "Motor yağının kinematik viskozitesi: iki taraflı tolerans (JCGM 106 7.4)"
+    },
+    "description": {
+      "en": "JCGM 106:2012 7.4 Example: SAE grade 40 oil at 100 °C, 12.5 mm²/s ≤ Y ≤ 16.3 mm²/s, measured 13.6 mm²/s with u = 1.8 mm²/s.",
+      "tr": "JCGM 106:2012 7.4 Örnek: 100 °C'de SAE 40 yağ, 12,5 mm²/s ≤ Y ≤ 16,3 mm²/s, ölçülen 13,6 mm²/s, u = 1,8 mm²/s."
+    },
+    "explanation": [
+      {
+        "en": "p_c = Φ((T_U − y)/u) − Φ((T_L − y)/u) = Φ(1.5) − Φ(−0.61) = 0.93 − 0.27 = 0.66 (Formula 11).",
+        "tr": "p_c = Φ((T_U − y)/u) − Φ((T_L − y)/u) = Φ(1,5) − Φ(−0,61) = 0,93 − 0,27 = 0,66 (Formül 11)."
+      },
+      {
+        "en": "The measured value lies in the tolerance interval and the sample is accepted under simple acceptance, but the probability of conformity is only 66 %: the uncertainty is large compared with the tolerance (C_m = 3.8/(4 × 1.8) = 0.53).",
+        "tr": "Ölçülen değer tolerans aralığındadır ve basit kabulle numune kabul edilir; ancak uygunluk olasılığı yalnızca %66'dır: belirsizlik toleransa göre büyüktür (C_m = 3,8/(4 × 1,8) = 0,53)."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment",
+        "section": "7.4, Example",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_106_2012_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm106",
+      "conformity-assessment",
+      "probability-of-conformity",
+      "capability-index"
+    ]
+  },
+  "conformity": {
+    "quantity": "Y",
+    "unit": "mm²/s",
+    "lower": 12.5,
+    "upper": 16.3,
+    "u": 1.8,
+    "results": [
+      {
+        "name": "oil",
+        "value": 13.6
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "results": {
+        "oil": {
+          "conformance_probability": {
+            "value": 0.66,
+            "tolerance": 0.005
+          },
+          "accepted": true
+        }
+      },
+      "capability_index": {
+        "value": 0.528,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "JCGM 106:2012 7.4, Example (p_c = 0.66); C_m from Formula (12).",
+      "tr": "JCGM 106:2012 7.4, Örnek (p_c = 0,66); C_m Formül (12)'den."
+    }
+  }
+}

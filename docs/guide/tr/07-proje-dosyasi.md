@@ -15,9 +15,10 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `topdown` | dördünden biri | top-down değerlendirme (7.6) |
 | `proficiency` | dördünden biri | yeterlilik testi turu, ISO 13528 (7.7) |
 | `calibration` | dördünden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); yalnızca model projelerinde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.10) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.11) |
 
 ## 7.2 `metadata`
 
@@ -193,14 +194,28 @@ Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş
 | `drift` | `reference` (bir nokta adı), ortalama yanıtlar `before` ve `after`, `n` ve `n_calib` (varsayılan 10) |
 | `validation` | uyumsuz bileşimli referans karışımlar: `name`, `y`, `u_y`, `x_ref`, `u_x_ref` (Formül 13) |
 
-## 7.9 Hatalar
+## 7.9 `conformity`
+
+`model` bölümünün yanında (sonuç değerlendirilir) veya bir projenin tek bölümü olarak (JCGM 106; bölüm 11).
+
+| Alan | İçerik |
+|---|---|
+| `lower`, `upper` | tolerans sınırları (en az biri) |
+| `rule` | `simple_acceptance` (varsayılan), `guarded_acceptance`, `guarded_rejection` |
+| `r` / `guard_band` / `probability` | koruma bandı w = r·2u (varsayılan r = 1), doğrudan w veya sınırdaki olasılığın verildiği kabul sınırları |
+| `acceptance_lower`, `acceptance_upper` | doğrudan verilen kabul sınırları (kural bunlardan çıkarılır) |
+| `distribution` | model projeleri: `normal` (varsayılan) veya `t` (etkin serbestlik derecesi) |
+| `quantity`, `unit`, `u` veya `u_relative`, `dof`, `results` | kendi başına projeler: özellik, ölçüm sistemi, ölçülen değerler (`name`, `value`, isteğe bağlı `u`) |
+| `process`, `target_consumer_risk` | küresel riskler: `distribution` `normal` veya `gamma`, `mean`, `sd`; istenen R_C (r'yi bulur) |
+
+## 7.10 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
 `proficiency` ve `calibration` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.10 `expected`
+## 7.11 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -220,3 +235,5 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
   `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
 * `calibration`: `params`, `u_params` ve `cov_params` (listeler; kovaryanslar (0,1), (0,2), …, (1,2), … sırasıyla),
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<ad>": { "x", "u" } }`, `drift_passed`
+* `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,
+  `consumer_risk`, `producer_risk`; `results`: `{ "<ad>": { "conformance_probability", "accepted" } }`

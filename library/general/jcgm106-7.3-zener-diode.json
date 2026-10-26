@@ -1,0 +1,67 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm106-7.3-zener-diode",
+    "title": {
+      "en": "Breakdown voltage of a Zener diode: probability of conformity (JCGM 106 7.3)",
+      "tr": "Zener diyotun kırılma gerilimi: uygunluk olasılığı (JCGM 106 7.3)"
+    },
+    "description": {
+      "en": "JCGM 106:2012 7.3 Example 1: single upper tolerance limit V_b ≤ −5.40 V, measured −5.47 V with u = 0.05 V.",
+      "tr": "JCGM 106:2012 7.3 Örnek 1: tek üst tolerans sınırı V_b ≤ −5,40 V, ölçülen −5,47 V, u = 0,05 V."
+    },
+    "explanation": [
+      {
+        "en": "Knowledge of V_b after the measurement is a normal PDF with expectation −5.47 V and standard deviation 0.05 V.",
+        "tr": "Ölçümden sonra V_b hakkındaki bilgi, beklenen değeri −5,47 V ve standart sapması 0,05 V olan normal bir olasılık yoğunluğudur."
+      },
+      {
+        "en": "For an upper limit z = (T_U − y)/u = (−5.40 + 5.47)/0.05 = 1.40 and p_c = Φ(1.40) = 0.92 (Formulae 9, 10): a 92 % probability that the diode conforms.",
+        "tr": "Üst sınır için z = (T_U − y)/u = (−5,40 + 5,47)/0,05 = 1,40 ve p_c = Φ(1,40) = 0,92 (Formül 9, 10): diyotun uygun olma olasılığı %92'dir."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment",
+        "section": "7.3.3, Example 1",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_106_2012_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm106",
+      "conformity-assessment",
+      "probability-of-conformity"
+    ]
+  },
+  "conformity": {
+    "quantity": "V_b",
+    "unit": "V",
+    "upper": -5.4,
+    "results": [
+      {
+        "name": "diode",
+        "value": -5.47,
+        "u": 0.05
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "results": {
+        "diode": {
+          "conformance_probability": {
+            "value": 0.92,
+            "tolerance": 0.005
+          },
+          "accepted": true
+        }
+      }
+    },
+    "reference": {
+      "en": "JCGM 106:2012 7.3, Example 1 (p_c = 0.92).",
+      "tr": "JCGM 106:2012 7.3, Örnek 1 (p_c = 0,92)."
+    }
+  }
+}

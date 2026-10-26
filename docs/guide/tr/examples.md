@@ -5,7 +5,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Kimya (51)
 - Elektrik ve RF (15)
 - Akış ve hacim (4)
-- Genel (yöntem doğrulama) (8)
+- Genel (yöntem doğrulama) (15)
 - Uzunluk (8)
 - Kütle (4)
 - Fiziksel özellikler (6)
@@ -1667,6 +1667,138 @@ JCGM 101 9.2.4: 9.2.3 ile aynı, ancak X4'ün standart sapması 10'dur.
 - Y = (0 ± 20); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang tr`
+
+### Bir kabın patlama dayanımı: uygunluk olasılığı (JCGM 106 7.3)
+
+`jcgm106-7.3-bursting-strength` — JCGM 106:2012, 7.3.3, Example 2
+
+JCGM 106:2012 7.3 Örnek 2: tek alt tolerans sınırı B ≥ 490 kPa, tahribatlı deney b = 509,7 kPa, u = 8,6 kPa.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Alt sınır için z = (y − T_L)/u = (509,7 − 490)/8,6 = 2,3 ve p_c = Φ(2,3) = 0,99 (Formül 8, 10).
+2. Olasılık, deneyin yok ettiği kabın deneyden önceki durumuna aittir: uygun olmuş olma olasılığı %99'dur.
+
+**Sonuç:**
+
+- container için B ≥ 490 kPa şartına uygunluk olasılığı: p_c = %99; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/general/jcgm106-7.3-bursting-strength.json --lang tr`
+
+### Zener diyotun kırılma gerilimi: uygunluk olasılığı (JCGM 106 7.3)
+
+`jcgm106-7.3-zener-diode` — JCGM 106:2012, 7.3.3, Example 1
+
+JCGM 106:2012 7.3 Örnek 1: tek üst tolerans sınırı V_b ≤ −5,40 V, ölçülen −5,47 V, u = 0,05 V.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ölçümden sonra V_b hakkındaki bilgi, beklenen değeri −5,47 V ve standart sapması 0,05 V olan normal bir olasılık yoğunluğudur.
+2. Üst sınır için z = (T_U − y)/u = (−5,40 + 5,47)/0,05 = 1,40 ve p_c = Φ(1,40) = 0,92 (Formül 9, 10): diyotun uygun olma olasılığı %92'dir.
+
+**Sonuç:**
+
+- diode için V_b ≤ -5,4 V şartına uygunluk olasılığı: p_c = %92; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/general/jcgm106-7.3-zener-diode.json --lang tr`
+
+### Motor yağının kinematik viskozitesi: iki taraflı tolerans (JCGM 106 7.4)
+
+`jcgm106-7.4-motor-oil-viscosity` — JCGM 106:2012, 7.4, Example
+
+JCGM 106:2012 7.4 Örnek: 100 °C'de SAE 40 yağ, 12,5 mm²/s ≤ Y ≤ 16,3 mm²/s, ölçülen 13,6 mm²/s, u = 1,8 mm²/s.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. p_c = Φ((T_U − y)/u) − Φ((T_L − y)/u) = Φ(1,5) − Φ(−0,61) = 0,93 − 0,27 = 0,66 (Formül 11).
+2. Ölçülen değer tolerans aralığındadır ve basit kabulle numune kabul edilir; ancak uygunluk olasılığı yalnızca %66'dır: belirsizlik toleransa göre büyüktür (C_m = 3,8/(4 × 1,8) = 0,53).
+
+**Sonuç:**
+
+- oil için 12,5 mm²/s ≤ Y ≤ 16,3 mm²/s şartına uygunluk olasılığı: p_c = %66; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/general/jcgm106-7.4-motor-oil-viscosity.json --lang tr`
+
+### Hayvansal ürünlerde nandrolon: tarama testi için karar sınırı (JCGM 106 8.3.3)
+
+`jcgm106-8.3-nandrolone` — JCGM 106:2012, 8.3.3, Example 2
+
+JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrarüretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Derişimin olasılık yoğunluğu, ölçeği s = 0,20 µg/L ve serbestlik derecesi ν = 9 olan ölçeklenmiş ve kaydırılmış t dağılımıdır (JCGM 101 6.4.9).
+2. Koruma bandı g = t₀,₉₅;₉ × s = 1,83 × 0,20 = 0,37 µg/L ve karar sınırı A = T + g = 2,37 µg/L (korumalı ret).
+
+**Çalıştırma:** `uncertainty run library/general/jcgm106-8.3-nandrolone.json --lang tr`
+
+### Hız sınırı denetimi: korumalı ret (JCGM 106 8.3.3)
+
+`jcgm106-8.3-speed-limit` — JCGM 106:2012, 8.3.3, Example 1
+
+JCGM 106:2012 8.3.3 Örnek 1: hız sınırı 100 km/h, bağıl standart belirsizliği %2 olan radar; yalnızca sınırın aşılmış olma olasılığı en az %99,9 ise ceza.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ölçülen v için hız hakkındaki bilgi, standart sapması 0,02v olan normal bir olasılık yoğunluğudur.
+2. Kabul sınırı v_max, (v_max − v₀)/(0,02 v_max) = z = 3,09 eşitliğini sağlar; dolayısıyla v_max = v₀/(1 − 0,02z) = 100/(1 − 0,0618) ≈ 107 km/h.
+3. 100 km/h – 107 km/h aralığı bir koruma bandıdır: 107 km/h veya daha yüksek ölçülen hız, sınırın aşılmış olma olasılığını en az %99,9 yapar.
+
+**Sonuç:**
+
+- car A için v ≤ 100 km/h şartına uygunluk olasılığı: p_c = %0,86; korumalı ret kuralına göre kabul.
+- car B için v ≤ 100 km/h şartına uygunluk olasılığı: p_c = %0,011; korumalı ret kuralına göre ret.
+
+**Notlar:**
+
+- Program koşulu z = Φ⁻¹(0,999) = 3,0902 ile tam çözer ve 106,59 km/h verir; standart 107 km/h'ye yuvarlar. 105 ve 108 km/h ölçülen hızlar kabul sınırının iki yanını gösterir.
+
+**Çalıştırma:** `uncertainty run library/general/jcgm106-8.3-speed-limit.json --lang tr`
+
+### Bilyalı rulmanlar: istenen tüketici riski için kabul sınırı (JCGM 106 9.5.4)
+
+`jcgm106-9.5-ball-bearings` — JCGM 106:2012, 9.5.4, Example
+
+JCGM 106:2012 9.5.4 Örnek: radyal hata hareketi ≤ 2 µm, ortalaması 1 µm ve standart sapması 0,5 µm olan gama süreç dağılımı, ölçüm sistemi u_m = 0,25 µm; küresel tüketici riski en çok %0,1.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Radyal hata hareketi pozitiftir; bu nedenle süreç dağılımı α = (1/0,5)² = 4 ve λ = 1/0,5² = 4 µm⁻¹ olan bir gama yoğunluğudur (Ek B, Formül 22); rulmanların %4,2'si 2 µm'yi aşar.
+2. A = T − 2r u_m ile R_C(r) ve R_P(r), Formül (23) ve (24)'ten bulunur; R_C = %0,1, r ≈ 0,65 için sağlanır; dolayısıyla A ≈ 1,7 µm ve R_P ≈ %7,5'tir.
+
+**Notlar:**
+
+- Metin kabul aralığını 0 ≤ Y_m ≤ A olarak verir ve R_C için Formül (23) alt sınır 0'ı içerir; ancak R_P için Formül (24) bunu dışarıda bırakır. Basılı R_P ≈ %7,5 değeri (24)'ten çıkar; alt kabul sınırı 0 ile R_P %8,9 olurdu (araştırma günlüğü F45). Proje Y_m ≤ A kabul aralığını kullanır; bu hem R_C'yi hem R_P'yi yeniden üretir (alt sınırın R_C'ye etkisi yoktur).
+
+**Çalıştırma:** `uncertainty run library/general/jcgm106-9.5-ball-bearings.json --lang tr`
+
+### Hassas dirençler: küresel tüketici ve üretici riskleri (JCGM 106 9.5.3)
+
+`jcgm106-9.5-precision-resistors` — JCGM 106:2012, 9.5.3, Example
+
+JCGM 106:2012 9.5.3 Örnek: σ = 0,12 Ω olan bir süreçten 1500 Ω ± 0,2 Ω dirençler, u_m = 0,04 Ω ile ve 1499,82 Ω ile 1500,18 Ω kabul sınırlarıyla denetlenir.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Denetim olmadan p_c = tolerans aralığı üzerinde ∫ φ(η; 1500, 0,12²) dη = 0,90: dirençlerin yaklaşık %10'u uygun olmazdı (Formül 21).
+2. w = 0,02 Ω = 0,25U simetrik koruma bantlarıyla korumalı kabul.
+3. Formül (19) ve (20) sayısal integrasyonla: R_C = %1 ve R_P = %7. 100 dirençten 83'ü doğru olarak kabul, 7'si yanlışlıkla ret, 9'u doğru olarak ret, 1'i yanlışlıkla kabul edilir; kabul edilenlerin %99'u uygundur.
+
+**Çalıştırma:** `uncertainty run library/general/jcgm106-9.5-precision-resistors.json --lang tr`
 
 ### Geniş üçgen bölenli çarpım ve oran y = ab/c (NIST Uncertainty Machine §3)
 

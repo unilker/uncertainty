@@ -52,6 +52,9 @@ class ResultsView extends StatelessWidget {
     if (results['calibration'] != null) {
       children.addAll(_calibration(context, results['calibration'] as Map<String, dynamic>, unit));
     }
+    if (results['conformity'] != null) {
+      children.addAll(_conformity(context, results['conformity'] as Map<String, dynamic>));
+    }
     final checks = (results['checks'] as List?) ?? const [];
     if (checks.isNotEmpty) {
       children.add(Section(s['checks']));
@@ -499,6 +502,80 @@ class ResultsView extends StatelessWidget {
                 n(v['limit'], 3),
                 v['passed'] == true ? s['cal_passed'] : s['cal_failed'],
               ],
+          ],
+        ),
+      ]);
+    }
+    return out;
+  }
+
+  List<Widget> _conformity(BuildContext context, Map<String, dynamic> r) {
+    final s = strings;
+    final u = r['unit'] == null ? '' : ' ${r['unit']}';
+    String n(dynamic v, [int sig = 5]) => v == null ? '—' : '${fmtNum(_d(v), sig, s.lang)}$u';
+    String p(dynamic v) {
+      final d = _d(v);
+      if (d == null) return '—';
+      if (d > 0.9999) return '> ${fmtPct(0.9999, 4, s.lang)}';
+      if (d < 0.0001) return '< ${fmtPct(0.0001, 1, s.lang)}';
+      return fmtPct(d, d > 0.99 ? 2 + (-math.log(1 - d) / math.ln10).floor() : 2, s.lang);
+    }
+
+    final tol = r['tolerance'] as Map<String, dynamic>;
+    final acc = r['acceptance'] as Map<String, dynamic>;
+    String interval(Map<String, dynamic> m) => switch ((m['lower'], m['upper'])) {
+      (null, null) => '—',
+      (final l?, null) => '≥ ${n(l)}',
+      (null, final h?) => '≤ ${n(h)}',
+      (final l, final h) => '${n(l)} … ${n(h)}',
+    };
+    final out = <Widget>[
+      Section(s['cf_title']),
+      _table(
+        context,
+        ['', ''],
+        [
+          [s['cf_tolerance'], interval(tol)],
+          [s['cf_rule'], s['cf_${r['rule']}']],
+          [s['cf_acceptance'], interval(acc)],
+          if (r['capability_index'] != null) [s['cf_capability'], fmtNum(_d(r['capability_index']), 3, s.lang)],
+        ],
+      ),
+    ];
+    final rows = (r['results'] as List? ?? const []).cast<Map<String, dynamic>>();
+    if (rows.isNotEmpty) {
+      final mcm = rows.any((x) => x['conformance_probability_mcm'] != null);
+      out.add(
+        _table(
+          context,
+          ['', s['value'], 'u', 'p_c', if (mcm) 'p_c (MCM)', ''],
+          [
+            for (final x in rows)
+              [
+                x['name'].toString(),
+                n(x['value']),
+                n(x['u'], 3),
+                p(x['conformance_probability']),
+                if (mcm) p(x['conformance_probability_mcm']),
+                x['accepted'] == true ? s['cf_accepted'] : s['cf_rejected'],
+              ],
+          ],
+        ),
+      );
+    }
+    final g = r['global'] as Map<String, dynamic>?;
+    if (g != null) {
+      out.addAll([
+        Section(s['cf_global']),
+        _table(
+          context,
+          ['', ''],
+          [
+            [s['cf_conforming'], p(g['conforming'])],
+            [s['cf_accepted_items'], p(g['accepted'])],
+            [s['cf_consumer'], p(g['consumer_risk'])],
+            [s['cf_producer'], p(g['producer_risk'])],
+            if (r['r'] != null) ['r', fmtNum(_d(r['r']), 3, s.lang)],
           ],
         ),
       ]);

@@ -66,3 +66,11 @@ Turkish reports.
 | weighted deviation / goodness of fit Γ | ağırlıklı sapma / uyum iyiliği Γ | ISO 6143 6.2.2 |
 | adjusted calibration point | düzeltilmiş kalibrasyon noktası | ISO 6143 6.2.2 |
 | drift control | kayma kontrolü | ISO 6143 6.2.4 |
+| tolerance interval / tolerance limit | tolerans aralığı / tolerans sınırı | JCGM 106 3.3.5, 3.3.4 |
+| acceptance interval / acceptance limit | kabul aralığı / kabul sınırı | JCGM 106 3.3.9, 3.3.8 |
+| guard band | koruma bandı | JCGM 106 3.3.11 |
+| decision rule | karar kuralı | JCGM 106 3.3.12; ISO/IEC 17025 3.7 |
+| conformance probability | uygunluk olasılığı | JCGM 106 7.1 |
+| specific / global consumer's risk | özgül / küresel tüketici riski | JCGM 106 3.3.13, 3.3.15 |
+| specific / global producer's risk | özgül / küresel üretici riski | JCGM 106 3.3.14, 3.3.16 |
+| measurement capability index | ölçüm yeterlilik indeksi | JCGM 106 3.3.17 |

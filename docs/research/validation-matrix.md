@@ -165,6 +165,21 @@ Reference: B_LEAST output printed in the standard. Independent checks with ODRPA
 | ISO6143-B.2.4 | exponential function | b, S_res 0.6572, Γ 0.3529, x 5.3357; u(b) 8.14 × 10⁻², 7.40 × 10⁻², 3.71 × 10⁻¹¹; u(x) 0.013280 | b, S_res, Γ, x same; u(b) 3.18, 3.17, 1.27 × 10⁻⁶ and u(x) 0.014246 as ODRPACK (MC: 3.13, 3.12, 1.24 × 10⁻⁶; 0.01406) | ✅ (F42) |
 | ISO6143-6.2.4 | drift-test critical values | 2√2 u for n = 10 (Note); Formula (12) 2√(1 + 20/n) u | 2√(1 + 10/n) u, 2√(20/n) u | ✅ (F41) |
 
+## JCGM 106:2012 — conformity assessment (library projects and core tests)
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| JCGM106-7.3-E1 | Zener diode, V_b ≤ −5.40 V | p_c 0.92 | 0.919 | ✅ |
+| JCGM106-7.3-E2 | bursting strength, B ≥ 490 kPa | p_c 0.99 | 0.989 | ✅ |
+| JCGM106-7.4 | motor oil, two-sided | p_c 0.66 (0.93 − 0.27) | 0.663 | ✅ |
+| JCGM106-7.7.5 | C_m = 1, 95 % locus | 0.45 ≤ ỹ ≤ 0.55 | 0.4491 … 0.5509 | ✅ (core) |
+| JCGM106-8.3.2 | w = U = 2u (ISO 14253-1) | false acceptance ≤ 2.3 % | 2.28 % | ✅ (core) |
+| JCGM106-8.3.3-E1 | speed limit, u = 2 % v, 99.9 % | v_max ≈ 107 km/h | 106.59 | ✅ |
+| JCGM106-8.3.3-E2 | nandrolone, t₉, 95 % | A = 2.37 µg/L | 2.367 | ✅ |
+| JCGM106-9.5.3 | precision resistors | p_c 90 %, R_C 1 %, R_P 7 %; 83/7/9/1 per 100 | 90.4, 0.99, 6.90 %; 83.5/6.9/8.6/1.0 | ✅ |
+| JCGM106-9.5.4 | ball bearings, gamma prior | 4.2 % non-conforming; r ≈ 0.65, A ≈ 1.7 µm, R_P ≈ 7.5 % | 4.24 %; 0.656, 1.672, 7.55 % | ✅ (F45) |
+| JCGM106-9.5.6 | u₀ = T/6, w = 0, C_m = 2 and 10 | R_C ≈ 0.1/0.04 %, R_P ≈ 1.5/0.07 % | 0.098/0.041 %, 1.47/0.072 % | ✅ (core) |
+
 ## Uncorrected bias (Magnusson & Ellison 2008) — core tests
 
 | ID | Claim | Published | Engine | Status |

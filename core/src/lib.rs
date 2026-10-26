@@ -43,6 +43,7 @@
 
 pub mod bias;
 pub mod calibration;
+pub mod conformity;
 pub mod distribution;
 pub mod error;
 pub mod expr;

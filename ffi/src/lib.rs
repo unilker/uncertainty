@@ -83,6 +83,25 @@ const TEMPLATE_CALIBRATION: &str = r#"{
   }
 }"#;
 
+const TEMPLATE_CONFORMITY: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Conformity assessment", "tr": "Uygunluk değerlendirmesi" },
+    "field": "general"
+  },
+  "conformity": {
+    "quantity": "Y",
+    "unit": "mm²/s",
+    "lower": 12.5,
+    "upper": 16.3,
+    "rule": "guarded_acceptance",
+    "r": 1,
+    "u": 0.2,
+    "results": [ { "name": "sample 1", "value": 13.6 }, { "name": "sample 2", "value": 16.1 } ]
+  }
+}"#;
+
 fn into_c(v: Value) -> *mut c_char {
     let s = v.to_string();
     // JSON text never contains a NUL byte (it would be escaped as \u0000).
@@ -118,7 +137,7 @@ pub extern "C" fn uc_version() -> *mut c_char {
 }
 
 /// A starting project: `kind` is `"model"` (default), `"topdown"`,
-/// `"proficiency"` or `"calibration"`.
+/// `"proficiency"`, `"calibration"` or `"conformity"`.
 ///
 /// # Safety
 /// `kind` must be null or a valid NUL-terminated string.
@@ -129,6 +148,7 @@ pub unsafe extern "C" fn uc_template(kind: *const c_char) -> *mut c_char {
         Ok("topdown") => json!({ "ok": true, "project": TEMPLATE_TOPDOWN }),
         Ok("proficiency") => json!({ "ok": true, "project": TEMPLATE_PROFICIENCY }),
         Ok("calibration") => json!({ "ok": true, "project": TEMPLATE_CALIBRATION }),
+        Ok("conformity") => json!({ "ok": true, "project": TEMPLATE_CONFORMITY }),
         Ok("" | "model") => json!({ "ok": true, "project": TEMPLATE_MODEL }),
         Ok(other) => error(format!("unknown template '{other}'")),
         Err(e) => error(e.clone()),
@@ -243,7 +263,7 @@ mod tests {
     #[test]
     fn version_templates_and_evaluation() {
         assert_eq!(call(uc_version())["version"], SOFTWARE_VERSION);
-        for kind in ["model", "topdown", "proficiency", "calibration"] {
+        for kind in ["model", "topdown", "proficiency", "calibration", "conformity"] {
             let k = CString::new(kind).unwrap();
             let t = call(unsafe { uc_template(k.as_ptr()) });
             let project = CString::new(t["project"].as_str().unwrap()).unwrap();

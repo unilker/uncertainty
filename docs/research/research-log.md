@@ -1024,3 +1024,41 @@ x* = 23.960, s* = 8.591; iterated to convergence x* = 23.9585, s* = 8.600.
 The table prints 23.95 and 8.60, i.e. the converged values with x* truncated
 (23.9585 rounds to 23.96). The other two columns (26.01/7.23, 26.81/5.29) are
 reproduced with the C.3.1 stopping rule.
+
+## 2026-10-26 (session 11) — Conformity assessment (JCGM 106:2012)
+
+**D38. Conformity assessment.** New core module `conformity` and section
+`conformity`. It can accompany a model project, in which case the GUM result
+(normal, or t with ν_eff) and the Monte Carlo values are assessed, or form a
+project of its own. Implemented:
+- the probability of conformity for one- and two-sided tolerances (7.1–7.4)
+  and the capability index C_m (7.6);
+- simple acceptance and guarded acceptance/rejection, with the guard band set
+  by w = rU (U = 2u, ISO 14253-1 default r = 1), by its length, by a required
+  probability at the acceptance limit (8.3.3; the uncertainty may be relative
+  to the measured value, as in the speed-limit example) or by explicit
+  acceptance limits;
+- specific risks (9.3.2);
+- global consumer's and producer's risks for normal and gamma process PDFs,
+  by adaptive quadrature of Formulae (17)–(20) (9.5);
+- the guard-band multiplier for a required consumer's risk (9.5.4).
+
+All numerical examples of clauses 7–9 are reproduced: seven library projects
+(107 in total) and core tests for 7.7.5, 8.3.2 and Figure 17. An independent
+check with scipy (quad) agrees to all printed digits. Reports (EN/TR) state the
+rule, the acceptance interval, p_c and the decision per result, and a chart in
+the style of Figure 8, or the PDF at the acceptance limit for design studies.
+The application has an editor for conformity projects, a conformity block in
+the settings of model projects and a results section. This closes the
+ISO/IEC 17025 7.8.6 gap of D35.
+
+**F45. JCGM 106:2012 9.5.4 (ball bearings) — acceptance interval inconsistent
+between R_C and R_P (class b).** The text defines the acceptance interval as
+0 ≤ Y_m ≤ A, and the integrand of R_C,
+Φ((A − η)/u_m) − Φ(−η/u_m), includes the lower limit 0. Formula (24) for R_P
+uses 1 − Φ((A − η)/u_m), i.e. no lower acceptance limit. With the lower limit
+0, R_P(r = 0.656) = 8.94 %. Without it, R_P = 7.55 %, the "about 7.5 %" of the
+text and of Figure 16. R_C is the same either way (the term Φ(−η/u_m) is
+negligible for η ≥ 2 µm), and so are r ≈ 0.65 and A ≈ 1.7 µm. The library
+project uses the acceptance interval Y_m ≤ A, which reproduces the printed
+numbers, and states the inconsistency.

@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**100 examples / örnek** (58 model, 29 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon).
+**107 examples / örnek** (58 model, 29 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -139,6 +139,18 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`iso21748-c3-aerobic-plate-count-flour`](general/iso21748-c3-aerobic-plate-count-flour.json) | Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
 | [`iso21748-c3-aerobic-plate-count-shrimp`](general/iso21748-c3-aerobic-plate-count-shrimp.json) | Aerobic plate count, shrimp: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
 | [`iso21748-c3-aerobic-plate-count-vegetables`](general/iso21748-c3-aerobic-plate-count-vegetables.json) | Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
+
+## General (method validation), conformity assessment (JCGM 106) / Genel (yöntem doğrulama), uygunluk değerlendirmesi (JCGM 106)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`jcgm106-7.3-bursting-strength`](general/jcgm106-7.3-bursting-strength.json) | Bursting strength of a container: probability of conformity (JCGM 106 7.3) | Bir kabın patlama dayanımı: uygunluk olasılığı (JCGM 106 7.3) | JCGM 106:2012 7.3.3, Example 2 |
+| [`jcgm106-7.3-zener-diode`](general/jcgm106-7.3-zener-diode.json) | Breakdown voltage of a Zener diode: probability of conformity (JCGM 106 7.3) | Zener diyotun kırılma gerilimi: uygunluk olasılığı (JCGM 106 7.3) | JCGM 106:2012 7.3.3, Example 1 |
+| [`jcgm106-7.4-motor-oil-viscosity`](general/jcgm106-7.4-motor-oil-viscosity.json) | Kinematic viscosity of a motor oil: two-sided tolerance (JCGM 106 7.4) | Motor yağının kinematik viskozitesi: iki taraflı tolerans (JCGM 106 7.4) | JCGM 106:2012 7.4, Example |
+| [`jcgm106-8.3-nandrolone`](general/jcgm106-8.3-nandrolone.json) | Nandrolone in animal products: decision limit for a screening test (JCGM 106 8.3.3) | Hayvansal ürünlerde nandrolon: tarama testi için karar sınırı (JCGM 106 8.3.3) | JCGM 106:2012 8.3.3, Example 2 |
+| [`jcgm106-8.3-speed-limit`](general/jcgm106-8.3-speed-limit.json) | Speed limit enforcement: guarded rejection (JCGM 106 8.3.3) | Hız sınırı denetimi: korumalı ret (JCGM 106 8.3.3) | JCGM 106:2012 8.3.3, Example 1 |
+| [`jcgm106-9.5-ball-bearings`](general/jcgm106-9.5-ball-bearings.json) | Ball bearings: acceptance limit for a required consumer's risk (JCGM 106 9.5.4) | Bilyalı rulmanlar: istenen tüketici riski için kabul sınırı (JCGM 106 9.5.4) | JCGM 106:2012 9.5.4, Example |
+| [`jcgm106-9.5-precision-resistors`](general/jcgm106-9.5-precision-resistors.json) | Precision resistors: global consumer's and producer's risks (JCGM 106 9.5.3) | Hassas dirençler: küresel tüketici ve üretici riskleri (JCGM 106 9.5.3) | JCGM 106:2012 9.5.3, Example |
 
 ## Length / Uzunluk
 

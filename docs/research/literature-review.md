@@ -15,7 +15,7 @@ Nothing marked *to verify* may be cited in the article until it is checked.
 | JCGM 104:2009 | introduction to the GUM documents | guide | obtained (not yet read) |
 | JCGM GUM-1:2023 | Part 1: Introduction (ISO/IEC Guide 98-1) | guide | listed |
 | JCGM GUM-6:2020 | Developing and using measurement models | intermediate quantities, guide | obtained (not yet read) |
-| JCGM 106:2012 | conformity assessment, decision rules | planned (ISO 17025 statements) | obtained (not yet read) |
+| JCGM 106:2012 | conformity assessment, decision rules | `conformity` module and projects; validation clauses 7–9 (F45) | read |
 | JCGM 200:2012 (VIM 3) | vocabulary | TR/EN glossary | obtained (not yet read) |
 | EURACHEM/CITAC CG4 QUAM:2012 (3rd ed.) | uncertainty in analytical chemistry (bottom-up, Kragten spreadsheet, examples A1–A7) | chemistry module, validation A1–A7 | read (A1–A7, App. E.4) |
 | Eurachem/CITAC MUPR 1st ed. (2026) | uncertainty from in-house precision and recovery data | `topdown` module; validation Ex. 2, 3, B1–B6, C1 | read (complete) |

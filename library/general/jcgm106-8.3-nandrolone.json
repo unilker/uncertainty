@@ -1,0 +1,61 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm106-8.3-nandrolone",
+    "title": {
+      "en": "Nandrolone in animal products: decision limit for a screening test (JCGM 106 8.3.3)",
+      "tr": "Hayvansal ürünlerde nandrolon: tarama testi için karar sınırı (JCGM 106 8.3.3)"
+    },
+    "description": {
+      "en": "JCGM 106:2012 8.3.3 Example 2: threshold 2.00 µg/L; a result is suspect if the probability that the threshold is exceeded is at least 95 %; reproducibility s = 0.20 µg/L from ten spiked blanks, t distribution with ν = 9.",
+      "tr": "JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrarüretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı."
+    },
+    "explanation": [
+      {
+        "en": "The PDF for the concentration is a scaled and shifted t distribution with scale s = 0.20 µg/L and ν = 9 degrees of freedom (JCGM 101 6.4.9).",
+        "tr": "Derişimin olasılık yoğunluğu, ölçeği s = 0,20 µg/L ve serbestlik derecesi ν = 9 olan ölçeklenmiş ve kaydırılmış t dağılımıdır (JCGM 101 6.4.9)."
+      },
+      {
+        "en": "Guard band g = t₀.₉₅;₉ × s = 1.83 × 0.20 = 0.37 µg/L and decision limit A = T + g = 2.37 µg/L (guarded rejection).",
+        "tr": "Koruma bandı g = t₀,₉₅;₉ × s = 1,83 × 0,20 = 0,37 µg/L ve karar sınırı A = T + g = 2,37 µg/L (korumalı ret)."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment",
+        "section": "8.3.3, Example 2",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_106_2012_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm106",
+      "conformity-assessment",
+      "guard-band",
+      "guarded-rejection",
+      "t-distribution"
+    ]
+  },
+  "conformity": {
+    "quantity": "c",
+    "unit": "µg/L",
+    "upper": 2.0,
+    "rule": "guarded_rejection",
+    "probability": 0.95,
+    "u": 0.2,
+    "dof": 9
+  },
+  "expected": {
+    "conformity": {
+      "acceptance_upper": {
+        "value": 2.37,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "JCGM 106:2012 8.3.3, Example 2 (A = 2.37 µg/L).",
+      "tr": "JCGM 106:2012 8.3.3, Örnek 2 (A = 2,37 µg/L)."
+    }
+  }
+}

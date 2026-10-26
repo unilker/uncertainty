@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app_state.dart';
+import 'conformity_editor.dart';
 import 'fields.dart';
 
 /// GUM, Monte Carlo and reporting options of a project.
@@ -153,6 +154,41 @@ class _SettingsEditorState extends State<SettingsEditor> {
         ],
       ),
     ]);
+    if (isModel) {
+      final cf = widget.project['conformity'] as Map<String, dynamic>?;
+      children.addAll([
+        Section(s['cf_title']),
+        SwitchListTile(
+          key: const Key('cf-switch'),
+          contentPadding: EdgeInsets.zero,
+          title: Text(s['cf_on']),
+          value: cf != null,
+          onChanged: (v) => _edit(() {
+            if (v) {
+              widget.project['conformity'] = <String, dynamic>{};
+            } else {
+              widget.project.remove('conformity');
+            }
+          }),
+        ),
+        if (cf != null) ...[
+          ConformityFields(map: cf, onChanged: widget.onChanged),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: 320,
+            child: DropdownButtonFormField<String>(
+              isExpanded: true,
+              initialValue: (cf['distribution'] as String?) ?? 'normal',
+              decoration: InputDecoration(labelText: s['cf_distribution'], isDense: true),
+              items: [
+                for (final d in ['normal', 't']) DropdownMenuItem(value: d, child: Text(s['cf_dist_$d'])),
+              ],
+              onChanged: (v) => _edit(() => cf['distribution'] = v),
+            ),
+          ),
+        ],
+      ]);
+    }
     return ListView(padding: const EdgeInsets.fromLTRB(16, 8, 16, 96), children: children);
   }
 }

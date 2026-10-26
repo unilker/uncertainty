@@ -12,6 +12,7 @@ import 'package:uncertainty_app/src/engine.dart';
 import 'package:uncertainty_app/src/format.dart';
 import 'package:uncertainty_app/src/widgets/charts.dart';
 import 'package:uncertainty_app/src/widgets/calibration_editor.dart';
+import 'package:uncertainty_app/src/widgets/conformity_editor.dart';
 import 'package:uncertainty_app/src/widgets/proficiency_editor.dart';
 
 /// Pumps until [finder] matches, letting real asynchronous work (asset
@@ -65,11 +66,11 @@ void main() {
     test('templates evaluate and errors are reported', () {
       const e = Engine();
       expect(e.version()['version'], isNotEmpty);
-      for (final kind in ['model', 'topdown', 'calibration']) {
+      for (final kind in ['model', 'topdown', 'calibration', 'conformity']) {
         final p = e.template(kind);
         expect(e.validate(p), isNull);
         final r = e.evaluateSync(p, const EvaluateOptions(lang: 'tr', trials: 10000));
-        expect((r['reported'] as List).first, contains('±'));
+        expect((r['reported'] as List).first, contains(kind == 'conformity' ? 'p_c' : '±'));
       }
       // Localised warnings and the Kragten view come from the engine.
       final h1 = jsonDecode(File('../library/length/gum-h1-end-gauge.json').readAsStringSync()) as Map<String, dynamic>;
@@ -193,6 +194,35 @@ void main() {
     final list = find.ancestor(of: find.text('Contents of the mixtures'), matching: find.byType(Scrollable)).first;
     await tester.scrollUntilVisible(find.text('Weighted deviations (x and y) with the limits ±2'), 400, scrollable: list);
     expect(find.byType(ZScoreChart), findsOneWidget);
+  });
+
+  test('measured values for a conformity assessment are read from pasted lines', () {
+    final (rows, bad) = parseMeasured('car A 105\ncar B\t108,5\t2,2\n\nS3;1.5;0.1');
+    expect(bad, isNull);
+    expect(rows, [
+      {'name': 'car A', 'value': 105.0},
+      {'name': 'car B', 'value': 108.5, 'u': 2.2},
+      {'name': 'S3', 'value': 1.5, 'u': 0.1},
+    ]);
+    expect(parseMeasured('only-a-name').$2, 1);
+  });
+
+  testWidgets('global risks of JCGM 106 9.5.3 in the results', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'jcgm106-9.5-precision');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('Precision resistors'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('cf-rule')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.text('Global risks'));
+    expect(find.text('0.99 %'), findsOneWidget); // R_C, JCGM 106: 1 %
+    expect(find.text('6.9 %'), findsOneWidget); // R_P: 7 %
+    expect(find.text('guarded acceptance'), findsOneWidget);
   });
 
   testWidgets('top-down forms show and edit the raw data', (tester) async {

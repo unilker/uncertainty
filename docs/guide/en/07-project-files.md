@@ -15,9 +15,10 @@ as `{ "en": "…", "tr": "…" }`.
 | `topdown` | one of the four | top-down evaluation (7.6) |
 | `proficiency` | one of the four | proficiency test round, ISO 13528 (7.7) |
 | `calibration` | one of the four | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); only for model projects |
 | `reporting` | no | rounding of the reported result (7.5) |
-| `expected` | no | reference values with tolerances (7.10) |
+| `expected` | no | reference values with tolerances (7.11) |
 
 ## 7.2 `metadata`
 
@@ -193,14 +194,28 @@ zero or s(R) is included.
 | `drift` | `reference` (a point name), mean responses `before` and `after`, `n` and `n_calib` (default 10) |
 | `validation` | mismatching reference mixtures: `name`, `y`, `u_y`, `x_ref`, `u_x_ref` (Formula 13) |
 
-## 7.9 Errors
+## 7.9 `conformity`
+
+Next to `model` (the result is assessed) or as the only section of a project (JCGM 106; chapter 11).
+
+| Field | Content |
+|---|---|
+| `lower`, `upper` | tolerance limits (at least one) |
+| `rule` | `simple_acceptance` (default), `guarded_acceptance`, `guarded_rejection` |
+| `r` / `guard_band` / `probability` | guard band w = r·2u (default r = 1), w directly, or acceptance limits where the probability at the limit is given |
+| `acceptance_lower`, `acceptance_upper` | acceptance limits given directly (the rule follows from them) |
+| `distribution` | model projects: `normal` (default) or `t` (effective degrees of freedom) |
+| `quantity`, `unit`, `u` or `u_relative`, `dof`, `results` | projects of their own: property, measuring system, measured values (`name`, `value`, optional `u`) |
+| `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma`, `mean`, `sd`; required R_C (finds r) |
+
+## 7.10 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
 of `model`, `topdown`, `proficiency` and `calibration`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
-## 7.10 `expected`
+## 7.11 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
@@ -220,3 +235,5 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
   `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
 * `calibration`: `params`, `u_params` and `cov_params` (lists; covariances in the order (0,1), (0,2), …, (1,2), …),
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<name>": { "x", "u" } }`, `drift_passed`
+* `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,
+  `consumer_risk`, `producer_risk`; `results`: `{ "<name>": { "conformance_probability", "accepted" } }`

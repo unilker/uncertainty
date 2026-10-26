@@ -14,6 +14,7 @@ use uncertainty_core::report::{format_at_place, report_result, Rounding};
 use uncertainty_core::special::{normal_pdf, student_t_pdf};
 
 mod calibration;
+mod conformity;
 mod proficiency;
 
 struct Labels {
@@ -429,7 +430,11 @@ fn bias_statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
 }
 
 fn model_statements(p: &Project, a: &Analysis, lang: Lang) -> Vec<String> {
-    statement(p, a, lang).into_iter().chain(bias_statement(p, a, lang)).collect()
+    statement(p, a, lang)
+        .into_iter()
+        .chain(bias_statement(p, a, lang))
+        .chain(a.conformity.iter().flat_map(|c| conformity::statements(c, lang)))
+        .collect()
 }
 
 /// A GUM warning in the report language.
@@ -461,6 +466,7 @@ pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>
         Evaluation::TopDown(t) => topdown_markdown(p, t, &checks, lang, generated),
         Evaluation::Proficiency(a) => proficiency::markdown(p, a, &checks, lang, generated),
         Evaluation::Calibration(a) => calibration::markdown(p, a, &checks, lang, generated),
+        Evaluation::Conformity(a) => conformity::markdown(p, a, &checks, lang, generated),
     }
 }
 
@@ -600,7 +606,15 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
         }
         let _ = writeln!(s);
     }
-    tail(&mut s, p, checks, lang, "JCGM 100:2008 (GUM); JCGM 101:2008 (GUM-S1)", generated);
+    if let Some(c) = &a.conformity {
+        conformity::section(&mut s, c, lang);
+    }
+    let methods = if a.conformity.is_some() {
+        "JCGM 100:2008 (GUM); JCGM 101:2008 (GUM-S1); JCGM 106:2012"
+    } else {
+        "JCGM 100:2008 (GUM); JCGM 101:2008 (GUM-S1)"
+    };
+    tail(&mut s, p, checks, lang, methods, generated);
     s
 }
 
@@ -886,6 +900,7 @@ pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<Strin
         Evaluation::TopDown(t) => topdown_statements(p, t, lang),
         Evaluation::Proficiency(a) => proficiency::statements(p, a, lang),
         Evaluation::Calibration(a) => calibration::statements(p, a, lang),
+        Evaluation::Conformity(a) => conformity::statements(a, lang),
     }
 }
 
@@ -1405,7 +1420,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
 /// run without the Monte Carlo method so that the text is reproducible on
 /// every platform.
 pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String {
-    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l) = match lang {
+    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l) = match lang {
         Lang::En => (
             "Worked examples",
             "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
@@ -1423,6 +1438,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "Monte Carlo method (JCGM 101) only; run the project for its results",
             "statistics for proficiency testing (ISO 13528)",
             "calibration with uncertainties in both variables (ISO 6143)",
+            "conformity assessment (JCGM 106)",
         ),
         Lang::Tr => (
             "Çözümlü örnekler",
@@ -1441,6 +1457,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "Yalnızca Monte Carlo yöntemi (JCGM 101); sonuçlar için projeyi çalıştırın",
             "yeterlilik testi istatistikleri (ISO 13528)",
             "her iki değişkende belirsizlikli kalibrasyon (ISO 6143)",
+            "uygunluk değerlendirmesi (JCGM 106)",
         ),
     };
     let mut sorted: Vec<&(String, Project, Evaluation)> = items.iter().collect();
@@ -1492,6 +1509,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::TopDown(_) => td_l.to_string(),
             Evaluation::Proficiency(_) => pt_l.to_string(),
             Evaluation::Calibration(_) => cal_l.to_string(),
+            Evaluation::Conformity(_) => cf_l.to_string(),
         };
         let _ = writeln!(s, "**{approach_l}:** {approach}\n");
         if !p.metadata.explanation.is_empty() {
@@ -1506,6 +1524,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::TopDown(t) => topdown_statements(p, t, lang),
             Evaluation::Proficiency(a) => proficiency::statements(p, a, lang),
             Evaluation::Calibration(a) => calibration::statements(p, a, lang),
+            Evaluation::Conformity(a) => conformity::statements(a, lang),
         };
         if !results.is_empty() {
             let _ = writeln!(s, "**{result_l}:**\n");
@@ -1663,6 +1682,13 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
             if let Some(svg) = histogram_svg(a, lang) {
                 let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(l.histogram_chart));
             }
+            if let Some(svg) = a.conformity.as_ref().and_then(|c| conformity::chart_svg(c, lang)) {
+                let _ = write!(
+                    figures,
+                    "<figure><figcaption>{}</figcaption>{svg}</figure>",
+                    esc(conformity::cf_labels(lang).chart)
+                );
+            }
         }
         Evaluation::TopDown(t) => {
             let unit = p.topdown.as_ref().and_then(|s| s.unit.clone()).map(|u| format!(" {u}")).unwrap_or_default();
@@ -1702,6 +1728,14 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
                     "<figure><figcaption>{}</figcaption>{svg}</figure>",
                     esc(calibration::cal_labels(lang).chart)
                 );
+            }
+            anchor = format!("<h2>{}</h2>", esc(l.explanation));
+        }
+        Evaluation::Conformity(a) => {
+            if let Some(svg) = conformity::chart_svg(a, lang) {
+                let d = conformity::cf_labels(lang);
+                let caption = if a.results.is_empty() { d.limits_chart } else { d.chart };
+                let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(caption));
             }
             anchor = format!("<h2>{}</h2>", esc(l.explanation));
         }

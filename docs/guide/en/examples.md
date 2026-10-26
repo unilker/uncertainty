@@ -5,7 +5,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Chemistry (51)
 - Electrical and RF (15)
 - Flow and volume (4)
-- General (method validation) (8)
+- General (method validation) (15)
 - Length (8)
 - Mass (4)
 - Physical properties (6)
@@ -1667,6 +1667,138 @@ JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.
 - Y = (0 ± 20), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
 
 **Run:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang en`
+
+### Bursting strength of a container: probability of conformity (JCGM 106 7.3)
+
+`jcgm106-7.3-bursting-strength` — JCGM 106:2012, 7.3.3, Example 2
+
+JCGM 106:2012 7.3 Example 2: single lower tolerance limit B ≥ 490 kPa, destructive test b = 509.7 kPa with u = 8.6 kPa.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. For a lower limit z = (y − T_L)/u = (509.7 − 490)/8.6 = 2.3 and p_c = Φ(2.3) = 0.99 (Formulae 8, 10).
+2. The probability refers to the container before the test destroyed it: there is a 99 % probability that it conformed.
+
+**Result:**
+
+- Probability that container conforms to B ≥ 490 kPa: p_c = 99 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/general/jcgm106-7.3-bursting-strength.json --lang en`
+
+### Breakdown voltage of a Zener diode: probability of conformity (JCGM 106 7.3)
+
+`jcgm106-7.3-zener-diode` — JCGM 106:2012, 7.3.3, Example 1
+
+JCGM 106:2012 7.3 Example 1: single upper tolerance limit V_b ≤ −5.40 V, measured −5.47 V with u = 0.05 V.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Knowledge of V_b after the measurement is a normal PDF with expectation −5.47 V and standard deviation 0.05 V.
+2. For an upper limit z = (T_U − y)/u = (−5.40 + 5.47)/0.05 = 1.40 and p_c = Φ(1.40) = 0.92 (Formulae 9, 10): a 92 % probability that the diode conforms.
+
+**Result:**
+
+- Probability that diode conforms to V_b ≤ -5.4 V: p_c = 92 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/general/jcgm106-7.3-zener-diode.json --lang en`
+
+### Kinematic viscosity of a motor oil: two-sided tolerance (JCGM 106 7.4)
+
+`jcgm106-7.4-motor-oil-viscosity` — JCGM 106:2012, 7.4, Example
+
+JCGM 106:2012 7.4 Example: SAE grade 40 oil at 100 °C, 12.5 mm²/s ≤ Y ≤ 16.3 mm²/s, measured 13.6 mm²/s with u = 1.8 mm²/s.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. p_c = Φ((T_U − y)/u) − Φ((T_L − y)/u) = Φ(1.5) − Φ(−0.61) = 0.93 − 0.27 = 0.66 (Formula 11).
+2. The measured value lies in the tolerance interval and the sample is accepted under simple acceptance, but the probability of conformity is only 66 %: the uncertainty is large compared with the tolerance (C_m = 3.8/(4 × 1.8) = 0.53).
+
+**Result:**
+
+- Probability that oil conforms to 12.5 mm²/s ≤ Y ≤ 16.3 mm²/s: p_c = 66 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/general/jcgm106-7.4-motor-oil-viscosity.json --lang en`
+
+### Nandrolone in animal products: decision limit for a screening test (JCGM 106 8.3.3)
+
+`jcgm106-8.3-nandrolone` — JCGM 106:2012, 8.3.3, Example 2
+
+JCGM 106:2012 8.3.3 Example 2: threshold 2.00 µg/L; a result is suspect if the probability that the threshold is exceeded is at least 95 %; reproducibility s = 0.20 µg/L from ten spiked blanks, t distribution with ν = 9.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. The PDF for the concentration is a scaled and shifted t distribution with scale s = 0.20 µg/L and ν = 9 degrees of freedom (JCGM 101 6.4.9).
+2. Guard band g = t₀.₉₅;₉ × s = 1.83 × 0.20 = 0.37 µg/L and decision limit A = T + g = 2.37 µg/L (guarded rejection).
+
+**Run:** `uncertainty run library/general/jcgm106-8.3-nandrolone.json --lang en`
+
+### Speed limit enforcement: guarded rejection (JCGM 106 8.3.3)
+
+`jcgm106-8.3-speed-limit` — JCGM 106:2012, 8.3.3, Example 1
+
+JCGM 106:2012 8.3.3 Example 1: speed limit 100 km/h, radar with relative standard uncertainty 2 %; a ticket only if the probability that the limit was exceeded is at least 99.9 %.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Knowledge of the speed for a measured v is a normal PDF with standard deviation 0.02v.
+2. The acceptance limit v_max satisfies (v_max − v₀)/(0.02 v_max) = z = 3.09, so v_max = v₀/(1 − 0.02z) = 100/(1 − 0.0618) ≈ 107 km/h.
+3. The interval 100 km/h to 107 km/h is a guard band: a measured speed of 107 km/h or more gives at least 99.9 % probability that the limit was exceeded.
+
+**Result:**
+
+- Probability that car A conforms to v ≤ 100 km/h: p_c = 0.86 %; accepted under guarded rejection.
+- Probability that car B conforms to v ≤ 100 km/h: p_c = 0.011 %; rejected under guarded rejection.
+
+**Notes:**
+
+- The program solves the condition exactly with z = Φ⁻¹(0.999) = 3.0902, giving 106.59 km/h; the standard rounds to 107 km/h. The measured speeds 105 and 108 km/h illustrate both sides of the acceptance limit.
+
+**Run:** `uncertainty run library/general/jcgm106-8.3-speed-limit.json --lang en`
+
+### Ball bearings: acceptance limit for a required consumer's risk (JCGM 106 9.5.4)
+
+`jcgm106-9.5-ball-bearings` — JCGM 106:2012, 9.5.4, Example
+
+JCGM 106:2012 9.5.4 Example: radial error motion ≤ 2 µm, gamma process PDF with mean 1 µm and standard deviation 0.5 µm, measuring system u_m = 0.25 µm; global consumer's risk at most 0.1 %.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. The radial error motion is positive, so the process PDF is a gamma density with α = (1/0.5)² = 4 and λ = 1/0.5² = 4 µm⁻¹ (Annex B, Formula 22); 4.2 % of the bearings exceed 2 µm.
+2. With A = T − 2r u_m, R_C(r) and R_P(r) follow from Formulae (23) and (24); R_C = 0.1 % is reached for r ≈ 0.65, so A ≈ 1.7 µm, with R_P ≈ 7.5 %.
+
+**Notes:**
+
+- The text states the acceptance interval 0 ≤ Y_m ≤ A and Formula (23) for R_C includes the lower limit 0, but Formula (24) for R_P omits it. The printed R_P ≈ 7.5 % follows from (24); with the lower acceptance limit 0, R_P would be 8.9 % (research log F45). The project uses the acceptance interval Y_m ≤ A, which reproduces both R_C and R_P (the lower limit has no effect on R_C).
+
+**Run:** `uncertainty run library/general/jcgm106-9.5-ball-bearings.json --lang en`
+
+### Precision resistors: global consumer's and producer's risks (JCGM 106 9.5.3)
+
+`jcgm106-9.5-precision-resistors` — JCGM 106:2012, 9.5.3, Example
+
+JCGM 106:2012 9.5.3 Example: 1500 Ω ± 0.2 Ω resistors from a process with σ = 0.12 Ω, inspected with u_m = 0.04 Ω and acceptance limits 1499.82 Ω and 1500.18 Ω.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Without inspection p_c = ∫ φ(η; 1500, 0.12²) dη over the tolerance interval = 0.90: about 10 % of the resistors would not conform (Formula 21).
+2. Guarded acceptance with symmetric guard bands w = 0.02 Ω = 0.25U.
+3. Formulae (19) and (20) by numerical integration: R_C = 1 % and R_P = 7 %. Of 100 resistors 83 are accepted correctly, 7 rejected falsely, 9 rejected correctly and 1 accepted falsely; of the accepted resistors 99 % conform.
+
+**Run:** `uncertainty run library/general/jcgm106-9.5-precision-resistors.json --lang en`
 
 ### Product and ratio y = ab/c with a wide triangular divisor (NIST Uncertainty Machine §3)
 

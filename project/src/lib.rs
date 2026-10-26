@@ -10,6 +10,7 @@
 //! English or Turkish ([`report`]).
 
 pub mod calibration;
+pub mod conformity;
 pub mod proficiency;
 pub mod report;
 pub mod schema;
@@ -87,16 +88,19 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
             p.version
         )));
     }
-    if [p.model.is_some(), p.topdown.is_some(), p.proficiency.is_some(), p.calibration.is_some()]
+    let primary = [p.model.is_some(), p.topdown.is_some(), p.proficiency.is_some(), p.calibration.is_some()]
         .iter()
         .filter(|&&b| b)
-        .count()
-        != 1
-    {
+        .count();
+    if primary > 1 || (primary == 0 && p.conformity.is_none()) {
         return Err(ProjectError::Format(
-            "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\" and \"calibration\""
+            "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\" \
+             and \"conformity\" (which may also accompany \"model\")"
                 .into(),
         ));
+    }
+    if p.conformity.is_some() && primary == 1 && p.model.is_none() {
+        return Err(ProjectError::Format("\"conformity\" can accompany a \"model\" section only".into()));
     }
     Ok(p)
 }
@@ -216,6 +220,8 @@ pub struct Analysis {
     pub sensitivities: Vec<String>,
     /// Kragten's spreadsheet approximation, if requested.
     pub kragten: Option<Kragten>,
+    /// Conformity assessment of the result (JCGM 106), if requested.
+    pub conformity: Option<conformity::ConformityAnalysis>,
 }
 
 pub fn gum_options(spec: &GumSpec) -> GumOptions {
@@ -244,6 +250,8 @@ pub enum Evaluation {
     Proficiency(Box<proficiency::ProficiencyAnalysis>),
     /// Calibration with uncertainties in both variables (ISO 6143).
     Calibration(Box<calibration::CalibrationAnalysis>),
+    /// Conformity assessment study (JCGM 106) without a model.
+    Conformity(Box<conformity::ConformityAnalysis>),
 }
 
 impl Evaluation {
@@ -311,6 +319,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     if let Some(spec) = &p.calibration {
         return Ok(Evaluation::Calibration(Box::new(calibration::evaluate(spec)?)));
     }
+    if let (Some(spec), None) = (&p.conformity, &p.model) {
+        return Ok(Evaluation::Conformity(Box::new(conformity::evaluate(spec, None)?)));
+    }
     Ok(Evaluation::Model(Box::new(run_model(p, overrides)?)))
 }
 
@@ -344,7 +355,7 @@ pub fn run_model(p: &Project, overrides: &Overrides) -> Result<Analysis, Project
                 seed: overrides.seed.unwrap_or(spec.seed),
                 interval: interval_kind,
                 histogram_bins: 60,
-                keep_values: false,
+                keep_values: p.conformity.is_some(),
             };
             let r = mcm::evaluate(&model, &opts)?;
             if let Some(g) = &gum {
@@ -361,7 +372,29 @@ pub fn run_model(p: &Project, overrides: &Overrides) -> Result<Analysis, Project
         Some(spec) if spec.kragten => Some(gum::kragten(&model)?),
         _ => None,
     };
-    Ok(Analysis { model, gum, mcm, validation, interval_kind, sensitivities, kragten })
+    let mut mcm = mcm;
+    let conformity = match (&p.conformity, &gum) {
+        (Some(spec), Some(g)) => Some(conformity::evaluate(
+            spec,
+            Some(conformity::Subject {
+                name: model.output_name.clone(),
+                unit: model.output_unit.clone(),
+                value: g.estimate,
+                u: g.combined_standard_uncertainty,
+                dof: Some(g.effective_dof),
+                values: mcm.as_ref().and_then(|m| m.values.as_deref()),
+            }),
+        )?),
+        (Some(_), None) => {
+            return Err(input_err("conformity", "needs the GUM evaluation of the model"));
+        }
+        _ => None,
+    };
+    // The Monte Carlo values were kept only for the conformity assessment.
+    if let Some(m) = mcm.as_mut() {
+        m.values = None;
+    }
+    Ok(Analysis { model, gum, mcm, validation, interval_kind, sensitivities, kragten, conformity })
 }
 
 /// Result of comparing one computed value with an expected reference value.
@@ -397,6 +430,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             let mut out = Vec::new();
             if let Some(exp) = p.expected.as_ref().and_then(|x| x.calibration.as_ref()) {
                 calibration::check(exp, a, &mut out);
+            }
+            out
+        }
+        Evaluation::Conformity(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.conformity.as_ref()) {
+                conformity::check(exp, a, &mut out);
             }
             out
         }
@@ -449,6 +489,9 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
             });
         }
     }
+    if let (Some(e), Some(c)) = (&exp.conformity, &a.conformity) {
+        conformity::check(e, c, &mut out);
+    }
     out
 }
 
@@ -499,6 +542,15 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": spec.map(|s| &s.analyte), "unit": spec.and_then(|s| s.unit.as_ref()) },
                 "calibration": calibration::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::Conformity(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.quantity, "unit": a.unit },
+                "conformity": conformity::results_json(a),
                 "checks": checks,
             });
         }
@@ -586,6 +638,7 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
         "project": project,
         "output": { "name": a.model.output_name, "unit": a.model.output_unit },
         "gum": gum,
+        "conformity": a.conformity.as_ref().map(conformity::results_json),
         "uncorrected_bias": uncorrected_bias_interval(p, a).map(|(s, lo, hi)| json!({
             "strategy": s.label(), "bias": p.reporting.uncorrected_bias.as_ref().map(|b| b.bias),
             "u_minus": lo, "u_plus": hi,
@@ -671,6 +724,33 @@ mod tests {
         ))
         .unwrap();
         assert!(matches!(run(&td, &Overrides::default()), Err(ProjectError::Input { .. })));
+    }
+
+    #[test]
+    fn conformity_of_a_model_result() {
+        let j = A1.replace(
+            "\"expected\":",
+            r#""conformity": { "lower": 1000, "upper": 1005, "rule": "guarded_acceptance" }, "expected":"#,
+        );
+        let p = parse(&j).unwrap();
+        let e = run(&p, &Overrides::default()).unwrap();
+        let a = e.model().unwrap();
+        let c = a.conformity.as_ref().unwrap();
+        let g = a.gum.as_ref().unwrap();
+        // w = U = 2u_c on each side; p_c from N(y, u_c²) and from the Monte Carlo values.
+        assert!((c.acceptance.upper.unwrap() - (1005.0 - 2.0 * g.combined_standard_uncertainty)).abs() < 1e-9);
+        let r = &c.results[0];
+        let pc = uncertainty_core::special::normal_cdf((1005.0 - g.estimate) / g.combined_standard_uncertainty)
+            - uncertainty_core::special::normal_cdf((1000.0 - g.estimate) / g.combined_standard_uncertainty);
+        assert!((r.conformance_probability - pc).abs() < 1e-12 && r.accepted);
+        assert!((r.conformance_probability_mcm.unwrap() - pc).abs() < 0.003, "{r:?}");
+        assert!(a.mcm.as_ref().unwrap().values.is_none());
+        let st = report::reported_statements(&p, &e, Lang::En);
+        assert!(st.last().unwrap().starts_with("Probability that c conforms to 1000 mg/L ≤ c ≤ 1005 mg/L"), "{st:?}");
+        // conformity cannot accompany a top-down project.
+        let bad = r#"{"format": "uncertainty-calculations/project", "version": 1, "metadata": {"title": {"en": "x", "tr": "x"}},
+            "topdown": {"quantity": "c", "precision": [], "bias": []}, "conformity": {"upper": 1}}"#;
+        assert!(matches!(parse(bad), Err(ProjectError::Format(_))));
     }
 
     #[test]
