@@ -2,15 +2,65 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (31)
-- Elektrik ve RF (10)
-- Akış ve hacim (3)
+- Kimya (33)
+- Elektrik ve RF (11)
+- Akış ve hacim (4)
 - Genel (yöntem doğrulama) (3)
 - Uzunluk (7)
-- Kütle (3)
-- Sıcaklık (3)
+- Kütle (4)
+- Fiziksel özellikler (5)
+- Sıcaklık (4)
 
 ## Kimya
+
+### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
+
+`nist-tn1900-e8-molecular-weight-co2` — NIST Technical Note 1900, Example E8, Exhibit 12
+
+TN 1900 E8: IUPAC aralık atom ağırlıklarından M_r(CO₂) = A_r(C) + 2A_r(O); çıktı dağılımı yamuktur ve GUM aralığı gereğinden geniştir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Standart atom ağırlıkları aralıktır: A_r(C) ∈ [12,0096; 12,0116] ve A_r(O) ∈ [15,99903; 15,99977] (Wieser ve ark. 2013). Her biri kendi aralığı üzerinde dikdörtgen dağılımla modellenir.
+2. Tahmin 12,0106 + 2 × 15,9994 = 44,0094'tür ve u² = u(A_r(C))² + 4u(A_r(O))², u = 0,00072 olur.
+3. İki dikdörtgen değişkenin toplamı, yarı genişlikleri 0,00174 (taban) ve 0,00026 (üst) olan simetrik yamuk dağılıma sahiptir. En kısa %95 aralığı 44,0094 ± 0,00136 = [44,0080; 44,0108] olup GUM aralığı ± 1,96u = ± 0,00141'den dardır; Monte Carlo yöntemi tam aralığı yeniden üretir.
+
+**Sonuç:**
+
+- M_r = (44,0094 ± 0,0014); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- TN 1900, yuvarlanmış 0,0006 ve 0,0002 bileşenlerinden u = 0,000721 basar; yuvarlanmamış 0,000577 ve 0,000214 bileşenleri 0,000718 verir. Tam aralığın uç noktaları yamuk dağılımdan çıkar: 44,0094 ± (0,00174 − √(0,2 × 0,001 × 0,00074)) = [44,008045; 44,010755].
+
+**Çalıştırma:** `uncertainty run library/chemistry/nist-tn1900-e8-molecular-weight-co2.json --lang tr`
+
+### Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9)
+
+`nist-tn1900-e9-cadmium-standard` — NIST Technical Note 1900, Example E9
+
+TN 1900 E9: QUAM A1 kadmiyum standardı, c = 1000 m P / V, dikdörtgen saflık ve üçgen hacim dağılımıyla Monte Carlo yöntemiyle yeniden değerlendirilir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. m = 100,28 mg (u = 0,05 mg, normal), P = 0,9999 ([0,9998; 1] üzerinde dikdörtgen, u = 0,000058) ve V = 100,0 mL (üçgen, u = 0,07 mL); c = 1002,7 mg/L.
+2. Çarpım ve bölüm için bağıl belirsizlikler kareler toplamı olarak birleşir (GUM 5.1.6): u(c)/c = √((0,05/100,28)² + (0,000058/0,9999)² + (0,07/100)²), u = 0,86 mg/L.
+3. Monte Carlo yöntemi aynı standart belirsizliği ve TN 1900'de basılı basamaklara kadar, tüm girdiler normal dağılımlı alındığındakiyle aynı %95 aralığını, [1001,0; 1004,4] mg/L, verir. Üçgen ve dikdörtgen girdiler çıktının kuyruklarını biraz daraltır: Monte Carlo uç noktaları GUM aralığının yaklaşık 0,02–0,03 mg/L içindedir; bu nedenle GUM sonucu u'nun iki anlamlı basamağı için (δ = 0,005 mg/L) doğrulanmaz, ancak farkın pratik bir önemi yoktur.
+
+**Sonuç:**
+
+- c_Cd = (1002,7 ± 1,7) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- TN 1900, V'yi 'ortalaması 100 mL ve standart sapması 0,7 mL olan' simetrik üçgen dağılım olarak tanımlar; basılı aralıkla yalnızca aynı örnekte ve QUAM A1'de kullanılan 0,07 mL tutarlıdır. Üçgen yarı genişliği 0,07 × √6 = 0,1715 mL'dir.
+- 'quam-a1-cadmium-standard' projesi m, P ve V'nin belirsizliklerini QUAM A1'deki gibi bileşenlerinden oluşturur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang tr`
 
 ### Kadmiyum kalibrasyon standardının hazırlanması
 
@@ -938,6 +988,27 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang tr`
 
+### Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11)
+
+`nist-tn1900-e11-step-attenuator` — NIST Technical Note 1900, Example E11, Exhibits 16 and 17
+
+TN 1900 E11: EA-4/02 S7 Monte Carlo yöntemiyle yeniden değerlendirilir; baskın arksinüs uyumsuzluk terimi doğrusal bir toplamın dağılımını iki tepeli yapar.
+
+**Yaklaşım:** Yalnızca Monte Carlo yöntemi (JCGM 101); sonuçlar için projeyi çalıştırın
+
+**Adımlar:**
+
+1. L_X = L_S + δL_S + δL_D + δL_M + δL_K + δL_ib − δL_ia + δL_0b − δL_0a; zayıflatıcının 30 dB kademesi kalibre edilmiş bir referans zayıflatıcıya karşı ölçülür (EA-4/02 S7).
+2. L_S dört okumanın ortalamasıdır, 30,0402 dB, u = 0,0091 dB; TN 1900 bunu standart sapması 0,0091 dB olacak şekilde ölçeklenmiş bir t₃ değişkeni olarak modeller. Uyumsuzluk (u = 0,02 dB), kayma ve sızıntı (±0,003 dB) arksinüs (U biçimli); δL_S ve referans dedektör çözünürlükleri dikdörtgen; sıfır dedektörü terimleri normal dağılımlıdır (TN 1900 Şekil 16).
+3. Monte Carlo yöntemi 30,043 dB, u = 0,0224 dB ve %95 aralığı [30,006; 30,081] dB verir. u²(δL_M), u²(L_X)'in %79'udur; bu nedenle çıktı yoğunluğu iki tepelidir ve klasik ± 2u aralığı muhafazakârdır (etkin kapsam %99).
+
+**Notlar:**
+
+- TN 1900, L_S'nin t₃ dağılımını standart sapması u = 0,0091 dB olacak şekilde ölçekler (ölçek 0,0091/√3 dB). JCGM 101 6.4.9 ise ölçek olarak s/√n = 0,0091 dB alır, yani standart sapma 0,0158 dB olur. Bir t girdisinin GUM belirsizliği ölçeği olduğundan GUM değerlendirmesi kapatılmıştır; EA-4/02 GUM sonucu 'ea402-s7-step-attenuator-30db' projesindedir.
+- TN 1900, sızıntı terimi δL_K'yı ±0,003 dB üzerinde arksinüs olarak modeller (u = 0,0021 dB) ve EA-4/02 S7.12'deki 0,0017 dB'in dikdörtgen dağılıma karşılık geldiğini, oysa EA-4/02'nin terimi U biçimli olarak nitelediğini belirtir.
+
+**Çalıştırma:** `uncertainty run library/electrical/nist-tn1900-e11-step-attenuator.json --lang tr`
+
 ## Akış ve hacim
 
 ### Su sayacı kalibrasyonu: tek çalışmanın bağıl hatası
@@ -997,6 +1068,30 @@ EA-4/02 S12 (birinci bütçe): 2500 L/h'te bir konut tipi su sayacından geçen 
 - V_X = (199,93 ± 0,22) L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang tr`
+
+### Pitot tüpüyle hava hızı (NIST TN 1900 E4)
+
+`nist-tn1900-e4-pitot-tube` — NIST Technical Note 1900, Example E4
+
+TN 1900 E4 (Kline ve McClintock, 1953'ten): fark basıncı, hava basıncı ve sıcaklıktan hava hızı.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. v = √(2ΔR_sT/p); burada hava yoğunluğu ρ = p/(R_sT) ideal gaz yasasından gelir; R_s = 287,058 J kg⁻¹ K⁻¹ kuru havanın özgül gaz sabitidir.
+2. Δ = 1,993 kPa (U-tüp manometre), p = 101,4 kPa (Bourdon manometre) ve T = 292,8 K (cıvalı cam termometre); %95 genişletilmiş belirsizlikleri 0,025 kPa, 2,1 kPa ve 0,11 K'dir, standart belirsizlikler bunların yarısıdır.
+3. Üslü bir bağıntıda bağıl belirsizlikler ½ ağırlıkla kareler toplamı olarak birleşir: u(v)/v = ½ √((u_Δ/Δ)² + (u_p/p)² + (u_T/T)²) = %0,61; baskın katkı hava basıncınındır. Monte Carlo aralığı biraz daha düşük değerlere kaymıştır (v ∝ p^−½) ve GUM aralığı u'nun iki anlamlı basamağı için doğrulanmaz (uç nokta farkları 0,007 ve 0,009 m/s, δ = 0,005 m/s); TN 1900'de basılı iki aralık arasındaki ikinci basamak farkları da bunu gösterir.
+
+**Sonuç:**
+
+- v = (57,48 ± 0,68) m/s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Verilen denklem ve girdilerle v = 57,48 m/s ve u(v) = 0,348 m/s bulunur. TN 1900 ise v = 40,64 m/s ve u(v) = 0,25 m/s basar; bunlar aynı değerlerin √2'ye bölünmüşüdür, yani 2 çarpanı olmadan v = √(ΔR_sT/p) bağıntısının sonucudur. Bağıl belirsizlik (%0,61) her ikisinde de aynıdır.
+
+**Çalıştırma:** `uncertainty run library/flow/nist-tn1900-e4-pitot-tube.json --lang tr`
 
 ## Genel (yöntem doğrulama)
 
@@ -1289,6 +1384,143 @@ JCGM 101 9.3: aynı model, GUM 5.1.2'nin yüksek mertebe terimleriyle değerlend
 
 **Çalıştırma:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang tr`
 
+### Tartımla toz kütlesi (NIST TN 1900 E1)
+
+`nist-tn1900-e1-weighing` — NIST Technical Note 1900, Example E1, Exhibit 1
+
+TN 1900 E1: tek kefeli terazide üç tartımdan toz kütlesi; doğrusal model, GUM ve MCM aynı sonucu verir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Tozun kütlesi m_P = c_P − c_E − (c_R2 − c_R1) bağıntısıyla bulunur: toz dolu kabın okuması, boş kabın okuması ve referans ağırlığın iki okuması arasındaki terazi kaymasının farkı.
+2. c_P ve c_E'nin standart belirsizlikleri (0,005015 g), kabın belirsizliğini (0,005 g) terazinin kalibrasyon, tekrarlanabilirlik, doğrusallık ve sıcaklık bileşenleriyle (0,1; 0,1; 0,2 ve 0,3 mg) birleştirir; kayma teriminin belirsizliği 0,0005477 g'dır (TN 1900 Şekil 1).
+3. Tüm duyarlılık katsayıları ±1 olduğundan u(m_P)² = u(c_P)² + u(c_E)² + u(c_R2 − c_R1)², u = 0,0071 g olur; çıktı normal dağılımlıdır ve Monte Carlo yöntemi aynı %95 aralığını, [50,270; 50,298] g, verir.
+
+**Sonuç:**
+
+- m_P = (50,284 ± 0,014) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang tr`
+
+## Fiziksel özellikler
+
+### Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-gaussian-95` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki sıcaklıkta iki uzunluk ölçümünden; normal girdiler, %95 kapsam.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)); T₀ = 288,15 K'de L₀ = 1,4999 m ve T₁ = 373,10 K'de L₁ = 1,5021 m; u(L₀) = 0,0001 m, u(L₁) = 0,0002 m, u(T₀) = 0,02 K, u(T₁) = 0,05 K. Sonuç 10⁻⁶ K⁻¹ biriminde verilir.
+2. Belirsizliğin neredeyse tamamı 2,2 mm'lik uzunluk farkından gelir: u(α) = 1,8 × 10⁻⁶ K⁻¹, yani α = 17,3 × 10⁻⁶ K⁻¹'in yaklaşık %10'u.
+3. Normal girdilerle GUM ve Monte Carlo sonuçları uyuşur; Monte Carlo örnekleminin yüzdeliklerinden %95 aralığı [13,8; 20,7] × 10⁻⁶ K⁻¹ olur.
+
+**Sonuç:**
+
+- alpha = (17,3 ± 3,4) 10⁻⁶ K⁻¹; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
+
+**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json --lang tr`
+
+### Isıl genleşme katsayısı, normal girdiler, %99 (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-gaussian-99` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki sıcaklıkta iki uzunluk ölçümünden; normal girdiler, %99 kapsam.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)); T₀ = 288,15 K'de L₀ = 1,4999 m ve T₁ = 373,10 K'de L₁ = 1,5021 m; u(L₀) = 0,0001 m, u(L₁) = 0,0002 m, u(T₀) = 0,02 K, u(T₁) = 0,05 K. Sonuç 10⁻⁶ K⁻¹ biriminde verilir.
+2. Belirsizliğin neredeyse tamamı 2,2 mm'lik uzunluk farkından gelir: u(α) = 1,8 × 10⁻⁶ K⁻¹, yani α = 17,3 × 10⁻⁶ K⁻¹'in yaklaşık %10'u.
+3. Normal girdilerle GUM ve Monte Carlo sonuçları uyuşur; Monte Carlo örnekleminin yüzdeliklerinden %99 aralığı [12,7; 21,8] × 10⁻⁶ K⁻¹ olur.
+
+**Sonuç:**
+
+- alpha = (17,3 ± 4,5) 10⁻⁶ K⁻¹; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,58 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
+
+**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json --lang tr`
+
+### Isıl genleşme katsayısı, Student t₃ girdiler, %95 (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-student-95` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki sıcaklıkta iki uzunluk ölçümünden; Student t₃ girdiler, %95 kapsam.
+
+**Yaklaşım:** Yalnızca Monte Carlo yöntemi (JCGM 101); sonuçlar için projeyi çalıştırın
+
+**Adımlar:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)); T₀ = 288,15 K'de L₀ = 1,4999 m ve T₁ = 373,10 K'de L₁ = 1,5021 m; u(L₀) = 0,0001 m, u(L₁) = 0,0002 m, u(T₀) = 0,02 K, u(T₁) = 0,05 K. Sonuç 10⁻⁶ K⁻¹ biriminde verilir.
+2. Belirsizliğin neredeyse tamamı 2,2 mm'lik uzunluk farkından gelir: u(α) = 1,8 × 10⁻⁶ K⁻¹, yani α = 17,3 × 10⁻⁶ K⁻¹'in yaklaşık %10'u.
+3. Her tahmin dört tekrar gözlemin ortalaması kabul edildiğinden TN 1900, standart sapmaları standart belirsizliklere eşit olacak şekilde ölçeklenmiş t₃ dağılımları atar. α ve u(α) değişmez, ancak çıktı daha sivri ve kuyrukları daha ağırdır: %95 aralığı [14,0; 20,5] × 10⁻⁶ K⁻¹ olur.
+
+**Notlar:**
+
+- Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
+- TN 1900 her t₃ dağılımını standart sapması u olacak şekilde ölçekler (ölçek u/√3); JCGM 101 6.4.9 ise ölçek olarak s/√n = u alır. Bir t girdisinin GUM belirsizliği ölçeği olduğundan burada GUM değerlendirmesi kapatılmıştır; GUM sonucu normal girdili projelerdedir.
+
+**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-95.json --lang tr`
+
+### Isıl genleşme katsayısı, Student t₃ girdiler, %99 (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-student-99` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki sıcaklıkta iki uzunluk ölçümünden; Student t₃ girdiler, %99 kapsam.
+
+**Yaklaşım:** Yalnızca Monte Carlo yöntemi (JCGM 101); sonuçlar için projeyi çalıştırın
+
+**Adımlar:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)); T₀ = 288,15 K'de L₀ = 1,4999 m ve T₁ = 373,10 K'de L₁ = 1,5021 m; u(L₀) = 0,0001 m, u(L₁) = 0,0002 m, u(T₀) = 0,02 K, u(T₁) = 0,05 K. Sonuç 10⁻⁶ K⁻¹ biriminde verilir.
+2. Belirsizliğin neredeyse tamamı 2,2 mm'lik uzunluk farkından gelir: u(α) = 1,8 × 10⁻⁶ K⁻¹, yani α = 17,3 × 10⁻⁶ K⁻¹'in yaklaşık %10'u.
+3. Her tahmin dört tekrar gözlemin ortalaması kabul edildiğinden TN 1900, standart sapmaları standart belirsizliklere eşit olacak şekilde ölçeklenmiş t₃ dağılımları atar. α ve u(α) değişmez, ancak çıktı daha sivri ve kuyrukları daha ağırdır: %99 aralığı [11,5; 23,0] × 10⁻⁶ K⁻¹ olur.
+
+**Notlar:**
+
+- Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
+- TN 1900 her t₃ dağılımını standart sapması u olacak şekilde ölçekler (ölçek u/√3); JCGM 101 6.4.9 ise ölçek olarak s/√n = u alır. Bir t girdisinin GUM belirsizliği ölçeği olduğundan burada GUM değerlendirmesi kapatılmıştır; GUM sonucu normal girdili projelerdedir.
+
+**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-99.json --lang tr`
+
+### Düşen bilyalı viskozimetre (NIST TN 1900 E3)
+
+`nist-tn1900-e3-falling-ball-viscometer` — NIST Technical Note 1900, Example E3, Exhibit 3
+
+TN 1900 E3: bir NaOH çözeltisinin dinamik viskozitesi kalibrasyon sıvısıyla karşılaştırılarak; düşme sürelerinin büyük bağıl belirsizlikleri çıktıyı çarpık yapar.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. μ_M = μ_C (ρ_B − ρ_M)/(ρ_B − ρ_C) · t_M/t_C; μ_C = 4,63 mPa s, ρ_B = 2217, ρ_C = 810, ρ_M = 1180 kg/m³, t_C = 36,6 s ve t_M = 61 s; tüm girdiler normal dağılımlı.
+2. Bağıl standart belirsizlikler μ_C için %1, t_C için %15 ve t_M için %10'dur; yoğunlukların u'su 0,5 kg/m³'tür. TN 1900 bu değerlerin bilerek büyük seçildiğini belirtir.
+3. Tahminlerin yerine konmasıyla 5,69 mPa s ve birinci mertebe yayılım yasasıyla u = 1,03 mPa s bulunur. 1/t_C, ±%15 aralığında belirgin biçimde doğrusal olmadığından Monte Carlo ortalaması 5,82 mPa s, u = 1,11 mPa s olur ve %95 aralığı, [4,05; 8,39] mPa s, tahmine göre asimetriktir.
+4. Bu nedenle GUM aralığı, 5,69 ± 2,01 mPa s, doğrulanmaz: uç noktaları Monte Carlo aralığınınkilerin 0,38 mPa s ve 0,69 mPa s altındadır. En kısa Monte Carlo aralığı, [3,84; 8,05] mPa s, TN 1900'ün kullandığı olasılıksal simetrik aralıktan da farklıdır.
+
+**Sonuç:**
+
+- mu_M = (5,7 ± 2,0) mPa s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- TN 1900, NIST Uncertainty Machine'de uygulanan klasik yayılım formülünün 1,11 mPa s verdiğini ve bunun Monte Carlo değeriyle aynı olduğunu belirtir. Birinci mertebe yayılım yasası (GUM eş. 10) verilen model ve girdilere uygulandığında 1,027 mPa s; GUM 5.1.2'nin ikinci mertebe terimleriyle yaklaşık 1,10 mPa s verir. Dolayısıyla TN 1900'de basılı değer eş. 10'un sonucu değildir.
+
+**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e3-falling-ball-viscometer.json --lang tr`
+
 ## Sıcaklık
 
 ### Sıcaklık blok kalibratörünün 180 °C'de kalibrasyonu
@@ -1355,4 +1587,29 @@ EA-4/02 S5 (birinci bütçe): 1000 °C'deki fırının sıcaklığının N tipi 
 - t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang tr`
+
+### Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2)
+
+`nist-tn1900-e2-surface-temperature` — NIST Technical Note 1900, Example E2, Exhibit 2
+
+TN 1900 E2: 22 günlük okuma için t_i = τ + E_i gözlem denklemi; 21 serbestlik dereceli A tipi değerlendirme.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Ölçülen büyüklük τ, Mayıs 2012'deki gerçek günlük en yüksek sıcaklıkların ortalamasıdır; her okuma ondan, ortalaması 0 olan bağımsız normal dağılımlı bir E_i hatası kadar sapar (TN 1900'ün gözlem denklemi).
+2. Tahmin, m = 22 okumanın ortalaması olan 25,59 °C'dir; s = 4,09 °C olduğundan u(τ) = s/√22 = 0,872 °C ve ν = 21'dir (GUM 4.2.3).
+3. %95 için kapsam faktörü t₀,₉₇₅(21) = 2,08 t dağılımı yüzdeliğidir ve aralık [23,8; 27,4] °C olur. Monte Carlo yöntemi τ'yu JCGM 101 6.4.9'un ölçeklenmiş ve kaydırılmış t₂₁ dağılımından çeker ve aynı aralığı verir.
+
+**Sonuç:**
+
+- tau = (25,6 ± 1,8) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,08 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Monte Carlo standart sapması s/√m · √(ν/(ν − 2)) = 0,917 °C'dir ve u = 0,872 °C'den büyüktür, çünkü JCGM 101 6.4.9'un t dağılımının ölçeği s/√m'dir; kapsam aralıkları ise çakışır.
+- TN 1900 ayrıca dağılımdan bağımsız Wilcoxon aralığını, [23,6; 27,6] °C, verir; bu bir GUM ya da Monte Carlo sonucu olmadığından burada yeniden üretilmez.
+
+**Çalıştırma:** `uncertainty run library/temperature/nist-tn1900-e2-surface-temperature.json --lang tr`
 

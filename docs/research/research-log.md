@@ -628,3 +628,103 @@ uncertainties (A4: 27 %) make the difference visible in the third digit.
 **Estimates in reports** are now shown with enough significant digits to
 resolve two digits of their standard uncertainty (e.g. 50 000 838 nm instead
 of 5.00008 × 10⁷ nm).
+
+---
+
+## 2026-10-26 (session 7) — NIST TN 1900 examples
+
+**D25. NIST Technical Note 1900 in the library.** TN 1900 (Possolo 2015) is
+the third independent family of worked examples after the JCGM/EA documents
+and the Eurachem guides, and the only one that systematically states its
+input distributions for the Monte Carlo method. Eleven projects reproduce
+the examples whose measurand is given by a measurement equation with scalar
+inputs: E1 weighing, E2 surface temperature (Type A, ν = 21), E3
+falling-ball viscometer, E4 Pitot tube, E8 molecular weight of CO₂, E9
+cadmium standard (QUAM A1 with rectangular P and triangular V), E11
+microwave step attenuator (EA-4/02 S7 with U-shaped inputs) and E13
+thermal expansion coefficient with Gaussian and with t₃ inputs at 95 % and
+99 %. Not included: E5 (needs truncated Gaussian inputs), and the
+observation-equation examples that require regression, random-effects
+meta-analysis, Bayesian or bootstrap methods (E6, E7, E10, E12, E14–E35);
+they are candidates for later modules. A new field, *physical properties*,
+holds E3 and E13. `tools/library_index.py` now regenerates the tables of
+`library/README.md` from the project files.
+
+Reference values are the printed TN 1900 values with a tolerance of half a
+unit of the last printed digit plus the Monte Carlo dispersion; where a
+printed value is not reproducible from the printed inputs the project uses
+the recomputed value and explains the difference in its notes (F28–F30).
+For E8 the exact interval end points of the trapezoidal output distribution
+are used (44.008045, 44.010755; TN 1900 prints [44.0080, 44.0108]).
+
+**D26. Projects without a GUM evaluation in the interface.** The settings
+tab of the interface had silently re-created `"gum": {}` in projects that set
+`"gum": null`; it now has a switch for the GUM framework like the one for the
+Monte Carlo method, and the catalogue marks such projects as "Monte Carlo
+method only". A widget test opens TN 1900 E11, checks that the switch is
+off, runs it and checks that only the Monte Carlo result is shown. The
+test also exposed an overflow of the drop-down fields of the settings tab
+on narrow widths (fixed with `isExpanded`).
+
+### Findings
+
+**F28. TN 1900 E4 (Pitot tube) — results inconsistent with the stated
+equation by a factor √2 (class c).** TN 1900 states v = √(2ΔR_sT/p) with
+Δ = 1.993 kPa, p = 101.4 kPa, T = 292.8 K, R_s = 287.058 J kg⁻¹ K⁻¹ and prints
+v = 40.64 m/s, u(v) = 0.25 m/s, intervals [40.15, 41.14] and [40.17, 41.13]
+m/s. The stated equation and inputs give v = 57.48 m/s and u(v) = 0.348 m/s;
+the printed values are exactly these divided by √2 (40.645, 0.2461), i.e.
+the result of √(ΔR_sT/p). The relative uncertainty (0.61 %) is unaffected.
+The project uses the stated equation and checks the printed values × √2.
+To check before submission: whether the original example of Kline and
+McClintock (1953) defines Δ differently (e.g. as a head in other units), and
+any TN 1900 errata.
+
+**F29. TN 1900 E3 (falling-ball viscometer) — "conventional formula" value
+not that of GUM eq. (10) (class c, to be confirmed).** TN 1900 states that
+Gauss's formula as implemented in the NIST Uncertainty Machine gives
+u(μ_M) = 1.11 mPa s, "identical" to the Monte Carlo value. The first-order
+law of propagation applied to the stated model and inputs gives 1.027 mPa s
+(the t_C and t_M terms alone give 5.687 × √(0.15² + 0.10²) = 1.026 mPa s);
+with the second-order terms of GUM 5.1.2 the program gives 1.10 mPa s. The
+printed Monte Carlo results (mean 5.82 mPa s, u = 1.11 mPa s, 95 % interval
+[4.05, 8.39] mPa s) are reproduced. To check: how the NUM evaluates its
+"Gauss" result (possibly not at the estimates, or with a different
+derivative approximation) — the point matters for the article because it
+concerns what a "GUM result" is in software comparisons.
+
+**F30. TN 1900 E9 — "standard deviation 0.7 mL" for V (class b).** The
+triangular distribution of V is described with standard deviation 0.7 mL;
+the example's own u(V) = 0.07 mL and the printed interval [1001.0, 1004.4]
+mg/L are only consistent with 0.07 mL (QUAM A1). With the stated inputs the
+GUM result is not validated for two significant digits of u (end-point
+differences 0.026 and 0.022 mg/L against δ = 0.005 mg/L): the rectangular
+and triangular inputs shorten the tails slightly. TN 1900's statement that
+the results "are still the same" holds to the digits it prints.
+
+**F31. Two conventions for t-distributed inputs (methodological, for the
+article).** For an input estimated by the mean of n observations, JCGM 101
+6.4.9 assigns t_{n−1}(x̄, s²/n), whose standard deviation is
+(s/√n)·√((n−1)/(n−3)) — √3 × s/√n for n = 4. TN 1900 (E11, E13) instead
+rescales the t distribution so that its standard deviation equals s/√n. The
+two conventions give different Monte Carlo results for the same data (E11:
+standard deviation of L_S 0.0091 dB vs 0.0158 dB). Because the GUM
+standard uncertainty of a `t` input in this program is its scale (JCGM 101
+convention), the TN 1900 projects with rescaled t inputs run the Monte Carlo
+method only. A comparison of software packages for Type A inputs must state
+which convention each uses.
+
+**F32. TN 1900 E8 — u from rounded components (class a).** TN 1900 prints
+u(M_r(CO₂)) = 0.000721 from the rounded components 0.0006 and 0.0002; the
+unrounded components (0.000577, 0.000214) give 0.000718. Both round to the
+printed 0.0007. The Gaussian interval ±1.96u = ±0.00141 is wider than the
+exact trapezoidal interval ±0.00136, so the GUM result is not validated
+(n_dig = 2) — a compact example of a linear model with only rectangular
+inputs where the Gaussian approximation is conservative.
+
+### Next steps
+
+- Android and Windows packaging of the interface.
+- Observation-equation examples of TN 1900 (regression, random effects) as
+  a later module; E5 after truncated distributions are supported.
+- Errata check of TN 1900 before submission (F28–F30).

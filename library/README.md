@@ -20,12 +20,14 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**60 examples / örnek** (38 model, 22 top-down).
+**71 examples / örnek** (49 model, 22 top-down).
 
 ## Chemistry / Kimya
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`nist-tn1900-e8-molecular-weight-co2`](chemistry/nist-tn1900-e8-molecular-weight-co2.json) | Molecular weight of carbon dioxide (NIST TN 1900 E8) | Karbondioksitin molekül ağırlığı (NIST TN 1900 E8) | NIST Technical Note 1900 Example E8, Exhibit 12 |
+| [`nist-tn1900-e9-cadmium-standard`](chemistry/nist-tn1900-e9-cadmium-standard.json) | Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9) | Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9) | NIST Technical Note 1900 Example E9 |
 | [`quam-a1-cadmium-standard-volume`](chemistry/quam-a1-cadmium-standard-volume.json) | Cadmium standard with the volume sub-model | Hacim alt modelli kadmiyum standardı | EURACHEM/CITAC Guide CG 4 Example A1, A1.4 |
 | [`quam-a1-cadmium-standard`](chemistry/quam-a1-cadmium-standard.json) | Preparation of a cadmium calibration standard | Kadmiyum kalibrasyon standardının hazırlanması | EURACHEM/CITAC Guide CG 4 Example A1, Tables A1.2 and A1.3 |
 | [`quam-a2-naoh-standardisation-submodels`](chemistry/quam-a2-naoh-standardisation-submodels.json) | NaOH standardisation with sub-models | Alt modellerle NaOH ayarlanması | EURACHEM/CITAC Guide CG 4 Example A2, A2.4 |
@@ -49,17 +51,17 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`mupr-b6-sediment-22-pt`](chemistry/mupr-b6-sediment-22-pt.json) | Trace element in sediment: heterogeneity and 22 proficiency tests | Sedimentte iz element: heterojenlik ve 22 yeterlilik testi | Eurachem/CITAC Guide Example B6, Tables B6.1–B6.3 |
 | [`mupr-ex2-reference-materials`](chemistry/mupr-ex2-reference-materials.json) | Recovery from two CRMs and a proficiency-test sample | İki CRM ve bir yeterlilik testi numunesinden geri kazanım | Eurachem/CITAC Guide Example 2 |
 | [`mupr-ex3-spiked-samples`](chemistry/mupr-ex3-spiked-samples.json) | Recovery from spiked river waters | Katkılı nehir sularından geri kazanım | Eurachem/CITAC Guide Example 3 |
-| [`nordtest-3-ammonium-pt`](chemistry/nordtest-3-ammonium-pt.json) | Ammonium in water from control limits and proficiency tests | Kontrol sınırları ve yeterlilik testlerinden sudaki amonyum | Nordtest TR 537 ed. 4 §3.2 and Appendix 4 |
-| [`nordtest-5.3-ammonium-duplicates`](chemistry/nordtest-5.3-ammonium-duplicates.json) | Ammonium: within-laboratory reproducibility from control samples and duplicates | Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik | Nordtest TR 537 ed. 4 §5.3 and Appendix 5 |
-| [`nordtest-5.3-oxygen-duplicates`](chemistry/nordtest-5.3-oxygen-duplicates.json) | Dissolved oxygen: reproducibility from duplicates | Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik | Nordtest TR 537 ed. 4 §5.3 and Appendix 6 |
-| [`nordtest-6.1-one-crm`](chemistry/nordtest-6.1-one-crm.json) | Bias from one certified reference material | Tek sertifikalı referans malzemeden sapma | Nordtest TR 537 ed. 4 §6.1 |
-| [`nordtest-6.1-three-crms`](chemistry/nordtest-6.1-three-crms.json) | Bias from several certified reference materials | Birden fazla sertifikalı referans malzemeden sapma | Nordtest TR 537 ed. 4 §6.1 |
-| [`nordtest-6.2-proficiency-tests`](chemistry/nordtest-6.2-proficiency-tests.json) | Bias from proficiency tests | Yeterlilik testlerinden sapma | Nordtest TR 537 ed. 4 §6.2 |
-| [`nordtest-6.3-recovery`](chemistry/nordtest-6.3-recovery.json) | Bias from recovery experiments | Geri kazanım deneylerinden sapma | Nordtest TR 537 ed. 4 §6.3 |
-| [`nordtest-8-bod-crm`](chemistry/nordtest-8-bod-crm.json) | BOD in wastewater: control chart and one CRM | Atık suda BOİ: kontrol grafiği ve tek CRM | Nordtest TR 537 ed. 4 §8.2 Example A, Appendix 7 |
-| [`nordtest-8-bod-pt`](chemistry/nordtest-8-bod-pt.json) | BOD in wastewater: control chart and proficiency tests | Atık suda BOİ: kontrol grafiği ve yeterlilik testleri | Nordtest TR 537 ed. 4 §8.2 Example B, Table 6 |
-| [`nordtest-8-pcb-crm`](chemistry/nordtest-8-pcb-crm.json) | PCB in sediment: control sample and one CRM | Sedimentte PCB: kontrol numunesi ve tek CRM | Nordtest TR 537 ed. 4 §8.3 Example C |
-| [`nordtest-8-pcb-pt`](chemistry/nordtest-8-pcb-pt.json) | PCB in sediment: control sample and proficiency tests | Sedimentte PCB: kontrol numunesi ve yeterlilik testleri | Nordtest TR 537 ed. 4 §8.3 Example D |
+| [`nordtest-3-ammonium-pt`](chemistry/nordtest-3-ammonium-pt.json) | Ammonium in water from control limits and proficiency tests | Kontrol sınırları ve yeterlilik testlerinden sudaki amonyum | Nordtest TR 537 ed. 4 (2017) §3.2 and Appendix 4 |
+| [`nordtest-5.3-ammonium-duplicates`](chemistry/nordtest-5.3-ammonium-duplicates.json) | Ammonium: within-laboratory reproducibility from control samples and duplicates | Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik | Nordtest TR 537 ed. 4 (2017) §5.3 and Appendix 5 |
+| [`nordtest-5.3-oxygen-duplicates`](chemistry/nordtest-5.3-oxygen-duplicates.json) | Dissolved oxygen: reproducibility from duplicates | Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik | Nordtest TR 537 ed. 4 (2017) §5.3 and Appendix 6 |
+| [`nordtest-6.1-one-crm`](chemistry/nordtest-6.1-one-crm.json) | Bias from one certified reference material | Tek sertifikalı referans malzemeden sapma | Nordtest TR 537 ed. 4 (2017) §6.1 |
+| [`nordtest-6.1-three-crms`](chemistry/nordtest-6.1-three-crms.json) | Bias from several certified reference materials | Birden fazla sertifikalı referans malzemeden sapma | Nordtest TR 537 ed. 4 (2017) §6.1 |
+| [`nordtest-6.2-proficiency-tests`](chemistry/nordtest-6.2-proficiency-tests.json) | Bias from proficiency tests | Yeterlilik testlerinden sapma | Nordtest TR 537 ed. 4 (2017) §6.2 |
+| [`nordtest-6.3-recovery`](chemistry/nordtest-6.3-recovery.json) | Bias from recovery experiments | Geri kazanım deneylerinden sapma | Nordtest TR 537 ed. 4 (2017) §6.3 |
+| [`nordtest-8-bod-crm`](chemistry/nordtest-8-bod-crm.json) | BOD in wastewater: control chart and one CRM | Atık suda BOİ: kontrol grafiği ve tek CRM | Nordtest TR 537 ed. 4 (2017) §8.2 Example A, Appendix 7 |
+| [`nordtest-8-bod-pt`](chemistry/nordtest-8-bod-pt.json) | BOD in wastewater: control chart and proficiency tests | Atık suda BOİ: kontrol grafiği ve yeterlilik testleri | Nordtest TR 537 ed. 4 (2017) §8.2 Example B, Table 6 |
+| [`nordtest-8-pcb-crm`](chemistry/nordtest-8-pcb-crm.json) | PCB in sediment: control sample and one CRM | Sedimentte PCB: kontrol numunesi ve tek CRM | Nordtest TR 537 ed. 4 (2017) §8.3 Example C |
+| [`nordtest-8-pcb-pt`](chemistry/nordtest-8-pcb-pt.json) | PCB in sediment: control sample and proficiency tests | Sedimentte PCB: kontrol numunesi ve yeterlilik testleri | Nordtest TR 537 ed. 4 (2017) §8.3 Example D |
 | [`quam-a4-pesticides-topdown`](chemistry/quam-a4-pesticides-topdown.json) | Organophosphorus pesticides in bread from validation data | Validasyon verilerinden ekmekte organofosforlu pestisitler | EURACHEM/CITAC Guide CG 4 Example A4, Tables A4.2–A4.5 |
 | [`quam-a6-crude-fibre`](chemistry/quam-a6-crude-fibre.json) | Crude fibre in animal feed (empirical method) | Hayvan yeminde ham lif (ampirik yöntem) | EURACHEM/CITAC Guide CG 4 Example A6, Tables A6.4–A6.5 |
 
@@ -77,6 +79,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`jcgm101-9.4-comparison-loss-x010`](electrical/jcgm101-9.4-comparison-loss-x010.json) | Comparison loss, x₁ = 0.01 | Karşılaştırma kaybı, x₁ = 0,01 | JCGM 101:2008 9.4, Table 8 |
 | [`jcgm101-9.4-comparison-loss-x050-correlated`](electrical/jcgm101-9.4-comparison-loss-x050-correlated.json) | Comparison loss, x₁ = 0.05, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,05, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x050`](electrical/jcgm101-9.4-comparison-loss-x050.json) | Comparison loss, x₁ = 0.05 | Karşılaştırma kaybı, x₁ = 0,05 | JCGM 101:2008 9.4, Table 8 |
+| [`nist-tn1900-e11-step-attenuator`](electrical/nist-tn1900-e11-step-attenuator.json) | Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11) | Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11) | NIST Technical Note 1900 Example E11, Exhibits 16 and 17 |
 
 ## Flow and volume / Akış ve hacim
 
@@ -85,6 +88,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s12-water-meter-error`](flow/ea402-s12-water-meter-error.json) | Water meter calibration: relative error of one run | Su sayacı kalibrasyonu: tek çalışmanın bağıl hatası | EA-4/02 M:2022 S12 |
 | [`ea402-s12-water-meter-mean-error`](flow/ea402-s12-water-meter-mean-error.json) | Water meter calibration: mean of three runs | Su sayacı kalibrasyonu: üç çalışmanın ortalaması | EA-4/02 M:2022 S12 |
 | [`ea402-s12-water-meter-volume`](flow/ea402-s12-water-meter-volume.json) | Water meter calibration: reference volume | Su sayacı kalibrasyonu: referans hacim | EA-4/02 M:2022 S12 |
+| [`nist-tn1900-e4-pitot-tube`](flow/nist-tn1900-e4-pitot-tube.json) | Airspeed with a Pitot tube (NIST TN 1900 E4) | Pitot tüpüyle hava hızı (NIST TN 1900 E4) | NIST Technical Note 1900 Example E4 |
 
 ## General (method validation) / Genel (yöntem doğrulama)
 
@@ -113,6 +117,17 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s2-weight-10kg`](mass/ea402-s2-weight-10kg.json) | Calibration of a 10 kg weight | 10 kg'lık bir ağırlığın kalibrasyonu | EA-4/02 M:2022 S2 |
 | [`jcgm101-9.3-mass-calibration-higher-order`](mass/jcgm101-9.3-mass-calibration-higher-order.json) | Mass calibration (GUM with second-order terms) | Kütle kalibrasyonu (ikinci mertebe terimli GUM) | JCGM 101:2008 9.3, Table 6 |
 | [`jcgm101-9.3-mass-calibration`](mass/jcgm101-9.3-mass-calibration.json) | Mass calibration (first-order GUM) | Kütle kalibrasyonu (birinci mertebe GUM) | JCGM 101:2008 9.3, Tables 6 and 7 |
+| [`nist-tn1900-e1-weighing`](mass/nist-tn1900-e1-weighing.json) | Mass of a powder by weighing (NIST TN 1900 E1) | Tartımla toz kütlesi (NIST TN 1900 E1) | NIST Technical Note 1900 Example E1, Exhibit 1 |
+
+## Physical properties / Fiziksel özellikler
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`nist-tn1900-e13-thermal-expansion-gaussian-95`](physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json) | Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
+| [`nist-tn1900-e13-thermal-expansion-gaussian-99`](physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json) | Thermal expansion coefficient, Gaussian inputs, 99 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, normal girdiler, %99 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
+| [`nist-tn1900-e13-thermal-expansion-student-95`](physical/nist-tn1900-e13-thermal-expansion-student-95.json) | Thermal expansion coefficient, Student t₃ inputs, 95 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, Student t₃ girdiler, %95 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
+| [`nist-tn1900-e13-thermal-expansion-student-99`](physical/nist-tn1900-e13-thermal-expansion-student-99.json) | Thermal expansion coefficient, Student t₃ inputs, 99 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, Student t₃ girdiler, %99 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
+| [`nist-tn1900-e3-falling-ball-viscometer`](physical/nist-tn1900-e3-falling-ball-viscometer.json) | Falling-ball viscometer (NIST TN 1900 E3) | Düşen bilyalı viskozimetre (NIST TN 1900 E3) | NIST Technical Note 1900 Example E3, Exhibit 3 |
 
 ## Temperature / Sıcaklık
 
@@ -121,6 +136,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s11-block-calibrator-180c`](temperature/ea402-s11-block-calibrator-180c.json) | Calibration of a temperature block calibrator at 180 °C | Sıcaklık blok kalibratörünün 180 °C'de kalibrasyonu | EA-4/02 M:2022 S11 |
 | [`ea402-s5-thermocouple-emf`](temperature/ea402-s5-thermocouple-emf.json) | Thermocouple calibration: emf of the unknown | Termokupl kalibrasyonu: bilinmeyenin emk'sı | EA-4/02 M:2022 S5 |
 | [`ea402-s5-thermocouple-furnace`](temperature/ea402-s5-thermocouple-furnace.json) | Thermocouple calibration: furnace temperature | Termokupl kalibrasyonu: fırın sıcaklığı | EA-4/02 M:2022 S5 |
+| [`nist-tn1900-e2-surface-temperature`](temperature/nist-tn1900-e2-surface-temperature.json) | Monthly mean of daily maximum temperature (NIST TN 1900 E2) | Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2) | NIST Technical Note 1900 Example E2, Exhibit 2 |
 
 ## Adding an example / Örnek ekleme
 

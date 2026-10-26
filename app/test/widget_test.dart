@@ -79,8 +79,8 @@ void main() {
   testWidgets('open a library example and calculate it', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1200, 900));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library (60'));
-    expect(find.textContaining('Example library (60'), findsOneWidget);
+    await pumpUntilFound(tester, find.textContaining('Example library (71'));
+    expect(find.textContaining('Example library (71'), findsOneWidget);
 
     await tester.enterText(find.byKey(const Key('search')), 'quam-a1-cadmium-standard-volume');
     await tester.pumpAndSettle();
@@ -99,10 +99,32 @@ void main() {
     expect(find.text('Sonuçlar'), findsOneWidget);
   });
 
+  testWidgets('a Monte-Carlo-only project keeps the GUM switched off', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    final state = AppState('en');
+    await tester.pumpWidget(UncertaintyApp(state: state));
+    await pumpUntilFound(tester, find.textContaining('Example library (71'));
+    await tester.enterText(find.byKey(const Key('search')), 'nist-tn1900-e11');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Settings'));
+    await tester.pumpAndSettle();
+    final gumSwitch = find.widgetWithText(SwitchListTile, 'Evaluate with the GUM framework');
+    expect(tester.widget<SwitchListTile>(gumSwitch).value, isFalse);
+    expect(find.text('Coverage factor k'), findsNothing);
+
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.textContaining('30.04'), attempts: 600);
+    expect(find.textContaining('30.04'), findsWidgets);
+    expect(find.text('Monte Carlo method (JCGM 101)'), findsOneWidget);
+    expect(find.text('GUM uncertainty framework (JCGM 100)'), findsNothing);
+  });
+
   testWidgets('top-down forms show and edit the raw data', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library (60'));
+    await pumpUntilFound(tester, find.textContaining('Example library (71'));
     await tester.enterText(find.byKey(const Key('search')), 'nordtest-8-bod-pt');
     await tester.pumpAndSettle();
     await tester.tap(find.text('BOD in wastewater: control chart and proficiency tests'));

@@ -1,0 +1,139 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e9-cadmium-standard",
+    "title": {
+      "en": "Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9)",
+      "tr": "Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9)"
+    },
+    "description": {
+      "en": "TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the Monte Carlo method, with a rectangular purity and a triangular volume.",
+      "tr": "TN 1900 E9: QUAM A1 kadmiyum standardı, c = 1000 m P / V, dikdörtgen saflık ve üçgen hacim dağılımıyla Monte Carlo yöntemiyle yeniden değerlendirilir."
+    },
+    "explanation": [
+      {
+        "en": "m = 100.28 mg (u = 0.05 mg, Gaussian), P = 0.9999 (rectangular on [0.9998, 1], u = 0.000058) and V = 100.0 mL (triangular, u = 0.07 mL); c = 1002.7 mg/L.",
+        "tr": "m = 100,28 mg (u = 0,05 mg, normal), P = 0,9999 ([0,9998; 1] üzerinde dikdörtgen, u = 0,000058) ve V = 100,0 mL (üçgen, u = 0,07 mL); c = 1002,7 mg/L."
+      },
+      {
+        "en": "For a product and quotient the relative uncertainties add in quadrature (GUM 5.1.6): u(c)/c = √((0.05/100.28)² + (0.000058/0.9999)² + (0.07/100)²), u = 0.86 mg/L.",
+        "tr": "Çarpım ve bölüm için bağıl belirsizlikler kareler toplamı olarak birleşir (GUM 5.1.6): u(c)/c = √((0,05/100,28)² + (0,000058/0,9999)² + (0,07/100)²), u = 0,86 mg/L."
+      },
+      {
+        "en": "The Monte Carlo method gives the same standard uncertainty and, to the digits printed in TN 1900, the same 95 % interval [1001.0, 1004.4] mg/L as with all inputs Gaussian. The triangular and rectangular inputs make the output slightly less spread in the tails: the Monte Carlo end points lie about 0.02–0.03 mg/L inside the GUM interval, so the GUM result is not validated for two significant digits of u (δ = 0.005 mg/L), although the difference has no practical importance.",
+        "tr": "Monte Carlo yöntemi aynı standart belirsizliği ve TN 1900'de basılı basamaklara kadar, tüm girdiler normal dağılımlı alındığındakiyle aynı %95 aralığını, [1001,0; 1004,4] mg/L, verir. Üçgen ve dikdörtgen girdiler çıktının kuyruklarını biraz daraltır: Monte Carlo uç noktaları GUM aralığının yaklaşık 0,02–0,03 mg/L içindedir; bu nedenle GUM sonucu u'nun iki anlamlı basamağı için (δ = 0,005 mg/L) doğrulanmaz, ancak farkın pratik bir önemi yoktur."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E9",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "quam-a1",
+      "triangular",
+      "rectangular"
+    ],
+    "notes": [
+      {
+        "en": "TN 1900 describes V as a symmetric triangular distribution 'with mean 100 mL and standard deviation 0.7 mL'; only 0.07 mL, the value used in the same example and in QUAM A1, is consistent with the printed interval. The triangular half-width is 0.07 × √6 = 0.1715 mL.",
+        "tr": "TN 1900, V'yi 'ortalaması 100 mL ve standart sapması 0,7 mL olan' simetrik üçgen dağılım olarak tanımlar; basılı aralıkla yalnızca aynı örnekte ve QUAM A1'de kullanılan 0,07 mL tutarlıdır. Üçgen yarı genişliği 0,07 × √6 = 0,1715 mL'dir."
+      },
+      {
+        "en": "The project 'quam-a1-cadmium-standard' builds the uncertainties of m, P and V from their components as in QUAM A1.",
+        "tr": "'quam-a1-cadmium-standard' projesi m, P ve V'nin belirsizliklerini QUAM A1'deki gibi bileşenlerinden oluşturur."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_Cd",
+      "unit": "mg/L",
+      "expression": "1000 * m * P / V",
+      "description": {
+        "en": "Cadmium concentration of the standard",
+        "tr": "Standardın kadmiyum derişimi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "m",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of cadmium",
+          "tr": "Kadmiyum kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100.28,
+          "sd": 0.05
+        }
+      },
+      {
+        "name": "P",
+        "description": {
+          "en": "Purity of the metal (mass fraction)",
+          "tr": "Metalin saflığı (kütle kesri)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 0.9998,
+          "upper": 1.0
+        }
+      },
+      {
+        "name": "V",
+        "unit": "mL",
+        "description": {
+          "en": "Volume of the solution",
+          "tr": "Çözeltinin hacmi"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 100.0,
+          "half_width": 0.171464
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 9,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1002.7,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 0.9,
+        "tolerance": 0.05
+      }
+    },
+    "mcm": {
+      "interval_low": {
+        "value": 1001.0,
+        "tolerance": 0.05
+      },
+      "interval_high": {
+        "value": 1004.4,
+        "tolerance": 0.05
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "NIST TN 1900 E9: c = 1002.7 mg/L, u ≈ 0.9 mg/L, Monte Carlo 95 % interval [1001.0, 1004.4] mg/L.",
+      "tr": "NIST TN 1900 E9: c = 1002,7 mg/L, u ≈ 0,9 mg/L, Monte Carlo %95 aralığı [1001,0; 1004,4] mg/L."
+    }
+  }
+}

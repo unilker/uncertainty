@@ -2,15 +2,65 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (31)
-- Electrical and RF (10)
-- Flow and volume (3)
+- Chemistry (33)
+- Electrical and RF (11)
+- Flow and volume (4)
 - General (method validation) (3)
 - Length (7)
-- Mass (3)
-- Temperature (3)
+- Mass (4)
+- Physical properties (5)
+- Temperature (4)
 
 ## Chemistry
+
+### Molecular weight of carbon dioxide (NIST TN 1900 E8)
+
+`nist-tn1900-e8-molecular-weight-co2` — NIST Technical Note 1900, Example E8, Exhibit 12
+
+TN 1900 E8: M_r(CO₂) = A_r(C) + 2A_r(O) from the IUPAC interval atomic weights; the output distribution is trapezoidal and the GUM interval is too wide.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The standard atomic weights are intervals: A_r(C) ∈ [12.0096, 12.0116] and A_r(O) ∈ [15.99903, 15.99977] (Wieser et al. 2013). Each is modelled as a rectangular distribution over its interval.
+2. The estimate is 12.0106 + 2 × 15.9994 = 44.0094 and u² = u(A_r(C))² + 4u(A_r(O))², u = 0.00072.
+3. The sum of two rectangular variables has a symmetric trapezoidal distribution with half-widths 0.00174 (base) and 0.00026 (top). Its shortest 95 % interval is 44.0094 ± 0.00136 = [44.0080, 44.0108], narrower than the GUM interval ± 1.96u = ± 0.00141; the Monte Carlo method reproduces the exact interval.
+
+**Result:**
+
+- M_r = (44.0094 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- TN 1900 prints u = 0.000721 from the rounded components 0.0006 and 0.0002; the unrounded components 0.000577 and 0.000214 give 0.000718. The exact interval end points follow from the trapezoid: 44.0094 ± (0.00174 − √(0.2 × 0.001 × 0.00074)) = [44.008045, 44.010755].
+
+**Run:** `uncertainty run library/chemistry/nist-tn1900-e8-molecular-weight-co2.json --lang en`
+
+### Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9)
+
+`nist-tn1900-e9-cadmium-standard` — NIST Technical Note 1900, Example E9
+
+TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the Monte Carlo method, with a rectangular purity and a triangular volume.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. m = 100.28 mg (u = 0.05 mg, Gaussian), P = 0.9999 (rectangular on [0.9998, 1], u = 0.000058) and V = 100.0 mL (triangular, u = 0.07 mL); c = 1002.7 mg/L.
+2. For a product and quotient the relative uncertainties add in quadrature (GUM 5.1.6): u(c)/c = √((0.05/100.28)² + (0.000058/0.9999)² + (0.07/100)²), u = 0.86 mg/L.
+3. The Monte Carlo method gives the same standard uncertainty and, to the digits printed in TN 1900, the same 95 % interval [1001.0, 1004.4] mg/L as with all inputs Gaussian. The triangular and rectangular inputs make the output slightly less spread in the tails: the Monte Carlo end points lie about 0.02–0.03 mg/L inside the GUM interval, so the GUM result is not validated for two significant digits of u (δ = 0.005 mg/L), although the difference has no practical importance.
+
+**Result:**
+
+- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- TN 1900 describes V as a symmetric triangular distribution 'with mean 100 mL and standard deviation 0.7 mL'; only 0.07 mL, the value used in the same example and in QUAM A1, is consistent with the printed interval. The triangular half-width is 0.07 × √6 = 0.1715 mL.
+- The project 'quam-a1-cadmium-standard' builds the uncertainties of m, P and V from their components as in QUAM A1.
+
+**Run:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang en`
 
 ### Preparation of a cadmium calibration standard
 
@@ -938,6 +988,27 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang en`
 
+### Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)
+
+`nist-tn1900-e11-step-attenuator` — NIST Technical Note 1900, Example E11, Exhibits 16 and 17
+
+TN 1900 E11: EA-4/02 S7 re-evaluated with the Monte Carlo method; the dominant arcsine mismatch term makes the distribution of a linear sum bimodal.
+
+**Approach:** Monte Carlo method (JCGM 101) only; run the project for its results
+
+**Steps:**
+
+1. L_X = L_S + δL_S + δL_D + δL_M + δL_K + δL_ib − δL_ia + δL_0b − δL_0a, the 30 dB step of the attenuator measured against a calibrated reference attenuator (EA-4/02 S7).
+2. L_S is the mean of four readings, 30.0402 dB, u = 0.0091 dB, modelled by TN 1900 as a t₃ variable rescaled to standard deviation 0.0091 dB. Mismatch (u = 0.02 dB), drift and leakage (±0.003 dB) are arcsine (U-shaped); δL_S and the reference detector resolutions are rectangular; the null detector terms are Gaussian (TN 1900 Exhibit 16).
+3. The Monte Carlo method gives 30.043 dB, u = 0.0224 dB and the 95 % interval [30.006, 30.081] dB. u²(δL_M) is 79 % of u²(L_X), so the output density has two modes: the conventional interval ± 2u is conservative (99 % effective coverage).
+
+**Notes:**
+
+- TN 1900 rescales the t₃ distribution of L_S to standard deviation u = 0.0091 dB (scale 0.0091/√3 dB). JCGM 101 6.4.9 instead uses the scale s/√n = 0.0091 dB, i.e. a standard deviation of 0.0158 dB. Because the GUM uncertainty of a t input is its scale, the GUM evaluation is switched off; the EA-4/02 GUM result is in 'ea402-s7-step-attenuator-30db'.
+- TN 1900 models the leakage δL_K as arcsine on ±0.003 dB (u = 0.0021 dB) and remarks that the 0.0017 dB of EA-4/02 S7.12 corresponds to a rectangular distribution, although EA-4/02 calls the term U-shaped.
+
+**Run:** `uncertainty run library/electrical/nist-tn1900-e11-step-attenuator.json --lang en`
+
 ## Flow and volume
 
 ### Water meter calibration: relative error of one run
@@ -997,6 +1068,30 @@ EA-4/02 S12 (first budget): volume passed through a household water meter, measu
 - V_X = (199.93 ± 0.22) L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang en`
+
+### Airspeed with a Pitot tube (NIST TN 1900 E4)
+
+`nist-tn1900-e4-pitot-tube` — NIST Technical Note 1900, Example E4
+
+TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pressure, the air pressure and the temperature.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. v = √(2ΔR_sT/p), where the air density ρ = p/(R_sT) comes from the ideal gas law; R_s = 287.058 J kg⁻¹ K⁻¹ is the specific gas constant of dry air.
+2. Δ = 1.993 kPa (U-tube manometer), p = 101.4 kPa (Bourdon gauge) and T = 292.8 K (mercury-in-glass thermometer) with 95 % expanded uncertainties 0.025 kPa, 2.1 kPa and 0.11 K; the standard uncertainties are half of these.
+3. For a power law the relative uncertainties add in quadrature with weights ½: u(v)/v = ½ √((u_Δ/Δ)² + (u_p/p)² + (u_T/T)²) = 0.61 %, dominated by the air pressure. The Monte Carlo interval is slightly shifted towards lower values (v ∝ p^−½), and the GUM interval is not validated for two significant digits of u (end-point differences 0.007 and 0.009 m/s against δ = 0.005 m/s), as the second-digit differences between the two intervals printed in TN 1900 also show.
+
+**Result:**
+
+- v = (57.48 ± 0.68) m/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- With the stated equation and inputs, v = 57.48 m/s and u(v) = 0.348 m/s. TN 1900 prints v = 40.64 m/s and u(v) = 0.25 m/s, which are those values divided by √2, i.e. the result of v = √(ΔR_sT/p) without the factor 2. The relative uncertainty, 0.61 %, is the same in both.
+
+**Run:** `uncertainty run library/flow/nist-tn1900-e4-pitot-tube.json --lang en`
 
 ## General (method validation)
 
@@ -1289,6 +1384,143 @@ JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.
 
 **Run:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang en`
 
+### Mass of a powder by weighing (NIST TN 1900 E1)
+
+`nist-tn1900-e1-weighing` — NIST Technical Note 1900, Example E1, Exhibit 1
+
+TN 1900 E1: mass of a powder from three weighings with a single-pan balance; linear model, GUM and MCM agree.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The mass of the powder is m_P = c_P − c_E − (c_R2 − c_R1): the reading with the powder in the container, minus the reading of the empty container, minus the drift of the balance between two readings of a reference weight.
+2. The standard uncertainties of c_P and c_E (0.005015 g) combine the uncertainty of the container (0.005 g) with those of the balance (calibration, repeatability, linearity, temperature: 0.1, 0.1, 0.2 and 0.3 mg); that of the drift term is 0.0005477 g (TN 1900 Exhibit 1).
+3. All sensitivity coefficients are ±1, so u(m_P)² = u(c_P)² + u(c_E)² + u(c_R2 − c_R1)², u = 0.0071 g; the output is Gaussian and the Monte Carlo method gives the same 95 % interval [50.270, 50.298] g.
+
+**Result:**
+
+- m_P = (50.284 ± 0.014) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang en`
+
+## Physical properties
+
+### Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-gaussian-95` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: linear thermal expansion coefficient of a copper bar from two length measurements at two temperatures; gaussian inputs, 95 % coverage.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)) with L₀ = 1.4999 m at T₀ = 288.15 K and L₁ = 1.5021 m at T₁ = 373.10 K; u(L₀) = 0.0001 m, u(L₁) = 0.0002 m, u(T₀) = 0.02 K, u(T₁) = 0.05 K. The result is expressed in 10⁻⁶ K⁻¹.
+2. The length difference, 2.2 mm, carries almost all the uncertainty: u(α) = 1.8 × 10⁻⁶ K⁻¹, about 10 % of α = 17.3 × 10⁻⁶ K⁻¹.
+3. With Gaussian inputs the GUM and Monte Carlo results agree; the 95 % interval from the percentiles of the Monte Carlo sample is [13.8, 20.7] × 10⁻⁶ K⁻¹.
+
+**Result:**
+
+- alpha = (17.3 ± 3.4) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
+
+**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json --lang en`
+
+### Thermal expansion coefficient, Gaussian inputs, 99 % (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-gaussian-99` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: linear thermal expansion coefficient of a copper bar from two length measurements at two temperatures; gaussian inputs, 99 % coverage.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)) with L₀ = 1.4999 m at T₀ = 288.15 K and L₁ = 1.5021 m at T₁ = 373.10 K; u(L₀) = 0.0001 m, u(L₁) = 0.0002 m, u(T₀) = 0.02 K, u(T₁) = 0.05 K. The result is expressed in 10⁻⁶ K⁻¹.
+2. The length difference, 2.2 mm, carries almost all the uncertainty: u(α) = 1.8 × 10⁻⁶ K⁻¹, about 10 % of α = 17.3 × 10⁻⁶ K⁻¹.
+3. With Gaussian inputs the GUM and Monte Carlo results agree; the 99 % interval from the percentiles of the Monte Carlo sample is [12.7, 21.8] × 10⁻⁶ K⁻¹.
+
+**Result:**
+
+- alpha = (17.3 ± 4.5) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %.
+
+**Notes:**
+
+- The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
+
+**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json --lang en`
+
+### Thermal expansion coefficient, Student t₃ inputs, 95 % (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-student-95` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: linear thermal expansion coefficient of a copper bar from two length measurements at two temperatures; student t₃ inputs, 95 % coverage.
+
+**Approach:** Monte Carlo method (JCGM 101) only; run the project for its results
+
+**Steps:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)) with L₀ = 1.4999 m at T₀ = 288.15 K and L₁ = 1.5021 m at T₁ = 373.10 K; u(L₀) = 0.0001 m, u(L₁) = 0.0002 m, u(T₀) = 0.02 K, u(T₁) = 0.05 K. The result is expressed in 10⁻⁶ K⁻¹.
+2. The length difference, 2.2 mm, carries almost all the uncertainty: u(α) = 1.8 × 10⁻⁶ K⁻¹, about 10 % of α = 17.3 × 10⁻⁶ K⁻¹.
+3. Each estimate is taken as the mean of four repeated observations, so TN 1900 assigns t₃ distributions rescaled to standard deviations equal to the standard uncertainties. α and u(α) are unchanged, but the output is more peaked and heavier-tailed: the 95 % interval is [14.0, 20.5] × 10⁻⁶ K⁻¹.
+
+**Notes:**
+
+- The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
+- TN 1900 rescales each t₃ distribution to standard deviation u (scale u/√3), whereas JCGM 101 6.4.9 uses the scale s/√n = u. Because the GUM uncertainty of a t input is its scale, the GUM evaluation is switched off here; the Gaussian projects give the GUM result.
+
+**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-95.json --lang en`
+
+### Thermal expansion coefficient, Student t₃ inputs, 99 % (NIST TN 1900 E13)
+
+`nist-tn1900-e13-thermal-expansion-student-99` — NIST Technical Note 1900, Example E13, Exhibit 20
+
+TN 1900 E13: linear thermal expansion coefficient of a copper bar from two length measurements at two temperatures; student t₃ inputs, 99 % coverage.
+
+**Approach:** Monte Carlo method (JCGM 101) only; run the project for its results
+
+**Steps:**
+
+1. α = (L₁ − L₀)/(L₀(T₁ − T₀)) with L₀ = 1.4999 m at T₀ = 288.15 K and L₁ = 1.5021 m at T₁ = 373.10 K; u(L₀) = 0.0001 m, u(L₁) = 0.0002 m, u(T₀) = 0.02 K, u(T₁) = 0.05 K. The result is expressed in 10⁻⁶ K⁻¹.
+2. The length difference, 2.2 mm, carries almost all the uncertainty: u(α) = 1.8 × 10⁻⁶ K⁻¹, about 10 % of α = 17.3 × 10⁻⁶ K⁻¹.
+3. Each estimate is taken as the mean of four repeated observations, so TN 1900 assigns t₃ distributions rescaled to standard deviations equal to the standard uncertainties. α and u(α) are unchanged, but the output is more peaked and heavier-tailed: the 99 % interval is [11.5, 23.0] × 10⁻⁶ K⁻¹.
+
+**Notes:**
+
+- The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
+- TN 1900 rescales each t₃ distribution to standard deviation u (scale u/√3), whereas JCGM 101 6.4.9 uses the scale s/√n = u. Because the GUM uncertainty of a t input is its scale, the GUM evaluation is switched off here; the Gaussian projects give the GUM result.
+
+**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-99.json --lang en`
+
+### Falling-ball viscometer (NIST TN 1900 E3)
+
+`nist-tn1900-e3-falling-ball-viscometer` — NIST Technical Note 1900, Example E3, Exhibit 3
+
+TN 1900 E3: dynamic viscosity of a NaOH solution by comparison with a calibration liquid; large relative uncertainties of the travel times make the output skewed.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. μ_M = μ_C (ρ_B − ρ_M)/(ρ_B − ρ_C) · t_M/t_C with μ_C = 4.63 mPa s, ρ_B = 2217, ρ_C = 810, ρ_M = 1180 kg/m³, t_C = 36.6 s and t_M = 61 s; all inputs Gaussian.
+2. The relative standard uncertainties are 1 % for μ_C, 15 % for t_C and 10 % for t_M; the densities have u = 0.5 kg/m³. TN 1900 notes that these are deliberately large.
+3. Substituting the estimates gives 5.69 mPa s and the first-order law of propagation u = 1.03 mPa s. Because 1/t_C is strongly non-linear over ±15 %, the Monte Carlo mean is 5.82 mPa s, u = 1.11 mPa s, and the 95 % interval [4.05, 8.39] mPa s is asymmetric about the estimate.
+4. The GUM interval 5.69 ± 2.01 mPa s is therefore not validated: its end points lie 0.38 mPa s and 0.69 mPa s below those of the Monte Carlo interval. The shortest Monte Carlo interval, [3.84, 8.05] mPa s, differs again from the probabilistically symmetric one used by TN 1900.
+
+**Result:**
+
+- mu_M = (5.7 ± 2.0) mPa s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- TN 1900 states that the conventional propagation formula, as implemented in the NIST Uncertainty Machine, gives 1.11 mPa s, identical to the Monte Carlo value. The first-order law of propagation (GUM eq. 10) applied to the stated model and inputs gives 1.027 mPa s; with the second-order terms of GUM 5.1.2 it gives about 1.10 mPa s. The value printed in TN 1900 is therefore not that of eq. 10.
+
+**Run:** `uncertainty run library/physical/nist-tn1900-e3-falling-ball-viscometer.json --lang en`
+
 ## Temperature
 
 ### Calibration of a temperature block calibrator at 180 °C
@@ -1355,4 +1587,29 @@ EA-4/02 S5 (first budget): temperature of a furnace at 1000 °C measured with a 
 - t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang en`
+
+### Monthly mean of daily maximum temperature (NIST TN 1900 E2)
+
+`nist-tn1900-e2-surface-temperature` — NIST Technical Note 1900, Example E2, Exhibit 2
+
+TN 1900 E2: an observation equation t_i = τ + E_i for 22 daily readings; Type A evaluation with 21 degrees of freedom.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The measurand τ is the mean of the true daily maxima in May 2012; each reading deviates from it by an error E_i, modelled as independent and Gaussian with mean 0 (the observation equation of TN 1900).
+2. The estimate is the mean of the m = 22 readings, 25.59 °C; s = 4.09 °C, so u(τ) = s/√22 = 0.872 °C with ν = 21 (GUM 4.2.3).
+3. The coverage factor for 95 % is the t quantile t₀.₉₇₅(21) = 2.08, giving [23.8, 27.4] °C. The Monte Carlo method draws τ from the scaled and shifted t₂₁ distribution of JCGM 101 6.4.9 and gives the same interval.
+
+**Result:**
+
+- tau = (25.6 ± 1.8) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.08, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- The Monte Carlo standard deviation is s/√m · √(ν/(ν − 2)) = 0.917 °C, larger than u = 0.872 °C, because the t distribution of JCGM 101 6.4.9 has scale s/√m; the coverage intervals coincide.
+- TN 1900 also gives the distribution-free Wilcoxon interval [23.6, 27.6] °C, which is not a GUM or Monte Carlo result and is not reproduced here.
+
+**Run:** `uncertainty run library/temperature/nist-tn1900-e2-surface-temperature.json --lang en`
 

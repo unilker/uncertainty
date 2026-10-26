@@ -1,0 +1,162 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e13-thermal-expansion-gaussian-99",
+    "title": {
+      "en": "Thermal expansion coefficient, Gaussian inputs, 99 % (NIST TN 1900 E13)",
+      "tr": "Isıl genleşme katsayısı, normal girdiler, %99 (NIST TN 1900 E13)"
+    },
+    "description": {
+      "en": "TN 1900 E13: linear thermal expansion coefficient of a copper bar from two length measurements at two temperatures; gaussian inputs, 99 % coverage.",
+      "tr": "TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki sıcaklıkta iki uzunluk ölçümünden; normal girdiler, %99 kapsam."
+    },
+    "explanation": [
+      {
+        "en": "α = (L₁ − L₀)/(L₀(T₁ − T₀)) with L₀ = 1.4999 m at T₀ = 288.15 K and L₁ = 1.5021 m at T₁ = 373.10 K; u(L₀) = 0.0001 m, u(L₁) = 0.0002 m, u(T₀) = 0.02 K, u(T₁) = 0.05 K. The result is expressed in 10⁻⁶ K⁻¹.",
+        "tr": "α = (L₁ − L₀)/(L₀(T₁ − T₀)); T₀ = 288,15 K'de L₀ = 1,4999 m ve T₁ = 373,10 K'de L₁ = 1,5021 m; u(L₀) = 0,0001 m, u(L₁) = 0,0002 m, u(T₀) = 0,02 K, u(T₁) = 0,05 K. Sonuç 10⁻⁶ K⁻¹ biriminde verilir."
+      },
+      {
+        "en": "The length difference, 2.2 mm, carries almost all the uncertainty: u(α) = 1.8 × 10⁻⁶ K⁻¹, about 10 % of α = 17.3 × 10⁻⁶ K⁻¹.",
+        "tr": "Belirsizliğin neredeyse tamamı 2,2 mm'lik uzunluk farkından gelir: u(α) = 1,8 × 10⁻⁶ K⁻¹, yani α = 17,3 × 10⁻⁶ K⁻¹'in yaklaşık %10'u."
+      },
+      {
+        "en": "With Gaussian inputs the GUM and Monte Carlo results agree; the 99 % interval from the percentiles of the Monte Carlo sample is [12.7, 21.8] × 10⁻⁶ K⁻¹.",
+        "tr": "Normal girdilerle GUM ve Monte Carlo sonuçları uyuşur; Monte Carlo örnekleminin yüzdeliklerinden %99 aralığı [12,7; 21,8] × 10⁻⁶ K⁻¹ olur."
+      }
+    ],
+    "field": "physical",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E13, Exhibit 20",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "non-linear",
+      "gaussian",
+      "coverage-probability"
+    ],
+    "notes": [
+      {
+        "en": "The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.",
+        "tr": "Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "alpha",
+      "unit": "10⁻⁶ K⁻¹",
+      "expression": "1e6 * (L_1 - L_0) / (L_0 * (T_1 - T_0))",
+      "description": {
+        "en": "Linear thermal expansion coefficient of the copper bar",
+        "tr": "Bakır çubuğun doğrusal ısıl genleşme katsayısı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "L_0",
+        "unit": "m",
+        "description": {
+          "en": "Length at T₀",
+          "tr": "T₀'daki uzunluk"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.4999,
+          "sd": 0.0001
+        }
+      },
+      {
+        "name": "L_1",
+        "unit": "m",
+        "description": {
+          "en": "Length at T₁",
+          "tr": "T₁'deki uzunluk"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.5021,
+          "sd": 0.0002
+        }
+      },
+      {
+        "name": "T_0",
+        "unit": "K",
+        "description": {
+          "en": "Initial temperature",
+          "tr": "Başlangıç sıcaklığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 288.15,
+          "sd": 0.02
+        }
+      },
+      {
+        "name": "T_1",
+        "unit": "K",
+        "description": {
+          "en": "Final temperature",
+          "tr": "Son sıcaklık"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 373.1,
+          "sd": 0.05
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.99
+    },
+    "mcm": {
+      "trials": 4000000,
+      "seed": 13,
+      "interval": "symmetric",
+      "coverage_probability": 0.99
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "mcm": {
+      "estimate": {
+        "value": 17.3,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 1.8,
+        "tolerance": 0.05
+      },
+      "interval_low": {
+        "value": 12.7,
+        "tolerance": 0.06
+      },
+      "interval_high": {
+        "value": 21.8,
+        "tolerance": 0.06
+      }
+    },
+    "reference": {
+      "en": "NIST TN 1900 E13 (Gaussian inputs): α = 1.73 × 10⁻⁵ K⁻¹, u = 0.18 × 10⁻⁵ K⁻¹, 99 % interval (1.27, 2.18) × 10⁻⁵ K⁻¹ (Monte Carlo, M = 10⁷). Tolerances: half a unit of the printed digit plus the Monte Carlo dispersion.",
+      "tr": "NIST TN 1900 E13 (normal girdiler): α = 1,73 × 10⁻⁵ K⁻¹, u = 0,18 × 10⁻⁵ K⁻¹, %99 aralığı (1,27; 2,18) × 10⁻⁵ K⁻¹ (Monte Carlo, M = 10⁷). Toleranslar: basılı son basamağın yarım birimi artı Monte Carlo saçılımı."
+    },
+    "gum": {
+      "estimate": {
+        "value": 17.27,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 1.8,
+        "tolerance": 0.05
+      }
+    }
+  }
+}

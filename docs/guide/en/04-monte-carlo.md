@@ -27,6 +27,12 @@ freedom, mean x̄ and scale s/√n. Its standard deviation is (s/√n)·√((n �
 n ≤ 3 its variance is infinite: the Monte Carlo standard deviation is then unstable although the coverage
 interval is well defined (see EA-4/02 S6 in the library).
 
+NIST TN 1900 uses another convention: it rescales the t-distribution so that its standard deviation equals
+s/√n (scale s/√n · √((n − 3)/(n − 1))). The two conventions give different Monte Carlo results for the same
+data. To reproduce TN 1900, enter the rescaled scale in a `t` input; since the GUM framework takes the scale
+of a `t` input as its standard uncertainty, such projects run the Monte Carlo method only (TN 1900 E11 and
+E13 in the library).
+
 ### Correlated inputs
 
 Correlations are supported for Gaussian inputs. The program refuses to propagate correlations between

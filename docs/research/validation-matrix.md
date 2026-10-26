@@ -101,6 +101,19 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | EA-S12 | water meter (ν_eff = 10) | 199.93 l, 0.109 l; 0.68e-3; 0.91e-3, k 2.28, U 0.002 | same | ✅ |
 | EA-S13 | ring gauge 90 mm (temperature products) | 0.15 µm sub-budget, 0.411 µm, U 0.9 µm | 0.148, 0.41, 0.82 → 0.9 only with round-up | ✅ (F18) |
 
+## NIST Technical Note 1900 (2015) — library projects
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| TN-E1 | weighing (linear, Gaussian) | 50.284 g, u 0.0071 g, [50.270, 50.298] g | same; GUM validated | ✅ |
+| TN-E2 | surface temperature (Type A, ν = 21) | 25.59 °C, u 0.872 °C, k 2.08, (23.8, 27.4) °C | same (GUM and MCM) | ✅ |
+| TN-E3 | falling-ball viscometer (skewed) | MCM 5.82, u 1.11, [4.05, 8.39] mPa s; "Gauss" 1.11 | MCM same; 1st-order GUM 1.027, 2nd-order 1.10 | ✅ (F29) |
+| TN-E4 | Pitot tube (power law) | 40.64 m/s, u 0.25 m/s, [40.17, 41.13] | 57.48 m/s, u 0.348 m/s (= printed × √2) | ✅ (F28) |
+| TN-E8 | M_r(CO₂), two rectangular inputs | 44.0094, u 0.0007, exact [44.0080, 44.0108] | same (exact 44.008045, 44.010755) | ✅ (F32) |
+| TN-E9 | cadmium standard (QUAM A1, rectangular P, triangular V) | 1002.7 mg/L, u ≈ 0.9, [1001.0, 1004.4] | 0.864; same interval | ✅ (F30) |
+| TN-E11 | step attenuator (EA S7, arcsine δL_M, δL_D, δL_K; t₃ L_S) | 30.043 dB, u 0.0224 dB, [30.006, 30.081] | same (MCM only) | ✅ (F31) |
+| TN-E13 | thermal expansion, Gaussian / t₃ inputs, 95 % / 99 % | 1.73e-5, u 0.18e-5 K⁻¹; (1.38, 2.07), (1.27, 2.18), (1.40, 2.05), (1.15, 2.30) | same (4 projects) | ✅ (F31) |
+
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
 | Case | y | u | shortest lo | shortest hi | shortest length | symmetric lo | symmetric hi |
@@ -115,7 +128,7 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 
 ## Example library (project files)
 
-The GUM/MCM cases above are also stored as 38 self-checking project files in
+The GUM/MCM cases above are also stored as 38 self-checking project files (49 with the eleven NIST TN 1900 projects) in
 `library/` (see `library/README.md`), run by `project/tests/library.rs` and
 `uncertainty check library` through the complete path a user takes (JSON →
 model → GUM/MCM → comparison → TR/EN reports). Reference-value policy: D15
@@ -123,7 +136,7 @@ in the research log. EA-4/02 S13 in the library uses the raw observations
 (estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget.
 
 The top-down cases (Nordtest §3, §5.3, §6.1–6.3, §8 A–D; MUPR Ex. 2, 3, B1,
-B2, B4, B5, B6; QUAM A4, A6) are stored as 21 top-down project files that
+B2, B4, B5, B6; QUAM A4, A6) are stored as 22 top-down project files that
 start from the raw data wherever the documents give them (duplicate pairs,
 control-chart results, replicate groups, PT rounds, the 22 PT results of B6).
 Tolerances reflect the documents' printed rounding; where a guide computes
@@ -132,6 +145,7 @@ the file (MUPR B1 at 50 mg/L, B5 with t = 4.30; Nordtest §8 B, C).
 
 ## Planned cases
 
-NIST TN 1900 examples; ISO/TS 28037 data sets; MUPR B3 (linear precision
-model) and Appendix C allowance as project files; cross-checks against the
-NIST Uncertainty Machine and Suncal.
+TN 1900 observation-equation examples (regression, random effects); TN 1900
+E5 (truncated Gaussian inputs); ISO/TS 28037 data sets; MUPR Appendix C
+allowance as a project file; cross-checks against the NIST Uncertainty
+Machine (F29) and Suncal.

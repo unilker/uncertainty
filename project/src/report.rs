@@ -1292,6 +1292,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
         "general" => ("General (method validation)", "Genel (yöntem doğrulama)"),
         "length" => ("Length", "Uzunluk"),
         "mass" => ("Mass", "Kütle"),
+        "physical" => ("Physical properties", "Fiziksel özellikler"),
         "temperature" => ("Temperature", "Sıcaklık"),
         other => (other, other),
     };
@@ -1307,7 +1308,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
 /// run without the Monte Carlo method so that the text is reproducible on
 /// every platform.
 pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String {
-    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l) = match lang {
+    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l) = match lang {
         Lang::En => (
             "Worked examples",
             "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
@@ -1322,6 +1323,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "GUM uncertainty framework (JCGM 100)",
             "top-down (validation and quality-control data)",
             "and Monte Carlo method (JCGM 101)",
+            "Monte Carlo method (JCGM 101) only; run the project for its results",
         ),
         Lang::Tr => (
             "Çözümlü örnekler",
@@ -1337,6 +1339,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "GUM belirsizlik yaklaşımı (JCGM 100)",
             "top-down (validasyon ve kalite kontrol verileri)",
             "ve Monte Carlo yöntemi (JCGM 101)",
+            "Yalnızca Monte Carlo yöntemi (JCGM 101); sonuçlar için projeyi çalıştırın",
         ),
     };
     let mut sorted: Vec<&(String, Project, Evaluation)> = items.iter().collect();
@@ -1382,6 +1385,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             let _ = writeln!(s, "{}\n", d.get(lang));
         }
         let approach = match e {
+            Evaluation::Model(_) if p.analysis.gum.is_none() => mcm_only_l.to_string(),
             Evaluation::Model(a) if a.mcm.is_some() || p.analysis.mcm.is_some() => format!("{gum_l} {mcm_l}"),
             Evaluation::Model(_) => gum_l.to_string(),
             Evaluation::TopDown(_) => td_l.to_string(),

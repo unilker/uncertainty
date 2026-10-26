@@ -66,6 +66,7 @@ class S {
     'p': ['Coverage probability', 'Kapsam olasılığı'],
     'k': ['Coverage factor', 'Kapsam faktörü'],
     'higher_order': ['Second-order terms (GUM 5.1.2 note)', 'İkinci mertebe terimler (GUM 5.1.2 notu)'],
+    'gum_on': ['Evaluate with the GUM framework', 'GUM yaklaşımıyla değerlendir'],
     'mcm_on': ['Run the Monte Carlo method', 'Monte Carlo yöntemini çalıştır'],
     'trials': ['Number of trials', 'Deneme sayısı'],
     'adaptive': ['Adaptive number of trials (JCGM 101 7.9)', 'Uyarlamalı deneme sayısı (JCGM 101 7.9)'],
@@ -187,6 +188,7 @@ class S {
     'general': ['General (method validation)', 'Genel (yöntem doğrulama)'],
     'length': ['Length', 'Uzunluk'],
     'mass': ['Mass', 'Kütle'],
+    'physical': ['Physical properties', 'Fiziksel özellikler'],
     'temperature': ['Temperature', 'Sıcaklık'],
   };
 

@@ -26,6 +26,12 @@ kaydırılmış bir t dağılımı atar. Bu dağılımın standart sapması (s/�
 büyüktür; n ≤ 3 için varyansı sonsuzdur: Monte Carlo standart sapması bu durumda kararsızdır, kapsam aralığı
 ise iyi tanımlıdır (kütüphanedeki EA-4/02 S6 örneğine bakınız).
 
+NIST TN 1900 başka bir gelenek kullanır: t dağılımını standart sapması s/√n olacak şekilde yeniden ölçekler
+(ölçek s/√n · √((n − 3)/(n − 1))). İki gelenek aynı veriler için farklı Monte Carlo sonuçları verir. TN 1900'ü
+yeniden üretmek için bir `t` girdisine yeniden ölçeklenmiş ölçeği girin; GUM yaklaşımı bir `t` girdisinin
+ölçeğini standart belirsizliği olarak aldığından bu projeler yalnızca Monte Carlo yöntemini çalıştırır
+(kütüphanedeki TN 1900 E11 ve E13).
+
 ### Korelasyonlu girdiler
 
 Korelasyonlar normal dağılımlı girdiler için desteklenir. Program, normal olmayan girdiler arasındaki

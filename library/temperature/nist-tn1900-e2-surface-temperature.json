@@ -1,0 +1,143 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e2-surface-temperature",
+    "title": {
+      "en": "Monthly mean of daily maximum temperature (NIST TN 1900 E2)",
+      "tr": "Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2)"
+    },
+    "description": {
+      "en": "TN 1900 E2: an observation equation t_i = τ + E_i for 22 daily readings; Type A evaluation with 21 degrees of freedom.",
+      "tr": "TN 1900 E2: 22 günlük okuma için t_i = τ + E_i gözlem denklemi; 21 serbestlik dereceli A tipi değerlendirme."
+    },
+    "explanation": [
+      {
+        "en": "The measurand τ is the mean of the true daily maxima in May 2012; each reading deviates from it by an error E_i, modelled as independent and Gaussian with mean 0 (the observation equation of TN 1900).",
+        "tr": "Ölçülen büyüklük τ, Mayıs 2012'deki gerçek günlük en yüksek sıcaklıkların ortalamasıdır; her okuma ondan, ortalaması 0 olan bağımsız normal dağılımlı bir E_i hatası kadar sapar (TN 1900'ün gözlem denklemi)."
+      },
+      {
+        "en": "The estimate is the mean of the m = 22 readings, 25.59 °C; s = 4.09 °C, so u(τ) = s/√22 = 0.872 °C with ν = 21 (GUM 4.2.3).",
+        "tr": "Tahmin, m = 22 okumanın ortalaması olan 25,59 °C'dir; s = 4,09 °C olduğundan u(τ) = s/√22 = 0,872 °C ve ν = 21'dir (GUM 4.2.3)."
+      },
+      {
+        "en": "The coverage factor for 95 % is the t quantile t₀.₉₇₅(21) = 2.08, giving [23.8, 27.4] °C. The Monte Carlo method draws τ from the scaled and shifted t₂₁ distribution of JCGM 101 6.4.9 and gives the same interval.",
+        "tr": "%95 için kapsam faktörü t₀,₉₇₅(21) = 2,08 t dağılımı yüzdeliğidir ve aralık [23,8; 27,4] °C olur. Monte Carlo yöntemi τ'yu JCGM 101 6.4.9'un ölçeklenmiş ve kaydırılmış t₂₁ dağılımından çeker ve aynı aralığı verir."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E2, Exhibit 2",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "type-a",
+      "observation-equation",
+      "student-t"
+    ],
+    "notes": [
+      {
+        "en": "The Monte Carlo standard deviation is s/√m · √(ν/(ν − 2)) = 0.917 °C, larger than u = 0.872 °C, because the t distribution of JCGM 101 6.4.9 has scale s/√m; the coverage intervals coincide.",
+        "tr": "Monte Carlo standart sapması s/√m · √(ν/(ν − 2)) = 0,917 °C'dir ve u = 0,872 °C'den büyüktür, çünkü JCGM 101 6.4.9'un t dağılımının ölçeği s/√m'dir; kapsam aralıkları ise çakışır."
+      },
+      {
+        "en": "TN 1900 also gives the distribution-free Wilcoxon interval [23.6, 27.6] °C, which is not a GUM or Monte Carlo result and is not reproduced here.",
+        "tr": "TN 1900 ayrıca dağılımdan bağımsız Wilcoxon aralığını, [23,6; 27,6] °C, verir; bu bir GUM ya da Monte Carlo sonucu olmadığından burada yeniden üretilmez."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "tau",
+      "unit": "°C",
+      "expression": "t",
+      "description": {
+        "en": "Mean daily maximum temperature in May 2012",
+        "tr": "Mayıs 2012'deki ortalama günlük en yüksek sıcaklık"
+      }
+    },
+    "inputs": [
+      {
+        "name": "t",
+        "unit": "°C",
+        "description": {
+          "en": "Daily maximum readings of the thermometer",
+          "tr": "Termometrenin günlük en yüksek sıcaklık okumaları"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            18.75,
+            28.25,
+            25.75,
+            28.0,
+            28.5,
+            20.75,
+            21.0,
+            22.75,
+            18.5,
+            27.25,
+            20.75,
+            26.5,
+            28.0,
+            23.25,
+            28.0,
+            21.75,
+            26.0,
+            26.5,
+            28.0,
+            33.25,
+            32.0,
+            29.5
+          ]
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 2,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 25.59,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 0.872,
+        "tolerance": 0.0005
+      },
+      "coverage_factor": {
+        "value": 2.08,
+        "tolerance": 0.005
+      },
+      "effective_dof": {
+        "value": 21,
+        "tolerance": 0.001
+      }
+    },
+    "mcm": {
+      "interval_low": {
+        "value": 23.8,
+        "tolerance": 0.05
+      },
+      "interval_high": {
+        "value": 27.4,
+        "tolerance": 0.05
+      }
+    },
+    "reference": {
+      "en": "NIST TN 1900 E2: t̄ = 25.6 °C, u = 0.872 °C, k = 2.08, 95 % interval (23.8, 27.4) °C; 25.59 °C from the text.",
+      "tr": "NIST TN 1900 E2: t̄ = 25,6 °C, u = 0,872 °C, k = 2,08, %95 aralığı (23,8; 27,4) °C; 25,59 °C metinden."
+    }
+  }
+}

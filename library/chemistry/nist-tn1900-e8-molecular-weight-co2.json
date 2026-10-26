@@ -1,0 +1,124 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e8-molecular-weight-co2",
+    "title": {
+      "en": "Molecular weight of carbon dioxide (NIST TN 1900 E8)",
+      "tr": "Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)"
+    },
+    "description": {
+      "en": "TN 1900 E8: M_r(CO₂) = A_r(C) + 2A_r(O) from the IUPAC interval atomic weights; the output distribution is trapezoidal and the GUM interval is too wide.",
+      "tr": "TN 1900 E8: IUPAC aralık atom ağırlıklarından M_r(CO₂) = A_r(C) + 2A_r(O); çıktı dağılımı yamuktur ve GUM aralığı gereğinden geniştir."
+    },
+    "explanation": [
+      {
+        "en": "The standard atomic weights are intervals: A_r(C) ∈ [12.0096, 12.0116] and A_r(O) ∈ [15.99903, 15.99977] (Wieser et al. 2013). Each is modelled as a rectangular distribution over its interval.",
+        "tr": "Standart atom ağırlıkları aralıktır: A_r(C) ∈ [12,0096; 12,0116] ve A_r(O) ∈ [15,99903; 15,99977] (Wieser ve ark. 2013). Her biri kendi aralığı üzerinde dikdörtgen dağılımla modellenir."
+      },
+      {
+        "en": "The estimate is 12.0106 + 2 × 15.9994 = 44.0094 and u² = u(A_r(C))² + 4u(A_r(O))², u = 0.00072.",
+        "tr": "Tahmin 12,0106 + 2 × 15,9994 = 44,0094'tür ve u² = u(A_r(C))² + 4u(A_r(O))², u = 0,00072 olur."
+      },
+      {
+        "en": "The sum of two rectangular variables has a symmetric trapezoidal distribution with half-widths 0.00174 (base) and 0.00026 (top). Its shortest 95 % interval is 44.0094 ± 0.00136 = [44.0080, 44.0108], narrower than the GUM interval ± 1.96u = ± 0.00141; the Monte Carlo method reproduces the exact interval.",
+        "tr": "İki dikdörtgen değişkenin toplamı, yarı genişlikleri 0,00174 (taban) ve 0,00026 (üst) olan simetrik yamuk dağılıma sahiptir. En kısa %95 aralığı 44,0094 ± 0,00136 = [44,0080; 44,0108] olup GUM aralığı ± 1,96u = ± 0,00141'den dardır; Monte Carlo yöntemi tam aralığı yeniden üretir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E8, Exhibit 12",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "rectangular",
+      "trapezoidal",
+      "atomic-weights",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "TN 1900 prints u = 0.000721 from the rounded components 0.0006 and 0.0002; the unrounded components 0.000577 and 0.000214 give 0.000718. The exact interval end points follow from the trapezoid: 44.0094 ± (0.00174 − √(0.2 × 0.001 × 0.00074)) = [44.008045, 44.010755].",
+        "tr": "TN 1900, yuvarlanmış 0,0006 ve 0,0002 bileşenlerinden u = 0,000721 basar; yuvarlanmamış 0,000577 ve 0,000214 bileşenleri 0,000718 verir. Tam aralığın uç noktaları yamuk dağılımdan çıkar: 44,0094 ± (0,00174 − √(0,2 × 0,001 × 0,00074)) = [44,008045; 44,010755]."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "M_r",
+      "expression": "A_C + 2 * A_O",
+      "description": {
+        "en": "Relative molecular mass of CO₂",
+        "tr": "CO₂'nin bağıl molekül kütlesi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "A_C",
+        "description": {
+          "en": "Standard atomic weight of carbon",
+          "tr": "Karbonun standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 12.0096,
+          "upper": 12.0116
+        }
+      },
+      {
+        "name": "A_O",
+        "description": {
+          "en": "Standard atomic weight of oxygen",
+          "tr": "Oksijenin standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 15.99903,
+          "upper": 15.99977
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 8,
+      "interval": "shortest"
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 44.0094,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0007,
+        "tolerance": 5e-05
+      }
+    },
+    "mcm": {
+      "interval_low": {
+        "value": 44.008045,
+        "tolerance": 1e-05
+      },
+      "interval_high": {
+        "value": 44.010755,
+        "tolerance": 1e-05
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "NIST TN 1900 E8: M_r(CO₂) = 44.0094, u = 0.0007, exact shortest 95 % interval [44.0080, 44.0108], whose unrounded end points 44.008045 and 44.010755 follow from the trapezoidal distribution (see note); tolerance ≈ 5 × the Monte Carlo dispersion at M = 10⁶.",
+      "tr": "NIST TN 1900 E8: M_r(CO₂) = 44,0094, u = 0,0007, tam en kısa %95 aralığı [44,0080; 44,0108]; yuvarlanmamış uç noktalar 44,008045 ve 44,010755 yamuk dağılımdan çıkar (nota bakınız); tolerans M = 10⁶'da Monte Carlo saçılımının ≈ 5 katı."
+    }
+  }
+}
