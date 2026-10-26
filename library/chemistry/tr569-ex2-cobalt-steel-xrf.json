@@ -1,0 +1,79 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex2-cobalt-steel-xrf",
+    "title": {
+      "en": "Cobalt in low-alloy steel by XRF: target limits from the limit of quantification (Nordtest TR 569 Example 2)",
+      "tr": "XRF ile düşük alaşımlı çelikte kobalt: tayin sınırından hedef sınırlar (Nordtest TR 569 Örnek 2)"
+    },
+    "description": {
+      "en": "X-chart at low concentration, mean 0.0768 weight-% with s = 0.00063 weight-%; the required LOQ of 0.01 weight-% is 6 to 10 times s, so s_target = 0.001 weight-%.",
+      "tr": "Düşük derişimde X-grafiği, ortalama ağırlıkça %0,0768, s = ağırlıkça %0,00063; gerekli 0,01 ağırlıkça % LOQ, s'nin 6–10 katıdır, bu nedenle s_hedef = ağırlıkça %0,001."
+    },
+    "explanation": [
+      {
+        "en": "Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).",
+        "tr": "Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7)."
+      },
+      {
+        "en": "The control sample is at eight times the LOQ, the concentration of interest.",
+        "tr": "Kontrol numunesi ilgilenilen derişim olan LOQ'nun sekiz katındadır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 2",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "cobalt",
+      "steel",
+      "xrf",
+      "x-chart",
+      "target-limits",
+      "loq"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Co, steel control sample",
+    "unit": "weight-%",
+    "central_line": {
+      "mean": 0.0768
+    },
+    "limits": {
+      "basis": "target",
+      "sd": 0.001
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_warning": {
+        "value": 0.0748,
+        "tolerance": 5e-06
+      },
+      "upper_warning": {
+        "value": 0.0788,
+        "tolerance": 5e-06
+      },
+      "lower_action": {
+        "value": 0.0738,
+        "tolerance": 5e-06
+      },
+      "upper_action": {
+        "value": 0.0798,
+        "tolerance": 5e-06
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 2.",
+      "tr": "TR 569 Örnek 2."
+    }
+  }
+}

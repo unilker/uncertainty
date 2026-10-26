@@ -120,7 +120,9 @@ const V_TR: VLabels = VLabels {
 };
 
 fn method_of(p: &Project) -> &'static str {
-    if p.multivariate.is_some() {
+    if p.control_chart.is_some() {
+        "Nordtest TR 569"
+    } else if p.multivariate.is_some() {
         "JCGM 102"
     } else if p.precision_experiment.is_some() {
         "ISO 5725-2"

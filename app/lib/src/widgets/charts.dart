@@ -273,3 +273,142 @@ class ZScoreChart extends StatelessWidget {
     );
   }
 }
+
+/// A control chart (Nordtest TR 569): the control values in time order over
+/// the zone inside the warning limits, the warning zone and the action zone;
+/// out-of-control values are drawn as squares.
+class ControlChart extends StatelessWidget {
+  const ControlChart({
+    super.key,
+    required this.values,
+    required this.outOfControl,
+    required this.center,
+    required this.upperAction,
+    this.lowerAction,
+    this.upperWarning,
+    this.lowerWarning,
+    this.establish,
+    required this.lang,
+  });
+  final List<double> values;
+  final List<bool> outOfControl;
+  final double center;
+  final double upperAction;
+  final double? lowerAction;
+  final double? upperWarning;
+  final double? lowerWarning;
+  final int? establish;
+  final String lang;
+
+  @override
+  Widget build(BuildContext context) {
+    if (values.isEmpty) return const SizedBox.shrink();
+    return SizedBox(
+      height: 240,
+      child: CustomPaint(
+        size: Size.infinite,
+        painter: _ControlChartPainter(this, Theme.of(context).colorScheme, Theme.of(context).textTheme.bodySmall ?? const TextStyle(fontSize: 11)),
+      ),
+    );
+  }
+}
+
+class _ControlChartPainter extends CustomPainter {
+  _ControlChartPainter(this.c, this.scheme, this.text);
+  final ControlChart c;
+  final ColorScheme scheme;
+  final TextStyle text;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const right = 8.0, top = 6.0, bottom = 20.0;
+    final marks = <(double, String)>[
+      (c.center, 'CL'),
+      (c.upperAction, 'AL'),
+      if (c.lowerAction != null) (c.lowerAction!, 'AL'),
+      if (c.upperWarning != null) (c.upperWarning!, 'WL'),
+      if (c.lowerWarning != null) (c.lowerWarning!, 'WL'),
+    ];
+    final painters = [
+      for (final (v, tag) in marks)
+        (
+          v,
+          TextPainter(
+            text: TextSpan(text: '$tag ${fmtNum(v, 4, c.lang)}', style: text),
+            textDirection: TextDirection.ltr,
+          )..layout(),
+        ),
+    ];
+    final left = painters.fold<double>(40, (m, p) => math.max(m, p.$2.width + 8));
+    final w = size.width - left - right;
+    final h = size.height - top - bottom;
+    final half = (c.upperAction - c.center).abs();
+    var lo = (c.lowerAction ?? math.min(0.0, c.center)) - 0.25 * half;
+    var hi = c.upperAction + 0.25 * half;
+    for (final v in c.values) {
+      lo = math.min(lo, v);
+      hi = math.max(hi, v);
+    }
+    if (c.lowerAction == null) lo = math.min(0.0, lo);
+    if (!(hi > lo)) return;
+    final n = c.values.length;
+    double x(int i) => left + (n == 1 ? w / 2 : w * i / (n - 1));
+    double y(double v) => top + h * (hi - v.clamp(lo, hi)) / (hi - lo);
+    void band(double a, double b, Color color) {
+      final ya = y(math.max(a, b)), yb = y(math.min(a, b));
+      if (yb > ya) canvas.drawRect(Rect.fromLTWH(left, ya, w, yb - ya), Paint()..color = color);
+    }
+
+    const ok = Color(0x2938A169), warn = Color(0x47D69E2E), act = Color(0x33C53030);
+    band(c.lowerWarning ?? c.lowerAction ?? lo, c.upperWarning ?? c.upperAction, ok);
+    if (c.upperWarning != null) band(c.upperWarning!, c.upperAction, warn);
+    band(c.upperAction, hi, act);
+    if (c.lowerWarning != null && c.lowerAction != null) band(c.lowerAction!, c.lowerWarning!, warn);
+    if (c.lowerAction != null) band(lo, c.lowerAction!, act);
+    for (final (v, tp) in painters) {
+      tp.paint(canvas, Offset(left - 4 - tp.width, y(v) - tp.height / 2));
+    }
+    canvas.drawLine(Offset(left, y(c.center)), Offset(left + w, y(c.center)), Paint()..color = scheme.onSurface);
+    final e = c.establish;
+    if (e != null && e > 0 && e < n) {
+      final xe = (x(e - 1) + x(e)) / 2;
+      canvas.drawLine(Offset(xe, top), Offset(xe, top + h), Paint()..color = scheme.tertiary);
+    }
+    final path = Path()..moveTo(x(0), y(c.values[0]));
+    for (var i = 1; i < n; i++) {
+      path.lineTo(x(i), y(c.values[i]));
+    }
+    canvas.drawPath(
+      path,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..color = scheme.outline,
+    );
+    final r = n > 120 ? 1.6 : 3.0;
+    for (var i = 0; i < n; i++) {
+      final p = Offset(x(i), y(c.values[i]));
+      if (i < c.outOfControl.length && c.outOfControl[i]) {
+        canvas.drawRect(Rect.fromCenter(center: p, width: 2 * r + 1, height: 2 * r + 1), Paint()..color = scheme.error);
+      } else {
+        canvas.drawCircle(p, r, Paint()..color = scheme.surface);
+        canvas.drawCircle(
+          p,
+          r,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..color = scheme.onSurface,
+        );
+      }
+    }
+    for (final i in {0, n ~/ 2, n - 1}) {
+      final tp = TextPainter(
+        text: TextSpan(text: '${i + 1}', style: text),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      tp.paint(canvas, Offset((x(i) - tp.width / 2).clamp(0, size.width - tp.width), size.height - tp.height));
+    }
+  }
+
+  @override
+  bool shouldRepaint(_ControlChartPainter old) => old.c != c || old.scheme != scheme;
+}

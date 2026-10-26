@@ -225,6 +225,28 @@ Table 9 (raw data only in the electronic supplement).
 | JCGM106-9.5.4 | ball bearings, gamma prior | 4.2 % non-conforming; r ≈ 0.65, A ≈ 1.7 µm, R_P ≈ 7.5 % | 4.24 %; 0.656, 1.672, 7.55 % | ✅ (F45) |
 | JCGM106-9.5.6 | u₀ = T/6, w = 0, C_m = 2 and 10 | R_C ≈ 0.1/0.04 %, R_P ≈ 1.5/0.07 % | 0.098/0.041 %, 1.47/0.072 % | ✅ (core) |
 
+## Nordtest TR 569 ed. 6 (2026) — control charts (library projects and core tests)
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| TR569-T4 | range factors, n = 2 … 4 | d₂ 1.128; D_WL 2.833, 3.470, 3.818; D_AL 3.686, 4.358, 4.698 | d₂, d₃ by numerical integration (n = 2 … 10); D_WL 2.8334, 3.4693, 3.8184; D_AL 3.6859, 4.3577, 4.6982 | ✅ (core, F54) |
+| TR569-T1 | Zn, 60 raw values, X-chart | Figure 1: no value out of control | x̄ 60.278, s 2.598; WL 55.08/65.47, AL 52.48/68.07; 3 values in the warning zone, 0 out of control; t = 0.83 against 60.0 | ✅ |
+| TR569-7-X1–X3 | X-chart cases 1–3 | 54.5/63.9, 52.1/66.3; 53.3/65.1, 50.3/68.1; 54.0/66.0, 51.0/69.0 µg/L | same | ✅ |
+| TR569-7-R1–R2 | r%-chart cases 1–2 | WL 1.0 %, AL 1.3 %; s_r = r/2.8 = 0.357 % | 1.01/1.31 %; 0.357 % | ✅ (F52) |
+| TR569-E1 | Ni by XRF, target from U = 4 % | s 0.0458; 4.49/4.67, 4.44/4.72 | same | ✅ |
+| TR569-E2 | Co by XRF, target from LOQ | 0.0748/0.0788, 0.0738/0.0798 | same | ✅ |
+| TR569-E3 | NH₄-N, X- and R-chart | 18.95/21.03, 18.43/21.55; s 0.496, WL 1.40, AL 1.83 | same (s = 0.4954 from 0.559/1.128379) | ✅ |
+| TR569-E4 | Pb by ICP-MS | 0.278/0.310, 0.270/0.318 | same | ✅ |
+| TR569-E5 | As in CRM, tolerance ± 15 % | AL 15.3/20.7 | same | ✅ |
+| TR569-E6 | total P, r%-chart | CV 1.67; WL 4.73, AL 6.16 % | same with the rounded CV (4.72/6.14 % unrounded) | ✅ (F54) |
+| TR569-E7 | β-HCH, target 15 % around the reference value | 11.2/20.8, 8.8/23.2 | same | ✅ |
+| TR569-E8 | Cu by ICP-OES: preliminary and new limits, review | 0.92/1.19, 0.85/1.26; F 1.563 (crit 1.67), s_p 0.07545, t 1.012 (crit 1.98); 0.88/1.21, 0.80/1.29; R-chart 0.28/0.36, F 1.037 | same; F_crit 1.677 exact; s_p 0.07544; F (R) 1.0380 | ✅ (F54) |
+| TR569-E9 | Zn blank | −0.051/0.129, −0.096/0.174 | same | ✅ |
+| TR569-E10 | B, target 10 % around the reference value | 4/6, 3.5/6.5 | same | ✅ |
+| TR569-E11 | micropipette, tolerance ± 0.01 mL | AL 0.99/1.01 | same | ✅ |
+| TR569-E12 | 3 × 8 replicate control results | s_r 0.15 (Eq. 10), s_Rw 0.270 (simplified), 0.272 (ANOVA; footnote: s_r 0.1541, s_I 0.2246) | 0.1541, 0.2705, 0.2724 (s_r 0.1541, s_I 0.2247) | ✅ (F53) |
+| TR569-9 | daily and statistical-control rules | Chapter 9 | core tests: action limit, two out of three (D43), trend of seven, ten of eleven (Example 4: twelve values on one side) | ✅ (core) |
+
 ## Uncorrected bias (Magnusson & Ellison 2008) — core tests
 
 | ID | Claim | Published | Engine | Status |

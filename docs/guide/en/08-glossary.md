@@ -47,6 +47,12 @@ Turkish reports.
 | proficiency test (PT) | yeterlilik testi (YT) | |
 | assigned value | atanan değer | |
 | control chart / control sample | kontrol grafiği / kontrol numunesi | |
+| central line | merkez çizgisi | Nordtest TR 569 |
+| warning limit / action limit | uyarı sınırı / eylem sınırı | Nordtest TR 569 |
+| statistical / target control limits | istatistiksel / hedef kontrol sınırları | Nordtest TR 569 |
+| X-chart / range chart (R-chart, r%-chart) | X-grafiği / açıklık grafiği (R-grafiği, r%-grafiği) | Nordtest TR 569, ISO 8258 |
+| in control / out of control / out of statistical control | kontrol altında / kontrol dışı / istatistiksel kontrol dışı | Nordtest TR 569 |
+| run (analytical run, batch) | seri (analiz serisi) | Nordtest TR 569 |
 | duplicate | mükerrer (ölçüm) | |
 | pooled standard deviation | birleştirilmiş standart sapma | |
 | calibration | kalibrasyon | VIM 2.39 |

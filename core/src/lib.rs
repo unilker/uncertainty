@@ -15,6 +15,8 @@
 //!   [`multivariate`]);
 //! * repeatability and reproducibility from interlaboratory experiments —
 //!   ISO 5725-2:2019 (module [`interlab`]);
+//! * internal quality control with control charts — Nordtest TR 569
+//!   ed. 6 (module [`qc`]);
 //! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
@@ -58,6 +60,7 @@ pub mod mcm;
 pub mod model;
 pub mod multivariate;
 pub mod pt;
+pub mod qc;
 pub mod report;
 pub mod rng;
 pub mod special;

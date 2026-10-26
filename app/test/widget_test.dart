@@ -13,6 +13,7 @@ import 'package:uncertainty_app/src/format.dart';
 import 'package:uncertainty_app/src/widgets/charts.dart';
 import 'package:uncertainty_app/src/widgets/calibration_editor.dart';
 import 'package:uncertainty_app/src/widgets/conformity_editor.dart';
+import 'package:uncertainty_app/src/widgets/control_chart_editor.dart';
 import 'package:uncertainty_app/src/widgets/precision_editor.dart';
 import 'package:uncertainty_app/src/widgets/proficiency_editor.dart';
 
@@ -60,6 +61,27 @@ void main() {
         [9.01, 9.17],
       ]);
       expect(parsePairs('1 2 3'), isNull);
+    });
+
+    test('control-chart runs with optional labels', () {
+      final (r1, bad1) = parseRuns('4-Dec\t1,02\n5-Dec; 0.98\n');
+      expect(bad1, isNull);
+      expect(r1!.$1, ['4-Dec', '5-Dec']);
+      expect(r1.$2, [
+        [1.02],
+        [0.98],
+      ]);
+      final (r2, _) = parseRuns('7.1 7.1 7.0\n6.9 6.7 6.8');
+      expect(r2!.$1, isEmpty);
+      expect(r2.$2[1], [6.9, 6.7, 6.8]);
+      expect(parseRuns('1.0\nday x').$2, 2);
+      expect(
+        runsToText({
+          'values': [1.5, 2],
+          'labels': ['a', 'b'],
+        }, 'tr'),
+        'a\t1,5\nb\t2',
+      );
     });
   });
 
@@ -289,6 +311,24 @@ void main() {
     await pumpUntilFound(tester, find.text('GUM uncertainty framework (JCGM 102)'));
     expect(find.text('0.130 Ω'), findsWidgets); // u(R), Table 11, Alt. GUF
     expect(find.text('-0.588'), findsWidgets); // r(R, X)
+  });
+
+  testWidgets('the zinc control chart of Nordtest TR 569 Table 1', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'tr569-table1-zinc');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('Zinc in water: X-chart'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('qc-data')), findsOneWidget);
+    expect(find.byKey(const Key('qc-basis')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.byKey(const Key('control-chart')));
+    expect(find.text('60 control values: 57 within the warning limits, 3 between warning and action limits (in control), 0 out of control.'), findsOneWidget);
+    expect(find.text('65.474 µg/L'), findsWidgets); // upper warning limit
   });
 
   testWidgets('top-down forms show and edit the raw data', (tester) async {

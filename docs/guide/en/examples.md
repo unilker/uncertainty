@@ -2,10 +2,10 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (62)
+- Chemistry (82)
 - Electrical and RF (23)
 - Flow and volume (4)
-- General (method validation) (18)
+- General (method validation) (19)
 - Length (8)
 - Mass (4)
 - Physical properties (8)
@@ -743,6 +743,408 @@ QUAM Example A7, Eq. (5): double IDMS with mass-bias-corrected isotope ratios (r
 - The reported (0.05370 ± 0.00036) µmol/g uses the mean of four replicates; without the division by √8 the experimental u_c would be 0.00041 µmol/g.
 
 **Run:** `uncertainty run library/chemistry/quam-a7-lead-double-idms.json --lang en`
+
+### Setting the limits of an X-chart, case 1 (Nordtest TR 569 Chapter 7)
+
+`tr569-ch7-case1-statistical` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limits and the central line in X-charts, case 1
+
+Case 1: statistical limits and a mean central line, s_Rw = 4 % of 59.2 µg/L.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).
+2. The relative standard deviation applies to the central line: s = p·CL/100.
+
+**Result:**
+
+- X-chart: central line 59.20 µg/L; warning limits 54.46 63.94 µg/L; action limits 52.10 66.30 µg/L (s = 2.37 µg/L, statistical control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ch7-case1-statistical.json --lang en`
+
+### Setting the limits of an X-chart, case 2 (Nordtest TR 569 Chapter 7)
+
+`tr569-ch7-case2-target-mean` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limits and the central line in X-charts, case 2
+
+Case 2: target limits from a required s_Rw of 5 %, mean central line 59.2 µg/L.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).
+2. The relative standard deviation applies to the central line: s = p·CL/100.
+
+**Result:**
+
+- X-chart: central line 59.20 µg/L; warning limits 53.28 65.12 µg/L; action limits 50.32 68.08 µg/L (s = 2.96 µg/L, target control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ch7-case2-target-mean.json --lang en`
+
+### Setting the limits of an X-chart, case 3 (Nordtest TR 569 Chapter 7)
+
+`tr569-ch7-case3-target-reference` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limits and the central line in X-charts, case 3
+
+Case 3: target limits of 5 % around the reference value 60.0 µg/L.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).
+2. The relative standard deviation applies to the central line: s = p·CL/100.
+
+**Result:**
+
+- X-chart: central line 60.00 µg/L; warning limits 54.00 66.00 µg/L; action limits 51.00 69.00 µg/L (s = 3.00 µg/L, target control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ch7-case3-target-reference.json --lang en`
+
+### Statistical limits of an r%-chart for duplicates (Nordtest TR 569 Chapter 7)
+
+`tr569-ch7-range-case1-statistical` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limit in R or r%-charts, case 1
+
+Case 1 for range charts: pooled relative standard deviation 0.356 % from duplicates.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).
+2. Upper warning limit 2.833·0.356 % = 1.0 %, upper action limit 3.686·0.356 % = 1.3 %.
+
+**Result:**
+
+- r%-chart (relative range): central line 0.402 %; warning limits 1.01 %; action limits 1.31 % (s = 0.356 %, statistical control limits)
+
+**Notes:**
+
+- Research log F52: in Chapter 7, case 1 for range charts, the warning limit is printed as 3·0.356 = 1.0 %; 3·0.356 = 1.07, the factor of Table 4 is 2.83 and 2.83·0.356 = 1.01.
+
+**Run:** `uncertainty run library/chemistry/tr569-ch7-range-case1-statistical.json --lang en`
+
+### Target limits of an r%-chart from a repeatability limit (Nordtest TR 569 Chapter 7)
+
+`tr569-ch7-range-case2-target` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limit in R or r%-charts, case 2
+
+Case 2 for range charts: the standard method gives a repeatability limit r = 1 %.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. s_r = r/2.8 = 0.357 % (the factor 2.8 ≈ 2√2 comes from the difference of two results, footnote 12).
+2. Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).
+3. Upper warning limit 2.833·0.357 % = 1.0 %, upper action limit 3.686·0.357 % = 1.3 %; without data the central line is the expected range d₂·s = 0.40 %.
+
+**Result:**
+
+- r%-chart (relative range): central line 0.403 %; warning limits 1.01 %; action limits 1.32 % (s = 0.357 %, target control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ch7-range-case2-target.json --lang en`
+
+### Nickel in low-alloy steel by XRF: target limits from the required uncertainty (Nordtest TR 569 Example 1)
+
+`tr569-ex1-nickel-steel-xrf` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 1
+
+X-chart of a steel test sample, mean over one year 4.58 weight-% with s = 0.026 weight-%; required expanded uncertainty U = 4 % (relative).
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. u_c = U/2 = 2 %; the requirement on s_Rw is half of u_c: s_Rw = U/4 = 1 % (relative) = 0.0458 weight-%.
+2. Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).
+3. The method performs with s = 0.026 weight-%, below the target: the target limits are wider than statistical limits and give fewer false alarms while the results remain fit for purpose.
+
+**Result:**
+
+- X-chart: central line 4.5800 weight-%; warning limits 4.4884 4.6716 weight-%; action limits 4.4426 4.7174 weight-% (s = 0.0458 weight-%, target control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang en`
+
+### Boron migrating from toys by ICP-OES: target limits from the reproducibility of EN 71-3 (Nordtest TR 569 Example 10)
+
+`tr569-ex10-boron-toys-target` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 10
+
+No material for the whole procedure: an in-house synthetic standard of 5.0 µg/L monitors drift; s_target = 10 %, two thirds of the 15 % reproducibility of EN 71-3.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).
+2. Nearly all values lie above the central line, a bias of about +6 % (mean 5.3 µg/L), judged acceptable for a required uncertainty of about 30 %.
+
+**Result:**
+
+- X-chart: central line 5.000 µg/L; warning limits 4.000 6.000 µg/L; action limits 3.500 6.500 µg/L (s = 0.500 µg/L, target control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex10-boron-toys-target.json --lang en`
+
+### Repeatability and within-laboratory reproducibility from replicate control results (Nordtest TR 569 Example 12)
+
+`tr569-ex12-pooling-sr-srw` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 12 and footnote 24
+
+Three replicates of a QC sample on each of eight days. The standard deviation of all 24 results together is too low an estimate of s_Rw and would give control limits that are too narrow.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. s_r: the standard deviations of the eight days (0.058 to 0.252) pooled by Equation 10: 0.15.
+2. Simplified s_Rw: the standard deviations of the first, second and third results over the days (0.226, 0.342, 0.226) pooled by Equation 10: 0.270.
+3. One-way analysis of variance: s_r = 0.1541, between-day s_I = 0.2246, s_Rw = √(s_r² + s_I²) = 0.272 (footnote 24).
+4. The X-chart of the daily means has s = √(s_I² + s_r²/3); its limits follow from the eight means.
+
+**Result:**
+
+- X-chart: central line 6.888; warning limits 6.404 7.371; action limits 6.163 7.612 (s = 0.242, statistical control limits)
+- 8 control values: 0 out of control, 0 between warning and action limits
+- s_r = 0.154, s_I = 0.225, s_Rw = 0.272 (one-way analysis of variance)
+
+**Notes:**
+
+- Research log F53: footnote 24 gives s_Rw = √(0.01541² + 0.02246²) = 0.0272; the values are s_r = 0.1541, s_I = 0.2246 and s_Rw = 0.272 as in the text.
+
+**Run:** `uncertainty run library/chemistry/tr569-ex12-pooling-sr-srw.json --lang en`
+
+### Cobalt in low-alloy steel by XRF: target limits from the limit of quantification (Nordtest TR 569 Example 2)
+
+`tr569-ex2-cobalt-steel-xrf` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 2
+
+X-chart at low concentration, mean 0.0768 weight-% with s = 0.00063 weight-%; the required LOQ of 0.01 weight-% is 6 to 10 times s, so s_target = 0.001 weight-%.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).
+2. The control sample is at eight times the LOQ, the concentration of interest.
+
+**Result:**
+
+- X-chart: central line 0.07680 weight-%; warning limits 0.07480 0.07880 weight-%; action limits 0.07380 0.07980 weight-% (s = 0.00100 weight-%, target control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex2-cobalt-steel-xrf.json --lang en`
+
+### Ammonium nitrogen in water: R-chart of duplicate test samples (Nordtest TR 569 Example 3)
+
+`tr569-ex3-ammonium-r` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 3
+
+One test sample below 100 µg/L analysed in duplicate in each run; the range of the duplicates is plotted.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).
+2. Mean range 0.559 µg/L, s = 0.559/1.128 = 0.496 µg/L; warning limit 2.83·0.496 = 1.40 µg/L, action limit 3.69·0.496 = 1.83 µg/L.
+
+**Result:**
+
+- R-chart (range): central line 0.559 µg/L; warning limits 1.40 µg/L; action limits 1.83 µg/L (s = 0.495 µg/L, statistical control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex3-ammonium-r.json --lang en`
+
+### Ammonium nitrogen in water: X-chart of a standard solution (Nordtest TR 569 Example 3)
+
+`tr569-ex3-ammonium-x` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 3
+
+Indophenol blue method, 20 µg/L control solution prepared from (NH₄)₂SO₄, independent of the NH₄Cl calibration standards; the mean of duplicates is plotted.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Central line the mean x̄ = 19.99 µg/L; s = 0.521 µg/L of the means.
+2. Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).
+
+**Result:**
+
+- X-chart: central line 19.99 µg/L; warning limits 18.95 21.03 µg/L; action limits 18.43 21.55 µg/L (s = 0.521 µg/L, statistical control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex3-ammonium-x.json --lang en`
+
+### Lead in water by ICP-MS: X-chart of an in-house lake water (Nordtest TR 569 Example 4)
+
+`tr569-ex4-lead-water-icpms` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 4
+
+Low lead concentration (0.29 µg/L) in a preserved lake water, analysed once in each run; statistical limits.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).
+2. Twelve consecutive values above the central line: out of statistical control, but not out of control (Chapter 9); the results can be reported.
+
+**Result:**
+
+- X-chart: central line 0.2940 µg/L; warning limits 0.2780 0.3100 µg/L; action limits 0.2700 0.3180 µg/L (s = 0.00800 µg/L, statistical control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex4-lead-water-icpms.json --lang en`
+
+### Arsenic in a fish CRM by ICP-MS: chart with action limits only at ± 15 % (Nordtest TR 569 Example 5)
+
+`tr569-ex5-arsenic-crm-tolerance` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 5
+
+CRM NRC DORM-2 (dogfish muscle), 18.0 µg/g arsenic, analysed once in each run; the laboratory accepts deviations of up to 15 % from the reference value.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Central line the reference value; action limits CL ± tolerance = 18.0 ± 2.7 µg/g; no warning limits (Chapters 5 and 7).
+2. Without warning limits the rule two out of three is not available, so the chart is less sensitive to a drift of the mean.
+
+**Result:**
+
+- X-chart: central line 18.00 µg/g; action limits 15.30 20.70 µg/g (action limits at the tolerance)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex5-arsenic-crm-tolerance.json --lang en`
+
+### Total phosphorus in water: r%-chart of duplicates (Nordtest TR 569 Example 6)
+
+`tr569-ex6-phosphorus-relative-range` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 6
+
+Test samples above 10 µg/L analysed in duplicate; the absolute difference as per cent of the mean is plotted, since the relative standard deviation is about constant well above the LOQ.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).
+2. Mean r% 1.88 %, CV = 1.88/1.128 = 1.67 %; warning limit 2.83·1.67 = 4.73 %, action limit 3.69·1.67 = 6.16 %.
+
+**Result:**
+
+- r%-chart (relative range): central line 1.88 %; warning limits 4.73 %; action limits 6.16 % (s = 1.67 %, statistical control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex6-phosphorus-relative-range.json --lang en`
+
+### β-HCH in cod liver oil by GC-ECD: target limits around the reference value (Nordtest TR 569 Example 7)
+
+`tr569-ex7-beta-hch-crm-target` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 7
+
+CRM BCR 598, 16 µg/kg β-hexachlorocyclohexane, analysed once in each run; target s of 15 %.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).
+2. s_target = 0.15·16.0 = 2.4 µg/kg; a trend above the central line ended in two of three values above the warning limit, an out-of-control situation (Example 7, comment).
+
+**Result:**
+
+- X-chart: central line 16.0 µg/kg; warning limits 11.2 20.8 µg/kg; action limits 8.80 23.2 µg/kg (s = 2.40 µg/kg, target control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex7-beta-hch-crm-target.json --lang en`
+
+### Copper in water by ICP-OES: R-chart of duplicates and its review (Nordtest TR 569 Example 8)
+
+`tr569-ex8-copper-r-review` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 8
+
+Duplicates of test samples; preliminary mean range 0.11 mg/L, s_r = 0.0975 mg/L; s_r of the last 60 runs 0.0957 mg/L.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).
+2. Warning limit 2.833·0.0975 = 0.28 mg/L, action limit 3.686·0.0975 = 0.36 mg/L.
+3. F = 0.0975²/0.0957² = 1.04 below the critical value 1.67 (ν = 60, 60): the repeatability has not changed. s_r exceeds s_Rw of the X-chart because the X-chart plots means of two results.
+
+**Result:**
+
+- R-chart (range): central line 0.110 mg/L; warning limits 0.276 mg/L; action limits 0.359 mg/L (s = 0.0975 mg/L, statistical control limits)
+- Long-term review: F = 1.038 (critical 1.67: not significant)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex8-copper-r-review.json --lang en`
+
+### Copper in water by ICP-OES: new X-chart limits from all data (Nordtest TR 569 Example 8)
+
+`tr569-ex8-copper-x-new-limits` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 8
+
+After the review the limits are recalculated from the longer period: x̄ = 1.048 mg/L and s = 0.0822 mg/L.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).
+2. The +5 % bias against the nominal 1.00 mg/L should be investigated if it matters for the use of the results.
+
+**Result:**
+
+- X-chart: central line 1.048 mg/L; warning limits 0.8836 1.212 mg/L; action limits 0.8014 1.295 mg/L (s = 0.0822 mg/L, statistical control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex8-copper-x-new-limits.json --lang en`
+
+### Copper in water by ICP-OES: review of preliminary X-chart limits (Nordtest TR 569 Example 8)
+
+`tr569-ex8-copper-x-review` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 8
+
+Synthetic standard (1.00 ± 0.02 mg/L) measured in duplicate; preliminary limits from the first 60 runs, x̄ = 1.055 mg/L, s = 0.0667 mg/L. The last 60 values are reviewed: 11 outside the warning limits; one value more than 4 s from the central line is excluded, leaving 59 values with x̄ = 1.041 mg/L and s_Rw = 0.0834 mg/L.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).
+2. More than 6 of about 60 values outside the warning limits: the standard deviation has probably increased, so the F-test is applied (Chapter 10).
+3. F = 0.0834²/0.0667² = 1.563 with ν = 58 and 59: below the critical value (1.67 in Table 3 at 60/60; 1.68 exactly), no significant increase.
+4. t-test of the means with the pooled s_p = √((59·0.0667² + 58·0.0834²)/117) = 0.07545 mg/L (Equation 9): t = |1.055 − 1.041|/0.07545·√(60·59/119) = 1.012 < 1.98 (ν = 117): no significant change of the central line.
+
+**Result:**
+
+- X-chart: central line 1.055 mg/L; warning limits 0.9216 1.188 mg/L; action limits 0.8549 1.255 mg/L (s = 0.0667 mg/L, statistical control limits)
+- Long-term review: F = 1.563 (critical 1.68: not significant); t = 1.012 (critical 1.98: not significant)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex8-copper-x-review.json --lang en`
+
+### Zinc in hydrogen peroxide: X-chart of a procedural blank (Nordtest TR 569 Example 9)
+
+`tr569-ex9-zinc-procedural-blank` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 9
+
+Ultrapure water taken through the whole procedure (evaporation of 50 mL, HCl, dilution to 5 mL, ICP-OES) to detect contamination; negative values are plotted as well.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).
+2. The lower limits are negative: −0.051 mg/L and −0.096 mg/L.
+
+**Result:**
+
+- X-chart: central line 0.0390 mg/L; warning limits -0.0510 0.129 mg/L; action limits -0.0960 0.174 mg/L (s = 0.0450 mg/L, statistical control limits)
+
+**Run:** `uncertainty run library/chemistry/tr569-ex9-zinc-procedural-blank.json --lang en`
+
+### Zinc in water: X-chart from 60 control values (Nordtest TR 569 Table 1)
+
+`tr569-table1-zinc` — Nordtest TR 569 ed. 6 (2026), Chapter 2, Table 1 and Figure 1; Chapters 7 and 9
+
+Sixty control values of a 60.0 µg/L zinc solution (Table 1), plotted in Figure 1. Statistical limits from the values themselves; daily interpretation of every run.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Mean and standard deviation of the 60 values (Equations 1, 2): x̄ = 60.278 µg/L, s = 2.598 µg/L; the central line is the mean.
+2. Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).
+3. Daily interpretation (Chapter 9): three values lie between the warning and action limits (66.3, 54.5 and 54.4 µg/L; 65.4 µg/L is just inside the upper warning limit of 65.47 µg/L), none of them preceded by another on the same side within two runs; no value is out of control, as in Figure 1.
+4. The mean does not differ significantly from the nominal 60.0 µg/L: t = |60.278 − 60.0|·√60/2.598 = 0.83 < 2.00 (Equation 6).
+
+**Result:**
+
+- X-chart: central line 60.28 µg/L; warning limits 55.08 65.47 µg/L; action limits 52.48 68.07 µg/L (s = 2.60 µg/L, statistical control limits)
+- 60 control values: 0 out of control, 3 between warning and action limits
+
+**Run:** `uncertainty run library/chemistry/tr569-table1-zinc.json --lang en`
 
 ### Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)
 
@@ -2390,6 +2792,24 @@ NUM manual §3: Gaussian a, rectangular b and a triangular divisor c with a 30 %
 - The text of §3 says that the GUM method gives y = 32.2 and u(y) = 12.5, but the output of the NIST Uncertainty Machine printed in Figure 1 gives y = 28.8 and u(y) = 8.7 for Gauss's formula (32.2 and 13 are the Monte Carlo mean and standard deviation). The program reproduces the values of Figure 1.
 
 **Run:** `uncertainty run library/general/num-3-ratio-abc.json --lang en`
+
+### Bias of a 1 mL micropipette: chart with action limits at the tolerance (Nordtest TR 569 Example 11)
+
+`tr569-ex11-micropipette-tolerance` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 11
+
+A fixed 1 mL micropipette tested ten times (Nordtest TR 626); the mean volume is plotted against the nominal value with action limits at the laboratory's tolerance of ± 1 %.
+
+**Approach:** control chart for internal quality control (Nordtest TR 569)
+
+**Steps:**
+
+1. Central line the nominal value 1.00 mL; action limits 1.00 ± 0.01 mL; no warning limits (instrument qualification, Chapter 11).
+
+**Result:**
+
+- X-chart: central line 1.0000 mL; action limits 0.99000 1.0100 mL (action limits at the tolerance)
+
+**Run:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang en`
 
 ### Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)
 

@@ -1,0 +1,78 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex8-copper-x-new-limits",
+    "title": {
+      "en": "Copper in water by ICP-OES: new X-chart limits from all data (Nordtest TR 569 Example 8)",
+      "tr": "ICP-OES ile suda bakır: tüm verilerden yeni X-grafiği sınırları (Nordtest TR 569 Örnek 8)"
+    },
+    "description": {
+      "en": "After the review the limits are recalculated from the longer period: x̄ = 1.048 mg/L and s = 0.0822 mg/L.",
+      "tr": "Gözden geçirmeden sonra sınırlar daha uzun dönemden yeniden hesaplanır: x̄ = 1,048 mg/L ve s = 0,0822 mg/L."
+    },
+    "explanation": [
+      {
+        "en": "Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).",
+        "tr": "X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7)."
+      },
+      {
+        "en": "The +5 % bias against the nominal 1.00 mg/L should be investigated if it matters for the use of the results.",
+        "tr": "Nominal 1,00 mg/L'ye göre +%5 sapma, sonuçların kullanımı için önemliyse araştırılmalıdır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 8",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "copper",
+      "water",
+      "icp-oes",
+      "x-chart"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Cu, synthetic standard 1.00 mg/L",
+    "unit": "mg/L",
+    "replicates": 2,
+    "central_line": {
+      "mean": 1.048
+    },
+    "limits": {
+      "basis": "statistical",
+      "sd": 0.0822
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_warning": {
+        "value": 0.88,
+        "tolerance": 0.005
+      },
+      "upper_warning": {
+        "value": 1.21,
+        "tolerance": 0.005
+      },
+      "lower_action": {
+        "value": 0.8,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 1.29,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 8.",
+      "tr": "TR 569 Örnek 8."
+    }
+  }
+}

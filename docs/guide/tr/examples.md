@@ -2,10 +2,10 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (62)
+- Kimya (82)
 - Elektrik ve RF (23)
 - Akış ve hacim (4)
-- Genel (yöntem doğrulama) (18)
+- Genel (yöntem doğrulama) (19)
 - Uzunluk (8)
 - Kütle (4)
 - Fiziksel özellikler (8)
@@ -743,6 +743,408 @@ QUAM Örnek A7, Eş. (5): kütle ayrımı düzeltilmiş izotop oranlarıyla çif
 - Raporlanan (0,05370 ± 0,00036) µmol/g dört tekrarın ortalamasını kullanır; √8'e bölme yapılmasaydı deneysel u_c 0,00041 µmol/g olurdu.
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a7-lead-double-idms.json --lang tr`
+
+### X-grafiğinin sınırlarının belirlenmesi, durum 1 (Nordtest TR 569 Bölüm 7)
+
+`tr569-ch7-case1-statistical` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limits and the central line in X-charts, case 1
+
+Durum 1: istatistiksel sınırlar ve ortalama merkez çizgisi, 59,2 µg/L'nin %4'ü s_Rw.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7).
+2. Göreli standart sapma merkez çizgisine uygulanır: s = p·CL/100.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 59,20 µg/L; uyarı sınırları 54,46 63,94 µg/L; eylem sınırları 52,10 66,30 µg/L (s = 2,37 µg/L, istatistiksel kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-case1-statistical.json --lang tr`
+
+### X-grafiğinin sınırlarının belirlenmesi, durum 2 (Nordtest TR 569 Bölüm 7)
+
+`tr569-ch7-case2-target-mean` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limits and the central line in X-charts, case 2
+
+Durum 2: gerekli %5 s_Rw'den hedef sınırlar, ortalama merkez çizgisi 59,2 µg/L.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7).
+2. Göreli standart sapma merkez çizgisine uygulanır: s = p·CL/100.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 59,20 µg/L; uyarı sınırları 53,28 65,12 µg/L; eylem sınırları 50,32 68,08 µg/L (s = 2,96 µg/L, hedef kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-case2-target-mean.json --lang tr`
+
+### X-grafiğinin sınırlarının belirlenmesi, durum 3 (Nordtest TR 569 Bölüm 7)
+
+`tr569-ch7-case3-target-reference` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limits and the central line in X-charts, case 3
+
+Durum 3: 60,0 µg/L referans değeri çevresinde %5 hedef sınırlar.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7).
+2. Göreli standart sapma merkez çizgisine uygulanır: s = p·CL/100.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 60,00 µg/L; uyarı sınırları 54,00 66,00 µg/L; eylem sınırları 51,00 69,00 µg/L (s = 3,00 µg/L, hedef kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-case3-target-reference.json --lang tr`
+
+### Paralel tayinler için r%-grafiğinin istatistiksel sınırları (Nordtest TR 569 Bölüm 7)
+
+`tr569-ch7-range-case1-statistical` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limit in R or r%-charts, case 1
+
+Açıklık grafikleri için durum 1: paralel tayinlerden %0,356 birleştirilmiş göreli standart sapma.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den).
+2. Üst uyarı sınırı 2,833·%0,356 = %1,0, üst eylem sınırı 3,686·%0,356 = %1,3.
+
+**Sonuç:**
+
+- r%-grafiği (göreli açıklık): merkez çizgisi 0,402 %; uyarı sınırları 1,01 %; eylem sınırları 1,31 % (s = 0,356 %, istatistiksel kontrol sınırları)
+
+**Notlar:**
+
+- Araştırma günlüğü F52: Bölüm 7'de açıklık grafikleri için durum 1'de uyarı sınırı 3·0,356 = %1,0 olarak basılmıştır; 3·0,356 = 1,07'dir, Tablo 4'ün katsayısı 2,83'tür ve 2,83·0,356 = 1,01'dir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-range-case1-statistical.json --lang tr`
+
+### Tekrarlanabilirlik sınırından r%-grafiğinin hedef sınırları (Nordtest TR 569 Bölüm 7)
+
+`tr569-ch7-range-case2-target` — Nordtest TR 569 ed. 6 (2026), Chapter 7, Setting the control limit in R or r%-charts, case 2
+
+Açıklık grafikleri için durum 2: standart yöntem r = %1 tekrarlanabilirlik sınırı verir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. s_r = r/2,8 = %0,357 (2,8 ≈ 2√2 katsayısı iki sonucun farkından gelir, dipnot 12).
+2. Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den).
+3. Üst uyarı sınırı 2,833·%0,357 = %1,0, üst eylem sınırı 3,686·%0,357 = %1,3; veri yokken merkez çizgisi beklenen açıklık d₂·s = %0,40'tır.
+
+**Sonuç:**
+
+- r%-grafiği (göreli açıklık): merkez çizgisi 0,403 %; uyarı sınırları 1,01 %; eylem sınırları 1,32 % (s = 0,357 %, hedef kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-range-case2-target.json --lang tr`
+
+### XRF ile düşük alaşımlı çelikte nikel: gerekli belirsizlikten hedef sınırlar (Nordtest TR 569 Örnek 1)
+
+`tr569-ex1-nickel-steel-xrf` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 1
+
+Bir çelik numunenin X-grafiği; bir yıllık ortalama ağırlıkça %4,58, s = ağırlıkça %0,026; gerekli genişletilmiş belirsizlik U = %4 (göreli).
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. u_c = U/2 = %2; s_Rw için gereklilik u_c'nin yarısıdır: s_Rw = U/4 = %1 (göreli) = ağırlıkça %0,0458.
+2. Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7).
+3. Yöntem hedefin altında s = ağırlıkça %0,026 ile çalışır: hedef sınırlar istatistiksel sınırlardan geniştir ve sonuçlar amaca uygun kalırken daha az yanlış alarm verir.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 4,5800 weight-%; uyarı sınırları 4,4884 4,6716 weight-%; eylem sınırları 4,4426 4,7174 weight-% (s = 0,0458 weight-%, hedef kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang tr`
+
+### ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrarüretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)
+
+`tr569-ex10-boron-toys-target` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 10
+
+Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart kaymayı izler; s_hedef = %10, EN 71-3'ün %15 tekrarüretilebilirliğinin üçte ikisi.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7).
+2. Değerlerin neredeyse tamamı merkez çizgisinin üzerindedir; yaklaşık +%6 sapma (ortalama 5,3 µg/L), yaklaşık %30 gerekli belirsizlik için kabul edilebilir bulunmuştur.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 5,000 µg/L; uyarı sınırları 4,000 6,000 µg/L; eylem sınırları 3,500 6,500 µg/L (s = 0,500 µg/L, hedef kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex10-boron-toys-target.json --lang tr`
+
+### Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrarüretilebilirlik (Nordtest TR 569 Örnek 12)
+
+`tr569-ex12-pooling-sr-srw` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 12 and footnote 24
+
+Sekiz günün her birinde bir kalite kontrol numunesinin üç tekrarı. 24 sonucun birlikte standart sapması s_Rw için fazla düşük bir tahmindir ve çok dar kontrol sınırları verir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. s_r: sekiz günün standart sapmaları (0,058 – 0,252) Eşitlik 10 ile birleştirilir: 0,15.
+2. Basitleştirilmiş s_Rw: günler boyunca birinci, ikinci ve üçüncü sonuçların standart sapmaları (0,226, 0,342, 0,226) Eşitlik 10 ile birleştirilir: 0,270.
+3. Tek yönlü varyans analizi: s_r = 0,1541, günler arası s_I = 0,2246, s_Rw = √(s_r² + s_I²) = 0,272 (dipnot 24).
+4. Günlük ortalamaların X-grafiğinin s'si √(s_I² + s_r²/3)'tür; sınırları sekiz ortalamadan çıkar.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 6,888; uyarı sınırları 6,404 7,371; eylem sınırları 6,163 7,612 (s = 0,242, istatistiksel kontrol sınırları)
+- 8 kontrol değeri: 0 kontrol dışı, 0 uyarı ile eylem sınırları arasında
+- s_r = 0,154, s_I = 0,225, s_Rw = 0,272 (tek yönlü varyans analizi)
+
+**Notlar:**
+
+- Araştırma günlüğü F53: dipnot 24 s_Rw = √(0,01541² + 0,02246²) = 0,0272 verir; değerler metindeki gibi s_r = 0,1541, s_I = 0,2246 ve s_Rw = 0,272'dir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex12-pooling-sr-srw.json --lang tr`
+
+### XRF ile düşük alaşımlı çelikte kobalt: tayin sınırından hedef sınırlar (Nordtest TR 569 Örnek 2)
+
+`tr569-ex2-cobalt-steel-xrf` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 2
+
+Düşük derişimde X-grafiği, ortalama ağırlıkça %0,0768, s = ağırlıkça %0,00063; gerekli 0,01 ağırlıkça % LOQ, s'nin 6–10 katıdır, bu nedenle s_hedef = ağırlıkça %0,001.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7).
+2. Kontrol numunesi ilgilenilen derişim olan LOQ'nun sekiz katındadır.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 0,07680 weight-%; uyarı sınırları 0,07480 0,07880 weight-%; eylem sınırları 0,07380 0,07980 weight-% (s = 0,00100 weight-%, hedef kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex2-cobalt-steel-xrf.json --lang tr`
+
+### Suda amonyum azotu: paralel numunelerin R-grafiği (Nordtest TR 569 Örnek 3)
+
+`tr569-ex3-ammonium-r` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 3
+
+Her seride 100 µg/L'nin altındaki bir numune paralel analiz edilir; paralel tayinlerin açıklığı çizilir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den).
+2. Ortalama açıklık 0,559 µg/L, s = 0,559/1,128 = 0,496 µg/L; uyarı sınırı 2,83·0,496 = 1,40 µg/L, eylem sınırı 3,69·0,496 = 1,83 µg/L.
+
+**Sonuç:**
+
+- R-grafiği (açıklık): merkez çizgisi 0,559 µg/L; uyarı sınırları 1,40 µg/L; eylem sınırları 1,83 µg/L (s = 0,495 µg/L, istatistiksel kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex3-ammonium-r.json --lang tr`
+
+### Suda amonyum azotu: standart çözeltinin X-grafiği (Nordtest TR 569 Örnek 3)
+
+`tr569-ex3-ammonium-x` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 3
+
+İndofenol mavisi yöntemi; NH₄Cl kalibrasyon standartlarından bağımsız olarak (NH₄)₂SO₄'ten hazırlanmış 20 µg/L kontrol çözeltisi; paralel tayinlerin ortalaması çizilir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Merkez çizgisi ortalama x̄ = 19,99 µg/L; ortalamaların s'si 0,521 µg/L.
+2. X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7).
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 19,99 µg/L; uyarı sınırları 18,95 21,03 µg/L; eylem sınırları 18,43 21,55 µg/L (s = 0,521 µg/L, istatistiksel kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex3-ammonium-x.json --lang tr`
+
+### ICP-MS ile suda kurşun: laboratuvar içi göl suyunun X-grafiği (Nordtest TR 569 Örnek 4)
+
+`tr569-ex4-lead-water-icpms` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 4
+
+Korunmuş göl suyunda düşük kurşun derişimi (0,29 µg/L), her seride bir kez analiz edilir; istatistiksel sınırlar.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7).
+2. Merkez çizgisinin üstünde art arda on iki değer: istatistiksel kontrol dışı, ancak kontrol dışı değil (Bölüm 9); sonuçlar raporlanabilir.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 0,2940 µg/L; uyarı sınırları 0,2780 0,3100 µg/L; eylem sınırları 0,2700 0,3180 µg/L (s = 0,00800 µg/L, istatistiksel kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex4-lead-water-icpms.json --lang tr`
+
+### ICP-MS ile balık CRM'sinde arsenik: yalnızca ± %15 eylem sınırlı grafik (Nordtest TR 569 Örnek 5)
+
+`tr569-ex5-arsenic-crm-tolerance` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 5
+
+CRM NRC DORM-2 (köpek balığı kası), 18,0 µg/g arsenik, her seride bir kez analiz edilir; laboratuvar referans değerden %15'e kadar sapmayı kabul eder.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Merkez çizgisi referans değer; eylem sınırları CL ± tolerans = 18,0 ± 2,7 µg/g; uyarı sınırı yok (Bölüm 5 ve 7).
+2. Uyarı sınırları olmadan üçte iki kuralı uygulanamaz; bu nedenle grafik ortalamadaki kaymaya daha az duyarlıdır.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 18,00 µg/g; eylem sınırları 15,30 20,70 µg/g (toleransta eylem sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex5-arsenic-crm-tolerance.json --lang tr`
+
+### Suda toplam fosfor: paralel tayinlerin r%-grafiği (Nordtest TR 569 Örnek 6)
+
+`tr569-ex6-phosphorus-relative-range` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 6
+
+10 µg/L'nin üzerindeki numuneler paralel analiz edilir; LOQ'nun çok üzerinde göreli standart sapma yaklaşık sabit olduğundan farkın ortalamaya yüzde oranı çizilir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den).
+2. Ortalama r% %1,88, CV = 1,88/1,128 = %1,67; uyarı sınırı 2,83·1,67 = %4,73, eylem sınırı 3,69·1,67 = %6,16.
+
+**Sonuç:**
+
+- r%-grafiği (göreli açıklık): merkez çizgisi 1,88 %; uyarı sınırları 4,73 %; eylem sınırları 6,16 % (s = 1,67 %, istatistiksel kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex6-phosphorus-relative-range.json --lang tr`
+
+### GC-ECD ile morina karaciğeri yağında β-HCH: referans değer çevresinde hedef sınırlar (Nordtest TR 569 Örnek 7)
+
+`tr569-ex7-beta-hch-crm-target` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 7
+
+CRM BCR 598, 16 µg/kg β-heksaklorosikloheksan, her seride bir kez analiz edilir; %15 hedef s.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7).
+2. s_hedef = 0,15·16,0 = 2,4 µg/kg; merkez çizgisinin üzerindeki bir eğilim üç değerden ikisinin uyarı sınırının üstünde olmasıyla, yani kontrol dışı bir durumla sonuçlanmıştır (Örnek 7, yorum).
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 16,0 µg/kg; uyarı sınırları 11,2 20,8 µg/kg; eylem sınırları 8,80 23,2 µg/kg (s = 2,40 µg/kg, hedef kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex7-beta-hch-crm-target.json --lang tr`
+
+### ICP-OES ile suda bakır: paralel tayinlerin R-grafiği ve gözden geçirilmesi (Nordtest TR 569 Örnek 8)
+
+`tr569-ex8-copper-r-review` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 8
+
+Numunelerin paralel tayinleri; ön ortalama açıklık 0,11 mg/L, s_r = 0,0975 mg/L; son 60 serinin s_r'si 0,0957 mg/L.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den).
+2. Uyarı sınırı 2,833·0,0975 = 0,28 mg/L, eylem sınırı 3,686·0,0975 = 0,36 mg/L.
+3. F = 0,0975²/0,0957² = 1,04, kritik değer 1,67'nin altında (ν = 60, 60): tekrarlanabilirlik değişmemiştir. X-grafiği iki sonucun ortalamalarını çizdiğinden s_r, X-grafiğinin s_Rw'sinden büyüktür.
+
+**Sonuç:**
+
+- R-grafiği (açıklık): merkez çizgisi 0,110 mg/L; uyarı sınırları 0,276 mg/L; eylem sınırları 0,359 mg/L (s = 0,0975 mg/L, istatistiksel kontrol sınırları)
+- Uzun dönem değerlendirmesi: F = 1,038 (kritik 1,67: anlamlı değil)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex8-copper-r-review.json --lang tr`
+
+### ICP-OES ile suda bakır: tüm verilerden yeni X-grafiği sınırları (Nordtest TR 569 Örnek 8)
+
+`tr569-ex8-copper-x-new-limits` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 8
+
+Gözden geçirmeden sonra sınırlar daha uzun dönemden yeniden hesaplanır: x̄ = 1,048 mg/L ve s = 0,0822 mg/L.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7).
+2. Nominal 1,00 mg/L'ye göre +%5 sapma, sonuçların kullanımı için önemliyse araştırılmalıdır.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 1,048 mg/L; uyarı sınırları 0,8836 1,212 mg/L; eylem sınırları 0,8014 1,295 mg/L (s = 0,0822 mg/L, istatistiksel kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex8-copper-x-new-limits.json --lang tr`
+
+### ICP-OES ile suda bakır: ön X-grafiği sınırlarının gözden geçirilmesi (Nordtest TR 569 Örnek 8)
+
+`tr569-ex8-copper-x-review` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 8
+
+Paralel ölçülen sentetik standart (1,00 ± 0,02 mg/L); ön sınırlar ilk 60 seriden, x̄ = 1,055 mg/L, s = 0,0667 mg/L. Son 60 değer gözden geçirilir: 11'i uyarı sınırları dışında; merkez çizgisinden 4 s'den uzak bir değer dışarıda bırakılır, x̄ = 1,041 mg/L ve s_Rw = 0,0834 mg/L olan 59 değer kalır.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7).
+2. Yaklaşık 60 değerden 6'dan fazlası uyarı sınırları dışında: standart sapma muhtemelen artmıştır, bu nedenle F-testi uygulanır (Bölüm 10).
+3. F = 0,0834²/0,0667² = 1,563, ν = 58 ve 59: kritik değerin altında (Tablo 3'te 60/60 için 1,67; tam değeri 1,68), anlamlı artış yok.
+4. Birleştirilmiş s_p = √((59·0,0667² + 58·0,0834²)/117) = 0,07545 mg/L ile ortalamalara t-testi (Eşitlik 9): t = |1,055 − 1,041|/0,07545·√(60·59/119) = 1,012 < 1,98 (ν = 117): merkez çizgisinde anlamlı değişiklik yok.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 1,055 mg/L; uyarı sınırları 0,9216 1,188 mg/L; eylem sınırları 0,8549 1,255 mg/L (s = 0,0667 mg/L, istatistiksel kontrol sınırları)
+- Uzun dönem değerlendirmesi: F = 1,563 (kritik 1,68: anlamlı değil); t = 1,012 (kritik 1,98: anlamlı değil)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex8-copper-x-review.json --lang tr`
+
+### Hidrojen peroksitte çinko: yöntem körünün X-grafiği (Nordtest TR 569 Örnek 9)
+
+`tr569-ex9-zinc-procedural-blank` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 9
+
+Kirlenmeyi saptamak için tüm işlemden geçirilen ultra saf su (50 mL buharlaştırma, HCl, 5 mL'ye seyreltme, ICP-OES); negatif değerler de çizilir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7).
+2. Alt sınırlar negatiftir: −0,051 mg/L ve −0,096 mg/L.
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 0,0390 mg/L; uyarı sınırları -0,0510 0,129 mg/L; eylem sınırları -0,0960 0,174 mg/L (s = 0,0450 mg/L, istatistiksel kontrol sınırları)
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex9-zinc-procedural-blank.json --lang tr`
+
+### Sudaki çinko: 60 kontrol değerinden X-grafiği (Nordtest TR 569 Tablo 1)
+
+`tr569-table1-zinc` — Nordtest TR 569 ed. 6 (2026), Chapter 2, Table 1 and Figure 1; Chapters 7 and 9
+
+60,0 µg/L çinko çözeltisinin altmış kontrol değeri (Tablo 1), Şekil 1'de çizilmiştir. Sınırlar değerlerin kendisinden istatistiksel olarak belirlenir; her seri günlük olarak değerlendirilir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. 60 değerin ortalaması ve standart sapması (Eşitlik 1, 2): x̄ = 60,278 µg/L, s = 2,598 µg/L; merkez çizgisi ortalamadır.
+2. X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7).
+3. Günlük değerlendirme (Bölüm 9): üç değer uyarı ile eylem sınırları arasındadır (66,3, 54,5 ve 54,4 µg/L; 65,4 µg/L, 65,47 µg/L üst uyarı sınırının hemen içindedir) ve hiçbirinden önceki iki seride aynı tarafta başka bir değer yoktur; Şekil 1'deki gibi hiçbir değer kontrol dışı değildir.
+4. Ortalama nominal 60,0 µg/L'den anlamlı olarak farklı değildir: t = |60,278 − 60,0|·√60/2,598 = 0,83 < 2,00 (Eşitlik 6).
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 60,28 µg/L; uyarı sınırları 55,08 65,47 µg/L; eylem sınırları 52,48 68,07 µg/L (s = 2,60 µg/L, istatistiksel kontrol sınırları)
+- 60 kontrol değeri: 0 kontrol dışı, 3 uyarı ile eylem sınırları arasında
+
+**Çalıştırma:** `uncertainty run library/chemistry/tr569-table1-zinc.json --lang tr`
 
 ### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
 
@@ -2390,6 +2792,24 @@ NUM kılavuzu §3: normal a, dikdörtgen b ve bağıl belirsizliği %30 olan ü�
 - §3'ün metni GUM yönteminin y = 32,2 ve u(y) = 12,5 verdiğini söyler; ancak Şekil 1'de basılı NIST Uncertainty Machine çıktısı Gauss formülü için y = 28,8 ve u(y) = 8,7 verir (32,2 ve 13 Monte Carlo ortalaması ve standart sapmasıdır). Program Şekil 1'deki değerleri yeniden üretir.
 
 **Çalıştırma:** `uncertainty run library/general/num-3-ratio-abc.json --lang tr`
+
+### 1 mL mikropipetin sapması: toleransta eylem sınırlı grafik (Nordtest TR 569 Örnek 11)
+
+`tr569-ex11-micropipette-tolerance` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 11
+
+Sabit hacimli 1 mL mikropipet on kez test edilir (Nordtest TR 626); ortalama hacim, laboratuvarın ± %1 toleransındaki eylem sınırlarıyla nominal değere karşı çizilir.
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Merkez çizgisi nominal değer 1,00 mL; eylem sınırları 1,00 ± 0,01 mL; uyarı sınırı yok (cihaz yeterliliği, Bölüm 11).
+
+**Sonuç:**
+
+- X-grafiği: merkez çizgisi 1,0000 mL; eylem sınırları 0,99000 1,0100 mL (toleransta eylem sınırları)
+
+**Çalıştırma:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang tr`
 
 ### Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)
 

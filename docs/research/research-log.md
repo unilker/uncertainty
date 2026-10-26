@@ -1297,3 +1297,82 @@ the printed 1.0445 the average over six sets is 1.044467 rad, and R̂ becomes
 127.7307 Ω instead of the printed 127.732 Ω (X̂ and Ẑ are unaffected at the
 printed digits). The library uses 1.04446 and records the point. Table 15
 also labels its seventh column θ6 instead of θ7.
+
+## 2026-10-26 (session 14) — Software validation report; control charts (Nordtest TR 569 ed. 6)
+
+**D43. "Two out of three" counts previous values beyond the action limit.**
+TR 569 Chapter 9 calls a value out of control when it lies between the
+warning and action limits and "at least one of the two previous control
+values on the same side is also between warning and action limit". The text
+does not say how a previous value *beyond* the action limit counts; that run
+was itself out of control. The program counts any previous value outside the
+warning limit on the same side, as test 5 of ISO 7870-2 does ("two out of
+three points in zone A or beyond"). This is the more cautious reading. A value
+exactly on a limit counts as inside it. The trend rule counts seven values
+(six steady increases or decreases), and the run rule counts ten of eleven
+values strictly on one side.
+
+**D44. Control charts (Nordtest TR 569 ed. 6, 2026).** New core module `qc`
+and project section `control_chart` (154 library projects). It covers:
+
+- X, R and r%-charts, from control values or from the replicate results of
+  each run.
+- Statistical, target and tolerance limits, with a mean, given or reference
+  central line.
+- Charts with action limits only.
+- The daily rules (action limit, two out of three) and the rules for being
+  out of statistical control.
+- The long-term review: F-test against the exact F₁₋α/₂(ν₁, ν₂), t-test with
+  the pooled s_p, the 0.37 s and "6 of 60" checks, and exclusion beyond 4 s.
+- s_r and s_Rw from replicate control results by pooling (Equations 9, 10),
+  by the simplified method of Example 12 and by one-way analysis of variance.
+
+The range factors d₂ and d₃ for n = 2–10 are stored to six decimals and
+recomputed in a test by numerical integration of the distribution of the
+range (agreement 2·10⁻⁶ and 10⁻⁴). D_AL = d₂ + 3d₃ and D_WL follow from them.
+The library has 21 projects: Table 1 (raw data, daily rules), the five cases
+of Chapter 7 and Examples 1–12. Most examples print only summary statistics
+(the charts are figures), so their projects check the central line, the
+limits and the review statistics.
+
+**D45. Software validation report (ISO/IEC 17025 7.11.2).**
+`uncertainty check … --report FILE.md|.html --lang en|tr` writes a record of
+the validation. It gives the version, platform, date and options; results by
+method and by project with the largest |Δ|/tolerance; the values outside
+tolerance; and a signature line. With `--no-mcm`, the Monte Carlo reference
+values are no longer compared; before this change they counted as failures.
+
+**F9 resolved.** The factor 3.69 of MUPR B1 is the action-limit factor of a
+range chart for duplicates, D_AL = d₂ + 3d₃ = 3.686 (ISO 8258 D₂). It is not
+a quantile of the range. TR 569 Table 4 lists it with the warning-limit
+factor 2.833 and notes that it corresponds to a confidence level of 99.07 %,
+not 99 %. The exact 99 % quantile of the range of two normal values is
+z₀.₉₉₅·√2 = 3.643. The MUPR label "99 %" is therefore a rounded description
+of the ISO 8258 factor (class a).
+
+**F52. TR 569 ed. 6 Chapter 7, range charts, case 1 (class b).** The warning
+limit is printed as "+ 3·0.356 = 1.0 %". The factor of Table 4 is 2.83, and
+2.83·0.356 = 1.01 % (3·0.356 = 1.07 %). The printed result 1.0 % is that of
+2.83. Case 2 of the same page uses 2.83 correctly.
+
+**F53. TR 569 ed. 6 Example 12, footnote 24 (class b).** The footnote gives
+s_Rw = √(0.01541² + 0.02246²) = 0.0272. The analysis of variance of the 3 × 8
+data gives s_r = 0.1541, s_I = 0.2246 and s_Rw = 0.2724, so all three
+footnote values are ten times too small. The text value 0.272 is correct.
+
+**F54. TR 569 ed. 6 — rounded intermediates (class a).**
+
+- Example 6 multiplies CV = 1.67 % by the factors (4.73 %, 6.16 %), but
+  1.88/1.128 = 1.667 % gives 4.72 % and 6.14 %.
+- Example 8 reads F_crit = 1.67 from Table 3 at 60/60 degrees of freedom; the
+  exact F₀.₉₇₅(58, 59) is 1.677. It prints F = 1.037 for the R-chart, where
+  0.0975²/0.0957² = 1.0380, and s_p = 0.07545, where 0.07544 follows from the
+  printed s values.
+- In Table 4, D_WL = 3.470 for n = 3 follows from the rounded d₂ = 1.693 and
+  D_AL = 4.358; the unrounded constants give 3.469.
+
+None of these changes a conclusion. In Examples 3 and 8, the s called the
+"pooled repeatability standard deviation" is the mean range divided by 1.128
+(Equation 4): 0.559/1.128 = 0.496 and 0.11/1.128 = 0.0975. Table 1 has three
+values outside the warning limits, not four: 65.4 µg/L is just inside the upper
+warning limit of 65.47 µg/L.

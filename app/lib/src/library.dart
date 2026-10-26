@@ -17,6 +17,7 @@ class LibraryEntry {
   bool get isConformity => project.containsKey('conformity') && !project.containsKey('model');
   bool get isPrecision => project.containsKey('precision_experiment');
   bool get isMultivariate => project.containsKey('multivariate');
+  bool get isControlChart => project.containsKey('control_chart');
 
   /// Short description of the method for the library list.
   String get methodLabel => isTopDown
@@ -31,6 +32,8 @@ class LibraryEntry {
       ? 'ISO 5725-2'
       : isMultivariate
       ? 'JCGM 102'
+      : isControlChart
+      ? 'TR 569'
       : 'GUM + MCM';
 
   /// Title, description and id in both languages, for searching.

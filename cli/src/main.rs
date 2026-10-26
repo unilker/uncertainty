@@ -13,12 +13,13 @@ top-down from validation and quality-control data (Nordtest TR 537,
 Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
 calibration with uncertainties in both variables (ISO 6143); conformity
 assessment (JCGM 106); repeatability and reproducibility from interlaboratory
-experiments (ISO 5725-2); models with several output quantities (JCGM 102).
+experiments (ISO 5725-2); models with several output quantities (JCGM 102);
+control charts for internal quality control (Nordtest TR 569).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -47,8 +48,9 @@ TEMPLATE:
     --proficiency a proficiency test round (ISO 13528), with --calibration a
     calibration with uncertainties in both variables (ISO 6143), with
     --conformity a conformity assessment (JCGM 106), with --precision an
-    interlaboratory precision experiment (ISO 5725-2), or with --multivariate
-    a model with several output quantities (JCGM 102).
+    interlaboratory precision experiment (ISO 5725-2), with --multivariate a
+    model with several output quantities (JCGM 102), or with --control-chart
+    a control chart for internal quality control (Nordtest TR 569).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -209,6 +211,23 @@ const TEMPLATE_CONFORMITY: &str = r#"{
 }
 "#;
 
+const TEMPLATE_CONTROL_CHART: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "X-chart of a control sample", "tr": "Kontrol numunesinin X-grafiği" },
+    "field": "chemistry"
+  },
+  "control_chart": {
+    "quantity": "Zn, control solution 60.0 µg/L",
+    "unit": "µg/L",
+    "values": [64.5, 66.3, 61.1, 59.7, 57.4, 56.2, 58.4, 58.2, 63.0, 59.5, 56.0, 59.4, 60.2, 62.9, 60.5, 60.8, 61.5, 58.5, 58.9, 60.5],
+    "reference": 60.0,
+    "limits": { "basis": "statistical" }
+  }
+}
+"#;
+
 #[derive(Clone, Copy, PartialEq)]
 enum Format {
     Markdown,
@@ -245,6 +264,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--precision") => {
             print!("{TEMPLATE_PRECISION}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--control-chart") => {
+            print!("{TEMPLATE_CONTROL_CHART}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--calibration") => {

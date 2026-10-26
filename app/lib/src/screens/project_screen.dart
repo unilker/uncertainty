@@ -12,6 +12,7 @@ import '../widgets/json_editor.dart';
 import '../widgets/model_editor.dart';
 import '../widgets/overview.dart';
 import '../widgets/calibration_editor.dart';
+import '../widgets/control_chart_editor.dart';
 import '../widgets/conformity_editor.dart';
 import '../widgets/precision_editor.dart';
 import '../widgets/proficiency_editor.dart';
@@ -52,6 +53,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
   bool get _isCalibration => _project.containsKey('calibration');
   bool get _isConformity => _project.containsKey('conformity') && !_project.containsKey('model');
   bool get _isPrecision => _project.containsKey('precision_experiment');
+  bool get _isControlChart => _project.containsKey('control_chart');
 
   @override
   void initState() {
@@ -190,7 +192,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
           isScrollable: true,
           tabs: [
             Tab(text: s['overview']),
-            Tab(text: _isTopDown || _isProficiency || _isCalibration || _isConformity || _isPrecision ? s['data'] : s['model']),
+            Tab(text: _isTopDown || _isProficiency || _isCalibration || _isConformity || _isPrecision || _isControlChart ? s['data'] : s['model']),
             Tab(text: s['settings']),
             Tab(text: s['json']),
             Tab(key: const Key('results-tab'), text: s['results']),
@@ -223,6 +225,8 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
                     ? ConformityEditor(key: ValueKey('f$_revision'), project: _project, onChanged: _changed)
                     : _isPrecision
                     ? PrecisionEditor(key: ValueKey('e$_revision'), project: _project, onChanged: _changed)
+                    : _isControlChart
+                    ? ControlChartEditor(key: ValueKey('q$_revision'), project: _project, onChanged: _changed)
                     : ModelEditor(key: ValueKey('m$_revision'), project: _project, onChanged: _changed),
                 SettingsEditor(key: ValueKey('s$_revision'), project: _project, onChanged: _changed),
                 JsonEditor(key: ValueKey('j$_revision'), project: _project, onApply: _replace),

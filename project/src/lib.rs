@@ -5,8 +5,9 @@
 //! and Monte Carlo evaluations, the top-down evaluation ([`topdown`]) or the
 //! statistics of a proficiency test round ([`proficiency`]), a
 //! calibration with uncertainties in both variables ([`calibration`]), a
-//! conformity assessment ([`conformity`]) or an interlaboratory precision
-//! experiment ([`interlab`]) defined in them ([`run`]), checking results
+//! conformity assessment ([`conformity`]), an interlaboratory precision
+//! experiment ([`interlab`]), a model with several outputs
+//! ([`multivariate`]) or a control chart ([`qc`]) defined in them ([`run`]), checking results
 //! against expected reference values ([`check`]) and producing reports in
 //! English or Turkish ([`report`]).
 
@@ -15,6 +16,7 @@ pub mod conformity;
 pub mod interlab;
 pub mod multivariate;
 pub mod proficiency;
+pub mod qc;
 pub mod report;
 pub mod schema;
 pub mod topdown;
@@ -98,6 +100,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
         p.calibration.is_some(),
         p.precision_experiment.is_some(),
         p.multivariate.is_some(),
+        p.control_chart.is_some(),
     ]
     .iter()
     .filter(|&&b| b)
@@ -105,7 +108,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
     if primary > 1 || (primary == 0 && p.conformity.is_none()) {
         return Err(ProjectError::Format(
             "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\", \
-             \"precision_experiment\", \"multivariate\" and \"conformity\" (which may also accompany \"model\")"
+             \"precision_experiment\", \"multivariate\", \"control_chart\" and \"conformity\" (which may also accompany \"model\")"
                 .into(),
         ));
     }
@@ -266,6 +269,8 @@ pub enum Evaluation {
     Interlab(Box<interlab::InterlabAnalysis>),
     /// Model with several output quantities (JCGM 102).
     Multivariate(Box<multivariate::MultivariateAnalysis>),
+    /// Control chart for internal quality control (Nordtest TR 569).
+    ControlChart(Box<qc::ControlChartAnalysis>),
 }
 
 impl Evaluation {
@@ -338,6 +343,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     }
     if let Some(spec) = &p.precision_experiment {
         return Ok(Evaluation::Interlab(Box::new(interlab::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.control_chart {
+        return Ok(Evaluation::ControlChart(Box::new(qc::evaluate(spec)?)));
     }
     if let (Some(spec), None) = (&p.conformity, &p.model) {
         return Ok(Evaluation::Conformity(Box::new(conformity::evaluate(spec, None)?)));
@@ -474,6 +482,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             }
             out
         }
+        Evaluation::ControlChart(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.control_chart.as_ref()) {
+                qc::check(exp, a, &mut out);
+            }
+            out
+        }
     }
 }
 
@@ -605,6 +620,15 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": a.output_names().join(", "), "unit": serde_json::Value::Null },
                 "multivariate": multivariate::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::ControlChart(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.quantity, "unit": a.unit },
+                "control_chart": qc::results_json(a),
                 "checks": checks,
             });
         }

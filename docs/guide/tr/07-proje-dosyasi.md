@@ -11,16 +11,17 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | altısından biri | ölçüm modeli (7.3) |
-| `topdown` | altısından biri | top-down değerlendirme (7.6) |
-| `proficiency` | altısından biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | altısından biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
-| `precision_experiment` | altısından biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
-| `multivariate` | altısından biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
+| `model` | yedisinden biri | ölçüm modeli (7.3) |
+| `topdown` | yedisinden biri | top-down değerlendirme (7.6) |
+| `proficiency` | yedisinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | yedisinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | yedisinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `multivariate` | yedisinden biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
+| `control_chart` | yedisinden biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); model ve çok çıktılı projelerde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.13) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.14) |
 
 ## 7.2 `metadata`
 
@@ -251,14 +252,42 @@ Birden çok çıktı büyüklüğü olan bir model (JCGM 102; bölüm 13). `anal
 | `inputs`, `correlations`, `intermediates` | `model` bölümündeki gibi (7.3) |
 | `indications` | vektör gösterge değeri serilerinden girdi büyüklükleri: `inputs` (adlar), isteğe bağlı `units`, `values` (takım başına bir satır, n > N), `covariance` `mean` (M/(n(n − 1)), varsayılan) veya `t` (M/((ν − 2)n)); Monte Carlo yöntemi bunları çok değişkenli t dağılımından çeker |
 
-## 7.12 Hatalar
+## 7.12 `control_chart`
+
+İç kalite kontrolü için kontrol grafiği (Nordtest TR 569; bölüm 14).
+
+```json
+"control_chart": {
+  "quantity": "Zn, control solution 60.0 µg/L", "unit": "µg/L",
+  "values": [64.5, 66.3, 61.1, 59.7, 57.4, …], "labels": ["1 Şub", "8 Şub", …],
+  "reference": 60.0,
+  "limits": { "basis": "statistical" },
+  "establish": 25, "review": {}
+}
+```
+
+| Alan | İçerik |
+|---|---|
+| `chart` | `x` (varsayılan), `range` veya `relative_range` |
+| `values` | zaman sırasıyla kontrol değerleri: tekil değerler veya ortalamalar (X), açıklıklar (R), % olarak göreli açıklıklar (r%) |
+| `runs` | `values` yerine her serinin tekrar sonuçları; kontrol değeri bunların ortalaması, açıklığı veya göreli açıklığıdır |
+| `labels` | serilerin tarihleri veya adları, her kontrol değeri için bir tane |
+| `replicates` | açıklık başına tekrar sayısı; `values` olarak verilen açıklık grafikleri için gereklidir |
+| `central_line` | `{ "mean": … }` (daha önce belirlenmiş) veya `{ "reference": … }` (referans veya nominal değer); verilmezse kuruluş değerlerinin ortalaması |
+| `reference` | merkez çizgisi ortalama olduğunda ortalamanın t-testi (Eşitlik 6) için referans değer |
+| `limits` | `basis`: `statistical` (varsayılan), `target` veya `tolerance`. İstatistiksel: isteğe bağlı, daha önce belirlenmiş `sd` veya `sd_percent`; açıklık grafikleri için `sd_from` `mean_range` (varsayılan) veya `pooled`. Hedef: `sd`, `sd_percent` (merkez çizgisinin %'si), `expanded_percent` (s = U/4), `repeatability_limit` (s = r/2,8, açıklık grafikleri) seçeneklerinden biri. Tolerans: `tolerance` veya `tolerance_percent` (yalnızca eylem sınırları). `action_only` (`true`: uyarı sınırı yok) ve isteğe bağlı `action_factor` |
+| `establish` | merkez çizgisini ve istatistiksel sınırları belirleyen ilk N kontrol değeri (varsayılan tümü) |
+| `exclude` | istatistiklerin dışında bırakılan seri numaraları (1'den başlayarak) |
+| `review` | kuruluş döneminden sonraki değerlerin uzun dönem değerlendirmesi: isteğe bağlı `previous` ve `current` özetleri (`mean`, `sd`, `n`, `dof`), `exclude_beyond` (varsayılan 4 s), `confidence` (varsayılan 0,95) |
+
+## 7.13 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
-`proficiency`, `calibration`, `precision_experiment` ve `multivariate` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+`proficiency`, `calibration`, `precision_experiment`, `multivariate` ve `control_chart` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.13 `expected`
+## 7.14 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -287,3 +316,8 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
 * `multivariate`: `gum` ve `mcm`, her biri `estimate` ve `standard_uncertainty` (`{ "<çıktı>": değer }`), `correlations`
   (`{ "between": [a, b], "value", "tolerance" }` listesi), `k_ellipsoid`, `k_rectangle`, `smallest_region_area` (Monte
   Carlo, iki çıktı) ile; `ellipsoid_validated`, `rectangle_validated` (true/false)
+* `control_chart`: `mean`, `sd` (sınırların s'si), `center`, `lower_warning`, `upper_warning`, `lower_action`,
+  `upper_action`; `outside_warning`, `out_of_control`, `statistical_signals` sayıları (tamsayı); `review`: `mean`,
+  `sd` (güncel seri), `f`, `f_critical`, `pooled_sd`, `t`, `t_critical`, `sd_significant`, `mean_significant`
+  (true/false); `precision`: `s_r_pooled` (Eşitlik 10), `s_rw_simplified`, `s_r`, `s_between`, `s_rw` (varyans
+  analizi)

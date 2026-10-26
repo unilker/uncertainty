@@ -71,13 +71,13 @@ Türkçe ve İngilizce.
   (multivariate t-distribution).
 - Results not corrected for a known bias: RSSu, RSSU, SUMU, SUMU_MAX and Ue
   intervals (Magnusson & Ellison 2008), with their coverage checked by simulation.
-- [Example library](library/README.md): 133 published examples (58 model-based, 13 with several outputs:
+- [Example library](library/README.md): 154 published examples (58 model-based, 13 with several outputs:
   chemistry, mass, length, temperature, electrical, flow, physical properties;
   36 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3, Palma et al.
   2019; 7 proficiency
   testing: ISO 13528; 6 calibrations: ISO 6143; 6 interlaboratory precision
-  experiments: ISO 5725-2; 7 conformity assessments: JCGM 106) as
-  self-checking projects.
+  experiments: ISO 5725-2; 7 conformity assessments: JCGM 106; 21 control
+  charts: Nordtest TR 569) as self-checking projects.
 
 ## Usage / Kullanım
 
@@ -117,15 +117,15 @@ glossary, proficiency testing, calibration in both variables, conformity assessm
 experiments, several output quantities and all library examples with their results recomputed by the program.
 
 İngilizce ve Türkçe: başlarken, GUM belirsizlik yaklaşımı, Monte Carlo yöntemi, top-down değerlendirme,
-raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük, yeterlilik testi, iki değişkenli kalibrasyon, uygunluk değerlendirmesi, laboratuvarlar arası kesinlik deneyleri, birden çok çıktı büyüklüğü ve sonuçları program tarafından yeniden
+raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük, yeterlilik testi, iki değişkenli kalibrasyon, uygunluk değerlendirmesi, laboratuvarlar arası kesinlik deneyleri, birden çok çıktı büyüklüğü, kontrol grafikleri ve sonuçları program tarafından yeniden
 hesaplanan tüm kütüphane örnekleri.
 
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (151 tests; one of them reruns all 133 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
+automated test (163 tests; one of them reruns all 154 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
-their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 (with the data of the 1994 edition), Annex C of ISO 5725-2:2019 (including REML) and its Tables 1–8, Annex B of ISO 6143:2025 and the examples of JCGM 106:2012 clauses 7–9. Details, tolerances and findings:
+their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 (with the data of the 1994 edition), Annex C of ISO 5725-2:2019 (including REML) and its Tables 1–8, Annex B of ISO 6143:2025, the examples of JCGM 106:2012 clauses 7–9 and Table 1, Chapter 7 and Examples 1–12 of Nordtest TR 569 ed. 6. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

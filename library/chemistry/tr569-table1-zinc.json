@@ -1,0 +1,155 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-table1-zinc",
+    "title": {
+      "en": "Zinc in water: X-chart from 60 control values (Nordtest TR 569 Table 1)",
+      "tr": "Sudaki çinko: 60 kontrol değerinden X-grafiği (Nordtest TR 569 Tablo 1)"
+    },
+    "description": {
+      "en": "Sixty control values of a 60.0 µg/L zinc solution (Table 1), plotted in Figure 1. Statistical limits from the values themselves; daily interpretation of every run.",
+      "tr": "60,0 µg/L çinko çözeltisinin altmış kontrol değeri (Tablo 1), Şekil 1'de çizilmiştir. Sınırlar değerlerin kendisinden istatistiksel olarak belirlenir; her seri günlük olarak değerlendirilir."
+    },
+    "explanation": [
+      {
+        "en": "Mean and standard deviation of the 60 values (Equations 1, 2): x̄ = 60.278 µg/L, s = 2.598 µg/L; the central line is the mean.",
+        "tr": "60 değerin ortalaması ve standart sapması (Eşitlik 1, 2): x̄ = 60,278 µg/L, s = 2,598 µg/L; merkez çizgisi ortalamadır."
+      },
+      {
+        "en": "Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).",
+        "tr": "X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7)."
+      },
+      {
+        "en": "Daily interpretation (Chapter 9): three values lie between the warning and action limits (66.3, 54.5 and 54.4 µg/L; 65.4 µg/L is just inside the upper warning limit of 65.47 µg/L), none of them preceded by another on the same side within two runs; no value is out of control, as in Figure 1.",
+        "tr": "Günlük değerlendirme (Bölüm 9): üç değer uyarı ile eylem sınırları arasındadır (66,3, 54,5 ve 54,4 µg/L; 65,4 µg/L, 65,47 µg/L üst uyarı sınırının hemen içindedir) ve hiçbirinden önceki iki seride aynı tarafta başka bir değer yoktur; Şekil 1'deki gibi hiçbir değer kontrol dışı değildir."
+      },
+      {
+        "en": "The mean does not differ significantly from the nominal 60.0 µg/L: t = |60.278 − 60.0|·√60/2.598 = 0.83 < 2.00 (Equation 6).",
+        "tr": "Ortalama nominal 60,0 µg/L'den anlamlı olarak farklı değildir: t = |60,278 − 60,0|·√60/2,598 = 0,83 < 2,00 (Eşitlik 6)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 2, Table 1 and Figure 1; Chapters 7 and 9",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "zinc",
+      "water",
+      "x-chart",
+      "raw-data"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Zn, control solution 60.0 µg/L",
+    "unit": "µg/L",
+    "values": [
+      64.5,
+      66.3,
+      61.1,
+      59.7,
+      57.4,
+      56.2,
+      58.4,
+      58.2,
+      63.0,
+      59.5,
+      56.0,
+      59.4,
+      60.2,
+      62.9,
+      60.5,
+      60.8,
+      61.5,
+      58.5,
+      58.9,
+      60.5,
+      61.2,
+      57.8,
+      63.4,
+      60.2,
+      61.5,
+      62.3,
+      60.5,
+      61.7,
+      64.0,
+      62.7,
+      61.0,
+      65.4,
+      60.0,
+      59.2,
+      57.0,
+      62.5,
+      57.7,
+      56.2,
+      62.9,
+      62.5,
+      56.5,
+      60.2,
+      58.2,
+      56.5,
+      64.7,
+      54.5,
+      60.5,
+      59.5,
+      61.6,
+      60.8,
+      58.7,
+      54.4,
+      62.2,
+      59.0,
+      60.3,
+      60.8,
+      59.5,
+      60.0,
+      61.8,
+      63.8
+    ],
+    "reference": 60.0
+  },
+  "expected": {
+    "control_chart": {
+      "mean": {
+        "value": 60.278,
+        "tolerance": 0.0005
+      },
+      "sd": {
+        "value": 2.598,
+        "tolerance": 0.0005
+      },
+      "center": {
+        "value": 60.278,
+        "tolerance": 0.0005
+      },
+      "lower_warning": {
+        "value": 55.08,
+        "tolerance": 0.005
+      },
+      "upper_warning": {
+        "value": 65.47,
+        "tolerance": 0.005
+      },
+      "lower_action": {
+        "value": 52.48,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 68.07,
+        "tolerance": 0.005
+      },
+      "outside_warning": 3,
+      "out_of_control": 0
+    },
+    "reference": {
+      "en": "Values of Table 1; mean, s and limits computed from them (TR 569 prints the chart, Figure 1, without the numbers); the zones of Figure 1 agree.",
+      "tr": "Tablo 1 değerleri; ortalama, s ve sınırlar bunlardan hesaplanmıştır (TR 569 grafiği, Şekil 1, sayılar olmadan verir); Şekil 1'deki bölgeler uyumludur."
+    }
+  }
+}

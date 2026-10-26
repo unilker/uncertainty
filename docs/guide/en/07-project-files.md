@@ -11,16 +11,17 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the six | measurement model (7.3) |
-| `topdown` | one of the six | top-down evaluation (7.6) |
-| `proficiency` | one of the six | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the six | calibration with uncertainties in both variables, ISO 6143 (7.8) |
-| `precision_experiment` | one of the six | interlaboratory precision experiment, ISO 5725-2 (7.10) |
-| `multivariate` | one of the six | model with several output quantities, JCGM 102 (7.11) |
+| `model` | one of the seven | measurement model (7.3) |
+| `topdown` | one of the seven | top-down evaluation (7.6) |
+| `proficiency` | one of the seven | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the seven | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the seven | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `multivariate` | one of the seven | model with several output quantities, JCGM 102 (7.11) |
+| `control_chart` | one of the seven | control chart for internal quality control, Nordtest TR 569 (7.12) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); for model and multivariate projects |
 | `reporting` | no | rounding of the reported result (7.5) |
-| `expected` | no | reference values with tolerances (7.13) |
+| `expected` | no | reference values with tolerances (7.14) |
 
 ## 7.2 `metadata`
 
@@ -251,14 +252,42 @@ and `mcm` (`trials`, `adaptive`, `seed`, `validation_ndig`, `coverage_probabilit
 | `inputs`, `correlations`, `intermediates` | as in `model` (7.3) |
 | `indications` | input quantities from series of vector indication values: `inputs` (names), optional `units`, `values` (one row per set, n > N), `covariance` `mean` (M/(n(n − 1)), default) or `t` (M/((ν − 2)n)); the Monte Carlo method draws them from the multivariate t-distribution |
 
-## 7.12 Errors
+## 7.12 `control_chart`
+
+A control chart for internal quality control (Nordtest TR 569; chapter 14).
+
+```json
+"control_chart": {
+  "quantity": "Zn, control solution 60.0 µg/L", "unit": "µg/L",
+  "values": [64.5, 66.3, 61.1, 59.7, 57.4, …], "labels": ["1 Feb", "8 Feb", …],
+  "reference": 60.0,
+  "limits": { "basis": "statistical" },
+  "establish": 25, "review": {}
+}
+```
+
+| Field | Content |
+|---|---|
+| `chart` | `x` (default), `range` or `relative_range` |
+| `values` | control values in time order: single values or means (X), ranges (R), relative ranges in % (r%) |
+| `runs` | instead of `values`: the replicate results of each run; the control value is their mean, range or relative range |
+| `labels` | dates or names of the runs, one per control value |
+| `replicates` | number of replicates per range; needed for range charts given as `values` |
+| `central_line` | `{ "mean": … }` (established earlier) or `{ "reference": … }` (reference or nominal value); the mean of the establishing values if absent |
+| `reference` | reference value for the t-test of the mean (Equation 6) when the central line is the mean |
+| `limits` | `basis`: `statistical` (default), `target` or `tolerance`. Statistical: optional `sd` or `sd_percent` established earlier, `sd_from` `mean_range` (default) or `pooled` for range charts. Target: one of `sd`, `sd_percent` (of the central line), `expanded_percent` (s = U/4), `repeatability_limit` (s = r/2.8, range charts). Tolerance: `tolerance` or `tolerance_percent` (action limits only). `action_only` (`true`: no warning limits) with an optional `action_factor` |
+| `establish` | the first N control values set the central line and the statistical limits (default all) |
+| `exclude` | run numbers (1-based) left out of the statistics |
+| `review` | long-term review of the values after the establishing period: optional `previous` and `current` summaries (`mean`, `sd`, `n`, `dof`), `exclude_beyond` (default 4 s), `confidence` (default 0.95) |
+
+## 7.13 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment` and `multivariate`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate` and `control_chart`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
-## 7.13 `expected`
+## 7.14 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
@@ -287,3 +316,8 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
 * `multivariate`: `gum` and `mcm`, each with `estimate` and `standard_uncertainty` (`{ "<output>": check }`),
   `correlations` (list of `{ "between": [a, b], "value", "tolerance" }`), `k_ellipsoid`, `k_rectangle`,
   `smallest_region_area` (Monte Carlo, two outputs); `ellipsoid_validated`, `rectangle_validated` (true/false)
+* `control_chart`: `mean`, `sd` (the s of the limits), `center`, `lower_warning`, `upper_warning`, `lower_action`,
+  `upper_action`; the counts `outside_warning`, `out_of_control`, `statistical_signals` (integers); `review`: `mean`,
+  `sd` (current series), `f`, `f_critical`, `pooled_sd`, `t`, `t_critical`, `sd_significant`, `mean_significant`
+  (true/false); `precision`: `s_r_pooled` (Equation 10), `s_rw_simplified`, `s_r`, `s_between`, `s_rw` (analysis
+  of variance)

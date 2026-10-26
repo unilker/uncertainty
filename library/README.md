@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**133 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 7 conformity assessment / uygunluk değerlendirmesi).
+**154 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 21 control charts / kontrol grafiği, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -109,6 +109,31 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`iso5725-2-c3-creosote-oil-reml`](chemistry/iso5725-2-c3-creosote-oil-reml.json) | Thermometric titration of creosote oil: REML estimates (ISO 5725-2 Example C.3) | Kreozot yağının termometrik titrasyonu: REML tahminleri (ISO 5725-2 Örnek C.3) | ISO 5725-2:2019 Annex C.3.8 (Table C.19), Annex B.2 |
 | [`iso5725-2-c3-creosote-oil`](chemistry/iso5725-2-c3-creosote-oil.json) | Thermometric titration of creosote oil: outlying laboratory and precision relationships (ISO 5725-2 Example C.3) | Kreozot yağının termometrik titrasyonu: aykırı laboratuvar ve kesinlik ilişkileri (ISO 5725-2 Örnek C.3) | ISO 5725-2:2019 Annex C.3 (Tables C.14–C.18) and 8.5 (Tables 1–4) |
 
+## Chemistry, control charts (Nordtest TR 569) / Kimya, kontrol grafikleri (Nordtest TR 569)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`tr569-ch7-case1-statistical`](chemistry/tr569-ch7-case1-statistical.json) | Setting the limits of an X-chart, case 1 (Nordtest TR 569 Chapter 7) | X-grafiğinin sınırlarının belirlenmesi, durum 1 (Nordtest TR 569 Bölüm 7) | Nordtest TR 569 ed. 6 (2026) Chapter 7, Setting the control limits and the central line in X-charts, case 1 |
+| [`tr569-ch7-case2-target-mean`](chemistry/tr569-ch7-case2-target-mean.json) | Setting the limits of an X-chart, case 2 (Nordtest TR 569 Chapter 7) | X-grafiğinin sınırlarının belirlenmesi, durum 2 (Nordtest TR 569 Bölüm 7) | Nordtest TR 569 ed. 6 (2026) Chapter 7, Setting the control limits and the central line in X-charts, case 2 |
+| [`tr569-ch7-case3-target-reference`](chemistry/tr569-ch7-case3-target-reference.json) | Setting the limits of an X-chart, case 3 (Nordtest TR 569 Chapter 7) | X-grafiğinin sınırlarının belirlenmesi, durum 3 (Nordtest TR 569 Bölüm 7) | Nordtest TR 569 ed. 6 (2026) Chapter 7, Setting the control limits and the central line in X-charts, case 3 |
+| [`tr569-ch7-range-case1-statistical`](chemistry/tr569-ch7-range-case1-statistical.json) | Statistical limits of an r%-chart for duplicates (Nordtest TR 569 Chapter 7) | Paralel tayinler için r%-grafiğinin istatistiksel sınırları (Nordtest TR 569 Bölüm 7) | Nordtest TR 569 ed. 6 (2026) Chapter 7, Setting the control limit in R or r%-charts, case 1 |
+| [`tr569-ch7-range-case2-target`](chemistry/tr569-ch7-range-case2-target.json) | Target limits of an r%-chart from a repeatability limit (Nordtest TR 569 Chapter 7) | Tekrarlanabilirlik sınırından r%-grafiğinin hedef sınırları (Nordtest TR 569 Bölüm 7) | Nordtest TR 569 ed. 6 (2026) Chapter 7, Setting the control limit in R or r%-charts, case 2 |
+| [`tr569-ex1-nickel-steel-xrf`](chemistry/tr569-ex1-nickel-steel-xrf.json) | Nickel in low-alloy steel by XRF: target limits from the required uncertainty (Nordtest TR 569 Example 1) | XRF ile düşük alaşımlı çelikte nikel: gerekli belirsizlikten hedef sınırlar (Nordtest TR 569 Örnek 1) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 1 |
+| [`tr569-ex10-boron-toys-target`](chemistry/tr569-ex10-boron-toys-target.json) | Boron migrating from toys by ICP-OES: target limits from the reproducibility of EN 71-3 (Nordtest TR 569 Example 10) | ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrarüretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 10 |
+| [`tr569-ex12-pooling-sr-srw`](chemistry/tr569-ex12-pooling-sr-srw.json) | Repeatability and within-laboratory reproducibility from replicate control results (Nordtest TR 569 Example 12) | Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrarüretilebilirlik (Nordtest TR 569 Örnek 12) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 12 and footnote 24 |
+| [`tr569-ex2-cobalt-steel-xrf`](chemistry/tr569-ex2-cobalt-steel-xrf.json) | Cobalt in low-alloy steel by XRF: target limits from the limit of quantification (Nordtest TR 569 Example 2) | XRF ile düşük alaşımlı çelikte kobalt: tayin sınırından hedef sınırlar (Nordtest TR 569 Örnek 2) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 2 |
+| [`tr569-ex3-ammonium-r`](chemistry/tr569-ex3-ammonium-r.json) | Ammonium nitrogen in water: R-chart of duplicate test samples (Nordtest TR 569 Example 3) | Suda amonyum azotu: paralel numunelerin R-grafiği (Nordtest TR 569 Örnek 3) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 3 |
+| [`tr569-ex3-ammonium-x`](chemistry/tr569-ex3-ammonium-x.json) | Ammonium nitrogen in water: X-chart of a standard solution (Nordtest TR 569 Example 3) | Suda amonyum azotu: standart çözeltinin X-grafiği (Nordtest TR 569 Örnek 3) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 3 |
+| [`tr569-ex4-lead-water-icpms`](chemistry/tr569-ex4-lead-water-icpms.json) | Lead in water by ICP-MS: X-chart of an in-house lake water (Nordtest TR 569 Example 4) | ICP-MS ile suda kurşun: laboratuvar içi göl suyunun X-grafiği (Nordtest TR 569 Örnek 4) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 4 |
+| [`tr569-ex5-arsenic-crm-tolerance`](chemistry/tr569-ex5-arsenic-crm-tolerance.json) | Arsenic in a fish CRM by ICP-MS: chart with action limits only at ± 15 % (Nordtest TR 569 Example 5) | ICP-MS ile balık CRM'sinde arsenik: yalnızca ± %15 eylem sınırlı grafik (Nordtest TR 569 Örnek 5) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 5 |
+| [`tr569-ex6-phosphorus-relative-range`](chemistry/tr569-ex6-phosphorus-relative-range.json) | Total phosphorus in water: r%-chart of duplicates (Nordtest TR 569 Example 6) | Suda toplam fosfor: paralel tayinlerin r%-grafiği (Nordtest TR 569 Örnek 6) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 6 |
+| [`tr569-ex7-beta-hch-crm-target`](chemistry/tr569-ex7-beta-hch-crm-target.json) | β-HCH in cod liver oil by GC-ECD: target limits around the reference value (Nordtest TR 569 Example 7) | GC-ECD ile morina karaciğeri yağında β-HCH: referans değer çevresinde hedef sınırlar (Nordtest TR 569 Örnek 7) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 7 |
+| [`tr569-ex8-copper-r-review`](chemistry/tr569-ex8-copper-r-review.json) | Copper in water by ICP-OES: R-chart of duplicates and its review (Nordtest TR 569 Example 8) | ICP-OES ile suda bakır: paralel tayinlerin R-grafiği ve gözden geçirilmesi (Nordtest TR 569 Örnek 8) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 8 |
+| [`tr569-ex8-copper-x-new-limits`](chemistry/tr569-ex8-copper-x-new-limits.json) | Copper in water by ICP-OES: new X-chart limits from all data (Nordtest TR 569 Example 8) | ICP-OES ile suda bakır: tüm verilerden yeni X-grafiği sınırları (Nordtest TR 569 Örnek 8) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 8 |
+| [`tr569-ex8-copper-x-review`](chemistry/tr569-ex8-copper-x-review.json) | Copper in water by ICP-OES: review of preliminary X-chart limits (Nordtest TR 569 Example 8) | ICP-OES ile suda bakır: ön X-grafiği sınırlarının gözden geçirilmesi (Nordtest TR 569 Örnek 8) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 8 |
+| [`tr569-ex9-zinc-procedural-blank`](chemistry/tr569-ex9-zinc-procedural-blank.json) | Zinc in hydrogen peroxide: X-chart of a procedural blank (Nordtest TR 569 Example 9) | Hidrojen peroksitte çinko: yöntem körünün X-grafiği (Nordtest TR 569 Örnek 9) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 9 |
+| [`tr569-table1-zinc`](chemistry/tr569-table1-zinc.json) | Zinc in water: X-chart from 60 control values (Nordtest TR 569 Table 1) | Sudaki çinko: 60 kontrol değerinden X-grafiği (Nordtest TR 569 Tablo 1) | Nordtest TR 569 ed. 6 (2026) Chapter 2, Table 1 and Figure 1; Chapters 7 and 9 |
+
 ## Electrical and RF / Elektrik ve RF
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
@@ -176,6 +201,12 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`iso21748-c3-aerobic-plate-count-flour`](general/iso21748-c3-aerobic-plate-count-flour.json) | Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
 | [`iso21748-c3-aerobic-plate-count-shrimp`](general/iso21748-c3-aerobic-plate-count-shrimp.json) | Aerobic plate count, shrimp: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
 | [`iso21748-c3-aerobic-plate-count-vegetables`](general/iso21748-c3-aerobic-plate-count-vegetables.json) | Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
+
+## General (method validation), control charts (Nordtest TR 569) / Genel (yöntem doğrulama), kontrol grafikleri (Nordtest TR 569)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`tr569-ex11-micropipette-tolerance`](general/tr569-ex11-micropipette-tolerance.json) | Bias of a 1 mL micropipette: chart with action limits at the tolerance (Nordtest TR 569 Example 11) | 1 mL mikropipetin sapması: toleransta eylem sınırlı grafik (Nordtest TR 569 Örnek 11) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 11 |
 
 ## General (method validation), conformity assessment (JCGM 106) / Genel (yöntem doğrulama), uygunluk değerlendirmesi (JCGM 106)
 

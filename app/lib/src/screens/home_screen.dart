@@ -136,6 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: s['new_mv_sub'],
                     onTap: () => _openProject(const Engine().template('multivariate')),
                   ),
+                  _ActionCard(
+                    icon: Icons.stacked_line_chart,
+                    title: s['new_qc'],
+                    subtitle: s['new_qc_sub'],
+                    onTap: () => _openProject(const Engine().template('control_chart')),
+                  ),
                   _ActionCard(icon: Icons.folder_open, title: s['open'], subtitle: s['open_sub'], onTap: _openFile),
                 ],
               ),

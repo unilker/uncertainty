@@ -20,7 +20,7 @@ cargo build --release
 |---|---|
 | `uncertainty run <project.json>` | evaluate a project and write a report |
 | `uncertainty check <files or directories>` | evaluate projects and compare them with their stored reference values (exit status 1 on failure) |
-| `uncertainty template [--topdown]` | print a minimal project file to start from |
+| `uncertainty template [--topdown \| --proficiency \| --calibration \| --conformity \| --precision \| --multivariate \| --control-chart]` | print a minimal project file to start from |
 | `uncertainty catalogue <files or directories>` | write the worked-examples chapter of this guide |
 | `uncertainty --version`, `--help` | version, citation and help |
 

@@ -61,6 +61,9 @@ class ResultsView extends StatelessWidget {
     if (results['precision_experiment'] != null) {
       children.addAll(_precision(context, results['precision_experiment'] as Map<String, dynamic>, unit));
     }
+    if (results['control_chart'] != null) {
+      children.addAll(_controlChart(context, results['control_chart'] as Map<String, dynamic>, unit));
+    }
     final checks = (results['checks'] as List?) ?? const [];
     if (checks.isNotEmpty) {
       children.add(Section(s['checks']));
@@ -663,6 +666,125 @@ class ResultsView extends StatelessWidget {
                 x['relationship'].toString(),
                 for (var i = 0; i < levels.length; i++) x['fitted'] == null ? '—' : n((x['fitted'] as List)[i], 3),
               ],
+          ],
+        ),
+      ]);
+    }
+    return out;
+  }
+
+  List<Widget> _controlChart(BuildContext context, Map<String, dynamic> r, String unit) {
+    final s = strings;
+    final u = r['chart'] == 'relative_range' ? ' %' : (unit.isEmpty ? '' : ' $unit');
+    String n(dynamic v, [int sig = 4]) => v == null ? '—' : fmtNum(_d(v), sig, s.lang);
+    final lim = r['limits'] as Map<String, dynamic>;
+    final values = [for (final v in (r['values'] as List? ?? const [])) _d(v) ?? double.nan];
+    final daily = (r['daily'] as List? ?? const []).cast<String>();
+    final labels = (r['labels'] as List? ?? const []).cast<String>();
+    final out = <Widget>[
+      Section('${s['qc_limits']} — ${s['qc_${r['chart']}']}'),
+      _table(
+        context,
+        ['', s['qc_lower'], s['qc_upper']],
+        [
+          [s['qc_center'], '${n(r['center'], 5)}$u', ''],
+          if (lim['upper_warning'] != null)
+            [s['qc_wl'], lim['lower_warning'] == null ? '—' : '${n(lim['lower_warning'], 5)}$u', '${n(lim['upper_warning'], 5)}$u'],
+          [s['qc_al'], lim['lower_action'] == null ? '—' : '${n(lim['lower_action'], 5)}$u', '${n(lim['upper_action'], 5)}$u'],
+          if (r['sd'] != null) ['s', '${n(r['sd'])}$u', ''],
+        ],
+      ),
+    ];
+    if (values.isNotEmpty) {
+      out.add(
+        ControlChart(
+          key: const Key('control-chart'),
+          values: values,
+          outOfControl: [for (final d in daily) d == 'outside_action' || d == 'two_of_three'],
+          center: _d(r['center'])!,
+          upperAction: _d(lim['upper_action'])!,
+          lowerAction: _d(lim['lower_action']),
+          upperWarning: _d(lim['upper_warning']),
+          lowerWarning: _d(lim['lower_warning']),
+          establish: r['establish'] as int?,
+          lang: s.lang,
+        ),
+      );
+      final ok = daily.where((d) => d == 'in_control').length;
+      final w = daily.where((d) => d == 'warning').length;
+      out.add(Section(s['qc_daily']));
+      out.add(
+        Text(
+          s['qc_summary'].replaceAll('{n}', '${values.length}').replaceAll('{ok}', '$ok').replaceAll('{w}', '$w').replaceAll('{oc}', '${r['out_of_control']}'),
+          key: const Key('qc-summary'),
+        ),
+      );
+      final flagged = [
+        for (var i = 0; i < daily.length; i++)
+          if (daily[i] != 'in_control') i,
+      ];
+      if (flagged.isNotEmpty) {
+        out.add(
+          _table(
+            context,
+            [s['qc_run_no'], if (labels.isNotEmpty) '', s['qc_value'], s['qc_status']],
+            [
+              for (final i in flagged) ['${i + 1}', if (labels.isNotEmpty) labels[i], '${fmtNum(values[i], 5, s.lang)}$u', s['qc_${daily[i]}']],
+            ],
+          ),
+        );
+      }
+      final signals = (r['statistical_signals'] as List? ?? const []).cast<Map<String, dynamic>>();
+      final flaggedSignals = [
+        for (var i = 0; i < signals.length; i++)
+          if (signals[i]['trend'] == true || signals[i]['run'] == true)
+            '${i + 1} (${[if (signals[i]['trend'] == true) s['qc_trend'], if (signals[i]['run'] == true) s['qc_runs']].join(', ')})',
+      ];
+      out.add(Text('${s['qc_signals']}: ${flaggedSignals.isEmpty ? s['qc_none'] : flaggedSignals.join('; ')}'));
+    }
+    final bias = r['bias_test'] as Map<String, dynamic>?;
+    final stats = r['statistics'] as Map<String, dynamic>?;
+    if (bias != null && stats != null) {
+      final sig = (_d(bias['t']) ?? 0) > (_d(bias['t_critical']) ?? double.infinity);
+      out.add(
+        Text(
+          '${s['qc_bias']}: x̄ = ${n(stats['mean'], 5)}$u, T = ${n(bias['reference'], 5)}$u, t = ${n(bias['t'], 3)} '
+          '(${s['qc_critical']} ${n(bias['t_critical'], 3)}): ${sig ? s['qc_significant'] : s['qc_not_significant']}',
+        ),
+      );
+    }
+    final rv = r['review'] as Map<String, dynamic>?;
+    if (rv != null) {
+      String sum(Map<String, dynamic> x) => 'n = ${x['n']}, ${x['mean'] == null ? '' : 'x̄ = ${n(x['mean'], 5)}$u, '}s = ${n(x['sd'])}$u';
+      String verdict(dynamic b) => b == true ? s['qc_significant'] : s['qc_not_significant'];
+      out.addAll([
+        Section(s['qc_review_r']),
+        _table(
+          context,
+          ['', ''],
+          [
+            [s['qc_previous'], sum(rv['previous'] as Map<String, dynamic>)],
+            [s['qc_current'], sum(rv['current'] as Map<String, dynamic>)],
+            ['F', '${n(rv['F'])} (${s['qc_critical']} ${n(rv['F_critical'], 3)}): ${verdict(rv['sd_significant'])}'],
+            if (rv['t'] != null) ['t', '${n(rv['t'])} (${s['qc_critical']} ${n(rv['t_critical'], 3)}): ${verdict(rv['mean_significant'])}'],
+            if (rv['outside_warning'] != null) [s['qc_outside_wl'], '${rv['outside_warning']}'],
+          ],
+        ),
+      ]);
+    }
+    final pr = r['precision'] as Map<String, dynamic>?;
+    if (pr != null) {
+      out.addAll([
+        Section(s['qc_precision']),
+        _table(
+          context,
+          ['', ''],
+          [
+            ['s_r (ANOVA)', '${n(pr['s_r'])}$u'],
+            ['s_I (ANOVA)', '${n(pr['s_between'])}$u'],
+            ['s_Rw (ANOVA)', '${n(pr['s_rw'])}$u'],
+            ['s_r (Eq. 10)', '${n(pr['s_r_pooled_eq10'])}$u'],
+            if (pr['s_rw_simplified'] != null) [s['qc_simplified'], '${n(pr['s_rw_simplified'])}$u'],
           ],
         ),
       ]);

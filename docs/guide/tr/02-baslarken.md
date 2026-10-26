@@ -20,7 +20,7 @@ cargo build --release
 |---|---|
 | `uncertainty run <proje.json>` | bir projeyi hesaplar ve rapor yazar |
 | `uncertainty check <dosyalar veya klasörler>` | projeleri hesaplar ve kayıtlı referans değerleriyle karşılaştırır (başarısızlıkta çıkış kodu 1) |
-| `uncertainty template [--topdown]` | başlangıç için en küçük proje dosyasını yazdırır |
+| `uncertainty template [--topdown \| --proficiency \| --calibration \| --conformity \| --precision \| --multivariate \| --control-chart]` | başlangıç için en küçük proje dosyasını yazdırır |
 | `uncertainty catalogue <dosyalar veya klasörler>` | bu rehberin çözümlü örnekler bölümünü yazar |
 | `uncertainty --version`, `--help` | sürüm, atıf ve yardım |
 

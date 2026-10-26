@@ -26,6 +26,7 @@ use crate::conformity::{ConformitySpec, ExpectedConformity};
 use crate::interlab::{ExpectedInterlab, InterlabSpec};
 use crate::multivariate::{ExpectedMultivariate, MultivariateSpec};
 use crate::proficiency::{ExpectedProficiency, ProficiencySpec};
+use crate::qc::{ControlChartSpec, ExpectedControlChart};
 use crate::topdown::{ExpectedTopDown, TopDownSpec};
 use serde::{Deserialize, Serialize};
 
@@ -99,6 +100,9 @@ pub struct Project {
     /// Measurement model with several output quantities (JCGM 102).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub multivariate: Option<MultivariateSpec>,
+    /// Control chart for internal quality control (Nordtest TR 569).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub control_chart: Option<ControlChartSpec>,
     /// Conformity assessment (JCGM 106): of the result of a model project, or
     /// a project of its own.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -553,6 +557,8 @@ pub struct Expected {
     pub precision_experiment: Option<ExpectedInterlab>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub multivariate: Option<ExpectedMultivariate>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub control_chart: Option<ExpectedControlChart>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,

@@ -20,6 +20,7 @@ Nothing marked *to verify* may be cited in the article until it is checked.
 | EURACHEM/CITAC CG4 QUAM:2012 (3rd ed.) | uncertainty in analytical chemistry (bottom-up, Kragten spreadsheet, examples A1–A7) | chemistry module, validation A1–A7 | read (A1–A7, App. E.4) |
 | Eurachem/CITAC MUPR 1st ed. (2026) | uncertainty from in-house precision and recovery data | `topdown` module; validation Ex. 2, 3, B1–B6, C1 | read (complete) |
 | Nordtest TR 537 ed. 4 (2017) | top-down for environmental labs (R_w, bias, RMS bias) | `topdown` module; validation §3–8, App. 4–7 | read |
+| Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control | control charts: X, R, r%; statistical and target limits; daily rules; long-term review | `qc` module and `control_chart` projects; validation Table 1, Chapter 7, Examples 1–12 (F52–F54) | read (complete) |
 | ISO 11352:2012 | water quality — uncertainty from validation and QC data | top-down module | to verify |
 | ISO 21748:2017 | use of repeatability, reproducibility and trueness estimates | top-down `reproducibility` precision; validation Annex C | read |
 | ISO 5725-3:2023 | intermediate precision, staggered-nested designs | top-down `staggered_nested`; validation Annex J | read |

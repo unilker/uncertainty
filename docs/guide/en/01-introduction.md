@@ -30,7 +30,8 @@ temperature, electrical/RF and flow metrology.
 12. [Interlaboratory precision experiments (ISO 5725-2)](12-precision-experiments.md): outlier tests,
     repeatability and reproducibility
 13. [Several output quantities (JCGM 102)](13-multivariate.md): covariance matrices, coverage regions
-14. [Worked examples](examples.md): all 133 library examples, with their results recomputed by the program
+14. [Control charts (Nordtest TR 569)](14-control-charts.md): limits, daily rules, long-term review
+15. [Worked examples](examples.md): all 154 library examples, with their results recomputed by the program
 
 Chapters 3 to 5 explain the methods themselves, not only the program: they are intended as a compact guide to
 uncertainty evaluation that can be read with the reference documents at hand.
@@ -40,7 +41,7 @@ uncertainty evaluation that can be read with the reference documents at hand.
 Every calculation method is validated against published worked examples. The examples are recomputed from their
 *inputs* (raw data wherever the documents give them), not matched to the printed results, and each comparison has
 a documented tolerance — the printed rounding of the document, or about five times the measured Monte Carlo
-dispersion. The 133 examples of the library are part of the test suite: if a change to the program alters any
+dispersion. The 154 examples of the library are part of the test suite: if a change to the program alters any
 result beyond its tolerance, the build fails.
 
 Recomputing examples from their inputs also reveals where published examples are internally inconsistent

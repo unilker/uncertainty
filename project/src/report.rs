@@ -18,6 +18,7 @@ mod conformity;
 mod interlab;
 mod multivariate;
 mod proficiency;
+mod qc;
 mod validation;
 
 pub use validation::{validation_html, validation_markdown, ValidationItem};
@@ -474,6 +475,7 @@ pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>
         Evaluation::Conformity(a) => conformity::markdown(p, a, &checks, lang, generated),
         Evaluation::Interlab(a) => interlab::markdown(p, a, &checks, lang, generated),
         Evaluation::Multivariate(a) => multivariate::markdown(p, a, &checks, lang, generated),
+        Evaluation::ControlChart(a) => qc::markdown(p, a, &checks, lang, generated),
     }
 }
 
@@ -910,6 +912,7 @@ pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<Strin
         Evaluation::Conformity(a) => conformity::statements(a, lang),
         Evaluation::Interlab(a) => interlab::statements(a, lang),
         Evaluation::Multivariate(a) => multivariate::statements(a, lang),
+        Evaluation::ControlChart(a) => qc::statements(a, lang),
     }
 }
 
@@ -1429,7 +1432,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
 /// run without the Monte Carlo method so that the text is reproducible on
 /// every platform.
 pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String {
-    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l, il_l, mv_l) = match lang {
+    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l, il_l, mv_l, qc_l) = match lang {
         Lang::En => (
             "Worked examples",
             "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
@@ -1450,6 +1453,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "conformity assessment (JCGM 106)",
             "repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)",
             "GUM uncertainty framework for several output quantities (JCGM 102)",
+            "control chart for internal quality control (Nordtest TR 569)",
         ),
         Lang::Tr => (
             "Çözümlü örnekler",
@@ -1471,6 +1475,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "uygunluk değerlendirmesi (JCGM 106)",
             "laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)",
             "birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)",
+            "iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)",
         ),
     };
     let mut sorted: Vec<&(String, Project, Evaluation)> = items.iter().collect();
@@ -1524,6 +1529,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::Calibration(_) => cal_l.to_string(),
             Evaluation::Conformity(_) => cf_l.to_string(),
             Evaluation::Interlab(_) => il_l.to_string(),
+            Evaluation::ControlChart(_) => qc_l.to_string(),
             Evaluation::Multivariate(a) => {
                 if a.mcm.is_some() || p.analysis.mcm.is_some() {
                     format!("{mv_l} {mcm_l}")
@@ -1548,6 +1554,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::Conformity(a) => conformity::statements(a, lang),
             Evaluation::Interlab(a) => interlab::statements(a, lang),
             Evaluation::Multivariate(a) => multivariate::statements(a, lang),
+            Evaluation::ControlChart(a) => qc::statements(a, lang),
         };
         if !results.is_empty() {
             let _ = writeln!(s, "**{result_l}:**\n");
@@ -1685,6 +1692,7 @@ main{max-width:920px;margin:0 auto;padding:24px 16px 48px}h1{font-size:1.6rem;ma
 table{border-collapse:collapse;width:100%;margin:.5em 0;font-variant-numeric:tabular-nums;display:block;overflow-x:auto}th,td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:left;white-space:nowrap}th{color:var(--muted);font-weight:600}
 pre{background:var(--card);padding:10px 12px;border-radius:6px;overflow-x:auto}figure{margin:1em 0;padding:12px;background:var(--card);border-radius:8px}figcaption{color:var(--muted);font-size:.9rem;margin-bottom:6px}
 svg .bar{fill:var(--accent)}svg .hist{fill:var(--fill)}svg .pdf{fill:none;stroke:var(--accent2);stroke-width:2}svg .mcm{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:5 3}svg .gumline{stroke:var(--accent2);stroke-width:1;stroke-dasharray:2 3}svg .axis{stroke:var(--muted)}svg .lbl,svg .val{fill:var(--fg);font-size:12px}
+svg .qcok{fill:rgba(56,161,105,.16)}svg .qcwarn{fill:rgba(214,158,46,.28)}svg .qcact{fill:rgba(197,48,48,.20)}svg .qccl{stroke:var(--fg);stroke-width:1}svg .qcline{fill:none;stroke:var(--muted);stroke-width:1}svg .qcpt{fill:var(--bg);stroke:var(--fg);stroke-width:1.2}svg .qcoc{fill:#c53030;stroke:var(--fg);stroke-width:1}
 hr{border:0;border-top:1px solid var(--line);margin:2em 0 1em}@media print{figure{break-inside:avoid}}
 "#;
 
@@ -1792,6 +1800,14 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
                 );
             }
             anchor = format!("<h2>{}</h2>", esc(l.explanation));
+        }
+        Evaluation::ControlChart(a) => {
+            let d = qc::qc_labels(lang);
+            if let Some(svg) = qc::chart_svg(a, lang) {
+                let caption = if a.values.is_empty() { d.limits_caption } else { d.chart_caption };
+                let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(caption));
+            }
+            anchor = format!("<h2>{}</h2>", esc(if a.values.is_empty() { l.explanation } else { d.daily }));
         }
     }
     // Place the figures before the Monte Carlo section (top-down: before the

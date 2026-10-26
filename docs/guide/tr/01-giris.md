@@ -30,7 +30,9 @@ elektrik/RF ve akış metrolojisinden örnekler içerir.
 12. [Laboratuvarlar arası kesinlik deneyleri (ISO 5725-2)](12-kesinlik-deneyleri.md): aykırı değer testleri,
     tekrarlanabilirlik ve tekrarüretilebilirlik
 13. [Birden çok çıktı büyüklüğü (JCGM 102)](13-cok-ciktili.md): kovaryans matrisleri, kapsam bölgeleri
-14. [Çözümlü örnekler](examples.md): kütüphanedeki 133 örneğin tamamı, sonuçları program tarafından yeniden
+14. [Kontrol grafikleri (Nordtest TR 569)](14-kontrol-grafikleri.md): sınırlar, günlük kurallar, uzun dönem
+    değerlendirmesi
+15. [Çözümlü örnekler](examples.md): kütüphanedeki 154 örneğin tamamı, sonuçları program tarafından yeniden
     hesaplanmış olarak
 
 3.–5. bölümler yalnızca programı değil yöntemlerin kendisini de anlatır: dayanak belgelerle birlikte
@@ -41,7 +43,7 @@ okunabilecek kısa bir belirsizlik değerlendirme rehberi olarak tasarlanmışt�
 Her hesaplama yöntemi yayımlanmış çözümlü örneklerle doğrulanmıştır. Örnekler basılı sonuçlarla eşleştirilmez,
 *girdilerinden* (belgeler veriyorsa ham verilerden) yeniden hesaplanır; her karşılaştırmanın belgelenmiş bir
 toleransı vardır: belgenin basılı yuvarlaması ya da ölçülen Monte Carlo saçılımının yaklaşık beş katı.
-Kütüphanedeki 133 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
+Kütüphanedeki 154 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
 ötesinde değiştirirse derleme başarısız olur.
 
 Örneklerin girdilerinden yeniden hesaplanması, yayımlanmış örneklerin kendi içinde tutarsız olduğu yerleri de

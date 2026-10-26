@@ -15,6 +15,8 @@ Lisanslı standartlar (ISO, BS, TSE kopyaları) yalnızca çalışma ortamında
 kullanılır, depoya konmaz; kütüphaneye yalnızca standartlardaki örneklerin
 sayısal verileri ve sonuçları kaynak gösterilerek alınır.
 
+**2026-10-26 güncellemesi (3):** Nordtest TR 569 6. baskı (2026, ücretsiz) indirildi ve kontrol grafiği modülünde kullanıldı (D43–D45); F9 bu belgeyle çözüldü (3,69 = ISO 8258 D₂ eylem sınırı katsayısı). ISO 8258 / ISO 7870-2 (Shewhart grafikleri) isteğe bağlıdır: katsayılar sayısal integrasyonla doğrulandı.
+
 **2026-10-26 güncellemesi (2):** ISO 5725-2 (2019 ve 1994) ve ISO 5725-3 (2023 ve 1994, düzeltmesiyle) alındı ve kullanıldı (D40, D41).
 
 **2026-10-26 güncellemesi:** 13 belge alındı (A2, A4'ün 3. bölümü, A5, A6,
@@ -89,7 +91,7 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 
 Öncelik sırasıyla:
 
-1. **ISO 5725-6:1994** (ve mümkünse **ISO 5725-1, -4**) — kritik aralık faktörleri f(n) (F9: MUPR B1'deki 3,69), tekrarlanabilirlik ve tekrarüretilebilirlik sınırları (r = 2,8 s_r), laboratuvarlar arası karşılaştırmada kullanım; -4 doğruluk (trueness) tayini. ISO 5725-2 alındı ve uygulandı (D40).
+1. **ISO 5725-6:1994** (ve mümkünse **ISO 5725-1, -4**) — kritik aralık faktörleri f(n) (F9 TR 569 ile çözüldü), tekrarlanabilirlik ve tekrarüretilebilirlik sınırları (r = 2,8 s_r), laboratuvarlar arası karşılaştırmada kullanım; -4 doğruluk (trueness) tayini. ISO 5725-2 alındı ve uygulandı (D40).
 2. **ISO 11352:2012** — top-down modülünün dayandığı su kalitesi standardı.
 3. **ISO/TS 28037:2010** — doğru kalibrasyon fonksiyonları (her iki eksende belirsizlik); standarttaki örnek veri setleri doğrulama için gerekli. ISO 6143:2025 ile genelleştirilmiş en küçük kareler motoru yazıldı ve doğrulandı (D33); ISO/TS 28037'nin kendi veri setleri ek doğrulama için hâlâ gerekli.
 4. **Cordeiro ve ark. (2018)**, *Accred. Qual. Assur.* 23:57–71 — MUPR geri kazanım eşitliklerinin kaynağı.
@@ -101,7 +103,8 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 7. **Lafarge ve Possolo (2015)**, *NCSLI Measure* 10(3):20 — NIST Uncertainty Machine makalesi (atıf için).
 8. **ISO 11843-1/-2** — tespit sınırı modülü (düşük öncelik).
 9. **ISO/TS 20914:2019** — tıbbi laboratuvarlar (düşük öncelik; Kallner makalesi başlangıç için yeterli).
-10. **Wilrich (2013)**, *AStA Adv. Stat. Anal.* 97:1–10 — ISO 5725-2 Ek D kritik değer formüllerinin kaynağı (düşük öncelik; tablolar ve formüller standartta mevcut).
+10. **ISO 7870-2:2023 / ISO 8258** (isteğe bağlı) — Shewhart kontrol grafikleri: TR 569'un dayandığı kurallar ve katsayılar; ek kurallar (Western Electric) ve CUSUM/EWMA (ISO 7870-4, -6) için.
+11. **Wilrich (2013)**, *AStA Adv. Stat. Anal.* 97:1–10 — ISO 5725-2 Ek D kritik değer formüllerinin kaynağı (düşük öncelik; tablolar ve formüller standartta mevcut).
 
 Erişim ihtiyaçları (C bölümü) değişmedi. D bölümüne NIST TN 1900 (F28–F30), NUM kılavuzu (F29, F33),
 ISO 6143 (F41, F42), ISO 5725-3 (F40, çözüldü), ISO 5725-2 (F47–F49), ISO 13528 (F36), ISO 21748 (F38, F39) ve
