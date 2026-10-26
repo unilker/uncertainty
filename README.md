@@ -78,13 +78,13 @@ $B check library                                        # re-verify all examples
 
 ## Graphical interface / Grafik arayüz
 
-[app/](app/README.md) — Flutter application (Linux, Windows and Android packages built and tested by the
-Package workflow; macOS and iOS next) using the same Rust engine through a C interface
+[app/](app/README.md) — Flutter application (Linux, Windows, Android and macOS packages and an unsigned
+iOS build, all produced by the Package workflow) using the same Rust engine through a C interface
 ([ffi/](ffi/src/lib.rs)): library browser, model, top-down and proficiency-test editors with direct entry of
 raw data, a calibration editor (ISO 6143), results with budget, charts and validation, HTML/Markdown report export, English and Turkish.
 
-Flutter uygulaması (Linux, Windows ve Android paketleri Package iş akışıyla derlenir ve test edilir; macOS
-ve iOS sırada); aynı Rust motorunu kullanır: örnek kütüphanesi, ham veri girişli model, top-down,
+Flutter uygulaması (Linux, Windows, Android ve macOS paketleri ile imzasız iOS derlemesi Package iş
+akışıyla üretilir); aynı Rust motorunu kullanır: örnek kütüphanesi, ham veri girişli model, top-down,
 yeterlilik testi ve kalibrasyon (ISO 6143) düzenleyicileri, bütçe, grafikler ve doğrulamayla sonuçlar, HTML/Markdown rapor, Türkçe ve
 İngilizce.
 
