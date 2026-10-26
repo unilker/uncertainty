@@ -64,8 +64,8 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 | 1 | EURACHEM/CITAC QUAM:2012, Tablo A2.4, A3.1, A5 (u(a_V)), A6.5 | Basılı baskı veya errata: F10, F12, F14, F15 |
 | 2 | Nordtest TR 537 ed. 4, §6.1 | 2.16 % / 2.17 % hesap hatası (F5) için güncel düzeltme var mı |
 | 3 | EA-4/02 M:2022 (S5, S7, S13) | güncel revizyon / errata (F18) |
-| 4 | NIST TN 1900 (2015) E3, E4, E9 | errata / güncel sürüm (F28–F30) |
-| 5 | NIST Uncertainty Machine kılavuzu v1.4, §3 ve §9 | daha yeni sürüm (F29, F33) |
+| 4 | NIST TN 1900 (2015) E3, E4, E9 | errata / güncel sürüm (F28–F30) — **kontrol edildi (2026-10-26): yeni sürüm veya errata yok (D36)** |
+| 5 | NIST Uncertainty Machine kılavuzu v1.4, §3 ve §9 | daha yeni sürüm (F29, F33) — **kontrol edildi: v1.4 güncel (D36)** |
 | 6 | ISO 6143:2025, Formül (12) ve Tablo B.12 | düzeltme (corrigendum/amendment) yayımlanmış mı; B_LEAST'in güncel sürümü üstel fonksiyon belirsizliklerini düzeltmiş mi (F41, F42) |
 | 7 | ISO 5725-3:2023, Tablo J.2 ve J.5 | basılı tablodaki veriler PDF'ten çıkarılanlarla aynı mı (F40) |
 | 8 | ISO 13528:2022, Tablo E.6 | belirsizlik bayraklarının ölçütü (F36) |

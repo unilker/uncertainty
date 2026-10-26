@@ -998,3 +998,14 @@ recovery-compatibility tests and the ν-dependent weighted mean recovery,
 which the program does not have yet. Kallner (2002) is an introduction for
 clinical laboratories. Zeier et al. (2012) describes METAS UncLib, the
 METAS library whose authors found the B_LEAST error of ISO 6143 (F42).
+
+**D36. Errata check of NIST TN 1900 and the NUM manual (2026-10-26).** The
+TN 1900 PDF that NIST distributes today
+(nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.1900.pdf) is byte-identical
+(MD5) to the copy used for the library (PDF modification date 2015-11-03).
+The NIST publication page (DOI 10.6028/NIST.TN.1900, page updated
+2021-06-02) lists no erratum or revision. The User's Manual on
+uncertainty.nist.gov (software version 1.6.4) is version 1.4 of 2020-11-26,
+identical to the supplied copy. F28–F32 (TN 1900) and F29, F33, F35 (NUM)
+therefore refer to the current versions. No companion code or errata
+page for the TN 1900 examples was found.
