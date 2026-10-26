@@ -182,6 +182,31 @@ mod tests {
     }
 
     #[test]
+    fn constants_agree_with_wichmann_hill_2006() {
+        // §4 of Wichmann & Hill (2006): the inverses of the four multipliers
+        // and the factorisation of the p_j − 1 that gives the period.
+        let inverses = [2_143_966_149_i128, 197_144_682, 981_586_662, 1_289_335_852];
+        for j in 0..4 {
+            assert_eq!(WH_A[j] as i128 * inverses[j] % WH_D[j] as i128, 1, "j = {j}");
+        }
+        let factors: [&[u128]; 4] =
+            [&[2, 1_073_741_789], &[2, 3137, 342_283], &[2, 7, 557, 275_389], &[2, 1_073_741_561]];
+        for j in 0..4 {
+            assert_eq!(factors[j].iter().product::<u128>(), WH_D[j] as u128 - 1);
+        }
+        let period: u128 = 2 * 1_073_741_789 * 3137 * 342_283 * 7 * 557 * 275_389 * 1_073_741_561;
+        assert_eq!(period, 2_658_454_842_761_624_389_388_266_709_412_111_698);
+        // The Schrage constants b_j = ⌊p_j/a_j⌋ and c_j = p_j − b_j·a_j of the
+        // 32-bit form (§3 of the paper; JCGM 101 Table C.2).
+        let b = [185_127, 45_688, 93_368, 65_075];
+        let c = [10_379, 10_479, 19_423, 8_123];
+        for j in 0..4 {
+            assert_eq!(WH_D[j] / WH_A[j], b[j]);
+            assert_eq!(WH_D[j] - b[j] * WH_A[j], c[j]);
+        }
+    }
+
+    #[test]
     fn invalid_state_rejected() {
         assert!(WichmannHill::from_state([0, 1, 1, 1]).is_none());
         assert!(WichmannHill::from_state([1, 1, 1, 2_147_483_123]).is_none());

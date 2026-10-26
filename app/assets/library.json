@@ -7083,6 +7083,441 @@
   }
  },
  {
+  "path": "library/electrical/gum-h2-impedance.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum-h2-impedance",
+    "title": {
+     "en": "Impedance magnitude from correlated V and I (GUM H.2)",
+     "tr": "Korelasyonlu V ve I'dan empedans büyüklüğü (GUM H.2)"
+    },
+    "description": {
+     "en": "GUM H.2: the impedance magnitude Z = V/I from correlated simultaneous measurements of voltage, current and phase angle.",
+     "tr": "GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümlerinden Z = V/I empedans büyüklüğü."
+    },
+    "explanation": [
+     {
+      "en": "Five simultaneous sets of readings of the voltage V across an element, the current I through it and the phase angle φ give the means of GUM Table H.2 with s(x̄) = 0.0032 V, 0.0095 mA and 0.00075 rad, and the correlation coefficients r(V, I) = −0.36, r(V, φ) = 0.86, r(I, φ) = −0.65 (GUM 5.2.3). The project uses these values unrounded, recomputed from the five sets of Table H.2 (s(x̄) = 0.003209 V, 0.009471 mA, 0.000752 rad; r = −0.3553, 0.8576, −0.6451).",
+      "tr": "Bir devre elemanının uçlarındaki V gerilimi, içinden geçen I akımı ve φ faz açısının beş eşzamanlı okuma takımı, GUM Tablo H.2'deki ortalamaları s(x̄) = 0,0032 V, 0,0095 mA ve 0,00075 rad ile ve r(V, I) = −0,36, r(V, φ) = 0,86, r(I, φ) = −0,65 korelasyon katsayılarıyla verir (GUM 5.2.3). Proje bu değerleri Tablo H.2'deki beş takımdan yeniden hesaplanmış, yuvarlanmamış biçimde kullanır (s(x̄) = 0,003209 V, 0,009471 mA, 0,000752 rad; r = −0,3553; 0,8576; −0,6451)."
+     },
+     {
+      "en": "Approach 1 of GUM H.2.3 evaluates the model at the means and propagates with Equation (16), which includes the covariance terms 2c_ic_ju(x_i)u(x_j)r(x_i, x_j).",
+      "tr": "GUM H.2.3'ün 1. yaklaşımı modeli ortalamalarda hesaplar ve kovaryans terimlerini, 2c_ic_ju(x_i)u(x_j)r(x_i, x_j), içeren Eşitlik (16) ile yayar."
+     },
+     {
+      "en": "For Z = V/I, GUM Equation (H.8c) gives u_r²(Z) = u_r²(V) + u_r²(I) − 2u_r(V)u_r(I)r(V, I); with r(V, I) = −0.36 the last term adds to the variance, and u_c(Z) = 0.236 Ω.",
+      "tr": "Z = V/I için GUM Eşitlik (H.8c) u_r²(Z) = u_r²(V) + u_r²(I) − 2u_r(V)u_r(I)r(V, I) verir; r(V, I) = −0,36 olduğundan son terim varyansı artırır ve u_c(Z) = 0,236 Ω olur."
+     }
+    ],
+    "field": "electrical",
+    "sources": [
+     {
+      "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement",
+      "section": "H.2, Tables H.2 and H.3",
+      "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+     }
+    ],
+    "tags": [
+     "gum",
+     "correlation",
+     "validation"
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "Z",
+     "unit": "Ω",
+     "expression": "1000 * V / I",
+     "description": {
+      "en": "The impedance magnitude z = v/i",
+      "tr": "Z = v/i empedans büyüklüğü"
+     }
+    },
+    "inputs": [
+     {
+      "name": "V",
+      "unit": "V",
+      "description": {
+       "en": "Mean of five voltage readings",
+       "tr": "Beş gerilim okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 4.999,
+       "sd": 0.003209361
+      }
+     },
+     {
+      "name": "I",
+      "unit": "mA",
+      "description": {
+       "en": "Mean of five current readings",
+       "tr": "Beş akım okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 19.661,
+       "sd": 0.009471008
+      }
+     },
+     {
+      "name": "phi",
+      "unit": "rad",
+      "description": {
+       "en": "Mean of five phase-angle readings",
+       "tr": "Beş faz açısı okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 1.04446,
+       "sd": 0.000752064
+      }
+     }
+    ],
+    "correlations": [
+     {
+      "a": "V",
+      "b": "I",
+      "r": -0.355311
+     },
+     {
+      "a": "V",
+      "b": "phi",
+      "r": 0.857624
+     },
+     {
+      "a": "I",
+      "b": "phi",
+      "r": -0.645111
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 1000000,
+     "seed": 2,
+     "interval": "symmetric"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 254.26,
+      "tolerance": 0.0005
+     },
+     "standard_uncertainty": {
+      "value": 0.236,
+      "tolerance": 0.0005
+     }
+    },
+    "reference": {
+     "en": "JCGM 100:2008 Table H.3: Z = 254.26 Ω, u_c = 0.236 Ω.",
+     "tr": "JCGM 100:2008 Tablo H.3: Z = 254,26 Ω, u_c = 0,236 Ω."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/electrical/gum-h2-reactance.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum-h2-reactance",
+    "title": {
+     "en": "Reactance from correlated V, I and φ (GUM H.2)",
+     "tr": "Korelasyonlu V, I ve φ'den reaktans (GUM H.2)"
+    },
+    "description": {
+     "en": "GUM H.2: the reactance X = (V/I) sin φ from correlated simultaneous measurements of voltage, current and phase angle.",
+     "tr": "GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümlerinden X = (V/I) sin φ reaktansı."
+    },
+    "explanation": [
+     {
+      "en": "Five simultaneous sets of readings of the voltage V across an element, the current I through it and the phase angle φ give the means of GUM Table H.2 with s(x̄) = 0.0032 V, 0.0095 mA and 0.00075 rad, and the correlation coefficients r(V, I) = −0.36, r(V, φ) = 0.86, r(I, φ) = −0.65 (GUM 5.2.3). The project uses these values unrounded, recomputed from the five sets of Table H.2 (s(x̄) = 0.003209 V, 0.009471 mA, 0.000752 rad; r = −0.3553, 0.8576, −0.6451).",
+      "tr": "Bir devre elemanının uçlarındaki V gerilimi, içinden geçen I akımı ve φ faz açısının beş eşzamanlı okuma takımı, GUM Tablo H.2'deki ortalamaları s(x̄) = 0,0032 V, 0,0095 mA ve 0,00075 rad ile ve r(V, I) = −0,36, r(V, φ) = 0,86, r(I, φ) = −0,65 korelasyon katsayılarıyla verir (GUM 5.2.3). Proje bu değerleri Tablo H.2'deki beş takımdan yeniden hesaplanmış, yuvarlanmamış biçimde kullanır (s(x̄) = 0,003209 V, 0,009471 mA, 0,000752 rad; r = −0,3553; 0,8576; −0,6451)."
+     },
+     {
+      "en": "Approach 1 of GUM H.2.3 evaluates the model at the means and propagates with Equation (16), which includes the covariance terms 2c_ic_ju(x_i)u(x_j)r(x_i, x_j).",
+      "tr": "GUM H.2.3'ün 1. yaklaşımı modeli ortalamalarda hesaplar ve kovaryans terimlerini, 2c_ic_ju(x_i)u(x_j)r(x_i, x_j), içeren Eşitlik (16) ile yayar."
+     },
+     {
+      "en": "For X = (V/I) sin φ the correlation of V and φ increases the variance; u_c(X) = 0.295 Ω (relative 0.13 %).",
+      "tr": "X = (V/I) sin φ için V ile φ arasındaki korelasyon varyansı artırır; u_c(X) = 0,295 Ω (bağıl %0,13)."
+     }
+    ],
+    "field": "electrical",
+    "sources": [
+     {
+      "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement",
+      "section": "H.2, Tables H.2 and H.3",
+      "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+     }
+    ],
+    "tags": [
+     "gum",
+     "correlation",
+     "validation"
+    ],
+    "notes": [
+     {
+      "en": "Approach 1 with the unrounded data gives u_c(X) = 0.29558 Ω, approach 2 0.29549 Ω; GUM Table H.3 prints 0.295, so the tolerance is 0.0006 Ω.",
+      "tr": "Yuvarlanmamış verilerle 1. yaklaşım u_c(X) = 0,29558 Ω, 2. yaklaşım 0,29549 Ω verir; GUM Tablo H.3 0,295 bastığından tolerans 0,0006 Ω'dur."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "X",
+     "unit": "Ω",
+     "expression": "1000 * V / I * sin(phi)",
+     "description": {
+      "en": "The reactance x = (v/i) sin φ",
+      "tr": "X = (v/i) sin φ reaktansı"
+     }
+    },
+    "inputs": [
+     {
+      "name": "V",
+      "unit": "V",
+      "description": {
+       "en": "Mean of five voltage readings",
+       "tr": "Beş gerilim okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 4.999,
+       "sd": 0.003209361
+      }
+     },
+     {
+      "name": "I",
+      "unit": "mA",
+      "description": {
+       "en": "Mean of five current readings",
+       "tr": "Beş akım okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 19.661,
+       "sd": 0.009471008
+      }
+     },
+     {
+      "name": "phi",
+      "unit": "rad",
+      "description": {
+       "en": "Mean of five phase-angle readings",
+       "tr": "Beş faz açısı okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 1.04446,
+       "sd": 0.000752064
+      }
+     }
+    ],
+    "correlations": [
+     {
+      "a": "V",
+      "b": "I",
+      "r": -0.355311
+     },
+     {
+      "a": "V",
+      "b": "phi",
+      "r": 0.857624
+     },
+     {
+      "a": "I",
+      "b": "phi",
+      "r": -0.645111
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 1000000,
+     "seed": 2,
+     "interval": "symmetric"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 219.847,
+      "tolerance": 0.0005
+     },
+     "standard_uncertainty": {
+      "value": 0.295,
+      "tolerance": 0.0006
+     }
+    },
+    "reference": {
+     "en": "JCGM 100:2008 Table H.3: X = 219.847 Ω, u_c = 0.295 Ω.",
+     "tr": "JCGM 100:2008 Tablo H.3: X = 219,847 Ω, u_c = 0,295 Ω."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/electrical/gum-h2-resistance.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum-h2-resistance",
+    "title": {
+     "en": "Resistance from correlated V, I and φ (GUM H.2)",
+     "tr": "Korelasyonlu V, I ve φ'den direnç (GUM H.2)"
+    },
+    "description": {
+     "en": "GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measurements of voltage, current and phase angle.",
+     "tr": "GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümlerinden R = (V/I) cos φ direnci."
+    },
+    "explanation": [
+     {
+      "en": "Five simultaneous sets of readings of the voltage V across an element, the current I through it and the phase angle φ give the means of GUM Table H.2 with s(x̄) = 0.0032 V, 0.0095 mA and 0.00075 rad, and the correlation coefficients r(V, I) = −0.36, r(V, φ) = 0.86, r(I, φ) = −0.65 (GUM 5.2.3). The project uses these values unrounded, recomputed from the five sets of Table H.2 (s(x̄) = 0.003209 V, 0.009471 mA, 0.000752 rad; r = −0.3553, 0.8576, −0.6451).",
+      "tr": "Bir devre elemanının uçlarındaki V gerilimi, içinden geçen I akımı ve φ faz açısının beş eşzamanlı okuma takımı, GUM Tablo H.2'deki ortalamaları s(x̄) = 0,0032 V, 0,0095 mA ve 0,00075 rad ile ve r(V, I) = −0,36, r(V, φ) = 0,86, r(I, φ) = −0,65 korelasyon katsayılarıyla verir (GUM 5.2.3). Proje bu değerleri Tablo H.2'deki beş takımdan yeniden hesaplanmış, yuvarlanmamış biçimde kullanır (s(x̄) = 0,003209 V, 0,009471 mA, 0,000752 rad; r = −0,3553; 0,8576; −0,6451)."
+     },
+     {
+      "en": "Approach 1 of GUM H.2.3 evaluates the model at the means and propagates with Equation (16), which includes the covariance terms 2c_ic_ju(x_i)u(x_j)r(x_i, x_j).",
+      "tr": "GUM H.2.3'ün 1. yaklaşımı modeli ortalamalarda hesaplar ve kovaryans terimlerini, 2c_ic_ju(x_i)u(x_j)r(x_i, x_j), içeren Eşitlik (16) ile yayar."
+     },
+     {
+      "en": "For R = (V/I) cos φ the covariance terms reduce the variance: the sum of the squared contributions alone is about 3.6 times u_c²(R), and u_c(R) = 0.071 Ω. Approach 2 (R computed from each set, GUM Table H.4) gives the same value.",
+      "tr": "R = (V/I) cos φ için kovaryans terimleri varyansı azaltır: katkıların karelerinin toplamı tek başına u_c²(R)'nin yaklaşık 3,6 katıdır ve u_c(R) = 0,071 Ω olur. 2. yaklaşım (R'nin her takımdan hesaplanması, GUM Tablo H.4) aynı değeri verir."
+     }
+    ],
+    "field": "electrical",
+    "sources": [
+     {
+      "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement",
+      "section": "H.2, Tables H.2 and H.3",
+      "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+     }
+    ],
+    "tags": [
+     "gum",
+     "correlation",
+     "validation"
+    ],
+    "notes": [
+     {
+      "en": "Because the covariance terms cancel most of the variance of R, u_c(R) is sensitive to the rounding of the correlation coefficients: with the two-digit values printed in Table H.2 the law of propagation gives 0.0700 Ω instead of 0.0711 Ω (project 'num-10-resistance', which reproduces the NIST Uncertainty Machine). X and Z change by less than 0.1 %.",
+      "tr": "Kovaryans terimleri R'nin varyansının büyük kısmını götürdüğünden u_c(R), korelasyon katsayılarının yuvarlanmasına duyarlıdır: Tablo H.2'de basılı iki basamaklı değerlerle yayılım yasası 0,0711 Ω yerine 0,0700 Ω verir (NIST Uncertainty Machine'i yeniden üreten 'num-10-resistance' projesi). X ve Z %0,1'den az değişir."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "R",
+     "unit": "Ω",
+     "expression": "1000 * V / I * cos(phi)",
+     "description": {
+      "en": "The resistance r = (v/i) cos φ",
+      "tr": "R = (v/i) cos φ direnci"
+     }
+    },
+    "inputs": [
+     {
+      "name": "V",
+      "unit": "V",
+      "description": {
+       "en": "Mean of five voltage readings",
+       "tr": "Beş gerilim okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 4.999,
+       "sd": 0.003209361
+      }
+     },
+     {
+      "name": "I",
+      "unit": "mA",
+      "description": {
+       "en": "Mean of five current readings",
+       "tr": "Beş akım okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 19.661,
+       "sd": 0.009471008
+      }
+     },
+     {
+      "name": "phi",
+      "unit": "rad",
+      "description": {
+       "en": "Mean of five phase-angle readings",
+       "tr": "Beş faz açısı okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 1.04446,
+       "sd": 0.000752064
+      }
+     }
+    ],
+    "correlations": [
+     {
+      "a": "V",
+      "b": "I",
+      "r": -0.355311
+     },
+     {
+      "a": "V",
+      "b": "phi",
+      "r": 0.857624
+     },
+     {
+      "a": "I",
+      "b": "phi",
+      "r": -0.645111
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 1000000,
+     "seed": 2,
+     "interval": "symmetric"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 127.732,
+      "tolerance": 0.0005
+     },
+     "standard_uncertainty": {
+      "value": 0.071,
+      "tolerance": 0.0005
+     }
+    },
+    "reference": {
+     "en": "JCGM 100:2008 Table H.3: R = 127.732 Ω, u_c = 0.071 Ω.",
+     "tr": "JCGM 100:2008 Tablo H.3: R = 127,732 Ω, u_c = 0,071 Ω."
+    }
+   }
+  }
+ },
+ {
   "path": "library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -8087,6 +8522,168 @@
   }
  },
  {
+  "path": "library/electrical/num-10-resistance.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "num-10-resistance",
+    "title": {
+     "en": "Resistance with the rounded values of GUM Table H.2 (NIST Uncertainty Machine §10)",
+     "tr": "GUM Tablo H.2'nin yuvarlanmış değerleriyle direnç (NIST Uncertainty Machine §10)"
+    },
+    "description": {
+     "en": "GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measurements of voltage, current and phase angle.",
+     "tr": "GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümlerinden R = (V/I) cos φ direnci."
+    },
+    "explanation": [
+     {
+      "en": "Five simultaneous sets of readings of V, I and φ give the means of GUM Table H.2 with s(x̄) = 0.0032 V, 0.0095 mA and 0.00075 rad and r(V, I) = −0.36, r(V, φ) = 0.86, r(I, φ) = −0.65, entered here as printed.",
+      "tr": "V, I ve φ'nin beş eşzamanlı okuma takımı GUM Tablo H.2'deki ortalamaları s(x̄) = 0,0032 V, 0,0095 mA ve 0,00075 rad ile ve r(V, I) = −0,36, r(V, φ) = 0,86, r(I, φ) = −0,65 ile verir; değerler burada basıldığı gibi girilmiştir."
+     },
+     {
+      "en": "This project enters the rounded values printed in GUM Table H.2, as the NIST Uncertainty Machine manual does. The strong cancellation of the covariance terms makes u_c(R) = 0.0700 Ω, against 0.071 Ω from the unrounded data (project 'gum-h2-resistance'); the Monte Carlo method with a trivariate Gaussian distribution agrees with the law of propagation.",
+      "tr": "Bu proje, NIST Uncertainty Machine kılavuzunun yaptığı gibi GUM Tablo H.2'de basılı yuvarlanmış değerleri girer. Kovaryans terimlerinin güçlü sadeleşmesi u_c(R) = 0,0700 Ω verir; yuvarlanmamış verilerden ise 0,071 Ω çıkar ('gum-h2-resistance' projesi). Üç değişkenli normal dağılımla Monte Carlo yöntemi yayılım yasasıyla uyuşur."
+     }
+    ],
+    "field": "electrical",
+    "sources": [
+     {
+      "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement",
+      "section": "H.2, Tables H.2 and H.3",
+      "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+     },
+     {
+      "document": "T. Lafarge, A. Possolo, NIST Uncertainty Machine — User's Manual, version 1.4 (NIST, 2020)",
+      "section": "§10, Figure 6",
+      "url": "https://uncertainty.nist.gov/NISTUncertaintyMachine-UserManual.pdf"
+     }
+    ],
+    "tags": [
+     "gum",
+     "correlation",
+     "validation",
+     "nist-uncertainty-machine"
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "R",
+     "unit": "Ω",
+     "expression": "1000 * V / I * cos(phi)",
+     "description": {
+      "en": "The resistance r = (v/i) cos φ",
+      "tr": "R = (v/i) cos φ direnci"
+     }
+    },
+    "inputs": [
+     {
+      "name": "V",
+      "unit": "V",
+      "description": {
+       "en": "Mean of five voltage readings",
+       "tr": "Beş gerilim okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 4.999,
+       "sd": 0.0032
+      }
+     },
+     {
+      "name": "I",
+      "unit": "mA",
+      "description": {
+       "en": "Mean of five current readings",
+       "tr": "Beş akım okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 19.661,
+       "sd": 0.0095
+      }
+     },
+     {
+      "name": "phi",
+      "unit": "rad",
+      "description": {
+       "en": "Mean of five phase-angle readings",
+       "tr": "Beş faz açısı okumasının ortalaması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 1.04446,
+       "sd": 0.00075
+      }
+     }
+    ],
+    "correlations": [
+     {
+      "a": "V",
+      "b": "I",
+      "r": -0.36
+     },
+     {
+      "a": "V",
+      "b": "phi",
+      "r": 0.86
+     },
+     {
+      "a": "I",
+      "b": "phi",
+      "r": -0.65
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 1000000,
+     "seed": 2,
+     "interval": "symmetric"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 127.732,
+      "tolerance": 0.0005
+     },
+     "standard_uncertainty": {
+      "value": 0.07,
+      "tolerance": 0.00005
+     }
+    },
+    "mcm": {
+     "estimate": {
+      "value": 127.732,
+      "tolerance": 0.0005
+     },
+     "standard_uncertainty": {
+      "value": 0.0699,
+      "tolerance": 0.0005
+     },
+     "interval_low": {
+      "value": 127.595,
+      "tolerance": 0.0015
+     },
+     "interval_high": {
+      "value": 127.869,
+      "tolerance": 0.0015
+     },
+     "gum_validated": true
+    },
+    "reference": {
+     "en": "GUM: law of propagation with the rounded inputs (0.0700 Ω); NIST Uncertainty Machine manual §10 (M = 10⁶): Gauss's formula u = 0.07 Ω; mean 127.732 Ω, sd 0.0699 Ω, 95 % interval (127.595, 127.869) Ω.",
+     "tr": "GUM: yuvarlanmış girdilerle yayılım yasası (0,0700 Ω); NIST Uncertainty Machine kılavuzu §10 (M = 10⁶): Gauss formülü u = 0,07 Ω; ortalama 127,732 Ω, standart sapma 0,0699 Ω, %95 aralığı (127,595; 127,869) Ω."
+    }
+   }
+  }
+ },
+ {
   "path": "library/flow/ea402-s12-water-meter-error.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -9042,6 +9639,153 @@
     "reference": {
      "en": "JCGM 101:2008 Table 4 (u(y) = √103 = 10.149).",
      "tr": "JCGM 101:2008 Tablo 4 (u(y) = √103 = 10,149)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/general/num-3-ratio-abc.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "num-3-ratio-abc",
+    "title": {
+     "en": "Product and ratio y = ab/c with a wide triangular divisor (NIST Uncertainty Machine §3)",
+     "tr": "Geniş üçgen bölenli çarpım ve oran y = ab/c (NIST Uncertainty Machine §3)"
+    },
+    "description": {
+     "en": "NUM manual §3: Gaussian a, rectangular b and a triangular divisor c with a 30 % relative uncertainty; the first-order GUM result is far from the Monte Carlo result.",
+     "tr": "NUM kılavuzu §3: normal a, dikdörtgen b ve bağıl belirsizliği %30 olan üçgen bölen c; birinci mertebe GUM sonucu Monte Carlo sonucundan çok uzaktır."
+    },
+    "explanation": [
+     {
+      "en": "a ~ N(32, 0.5²); b rectangular with mean 0.9 and standard deviation 0.025 (half-width 0.025√3); c symmetric triangular with mean 1 and standard deviation 0.3 (half-width 0.3√6 = 0.735).",
+      "tr": "a ~ N(32, 0,5²); b ortalaması 0,9 ve standart sapması 0,025 olan dikdörtgen (yarı genişlik 0,025√3); c ortalaması 1 ve standart sapması 0,3 olan simetrik üçgen (yarı genişlik 0,3√6 = 0,735)."
+     },
+     {
+      "en": "Gauss's formula at the estimates: y = 32 × 0.9 / 1 = 28.8 and u(y)/y = √((0.5/32)² + (0.025/0.9)² + 0.3²), u(y) = 8.7; c contributes 99 % of the variance.",
+      "tr": "Tahminlerde Gauss formülü: y = 32 × 0,9 / 1 = 28,8 ve u(y)/y = √((0,5/32)² + (0,025/0,9)² + 0,3²), u(y) = 8,7; varyansın %99'u c'den gelir."
+     },
+     {
+      "en": "Because 1/c is strongly convex over [0.27, 1.73], the Monte Carlo mean is 32.2, the standard deviation 13 and the 95 % interval (18.2, 67): the distribution of y is markedly right-skewed and the GUM interval 28.8 ± 17.1 is not validated.",
+      "tr": "1/c, [0,27; 1,73] aralığında belirgin biçimde dışbükey olduğundan Monte Carlo ortalaması 32,2, standart sapması 13 ve %95 aralığı (18,2; 67) olur: y'nin dağılımı belirgin biçimde sağa çarpıktır ve GUM aralığı 28,8 ± 17,1 doğrulanmaz."
+     }
+    ],
+    "field": "general",
+    "sources": [
+     {
+      "document": "T. Lafarge, A. Possolo, NIST Uncertainty Machine — User's Manual, version 1.4 (NIST, 2020)",
+      "section": "§3, Figure 1",
+      "url": "https://uncertainty.nist.gov/NISTUncertaintyMachine-UserManual.pdf"
+     }
+    ],
+    "tags": [
+     "nist-uncertainty-machine",
+     "non-linear",
+     "triangular",
+     "skewed",
+     "validation"
+    ],
+    "notes": [
+     {
+      "en": "The text of §3 says that the GUM method gives y = 32.2 and u(y) = 12.5, but the output of the NIST Uncertainty Machine printed in Figure 1 gives y = 28.8 and u(y) = 8.7 for Gauss's formula (32.2 and 13 are the Monte Carlo mean and standard deviation). The program reproduces the values of Figure 1.",
+      "tr": "§3'ün metni GUM yönteminin y = 32,2 ve u(y) = 12,5 verdiğini söyler; ancak Şekil 1'de basılı NIST Uncertainty Machine çıktısı Gauss formülü için y = 28,8 ve u(y) = 8,7 verir (32,2 ve 13 Monte Carlo ortalaması ve standart sapmasıdır). Program Şekil 1'deki değerleri yeniden üretir."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "y",
+     "expression": "a * b / c",
+     "description": {
+      "en": "Output quantity",
+      "tr": "Çıktı büyüklüğü"
+     }
+    },
+    "inputs": [
+     {
+      "name": "a",
+      "description": {
+       "en": "Gaussian factor",
+       "tr": "Normal çarpan"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 32,
+       "sd": 0.5
+      }
+     },
+     {
+      "name": "b",
+      "description": {
+       "en": "Rectangular factor",
+       "tr": "Dikdörtgen çarpan"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "value": 0.9,
+       "half_width": 0.0433013
+      }
+     },
+     {
+      "name": "c",
+      "description": {
+       "en": "Triangular divisor",
+       "tr": "Üçgen bölen"
+      },
+      "distribution": {
+       "type": "triangular",
+       "value": 1.0,
+       "half_width": 0.734847
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 2000000,
+     "seed": 3,
+     "interval": "symmetric"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 28.8,
+      "tolerance": 0.05
+     },
+     "standard_uncertainty": {
+      "value": 8.7,
+      "tolerance": 0.05
+     }
+    },
+    "mcm": {
+     "estimate": {
+      "value": 32.2,
+      "tolerance": 0.05
+     },
+     "standard_uncertainty": {
+      "value": 13.0,
+      "tolerance": 0.5
+     },
+     "interval_low": {
+      "value": 18.2,
+      "tolerance": 0.05
+     },
+     "interval_high": {
+      "value": 67.0,
+      "tolerance": 0.5
+     },
+     "gum_validated": false
+    },
+    "reference": {
+     "en": "NIST Uncertainty Machine manual §3, Figure 1 (Gauss's formula y = 28.8, u = 8.7; Monte Carlo, M = 10⁶: mean 32.2, sd 13, 95 % interval (18.2, 67)).",
+     "tr": "NIST Uncertainty Machine kılavuzu §3, Şekil 1 (Gauss formülü y = 28,8, u = 8,7; Monte Carlo, M = 10⁶: ortalama 32,2, standart sapma 13, %95 aralığı (18,2; 67))."
     }
    }
   }
@@ -10504,6 +11248,202 @@
   }
  },
  {
+  "path": "library/length/num-8-end-gauge-gaussian.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "num-8-end-gauge-gaussian",
+    "title": {
+     "en": "End-gauge calibration with Gaussian inputs (NIST Uncertainty Machine §8)",
+     "tr": "Normal girdilerle uç mastarı kalibrasyonu (NIST Uncertainty Machine §8)"
+    },
+    "description": {
+     "en": "NUM manual §8: GUM H.1 with the six inputs of the GUM's first-order budget, all modelled as Gaussian; the Monte Carlo method finds the second-order contributions that Gauss's formula misses.",
+     "tr": "NUM kılavuzu §8: GUM H.1'in birinci mertebe bütçesindeki altı girdiyle, hepsi normal dağılımlı; Monte Carlo yöntemi Gauss formülünün kaçırdığı ikinci mertebe katkıları bulur."
+    },
+    "explanation": [
+     {
+      "en": "l = l_S + d − l_S(δα·θ + α_S·δθ) with l_S = 50 000 623(25) nm, d = 215(9.7) nm, δα = 0(0.58 × 10⁻⁶) °C⁻¹, θ = −0.1(0.41) °C, α_S = 11.5(1.2) × 10⁻⁶ °C⁻¹ and δθ = 0(0.029) °C (GUM Table H.1), all Gaussian.",
+      "tr": "l = l_S + d − l_S(δα·θ + α_S·δθ); l_S = 50 000 623(25) nm, d = 215(9,7) nm, δα = 0(0,58 × 10⁻⁶) °C⁻¹, θ = −0,1(0,41) °C, α_S = 11,5(1,2) × 10⁻⁶ °C⁻¹ ve δθ = 0(0,029) °C (GUM Tablo H.1), hepsi normal dağılımlı."
+     },
+     {
+      "en": "At the estimates δα = δθ = 0, so θ and α_S have zero sensitivity coefficients and Gauss's formula gives u(l) = 31.7 nm; the program warns that the second-order products δα·θ and α_S·δθ are missed.",
+      "tr": "Tahminlerde δα = δθ = 0 olduğundan θ ve α_S'nin duyarlılık katsayıları sıfırdır ve Gauss formülü u(l) = 31,7 nm verir; program δα·θ ve α_S·δθ ikinci mertebe çarpımlarının kaçırıldığı uyarısını verir."
+     },
+     {
+      "en": "The Monte Carlo method gives a standard deviation of 33.9 nm and the 99 % probabilistically symmetric interval (50 000 749, 50 000 927) nm, close to the GUM's own interval (50 000 745, 50 000 931) nm (k = 2.92 from ν_eff = 16.7). The interval of this project's GUM evaluation, 50 000 838 ± 82 nm (k = 2.58), is too short by 7 nm at each end and is not validated.",
+      "tr": "Monte Carlo yöntemi 33,9 nm standart sapma ve %99 olasılıksal simetrik aralığı (50 000 749; 50 000 927) nm verir; bu, GUM'un kendi aralığına, (50 000 745; 50 000 931) nm (ν_eff = 16,7'den k = 2,92), yakındır. Bu projenin GUM değerlendirmesinin aralığı, 50 000 838 ± 82 nm (k = 2,58), her uçta 7 nm kısadır ve doğrulanmaz."
+     }
+    ],
+    "field": "length",
+    "sources": [
+     {
+      "document": "T. Lafarge, A. Possolo, NIST Uncertainty Machine — User's Manual, version 1.4 (NIST, 2020)",
+      "section": "§8, Table 3 and Figure 3",
+      "url": "https://uncertainty.nist.gov/NISTUncertaintyMachine-UserManual.pdf"
+     },
+     {
+      "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement",
+      "section": "H.1, Table H.1",
+      "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+     }
+    ],
+    "tags": [
+     "nist-uncertainty-machine",
+     "gum",
+     "second-order",
+     "validation"
+    ],
+    "notes": [
+     {
+      "en": "The project 'gum-h1-end-gauge' reproduces the GUM's own evaluation (θ split into its mean and cyclic part, Welch–Satterthwaite, k = 2.92).",
+      "tr": "'gum-h1-end-gauge' projesi GUM'un kendi değerlendirmesini yeniden üretir (θ ortalama ve çevrimsel kısmına ayrılır, Welch–Satterthwaite, k = 2,92)."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "l",
+     "unit": "nm",
+     "expression": "l_S + d - l_S * (d_alpha * theta + alpha_S * d_theta)",
+     "description": {
+      "en": "Length of the end gauge at 20 °C",
+      "tr": "Uç mastarının 20 °C'deki uzunluğu"
+     }
+    },
+    "inputs": [
+     {
+      "name": "l_S",
+      "unit": "nm",
+      "description": {
+       "en": "Length of the reference standard",
+       "tr": "Referans standardın uzunluğu"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 50000623,
+       "sd": 25
+      }
+     },
+     {
+      "name": "d",
+      "unit": "nm",
+      "description": {
+       "en": "Measured difference in length",
+       "tr": "Ölçülen uzunluk farkı"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 215,
+       "sd": 9.7
+      }
+     },
+     {
+      "name": "d_alpha",
+      "unit": "1/°C",
+      "description": {
+       "en": "Difference of the expansion coefficients",
+       "tr": "Genleşme katsayılarının farkı"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0,
+       "sd": 5.8e-7
+      }
+     },
+     {
+      "name": "theta",
+      "unit": "°C",
+      "description": {
+       "en": "Deviation of the temperature from 20 °C",
+       "tr": "Sıcaklığın 20 °C'den sapması"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": -0.1,
+       "sd": 0.41
+      }
+     },
+     {
+      "name": "alpha_S",
+      "unit": "1/°C",
+      "description": {
+       "en": "Expansion coefficient of the standard",
+       "tr": "Standardın genleşme katsayısı"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0000115,
+       "sd": 0.0000012
+      }
+     },
+     {
+      "name": "d_theta",
+      "unit": "°C",
+      "description": {
+       "en": "Temperature difference between the gauges",
+       "tr": "Mastarlar arasındaki sıcaklık farkı"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0,
+       "sd": 0.029
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {
+     "coverage_probability": 0.99
+    },
+    "mcm": {
+     "trials": 2000000,
+     "seed": 8,
+     "interval": "symmetric"
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 50000838,
+      "tolerance": 0.5
+     },
+     "standard_uncertainty": {
+      "value": 31.7,
+      "tolerance": 0.05
+     }
+    },
+    "mcm": {
+     "estimate": {
+      "value": 50000837.9,
+      "tolerance": 0.1
+     },
+     "standard_uncertainty": {
+      "value": 33.9,
+      "tolerance": 0.1
+     },
+     "interval_low": {
+      "value": 50000749,
+      "tolerance": 1.5
+     },
+     "interval_high": {
+      "value": 50000927,
+      "tolerance": 1.5
+     },
+     "gum_validated": false
+    },
+    "reference": {
+     "en": "NIST Uncertainty Machine manual §8, Figure 3 (Gauss's formula 50 000 838 nm, u = 31.7 nm; Monte Carlo, M = 10⁶: mean 50 000 837.9 nm, sd 33.9 nm, 99 % symmetric interval (50 000 749, 50 000 927) nm).",
+     "tr": "NIST Uncertainty Machine kılavuzu §8, Şekil 3 (Gauss formülü 50 000 838 nm, u = 31,7 nm; Monte Carlo, M = 10⁶: ortalama 50 000 837,9 nm, standart sapma 33,9 nm, %99 simetrik aralık (50 000 749; 50 000 927) nm)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/mass/ea402-s2-weight-10kg.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -11860,8 +12800,8 @@
     ],
     "notes": [
      {
-      "en": "TN 1900 states that the conventional propagation formula, as implemented in the NIST Uncertainty Machine, gives 1.11 mPa s, identical to the Monte Carlo value. The first-order law of propagation (GUM eq. 10) applied to the stated model and inputs gives 1.027 mPa s; with the second-order terms of GUM 5.1.2 it gives about 1.10 mPa s. The value printed in TN 1900 is therefore not that of eq. 10.",
-      "tr": "TN 1900, NIST Uncertainty Machine'de uygulanan klasik yayılım formülünün 1,11 mPa s verdiğini ve bunun Monte Carlo değeriyle aynı olduğunu belirtir. Birinci mertebe yayılım yasası (GUM eş. 10) verilen model ve girdilere uygulandığında 1,027 mPa s; GUM 5.1.2'nin ikinci mertebe terimleriyle yaklaşık 1,10 mPa s verir. Dolayısıyla TN 1900'de basılı değer eş. 10'un sonucu değildir."
+      "en": "TN 1900 states that the conventional propagation formula, as implemented in the NIST Uncertainty Machine, gives 1.11 mPa s, identical to the Monte Carlo value. The first-order law of propagation (GUM eq. 10) applied to the stated model and inputs gives 1.027 mPa s; with the second-order terms of GUM 5.1.2 it gives about 1.10 mPa s. The NIST Uncertainty Machine manual (v1.4, §9) repeats the statement, but the output it prints in Figure 5 gives u(y) = 1 mPa s for Gauss's formula, consistent with 1.027 mPa s: the 1.11 mPa s of the text is the Monte Carlo value.",
+      "tr": "TN 1900, NIST Uncertainty Machine'de uygulanan klasik yayılım formülünün 1,11 mPa s verdiğini ve bunun Monte Carlo değeriyle aynı olduğunu belirtir. Birinci mertebe yayılım yasası (GUM eş. 10) verilen model ve girdilere uygulandığında 1,027 mPa s; GUM 5.1.2'nin ikinci mertebe terimleriyle yaklaşık 1,10 mPa s verir. NIST Uncertainty Machine kılavuzu (sürüm 1.4, §9) aynı ifadeyi tekrarlar; ancak Şekil 5'te bastığı çıktı Gauss formülü için u(y) = 1 mPa s verir ve bu 1,027 mPa s ile tutarlıdır: metindeki 1,11 mPa s Monte Carlo değeridir."
      }
     ]
    },
@@ -11997,6 +12937,171 @@
     "reference": {
      "en": "NIST TN 1900 E3: estimate 5.69 mPa s from the measurement equation; Monte Carlo 5.82 mPa s, u = 1.11 mPa s, 95 % interval [4.05, 8.39] mPa s. GUM u = 1.027 mPa s: first-order law of propagation evaluated analytically (see note).",
      "tr": "NIST TN 1900 E3: ölçüm denkleminden tahmin 5,69 mPa s; Monte Carlo 5,82 mPa s, u = 1,11 mPa s, %95 aralığı [4,05; 8,39] mPa s. GUM u = 1,027 mPa s: birinci mertebe yayılım yasasının analitik değeri (nota bakınız)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/physical/num-11-stefan-boltzmann.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "num-11-stefan-boltzmann",
+    "title": {
+     "en": "Stefan–Boltzmann constant from CODATA 2010 values (NIST Uncertainty Machine §11)",
+     "tr": "CODATA 2010 değerlerinden Stefan–Boltzmann sabiti (NIST Uncertainty Machine §11)"
+    },
+    "description": {
+     "en": "NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 2010 CODATA values; the molar gas constant R contributes almost all the uncertainty.",
+     "tr": "NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸); belirsizliğin neredeyse tamamı molar gaz sabiti R'den gelir."
+    },
+    "explanation": [
+     {
+      "en": "Inputs: h = 6.626 069 57(29) × 10⁻³⁴ J s, R = 8.314 462 1(75) J mol⁻¹ K⁻¹, R∞ = 10 973 731.568 539(55) m⁻¹, A_r(e) = 5.485 799 094 6(22) × 10⁻⁴, α = 7.297 352 569 8(24) × 10⁻³; M_u = 10⁻³ kg/mol and c = 299 792 458 m/s are exact. The result is expressed in 10⁻⁸ W m⁻² K⁻⁴.",
+      "tr": "Girdiler: h = 6,626 069 57(29) × 10⁻³⁴ J s, R = 8,314 462 1(75) J mol⁻¹ K⁻¹, R∞ = 10 973 731,568 539(55) m⁻¹, A_r(e) = 5,485 799 094 6(22) × 10⁻⁴, α = 7,297 352 569 8(24) × 10⁻³; M_u = 10⁻³ kg/mol ve c = 299 792 458 m/s kesindir. Sonuç 10⁻⁸ W m⁻² K⁻⁴ biriminde verilir."
+     },
+     {
+      "en": "For a product of powers the relative variance is Σ(p_i u_r(x_i))²: R enters with power 4 and u_r(R) = 9.0 × 10⁻⁷, so u_r(σ) = 3.6 × 10⁻⁶ and u(σ) = 2.05 × 10⁻¹³ W m⁻² K⁻⁴; the other inputs contribute less than 0.02 %.",
+      "tr": "Üslerin çarpımında bağıl varyans Σ(p_i u_r(x_i))²'dir: R 4. kuvvetle girer ve u_r(R) = 9,0 × 10⁻⁷ olduğundan u_r(σ) = 3,6 × 10⁻⁶ ve u(σ) = 2,05 × 10⁻¹³ W m⁻² K⁻⁴ olur; diğer girdilerin katkısı %0,02'nin altındadır."
+     }
+    ],
+    "field": "physical",
+    "sources": [
+     {
+      "document": "T. Lafarge, A. Possolo, NIST Uncertainty Machine — User's Manual, version 1.4 (NIST, 2020)",
+      "section": "§11, Table 5 and Figure 7",
+      "url": "https://uncertainty.nist.gov/NISTUncertaintyMachine-UserManual.pdf"
+     }
+    ],
+    "tags": [
+     "nist-uncertainty-machine",
+     "codata",
+     "power-law"
+    ],
+    "notes": [
+     {
+      "en": "The CODATA adjustment correlates these constants; as noted in the manual, including the correlations does not change u(σ) at the reported digit. Since the 2019 redefinition of the SI, h is exact and σ = 5.670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ has no uncertainty.",
+      "tr": "CODATA ayarlaması bu sabitleri korelasyonlu kılar; kılavuzda belirtildiği gibi korelasyonların hesaba katılması u(σ)'yı raporlanan basamakta değiştirmez. SI'nın 2019'daki yeniden tanımından beri h kesindir ve σ = 5,670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ belirsizlik taşımaz."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "sigma",
+     "unit": "10⁻⁸ W m⁻² K⁻⁴",
+     "expression": "1e8 * 32 * pi^5 * h * R^4 * R_inf^4 / (15 * A_e^4 * (1e-3)^4 * 299792458^6 * alpha^8)",
+     "description": {
+      "en": "Stefan–Boltzmann constant",
+      "tr": "Stefan–Boltzmann sabiti"
+     }
+    },
+    "inputs": [
+     {
+      "name": "h",
+      "unit": "J s",
+      "description": {
+       "en": "Planck constant",
+       "tr": "Planck sabiti"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 6.62606957e-34,
+       "sd": 2.9e-41
+      }
+     },
+     {
+      "name": "R",
+      "unit": "J/(mol K)",
+      "description": {
+       "en": "Molar gas constant",
+       "tr": "Molar gaz sabiti"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 8.3144621,
+       "sd": 0.0000075
+      }
+     },
+     {
+      "name": "R_inf",
+      "unit": "1/m",
+      "description": {
+       "en": "Rydberg constant",
+       "tr": "Rydberg sabiti"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 10973731.568539,
+       "sd": 0.000055
+      }
+     },
+     {
+      "name": "A_e",
+      "description": {
+       "en": "Relative atomic mass of the electron",
+       "tr": "Elektronun bağıl atom kütlesi"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.00054857990946,
+       "sd": 2.2e-13
+      }
+     },
+     {
+      "name": "alpha",
+      "description": {
+       "en": "Fine-structure constant",
+       "tr": "İnce yapı sabiti"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0072973525698,
+       "sd": 2.4e-12
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 1000000,
+     "seed": 11,
+     "interval": "symmetric"
+    }
+   },
+   "reporting": {
+    "significant_digits": 3
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 5.6703725,
+      "tolerance": 5e-8
+     },
+     "standard_uncertainty": {
+      "value": 0.0000205,
+      "tolerance": 5e-7
+     }
+    },
+    "mcm": {
+     "standard_uncertainty": {
+      "value": 0.0000205,
+      "tolerance": 5e-7
+     },
+     "interval_low": {
+      "value": 5.670332,
+      "tolerance": 5e-7
+     },
+     "interval_high": {
+      "value": 5.6704126,
+      "tolerance": 5e-7
+     },
+     "gum_validated": true
+    },
+    "reference": {
+     "en": "NIST Uncertainty Machine manual §11, Figure 7: σ = 5.670 3725 × 10⁻⁸, u(σ) = 2.05 × 10⁻¹³ W m⁻² K⁻⁴ (Gauss's formula and Monte Carlo), 95 % interval (5.670 332, 5.670 412 6) × 10⁻⁸ W m⁻² K⁻⁴.",
+     "tr": "NIST Uncertainty Machine kılavuzu §11, Şekil 7: σ = 5,670 3725 × 10⁻⁸, u(σ) = 2,05 × 10⁻¹³ W m⁻² K⁻⁴ (Gauss formülü ve Monte Carlo), %95 aralığı (5,670 332; 5,670 412 6) × 10⁻⁸ W m⁻² K⁻⁴."
     }
    }
   }

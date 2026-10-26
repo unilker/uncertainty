@@ -1,0 +1,162 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "num-11-stefan-boltzmann",
+    "title": {
+      "en": "Stefan–Boltzmann constant from CODATA 2010 values (NIST Uncertainty Machine §11)",
+      "tr": "CODATA 2010 değerlerinden Stefan–Boltzmann sabiti (NIST Uncertainty Machine §11)"
+    },
+    "description": {
+      "en": "NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 2010 CODATA values; the molar gas constant R contributes almost all the uncertainty.",
+      "tr": "NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸); belirsizliğin neredeyse tamamı molar gaz sabiti R'den gelir."
+    },
+    "explanation": [
+      {
+        "en": "Inputs: h = 6.626 069 57(29) × 10⁻³⁴ J s, R = 8.314 462 1(75) J mol⁻¹ K⁻¹, R∞ = 10 973 731.568 539(55) m⁻¹, A_r(e) = 5.485 799 094 6(22) × 10⁻⁴, α = 7.297 352 569 8(24) × 10⁻³; M_u = 10⁻³ kg/mol and c = 299 792 458 m/s are exact. The result is expressed in 10⁻⁸ W m⁻² K⁻⁴.",
+        "tr": "Girdiler: h = 6,626 069 57(29) × 10⁻³⁴ J s, R = 8,314 462 1(75) J mol⁻¹ K⁻¹, R∞ = 10 973 731,568 539(55) m⁻¹, A_r(e) = 5,485 799 094 6(22) × 10⁻⁴, α = 7,297 352 569 8(24) × 10⁻³; M_u = 10⁻³ kg/mol ve c = 299 792 458 m/s kesindir. Sonuç 10⁻⁸ W m⁻² K⁻⁴ biriminde verilir."
+      },
+      {
+        "en": "For a product of powers the relative variance is Σ(p_i u_r(x_i))²: R enters with power 4 and u_r(R) = 9.0 × 10⁻⁷, so u_r(σ) = 3.6 × 10⁻⁶ and u(σ) = 2.05 × 10⁻¹³ W m⁻² K⁻⁴; the other inputs contribute less than 0.02 %.",
+        "tr": "Üslerin çarpımında bağıl varyans Σ(p_i u_r(x_i))²'dir: R 4. kuvvetle girer ve u_r(R) = 9,0 × 10⁻⁷ olduğundan u_r(σ) = 3,6 × 10⁻⁶ ve u(σ) = 2,05 × 10⁻¹³ W m⁻² K⁻⁴ olur; diğer girdilerin katkısı %0,02'nin altındadır."
+      }
+    ],
+    "field": "physical",
+    "sources": [
+      {
+        "document": "T. Lafarge, A. Possolo, NIST Uncertainty Machine — User's Manual, version 1.4 (NIST, 2020)",
+        "section": "§11, Table 5 and Figure 7",
+        "url": "https://uncertainty.nist.gov/NISTUncertaintyMachine-UserManual.pdf"
+      }
+    ],
+    "tags": [
+      "nist-uncertainty-machine",
+      "codata",
+      "power-law"
+    ],
+    "notes": [
+      {
+        "en": "The CODATA adjustment correlates these constants; as noted in the manual, including the correlations does not change u(σ) at the reported digit. Since the 2019 redefinition of the SI, h is exact and σ = 5.670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ has no uncertainty.",
+        "tr": "CODATA ayarlaması bu sabitleri korelasyonlu kılar; kılavuzda belirtildiği gibi korelasyonların hesaba katılması u(σ)'yı raporlanan basamakta değiştirmez. SI'nın 2019'daki yeniden tanımından beri h kesindir ve σ = 5,670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ belirsizlik taşımaz."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "sigma",
+      "unit": "10⁻⁸ W m⁻² K⁻⁴",
+      "expression": "1e8 * 32 * pi^5 * h * R^4 * R_inf^4 / (15 * A_e^4 * (1e-3)^4 * 299792458^6 * alpha^8)",
+      "description": {
+        "en": "Stefan–Boltzmann constant",
+        "tr": "Stefan–Boltzmann sabiti"
+      }
+    },
+    "inputs": [
+      {
+        "name": "h",
+        "unit": "J s",
+        "description": {
+          "en": "Planck constant",
+          "tr": "Planck sabiti"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 6.62606957e-34,
+          "sd": 2.9e-41
+        }
+      },
+      {
+        "name": "R",
+        "unit": "J/(mol K)",
+        "description": {
+          "en": "Molar gas constant",
+          "tr": "Molar gaz sabiti"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 8.3144621,
+          "sd": 7.5e-06
+        }
+      },
+      {
+        "name": "R_inf",
+        "unit": "1/m",
+        "description": {
+          "en": "Rydberg constant",
+          "tr": "Rydberg sabiti"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 10973731.568539,
+          "sd": 5.5e-05
+        }
+      },
+      {
+        "name": "A_e",
+        "description": {
+          "en": "Relative atomic mass of the electron",
+          "tr": "Elektronun bağıl atom kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.00054857990946,
+          "sd": 2.2e-13
+        }
+      },
+      {
+        "name": "alpha",
+        "description": {
+          "en": "Fine-structure constant",
+          "tr": "İnce yapı sabiti"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0072973525698,
+          "sd": 2.4e-12
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 11,
+      "interval": "symmetric"
+    }
+  },
+  "reporting": {
+    "significant_digits": 3
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 5.6703725,
+        "tolerance": 5e-08
+      },
+      "standard_uncertainty": {
+        "value": 2.05e-05,
+        "tolerance": 5e-07
+      }
+    },
+    "mcm": {
+      "standard_uncertainty": {
+        "value": 2.05e-05,
+        "tolerance": 5e-07
+      },
+      "interval_low": {
+        "value": 5.670332,
+        "tolerance": 5e-07
+      },
+      "interval_high": {
+        "value": 5.6704126,
+        "tolerance": 5e-07
+      },
+      "gum_validated": true
+    },
+    "reference": {
+      "en": "NIST Uncertainty Machine manual §11, Figure 7: σ = 5.670 3725 × 10⁻⁸, u(σ) = 2.05 × 10⁻¹³ W m⁻² K⁻⁴ (Gauss's formula and Monte Carlo), 95 % interval (5.670 332, 5.670 412 6) × 10⁻⁸ W m⁻² K⁻⁴.",
+      "tr": "NIST Uncertainty Machine kılavuzu §11, Şekil 7: σ = 5,670 3725 × 10⁻⁸, u(σ) = 2,05 × 10⁻¹³ W m⁻² K⁻⁴ (Gauss formülü ve Monte Carlo), %95 aralığı (5,670 332; 5,670 412 6) × 10⁻⁸ W m⁻² K⁻⁴."
+    }
+  }
+}

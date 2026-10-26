@@ -748,3 +748,72 @@ library.
 - Observation-equation examples of TN 1900 (regression, random effects) as
   a later module; E5 after truncated distributions are supported.
 - Errata check of TN 1900 before submission (F28–F30).
+
+---
+
+## 2026-10-26 (session 8) — Documents supplied by the author; NIST Uncertainty Machine manual
+
+**D28. Documents received.** The author supplied 13 documents (licensed
+copies of standards are used locally only and are not stored in the
+repository): ISO 21748:2017, ISO 5725-3:2023, ISO 13528:2022,
+ISO 6143:2025 (BS EN), TS EN ISO/IEC 17025:2017, the NIST Uncertainty
+Machine user's manual v1.4 (2020), Wichmann & Hill (2006), Marsaglia &
+Tsang (2000), Magnusson & Ellison (2008), Palma et al. (2019), Mateos et
+al. (2020), Zeier et al. (2012) and Kallner (2002, eJIFCC 13). The list of
+documents still missing is in `documents-needed.md`.
+
+**D29. Random number generators checked against the primary sources.** The
+enhanced Wichmann–Hill generator in `core/src/rng.rs` agrees with §3 of
+Wichmann & Hill (2006) in the multipliers, moduli and both the 64-bit and
+the 32-bit (Schrage) forms; a new test checks the inverses of the
+multipliers and the factorisation of the period (≈ 2.66 × 10³⁶) printed in
+§4. The gamma generator agrees with the procedure of Marsaglia & Tsang
+(2000, §5) including the squeeze 1 − 0.0331x⁴ and the boost
+γ_a = γ_{a+1}U^{1/a} for a < 1. Two remarks for the article: (i) the paper
+notes that the generator can return 0.0 in floating point; the program
+rejects 0 (JCGM 101 C.3.3 requires values in (0, 1) for Box–Muller); (ii)
+seeds are derived from one 64-bit seed by SplitMix64, whereas Wichmann &
+Hill recommend fixing three seeds and numbering the fourth for parallel
+streams — equivalent for single-stream use, to be documented.
+
+**D30. Examples of the NIST Uncertainty Machine manual in the library.**
+Seven projects: §3 ratio y = ab/c, §8 end gauge with Gaussian inputs, §10
+resistance (GUM H.2 with the rounded values), §11 Stefan–Boltzmann
+constant, and GUM H.2 R, X, Z from the unrounded data; §7 and §9 are TN 1900
+E13 and E3, already in the library. §12 (complex-valued output) and §13
+(implicit model, resampled input) need features not yet available
+(multivariate outputs, implicit equations, sample inputs) and are noted for
+JCGM 102 work. 78 projects in total.
+
+### Findings
+
+**F29 resolved (class c).** The NIST Uncertainty Machine's own output for
+the viscosity example (manual Figure 5) gives u(y) = 1 mPa s for Gauss's
+formula, consistent with the first-order value 1.027 mPa s; the 1.11 mPa s
+stated in the text of TN 1900 E3 and of the manual §9 is the Monte Carlo
+standard deviation (printed as 1.1 in the same figure). The statement that
+both methods give the same u is therefore incorrect.
+
+**F33. NUM manual §3 — text inconsistent with its figure (class c).** The
+text says the GUM method gives y = 32.2 and u(y) = 12.5 for y = ab/c; the
+output in Figure 1 gives y = 28.8 and u(y) = 8.7 for Gauss's formula, which
+the program reproduces (32.2 and 13 are the Monte Carlo mean and standard
+deviation). The value 12.5 matches neither method.
+
+**F34. GUM H.2 — sensitivity of u_c(R) to the rounding of r (class a,
+methodological).** With the two-digit correlation coefficients and standard
+uncertainties printed in GUM Table H.2, the law of propagation gives
+u_c(R) = 0.0700 Ω (as does the NIST Uncertainty Machine, 0.0699 Ω); from the
+five raw sets of Table H.2 it gives 0.0711 Ω, the GUM's 0.071 Ω. The
+covariance terms cancel about 70 % of the variance of R, so rounding r to
+two digits changes u_c(R) by 1.5 %. For the article: an example of why
+software validation should start from raw data where they are available,
+and why rounded published correlations can make a reference example fail.
+X and Z change by less than 0.1 % (GUM prints u_c(X) = 0.295 Ω; approach 1
+gives 0.29558, approach 2 0.29549).
+
+**F35. NUM convention for t-distributed inputs.** The manual (§7) assigns
+Student t₃ inputs "with standard deviations" u, i.e. the rescaled
+convention of TN 1900 (F31), not JCGM 101 6.4.9. Its results for the thermal
+expansion coefficient (95 % interval (1.4, 2.05) × 10⁻⁵ K⁻¹) agree with the
+library project `nist-tn1900-e13-thermal-expansion-student-95`.

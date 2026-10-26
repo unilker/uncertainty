@@ -84,8 +84,8 @@ void main() {
   testWidgets('open a library example and calculate it', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1200, 900));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library (71'));
-    expect(find.textContaining('Example library (71'), findsOneWidget);
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    expect(find.textContaining('Example library ('), findsOneWidget);
 
     await tester.enterText(find.byKey(const Key('search')), 'quam-a1-cadmium-standard-volume');
     await tester.pumpAndSettle();
@@ -108,7 +108,7 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(1200, 900));
     final state = AppState('en');
     await tester.pumpWidget(UncertaintyApp(state: state));
-    await pumpUntilFound(tester, find.textContaining('Example library (71'));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
     await tester.enterText(find.byKey(const Key('search')), 'nist-tn1900-e11');
     await tester.pumpAndSettle();
     await tester.tap(find.text('Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)'));
@@ -129,7 +129,7 @@ void main() {
   testWidgets('top-down forms show and edit the raw data', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library (71'));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
     await tester.enterText(find.byKey(const Key('search')), 'nordtest-8-bod-pt');
     await tester.pumpAndSettle();
     await tester.tap(find.text('BOD in wastewater: control chart and proficiency tests'));

@@ -114,6 +114,17 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | TN-E11 | step attenuator (EA S7, arcsine δL_M, δL_D, δL_K; t₃ L_S) | 30.043 dB, u 0.0224 dB, [30.006, 30.081] | same (MCM only) | ✅ (F31) |
 | TN-E13 | thermal expansion, Gaussian / t₃ inputs, 95 % / 99 % | 1.73e-5, u 0.18e-5 K⁻¹; (1.38, 2.07), (1.27, 2.18), (1.40, 2.05), (1.15, 2.30) | same (4 projects) | ✅ (F31) |
 
+## NIST Uncertainty Machine manual v1.4 (2020) and GUM H.2 — library projects
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| NUM-3 | y = ab/c, triangular divisor | Gauss 28.8, u 8.7; MCM 32.2, sd 13, (18.2, 67) | same | ✅ (F33) |
+| NUM-8 | end gauge, Gaussian inputs | Gauss u 31.7 nm; MCM sd 33.9 nm, 99 % (50 000 749, 50 000 927) | same; zero-sensitivity warning 13 % | ✅ |
+| NUM-10 | GUM H.2 R with rounded Table H.2 values | Gauss 0.07; MCM sd 0.0699, (127.595, 127.869) Ω | 0.0700; same | ✅ (F34) |
+| NUM-11 | Stefan–Boltzmann constant (CODATA 2010) | 5.670 3725e-8, u 2.05e-13 | same | ✅ |
+| GUM-H.2 | R, X, Z from the raw sets of Table H.2 | 0.071, 0.295, 0.236 Ω | 0.0711, 0.2956, 0.2363 | ✅ (F34) |
+| NUM-7, NUM-9 | thermal expansion (t₃), viscosity | = TN 1900 E13, E3 | see above | ✅ (F29, F35) |
+
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
 | Case | y | u | shortest lo | shortest hi | shortest length | symmetric lo | symmetric hi |

@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**71 examples / örnek** (49 model, 22 top-down).
+**78 examples / örnek** (56 model, 22 top-down).
 
 ## Chemistry / Kimya
 
@@ -73,6 +73,9 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ea402-s6-power-sensor-18ghz`](electrical/ea402-s6-power-sensor-18ghz.json) | Calibration of a power sensor at 18 GHz | Bir güç sensörünün 18 GHz'de kalibrasyonu | EA-4/02 M:2022 S6 |
 | [`ea402-s7-step-attenuator-30db`](electrical/ea402-s7-step-attenuator-30db.json) | Calibration of a coaxial step attenuator (30 dB) | Koaksiyel kademeli zayıflatıcının kalibrasyonu (30 dB) | EA-4/02 M:2022 S7 |
 | [`ea402-s9-dmm-100v`](electrical/ea402-s9-dmm-100v.json) | Calibration of a hand-held digital multimeter at 100 V | El tipi sayısal multimetrenin 100 V'ta kalibrasyonu | EA-4/02 M:2022 S9 |
+| [`gum-h2-impedance`](electrical/gum-h2-impedance.json) | Impedance magnitude from correlated V and I (GUM H.2) | Korelasyonlu V ve I'dan empedans büyüklüğü (GUM H.2) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
+| [`gum-h2-reactance`](electrical/gum-h2-reactance.json) | Reactance from correlated V, I and φ (GUM H.2) | Korelasyonlu V, I ve φ'den reaktans (GUM H.2) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
+| [`gum-h2-resistance`](electrical/gum-h2-resistance.json) | Resistance from correlated V, I and φ (GUM H.2) | Korelasyonlu V, I ve φ'den direnç (GUM H.2) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
 | [`jcgm101-9.4-comparison-loss-x000-correlated`](electrical/jcgm101-9.4-comparison-loss-x000-correlated.json) | Comparison loss, x₁ = 0.0, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,0, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x000`](electrical/jcgm101-9.4-comparison-loss-x000.json) | Comparison loss, x₁ = 0.0 | Karşılaştırma kaybı, x₁ = 0,0 | JCGM 101:2008 9.4, Table 8 |
 | [`jcgm101-9.4-comparison-loss-x010-correlated`](electrical/jcgm101-9.4-comparison-loss-x010-correlated.json) | Comparison loss, x₁ = 0.01, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,01, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
@@ -80,6 +83,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`jcgm101-9.4-comparison-loss-x050-correlated`](electrical/jcgm101-9.4-comparison-loss-x050-correlated.json) | Comparison loss, x₁ = 0.05, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,05, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x050`](electrical/jcgm101-9.4-comparison-loss-x050.json) | Comparison loss, x₁ = 0.05 | Karşılaştırma kaybı, x₁ = 0,05 | JCGM 101:2008 9.4, Table 8 |
 | [`nist-tn1900-e11-step-attenuator`](electrical/nist-tn1900-e11-step-attenuator.json) | Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11) | Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11) | NIST Technical Note 1900 Example E11, Exhibits 16 and 17 |
+| [`num-10-resistance`](electrical/num-10-resistance.json) | Resistance with the rounded values of GUM Table H.2 (NIST Uncertainty Machine §10) | GUM Tablo H.2'nin yuvarlanmış değerleriyle direnç (NIST Uncertainty Machine §10) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
 
 ## Flow and volume / Akış ve hacim
 
@@ -97,6 +101,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`jcgm101-9.2.2-additive-gaussian`](general/jcgm101-9.2.2-additive-gaussian.json) | Additive model with Gaussian inputs | Normal dağılımlı girdilerle toplamsal model | JCGM 101:2008 9.2.2 |
 | [`jcgm101-9.2.3-additive-rectangular`](general/jcgm101-9.2.3-additive-rectangular.json) | Additive model with rectangular inputs | Dikdörtgen dağılımlı girdilerle toplamsal model | JCGM 101:2008 9.2.3 |
 | [`jcgm101-9.2.4-additive-dominant-rectangular`](general/jcgm101-9.2.4-additive-dominant-rectangular.json) | Additive model with a dominant rectangular input | Baskın dikdörtgen girdili toplamsal model | JCGM 101:2008 9.2.4 |
+| [`num-3-ratio-abc`](general/num-3-ratio-abc.json) | Product and ratio y = ab/c with a wide triangular divisor (NIST Uncertainty Machine §3) | Geniş üçgen bölenli çarpım ve oran y = ab/c (NIST Uncertainty Machine §3) | T. Lafarge §3, Figure 1 |
 
 ## Length / Uzunluk
 
@@ -109,6 +114,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`gum-h1-end-gauge`](length/gum-h1-end-gauge.json) | End-gauge calibration (GUM H.1) | Uç mastarı kalibrasyonu (GUM H.1) | JCGM 100:2008 H.1, Table H.1 |
 | [`jcgm101-9.5-gauge-block-approximate`](length/jcgm101-9.5-gauge-block-approximate.json) | Gauge block calibration, approximate model | Mastar kalibrasyonu, yaklaşık model | JCGM 101:2008 9.5, Tables 10 and 11 |
 | [`jcgm101-9.5-gauge-block-nonlinear`](length/jcgm101-9.5-gauge-block-nonlinear.json) | Gauge block calibration, non-linear model | Mastar kalibrasyonu, doğrusal olmayan model | JCGM 101:2008 9.5, Tables 10 and 11 |
+| [`num-8-end-gauge-gaussian`](length/num-8-end-gauge-gaussian.json) | End-gauge calibration with Gaussian inputs (NIST Uncertainty Machine §8) | Normal girdilerle uç mastarı kalibrasyonu (NIST Uncertainty Machine §8) | T. Lafarge §8, Table 3 and Figure 3 |
 
 ## Mass / Kütle
 
@@ -128,6 +134,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`nist-tn1900-e13-thermal-expansion-student-95`](physical/nist-tn1900-e13-thermal-expansion-student-95.json) | Thermal expansion coefficient, Student t₃ inputs, 95 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, Student t₃ girdiler, %95 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
 | [`nist-tn1900-e13-thermal-expansion-student-99`](physical/nist-tn1900-e13-thermal-expansion-student-99.json) | Thermal expansion coefficient, Student t₃ inputs, 99 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, Student t₃ girdiler, %99 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
 | [`nist-tn1900-e3-falling-ball-viscometer`](physical/nist-tn1900-e3-falling-ball-viscometer.json) | Falling-ball viscometer (NIST TN 1900 E3) | Düşen bilyalı viskozimetre (NIST TN 1900 E3) | NIST Technical Note 1900 Example E3, Exhibit 3 |
+| [`num-11-stefan-boltzmann`](physical/num-11-stefan-boltzmann.json) | Stefan–Boltzmann constant from CODATA 2010 values (NIST Uncertainty Machine §11) | CODATA 2010 değerlerinden Stefan–Boltzmann sabiti (NIST Uncertainty Machine §11) | T. Lafarge §11, Table 5 and Figure 7 |
 
 ## Temperature / Sıcaklık
 
