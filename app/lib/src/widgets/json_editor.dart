@@ -16,8 +16,7 @@ class JsonEditor extends StatefulWidget {
 }
 
 class _JsonEditorState extends State<JsonEditor> {
-  late final TextEditingController _text =
-      TextEditingController(text: const JsonEncoder.withIndent('  ').convert(widget.project));
+  late final TextEditingController _text = TextEditingController(text: const JsonEncoder.withIndent('  ').convert(widget.project));
   String? _error;
 
   @override
@@ -47,27 +46,32 @@ class _JsonEditorState extends State<JsonEditor> {
     final s = AppScope.of(context).s;
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(children: [
-          Expanded(child: Text(s['json_help'])),
-          FilledButton(onPressed: _apply, child: Text(s['apply'])),
-        ]),
-        if (_error != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(child: Text(s['json_help'])),
+              FilledButton(onPressed: _apply, child: Text(s['apply'])),
+            ],
           ),
-        const SizedBox(height: 8),
-        Expanded(
-          child: TextField(
-            controller: _text,
-            expands: true,
-            maxLines: null,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
-            decoration: const InputDecoration(border: OutlineInputBorder()),
+          if (_error != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: TextField(
+              controller: _text,
+              expands: true,
+              maxLines: null,
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }

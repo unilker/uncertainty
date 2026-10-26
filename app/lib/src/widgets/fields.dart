@@ -6,15 +6,7 @@ import '../format.dart';
 /// A text field bound to a key of a JSON object: numbers are parsed (decimal
 /// comma accepted), an empty field removes the key.
 class NumberField extends StatelessWidget {
-  const NumberField({
-    super.key,
-    required this.map,
-    required this.field,
-    required this.label,
-    required this.onChanged,
-    this.integer = false,
-    this.width = 180,
-  });
+  const NumberField({super.key, required this.map, required this.field, required this.label, required this.onChanged, this.integer = false, this.width = 180});
   final Map<String, dynamic> map;
   final String field;
   final String label;
@@ -90,8 +82,7 @@ class StringField extends StatelessWidget {
 
 /// A multi-line field holding a list of numbers (one per line).
 class ListField extends StatelessWidget {
-  const ListField(
-      {super.key, required this.map, required this.field, required this.label, required this.onChanged});
+  const ListField({super.key, required this.map, required this.field, required this.label, required this.onChanged});
   final Map<String, dynamic> map;
   final String field;
   final String label;
@@ -122,8 +113,7 @@ class ListField extends StatelessWidget {
 
 /// A multi-line field holding rows of two numbers.
 class PairsField extends StatelessWidget {
-  const PairsField(
-      {super.key, required this.map, required this.field, required this.label, required this.onChanged});
+  const PairsField({super.key, required this.map, required this.field, required this.label, required this.onChanged});
   final Map<String, dynamic> map;
   final String field;
   final String label;
@@ -132,10 +122,7 @@ class PairsField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = AppScope.of(context).lang;
-    final v = (map[field] as List?)
-            ?.map((p) => (p as List).map((e) => fmtGivenIn(e as num, lang)).join('\t'))
-            .join('\n') ??
-        '';
+    final v = (map[field] as List?)?.map((p) => (p as List).map((e) => fmtGivenIn(e as num, lang)).join('\t')).join('\n') ?? '';
     return TextFormField(
       initialValue: v,
       minLines: 3,
@@ -155,6 +142,41 @@ class PairsField extends StatelessWidget {
   }
 }
 
+/// A multi-line field holding rows of a fixed number of values.
+class RowsField extends StatelessWidget {
+  const RowsField({super.key, required this.map, required this.field, required this.columns, required this.label, required this.onChanged});
+  final Map<String, dynamic> map;
+  final String field;
+  final int columns;
+  final String label;
+  final VoidCallback onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final lang = AppScope.of(context).lang;
+    final v = (map[field] as List?)?.map((p) => (p as List).map((e) => fmtGivenIn(e as num, lang)).join('\t')).join('\n') ?? '';
+    return TextFormField(
+      initialValue: v,
+      minLines: 3,
+      maxLines: 14,
+      style: const TextStyle(fontFamily: 'monospace'),
+      decoration: InputDecoration(labelText: label, alignLabelWithHint: true),
+      onChanged: (t) {
+        final rows = parseRows(t, min: columns);
+        if (rows == null || rows.isEmpty || rows.first.length != columns) {
+          if (t.trim().isEmpty) {
+            map.remove(field);
+            onChanged();
+          }
+          return;
+        }
+        map[field] = rows;
+        onChanged();
+      },
+    );
+  }
+}
+
 /// A section heading.
 class Section extends StatelessWidget {
   const Section(this.title, {super.key, this.trailing});
@@ -165,10 +187,12 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16, bottom: 8),
-      child: Row(children: [
-        Expanded(child: Text(title, style: Theme.of(context).textTheme.titleMedium)),
-        ?trailing,
-      ]),
+      child: Row(
+        children: [
+          Expanded(child: Text(title, style: Theme.of(context).textTheme.titleMedium)),
+          ?trailing,
+        ],
+      ),
     );
   }
 }

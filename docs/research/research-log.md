@@ -539,7 +539,7 @@ respective files as notes.
 - **Q14.** MUPR B3 uses a linear precision model s(c) = a + b·c fitted to
   (c, s) pairs; add a `linear` precision model (fit from raw pairs) or keep
   the two-interval and continuous models only?
-- **Q15.** ISO 21748 / ISO 5725 reproducibility-based budgets (s_R with
+- **Q15.** *(closed 2026-10-26, D32)* ISO 21748 / ISO 5725 reproducibility-based budgets (s_R with
   bias and additional terms) fit the top-down type already; validate against
   the standards' examples when the documents are available.
 
@@ -854,3 +854,36 @@ step no result remains outside x* ± 1.5s*. A robust average is therefore no
 safeguard against a mixture of populations; ISO 13528 handles this case by a
 reference value (as in E.4) or separate assigned values per method (9.2.2 c).
 A note for the guide chapter and the article.
+
+**D32. Precision from collaborative studies (closes Q15).** Two top-down
+precision types: `reproducibility` (ISO 21748:2017) — √(s_L² + s²/n_r) with the
+laboratory's verified repeatability s_l in place of s_r (7.3.2), n_r averaged
+replicates (Table 1), the method-bias uncertainty of Formula (15) and the
+bias-control check |Δ_l| < 2s_D of Formulae (4)–(5); and `staggered_nested`
+(ISO 5725-3:2023, Annex C.1), whose ANOVA gives s_r, s_I(T) and s_R. The
+library gains ISO 21748 C.1 (CO emissions), C.2 (meat content, as a GUM model
+with relative error terms e_L, e_r, e_fat — the model of Formula (1) written
+explicitly), C.3 (aerobic plate count, three foods) and C.4 (crude fibre), and
+ISO 5725-3 J.1 (carbon in steel) and J.2 (vanadium, level 1). 90 projects.
+
+**F38. ISO 21748 C.4.7 — "dividing … by 3" (class b).** The uncertainty of
+drying to constant mass, 0.115 % for 0.002 g on 1 g, is said to be obtained by
+dividing the maximum deviation by 3; it is 0.002/√3 (rectangular). With the
+text's 3 it would be 0.067 %.
+
+**F39. ISO 21748 C.3 — flour (class c).** Table C.4 prints u = 6.4 % and C.3.7
+U = 12.8 % for flour; the table's own inputs (2.4, 5.0, 3.0 %) give 6.30 % (6.29 %
+with the unrounded s_L) and U = 12.6 %. Shrimp (7.8 %) and vegetables (8.9 %)
+are reproduced. The intervals of Table C.5 for flour follow from 12.8 %.
+
+**F40. ISO 5725-3 J.2 — Table J.5 not reproducible at levels 3–5 (class c,
+to verify against the printed standard).** From the data of Table J.2 (as
+extracted from the PDF) with the stated outlier exclusions, levels 1 and 2 of
+Table J.5 are reproduced exactly (e.g. 0.381, 0.603, 0.801 × 10⁻³ %), and level 6
+gives s_r = s_I(T) = 9.545 × 10⁻³ as printed but s_R = 16.33 instead of 15.962.
+Levels 3, 4 and 5 differ in all three standard deviations (level 3: 0.652,
+2.348, 2.777 against 1.739, 2.305, 2.650; level 5: lab 3's 0.599 % dominates
+s_r). No exclusion of up to three laboratories and no permutation of the
+columns reproduces them. Also, the column "Average (%)" of Table J.5 carries
+a spurious "× 10⁻³". Before reporting, the extracted data should be compared
+with the printed table.

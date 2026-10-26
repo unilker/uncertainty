@@ -1,0 +1,95 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso21748-c1-co-emissions",
+    "title": {
+      "en": "Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)",
+      "tr": "Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)"
+    },
+    "description": {
+      "en": "ISO 21748:2017 C.1: type-approval test of CO emissions; with bias and precision under control the reproducibility standard deviation of the collaborative study is the standard uncertainty.",
+      "tr": "ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrarüretilebilirlik standart sapması standart belirsizliktir."
+    },
+    "explanation": [
+      {
+        "en": "An interlaboratory study according to ISO 5725-2 gave s_r = 0.22 g/km and s_R = 0.28 g/km, so s_L = √(s_R² − s_r²) = 0.17 g/km.",
+        "tr": "ISO 5725-2'ye göre yapılan bir laboratuvarlar arası çalışma s_r = 0,22 g/km ve s_R = 0,28 g/km vermiştir; dolayısıyla s_L = √(s_R² − s_r²) = 0,17 g/km'dir."
+      },
+      {
+        "en": "Trueness is controlled by calibration of the gas analyser and the roller bench, whose uncertainties are negligible against s_R; the laboratory's repeatability (0.20 g/km) is within that of the study (ISO 21748 7.2, 7.3).",
+        "tr": "Doğruluk, gaz analizörünün ve silindir tezgâhının kalibrasyonuyla kontrol edilir; bunların belirsizlikleri s_R'ye göre ihmal edilebilir; laboratuvarın tekrarlanabilirliği (0,20 g/km) çalışmanınkiyle uyumludur (ISO 21748 7.2, 7.3)."
+      },
+      {
+        "en": "No operation is outside the collaborative study, so u = s_R = 0.28 g/km (Formula 3) and U = 0.56 g/km (k = 2), evaluated near the limit 2.2 g/km.",
+        "tr": "Ortak çalışmanın dışında kalan bir işlem yoktur; bu nedenle u = s_R = 0,28 g/km (Formül 3) ve U = 0,56 g/km'dir (k = 2); değerlendirme 2,2 g/km sınırı yakınında yapılmıştır."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+        "section": "Annex C.1",
+        "url": "https://www.iso.org/standard/71615.html"
+      }
+    ],
+    "tags": [
+      "iso21748",
+      "reproducibility",
+      "collaborative-study"
+    ],
+    "notes": [
+      {
+        "en": "The laboratory's repeatability is not substituted for s_r here (as in ISO 21748 C.1); with lab_repeatability = 0.20 g/km, 7.3.2 would give s′_R = √(s_L² + s_l²) = 0.26 g/km.",
+        "tr": "Burada laboratuvarın tekrarlanabilirliği s_r yerine konmamıştır (ISO 21748 C.1'deki gibi); lab_repeatability = 0,20 g/km ile 7.3.2, s′_R = √(s_L² + s_l²) = 0,26 g/km verirdi."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "CO",
+    "unit": "g/km",
+    "levels": [
+      2.2
+    ],
+    "precision": [
+      {
+        "name": "s_R",
+        "data": {
+          "type": "reproducibility",
+          "sd_reproducibility": 0.28,
+          "sd_repeatability": 0.22
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s_R": {
+          "value": 0.28,
+          "tolerance": 0.0005
+        }
+      },
+      "levels": [
+        {
+          "level": 2.2,
+          "standard_uncertainty": {
+            "value": 0.28,
+            "tolerance": 0.0005
+          },
+          "expanded_uncertainty": {
+            "value": 0.56,
+            "tolerance": 0.0005
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "ISO 21748:2017 C.1.2 and C.1.6 (s_r = 0.22, s_R = 0.28 g/km, U = 0.56 g/km).",
+      "tr": "ISO 21748:2017 C.1.2 ve C.1.6 (s_r = 0,22, s_R = 0,28 g/km, U = 0,56 g/km)."
+    }
+  }
+}

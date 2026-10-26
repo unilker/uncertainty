@@ -63,16 +63,10 @@ class UncertaintyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             locale: Locale(state.lang),
             supportedLocales: const [Locale('en'), Locale('tr')],
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
+            localizationsDelegates: const [GlobalMaterialLocalizations.delegate, GlobalWidgetsLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
             theme: ThemeData(colorSchemeSeed: seed, useMaterial3: true),
             darkTheme: ThemeData(colorSchemeSeed: seed, brightness: Brightness.dark, useMaterial3: true),
-            home: project == null
-                ? const HomeScreen()
-                : ProjectScreen(project: project!, filePath: projectPath, runOnOpen: runOnOpen),
+            home: project == null ? const HomeScreen() : ProjectScreen(project: project!, filePath: projectPath, runOnOpen: runOnOpen),
           );
         },
       ),

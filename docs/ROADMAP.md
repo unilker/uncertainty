@@ -13,5 +13,5 @@
 | 3 | JSON project files; CLI (`run`, `check`, `template`); TR/EN reports (Markdown, HTML with SVG charts, JSON) with citation footer | **done** (PDF/CSV export: planned) |
 | 4 | Flutter UI (desktop + mobile), Rust bridge, TR/EN localisation | **in progress**: C interface crate, Flutter app (library, editors, results, export), Linux build tested; Android APK (engine for three ABIs) and Windows/Linux packages built by the Package workflow; macOS/iOS next |
 | 5 | Calibration (EA-4/02 examples), conformity assessment (JCGM 106), multivariate outputs (JCGM 102) | planned |
-| 6 | Example library (hundreds of validated, explained cases) and the TR/EN guide | **in progress**: 82 self-checking projects; TR/EN user guide (8 chapters + generated examples chapter) |
+| 6 | Example library (hundreds of validated, explained cases) and the TR/EN guide | **in progress**: 90 self-checking projects; TR/EN user guide (8 chapters + generated examples chapter) |
 | 7 | Independent review, benchmarks vs NUM/Suncal, release with DOI, manuscript | planned |

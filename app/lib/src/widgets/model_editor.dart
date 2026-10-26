@@ -53,42 +53,67 @@ class _ModelEditorState extends State<ModelEditor> {
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
       children: [
         Section(s['output']),
-        Wrap(spacing: 12, runSpacing: 8, children: [
-          StringField(map: output, field: 'name', label: s['name'], width: 160, keepEmpty: true, onChanged: widget.onChanged),
-          StringField(map: output, field: 'unit', label: s['unit'], width: 120, onChanged: widget.onChanged),
-        ]),
+        Wrap(
+          spacing: 12,
+          runSpacing: 8,
+          children: [
+            StringField(map: output, field: 'name', label: s['name'], width: 160, keepEmpty: true, onChanged: widget.onChanged),
+            StringField(map: output, field: 'unit', label: s['unit'], width: 120, onChanged: widget.onChanged),
+          ],
+        ),
         const SizedBox(height: 8),
-        StringField(
-            map: output, field: 'expression', label: s['expression'], keepEmpty: true, monospace: true, onChanged: widget.onChanged),
-        Section(s['intermediates'],
-            trailing: IconButton(
-              tooltip: s['add'],
-              icon: const Icon(Icons.add),
-              onPressed: () => _edit(() => intermediates.add(<String, dynamic>{'name': 'z${intermediates.length + 1}', 'expression': '0'})),
-            )),
+        StringField(map: output, field: 'expression', label: s['expression'], keepEmpty: true, monospace: true, onChanged: widget.onChanged),
+        Section(
+          s['intermediates'],
+          trailing: IconButton(
+            tooltip: s['add'],
+            icon: const Icon(Icons.add),
+            onPressed: () => _edit(() => intermediates.add(<String, dynamic>{'name': 'z${intermediates.length + 1}', 'expression': '0'})),
+          ),
+        ),
         for (var i = 0; i < intermediates.length; i++)
           Padding(
             key: ObjectKey(intermediates[i]),
             padding: const EdgeInsets.only(bottom: 8),
-            child: Row(children: [
-              StringField(map: intermediates[i] as Map<String, dynamic>, field: 'name', label: s['name'], width: 140, keepEmpty: true, onChanged: widget.onChanged),
-              const SizedBox(width: 12),
-              Expanded(
+            child: Row(
+              children: [
+                StringField(
+                  map: intermediates[i] as Map<String, dynamic>,
+                  field: 'name',
+                  label: s['name'],
+                  width: 140,
+                  keepEmpty: true,
+                  onChanged: widget.onChanged,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
                   child: StringField(
-                      map: intermediates[i] as Map<String, dynamic>, field: 'expression', label: s['expression'], keepEmpty: true, monospace: true, onChanged: widget.onChanged)),
-              IconButton(tooltip: s['remove'], icon: const Icon(Icons.delete_outline), onPressed: () => _edit(() => intermediates.removeAt(i))),
-            ]),
+                    map: intermediates[i] as Map<String, dynamic>,
+                    field: 'expression',
+                    label: s['expression'],
+                    keepEmpty: true,
+                    monospace: true,
+                    onChanged: widget.onChanged,
+                  ),
+                ),
+                IconButton(tooltip: s['remove'], icon: const Icon(Icons.delete_outline), onPressed: () => _edit(() => intermediates.removeAt(i))),
+              ],
+            ),
           ),
-        Section(s['inputs'],
-            trailing: FilledButton.tonalIcon(
-              key: const Key('add-input'),
-              icon: const Icon(Icons.add),
-              label: Text(s['add_input']),
-              onPressed: () => _edit(() => inputs.add(<String, dynamic>{
-                    'name': 'x${inputs.length + 1}',
-                    'distribution': <String, dynamic>{'type': 'normal', 'mean': 0.0, 'sd': 1.0},
-                  })),
-            )),
+        Section(
+          s['inputs'],
+          trailing: FilledButton.tonalIcon(
+            key: const Key('add-input'),
+            icon: const Icon(Icons.add),
+            label: Text(s['add_input']),
+            onPressed: () => _edit(
+              () => inputs.add(<String, dynamic>{
+                'name': 'x${inputs.length + 1}',
+                'distribution': <String, dynamic>{'type': 'normal', 'mean': 0.0, 'sd': 1.0},
+              }),
+            ),
+          ),
+        ),
         for (var i = 0; i < inputs.length; i++)
           InputCard(
             key: ObjectKey(inputs[i]),
@@ -97,22 +122,28 @@ class _ModelEditorState extends State<ModelEditor> {
             onChanged: widget.onChanged,
             onRemove: () => _edit(() => inputs.removeAt(i)),
           ),
-        Section(s['correlations'],
-            trailing: IconButton(
-              tooltip: s['add'],
-              icon: const Icon(Icons.add),
-              onPressed: () => _edit(() => correlations.add(<String, dynamic>{'a': '', 'b': '', 'r': 0.0})),
-            )),
+        Section(
+          s['correlations'],
+          trailing: IconButton(
+            tooltip: s['add'],
+            icon: const Icon(Icons.add),
+            onPressed: () => _edit(() => correlations.add(<String, dynamic>{'a': '', 'b': '', 'r': 0.0})),
+          ),
+        ),
         for (var i = 0; i < correlations.length; i++)
           Padding(
             key: ObjectKey(correlations[i]),
             padding: const EdgeInsets.only(bottom: 8),
-            child: Wrap(spacing: 12, crossAxisAlignment: WrapCrossAlignment.center, children: [
-              StringField(map: correlations[i] as Map<String, dynamic>, field: 'a', label: 'a', width: 120, keepEmpty: true, onChanged: widget.onChanged),
-              StringField(map: correlations[i] as Map<String, dynamic>, field: 'b', label: 'b', width: 120, keepEmpty: true, onChanged: widget.onChanged),
-              NumberField(map: correlations[i] as Map<String, dynamic>, field: 'r', label: 'r', width: 100, onChanged: widget.onChanged),
-              IconButton(tooltip: s['remove'], icon: const Icon(Icons.delete_outline), onPressed: () => _edit(() => correlations.removeAt(i))),
-            ]),
+            child: Wrap(
+              spacing: 12,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                StringField(map: correlations[i] as Map<String, dynamic>, field: 'a', label: 'a', width: 120, keepEmpty: true, onChanged: widget.onChanged),
+                StringField(map: correlations[i] as Map<String, dynamic>, field: 'b', label: 'b', width: 120, keepEmpty: true, onChanged: widget.onChanged),
+                NumberField(map: correlations[i] as Map<String, dynamic>, field: 'r', label: 'r', width: 100, onChanged: widget.onChanged),
+                IconButton(tooltip: s['remove'], icon: const Icon(Icons.delete_outline), onPressed: () => _edit(() => correlations.removeAt(i))),
+              ],
+            ),
           ),
       ],
     );
@@ -155,40 +186,52 @@ class _InputCardState extends State<InputCard> {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(children: [
-            Expanded(
-              child: Wrap(spacing: 12, runSpacing: 8, crossAxisAlignment: WrapCrossAlignment.end, children: [
-                StringField(map: widget.input, field: 'name', label: s['name'], width: 140, keepEmpty: true, onChanged: widget.onChanged),
-                StringField(map: widget.input, field: 'unit', label: s['unit'], width: 100, onChanged: widget.onChanged),
-                SizedBox(
-                  width: 230,
-                  child: DropdownButtonFormField<String>(
-                    initialValue: distributionParameters.containsKey(type) ? type : null,
-                    isExpanded: true,
-                    decoration: InputDecoration(labelText: s['distribution'], isDense: true),
-                    items: [
-                      for (final t in distributionParameters.keys) DropdownMenuItem(value: t, child: Text(s.distribution(t))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Wrap(
+                    spacing: 12,
+                    runSpacing: 8,
+                    crossAxisAlignment: WrapCrossAlignment.end,
+                    children: [
+                      StringField(map: widget.input, field: 'name', label: s['name'], width: 140, keepEmpty: true, onChanged: widget.onChanged),
+                      StringField(map: widget.input, field: 'unit', label: s['unit'], width: 100, onChanged: widget.onChanged),
+                      SizedBox(
+                        width: 230,
+                        child: DropdownButtonFormField<String>(
+                          initialValue: distributionParameters.containsKey(type) ? type : null,
+                          isExpanded: true,
+                          decoration: InputDecoration(labelText: s['distribution'], isDense: true),
+                          items: [for (final t in distributionParameters.keys) DropdownMenuItem(value: t, child: Text(s.distribution(t)))],
+                          onChanged: (t) => t == null ? null : _setType(t),
+                        ),
+                      ),
+                      NumberField(map: widget.input, field: 'dof', label: s['dof'], width: 140, onChanged: widget.onChanged),
                     ],
-                    onChanged: (t) => t == null ? null : _setType(t),
                   ),
                 ),
-                NumberField(map: widget.input, field: 'dof', label: s['dof'], width: 140, onChanged: widget.onChanged),
-              ]),
+                IconButton(tooltip: s['remove'], icon: const Icon(Icons.delete_outline), onPressed: widget.onRemove),
+              ],
             ),
-            IconButton(tooltip: s['remove'], icon: const Icon(Icons.delete_outline), onPressed: widget.onRemove),
-          ]),
-          const SizedBox(height: 8),
-          KeyedSubtree(
-            key: ValueKey(type),
-            child: type == 'type_a'
-                ? ListField(map: _dist, field: 'observations', label: s['observations'], onChanged: widget.onChanged)
-                : Wrap(spacing: 12, runSpacing: 8, children: [
-                    for (final p in params)
-                      NumberField(map: _dist, field: p, label: s.parameter(p), integer: p == 'n', width: 170, onChanged: widget.onChanged),
-                  ]),
-          ),
-        ]),
+            const SizedBox(height: 8),
+            KeyedSubtree(
+              key: ValueKey(type),
+              child: type == 'type_a'
+                  ? ListField(map: _dist, field: 'observations', label: s['observations'], onChanged: widget.onChanged)
+                  : Wrap(
+                      spacing: 12,
+                      runSpacing: 8,
+                      children: [
+                        for (final p in params)
+                          NumberField(map: _dist, field: p, label: s.parameter(p), integer: p == 'n', width: 170, onChanged: widget.onChanged),
+                      ],
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

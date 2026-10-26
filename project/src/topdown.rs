@@ -203,6 +203,96 @@ pub enum PrecisionData {
     },
     /// s(c) = √(s₀² + (c·s′₁)²) [MUPR Eq. (A.1)–(A.4)].
     Continuous { sd0: f64, rsd1_percent: f64 },
+    /// Reproducibility and repeatability of a collaborative study
+    /// [ISO 21748:2017 Formulae (3), (14), (15)]: u² = s_L² + s_r²/n_r
+    /// (+ u²(δ̂)), with the laboratory's own repeatability in place of s_r if
+    /// given (7.3.2). All fields absolute, or all `_percent` (relative).
+    Reproducibility {
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd_reproducibility: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd_reproducibility_percent: Option<f64>,
+        /// Between-laboratory s_L, instead of s_R.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd_between_labs: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd_between_labs_percent: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd_repeatability: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd_repeatability_percent: Option<f64>,
+        /// The laboratory's repeatability s_l (7.3.2).
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        lab_repeatability: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        lab_repeatability_percent: Option<f64>,
+        /// Number n_r of complete replicates averaged for a result (Table 1).
+        #[serde(default = "default_one_usize")]
+        replicates: usize,
+        /// Uncertainty of the method bias estimated in the collaborative
+        /// study, Formula (15).
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        method_bias: Option<MethodBiasSpec>,
+        /// Check of the laboratory component of bias, Formulae (4)–(5).
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        bias_check: Option<BiasCheckSpec>,
+    },
+    /// Two-factor staggered-nested design [ISO 5725-3:2023 7.2, Annex C.1]:
+    /// rows of (two results on day 1, one result on day 2), one row per
+    /// sample, group or laboratory.
+    StaggeredNested {
+        results: Vec<[f64; 3]>,
+        /// Which standard deviation is used: `repeatability`,
+        /// `intermediate` (time-different, default) or `reproducibility`.
+        #[serde(default)]
+        estimate: NestedEstimate,
+        /// Relative to the grand mean.
+        #[serde(default)]
+        relative: bool,
+    },
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum NestedEstimate {
+    Repeatability,
+    #[default]
+    Intermediate,
+    Reproducibility,
+}
+
+fn default_one_usize() -> usize {
+    1
+}
+
+/// Formula (15): u²(δ̂) = (s_R² − (1 − 1/n) s_r²)/p + u²(μ̂).
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct MethodBiasSpec {
+    /// Number of laboratories p and replicates n of the trueness study.
+    pub labs: usize,
+    pub replicates: usize,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub u_reference: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub u_reference_percent: Option<f64>,
+}
+
+/// Formulae (4) and (5): |Δ_l| < 2σ_D with s_D² = s_L² + s_w²/n_l.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct BiasCheckSpec {
+    /// Laboratory bias Δ_l on a reference material (mean − certified value).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bias: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bias_percent: Option<f64>,
+    /// Within-laboratory standard deviation s_w of the n_l replicates.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sd_within: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sd_within_percent: Option<f64>,
+    pub n: usize,
 }
 
 /// A precision standard deviation that depends on the level (absolute).
@@ -559,6 +649,26 @@ pub enum PrecisionMethod {
     Given,
     Linear,
     Continuous,
+    Reproducibility,
+    StaggeredNested,
+}
+
+/// Breakdown of an ISO 21748 reproducibility-based precision component
+/// (fractions if relative).
+#[derive(Clone, Debug, PartialEq)]
+pub struct ReproducibilityDetail {
+    pub s_reproducibility: f64,
+    pub s_between_labs: f64,
+    pub s_repeatability: f64,
+    /// Repeatability used: s_l if given, otherwise s_r.
+    pub s_repeatability_used: f64,
+    pub lab_repeatability_used: bool,
+    pub replicates: usize,
+    /// √(s_L² + s²/n_r), the adjusted reproducibility.
+    pub s_adjusted: f64,
+    pub u_method_bias: Option<f64>,
+    /// (|Δ_l|, s_D, |Δ_l| < 2 s_D).
+    pub bias_check: Option<(f64, f64, bool)>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -580,6 +690,9 @@ pub struct PrecisionResult {
     pub range: LevelRange,
     /// Level-dependent model (then `sd` and `raw_sd` are not used).
     pub model: Option<LevelModel>,
+    pub reproducibility: Option<ReproducibilityDetail>,
+    /// (s_r, s_I(T), s_R) of a staggered-nested design (fractions if relative).
+    pub nested: Option<(f64, f64, f64)>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -751,8 +864,12 @@ fn precision(p: &PrecisionSpec) -> Result<PrecisionResult, ProjectError> {
             dof: if n > 2 { n as f64 - 2.0 } else { f64::INFINITY },
             range: p.range.unwrap_or_default(),
             model: Some(m),
+            reproducibility: None,
+            nested: None,
         });
     }
+    let mut reproducibility_detail = None;
+    let mut nested = None;
     let (method, n, mean, sd, relative, dof) = match &p.data {
         PrecisionData::Series { values, relative } => {
             let (m, s) = mean_sd(values, name)?;
@@ -823,8 +940,26 @@ fn precision(p: &PrecisionSpec) -> Result<PrecisionResult, ProjectError> {
             let (s, rel) = one_of(name, *sd, *sd_percent, "sd")?;
             (PrecisionMethod::Given, 0, None, s, rel, dof.unwrap_or(f64::INFINITY))
         }
+        PrecisionData::StaggeredNested { results, estimate, relative } => {
+            let a = td::staggered_nested(results)?;
+            let f = if *relative { 1.0 / a.mean.abs() } else { 1.0 };
+            let (r, i, big_r) = (a.repeatability() * f, a.intermediate() * f, a.reproducibility() * f);
+            nested = Some((r, i, big_r));
+            let (sd, dof) = match estimate {
+                NestedEstimate::Repeatability => (r, a.dof[2]),
+                NestedEstimate::Intermediate => (i, f64::INFINITY),
+                NestedEstimate::Reproducibility => (big_r, f64::INFINITY),
+            };
+            (PrecisionMethod::StaggeredNested, results.len(), Some(a.mean), sd, *relative, dof)
+        }
+        PrecisionData::Reproducibility { .. } => {
+            let (u, rel, detail) = reproducibility(name, &p.data)?;
+            reproducibility_detail = Some(detail);
+            (PrecisionMethod::Reproducibility, 0, None, u, rel, f64::INFINITY)
+        }
         PrecisionData::Linear { .. } | PrecisionData::Continuous { .. } => unreachable!("handled above"),
     };
+    let reproducibility = reproducibility_detail;
     if !(sd.is_finite() && sd >= 0.0) {
         return Err(err(name, "the standard deviation is not a finite non-negative number"));
     }
@@ -871,7 +1006,111 @@ fn precision(p: &PrecisionSpec) -> Result<PrecisionResult, ProjectError> {
         dof,
         range: p.range.unwrap_or_default(),
         model: None,
+        reproducibility,
+        nested,
     })
+}
+
+/// Reads an absolute or a `_percent` value; `None` if neither is given.
+fn kind_of(name: &str, what: &str, abs: Option<f64>, pct: Option<f64>) -> Result<Option<(f64, bool)>, ProjectError> {
+    match (abs, pct) {
+        (Some(_), Some(_)) => Err(err(name, format!("give either {what} or {what}_percent"))),
+        (Some(v), None) => Ok(Some((v, false))),
+        (None, Some(v)) => Ok(Some((v / 100.0, true))),
+        (None, None) => Ok(None),
+    }
+}
+
+/// ISO 21748:2017 reproducibility-based precision (see [`PrecisionData::Reproducibility`]).
+fn reproducibility(name: &str, d: &PrecisionData) -> Result<(f64, bool, ReproducibilityDetail), ProjectError> {
+    let PrecisionData::Reproducibility {
+        sd_reproducibility,
+        sd_reproducibility_percent,
+        sd_between_labs,
+        sd_between_labs_percent,
+        sd_repeatability,
+        sd_repeatability_percent,
+        lab_repeatability,
+        lab_repeatability_percent,
+        replicates,
+        method_bias,
+        bias_check,
+    } = d
+    else {
+        unreachable!()
+    };
+    let big_r = kind_of(name, "sd_reproducibility", *sd_reproducibility, *sd_reproducibility_percent)?;
+    let big_l = kind_of(name, "sd_between_labs", *sd_between_labs, *sd_between_labs_percent)?;
+    let r = kind_of(name, "sd_repeatability", *sd_repeatability, *sd_repeatability_percent)?
+        .ok_or_else(|| err(name, "sd_repeatability (or _percent) is required"))?;
+    let l = kind_of(name, "lab_repeatability", *lab_repeatability, *lab_repeatability_percent)?;
+    let relative = r.1;
+    let same = |x: Option<(f64, bool)>| x.map_or(true, |(_, rel)| rel == relative);
+    if !(same(big_r) && same(big_l) && same(l)) {
+        return Err(err(name, "all standard deviations must be absolute, or all given in per cent"));
+    }
+    let s_r = r.0;
+    let (s_big_r, s_l_between) = match (big_r, big_l) {
+        (Some((sr_big, _)), None) => {
+            if sr_big < s_r {
+                return Err(err(name, "s_R must not be smaller than s_r"));
+            }
+            (sr_big, (sr_big * sr_big - s_r * s_r).sqrt())
+        }
+        (None, Some((sl, _))) => ((sl * sl + s_r * s_r).sqrt(), sl),
+        _ => return Err(err(name, "give either sd_reproducibility or sd_between_labs")),
+    };
+    if *replicates == 0 {
+        return Err(err(name, "replicates must be at least 1"));
+    }
+    let s_rep = l.map_or(s_r, |x| x.0);
+    let s_adjusted = (s_l_between * s_l_between + s_rep * s_rep / *replicates as f64).sqrt();
+    let u_method_bias = match method_bias {
+        None => None,
+        Some(mb) => {
+            if mb.labs == 0 || mb.replicates == 0 {
+                return Err(err(name, "method_bias: labs and replicates must be at least 1"));
+            }
+            let u_ref = kind_of(name, "method_bias.u_reference", mb.u_reference, mb.u_reference_percent)?;
+            if u_ref.is_some_and(|(_, rel)| rel != relative) {
+                return Err(err(name, "method_bias.u_reference must be of the same kind as the standard deviations"));
+            }
+            let n = mb.replicates as f64;
+            let v =
+                (s_big_r * s_big_r - (1.0 - 1.0 / n) * s_r * s_r) / mb.labs as f64 + u_ref.map_or(0.0, |x| x.0 * x.0);
+            Some(v.max(0.0).sqrt())
+        }
+    };
+    let check = match bias_check {
+        None => None,
+        Some(bc) => {
+            let delta = kind_of(name, "bias_check.bias", bc.bias, bc.bias_percent)?
+                .ok_or_else(|| err(name, "bias_check needs bias or bias_percent"))?;
+            let sw = kind_of(name, "bias_check.sd_within", bc.sd_within, bc.sd_within_percent)?
+                .ok_or_else(|| err(name, "bias_check needs sd_within or sd_within_percent"))?;
+            if delta.1 != relative || sw.1 != relative || bc.n == 0 {
+                return Err(err(name, "bias_check: same kind as the standard deviations and n ≥ 1"));
+            }
+            let s_d = (s_l_between * s_l_between + sw.0 * sw.0 / bc.n as f64).sqrt();
+            Some((delta.0.abs(), s_d, delta.0.abs() < 2.0 * s_d))
+        }
+    };
+    let total = (s_adjusted * s_adjusted + u_method_bias.map_or(0.0, |u| u * u)).sqrt();
+    Ok((
+        total,
+        relative,
+        ReproducibilityDetail {
+            s_reproducibility: s_big_r,
+            s_between_labs: s_l_between,
+            s_repeatability: s_r,
+            s_repeatability_used: s_rep,
+            lab_repeatability_used: l.is_some(),
+            replicates: *replicates,
+            s_adjusted,
+            u_method_bias,
+            bias_check: check,
+        },
+    ))
 }
 
 fn bias(b: &BiasSpec) -> Result<BiasResult, ProjectError> {
@@ -1346,6 +1585,13 @@ pub fn results_json(a: &TopDownAnalysis) -> serde_json::Value {
     json!({
         "precision": a.precision.iter().map(|p| json!({
             "name": p.name, "n": p.n, "mean": p.mean, "sd": p.sd, "relative": p.relative, "dof": num(p.dof),
+            "nested": p.nested.map(|(r, i, big)| json!({"repeatability": r, "intermediate": i, "reproducibility": big})),
+            "reproducibility": p.reproducibility.as_ref().map(|r| json!({
+                "s_reproducibility": r.s_reproducibility, "s_between_labs": r.s_between_labs,
+                "s_repeatability": r.s_repeatability, "s_repeatability_used": r.s_repeatability_used,
+                "replicates": r.replicates, "s_adjusted": r.s_adjusted, "u_method_bias": r.u_method_bias,
+                "bias_check": r.bias_check.map(|(d, s, ok)| json!({"abs_bias": d, "s_d": s, "under_control": ok})),
+            })),
         })).collect::<Vec<_>>(),
         "bias": a.bias.iter().map(|b| json!({
             "name": b.name, "relative": b.relative, "u": b.u, "mean_bias": b.mean_bias, "rms_bias": b.rms_bias,
@@ -1484,5 +1730,37 @@ mod tests {
         assert!((a.precision[0].sd - 0.1).abs() < 1e-12 && a.precision[0].relative);
         // s/mean = 0.5, of the mean of 4 days 0.25, at 2 → 0.5 absolute.
         assert!((a.precision[1].sd - 0.5).abs() < 1e-12 && !a.precision[1].relative);
+    }
+
+    #[test]
+    fn reproducibility_iso_21748() {
+        // s_L² = 0.28² − 0.22² = 0.03; u(δ̂)² = (0.0784 − 0.5·0.0484)/10 + 0.05² = 0.00792 (Formula 15);
+        // s_D² = 0.03 + 0.2²/4 = 0.04, |Δ| = 0.3 < 2s_D = 0.4 (Formulae 4–5).
+        let s = spec(
+            r#"{ "quantity": "y", "unit": "g", "levels": [1.0],
+                "precision": [ { "name": "R", "data": { "type": "reproducibility", "sd_reproducibility": 0.28,
+                    "sd_repeatability": 0.22, "replicates": 2,
+                    "method_bias": { "labs": 10, "replicates": 2, "u_reference": 0.05 },
+                    "bias_check": { "bias": -0.3, "sd_within": 0.2, "n": 4 } } } ] }"#,
+        );
+        let a = evaluate(&s).unwrap();
+        let r = a.precision[0].reproducibility.as_ref().unwrap();
+        assert!((r.s_between_labs - 0.03f64.sqrt()).abs() < 1e-12);
+        assert!((r.s_adjusted - (0.03 + 0.0484 / 2.0f64).sqrt()).abs() < 1e-12);
+        assert!((r.u_method_bias.unwrap() - 0.00792f64.sqrt()).abs() < 1e-12);
+        let (d, sd, ok) = r.bias_check.unwrap();
+        assert!((d - 0.3).abs() < 1e-12 && (sd - 0.2).abs() < 1e-12 && ok);
+        assert!((a.precision[0].sd - (0.03 + 0.0242 + 0.00792f64).sqrt()).abs() < 1e-12);
+        // Mixed kinds and s_R < s_r are refused.
+        let bad = spec(
+            r#"{ "quantity": "y", "precision": [ { "name": "R", "data": { "type": "reproducibility",
+            "sd_reproducibility_percent": 2.0, "sd_repeatability": 0.1 } } ] }"#,
+        );
+        assert!(evaluate(&bad).is_err());
+        let bad = spec(
+            r#"{ "quantity": "y", "precision": [ { "name": "R", "data": { "type": "reproducibility",
+            "sd_reproducibility_percent": 1.0, "sd_repeatability_percent": 2.0 } } ] }"#,
+        );
+        assert!(evaluate(&bad).is_err());
     }
 }

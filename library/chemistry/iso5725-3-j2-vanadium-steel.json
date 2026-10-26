@@ -1,0 +1,180 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso5725-3-j2-vanadium-steel",
+    "title": {
+      "en": "Vanadium in steel: staggered-nested design, level 1 (ISO 5725-3 J.2)",
+      "tr": "Çelikte vanadyum: kademeli iç içe tasarım, düzey 1 (ISO 5725-3 J.2)"
+    },
+    "description": {
+      "en": "ISO 5725-3:2023 J.2: 20 laboratories, two results on one day and one on the next; analysis of variance gives s_r, the time-different intermediate precision s_I(T) and s_R.",
+      "tr": "ISO 5725-3:2023 J.2: 20 laboratuvar, bir günde iki ve ertesi gün bir sonuç; varyans analizi s_r'yi, zaman farklı ara kesinlik s_I(T)'yi ve s_R'yi verir."
+    },
+    "explanation": [
+      {
+        "en": "Each laboratory reports y₁, y₂ (repeatability conditions, day 1) and y₃ (day 2). Laboratory 20 is an outlier at level 1 (Cochran) and is removed.",
+        "tr": "Her laboratuvar y₁, y₂ (tekrarlanabilirlik koşulları, 1. gün) ve y₃ (2. gün) bildirir. 20 numaralı laboratuvar düzey 1'de aykırıdır (Cochran) ve çıkarılır."
+      },
+      {
+        "en": "Annex C.1: w(1) = |y₁ − y₂|, w(2) = |(y₁ + y₂)/2 − y₃|; SS₀ = 3Σ(ȳᵢ − ȳ)², SS₁ = (2/3)Σw(2)², SS_e = (1/2)Σw(1)² with 18, 19 and 19 degrees of freedom (Table J.4).",
+        "tr": "Ek C.1: w(1) = |y₁ − y₂|, w(2) = |(y₁ + y₂)/2 − y₃|; 18, 19 ve 19 serbestlik dereceli SS₀ = 3Σ(ȳᵢ − ȳ)², SS₁ = (2/3)Σw(2)², SS_e = (1/2)Σw(1)² (Tablo J.4)."
+      },
+      {
+        "en": "From the expected mean squares, s_r² = MS_e = 0.145, s₍₁₎² = (3/4)(MS₁ − MS_e) = 0.218 and s₀² = (MS₀ − MS_e − (5/3)s₍₁₎²)/3 = 0.278 (× 10⁻⁶): s_r = 0.381, s_I(T) = 0.603 and s_R = 0.801 (× 10⁻³ %).",
+        "tr": "Beklenen kareler ortalamalarından s_r² = MS_e = 0,145, s₍₁₎² = (3/4)(MS₁ − MS_e) = 0,218 ve s₀² = (MS₀ − MS_e − (5/3)s₍₁₎²)/3 = 0,278 (× 10⁻⁶): s_r = 0,381, s_I(T) = 0,603 ve s_R = 0,801 (× 10⁻³ %)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 5725-3:2023, Accuracy (trueness and precision) of measurement methods and results — Part 3: Intermediate precision and alternative designs for collaborative studies",
+        "section": "Annex J.2, Tables J.2–J.5",
+        "url": "https://www.iso.org/standard/77864.html"
+      }
+    ],
+    "tags": [
+      "iso5725-3",
+      "intermediate-precision",
+      "staggered-nested",
+      "anova",
+      "steel"
+    ],
+    "notes": [
+      {
+        "en": "Levels 1 and 2 of Table J.5 are reproduced exactly from Table J.2; levels 3, 4 and 5, and s_R at level 6, are not reproduced from the printed data with the stated outlier exclusions (research log F40). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.",
+        "tr": "Tablo J.5'in 1. ve 2. düzeyleri Tablo J.2'den tam olarak yeniden üretilir; 3., 4. ve 5. düzeyler ile 6. düzeydeki s_R, belirtilen aykırı değer çıkarmalarıyla basılı verilerden yeniden üretilemez (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(V)",
+    "unit": "% m/m",
+    "levels": [
+      0.0098
+    ],
+    "precision": [
+      {
+        "name": "s_I(T)",
+        "data": {
+          "type": "staggered_nested",
+          "results": [
+            [
+              0.0091,
+              0.0102,
+              0.0098
+            ],
+            [
+              0.01,
+              0.01,
+              0.009
+            ],
+            [
+              0.0095,
+              0.009,
+              0.0094
+            ],
+            [
+              0.008,
+              0.0083,
+              0.0077
+            ],
+            [
+              0.01,
+              0.01,
+              0.01
+            ],
+            [
+              0.0089,
+              0.0094,
+              0.0094
+            ],
+            [
+              0.0098,
+              0.0099,
+              0.0101
+            ],
+            [
+              0.0096,
+              0.0094,
+              0.0099
+            ],
+            [
+              0.0104,
+              0.0094,
+              0.01
+            ],
+            [
+              0.0107,
+              0.0118,
+              0.0097
+            ],
+            [
+              0.01,
+              0.01,
+              0.009
+            ],
+            [
+              0.0109,
+              0.0115,
+              0.0097
+            ],
+            [
+              0.01,
+              0.0095,
+              0.0095
+            ],
+            [
+              0.0096,
+              0.0096,
+              0.01
+            ],
+            [
+              0.0099,
+              0.0091,
+              0.0082
+            ],
+            [
+              0.0098,
+              0.01,
+              0.0095
+            ],
+            [
+              0.0105,
+              0.0102,
+              0.0112
+            ],
+            [
+              0.0103,
+              0.0105,
+              0.0118
+            ],
+            [
+              0.0098,
+              0.0096,
+              0.0104
+            ]
+          ],
+          "estimate": "intermediate"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 3
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s_I(T)": {
+          "value": 0.000603,
+          "tolerance": 5e-07
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 5725-3:2023 Tables J.4 and J.5, level 1 (s_r = 0.381, s_I(T) = 0.603, s_R = 0.801 × 10⁻³ %).",
+      "tr": "ISO 5725-3:2023 Tablo J.4 ve J.5, düzey 1 (s_r = 0,381, s_I(T) = 0,603, s_R = 0,801 × 10⁻³ %)."
+    }
+  }
+}

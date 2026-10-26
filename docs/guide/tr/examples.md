@@ -2,10 +2,10 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (37)
+- Kimya (41)
 - Elektrik ve RF (15)
 - Akış ve hacim (4)
-- Genel (yöntem doğrulama) (4)
+- Genel (yöntem doğrulama) (8)
 - Uzunluk (8)
 - Kütle (4)
 - Fiziksel özellikler (6)
@@ -99,6 +99,30 @@ ISO 13528:2022 E.4 (IMEP 111): bir referans değere ve amaca uygun σ_pt'ye kar�
 - Tablo E.6, bildirilen belirsizlikleri '9.8'de tartışılan ölçütlere göre' a/b/c olarak işaretler; ancak bayraklar u_min = u(x_pt) = 0,0041 mg/kg (9.8.3) ile yeniden üretilemez: L05 (u = 0,0035) ve L09 (u = 0,0040) 'a' olarak işaretlenmiştir. Bayraklar 0,0018 ile 0,0035 mg/kg arasında bir alt sınıra (belki homojensizlik içermeyen karakterizasyon belirsizliği) ve 0,005 ile 0,015 mg/kg arasında bir üst sınıra (1,5σ_pt = 0,0099 ile tutarlı) işaret eder. Bu nedenle bayraklar burada kontrol edilmemiştir.
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang tr`
+
+### Azot ve yağdan et içeriği (ISO 21748 C.2)
+
+`iso21748-c2-meat-content` — ISO 21748:2017, Annex C.2, Table C.1
+
+ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. w_meat = w_pro + w_fat, w_pro = 100 w_N/f_N (Formül C.1, C.2); w_N = %3,29 (Kjeldahl, ikili ölçüm ortalaması), f_N = 3,65 ± 0,052, w_fat = %5,50.
+2. Azot sonucu laboratuvarlar arası s_L = %1,1 terimini ve ikili ölçüm için √2'ye bölünmüş tek sonuç tekrarlanabilirliğini s_r = %1,8 taşır (ISO 21748 Tablo 1): e_L ~ N(0; 0,011²), e_r ~ N(0; (0,018/√2)²); dolayısıyla u(w_N)/w_N = %1,7 (Formül C.3). Yağ s_R = %2,0 taşır.
+3. Yayılım yasası w_meat = %95,6, u = %1,99 ve U = %4,0 (k = 2) verir; varyansın %99,7'si w_pro'dan gelir.
+
+**Sonuç:**
+
+- w_meat = (95,6 ± 4,0) %; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Tablo C.1 bağıl belirsizlikleri (0,017; 0,014; 0,022) birleştirmeden önce yuvarlar ve u = %1,98 basar; yuvarlanmamış terimlerle u = %1,99'dur. İkisi de U = %4,0 verir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang tr`
 
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 
@@ -368,6 +392,81 @@ QUAM Örnek A7, Eş. (5): kütle ayrımı düzeltilmiş izotop oranlarıyla çif
 - Raporlanan (0,05370 ± 0,00036) µmol/g dört tekrarın ortalamasını kullanır; √8'e bölme yapılmasaydı deneysel u_c 0,00041 µmol/g olurdu.
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a7-lead-double-idms.json --lang tr`
+
+### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
+
+`iso21748-c4-crude-fibre` — ISO 21748:2017, Annex C.4, Tables C.6–C.9
+
+ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrarüretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Ortak çalışma (Tablo C.6): %2,3 lifte s_R = %0,293, %5,4'te %0,390 ve %10,1'de %0,575. Sapma bir CRM üzerinde kontrol edilmiştir (%9,3; laboratuvar %9,16; Δ_l = −%0,14) ve laboratuvarın tekrarlanabilirliği çalışmayla uyumludur (Tablo C.7).
+2. Sabit kütleye kurutma çalışmanın kapsamında değildir: sabit süreli kurutma, uzatılmış kurutmanın 0,002 g yakınında kalır; bu dikdörtgen yarı genişlik 0,002/√3 = 0,00115 g, yani 1 g numunede %0,115 lif verir.
+3. Üç aralıkta u = √(s_R² + 0,115²) = %0,31; 0,41 ve 0,59 (Tablo C.9), U = %0,6; 0,8 ve 1,2 (k = 2).
+
+**Sonuç:**
+
+- w(crude fibre) = (2,30 ± 0,63) % m/m (k = 2,00)
+- w(crude fibre) = (4,00 ± 0,81) % m/m (k = 2,00)
+- w(crude fibre) = (8,0 ± 1,2) % m/m (k = 2,00)
+
+**Notlar:**
+
+- ISO 21748 C.4.7, %0,115 belirsizliğinin 'bu en büyük tahmini sapmanın 3'e bölünmesiyle' bulunduğunu söyler; 0,002 g/3 %0,067 verirdi. Basılı değer √3'e bölmeye (dikdörtgen dağılım) karşılık gelir; proje bunu kullanır.
+- QUAM A6 ('quam-a6-crude-fibre' projesi) yuvarlanmış s_R değerlerini (0,29; 0,40; 0,60) kullanır ve kurutma terimini yalnızca en düşük düzeyde dahil eder.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso21748-c4-crude-fibre.json --lang tr`
+
+### Çelikte karbon: [zaman + operatör] farklı ara kesinlik (ISO 5725-3 J.1)
+
+`iso5725-3-j1-carbon-steel` — ISO 5725-3:2023, Annex J.1, Table J.1
+
+ISO 5725-3:2023 J.1: her gün bir rutin numune ertesi gün başka bir analist tarafından yeniden analiz edilir, bir ayda 29 çift; çiftlerden s_I(TO), Formül (5).
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Her çift (y_j1, y_j2) aynı numunenin iki günde iki analist tarafından ölçülmesidir; bu nedenle farklar tekrarlanabilirliğin yanında zaman ve operatör etkilerini de içerir (6.2.2).
+2. 20 (%0,042/0,146) ve 24 (%0,100/0,161) numaralı çiftler çıkarılır: muhtemelen kayıt hatası olan farkları Cochran testine göre aykırıdır (29 çift arasında 20 için C = 0,72; 20 çıkarıldıktan sonra 24 için C = 0,89).
+3. s_I(TO) = √(Σw_j²/(2 × 27)) = 2,87 × 10⁻³ % (kütle kesri), Formül (5), 27 serbestlik derecesiyle.
+
+**Sonuç:**
+
+- w(C) = (0,10000 ± 0,00574) % m/m (k = 2,00)
+
+**Notlar:**
+
+- Korunan 27 çift saklanmıştır; çıkarılan iki çift açıklamada verilmiştir. Belirtilen Cochran istatistikleri Tablo J.1'den hesaplanmıştır (ISO 5725-3 yalnızca sonucu verir).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso5725-3-j1-carbon-steel.json --lang tr`
+
+### Çelikte vanadyum: kademeli iç içe tasarım, düzey 1 (ISO 5725-3 J.2)
+
+`iso5725-3-j2-vanadium-steel` — ISO 5725-3:2023, Annex J.2, Tables J.2–J.5
+
+ISO 5725-3:2023 J.2: 20 laboratuvar, bir günde iki ve ertesi gün bir sonuç; varyans analizi s_r'yi, zaman farklı ara kesinlik s_I(T)'yi ve s_R'yi verir.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Her laboratuvar y₁, y₂ (tekrarlanabilirlik koşulları, 1. gün) ve y₃ (2. gün) bildirir. 20 numaralı laboratuvar düzey 1'de aykırıdır (Cochran) ve çıkarılır.
+2. Ek C.1: w(1) = |y₁ − y₂|, w(2) = |(y₁ + y₂)/2 − y₃|; 18, 19 ve 19 serbestlik dereceli SS₀ = 3Σ(ȳᵢ − ȳ)², SS₁ = (2/3)Σw(2)², SS_e = (1/2)Σw(1)² (Tablo J.4).
+3. Beklenen kareler ortalamalarından s_r² = MS_e = 0,145, s₍₁₎² = (3/4)(MS₁ − MS_e) = 0,218 ve s₀² = (MS₀ − MS_e − (5/3)s₍₁₎²)/3 = 0,278 (× 10⁻⁶): s_r = 0,381, s_I(T) = 0,603 ve s_R = 0,801 (× 10⁻³ %).
+
+**Sonuç:**
+
+- w(V) = (0,00980 ± 0,00121) % m/m (k = 2,00)
+
+**Notlar:**
+
+- Tablo J.5'in 1. ve 2. düzeyleri Tablo J.2'den tam olarak yeniden üretilir; 3., 4. ve 5. düzeyler ile 6. düzeydeki s_R, belirtilen aykırı değer çıkarmalarıyla basılı verilerden yeniden üretilemez (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang tr`
 
 ### İçme suyunda nitrat: iki kesinlik aralığı
 
@@ -1355,6 +1454,94 @@ NUM kılavuzu §3: normal a, dikdörtgen b ve bağıl belirsizliği %30 olan ü�
 - §3'ün metni GUM yönteminin y = 32,2 ve u(y) = 12,5 verdiğini söyler; ancak Şekil 1'de basılı NIST Uncertainty Machine çıktısı Gauss formülü için y = 28,8 ve u(y) = 8,7 verir (32,2 ve 13 Monte Carlo ortalaması ve standart sapmasıdır). Program Şekil 1'deki değerleri yeniden üretir.
 
 **Çalıştırma:** `uncertainty run library/general/num-3-ratio-abc.json --lang tr`
+
+### Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)
+
+`iso21748-c1-co-emissions` — ISO 21748:2017, Annex C.1
+
+ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrarüretilebilirlik standart sapması standart belirsizliktir.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. ISO 5725-2'ye göre yapılan bir laboratuvarlar arası çalışma s_r = 0,22 g/km ve s_R = 0,28 g/km vermiştir; dolayısıyla s_L = √(s_R² − s_r²) = 0,17 g/km'dir.
+2. Doğruluk, gaz analizörünün ve silindir tezgâhının kalibrasyonuyla kontrol edilir; bunların belirsizlikleri s_R'ye göre ihmal edilebilir; laboratuvarın tekrarlanabilirliği (0,20 g/km) çalışmanınkiyle uyumludur (ISO 21748 7.2, 7.3).
+3. Ortak çalışmanın dışında kalan bir işlem yoktur; bu nedenle u = s_R = 0,28 g/km (Formül 3) ve U = 0,56 g/km'dir (k = 2); değerlendirme 2,2 g/km sınırı yakınında yapılmıştır.
+
+**Sonuç:**
+
+- CO = (2,20 ± 0,56) g/km (k = 2,00)
+
+**Notlar:**
+
+- Burada laboratuvarın tekrarlanabilirliği s_r yerine konmamıştır (ISO 21748 C.1'deki gibi); lab_repeatability = 0,20 g/km ile 7.3.2, s′_R = √(s_L² + s_l²) = 0,26 g/km verirdi.
+
+**Çalıştırma:** `uncertainty run library/general/iso21748-c1-co-emissions.json --lang tr`
+
+### Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+
+`iso21748-c3-aerobic-plate-count-flour` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
+
+ISO 21748:2017 C.3 (AOAC 990.12, un): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %5,8, s_r = %5,3; dolayısıyla s_L = √(s_R² − s_r²) = %2,4.
+2. Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %5,5.
+3. Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %6,3 ve U = %12,6 (k = 2).
+
+**Sonuç:**
+
+- U = %12 (k = 2,00), ölçülen değere göre bağıl
+
+**Notlar:**
+
+- ISO 21748 Tablo C.4 un için u = %6,4 ve C.3.7 U = %12,8 basar; ancak kendi girdileri √(2,4² + 5,0² + 3,0²) = %6,30 (yuvarlanmamış s_L ile %6,29) ve U = %12,6 verir. Tablo C.5'teki un aralıkları basılı %12,8'den çıkar. Proje yeniden hesaplanan değerleri kontrol eder.
+
+**Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang tr`
+
+### Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+
+`iso21748-c3-aerobic-plate-count-shrimp` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
+
+ISO 21748:2017 C.3 (AOAC 990.12, karides): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %11,1, s_r = %9,8; dolayısıyla s_L = √(s_R² − s_r²) = %5,2.
+2. Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %7,2.
+3. Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %7,8 ve U = %15,6 (k = 2).
+
+**Sonuç:**
+
+- U = %16 (k = 2,00), ölçülen değere göre bağıl
+
+**Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang tr`
+
+### Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+
+`iso21748-c3-aerobic-plate-count-vegetables` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
+
+ISO 21748:2017 C.3 (AOAC 990.12, sebze): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %9,2, s_r = %6,3; dolayısıyla s_L = √(s_R² − s_r²) = %6,7.
+2. Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %8,4.
+3. Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %8,9 ve U = %17,8 (k = 2).
+
+**Sonuç:**
+
+- U = %18 (k = 2,00), ölçülen değere göre bağıl
+
+**Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-vegetables.json --lang tr`
 
 ## Uzunluk
 

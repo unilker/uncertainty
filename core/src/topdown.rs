@@ -144,6 +144,64 @@ pub fn sd_from_control_limits(limit: f64, k: f64) -> f64 {
 }
 
 /// Root sum of squares √(Σ u_i²) of independent standard uncertainties.
+/// Two-factor staggered-nested design [ISO 5725-3:2023 7.2, Annex C.1]:
+/// for each laboratory (or group) two results on day 1 and one on day 2.
+#[derive(Clone, Debug, PartialEq)]
+pub struct StaggeredNested {
+    pub groups: usize,
+    pub mean: f64,
+    /// Sums of squares, degrees of freedom and mean squares for factor 0
+    /// (between groups), factor 1 (between days within a group) and the
+    /// residual.
+    pub ss: [f64; 3],
+    pub dof: [f64; 3],
+    pub ms: [f64; 3],
+    /// Variance estimates s₀², s₍₁₎² (negative estimates set to zero) and s_r².
+    pub var_0: f64,
+    pub var_1: f64,
+    pub var_r: f64,
+}
+
+impl StaggeredNested {
+    /// Repeatability standard deviation s_r.
+    pub fn repeatability(&self) -> f64 {
+        self.var_r.sqrt()
+    }
+    /// Time-different intermediate precision s_I(T) = √(s_r² + s₍₁₎²).
+    pub fn intermediate(&self) -> f64 {
+        (self.var_r + self.var_1).sqrt()
+    }
+    /// Reproducibility (between-group) s_R = √(s_r² + s₍₁₎² + s₀²).
+    pub fn reproducibility(&self) -> f64 {
+        (self.var_r + self.var_1 + self.var_0).sqrt()
+    }
+}
+
+/// Analysis of variance of a two-factor staggered-nested design: each row
+/// is (y₁, y₂ on day 1, y₃ on day 2). Expected mean squares: MS₀ = σ_r² +
+/// (5/3)σ₍₁₎² + 3σ₀², MS₁ = σ_r² + (4/3)σ₍₁₎², MS_e = σ_r².
+pub fn staggered_nested(rows: &[[f64; 3]]) -> Result<StaggeredNested, UncError> {
+    let p = rows.len();
+    if p < 2 {
+        return Err(UncError::InvalidOption("staggered-nested design: at least two groups are needed".into()));
+    }
+    if rows.iter().flatten().any(|v| !v.is_finite()) {
+        return Err(UncError::InvalidOption("staggered-nested design: data must be finite".into()));
+    }
+    let y2: Vec<f64> = rows.iter().map(|r| (r[0] + r[1] + r[2]) / 3.0).collect();
+    let mean = y2.iter().sum::<f64>() / p as f64;
+    let ss0 = 3.0 * y2.iter().map(|y| (y - mean).powi(2)).sum::<f64>();
+    let ss1 = 2.0 / 3.0 * rows.iter().map(|r| (0.5 * (r[0] + r[1]) - r[2]).powi(2)).sum::<f64>();
+    let sse = 0.5 * rows.iter().map(|r| (r[0] - r[1]).powi(2)).sum::<f64>();
+    let pf = p as f64;
+    let dof = [pf - 1.0, pf, pf];
+    let ms = [ss0 / dof[0], ss1 / dof[1], sse / dof[2]];
+    let var_r = ms[2];
+    let var_1 = (0.75 * (ms[1] - ms[2])).max(0.0);
+    let var_0 = ((ms[0] - ms[2] - 5.0 / 3.0 * var_1) / 3.0).max(0.0);
+    Ok(StaggeredNested { groups: p, mean, ss: [ss0, ss1, sse], dof, ms, var_0, var_1, var_r })
+}
+
 pub fn root_sum_of_squares(components: &[f64]) -> f64 {
     components.iter().map(|u| u * u).sum::<f64>().sqrt()
 }
@@ -679,5 +737,72 @@ mod tests {
         let s: f64 = r.contributions.iter().map(|c| c.1).sum();
         assert!((s - 1.0).abs() < 1e-15);
         assert!((r.expanded_uncertainty - 2.0 * r.combined_standard_uncertainty).abs() < 1e-15);
+    }
+
+    #[test]
+    fn staggered_nested_iso_5725_3_annex_j2() {
+        // Vanadium in steel, level 1 without laboratory 20 (Tables J.2–J.5).
+        let lv1: [[f64; 3]; 19] = [
+            [0.0091, 0.0102, 0.0098],
+            [0.01, 0.01, 0.009],
+            [0.0095, 0.009, 0.0094],
+            [0.008, 0.0083, 0.0077],
+            [0.01, 0.01, 0.01],
+            [0.0089, 0.0094, 0.0094],
+            [0.0098, 0.0099, 0.0101],
+            [0.0096, 0.0094, 0.0099],
+            [0.0104, 0.0094, 0.01],
+            [0.0107, 0.0118, 0.0097],
+            [0.01, 0.01, 0.009],
+            [0.0109, 0.0115, 0.0097],
+            [0.01, 0.0095, 0.0095],
+            [0.0096, 0.0096, 0.01],
+            [0.0099, 0.0091, 0.0082],
+            [0.0098, 0.01, 0.0095],
+            [0.0105, 0.0102, 0.0112],
+            [0.0103, 0.0105, 0.0118],
+            [0.0098, 0.0096, 0.0104],
+        ];
+        let a = staggered_nested(&lv1).unwrap();
+        assert!((a.mean - 0.00979825).abs() < 5e-9);
+        let close = |x: f64, y: f64, t: f64| (x - y).abs() < t;
+        assert!(
+            close(a.ss[0], 24.16e-6, 0.005e-6)
+                && close(a.ss[1], 8.29e-6, 0.005e-6)
+                && close(a.ss[2], 2.76e-6, 0.005e-6)
+        );
+        assert!(
+            close(a.ms[0], 1.342e-6, 0.0005e-6)
+                && close(a.ms[1], 0.436e-6, 0.0005e-6)
+                && close(a.ms[2], 0.145e-6, 0.0005e-6)
+        );
+        assert!(close(a.var_0, 0.278e-6, 0.0005e-6) && close(a.var_1, 0.218e-6, 0.0005e-6));
+        assert!(close(a.reproducibility(), 0.801e-3, 0.0005e-3));
+        assert!(close(a.intermediate(), 0.603e-3, 0.0005e-3) && close(a.repeatability(), 0.381e-3, 0.0005e-3));
+        // Level 2 without laboratory 2 (Table J.5).
+        let lv2: [[f64; 3]; 19] = [
+            [0.0382, 0.0388, 0.0385],
+            [0.039, 0.038, 0.037],
+            [0.0374, 0.0361, 0.0382],
+            [0.035, 0.037, 0.037],
+            [0.0368, 0.0368, 0.0377],
+            [0.0376, 0.038, 0.0384],
+            [0.0379, 0.0366, 0.0379],
+            [0.0365, 0.037, 0.0367],
+            [0.037, 0.0375, 0.038],
+            [0.038, 0.038, 0.0375],
+            [0.039, 0.039, 0.039],
+            [0.0375, 0.0375, 0.0375],
+            [0.0374, 0.0374, 0.0389],
+            [0.0381, 0.0375, 0.0392],
+            [0.0373, 0.0377, 0.0397],
+            [0.0389, 0.0382, 0.0373],
+            [0.0382, 0.038, 0.0374],
+            [0.0383, 0.0375, 0.0366],
+            [0.037, 0.0408, 0.0369],
+        ];
+        let b = staggered_nested(&lv2).unwrap();
+        assert!(close(b.repeatability(), 0.820e-3, 0.0005e-3));
+        assert!(close(b.intermediate(), 0.902e-3, 0.0005e-3) && close(b.reproducibility(), 0.954e-3, 0.0005e-3));
     }
 }

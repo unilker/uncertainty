@@ -15,12 +15,13 @@ class S {
     'new_model_sub': ['GUM and Monte Carlo evaluation', 'GUM ve Monte Carlo değerlendirmesi'],
     'new_topdown': ['New top-down evaluation', 'Yeni top-down değerlendirme'],
     'new_topdown_sub': ['From validation and quality-control data', 'Validasyon ve kalite kontrol verilerinden'],
+    'nested_rows': ['Rows: day 1 result 1, day 1 result 2, day 2', 'Satırlar: 1. gün 1. sonuç, 1. gün 2. sonuç, 2. gün'],
     'new_pt': ['New proficiency test round', 'Yeni yeterlilik testi turu'],
     'new_pt_sub': ['Assigned value, z, ζ and E_n scores (ISO 13528)', 'Atanan değer, z, ζ ve E_n skorları (ISO 13528)'],
     'pt_results': ['Participant results', 'Katılımcı sonuçları'],
     'pt_results_help': [
       'One laboratory per line: code, result, expanded uncertainty U, k (U and k optional). A result such as <0.015 is censored and not scored.',
-      'Her satırda bir laboratuvar: kod, sonuç, genişletilmiş belirsizlik U, k (U ve k isteğe bağlı). <0,015 gibi bir sonuç sansürlüdür ve skorlanmaz.'
+      'Her satırda bir laboratuvar: kod, sonuç, genişletilmiş belirsizlik U, k (U ve k isteğe bağlı). <0,015 gibi bir sonuç sansürlüdür ve skorlanmaz.',
     ],
     'pt_results_error': ['Could not read line', 'Satır okunamadı'],
     'pt_assigned': ['Assigned value x_pt', 'Atanan değer x_pt'],
@@ -132,7 +133,7 @@ class S {
     'apply': ['Apply', 'Uygula'],
     'json_help': [
       'The complete project file. Edit and apply; the engine checks every field.',
-      'Proje dosyasının tamamı. Düzenleyip uygulayın; motor her alanı denetler.'
+      'Proje dosyasının tamamı. Düzenleyip uygulayın; motor her alanı denetler.',
     ],
     'not_run': ['Press “Calculate” to evaluate the project.', 'Projeyi değerlendirmek için “Hesapla”ya basın.'],
     'reported': ['Reported result', 'Raporlanan sonuç'],
@@ -162,10 +163,7 @@ class S {
     'warnings': ['Warnings', 'Uyarılar'],
     'quantity_name': ['Measurand', 'Ölçülen büyüklük'],
     'levels': ['Measured values (levels)', 'Ölçülen değerler (düzeyler)'],
-    'levels_help': [
-      'Separated by spaces; leave empty for a relative uncertainty',
-      'Boşlukla ayrılmış; bağıl belirsizlik için boş bırakın'
-    ],
+    'levels_help': ['Separated by spaces; leave empty for a relative uncertainty', 'Boşlukla ayrılmış; bağıl belirsizlik için boş bırakın'],
     'precision': ['Precision (within-laboratory reproducibility)', 'Kesinlik (laboratuvar içi tekrarüretilebilirlik)'],
     'bias': ['Bias', 'Sapma (bias)'],
     'recovery': ['Recovery', 'Geri kazanım'],
@@ -276,6 +274,8 @@ class S {
     'given': ['stated value', 'verilen değer'],
     'linear': ['linear model s = a + b·c', 'doğrusal model s = a + b·c'],
     'continuous': ['continuous model', 'sürekli model'],
+    'reproducibility': ['collaborative study s_R, s_r (ISO 21748)', 'ortak çalışma s_R, s_r (ISO 21748)'],
+    'staggered_nested': ['staggered-nested design (ISO 5725-3)', 'kademeli iç içe tasarım (ISO 5725-3)'],
   };
 
   String precisionType(String type) {
@@ -285,6 +285,13 @@ class S {
   }
 
   static const parameterLabels = {
+    'sd_reproducibility': ['s_R', 's_R'],
+    'sd_reproducibility_percent': ['s_R (%)', 's_R (%)'],
+    'sd_repeatability': ['s_r', 's_r'],
+    'sd_repeatability_percent': ['s_r (%)', 's_r (%)'],
+    'lab_repeatability': ['own s_l', 'kendi s_l'],
+    'lab_repeatability_percent': ['own s_l (%)', 'kendi s_l (%)'],
+    'replicates': ['replicates n_r', 'tekrar sayısı n_r'],
     'mean': ['mean', 'ortalama'],
     'sd': ['standard uncertainty', 'standart belirsizlik'],
     'expanded': ['expanded uncertainty U', 'genişletilmiş belirsizlik U'],
@@ -312,7 +319,6 @@ class S {
     'reference': ['reference value C', 'referans değer C'],
     'u_reference': ['u(C)', 'u(C)'],
     'u_reference_percent': ['u(C) (%)', 'u(C) (%)'],
-    'sd_reproducibility_percent': ['s_R (%)', 's_R (%)'],
     'labs': ['number of laboratories', 'laboratuvar sayısı'],
     'bias_percent': ['bias (%)', 'sapma (%)'],
     'recovery_percent': ['recovery (%)', 'geri kazanım (%)'],

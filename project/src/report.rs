@@ -674,6 +674,10 @@ struct TdLabels {
     m_given: &'static str,
     m_linear: &'static str,
     m_continuous: &'static str,
+    m_reproducibility: &'static str,
+    m_nested: &'static str,
+    bias_ok: &'static str,
+    bias_not_ok: &'static str,
     mean_of: &'static str,
     rel_at: &'static str,
     abs_at: &'static str,
@@ -737,6 +741,10 @@ const TD_EN: TdLabels = TdLabels {
     m_given: "stated value",
     m_linear: "linear model",
     m_continuous: "continuous model",
+    m_reproducibility: "reproducibility of a collaborative study (ISO 21748)",
+    m_nested: "staggered-nested design (ISO 5725-3)",
+    bias_ok: "laboratory bias under control",
+    bias_not_ok: "laboratory bias NOT under control",
     mean_of: "mean of {p} days × {n} results",
     rel_at: "relative to {v}",
     abs_at: "absolute at {v}",
@@ -800,6 +808,10 @@ const TD_TR: TdLabels = TdLabels {
     m_given: "verilen değer",
     m_linear: "doğrusal model",
     m_continuous: "sürekli model",
+    m_reproducibility: "ortak çalışmanın tekrarüretilebilirliği (ISO 21748)",
+    m_nested: "kademeli iç içe tasarım (ISO 5725-3)",
+    bias_ok: "laboratuvar sapması kontrol altında",
+    bias_not_ok: "laboratuvar sapması kontrol altında DEĞİL",
     mean_of: "{p} gün × {n} sonucun ortalaması",
     rel_at: "{v} değerine göre bağıl",
     abs_at: "{v} değerinde mutlak",
@@ -922,8 +934,44 @@ fn topdown_markdown(
                 PrecisionMethod::Given => d.m_given,
                 PrecisionMethod::Linear => d.m_linear,
                 PrecisionMethod::Continuous => d.m_continuous,
+                PrecisionMethod::Reproducibility => d.m_reproducibility,
+                PrecisionMethod::StaggeredNested => d.m_nested,
             }
             .to_string();
+            if let Some((r, i, big)) = pr.nested {
+                let v = |x: f64| if pr.relative { fmt_pct(x, 3, lang, false) } else { fmt_num(x, 3, lang) };
+                let _ = write!(method, "; s_r = {}, s_I(T) = {}, s_R = {}", v(r), v(i), v(big));
+            }
+            if let Some(r) = &pr.reproducibility {
+                let v = |x: f64| if pr.relative { fmt_pct(x, 3, lang, false) } else { fmt_num(x, 3, lang) };
+                let _ = write!(
+                    method,
+                    "; s_R = {}, s_L = {}, s_r = {}",
+                    v(r.s_reproducibility),
+                    v(r.s_between_labs),
+                    v(r.s_repeatability)
+                );
+                if r.lab_repeatability_used {
+                    let _ = write!(method, ", s_l = {}", v(r.s_repeatability_used));
+                }
+                if r.replicates > 1 {
+                    let _ = write!(method, ", n_r = {}", r.replicates);
+                }
+                let _ = write!(method, "; s′_R = {}", v(r.s_adjusted));
+                if let Some(u) = r.u_method_bias {
+                    let _ = write!(method, "; u(δ̂) = {}", v(u));
+                }
+                if let Some((delta, sd, ok)) = r.bias_check {
+                    let _ = write!(
+                        method,
+                        "; |Δ_l| = {} {} 2s_D = {}: {}",
+                        v(delta),
+                        if ok { "<" } else { "≥" },
+                        v(2.0 * sd),
+                        if ok { d.bias_ok } else { d.bias_not_ok }
+                    );
+                }
+            }
             if let Some(m) = &ps.mean_of {
                 let _ = write!(
                     method,

@@ -135,6 +135,17 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | ISO13528-E.4 | mercury, reference value, 21 laboratories | D %, PA, z, z′, ζ, E_n (126 values) | same | ✅ (flags: F36) |
 | ISO13528-B.1 | factors F₁, F₂ | Table B.1 (g = 7 … 20) | from χ² and F quantiles | ✅ |
 
+## ISO 21748:2017 Annex C and ISO 5725-3:2023 Annex J — library projects
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| ISO21748-C.1 | CO in emissions, s_R = 0.28 g/km | U 0.56 g/km | same | ✅ |
+| ISO21748-C.2 | meat content (combined result) | 95.6 %, u 1.98 %, U 4.0 % | 95.6, 1.99, 4.0 | ✅ |
+| ISO21748-C.3 | aerobic plate count, s′_R with s_l (7.3.2) + 3 % | shrimp 7.2/7.8, vegetables 8.4/8.9, flour 5.5/6.4 % | flour 6.29 % | ✅ (F39) |
+| ISO21748-C.4 | crude fibre, s_R by range + drying | u 0.31, 0.41, 0.59 %; U 0.6, 0.8, 1.2 % | same | ✅ (F38) |
+| ISO5725-3-J.1 | carbon in steel, 27 day-pairs | s_I(TO) 2.87 × 10⁻³ % | same | ✅ |
+| ISO5725-3-J.2 | vanadium, staggered-nested, levels 1–2 | SS, MS, s₀², s₍₁₎², s_r, s_I(T), s_R | same (levels 3–6: F40) | ✅ |
+
 ## Measured MCM dispersion (σ over 20 seeds, M = 2 × 10⁶)
 
 | Case | y | u | shortest lo | shortest hi | shortest length | symmetric lo | symmetric hi |

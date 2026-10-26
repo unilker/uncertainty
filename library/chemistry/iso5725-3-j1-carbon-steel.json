@@ -1,0 +1,191 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso5725-3-j1-carbon-steel",
+    "title": {
+      "en": "Carbon in steel: [time + operator]-different intermediate precision (ISO 5725-3 J.1)",
+      "tr": "Çelikte karbon: [zaman + operatör] farklı ara kesinlik (ISO 5725-3 J.1)"
+    },
+    "description": {
+      "en": "ISO 5725-3:2023 J.1: one routine sample a day re-analysed the next day by another analyst, 29 pairs in a month; s_I(TO) from the pairs, Formula (5).",
+      "tr": "ISO 5725-3:2023 J.1: her gün bir rutin numune ertesi gün başka bir analist tarafından yeniden analiz edilir, bir ayda 29 çift; çiftlerden s_I(TO), Formül (5)."
+    },
+    "explanation": [
+      {
+        "en": "Each pair (y_j1, y_j2) is the same sample measured on two days by two analysts, so the differences contain the time and operator effects as well as repeatability (6.2.2).",
+        "tr": "Her çift (y_j1, y_j2) aynı numunenin iki günde iki analist tarafından ölçülmesidir; bu nedenle farklar tekrarlanabilirliğin yanında zaman ve operatör etkilerini de içerir (6.2.2)."
+      },
+      {
+        "en": "Pairs 20 (0.042/0.146 %) and 24 (0.100/0.161 %) are removed: their differences, probably recording errors, are outliers by Cochran's test (C = 0.72 for pair 20 among all 29, C = 0.89 for pair 24 after removing 20).",
+        "tr": "20 (%0,042/0,146) ve 24 (%0,100/0,161) numaralı çiftler çıkarılır: muhtemelen kayıt hatası olan farkları Cochran testine göre aykırıdır (29 çift arasında 20 için C = 0,72; 20 çıkarıldıktan sonra 24 için C = 0,89)."
+      },
+      {
+        "en": "s_I(TO) = √(Σw_j²/(2 × 27)) = 2.87 × 10⁻³ % (mass fraction), Formula (5), with 27 degrees of freedom.",
+        "tr": "s_I(TO) = √(Σw_j²/(2 × 27)) = 2,87 × 10⁻³ % (kütle kesri), Formül (5), 27 serbestlik derecesiyle."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 5725-3:2023, Accuracy (trueness and precision) of measurement methods and results — Part 3: Intermediate precision and alternative designs for collaborative studies",
+        "section": "Annex J.1, Table J.1",
+        "url": "https://www.iso.org/standard/77864.html"
+      }
+    ],
+    "tags": [
+      "iso5725-3",
+      "intermediate-precision",
+      "duplicates",
+      "steel"
+    ],
+    "notes": [
+      {
+        "en": "The 27 retained pairs are stored; the two removed pairs are given in the explanation. The Cochran statistics quoted are computed by the program's authors from Table J.1 (ISO 5725-3 gives only the conclusion).",
+        "tr": "Korunan 27 çift saklanmıştır; çıkarılan iki çift açıklamada verilmiştir. Belirtilen Cochran istatistikleri Tablo J.1'den hesaplanmıştır (ISO 5725-3 yalnızca sonucu verir)."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(C)",
+    "unit": "% m/m",
+    "levels": [
+      0.1
+    ],
+    "precision": [
+      {
+        "name": "s_I(TO)",
+        "data": {
+          "type": "duplicates",
+          "pairs": [
+            [
+              0.13,
+              0.127
+            ],
+            [
+              0.14,
+              0.132
+            ],
+            [
+              0.078,
+              0.08
+            ],
+            [
+              0.11,
+              0.113
+            ],
+            [
+              0.126,
+              0.128
+            ],
+            [
+              0.036,
+              0.032
+            ],
+            [
+              0.05,
+              0.047
+            ],
+            [
+              0.143,
+              0.14
+            ],
+            [
+              0.091,
+              0.089
+            ],
+            [
+              0.04,
+              0.03
+            ],
+            [
+              0.11,
+              0.113
+            ],
+            [
+              0.142,
+              0.145
+            ],
+            [
+              0.143,
+              0.15
+            ],
+            [
+              0.169,
+              0.165
+            ],
+            [
+              0.169,
+              0.173
+            ],
+            [
+              0.149,
+              0.144
+            ],
+            [
+              0.044,
+              0.044
+            ],
+            [
+              0.127,
+              0.122
+            ],
+            [
+              0.05,
+              0.048
+            ],
+            [
+              0.15,
+              0.145
+            ],
+            [
+              0.135,
+              0.133
+            ],
+            [
+              0.044,
+              0.045
+            ],
+            [
+              0.132,
+              0.131
+            ],
+            [
+              0.047,
+              0.045
+            ],
+            [
+              0.168,
+              0.165
+            ],
+            [
+              0.092,
+              0.088
+            ],
+            [
+              0.041,
+              0.043
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 3
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s_I(TO)": {
+          "value": 0.00287,
+          "tolerance": 5e-06
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 5725-3:2023 J.1.2 (s_I(TO) = 2.87 × 10⁻³ %).",
+      "tr": "ISO 5725-3:2023 J.1.2 (s_I(TO) = 2,87 × 10⁻³ %)."
+    }
+  }
+}

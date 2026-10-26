@@ -41,11 +41,11 @@ DynamicLibrary _openLibrary() {
 
 class _Bindings {
   _Bindings(DynamicLibrary lib)
-      : version = lib.lookupFunction<_NoArg, _NoArg>('uc_version'),
-        template = lib.lookupFunction<_OneArg, _OneArg>('uc_template'),
-        validate = lib.lookupFunction<_OneArg, _OneArg>('uc_validate'),
-        evaluate = lib.lookupFunction<_TwoArgs, _TwoArgs>('uc_evaluate'),
-        free = lib.lookupFunction<_FreeC, _FreeDart>('uc_free');
+    : version = lib.lookupFunction<_NoArg, _NoArg>('uc_version'),
+      template = lib.lookupFunction<_OneArg, _OneArg>('uc_template'),
+      validate = lib.lookupFunction<_OneArg, _OneArg>('uc_validate'),
+      evaluate = lib.lookupFunction<_TwoArgs, _TwoArgs>('uc_evaluate'),
+      free = lib.lookupFunction<_FreeC, _FreeDart>('uc_free');
 
   final _NoArg version;
   final _OneArg template;
@@ -94,15 +94,7 @@ Map<String, dynamic> _checked(Map<String, dynamic> r) {
 
 /// Options of an evaluation.
 class EvaluateOptions {
-  const EvaluateOptions({
-    this.lang = 'en',
-    this.skipMcm = false,
-    this.trials,
-    this.seed,
-    this.markdown = false,
-    this.html = false,
-    this.generated,
-  });
+  const EvaluateOptions({this.lang = 'en', this.skipMcm = false, this.trials, this.seed, this.markdown = false, this.html = false, this.generated});
   final String lang;
   final bool skipMcm;
   final int? trials;
@@ -112,14 +104,14 @@ class EvaluateOptions {
   final String? generated;
 
   Map<String, dynamic> toJson() => {
-        'lang': lang,
-        'skip_mcm': skipMcm,
-        if (trials != null) 'trials': trials,
-        if (seed != null) 'seed': seed,
-        'markdown': markdown,
-        'html': html,
-        if (generated != null) 'generated': generated,
-      };
+    'lang': lang,
+    'skip_mcm': skipMcm,
+    if (trials != null) 'trials': trials,
+    if (seed != null) 'seed': seed,
+    'markdown': markdown,
+    'html': html,
+    if (generated != null) 'generated': generated,
+  };
 }
 
 /// The engine's public functions.

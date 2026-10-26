@@ -46,10 +46,13 @@ Türkçe ve İngilizce.
 - Proficiency testing (ISO 13528:2022): median, MADe, nIQR, Algorithm A and S,
   assigned value and its uncertainty, D, D %, PA, z, z′, ζ and E_n scores,
   screening of reported uncertainties, homogeneity and stability checks.
-- [Example library](library/README.md): 82 published examples (56 model-based:
+- Precision from collaborative studies: s_R-based budgets with the
+  laboratory's own repeatability, method-bias uncertainty and bias-control
+  check (ISO 21748:2017); staggered-nested designs (ISO 5725-3:2023).
+- [Example library](library/README.md): 90 published examples (57 model-based:
   chemistry, mass, length, temperature, electrical, flow, physical properties;
-  22 top-down: Nordtest, MUPR, QUAM A4/A6; 4 proficiency testing: ISO 13528)
-  as self-checking projects.
+  29 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3; 4 proficiency
+  testing: ISO 13528) as self-checking projects.
 
 ## Usage / Kullanım
 
@@ -90,9 +93,9 @@ hesaplanan tüm kütüphane örnekleri.
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (107 tests; one of them reruns all 82 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
+automated test (107 tests; one of them reruns all 90 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
-their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11) and the worked examples E.2–E.4 of ISO 13528:2022. Details, tolerances and findings:
+their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11) the worked examples E.2–E.4 of ISO 13528:2022, Annex C of ISO 21748:2017 and Annex J of ISO 5725-3:2023. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

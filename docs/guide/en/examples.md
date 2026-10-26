@@ -2,10 +2,10 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (37)
+- Chemistry (41)
 - Electrical and RF (15)
 - Flow and volume (4)
-- General (method validation) (4)
+- General (method validation) (8)
 - Length (8)
 - Mass (4)
 - Physical properties (6)
@@ -99,6 +99,30 @@ ISO 13528:2022 E.4 (IMEP 111): scores of 21 laboratories against a reference val
 - Table E.6 flags the reported uncertainties a/b/c 'following criteria discussed in 9.8', but the flags are not reproduced with u_min = u(x_pt) = 0.0041 mg/kg (9.8.3): L05 (u = 0.0035) and L09 (u = 0.0040) are flagged 'a'. The flags imply a lower limit between 0.0018 and 0.0035 mg/kg (possibly the characterisation uncertainty without inhomogeneity) and an upper limit between 0.005 and 0.015 mg/kg (consistent with 1.5σ_pt = 0.0099). The flags are therefore not checked here.
 
 **Run:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang en`
+
+### Meat content from nitrogen and fat (ISO 21748 C.2)
+
+`iso21748-c2-meat-content` — ISO 21748:2017, Annex C.2, Table C.1
+
+ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs each carry reproducibility-based uncertainties (Clause 12), written as a measurement model with relative error terms.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. w_meat = w_pro + w_fat with w_pro = 100 w_N/f_N (Formulae C.1, C.2); w_N = 3.29 % (Kjeldahl, mean of duplicates), f_N = 3.65 ± 0.052, w_fat = 5.50 %.
+2. The nitrogen result carries the between-laboratory term s_L = 1.1 % and the repeatability s_r = 1.8 % of a single result divided by √2 for the duplicate (ISO 21748 Table 1): e_L ~ N(0, 0.011²), e_r ~ N(0, (0.018/√2)²), so u(w_N)/w_N = 1.7 % (Formula C.3). Fat carries s_R = 2.0 %.
+3. The law of propagation gives w_meat = 95.6 % with u = 1.99 % and U = 4.0 % (k = 2); w_pro contributes 99.7 % of the variance.
+
+**Result:**
+
+- w_meat = (95.6 ± 4.0) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- Table C.1 rounds the relative uncertainties (0.017, 0.014, 0.022) before combining and prints u = 1.98 %; with the unrounded terms u = 1.99 %. Both give U = 4.0 %.
+
+**Run:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang en`
 
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
@@ -368,6 +392,81 @@ QUAM Example A7, Eq. (5): double IDMS with mass-bias-corrected isotope ratios (r
 - The reported (0.05370 ± 0.00036) µmol/g uses the mean of four replicates; without the division by √8 the experimental u_c would be 0.00041 µmol/g.
 
 **Run:** `uncertainty run library/chemistry/quam-a7-lead-double-idms.json --lang en`
+
+### Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)
+
+`iso21748-c4-crude-fibre` — ISO 21748:2017, Annex C.4, Tables C.6–C.9
+
+ISO 21748:2017 C.4: level-dependent reproducibility from a collaborative study plus the uncertainty of drying to constant mass; the same example as QUAM A6 with a different treatment of the drying term.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Collaborative study (Table C.6): s_R = 0.293 % at 2.3 %, 0.390 % at 5.4 % and 0.575 % at 10.1 % fibre. Bias was checked on a CRM (9.3 %, laboratory 9.16 %, Δ_l = −0.14 %) and the laboratory's repeatability agrees with the study (Table C.7).
+2. Drying to constant mass is not covered by the study: the fixed-time drying stays within 0.002 g of extended drying, a rectangular half-width giving 0.002/√3 = 0.00115 g, i.e. 0.115 % fibre for a 1 g sample.
+3. u = √(s_R² + 0.115²) = 0.31, 0.41 and 0.59 % in the three ranges (Table C.9), U = 0.6, 0.8 and 1.2 % (k = 2).
+
+**Result:**
+
+- w(crude fibre) = (2.30 ± 0.63) % m/m (k = 2.00)
+- w(crude fibre) = (4.00 ± 0.81) % m/m (k = 2.00)
+- w(crude fibre) = (8.0 ± 1.2) % m/m (k = 2.00)
+
+**Notes:**
+
+- ISO 21748 C.4.7 says that the uncertainty of 0.115 % was obtained by 'dividing this maximum estimated deviation by 3'; 0.002 g/3 would give 0.067 %. The printed value corresponds to division by √3 (rectangular distribution), which the project uses.
+- QUAM A6 (project 'quam-a6-crude-fibre') uses the rounded s_R 0.29, 0.40, 0.60 and includes the drying term only at the lowest level.
+
+**Run:** `uncertainty run library/chemistry/iso21748-c4-crude-fibre.json --lang en`
+
+### Carbon in steel: [time + operator]-different intermediate precision (ISO 5725-3 J.1)
+
+`iso5725-3-j1-carbon-steel` — ISO 5725-3:2023, Annex J.1, Table J.1
+
+ISO 5725-3:2023 J.1: one routine sample a day re-analysed the next day by another analyst, 29 pairs in a month; s_I(TO) from the pairs, Formula (5).
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Each pair (y_j1, y_j2) is the same sample measured on two days by two analysts, so the differences contain the time and operator effects as well as repeatability (6.2.2).
+2. Pairs 20 (0.042/0.146 %) and 24 (0.100/0.161 %) are removed: their differences, probably recording errors, are outliers by Cochran's test (C = 0.72 for pair 20 among all 29, C = 0.89 for pair 24 after removing 20).
+3. s_I(TO) = √(Σw_j²/(2 × 27)) = 2.87 × 10⁻³ % (mass fraction), Formula (5), with 27 degrees of freedom.
+
+**Result:**
+
+- w(C) = (0.10000 ± 0.00574) % m/m (k = 2.00)
+
+**Notes:**
+
+- The 27 retained pairs are stored; the two removed pairs are given in the explanation. The Cochran statistics quoted are computed by the program's authors from Table J.1 (ISO 5725-3 gives only the conclusion).
+
+**Run:** `uncertainty run library/chemistry/iso5725-3-j1-carbon-steel.json --lang en`
+
+### Vanadium in steel: staggered-nested design, level 1 (ISO 5725-3 J.2)
+
+`iso5725-3-j2-vanadium-steel` — ISO 5725-3:2023, Annex J.2, Tables J.2–J.5
+
+ISO 5725-3:2023 J.2: 20 laboratories, two results on one day and one on the next; analysis of variance gives s_r, the time-different intermediate precision s_I(T) and s_R.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Each laboratory reports y₁, y₂ (repeatability conditions, day 1) and y₃ (day 2). Laboratory 20 is an outlier at level 1 (Cochran) and is removed.
+2. Annex C.1: w(1) = |y₁ − y₂|, w(2) = |(y₁ + y₂)/2 − y₃|; SS₀ = 3Σ(ȳᵢ − ȳ)², SS₁ = (2/3)Σw(2)², SS_e = (1/2)Σw(1)² with 18, 19 and 19 degrees of freedom (Table J.4).
+3. From the expected mean squares, s_r² = MS_e = 0.145, s₍₁₎² = (3/4)(MS₁ − MS_e) = 0.218 and s₀² = (MS₀ − MS_e − (5/3)s₍₁₎²)/3 = 0.278 (× 10⁻⁶): s_r = 0.381, s_I(T) = 0.603 and s_R = 0.801 (× 10⁻³ %).
+
+**Result:**
+
+- w(V) = (0.00980 ± 0.00121) % m/m (k = 2.00)
+
+**Notes:**
+
+- Levels 1 and 2 of Table J.5 are reproduced exactly from Table J.2; levels 3, 4 and 5, and s_R at level 6, are not reproduced from the printed data with the stated outlier exclusions (research log F40). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.
+
+**Run:** `uncertainty run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang en`
 
 ### Nitrate in drinking water: two precision intervals
 
@@ -1355,6 +1454,94 @@ NUM manual §3: Gaussian a, rectangular b and a triangular divisor c with a 30 %
 - The text of §3 says that the GUM method gives y = 32.2 and u(y) = 12.5, but the output of the NIST Uncertainty Machine printed in Figure 1 gives y = 28.8 and u(y) = 8.7 for Gauss's formula (32.2 and 13 are the Monte Carlo mean and standard deviation). The program reproduces the values of Figure 1.
 
 **Run:** `uncertainty run library/general/num-3-ratio-abc.json --lang en`
+
+### Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)
+
+`iso21748-c1-co-emissions` — ISO 21748:2017, Annex C.1
+
+ISO 21748:2017 C.1: type-approval test of CO emissions; with bias and precision under control the reproducibility standard deviation of the collaborative study is the standard uncertainty.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. An interlaboratory study according to ISO 5725-2 gave s_r = 0.22 g/km and s_R = 0.28 g/km, so s_L = √(s_R² − s_r²) = 0.17 g/km.
+2. Trueness is controlled by calibration of the gas analyser and the roller bench, whose uncertainties are negligible against s_R; the laboratory's repeatability (0.20 g/km) is within that of the study (ISO 21748 7.2, 7.3).
+3. No operation is outside the collaborative study, so u = s_R = 0.28 g/km (Formula 3) and U = 0.56 g/km (k = 2), evaluated near the limit 2.2 g/km.
+
+**Result:**
+
+- CO = (2.20 ± 0.56) g/km (k = 2.00)
+
+**Notes:**
+
+- The laboratory's repeatability is not substituted for s_r here (as in ISO 21748 C.1); with lab_repeatability = 0.20 g/km, 7.3.2 would give s′_R = √(s_L² + s_l²) = 0.26 g/km.
+
+**Run:** `uncertainty run library/general/iso21748-c1-co-emissions.json --lang en`
+
+### Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3)
+
+`iso21748-c3-aerobic-plate-count-flour` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
+
+ISO 21748:2017 C.3 (AOAC 990.12, flour): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Collaborative study (12 laboratories, ISO 5725-2): s_R = 5.8 %, s_r = 5.3 % relative to log10(count), so s_L = √(s_R² − s_r²) = 2.4 %.
+2. The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 5.5 %.
+3. Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 6.3 % and U = 12.6 % (k = 2).
+
+**Result:**
+
+- U = 12 % (k = 2.00), relative to the measured value
+
+**Notes:**
+
+- ISO 21748 Table C.4 prints u = 6.4 % and C.3.7 U = 12.8 % for flour, but its own inputs give √(2.4² + 5.0² + 3.0²) = 6.30 % (unrounded s_L: 6.29 %) and U = 12.6 %. The intervals of Table C.5 for flour follow from the printed 12.8 %. The project checks the recomputed values.
+
+**Run:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang en`
+
+### Aerobic plate count, shrimp: adjusted reproducibility (ISO 21748 C.3)
+
+`iso21748-c3-aerobic-plate-count-shrimp` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
+
+ISO 21748:2017 C.3 (AOAC 990.12, shrimp): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Collaborative study (12 laboratories, ISO 5725-2): s_R = 11.1 %, s_r = 9.8 % relative to log10(count), so s_L = √(s_R² − s_r²) = 5.2 %.
+2. The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 7.2 %.
+3. Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 7.8 % and U = 15.6 % (k = 2).
+
+**Result:**
+
+- U = 16 % (k = 2.00), relative to the measured value
+
+**Run:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang en`
+
+### Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3)
+
+`iso21748-c3-aerobic-plate-count-vegetables` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
+
+ISO 21748:2017 C.3 (AOAC 990.12, vegetables): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Collaborative study (12 laboratories, ISO 5725-2): s_R = 9.2 %, s_r = 6.3 % relative to log10(count), so s_L = √(s_R² − s_r²) = 6.7 %.
+2. The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 8.4 %.
+3. Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 8.9 % and U = 17.8 % (k = 2).
+
+**Result:**
+
+- U = 18 % (k = 2.00), relative to the measured value
+
+**Run:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-vegetables.json --lang en`
 
 ## Length
 

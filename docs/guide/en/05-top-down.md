@@ -100,6 +100,19 @@ u = √(u²(R̄) + s²(R)) (`"include_sd_of_recoveries": true`, MUPR B5); the si
 degrees of freedom. The χ² test of Eq. (16) shows whether the individual recoveries are equivalent
 (MUPR B6: χ² = 8.70 ≤ 32.7, so s(R) need not be added).
 
+### Precision from collaborative studies (ISO 21748, ISO 5725-3)
+
+* `reproducibility` — a standard method with collaborative-study s_R and s_r (ISO 21748:2017). The precision
+  component is √(s_L² + s²/n_r) with s_L² = s_R² − s_r² (or `sd_between_labs`), s = s_r or the laboratory's own
+  repeatability s_l if it has been verified (7.3.2), and n_r the number of complete replicates averaged
+  (Table 1). `method_bias` adds the uncertainty of a method bias estimated in the study,
+  u²(δ̂) = (s_R² − (1 − 1/n)s_r²)/p + u²(μ̂) (Formula 15). `bias_check` reports whether the laboratory bias on a
+  reference material satisfies |Δ_l| < 2s_D, s_D² = s_L² + s_w²/n_l (Formulae 4–5). Effects not covered by the
+  study (sampling, pre-treatment, drying) are added as further components (Clause 8–9).
+* `staggered_nested` — rows of two results on day 1 and one on day 2 (ISO 5725-3:2023, 7.2 and Annex C.1). The
+  analysis of variance gives s_r, the time-different intermediate precision s_I(T) and, between groups, s_R;
+  `estimate` selects which is used (default `intermediate`).
+
 ## 5.4 Additional components
 
 Components not covered by the data — a stock solution, a dilution, inhomogeneity of the sample, drying — are

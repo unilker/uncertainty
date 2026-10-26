@@ -101,6 +101,8 @@ Every precision, bias, recovery and further component may have a `"range": { "mi
 | `given` | `sd` or `sd_percent`, `dof` |
 | `linear` | `points` (list of `[c, s]`) or `intercept` and `slope`; `dilution_factor` |
 | `continuous` | `sd0`, `rsd1_percent` |
+| `reproducibility` | `sd_reproducibility` or `sd_between_labs`, `sd_repeatability`, `lab_repeatability` (all optionally `_percent`), `replicates`; `method_bias`: `{ "labs", "replicates", "u_reference" }`; `bias_check`: `{ "bias", "sd_within", "n" }` |
+| `staggered_nested` | `results` (rows `[y₁, y₂, y₃]`), `estimate` (`repeatability`, `intermediate`, `reproducibility`), `relative` |
 
 `mean_of`: `{ "replicates": n, "days": p, "repeatability" | "repeatability_percent" }`.
 `to_relative_at`: a number or `"mean"`; `to_absolute_at`: a number.

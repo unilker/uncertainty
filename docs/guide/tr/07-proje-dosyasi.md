@@ -101,6 +101,8 @@ kesinlik, sapma, geri kazanım ve ek bileşen bir `"range": { "min": …, "max":
 | `given` | `sd` veya `sd_percent`, `dof` |
 | `linear` | `points` (`[c, s]` listesi) veya `intercept` ve `slope`; `dilution_factor` |
 | `continuous` | `sd0`, `rsd1_percent` |
+| `reproducibility` | `sd_reproducibility` veya `sd_between_labs`, `sd_repeatability`, `lab_repeatability` (hepsi isteğe bağlı `_percent`), `replicates`; `method_bias`: `{ "labs", "replicates", "u_reference" }`; `bias_check`: `{ "bias", "sd_within", "n" }` |
+| `staggered_nested` | `results` (`[y₁, y₂, y₃]` satırları), `estimate` (`repeatability`, `intermediate`, `reproducibility`), `relative` |
 
 `mean_of`: `{ "replicates": n, "days": p, "repeatability" | "repeatability_percent" }`.
 `to_relative_at`: bir sayı veya `"mean"`; `to_absolute_at`: bir sayı.

@@ -20,12 +20,13 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**82 examples / örnek** (56 model, 22 top-down, 4 proficiency testing / yeterlilik testi).
+**90 examples / örnek** (57 model, 29 top-down, 4 proficiency testing / yeterlilik testi).
 
 ## Chemistry / Kimya
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`iso21748-c2-meat-content`](chemistry/iso21748-c2-meat-content.json) | Meat content from nitrogen and fat (ISO 21748 C.2) | Azot ve yağdan et içeriği (ISO 21748 C.2) | ISO 21748:2017 Annex C.2, Table C.1 |
 | [`nist-tn1900-e8-molecular-weight-co2`](chemistry/nist-tn1900-e8-molecular-weight-co2.json) | Molecular weight of carbon dioxide (NIST TN 1900 E8) | Karbondioksitin molekül ağırlığı (NIST TN 1900 E8) | NIST Technical Note 1900 Example E8, Exhibit 12 |
 | [`nist-tn1900-e9-cadmium-standard`](chemistry/nist-tn1900-e9-cadmium-standard.json) | Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9) | Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9) | NIST Technical Note 1900 Example E9 |
 | [`quam-a1-cadmium-standard-volume`](chemistry/quam-a1-cadmium-standard-volume.json) | Cadmium standard with the volume sub-model | Hacim alt modelli kadmiyum standardı | EURACHEM/CITAC Guide CG 4 Example A1, A1.4 |
@@ -42,6 +43,9 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`iso21748-c4-crude-fibre`](chemistry/iso21748-c4-crude-fibre.json) | Crude fibre in animal feed from reproducibility data (ISO 21748 C.4) | Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4) | ISO 21748:2017 Annex C.4, Tables C.6–C.9 |
+| [`iso5725-3-j1-carbon-steel`](chemistry/iso5725-3-j1-carbon-steel.json) | Carbon in steel: [time + operator]-different intermediate precision (ISO 5725-3 J.1) | Çelikte karbon: [zaman + operatör] farklı ara kesinlik (ISO 5725-3 J.1) | ISO 5725-3:2023 Annex J.1, Table J.1 |
+| [`iso5725-3-j2-vanadium-steel`](chemistry/iso5725-3-j2-vanadium-steel.json) | Vanadium in steel: staggered-nested design, level 1 (ISO 5725-3 J.2) | Çelikte vanadyum: kademeli iç içe tasarım, düzey 1 (ISO 5725-3 J.2) | ISO 5725-3:2023 Annex J.2, Tables J.2–J.5 |
 | [`mupr-b1-nitrate`](chemistry/mupr-b1-nitrate.json) | Nitrate in drinking water: two precision intervals | İçme suyunda nitrat: iki kesinlik aralığı | Eurachem/CITAC Guide Example B1 |
 | [`mupr-b2-pooled-precision`](chemistry/mupr-b2-pooled-precision.json) | Nitrate: pooled precision and two recovery levels | Nitrat: birleştirilmiş kesinlik ve iki geri kazanım düzeyi | Eurachem/CITAC Guide Example B2, Tables B2.1–B2.3 |
 | [`mupr-b2-replicates-on-two-days`](chemistry/mupr-b2-replicates-on-two-days.json) | Nitrate: result as the mean of 3 replicates on 2 days | Nitrat: 2 günde 3 tekrarın ortalaması olarak sonuç | Eurachem/CITAC Guide Example B2, Eq. (B2.8)–(B2.9) |
@@ -111,6 +115,15 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`jcgm101-9.2.3-additive-rectangular`](general/jcgm101-9.2.3-additive-rectangular.json) | Additive model with rectangular inputs | Dikdörtgen dağılımlı girdilerle toplamsal model | JCGM 101:2008 9.2.3 |
 | [`jcgm101-9.2.4-additive-dominant-rectangular`](general/jcgm101-9.2.4-additive-dominant-rectangular.json) | Additive model with a dominant rectangular input | Baskın dikdörtgen girdili toplamsal model | JCGM 101:2008 9.2.4 |
 | [`num-3-ratio-abc`](general/num-3-ratio-abc.json) | Product and ratio y = ab/c with a wide triangular divisor (NIST Uncertainty Machine §3) | Geniş üçgen bölenli çarpım ve oran y = ab/c (NIST Uncertainty Machine §3) | T. Lafarge §3, Figure 1 |
+
+## General (method validation), top-down / Genel (yöntem doğrulama), top-down
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`iso21748-c1-co-emissions`](general/iso21748-c1-co-emissions.json) | Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1) | Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1) | ISO 21748:2017 Annex C.1 |
+| [`iso21748-c3-aerobic-plate-count-flour`](general/iso21748-c3-aerobic-plate-count-flour.json) | Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
+| [`iso21748-c3-aerobic-plate-count-shrimp`](general/iso21748-c3-aerobic-plate-count-shrimp.json) | Aerobic plate count, shrimp: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
+| [`iso21748-c3-aerobic-plate-count-vegetables`](general/iso21748-c3-aerobic-plate-count-vegetables.json) | Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3) | Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3) | ISO 21748:2017 Annex C.3, Tables C.2–C.4 |
 
 ## Length / Uzunluk
 

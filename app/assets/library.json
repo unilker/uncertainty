@@ -1459,6 +1459,707 @@
   }
  },
  {
+  "path": "library/chemistry/iso21748-c2-meat-content.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso21748-c2-meat-content",
+    "title": {
+     "en": "Meat content from nitrogen and fat (ISO 21748 C.2)",
+     "tr": "Azot ve yağdan et içeriği (ISO 21748 C.2)"
+    },
+    "description": {
+     "en": "ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs each carry reproducibility-based uncertainties (Clause 12), written as a measurement model with relative error terms.",
+     "tr": "ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."
+    },
+    "explanation": [
+     {
+      "en": "w_meat = w_pro + w_fat with w_pro = 100 w_N/f_N (Formulae C.1, C.2); w_N = 3.29 % (Kjeldahl, mean of duplicates), f_N = 3.65 ± 0.052, w_fat = 5.50 %.",
+      "tr": "w_meat = w_pro + w_fat, w_pro = 100 w_N/f_N (Formül C.1, C.2); w_N = %3,29 (Kjeldahl, ikili ölçüm ortalaması), f_N = 3,65 ± 0,052, w_fat = %5,50."
+     },
+     {
+      "en": "The nitrogen result carries the between-laboratory term s_L = 1.1 % and the repeatability s_r = 1.8 % of a single result divided by √2 for the duplicate (ISO 21748 Table 1): e_L ~ N(0, 0.011²), e_r ~ N(0, (0.018/√2)²), so u(w_N)/w_N = 1.7 % (Formula C.3). Fat carries s_R = 2.0 %.",
+      "tr": "Azot sonucu laboratuvarlar arası s_L = %1,1 terimini ve ikili ölçüm için √2'ye bölünmüş tek sonuç tekrarlanabilirliğini s_r = %1,8 taşır (ISO 21748 Tablo 1): e_L ~ N(0; 0,011²), e_r ~ N(0; (0,018/√2)²); dolayısıyla u(w_N)/w_N = %1,7 (Formül C.3). Yağ s_R = %2,0 taşır."
+     },
+     {
+      "en": "The law of propagation gives w_meat = 95.6 % with u = 1.99 % and U = 4.0 % (k = 2); w_pro contributes 99.7 % of the variance.",
+      "tr": "Yayılım yasası w_meat = %95,6, u = %1,99 ve U = %4,0 (k = 2) verir; varyansın %99,7'si w_pro'dan gelir."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+      "section": "Annex C.2, Table C.1",
+      "url": "https://www.iso.org/standard/71615.html"
+     }
+    ],
+    "tags": [
+     "iso21748",
+     "reproducibility",
+     "combined-result",
+     "food"
+    ],
+    "notes": [
+     {
+      "en": "Table C.1 rounds the relative uncertainties (0.017, 0.014, 0.022) before combining and prints u = 1.98 %; with the unrounded terms u = 1.99 %. Both give U = 4.0 %.",
+      "tr": "Tablo C.1 bağıl belirsizlikleri (0,017; 0,014; 0,022) birleştirmeden önce yuvarlar ve u = %1,98 basar; yuvarlanmamış terimlerle u = %1,99'dur. İkisi de U = %4,0 verir."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "w_meat",
+     "unit": "%",
+     "expression": "100 * w_N * (1 + e_L + e_r) / f_N + w_fat * (1 + e_fat)",
+     "description": {
+      "en": "Total meat content",
+      "tr": "Toplam et içeriği"
+     }
+    },
+    "inputs": [
+     {
+      "name": "w_N",
+      "unit": "%",
+      "description": {
+       "en": "Total nitrogen content (Kjeldahl)",
+       "tr": "Toplam azot içeriği (Kjeldahl)"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 3.29
+      }
+     },
+     {
+      "name": "e_L",
+      "description": {
+       "en": "Relative laboratory effect, s_L = 0.011",
+       "tr": "Bağıl laboratuvar etkisi, s_L = 0,011"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0,
+       "sd": 0.011
+      }
+     },
+     {
+      "name": "e_r",
+      "description": {
+       "en": "Relative repeatability of the mean of duplicates, 0.018/√2",
+       "tr": "İkili ölçüm ortalamasının bağıl tekrarlanabilirliği, 0,018/√2"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0,
+       "sd": 0.0127279
+      }
+     },
+     {
+      "name": "f_N",
+      "description": {
+       "en": "Nitrogen factor of the meat",
+       "tr": "Etin azot faktörü"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 3.65,
+       "sd": 0.052
+      }
+     },
+     {
+      "name": "w_fat",
+      "unit": "%",
+      "description": {
+       "en": "Fat content",
+       "tr": "Yağ içeriği"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 5.5
+      }
+     },
+     {
+      "name": "e_fat",
+      "description": {
+       "en": "Relative reproducibility of the fat result, s_R = 0.02",
+       "tr": "Yağ sonucunun bağıl tekrarüretilebilirliği, s_R = 0,02"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0,
+       "sd": 0.02
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {
+     "coverage_factor": 2
+    },
+    "mcm": {
+     "trials": 1000000,
+     "seed": 21
+    }
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 95.6,
+      "tolerance": 0.05
+     },
+     "standard_uncertainty": {
+      "value": 1.98,
+      "tolerance": 0.015
+     },
+     "expanded_uncertainty": {
+      "value": 4.0,
+      "tolerance": 0.05
+     }
+    },
+    "reference": {
+     "en": "ISO 21748:2017 Table C.1 and C.2.6 (w_meat = 95.6 %, u = 1.98 %, U = 4.0 %).",
+     "tr": "ISO 21748:2017 Tablo C.1 ve C.2.6 (w_meat = %95,6, u = %1,98, U = %4,0)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iso21748-c4-crude-fibre.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso21748-c4-crude-fibre",
+    "title": {
+     "en": "Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)",
+     "tr": "Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)"
+    },
+    "description": {
+     "en": "ISO 21748:2017 C.4: level-dependent reproducibility from a collaborative study plus the uncertainty of drying to constant mass; the same example as QUAM A6 with a different treatment of the drying term.",
+     "tr": "ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrarüretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır."
+    },
+    "explanation": [
+     {
+      "en": "Collaborative study (Table C.6): s_R = 0.293 % at 2.3 %, 0.390 % at 5.4 % and 0.575 % at 10.1 % fibre. Bias was checked on a CRM (9.3 %, laboratory 9.16 %, Δ_l = −0.14 %) and the laboratory's repeatability agrees with the study (Table C.7).",
+      "tr": "Ortak çalışma (Tablo C.6): %2,3 lifte s_R = %0,293, %5,4'te %0,390 ve %10,1'de %0,575. Sapma bir CRM üzerinde kontrol edilmiştir (%9,3; laboratuvar %9,16; Δ_l = −%0,14) ve laboratuvarın tekrarlanabilirliği çalışmayla uyumludur (Tablo C.7)."
+     },
+     {
+      "en": "Drying to constant mass is not covered by the study: the fixed-time drying stays within 0.002 g of extended drying, a rectangular half-width giving 0.002/√3 = 0.00115 g, i.e. 0.115 % fibre for a 1 g sample.",
+      "tr": "Sabit kütleye kurutma çalışmanın kapsamında değildir: sabit süreli kurutma, uzatılmış kurutmanın 0,002 g yakınında kalır; bu dikdörtgen yarı genişlik 0,002/√3 = 0,00115 g, yani 1 g numunede %0,115 lif verir."
+     },
+     {
+      "en": "u = √(s_R² + 0.115²) = 0.31, 0.41 and 0.59 % in the three ranges (Table C.9), U = 0.6, 0.8 and 1.2 % (k = 2).",
+      "tr": "Üç aralıkta u = √(s_R² + 0,115²) = %0,31; 0,41 ve 0,59 (Tablo C.9), U = %0,6; 0,8 ve 1,2 (k = 2)."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+      "section": "Annex C.4, Tables C.6–C.9",
+      "url": "https://www.iso.org/standard/71615.html"
+     }
+    ],
+    "tags": [
+     "iso21748",
+     "reproducibility",
+     "crude-fibre",
+     "quam-a6",
+     "ranges"
+    ],
+    "notes": [
+     {
+      "en": "ISO 21748 C.4.7 says that the uncertainty of 0.115 % was obtained by 'dividing this maximum estimated deviation by 3'; 0.002 g/3 would give 0.067 %. The printed value corresponds to division by √3 (rectangular distribution), which the project uses.",
+      "tr": "ISO 21748 C.4.7, %0,115 belirsizliğinin 'bu en büyük tahmini sapmanın 3'e bölünmesiyle' bulunduğunu söyler; 0,002 g/3 %0,067 verirdi. Basılı değer √3'e bölmeye (dikdörtgen dağılım) karşılık gelir; proje bunu kullanır."
+     },
+     {
+      "en": "QUAM A6 (project 'quam-a6-crude-fibre') uses the rounded s_R 0.29, 0.40, 0.60 and includes the drying term only at the lowest level.",
+      "tr": "QUAM A6 ('quam-a6-crude-fibre' projesi) yuvarlanmış s_R değerlerini (0,29; 0,40; 0,60) kullanır ve kurutma terimini yalnızca en düşük düzeyde dahil eder."
+     }
+    ]
+   },
+   "topdown": {
+    "quantity": "w(crude fibre)",
+    "unit": "% m/m",
+    "levels": [
+     2.3,
+     4.0,
+     8.0
+    ],
+    "precision": [
+     {
+      "name": "s_R (≤ 2.5)",
+      "data": {
+       "type": "reproducibility",
+       "sd_reproducibility": 0.293,
+       "sd_repeatability": 0.198
+      },
+      "range": {
+       "max": 2.5
+      }
+     },
+     {
+      "name": "s_R (2.5–5)",
+      "data": {
+       "type": "reproducibility",
+       "sd_reproducibility": 0.39,
+       "sd_repeatability": 0.264
+      },
+      "range": {
+       "min": 2.5,
+       "max": 5.0
+      }
+     },
+     {
+      "name": "s_R (5–10)",
+      "data": {
+       "type": "reproducibility",
+       "sd_reproducibility": 0.575,
+       "sd_repeatability": 0.391
+      },
+      "range": {
+       "min": 5.0,
+       "max": 10.0
+      }
+     }
+    ],
+    "components": [
+     {
+      "name": "drying to constant mass",
+      "half_width": 0.2
+     }
+    ]
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "topdown": {
+     "levels": [
+      {
+       "level": 2.3,
+       "standard_uncertainty": {
+        "value": 0.31,
+        "tolerance": 0.005
+       },
+       "expanded_uncertainty": {
+        "value": 0.6,
+        "tolerance": 0.05
+       }
+      },
+      {
+       "level": 4.0,
+       "standard_uncertainty": {
+        "value": 0.41,
+        "tolerance": 0.005
+       },
+       "expanded_uncertainty": {
+        "value": 0.8,
+        "tolerance": 0.05
+       }
+      },
+      {
+       "level": 8.0,
+       "standard_uncertainty": {
+        "value": 0.59,
+        "tolerance": 0.005
+       },
+       "expanded_uncertainty": {
+        "value": 1.2,
+        "tolerance": 0.05
+       }
+      }
+     ]
+    },
+    "reference": {
+     "en": "ISO 21748:2017 Table C.9 and C.4.9 (u = 0.31, 0.41, 0.59 %; U = 0.6, 0.8, 1.2 %).",
+     "tr": "ISO 21748:2017 Tablo C.9 ve C.4.9 (u = %0,31; 0,41; 0,59; U = %0,6; 0,8; 1,2)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iso5725-3-j1-carbon-steel.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso5725-3-j1-carbon-steel",
+    "title": {
+     "en": "Carbon in steel: [time + operator]-different intermediate precision (ISO 5725-3 J.1)",
+     "tr": "Çelikte karbon: [zaman + operatör] farklı ara kesinlik (ISO 5725-3 J.1)"
+    },
+    "description": {
+     "en": "ISO 5725-3:2023 J.1: one routine sample a day re-analysed the next day by another analyst, 29 pairs in a month; s_I(TO) from the pairs, Formula (5).",
+     "tr": "ISO 5725-3:2023 J.1: her gün bir rutin numune ertesi gün başka bir analist tarafından yeniden analiz edilir, bir ayda 29 çift; çiftlerden s_I(TO), Formül (5)."
+    },
+    "explanation": [
+     {
+      "en": "Each pair (y_j1, y_j2) is the same sample measured on two days by two analysts, so the differences contain the time and operator effects as well as repeatability (6.2.2).",
+      "tr": "Her çift (y_j1, y_j2) aynı numunenin iki günde iki analist tarafından ölçülmesidir; bu nedenle farklar tekrarlanabilirliğin yanında zaman ve operatör etkilerini de içerir (6.2.2)."
+     },
+     {
+      "en": "Pairs 20 (0.042/0.146 %) and 24 (0.100/0.161 %) are removed: their differences, probably recording errors, are outliers by Cochran's test (C = 0.72 for pair 20 among all 29, C = 0.89 for pair 24 after removing 20).",
+      "tr": "20 (%0,042/0,146) ve 24 (%0,100/0,161) numaralı çiftler çıkarılır: muhtemelen kayıt hatası olan farkları Cochran testine göre aykırıdır (29 çift arasında 20 için C = 0,72; 20 çıkarıldıktan sonra 24 için C = 0,89)."
+     },
+     {
+      "en": "s_I(TO) = √(Σw_j²/(2 × 27)) = 2.87 × 10⁻³ % (mass fraction), Formula (5), with 27 degrees of freedom.",
+      "tr": "s_I(TO) = √(Σw_j²/(2 × 27)) = 2,87 × 10⁻³ % (kütle kesri), Formül (5), 27 serbestlik derecesiyle."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 5725-3:2023, Accuracy (trueness and precision) of measurement methods and results — Part 3: Intermediate precision and alternative designs for collaborative studies",
+      "section": "Annex J.1, Table J.1",
+      "url": "https://www.iso.org/standard/77864.html"
+     }
+    ],
+    "tags": [
+     "iso5725-3",
+     "intermediate-precision",
+     "duplicates",
+     "steel"
+    ],
+    "notes": [
+     {
+      "en": "The 27 retained pairs are stored; the two removed pairs are given in the explanation. The Cochran statistics quoted are computed by the program's authors from Table J.1 (ISO 5725-3 gives only the conclusion).",
+      "tr": "Korunan 27 çift saklanmıştır; çıkarılan iki çift açıklamada verilmiştir. Belirtilen Cochran istatistikleri Tablo J.1'den hesaplanmıştır (ISO 5725-3 yalnızca sonucu verir)."
+     }
+    ]
+   },
+   "topdown": {
+    "quantity": "w(C)",
+    "unit": "% m/m",
+    "levels": [
+     0.1
+    ],
+    "precision": [
+     {
+      "name": "s_I(TO)",
+      "data": {
+       "type": "duplicates",
+       "pairs": [
+        [
+         0.13,
+         0.127
+        ],
+        [
+         0.14,
+         0.132
+        ],
+        [
+         0.078,
+         0.08
+        ],
+        [
+         0.11,
+         0.113
+        ],
+        [
+         0.126,
+         0.128
+        ],
+        [
+         0.036,
+         0.032
+        ],
+        [
+         0.05,
+         0.047
+        ],
+        [
+         0.143,
+         0.14
+        ],
+        [
+         0.091,
+         0.089
+        ],
+        [
+         0.04,
+         0.03
+        ],
+        [
+         0.11,
+         0.113
+        ],
+        [
+         0.142,
+         0.145
+        ],
+        [
+         0.143,
+         0.15
+        ],
+        [
+         0.169,
+         0.165
+        ],
+        [
+         0.169,
+         0.173
+        ],
+        [
+         0.149,
+         0.144
+        ],
+        [
+         0.044,
+         0.044
+        ],
+        [
+         0.127,
+         0.122
+        ],
+        [
+         0.05,
+         0.048
+        ],
+        [
+         0.15,
+         0.145
+        ],
+        [
+         0.135,
+         0.133
+        ],
+        [
+         0.044,
+         0.045
+        ],
+        [
+         0.132,
+         0.131
+        ],
+        [
+         0.047,
+         0.045
+        ],
+        [
+         0.168,
+         0.165
+        ],
+        [
+         0.092,
+         0.088
+        ],
+        [
+         0.041,
+         0.043
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "reporting": {
+    "significant_digits": 3
+   },
+   "expected": {
+    "topdown": {
+     "components": {
+      "s_I(TO)": {
+       "value": 0.00287,
+       "tolerance": 0.000005
+      }
+     }
+    },
+    "reference": {
+     "en": "ISO 5725-3:2023 J.1.2 (s_I(TO) = 2.87 × 10⁻³ %).",
+     "tr": "ISO 5725-3:2023 J.1.2 (s_I(TO) = 2,87 × 10⁻³ %)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iso5725-3-j2-vanadium-steel.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso5725-3-j2-vanadium-steel",
+    "title": {
+     "en": "Vanadium in steel: staggered-nested design, level 1 (ISO 5725-3 J.2)",
+     "tr": "Çelikte vanadyum: kademeli iç içe tasarım, düzey 1 (ISO 5725-3 J.2)"
+    },
+    "description": {
+     "en": "ISO 5725-3:2023 J.2: 20 laboratories, two results on one day and one on the next; analysis of variance gives s_r, the time-different intermediate precision s_I(T) and s_R.",
+     "tr": "ISO 5725-3:2023 J.2: 20 laboratuvar, bir günde iki ve ertesi gün bir sonuç; varyans analizi s_r'yi, zaman farklı ara kesinlik s_I(T)'yi ve s_R'yi verir."
+    },
+    "explanation": [
+     {
+      "en": "Each laboratory reports y₁, y₂ (repeatability conditions, day 1) and y₃ (day 2). Laboratory 20 is an outlier at level 1 (Cochran) and is removed.",
+      "tr": "Her laboratuvar y₁, y₂ (tekrarlanabilirlik koşulları, 1. gün) ve y₃ (2. gün) bildirir. 20 numaralı laboratuvar düzey 1'de aykırıdır (Cochran) ve çıkarılır."
+     },
+     {
+      "en": "Annex C.1: w(1) = |y₁ − y₂|, w(2) = |(y₁ + y₂)/2 − y₃|; SS₀ = 3Σ(ȳᵢ − ȳ)², SS₁ = (2/3)Σw(2)², SS_e = (1/2)Σw(1)² with 18, 19 and 19 degrees of freedom (Table J.4).",
+      "tr": "Ek C.1: w(1) = |y₁ − y₂|, w(2) = |(y₁ + y₂)/2 − y₃|; 18, 19 ve 19 serbestlik dereceli SS₀ = 3Σ(ȳᵢ − ȳ)², SS₁ = (2/3)Σw(2)², SS_e = (1/2)Σw(1)² (Tablo J.4)."
+     },
+     {
+      "en": "From the expected mean squares, s_r² = MS_e = 0.145, s₍₁₎² = (3/4)(MS₁ − MS_e) = 0.218 and s₀² = (MS₀ − MS_e − (5/3)s₍₁₎²)/3 = 0.278 (× 10⁻⁶): s_r = 0.381, s_I(T) = 0.603 and s_R = 0.801 (× 10⁻³ %).",
+      "tr": "Beklenen kareler ortalamalarından s_r² = MS_e = 0,145, s₍₁₎² = (3/4)(MS₁ − MS_e) = 0,218 ve s₀² = (MS₀ − MS_e − (5/3)s₍₁₎²)/3 = 0,278 (× 10⁻⁶): s_r = 0,381, s_I(T) = 0,603 ve s_R = 0,801 (× 10⁻³ %)."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "ISO 5725-3:2023, Accuracy (trueness and precision) of measurement methods and results — Part 3: Intermediate precision and alternative designs for collaborative studies",
+      "section": "Annex J.2, Tables J.2–J.5",
+      "url": "https://www.iso.org/standard/77864.html"
+     }
+    ],
+    "tags": [
+     "iso5725-3",
+     "intermediate-precision",
+     "staggered-nested",
+     "anova",
+     "steel"
+    ],
+    "notes": [
+     {
+      "en": "Levels 1 and 2 of Table J.5 are reproduced exactly from Table J.2; levels 3, 4 and 5, and s_R at level 6, are not reproduced from the printed data with the stated outlier exclusions (research log F40). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.",
+      "tr": "Tablo J.5'in 1. ve 2. düzeyleri Tablo J.2'den tam olarak yeniden üretilir; 3., 4. ve 5. düzeyler ile 6. düzeydeki s_R, belirtilen aykırı değer çıkarmalarıyla basılı verilerden yeniden üretilemez (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır."
+     }
+    ]
+   },
+   "topdown": {
+    "quantity": "w(V)",
+    "unit": "% m/m",
+    "levels": [
+     0.0098
+    ],
+    "precision": [
+     {
+      "name": "s_I(T)",
+      "data": {
+       "type": "staggered_nested",
+       "results": [
+        [
+         0.0091,
+         0.0102,
+         0.0098
+        ],
+        [
+         0.01,
+         0.01,
+         0.009
+        ],
+        [
+         0.0095,
+         0.009,
+         0.0094
+        ],
+        [
+         0.008,
+         0.0083,
+         0.0077
+        ],
+        [
+         0.01,
+         0.01,
+         0.01
+        ],
+        [
+         0.0089,
+         0.0094,
+         0.0094
+        ],
+        [
+         0.0098,
+         0.0099,
+         0.0101
+        ],
+        [
+         0.0096,
+         0.0094,
+         0.0099
+        ],
+        [
+         0.0104,
+         0.0094,
+         0.01
+        ],
+        [
+         0.0107,
+         0.0118,
+         0.0097
+        ],
+        [
+         0.01,
+         0.01,
+         0.009
+        ],
+        [
+         0.0109,
+         0.0115,
+         0.0097
+        ],
+        [
+         0.01,
+         0.0095,
+         0.0095
+        ],
+        [
+         0.0096,
+         0.0096,
+         0.01
+        ],
+        [
+         0.0099,
+         0.0091,
+         0.0082
+        ],
+        [
+         0.0098,
+         0.01,
+         0.0095
+        ],
+        [
+         0.0105,
+         0.0102,
+         0.0112
+        ],
+        [
+         0.0103,
+         0.0105,
+         0.0118
+        ],
+        [
+         0.0098,
+         0.0096,
+         0.0104
+        ]
+       ],
+       "estimate": "intermediate"
+      }
+     }
+    ]
+   },
+   "reporting": {
+    "significant_digits": 3
+   },
+   "expected": {
+    "topdown": {
+     "components": {
+      "s_I(T)": {
+       "value": 0.000603,
+       "tolerance": 5e-7
+      }
+     }
+    },
+    "reference": {
+     "en": "ISO 5725-3:2023 Tables J.4 and J.5, level 1 (s_r = 0.381, s_I(T) = 0.603, s_R = 0.801 × 10⁻³ %).",
+     "tr": "ISO 5725-3:2023 Tablo J.4 ve J.5, düzey 1 (s_r = 0,381, s_I(T) = 0,603, s_R = 0,801 × 10⁻³ %)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/mupr-b1-nitrate.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -10721,6 +11422,395 @@
     "reference": {
      "en": "NIST TN 1900 E4: v = 40.64 m/s, u(v) = 0.25 m/s (relative 0.61 %), Monte Carlo 95 % interval [40.17, 41.13] m/s, each multiplied by √2 to correct for the missing factor 2 (see note).",
      "tr": "NIST TN 1900 E4: v = 40,64 m/s, u(v) = 0,25 m/s (bağıl %0,61), Monte Carlo %95 aralığı [40,17; 41,13] m/s; eksik 2 çarpanı için her biri √2 ile çarpılmıştır (nota bakınız)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/general/iso21748-c1-co-emissions.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso21748-c1-co-emissions",
+    "title": {
+     "en": "Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)",
+     "tr": "Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)"
+    },
+    "description": {
+     "en": "ISO 21748:2017 C.1: type-approval test of CO emissions; with bias and precision under control the reproducibility standard deviation of the collaborative study is the standard uncertainty.",
+     "tr": "ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrarüretilebilirlik standart sapması standart belirsizliktir."
+    },
+    "explanation": [
+     {
+      "en": "An interlaboratory study according to ISO 5725-2 gave s_r = 0.22 g/km and s_R = 0.28 g/km, so s_L = √(s_R² − s_r²) = 0.17 g/km.",
+      "tr": "ISO 5725-2'ye göre yapılan bir laboratuvarlar arası çalışma s_r = 0,22 g/km ve s_R = 0,28 g/km vermiştir; dolayısıyla s_L = √(s_R² − s_r²) = 0,17 g/km'dir."
+     },
+     {
+      "en": "Trueness is controlled by calibration of the gas analyser and the roller bench, whose uncertainties are negligible against s_R; the laboratory's repeatability (0.20 g/km) is within that of the study (ISO 21748 7.2, 7.3).",
+      "tr": "Doğruluk, gaz analizörünün ve silindir tezgâhının kalibrasyonuyla kontrol edilir; bunların belirsizlikleri s_R'ye göre ihmal edilebilir; laboratuvarın tekrarlanabilirliği (0,20 g/km) çalışmanınkiyle uyumludur (ISO 21748 7.2, 7.3)."
+     },
+     {
+      "en": "No operation is outside the collaborative study, so u = s_R = 0.28 g/km (Formula 3) and U = 0.56 g/km (k = 2), evaluated near the limit 2.2 g/km.",
+      "tr": "Ortak çalışmanın dışında kalan bir işlem yoktur; bu nedenle u = s_R = 0,28 g/km (Formül 3) ve U = 0,56 g/km'dir (k = 2); değerlendirme 2,2 g/km sınırı yakınında yapılmıştır."
+     }
+    ],
+    "field": "general",
+    "sources": [
+     {
+      "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+      "section": "Annex C.1",
+      "url": "https://www.iso.org/standard/71615.html"
+     }
+    ],
+    "tags": [
+     "iso21748",
+     "reproducibility",
+     "collaborative-study"
+    ],
+    "notes": [
+     {
+      "en": "The laboratory's repeatability is not substituted for s_r here (as in ISO 21748 C.1); with lab_repeatability = 0.20 g/km, 7.3.2 would give s′_R = √(s_L² + s_l²) = 0.26 g/km.",
+      "tr": "Burada laboratuvarın tekrarlanabilirliği s_r yerine konmamıştır (ISO 21748 C.1'deki gibi); lab_repeatability = 0,20 g/km ile 7.3.2, s′_R = √(s_L² + s_l²) = 0,26 g/km verirdi."
+     }
+    ]
+   },
+   "topdown": {
+    "quantity": "CO",
+    "unit": "g/km",
+    "levels": [
+     2.2
+    ],
+    "precision": [
+     {
+      "name": "s_R",
+      "data": {
+       "type": "reproducibility",
+       "sd_reproducibility": 0.28,
+       "sd_repeatability": 0.22
+      }
+     }
+    ]
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "topdown": {
+     "components": {
+      "s_R": {
+       "value": 0.28,
+       "tolerance": 0.0005
+      }
+     },
+     "levels": [
+      {
+       "level": 2.2,
+       "standard_uncertainty": {
+        "value": 0.28,
+        "tolerance": 0.0005
+       },
+       "expanded_uncertainty": {
+        "value": 0.56,
+        "tolerance": 0.0005
+       }
+      }
+     ]
+    },
+    "reference": {
+     "en": "ISO 21748:2017 C.1.2 and C.1.6 (s_r = 0.22, s_R = 0.28 g/km, U = 0.56 g/km).",
+     "tr": "ISO 21748:2017 C.1.2 ve C.1.6 (s_r = 0,22, s_R = 0,28 g/km, U = 0,56 g/km)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/general/iso21748-c3-aerobic-plate-count-flour.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso21748-c3-aerobic-plate-count-flour",
+    "title": {
+     "en": "Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3)",
+     "tr": "Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+    },
+    "description": {
+     "en": "ISO 21748:2017 C.3 (AOAC 990.12, flour): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
+     "tr": "ISO 21748:2017 C.3 (AOAC 990.12, un): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği."
+    },
+    "explanation": [
+     {
+      "en": "Collaborative study (12 laboratories, ISO 5725-2): s_R = 5.8 %, s_r = 5.3 % relative to log10(count), so s_L = √(s_R² − s_r²) = 2.4 %.",
+      "tr": "Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %5,8, s_r = %5,3; dolayısıyla s_L = √(s_R² − s_r²) = %2,4."
+     },
+     {
+      "en": "The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 5.5 %.",
+      "tr": "Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %5,5."
+     },
+     {
+      "en": "Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 6.3 % and U = 12.6 % (k = 2).",
+      "tr": "Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %6,3 ve U = %12,6 (k = 2)."
+     }
+    ],
+    "field": "general",
+    "sources": [
+     {
+      "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+      "section": "Annex C.3, Tables C.2–C.4",
+      "url": "https://www.iso.org/standard/71615.html"
+     }
+    ],
+    "tags": [
+     "iso21748",
+     "reproducibility",
+     "microbiology",
+     "relative"
+    ],
+    "notes": [
+     {
+      "en": "ISO 21748 Table C.4 prints u = 6.4 % and C.3.7 U = 12.8 % for flour, but its own inputs give √(2.4² + 5.0² + 3.0²) = 6.30 % (unrounded s_L: 6.29 %) and U = 12.6 %. The intervals of Table C.5 for flour follow from the printed 12.8 %. The project checks the recomputed values.",
+      "tr": "ISO 21748 Tablo C.4 un için u = %6,4 ve C.3.7 U = %12,8 basar; ancak kendi girdileri √(2,4² + 5,0² + 3,0²) = %6,30 (yuvarlanmamış s_L ile %6,29) ve U = %12,6 verir. Tablo C.5'teki un aralıkları basılı %12,8'den çıkar. Proje yeniden hesaplanan değerleri kontrol eder."
+     }
+    ]
+   },
+   "topdown": {
+    "quantity": "log10(CFU), flour",
+    "precision": [
+     {
+      "name": "s′_R",
+      "data": {
+       "type": "reproducibility",
+       "sd_reproducibility_percent": 5.8,
+       "sd_repeatability_percent": 5.3,
+       "lab_repeatability_percent": 5.0
+      }
+     }
+    ],
+    "components": [
+     {
+      "name": "sample preparation",
+      "u_percent": 3.0
+     }
+    ]
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "topdown": {
+     "components": {
+      "s′_R": {
+       "value": 5.5,
+       "tolerance": 0.05
+      }
+     },
+     "levels": [
+      {
+       "relative_standard_percent": {
+        "value": 6.289,
+        "tolerance": 0.005
+       },
+       "relative_expanded_percent": {
+        "value": 12.58,
+        "tolerance": 0.01
+       }
+      }
+     ]
+    },
+    "reference": {
+     "en": "ISO 21748:2017 Tables C.3 and C.4 and C.3.7 (flour: s′_R = 5.5 %, u = 6.4 %, U = 12.8 %); flour: recomputed, see note.",
+     "tr": "ISO 21748:2017 Tablo C.3 ve C.4 ile C.3.7 (un: s′_R = %5,5, u = %6,4, U = %12,8); un: yeniden hesaplanmış, nota bakınız."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/general/iso21748-c3-aerobic-plate-count-shrimp.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso21748-c3-aerobic-plate-count-shrimp",
+    "title": {
+     "en": "Aerobic plate count, shrimp: adjusted reproducibility (ISO 21748 C.3)",
+     "tr": "Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+    },
+    "description": {
+     "en": "ISO 21748:2017 C.3 (AOAC 990.12, shrimp): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
+     "tr": "ISO 21748:2017 C.3 (AOAC 990.12, karides): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği."
+    },
+    "explanation": [
+     {
+      "en": "Collaborative study (12 laboratories, ISO 5725-2): s_R = 11.1 %, s_r = 9.8 % relative to log10(count), so s_L = √(s_R² − s_r²) = 5.2 %.",
+      "tr": "Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %11,1, s_r = %9,8; dolayısıyla s_L = √(s_R² − s_r²) = %5,2."
+     },
+     {
+      "en": "The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 7.2 %.",
+      "tr": "Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %7,2."
+     },
+     {
+      "en": "Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 7.8 % and U = 15.6 % (k = 2).",
+      "tr": "Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %7,8 ve U = %15,6 (k = 2)."
+     }
+    ],
+    "field": "general",
+    "sources": [
+     {
+      "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+      "section": "Annex C.3, Tables C.2–C.4",
+      "url": "https://www.iso.org/standard/71615.html"
+     }
+    ],
+    "tags": [
+     "iso21748",
+     "reproducibility",
+     "microbiology",
+     "relative"
+    ]
+   },
+   "topdown": {
+    "quantity": "log10(CFU), shrimp",
+    "precision": [
+     {
+      "name": "s′_R",
+      "data": {
+       "type": "reproducibility",
+       "sd_reproducibility_percent": 11.1,
+       "sd_repeatability_percent": 9.8,
+       "lab_repeatability_percent": 5.0
+      }
+     }
+    ],
+    "components": [
+     {
+      "name": "sample preparation",
+      "u_percent": 3.0
+     }
+    ]
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "topdown": {
+     "components": {
+      "s′_R": {
+       "value": 7.2,
+       "tolerance": 0.05
+      }
+     },
+     "levels": [
+      {
+       "relative_standard_percent": {
+        "value": 7.8,
+        "tolerance": 0.05
+       },
+       "relative_expanded_percent": {
+        "value": 15.6,
+        "tolerance": 0.05
+       }
+      }
+     ]
+    },
+    "reference": {
+     "en": "ISO 21748:2017 Tables C.3 and C.4 and C.3.7 (shrimp: s′_R = 7.2 %, u = 7.8 %, U = 15.6 %).",
+     "tr": "ISO 21748:2017 Tablo C.3 ve C.4 ile C.3.7 (karides: s′_R = %7,2, u = %7,8, U = %15,6)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/general/iso21748-c3-aerobic-plate-count-vegetables.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iso21748-c3-aerobic-plate-count-vegetables",
+    "title": {
+     "en": "Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3)",
+     "tr": "Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+    },
+    "description": {
+     "en": "ISO 21748:2017 C.3 (AOAC 990.12, vegetables): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
+     "tr": "ISO 21748:2017 C.3 (AOAC 990.12, sebze): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği."
+    },
+    "explanation": [
+     {
+      "en": "Collaborative study (12 laboratories, ISO 5725-2): s_R = 9.2 %, s_r = 6.3 % relative to log10(count), so s_L = √(s_R² − s_r²) = 6.7 %.",
+      "tr": "Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %9,2, s_r = %6,3; dolayısıyla s_L = √(s_R² − s_r²) = %6,7."
+     },
+     {
+      "en": "The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 8.4 %.",
+      "tr": "Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %8,4."
+     },
+     {
+      "en": "Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 8.9 % and U = 17.8 % (k = 2).",
+      "tr": "Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %8,9 ve U = %17,8 (k = 2)."
+     }
+    ],
+    "field": "general",
+    "sources": [
+     {
+      "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+      "section": "Annex C.3, Tables C.2–C.4",
+      "url": "https://www.iso.org/standard/71615.html"
+     }
+    ],
+    "tags": [
+     "iso21748",
+     "reproducibility",
+     "microbiology",
+     "relative"
+    ]
+   },
+   "topdown": {
+    "quantity": "log10(CFU), vegetables",
+    "precision": [
+     {
+      "name": "s′_R",
+      "data": {
+       "type": "reproducibility",
+       "sd_reproducibility_percent": 9.2,
+       "sd_repeatability_percent": 6.3,
+       "lab_repeatability_percent": 5.0
+      }
+     }
+    ],
+    "components": [
+     {
+      "name": "sample preparation",
+      "u_percent": 3.0
+     }
+    ]
+   },
+   "reporting": {
+    "significant_digits": 2
+   },
+   "expected": {
+    "topdown": {
+     "components": {
+      "s′_R": {
+       "value": 8.4,
+       "tolerance": 0.05
+      }
+     },
+     "levels": [
+      {
+       "relative_standard_percent": {
+        "value": 8.9,
+        "tolerance": 0.05
+       },
+       "relative_expanded_percent": {
+        "value": 17.8,
+        "tolerance": 0.05
+       }
+      }
+     ]
+    },
+    "reference": {
+     "en": "ISO 21748:2017 Tables C.3 and C.4 and C.3.7 (vegetables: s′_R = 8.4 %, u = 8.9 %, U = 17.8 %).",
+     "tr": "ISO 21748:2017 Tablo C.3 ve C.4 ile C.3.7 (sebze: s′_R = %8,4, u = %8,9, U = %17,8)."
     }
    }
   }

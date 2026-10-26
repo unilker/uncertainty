@@ -99,6 +99,19 @@ eklenir: u = √(u²(R̄) + s²(R)) (`"include_sd_of_recoveries": true`, MUPR B5
 N − 1 serbestlik derecesine sahiptir. Eş. (16)'nın χ² testi tekil geri kazanımların eşdeğer olup olmadığını
 gösterir (MUPR B6: χ² = 8,70 ≤ 32,7; dolayısıyla s(R) eklenmesi gerekmez).
 
+### Ortak çalışmalardan kesinlik (ISO 21748, ISO 5725-3)
+
+* `reproducibility` — ortak çalışma s_R ve s_r değerleri olan standart bir yöntem (ISO 21748:2017). Kesinlik
+  bileşeni √(s_L² + s²/n_r)'dir; s_L² = s_R² − s_r² (veya `sd_between_labs`), s = s_r ya da doğrulanmışsa
+  laboratuvarın kendi tekrarlanabilirliği s_l (7.3.2), n_r ortalaması alınan tam tekrar sayısıdır (Tablo 1).
+  `method_bias`, çalışmada tahmin edilen yöntem sapmasının belirsizliğini ekler:
+  u²(δ̂) = (s_R² − (1 − 1/n)s_r²)/p + u²(μ̂) (Formül 15). `bias_check`, bir referans malzemedeki laboratuvar
+  sapmasının |Δ_l| < 2s_D, s_D² = s_L² + s_w²/n_l koşulunu sağlayıp sağlamadığını bildirir (Formül 4–5).
+  Çalışmanın kapsamadığı etkiler (örnekleme, ön işlem, kurutma) ek bileşen olarak eklenir (Madde 8–9).
+* `staggered_nested` — 1. gün iki ve 2. gün bir sonuçtan oluşan satırlar (ISO 5725-3:2023, 7.2 ve Ek C.1). Varyans
+  analizi s_r'yi, zaman farklı ara kesinlik s_I(T)'yi ve gruplar arası s_R'yi verir; `estimate` hangisinin
+  kullanılacağını seçer (varsayılan `intermediate`).
+
 ## 5.4 Ek bileşenler
 
 Verilerin kapsamadığı bileşenler — stok çözelti, seyreltme, numunenin homojensizliği, kurutma —
