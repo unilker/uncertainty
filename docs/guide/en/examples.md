@@ -2,13 +2,13 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (58)
+- Chemistry (62)
 - Electrical and RF (15)
 - Flow and volume (4)
 - General (method validation) (15)
 - Length (8)
 - Mass (4)
-- Physical properties (6)
+- Physical properties (8)
 - Temperature (4)
 
 ## Chemistry
@@ -221,6 +221,120 @@ ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs 
 - Table C.1 rounds the relative uncertainties (0.017, 0.014, 0.022) before combining and prints u = 1.98 %; with the unrounded terms u = 1.99 %. Both give U = 4.0 %.
 
 **Run:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang en`
+
+### Sulfur content of coal: repeatability and reproducibility (ISO 5725-2 Example C.1)
+
+`iso5725-2-c1-sulfur-in-coal` — ISO 5725-2:2019, Annex C.1 (Tables C.1–C.5, Formulae C.1–C.24)
+
+ISO 5725-2:2019 C.1: a uniform-level experiment with eight laboratories at four levels (0.69 % to 3.25 %), no missing or outlying data, unequal numbers of results per cell.
+
+**Approach:** repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)
+
+**Steps:**
+
+1. Form A (Table C.1): eight laboratories, four levels; laboratories 1 and 5 reported four or five results instead of three. All results are retained to show the calculation for unequal numbers of results (C.1.2, Note).
+2. Forms B and C (Tables C.2, C.3): cell means and standard deviations recorded to three decimals, one more than the results (8.2.10, 8.2.11); the standard works from these rounded values (C.1.6).
+3. Cochran's test (Formulae C.1–C.4), with n = 3, the number of results in the majority of cells: C = 0.341, 0.289, 0.580 and 0.311 against 0.516 (5 %) and 0.615 (1 %); the cell of laboratory 5 at level 3 is a straggler and is retained.
+4. Grubbs' tests of the cell means (Table C.4): no single stragglers or outliers; at level 2 the double-high statistic 0.108 for laboratories 3 and 6 is below the 5 % critical value 0.1101: stragglers, retained.
+5. Formulae (23)–(31) with unequal n_ij (C.14–C.24): at level 1, m̂ = 0.6904 %, s_r = 0.0152 %, s_L² = 0.000 460 5 and s_R = 0.0263 %.
+
+**Result:**
+
+- Level 1: m̂ = 0.69044 %, s_r = 0.01524 %, s_R = 0.02632 % (p = 8)
+- Level 2: m̂ = 1.2523 %, s_r = 0.02893 %, s_R = 0.06060 % (p = 8)
+- Level 3: m̂ = 1.6674 %, s_r = 0.01729 %, s_R = 0.03498 % (p = 8)
+- Level 4: m̂ = 3.2497 %, s_r = 0.02613 %, s_R = 0.05827 % (p = 8)
+
+**Notes:**
+
+- The text of C.1.5 says that the double-high results at levels 2 and 4 are stragglers, but at level 4 Table C.4 gives 0.132, above the 5 % critical value 0.1101; only level 2 has a straggler pair (research log F47). The same text is in ISO 5725-2:1994, B.1.5.
+- Formulae (C.2)–(C.4) print two different sums of squares in each line (e.g. 0.006 36 and 0.006 390); the test values follow from the second.
+- C.1.8 quotes s_r = 0.022 % and s_R = 0.045 % for the whole range: the arithmetic means of the four levels.
+
+**Run:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal.json --lang en`
+
+### Sulfur content of coal: REML estimates (ISO 5725-2 Example C.1)
+
+`iso5725-2-c1-sulfur-in-coal-reml` — ISO 5725-2:2019, Annex C.1.9 (Table C.6), Annex B.2
+
+ISO 5725-2:2019 C.1.9: the data of Example C.1 evaluated by restricted maximum likelihood (Annex B.2) instead of Formulae (23)–(31).
+
+**Approach:** repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)
+
+**Steps:**
+
+1. Form A (Table C.1): eight laboratories, four levels; laboratories 1 and 5 reported four or five results instead of three. All results are retained to show the calculation for unequal numbers of results (C.1.2, Note).
+2. REML (B.2) maximizes the likelihood of the data with the general mean removed; σ_r² and σ_L² are the variance components of the one-way random-effects model. With unequal n_ij the general mean is weighted by w_i = 1/(s_L² + s_r²/n_i) (Formulae B.5, B.6).
+3. The estimates (Table C.6) differ from Table C.5 by at most one unit in the third decimal: no material difference.
+
+**Result:**
+
+- Level 1: m̂ = 0.68976 %, s_r = 0.01514 %, s_R = 0.02707 % (p = 8)
+- Level 2: m̂ = 1.2543 %, s_r = 0.02880 %, s_R = 0.06155 % (p = 8)
+- Level 3: m̂ = 1.6680 %, s_r = 0.01709 %, s_R = 0.03559 % (p = 8)
+- Level 4: m̂ = 3.2527 %, s_r = 0.02610 %, s_R = 0.05983 % (p = 8)
+
+**Run:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal-reml.json --lang en`
+
+### Thermometric titration of creosote oil: outlying laboratory and precision relationships (ISO 5725-2 Example C.3)
+
+`iso5725-2-c3-creosote-oil` — ISO 5725-2:2019, Annex C.3 (Tables C.14–C.18) and 8.5 (Tables 1–4)
+
+ISO 5725-2:2019 C.3 with 8.5: nine laboratories at five levels (4 % to 20 %), an outlying laboratory, a rejected cell, and the functional relationships I–IV between the precision and the level (Tables 1–4).
+
+**Approach:** repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)
+
+**Steps:**
+
+1. Form A (Table C.14): nine laboratories, five levels, two results per cell.
+2. Mandel's h (Figure C.7) shows laboratory 1 much higher than all others at all levels; Mandel's k (Figure C.8) shows rather large within-cell differences for laboratories 6 and 7.
+3. Cochran's test: at level 4, C = 1.10²/1.8149 = 0.667 (straggler, 0.638 < C ≤ 0.754 for p = 9); at level 5, C = 1.98²/6.1663 = 0.636, just below 0.638.
+4. Grubbs' tests (Table C.17): the cell means of laboratory 1 at levels 3 and 4 are outliers (2.50 and 2.47 > 2.387), so the double tests are not applied there (8.3.5.3).
+5. The panel rejects laboratory 1 as an outlying laboratory and the cell of laboratory 6 at level 5; without them Cochran's statistic at level 4 is compared with 0.680 (p = 8) and is no longer a straggler.
+6. Table C.18: with p = 8 (p = 7 at level 5) the precision increases with the level: s_r from 0.092 % to 0.393 %, s_R from 0.171 % to 0.637 %.
+7. Relationships for s_r (Tables 1–4): I, b = Σ(s/m)/q = 0.019; II, s = 0.030 + 0.0154m after two weighted fits; III, s² = 0.061² + (0.0178m)²; IV, lg s = −1.5065 + 0.77 lg m. For repeatability a straight line through the origin seems adequate (C.3.7).
+
+**Result:**
+
+- Level 1: m̂ = 3.9406 %, s_r = 0.09216 %, s_R = 0.1708 % (p = 8)
+- Level 2: m̂ = 8.2819 %, s_r = 0.1789 %, s_R = 0.4977 % (p = 8)
+- Level 3: m̂ = 14.178 %, s_r = 0.1269 %, s_R = 0.4004 % (p = 8)
+- Level 4: m̂ = 15.588 %, s_r = 0.3368 %, s_R = 0.5786 % (p = 8)
+- Level 5: m̂ = 20.412 %, s_r = 0.3935 %, s_R = 0.6370 % (p = 7)
+
+**Notes:**
+
+- The printed slope of relationship IV in Table 4, d = 0.772, is not consistent with the fitted values in the same table (0.089, 0.158, 0.239, 0.257, 0.316), which follow from the regression of the tabulated logarithms, d = 0.769 (research log F49). The same values are in ISO 5725-2:1994.
+- Table 2 rounds the slope of the second fit to 0.0154; from the tabulated m and s it is 0.01554. The program fits the unrounded s_r of Table C.18.
+
+**Run:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil.json --lang en`
+
+### Thermometric titration of creosote oil: REML estimates (ISO 5725-2 Example C.3)
+
+`iso5725-2-c3-creosote-oil-reml` — ISO 5725-2:2019, Annex C.3.8 (Table C.19), Annex B.2
+
+ISO 5725-2:2019 C.3.8: the retained data of Example C.3 evaluated by restricted maximum likelihood (Annex B.2).
+
+**Approach:** repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)
+
+**Steps:**
+
+1. Form A (Table C.14): nine laboratories, five levels, two results per cell.
+2. Mandel's h (Figure C.7) shows laboratory 1 much higher than all others at all levels; Mandel's k (Figure C.8) shows rather large within-cell differences for laboratories 6 and 7.
+3. Cochran's test: at level 4, C = 1.10²/1.8149 = 0.667 (straggler, 0.638 < C ≤ 0.754 for p = 9); at level 5, C = 1.98²/6.1663 = 0.636, just below 0.638.
+4. Grubbs' tests (Table C.17): the cell means of laboratory 1 at levels 3 and 4 are outliers (2.50 and 2.47 > 2.387), so the double tests are not applied there (8.3.5.3).
+5. The panel rejects laboratory 1 as an outlying laboratory and the cell of laboratory 6 at level 5; without them Cochran's statistic at level 4 is compared with 0.680 (p = 8) and is no longer a straggler.
+6. The REML estimates of Table C.19 are the same as Table C.18 to the printed digits.
+
+**Result:**
+
+- Level 1: m̂ = 3.9406 %, s_r = 0.09216 %, s_R = 0.1708 % (p = 8)
+- Level 2: m̂ = 8.2819 %, s_r = 0.1789 %, s_R = 0.4977 % (p = 8)
+- Level 3: m̂ = 14.178 %, s_r = 0.1269 %, s_R = 0.4004 % (p = 8)
+- Level 4: m̂ = 15.588 %, s_r = 0.3368 %, s_R = 0.5786 % (p = 8)
+- Level 5: m̂ = 20.412 %, s_r = 0.3935 %, s_R = 0.6370 % (p = 7)
+
+**Run:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil-reml.json --lang en`
 
 ### NO in N₂ by UV absorption: straight-line analysis function (ISO 6143 Example 1)
 
@@ -701,7 +815,7 @@ ISO 5725-3:2023 J.2: 20 laboratories, two results on one day and one on the next
 
 **Notes:**
 
-- Levels 1 and 2 of Table J.5 are reproduced exactly from Table J.2; levels 3, 4 and 5, and s_R at level 6, are not reproduced from the printed data with the stated outlier exclusions (research log F40). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.
+- Table J.2 of ISO 5725-3:2023 differs from Table D.2 of ISO 5725-3:1994 in 15 entries (14 at level 3, where the second day-1 result of laboratories 7–20 repeats the first, and one each at levels 4 and 5); level 1, used here, is the same in both. The 1994 data reproduce Table J.5 exactly at levels 1–5 (core test staggered_nested_iso_5725_3_1994_levels_3_to_6). At level 6, s₍₁₎² is negative: s_I(T) = s_r is printed, but the printed s_R = 15.962 × 10⁻³ % keeps the negative s₍₁₎²; with s₍₁₎² = 0 throughout, s_R = 16.331 × 10⁻³ % (research log F40). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.
 
 **Run:** `uncertainty run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang en`
 
@@ -2380,6 +2494,60 @@ TN 1900 E1: mass of a powder from three weighings with a single-pan balance; lin
 **Run:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang en`
 
 ## Physical properties
+
+### Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2)
+
+`iso5725-2-c2-softening-point-pitch` — ISO 5725-2:2019, Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33)
+
+ISO 5725-2:2019 C.2: ring-and-ball softening point of pitch, sixteen laboratories at four levels (88 °C to 102 °C) with duplicate results and two missing cells.
+
+**Approach:** repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)
+
+**Steps:**
+
+1. Form A (Table C.7): sixteen laboratories, four levels, two results per cell. Laboratory 8 had no sample for level 1; laboratory 5 has a single result at level 2, which is discarded (8.4.3 a), so p = 15 at levels 1 and 2.
+2. With two results per cell, Cochran's statistic is the largest squared absolute difference over the sum of the squared differences (8.2.11, Note 1): C = 0.391, 0.424, 0.434 and 0.380 (Table C.10), below the 5 % critical values 0.471 (p = 15) and 0.452 (p = 16).
+3. Grubbs' tests of the cell means (Table C.11): no single or double stragglers or outliers.
+4. For n = 2 the variances follow from Formulae (29) and (30): at level 1, s_r² = Σ(y_i1 − y_i2)²/(2p) = 1.2303 and s_L² = 1.5575, so m̂ = 88.40 °C, s_r = 1.109 °C and s_R = 1.670 °C (C.25–C.33).
+
+**Result:**
+
+- Level 1: m̂ = 88.397 °C, s_r = 1.109 °C, s_R = 1.670 °C (p = 15)
+- Level 2: m̂ = 96.267 °C, s_r = 0.9252 °C, s_R = 1.597 °C (p = 15)
+- Level 3: m̂ = 97.069 °C, s_r = 0.9934 °C, s_R = 2.010 °C (p = 16)
+- Level 4: m̂ = 101.96 °C, s_r = 1.004 °C, s_R = 1.918 °C (p = 16)
+
+**Notes:**
+
+- Table C.12 gives s_R = 1.915 °C at level 4; Formulae (29)–(31) give 1.9175 °C (1.918 °C), the value of the REML Table C.13 (research log F48). ISO 5725-2:1994 prints the same 1.915 °C.
+
+**Run:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch.json --lang en`
+
+### Softening point of pitch: REML estimates (ISO 5725-2 Example C.2)
+
+`iso5725-2-c2-softening-point-pitch-reml` — ISO 5725-2:2019, Annex C.2.9 (Table C.13), Annex B.2
+
+ISO 5725-2:2019 C.2.9: the data of Example C.2 evaluated by restricted maximum likelihood (Annex B.2).
+
+**Approach:** repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)
+
+**Steps:**
+
+1. Form A (Table C.7): sixteen laboratories, four levels, two results per cell. Laboratory 8 had no sample for level 1; laboratory 5 has a single result at level 2, which is discarded (8.4.3 a), so p = 15 at levels 1 and 2.
+2. With two results in every cell the REML estimates equal the ANOVA estimates unless the estimate of σ_L² is negative; Table C.13 agrees with Table C.12 except s_R at level 4 (see the notes).
+
+**Result:**
+
+- Level 1: m̂ = 88.397 °C, s_r = 1.109 °C, s_R = 1.670 °C (p = 15)
+- Level 2: m̂ = 96.267 °C, s_r = 0.9252 °C, s_R = 1.597 °C (p = 15)
+- Level 3: m̂ = 97.069 °C, s_r = 0.9934 °C, s_R = 2.010 °C (p = 16)
+- Level 4: m̂ = 101.96 °C, s_r = 1.004 °C, s_R = 1.918 °C (p = 16)
+
+**Notes:**
+
+- Table C.13 gives s_R = 1.918 °C at level 4 where Table C.12 gives 1.915 °C; for balanced cells both methods give 1.9175 °C (research log F48).
+
+**Run:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang en`
 
 ### Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13)
 

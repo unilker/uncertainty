@@ -59,14 +59,20 @@ Türkçe ve İngilizce.
   acceptance and guarded acceptance/rejection with guard bands from r, from a
   length or from a required probability, global consumer's and producer's
   risks for normal and gamma process distributions.
+- Interlaboratory precision experiments (ISO 5725-2:2019): Mandel's h and k,
+  Cochran's and Grubbs' tests with the critical values of Annex D, repeatability,
+  between-laboratory and reproducibility standard deviations by Formulae
+  (23)–(31) or REML (Annex B.2), documented exclusions, relationships I–IV
+  between precision and level, Annex A uncertainty factors.
 - Results not corrected for a known bias: RSSu, RSSU, SUMU, SUMU_MAX and Ue
   intervals (Magnusson & Ellison 2008), with their coverage checked by simulation.
-- [Example library](library/README.md): 114 published examples (58 model-based:
+- [Example library](library/README.md): 120 published examples (58 model-based:
   chemistry, mass, length, temperature, electrical, flow, physical properties;
   36 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3, Palma et al.
   2019; 7 proficiency
-  testing: ISO 13528; 6 calibrations: ISO 6143; 7 conformity assessments:
-  JCGM 106) as self-checking projects.
+  testing: ISO 13528; 6 calibrations: ISO 6143; 6 interlaboratory precision
+  experiments: ISO 5725-2; 7 conformity assessments: JCGM 106) as
+  self-checking projects.
 
 ## Usage / Kullanım
 
@@ -78,6 +84,7 @@ $B template --topdown > td.json                         # top-down project from 
 $B template --proficiency > pt.json                     # proficiency test round (ISO 13528)
 $B template --calibration > cal.json                    # calibration in both variables (ISO 6143)
 $B template --conformity > cf.json                      # conformity assessment (JCGM 106)
+$B template --precision > pe.json                       # interlaboratory precision experiment (ISO 5725-2)
 $B run library/chemistry/quam-a1-cadmium-standard.json  # Markdown report (English)
 $B run my.json --lang tr -o rapor.html                  # Türkçe HTML rapor
 $B run my.json --format json --no-mcm                   # machine-readable results
@@ -100,18 +107,19 @@ yeterlilik testi ve kalibrasyon (ISO 6143) düzenleyicileri, bütçe, grafikler 
 
 [docs/guide](docs/guide/README.md) — in English and Turkish: getting started, the GUM uncertainty framework,
 the Monte Carlo method, top-down evaluation, reporting, the project file reference, an English–Turkish
-glossary, proficiency testing, calibration in both variables, conformity assessment and all library examples with their results recomputed by the program.
+glossary, proficiency testing, calibration in both variables, conformity assessment, interlaboratory precision
+experiments and all library examples with their results recomputed by the program.
 
 İngilizce ve Türkçe: başlarken, GUM belirsizlik yaklaşımı, Monte Carlo yöntemi, top-down değerlendirme,
-raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük, yeterlilik testi, iki değişkenli kalibrasyon, uygunluk değerlendirmesi ve sonuçları program tarafından yeniden
+raporlama, proje dosyası başvurusu, İngilizce–Türkçe sözlük, yeterlilik testi, iki değişkenli kalibrasyon, uygunluk değerlendirmesi, laboratuvarlar arası kesinlik deneyleri ve sonuçları program tarafından yeniden
 hesaplanan tüm kütüphane örnekleri.
 
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (131 tests; one of them reruns all 114 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
+automated test (140 tests; one of them reruns all 120 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
-their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023, Annex B of ISO 6143:2025 and the examples of JCGM 106:2012 clauses 7–9. Details, tolerances and findings:
+their raw data), all twelve calibration examples of EA-4/02 M:2022, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 (with the data of the 1994 edition), Annex C of ISO 5725-2:2019 (including REML) and its Tables 1–8, Annex B of ISO 6143:2025 and the examples of JCGM 106:2012 clauses 7–9. Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
 
 ```sh

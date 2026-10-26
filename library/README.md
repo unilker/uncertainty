@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**114 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 7 conformity assessment / uygunluk değerlendirmesi).
+**120 examples / örnek** (58 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -99,6 +99,15 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`iso6143-b2-n2-natural-gas-quadratic`](chemistry/iso6143-b2-n2-natural-gas-quadratic.json) | N₂ in natural gas by GC-TCD: second-order polynomial (ISO 6143 Example 2) | Doğal gazda N₂, GC-TCD: ikinci derece polinom (ISO 6143 Örnek 2) | ISO 6143:2025 Annex B.2.3 (Table B.9) |
 | [`iso6143-b3-no-ndir-exponential`](chemistry/iso6143-b3-no-ndir-exponential.json) | NO in N₂ by NDIR: exponential function (ISO 6143 Example 3) | N₂ içinde NO, NDIR: üstel fonksiyon (ISO 6143 Örnek 3) | ISO 6143:2025 Annex B.1 and B.2.4 (Tables B.11, B.12) |
 | [`iso6143-b3-no-ndir-power`](chemistry/iso6143-b3-no-ndir-power.json) | NO in N₂ by NDIR: power function (ISO 6143 Example 3) | N₂ içinde NO, NDIR: üslü fonksiyon (ISO 6143 Örnek 3) | ISO 6143:2025 Annex B.2.4 (Tables B.11, B.12) |
+
+## Chemistry, interlaboratory precision (ISO 5725-2) / Kimya, laboratuvarlar arası kesinlik (ISO 5725-2)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`iso5725-2-c1-sulfur-in-coal-reml`](chemistry/iso5725-2-c1-sulfur-in-coal-reml.json) | Sulfur content of coal: REML estimates (ISO 5725-2 Example C.1) | Kömürün kükürt içeriği: REML tahminleri (ISO 5725-2 Örnek C.1) | ISO 5725-2:2019 Annex C.1.9 (Table C.6), Annex B.2 |
+| [`iso5725-2-c1-sulfur-in-coal`](chemistry/iso5725-2-c1-sulfur-in-coal.json) | Sulfur content of coal: repeatability and reproducibility (ISO 5725-2 Example C.1) | Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.1) | ISO 5725-2:2019 Annex C.1 (Tables C.1–C.5, Formulae C.1–C.24) |
+| [`iso5725-2-c3-creosote-oil-reml`](chemistry/iso5725-2-c3-creosote-oil-reml.json) | Thermometric titration of creosote oil: REML estimates (ISO 5725-2 Example C.3) | Kreozot yağının termometrik titrasyonu: REML tahminleri (ISO 5725-2 Örnek C.3) | ISO 5725-2:2019 Annex C.3.8 (Table C.19), Annex B.2 |
+| [`iso5725-2-c3-creosote-oil`](chemistry/iso5725-2-c3-creosote-oil.json) | Thermometric titration of creosote oil: outlying laboratory and precision relationships (ISO 5725-2 Example C.3) | Kreozot yağının termometrik titrasyonu: aykırı laboratuvar ve kesinlik ilişkileri (ISO 5725-2 Örnek C.3) | ISO 5725-2:2019 Annex C.3 (Tables C.14–C.18) and 8.5 (Tables 1–4) |
 
 ## Electrical and RF / Elektrik ve RF
 
@@ -191,6 +200,13 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`nist-tn1900-e13-thermal-expansion-student-99`](physical/nist-tn1900-e13-thermal-expansion-student-99.json) | Thermal expansion coefficient, Student t₃ inputs, 99 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, Student t₃ girdiler, %99 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
 | [`nist-tn1900-e3-falling-ball-viscometer`](physical/nist-tn1900-e3-falling-ball-viscometer.json) | Falling-ball viscometer (NIST TN 1900 E3) | Düşen bilyalı viskozimetre (NIST TN 1900 E3) | NIST Technical Note 1900 Example E3, Exhibit 3 |
 | [`num-11-stefan-boltzmann`](physical/num-11-stefan-boltzmann.json) | Stefan–Boltzmann constant from CODATA 2010 values (NIST Uncertainty Machine §11) | CODATA 2010 değerlerinden Stefan–Boltzmann sabiti (NIST Uncertainty Machine §11) | T. Lafarge §11, Table 5 and Figure 7 |
+
+## Physical properties, interlaboratory precision (ISO 5725-2) / Fiziksel özellikler, laboratuvarlar arası kesinlik (ISO 5725-2)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`iso5725-2-c2-softening-point-pitch-reml`](physical/iso5725-2-c2-softening-point-pitch-reml.json) | Softening point of pitch: REML estimates (ISO 5725-2 Example C.2) | Ziftin yumuşama noktası: REML tahminleri (ISO 5725-2 Örnek C.2) | ISO 5725-2:2019 Annex C.2.9 (Table C.13), Annex B.2 |
+| [`iso5725-2-c2-softening-point-pitch`](physical/iso5725-2-c2-softening-point-pitch.json) | Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2) | Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.2) | ISO 5725-2:2019 Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33) |
 
 ## Temperature / Sıcaklık
 

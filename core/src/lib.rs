@@ -11,6 +11,8 @@
 //! * straight-line calibration and inverse prediction — EURACHEM CG4
 //!   Appendix E.4 (module [`calibration`]);
 //! * statistics for proficiency testing — ISO 13528:2022 (module [`pt`]);
+//! * repeatability and reproducibility from interlaboratory experiments —
+//!   ISO 5725-2:2019 (module [`interlab`]);
 //! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
@@ -49,6 +51,7 @@ pub mod error;
 pub mod expr;
 pub mod gls;
 pub mod gum;
+pub mod interlab;
 pub mod mcm;
 pub mod model;
 pub mod pt;

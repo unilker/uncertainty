@@ -2,13 +2,13 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (58)
+- Kimya (62)
 - Elektrik ve RF (15)
 - Akış ve hacim (4)
 - Genel (yöntem doğrulama) (15)
 - Uzunluk (8)
 - Kütle (4)
-- Fiziksel özellikler (6)
+- Fiziksel özellikler (8)
 - Sıcaklık (4)
 
 ## Kimya
@@ -221,6 +221,120 @@ ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirs
 - Tablo C.1 bağıl belirsizlikleri (0,017; 0,014; 0,022) birleştirmeden önce yuvarlar ve u = %1,98 basar; yuvarlanmamış terimlerle u = %1,99'dur. İkisi de U = %4,0 verir.
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang tr`
+
+### Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.1)
+
+`iso5725-2-c1-sulfur-in-coal` — ISO 5725-2:2019, Annex C.1 (Tables C.1–C.5, Formulae C.1–C.24)
+
+ISO 5725-2:2019 C.1: dört düzeyde (%0,69 – %3,25) sekiz laboratuvarlı, eksik veya aykırı veri içermeyen, hücre başına sonuç sayıları eşit olmayan tek düzeyli bir deney.
+
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+
+**Adımlar:**
+
+1. Form A (Tablo C.1): sekiz laboratuvar, dört düzey; 1. ve 5. laboratuvarlar üç yerine dört veya beş sonuç bildirmiştir. Eşit olmayan sonuç sayılarıyla hesaplamayı göstermek için tüm sonuçlar tutulur (C.1.2, Not).
+2. Form B ve C (Tablo C.2, C.3): hücre ortalamaları ve standart sapmaları, sonuçlardan bir fazla olmak üzere üç ondalıkla kaydedilir (8.2.10, 8.2.11); standart bu yuvarlanmış değerlerle çalışır (C.1.6).
+3. Cochran testi (Formül C.1–C.4), hücrelerin çoğunluğundaki sonuç sayısı n = 3 ile: C = 0,341, 0,289, 0,580 ve 0,311; kritik değerler 0,516 (%5) ve 0,615 (%1); 3. düzeyde 5. laboratuvarın hücresi şüphelidir (straggler) ve tutulur.
+4. Hücre ortalamalarına Grubbs testleri (Tablo C.4): tekli şüpheli veya aykırı değer yok; 2. düzeyde 3. ve 6. laboratuvarlar için ikili-yüksek istatistik 0,108, %5 kritik değeri 0,1101'in altındadır: şüpheli, tutulur.
+5. Eşit olmayan n_ij ile Formül (23)–(31) (C.14–C.24): 1. düzeyde m̂ = %0,6904, s_r = %0,0152, s_L² = 0,000 460 5 ve s_R = %0,0263.
+
+**Sonuç:**
+
+- Düzey 1: m̂ = 0,69044 %, s_r = 0,01524 %, s_R = 0,02632 % (p = 8)
+- Düzey 2: m̂ = 1,2523 %, s_r = 0,02893 %, s_R = 0,06060 % (p = 8)
+- Düzey 3: m̂ = 1,6674 %, s_r = 0,01729 %, s_R = 0,03498 % (p = 8)
+- Düzey 4: m̂ = 3,2497 %, s_r = 0,02613 %, s_R = 0,05827 % (p = 8)
+
+**Notlar:**
+
+- C.1.5 metni 2. ve 4. düzeylerdeki ikili-yüksek sonuçların şüpheli olduğunu söyler; ancak 4. düzey için Tablo C.4 %5 kritik değeri 0,1101'in üstünde 0,132 verir; yalnızca 2. düzeyde şüpheli bir çift vardır (araştırma günlüğü F47). Aynı metin ISO 5725-2:1994 B.1.5'te de bulunur.
+- Formül (C.2)–(C.4) her satırda iki farklı kareler toplamı basar (ör. 0,006 36 ve 0,006 390); test değerleri ikincisinden çıkar.
+- C.1.8 tüm aralık için s_r = %0,022 ve s_R = %0,045 verir: dört düzeyin aritmetik ortalamaları.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal.json --lang tr`
+
+### Kömürün kükürt içeriği: REML tahminleri (ISO 5725-2 Örnek C.1)
+
+`iso5725-2-c1-sulfur-in-coal-reml` — ISO 5725-2:2019, Annex C.1.9 (Table C.6), Annex B.2
+
+ISO 5725-2:2019 C.1.9: Örnek C.1 verilerinin Formül (23)–(31) yerine kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
+
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+
+**Adımlar:**
+
+1. Form A (Tablo C.1): sekiz laboratuvar, dört düzey; 1. ve 5. laboratuvarlar üç yerine dört veya beş sonuç bildirmiştir. Eşit olmayan sonuç sayılarıyla hesaplamayı göstermek için tüm sonuçlar tutulur (C.1.2, Not).
+2. REML (B.2), genel ortalaması çıkarılmış verinin olabilirliğini en büyükler; σ_r² ve σ_L² tek yönlü rastgele etkiler modelinin varyans bileşenleridir. Eşit olmayan n_ij ile genel ortalama w_i = 1/(s_L² + s_r²/n_i) ağırlıklarıyla alınır (Formül B.5, B.6).
+3. Tahminler (Tablo C.6) Tablo C.5'ten üçüncü ondalıkta en çok bir birim farklıdır: önemli bir fark yoktur.
+
+**Sonuç:**
+
+- Düzey 1: m̂ = 0,68976 %, s_r = 0,01514 %, s_R = 0,02707 % (p = 8)
+- Düzey 2: m̂ = 1,2543 %, s_r = 0,02880 %, s_R = 0,06155 % (p = 8)
+- Düzey 3: m̂ = 1,6680 %, s_r = 0,01709 %, s_R = 0,03559 % (p = 8)
+- Düzey 4: m̂ = 3,2527 %, s_r = 0,02610 %, s_R = 0,05983 % (p = 8)
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal-reml.json --lang tr`
+
+### Kreozot yağının termometrik titrasyonu: aykırı laboratuvar ve kesinlik ilişkileri (ISO 5725-2 Örnek C.3)
+
+`iso5725-2-c3-creosote-oil` — ISO 5725-2:2019, Annex C.3 (Tables C.14–C.18) and 8.5 (Tables 1–4)
+
+ISO 5725-2:2019 C.3 ve 8.5: beş düzeyde (%4 – %20) dokuz laboratuvar, aykırı bir laboratuvar, reddedilmiş bir hücre ve kesinlik ile düzey arasındaki I–IV fonksiyonel ilişkileri (Tablo 1–4).
+
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+
+**Adımlar:**
+
+1. Form A (Tablo C.14): dokuz laboratuvar, beş düzey, hücre başına iki sonuç.
+2. Mandel h (Şekil C.7) 1. laboratuvarın tüm düzeylerde diğerlerinden çok yüksek olduğunu gösterir; Mandel k (Şekil C.8) 6. ve 7. laboratuvarlarda oldukça büyük hücre içi farklar gösterir.
+3. Cochran testi: 4. düzeyde C = 1,10²/1,8149 = 0,667 (şüpheli, p = 9 için 0,638 < C ≤ 0,754); 5. düzeyde C = 1,98²/6,1663 = 0,636, 0,638'in hemen altında.
+4. Grubbs testleri (Tablo C.17): 1. laboratuvarın 3. ve 4. düzeylerdeki hücre ortalamaları aykırıdır (2,50 ve 2,47 > 2,387); bu yüzden orada ikili testler uygulanmaz (8.3.5.3).
+5. Panel 1. laboratuvarı aykırı laboratuvar olarak ve 6. laboratuvarın 5. düzeydeki hücresini reddeder; bunlar olmadan 4. düzeydeki Cochran istatistiği 0,680 (p = 8) ile karşılaştırılır ve artık şüpheli değildir.
+6. Tablo C.18: p = 8 (5. düzeyde p = 7) ile kesinlik değerleri düzeyle artar: s_r %0,092'den %0,393'e, s_R %0,171'den %0,637'ye.
+7. s_r için ilişkiler (Tablo 1–4): I, b = Σ(s/m)/q = 0,019; II, iki ağırlıklı uydurmadan sonra s = 0,030 + 0,0154m; III, s² = 0,061² + (0,0178m)²; IV, lg s = −1,5065 + 0,77 lg m. Tekrarlanabilirlik için orijinden geçen bir doğru yeterli görünmektedir (C.3.7).
+
+**Sonuç:**
+
+- Düzey 1: m̂ = 3,9406 %, s_r = 0,09216 %, s_R = 0,1708 % (p = 8)
+- Düzey 2: m̂ = 8,2819 %, s_r = 0,1789 %, s_R = 0,4977 % (p = 8)
+- Düzey 3: m̂ = 14,178 %, s_r = 0,1269 %, s_R = 0,4004 % (p = 8)
+- Düzey 4: m̂ = 15,588 %, s_r = 0,3368 %, s_R = 0,5786 % (p = 8)
+- Düzey 5: m̂ = 20,412 %, s_r = 0,3935 %, s_R = 0,6370 % (p = 7)
+
+**Notlar:**
+
+- Tablo 4'te basılı IV. ilişki eğimi d = 0,772, aynı tablodaki uydurulmuş değerlerle (0,089; 0,158; 0,239; 0,257; 0,316) tutarlı değildir; bu değerler tablodaki logaritmaların regresyonundan, d = 0,769'dan çıkar (araştırma günlüğü F49). Aynı değerler ISO 5725-2:1994'te de vardır.
+- Tablo 2 ikinci uydurmanın eğimini 0,0154'e yuvarlar; tablodaki m ve s değerlerinden 0,01554 çıkar. Program Tablo C.18'in yuvarlanmamış s_r değerlerine uydurur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil.json --lang tr`
+
+### Kreozot yağının termometrik titrasyonu: REML tahminleri (ISO 5725-2 Örnek C.3)
+
+`iso5725-2-c3-creosote-oil-reml` — ISO 5725-2:2019, Annex C.3.8 (Table C.19), Annex B.2
+
+ISO 5725-2:2019 C.3.8: Örnek C.3'ün tutulan verilerinin kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
+
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+
+**Adımlar:**
+
+1. Form A (Tablo C.14): dokuz laboratuvar, beş düzey, hücre başına iki sonuç.
+2. Mandel h (Şekil C.7) 1. laboratuvarın tüm düzeylerde diğerlerinden çok yüksek olduğunu gösterir; Mandel k (Şekil C.8) 6. ve 7. laboratuvarlarda oldukça büyük hücre içi farklar gösterir.
+3. Cochran testi: 4. düzeyde C = 1,10²/1,8149 = 0,667 (şüpheli, p = 9 için 0,638 < C ≤ 0,754); 5. düzeyde C = 1,98²/6,1663 = 0,636, 0,638'in hemen altında.
+4. Grubbs testleri (Tablo C.17): 1. laboratuvarın 3. ve 4. düzeylerdeki hücre ortalamaları aykırıdır (2,50 ve 2,47 > 2,387); bu yüzden orada ikili testler uygulanmaz (8.3.5.3).
+5. Panel 1. laboratuvarı aykırı laboratuvar olarak ve 6. laboratuvarın 5. düzeydeki hücresini reddeder; bunlar olmadan 4. düzeydeki Cochran istatistiği 0,680 (p = 8) ile karşılaştırılır ve artık şüpheli değildir.
+6. Tablo C.19'un REML tahminleri basılı basamaklarda Tablo C.18 ile aynıdır.
+
+**Sonuç:**
+
+- Düzey 1: m̂ = 3,9406 %, s_r = 0,09216 %, s_R = 0,1708 % (p = 8)
+- Düzey 2: m̂ = 8,2819 %, s_r = 0,1789 %, s_R = 0,4977 % (p = 8)
+- Düzey 3: m̂ = 14,178 %, s_r = 0,1269 %, s_R = 0,4004 % (p = 8)
+- Düzey 4: m̂ = 15,588 %, s_r = 0,3368 %, s_R = 0,5786 % (p = 8)
+- Düzey 5: m̂ = 20,412 %, s_r = 0,3935 %, s_R = 0,6370 % (p = 7)
+
+**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil-reml.json --lang tr`
 
 ### N₂ içinde NO, UV absorpsiyonu: doğrusal analiz fonksiyonu (ISO 6143 Örnek 1)
 
@@ -701,7 +815,7 @@ ISO 5725-3:2023 J.2: 20 laboratuvar, bir günde iki ve ertesi gün bir sonuç; v
 
 **Notlar:**
 
-- Tablo J.5'in 1. ve 2. düzeyleri Tablo J.2'den tam olarak yeniden üretilir; 3., 4. ve 5. düzeyler ile 6. düzeydeki s_R, belirtilen aykırı değer çıkarmalarıyla basılı verilerden yeniden üretilemez (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
+- ISO 5725-3:2023 Tablo J.2, ISO 5725-3:1994 Tablo D.2'den 15 girişte farklıdır (14'ü 3. düzeyde: 7–20. laboratuvarların 1. gündeki ikinci sonucu birincisinin tekrarıdır; birer tanesi 4. ve 5. düzeylerde); burada kullanılan 1. düzey her iki baskıda aynıdır. 1994 verileri Tablo J.5'i 1–5. düzeylerde tam olarak yeniden üretir (çekirdek testi staggered_nested_iso_5725_3_1994_levels_3_to_6). 6. düzeyde s₍₁₎² negatiftir: s_I(T) = s_r basılmıştır; ancak basılı s_R = 15,962 × 10⁻³ % negatif s₍₁₎²'yi tutar; her yerde s₍₁₎² = 0 alınırsa s_R = 16,331 × 10⁻³ % olur (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang tr`
 
@@ -2380,6 +2494,60 @@ TN 1900 E1: tek kefeli terazide üç tartımdan toz kütlesi; doğrusal model, G
 **Çalıştırma:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang tr`
 
 ## Fiziksel özellikler
+
+### Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.2)
+
+`iso5725-2-c2-softening-point-pitch` — ISO 5725-2:2019, Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33)
+
+ISO 5725-2:2019 C.2: halka-bilye yöntemiyle ziftin yumuşama noktası; dört düzeyde (88 °C – 102 °C), ikili sonuçlu ve iki eksik hücreli on altı laboratuvar.
+
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+
+**Adımlar:**
+
+1. Form A (Tablo C.7): on altı laboratuvar, dört düzey, hücre başına iki sonuç. 8. laboratuvarın 1. düzey numunesi yoktur; 5. laboratuvarın 2. düzeyde tek sonucu vardır ve atılır (8.4.3 a); bu nedenle 1. ve 2. düzeylerde p = 15.
+2. Hücre başına iki sonuçla Cochran istatistiği en büyük mutlak fark karesinin fark kareleri toplamına oranıdır (8.2.11, Not 1): C = 0,391, 0,424, 0,434 ve 0,380 (Tablo C.10); %5 kritik değerleri 0,471 (p = 15) ve 0,452 (p = 16)'nın altındadır.
+3. Hücre ortalamalarına Grubbs testleri (Tablo C.11): tekli veya ikili şüpheli ya da aykırı değer yoktur.
+4. n = 2 için varyanslar Formül (29) ve (30)'dan çıkar: 1. düzeyde s_r² = Σ(y_i1 − y_i2)²/(2p) = 1,2303 ve s_L² = 1,5575; böylece m̂ = 88,40 °C, s_r = 1,109 °C ve s_R = 1,670 °C (C.25–C.33).
+
+**Sonuç:**
+
+- Düzey 1: m̂ = 88,397 °C, s_r = 1,109 °C, s_R = 1,670 °C (p = 15)
+- Düzey 2: m̂ = 96,267 °C, s_r = 0,9252 °C, s_R = 1,597 °C (p = 15)
+- Düzey 3: m̂ = 97,069 °C, s_r = 0,9934 °C, s_R = 2,010 °C (p = 16)
+- Düzey 4: m̂ = 101,96 °C, s_r = 1,004 °C, s_R = 1,918 °C (p = 16)
+
+**Notlar:**
+
+- Tablo C.12 4. düzeyde s_R = 1,915 °C verir; Formül (29)–(31) 1,9175 °C (1,918 °C) verir; bu REML Tablo C.13'ün değeridir (araştırma günlüğü F48). ISO 5725-2:1994 de aynı 1,915 °C değerini basar.
+
+**Çalıştırma:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch.json --lang tr`
+
+### Ziftin yumuşama noktası: REML tahminleri (ISO 5725-2 Örnek C.2)
+
+`iso5725-2-c2-softening-point-pitch-reml` — ISO 5725-2:2019, Annex C.2.9 (Table C.13), Annex B.2
+
+ISO 5725-2:2019 C.2.9: Örnek C.2 verilerinin kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
+
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+
+**Adımlar:**
+
+1. Form A (Tablo C.7): on altı laboratuvar, dört düzey, hücre başına iki sonuç. 8. laboratuvarın 1. düzey numunesi yoktur; 5. laboratuvarın 2. düzeyde tek sonucu vardır ve atılır (8.4.3 a); bu nedenle 1. ve 2. düzeylerde p = 15.
+2. Her hücrede iki sonuç varken σ_L² tahmini negatif olmadıkça REML tahminleri ANOVA tahminlerine eşittir; Tablo C.13, 4. düzeydeki s_R dışında Tablo C.12 ile aynıdır (notlara bakınız).
+
+**Sonuç:**
+
+- Düzey 1: m̂ = 88,397 °C, s_r = 1,109 °C, s_R = 1,670 °C (p = 15)
+- Düzey 2: m̂ = 96,267 °C, s_r = 0,9252 °C, s_R = 1,597 °C (p = 15)
+- Düzey 3: m̂ = 97,069 °C, s_r = 0,9934 °C, s_R = 2,010 °C (p = 16)
+- Düzey 4: m̂ = 101,96 °C, s_r = 1,004 °C, s_R = 1,918 °C (p = 16)
+
+**Notlar:**
+
+- Tablo C.13 4. düzeyde s_R = 1,918 °C verirken Tablo C.12 1,915 °C verir; dengeli hücrelerde her iki yöntem de 1,9175 °C verir (araştırma günlüğü F48).
+
+**Çalıştırma:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang tr`
 
 ### Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13)
 

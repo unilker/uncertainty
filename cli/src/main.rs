@@ -12,12 +12,13 @@ evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101), or
 top-down from validation and quality-control data (Nordtest TR 537,
 Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
 calibration with uncertainties in both variables (ISO 6143); conformity
-assessment (JCGM 106).
+assessment (JCGM 106); repeatability and reproducibility from interlaboratory
+experiments (ISO 5725-2).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -42,8 +43,9 @@ TEMPLATE:
     Prints a minimal project file to start from: a measurement model, with
     --topdown a top-down evaluation from raw validation data, or with
     --proficiency a proficiency test round (ISO 13528), with --calibration a
-    calibration with uncertainties in both variables (ISO 6143), or with
-    --conformity a conformity assessment (JCGM 106).
+    calibration with uncertainties in both variables (ISO 6143), with
+    --conformity a conformity assessment (JCGM 106), or with --precision an
+    interlaboratory precision experiment (ISO 5725-2).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -142,6 +144,25 @@ const TEMPLATE_CALIBRATION: &str = r#"{
 }
 "#;
 
+const TEMPLATE_PRECISION: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Interlaboratory precision experiment", "tr": "Laboratuvarlar arası kesinlik deneyi" },
+    "field": "chemistry"
+  },
+  "precision_experiment": {
+    "quantity": "Mass fraction of analyte",
+    "unit": "%",
+    "laboratories": ["A", "B", "C", "D", "E"],
+    "levels": [
+      { "name": "1", "results": [[1.02, 1.05], [0.98, 1.00], [1.07, 1.04], [1.01, 0.99], [1.03, 1.06]] },
+      { "name": "2", "results": [[5.10, 5.18], [4.95, 5.02], [5.21, 5.15], [5.04, 5.00], [5.12, 5.20]] }
+    ]
+  }
+}
+"#;
+
 const TEMPLATE_CONFORMITY: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -190,6 +211,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--conformity") => {
             print!("{TEMPLATE_CONFORMITY}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--precision") => {
+            print!("{TEMPLATE_PRECISION}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--calibration") => {

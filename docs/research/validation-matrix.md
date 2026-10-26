@@ -147,7 +147,21 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | ISO21748-C.3 | aerobic plate count, s′_R with s_l (7.3.2) + 3 % | shrimp 7.2/7.8, vegetables 8.4/8.9, flour 5.5/6.4 % | flour 6.29 % | ✅ (F39) |
 | ISO21748-C.4 | crude fibre, s_R by range + drying | u 0.31, 0.41, 0.59 %; U 0.6, 0.8, 1.2 % | same | ✅ (F38) |
 | ISO5725-3-J.1 | carbon in steel, 27 day-pairs | s_I(TO) 2.87 × 10⁻³ % | same | ✅ |
-| ISO5725-3-J.2 | vanadium, staggered-nested, levels 1–2 | SS, MS, s₀², s₍₁₎², s_r, s_I(T), s_R | same (levels 3–6: F40) | ✅ |
+| ISO5725-3-J.2 | vanadium, staggered-nested, levels 1–2 | SS, MS, s₀², s₍₁₎², s_r, s_I(T), s_R | same | ✅ |
+| ISO5725-3:1994-D.2 | vanadium, levels 3–6 from the 1994 data (core test) | Table D.5 = J.5: s_r, s_I(T), s_R | same at levels 3–5; level 6 s_R 16.331 against 15.962 (negative s₍₁₎² kept, D41) | ✅ (F40, D41) |
+
+## ISO 5725-2:2019 — library projects and core tests
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| ISO5725-2-T5–T8 | critical values and indicators | Table 5 (p = 8, 9; n = 2, 3), Table 6 (p = 8, 9, 15, 16, 40), Tables 7, 8 (p = 9) | D.1, D.2, D.5, D.6 within the printed digits (Table 6 single: ≤ 0.001); D.3 within ±0.003 of Table 6 for p = 6 … 40 | ✅ (core) |
+| ISO5725-2-C.1 | sulfur in coal, 8 labs × 4 levels, unequal n | Cochran C (C.1–C.4), Grubbs (Table C.4), m̂, s_r, s_R (Table C.5) | same from Forms rounded to 3 decimals | ✅ (F47) |
+| ISO5725-2-C.1-REML | REML | Table C.6 | same | ✅ |
+| ISO5725-2-C.2 | softening point of pitch, 16 labs, n = 2, missing cells | Cochran (Table C.10), Grubbs (Table C.11), m̂, s_r, s_R (Table C.12) | same; s_R at level 4 1.9175 against 1.915 | ✅ (F48) |
+| ISO5725-2-C.2-REML | REML | Table C.13 | same | ✅ |
+| ISO5725-2-C.3 | creosote oil, outlying laboratory | Cochran 0.667, 0.636; Grubbs (Table C.17); m̂, s_r, s_R (Table C.18); relationships I–IV (Tables 1–4) | same; IV slope 0.770 against 0.772 | ✅ (F49) |
+| ISO5725-2-C.3-REML | REML | Table C.19 | same | ✅ |
+| ISO5725-2-A.1 | A_r, A_R | Table A.1 (5 entries) | same | ✅ (core) |
 
 ## ISO 6143:2025 Annex B — library projects
 

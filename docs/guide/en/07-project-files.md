@@ -11,14 +11,15 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the four | measurement model (7.3) |
-| `topdown` | one of the four | top-down evaluation (7.6) |
-| `proficiency` | one of the four | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the four | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `model` | one of the five | measurement model (7.3) |
+| `topdown` | one of the five | top-down evaluation (7.6) |
+| `proficiency` | one of the five | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the five | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the five | interlaboratory precision experiment, ISO 5725-2 (7.10) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); only for model projects |
 | `reporting` | no | rounding of the reported result (7.5) |
-| `expected` | no | reference values with tolerances (7.11) |
+| `expected` | no | reference values with tolerances (7.12) |
 
 ## 7.2 `metadata`
 
@@ -208,14 +209,36 @@ Next to `model` (the result is assessed) or as the only section of a project (JC
 | `quantity`, `unit`, `u` or `u_relative`, `dof`, `results` | projects of their own: property, measuring system, measured values (`name`, `value`, optional `u`) |
 | `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma`, `mean`, `sd`; required R_C (finds r) |
 
-## 7.10 Errors
+## 7.10 `precision_experiment`
+
+The basic method of ISO 5725-2 (chapter 12).
+
+```json
+"precision_experiment": {
+  "quantity": "Sulfur content of coal", "unit": "%",
+  "laboratories": ["1", "2", "3"],
+  "levels": [ { "name": "1", "results": [[0.71, 0.71, 0.70], [0.69, 0.67, 0.68], [0.66, 0.65, 0.69]] } ],
+  "exclude": [ { "laboratory": "3", "level": "1", "reason": "wrong sample" } ]
+}
+```
+
+| Field | Content |
+|---|---|
+| `laboratories` | names (unique), in the order of the results of every level |
+| `levels` | `name` (unique) and `results`: one list per laboratory, `[]` for an empty cell (Form A) |
+| `exclude` | results left out after scrutiny: `laboratory`, optional `level` (all levels if absent), optional `result` (1-based; the whole cell if absent), `reason` |
+| `method` | `anova` (Formulae 23–31, default) or `reml` (Annex B.2) |
+| `form_decimals` | decimals of the cell means and standard deviations recorded in Forms B and C; used for the tests and the variances, as in the examples of the standard (full precision if absent) |
+| `relationships` | relationships fitted when there are three or more levels: any of `"I"`, `"II"`, `"III"`, `"IV"` (default all four; `[]` for none) |
+
+## 7.11 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown`, `proficiency` and `calibration`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency`, `calibration` and `precision_experiment`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
-## 7.11 `expected`
+## 7.12 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
@@ -237,3 +260,7 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<name>": { "x", "u" } }`, `drift_passed`
 * `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,
   `consumer_risk`, `producer_risk`; `results`: `{ "<name>": { "conformance_probability", "accepted" } }`
+* `precision_experiment`: `levels`: `{ "<level>": { "p", "m", "s_r", "s_L", "s_R", "cochran", "grubbs_low",
+  "grubbs_high", "grubbs_double_low", "grubbs_double_high", "final_cochran" } }` (`p` is an integer; the test
+  statistics refer to all results, `final_cochran` to the retained ones); `relationships`: list of
+  `{ "of": "s_r" | "s_R", "relationship": "I" … "IV", "params": [checks] }`

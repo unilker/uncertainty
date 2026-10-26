@@ -24,8 +24,13 @@ elektrik/RF ve akış metrolojisinden örnekler içerir.
 6. [Raporlama](06-raporlama.md): yuvarlama, sonucun ifadesi, raporun içeriği
 7. [Proje dosyası başvurusu](07-proje-dosyasi.md): JSON proje biçiminin tüm alanları
 8. [Sözlük (İngilizce–Türkçe)](08-sozluk.md)
-9. [Çözümlü örnekler](examples.md): kütüphanedeki 60 örneğin tamamı, sonuçları program tarafından yeniden
-   hesaplanmış olarak
+9. [Yeterlilik testi (ISO 13528)](09-yeterlilik-testi.md): atanan değerler, robust istatistikler, skorlar
+10. [Her iki değişkende belirsizlikli kalibrasyon (ISO 6143)](10-kalibrasyon.md)
+11. [Uygunluk değerlendirmesi (JCGM 106)](11-uygunluk.md): karar kuralları, koruma bantları, riskler
+12. [Laboratuvarlar arası kesinlik deneyleri (ISO 5725-2)](12-kesinlik-deneyleri.md): aykırı değer testleri,
+    tekrarlanabilirlik ve tekrarüretilebilirlik
+13. [Çözümlü örnekler](examples.md): kütüphanedeki 120 örneğin tamamı, sonuçları program tarafından yeniden
+    hesaplanmış olarak
 
 3.–5. bölümler yalnızca programı değil yöntemlerin kendisini de anlatır: dayanak belgelerle birlikte
 okunabilecek kısa bir belirsizlik değerlendirme rehberi olarak tasarlanmıştır.
@@ -35,7 +40,7 @@ okunabilecek kısa bir belirsizlik değerlendirme rehberi olarak tasarlanmışt�
 Her hesaplama yöntemi yayımlanmış çözümlü örneklerle doğrulanmıştır. Örnekler basılı sonuçlarla eşleştirilmez,
 *girdilerinden* (belgeler veriyorsa ham verilerden) yeniden hesaplanır; her karşılaştırmanın belgelenmiş bir
 toleransı vardır: belgenin basılı yuvarlaması ya da ölçülen Monte Carlo saçılımının yaklaşık beş katı.
-Kütüphanedeki 114 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
+Kütüphanedeki 120 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
 ötesinde değiştirirse derleme başarısız olur.
 
 Örneklerin girdilerinden yeniden hesaplanması, yayımlanmış örneklerin kendi içinde tutarsız olduğu yerleri de

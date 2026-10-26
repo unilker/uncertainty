@@ -11,14 +11,15 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | dördünden biri | ölçüm modeli (7.3) |
-| `topdown` | dördünden biri | top-down değerlendirme (7.6) |
-| `proficiency` | dördünden biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | dördünden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `model` | beşinden biri | ölçüm modeli (7.3) |
+| `topdown` | beşinden biri | top-down değerlendirme (7.6) |
+| `proficiency` | beşinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | beşinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | beşinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); yalnızca model projelerinde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.11) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.12) |
 
 ## 7.2 `metadata`
 
@@ -208,14 +209,36 @@ Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş
 | `quantity`, `unit`, `u` veya `u_relative`, `dof`, `results` | kendi başına projeler: özellik, ölçüm sistemi, ölçülen değerler (`name`, `value`, isteğe bağlı `u`) |
 | `process`, `target_consumer_risk` | küresel riskler: `distribution` `normal` veya `gamma`, `mean`, `sd`; istenen R_C (r'yi bulur) |
 
-## 7.10 Hatalar
+## 7.10 `precision_experiment`
+
+ISO 5725-2'nin temel yöntemi (bölüm 12).
+
+```json
+"precision_experiment": {
+  "quantity": "Kömürün kükürt içeriği", "unit": "%",
+  "laboratories": ["1", "2", "3"],
+  "levels": [ { "name": "1", "results": [[0.71, 0.71, 0.70], [0.69, 0.67, 0.68], [0.66, 0.65, 0.69]] } ],
+  "exclude": [ { "laboratory": "3", "level": "1", "reason": "yanlış numune" } ]
+}
+```
+
+| Alan | İçerik |
+|---|---|
+| `laboratories` | adlar (benzersiz), her düzeydeki sonuçların sırasıyla |
+| `levels` | `name` (benzersiz) ve `results`: her laboratuvar için bir liste, boş hücre için `[]` (Form A) |
+| `exclude` | inceleme sonrası dışarıda bırakılan sonuçlar: `laboratory`, isteğe bağlı `level` (yoksa tüm düzeyler), isteğe bağlı `result` (1'den başlar; yoksa tüm hücre), `reason` |
+| `method` | `anova` (Formül 23–31, varsayılan) veya `reml` (Ek B.2) |
+| `form_decimals` | Form B ve C'ye kaydedilen hücre ortalamaları ve standart sapmalarının ondalık sayısı; standardın örneklerinde olduğu gibi testlerde ve varyanslarda kullanılır (yoksa tam duyarlılık) |
+| `relationships` | üç veya daha fazla düzey varken uydurulan ilişkiler: `"I"`, `"II"`, `"III"`, `"IV"` (varsayılan dördü; hiçbiri için `[]`) |
+
+## 7.11 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
-`proficiency` ve `calibration` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+`proficiency`, `calibration` ve `precision_experiment` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.11 `expected`
+## 7.12 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -237,3 +260,7 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<ad>": { "x", "u" } }`, `drift_passed`
 * `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,
   `consumer_risk`, `producer_risk`; `results`: `{ "<ad>": { "conformance_probability", "accepted" } }`
+* `precision_experiment`: `levels`: `{ "<düzey>": { "p", "m", "s_r", "s_L", "s_R", "cochran", "grubbs_low",
+  "grubbs_high", "grubbs_double_low", "grubbs_double_high", "final_cochran" } }` (`p` bir tamsayıdır; test
+  istatistikleri tüm sonuçlara, `final_cochran` kalan sonuçlara aittir); `relationships`:
+  `{ "of": "s_r" | "s_R", "relationship": "I" … "IV", "params": [değerler] }` listesi

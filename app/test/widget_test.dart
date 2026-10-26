@@ -13,6 +13,7 @@ import 'package:uncertainty_app/src/format.dart';
 import 'package:uncertainty_app/src/widgets/charts.dart';
 import 'package:uncertainty_app/src/widgets/calibration_editor.dart';
 import 'package:uncertainty_app/src/widgets/conformity_editor.dart';
+import 'package:uncertainty_app/src/widgets/precision_editor.dart';
 import 'package:uncertainty_app/src/widgets/proficiency_editor.dart';
 
 /// Pumps until [finder] matches, letting real asynchronous work (asset
@@ -66,11 +67,11 @@ void main() {
     test('templates evaluate and errors are reported', () {
       const e = Engine();
       expect(e.version()['version'], isNotEmpty);
-      for (final kind in ['model', 'topdown', 'calibration', 'conformity']) {
+      for (final kind in ['model', 'topdown', 'calibration', 'conformity', 'precision']) {
         final p = e.template(kind);
         expect(e.validate(p), isNull);
         final r = e.evaluateSync(p, const EvaluateOptions(lang: 'tr', trials: 10000));
-        expect((r['reported'] as List).first, contains(kind == 'conformity' ? 'p_c' : '±'));
+        expect((r['reported'] as List).first, contains(kind == 'conformity' ? 'p_c' : (kind == 'precision' ? 's_R' : '±')));
       }
       // Localised warnings and the Kragten view come from the engine.
       final h1 = jsonDecode(File('../library/length/gum-h1-end-gauge.json').readAsStringSync()) as Map<String, dynamic>;
@@ -223,6 +224,45 @@ void main() {
     expect(find.text('0.99 %'), findsOneWidget); // R_C, JCGM 106: 1 %
     expect(find.text('6.9 %'), findsOneWidget); // R_P: 7 %
     expect(find.text('guarded acceptance'), findsOneWidget);
+  });
+
+  test('results and exclusions of a precision experiment are read from pasted lines', () {
+    final (cells, bad) = parseCells('L1 1,02 1,05\nLab 2\t0.98\t1.00\n\nL3;1.07;-;1.04');
+    expect(bad, isNull);
+    expect(cells!.map((e) => e.key).toList(), ['L1', 'Lab 2', 'L3']);
+    expect(cells[0].value, [1.02, 1.05]);
+    expect(cells[2].value, [1.07, 1.04]);
+    expect(parseCells('L1 1\nL1 2').$2, 2);
+    expect(parseCells('L1 x').$2, 1);
+    final (ex, bad2) = parseExclusions('1\n6; 5\n2; 3; 1; wrong sample; relabelled');
+    expect(bad2, isNull);
+    expect(ex, [
+      {'laboratory': '1'},
+      {'laboratory': '6', 'level': '5'},
+      {'laboratory': '2', 'level': '3', 'result': 1, 'reason': 'wrong sample; relabelled'},
+    ]);
+    expect(parseExclusions('1; 2; zero').$2, 1);
+    expect(exclusionsToText(ex!, 'en'), '1\n6; 5\n2; 3; 1; wrong sample; relabelled');
+  });
+
+  testWidgets('the creosote oil experiment of ISO 5725-2 C.3 flags laboratory 1', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'iso5725-2-c3-creosote-oil');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('outlying laboratory and precision relationships'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('pe-cells-0')), findsOneWidget);
+    final editor = find.descendant(of: find.byType(PrecisionEditor), matching: find.byType(Scrollable)).first;
+    await tester.scrollUntilVisible(find.byKey(const Key('pe-exclude')), 400, scrollable: editor);
+    expect(find.byKey(const Key('pe-exclude')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.text('Stragglers and outliers (all results)'));
+    expect(find.text('outlier **'), findsNWidgets(2)); // Grubbs, laboratory 1 at levels 3 and 4
+    expect(find.text('0.3368 %'), findsOneWidget); // s_r at level 4, Table C.18: 0.337
   });
 
   testWidgets('top-down forms show and edit the raw data', (tester) async {

@@ -73,3 +73,10 @@ GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlard
 | specific / global consumer's risk | özgül / küresel tüketici riski | JCGM 106 3.3.13, 3.3.15 |
 | specific / global producer's risk | özgül / küresel üretici riski | JCGM 106 3.3.14, 3.3.16 |
 | measurement capability index | ölçüm yeterlilik indeksi | JCGM 106 3.3.17 |
+| cell (of a precision experiment) | hücre | ISO 5725-2 8.2.1 |
+| level (of a precision experiment) | düzey | ISO 5725-2 6.1 |
+| straggler / statistical outlier | şüpheli değer / istatistiksel aykırı değer | ISO 5725-2 8.3.3.1 |
+| outlying laboratory | aykırı laboratuvar | ISO 5725-2 8.2.5 |
+| consistency statistics h and k | h ve k tutarlılık istatistikleri | ISO 5725-2 8.3.2 |
+| between-laboratory standard deviation | laboratuvarlar arası standart sapma | ISO 5725-2 8.4.5.2 |
+| restricted maximum likelihood (REML) | kısıtlı en çok olabilirlik (REML) | ISO 5725-2 Ek B.2 |

@@ -13,7 +13,8 @@
 9. [Proficiency testing (ISO 13528)](en/09-proficiency-testing.md)
 10. [Calibration with uncertainties in both variables (ISO 6143)](en/10-calibration.md)
 11. [Conformity assessment (JCGM 106)](en/11-conformity.md)
-12. [Worked examples](en/examples.md) (generated)
+12. [Interlaboratory precision experiments (ISO 5725-2)](en/12-precision-experiments.md)
+13. [Worked examples](en/examples.md) (generated)
 
 **Türkçe**
 
@@ -28,7 +29,8 @@
 9. [Yeterlilik testi (ISO 13528)](tr/09-yeterlilik-testi.md)
 10. [Her iki değişkende belirsizlikli kalibrasyon (ISO 6143)](tr/10-kalibrasyon.md)
 11. [Uygunluk değerlendirmesi (JCGM 106)](tr/11-uygunluk.md)
-12. [Çözümlü örnekler](tr/examples.md) (otomatik üretilir)
+12. [Laboratuvarlar arası kesinlik deneyleri (ISO 5725-2)](tr/12-kesinlik-deneyleri.md)
+13. [Çözümlü örnekler](tr/examples.md) (otomatik üretilir)
 
 The worked-examples chapters are generated from the example library and checked by the test suite
 (`project/tests/library.rs`). After changing the library, regenerate them with

@@ -877,7 +877,8 @@ with the unrounded s_L) and U = 12.6 %. Shrimp (7.8 %) and vegetables (8.9 %)
 are reproduced. The intervals of Table C.5 for flour follow from 12.8 %.
 
 **F40. ISO 5725-3 J.2 — Table J.5 not reproducible at levels 3–5 (class c,
-to verify against the printed standard).** From the data of Table J.2 (as
+to verify against the printed standard; resolved in D41: the 2023 Table J.2
+has transcription errors, and s_R at level 6 keeps a negative variance).** From the data of Table J.2 (as
 extracted from the PDF) with the stated outlier exclusions, levels 1 and 2 of
 Table J.5 are reproduced exactly (e.g. 0.381, 0.603, 0.801 × 10⁻³ %), and level 6
 gives s_r = s_I(T) = 9.545 × 10⁻³ as printed but s_R = 16.33 instead of 15.962.
@@ -1103,3 +1104,125 @@ follow from the tables either:
 The paper's conclusion (a large reduction for Nap) is unaffected. No library
 projects are made from this paper until the electronic supplement is
 available.
+
+## 2026-10-26 (session 12) — ISO 5725-2:2019 basic method; F40 resolved
+
+The author supplied ISO 5725-2:1994, BS ISO 5725-2:2019, ISO 5725-3:1994
+(with Technical Corrigendum 1:2001) and BS ISO 5725-3:2023 (licensed copies,
+used locally only; only numerical example data and results enter the
+repository).
+
+**D40. Interlaboratory precision experiments (ISO 5725-2:2019).** New core
+module `interlab` and project section `precision_experiment` (120 library
+projects). The module covers:
+
+- Critical values of Cochran's test (Formula D.1), Grubbs' single test
+  (D.2), Grubbs' double test (Table 6 for p = 4 … 40, otherwise D.3 with the
+  one-tailed level α/2 and the coefficients of Table D.1) and the indicators
+  of Mandel's h and k (D.5, D.6). All values of Tables 5 to 8 checked in the
+  core tests are reproduced. The D.3 approximation agrees with Table 6 to
+  within its stated ±0.003 for p = 6 … 40. Table 6 itself is embedded, since
+  D.3 is not exact.
+- Cell statistics (Forms B and C), with optional rounding to the recorded
+  decimals (`form_decimals`, 8.2.10–8.2.11). The standard's own tests are
+  computed from the rounded forms (C.1.6). Without this rounding the Grubbs
+  statistics of Table C.4 differ by up to 0.011, and Cochran's C at level 1
+  is 0.350 instead of 0.341.
+- h and k with deviations from the weighted general mean m̂, as 8.3.2.2
+  prescribes (ȳ_j of 8.4.4), not from the unweighted mean.
+- Cochran's test with n the number of results in the majority of cells
+  (8.3.4.3), repeated while the highest value is an outlier (8.3.4.6).
+- Grubbs' procedure of 8.3.5.3: single low and high. After a single outlier
+  the other extreme is tested without it and the double tests are skipped;
+  otherwise the double tests are applied.
+- Formulae (23) to (31), including unequal n_ij and s_L² < 0 → 0.
+- REML (Annex B.2): the restricted likelihood of the one-way random-effects
+  model, profiled analytically over σ_r² (σ_r² = Q(γ)/(N − 1)) and maximized
+  over γ = σ_L²/σ_r² ≥ 0 by a grid on ln γ and golden-section refinement,
+  with the boundary γ = 0 checked explicitly. This reproduces Tables C.6,
+  C.13 and C.19 to all printed digits, as 8.4.6.2 requires.
+- Relationships I to IV (8.5.2–8.5.4). II and III use two weighted fits, the
+  second being the final result; this reproduces Tables 1 to 3.
+- A_r and A_R of Annex A (checked against Table A.1).
+
+Removing data is the panel's decision (8.3.3.1 b, 8.6). The program never
+removes anything itself. `exclude` records each laboratory, cell or result
+left out, with its reason. The report repeats the scrutiny on the retained
+data, and it warns when statistical outliers remain among them
+(8.3.3.1 c).
+
+The library has six projects: C.1 sulfur in coal (unequal replicates, Forms
+rounded to three decimals), C.2 softening point of pitch (missing cells, a
+discarded single result, n = 2) and C.3 creosote oil (an outlying laboratory,
+a rejected cell, relationships I–IV of Tables 1–4), each also with REML.
+Every printed Cochran and Grubbs statistic, m̂, s_r and s_R is checked,
+together with the relationship parameters that are reproducible (F49).
+
+The user interface has an editor and a results view (flags of the scrutiny,
+s_r/s_R table, relationships). The guide has a new chapter 12 and section
+7.10.
+
+The ISO/IEC 17025 7.6.3 gap ("ISO 5725-2 outlier tests and s_r/s_R from
+collaborative data") is closed.
+
+**F47. ISO 5725-2:2019 C.1.5 and C.1.8 — stragglers in Example 1 (class a).**
+The text says that the double-high results at levels 2 and 4 (laboratories 3
+and 6) are stragglers. At level 4, however, Table C.4 prints 0.132, which is
+above the 5 % critical value 0.1101 (the engine gives 0.1298 from the forms
+and 0.132 from the rounded forms). Only level 2 (0.108) is a straggler pair.
+C.1.8 then reports "four stragglers detected and retained". Table C.4 and
+Formula (C.3) give three: the pair at level 2 and the Cochran straggler of
+laboratory 5 at level 3. The same text and table are in ISO 5725-2:1994,
+B.1.5 and Table B.4. In the same example, Formulae (C.2) to (C.4) print two
+different sums of squares in each line (0.006 36 and 0.006 390; 0.001 72 and
+0.001 765; 0.004 63 and 0.004 649). The test values follow from the second.
+
+**F48. ISO 5725-2:2019 Table C.12 — s_R at level 4 of Example 2 (class a).**
+Formulae (29) to (31), applied to the data of Table C.7 with p = 16, give
+s_R = 1.9175 °C. Table C.12 prints 1.915, while the REML Table C.13 prints
+1.918. For data with two results in every cell, REML and ANOVA coincide when
+σ_L² > 0, so 1.918 is correct and 1.915 is a slip. The other fifteen values
+of Table C.12 are reproduced, and ISO 5725-2:1994 prints the same 1.915.
+
+**F49. ISO 5725-2:2019 Table 4 — slope of relationship IV (class a).** The
+regression of the tabulated lg s on lg m gives c = −1.5060 and d = 0.7688.
+The unrounded s_r of Table C.18 give c = −1.5069 and d = 0.7696. The table
+prints c = −1.5065 and d = 0.772. Its row of fitted values (0.089, 0.158,
+0.239, 0.257, 0.316) follows from d ≈ 0.768–0.769; d = 0.772 would give 0.090,
+0.159, 0.241, 0.260, 0.320. The slope is therefore misprinted (or comes from
+another computation), and the library checks c only. The table is the same
+in ISO 5725-2:1994 (8.5, Table 4).
+
+Minor points in ISO 5725-2:2019, not separately numbered:
+
+- Formula D.2 writes the degrees of freedom of t as p − 2, while its key says
+  n − 2.
+- Table 6 (single test) differs from Formula D.2 by up to one unit in the
+  third decimal, e.g. p = 15, 5 %: 2.549 against 2.5483. This is within the
+  tolerance of the D.2 approximation stated in D.2.1.
+- Table 2 rounds the slope of the second fit to 0.0154, whereas the
+  tabulated m and s give 0.01554.
+
+**D41. F40 resolved with ISO 5725-3:1994 (class a, typesetting of the 2023
+edition).** Table J.2 of ISO 5725-3:2023 differs from Table D.2 of ISO
+5725-3:1994 in 15 entries:
+
+- 14 at level 3, where for laboratories 7 to 20 the second day-1 result
+  repeats the first;
+- lab 2, level 5, result 1: 0.529 instead of 0.520;
+- lab 3, level 5, result 1: 0.599 instead of 0.500;
+- lab 18, level 4, result 1: 0.214 instead of 0.224.
+
+With the 1994 data and the stated exclusions, Table J.5 (= Table D.5) is
+reproduced exactly at levels 1 to 5. Level 6 has a negative estimate
+s₍₁₎² = −2.68 × 10⁻⁵. The table prints s_I(T) = s_r = 9.545 × 10⁻³, that is,
+with s₍₁₎² set to zero. Its s_R = 15.962 × 10⁻³ instead keeps the negative
+s₍₁₎² both in s₀² and in s_R². With s₍₁₎² = 0 throughout, s_R = 16.331 ×
+10⁻³, and the engine reports that value. The core test
+`staggered_nested_iso_5725_3_1994_levels_3_to_6` covers levels 3–6. The
+J.2 library project (level 1, identical in both editions) records the
+finding. It goes into the article; the institutions are not contacted (D12).
+
+**F9 (status).** The 99 % duplicate-range factor 3.69 of MUPR B1 is a
+critical range factor f(n) of ISO 5725-6. ISO 5725-2 does not tabulate these
+factors, and the point stays open until ISO 5725-6 is available.

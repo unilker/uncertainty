@@ -15,6 +15,7 @@ class LibraryEntry {
   bool get isProficiency => project.containsKey('proficiency');
   bool get isCalibration => project.containsKey('calibration');
   bool get isConformity => project.containsKey('conformity') && !project.containsKey('model');
+  bool get isPrecision => project.containsKey('precision_experiment');
 
   /// Short description of the method for the library list.
   String get methodLabel => isTopDown
@@ -25,6 +26,8 @@ class LibraryEntry {
       ? 'ISO 6143'
       : isConformity
       ? 'JCGM 106'
+      : isPrecision
+      ? 'ISO 5725-2'
       : 'GUM + MCM';
 
   /// Title, description and id in both languages, for searching.

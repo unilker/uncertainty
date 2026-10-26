@@ -3,14 +3,16 @@
 //! Project files (JSON) for *Uncertainty Calculations / Belirsizlik
 //! Hesaplamaları*: reading and validating them ([`schema`]), running the GUM
 //! and Monte Carlo evaluations, the top-down evaluation ([`topdown`]) or the
-//! statistics of a proficiency test round ([`proficiency`]) or a
-//! calibration with uncertainties in both variables ([`calibration`])
-//! defined in them ([`run`]), checking results
+//! statistics of a proficiency test round ([`proficiency`]), a
+//! calibration with uncertainties in both variables ([`calibration`]), a
+//! conformity assessment ([`conformity`]) or an interlaboratory precision
+//! experiment ([`interlab`]) defined in them ([`run`]), checking results
 //! against expected reference values ([`check`]) and producing reports in
 //! English or Turkish ([`report`]).
 
 pub mod calibration;
 pub mod conformity;
+pub mod interlab;
 pub mod proficiency;
 pub mod report;
 pub mod schema;
@@ -88,14 +90,20 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
             p.version
         )));
     }
-    let primary = [p.model.is_some(), p.topdown.is_some(), p.proficiency.is_some(), p.calibration.is_some()]
-        .iter()
-        .filter(|&&b| b)
-        .count();
+    let primary = [
+        p.model.is_some(),
+        p.topdown.is_some(),
+        p.proficiency.is_some(),
+        p.calibration.is_some(),
+        p.precision_experiment.is_some(),
+    ]
+    .iter()
+    .filter(|&&b| b)
+    .count();
     if primary > 1 || (primary == 0 && p.conformity.is_none()) {
         return Err(ProjectError::Format(
-            "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\" \
-             and \"conformity\" (which may also accompany \"model\")"
+            "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\", \
+             \"precision_experiment\" and \"conformity\" (which may also accompany \"model\")"
                 .into(),
         ));
     }
@@ -252,6 +260,8 @@ pub enum Evaluation {
     Calibration(Box<calibration::CalibrationAnalysis>),
     /// Conformity assessment study (JCGM 106) without a model.
     Conformity(Box<conformity::ConformityAnalysis>),
+    /// Interlaboratory precision experiment (ISO 5725-2).
+    Interlab(Box<interlab::InterlabAnalysis>),
 }
 
 impl Evaluation {
@@ -318,6 +328,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     }
     if let Some(spec) = &p.calibration {
         return Ok(Evaluation::Calibration(Box::new(calibration::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.precision_experiment {
+        return Ok(Evaluation::Interlab(Box::new(interlab::evaluate(spec)?)));
     }
     if let (Some(spec), None) = (&p.conformity, &p.model) {
         return Ok(Evaluation::Conformity(Box::new(conformity::evaluate(spec, None)?)));
@@ -440,6 +453,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             }
             out
         }
+        Evaluation::Interlab(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.precision_experiment.as_ref()) {
+                interlab::check(exp, a, &mut out);
+            }
+            out
+        }
     }
 }
 
@@ -551,6 +571,15 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": a.quantity, "unit": a.unit },
                 "conformity": conformity::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::Interlab(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.quantity, "unit": a.unit },
+                "precision_experiment": interlab::results_json(a),
                 "checks": checks,
             });
         }
@@ -751,6 +780,55 @@ mod tests {
         let bad = r#"{"format": "uncertainty-calculations/project", "version": 1, "metadata": {"title": {"en": "x", "tr": "x"}},
             "topdown": {"quantity": "c", "precision": [], "bias": []}, "conformity": {"upper": 1}}"#;
         assert!(matches!(parse(bad), Err(ProjectError::Format(_))));
+    }
+
+    #[test]
+    fn precision_experiment_exclusions_and_validation() {
+        let base = r#"{"format": "uncertainty-calculations/project", "version": 1, "metadata": {"title": "x"},
+            "precision_experiment": {"quantity": "w", "laboratories": ["A", "B", "C", "D"],
+              "levels": [{"name": "1", "results": [[1.0, 1.2], [1.1, 1.3], [0.9, 1.0], [2.0, 2.1, 5.0]]}]
+              EXCLUDE }}"#;
+        let p = parse(&base.replace("EXCLUDE", "")).unwrap();
+        let a = match run(&p, &Overrides::default()).unwrap() {
+            Evaluation::Interlab(a) => a,
+            _ => panic!("not an interlaboratory evaluation"),
+        };
+        let l = &a.levels[0];
+        assert_eq!((l.estimates.p, l.initial.n, l.excluded.len()), (4, 2, 0));
+        assert!(l.final_scrutiny.is_none() && a.relationships.is_empty());
+        // A single result of laboratory D, then the whole laboratory.
+        let one = base.replace("EXCLUDE", r#", "exclude": [{"laboratory": "D", "level": "1", "result": 3}]"#);
+        let a = match run(&parse(&one).unwrap(), &Overrides::default()).unwrap() {
+            Evaluation::Interlab(a) => a,
+            _ => unreachable!(),
+        };
+        let l = &a.levels[0];
+        assert_eq!(l.retained[3].unwrap().n, 2);
+        assert!((l.retained[3].unwrap().mean - 2.05).abs() < 1e-12);
+        assert_eq!(l.excluded, vec![3]);
+        assert!(l.final_scrutiny.is_some());
+        let lab = base.replace("EXCLUDE", r#", "exclude": [{"laboratory": "D"}]"#);
+        let a = match run(&parse(&lab).unwrap(), &Overrides::default()).unwrap() {
+            Evaluation::Interlab(a) => a,
+            _ => unreachable!(),
+        };
+        assert_eq!(a.levels[0].estimates.p, 3);
+        for bad in [
+            r#", "exclude": [{"laboratory": "E"}]"#,
+            r#", "exclude": [{"laboratory": "A", "result": 1}]"#,
+            r#", "exclude": [{"laboratory": "A", "level": "1", "result": 3}]"#,
+        ] {
+            let p = parse(&base.replace("EXCLUDE", bad)).unwrap();
+            assert!(matches!(run(&p, &Overrides::default()), Err(ProjectError::Input { .. })), "{bad}");
+        }
+        let short = base.replace(", [2.0, 2.1, 5.0]]", "]").replace("EXCLUDE", "");
+        assert!(matches!(run(&parse(&short).unwrap(), &Overrides::default()), Err(ProjectError::Input { .. })));
+        // precision_experiment is a primary section of its own.
+        let both = base.replace("EXCLUDE", "").replace(
+            r#""precision_experiment""#,
+            r#""topdown": {"quantity": "c", "precision": [], "bias": []}, "precision_experiment""#,
+        );
+        assert!(matches!(parse(&both), Err(ProjectError::Format(_))));
     }
 
     #[test]

@@ -23,6 +23,7 @@
 
 use crate::calibration::{CalibrationSpec, ExpectedCalibration};
 use crate::conformity::{ConformitySpec, ExpectedConformity};
+use crate::interlab::{ExpectedInterlab, InterlabSpec};
 use crate::proficiency::{ExpectedProficiency, ProficiencySpec};
 use crate::topdown::{ExpectedTopDown, TopDownSpec};
 use serde::{Deserialize, Serialize};
@@ -91,6 +92,9 @@ pub struct Project {
     /// Calibration with uncertainties in both variables (ISO 6143).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub calibration: Option<CalibrationSpec>,
+    /// Interlaboratory precision experiment by the basic method of ISO 5725-2.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub precision_experiment: Option<InterlabSpec>,
     /// Conformity assessment (JCGM 106): of the result of a model project, or
     /// a project of its own.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -541,6 +545,8 @@ pub struct Expected {
     pub calibration: Option<ExpectedCalibration>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub conformity: Option<ExpectedConformity>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub precision_experiment: Option<ExpectedInterlab>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,

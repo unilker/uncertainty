@@ -55,6 +55,9 @@ class ResultsView extends StatelessWidget {
     if (results['conformity'] != null) {
       children.addAll(_conformity(context, results['conformity'] as Map<String, dynamic>));
     }
+    if (results['precision_experiment'] != null) {
+      children.addAll(_precision(context, results['precision_experiment'] as Map<String, dynamic>, unit));
+    }
     final checks = (results['checks'] as List?) ?? const [];
     if (checks.isNotEmpty) {
       children.add(Section(s['checks']));
@@ -576,6 +579,87 @@ class ResultsView extends StatelessWidget {
             [s['cf_consumer'], p(g['consumer_risk'])],
             [s['cf_producer'], p(g['producer_risk'])],
             if (r['r'] != null) ['r', fmtNum(_d(r['r']), 3, s.lang)],
+          ],
+        ),
+      ]);
+    }
+    return out;
+  }
+
+  List<Widget> _precision(BuildContext context, Map<String, dynamic> r, String unit) {
+    final s = strings;
+    final u = unit.isEmpty ? '' : ' $unit';
+    String n(dynamic v, [int sig = 4]) => v == null ? '—' : fmtNum(_d(v), sig, s.lang);
+    final levels = (r['levels'] as List).cast<Map<String, dynamic>>();
+    final reml = r['method'] == 'reml';
+    final out = <Widget>[
+      Section('${s['pe_precision']} — ${s[reml ? 'pe_reml' : 'pe_anova']}'),
+      _table(
+        context,
+        [s['pe_level'], 'p', 'm̂', 's_r', 's_R', 's_L', if (reml) 's(m̂)', 'A_r', 'A_R'],
+        [
+          for (final l in levels)
+            [
+              l['name'].toString(),
+              '${l['p']}',
+              '${n(l['m'], 5)}$u',
+              '${n(l['s_r'])}$u',
+              '${n(l['s_R'])}$u',
+              '${n(l['s_L'])}$u',
+              if (reml) '${n(l['u_m'], 3)}$u',
+              n(l['A_r'], 2),
+              n(l['A_R'], 2),
+            ],
+        ],
+      ),
+    ];
+    // Stragglers and outliers found in the scrutiny of all results.
+    final flags = <List<String>>[];
+    String outcome(dynamic o) => o == 'outlier' ? '${s['pe_outlier']} **' : '${s['pe_straggler']} *';
+    for (final l in levels) {
+      final sc = l['scrutiny'] as Map<String, dynamic>;
+      for (final c in (sc['cochran'] as List? ?? const []).cast<Map<String, dynamic>>()) {
+        if (c['outcome'] != 'correct') {
+          flags.add([l['name'].toString(), s['pe_cochran'], c['laboratory'].toString(), n(c['statistic'], 3), outcome(c['outcome'])]);
+        }
+      }
+      final g = sc['grubbs'] as Map<String, dynamic>?;
+      if (g != null) {
+        for (final k in ['low', 'high', 'repeated']) {
+          final t = g[k] as Map<String, dynamic>?;
+          if (t != null && t['outcome'] != 'correct') {
+            flags.add([l['name'].toString(), s['pe_grubbs'], t['laboratory'].toString(), n(t['statistic'], 3), outcome(t['outcome'])]);
+          }
+        }
+        for (final k in ['double_low', 'double_high']) {
+          final t = g[k] as Map<String, dynamic>?;
+          if (t != null && t['outcome'] != 'correct') {
+            flags.add([l['name'].toString(), s['pe_grubbs'], (t['laboratories'] as List).join(', '), n(t['statistic'], 3), outcome(t['outcome'])]);
+          }
+        }
+      }
+    }
+    out.add(Section(s['pe_flags']));
+    out.add(flags.isEmpty ? Text(s['pe_none']) : _table(context, [s['pe_level'], '', '', '', ''], flags));
+    final excluded = [
+      for (final l in levels)
+        for (final x in (l['excluded'] as List? ?? const [])) '${l['name']}: $x',
+    ];
+    if (excluded.isNotEmpty) out.add(Text('${s['pe_excluded']}: ${excluded.join('; ')}'));
+    final rel = (r['relationships'] as List? ?? const []).cast<Map<String, dynamic>>();
+    if (rel.isNotEmpty) {
+      out.addAll([
+        Section(s['pe_relationships']),
+        _table(
+          context,
+          ['', '', for (final l in levels) l['name'].toString()],
+          [
+            for (final x in rel)
+              [
+                x['of'].toString(),
+                x['relationship'].toString(),
+                for (var i = 0; i < levels.length; i++) x['fitted'] == null ? '—' : n((x['fitted'] as List)[i], 3),
+              ],
           ],
         ),
       ]);

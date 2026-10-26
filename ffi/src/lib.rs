@@ -83,6 +83,24 @@ const TEMPLATE_CALIBRATION: &str = r#"{
   }
 }"#;
 
+const TEMPLATE_PRECISION: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Interlaboratory precision experiment", "tr": "Laboratuvarlar arası kesinlik deneyi" },
+    "field": "chemistry"
+  },
+  "precision_experiment": {
+    "quantity": "Mass fraction of analyte",
+    "unit": "%",
+    "laboratories": ["A", "B", "C", "D", "E"],
+    "levels": [
+      { "name": "1", "results": [[1.02, 1.05], [0.98, 1.00], [1.07, 1.04], [1.01, 0.99], [1.03, 1.06]] },
+      { "name": "2", "results": [[5.10, 5.18], [4.95, 5.02], [5.21, 5.15], [5.04, 5.00], [5.12, 5.20]] }
+    ]
+  }
+}"#;
+
 const TEMPLATE_CONFORMITY: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -137,7 +155,7 @@ pub extern "C" fn uc_version() -> *mut c_char {
 }
 
 /// A starting project: `kind` is `"model"` (default), `"topdown"`,
-/// `"proficiency"`, `"calibration"` or `"conformity"`.
+/// `"proficiency"`, `"calibration"`, `"conformity"` or `"precision"`.
 ///
 /// # Safety
 /// `kind` must be null or a valid NUL-terminated string.
@@ -149,6 +167,7 @@ pub unsafe extern "C" fn uc_template(kind: *const c_char) -> *mut c_char {
         Ok("proficiency") => json!({ "ok": true, "project": TEMPLATE_PROFICIENCY }),
         Ok("calibration") => json!({ "ok": true, "project": TEMPLATE_CALIBRATION }),
         Ok("conformity") => json!({ "ok": true, "project": TEMPLATE_CONFORMITY }),
+        Ok("precision") => json!({ "ok": true, "project": TEMPLATE_PRECISION }),
         Ok("" | "model") => json!({ "ok": true, "project": TEMPLATE_MODEL }),
         Ok(other) => error(format!("unknown template '{other}'")),
         Err(e) => error(e.clone()),
@@ -263,7 +282,7 @@ mod tests {
     #[test]
     fn version_templates_and_evaluation() {
         assert_eq!(call(uc_version())["version"], SOFTWARE_VERSION);
-        for kind in ["model", "topdown", "proficiency", "calibration", "conformity"] {
+        for kind in ["model", "topdown", "proficiency", "calibration", "conformity", "precision"] {
             let k = CString::new(kind).unwrap();
             let t = call(unsafe { uc_template(k.as_ptr()) });
             let project = CString::new(t["project"].as_str().unwrap()).unwrap();
