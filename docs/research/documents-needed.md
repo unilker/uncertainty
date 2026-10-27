@@ -25,6 +25,8 @@ sayısal verileri ve sonuçları kaynak gösterilerek alınır.
 A7; B2, B4, B6, B8, B9, B10, B7 yerine NUM kılavuzu ve ek olarak Kallner).
 Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 
+**2026-10-27 güncellemesi:** Açık erişimli olduğu hâlde buradan indirilemeyen makalelerin listesi `status.md` §3'tedir.
+
 ## A. Standartlar (öncelik sırasıyla)
 
 | # | Belge | Ne için gerekli | Öncelik | Durum |
