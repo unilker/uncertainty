@@ -1794,3 +1794,81 @@ expanded uncertainties at 0.1 and 10 mg/kg are:
 The report, the app's recovery form (mean: arithmetic or weighted; test type
 "recovery with its uncertainty") and guide chapters 5 and 7 describe the
 option. The library has 205 projects and the workspace 180 tests.
+
+## 2026-10-27 (session 19) — Open-access papers: Suncal, the new definition, cg-18, conformity
+
+Open-access papers on the reading list were downloaded where the publisher
+serves the PDF directly:
+
+- Possolo (2025);
+- Fritsch (2019);
+- Shirono et al. (2022, parts 1 and 2);
+- from OSTI (public reports): the Suncal paper (Delker, *NCSLI Measure*
+  13(3), 2021), the Suncal software-QA slides (NCSLI 2021) and the slides on
+  guard bands under process bias (Delker & Peguero, NCSLI 2022).
+
+Springer, De Gruyter, MDPI and Taylor & Francis did not return a PDF to a
+plain request. Those papers are left for the author to download. The
+comparison is in `literature-review.md` §2–3.
+
+**Suncal (Delker 2021).**
+
+- The closest competitor for calibration laboratories:
+  - GUM solved symbolically, with MCM in parallel and the GUM validity
+    check of DEM-ES-010;
+  - several outputs with joint densities;
+  - units;
+  - ANOVA and autocorrelation of measured data;
+  - curve fits with prediction bands;
+  - decision risk with TUR-based and risk-based guard bands;
+  - calibration intervals.
+- Its software QA is a graded approach. Requirements are traced to
+  automated black-box tests against GUM and TN 1900 examples, with the
+  tolerance set by the published significant figures. This is the same
+  policy as the library's `expected` blocks (D15).
+- It does not cover chemistry top-down, PT, sampling or QC charts. It has no
+  mobile version and is in English only.
+
+**F28 confirmed independently.** Delker (2021, footnote 1) states that
+TN 1900 "reported the wrong answer for both value and uncertainty" of the
+airspeed example because the factor 2 was left out of the equation. That is
+finding F28, made here from the equation and the printed values (v = 57.48
+against 40.64 m/s, ratio √2). The Suncal result, (57.49 ± 0.67) m/s for
+95 %, is close to the library project: 57.47 m/s, u = 0.348 m/s,
+1.96u = 0.68 m/s, Monte Carlo interval [56.81, 58.17] m/s.
+
+**F74. Delker (2021), airspeed example — inputs exchanged (class b).** The
+text lists Δp = 14.7 psia ± 0.3 psia and p_a = 8.0 inches H₂O ± 0.1 inches
+H₂O. In Kline & McClintock (1953) and TN 1900 E4 it is the other way round:
+the pitot pressure difference is 8.0 in H₂O (1.993 kPa) and the atmospheric
+pressure 14.7 psia (101.4 kPa). The printed result, 57.49 m/s, follows only
+from the latter: √(2 · 1992.7 · 287.06 · 292.83/101 353) = 57.49 m/s. With
+the inputs as printed, v would be 2 924 m/s, about 50 times larger.
+
+**Possolo (2025).** The JCGM presented a new definition of measurement
+uncertainty for public discussion (July 2025): "the doubt about the true value
+of the measurand that remains after making a measurement", "described fully
+and quantitatively by a probability distribution". It separates what
+uncertainty is from how it is evaluated and expressed. The glossary (chapter
+8, EN and TR) now notes it beside VIM 2.26.
+
+**Gaps found, candidates for the next sessions.**
+
+- *cg-18 §8, uncertainty of a weighing result in use* (Fritsch 2019):
+  - U(W) = k√(α² + β²R²);
+  - the global uncertainty U_gl = U(W) + |a₁|R ≈ α_gl + β_gl·R, with the
+    error function of D52;
+  - minimum weight m_min = U/TOL and, with a safety factor,
+    m_min,SF = α·SF/(TOL − β·SF);
+  - the safe weighing range.
+
+  Examples H1 and H2 of cg-18 give the values needed to validate it.
+- *TUR-based guard bands* (Suncal; Delker & Peguero 2022): the RSS guard
+  band and Dobbert's managed guard band ("Method 6", PFA ≤ 2 % for any
+  in-tolerance probability). The conformity module has the JCGM 106 guard
+  bands and the guard band for a target consumer risk, but not these
+  calibration-practice rules (ANSI/NCSL Z540.3).
+- *Economic optimisation of the acceptance interval* (Shirono et al. 2022):
+  a later extension of the conformity module, with the summary tables as
+  test cases.
+
