@@ -60,6 +60,139 @@ pub struct ErrorFunctionSpec {
     /// Readings at which the approximated error is reported (C2.2-12, -13).
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub readings: Vec<ReadingSpec>,
+    /// Uncertainty of a weighing result in use and minimum weight (7.4, 7.5,
+    /// Appendix G); needs the straight line through zero (C2.2-16).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub in_use: Option<InUseSpec>,
+}
+
+fn default_rho_0() -> f64 {
+    1.2
+}
+
+fn default_rho_c() -> f64 {
+    8000.0
+}
+
+fn default_f64_one() -> f64 {
+    1.0
+}
+
+/// Conditions of use of the instrument (cg-18 7.4.1 to 7.4.4). Lengths and
+/// masses are in the unit of the indications.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct InUseSpec {
+    /// Weighing intervals (or ranges) in ascending order; one for a
+    /// single-interval instrument.
+    pub intervals: Vec<IntervalSpec>,
+    /// Scale interval at zero (default: d of the first interval).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub d0: Option<f64>,
+    /// Maximum deviation of the eccentricity test and its load (7.4.4-10).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub eccentricity: Option<EccentricitySpec>,
+    /// Temperature coefficient K_T (1/K) and variation ΔT (K) (7.4.3-1).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub temperature: Option<TemperatureSpec>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub buoyancy: Option<BuoyancySpec>,
+    /// Change of the adjustment since calibration (7.4.3-6).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub adjustment: Option<AdjustmentSpec>,
+    /// Tare balancing in use: non-linearity from the test points (7.4.4-5).
+    #[serde(default)]
+    pub tare: bool,
+    /// Creep and hysteresis (7.4.4-7, -9).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub time: Option<TimeSpec>,
+    /// Further relative standard uncertainties.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relative: Vec<RelativeTermSpec>,
+    /// Coverage factor of U(W) and U_gl(W) (default 2, 7.5.1).
+    #[serde(default = "default_two")]
+    pub coverage_factor: f64,
+    /// Relative weighing tolerance requirement Req (e.g. 0.01 for 1 %)
+    /// for the minimum weight (Appendix G).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub requirement: Option<f64>,
+    #[serde(default = "default_f64_one")]
+    pub safety_factor: f64,
+    /// Readings at which U(W) and U_gl(W) are reported.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub readings: Vec<f64>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct IntervalSpec {
+    pub max: f64,
+    pub d: f64,
+    /// Standard deviation of a single reading (7.4.1-4)…
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub s: Option<f64>,
+    /// …or the readings of the repeatability test.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub repeatability: Vec<f64>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct EccentricitySpec {
+    pub deviation: f64,
+    pub load: f64,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TemperatureSpec {
+    pub coefficient: f64,
+    pub delta_t: f64,
+}
+
+/// Air buoyancy in use: from the temperature variation (7.4.3-4), the most
+/// conservative estimate (7.4.3-5) or a relative value.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct BuoyancySpec {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub delta_t: Option<f64>,
+    #[serde(default)]
+    pub conservative: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub relative: Option<f64>,
+    #[serde(default = "default_rho_0")]
+    pub rho_0: f64,
+    #[serde(default = "default_rho_c")]
+    pub rho_c: f64,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct AdjustmentSpec {
+    /// Largest change ΔE(Max) between calibrations, or mpe(Max).
+    pub delta_e_max: f64,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TimeSpec {
+    /// Error on return to zero after loading upwards (7.4.4-7)…
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub e0: Option<f64>,
+    /// …or mpe(Max), times `multiplier` for instruments without type
+    /// approval (7.4.4-9a, -9b).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mpe_max: Option<f64>,
+    #[serde(default = "default_f64_one")]
+    pub multiplier: f64,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct RelativeTermSpec {
+    pub name: String,
+    pub u: f64,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -115,6 +248,30 @@ pub struct ExpectedErrorFunction {
     /// Approximated errors and their standard uncertainties at the readings.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub readings: Vec<ExpectedReading>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub in_use: Option<ExpectedInUse>,
+}
+
+/// Expected values of the uncertainty in use, per interval where a list.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
+pub struct ExpectedInUse {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alpha_squared: Vec<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub beta_squared: Option<Check>,
+    /// U(W) at the lower limit of each interval (0 for the first).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub expanded_at_lower: Vec<Check>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub slope: Vec<Check>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub global_at_lower: Vec<Check>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub global_slope: Vec<Check>,
+    /// Minimum weight with the safety factor (G-9).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub minimum_weight: Option<Check>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -134,6 +291,58 @@ pub struct ReadingResult {
     pub u: f64,
 }
 
+/// A term of the uncertainty in use.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum InUseTerm {
+    /// u(a₁) of the approximated error (C2.2-16d).
+    ErrorFunction,
+    Temperature,
+    Buoyancy,
+    BuoyancyConservative,
+    Adjustment,
+    Tare,
+    TimeReturnToZero,
+    TimeMpe,
+    Eccentricity,
+    Other,
+}
+
+impl InUseTerm {
+    pub fn formula(self) -> &'static str {
+        match self {
+            InUseTerm::ErrorFunction => "C2.2-16d",
+            InUseTerm::Temperature => "7.4.3-1",
+            InUseTerm::Buoyancy => "7.4.3-4",
+            InUseTerm::BuoyancyConservative => "7.4.3-5",
+            InUseTerm::Adjustment => "7.4.3-6",
+            InUseTerm::Tare => "7.4.4-5",
+            InUseTerm::TimeReturnToZero => "7.4.4-7",
+            InUseTerm::TimeMpe => "7.4.4-9",
+            InUseTerm::Eccentricity => "7.4.4-10",
+            InUseTerm::Other => "",
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct InUseAnalysis {
+    pub intervals: Vec<weighing::UseInterval>,
+    pub d0: f64,
+    /// Relative standard uncertainties with their kind and, for `Other`, name.
+    pub terms: Vec<(InUseTerm, String, f64)>,
+    /// a₁ in the unit of the indications per unit of indication.
+    pub a1: f64,
+    pub coverage_factor: f64,
+    pub result: weighing::InUseResult,
+    pub requirement: Option<f64>,
+    pub safety_factor: f64,
+    /// Minimum weight without and with the safety factor (G-7, G-9).
+    pub minimum_weight: Option<f64>,
+    pub minimum_weight_sf: Option<f64>,
+    /// Reading, U(W) = k√(α² + β²R²), its linear form, U_gl(W).
+    pub readings: Vec<(f64, f64, f64, f64)>,
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct ErrorFunctionAnalysis {
     pub instrument: String,
@@ -149,6 +358,110 @@ pub struct ErrorFunctionAnalysis {
     pub min_s_m_chi_squared: Option<f64>,
     pub min_s_m_residuals: Option<f64>,
     pub readings: Vec<ReadingResult>,
+    pub in_use: Option<InUseAnalysis>,
+}
+
+fn in_use(
+    u: &InUseSpec,
+    spec: &ErrorFunctionSpec,
+    points: &[TestPoint],
+    fit: &Approximation,
+    factor: f64,
+) -> Result<InUseAnalysis, ProjectError> {
+    let e = |what: &str, m: &str| err(&format!("in_use.{what}"), m);
+    if !(spec.degree == 1 && spec.through_zero) {
+        return Err(e("", "needs the straight line through zero, E = a₁R (C2.2-16): degree 1 with through_zero"));
+    }
+    let mut intervals = Vec::new();
+    for (i, iv) in u.intervals.iter().enumerate() {
+        let s = match (iv.s, iv.repeatability.len()) {
+            (Some(s), 0) => s,
+            (None, n) if n >= 2 => {
+                let m = iv.repeatability.iter().sum::<f64>() / n as f64;
+                (iv.repeatability.iter().map(|x| (x - m).powi(2)).sum::<f64>() / (n - 1) as f64).sqrt()
+            }
+            _ => return Err(e(&format!("intervals[{i}]"), "give s, or at least two repeatability readings")),
+        };
+        intervals.push(weighing::UseInterval { max: iv.max, d: iv.d, s });
+    }
+    let max = intervals.last().map(|i| i.max).ok_or_else(|| e("intervals", "at least one interval is needed"))?;
+    let a1 = fit.coefficients[0] / factor;
+    let mut terms = vec![(InUseTerm::ErrorFunction, String::new(), fit.covariance[0][0].sqrt() / factor.abs())];
+    if let Some(t) = &u.temperature {
+        terms.push((InUseTerm::Temperature, String::new(), weighing::relative_temperature(t.coefficient, t.delta_t)));
+    }
+    if let Some(b) = &u.buoyancy {
+        let term = match (b.delta_t, b.conservative, b.relative) {
+            (Some(dt), false, None) => (InUseTerm::Buoyancy, weighing::relative_buoyancy(dt, b.rho_0, b.rho_c)),
+            (None, true, None) => {
+                (InUseTerm::BuoyancyConservative, weighing::relative_buoyancy_conservative(b.rho_0, b.rho_c))
+            }
+            (None, false, Some(r)) => (InUseTerm::Other, r),
+            _ => return Err(e("buoyancy", "give one of delta_t, conservative or relative")),
+        };
+        terms.push((term.0, if term.0 == InUseTerm::Other { "δR_buoy".into() } else { String::new() }, term.1));
+    }
+    if let Some(a) = &u.adjustment {
+        terms.push((InUseTerm::Adjustment, String::new(), weighing::relative_adjustment(a.delta_e_max, max)));
+    }
+    if u.tare {
+        let pts: Vec<(f64, f64)> = points.iter().map(|p| (p.indication, p.error / factor)).collect();
+        let t = weighing::relative_tare(&pts).map_err(|x| e("tare", &x.to_string()))?;
+        terms.push((InUseTerm::Tare, String::new(), t));
+    }
+    if let Some(t) = &u.time {
+        let term = match (t.e0, t.mpe_max) {
+            (Some(e0), None) => (InUseTerm::TimeReturnToZero, weighing::relative_time(e0, max)),
+            (None, Some(mpe)) => (InUseTerm::TimeMpe, weighing::relative_time(t.multiplier * mpe, max)),
+            _ => return Err(e("time", "give e0 or mpe_max")),
+        };
+        terms.push((term.0, String::new(), term.1));
+    }
+    if let Some(x) = &u.eccentricity {
+        if x.load.is_nan() || x.load <= 0.0 {
+            return Err(e("eccentricity", "the load must be positive"));
+        }
+        terms.push((InUseTerm::Eccentricity, String::new(), weighing::relative_eccentricity(x.deviation, x.load)));
+    }
+    for r in &u.relative {
+        terms.push((InUseTerm::Other, r.name.clone(), r.u));
+    }
+    let model = weighing::WeighingInUse {
+        intervals: intervals.clone(),
+        d0: u.d0.unwrap_or(intervals[0].d),
+        relative: terms.iter().map(|t| t.2).collect(),
+        a1,
+        k: u.coverage_factor,
+    };
+    let result = model.evaluate().map_err(|x| e("", &x.to_string()))?;
+    if u.safety_factor.is_nan() || u.safety_factor < 1.0 {
+        return Err(e("safety_factor", "must be at least 1"));
+    }
+    let (mw, mw_sf) = match u.requirement {
+        Some(req) if req > 0.0 => {
+            (result.minimum_weight(req, 1.0, max), result.minimum_weight(req, u.safety_factor, max))
+        }
+        Some(_) => return Err(e("requirement", "must be positive (e.g. 0.01 for 1 %)")),
+        None => (None, None),
+    };
+    let readings = u
+        .readings
+        .iter()
+        .map(|&r| (r, result.expanded(r, u.coverage_factor), result.expanded_linear(r), result.global(r)))
+        .collect();
+    Ok(InUseAnalysis {
+        intervals,
+        d0: model.d0,
+        terms,
+        a1,
+        coverage_factor: u.coverage_factor,
+        result,
+        requirement: u.requirement,
+        safety_factor: u.safety_factor,
+        minimum_weight: mw,
+        minimum_weight_sf: mw_sf,
+        readings,
+    })
 }
 
 pub fn evaluate(spec: &ErrorFunctionSpec) -> Result<ErrorFunctionAnalysis, ProjectError> {
@@ -197,6 +510,7 @@ pub fn evaluate(spec: &ErrorFunctionSpec) -> Result<ErrorFunctionAnalysis, Proje
         let (error, u) = fit.at(r.reading, u_reading);
         readings.push(ReadingResult { reading: r.reading, u_reading, error, u });
     }
+    let in_use = spec.in_use.as_ref().map(|u| in_use(u, spec, &points, &fit, factor)).transpose()?;
     Ok(ErrorFunctionAnalysis {
         instrument: spec.instrument.clone(),
         unit: spec.unit.clone(),
@@ -209,8 +523,12 @@ pub fn evaluate(spec: &ErrorFunctionSpec) -> Result<ErrorFunctionAnalysis, Proje
         min_s_m_chi_squared,
         min_s_m_residuals,
         readings,
+        in_use,
     })
 }
+
+/// A list of expected values with its name and the computed list.
+type CheckList<'a> = (&'a str, &'a Vec<Check>, Option<&'a Vec<f64>>);
 
 pub fn check(e: &ExpectedErrorFunction, a: &ErrorFunctionAnalysis, out: &mut Vec<crate::CheckOutcome>) {
     let mut push = |what: String, computed: Option<f64>, c: &Check| {
@@ -256,6 +574,27 @@ pub fn check(e: &ExpectedErrorFunction, a: &ErrorFunctionAnalysis, out: &mut Vec
             push(format!("readings[{i}].u"), got.map(|g| g.u), c);
         }
     }
+    if let Some(eu) = &e.in_use {
+        let r = a.in_use.as_ref().map(|u| &u.result);
+        let lists: [CheckList; 5] = [
+            ("alpha_squared", &eu.alpha_squared, r.map(|r| &r.alpha_squared)),
+            ("expanded_at_lower", &eu.expanded_at_lower, r.map(|r| &r.expanded_at_lower)),
+            ("slope", &eu.slope, r.map(|r| &r.slope)),
+            ("global_at_lower", &eu.global_at_lower, r.map(|r| &r.global_at_lower)),
+            ("global_slope", &eu.global_slope, r.map(|r| &r.global_slope)),
+        ];
+        for (name, checks, got) in lists {
+            for (i, c) in checks.iter().enumerate() {
+                push(format!("in_use.{name}[{i}]"), got.and_then(|g| g.get(i).copied()), c);
+            }
+        }
+        if let Some(c) = &eu.beta_squared {
+            push("in_use.beta_squared".into(), r.map(|r| r.beta_squared), c);
+        }
+        if let Some(c) = &eu.minimum_weight {
+            push("in_use.minimum_weight".into(), a.in_use.as_ref().and_then(|u| u.minimum_weight_sf), c);
+        }
+    }
 }
 
 pub fn results_json(a: &ErrorFunctionAnalysis) -> serde_json::Value {
@@ -283,6 +622,25 @@ pub fn results_json(a: &ErrorFunctionAnalysis) -> serde_json::Value {
             "reading": r.reading, "u_reading": r.u_reading, "error": r.error, "u": r.u,
             "expanded": a.coverage_factor * r.u,
         })).collect::<Vec<_>>(),
+        "in_use": a.in_use.as_ref().map(|u| json!({
+            "intervals": u.intervals.iter().map(|i| json!({"max": i.max, "d": i.d, "s": i.s})).collect::<Vec<_>>(),
+            "d0": u.d0,
+            "terms": u.terms.iter().map(|(t, name, v)| json!({"formula": t.formula(), "name": name, "u_relative": v})).collect::<Vec<_>>(),
+            "a1": u.a1,
+            "coverage_factor": u.coverage_factor,
+            "alpha_squared": u.result.alpha_squared,
+            "beta_squared": u.result.beta_squared,
+            "lower": u.result.lower,
+            "expanded_at_lower": u.result.expanded_at_lower,
+            "slope": u.result.slope,
+            "global_at_lower": u.result.global_at_lower,
+            "global_slope": u.result.global_slope,
+            "requirement": u.requirement,
+            "safety_factor": u.safety_factor,
+            "minimum_weight": u.minimum_weight,
+            "minimum_weight_sf": u.minimum_weight_sf,
+            "readings": u.readings.iter().map(|(r, x, l, g)| json!({"reading": r, "expanded": x, "expanded_linear": l, "global": g})).collect::<Vec<_>>(),
+        })),
     })
 }
 

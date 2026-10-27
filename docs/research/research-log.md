@@ -1872,3 +1872,84 @@ uncertainty is from how it is evaluated and expressed. The glossary (chapter
   a later extension of the conformity module, with the summary tables as
   test cases.
 
+## 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G)
+
+**D55. `error_function.in_use`.** The core functions follow cg-18 7.4.1–7.4.4
+for the terms of the uncertainty in use:
+
+- the absolute term per interval, α_W² = d₀²/12 + d²/12 + s² (7.4.1-6);
+- the relative terms:
+  - u(a₁) of the fit (C2.2-16d);
+  - temperature (7.4.3-1);
+  - buoyancy (7.4.3-4 or -5);
+  - adjustment (7.4.3-6);
+  - tare from the slopes between the test points (7.4.4-4, -5);
+  - creep and hysteresis (7.4.4-7, -9);
+  - eccentricity taken in full (7.4.4-10).
+
+They give u²(W) = α_W² + β_W²R² (7.4.5-2) and U(W) = k·u(W), with k = 2 by
+default (7.5.1-2b). The linear forms per interval (7.5.2-3d, -3f) and the
+global uncertainty U_gl(W) = U(W) + |a₁|R in its linear form (7.5.2-3a, -3e)
+follow. The minimum weight is R_min = α_gl/(Req − β_gl) (G-7) and
+R_min,SF = α_gl·SF/(Req − β_gl·SF) (G-9), searched interval by interval for
+multi-interval instruments.
+
+Design choices:
+
+- The block needs the straight line through zero, E = a₁R, which 7.5.2-3e
+  prescribes. With a constant term, u²(E_appr) is not of the form α² + β²R².
+- The term a₁²u²(R) of C2.2-16d is neglected, as the guide does (footnotes
+  10–12).
+- A reading equal to Max_i belongs to interval i (Max_{i−1} < R ≤ Max_i).
+- Only the uncertainty of the general weighing result W is given. W*
+  (7.4.5-1a, conditions of the calibration) differs only in the eccentricity
+  term and the environmental terms.
+
+The report has a section with the intervals, the relative terms, the linear
+forms and the minimum weight (EN and TR); the app shows the same. Four library
+projects reproduce H1.4/A, H1.4/B, H2.4/A and H2.4/B from the test points and
+the repeatability readings. Their generator recomputes every printed value
+independently and requires agreement except for the two findings below.
+
+The fits behind the examples were identified by recomputation:
+
+- H1/A: the 7.1.2-5e budget, a₁ = 6.7096·10⁻⁶, u(a₁) = 1.2416·10⁻⁶.
+- H1/B and H2/B: 7.1.2-5c.
+- H2/A: the conservative 7.1.2-5d.
+
+All four use uncorrelated weights p_j = 1/u²(E_j) (C2.2-18b). The text does not
+say which budget each fit uses.
+
+**F75. cg-18 H2.4/A — first-order U(W) of intervals 2 and 3 (class b).**
+
+- The table prints U(W) = 10.190 g + 3.434·10⁻⁴(R − 12 000 g) and
+  20.311 g + 3.923·10⁻⁴(R − 30 000 g).
+- 10.190 and 20.311 g are the global uncertainties at 12 000 and 30 000 g,
+  U(W) + |a₁|R: 8.129 + 2.060 and 15.158 + 5.151 g.
+- U(W) itself is 2√(9.917 + 4.589·10⁻⁸·12 000²) = 8.129 g and 15.16 g.
+- The slopes and the global lines are right.
+- In H2.4/B, where a₁ = 0, both lines coincide and the printed 6.616 and
+  11.951 g are right, which confirms the reading.
+
+**F76. cg-18 H1.4/B — tare term (class b).**
+
+- The errors 0, 0, −0.1, 0, −0.1 mg at 0, 50, 100, 150, 220 g give slopes
+  q_E = 0, −2·10⁻⁶, +2·10⁻⁶ and −1.43·10⁻⁶.
+- 7.4.4-5 then gives (q_E,max − q_E,min)/√12 = 4·10⁻⁶/√12 = 1.155·10⁻⁶. The
+  guide prints 5.774·10⁻⁷ = 2·10⁻⁶/√12, as if max|q| − min|q| were taken.
+- With the formula, β_W² = 7.432·10⁻¹² instead of 6.433·10⁻¹², the U_gl slope
+  is 4.851·10⁻⁶ instead of 4.479·10⁻⁶, and the minimum weight 0.0728 g
+  instead of 0.0727 g.
+- In H1/A and H2/A, where all slopes have one sign, both readings agree with
+  the printed values.
+
+Minor points:
+
+- H1/B and H2/A print a₁ without its sign (both are negative).
+- H1/B prints the eccentricity term as 1.154·10⁻⁶; 0.0002/(100√3) =
+  1.1547·10⁻⁶.
+- H1/A and H1/B print α_W² as 1.467 and 1.466·10⁻⁸ for the same d and s;
+  the value is 1.4663·10⁻⁸.
+
+The library has 209 projects.
+

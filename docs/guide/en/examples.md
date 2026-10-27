@@ -7,7 +7,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Flow and volume (7)
 - General (method validation) (19)
 - Length (11)
-- Mass (24)
+- Mass (28)
 - Physical properties (8)
 - Pressure (1)
 - Temperature (10)
@@ -3851,6 +3851,67 @@ At zero load only the rounding at zero and the repeatability contribute; the rep
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang en`
 
+### Balance 220 g / 0.1 mg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H1.4/A)
+
+`cg18-h1-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1.1/A to H1.4/A; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic balance, Max 220 g, d = 0.1 mg. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5e (room temperature variation 5 K) (C2.2-18b, uncorrelated reference masses): a₁ = 6.71e-06, u(a₁) = 1.242e-06.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.467e-08 g² (7.4.1-6), with s from the repeatability test (0.000114 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 1.242e-06 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.299e-06 (K_T = 1.5e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy √(1.07·10⁻⁴ + 1.33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1.636e-06 (7.4.3-4), tare (q_E,max − q_E,min)/√12 = 1.072e-06 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 1.155e-06 (7.4.4-10); β_W² = 8.389e-12.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 0.0002422 g + 1.151e-05·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 3: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0.07292 g (G-9).
+
+**Result:**
+
+- E_appr(I) = 6.710 × 10⁻⁶·I; χ²_obs = 0.298, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 1.24 × 10⁻⁶
+- U_gl(W) = 0.0002422 g + 1.151 × 10⁻⁵·R
+- R_min,SF = 0.0729 g (Req = 1 %, SF = 3)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.
+
+**Run:** `uncertainty run library/mass/cg18-h1-a-weighing-result.json --lang en`
+
+### Balance 220 g / 0.1 mg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H1.4/B)
+
+`cg18-h1-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1.1/B to H1.4/B; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic balance, Max 220 g, d = 0.1 mg. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5c (adjusted immediately before calibration) (C2.2-18b, uncorrelated reference masses): a₁ = -3.898e-07, u(a₁) = 6.332e-07.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.467e-08 g² (7.4.1-6), with s from the repeatability test (0.000114 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 6.332e-07 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.299e-06 (K_T = 1.5e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy √(1.07·10⁻⁴ + 1.33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1.636e-06 (7.4.3-4), tare (q_E,max − q_E,min)/√12 = 1.155e-06 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 1.155e-06 (7.4.4-10); β_W² = 7.432e-12.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 0.0002422 g + 4.851e-06·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 3: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0.07277 g (G-9).
+
+**Result:**
+
+- E_appr(I) = -3.898 × 10⁻⁷·I; χ²_obs = 0.331, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6.33 × 10⁻⁷
+- U_gl(W) = 0.0002422 g + 4.851 × 10⁻⁶·R
+- R_min,SF = 0.0728 g (Req = 1 %, SF = 3)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints u_rel(δR_Tare) = 5.774·10⁻⁷. The slopes between the test points are 0, −2·10⁻⁶, +2·10⁻⁶ and −1.43·10⁻⁶, so (q_E,max − q_E,min)/√12 = 4·10⁻⁶/√12 = 1.155e-06 (7.4.4-5); the printed value corresponds to a width of 2·10⁻⁶. The project uses the formula: β_W² = 7.432e-12 instead of 6.433·10⁻¹², U_gl(W) slope 4.851e-06 instead of 4.479·10⁻⁶, minimum weight 0.07277 g instead of 0.0727 g (research log F76).
+- The guide prints a₁ = 3.895·10⁻⁷ without its sign; the errors (−0.1 mg at 100 g and 220 g) give a₁ = −3.895·10⁻⁷. Only |a₁| enters the global uncertainty.
+
+**Run:** `uncertainty run library/mass/cg18-h1-b-weighing-result.json --lang en`
+
 ### Multi-interval balance 60 kg: error at 10 kg without buoyancy correction (EURAMET cg-18 H2, option 1)
 
 `cg18-h2-60kg-10kg-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
@@ -4008,6 +4069,67 @@ A 60 kg multi-interval balance (2 g / 5 g / 10 g) calibrated as found, not adjus
 - E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang en`
+
+### Multi-interval scale 12/30/60 kg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H2.4/A)
+
+`cg18-h2-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2.1/A to H2.4/A; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Multi-interval scale, Max 12/30/60 kg, d = 2/5/10 g. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5d (no information on the air density) (C2.2-18b, uncorrelated reference masses): a₁ = -0.0001717, u(a₁) = 6.459e-05.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.867 g², 9.917 g², 16.17 g² (7.4.1-6), with s from the repeatability tests (1.095, 2.739, 2.739 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 6.459e-05 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.732e-06 (K_T = 2e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy not relevant, tare (q_E,max − q_E,min)/√12 = 0.0001444 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.0001443 (7.4.4-10); β_W² = 4.586e-08.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d, -3f per interval), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 2.733 g + 0.0004291·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 2: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 597.8 g (G-9).
+
+**Result:**
+
+- E_appr(I) = -0.0001717·I; χ²_obs = 1.82, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6.46 × 10⁻⁵
+- U_gl(W) = 2.733 g + 0.0004291·R
+- R_min,SF = 598 g (Req = 1 %, SF = 2)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints the first-order U(W) of the second and third intervals as 10.190 g + 3.434·10⁻⁴(R − 12 000 g) and 20.311 g + 3.923·10⁻⁴(R − 30 000 g). 10.190 g and 20.311 g are the global uncertainties at 12 000 g and 30 000 g, U(W) + |a₁|R; U(W) itself is 8.129 g and 15.16 g there. The slopes and the global lines are right (research log F75).
+- The guide prints a₁ = 1.717·10⁻⁴ without its sign; the errors are negative (−5 g at 20 kg, −10 g at 40 and 60 kg).
+- H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.
+
+**Run:** `uncertainty run library/mass/cg18-h2-a-weighing-result.json --lang en`
+
+### Multi-interval scale 12/30/60 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H2.4/B)
+
+`cg18-h2-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2.1/B to H2.4/B; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Multi-interval scale, Max 12/30/60 kg, d = 2/5/10 g. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5c (adjusted immediately before calibration) (C2.2-18b, uncorrelated reference masses): a₁ = 0, u(a₁) = 6.043e-05.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.467 g², 7.417 g², 13.67 g² (7.4.1-6), with s from the repeatability tests (0.8944, 2.236, 2.236 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 6.043e-05 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.732e-06 (K_T = 2e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy not relevant, tare (q_E,max − q_E,min)/√12 = 0 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.0001443 (7.4.4-10); β_W² = 2.449e-08.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d, -3f per interval), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 2.422 g + 0.0001706·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 2: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 501.5 g (G-9).
+
+**Result:**
+
+- E_appr(I) = 0·I; χ²_obs = 0, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6.04 × 10⁻⁵
+- U_gl(W) = 2.422 g + 0.0001706·R
+- R_min,SF = 502 g (Req = 1 %, SF = 2)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+
+**Run:** `uncertainty run library/mass/cg18-h2-b-weighing-result.json --lang en`
 
 ### Weighbridge 30 t: error at 10 t of standard weights (EURAMET cg-18 H3)
 

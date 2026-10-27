@@ -107,6 +107,9 @@ Turkish reports.
 | eccentricity / repeatability test | eksantriklik / tekrarlanabilirlik deneyi | cg-18 5.1, 5.3 |
 | multi-interval instrument | çok aralıklı tartı aleti | cg-18 H2 |
 | air buoyancy correction | hava kaldırma kuvveti düzeltmesi | cg-18 4.2.4 |
+| uncertainty of a weighing result | tartım sonucunun belirsizliği | cg-18 7.4 |
+| global uncertainty | genel belirsizlik | cg-18 7.5.2 |
+| minimum weight / safety factor | minimum tartım / güvenlik faktörü | cg-18 Appendix G |
 
 **Definition of measurement uncertainty.** VIM 2.26 defines measurement uncertainty as a "non-negative parameter
 characterizing the dispersion of the quantity values being attributed to a measurand". In July 2025 the JCGM

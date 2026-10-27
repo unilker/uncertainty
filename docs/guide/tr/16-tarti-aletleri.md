@@ -5,7 +5,9 @@ tartı aletlerinin kalibrasyonu için başvuru belgesidir. Program, kalibrasyon 
 
 - her deney yükündeki **gösterge hatası** ve belirsizliği, bir ölçüm modeli olarak (16.1–16.3);
 - tüm deney noktalarına uydurulan **hata yaklaşım fonksiyonu** E(I); bu fonksiyon herhangi bir okumadaki hatayı
-  ve belirsizliğini verir (Ek C; `error_function` bölümü, 16.4).
+  ve belirsizliğini verir (Ek C; `error_function` bölümü, 16.4);
+- kullanıcıya öneri olarak **kullanımda tartım sonucunun belirsizliği** ve **minimum tartım** (7.4, 7.5, Ek G;
+  `error_function.in_use`, 16.5).
 
 Ek H'nin dört örneğinin tamamı kütüphane projesidir: `cg18-h1-*` (220 g / 0,1 mg), `cg18-h2-*` (60 kg çok
 aralıklı), `cg18-h3-*` (ikame yükleriyle 30 t köprü kantar) ve `cg18-h4-*` (400 g'lık terazinin hata fonksiyonu).
@@ -74,3 +76,40 @@ belirsizliği demektir: 400 g'da U(E_yakl), s_m = 0,05 mg ile 0,190 mg, 0,25 mg 
 Herhangi bir okuma R'deki (`readings`) yaklaşık hata E_yakl(R) = rᵀâ'dır;
 u²(E_yakl) = (f′(R))²u²(R) + rᵀU(â)r (C2.2-12, -13). Noktalar ya hatalarıyla (`error`) ya da referans kütleyle
 (`reference`) verilir; `error_factor`, I − m_ref'i hataların birimine çevirir (g'dan mg'a 1000).
+
+## 16.5 Kullanımda tartım sonucunun belirsizliği ve minimum tartım (7.4, 7.5, Ek G)
+
+Kullanımda bir yük bir kez tartılır ve d'ye kadar okunur. Yük merkez dışında, dara alındıktan sonra ve farklı bir
+sıcaklıkta olabilir. Kılavuzun böyle bir tartım sonucu W için verdiği belirsizlik tahmini kullanıcıya yönelik bir
+öneridir; kalibrasyon sonuçlarının parçası değildir (7.4). Terimler iki grupta toplanır (7.4.5-2):
+
+u²(W) = α_W² + β_W²R²,
+
+- α_W² = d₀²/12 + d²/12 + s² mutlaktır: sıfırda ve yükte yuvarlama ile tek okumanın tekrarlanabilirliği (7.4.1).
+  Çok aralıklı bir alette aralık başına verilir; d₀ = d₁'dir.
+- β_W², bağıl terimlerin karelerinin toplamıdır:
+  - hata fonksiyonu E = a₁R'nin u(a₁)'i (C2.2-16d);
+  - duyarlılığın sıcaklıkla kayması, K_T·ΔT/√12 (7.4.3-1);
+  - hava kaldırma kuvveti, √(1,07·10⁻⁴ + 1,33·10⁻⁶ K⁻²·ΔT²)·ρ₀/ρ_c (7.4.3-4);
+  - ayarın kayması, ΔE(Max)/(Max√3) (7.4.3-6);
+  - dara alma: deney noktaları arasındaki hata eğimlerinden (q_E,maks − q_E,min)/√12 (7.4.4-5);
+  - sünme ve histerezis (7.4.4-7, -9);
+  - kalibrasyonda bulunan eksantriklik, tamamıyla, ΔI_ecc,maks/(L_ecc√3) (7.4.4-10).
+
+U(W) = 2u(W)'dir (7.5.1-2b). Kılavuz bunu her aralığın sınırlarındaki U(W) değerlerinden geçen bir doğruyla
+değiştirir (7.5.2-3d, -3f). Okumalar genellikle hata için düzeltilmez; bu nedenle *genel belirsizlik* |a₁|R'yi
+ekler: U_gl(W) = α_gl + β_gl·R (7.5.2-3e, G-3). Rapor her aralık için iki doğruyu ve `readings` okumalarındaki
+değerleri verir.
+
+Minimum tartım, bağıl genel belirsizliği kullanıcının Req gereksinimini sağlayan en küçük net yüktür:
+R_min = α_gl/(Req − β_gl) (G-7). Güvenlik faktörü SF ile R_min,SF = α_gl·SF/(Req − β_gl·SF) olur (G-9). Çok aralıklı
+bir alette program aralıkları sırayla tarar.
+
+Kütüphane H1.4/A, H1.4/B, H2.4/A ve H2.4/B'yi yeniden üretir (`cg18-h1-a-weighing-result` ve devamı). İki ayrıntı
+basılı tablolardan farklıdır:
+
+- H2.4/A'da ikinci ve üçüncü aralığın birinci mertebe U(W) doğrusu genel değerlerden, 10,190 g ve 20,311 g'dan
+  başlar; U(W)'nin kendisi orada 8,129 g ve 15,16 g'dır (araştırma günlüğü F75).
+- H1.4/B'de dara terimi 5,774·10⁻⁷ basılmıştır; 7.4.4-5 formülü ise 1,155·10⁻⁶ verir (F76). Minimum tartım
+  0,0727 g'dan 0,0728 g'a değişir.
+

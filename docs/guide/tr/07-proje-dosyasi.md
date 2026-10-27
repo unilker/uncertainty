@@ -331,6 +331,31 @@ Bir tartı aletinin hata yaklaşım fonksiyonu (EURAMET cg-18 Ek C2.2; bölüm 1
 | `s_m` | U(e)'nin köşegenindeki model terimi (C2.2-3c), varsayılan 0 |
 | `coverage_factor` | U(E_yakl)'nin ve C2.2-2b artık testinin k'sı (varsayılan 2) |
 | `readings` | E_yakl(R) ve belirsizliğinin raporlandığı okumalar R (`reading`, isteğe bağlı `u_reading`) |
+| `in_use` | kullanımda tartım sonucunun belirsizliği ve minimum tartım (cg-18 7.4, 7.5, Ek G; 16.5); `degree` 1 ve `through_zero` gerekir |
+
+```json
+"in_use": {
+  "intervals": [{ "max": 12000, "d": 2, "repeatability": [9998, 10000, 9998, 10000, 10000] },
+                { "max": 30000, "d": 5, "s": 2.739 }],
+  "eccentricity": { "deviation": 5, "load": 20000 }, "temperature": { "coefficient": 2e-6, "delta_t": 3 },
+  "buoyancy": { "delta_t": 3 }, "tare": true, "requirement": 0.01, "safety_factor": 2, "readings": [12000, 30000]
+}
+```
+
+| `in_use` alanı | İçerik (kütleler `unit` cinsinden) |
+|---|---|
+| `intervals` | artan sırada tartım aralıkları veya kademeleri: `max`, ölçek aralığı `d` ve `s` ya da `repeatability` okumaları |
+| `d0` | sıfırdaki ölçek aralığı (varsayılan: ilk aralığın `d`'si) |
+| `eccentricity` | `deviation` ΔI_ecc,maks ve `load` L_ecc: u_bağıl = ΔI_ecc,maks/(L_ecc√3) (7.4.4-10) |
+| `temperature` | `coefficient` K_T (1/K) ve `delta_t` ΔT (K): K_T·ΔT/√12 (7.4.3-1) |
+| `buoyancy` | `delta_t` (7.4.3-4), `conservative: true` (7.4.3-5) veya `relative`; `rho_0` (1,2) ve `rho_c` (8000 kg/m³) |
+| `adjustment` | iki kalibrasyon arasında `delta_e_max` ΔE(Max): ΔE/(Max√3) (7.4.3-6) |
+| `tare` | `true`: kullanımda dara alma, deney noktalarından (q_E,maks − q_E,min)/√12 (7.4.4-5) |
+| `time` | sünme ve histerezis: `e0` (7.4.4-7) veya `multiplier` ile `mpe_max` (7.4.4-9a, -9b) |
+| `relative` | diğer bağıl standart belirsizlikler `{ "name", "u" }` |
+| `coverage_factor` | U(W) ve U_gl(W)'nin k'sı (varsayılan 2, 7.5.1) |
+| `requirement`, `safety_factor` | minimum tartım için bağıl tartım toleransı Req (0,01 = %1) ve SF (varsayılan 1) (G-7, G-9) |
+| `readings` | U(W) ve U_gl(W)'nin raporlandığı okumalar |
 
 ## 7.15 Hatalar
 
@@ -382,4 +407,6 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
   için bir değerli listeler), `rsd_sampling`, `rsd_total`, `expanded_relative_sampling`, `expanded_relative_total`
 * `error_function`: `coefficients` ve `u_coefficients` (kuvvetlerin sırasıyla listeler), `chi_squared`,
   `chi_squared_passed` (true/false), `residual_failures` (C2.2-2b'yi sağlamayan nokta sayısı), `u_approximated`
-  (her nokta için bir değerli liste), `readings` (`{ "error", "u" }` listesi)
+  (her nokta için bir değerli liste), `readings` (`{ "error", "u" }` listesi); `in_use`: `alpha_squared`,
+  `expanded_at_lower`, `slope`, `global_at_lower`, `global_slope` (her aralık için bir değerli listeler),
+  `beta_squared`, `minimum_weight` (güvenlik faktörüyle)

@@ -106,6 +106,9 @@ GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlard
 | eccentricity / repeatability test | eksantriklik / tekrarlanabilirlik deneyi | cg-18 5.1, 5.3 |
 | multi-interval instrument | çok aralıklı tartı aleti | cg-18 H2 |
 | air buoyancy correction | hava kaldırma kuvveti düzeltmesi | cg-18 4.2.4 |
+| uncertainty of a weighing result | tartım sonucunun belirsizliği | cg-18 7.4 |
+| global uncertainty | genel belirsizlik | cg-18 7.5.2 |
+| minimum weight / safety factor | minimum tartım / güvenlik faktörü | cg-18 Ek G |
 
 **Ölçüm belirsizliğinin tanımı.** VIM 2.26 ölçüm belirsizliğini "bir ölçülene atfedilen büyüklük değerlerinin
 dağılımını nitelendiren negatif olmayan parametre" olarak tanımlar. JCGM Temmuz 2025'te bunun yerine geçecek bir

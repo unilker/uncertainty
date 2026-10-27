@@ -6,7 +6,9 @@ certificate:
 
 - the **error of indication** at each test load and its uncertainty, as a measurement model (16.1–16.3);
 - the **error approximation function** E(I) fitted to all test points, which gives the error and its
-  uncertainty at any reading (Appendix C; the `error_function` section, 16.4).
+  uncertainty at any reading (Appendix C; the `error_function` section, 16.4);
+- as advice for the user, the **uncertainty of a weighing result in use** and the **minimum weight** (7.4, 7.5,
+  Appendix G; `error_function.in_use`, 16.5).
 
 All four examples of Appendix H are library projects: `cg18-h1-*` (220 g / 0.1 mg), `cg18-h2-*` (60 kg
 multi-interval), `cg18-h3-*` (30 t weighbridge with substitution loads) and `cg18-h4-*` (error function of a
@@ -77,3 +79,40 @@ The approximated error at any reading R (`readings`) is E_appr(R) = rᵀâ with
 u²(E_appr) = (f′(R))²u²(R) + rᵀU(â)r (C2.2-12, -13). Points are given either with their error (`error`) or with
 the reference mass (`reference`); `error_factor` converts I − m_ref to the unit of the errors (1000 for g to
 mg).
+
+## 16.5 Uncertainty of a weighing result in use and minimum weight (7.4, 7.5, Appendix G)
+
+In use, a load is weighed once, read to d, possibly off-centre and after taring, at another temperature. The
+guide's estimate of the uncertainty of such a weighing result W is advice for the user; it is not part of the
+calibration results (7.4). The terms fall into two groups (7.4.5-2):
+
+u²(W) = α_W² + β_W²R²,
+
+- α_W² = d₀²/12 + d²/12 + s² is absolute: rounding at zero and at the load, and the repeatability of a single
+  reading (7.4.1). In a multi-interval instrument it is stated per interval, with d₀ = d₁.
+- β_W² is the sum of the squared relative terms:
+  - u(a₁) of the error function E = a₁R (C2.2-16d);
+  - the temperature drift of the sensitivity, K_T·ΔT/√12 (7.4.3-1);
+  - the air buoyancy, √(1.07·10⁻⁴ + 1.33·10⁻⁶ K⁻²·ΔT²)·ρ₀/ρ_c (7.4.3-4);
+  - the drift of the adjustment, ΔE(Max)/(Max√3) (7.4.3-6);
+  - the tare balancing, (q_E,max − q_E,min)/√12 from the slopes of the errors between the test points (7.4.4-5);
+  - creep and hysteresis (7.4.4-7, -9);
+  - the eccentricity found at calibration, taken in full, ΔI_ecc,max/(L_ecc√3) (7.4.4-10).
+
+U(W) = 2u(W) (7.5.1-2b). The guide replaces it by a straight line through U(W) at the limits of each interval
+(7.5.2-3d, -3f). Readings are normally not corrected for the error, so the *global uncertainty* adds |a₁|R:
+U_gl(W) = α_gl + β_gl·R (7.5.2-3e, G-3). The report gives both lines per interval and the values at the
+`readings`.
+
+The minimum weight is the smallest net load whose relative global uncertainty meets the user's requirement Req:
+R_min = α_gl/(Req − β_gl) (G-7). With a safety factor SF it becomes R_min,SF = α_gl·SF/(Req − β_gl·SF) (G-9). For
+a multi-interval instrument the program searches the intervals in turn.
+
+The library reproduces H1.4/A, H1.4/B, H2.4/A and H2.4/B (`cg18-h1-a-weighing-result` and the following). Two
+details differ from the printed tables:
+
+- In H2.4/A the first-order U(W) of the second and third intervals starts from the global values 10.190 g and
+  20.311 g; U(W) itself is 8.129 g and 15.16 g there (research log F75).
+- In H1.4/B the tare term is printed as 5.774·10⁻⁷, whereas formula 7.4.4-5 gives 1.155·10⁻⁶ (F76). The minimum
+  weight changes from 0.0727 g to 0.0728 g.
+

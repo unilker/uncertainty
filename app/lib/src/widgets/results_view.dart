@@ -727,6 +727,30 @@ class ResultsView extends StatelessWidget {
           ],
         ),
       ],
+      if (r['in_use'] is Map) ..._inUse(context, (r['in_use'] as Map).cast<String, dynamic>(), n),
+    ];
+  }
+
+  List<Widget> _inUse(BuildContext context, Map<String, dynamic> u, String Function(dynamic, [int]) n) {
+    final s = strings;
+    List<double?> l(String key) => ((u[key] as List?) ?? const []).map(_d).toList();
+    final lower = l('lower'), at = l('expanded_at_lower'), slope = l('slope'), gl = l('global_at_lower'), gs = l('global_slope');
+    final req = _d(u['requirement']);
+    return [
+      Section(s['ef_in_use']),
+      Text('β_W² = ${n(u['beta_squared'])}; U(W) = ${n(u['coverage_factor'], 3)}·√(α_W² + β_W²R²)'),
+      _table(
+        context,
+        ['#', s['ef_from'], 'U(W)', s['ef_slope'], 'U_gl(W)'],
+        [
+          for (var i = 0; i < lower.length; i++) ['${i + 1}', n(lower[i], 7), n(at[i]), n(slope[i]), '${n(gl[i])} + ${n(gs[i])}·(R − ${n(lower[i], 7)})'],
+        ],
+      ),
+      if (req != null)
+        Text(
+          '${s['ef_min_weight']} (Req = ${fmtPct(req, 3, s.lang)}): R_min = ${n(u['minimum_weight'], 3)}; SF = ${n(u['safety_factor'], 3)}: R_min,SF = ${n(u['minimum_weight_sf'], 3)}',
+          key: const Key('ef-min-weight'),
+        ),
     ];
   }
 
