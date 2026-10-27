@@ -87,7 +87,16 @@ samples (a `"recovery"` section):
 * reference material or spiked blank: Rᵢ = c̄ᵢ/Cᵢ, u²(Rᵢ) = Rᵢ²[(sᵢ/(c̄ᵢ√nᵢ))² + (u(Cᵢ)/Cᵢ)²] (Eq. 8–9);
 * spiked sample with native analyte: Rᵢ = (c̄ − c̄₀)/c₊, with the uncertainties of both means and of the
   spike (Eq. 10–11);
+* a recovery evaluated elsewhere (a validation spreadsheet, a published table), given with its standard
+  uncertainty;
 * R̄ = ΣRᵢ/N and u(R̄) = √(Σu²(Rᵢ))/N (Eq. 12).
+
+**Weighted mean recovery.** When the u(Rᵢ) differ markedly, the footnote to MUPR Eq. (8) allows a weighted
+mean, which gives the less uncertain recoveries more weight. With `"mean": "weighted"` the program uses
+R̿ = Σ(Rᵢ/u²(Rᵢ))/Σ(1/u²(Rᵢ)) (Eq. 16.1) and the standard uncertainty of a weighted mean,
+u(R̿) = (Σ1/u²(Rᵢ))^−½. One test with a large u(Rᵢ), such as a spike much smaller than the native analyte, then
+has almost no influence, whereas it dominates √(Σu²(Rᵢ))/N. The library projects
+`bettencourt2026-fluoranthene-weighted` and `-arithmetic` compare both choices on the same 20 recoveries.
 
 **Significance test (Eq. 13).** If |1 − R̄|/u(R̄) is larger than the two-sided t value for the chosen
 confidence (default 95 %), the recovery differs significantly from 1 and results are corrected, c_corr = c/R̄,

@@ -210,6 +210,17 @@ Table 9 (raw data only in the electronic supplement).
 | Palma-Pb | Pb (EPA 3051A) | 1.90 / 10.1 (10.08 in Eq. 21) | 1.895 / 10.08 | 65.2 / 57.6 — 65.2 / 57.6 | ✅ |
 | Palma-Zn | Zn (OSPAR) | 0.365 / 9.13 | 0.3655 / 9.132 | 78.7 / 78.6 — 78.6 / 78.7 | ✅ |
 
+## Bettencourt da Silva (2026), MUPR spreadsheet — library projects
+
+Fluoranthene in river sediments, Supplementary Material 06: 20 mean recoveries with u(R_k) from the sheet
+"Trueness", two-interval precision model, s(R) added (χ² test failed), k = 2.093 (ν = 19). Expected values are
+recomputed by an independent script. The spreadsheet's own uncertainties differ for the reasons of F72 and F73.
+
+| ID | Mean recovery | χ² / s(R) | Spreadsheet | Engine (0.1 / 10 mg/kg) | Status |
+|---|---|---|---|---|---|
+| Bet-weighted | R̿ = 74.887 % (Eq. 16.1), u = 8.812 % | 40.973 / 8.755 % | R̿ 74.887 %, χ² 40.973, s 8.755 %; U 0.161 / 3.857 | (0.1335 ± 0.2127) / (13.353 ± 3.575) | ✅ R̿, χ², s; U by design (F72, F73) |
+| Bet-arithmetic | R̄ = 76.307 % (Eq. 8–12), u = 9.629 % | 40.973 / 8.755 % | — | (0.1311 ± 0.2091) / (13.105 ± 3.724) | ✅ recomputed |
+
 ## JCGM 106:2012 — conformity assessment (library projects and core tests)
 
 | ID | Example | Published | Engine | Status |
@@ -323,6 +334,8 @@ The top-down cases (Nordtest §3, §5.3, §6.1–6.3, §8 A–D; MUPR Ex. 2, 3, 
 B2, B4, B5, B6; QUAM A4, A6) are stored as 22 top-down project files that
 start from the raw data wherever the documents give them (duplicate pairs,
 control-chart results, replicate groups, PT rounds, the 22 PT results of B6).
+The two projects from Bettencourt da Silva (2026) start from the 20 mean
+recoveries of the spreadsheet (`"type": "given"`).
 Tolerances reflect the documents' printed rounding; where a guide computes
 from rounded intermediates the tolerance is widened and the reason stated in
 the file (MUPR B1 at 50 mg/L, B5 with t = 4.30; Nordtest §8 B, C).

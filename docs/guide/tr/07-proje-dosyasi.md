@@ -132,14 +132,18 @@ bir referans belirsizliği verir. Her referans:
 
 ### Geri kazanım
 
-`{ "name", "tests": [ … ], "include_sd_of_recoveries": false, "dof", "confidence": 0.95, "correction":
-"if_significant" | "always" | "never" }`; deneyler:
+`{ "name", "tests": [ … ], "mean": "arithmetic" | "weighted", "include_sd_of_recoveries": false, "dof",
+"confidence": 0.95, "correction": "if_significant" | "always" | "never" }`; deneyler:
 
 | `type` | Alanlar |
 |---|---|
 | `reference` | `measured` veya `mean`, `sd`, `n`; `reference`; `u_reference` veya `k` ile `expanded` |
 | `spiked` | `after` veya `mean_after`, `sd_after`, `n_after`; `before` için aynısı; `spike`; `u_spike` veya `u_spike_percent` |
 | `recoveries` | `values_percent` veya `mean_percent`, `sd_percent`, `n` |
+| `given` | `recovery_percent`, `u_percent` (başka bir yerde değerlendirilmiş geri kazanım ve standart belirsizliği) |
+
+`"mean": "weighted"` deneyleri MUPR Eş. (16.1)'in ters varyansla ağırlıklı ortalamasıyla birleştirir;
+u(R̿) = (Σ1/u²)^−½. Varsayılan, Eş. (8)–(12)'nin aritmetik ortalamasıdır.
 
 Anlamlılık testinin varsayılan serbestlik derecesi deneyler üzerinden Σ(nᵢ − 1)'dir; bu toplam sıfırsa veya
 s(R) dahil edilmişse N − 1'dir.

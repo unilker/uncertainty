@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**203 examples / örnek** (96 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 3 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
+**205 examples / örnek** (96 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 3 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -46,6 +46,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`bettencourt2026-fluoranthene-arithmetic`](chemistry/bettencourt2026-fluoranthene-arithmetic.json) | Fluoranthene in river sediments, arithmetic mean recovery (MUPR Eq. 8–12) (Bettencourt da Silva 2026) | Nehir sedimentlerinde fluoranten, aritmetik ortalama geri kazanım (MUPR Eş. 8–12) (Bettencourt da Silva 2026) | R. J. N. Bettencourt da Silva Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence |
+| [`bettencourt2026-fluoranthene-weighted`](chemistry/bettencourt2026-fluoranthene-weighted.json) | Fluoranthene in river sediments, weighted mean recovery (MUPR Eq. 16.1) (Bettencourt da Silva 2026) | Nehir sedimentlerinde fluoranten, ağırlıklı ortalama geri kazanım (MUPR Eş. 16.1) (Bettencourt da Silva 2026) | R. J. N. Bettencourt da Silva Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence |
 | [`iso21748-c4-crude-fibre`](chemistry/iso21748-c4-crude-fibre.json) | Crude fibre in animal feed from reproducibility data (ISO 21748 C.4) | Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4) | ISO 21748:2017 Annex C.4, Tables C.6–C.9 |
 | [`iso5725-3-j1-carbon-steel`](chemistry/iso5725-3-j1-carbon-steel.json) | Carbon in steel: [time + operator]-different intermediate precision (ISO 5725-3 J.1) | Çelikte karbon: [zaman + operatör] farklı ara kesinlik (ISO 5725-3 J.1) | ISO 5725-3:2023 Annex J.1, Table J.1 |
 | [`iso5725-3-j2-vanadium-steel`](chemistry/iso5725-3-j2-vanadium-steel.json) | Vanadium in steel: staggered-nested design, level 1 (ISO 5725-3 J.2) | Çelikte vanadyum: kademeli iç içe tasarım, düzey 1 (ISO 5725-3 J.2) | ISO 5725-3:2023 Annex J.2, Tables J.2–J.5 |

@@ -16,6 +16,7 @@ const recoveryTestFields = <String, List<String>>{
   'reference': ['mean', 'sd', 'n', 'reference', 'u_reference', 'expanded', 'k'],
   'spiked': ['mean_after', 'sd_after', 'n_after', 'mean_before', 'sd_before', 'n_before', 'spike', 'u_spike', 'u_spike_percent'],
   'recoveries': ['mean_percent', 'sd_percent', 'n'],
+  'given': ['recovery_percent', 'u_percent'],
 };
 
 const _integerFields = {'n', 'labs', 'n_after', 'n_before', 'multiplicity'};
@@ -271,6 +272,18 @@ class _RecoveryCardState extends State<RecoveryCard> {
                 for (final c in ['if_significant', 'always', 'never']) DropdownMenuItem(value: c, child: Text(s['corr_$c'])),
               ],
               onChanged: (c) => _edit(() => c == 'if_significant' ? e.remove('correction') : e['correction'] = c),
+            ),
+          ),
+          SizedBox(
+            width: 300,
+            child: DropdownButtonFormField<String>(
+              initialValue: (e['mean'] as String?) ?? 'arithmetic',
+              isExpanded: true,
+              decoration: InputDecoration(labelText: s['mean_recovery'], isDense: true),
+              items: [
+                for (final m in ['arithmetic', 'weighted']) DropdownMenuItem(value: m, child: Text(s['mean_$m'])),
+              ],
+              onChanged: (m) => _edit(() => m == 'arithmetic' ? e.remove('mean') : e['mean'] = m),
             ),
           ),
           FilterChip(

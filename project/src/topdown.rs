@@ -438,6 +438,23 @@ pub enum CorrectionRule {
     Never,
 }
 
+/// How the recoveries of the tests are combined into R̄.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum RecoveryMean {
+    /// R̄ = ΣR_i/N, u(R̄) = √(Σu²(R_i))/N [MUPR Eq. (8)–(12)].
+    #[default]
+    Arithmetic,
+    /// R̿ = Σ(R_i/u²)/Σ(1/u²) [MUPR Eq. (16.1)], u(R̿) = (Σ1/u²)^(−1/2).
+    Weighted,
+}
+
+impl RecoveryMean {
+    fn is_arithmetic(&self) -> bool {
+        *self == RecoveryMean::Arithmetic
+    }
+}
+
 /// Mean recovery from reference materials and spiked samples [MUPR §8.2].
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -447,6 +464,9 @@ pub struct RecoverySpec {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<Text>,
     pub tests: Vec<RecoveryTestSpec>,
+    /// Arithmetic (default) or inverse-variance weighted mean of the tests.
+    #[serde(default, skip_serializing_if = "RecoveryMean::is_arithmetic")]
+    pub mean: RecoveryMean,
     /// Add the standard deviation of the individual recoveries when they
     /// vary with the matrix [MUPR §8.2.7].
     #[serde(default)]
@@ -529,6 +549,14 @@ pub enum RecoveryTestSpec {
         sd_percent: Option<f64>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         n: Option<usize>,
+    },
+    /// A recovery and its standard uncertainty evaluated elsewhere, in per
+    /// cent (e.g. from a validation spreadsheet or a published table).
+    Given {
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+        recovery_percent: f64,
+        u_percent: f64,
     },
 }
 
@@ -731,8 +759,10 @@ pub struct RecoveryEntry {
 pub struct RecoveryResult {
     pub name: String,
     pub entries: Vec<RecoveryEntry>,
+    /// True for the weighted mean R̿ of MUPR Eq. (16.1).
+    pub weighted: bool,
     pub mean: f64,
-    /// u_R̄ from MUPR Eq. (9)/(11)/(12).
+    /// u_R̄ from MUPR Eq. (9)/(11)/(12), or (Σ1/u²)^(−1/2) for R̿.
     pub u_mean: f64,
     pub sd_of_recoveries: Option<f64>,
     /// Uncertainty used in the test and budget (with s(R̄) if requested).
@@ -1299,12 +1329,18 @@ fn recovery(r: &RecoverySpec) -> Result<RecoveryResult, ProjectError> {
                     n,
                 )
             }
+            RecoveryTestSpec::Given { label, recovery_percent, u_percent } => {
+                (label, RecoveryTest::Given { recovery: recovery_percent / 100.0, u: u_percent / 100.0 }, 1)
+            }
         };
         dof_sum += nu.saturating_sub(1) as f64;
         labels.push(label.clone().unwrap_or_else(|| format!("{}", i + 1)));
         tests.push(test);
     }
-    let mr = td::mean_recovery(&tests)?;
+    let mr = match r.mean {
+        RecoveryMean::Arithmetic => td::mean_recovery(&tests)?,
+        RecoveryMean::Weighted => td::weighted_mean_recovery(&tests)?,
+    };
     let sd_r = if tests.len() >= 2 { Some(td::recovery_standard_deviation(&tests)?) } else { None };
     let u_used = match (r.include_sd_of_recoveries, sd_r) {
         (true, Some(s)) => td::root_sum_of_squares(&[mr.standard_uncertainty, s]),
@@ -1336,6 +1372,7 @@ fn recovery(r: &RecoverySpec) -> Result<RecoveryResult, ProjectError> {
             .zip(&tests)
             .map(|(label, t)| RecoveryEntry { label, recovery: t.recovery(), u: t.standard_uncertainty() })
             .collect(),
+        weighted: r.mean == RecoveryMean::Weighted,
         mean: mr.mean,
         u_mean: mr.standard_uncertainty,
         sd_of_recoveries: sd_r,
@@ -1599,7 +1636,7 @@ pub fn results_json(a: &TopDownAnalysis) -> serde_json::Value {
             "entries": b.entries.iter().map(|e| json!({"label": e.label, "bias": e.bias, "u_reference": e.u_reference})).collect::<Vec<_>>(),
         })).collect::<Vec<_>>(),
         "recovery": a.recovery.as_ref().map(|r| json!({
-            "mean": r.mean, "u_mean": r.u_mean, "sd_of_recoveries": r.sd_of_recoveries, "u_used": r.u_used,
+            "weighted": r.weighted, "mean": r.mean, "u_mean": r.u_mean, "sd_of_recoveries": r.sd_of_recoveries, "u_used": r.u_used,
             "dof": num(r.dof), "statistic": r.statistic, "critical": r.critical, "significant": r.significant,
             "corrected": r.corrected, "u_relative": r.u_relative,
             "chi_squared": r.homogeneity.as_ref().map(|h| h.chi_squared),
@@ -1654,6 +1691,34 @@ mod tests {
         let l = &a.levels[0];
         assert!(l.level.is_none() && l.standard_uncertainty.is_none());
         assert!((l.relative_standard * 100.0 - 3.20).abs() < 0.005);
+    }
+
+    #[test]
+    fn weighted_mean_of_given_recoveries() {
+        let json = |mean: &str| {
+            spec(&format!(
+                r#"{{
+                "quantity": "w", "unit": "mg/kg", "levels": [10.0],
+                "precision": [ {{ "name": "p", "data": {{ "type": "given", "sd_percent": 5.0 }} }} ],
+                "recovery": {{ {mean} "tests": [
+                    {{ "type": "given", "recovery_percent": 80.0, "u_percent": 2.0 }},
+                    {{ "type": "given", "recovery_percent": 90.0, "u_percent": 4.0 }} ] }}
+            }}"#
+            ))
+        };
+        let w = evaluate(&json(r#""mean": "weighted","#)).unwrap();
+        let r = w.recovery.as_ref().unwrap();
+        assert!(r.weighted);
+        // R̿ = (80/4 + 90/16)/(1/4 + 1/16) % = 82 %, u = (1/4 + 1/16)^−½ % = 1.78885 %.
+        assert!((r.mean - 0.82).abs() < 1e-12, "{r:?}");
+        assert!((r.u_mean - 0.01 / (0.3125f64).sqrt()).abs() < 1e-12);
+        assert!((r.homogeneity.as_ref().unwrap().weighted_mean - r.mean).abs() < 1e-12);
+        let a = evaluate(&json("")).unwrap();
+        let r = a.recovery.as_ref().unwrap();
+        assert!(!r.weighted);
+        assert!((r.mean - 0.85).abs() < 1e-12 && (r.u_mean - (20e-4f64).sqrt() / 2.0).abs() < 1e-12);
+        let round_trip: TopDownSpec = serde_json::from_str(&serde_json::to_string(&json("")).unwrap()).unwrap();
+        assert!(!serde_json::to_string(&round_trip).unwrap().contains("\"mean\":\"arithmetic\""));
     }
 
     #[test]

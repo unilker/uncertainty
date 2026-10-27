@@ -473,6 +473,9 @@ class S {
     'test_reference': ['reference material / spiked blank', 'referans malzeme / katkılı kör'],
     'test_spiked': ['spiked sample', 'katkılı numune'],
     'test_recoveries': ['list of recoveries', 'geri kazanım listesi'],
+    'test_given': ['recovery with its uncertainty', 'belirsizliğiyle geri kazanım'],
+    'mean_arithmetic': ['arithmetic (MUPR Eq. 8–12)', 'aritmetik (MUPR Eş. 8–12)'],
+    'mean_weighted': ['weighted, 1/u² (MUPR Eq. 16.1)', 'ağırlıklı, 1/u² (MUPR Eş. 16.1)'],
     'engine_error': ['Calculation error', 'Hesaplama hatası'],
   };
 

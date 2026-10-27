@@ -337,6 +337,9 @@ pub enum RecoveryTest {
         spike: f64,
         u_spike: f64,
     },
+    /// A recovery R with its standard uncertainty u(R) evaluated elsewhere,
+    /// e.g. by a validation spreadsheet or a published table.
+    Given { recovery: f64, u: f64 },
 }
 
 impl RecoveryTest {
@@ -363,6 +366,12 @@ impl RecoveryTest {
                     return Err(invalid("spike test needs n, m ≥ 1, c₊ ≠ 0 and c̄ ≠ c̄₀"));
                 }
             }
+            RecoveryTest::Given { recovery, u } => {
+                check_finite(&[recovery, u], "recovery")?;
+                if recovery == 0.0 || u < 0.0 {
+                    return Err(invalid("a given recovery needs R ≠ 0 and u(R) ≥ 0"));
+                }
+            }
         }
         Ok(())
     }
@@ -372,6 +381,7 @@ impl RecoveryTest {
         match *self {
             RecoveryTest::Reference { mean, reference, .. } => mean / reference,
             RecoveryTest::Spiked { mean_after, mean_before, spike, .. } => (mean_after - mean_before) / spike,
+            RecoveryTest::Given { recovery, .. } => recovery,
         }
     }
 
@@ -395,6 +405,7 @@ impl RecoveryTest {
                 let var_diff = sd_after * sd_after / n_after as f64 + sd_before * sd_before / n_before as f64;
                 r.abs() * (var_diff / (mean_after - mean_before).powi(2) + (u_spike / spike).powi(2)).sqrt()
             }
+            RecoveryTest::Given { u, .. } => u,
         }
     }
 }
@@ -420,6 +431,30 @@ pub fn mean_recovery(tests: &[RecoveryTest]) -> Result<MeanRecovery, UncError> {
     let mean = tests.iter().map(RecoveryTest::recovery).sum::<f64>() / n;
     let u = tests.iter().map(|t| t.standard_uncertainty().powi(2)).sum::<f64>().sqrt() / n;
     Ok(MeanRecovery { mean, standard_uncertainty: u, tests: tests.len() })
+}
+
+/// Weighted mean recovery R̿ = Σ(R_i/u²(R_i))/Σ(1/u²(R_i)) [MUPR Eq. (16.1)]
+/// with the standard uncertainty of a weighted mean, u(R̿) = (Σ1/u²(R_i))^(−1/2).
+/// The footnote to MUPR Eq. (8) allows it when the u(R_i) differ markedly; it
+/// gives the less uncertain recoveries more weight.
+pub fn weighted_mean_recovery(tests: &[RecoveryTest]) -> Result<MeanRecovery, UncError> {
+    if tests.is_empty() {
+        return Err(invalid("no recovery tests"));
+    }
+    for t in tests {
+        t.validate()?;
+    }
+    let mut w = 0.0;
+    let mut wr = 0.0;
+    for t in tests {
+        let u = t.standard_uncertainty();
+        if !(u > 0.0) {
+            return Err(invalid("a weighted mean recovery needs u(R_i) > 0 for every test"));
+        }
+        w += 1.0 / (u * u);
+        wr += t.recovery() / (u * u);
+    }
+    Ok(MeanRecovery { mean: wr / w, standard_uncertainty: w.powf(-0.5), tests: tests.len() })
 }
 
 /// Outcome of the test of MUPR Eq. (13) for a mean recovery equal to 1.
@@ -466,7 +501,7 @@ pub fn recovery_uncertainty_uncorrected(tests: &[RecoveryTest]) -> Result<f64, U
                 ref_rel += (u_reference / reference).powi(2);
                 precision = (sd / (mean * (ni as f64).sqrt())).powi(2);
             }
-            RecoveryTest::Spiked { .. } => {
+            RecoveryTest::Spiked { .. } | RecoveryTest::Given { .. } => {
                 return Err(UncError::Unsupported(
                     "MUPR Eq. (17)–(18) are stated for reference materials and spiked blanks".into(),
                 ))
@@ -712,6 +747,20 @@ mod tests {
         assert!((m.sd_at(1.0) - 0.084).abs() < 1e-15);
         let c = PrecisionModel::Continuous { sd0: 3.0, rsd1: 0.1 };
         assert!((c.sd_at(40.0) - 5.0).abs() < 1e-15);
+    }
+
+    #[test]
+    fn weighted_mean_recovery_matches_eq_16_1() {
+        let tests = [RecoveryTest::Given { recovery: 0.90, u: 0.01 }, RecoveryTest::Given { recovery: 1.00, u: 0.02 }];
+        let w = weighted_mean_recovery(&tests).unwrap();
+        assert!((w.mean - (0.90 / 1e-4 + 1.00 / 4e-4) / (1.0 / 1e-4 + 1.0 / 4e-4)).abs() < 1e-15);
+        assert!((w.standard_uncertainty - (1.0f64 / (1e4 + 2.5e3)).sqrt()).abs() < 1e-15);
+        let h = recovery_homogeneity(&[(0.90, 0.01), (1.00, 0.02)], 0.95).unwrap();
+        assert!((w.mean - h.weighted_mean).abs() < 1e-15);
+        let a = mean_recovery(&tests).unwrap();
+        assert!((a.mean - 0.95).abs() < 1e-15);
+        assert!((a.standard_uncertainty - (5e-4f64).sqrt() / 2.0).abs() < 1e-15);
+        assert!(weighted_mean_recovery(&[RecoveryTest::Given { recovery: 0.9, u: 0.0 }]).is_err());
     }
 
     #[test]

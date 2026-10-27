@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (92)
+- Chemistry (94)
 - Electrical and RF (31)
 - Flow and volume (7)
 - General (method validation) (19)
@@ -1413,6 +1413,66 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 - The mean of the RSDs of Table A6.3 is 3.16 %, not the printed 3.3 %; the project uses 3.16 %. The combined uncertainty (11.3 %) and U = 26 mg/kg are unchanged.
 
 **Run:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang en`
+
+### Fluoranthene in river sediments, arithmetic mean recovery (MUPR Eq. 8–12) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-arithmetic` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+Top-down uncertainty of fluoranthene in river sediments from the in-house validation data of the MUPR spreadsheet: a two-interval precision model and 20 mean recoveries that are not compatible, so the dispersion of the recoveries is added and results are corrected for recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Fluoranthene in river sediments by accelerated solvent extraction and GC-MS/MS, validated over eight days. The spreadsheet of the paper implements the Eurachem/CITAC MUPR guide; Supplementary Material 06 excludes the spikes smaller than 10 % of the native mass fraction.
+2. Precision model: interval I (−0.1 to 1.5 mg/kg) constant absolute s_I = 0.075185 mg/kg (= 1.5 mg/kg × s′_I); interval II (1.5 to 10.01 mg/kg) constant relative s′_I = 5.0123 %. A single result is reported, so s_I is the precision component.
+3. Recovery: 20 mean recoveries, from the CRM, three spikes of a sediment without native analyte and 16 spikes of sediments with native analyte, each with u(R_k) from the spreadsheet (precision model and spike uncertainty). They range from 53.2 % to 89.8 %.
+4. χ² test (Eq. 16.2): χ² = 40.97 > χ²(0.95; 19) = 30.14; the recoveries are not compatible, so s(R) = 8.755 % is added to the uncertainty of the mean recovery (MUPR 8.2.7).
+5. Arithmetic mean recovery R̄ = ΣR_k/N = 76.307 % with u(R̄) = √Σu²(R_k)/N = 4.008 % (Eq. 12); with s(R): u = 9.629 %. The test SS95(SP1) (u = 75 %) contributes most of u(R̄).
+6. Significance (Eq. 13): |1 − R|/u = 2.461 > t(0.975; 19) = 2.093; results are corrected, c = x/R. Coverage factor k = 2.093 from the minimum degrees of freedom of the components (ν = 19, the recoveries), as in the spreadsheet.
+7. Results: x = 0.1 mg/kg → (0.1310 ± 0.2091) mg/kg; x = 10 mg/kg → (13.105 ± 3.724) mg/kg (28.4 %).
+
+**Result:**
+
+- w(fluoranthene) = (0.13 ± 0.21) mg/kg (k = 2.09)
+- w(fluoranthene) = (13.1 ± 3.7) mg/kg (k = 2.09)
+
+**Notes:**
+
+- The spreadsheet reports (13.35 ± 3.86) mg/kg at 10 mg/kg and (0.134 ± 0.161) mg/kg at 0.1 mg/kg. It uses the weighted mean R̿ = 74.887 % with the uncertainty of the arithmetic mean, √Σu²/N = 4.008 % (research log F73), and does not divide the absolute precision of interval I by R̿ (F72). The text of the paper prints k = 2.01; the spreadsheet uses 2.093 (F71).
+- The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the weighted mean of MUPR Eq. (16.1) with its own uncertainty.
+
+**Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang en`
+
+### Fluoranthene in river sediments, weighted mean recovery (MUPR Eq. 16.1) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-weighted` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+Top-down uncertainty of fluoranthene in river sediments from the in-house validation data of the MUPR spreadsheet: a two-interval precision model and 20 mean recoveries that are not compatible, so the dispersion of the recoveries is added and results are corrected for recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Fluoranthene in river sediments by accelerated solvent extraction and GC-MS/MS, validated over eight days. The spreadsheet of the paper implements the Eurachem/CITAC MUPR guide; Supplementary Material 06 excludes the spikes smaller than 10 % of the native mass fraction.
+2. Precision model: interval I (−0.1 to 1.5 mg/kg) constant absolute s_I = 0.075185 mg/kg (= 1.5 mg/kg × s′_I); interval II (1.5 to 10.01 mg/kg) constant relative s′_I = 5.0123 %. A single result is reported, so s_I is the precision component.
+3. Recovery: 20 mean recoveries, from the CRM, three spikes of a sediment without native analyte and 16 spikes of sediments with native analyte, each with u(R_k) from the spreadsheet (precision model and spike uncertainty). They range from 53.2 % to 89.8 %.
+4. χ² test (Eq. 16.2): χ² = 40.97 > χ²(0.95; 19) = 30.14; the recoveries are not compatible, so s(R) = 8.755 % is added to the uncertainty of the mean recovery (MUPR 8.2.7).
+5. Weighted mean recovery R̿ = Σ(R_k/u²)/Σ(1/u²) = 74.887 % with u(R̿) = (Σ1/u²)^−½ = 0.996 %; with s(R): u = 8.812 %.
+6. Significance (Eq. 13): |1 − R|/u = 2.850 > t(0.975; 19) = 2.093; results are corrected, c = x/R. Coverage factor k = 2.093 from the minimum degrees of freedom of the components (ν = 19, the recoveries), as in the spreadsheet.
+7. Results: x = 0.1 mg/kg → (0.1335 ± 0.2127) mg/kg; x = 10 mg/kg → (13.353 ± 3.575) mg/kg (26.8 %).
+
+**Result:**
+
+- w(fluoranthene) = (0.13 ± 0.21) mg/kg (k = 2.09)
+- w(fluoranthene) = (13.4 ± 3.6) mg/kg (k = 2.09)
+
+**Notes:**
+
+- The spreadsheet reports (13.35 ± 3.86) mg/kg at 10 mg/kg and (0.134 ± 0.161) mg/kg at 0.1 mg/kg. It uses the weighted mean R̿ = 74.887 % with the uncertainty of the arithmetic mean, √Σu²/N = 4.008 % (research log F73), and does not divide the absolute precision of interval I by R̿ (F72). The text of the paper prints k = 2.01; the spreadsheet uses 2.093 (F71).
+- The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the arithmetic mean of MUPR Eq. (8)–(12).
+
+**Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang en`
 
 ### Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)
 

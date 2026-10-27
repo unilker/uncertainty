@@ -132,14 +132,18 @@ uncertainty shared by all references. Each reference:
 
 ### Recovery
 
-`{ "name", "tests": [ … ], "include_sd_of_recoveries": false, "dof", "confidence": 0.95, "correction":
-"if_significant" | "always" | "never" }` with tests:
+`{ "name", "tests": [ … ], "mean": "arithmetic" | "weighted", "include_sd_of_recoveries": false, "dof",
+"confidence": 0.95, "correction": "if_significant" | "always" | "never" }` with tests:
 
 | `type` | Fields |
 |---|---|
 | `reference` | `measured` or `mean`, `sd`, `n`; `reference`; `u_reference` or `expanded` with `k` |
 | `spiked` | `after` or `mean_after`, `sd_after`, `n_after`; the same for `before`; `spike`; `u_spike` or `u_spike_percent` |
 | `recoveries` | `values_percent`, or `mean_percent`, `sd_percent`, `n` |
+| `given` | `recovery_percent`, `u_percent` (a recovery and its standard uncertainty evaluated elsewhere) |
+
+`"mean": "weighted"` combines the tests by the inverse-variance weighted mean of MUPR Eq. (16.1) with
+u(R̿) = (Σ1/u²)^−½; the default is the arithmetic mean of Eq. (8)–(12).
 
 The default degrees of freedom of the significance test are Σ(nᵢ − 1) over the tests, or N − 1 if that sum is
 zero or s(R) is included.

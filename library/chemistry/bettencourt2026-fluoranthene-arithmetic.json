@@ -1,0 +1,302 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "bettencourt2026-fluoranthene-arithmetic",
+    "title": {
+      "en": "Fluoranthene in river sediments, arithmetic mean recovery (MUPR Eq. 8–12) (Bettencourt da Silva 2026)",
+      "tr": "Nehir sedimentlerinde fluoranten, aritmetik ortalama geri kazanım (MUPR Eş. 8–12) (Bettencourt da Silva 2026)"
+    },
+    "description": {
+      "en": "Top-down uncertainty of fluoranthene in river sediments from the in-house validation data of the MUPR spreadsheet: a two-interval precision model and 20 mean recoveries that are not compatible, so the dispersion of the recoveries is added and results are corrected for recovery.",
+      "tr": "MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedimentlerinde fluorantenin top-down belirsizliği: iki aralıklı kesinlik modeli ve uyumlu olmayan 20 ortalama geri kazanım; bu nedenle geri kazanımların dağılımı eklenir ve sonuçlar geri kazanım için düzeltilir."
+    },
+    "explanation": [
+      {
+        "en": "Fluoranthene in river sediments by accelerated solvent extraction and GC-MS/MS, validated over eight days. The spreadsheet of the paper implements the Eurachem/CITAC MUPR guide; Supplementary Material 06 excludes the spikes smaller than 10 % of the native mass fraction.",
+        "tr": "Nehir sedimentlerinde fluoranten, hızlandırılmış çözücü ekstraksiyonu ve GC-MS/MS ile; sekiz günde valide edilmiştir. Makalenin elektronik tablosu Eurachem/CITAC MUPR rehberini uygular; Ek Materyal 06, doğal kütle kesrinin %10'undan küçük katkıları dışarıda bırakır."
+      },
+      {
+        "en": "Precision model: interval I (−0.1 to 1.5 mg/kg) constant absolute s_I = 0.075185 mg/kg (= 1.5 mg/kg × s′_I); interval II (1.5 to 10.01 mg/kg) constant relative s′_I = 5.0123 %. A single result is reported, so s_I is the precision component.",
+        "tr": "Kesinlik modeli: I. aralık (−0,1 ile 1,5 mg/kg arası) sabit mutlak s_I = 0,075185 mg/kg (= 1,5 mg/kg × s′_I); II. aralık (1,5 ile 10,01 mg/kg arası) sabit bağıl s′_I = %5,0123. Tek sonuç raporlandığından kesinlik bileşeni s_I'dır."
+      },
+      {
+        "en": "Recovery: 20 mean recoveries, from the CRM, three spikes of a sediment without native analyte and 16 spikes of sediments with native analyte, each with u(R_k) from the spreadsheet (precision model and spike uncertainty). They range from 53.2 % to 89.8 %.",
+        "tr": "Geri kazanım: SRM'den, doğal analit içermeyen bir sedimentin üç katkısından ve doğal analit içeren sedimentlerin 16 katkısından 20 ortalama geri kazanım; her birinin u(R_k) değeri elektronik tablodandır (kesinlik modeli ve katkı belirsizliği). Değerler %53,2 ile %89,8 arasındadır."
+      },
+      {
+        "en": "χ² test (Eq. 16.2): χ² = 40.97 > χ²(0.95; 19) = 30.14; the recoveries are not compatible, so s(R) = 8.755 % is added to the uncertainty of the mean recovery (MUPR 8.2.7).",
+        "tr": "χ² testi (Eş. 16.2): χ² = 40,97 > χ²(0,95; 19) = 30,14; geri kazanımlar uyumlu değildir, bu nedenle s(R) = %8,755 ortalama geri kazanımın belirsizliğine eklenir (MUPR 8.2.7)."
+      },
+      {
+        "en": "Arithmetic mean recovery R̄ = ΣR_k/N = 76.307 % with u(R̄) = √Σu²(R_k)/N = 4.008 % (Eq. 12); with s(R): u = 9.629 %. The test SS95(SP1) (u = 75 %) contributes most of u(R̄).",
+        "tr": "Aritmetik ortalama geri kazanım R̄ = ΣR_k/N = %76,307, u(R̄) = √Σu²(R_k)/N = %4,008 (Eş. 12); s(R) ile: u = %9,629. u(R̄)'nin büyük kısmı SS95(SP1) testinden (u = %75) gelir."
+      },
+      {
+        "en": "Significance (Eq. 13): |1 − R|/u = 2.461 > t(0.975; 19) = 2.093; results are corrected, c = x/R. Coverage factor k = 2.093 from the minimum degrees of freedom of the components (ν = 19, the recoveries), as in the spreadsheet.",
+        "tr": "Anlamlılık (Eş. 13): |1 − R|/u = 2,461 > t(0,975; 19) = 2,093; sonuçlar düzeltilir, c = x/R. Kapsam faktörü k = 2,093, elektronik tablodaki gibi bileşenlerin en küçük serbestlik derecesinden (ν = 19, geri kazanımlar)."
+      },
+      {
+        "en": "Results: x = 0.1 mg/kg → (0.1310 ± 0.2091) mg/kg; x = 10 mg/kg → (13.105 ± 3.724) mg/kg (28.4 %).",
+        "tr": "Sonuçlar: x = 0,1 mg/kg → (0,1310 ± 0,2091) mg/kg; x = 10 mg/kg → (13,105 ± 3,724) mg/kg (%28,4)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "R. J. N. Bettencourt da Silva, User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty, Talanta (2026) 130826 (journal pre-proof)",
+        "section": "Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence",
+        "url": "https://doi.org/10.1016/j.talanta.2026.130826"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "recovery",
+      "two-intervals",
+      "environmental",
+      "spreadsheet-comparison"
+    ],
+    "notes": [
+      {
+        "en": "The spreadsheet reports (13.35 ± 3.86) mg/kg at 10 mg/kg and (0.134 ± 0.161) mg/kg at 0.1 mg/kg. It uses the weighted mean R̿ = 74.887 % with the uncertainty of the arithmetic mean, √Σu²/N = 4.008 % (research log F73), and does not divide the absolute precision of interval I by R̿ (F72). The text of the paper prints k = 2.01; the spreadsheet uses 2.093 (F71).",
+        "tr": "Elektronik tablo 10 mg/kg'da (13,35 ± 3,86) mg/kg ve 0,1 mg/kg'da (0,134 ± 0,161) mg/kg verir. Ağırlıklı ortalama R̿ = %74,887 ile aritmetik ortalamanın belirsizliğini, √Σu²/N = %4,008, birlikte kullanır (araştırma günlüğü F73) ve I. aralığın mutlak kesinliğini R̿'ya bölmez (F72). Makale metni k = 2,01 yazar; tablo 2,093 kullanır (F71)."
+      },
+      {
+        "en": "The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the weighted mean of MUPR Eq. (16.1) with its own uncertainty.",
+        "tr": "Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (16.1)'in ağırlıklı ortalamasını kendi belirsizliğiyle kullanır."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(fluoranthene)",
+    "unit": "mg/kg",
+    "levels": [
+      0.1,
+      10
+    ],
+    "precision": [
+      {
+        "name": "s_I⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.0751847213
+        },
+        "range": {
+          "max": 1.5
+        }
+      },
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 5.0123147561
+        },
+        "range": {
+          "min": 1.5
+        }
+      }
+    ],
+    "recovery": {
+      "name": "u(R̄)",
+      "description": {
+        "en": "recovery of fluoranthene, CRM and spiked sediments",
+        "tr": "fluoranten geri kazanımı, SRM ve katkılı sedimentler"
+      },
+      "tests": [
+        {
+          "type": "given",
+          "label": "SS95(SP1)",
+          "recovery_percent": 89.83819417,
+          "u_percent": 75.06195853
+        },
+        {
+          "type": "given",
+          "label": "SS95(SP2)",
+          "recovery_percent": 78.19640431,
+          "u_percent": 4.09655263
+        },
+        {
+          "type": "given",
+          "label": "SS95(SP3)",
+          "recovery_percent": 68.0271674,
+          "u_percent": 3.54013825
+        },
+        {
+          "type": "given",
+          "label": "CRM1",
+          "recovery_percent": 79.48430493,
+          "u_percent": 2.07368462
+        },
+        {
+          "type": "given",
+          "label": "SS68(SP2)",
+          "recovery_percent": 83.63339992,
+          "u_percent": 7.04942934
+        },
+        {
+          "type": "given",
+          "label": "SS68(SP3)",
+          "recovery_percent": 77.46184579,
+          "u_percent": 5.30852393
+        },
+        {
+          "type": "given",
+          "label": "SS87(SP2)",
+          "recovery_percent": 86.04502597,
+          "u_percent": 6.45388883
+        },
+        {
+          "type": "given",
+          "label": "SS87(SP3)",
+          "recovery_percent": 85.47744706,
+          "u_percent": 4.75943508
+        },
+        {
+          "type": "given",
+          "label": "SS91(SP2)",
+          "recovery_percent": 69.38613664,
+          "u_percent": 5.94071168
+        },
+        {
+          "type": "given",
+          "label": "SS91(SP3)",
+          "recovery_percent": 70.67271274,
+          "u_percent": 5.83586605
+        },
+        {
+          "type": "given",
+          "label": "SS114(SP2)",
+          "recovery_percent": 53.18937275,
+          "u_percent": 8.85517541
+        },
+        {
+          "type": "given",
+          "label": "SS114(SP3)",
+          "recovery_percent": 68.37267279,
+          "u_percent": 6.43725847
+        },
+        {
+          "type": "given",
+          "label": "SS130(SP2)",
+          "recovery_percent": 68.67630843,
+          "u_percent": 8.08028251
+        },
+        {
+          "type": "given",
+          "label": "SS130(SP3)",
+          "recovery_percent": 79.87215342,
+          "u_percent": 6.29252779
+        },
+        {
+          "type": "given",
+          "label": "SS132(SP2)",
+          "recovery_percent": 78.42728726,
+          "u_percent": 10.99808506
+        },
+        {
+          "type": "given",
+          "label": "SS132(SP3)",
+          "recovery_percent": 79.78827407,
+          "u_percent": 7.4653336
+        },
+        {
+          "type": "given",
+          "label": "SS150(SP2)",
+          "recovery_percent": 85.48030364,
+          "u_percent": 9.39218723
+        },
+        {
+          "type": "given",
+          "label": "SS150(SP3)",
+          "recovery_percent": 82.13431882,
+          "u_percent": 6.64418344
+        },
+        {
+          "type": "given",
+          "label": "SS50(SP2)",
+          "recovery_percent": 73.98333333,
+          "u_percent": 2.84043923
+        },
+        {
+          "type": "given",
+          "label": "SS50(SP3)",
+          "recovery_percent": 67.99526069,
+          "u_percent": 2.27550753
+        }
+      ],
+      "include_sd_of_recoveries": true
+    },
+    "coverage_probability": 0.95,
+    "coverage_dof": 19
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "recovery": {
+        "mean_percent": {
+          "value": 76.3071,
+          "tolerance": 0.0001
+        },
+        "standard_uncertainty_percent": {
+          "value": 9.6291,
+          "tolerance": 0.0001
+        },
+        "sd_percent": {
+          "value": 8.7552,
+          "tolerance": 0.0001
+        },
+        "statistic": {
+          "value": 2.46055,
+          "tolerance": 0.0001
+        },
+        "critical": {
+          "value": 2.09302,
+          "tolerance": 0.0001
+        },
+        "chi_squared": {
+          "value": 40.9729,
+          "tolerance": 0.001
+        },
+        "significant": true
+      },
+      "levels": [
+        {
+          "level": 0.1,
+          "value": {
+            "value": 0.131049,
+            "tolerance": 1e-05
+          },
+          "standard_uncertainty": {
+            "value": 0.099907,
+            "tolerance": 1e-05
+          },
+          "expanded_uncertainty": {
+            "value": 0.209108,
+            "tolerance": 1e-05
+          }
+        },
+        {
+          "level": 10,
+          "value": {
+            "value": 13.10494,
+            "tolerance": 0.0001
+          },
+          "standard_uncertainty": {
+            "value": 1.77938,
+            "tolerance": 0.0001
+          },
+          "expanded_uncertainty": {
+            "value": 3.72428,
+            "tolerance": 0.0001
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Recomputed from Supplementary Material 06 (independent script). The χ² = 40.9729, s(R) = 8.7552 % and R̿ = 74.8871 % agree with the sheet Trueness (CM16, CO16, CK16); the uncertainties differ from the spreadsheet as explained in the notes.",
+      "tr": "Ek Materyal 06'dan yeniden hesaplanmıştır (bağımsız betik). χ² = 40,9729, s(R) = %8,7552 ve R̿ = %74,8871 Trueness sayfasıyla (CM16, CO16, CK16) uyumludur; belirsizlikler notlarda açıklandığı gibi elektronik tablodan farklıdır."
+    }
+  }
+}

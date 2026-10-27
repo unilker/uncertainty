@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (92)
+- Kimya (94)
 - Elektrik ve RF (31)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
@@ -1413,6 +1413,66 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 - Tablo A6.3'teki RSD'lerin ortalaması basılı %3,3 değil %3,16'dır; proje %3,16 kullanır. Birleşik belirsizlik (%11,3) ve U = 26 mg/kg değişmez.
 
 **Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang tr`
+
+### Nehir sedimentlerinde fluoranten, aritmetik ortalama geri kazanım (MUPR Eş. 8–12) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-arithmetic` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedimentlerinde fluorantenin top-down belirsizliği: iki aralıklı kesinlik modeli ve uyumlu olmayan 20 ortalama geri kazanım; bu nedenle geri kazanımların dağılımı eklenir ve sonuçlar geri kazanım için düzeltilir.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Nehir sedimentlerinde fluoranten, hızlandırılmış çözücü ekstraksiyonu ve GC-MS/MS ile; sekiz günde valide edilmiştir. Makalenin elektronik tablosu Eurachem/CITAC MUPR rehberini uygular; Ek Materyal 06, doğal kütle kesrinin %10'undan küçük katkıları dışarıda bırakır.
+2. Kesinlik modeli: I. aralık (−0,1 ile 1,5 mg/kg arası) sabit mutlak s_I = 0,075185 mg/kg (= 1,5 mg/kg × s′_I); II. aralık (1,5 ile 10,01 mg/kg arası) sabit bağıl s′_I = %5,0123. Tek sonuç raporlandığından kesinlik bileşeni s_I'dır.
+3. Geri kazanım: SRM'den, doğal analit içermeyen bir sedimentin üç katkısından ve doğal analit içeren sedimentlerin 16 katkısından 20 ortalama geri kazanım; her birinin u(R_k) değeri elektronik tablodandır (kesinlik modeli ve katkı belirsizliği). Değerler %53,2 ile %89,8 arasındadır.
+4. χ² testi (Eş. 16.2): χ² = 40,97 > χ²(0,95; 19) = 30,14; geri kazanımlar uyumlu değildir, bu nedenle s(R) = %8,755 ortalama geri kazanımın belirsizliğine eklenir (MUPR 8.2.7).
+5. Aritmetik ortalama geri kazanım R̄ = ΣR_k/N = %76,307, u(R̄) = √Σu²(R_k)/N = %4,008 (Eş. 12); s(R) ile: u = %9,629. u(R̄)'nin büyük kısmı SS95(SP1) testinden (u = %75) gelir.
+6. Anlamlılık (Eş. 13): |1 − R|/u = 2,461 > t(0,975; 19) = 2,093; sonuçlar düzeltilir, c = x/R. Kapsam faktörü k = 2,093, elektronik tablodaki gibi bileşenlerin en küçük serbestlik derecesinden (ν = 19, geri kazanımlar).
+7. Sonuçlar: x = 0,1 mg/kg → (0,1310 ± 0,2091) mg/kg; x = 10 mg/kg → (13,105 ± 3,724) mg/kg (%28,4).
+
+**Sonuç:**
+
+- w(fluoranthene) = (0,13 ± 0,21) mg/kg (k = 2,09)
+- w(fluoranthene) = (13,1 ± 3,7) mg/kg (k = 2,09)
+
+**Notlar:**
+
+- Elektronik tablo 10 mg/kg'da (13,35 ± 3,86) mg/kg ve 0,1 mg/kg'da (0,134 ± 0,161) mg/kg verir. Ağırlıklı ortalama R̿ = %74,887 ile aritmetik ortalamanın belirsizliğini, √Σu²/N = %4,008, birlikte kullanır (araştırma günlüğü F73) ve I. aralığın mutlak kesinliğini R̿'ya bölmez (F72). Makale metni k = 2,01 yazar; tablo 2,093 kullanır (F71).
+- Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (16.1)'in ağırlıklı ortalamasını kendi belirsizliğiyle kullanır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang tr`
+
+### Nehir sedimentlerinde fluoranten, ağırlıklı ortalama geri kazanım (MUPR Eş. 16.1) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-weighted` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedimentlerinde fluorantenin top-down belirsizliği: iki aralıklı kesinlik modeli ve uyumlu olmayan 20 ortalama geri kazanım; bu nedenle geri kazanımların dağılımı eklenir ve sonuçlar geri kazanım için düzeltilir.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Nehir sedimentlerinde fluoranten, hızlandırılmış çözücü ekstraksiyonu ve GC-MS/MS ile; sekiz günde valide edilmiştir. Makalenin elektronik tablosu Eurachem/CITAC MUPR rehberini uygular; Ek Materyal 06, doğal kütle kesrinin %10'undan küçük katkıları dışarıda bırakır.
+2. Kesinlik modeli: I. aralık (−0,1 ile 1,5 mg/kg arası) sabit mutlak s_I = 0,075185 mg/kg (= 1,5 mg/kg × s′_I); II. aralık (1,5 ile 10,01 mg/kg arası) sabit bağıl s′_I = %5,0123. Tek sonuç raporlandığından kesinlik bileşeni s_I'dır.
+3. Geri kazanım: SRM'den, doğal analit içermeyen bir sedimentin üç katkısından ve doğal analit içeren sedimentlerin 16 katkısından 20 ortalama geri kazanım; her birinin u(R_k) değeri elektronik tablodandır (kesinlik modeli ve katkı belirsizliği). Değerler %53,2 ile %89,8 arasındadır.
+4. χ² testi (Eş. 16.2): χ² = 40,97 > χ²(0,95; 19) = 30,14; geri kazanımlar uyumlu değildir, bu nedenle s(R) = %8,755 ortalama geri kazanımın belirsizliğine eklenir (MUPR 8.2.7).
+5. Ağırlıklı ortalama geri kazanım R̿ = Σ(R_k/u²)/Σ(1/u²) = %74,887, u(R̿) = (Σ1/u²)^−½ = %0,996; s(R) ile: u = %8,812.
+6. Anlamlılık (Eş. 13): |1 − R|/u = 2,850 > t(0,975; 19) = 2,093; sonuçlar düzeltilir, c = x/R. Kapsam faktörü k = 2,093, elektronik tablodaki gibi bileşenlerin en küçük serbestlik derecesinden (ν = 19, geri kazanımlar).
+7. Sonuçlar: x = 0,1 mg/kg → (0,1335 ± 0,2127) mg/kg; x = 10 mg/kg → (13,353 ± 3,575) mg/kg (%26,8).
+
+**Sonuç:**
+
+- w(fluoranthene) = (0,13 ± 0,21) mg/kg (k = 2,09)
+- w(fluoranthene) = (13,4 ± 3,6) mg/kg (k = 2,09)
+
+**Notlar:**
+
+- Elektronik tablo 10 mg/kg'da (13,35 ± 3,86) mg/kg ve 0,1 mg/kg'da (0,134 ± 0,161) mg/kg verir. Ağırlıklı ortalama R̿ = %74,887 ile aritmetik ortalamanın belirsizliğini, √Σu²/N = %4,008, birlikte kullanır (araştırma günlüğü F73) ve I. aralığın mutlak kesinliğini R̿'ya bölmez (F72). Makale metni k = 2,01 yazar; tablo 2,093 kullanır (F71).
+- Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (8)–(12)'nin aritmetik ortalamasını kullanır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang tr`
 
 ### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
 

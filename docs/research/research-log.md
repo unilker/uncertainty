@@ -1747,9 +1747,8 @@ recovery-corrected result (class a).**
   - Eq. (8)–(12) throughout (arithmetic R̄ = 0.76307, as in the program):
     13.10 mg/kg, U = 3.72 mg/kg;
   - weighted R̄ with its own uncertainty: 13.35 mg/kg, U = 3.57 mg/kg.
-- The program has no weighted mean recovery. Adding one, as an option
-  `"mean": "weighted"` with u(R̿) = (Σ1/u²)^(−1/2), would cover this case and
-  that of Mateos et al. (2020) (F46).
+- The program had no weighted mean recovery; D54 adds it, with the
+  uncertainty of the weighted mean itself.
 
 **Implications for the article.**
 
@@ -1762,3 +1761,36 @@ recovery-corrected result (class a).**
   should be repeatable by anyone.
 - The Mathmet figures (54 % of tools with any validation evidence; 20 %, 6 %
   and 31 % with JCGM 102 support) quantify the gap in the wider landscape.
+
+**D54. Weighted mean recovery and given recoveries.**
+
+- `recovery.mean = "weighted"` combines the tests by R̿ = Σ(R_k/u²)/Σ(1/u²)
+  (MUPR Eq. 16.1, allowed by the footnote to Eq. 8). The uncertainty is that
+  of a weighted mean, u(R̿) = (Σ1/u²)^(−1/2).
+- The spreadsheet's combination, R̿ with the Eq. (12) uncertainty (F73), is
+  deliberately not offered: it pairs an estimator with the uncertainty of
+  another.
+- s(R), the significance test (ν = N − 1 with s(R)), the correction and the
+  χ² test are unchanged. The default stays the arithmetic mean of
+  Eq. (8)–(12), so existing projects give the same results.
+- A new test type `given` takes a recovery and its standard uncertainty
+  evaluated elsewhere (`recovery_percent`, `u_percent`), e.g. the mean
+  recoveries of a validation spreadsheet.
+- The ν-dependent weights of Mateos et al. (2020) (F46) remain outside the
+  program.
+
+Two library projects take the 20 recoveries of Supplementary Material 06:
+`bettencourt2026-fluoranthene-weighted` and `-arithmetic`. Their expected
+values are recomputed by an independent script. R̿ = 74.887 %, χ² = 40.973
+and s(R) = 8.755 % agree with the workbook to all printed digits. The
+expanded uncertainties at 0.1 and 10 mg/kg are:
+
+| Variant | 0.1 mg/kg | 10 mg/kg |
+|---|---|---|
+| weighted | 0.213 | 3.575 |
+| arithmetic | 0.209 | 3.724 |
+| spreadsheet | 0.161 | 3.857 |
+
+The report, the app's recovery form (mean: arithmetic or weighted; test type
+"recovery with its uncertainty") and guide chapters 5 and 7 describe the
+option. The library has 205 projects and the workspace 180 tests.
