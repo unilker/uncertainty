@@ -9,6 +9,9 @@ This folder is kept as if every entry will be read by a journal reviewer.
 | `validation-matrix.md` | every reference case, its source, published vs. computed values, tolerances |
 | `publication-plan.md` | target journals, contribution claims, manuscript outline, checklist |
 | `references.bib` | BibTeX of sources actually read or confirmed |
+| `findings-index.md` | generated index of all findings and decisions (`tools/research/findings_index.py`) |
+| `sources-provenance.md` | where every document read came from |
+| `search-2026-10/` | raw data and scripts of the October 2026 literature search |
 | `status.md` | where the work stands, what is pending and what comes next (TR) |
 | `documents-needed.md` | paywalled / missing documents the author will obtain (TR) |
 | `iso17025-mapping.md` | ISO/IEC 17025:2017 clauses on uncertainty, reporting and software, mapped to the program and its gaps |

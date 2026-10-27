@@ -1,0 +1,507 @@
+suncal|2021|0|NCSLI Measure|Sandia's Uncertainty Calculator: A Case Study in the Graded Approach|10.51843/measure.13.4.6||journal-article
+suncal|2021|0|NCSL International Workshop &a|Sandia’s Uncertainty Calculator: A Case Study in the Graded Approach to Software Quality Assurance|10.51843/wsproceedings.2021.21||proceedings-article
+suncal|2025|0||Open source web based lunar ejecta thickness and layering calculator application|10.5194/epsc-dps2025-1204|Tomka|posted-content
+suncal|2024|19|Journal of Open Source Softwar|21cmSense v2: A modular, open-source 21 cm sensitivity
+calculator|10.21105/joss.06501|Murray|journal-article
+suncal|2014|0|Energy Procedia|Open-source Cloud-based Energy Calculator/simulator|10.1016/j.egypro.2014.10.317|Evans|journal-article
+suncal|2025|0||A new approach to teaching social class: Introducing the Edinburgh Open-Source Class Calculator|10.31235/osf.io/a37zp_v2|Oatley|posted-content
+suncal|2025|0||A new approach to teaching social class: Introducing the Edinburgh Open-Source Class Calculator|10.31235/osf.io/a37zp_v1|Oatley|posted-content
+suncal|2020|0||Non-Parametric Source Term Uncertainty Estimation|10.2172/1763581||report
+suncal|2026|0|SoftwareX|Mollier h-x diagram (Web App): An open-source browser-based psychrometric calculator|10.1016/j.softx.2025.102468|Christensen|journal-article
+suncal|2019|0||Snippet Open-Source Specification. Use and application|10.2172/1762995||report
+suncal|2024|12|Journal of Cheminformatics|DGet! An open source deuteration calculator for mass spectrometry data|10.1186/s13321-024-00828-x|Lockwood|journal-article
+suncal|2019|18|Journal of Open Source Softwar|The Climate Equity Reference Calculator|10.21105/joss.01273|Holz|journal-article
+suncal|2019|0||Snippet Open-Source Specification Synopsis|10.2172/1762994||report
+suncal|2024|0||First principles understanding of single domain magnetizations -Part I: The Single Domain Comprehensive Calculator (SDCC) open source librar|10.22541/essoar.173499226.63395447/v1|Cych|posted-content
+suncal|2023|75|Journal of Open Source Softwar|PASCal Python: A Principal Axis Strain
+Calculator|10.21105/joss.05556|Lertkiattrakul|journal-article
+suncal|2022|0||3D Digital Outcrop Model-based quantification of fracture intensity: the Discontinuity Intensity Calculator and Estimator (DICE) open-source|10.5194/egusphere-egu22-10207|Menegoni|posted-content
+suncal|2024|0||SANSMIC C++/Python Open-Source Release|10.2172/2588911||report
+suncal|2015|185|The Astrophysical Journal|<tt>HELIOS-K</tt>: AN ULTRAFAST, OPEN-SOURCE OPACITY CALCULATOR FOR RADIATIVE TRANSFER|10.1088/0004-637x/808/2/182|Grimm|journal-article
+suncal|2018|0||Open Source Software for HPC|10.2172/1462820||report
+suncal|2014|0|Clinical Biochemistry|An open source interval arithmetic and fraction calculator for clinical laboratory information systems|10.1016/j.clinbiochem.2014.06.072|Thomas|journal-article
+suncal|2019|74|PLOS ONE|RaCaT: An open source and easy to use radiomics calculator tool|10.1371/journal.pone.0212223|Pfaehler|journal-article
+suncal|2014|0||Greenhouse Gas Source Attribution: Measurements Modeling and Uncertainty Quantification|10.2172/1322290||report
+suncal|2024|1||SOFAST 2.0: Open-Source Deflectometry for CSP|10.2172/2589648||report
+suncal|2024|0||Assessment of Uncertainty in Reference Eto Calculator and to the Uncertainty Analysis SPLUS 2000 and Bootstrap Test|10.2139/ssrn.4754996|Talebmorad|posted-content
+suncal|2022|0|Proceedings of the Internation|HIDROUFF DENSITY CALCULATOR: AN OPEN-SOURCE SOFTWARE FOR PREDICTING DENSITY OF COMPLEX MIXTURES USING PENG-ROBINSON EQUATION OF STATE (PREOS|10.33965/ac_icwi2022_202208l016||proceedings-article
+metas|2022|0|CHIMIA|METAS UncLib – A Measurement Uncertainty Calculator in Chemical Analysis|10.2533/chimia.2022.596|Lobsiger|journal-article
+metas|2016|0|SIAM/ASA Journal on Uncertaint|Convergence and Error Propagation Results on a Linear Iterative Unfolding Method|10.1137/15m1035744|László|journal-article
+metas|2017|1|SEMA SIMAI Springer Series|Uncertainty Modeling and Propagation in Linear Kinetic Equations|10.1007/978-3-319-67110-9_2|Bal|book-chapter
+metas|2022|0||A novel linear uncertainty propagation method for nonlinear dynamics with interval process|10.21203/rs.3.rs-1677116/v1|Zhang|posted-content
+metas|2018|2|Geotechnical Earthquake Engine|Propagation of Uncertainty in Equivalent Linear Site Response Analyses|10.1061/9780784481462.055|Bahrampouri|proceedings-article
+metas|2021|3|IFAC-PapersOnLine|Uncertainty Propagation by Linear Regression Kalman Filters for Stochastic NMPC|10.1016/j.ifacol.2021.08.527|Quirynen|journal-article
+metas|2022|0|2022 European Control Conferen|Propagation of initial condition uncertainty for linear dynamical systems: beyond the Gaussian assumption|10.23919/ecc55457.2022.9838074|Kurdyaeva|proceedings-article
+metas|2017|0|Metas de Enfermería|Metas de Enfermería cumple 20 años|10.35667/metasenf.2019.20.1003081161|arroyo gordo|journal-article
+metas|2026|0||Non-Linear Parameter Uncertainty Propagation Across Multi-Frequency Flood Hydrographs in a Responsive Mountain Catchment|10.21203/rs.3.rs-10705321/v1|Parray¹|posted-content
+metas|2019|0|Metas de Enfermería|Metas en scopus: calidad y visibilidad|10.35667/metasenf.2019.22.1003081461|serrano gallardo|journal-article
+metas|2022|0|2022 IEEE Power &amp; Energy S|A Medium-/Low-Voltage Joint State Estimator Through Linear Uncertainty Propagation|10.1109/pesgm48719.2022.9917189|Cai|proceedings-article
+metas|2023|2|Computational Mechanics|Stochastic virtual element methods for uncertainty propagation of stochastic linear elasticity|10.1007/s00466-023-02384-x|Zheng|journal-article
+metas|2017|12|2017 IEEE 56th Annual Conferen|Gradient flows in uncertainty propagation and filtering of linear Gaussian systems|10.1109/cdc.2017.8264109|Halder|proceedings-article
+metas|2026|0|Moment closure for uncertainty|Moment closure for uncertainty propagation in QSP models|10.70534/tdfh3032|Ghusinga|proceedings-article
+metas|2024|6|International Journal of Non-L|Hybrid uncertainty propagation analysis of nonlinear systems in the frequency domain based on multi-scale random interval moment method|10.1016/j.ijnonlinmec.2024.104806|Hong|journal-article
+metas|2020|4|Computers &amp; Mathematics wi|Uncertainty propagation using Wiener-Linear B-spline wavelet expansion|10.1016/j.camwa.2019.11.021|Kaur|journal-article
+metas|2021|0|Linear and Nonlinear Wave Prop|Wave Propagation in Linear Inhomogeneous Media|10.1142/9789811231643_0002||book-chapter
+metas|2026|0|Measurement Uncertainty|Uncertainty (Error) Propagation|10.1002/9781394438303.ch5||other
+metas|2025|0|Realizing Complex System Desig|Uncertainty and Uncertainty Propagation|10.1201/9781003188377-29|Ferrero|book-chapter
+metas|2014|1|Uncertainty in Risk Assessment|Methods of uncertainty propagation|10.1002/9781118763032.ch06||other
+metas|2024|10|Computer Methods in Applied Me|Efficient uncertainty propagation for stochastic multiscale linear elasticity|10.1016/j.cma.2024.117085|Zheng|journal-article
+metas|2018|0|Metas de Enfermería|Siguiendo la estela|10.35667/metasenf.2019.21.1003081171|serrano gallardo|journal-article
+metas|2021|2|SMSI 2021 - System of Units an|D1.1 GUM2ALA – Uncertainty Propagation Algorithm for the Adaptive Linear Approximation According to the GUM|10.5162/smsi2021/d1.1|Dorst|proceedings-article
+metas|2015|6|2015 IEEE International Instru|Uncertainty propagation through non-linear measurement functions by means of joint Random-Fuzzy Variables|10.1109/i2mtc.2015.7151540|Ferrero|proceedings-article
+metas|2024|2|AIAA SCITECH 2024 Forum|Linear and nonlinear dimension reduction strategies for multifidelity uncertainty propagation of nonparametric distributions|10.2514/6.2024-0389|Zanoni|proceedings-article
+pyunc|2022|13|Metrology|The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty|10.3390/metrology2010009|Hall|journal-article
+pyunc|2025|1|Journal of Open Source Softwar|AutoUncertainties: A Python Package for Uncertainty Propagation|10.21105/joss.08037|Gopalaswamy|journal-article
+pyunc|2024|2|Metrology|SurfILE: An Open-Source Python Package for Surface Topography Analysis|10.3390/metrology4040041|Giura|journal-article
+pyunc|2022|29|Metrology|GUM-Compliant Uncertainty Evaluation Using Virtual Experiments|10.3390/metrology2010008|Wübbeler|journal-article
+pyunc|2024|0|Series on Advances in Mathemat|GUM-compliant uncertainty propagation for deep neural networks|10.1142/9789819800674_0018|Ludwig|book-chapter
+pyunc|2026|0|Metrology|Uncertainty Propagation in Curvature-Based Surface Form Metrology: A Monte Carlo and Differential Geometry Approach|10.3390/metrology6020043|Malakhov|journal-article
+pyunc|2026|2|Quantum|QMetro++ – Python optimization package for large scale quantum metrology with customized strategy structures|10.22331/q-2026-01-29-1991|Dulian|journal-article
+pyunc|2025|0|ASME 2025 Verification, Valida|An Open-Source Python Package for CFD Solution Verification|10.1115/vvuq2025-151463|Weinmeister|proceedings-article
+pyunc|2017|2|Forensic Science International|Kpop: A Python package for population genetics analysis|10.1016/j.fsigss.2017.09.159|Mendes|journal-article
+pyunc|2022|1||Supplement to: Package AdvEMDpy: Algorithmic Variations of Empirical Mode Decomposition in Python|10.2139/ssrn.4233231|van Jaarsveldt|posted-content
+pyunc|2025|0|2025 XXXV International Scient|Comparison of GUM and Monte Carlo Methods for Evaluation the Measurements Uncertainty of DC Voltage, DC Magnetic Flux Density and Dc Resista|10.1109/mma67107.2025.11311191|Marinov|proceedings-article
+pyunc|2025|0||Uqpyl 2.0: An Open-Source Python Package for Uncertainty Quantification and Optimization|10.2139/ssrn.5393295|Wu|posted-content
+pyunc|2026|0||A GUM-Compliant Readout Mapping for Reported Time and Measure:Digital Measurement Pipeline Specification, Estimators, and Uncertainty Propag|10.2139/ssrn.6502460|OTSUKA|posted-content
+pyunc|2026|0||A GUM-Compliant Readout Mapping for Reported Time and Measure: Digital Measurement Pipeline Specification, Estimators, and Uncertainty Propa|10.2139/ssrn.6345093|OTSUKA|posted-content
+pyunc|2022|8|Procedia CIRP|Prompt uncertainty estimation with GUM framework for on-machine tool coordinate metrology|10.1016/j.procir.2022.09.045|Sepahi-Boroujeni|journal-article
+pyunc|2023|4|Journal of Open Source Softwar|PyThia: A Python package for Uncertainty Quantification
+based on non-intrusive polynomial chaos expansions|10.21105/joss.05489|Hegemann|journal-article
+pyunc|2024|0|2024 XXXIV International Scien|Application of the Law of Propagation of Expanded Uncertainty to Measurement Data Processing at Calibration|10.1109/mma62616.2024.10817690|Zakharov|proceedings-article
+pyunc|2015|3|17th International Congress of|A user-friendly software for a simple and validated implementation of GUM Supplement 1|10.1051/metrology/20150002012|Ebrard|proceedings-article
+pyunc|2015|0|17th International Congress of|A user-friendly software for a simple and validated implementation of GUM Supplement 1|10.1051/metrology/201502012|Ebrard|proceedings-article
+pyunc|2021|16|Journal of Open Source Softwar|UQit: A Python package for uncertainty quantification (UQ) in computational fluid dynamics (CFD)|10.21105/joss.02871|Rezaeiravesh|journal-article
+pyunc|2021|0|International Journal of Elect|Supercap-Python: An Open-Source Python Based Super Capacitor Modelling Package|10.18178/ijeee.9.4.93-99|Pampana|journal-article
+pyunc|2026|1|Annals of Nuclear Energy|SAUNA: A Python package for sensitivity and uncertainty analysis|10.1016/j.anucene.2026.112335|Ryzhkov|journal-article
+pyunc|2022|0|Journal of Open Source Softwar|elwaspatid: A Python package to compute space-time
+diagrams for the propagation of elastic waves in 1D rods|10.21105/joss.04418|Brizard|journal-article
+pyunc|2019|3|Journal of Electronic Packagin|Stacking Yield Prediction of Package-on-Package Assembly Using Uncertainty Propagation Analysis—Part II: Implementation of Stochastic Model|10.1115/1.4044218|Wei|journal-article
+pyunc|2022|2||Python for MATLAB Development|10.1007/978-1-4842-7223-7|Danial|book
+rpkg|2023|0|Metrology and Measurement Syst|Determination of measurement uncertainty by a Monte Carlo method for an RF power sensor calibration system using a VNA|10.24425/mms.2023.147953|Jaworski|journal-article
+rpkg|2026|0|Metrology|Uncertainty Propagation in Curvature-Based Surface Form Metrology: A Monte Carlo and Differential Geometry Approach|10.3390/metrology6020043|Malakhov|journal-article
+rpkg|2022|13|Metrology|Multilateration with Self-Calibration: Uncertainty Assessment, Experimental Measurements and Monte-Carlo Simulations|10.3390/metrology2020015|Guillory|journal-article
+rpkg|2015|1|17th International Congress of|Measurement Uncertainty Evaluation of the Null Detector Method Using Monte Carlo|10.1051/metrology/201513010|Costa|proceedings-article
+rpkg|2015|0|17th International Congress of|Measurement Uncertainty Evaluation of the Null Detector Method Using Monte Carlo|10.1051/metrology/20150013010|Costa|proceedings-article
+rpkg|2015|1|17th International Congress of|Estimation of the measurement uncertainty of LNE’s metrological Atomic Force Microscope using virtual instrument modeling and Monte Carlo Me|10.1051/metrology/201514007|Ceria|proceedings-article
+rpkg|2015|1|17th International Congress of|Estimation of the measurement uncertainty of LNE’s metrological Atomic Force Microscope using virtual instrument modeling and Monte Carlo Me|10.1051/metrology/20150014007|Ceria|proceedings-article
+rpkg|2017|0|Mechanik|Evaluation of measurement uncertainty – Monte Carlo method|10.17814/mechanik.2017.12.195|Płowucha|journal-article
+rpkg|2022|1|Handbook of Metrology and Appl|Monte Carlo Simulations in Uncertainty Evaluation for Partial Differential Equations|10.1007/978-981-19-1550-5_124-1|Ramnath|book-chapter
+rpkg|2022|8|Metrology|The Storage within Digital Calibration Certificates of Uncertainty Information Obtained Using a Monte Carlo Method|10.3390/metrology2010003|Smith|journal-article
+rpkg|2023|0|Handbook of Metrology and Appl|Monte Carlo Simulations in Uncertainty Evaluation for Partial Differential Equations|10.1007/978-981-99-2074-7_124|Ramnath|book-chapter
+rpkg|2026|0||Measurement Uncertainty in Planetary Boundary Layer Height via Model-Based Monte Carlo Simulation|10.5194/egusphere-egu26-11408|Locatelli|posted-content
+rpkg|2016|9|Metrology and Measurement Syst|A Monte Carlo-Based Method for Assessing the Measurement Uncertainty in the Training and Use of Artificial Neural Networks|10.1515/mms-2016-0015|Coral|journal-article
+rpkg|2021|0|Metrology and Measurement Syst|Observation probability estimation of dead-time models using Monte Carlo simulations|10.24425/mms.2021.136614|Arkani|journal-article
+rpkg|2022|13|Metrology|The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty|10.3390/metrology2010009|Hall|journal-article
+rpkg|2016|42|Measurement|Comparison of GUM and Monte Carlo methods for evaluating measurement uncertainty of perspiration measurement systems|10.1016/j.measurement.2016.03.007|Chen|journal-article
+rpkg|2019|1|Optical Metrology and Inspecti|Uncertainty evaluation of colour correction factor using Monte Carlo method in LED photometry measurement|10.1117/12.2538759|Zhao|proceedings-article
+rpkg|2024|4|2024 IEEE International Confer|Monte Carlo-based Measurement Uncertainty Propagation on a Virtual Sensor for Real- Time Human Balance Exergame Analysis|10.1109/metroxraine62247.2024.10796575|Giulietti|proceedings-article
+rpkg|2025|0|2025 XXXV International Scient|Comparison of GUM and Monte Carlo Methods for Evaluation the Measurements Uncertainty of DC Voltage, DC Magnetic Flux Density and Dc Resista|10.1109/mma67107.2025.11311191|Marinov|proceedings-article
+rpkg|2022|1|International Journal of Engin|Comparison of GUM and Monte Carlo Methods for the Measurement Uncertainty Circular Runout Error of Shafts|10.7763/ijet.2022.v14.1199|Ounjutturaporn|journal-article
+rpkg|2024|1|International Journal of Metro|Utilizing prior knowledge about the measurement process for uncertainty evaluation through plain Monte Carlo sampling|10.1051/ijmqe/2024010|Marschall|journal-article
+rpkg|2015|6|Metrologia|Example of Monte Carlo uncertainty assessment in the field of radionuclide metrology|10.1088/0026-1394/52/3/s42|Cassette|journal-article
+rpkg|2015|8|Metrologia|Uncertainty associated with Monte Carlo radiation transport in radionuclide metrology|10.1088/0026-1394/52/3/s191|Bochud|journal-article
+rpkg|2026|0|Applied Physics B|Unmasking blended optogalvanic lines: composite spectrum center-of-gravity metrology with a Monte–Carlo uncertainty chain|10.1007/s00340-026-08647-8|Simien|journal-article
+rpkg|2018|1|Mechanik|Evaluation of measurement uncertainty of profile parameters using a Monte Carlo method|10.17814/mechanik.2018.5-6.52|Adamczak|journal-article
+num|2020|33|Journal of Chemical Education|Monte Carlo Uncertainty Propagation with the NIST Uncertainty Machine|10.1021/acs.jchemed.0c00096|Albert|journal-article
+num|2015|65|NCSLI Measure|The NIST Uncertainty Machine|10.1080/19315775.2015.11721732|Lafarge|journal-article
+num|2020|6||Evaluating, Expressing, and Propagating Measurement Uncertainty for NIST Reference Materials|10.6028/nist.sp.260-202|Possolo|report
+num|2015|81||Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results|10.6028/nist.tn.1900|Possolo|report
+num|2023|0||New NIST Acquisition System for Reading Charpy Machine Encoders|10.6028/nist.ir.8497|Lucon|report
+num|2022|0||Charpy Interlaboratory Comparison Between NIST and Anand Testing Machine Services|10.6028/nist.tn.2243|Lucon|report
+num|2018|23||Guidelines for evaluating and expressing the uncertainty of NIST measurement results|10.6028/nist.tn.1297-1993|Taylor|report
+num|2026|0||Third Charpy Interlaboratory Comparison Between NIST and  Anand Testing Machine Services LLP|10.6028/nist.tn.2376|Lucon|report
+num|2016|0||Implementation of Errors-in-Variables Regression and Monte Carlo Uncertainty Evaluation into Force Calibration Reporting at NIST|10.6028/nist.tn.1942|Bartel|report
+num|2024|0||Second Charpy Interlaboratory Comparison Between NIST and Anand Testing Machine Services LLP|10.6028/nist.tn.2301|Lucon|report
+num|2026|0||The ANSI/NIST-ITL 1-2025 Machine-Readable Specification:|10.6028/nist.ir.8616|Yaga|report
+num|2016|0|Physics Today|NIST has restored its million-pound deadweight machine|10.1063/pt.5.029846||journal-article
+num|2016|2|2016 88th ARFTG Microwave Meas|Kicking the tires of the NIST microwave uncertainty framework, part 1|10.1109/arftg.2016.7839722|Ginley|proceedings-article
+num|2017|3|2017 90th ARFTG Microwave Meas|Kicking the tires of the NIST microwave uncertainty framework, Part 2|10.1109/arftg.2017.8255877|Ginley|proceedings-article
+num|2015|4|Interspeech 2015|Uncertainty propagation for noise robust speaker recognition: the case of NIST-SRE|10.21437/interspeech.2015-701|Ribas|proceedings-article
+num|2024|2|2024 European Frequency and Ti|Improving the Uncertainty of NIST Remote Time and Frequency Calibration Services|10.1109/eftf61992.2024.10722508|Novick|proceedings-article
+num|2024|0||NIST Privacy Workforce Taxonomy|10.6028/nist.cswp.38.ipd|NIST|report
+num|2025|4||NIST Privacy Framework 1.1|10.6028/nist.cswp.40.ipd|NIST|report
+num|2019|0|2019 92nd ARFTG Microwave Meas|Three-Port Vector-Network-Analyzer Calibrations Using the NIST Microwave Uncertainty Framework|10.1109/arftg.2019.8637226|Jargon|proceedings-article
+num|2025|3||The NIST Cybersecurity Framework (CSF) 2.0 (Thai translation)|10.6028/nist.cswp.29.tha|NIST|report
+num|2014|10|83rd ARFTG Microwave Measureme|Characterizing a noninsertable directional device using the NIST uncertainty framework|10.1109/arftg.2014.6899513|Jargon|proceedings-article
+num|2025|4||The NIST Cybersecurity Framework (CSF) 2.0 (Norwegian translation)|10.6028/nist.cswp.29.nor|NIST|report
+num|2025|4||The NIST Cybersecurity Framework (CSF) 2.0 (Japanese translation)|10.6028/nist.cswp.29.jpn|NIST|report
+num|2024|5||Korean Translation of the NIST Cybersecurity Framework 2.0|10.6028/nist.cswp.29.kor|NIST|report
+num|2024|36||The NIST Cybersecurity Framework (CSF) 2.0 (French translation)|10.6028/nist.cswp.29.fre|NIST|report
+cmp|2022|0||Structural uncertainty and uncertainty management in four common Land Use Cover Change (LUCC) model software packages. A comparison|10.31223/x5v64r|García-Álvarez|posted-content
+cmp|2019|6|Applied Psychological Measurem|A Comparison of Software Packages Available for DINA Model Estimation|10.1177/0146621619843822|Sen|journal-article
+cmp|2018|1|2018 19th International Carpat|Software comparison for uncertainty measurement estimation|10.1109/carpathiancc.2018.8399600|Sediva|proceedings-article
+cmp|2022|0||Evaluation and Suitability of Using SERI QC Software for Estimating Measurement Uncertainty|10.2172/1883560|Wilcox|report
+cmp|2024|0|Chinese/English Journal of Edu|Comparison of Machine Learning Packages in R: An Application with Open Dataset|10.59863/xxdq4938|Oyeniran|journal-article
+cmp|2021|10|CRAN: Contributed Packages|conmet: Construct Measurement Evaluation Tool|10.32614/cran.package.conmet|De Schutter|dataset
+cmp|2025|8|Measurement: Sensors|Comparison of uncertainty evaluation methods for virtual experiments with an application to a virtual CMM|10.1016/j.measen.2024.101785|van Dijk|journal-article
+cmp|2022|28|Environmental Modelling &amp; |Comparing the structural uncertainty and uncertainty management in four common Land Use Cover Change (LUCC) model software packages|10.1016/j.envsoft.2022.105411|García-Álvarez|journal-article
+cmp|2026|0|Quantitative Evaluation of Mea|Evaluation of Research Results Based on the Concept of Measurement Uncertainty|10.1201/9781003742708-3|Vasilevskyi|book-chapter
+cmp|2026|0|Quantitative Evaluation of Mea|Varieties of Measurement Uncertainty|10.1201/9781003742708-2|Vasilevskyi|book-chapter
+cmp|2016|0|Journal of Communications Tech|Evaluation and Comparison of Software Packages in Business Environment Using Scenario-Based Approaches|10.22385/jctecs.v6i0.107|Anabtawi|journal-article
+cmp|2025|2|Cureus|Evaluation of Measurement Uncertainty in Clinical Chemistry and its Comparison With Analytical Performance Specifications|10.7759/cureus.79043|Wadhwa|journal-article
+cmp|2016|0|Maximizing Business Performanc|SOFTWARE PACKAGE SELECTION: THE EVALUATION PROCESS|10.1201/9781420025408-16||book-chapter
+cmp|2026|0|Quantitative Evaluation of Mea|Concept of Evaluating Measurement Result Uncertainty|10.1201/9781003742708-1|Vasilevskyi|book-chapter
+cmp|2022|0|2022 XXXII International Scien|Uncertainty Evaluation and Comparison of Nanoscale Measurement Instruments|10.1109/mma55579.2022.9992355|Neyezhmakov|proceedings-article
+cmp|2022|0|Measurement Uncertainty in Ana|Evaluation of the Measurement Uncertainty|10.3139/9781569908136.002|Wampfler|book-chapter
+cmp|2021|0|2021 4th International Confere|Evaluation of Measurement Uncertainty of Non-contact 3D Measuring Machine|10.1109/aemcse51986.2021.00160|Liu|proceedings-article
+cmp|2014|15|Measurement|Uncertainty evaluation of a 10N·m dead weight torque standard machine and comparison with a 1kN·m dead weight torque standard machine|10.1016/j.measurement.2013.11.033|Nishino|journal-article
+cmp|2017|12|Measurement|Educational aspects of uncertainty calculation with software tools|10.1016/j.measurement.2015.11.005|Zangl|journal-article
+cmp|2020|3|2020 94th ARFTG Microwave Meas|Inter-laboratory comparison of S-parameter measurements with dynamic uncertainty evaluation|10.1109/arftg47584.2020.9071655|Singh|proceedings-article
+cmp|2016|1|Physica Medica|Standardized evaluation of CT image quality: A comparison between three widespread software packages for automated CATPHAN analysis|10.1016/j.ejmp.2016.01.266|Ferretti|journal-article
+cmp|2026|1||Evaluation of measurement data — Guide to the expression of uncertainty in measurement. AMENDMENT 1: Nonlinearity in measurement models|10.59161/ppdi3267||report
+cmp|2016|0|Maximizing Business Performanc|Business Performance Measurement: An Overview|10.1201/9781420025408-8||book-chapter
+cmp|2020|0|Neural Network World|Comparison of software packages for performing Bayesian inference|10.14311/nnw.2020.30.019|Koprivica|journal-article
+cmp|2016|87|Atmospheric Measurement Techni|Quantifying the uncertainty of eddy covariance fluxes due to the use of
+different software packages and combinations of processing steps in |10.5194/amt-9-4915-2016|Mammarella|journal-article
+valsw|2026|0||Implementation of ISO/IEC 17025 in Industrial Laboratory Systems: Impact of Measurement Uncertainty on Conformity Assessment Decisions — A C|10.2139/ssrn.6123646|alhihi|posted-content
+valsw|2026|0|Herald of Azerbaijan Engineeri|Comparative Study of Calibration and Measurement Resource Management in ISO/IEC 17025 and ISO 9001 Systems|10.52171/herald.419|Aliyev|journal-article
+valsw|2017|0|Métier : responsable qualité|ISO/CEI 17025|10.51257/a-v1-fic1594|MÉRAS|journal-article
+valsw|2015|0|Qualité et sécurité au laborat|Comparaison ISO 9001 versus ISO/CEI 17025|10.51257/a-v1-fic1470|REPOSEUR|journal-article
+valsw|2024|1|IEEEP New Horizons Journal|Evaluation of Measurement Uncertainty for Testing &amp; Calibration laboratories as per ISO/ IEC 17025:2017 standard requirements|10.61514/ieeep.v103i2.173|Tariq|journal-article
+valsw|2016|0|Journal of Physics: Conference|Software validation applied to spreadsheets used in laboratories working under ISO/IEC 17025|10.1088/1742-6596/733/1/012071|Banegas|journal-article
+valsw|2023|6|Bakar|Verification and validation of analytical methods in accordance with the ISO/IEC 17025 standard|10.5937/bakar2302025d|Đukić|journal-article
+valsw|2018|0|Allgemeine Anforderungen an di|Anlage 1  Querverweise der DIN EN ISO/IEC 17025:2018 zur DIN EN ISO/IEC 17025:2005|10.5771/9783410275855-191||book-chapter
+valsw|2020|0|NCSL International Workshop &a|ISO/IEC 17025:2017 Spreadsheet Validation – the details|10.51843/wsproceedings.2020.17||proceedings-article
+valsw|2017|12|Measurement|Educational aspects of uncertainty calculation with software tools|10.1016/j.measurement.2015.11.005|Zangl|journal-article
+valsw|2019|0|Qualité et sécurité au laborat|Évolutions de la norme ISO/IEC 17025:2017|10.51257/a-v1-sl2005|LEBLOIS|journal-article
+valsw|2021|0|Qualité et sécurité au laborat|Gestion des équipements de laboratoire selon la norme ISO 17025|10.51257/a-v2-sl2110|PETIT|journal-article
+valsw|2019|18|2019 IEEE 8th International Co|Development and validation of measurement techniques according to ISO/IEC 17025:2017|10.1109/caol46282.2019.9019539|Trishch|proceedings-article
+valsw|2019|0|Springer Reference Medizin|DIN EN ISO/IEC 17025|10.1007/978-3-662-48986-4_904|Zimmermann|book-chapter
+valsw|2026|0|Polish Journal of Medical Phys|Optimization of a Dosimetric Quality Assurance System for a Medical Linear Accelerator under ISO/IEC 17025 Accreditation: Measurement Stabil|10.2478/pjmpe-2026-0011|Janiszewska|journal-article
+valsw|2015|0|Qualité et sécurité au laborat|Comparaison ISO 9001 versus ISO/CEI 17025|10.51257/f-1470|REPOSEUR|journal-article
+valsw|2018|0|Qualité et sécurité au laborat|Révision de la norme NF EN ISO/CEI 17025|10.51257/a-v1-sl2010|HACHANI|journal-article
+valsw|2018|2|Analytics|The concept of the new version of ISO / IEC 17025:2017|10.22184/2227-572x.2018.40.3.290.294|Eroshina|journal-article
+valsw|2026|0|International Journal of Resea|ISO/IEC 17025-Compliant Calibration of Biomedical Equipment: Frameworks, Methods, and Measurement Uncertainty Assessment|10.51584/ijrias.2026.11050086|Hossain|journal-article
+valsw|2017|0|Métier : responsable qualité|ISO/CEI 17025|10.51257/f-1594|MÉRAS|journal-article
+valsw|2026|0|Journal of the Korea Academia-|A Study on Establishing ISO/IEC 17025 Accredited Software Testing Laboratory Based on K-RMF Security Control Assessment|10.5762/kais.2026.27.7.435|Noh|journal-article
+valsw|2024|0||Method Validation Summary for L16.2 AD-ISO-0015 for ISO-17025 / NFAC Applications|10.2172/2439924||report
+valsw|2024|0|Accreditation and Quality Assu|Measurement uncertainty in testing of biologicals in national control laboratories for ISO/IEC 17025: practical approaches|10.1007/s00769-024-01589-8|Tewari|journal-article
+valsw|2018|1|Analytics|New edition of ISO/IEC 17025:2017. What changed?|10.22184/2227-572x.2018.40.3.296.299|Matveev|journal-article
+valsw|2019|0|Pertemuan dan Presentasi Ilmia|Validasi Software Kalibrasi Alat Ukur Tekanan Hidraulik Sesuai dengan Implementasi ISO/IEC 17025:2017|10.31153/ppis.2019.33|Ega|journal-article
+tracim|2015|6|Series on Advances in Mathemat|VALIDATION OF CMM EVALUATION SOFTWARE USING TraCIM|10.1142/9789814678629_0047|WENDT|book-chapter
+tracim|2019|0|Metrology and Theory of Measur|6. Validation of software used in metrology|10.1515/9783110652505-006||book-chapter
+tracim|2015|1|Series on Advances in Mathemat|ESTIMATION OF TEST UNCERTAINTY FOR TraCIM REFERENCE PAIRS|10.1142/9789814678629_0022|KELLER|book-chapter
+tracim|2025|1|Measurement: Sensors|Digital GD&amp;T control features validation from 3D CAD to metrology software|10.1016/j.measen.2024.101495|Aghaei|journal-article
+tracim|2020|5|Surface Topography: Metrology |Mathematical approach to the validation of surface texture filtration software|10.1088/2051-672x/abc0fb|Todhunter|journal-article
+tracim|2020|2|Surface Topography: Metrology |Mathematical approach to the validation of form removal surface texture software|10.1088/2051-672x/abc737|Todhunter|journal-article
+tracim|2021|0||Colour Gamut Volume Software|10.55410/bjxb8678||book
+tracim|2025|0||Colour Gamut Volume Software|10.55410/kioj1511||reference-book
+tracim|2024|6|2024 XXXIV International Scien|Enhancing Knowledge Sharing Processes via Automated Software Documentation Management Systems Using Gen AI Software Tools|10.1109/mma62616.2024.10817681|Georgiev|proceedings-article
+tracim|2019|16|Surface Topography: Metrology |Mathematical approach to the validation of functional surface texture parameter software|10.1088/2051-672x/ab07ca|Todhunter|journal-article
+tracim|2020|0|2020 XXX International Scienti|Validation of calibration procedures|10.1109/mma49863.2020.9254266|Korolyova|proceedings-article
+tracim|2020|13|Surface Topography: Metrology |Mathematical approach to the validation of field surface texture parameter software|10.1088/2051-672x/ab7367|Todhunter|journal-article
+tracim|2021|8|Journal of Sensors and Sensor |Validation of SI-based digital data of measurement using the TraCIM system|10.5194/jsss-10-289-2021|Hutzschenreuter|journal-article
+tracim|2025|2|Metrology|VNA Tools—A Metrology Software Supporting the Digital Traceability Chain|10.3390/metrology5040072|Zeier|journal-article
+tracim|2023|0|Quantum Metrology with Photoel|Quantum metrology software platform/ecosystem overview|10.1088/978-0-7503-5022-8ch2|Hockett|book-chapter
+tracim|2022|0|Metrology|In Situ Validation Methodology for Weighing Methods Used in Preparing of Standardized Sources for Radionuclide Metrology|10.3390/metrology2040027|Cacais|journal-article
+tracim|2021|3|2021 XXXI International Scient|Software security threat research|10.1109/mma52675.2021.9610877|Semenov|proceedings-article
+tracim|2025|0|150th anniversary of the Metre|Integrating software metrology with the international metrology system|10.59161/wrxd1297|Black|proceedings-article
+tracim|2021|0|Handbook of Validation in Phar|Calibration and Metrology|10.1201/9781003163138-8|Bringert|book-chapter
+tracim|2021|2|2021 XXXI International Scient|Functional Generator Software Optimization Through Virtual Instruments|10.1109/mma52675.2021.9610942|Dzhudzhev|proceedings-article
+tracim|2015|0|Series on Advances in Mathemat|APPROACHES FOR ASSIGNING NUMERICAL UNCERTAINTY TO REFERENCE DATA PAIRS FOR SOFTWARE VALIDATION|10.1142/9789814678629_0023|KOK|book-chapter
+tracim|2017|1|AAMI/ISO TIR80002-2:2017; Medi|Medical device software—Part 2: Validation of software for medical device quality systems|10.2345/9781570206702.ch1||book-chapter
+tracim|2024|6|Handbook on Teaching Empirical|Teaching Software Metrology: The Science of Measurement for Software Engineering|10.1007/978-3-031-71769-7_5|Ralph|book-chapter
+tracim|2025|0|International Journal of Scien|Computer Software Validation of Design of Experiments Software|10.21275/sr25507151923|Rajeshree Suresh|journal-article
+tracim|2025|0|2025 IEEE Conference on Softwa|2025 IEEE Conference on Software Testing, Verification and Validation (ICST)|10.1109/icst62969.2025.10988924||proceedings-article
+review|2018|21|Measurement|Measurement uncertainty and its connection with true value in the GUM versus JCGM documents|10.1016/j.measurement.2018.05.105|Kacker|journal-article
+review|2016|24|Measurement|Comparing methods for evaluating measurement uncertainty given in the JCGM ‘Evaluation of Measurement Data’ documents|10.1016/j.measurement.2016.08.015|Stant|journal-article
+review|2025|6|Measurement: Sensors|JCGM 101-compliant uncertainty evaluation using virtual experiments|10.1016/j.measen.2024.101731|Hughes|journal-article
+review|2015|5|Measurement|Probability distributions and coverage probability in GUM, JCGM documents, and statistical inference|10.1016/j.measurement.2014.12.056|Kacker|journal-article
+review|2016|7|Measurement|Removing divergence of JCGM documents from the GUM (1993) and repairing other defects|10.1016/j.measurement.2016.03.057|Kacker|journal-article
+review|2022|1|Measurement Techniques|General Problem of Metrology and Measurement Technique JCGM GUM-6:2020: Comments on the Russian Translation|10.1007/s11018-022-02096-3|Levin|journal-article
+review|2024|0||On the Significance of the Measurement Evaluation Method in Decision Making: A Synthesis of Jcgm 101 and Jcgm 106 Applied to Gross Alpha and|10.2139/ssrn.4717222|Ramebäck|posted-content
+review|2024|0||RETRACTED: Comparison of Application of MCM and GUM in Evaluation of Measurement Uncertainty of Photoelectric Cup-Wind Speed Sensor|10.21203/rs.3.rs-3986786/v1|Wei|posted-content
+review|2026|0||A Parametric Measurement Method for Urban Road Light Poles Based on Smartphone Monocular Vision — Integrating YOLOv8 Detection with GUM Unce|10.2139/ssrn.7478342|Jian|posted-content
+review|2022|11|Measurement|GUM method for evaluation of measurement uncertainty: BPL long wave time service monitoring|10.1016/j.measurement.2021.110459|Chen|journal-article
+review|2022|0|Izmeritel`naya Tekhnika|Guide JCGM GUM-6:2020: comments on the translation into Russian|10.32446/0368-1025it.2022-6-9-16|Levin|journal-article
+review|2024|2|Applied Radiation and Isotopes|On the significance of the measurement evaluation method in decision making: A synthesis of JCGM 101 and JCGM 106 applied to gross alpha and|10.1016/j.apradiso.2024.111282|Ramebäck|journal-article
+review|2016|142|Measurement|Water level sensing: State of the art review and performance evaluation of a low-cost measurement system|10.1016/j.measurement.2016.04.019|Loizou|journal-article
+review|2024|10|Flow Measurement and Instrumen|Uncertainty evaluation for wind speed measurement part (1): “GUM method and Monte Carlo method”|10.1016/j.flowmeasinst.2024.102607|Wei|journal-article
+review|2020|19|Metrologia|Guidance on Bayesian uncertainty evaluation for a class of GUM measurement models|10.1088/1681-7575/abb065|Demeyer|journal-article
+review|2022|13|Metrology|The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty|10.3390/metrology2010009|Hall|journal-article
+review|2023|0|Journal of Measurement Science|Uncertainty Evaluation in calibration of Engineer’s Steel Rulers and Measuring Tapes; GUM and Monte Carlo Methods|10.21608/jmsa.2023.288132||journal-article
+review|2016|42|Measurement|Comparison of GUM and Monte Carlo methods for evaluating measurement uncertainty of perspiration measurement systems|10.1016/j.measurement.2016.03.007|Chen|journal-article
+review|2018|0|Periódico Tchê Química|MEASUREMENT UNCERTAINTY EVALUATION OF BRINELL HARDNESS TEST: GUM AND MONTE CARLO METHOD|10.52571/ptq.v15.n30.2018.255_periodico30_pgs_252_258.pdf|TREVISAN|journal-article
+review|2021|10|Measurement|Uncertainty calculation methodologies in microflow measurements: Comparison of GUM, GUM-S1 and Bayesian approach|10.1016/j.measurement.2021.109589|Sousa|journal-article
+review|2025|3|tm - Technisches Messen|Uncertainty evaluation using virtual experiments: bridging JCGM 101 and a Bayesian framework|10.1515/teme-2024-0110|Hughes|journal-article
+review|2021|21|Applied Sciences|Evaluation of Investments in Wind Energy Projects, under Uncertainty. State of the Art Review|10.3390/app112110213|Murgas|journal-article
+review|2023|0|Journal of Measurement Science|Uncertainty Evaluation in calibration of Engineer’s Steel Rulers and Measuring Tapes; GUM and Monte Carlo Methods|10.21608/jmsa.2023.184826.1007|ElMelegy|journal-article
+review|2024|1|A Practical Handbook on Measur|The Guide to the expression of uncertainty in measurement (GUM)—the new approach|10.1088/978-0-7503-6462-1ch6|Rishi|book-chapter
+review|2021|1|Measurement: Sensors|Towards correction of the JCGM international vocabulary of metrology|10.1016/j.measen.2021.100063|Kacker|journal-article
+gum6|2018|21|Measurement|Measurement uncertainty and its connection with true value in the GUM versus JCGM documents|10.1016/j.measurement.2018.05.105|Kacker|journal-article
+gum6|2015|5|Measurement|Probability distributions and coverage probability in GUM, JCGM documents, and statistical inference|10.1016/j.measurement.2014.12.056|Kacker|journal-article
+gum6|2016|7|Measurement|Removing divergence of JCGM documents from the GUM (1993) and repairing other defects|10.1016/j.measurement.2016.03.057|Kacker|journal-article
+gum6|2022|1|Measurement Techniques|General Problem of Metrology and Measurement Technique JCGM GUM-6:2020: Comments on the Russian Translation|10.1007/s11018-022-02096-3|Levin|journal-article
+gum6|2024|0||On the Significance of the Measurement Evaluation Method in Decision Making: A Synthesis of Jcgm 101 and Jcgm 106 Applied to Gross Alpha and|10.2139/ssrn.4717222|Ramebäck|posted-content
+gum6|2022|4|Accreditation and Quality Assu|GUM guidance on developing and using measurement models|10.1007/s00769-022-01509-8|van der Veen|journal-article
+gum6|2022|0|Izmeritel`naya Tekhnika|Guide JCGM GUM-6:2020: comments on the translation into Russian|10.32446/0368-1025it.2022-6-9-16|Levin|journal-article
+gum6|2020|21||Guide to the expression of uncertainty in measurement — Part 6: Developing and using  measurement models|10.59161/jcgmgum-6-2020||report
+gum6|2025|6|Measurement: Sensors|JCGM 101-compliant uncertainty evaluation using virtual experiments|10.1016/j.measen.2024.101731|Hughes|journal-article
+gum6|2024|2|Applied Radiation and Isotopes|On the significance of the measurement evaluation method in decision making: A synthesis of JCGM 101 and JCGM 106 applied to gross alpha and|10.1016/j.apradiso.2024.111282|Ramebäck|journal-article
+gum6|2021|1|Measurement: Sensors|Towards correction of the JCGM international vocabulary of metrology|10.1016/j.measen.2021.100063|Kacker|journal-article
+gum6|2016|24|Measurement|Comparing methods for evaluating measurement uncertainty given in the JCGM ‘Evaluation of Measurement Data’ documents|10.1016/j.measurement.2016.08.015|Stant|journal-article
+gum6|2026|0|Measurement: Interdisciplinary|Developing Short Forms of the Fisher Temperament Inventory: A Comparative Study Using Machine Learning Models|10.1080/15366367.2026.2714400|Doğan|journal-article
+gum6|2025|0|2025 Annual Reliability and Ma|Developing Measurement Models Using Bayesian Neural Networks|10.1109/rams48127.2025.10935089|Heidary|proceedings-article
+gum6|2017|150|Measurement|Developing novel models using neural networks and fuzzy systems for the prediction of strength of rocks from key geomechanical properties|10.1016/j.measurement.2017.01.043|Sharma|journal-article
+gum6|2020|0|Using and Developing Measureme|Essential Concepts and Skills for Using and Developing Measurement Instruments|10.1108/978-1-64113-936-620251002||book-chapter
+gum6|2014|5|Measurement Science Review|Linear Mixed Models: Gum and Beyond|10.2478/msr-2014-0009|Arendacká|journal-article
+gum6|2025|0|Measurement: Sensors|Setting up a new, reliable and traceable current output specification for a Rotamass TI Coriolis mass flow meter by applying JCGM 100:2008|10.1016/j.measen.2024.101576|Wild|journal-article
+gum6|2020|0|Using and Developing Measureme|Approaches to Developing Measurement Instruments|10.1108/978-1-64113-936-620251003||book-chapter
+gum6|2020|19|Metrologia|Guidance on Bayesian uncertainty evaluation for a class of GUM measurement models|10.1088/1681-7575/abb065|Demeyer|journal-article
+gum6|2024|3|Measurement: Interdisciplinary|Uncertainty in Artificial Neural Network Models: Monte-Carlo Simulations Beyond the GUM Boundaries|10.1080/15366367.2023.2246112|Sadek|journal-article
+gum6|2024|0|Panamerican Mathematical Journ|Improving Employment Survey Estimates in Data-Scarce Regions Using Dynamic Bayesian Hierarchical Models: Addressing Measurement Challenges i|10.52783/pmj.v34.i4.5584|Dharmateja Priyadarshi Uddandarao,|journal-article
+gum6|2022|9|Measurement|Determination of experimental uncertainties in tensile properties of additively manufactured polymers using the GUM method|10.1016/j.measurement.2022.111726|El Fazani|journal-article
+gum6|2021|0||Cultivating Students’ STEAM Competence in STEAM Education: Constructing Models and Developing Measurement Scale in Chinese primary school|10.31124/advance.13502217.v1|chen|posted-content
+gum6|2021|0||Cultivating Students’ STEAM Competence in STEAM Education: Constructing Models and Developing Measurement Scale in Chinese primary school|10.31124/advance.13502217.v2|chen|posted-content
+possolo|2014|21|Metrologia|Statistical models and computation to evaluate measurement uncertainty|10.1088/0026-1394/51/4/s228|Possolo|journal-article
+possolo|2026|0|Mathematical and Computational|252 Selection and validation of statistical measurement models|10.1515/9783111537047-002|Possolo|book-chapter
+possolo|2020|6||Evaluating, Expressing, and Propagating Measurement Uncertainty for NIST Reference Materials|10.6028/nist.sp.260-202|Possolo|report
+possolo|2014|26|Metrologia|Evaluating the uncertainty of input quantities in measurement models|10.1088/0026-1394/51/3/339|Possolo|journal-article
+possolo|2015|81||Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results|10.6028/nist.tn.1900|Possolo|report
+possolo|2025|12|Metrologia|Measurement uncertainty redefined|10.1088/1681-7575/adfb80|Possolo|journal-article
+possolo|2022|2|Ukrainian Metrological Journal|Redefining Standard Measurement Uncertainty|10.24027/2306-7039.1.2022.258815|Possolo|journal-article
+possolo|2018|12|Metrologia|Approximate Bayesian evaluations of measurement uncertainty|10.1088/1681-7575/aaa5be|Possolo|journal-article
+possolo|2021|3|Frontiers in Statistical Quali|Concepts, Methods, and Tools Enabling Measurement Quality|10.1007/978-3-030-67856-2_19|Possolo|book-chapter
+possolo|2023|7|Statistical Science|Tracking Truth Through Measurement and the Spyglass of Statistics|10.1214/23-sts899|Possolo|journal-article
+possolo|2026|0|Discover Computing|Robust statistical learning and risk measurement models under uncertainty conditions|10.1007/s10791-026-10519-w|Cheng|journal-article
+possolo|2018|0|Series on Advances in Mathemat|Measurement models|10.1142/9789813274303_0007|Possolo|book-chapter
+possolo|2016|7|Journal of Physics: Conference|The NIST<i>Simple Guide</i>for Evaluating and Expressing Measurement Uncertainty|10.1088/1742-6596/772/1/012024|Possolo|journal-article
+possolo|2015|7|Metrologia|Introducing a
+                    <i>Simple Guide</i>
+                    for the evaluation and expression of the uncertainty of NIST measu|10.1088/0026-1394/53/1/s17|Possolo|journal-article
+possolo|2017|55|Review of Scientific Instrumen|Invited Article: Concepts and tools for the evaluation of measurement uncertainty|10.1063/1.4974274|Possolo|journal-article
+possolo|2024|27|Pure and Applied Chemistry|A brief guide to measurement uncertainty (IUPAC Technical Report)|10.1515/pac-2022-1203|Possolo|journal-article
+possolo|2024|0|Measurement Uncertainties|6 Measurement uncertainty concepts|10.1515/9783111453712-006||book-chapter
+possolo|2021|10|Metrologia|Uncertainty evaluations from small datasets|10.1088/1681-7575/abd372|Stoudt|journal-article
+possolo|2016|1|Uncertainty|Statistical and Physical Models|10.1007/978-3-319-39756-6_9|Briggs|book-chapter
+possolo|2026|1||Evaluation of measurement data — Guide to the expression of uncertainty in measurement. AMENDMENT 1: Nonlinearity in measurement models|10.59161/ppdi3267||report
+possolo|2020|21||Guide to the expression of uncertainty in measurement — Part 6: Developing and using  measurement models|10.59161/jcgmgum-6-2020||report
+possolo|2022|4|Accreditation and Quality Assu|GUM guidance on developing and using measurement models|10.1007/s00769-022-01509-8|van der Veen|journal-article
+possolo|2026|0||When Historical Models Fail under Geopolitical Uncertainty, Dynamic Implied Probability Outperforms the Statistical Parametric Models|10.2139/ssrn.6803478|Babaei|posted-content
+possolo|2015|65|NCSLI Measure|The NIST Uncertainty Machine|10.1080/19315775.2015.11721732|Lafarge|journal-article
+possolo|2024|0|Measurement Uncertainties|3 Measurement models|10.1515/9783111453712-003||book-chapter
+shortest|2018|0|Experimentation, Validation, a|APPENDIX D: SHORTEST COVERAGE INTERVAL FOR MONTE CARLO METHOD|10.1002/9781119417989.app4||other
+shortest|2020|0|Proceedings of the 2020 AERA A|A Monte Carlo Study of Confidence Interval Coverage for Variance Components in Multilevel Models|10.3102/1574627|Jia|proceedings-article
+shortest|2026|0|International Journal of Appro|Computing interval-valued coverage probability maps via Monte Carlo method and set-based evaluation|10.1016/j.ijar.2026.109764|Esnault|journal-article
+shortest|2024|2|Networks|Monte Carlo tree search for dynamic shortest‐path interdiction|10.1002/net.22243|Bochkarev|journal-article
+shortest|2024|3|2024 International Conference |Neuromorphic Monte Carlo Tree Search Methods for Shortest Path Interdiction|10.1109/icons62911.2024.00053|Ho|proceedings-article
+shortest|2025|0||The effects of host phylogenetic coverage and congruence metric on Monte Carlo-based null models of phylosymbiosis|10.1101/2025.02.07.637028|DuBose|posted-content
+shortest|2021|1||Rigid-compliant hybrid variation analysis using Monte Carlo interval approach for low-rigidity aircraft structure assembly|10.21203/rs.3.rs-339802/v1|Mei|posted-content
+shortest|2020|0|Food Webs and Niche Space. (MP|Frequencies of Interval Food Webs in Observed and Monte Carlo Samples|10.2307/j.ctvx5wc04.10||book-chapter
+shortest|2018|23|Advances in Engineering Softwa|Interval identification of structural parameters using interval overlap ratio and Monte Carlo simulation|10.1016/j.advengsoft.2018.04.006|Deng|journal-article
+shortest|2022|0|Proceedings of the 2022 AERA A|A Monte Carlo Study of Confidence Interval Methods for Generalizability Coefficient (Poster 3)|10.3102/1882176|Jiang|proceedings-article
+shortest|2023|3|AIAA SCITECH 2023 Forum|Multi-Agent Assisted Shortest Path Planning using Monte Carlo Tree Search|10.2514/6.2023-2655|Bhadoriya|proceedings-article
+shortest|2019|3|International Journal of Compu|Interval Identification of Structural Parameters Using Interval Deviation Degree and Monte Carlo Simulation|10.1142/s0219876218501037|Guo|journal-article
+shortest|2020|0|Food Webs and Niche Space. (MP|CHAPTER FIVE. Frequencies of Interval Food Webs in Observed and Monte Carlo Samples|10.12987/9780691209449-008||book-chapter
+shortest|2022|0|Monte-Carlo-Simulation im Risi|4 Monte-Carlo-Simulation|10.24053/9783739882000-53||book-chapter
+shortest|2015|0|2015 IEEE International Confer|Comparison of interval grey numbers based on the Monte Carlo method|10.1109/gsis.2015.7301831|Xinhai Kong|proceedings-article
+shortest|2025|1|Peer Community Journal|The effects of host phylogenetic coverage and congruence metric on Monte Carlo-based null models of phylosymbiosis|10.24072/pcjournal.667|DuBose|journal-article
+shortest|2026|0|Applied Sciences|A Risk-Based Universal Calibration Interval Model Using Monte Carlo Simulation|10.3390/app16052230|Malakhov|journal-article
+shortest|2016|0|Monte Carlo Techniques in Radi|History of Monte Carlo|10.1201/b13961-10||book-chapter
+shortest|2019|0|Proceedings of the 29th Europe|Towards an Interval Particle Transport Monte Carlo Method|10.3850/978-981-11-2724-3_0035-cd|Gray|proceedings-article
+shortest|2022|0|Monte-Carlo-Simulation im Risi|5 Monte-Carlo-Simulation mit dem Excel-Add-In Risk Kit am Beispiel der Monte-Carlo STAHL AG|10.24053/9783739882000-63||book-chapter
+shortest|2016|0|Quantum Monte Carlo Methods|Variational Monte Carlo|10.1017/cbo9780511902581.010||book-chapter
+shortest|2016|0|Quantum Monte Carlo Methods|Monte Carlo basics|10.1017/cbo9780511902581.003||book-chapter
+shortest|2018|0|Randomization, Bootstrap and M|Monte Carlo Methods|10.1201/9781315273075-11||book-chapter
+shortest|2016|0|An Introduction to Quantum Mon|Path-integral Monte Carlo|10.1088/978-1-6817-4109-3ch6|Pang|book-chapter
+shortest|2016|0|Quantum Monte Carlo Methods|Quantum Monte Carlo primer|10.1017/cbo9780511902581.006||book-chapter
+mcmstop|2026|0||Randomised Quasi-Monte Carlo in Quantitative Finance: From Error Estimation to Adaptive Numerical Control|10.2139/ssrn.7462018|Meng|posted-content
+mcmstop|2018|10|tm - Technisches Messen|Development of a virtual metrological CT for numerical measurement uncertainty determination using aRTist 2|10.1515/teme-2018-0044|Wohlgemuth|journal-article
+mcmstop|2026|1|Monte Carlo Methods and Applic|Sequential stopping rules malfunctioning|10.1515/mcma-2026-3018|Kawai|journal-article
+mcmstop|2026|0|DEEP LEARNING IN QUANTITATIVE |Deep Monte Carlo and Optimal Stopping|10.1002/9781119685289.ch13||other
+mcmstop|2026|0|Monte Carlo Integration with M|Monte Carlo and Numerical Integration Methods|10.1002/9781394407101.ch1||other
+mcmstop|2018|0|Advanced Simulation-Based Meth|Dual Monte Carlo Algorithms for Optimal Stopping|10.1057/978-1-137-03351-2_12|Belomestny|book-chapter
+mcmstop|2016|70|Journal of Computational and G|A Practical Sequential Stopping Rule for High-Dimensional Markov Chain Monte Carlo|10.1080/10618600.2015.1044092|Gong|journal-article
+mcmstop|2024|2||Topological Reinforcement Adaptive Algorithm (TOREADA) Application to Alerting of Convulsive Seizures and Validation with Monte-Carlo Numeri|10.20944/preprints202410.1257.v1|Kalitzin|posted-content
+mcmstop|2026|0||Pricing American-Style Arithmetic Asian Options: Longstaff-Schwartz Least-Squares Monte Carlo versus Deep Optimal Stopping|10.2139/ssrn.6946838|Shamyradov|posted-content
+mcmstop|2016|18|Applied Radiation and Isotopes|Application of GUM Supplement 1 to uncertainty of Monte Carlo computed efficiency in gamma-ray spectrometry|10.1016/j.apradiso.2015.11.097|Sima|journal-article
+mcmstop|2018|0|Journal Scientific and Applied|A NUMERICAL STUDY ON QUASI MONTE CARLO METHODS BASED ON RANDOMLY SHIFTED LATTICE RULE FOR COMPUTATION OF MULTIPLE INTEGRALS|10.46687/jsar.v13i1.234||journal-article
+mcmstop|2023|0|Hamiltonian Monte Carlo Method|Adaptive noncanonical Hamiltonian Monte Carlo|10.1016/b978-0-44-319035-3.00020-3|Marwala|book-chapter
+mcmstop|2023|0|Hamiltonian Monte Carlo Method|Adaptive Shadow Hamiltonian Monte Carlo|10.1016/b978-0-44-319035-3.00019-7|Marwala|book-chapter
+mcmstop|2016|0|Quality by Experimental Design|Monte Carlo Simulation and Tolerance Design|10.1201/b19616-34||book-chapter
+mcmstop|2026|0||Adaptive Rule-Based Withdrawal with Sequence Awareness and Dynamic Flooring: A Multi-Mechanism Retirement Spending Strategy — Historical (19|10.2139/ssrn.7166879|Chen|posted-content
+mcmstop|2025|0||Managing concurrency for high throughput adaptive kinetic monte carlo|10.1021/scimeetings.5c11344|Goswami|posted-content
+mcmstop|2018|0|Advanced Simulation-Based Meth|Elementary Monte Carlo Methods|10.1057/978-1-137-03351-2_2|Belomestny|book-chapter
+mcmstop|2024|0|Algorithms|Topological Reinforcement Adaptive Algorithm (TOREADA) Application to the Alerting of Convulsive Seizures and Validation with Monte Carlo Nu|10.3390/a17110516|Kalitzin|journal-article
+mcmstop|2019|5|Mathematics and Computers in S|Adaptive stratified Monte Carlo algorithm for numerical computation of integrals|10.1016/j.matcom.2018.10.004|Sayah|journal-article
+mcmstop|2016|3|Springer Proceedings in Mathem|Non-nested Adaptive Timesteps in Multilevel Monte Carlo Computations|10.1007/978-3-319-33507-0_14|Giles|book-chapter
+mcmstop|2015|7|Statistica Sinica|Relative fixed-width stopping rules for Markov chain Monte Carlo simulations|10.5705/ss.2013.209|M.Flegal|journal-article
+mcmstop|2015|0|A Student's Guide to Numerical|Monte Carlo techniques|10.1017/cbo9781316155516.012||book-chapter
+mcmstop|2022|4|International Journal of Appro|Monte Carlo and quasi-Monte Carlo methods for Dempster's rule of combination|10.1016/j.ijar.2022.03.008|Salehy|journal-article
+mcmstop|2022|1|International Journal of Engin|Comparison of GUM and Monte Carlo Methods for the Measurement Uncertainty Circular Runout Error of Shafts|10.7763/ijet.2022.v14.1199|Ounjutturaporn|journal-article
+mcmstop|2018|0|Tolerance Analysis of Electron|Fast Monte Carlo Analysis (FMCA)|10.1201/9781315215402-34||book-chapter
+uncbias|2026|0|Analytica Chimica Acta|Measurement uncertainty evaluation from analytical validation data: Asymmetric coverage interval due to uncorrected significant bias|10.1016/j.aca.2026.346327|do Nascimento Maranho|journal-article
+uncbias|2017|7|Accreditation and Quality Assu|How to encompass an uncorrected bias into the expanded uncertainty with a fixed coverage probability: calculation procedures|10.1007/s00769-017-1268-6|Synek|journal-article
+uncbias|2026|0||Verifiable Witness Rules for Shot Peening: Strip Bias, Uncertainty, Raster Ripple and Coverage Sampling|10.20944/preprints202610.0714.v3|Levers|posted-content
+uncbias|2026|0||Verifiable Witness Rules for Shot Peening: Strip Bias, Uncertainty, Raster Ripple and Coverage Sampling|10.20944/preprints202610.0714.v1|Levers|posted-content
+uncbias|2026|0||Verifiable Witness Rules for Shot Peening: Strip Bias, Uncertainty, Raster Ripple and Coverage Sampling|10.20944/preprints202610.0714.v2|Levers|posted-content
+uncbias|2018|0|Experimentation, Validation, a|APPENDIX D: SHORTEST COVERAGE INTERVAL FOR MONTE CARLO METHOD|10.1002/9781119417989.app4||other
+uncbias|2014|7|Measurement|Methods for calculating the coverage interval based on the Flatten–Gaussian distribution|10.1016/j.measurement.2014.05.006|Fotowicz|journal-article
+uncbias|2025|4|SoftwareX|AsymIntervals: A Python library for uncertainty modeling with asymmetric interval numbers|10.1016/j.softx.2025.102380|Sałabun|journal-article
+uncbias|2018|0||An Interval Variables Approach to Address Measurement Uncertainty in Governance Indicators|10.2139/ssrn.3116886|Drago|posted-content
+uncbias|2015|0|Clinical Trials|Avoiding bias and incorrect confidence interval coverage in prescription drug labeling|10.1177/1740774515615097|Levin|journal-article
+uncbias|2016|60|Measurement|Uncertainty measure for interval-valued belief structures|10.1016/j.measurement.2015.11.032|Song|journal-article
+uncbias|2016|3|Measurement|The numerical method for the coverage interval determination in the conducted emission measurements|10.1016/j.measurement.2016.05.052|Kovačević|journal-article
+uncbias|2019|19|Clinica Chimica Acta|Bias in analytical chemistry: A review of selected procedures for incorporating uncorrected bias into the expanded uncertainty of analytical|10.1016/j.cca.2019.03.1633|Frenkel|journal-article
+uncbias|2019|1|e-Journal of Nondestructive Te|Uncertainty for uncorrected measurement results in X-ray computed tomography|10.58286/23641||journal-article
+uncbias|2025|13|Fuzzy Sets and Systems|Asymmetric interval numbers: A new approach to modeling uncertainty|10.1016/j.fss.2024.109169|Sałabun|journal-article
+uncbias|2025|7|Measurement|Unknown input uncertainty calculation using virtual input shaping and interval analysis|10.1016/j.measurement.2024.116140|Hernandez|journal-article
+uncbias|2023|0|Entrepreneurship in the Third |Risk Measurement and Coverage|10.4324/9781003407904-5|Altaf|book-chapter
+uncbias|2017|12|2017 American Control Conferen|Interval predictor models for data with measurement uncertainty|10.23919/acc.2017.7963163|Lacerda|proceedings-article
+uncbias|2026|0|Measurement|AI-accelerated finite-size scaling for evaluating asymmetric epistemic uncertainty in digital quantum metrology standards|10.1016/j.measurement.2026.122683|Pulikkotil|journal-article
+uncbias|2020|1|2020 Chinese Control And Decis|Research on calibration method of interval velocity measurement system and uncertainty evaluation of measurement results|10.1109/ccdc49329.2020.9164605|Wu|proceedings-article
+uncbias|2026|0|Educational Measurement: Issue|An Educational Measurement Perspective on Dealing with Uncertainty and Bias in Classroom Formative Assessment|10.1111/emip.70031|Bennett|journal-article
+uncbias|2018|20|Measurement|Uncertainty and bias in electronic tide-gauge records: Evidence from collocated sensors|10.1016/j.measurement.2018.05.012|Pytharouli|journal-article
+uncbias|2022|0||Measurement Uncertainty Interval In Case of a Known Relationship between Precision and Mean|10.20944/preprints202208.0179.v1|Uhlig|posted-content
+uncbias|2026|0|Measurement Science and Techno|On the construction of probability-symmetric measurement uncertainty intervals for asymmetric distributions|10.1088/1361-6501/ae6e91|Kotsiuba|journal-article
+uncbias|2024|6|Measurement|Transferable intervalization and midpoint de-mixing interval independent component analysis for industrial fault detection under data uncert|10.1016/j.measurement.2024.115025|Zhang|journal-article
+recovery|2026|3||Evaluation of measurement uncertainty from in-house precision and recovery data|10.56526/2026.0005||edited-book
+recovery|2019|2||Traceability, Validation and Measurement Uncertainty in Chemistry: Vol. 3|10.1007/978-3-030-20347-4||book
+recovery|2022|6|Analytical Letters|Spatial Modelling of Concentration in Topsoil Using Random and Systematic Uncertainty Components: Comparison against Established Techniques|10.1080/00032719.2022.2050383|Bettencourt da Silva|journal-article
+recovery|2026|0|Talanta|User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty|10.1016/j.talanta.2026.130826|Bettencourt da Silva|journal-article
+recovery|2019|12|Analytical Chemistry|Assessment of the Quality of Doping Substances Identification in Urine by GC/MS/MS|10.1021/acs.analchem.9b00560|Narciso|journal-article
+recovery|2023|11|Food Chemistry|Bottom-up uncertainty evaluation of complex measurements from correlated performance data: Determination of total Cr in yeast by ICP-MS afte|10.1016/j.foodchem.2022.134466|Pluháček|journal-article
+recovery|2018|6|Measurement|Uncertainty evaluation of alkalinity measurements on seawater samples|10.1016/j.measurement.2018.07.042|Anes|journal-article
+recovery|2021|47|Talanta|Microplastics identification by infrared spectroscopy – Evaluation of identification criteria and uncertainty by the Bootstrap method|10.1016/j.talanta.2020.121814|Morgado|journal-article
+recovery|2022|0||Optimisation of the Uncertainty of Oil Spill Identification from Replicate Comparative Analyses: Comparison of Standardised and Novel Identi|10.2139/ssrn.4136113|Rocha|posted-content
+recovery|2024|0|Analytical Methods|Combining method validation data with additional information for measurement uncertainty evaluation – determination of melatonin content in |10.1039/d4ay01468e|Gutiérrez-Fernández|journal-article
+recovery|2022|12|Analytical Letters|Setting Multivariate and Correlated Acceptance Limits for Assessing the Conformity of Items|10.1080/00032719.2022.2042549|Bettencourt da Silva|journal-article
+recovery|2020|21|Chemosphere|Monte Carlo bottom-up evaluation of global instrumental quantification uncertainty: Flexible and user-friendly computational tool|10.1016/j.chemosphere.2020.127285|Morgado|journal-article
+recovery|2025|1|Chemometrics and Intelligent L|Sound uncertainty-based strategy for oil spill source identification|10.1016/j.chemolab.2024.105275|Rocha|journal-article
+recovery|2023|4|Chemosphere|Evaluation of temporal trends and correlations of physical-chemical parameters in vast oceanic areas robust to information uncertainty|10.1016/j.chemosphere.2022.137597|Borges|journal-article
+recovery|2019|0|Traceability, Validation and M|Measurement of Total Reactive Phosphorus in Natural Water by Molecular Spectrophotometry (SMEWW 4500-P D)|10.1007/978-3-030-20347-4_1|Bettencourt da Silva|book-chapter
+recovery|2019|20|Analytica Chimica Acta|Standard addition method with cumulative additions: Monte Carlo uncertainty evaluation|10.1016/j.aca.2019.02.002|Dadamos|journal-article
+recovery|2021|11|Analytica Chimica Acta|Monte Carlo bottom-up evaluation of the uncertainty of complex sample preparation: Elemental determination in sediments|10.1016/j.aca.2021.338732|Morgado|journal-article
+recovery|2022|5|Chemosphere|Optimisation of the uncertainty of oil spill identification from replicate comparative analyses: Comparison of standardised and novel identi|10.1016/j.chemosphere.2022.136201|Rocha|journal-article
+recovery|2020|22|Talanta|Measurement uncertainty evaluation from correlated validation data: Determination of elemental impurities in pharmaceutical products by ICP-|10.1016/j.talanta.2020.121386|Milde|journal-article
+recovery|2024|0|Journal of AOAC International|Simplified and Detailed Evaluations of the Uncertainty of the Measurement of Microbiological Contamination of Pharmaceutical Products|10.1093/jaoacint/qsae044|Lourenço|journal-article
+recovery|2015|1|Accreditation and Quality Assu|Eurachem workshop on quality in analytical measurements: from specification to decision|10.1007/s00769-015-1103-x|Bettencourt da Silva|journal-article
+recovery|2021|104|Talanta|Validated spreadsheet for the identification of PE, PET, PP and PS microplastics by micro-ATR-FTIR spectra with known uncertainty|10.1016/j.talanta.2021.122624|Morgado|journal-article
+recovery|2023|9|Science of The Total Environme|Determination of microplastic contamination levels and trends in vast oceanic sediment areas with uncertainty|10.1016/j.scitotenv.2023.163612|Morgado|journal-article
+recovery|2026|1|Analytical and Bioanalytical C|Weighted simulations redefining quadratic calibration: democratisation of analytical uncertainty evaluation|10.1007/s00216-026-06638-4|Lourenço|journal-article
+recovery|2019|20|Regulatory Toxicology and Phar|Measurement uncertainty for the potency estimation by rapid microbiological methods (RMMs) with correlated data|10.1016/j.yrtph.2019.01.023|Saviano|journal-article
+robanova|2023|0|Fen Eğitimi Araştırmalarına Gü|Tekrarlı Ölçümlerde Tek Faktörlü Varyans Analizi-Ranova (Repeated Measures-Analysis Of Variance)|10.37609/akya.2296.c20308|Dökme|book-chapter
+robanova|2016|4|Environmental Monitoring and A|Heterogeneous areas—identification of outliers and calculation of soil sampling uncertainty using the modified RANOVA method|10.1007/s10661-016-5584-9|Dołęgowska|journal-article
+robanova|2025|0||Robust Sampling Uncertainty Quantification for Multilevel Monte Carlo Risk Assessment|10.2139/ssrn.5345438|Sharifnia|posted-content
+robanova|2026|0||A Robust Variance Bound on Stochastic Discount Factors under Model Uncertainty&amp;nbsp;|10.2139/ssrn.7546962|Jia|posted-content
+robanova|2020|0|Entropy|A Robust Solution to Variational Importance Sampling of Minimum Variance|10.3390/e22121405|Hernández-González|journal-article
+robanova|2020|0||Sampling Variance|10.4135/9781036254599||database
+robanova|2022|1|CRAN: Contributed Packages|rofanova: Robust Functional Analysis of Variance|10.32614/cran.package.rofanova|Centofanti|dataset
+robanova|2026|0|Mathematics|Estimation-Robust Minimum-Variance Portfolio Allocation Under Factor-Loading Uncertainty|10.3390/math14203743|Carvalho|journal-article
+robanova|2019|0|Sampling|Variance Estimation in Complex Surveys|10.1201/9780429296284-9|Lohr|book-chapter
+robanova|2021|0|Sampling|Variance Estimation in Complex Surveys|10.1201/9780429298899-9|Lohr|book-chapter
+robanova|2026|0|CRAN: Contributed Packages|metaLong: Longitudinal Meta-Analysis with Robust Variance Estimation and Sensitivity Analysis|10.32614/cran.package.metalong|Hait|dataset
+robanova|2026|0|International Journal of Uncer|Uncertainty based new class of neutrosophic estimators of population variance using simple random sampling|10.1142/s0218488527500036|Kumar|journal-article
+robanova|2022|8|ASCE-ASME Journal of Risk and |Novel Kriging-Based Variance Reduction Sampling Method for Hybrid Reliability Analysis with Small Failure Probability|10.1061/ajrua6.0001231|Hong|journal-article
+robanova|2021|13|Knowledge-Based Systems|A robust elastic net via bootstrap method under sampling uncertainty for significance analysis of high-dimensional design problems|10.1016/j.knosys.2021.107117|Kim|journal-article
+robanova|2017|24|Economic Modelling|Robust minimum variance portfolio optimization modelling under scenario uncertainty|10.1016/j.econmod.2017.03.020|Xidonas|journal-article
+robanova|2019|105|2019 IEEE/CVF International Co|Sampling-Free Epistemic Uncertainty Estimation Using Approximated Variance Propagation|10.1109/iccv.2019.00302|Postels|proceedings-article
+robanova|2026|0|Actuators|Robust Sampling-Based Control for Elastic Lattices with Parameter Uncertainty|10.3390/act15110556|Jnadi|journal-article
+robanova|2018|36|2018 IEEE/RSJ International Co|Distributionally Robust Sampling-Based Motion Planning Under Uncertainty|10.1109/iros.2018.8593893|Summers|proceedings-article
+robanova|2025|0|Volume 3B: 51st Design Automat|Online Surrogate Sampling-Based Multi-Objective Robust Optimization With Interval Uncertainty|10.1115/detc2025-169724|Jordan|proceedings-article
+robanova|2025|0||Uncertainty-Aware Adaptive Sampling in Mppi for Robust Uav Path-Following|10.2139/ssrn.5379239|Yoon|posted-content
+robanova|2019|2|International Journal for Unce|A WEIGHT-BOUNDED IMPORTANCE SAMPLING METHOD FOR VARIANCE REDUCTION|10.1615/int.j.uncertaintyquantification.2019029511|Yu|journal-article
+robanova|2017|0|Illuminating Statistical Analy|Sample Size, Variance, and Uncertainty|10.1002/9781119296386.ch26||other
+robanova|2015|7|2015 IEEE International Confer|Robust minimum variance beamforming under distributional uncertainty|10.1109/icassp.2015.7178424|Zhang|proceedings-article
+robanova|2019|0|Robust Regression|Residuals in Variance-Component Models|10.1201/9780203740538-7|Fellner|book-chapter
+robanova|2020|16|Sensors|Robust Parking Path Planning with Error-Adaptive Sampling under Perception Uncertainty|10.3390/s20123560|Lee|journal-article
+cg18|2019|1|ACTA IMEKO|EURAMET cg-18 – state-of-the-art calibration guideline for non-automatic weighing instruments|10.21014/acta_imeko.v8i3.655|Fritsch|journal-article
+cg18|2019|0|19th International Congress of|News on the Calibration of Non-Automatic Weighing Instruments|10.1051/metrology/201927002|Medina|proceedings-article
+cg18|2014|1|2014 International Conference |Evolution in calibration of electronic non-automatic weighing instruments|10.1109/icepe.2014.6970005|Popa|proceedings-article
+cg18|2017|1|18th International Congress of|Traceable calibration of automatic weighing instruments in dynamic operation|10.1051/metrology/201714001|Grum|proceedings-article
+cg18|2025|0|Measuring Equipment and Metrol|PRACTICAL ISSUES IN THE CONFORMITY ASSESSMENT OF NON-AUTOMATIC WEIGHING INSTRUMENTS|10.23939/istcmtm2025.01.042||journal-article
+cg18|2021|0|Metrology and Measurement Syst|Metrological equipment for verification and calibration of non-automatic weighing instruments – axle and crane weighting instrument|10.24425/mms.2021.136615|Gajdosik|journal-article
+cg18|2014|0||Recommendation 50:2014 - Continuous totalizing automatic weighing instruments (belt weighers)|10.63493/r050.2014.en||reference-book
+cg18|2020|0||Recommendation 150:2020 - Continuous totalizing automatic weighing instruments of the arched chute type|10.63493/r150.2020.en||reference-book
+cg18|2017|0||Recommendation 61:2017 - Automatic gravimetric filling instruments|10.63493/r061.2017.en||reference-book
+cg18|2015|0|NCSL International Workshop &a|Calibrating Non-Automatic Weighing Instruments - Recent Developments with Regards to Global Harmonization|10.51843/wsproceedings.2015.23||proceedings-article
+cg18|2018|4|MATEC Web of Conferences|Traceable calibration of automatic weighing instruments operating in dynamic mode|10.1051/matecconf/201818202005|Sarnecki|journal-article
+cg18|2014|0||Recommendation 50 - Continuous totalizing automatic weighing instruments (belt weighers)|10.63493/r050||reference-book
+cg18|2025|0|Proceedings of the IMEKO TC6 C|Measurement Data and Information of Non-Automatic Weighing Instruments as Structured Data|10.21014/tc6-2025.054|Sheveleva|proceedings-article
+cg18|2020|0||Recommendation 150 - Continuous totalizing automatic weighing instruments of the arched chute type|10.63493/r150||reference-book
+cg18|2015|1|NCSLI Measure|Calibration of Weighing Instruments: Measurement Uncertainty, Minimum Weight and the Safe Weighing Range|10.1080/19315775.2015.11721736|Fritsch|journal-article
+cg18|2014|0|Recommendation 50:2014 - Conti|Recommendation 50:2014 - Part 2 Test procedures|10.63493/r050-2.2014.en||book-section
+cg18|2014|0|Recommendation 50:2014 - Conti|Recommendation 50:2014 - Part 3 Test report format|10.63493/r050-3.2014.en||book-section
+cg18|2014|0|Recommendation 50:2014 - Conti|Recommendation 50:2014 - Part 1 Metrological and technical requirements|10.63493/r050-1.2014.en||book-section
+cg18|2017|2||Guideline for automatic guided vehicle calibration|10.6028/nist.ir.8168|Legowik|report
+cg18|2026|0|AIP Conference Proceedings|Optimizing temperature sensors for water quality monitoring: A performance comparison using the EURAMET CG-13 calibration method|10.1063/5.0337964|Yuniarti|proceedings-article
+cg18|2025|0|150th anniversary of the Metre|A NEW CALIBRATION METHOD TO SUPPORT SMALL MASS MEASUREMENTS - SIM GUIDELINES ON THE CALIBRATION OF NON-AUTOMATIC WEIGHING INSTRUMENTS WITH R|10.59161/xain8481|Preste|proceedings-article
+cg18|2020|0|Recommendation 150:2020 - Cont|Recommendation 150:2020 - Part 2 Test procedures|10.63493/r150-2.2020.en||book-section
+cg18|2020|0|Recommendation 150:2020 - Cont|Recommendation 150:2020 - Part 3 Test report format|10.63493/r150-3.2020.en||book-section
+cg18|2020|0|Journal of Engineering Science|Non-Automatic Weighing Instruments Calibration: Parametric Methods for Outliers Assessments|10.25103/jestr.135.20||journal-article
+cg18|2020|0|Recommendation 150:2020 - Cont|Recommendation 150:2020 - Part 1 Metrological and technical requirements|10.63493/r150-1.2020.en||book-section
+decisionrules|2026|0||Implementation of ISO/IEC 17025 in Industrial Laboratory Systems: Impact of Measurement Uncertainty on Conformity Assessment Decisions — A C|10.2139/ssrn.6123646|alhihi|posted-content
+decisionrules|2016|0|NCSL International Workshop &a|Conformance Decision Rules to Support ISO/IEC CD2 17025 Under Revision|10.51843/wsproceedings.2016.32||proceedings-article
+decisionrules|2017|0|Métier : responsable qualité|ISO/CEI 17025|10.51257/a-v1-fic1594|MÉRAS|journal-article
+decisionrules|2026|0|Herald of Azerbaijan Engineeri|Comparative Study of Calibration and Measurement Resource Management in ISO/IEC 17025 and ISO 9001 Systems|10.52171/herald.419|Aliyev|journal-article
+decisionrules|2018|0|Allgemeine Anforderungen an di|Anlage 1  Querverweise der DIN EN ISO/IEC 17025:2018 zur DIN EN ISO/IEC 17025:2005|10.5771/9783410275855-191||book-chapter
+decisionrules|2019|0|Qualité et sécurité au laborat|Évolutions de la norme ISO/IEC 17025:2017|10.51257/a-v1-sl2005|LEBLOIS|journal-article
+decisionrules|2023|0|The International Journal of C|Risks and Opportunities: An Assessor’s Perspective of ISO/IEC 17025 Expectations|10.55459/ijca/v2i1/scsr|Rajan|journal-article
+decisionrules|2024|0|Handbook of Quality System, Ac|Intersection Between Requirements of OECD-GLP, GCLP, and ISO/IEC 17025, ISO 15189 Standards|10.1007/978-981-97-5750-3_63|Feller|book-chapter
+decisionrules|2024|1|Handbook of Quality System, Ac|Intersection Between Requirements of OECD-GLP, GCLP, and ISO/IEC 17025, ISO 15189 Standards|10.1007/978-981-99-4637-2_63-2|Feller|book-chapter
+decisionrules|2018|2|Analytics|The concept of the new version of ISO / IEC 17025:2017|10.22184/2227-572x.2018.40.3.290.294|Eroshina|journal-article
+decisionrules|2024|1|IEEEP New Horizons Journal|Evaluation of Measurement Uncertainty for Testing &amp; Calibration laboratories as per ISO/ IEC 17025:2017 standard requirements|10.61514/ieeep.v103i2.173|Tariq|journal-article
+decisionrules|2018|1|Analytics|New edition of ISO/IEC 17025:2017. What changed?|10.22184/2227-572x.2018.40.3.296.299|Matveev|journal-article
+decisionrules|2017|0|NCSL International Workshop &a|Decision Rule Reporting to Comply with [Revised] ISO/IEC 17025|10.51843/wsproceedings.2017.25||proceedings-article
+decisionrules|2026|0||An automated differential-pressure tester for medical face masks: measurement model, uncertainty budget and conformity decision rules|10.2139/ssrn.7611596|Intra|posted-content
+decisionrules|2024|0|Handbook of Quality System, Ac|The Intersection Between Quality and Professional Management Requirements in Test Facilities Operating According to OECD-GLP Principles, GCL|10.1007/978-981-99-4637-2_63-1|Feller|book-chapter
+decisionrules|2025|0|The International Journal of C|Evaluation of the Capability of Generative AI to Interpret and Provide Guidance on the Application of the ISO/IEC 17025 Standard|10.55459/ijca/v4i1/du|Uribe|journal-article
+decisionrules|2024|0|34th Annual Southern African I|AN EVALUATION OF THE RISK-BASED APPROACH IMPLEMENTATION IN ISO/IEC 17025:2017 CONFORMITY ASSESSMENTS – A CASE STUDY|10.52202/078172-0043|Motsoeneng|proceedings-article
+decisionrules|2018|0|Allgemeine Anforderungen an di|Anlage 2  Checkliste für Laboratorien zur Überprüfung der Einhaltung der Anforderungen der DIN EN ISO/IEC 17025:2018-03|10.5771/9783410275855-195||book-chapter
+decisionrules|2026|0|Polish Journal of Medical Phys|Optimization of a Dosimetric Quality Assurance System for a Medical Linear Accelerator under ISO/IEC 17025 Accreditation: Measurement Stabil|10.2478/pjmpe-2026-0011|Janiszewska|journal-article
+decisionrules|2023|2|Rev. iberoam. bioecon. cambio |Implementación De La Calidad En Los Laboratorios De Ensayos  (ISO/IEC 17025:2017)|10.5377/ribcc.v9i17.15150|Delgado|journal-article
+decisionrules|2023|6|Bakar|Verification and validation of analytical methods in accordance with the ISO/IEC 17025 standard|10.5937/bakar2302025d|Đukić|journal-article
+decisionrules|2025|0|The International Journal of C|Impact of ISO/IEC 17025 Accreditation on Food Safety: Arsenic Speciation and Quality Control of Maize|10.55459/ijca/v4i1/du.iz.vv.sh.mh|Uribe|journal-article
+decisionrules|2026|0|International Journal of Resea|ISO/IEC 17025-Compliant Calibration of Biomedical Equipment: Frameworks, Methods, and Measurement Uncertainty Assessment|10.51584/ijrias.2026.11050086|Hossain|journal-article
+decisionrules|2016|0||OECD İlu İlkeleri ve ISO/IEC 17025 Arasindaki İlişki Konolu OECD Pozisyon Belgesi|10.1787/e09dad3d-tr||monograph
+decisionrules|2024|0|Railbound Rolling Stock|SAMPLING PROCEDURE IN ACCORDANCE WITH THE REQUIREMENTS DSTU EN ISO/IEC 17025:2019. PROBLEMATIC ISSUES AND WAYS TO SOLVE THEM|10.47675/2304-6309-2024-28-63-70||journal-article
+chemuncert|2014|22|Metrologia|Implementing measurement uncertainty for analytical chemistry: the<i>Eurachem Guide</i>for measurement uncertainty|10.1088/0026-1394/51/4/s199|Ellison|journal-article
+chemuncert|2022|4|Measurement|Criticalities of Eurachem/CITAC guide uncertainty of qualitative results|10.1016/j.measurement.2022.110911|Pradella|journal-article
+chemuncert|2025|0|Экологические системы и прибор|КРИТИЧЕСКИЙ ОБЗОР РУКОВОДСТВА "EURACHEM/EUROLAB/CITAC/ NORDTEST/AMC GUIDE: MEASUREMENT UNCERTAINTY ARISING FROM SAMPLING: A GUIDE TO METHODS|10.25791/esip.2.2025.1501|РОЗЕНТАЛЬ О|journal-article
+chemuncert|2025|0|Proceedings of the IMEKO TC8, |Validation of Measurement Procedures that Include Sampling (VaMPIS) – a new Eurachem Guide|10.21014/tc24-2025.030|Ramsey|proceedings-article
+chemuncert|2024|0|Chemistry International|A brief guide to measurement uncertainty (IUPAC Technical Report)|10.1515/ci-2024-0316||journal-article
+chemuncert|2020|3|Analytical Methods|What’s novel in the new Eurachem guide on uncertainty from sampling?|10.1039/d0ay90051f||journal-article
+chemuncert|2026|1||Evaluation of measurement data — Guide to the expression of uncertainty in measurement. AMENDMENT 1: Nonlinearity in measurement models|10.59161/ppdi3267||report
+chemuncert|2024|0|Quantification, Validation and|Measurement Uncertainty and Decision|10.1002/9783527845279.ch8||other
+chemuncert|2022|6|Standards|Eurachem/CITAC Guide “Assessment of Performance and Uncertainty in Qualitative Chemical Analysis”—A Medical Laboratory Perspective|10.3390/standards2020014|Pereira|journal-article
+chemuncert|2024|0|Quantification, Validation and|Measurement Uncertainty in Analytical Sciences|10.1002/9783527845279.ch7||other
+chemuncert|2024|0|Quantification, Validation and|Measurement Uncertainty (<scp>MU</scp>)|10.1002/9783527845279.ch6||other
+chemuncert|2026|0|Brazilian Journal of Analytica|Assessment of Performance and Uncertainty in Qualitative Analytical Chemistry: A Metrological Approach based on the Eurachem/CITAC guide|10.30744/brjac.2179-3425.letter.oliveira.et.al||journal-article
+chemuncert|2021|3|Measurements infrastructure|Planning and Reporting Method Validation Studies Print Email. A Supplement to the Eurachem Guide «The Fitness for Purpose of Analytical Meth|10.33955/v2(2021)-010|Levbarg|journal-article
+chemuncert|2020|1|The Virtual Eurachem Workshop |Measurement Uncertainty and Conformity Assessment in Analytical Measurement—Considerations for the University Curriculum|10.3390/proceedings2020055017|Ellison|proceedings-article
+chemuncert|2019|0|IB Chemistry Revision Guide|Measurement and data processing|10.2307/j.ctvnwc0d0.3||book-chapter
+chemuncert|2026|0|Clinica Chimica Acta|Measurement uncertainty in urine drug analysis: A comparison of ISO/TS 20914 and GUM/Eurachem approaches|10.1016/j.cca.2026.121067|Şeneş|journal-article
+chemuncert|2019|2||Traceability, Validation and Measurement Uncertainty in Chemistry: Vol. 3|10.1007/978-3-030-20347-4||book
+chemuncert|2019|0|Traceability, Validation and M|Measurement of Concentration of Nitrate in Drinking Water|10.1007/978-3-030-20347-4_2|Drolc|book-chapter
+chemuncert|2017|0|Chemistry International|Validation of Test Methods, Human Errors and Measurement Uncertainty of Results|10.1515/ci-2017-0162|Kuselman|journal-article
+chemuncert|2024|27|Pure and Applied Chemistry|A brief guide to measurement uncertainty (IUPAC Technical Report)|10.1515/pac-2022-1203|Possolo|journal-article
+chemuncert|2019|0|IB Chemistry Revision Guide|Measurement and data processing:|10.2307/j.ctvnwc0d0.14||book-chapter
+chemuncert|2024|1|A Practical Handbook on Measur|The Guide to the expression of uncertainty in measurement (GUM)—the new approach|10.1088/978-0-7503-6462-1ch6|Rishi|book-chapter
+chemuncert|2016|0|Measurement Uncertainty in For|Uncertainty and Weighing|10.1201/9781315400907-15||book-chapter
+chemuncert|2016|0|Measurement Uncertainty in For|Sources of Uncertainty|10.1201/9781315400907-11||book-chapter
+chemuncert|2024|0|Journal of Verification, Valid|Uncertainty Separation Method for Simulation With Image and Numerical Data|10.1115/1.4065637|Du|journal-article
+dcc2|2026|0|Measurement: Digitalization|SI-traceability and digitalization of clinical intraocular-pressure measurement: a scoping review of the calibration chain, reference standa|10.1016/j.meadig.2026.100052|Baytaroğlu|journal-article
+dcc2|2018|1|Journal of Physics: Conference|<i>Mass standards made of silicon and their machine-readable Digital Calibration Certificate</i>|10.1088/1742-6596/1065/8/082005|Härtig|journal-article
+dcc2|2021|7|Digital Scholarship in the Hum|PaleoCodage—Enhancing machine-readable cuneiform descriptions using a machine-readable paleographic encoding|10.1093/llc/fqab038|Homburg|journal-article
+dcc2|2026|0|Advances in Transdisciplinary |Research on Anti-Tampering Mechanism of Digital Calibration Certificate Based on Hash Chain and Blockchain for Geometric Parameter Calibrati|10.3233/atde260421|Ma|book-chapter
+dcc2|2026|2|Measurement|Interoperability challenges between the Digital Conformity Credential data model (UNTP-DCC) and the data structures for the Digital Calibrat|10.1016/j.measurement.2025.118816|Sheveleva|journal-article
+dcc2|2025|1|Measurement: Sensors|Digitalization of basic error and measurement uncertainty of reference meters for electrical energy by utilizing Digital Calibration Certifi|10.1016/j.measen.2024.101501|Yang|journal-article
+dcc2|2025|0|Metrology and Measurement Unce|Critical Analysis of Calibration Certificate|10.1007/978-3-031-82303-9_9|Novellino do Rosario|book-chapter
+dcc2|2026|0||&lt;p&gt;The Governance Transparency Premium: Do Machine-Readable Policies Reduce Investor Uncertainty?&lt;/p&gt;|10.2139/ssrn.6978640|Kappagantu|posted-content
+dcc2|2025|0|2025 15th International Confer|A Python Application for Generating Digital Calibration Certificate|10.23919/measurement66999.2025.11078638|Sammarah|proceedings-article
+dcc2|2025|4|EPJ Web of Conferences|From a digital calibration certificate to a digital quality infrastructure|10.1051/epjconf/202532301003|Engel|journal-article
+dcc2|2015|0||Human-readable and machine-readable Persistent Identifiers|10.53731/r294649-6f79289-8cvzs|Fenner|posted-content
+dcc2|2022|0|Proceedings of the First Inter|FROM DIGITAL DEVICE UNDER TEST TO DIGITAL CALIBRATION CERTIFICATE. CHALLENGES AND SOLUTIONS FOR THE CALIBRATION OF MEASURING INSTRUMENTS AND|10.21014/tc6-2022.020|Nicklich|proceedings-article
+dcc2|2024|0||Decision letter for "Embedded machine-readable molecular representation for resource-efficient deep learning applications"|10.1039/d4dd00230j/v2/decision1||peer-review
+dcc2|2025|0||Decision letter for "Embedded machine-readable molecular representation for resource-efficient deep learning applications"|10.1039/d4dd00230j/v4/decision1||peer-review
+dcc2|2024|0||Decision letter for "Embedded machine-readable molecular representation for resource-efficient deep learning applications"|10.1039/d4dd00230j/v1/decision1||peer-review
+dcc2|2025|0||Decision letter for "Embedded machine-readable molecular representation for resource-efficient deep learning applications"|10.1039/d4dd00230j/v3/decision1||peer-review
+dcc2|2022|0|Probabilistic Numerics|Uncertainty Calibration|10.1017/9781316681411.027||book-chapter
+dcc2|2021|3|Measurement: Sensors|Preliminary E-infrastructure for Digital Calibration Certificate|10.1016/j.measen.2021.100332|Neyezhmakov|journal-article
+dcc2|2015|0||Human-readable and machine-readable Persistent Identifiers|10.53731/sn6hp-46x03|Fenner|posted-content
+dcc2|2024|0|Sakarya University Journal of |Investigation of Digital Calibration Certificate - Digital Test Report Sharing in Metrology Network|10.35377/saucis...1443368|Danacı|journal-article
+dcc2|2021|26|Measurement|Towards a new generation of digital calibration certificate: Analysis and survey|10.1016/j.measurement.2021.109611|Gadelrab|journal-article
+dcc2|2025|0|2025 8th International Confere|Digital Calibration Certificate Level 1 Automation in BSN BRIN Indonesia|10.1109/conmedia67140.2025.11290281|Ciaputra|proceedings-article
+dcc2|2025|0|Proceedings of the 1st Interna|A Real-Time Machine Uncertainty Calibration Method for High-Speed Predictive Systems|10.5220/0014203000004932|Mishra|proceedings-article
+dcc2|2024|0|Proceedings of the IMEKO TC8, |Development of open-source tools for the digital and machine-readable calibration of flowmeters with numerical displays|10.21014/tc11-2023.03|Esteves Coelho|proceedings-article
+dcc2|2023|23|APL Machine Learning|Calibration in machine learning uncertainty quantification: Beyond consistency to target adaptivity|10.1063/5.0174943|Pernot|journal-article

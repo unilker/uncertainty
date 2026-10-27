@@ -1,0 +1,370 @@
+== 10.1016/j.talanta.2026.130826
+Bettencourt da Silva Ricardo J.N.
+User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty | Talanta  (2026) 130826 | cited 0
+
+
+== 10.3390/metrology2010009
+Hall Blair D.
+The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty | Metrology 2 (2022) 128-149 | cited 13
+There is currently interest in the digitalisation of metrology because technologies that can measure, analyse, and make critical decisions autonomously are beginning to emerge. The notions of metrological traceability and measurement uncertainty should be supported, following the recommendations in the Guide to the Expression of Uncertainty in Measurement (GUM). However, GUM offers no specific guidance. Here, we report on a Python package that implements algorithmic data processing using ‘uncertain numbers’, which satisfy the general criteria in GUM for an ideal format to express uncertainty. An uncertain number can represent a physical quantity that has not been determined exactly. Using uncertain numbers, measurement models can be expressed clearly and succinctly in terms of the quantities involved. The algorithms and simple data structures we use provide an example of how metrological traceability can be supported in digital systems. In particular, uncertain numbers provide a format to capture and propagate detailed information about quantities that influence a measurement along the various stages of a traceability chain. More detailed information about influence quantities can be exploited to extract more value from results for users at the end of a traceability chain.
+
+== 10.2533/chimia.2022.596
+Lobsiger Simon; Wollensack Michael; Zeier Markus
+METAS UncLib – A Measurement Uncertainty Calculator in Chemical Analysis | CHIMIA 76 (2022) 596 | cited 0
+
+
+== 10.51843/measure.13.4.6
+ ; Delker Collin
+Sandia's Uncertainty Calculator: A Case Study in the Graded Approach | NCSLI Measure 13 (2021) 34-39 | cited 0
+Software is used everywhere in a calibration lab, from controlling measurement equipment to performing statistical calculations to storing calibration records in a database. Yet the importance and details of software validation and quality assurance are not often discussed. A graded approach to software quality assurance (SQA) is typically used, where software with a higher risk of adverse consequences upon failure requires a higher level of rigor. The Sandia National Laboratories Uncertainty Calculator (Suncal) is open-source, free software for performing various statistical calculations related to metrology, including Guide to the Expression of Uncertainty in Measurement (GUM) and Monte Carlo uncertainty propagation, decision risk analysis, uncertainty in curve fitting, and analysis of variance. The SQA activities for the Suncal evolved over time. In its infancy, Suncal was simply a few code functions shared among a handful of coworkers, and SQA activities were almost nonexistent. As Suncal grew into a more formal library of algorithms with a full-featured user interface, and especially after it was released to the public, the SQA rigor level increased to match the tool’s increased risk and visibility. Suncal, and the SQA activities to ensure it operates correctly are discussed
+
+== 10.1080/19315775.2015.11721732
+Lafarge Thomas; Possolo Antonio
+The NIST Uncertainty Machine | NCSLI Measure 10 (2015) 20-27 | cited 65
+
+
+== 10.1021/acs.jchemed.0c00096
+Albert Daniel R.
+Monte Carlo Uncertainty Propagation with the NIST Uncertainty Machine | Journal of Chemical Education 97 (2020) 1491-1494 | cited 33
+
+
+== 10.3390/metrology5040072
+Zeier Markus; Wollensack Michael; Hoffmann Johannes; Morrissey Peter; Ruefenacht Juerg; Stalder Daniel
+VNA Tools—A Metrology Software Supporting the Digital Traceability Chain | Metrology 5 (2025) 72 | cited 2
+This paper presents METAS VNA Tools Version 2.9.0, a metrology software suite designed to support the digital traceability chain in vector network analyzer measurements. Built on the METAS UncLib Version 2.9.0 uncertainty engine, the software enables rigorous modeling of the entire measurement process and comprehensive uncertainty evaluation. By encapsulating values, dependencies, and sensitivities in structured uncertainty objects, the software ensures that traceability and correlation information are preserved and propagated throughout complex calibration chains. This approach allows for seamless, modular uncertainty evaluation and supports the generation of digitally signed calibration certificates with embedded calibration data. The methodology enhances transparency, reproducibility, and interoperability, aligning with the goals of digital transformation in metrology. VNA Tools thus provides a robust foundation for implementing traceable, data-driven workflows across all levels of the metrological infrastructure.
+
+== 10.21014/actaimeko.v12i2.1310
+Pennecchi Francesca; Harris Peter
+Mathmet Measurement Uncertainty Training activity – Overview of courses, software, and classroom examples | Acta IMEKO 12 (2023) 1-6 | cited 2
+A collaborative activity on “Measurement Uncertainty (MU) Training” under the auspices of the European Metrology Network for Mathematics and Statistics (Mathmet) is underway. This abstract reports on the progress to undertake surveys of existing training courses on MU, software for MU evaluation, and classroom examples to support the understanding of methods for MU evaluation. An appreciable number of training courses, software and examples have been identified and are currently under review. These tools and materials will be analysed and categorised according to their main features and characteristics. Special attention will be given to their adherence to the JCGM guidelines (i.e., JCGM 100:2008, JCGM 101:2008 and JCGM 102:2011). It is hoped that the knowledge assembled in this activity will help practitioners to make good choices about appropriate material to support their training needs, as well as help developers of training material to ensure good coverage of their training products and target them at user needs.
+
+== 10.1016/j.measurement.2015.11.005
+Zangl Hubert; Hoermaier Klaus
+Educational aspects of uncertainty calculation with software tools | Measurement 101 (2017) 257-264 | cited 12
+
+
+== 10.1007/s00769-021-01469-5
+Veen Adriaan M. H. van der; Cox Maurice G.
+Getting started with uncertainty evaluation using the Monte Carlo method in R | Accreditation and Quality Assurance 26 (2021) 129-141 | cited 24
+Abstract The evaluation of measurement uncertainty is often perceived by laboratory staff as complex and quite distant from daily practice. Nevertheless, standards such as ISO/IEC 17025, ISO 15189 and ISO 17034 that specify requirements for laboratories to enable them to demonstrate they operate competently, and are able to generate valid results, require that measurement uncertainty is evaluated and reported. In response to this need, a European project entitled “Advancing measurement uncertainty—comprehensive examples for key international standards” started in July 2018 that aims at developing examples that contribute to a better understanding of what is required and aid in implementing such evaluations in calibration, testing and research. The principle applied in the project is “learning by example”. Past experience with guidance documents such as EA 4/02 and the Eurachem/CITAC guide on measurement uncertainty has shown that for practitioners it is often easier to rework and adapt an existing example than to try to develop something from scratch. This introductory paper describes how the Monte Carlo method of GUM (Guide to the expression of Uncertainty in Measurement) Supplement 1 can be implemented in R, an environment for mathematical and statistical computing. An implemen
+
+== 10.59161/wrxd1297
+Black Paul E.; Flater David
+Integrating software metrology with the international metrology system | 150th anniversary of the Metre Convention — From Units to the Universe  (2025)  | cited 0
+Since its beginnings in the 19th century, the international metrology system was expanded to cover new areas, improved in response to new discoveries, and evolved to incorporate more precise measurements. But it has not yet caught up with the 20th century emergence of software and the measurements to characterize it. Most software and computer science quantities either are measured by counting or are derived from such counts. The International System of Units (SI) regards such quantities as dimensionless and assigns the unit one to them. Beyond that, nothing in the international system applies. There is no Consultative Committee for Data, no International Union of Pure and Applied Computing, nor an international standard system of quantities for software metrology.[1] Absent expert guidance, some computer scientists have embraced alternative theories of measurement. A separate, different, and incompatible new form of metrology is developing that violates the conditions that conventional metrology associates with validity, accuracy, and reproducibility. But a schism is avoidable. Our recent work proposes ways to address the new technical needs that melding software metrology with physical metrology generates. It allows extended units of counting, such as bits, pixels, lines of cod
+
+== 10.1088/0957-0233/27/5/055001
+Eichstädt S; Wilkens V
+GUM2DFT—a software tool for uncertainty evaluation of transient signals in the frequency domain | Measurement Science and Technology 27 (2016) 055001 | cited 43
+Abstract The Fourier transform and its counterpart for discrete time signals, the discrete Fourier transform (DFT), are common tools in measurement science and application. Although almost every scientific software package offers ready-to-use implementations of the DFT, the propagation of uncertainties in line with the guide to the expression of uncertainty in measurement (GUM) is typically neglected. This is of particular importance in dynamic metrology, when input estimation is carried out by deconvolution in the frequency domain. To this end, we present the new open-source software tool GUM2DFT , which utilizes closed formulas for the efficient propagation of uncertainties for the application of the DFT, inverse DFT and input estimation in the frequency domain. It handles different frequency domain representations, accounts for autocorrelation and takes advantage of the symmetry inherent in the DFT result for real-valued time domain signals. All tools are presented in terms of examples which form part of the software package. GUM2DFT will foster GUM-compliant evaluation of uncertainty in a DFT-based analysis and enable metrologists to include uncertainty evaluations in their routine work.
+
+== 10.1515/pac-2022-1203
+Possolo Antonio; Hibbert David Brynn; Stohner Jürgen; Bodnar Olha; Meija Juris
+A brief guide to measurement uncertainty (IUPAC Technical Report) | Pure and Applied Chemistry 96 (2024) 113-134 | cited 27
+Abstract This Brief Guide reintroduces readers to the main concepts and technical tools used for the evaluation and expression of measurement uncertainty, including both classical and Bayesian statistical methods. The general approach is the same that was adopted by the Guide to the Expression of Uncertainty in Measurement (GUM): quantities whose values are surrounded by uncertainty are modeled as random variables, which enables the application of a wide range of techniques from probability and statistics to the evaluation of measurement uncertainty. All the methods presented are illustrated with examples involving real measurement results from a wide range of fields of chemistry and related sciences, ranging from classical analytical chemistry as practiced at the beginning to the 20th century, to contemporary studies of isotopic compositions of the elements and clinical trials. The supplementary material offers profusely annotated computer codes that allow the readers to reproduce all the calculations underlying the results presented in the examples.
+
+== 10.1088/1681-7575/adfb80
+Possolo Antonio
+Measurement uncertainty redefined | Metrologia 62 (2025) 042101 | cited 12
+Abstract On July 2, 2025, the Joint Committee for Guides in Metrology (JCGM) organized a widely attended webinar to present and discuss a new definition of measurement uncertainty to be considered as a potential replacement for the current definition in the International Vocabulary of Metrology. The original version of the new definition first appeared in Possolo (2015 Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (National Institute of Standards and Technology)) and was adopted by the National Institute of Standards and Technology (NIST) of the United States: ‘Measurement uncertainty is the doubt about the true value of the measurand that remains after making a measurement. Measurement uncertainty is described fully and quantitatively by a probability distribution on the set of the measurand.’ This definition was inspired by an earlier, similar characterization of measurement uncertainty that Stephanie Bell (National Physical Laboratory, United Kingdom) published in 1999 (Bell 1999 A Beginner’s Guide to Uncertainty of Measurement (Measurement Good Practice Guide) vol 11 (National Physical Laboratory)). The present short communication first compares definitions of measurement uncertainty and reviews the ‘error’ and ‘uncertainty’ approaches
+
+== 10.1007/s00769-022-01509-8
+van der Veen Adriaan M. H.; Cox Maurice G.; Possolo Antonio
+GUM guidance on developing and using measurement models | Accreditation and Quality Assurance 27 (2022) 295-297 | cited 4
+
+
+== 10.1088/1681-7575/abb065
+Demeyer S; Fischer N; Elster C
+Guidance on Bayesian uncertainty evaluation for a class of GUM measurement models | Metrologia 58 (2020) 014001 | cited 19
+Abstract In this paper we provide guidance on a Bayesian uncertainty evaluation for a large class of GUM measurement models covering linear and non-linear models. Bayesian analysis takes advantage of useful prior knowledge on the measurand, which is often available from a metrologist’s genuine expertise and opinion, or from previous experiments and which is neither taken into account by the GUM nor by its Supplement 1. For the considered class of measurement models, we establish the equivalence with the related statistical models and derive analytical expressions of the posterior distribution for an appropriate family of prior distributions, which allows one to gain insight into the result of the Bayesian uncertainty evaluation. We extend this work to the formulation of arbitrary prior distributions for the measurand and provide some guidance to set hyperparameter values within a class of priors based on elicitation techniques, so that the resulting priors reflect the prior knowledge. Posterior distributions are calculated by Markov Chain Monte Carlo methods. We apply the Bayesian uncertainty evaluation to the mass calibration example of Supplement 1 and compare our results with those obtained by the GUM and its Supplement 1. In order to study the impact of the choice of method f
+
+== 10.1088/1681-7575/aaa5be
+Possolo Antonio; Bodnar Olha
+Approximate Bayesian evaluations of measurement uncertainty | Metrologia 55 (2018) 147-157 | cited 12
+
+
+== 10.1088/1681-7575/ac3920
+Marschall Manuel; Wübbeler Gerd; Elster Clemens
+Rejection sampling for Bayesian uncertainty evaluation using the Monte Carlo techniques of GUM-S1 | Metrologia 59 (2021) 015004 | cited 9
+Abstract Supplement 1 to the GUM (GUM-S1) extends the GUM uncertainty framework to non-linear functions and non-Gaussian distributions. For this purpose, it employs a Monte Carlo method that yields a probability density function for the measurand. This Monte Carlo method has been successfully applied in numerous applications throughout metrology. However, considerable criticism has been raised against the type A uncertainty evaluation of GUM-S1. Most of the criticism could be addressed by including prior information about the measurand which, however, is beyond the scope of GUM-S1. We propose an alternative Monte Carlo method that will allow prior information about the measurand to be included. The proposed method is based on a Bayesian uncertainty evaluation and applies a simple rejection sampling approach using the Monte Carlo techniques of GUM-S1. The range of applicability of the approach is explored theoretically and in terms of examples. The results are promising, leading us to conclude that many metrological applications could benefit from this approach. Software support is provided to ease its implementation.
+
+== 10.1088/1681-7575/aba5aa
+Jamroz Benjamin F; Williams Dylan F
+Consistency in Monte Carlo Uncertainty Analyses | Metrologia 57 (2020) 065008 | cited 29
+
+
+== 10.1088/1681-7575/adb3ab
+Degenhardt Johannes; Tutsch Rainer; Hu Xiukun; Dai Gaoliang
+A practically oriented, efficient alternative to the Monte Carlo method for measurement uncertainty estimation | Metrologia 62 (2025) 025004 | cited 3
+Abstract This paper addresses the problem of uncertainty estimation for measurements made with computationally expensive numerical models, which are increasingly applied today. Typically, the Monte Carlo method (MCM) is used for uncertainty propagation in these cases. However, due to its stochastic nature, the MCM is inefficient, requiring a large number of model evaluations and thus resulting in long computation times. In this paper, an efficient alternative to the MCM is introduced. By using systematic samples of the influence quantities which are individually propagated through the measurement model, the overall number of required model evaluations can by drastically reduced. Additionally, the new method offers the possibility to simplify the measurement model for further reduced computational effort. The distributions of the propagated samples are reconstructed using a method specifically designed for systematic samples and combined to the uncertainty distribution of the measurand using convolution. The new method does not only offer increased computational efficiency but also a high information yield, as it estimates the uncertainty distribution of the measurand and the uncertainty contribution of individual influence quantities.
+
+== 10.1016/j.measurement.2018.12.089
+Huang Hening
+Why the scaled and shifted t-distribution should not be used in the Monte Carlo method for estimating measurement uncertainty? | Measurement 136 (2019) 282-288 | cited 13
+
+
+== 10.1016/j.measurement.2016.08.015
+Stant L.T.; Aaen P.H.; Ridler N.M.
+Comparing methods for evaluating measurement uncertainty given in the JCGM ‘Evaluation of Measurement Data’ documents | Measurement 94 (2016) 847-851 | cited 24
+
+
+== 10.1016/j.measurement.2018.05.105
+Kacker Raghu N.
+Measurement uncertainty and its connection with true value in the GUM versus JCGM documents | Measurement 127 (2018) 525-532 | cited 21
+
+
+== 10.1088/1361-6501/aeabcc
+Petitjean Alban; Musset Olivier
+Finite-sample evaluation of dispersion estimators for measurement uncertainty: effects of distribution, replication structure, contamination, and uncertainty propagation | Measurement Science and Technology 37 (2026) 405002 | cited 0
+Abstract Measurement uncertainty evaluation based on repeated measurements commonly relies on dispersion estimators derived under finite-sample and Gaussian assumptions. However, estimator performance may depend on the underlying distribution, sample size, replication structure, contamination, and subsequent uncertainty propagation. This study investigates several dispersion estimators within a guide to the expression of uncertainty in measurement-based framework, including range-, standard-deviation-, -RMS, mean-, and median-based approaches, with and without finite-sample correction factors. Monte Carlo simulations were performed using several distributions, standardized to a common mean and standard deviation. Different combinations of series and replicates were investigated to assess the effects of sample size and replication structure. A separate contamination study evaluated the sensitivity of the estimators to controlled extreme observations. The propagation of estimated uncertainties was further investigated using sequential linear measurement models with independent inputs, while expanded uncertainty and coverage were evaluated under a normal reference distribution. The results show that finite-sample correction factors generally reduce systematic bias under their corres
+
+== 10.1016/j.measurement.2025.119031
+Xia Haojie; Ding Yinye; Chen Wenhao; Zhang Jin; Li Hongli; Zhao Huining; Song Rencheng
+Measurement uncertainty evaluation with small samples: A review and prospect | Measurement 258 (2026) 119031 | cited 12
+
+
+== 10.1007/s12647-019-00324-w
+Ramnath Vishal
+Analysis and Comparison of Hyper-Ellipsoidal and Smallest Coverage Regions for Multivariate Monte Carlo Measurement Uncertainty Analysis Simulation Datasets | MAPAN 34 (2019) 387-402 | cited 5
+
+
+== 10.3390/metrology2010008
+Wübbeler Gerd; Marschall Manuel; Kniel Karin; Heißelmann Daniel; Härtig Frank; Elster Clemens
+GUM-Compliant Uncertainty Evaluation Using Virtual Experiments | Metrology 2 (2022) 114-127 | cited 29
+A virtual experiment simulates a real measurement process by means of a numerical model. The numerical model produces virtual data whose properties reflect those of the data observed in the real experiment. In this work, we explore how the results of a virtual experiment can be employed in the context of uncertainty evaluation for a corresponding real experiment. The uncertainty evaluation was based on the Guide to the Expression of Uncertainty in Measurement (GUM), which defines the de facto standard for uncertainty evaluation in metrology. We show that, under specific assumptions about model structure and variance of the data, virtual experiments in combination with a Monte Carlo method lead to an uncertainty evaluation for the real experiment that is in line with Supplement 1 to the GUM. In the general case, a GUM-compliant uncertainty evaluation in the context of a real experiment can no longer be based on a corresponding virtual experiment in a simple way. Nevertheless, virtual experiments are still useful in order to increase the reliability of an uncertainty analysis. Simple generic examples as well the case study of a virtual coordinate measuring machine are presented to illustrate the treatment.
+
+== 10.1016/j.aca.2026.346327
+do Nascimento Maranho Ricardo Luiz; Lourenço Felipe Rebello
+Measurement uncertainty evaluation from analytical validation data: Asymmetric coverage interval due to uncorrected significant bias | Analytica Chimica Acta 1425 (2026) 346327 | cited 0
+
+
+== 10.1007/s00769-017-1268-6
+Synek Václav
+How to encompass an uncorrected bias into the expanded uncertainty with a fixed coverage probability: calculation procedures | Accreditation and Quality Assurance 22 (2017) 179-186 | cited 7
+
+
+== 10.1016/j.cca.2019.03.1633
+Frenkel Robert; Farrance Ian; Badrick Tony
+Bias in analytical chemistry: A review of selected procedures for incorporating uncorrected bias into the expanded uncertainty of analytical measurements and a graphical method for evaluating the concordance of reference and test procedures | Clinica Chimica Acta 495 (2019) 129-138 | cited 19
+
+
+== 10.1016/j.talanta.2019.120476
+Palma Carla; Morgado Vanessa; da Silva Ricardo J.N. Bettencourt
+Erratum to “Top-down evaluation of matrix effects uncertainty” [Talanta 192 (2018) 278–287] | Talanta 208 (2020) 120476 | cited 1
+
+
+== 10.1016/j.talanta.2020.121386
+Milde David; Pluháček Tomáš; Kuba Martin; Součková Jitka; Bettencourt da Silva Ricardo J.N.
+Measurement uncertainty evaluation from correlated validation data: Determination of elemental impurities in pharmaceutical products by ICP-MS | Talanta 220 (2020) 121386 | cited 22
+
+
+== 10.1016/j.talanta.2019.120274
+Mateos Rocío; Oliveira Cristina M.; Díez-Pascual Ana María; Vera-López Soledad; San Andrés María Paz; da Silva Ricardo J.N. Bettencourt
+Impact of recovery correction or subjecting calibrators to sample preparation on measurement uncertainty: PAH determinations in waters | Talanta 207 (2020) 120274 | cited 12
+
+
+== 10.1515/cclm-2016-0896
+Padoan Andrea; Antonelli Giorgia; Aita Ada; Sciacovelli Laura; Plebani Mario
+An approach for estimating measurement uncertainty in medical laboratories using data from long-term quality control and external quality assessment schemes | Clinical Chemistry and Laboratory Medicine (CCLM) 55 (2017)  | cited 37
+Abstract Background: The present study was prompted by the ISO 15189 requirements that medical laboratories should estimate measurement uncertainty (MU). Methods: The method used to estimate MU included the: a) identification of quantitative tests, b) classification of tests in relation to their clinical purpose, and c) identification of criteria to estimate the different MU components. Imprecision was estimated using long-term internal quality control (IQC) results of the year 2016, while external quality assessment schemes (EQAs) results obtained in the period 2015–2016 were used to estimate bias and bias uncertainty. Results: A total of 263 measurement procedures (MPs) were analyzed. On the basis of test purpose, in 51 MPs imprecision only was used to estimate MU; in the remaining MPs, the bias component was not estimable for 22 MPs because EQAs results did not provide reliable statistics. For a total of 28 MPs, two or more MU values were calculated on the basis of analyte concentration levels. Overall, results showed that uncertainty of bias is a minor factor contributing to MU, the bias component being the most relevant contributor to all the studied sample matrices. Conclusions: The model chosen for MU estimation allowed us to derive a standardized approach for bias calcula
+
+== 10.1016/j.cca.2026.121067
+Şeneş Mehmet; Alpdemir Medine; Yurt Emine Feyza
+Measurement uncertainty in urine drug analysis: A comparison of ISO/TS 20914 and GUM/Eurachem approaches | Clinica Chimica Acta 590 (2026) 121067 | cited 0
+
+
+== 10.1007/s00769-023-01556-9
+Synek Václav; Kříženecká Sylvie
+Estimation of uncertainty from duplicate measurements: new quantification procedure in the case of concentration-dependent precision | Accreditation and Quality Assurance 28 (2023) 279-298 | cited 5
+Abstract In many analytical measurements, the analyte concentration in test samples can vary considerably. In such cases, the standard deviation (SD) quantifying measurement imprecision should be expressed as a function of the concentration, c : $${s}_{c}=\sqrt{{\mathrm{s}}_{0}^{2}+{ s}_{r}^{2}{c}^{2}}$$ s c = s 0 2 + s r 2 c 2 , where s 0 represents a non-zero SD at zero concentration and s r represents a near-constant relative SD at very high concentrations. In the case of SD repeatability, these parameters can be estimated from the differences of duplicated results measured on routine test samples. Datasets with a high number of duplicate results can be obtained within internal quality control. Most procedures recommended for this estimation are based on statistically demanding weighted regression. This article proposes a statistically less demanding procedure. The s 0 and s r parameters are estimated from selected subsets of absolute and relative differences of duplicates measured at low to medium concentrations and high to medium concentrations, respectively. The estimates are obtained by iterative calculations from the root mean square of the differences with a correction for the influence of the second parameter. This procedure was verified on Monte Carlo simulated dataset
+
+== 10.1016/j.microc.2023.109194
+Renato Couto Aldo; Rebello Lourenço Felipe
+Bottom-up and top-down measurement uncertainty evaluation for multivariate spectrophotometric procedures | Microchemical Journal 193 (2023) 109194 | cited 3
+
+
+== 10.21014/tc24-2025.030
+Ramsey Michael
+Validation of Measurement Procedures that Include Sampling (VaMPIS) – a new Eurachem Guide | Proceedings of the IMEKO TC8, TC11 and TC24 Conference on Chemical Measurements  (2025) 155-157 | cited 0
+
+
+== 10.1007/s00769-024-01575-0
+Ramsey Michael H.; Rostron Peter D.
+Measurement uncertainty from sampling and its role in validation of measurement procedures | Accreditation and Quality Assurance 29 (2024) 153-162 | cited 9
+Abstract It is now widely accepted that the measurement process usually begins when the primary sample is taken. The uncertainty of measurement (MU) must therefore include contributions that arise from the primary sampling, and also from any physical preparation of the sample which often occurs before the sample reaches the laboratory. Guidance on how to estimate MU that includes that arising from sampling (UfS) has been widely applied to a wide range of application sectors (e.g. food, feed, water, sediment, soil, gases). Recent revision of ISO/IEC 17025:2017 ( https://www.iso.org/standard/66912.html ) has also recognised the inclusion of sampling within the measurement process. This recognition has implications for the validation of measurement procedures that include sampling (VaMPIS). The scope of method (or procedure) validation has therefore to be expanded and reassessed, in order to include all of these components. The uncertainty of the measurement value (MU) is a key parameter that encompasses the effects of all the other operating characteristics of the analytical procedure that is traditionally considered during its validation. It has the further advantage that it can also incorporate the uncertainty due to sampling and physical sample preparation, thus providing a sing
+
+== 10.1016/j.aca.2024.342597
+Lourenço Felipe Rebello; Oliveira Elcio Cruz de
+Nonparametric estimation of measurement uncertainty arising from sampling | Analytica Chimica Acta 1305 (2024) 342597 | cited 6
+
+
+== 10.1007/s10661-016-5584-9
+Dołęgowska Sabina; Gałuszka Agnieszka; Migaszewski Zdzisław M.
+Heterogeneous areas—identification of outliers and calculation of soil sampling uncertainty using the modified RANOVA method | Environmental Monitoring and Assessment 188 (2016) 581 | cited 4
+
+
+== 10.1007/s00769-017-1271-y
+Ramsey Michael H.; Ellison Stephen L. R.
+Combined uncertainty factor for sampling and analysis | Accreditation and Quality Assurance 22 (2017) 187-189 | cited 10
+
+
+== 10.1007/s00769-020-01443-7
+Kostakis Marios; Kritikou Evangelia; Koupa Anastasia; Thomaidis Nikolaos
+A novel nested design approach for estimation of uncertainty arising from sampling in feed | Accreditation and Quality Assurance 25 (2020) 329-333 | cited 1
+
+
+== 10.1016/j.aca.2021.338982
+Sona Mirela; Dubé Jean-Sébastien
+Sampling particulate matter for analysis – Controlling uncertainty and bias using the theory of sampling | Analytica Chimica Acta 1185 (2021) 338982 | cited 2
+
+
+== 10.1016/j.aca.2021.339127
+Svensmark Bo
+Extensions to the Theory of Sampling 1. The extended Gy's formula, the segregation paradox and the fundamental sampling uncertainty (FSU) | Analytica Chimica Acta 1187 (2021) 339127 | cited 6
+
+
+== 10.1016/j.aca.2024.343285
+Martins Maisa Torres; Lourenço Felipe Rebello
+Measurement uncertainty for &lt;711&gt; Dissolution tests using Monte Carlo methods – Uncertainties arising from sampling and analytical steps | Analytica Chimica Acta 1330 (2024) 343285 | cited 11
+
+
+== 10.1088/1681-7575/ac6fa1
+Shirono Katsuhiro; Tanaka Hideyuki; Koike Masayoshi
+Economic optimization of acceptance interval in conformity assessment: 1. Process with no systematic effect | Metrologia 59 (2022) 045005 | cited 4
+Abstract In inspections for conformity assessment, an acceptance interval smaller than the tolerance interval is often determined in order to reduce the risk of consumers obtaining non-conforming items in the market. The presence of non-conforming items in the market impairs the evaluation of items by customers and may have an impact on revenue by decreasing prices. However, setting too small an acceptance interval reduces the revenue from the process by decreasing the number of the items available in the market. We thus propose a method to determine the optimum acceptance interval in conformity assessment by means of maximization of the revenue from processes. For this purpose, we give a mathematical model for the price of an item and its cost in the production process. Through theoretical analysis and simulations, it is shown that a parameter in the price model is the key in the optimization. In this paper we report a method for processes where no systematic effect component of measurement uncertainty exists, and in part 2 of this series we will report an extended method in which systematic effects are taken into consideration.
+
+== 10.1088/1681-7575/ac6fa2
+Shirono Katsuhiro; Tanaka Hideyuki; Koike Masayoshi
+Economic optimization of acceptance interval in conformity assessment: 2. Process with unknown systematic effect | Metrologia 59 (2022) 045006 | cited 3
+Abstract In this paper, optimization of acceptance interval in conformity assessment using the expression of the revenue that we showed in part 1 of this study is proposed under the condition of a systematic effect component being present in the measurement uncertainty. Systematic effect components are caused by unknown biases. Using the distribution based on the uncertainty information of the bias, we can develop the distribution of the revenue. Our idea is to set a percentile of the revenue distribution as the target of the maximization to reflect the systematic effect component in the optimization of the acceptance interval. We provide an equation for the optimum acceptance interval that can be numerically solved with little burden. We found that the choice of the probability for the percentile is an essential task in the optimization. Our proposed method incorporating the systematic effect seems to be sufficiently practical to be applied to actual processes.
+
+== 10.1088/1361-6501/ad2439
+Pennecchi F; Kuselman I
+Probabilities of true and false decisions in conformity assessment of a finite sample of items | Measurement Science and Technology 35 (2024) 056003 | cited 3
+Abstract Probability of conforming items of a finite sample of items is evaluated when conformity assessment (CA) of each item is based on comparison of measured item property values with their acceptance and/or tolerance limits. Two models of probabilities of false decisions on conformity of the whole sample are developed. The first model considers a specific sample of items that already underwent a CA process. A Poisson binomial distribution is applied to calculate the number of the sample items having good (conforming) true property values. The second model, applying a multinomial distribution, treats a generic sample of items potentially drawn from a common population. This model allows evaluating probabilities of false decisions on conformity of the sample items (false positives and negatives), as well as probabilities of correct decisions (true positives and negatives). Applicability of both the models is demonstrated using data of simulated and experimental case studies. These methods extend the existing framework for evaluation of probabilities of true and false decisions in the CA of individual items to the whole sample. The proposed approach provides quality indexes for such a sample, that can be applied in quality inspection and CA of products and objects in industry a
+
+== 10.1016/j.chemolab.2019.02.010
+Bettencourt da Silva Ricardo J.N.; Lourenço Felipe R.; Pennecchi Francesca R.; Hibbert D. Brynn; Kuselman Ilya
+Spreadsheet for evaluation of global risks in conformity assessment of a multicomponent material or object | Chemometrics and Intelligent Laboratory Systems 188 (2019) 1-5 | cited 30
+
+
+== 10.1016/j.talanta.2018.12.021
+Lourenço Felipe R.; Bettencourt da Silva Ricardo J.N.
+Risk of false conformity decisions of multicomponent items controlled by correlated measurement results due to the sharing of analytical steps | Talanta 196 (2019) 174-181 | cited 34
+
+
+== 10.1016/j.microc.2026.117824
+Maranho Ricardo Luiz N.; Lourenço Felipe R.
+Development of a Python-based tool for evaluation of multivariate decision risk considering measurement uncertainty and correlation effects | Microchemical Journal 224 (2026) 117824 | cited 1
+
+
+== 10.1016/j.measurement.2025.119847
+Shirono Katsuhiro; Takai Junnosuke; Tanaka Hideyuki
+Economic optimisation of acceptance interval in conformity assessment for processes with known and unknown biases | Measurement 261 (2026) 119847 | cited 1
+
+
+== 10.1088/0026-1394/53/2/s74
+Carobbi Carlo; Pennecchi Francesca
+Bayesian conformity assessment in presence of systematic measurement errors | Metrologia 53 (2016) S74-S80 | cited 20
+Abstract Conformity assessment of the distribution of the values of a quantity is investigated by using a Bayesian approach. The effect of systematic, non-negligible measurement errors is taken into account. The analysis is general, in the sense that the probability distribution of the quantity can be of any kind, that is even different from the ubiquitous normal distribution, and the measurement model function, linking the measurand with the observable and non-observable influence quantities, can be non-linear. Further, any joint probability density function can be used to model the available knowledge about the systematic errors. It is demonstrated that the result of the Bayesian analysis here developed reduces to the standard result (obtained through a frequentistic approach) when the systematic measurement errors are negligible. A consolidated frequentistic extension of such standard result, aimed at including the effect of a systematic measurement error, is directly compared with the Bayesian result, whose superiority is demonstrated. Application of the results here obtained to the derivation of the operating characteristic curves used for sampling plans for inspection by variables is also introduced.
+
+== 10.21014/actaimeko.v12i3.1471
+Purata-Sifuentes Omar-Jair; Purata-Funes Elvia-Andrea; Foyer Gisa
+Overestimation of conformity assessment risks in legal requirements of weighing instruments | Acta IMEKO 12 (2023) 1-7 | cited 4
+This paper examines the risks for producers and consumers of non-automatic weighing instruments. It compares two scenarios: one where only the maximum permissible error requirement of the standard weights is considered during the computation of measurement uncertainty and another where the standard uncertainty of the weights is also involved. By quantifying these risks, the study sheds light on the potential implications for both producers and consumers. The results shows that in general, the producer and consumer risks are both wrongly estimated for the use of only the maximum permissible error location criterium. The overestimation founded reached levels higher than 20 %.
+
+== 10.21014/acta_imeko.v8i3.655
+Fritsch Klaus
+EURAMET cg-18 – state-of-the-art calibration guideline for non-automatic weighing instruments | ACTA IMEKO 8 (2019) 10 | cited 1
+<p> </p><p class="Abstract">This paper presents a state-of-the-art strategy for calibrating non-automatic weighing instruments (NAWIs), based on the international calibration guideline EURAMET cg-18. While existing national and legacy guidelines have only dealt with measurement uncertainty at the time of calibration, EURAMET cg-18 also provides advice for the so-called uncertainty of a weighing result, which describes the device performance during day-to-day usage. Furthermore, as a consequence of the uncertainty of a weighing result, the concept of minimum weight is introduced. The minimum weight is the smallest amount of mass that must be weighed on the device while still adhering to a predefined relative weighing tolerance requirement. The concept of minimum weight is the most important practical and quality relevant implication of NAWI calibration, as it is the prerequisite to achieve the necessary accuracy commensurate with the quality requirements of the weighing process.</p><p><span style="font-family: Calibri; font-size: small;"><br /></span></p>
+
+== 10.1080/19315775.2015.11721736
+Fritsch Klaus; Ciesniewski Ian
+Calibration of Weighing Instruments: Measurement Uncertainty, Minimum Weight and the Safe Weighing Range | NCSLI Measure 10 (2015) 56-65 | cited 1
+
+
+== 10.21014/tc6-2025.054
+Sheveleva Tatyana; Foyer Gisa
+Measurement Data and Information of Non-Automatic Weighing Instruments as Structured Data | Proceedings of the IMEKO TC6 Conference on Digitalization - M4DConf 2025  (2025) 292-296 | cited 0
+
+
+== 10.1016/j.measurement.2026.120882
+Purata-Sifuentes Omar-Jair; Martínez-Velázquez Francisco-Javier; Báez-Macías José-Antonio; Sánchez-Martínez José-Yahir
+Decentered process effect on conformity assessment risks for manufacturing of non-automatic weighing instruments | Measurement 270 (2026) 120882 | cited 0
+
+
+== 10.3390/metrology6040076
+Ilinca Radu; Luțescu Dan-Adrian; Barabas Albert Zsolt; Albu Cristina-Crenguța; Ganea Ionela; Dimitriu Daniela Cristina
+Assigned-Value Uncertainty in Limited-Participant Proficiency Testing: Monte Carlo Evaluation of ISO 13528 Estimators in an Industrial Calibration Scenario | Metrology 6 (2026) 76 | cited 0
+In proficiency testing (PT), a consensus assigned value is an estimate whose uncertainty can affect participants’ performance classifications. This study evaluated the relationship between formula-based assigned-value uncertainty, empirical sampling variability and classification discordance under limited participation. Using gravimetric calibration of a 100 µL micropipette, 147.2 million Monte Carlo PT rounds were simulated across 1472 scenarios combining participant numbers (N = 5–50), two dispersion levels referenced to ISO 8655-2:2022 and outlier contamination (0–30%). The arithmetic mean and ISO 13528 Algorithm A were compared regarding assigned-value variability, uncertainty calibration, stability and classification. The 95th percentile of the assigned-value uncertainty ratio frequently exceeded the ISO 13528 threshold of 0.3, particularly under contamination and limited participation. This ratio was strongly associated with scenario-level decisional discordance (Spearman ρ = 0.97–0.99). Formula-based uncertainty exceeded empirical Monte Carlo variability for Algorithm A in all 1472 scenarios (calibration ratios of 1.044–1.301), whereas the arithmetic mean’s ratios ranged from 0.856 to 0.998. Although Algorithm A generally improved empirical stability under contamination, t
+
+== 10.1039/d0an01607a
+Coucke Wim; Soumali Mohamed Rida
+A critical view at the ISO 13528 and IUPAC's harmonized protocol approach for proficiency testing for homogeneity assessment for quantitative variables | The Analyst 145 (2020) 7630-7635 | cited 3
+Current PT sample homogeneity test has high risk of accepting heterogeneous.
+
+== 10.1016/j.measurement.2017.07.006
+Carobbi Carlo
+A modified ISO 13528 robust analysis (Algorithm A) that takes measurement uncertainty into account | Measurement 110 (2017) 296-306 | cited 6
+
+
+== 10.1007/s00769-021-01474-8
+Morales Clara; Giraldo Ramón; Torres Marta
+Boxplot fences in proficiency testing | Accreditation and Quality Assurance 26 (2021) 193-200 | cited 12
+
+
+== 10.1088/1681-7575/aa6c0e
+Koepke Amanda; Lafarge Thomas; Possolo Antonio; Toman Blaza
+Consensus building for interlaboratory studies, key comparisons, and meta-analysis | Metrologia 54 (2017) S34-S62 | cited 83
+
+
+== 10.1016/j.chemolab.2018.01.003
+Molenaar Jaap; Cofino Wim P.; Torfs Paul J.J.F.
+Efficient and robust analysis of interlaboratory studies | Chemometrics and Intelligent Laboratory Systems 175 (2018) 65-73 | cited 15
+
+
+== 10.1007/s00769-021-01467-7
+Thompson Michael
+Statistical internal quality control (SIQC) in chemical measurement—do we really understand it? | Accreditation and Quality Assurance 26 (2021) 99-101 | cited 0
+
+
+== 10.1515/cclm-2020-0371
+Braga Federica; Pasqualetti Sara; Aloisio Elena; Panteghini Mauro
+The internal quality control in the traceability era | Clinical Chemistry and Laboratory Medicine (CCLM) 59 (2020) 291-300 | cited 62
+Abstract To be accurate and equivalent, laboratory results should be traceable to higher-order references. Furthermore, their quality should fulfill acceptable measurement uncertainty (MU) as defined to fit the intended clinical use. With this aim, in vitro diagnostics (IVD) manufacturers should define a calibration hierarchy to assign traceable values to their system calibrators. Medical laboratories should know and verify how manufacturers have implemented the traceability of their calibrators and estimate the corresponding MU on clinical samples. Accordingly, the internal quality control (IQC) program should be redesigned to permit IVD traceability surveillance through the verification by medical laboratories that control materials, provided by the manufacturer as a part of measuring systems, are in the clinically suitable validation range (IQC component I). Separately, laboratories should also monitor the reliability of employed IVD measuring systems through the IQC component II, devoted to estimation of MU due to random effects and to obtaining MU of provided results, in order to apply prompt corrective actions if the performance is worsening when compared to appropriate analytical specifications, thus jeopardizing the clinical validity of test results.
+
+== 10.1021/acs.analchem.0c02178
+Tellinghuisen Joel
+Least Squares Methods for Treating Problems with Uncertainty in<i>x</i>and<i>y</i> | Analytical Chemistry 92 (2020) 10863-10871 | cited 32
+
+
+== 10.1088/1681-7575/ac711c
+Cecelski Christina E; Toman Blaza; Liu Fong-Ha; Meija Juris; Possolo Antonio
+Errors-in-variables calibration with dark uncertainty | Metrologia 59 (2022) 045002 | cited 7
+Abstract A model for errors-in-variables regression is described that can be used to overcome the challenge posed by mutually inconsistent calibration data. The model and its implementation are illustrated in applications to the measurement of the amount fraction of oxygen in nitrogen from key comparison CCQM-K53, and of carbon isotope delta values in steroids from human urine. These two examples clearly demonstrate that inconsistencies in measurement results can be addressed similarly to how laboratory effects are often invoked to deal with mutually inconsistent results from interlaboratory studies involving scalar measurands. Bayesian versions of errors-in-variables regression, fitted via Markov Chain Monte Carlo sampling, are employed, which yield estimates of the key comparison reference function in one example, and of the analysis function in the other. The fitting procedures also characterize the uncertainty associated with these functions, while quantifying and propagating the ‘excess’ dispersion that was unrecognized in the uncertainty budgets for the individual measurements, and that therefore is missing from the reported uncertainties. We regard this ‘excess’ dispersion as an expression of dark uncertainty , which we take into account in the context of calibrations that
+
+== 10.1021/acs.analchem.2c02904
+Tellinghuisen Joel
+Goodness-of-Fit Tests in Calibration: Are They Any Good for Selecting Least-Squares Weighting Formulas? | Analytical Chemistry 94 (2022) 15997-16005 | cited 7
+
+
+== 10.1016/j.trac.2015.12.006
+Raposo Francisco
+Evaluation of analytical calibration based on least-squares linear regression for instrumental techniques: A tutorial review | TrAC Trends in Analytical Chemistry 77 (2016) 167-185 | cited 183
+
+
+== 10.1016/j.measurement.2021.109611
+Gadelrab Mohammed S.; Abouhogail Reham A.
+Towards a new generation of digital calibration certificate: Analysis and survey | Measurement 181 (2021) 109611 | cited 26
+
+
+== 10.3390/metrology2010003
+Smith Ian; Luo Yuhui; Hutzschenreuter Daniel
+The Storage within Digital Calibration Certificates of Uncertainty Information Obtained Using a Monte Carlo Method | Metrology 2 (2022) 33-45 | cited 8
+Supplement 1 to the ‘Guide to the expression of uncertainty of measurement’ describes a Monte Carlo method as a general numerical approach to uncertainty evaluation. Application of the approach typically delivers a large number of values of the output quantity of interest from which summary information such as an estimate of the quantity, its associated standard uncertainty, and a coverage interval for the quantity can be obtained and reported. This paper considers the use of a Monte Carlo method for uncertainty evaluation in calibration, using two examples to demonstrate how so-called ‘digital calibration certificates’ can allow the complete set of results of a Monte Carlo calculation to be reported.
+
+== 10.1088/1681-7575/aea165
+Volinsky Alex A
+Digital precision in metrology: significant figures and trailing zeros as machine readable metadata | Metrologia 63 (2026) 055006 | cited 0
+Abstract Digital data pipelines routinely discard information that authors intend to convey through the number of significant figures and trailing zeros in a reported value. This paper examines when that loss matters and when it does not. It separates three concepts that are often conflated in discussions of digital precision: measurement uncertainty as defined in the Guide to the Expression of Uncertainty in Measurement, the reporting convention of significant figures, and the mechanics of numerical representation in computing systems. Building on this separation, the paper proposes a taxonomy of digital precision loss with three distinct mechanisms and three distinct remedies: storage-layer loss of trailing zeros in schemas that use native numeric types, computation layer artifacts introduced by Institute of Electrical and Electronics Engineers 754 floating-point arithmetic, and display layer formatting failures such as fixed decimal truncation of small probabilities. The paper argues that trailing zero notation retains a legitimate, limited role as a redundant, human-readable check on precision even where explicit uncertainty metadata are present, and that this role is largest for legacy data, provisional measurement readings, and manually reported values that lack a formal un
+

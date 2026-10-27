@@ -1953,3 +1953,33 @@ Minor points:
 
 The library has 209 projects.
 
+## 2026-10-27 (session 20, addendum) — Classes of F72, F75, F76; preserving the evidence
+
+**Classes corrected.** Under D12, class (a) is intermediate rounding, (b) a slip
+without effect on the result and (c) an inconsistency affecting a printed
+result.
+
+- **F72** is class **c**, not a: the printed (0.13 ± 0.16) mg/kg becomes
+  (0.13 ± 0.21) mg/kg.
+- **F75** is class **c**: the printed first-order U(W) of H2.4/A intervals 2
+  and 3 is wrong, although the global lines and the minimum weight are right.
+- **F76** is class **c**: β_W², the U_gl slope and the minimum weight of
+  H1.4/B change slightly.
+
+The class labels of all findings are to be audited against D12 before
+submission. Some earlier entries use (a) for printed values that are not
+rounding effects, e.g. F47–F49.
+
+**Evidence kept in the repository** so that nothing needed for the article is
+lost with the temporary working area:
+
+- the raw data and scripts of the literature search
+  (`docs/research/search-2026-10/`);
+- the scripts behind D53/F71–F73, F63 and F70 (`tools/research/`);
+- the library generators (`tools/generators/`);
+- the provenance of every document read (`docs/research/sources-provenance.md`);
+- a generated index of all findings and decisions
+  (`docs/research/findings-index.md`).
+
+Licensed documents and their text extracts remain outside the repository.
+

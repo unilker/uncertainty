@@ -1,0 +1,1319 @@
+{
+ "10.1016/j.talanta.2026.130826": {
+  "fam": [
+   "Bettencourt da Silva"
+  ],
+  "title": "User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty",
+  "venue": "Talanta",
+  "vol": "",
+  "page": "130826",
+  "year": 2026,
+  "cited": 0,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "http://creativecommons.org/licenses/by-nc/4.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.3390/metrology2010009": {
+  "fam": [
+   "Hall"
+  ],
+  "title": "The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty",
+  "venue": "Metrology",
+  "vol": "2",
+  "page": "128-149",
+  "year": 2022,
+  "cited": 13,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "MDPI AG"
+ },
+ "10.2533/chimia.2022.596": {
+  "fam": [
+   "Lobsiger",
+   "Wollensack",
+   "Zeier"
+  ],
+  "title": "METAS UncLib – A Measurement Uncertainty Calculator in Chemical Analysis",
+  "venue": "CHIMIA",
+  "vol": "76",
+  "page": "596",
+  "year": 2022,
+  "cited": 0,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "Swiss Chemical Society"
+ },
+ "10.51843/measure.13.4.6": {
+  "fam": [
+   "Sandia National Laboratories",
+   "Delker"
+  ],
+  "title": "Sandia's Uncertainty Calculator: A Case Study in the Graded Approach",
+  "venue": "NCSLI Measure",
+  "vol": "13",
+  "page": "34-39",
+  "year": 2021,
+  "cited": 0,
+  "oa_license": [],
+  "publisher": "NCSL International"
+ },
+ "10.1080/19315775.2015.11721732": {
+  "fam": [
+   "Lafarge",
+   "Possolo"
+  ],
+  "title": "The NIST Uncertainty Machine",
+  "venue": "NCSLI Measure",
+  "vol": "10",
+  "page": "20-27",
+  "year": 2015,
+  "cited": 65,
+  "oa_license": [],
+  "publisher": "NCSL International"
+ },
+ "10.1021/acs.jchemed.0c00096": {
+  "fam": [
+   "Albert"
+  ],
+  "title": "Monte Carlo Uncertainty Propagation with the NIST Uncertainty Machine",
+  "venue": "Journal of Chemical Education",
+  "vol": "97",
+  "page": "1491-1494",
+  "year": 2020,
+  "cited": 33,
+  "oa_license": [
+   "https://doi.org/10.15223/policy-001",
+   "https://doi.org/10.15223/policy-009",
+   "https://doi.org/10.15223/policy-017"
+  ],
+  "publisher": "American Chemical Society (ACS)"
+ },
+ "10.3390/metrology5040072": {
+  "fam": [
+   "Zeier",
+   "Wollensack",
+   "Hoffmann",
+   "Morrissey",
+   "Ruefenacht",
+   "Stalder"
+  ],
+  "title": "VNA Tools—A Metrology Software Supporting the Digital Traceability Chain",
+  "venue": "Metrology",
+  "vol": "5",
+  "page": "72",
+  "year": 2025,
+  "cited": 2,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "MDPI AG"
+ },
+ "10.21014/actaimeko.v12i2.1310": {
+  "fam": [
+   "Pennecchi",
+   "Harris"
+  ],
+  "title": "Mathmet Measurement Uncertainty Training activity – Overview of courses, software, and classroom examples",
+  "venue": "Acta IMEKO",
+  "vol": "12",
+  "page": "1-6",
+  "year": 2023,
+  "cited": 2,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "IMEKO International Measurement Confederation"
+ },
+ "10.1016/j.measurement.2015.11.005": {
+  "fam": [
+   "Zangl",
+   "Hoermaier"
+  ],
+  "title": "Educational aspects of uncertainty calculation with software tools",
+  "venue": "Measurement",
+  "vol": "101",
+  "page": "257-264",
+  "year": 2017,
+  "cited": 12,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1007/s00769-021-01469-5": {
+  "fam": [
+   "Veen",
+   "Cox"
+  ],
+  "title": "Getting started with uncertainty evaluation using the Monte Carlo method in R",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "26",
+  "page": "129-141",
+  "year": 2021,
+  "cited": 24,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0",
+   "https://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.59161/wrxd1297": {
+  "fam": [
+   "Black",
+   "Flater"
+  ],
+  "title": "Integrating software metrology with the international metrology system",
+  "venue": "150th anniversary of the Metre Convention — From Units to the Universe",
+  "vol": "",
+  "page": "",
+  "year": 2025,
+  "cited": 0,
+  "oa_license": [],
+  "publisher": "Bureau International des Poids et Mesures (BIPM)"
+ },
+ "10.1088/0957-0233/27/5/055001": {
+  "fam": [
+   "Eichstädt",
+   "Wilkens"
+  ],
+  "title": "GUM2DFT—a software tool for uncertainty evaluation of transient signals in the frequency domain",
+  "venue": "Measurement Science and Technology",
+  "vol": "27",
+  "page": "055001",
+  "year": 2016,
+  "cited": 43,
+  "oa_license": [
+   "https://publishingsupport.iopscience.iop.org/iop-standard/v1",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1515/pac-2022-1203": {
+  "fam": [
+   "Possolo",
+   "Hibbert",
+   "Stohner",
+   "Bodnar",
+   "Meija"
+  ],
+  "title": "A brief guide to measurement uncertainty (IUPAC Technical Report)",
+  "venue": "Pure and Applied Chemistry",
+  "vol": "96",
+  "page": "113-134",
+  "year": 2024,
+  "cited": 27,
+  "oa_license": [
+   "http://creativecommons.org/licenses/by-nc-nd/4.0"
+  ],
+  "publisher": "Walter de Gruyter GmbH"
+ },
+ "10.1088/1681-7575/adfb80": {
+  "fam": [
+   "Possolo"
+  ],
+  "title": "Measurement uncertainty redefined",
+  "venue": "Metrologia",
+  "vol": "62",
+  "page": "042101",
+  "year": 2025,
+  "cited": 12,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1007/s00769-022-01509-8": {
+  "fam": [
+   "van der Veen",
+   "Cox",
+   "Possolo"
+  ],
+  "title": "GUM guidance on developing and using measurement models",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "27",
+  "page": "295-297",
+  "year": 2022,
+  "cited": 4,
+  "oa_license": [
+   "https://www.springer.com/tdm",
+   "https://www.springer.com/tdm"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1088/1681-7575/abb065": {
+  "fam": [
+   "Demeyer",
+   "Fischer",
+   "Elster"
+  ],
+  "title": "Guidance on Bayesian uncertainty evaluation for a class of GUM measurement models",
+  "venue": "Metrologia",
+  "vol": "58",
+  "page": "014001",
+  "year": 2020,
+  "cited": 19,
+  "oa_license": [
+   "https://publishingsupport.iopscience.iop.org/iop-standard/v1",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1088/1681-7575/aaa5be": {
+  "fam": [
+   "Possolo",
+   "Bodnar"
+  ],
+  "title": "Approximate Bayesian evaluations of measurement uncertainty",
+  "venue": "Metrologia",
+  "vol": "55",
+  "page": "147-157",
+  "year": 2018,
+  "cited": 12,
+  "oa_license": [
+   "http://iopscience.iop.org/info/page/text-and-data-mining",
+   "http://iopscience.iop.org/page/copyright"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1088/1681-7575/ac3920": {
+  "fam": [
+   "Marschall",
+   "Wübbeler",
+   "Elster"
+  ],
+  "title": "Rejection sampling for Bayesian uncertainty evaluation using the Monte Carlo techniques of GUM-S1",
+  "venue": "Metrologia",
+  "vol": "59",
+  "page": "015004",
+  "year": 2021,
+  "cited": 9,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1088/1681-7575/aba5aa": {
+  "fam": [
+   "Jamroz",
+   "Williams"
+  ],
+  "title": "Consistency in Monte Carlo Uncertainty Analyses",
+  "venue": "Metrologia",
+  "vol": "57",
+  "page": "065008",
+  "year": 2020,
+  "cited": 29,
+  "oa_license": [
+   "http://iopscience.iop.org/info/page/text-and-data-mining",
+   "http://iopscience.iop.org/page/copyright"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1088/1681-7575/adb3ab": {
+  "fam": [
+   "Degenhardt",
+   "Tutsch",
+   "Hu",
+   "Dai"
+  ],
+  "title": "A practically oriented, efficient alternative to the Monte Carlo method for measurement uncertainty estimation",
+  "venue": "Metrologia",
+  "vol": "62",
+  "page": "025004",
+  "year": 2025,
+  "cited": 3,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1016/j.measurement.2018.12.089": {
+  "fam": [
+   "Huang"
+  ],
+  "title": "Why the scaled and shifted t-distribution should not be used in the Monte Carlo method for estimating measurement uncertainty?",
+  "venue": "Measurement",
+  "vol": "136",
+  "page": "282-288",
+  "year": 2019,
+  "cited": 13,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.measurement.2016.08.015": {
+  "fam": [
+   "Stant",
+   "Aaen",
+   "Ridler"
+  ],
+  "title": "Comparing methods for evaluating measurement uncertainty given in the JCGM ‘Evaluation of Measurement Data’ documents",
+  "venue": "Measurement",
+  "vol": "94",
+  "page": "847-851",
+  "year": 2016,
+  "cited": 24,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.measurement.2018.05.105": {
+  "fam": [
+   "Kacker"
+  ],
+  "title": "Measurement uncertainty and its connection with true value in the GUM versus JCGM documents",
+  "venue": "Measurement",
+  "vol": "127",
+  "page": "525-532",
+  "year": 2018,
+  "cited": 21,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "http://www.elsevier.com/open-access/userlicense/1.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1088/1361-6501/aeabcc": {
+  "fam": [
+   "Petitjean",
+   "Musset"
+  ],
+  "title": "Finite-sample evaluation of dispersion estimators for measurement uncertainty: effects of distribution, replication structure, contamination, and uncertainty propagation",
+  "venue": "Measurement Science and Technology",
+  "vol": "37",
+  "page": "405002",
+  "year": 2026,
+  "cited": 0,
+  "oa_license": [
+   "https://publishingsupport.iopscience.iop.org/iop-standard/v1",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1016/j.measurement.2025.119031": {
+  "fam": [
+   "Xia",
+   "Ding",
+   "Chen",
+   "Zhang",
+   "Li",
+   "Zhao",
+   "Song"
+  ],
+  "title": "Measurement uncertainty evaluation with small samples: A review and prospect",
+  "venue": "Measurement",
+  "vol": "258",
+  "page": "119031",
+  "year": 2026,
+  "cited": 12,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1007/s12647-019-00324-w": {
+  "fam": [
+   "Ramnath"
+  ],
+  "title": "Analysis and Comparison of Hyper-Ellipsoidal and Smallest Coverage Regions for Multivariate Monte Carlo Measurement Uncertainty Analysis Simulation Datasets",
+  "venue": "MAPAN",
+  "vol": "34",
+  "page": "387-402",
+  "year": 2019,
+  "cited": 5,
+  "oa_license": [
+   "http://www.springer.com/tdm",
+   "http://www.springer.com/tdm"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.3390/metrology2010008": {
+  "fam": [
+   "Wübbeler",
+   "Marschall",
+   "Kniel",
+   "Heißelmann",
+   "Härtig",
+   "Elster"
+  ],
+  "title": "GUM-Compliant Uncertainty Evaluation Using Virtual Experiments",
+  "venue": "Metrology",
+  "vol": "2",
+  "page": "114-127",
+  "year": 2022,
+  "cited": 29,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "MDPI AG"
+ },
+ "10.1016/j.aca.2026.346327": {
+  "fam": [
+   "do Nascimento Maranho",
+   "Lourenço"
+  ],
+  "title": "Measurement uncertainty evaluation from analytical validation data: Asymmetric coverage interval due to uncorrected significant bias",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1425",
+  "page": "346327",
+  "year": 2026,
+  "cited": 0,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "http://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1007/s00769-017-1268-6": {
+  "fam": [
+   "Synek"
+  ],
+  "title": "How to encompass an uncorrected bias into the expanded uncertainty with a fixed coverage probability: calculation procedures",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "22",
+  "page": "179-186",
+  "year": 2017,
+  "cited": 7,
+  "oa_license": [
+   "http://www.springer.com/tdm"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1016/j.cca.2019.03.1633": {
+  "fam": [
+   "Frenkel",
+   "Farrance",
+   "Badrick"
+  ],
+  "title": "Bias in analytical chemistry: A review of selected procedures for incorporating uncorrected bias into the expanded uncertainty of analytical measurements and a graphical method for evaluating the concordance of reference and test procedures",
+  "venue": "Clinica Chimica Acta",
+  "vol": "495",
+  "page": "129-138",
+  "year": 2019,
+  "cited": 19,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.talanta.2019.120476": {
+  "fam": [
+   "Palma",
+   "Morgado",
+   "da Silva"
+  ],
+  "title": "Erratum to “Top-down evaluation of matrix effects uncertainty” [Talanta 192 (2018) 278–287]",
+  "venue": "Talanta",
+  "vol": "208",
+  "page": "120476",
+  "year": 2020,
+  "cited": 1,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.talanta.2020.121386": {
+  "fam": [
+   "Milde",
+   "Pluháček",
+   "Kuba",
+   "Součková",
+   "Bettencourt da Silva"
+  ],
+  "title": "Measurement uncertainty evaluation from correlated validation data: Determination of elemental impurities in pharmaceutical products by ICP-MS",
+  "venue": "Talanta",
+  "vol": "220",
+  "page": "121386",
+  "year": 2020,
+  "cited": 22,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.talanta.2019.120274": {
+  "fam": [
+   "Mateos",
+   "Oliveira",
+   "Díez-Pascual",
+   "Vera-López",
+   "San Andrés",
+   "da Silva"
+  ],
+  "title": "Impact of recovery correction or subjecting calibrators to sample preparation on measurement uncertainty: PAH determinations in waters",
+  "venue": "Talanta",
+  "vol": "207",
+  "page": "120274",
+  "year": 2020,
+  "cited": 12,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1515/cclm-2016-0896": {
+  "fam": [
+   "Padoan",
+   "Antonelli",
+   "Aita",
+   "Sciacovelli",
+   "Plebani"
+  ],
+  "title": "An approach for estimating measurement uncertainty in medical laboratories using data from long-term quality control and external quality assessment schemes",
+  "venue": "Clinical Chemistry and Laboratory Medicine (CCLM)",
+  "vol": "55",
+  "page": "",
+  "year": 2017,
+  "cited": 37,
+  "oa_license": [],
+  "publisher": "Walter de Gruyter GmbH"
+ },
+ "10.1016/j.cca.2026.121067": {
+  "fam": [
+   "Şeneş",
+   "Alpdemir",
+   "Yurt"
+  ],
+  "title": "Measurement uncertainty in urine drug analysis: A comparison of ISO/TS 20914 and GUM/Eurachem approaches",
+  "venue": "Clinica Chimica Acta",
+  "vol": "590",
+  "page": "121067",
+  "year": 2026,
+  "cited": 0,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1007/s00769-023-01556-9": {
+  "fam": [
+   "Synek",
+   "Kříženecká"
+  ],
+  "title": "Estimation of uncertainty from duplicate measurements: new quantification procedure in the case of concentration-dependent precision",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "28",
+  "page": "279-298",
+  "year": 2023,
+  "cited": 5,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0",
+   "https://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1016/j.microc.2023.109194": {
+  "fam": [
+   "Renato Couto",
+   "Rebello Lourenço"
+  ],
+  "title": "Bottom-up and top-down measurement uncertainty evaluation for multivariate spectrophotometric procedures",
+  "venue": "Microchemical Journal",
+  "vol": "193",
+  "page": "109194",
+  "year": 2023,
+  "cited": 3,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.21014/tc24-2025.030": {
+  "fam": [
+   "Ramsey"
+  ],
+  "title": "Validation of Measurement Procedures that Include Sampling (VaMPIS) – a new Eurachem Guide",
+  "venue": "Proceedings of the IMEKO TC8, TC11 and TC24 Conference on Chemical Measurements",
+  "vol": "",
+  "page": "155-157",
+  "year": 2025,
+  "cited": 0,
+  "oa_license": [],
+  "publisher": "IMEKO"
+ },
+ "10.1007/s00769-024-01575-0": {
+  "fam": [
+   "Ramsey",
+   "Rostron"
+  ],
+  "title": "Measurement uncertainty from sampling and its role in validation of measurement procedures",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "29",
+  "page": "153-162",
+  "year": 2024,
+  "cited": 9,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0",
+   "https://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1016/j.aca.2024.342597": {
+  "fam": [
+   "Lourenço",
+   "Oliveira"
+  ],
+  "title": "Nonparametric estimation of measurement uncertainty arising from sampling",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1305",
+  "page": "342597",
+  "year": 2024,
+  "cited": 6,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1007/s10661-016-5584-9": {
+  "fam": [
+   "Dołęgowska",
+   "Gałuszka",
+   "Migaszewski"
+  ],
+  "title": "Heterogeneous areas—identification of outliers and calculation of soil sampling uncertainty using the modified RANOVA method",
+  "venue": "Environmental Monitoring and Assessment",
+  "vol": "188",
+  "page": "581",
+  "year": 2016,
+  "cited": 4,
+  "oa_license": [
+   "http://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1007/s00769-017-1271-y": {
+  "fam": [
+   "Ramsey",
+   "Ellison"
+  ],
+  "title": "Combined uncertainty factor for sampling and analysis",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "22",
+  "page": "187-189",
+  "year": 2017,
+  "cited": 10,
+  "oa_license": [
+   "http://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1007/s00769-020-01443-7": {
+  "fam": [
+   "Kostakis",
+   "Kritikou",
+   "Koupa",
+   "Thomaidis"
+  ],
+  "title": "A novel nested design approach for estimation of uncertainty arising from sampling in feed",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "25",
+  "page": "329-333",
+  "year": 2020,
+  "cited": 1,
+  "oa_license": [
+   "https://www.springer.com/tdm",
+   "https://www.springer.com/tdm"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1016/j.aca.2021.338982": {
+  "fam": [
+   "Sona",
+   "Dubé"
+  ],
+  "title": "Sampling particulate matter for analysis – Controlling uncertainty and bias using the theory of sampling",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1185",
+  "page": "338982",
+  "year": 2021,
+  "cited": 2,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.aca.2021.339127": {
+  "fam": [
+   "Svensmark"
+  ],
+  "title": "Extensions to the Theory of Sampling 1. The extended Gy's formula, the segregation paradox and the fundamental sampling uncertainty (FSU)",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1187",
+  "page": "339127",
+  "year": 2021,
+  "cited": 6,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "http://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.aca.2024.343285": {
+  "fam": [
+   "Martins",
+   "Lourenço"
+  ],
+  "title": "Measurement uncertainty for &lt;711&gt; Dissolution tests using Monte Carlo methods – Uncertainties arising from sampling and analytical steps",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1330",
+  "page": "343285",
+  "year": 2024,
+  "cited": 11,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1088/1681-7575/ac6fa1": {
+  "fam": [
+   "Shirono",
+   "Tanaka",
+   "Koike"
+  ],
+  "title": "Economic optimization of acceptance interval in conformity assessment: 1. Process with no systematic effect",
+  "venue": "Metrologia",
+  "vol": "59",
+  "page": "045005",
+  "year": 2022,
+  "cited": 4,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1088/1681-7575/ac6fa2": {
+  "fam": [
+   "Shirono",
+   "Tanaka",
+   "Koike"
+  ],
+  "title": "Economic optimization of acceptance interval in conformity assessment: 2. Process with unknown systematic effect",
+  "venue": "Metrologia",
+  "vol": "59",
+  "page": "045006",
+  "year": 2022,
+  "cited": 3,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1088/1361-6501/ad2439": {
+  "fam": [
+   "Pennecchi",
+   "Kuselman"
+  ],
+  "title": "Probabilities of true and false decisions in conformity assessment of a finite sample of items",
+  "venue": "Measurement Science and Technology",
+  "vol": "35",
+  "page": "056003",
+  "year": 2024,
+  "cited": 3,
+  "oa_license": [
+   "http://creativecommons.org/licenses/by/4.0",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1016/j.chemolab.2019.02.010": {
+  "fam": [
+   "Bettencourt da Silva",
+   "Lourenço",
+   "Pennecchi",
+   "Hibbert",
+   "Kuselman"
+  ],
+  "title": "Spreadsheet for evaluation of global risks in conformity assessment of a multicomponent material or object",
+  "venue": "Chemometrics and Intelligent Laboratory Systems",
+  "vol": "188",
+  "page": "1-5",
+  "year": 2019,
+  "cited": 30,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.talanta.2018.12.021": {
+  "fam": [
+   "Lourenço",
+   "Bettencourt da Silva"
+  ],
+  "title": "Risk of false conformity decisions of multicomponent items controlled by correlated measurement results due to the sharing of analytical steps",
+  "venue": "Talanta",
+  "vol": "196",
+  "page": "174-181",
+  "year": 2019,
+  "cited": 34,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.microc.2026.117824": {
+  "fam": [
+   "Maranho",
+   "Lourenço"
+  ],
+  "title": "Development of a Python-based tool for evaluation of multivariate decision risk considering measurement uncertainty and correlation effects",
+  "venue": "Microchemical Journal",
+  "vol": "224",
+  "page": "117824",
+  "year": 2026,
+  "cited": 1,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.measurement.2025.119847": {
+  "fam": [
+   "Shirono",
+   "Takai",
+   "Tanaka"
+  ],
+  "title": "Economic optimisation of acceptance interval in conformity assessment for processes with known and unknown biases",
+  "venue": "Measurement",
+  "vol": "261",
+  "page": "119847",
+  "year": 2026,
+  "cited": 1,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "http://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1088/0026-1394/53/2/s74": {
+  "fam": [
+   "Carobbi",
+   "Pennecchi"
+  ],
+  "title": "Bayesian conformity assessment in presence of systematic measurement errors",
+  "venue": "Metrologia",
+  "vol": "53",
+  "page": "S74-S80",
+  "year": 2016,
+  "cited": 20,
+  "oa_license": [
+   "https://publishingsupport.iopscience.iop.org/iop-standard/v1",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.21014/actaimeko.v12i3.1471": {
+  "fam": [
+   "Purata-Sifuentes",
+   "Purata-Funes",
+   "Foyer"
+  ],
+  "title": "Overestimation of conformity assessment risks in legal requirements of weighing instruments",
+  "venue": "Acta IMEKO",
+  "vol": "12",
+  "page": "1-7",
+  "year": 2023,
+  "cited": 4,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0"
+  ],
+  "publisher": "IMEKO International Measurement Confederation"
+ },
+ "10.21014/acta_imeko.v8i3.655": {
+  "fam": [
+   "Fritsch"
+  ],
+  "title": "EURAMET cg-18 – state-of-the-art calibration guideline for non-automatic weighing instruments",
+  "venue": "ACTA IMEKO",
+  "vol": "8",
+  "page": "10",
+  "year": 2019,
+  "cited": 1,
+  "oa_license": [],
+  "publisher": "IMEKO International Measurement Confederation"
+ },
+ "10.1080/19315775.2015.11721736": {
+  "fam": [
+   "Fritsch",
+   "Ciesniewski"
+  ],
+  "title": "Calibration of Weighing Instruments: Measurement Uncertainty, Minimum Weight and the Safe Weighing Range",
+  "venue": "NCSLI Measure",
+  "vol": "10",
+  "page": "56-65",
+  "year": 2015,
+  "cited": 1,
+  "oa_license": [],
+  "publisher": "NCSL International"
+ },
+ "10.21014/tc6-2025.054": {
+  "fam": [
+   "Sheveleva",
+   "Foyer"
+  ],
+  "title": "Measurement Data and Information of Non-Automatic Weighing Instruments as Structured Data",
+  "venue": "Proceedings of the IMEKO TC6 Conference on Digitalization - M4DConf 2025",
+  "vol": "",
+  "page": "292-296",
+  "year": 2025,
+  "cited": 0,
+  "oa_license": [],
+  "publisher": "IMEKO"
+ },
+ "10.1016/j.measurement.2026.120882": {
+  "fam": [
+   "Purata-Sifuentes",
+   "Martínez-Velázquez",
+   "Báez-Macías",
+   "Sánchez-Martínez"
+  ],
+  "title": "Decentered process effect on conformity assessment risks for manufacturing of non-automatic weighing instruments",
+  "venue": "Measurement",
+  "vol": "270",
+  "page": "120882",
+  "year": 2026,
+  "cited": 0,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.3390/metrology6040076": {
+  "fam": [
+   "Ilinca",
+   "Luțescu",
+   "Barabas",
+   "Albu",
+   "Ganea",
+   "Dimitriu"
+  ],
+  "title": "Assigned-Value Uncertainty in Limited-Participant Proficiency Testing: Monte Carlo Evaluation of ISO 13528 Estimators in an Industrial Calibration Scenario",
+  "venue": "Metrology",
+  "vol": "6",
+  "page": "76",
+  "year": 2026,
+  "cited": 0,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/",
+   "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "MDPI AG"
+ },
+ "10.1039/d0an01607a": {
+  "fam": [
+   "Coucke",
+   "Soumali"
+  ],
+  "title": "A critical view at the ISO 13528 and IUPAC's harmonized protocol approach for proficiency testing for homogeneity assessment for quantitative variables",
+  "venue": "The Analyst",
+  "vol": "145",
+  "page": "7630-7635",
+  "year": 2020,
+  "cited": 3,
+  "oa_license": [
+   "http://rsc.li/journals-terms-of-use"
+  ],
+  "publisher": "Royal Society of Chemistry (RSC)"
+ },
+ "10.1016/j.measurement.2017.07.006": {
+  "fam": [
+   "Carobbi"
+  ],
+  "title": "A modified ISO 13528 robust analysis (Algorithm A) that takes measurement uncertainty into account",
+  "venue": "Measurement",
+  "vol": "110",
+  "page": "296-306",
+  "year": 2017,
+  "cited": 6,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1007/s00769-021-01474-8": {
+  "fam": [
+   "Morales",
+   "Giraldo",
+   "Torres"
+  ],
+  "title": "Boxplot fences in proficiency testing",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "26",
+  "page": "193-200",
+  "year": 2021,
+  "cited": 12,
+  "oa_license": [
+   "https://www.springer.com/tdm",
+   "https://www.springer.com/tdm"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1088/1681-7575/aa6c0e": {
+  "fam": [
+   "Koepke",
+   "Lafarge",
+   "Possolo",
+   "Toman"
+  ],
+  "title": "Consensus building for interlaboratory studies, key comparisons, and meta-analysis",
+  "venue": "Metrologia",
+  "vol": "54",
+  "page": "S34-S62",
+  "year": 2017,
+  "cited": 83,
+  "oa_license": [
+   "http://iopscience.iop.org/info/page/text-and-data-mining",
+   "http://iopscience.iop.org/page/copyright"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1016/j.chemolab.2018.01.003": {
+  "fam": [
+   "Molenaar",
+   "Cofino",
+   "Torfs"
+  ],
+  "title": "Efficient and robust analysis of interlaboratory studies",
+  "venue": "Chemometrics and Intelligent Laboratory Systems",
+  "vol": "175",
+  "page": "65-73",
+  "year": 2018,
+  "cited": 15,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1007/s00769-021-01467-7": {
+  "fam": [
+   "Thompson"
+  ],
+  "title": "Statistical internal quality control (SIQC) in chemical measurement—do we really understand it?",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "26",
+  "page": "99-101",
+  "year": 2021,
+  "cited": 0,
+  "oa_license": [
+   "https://www.springer.com/tdm",
+   "https://www.springer.com/tdm"
+  ],
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "10.1515/cclm-2020-0371": {
+  "fam": [
+   "Braga",
+   "Pasqualetti",
+   "Aloisio",
+   "Panteghini"
+  ],
+  "title": "The internal quality control in the traceability era",
+  "venue": "Clinical Chemistry and Laboratory Medicine (CCLM)",
+  "vol": "59",
+  "page": "291-300",
+  "year": 2020,
+  "cited": 62,
+  "oa_license": [],
+  "publisher": "Walter de Gruyter GmbH"
+ },
+ "10.1021/acs.analchem.0c02178": {
+  "fam": [
+   "Tellinghuisen"
+  ],
+  "title": "Least Squares Methods for Treating Problems with Uncertainty in<i>x</i>and<i>y</i>",
+  "venue": "Analytical Chemistry",
+  "vol": "92",
+  "page": "10863-10871",
+  "year": 2020,
+  "cited": 32,
+  "oa_license": [
+   "https://doi.org/10.15223/policy-001",
+   "https://doi.org/10.15223/policy-009",
+   "https://doi.org/10.15223/policy-017"
+  ],
+  "publisher": "American Chemical Society (ACS)"
+ },
+ "10.1088/1681-7575/ac711c": {
+  "fam": [
+   "Cecelski",
+   "Toman",
+   "Liu",
+   "Meija",
+   "Possolo"
+  ],
+  "title": "Errors-in-variables calibration with dark uncertainty",
+  "venue": "Metrologia",
+  "vol": "59",
+  "page": "045002",
+  "year": 2022,
+  "cited": 7,
+  "oa_license": [
+   "https://iopscience.iop.org/page/copyright",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ },
+ "10.1021/acs.analchem.2c02904": {
+  "fam": [
+   "Tellinghuisen"
+  ],
+  "title": "Goodness-of-Fit Tests in Calibration: Are They Any Good for Selecting Least-Squares Weighting Formulas?",
+  "venue": "Analytical Chemistry",
+  "vol": "94",
+  "page": "15997-16005",
+  "year": 2022,
+  "cited": 7,
+  "oa_license": [
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-045"
+  ],
+  "publisher": "American Chemical Society (ACS)"
+ },
+ "10.1016/j.trac.2015.12.006": {
+  "fam": [
+   "Raposo"
+  ],
+  "title": "Evaluation of analytical calibration based on least-squares linear regression for instrumental techniques: A tutorial review",
+  "venue": "TrAC Trends in Analytical Chemistry",
+  "vol": "77",
+  "page": "167-185",
+  "year": 2016,
+  "cited": 183,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.1016/j.measurement.2021.109611": {
+  "fam": [
+   "Gadelrab",
+   "Abouhogail"
+  ],
+  "title": "Towards a new generation of digital calibration certificate: Analysis and survey",
+  "venue": "Measurement",
+  "vol": "181",
+  "page": "109611",
+  "year": 2021,
+  "cited": 26,
+  "oa_license": [
+   "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "https://www.elsevier.com/legal/tdmrep-license",
+   "https://doi.org/10.15223/policy-017",
+   "https://doi.org/10.15223/policy-037",
+   "https://doi.org/10.15223/policy-012",
+   "https://doi.org/10.15223/policy-029",
+   "https://doi.org/10.15223/policy-004"
+  ],
+  "publisher": "Elsevier BV"
+ },
+ "10.3390/metrology2010003": {
+  "fam": [
+   "Smith",
+   "Luo",
+   "Hutzschenreuter"
+  ],
+  "title": "The Storage within Digital Calibration Certificates of Uncertainty Information Obtained Using a Monte Carlo Method",
+  "venue": "Metrology",
+  "vol": "2",
+  "page": "33-45",
+  "year": 2022,
+  "cited": 8,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "publisher": "MDPI AG"
+ },
+ "10.1088/1681-7575/aea165": {
+  "fam": [
+   "Volinsky"
+  ],
+  "title": "Digital precision in metrology: significant figures and trailing zeros as machine readable metadata",
+  "venue": "Metrologia",
+  "vol": "63",
+  "page": "055006",
+  "year": 2026,
+  "cited": 0,
+  "oa_license": [
+   "https://creativecommons.org/licenses/by/4.0/",
+   "https://iopscience.iop.org/info/page/text-and-data-mining"
+  ],
+  "publisher": "IOP Publishing"
+ }
+}

@@ -14,7 +14,7 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | Testler | **182** Rust testi (bunlardan biri 209 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–20, kararlar D1–D55, bulgular F1–F76 |
+| Araştırma günlüğü | oturum 1–20 (+ ek), kararlar D1–D55, bulgular F1–F76 (dizin: `findings-index.md`) |
 
 ## 2. Bu dönemde yapılanlar (oturum 16–20, 2026-10-26/27)
 
@@ -113,7 +113,25 @@ indirilemedi; Drive klasörüne konacak:
    - makale taslağı (`publication-plan.md`);
    - DOI'li sürüm.
 
-## 5. Çalışma notları
+## 5. Makale için kanıt dosyaları
+
+| Dosya | İçerik |
+|---|---|
+| `research-log.md` | tüm kararlar ve bulgular, tam metin (değiştirilmez, yalnızca eklenir) |
+| `findings-index.md` | 76 bulgu ve 55 kararın dizini (`tools/research/findings_index.py` ile üretilir) |
+| `validation-matrix.md` | her örnek için basılı ve hesaplanan değerler |
+| `literature-review.md`, `literature-search-2026-10.md`, `search-2026-10/` | literatür incelemesi, tarama raporu ve ham tarama verileri |
+| `sources-provenance.md` | okunan her belgenin kaynağı ve nasıl edinildiği |
+| `publication-plan.md` | hedef dergiler, katkı iddiaları, makale taslağı |
+| `tools/generators/`, `tools/research/` | kütüphaneyi üreten betikler; bulguların arkasındaki analiz betikleri |
+
+Gönderimden önce yapılacaklar:
+
+- Bulgu sınıflarını D12'ye göre denetlemek (oturum 20 eki). F72, F75 ve F76
+  c olarak düzeltildi.
+- Güncel baskıları ve errataları kontrol etmek.
+
+## 6. Çalışma notları
 
 - **Lisanslı belgeler.** Lisanslı standartlar ve ücretli makale PDF'leri
   depoya konmaz. Kütüphaneye yalnızca sayısal veriler ve sonuçlar, kaynak
