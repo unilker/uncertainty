@@ -1,0 +1,166 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a3-iron-groundwater-range",
+    "title": {
+      "en": "Dissolved iron in groundwater: range method (Eurachem UfS Example A3, corrected)",
+      "tr": "Yeraltı suyunda çözünmüş demir: aralık yöntemi (Eurachem UfS Örnek A3, düzeltilmiş)"
+    },
+    "description": {
+      "en": "Six monitoring wells of a groundwater body, each sampled twice (on-line filtered and preserved) with duplicate laboratory analyses by ICP-AES (Table A3.7).",
+      "tr": "Bir yeraltı suyu kütlesinde altı izleme kuyusu; her birinden iki numune (hat üzerinde süzülmüş ve korunmuş) ve ICP-AES ile çift laboratuvar analizi (Tablo A3.7)."
+    },
+    "explanation": [
+      {
+        "en": "Duplicate method (Section 9.4.2): two samples are taken from each target by independent applications of the protocol and each is analysed twice; s_meas² = s_samp² + s_anal² (Equation 1).",
+        "tr": "Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1)."
+      },
+      {
+        "en": "Analysis: R̄_A = mean of |S1A1 − S1A2| and |S2A1 − S2A2| = 0.0173 mg/L; s_A = R̄_A/d₂ = 0.0154 mg/L (d₂ = 1.128, ranges of two).",
+        "tr": "Analiz: R̄_A = |S1A1 − S1A2| ve |S2A1 − S2A2| ortalaması = 0,0173 mg/L; s_A = R̄_A/d₂ = 0,0154 mg/L (d₂ = 1,128, iki değerin aralığı)."
+      },
+      {
+        "en": "Sampling: R̄_S = mean |x̄_S1 − x̄_S2| = 0.102 mg/L; s_S+A = R̄_S/d₂ = 0.091 mg/L; s_S = √(s_S+A² − s_A²/2) = 0.090 mg/L (CV 5.23 %).",
+        "tr": "Numune alma: R̄_S = |x̄_S1 − x̄_S2| ortalaması = 0,102 mg/L; s_S+A = R̄_S/d₂ = 0,091 mg/L; s_S = √(s_S+A² − s_A²/2) = 0,090 mg/L (CV %5,23)."
+      },
+      {
+        "en": "Between wells: standard deviation of the well means s_T+S+A = 0.604 mg/L; s_T = √(0.604² − 0.091²/2) = 0.601 mg/L (CV 35 %).",
+        "tr": "Kuyular arası: kuyu ortalamalarının standart sapması s_T+S+A = 0,604 mg/L; s_T = √(0,604² − 0,091²/2) = 0,601 mg/L (CV %35)."
+      },
+      {
+        "en": "U′ (k = 2): 1.8 % analysis, 10.5 % sampling, 11 % measurement, 70 % between wells (Table A3.4 and summary as corrected by the errata).",
+        "tr": "U′ (k = 2): analiz %1,8, numune alma %10,5, ölçüm %11, kuyular arası %70 (düzeltme listesiyle düzeltilmiş Tablo A3.4 ve özet)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A3, Tables A3.4 and A3.7",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      },
+      {
+        "document": "Eurachem UfS:2019 Errata, version 1.4a (2023)",
+        "section": "Corrections to Table A3.7, Table A3.4 and the summary on p. 60",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "duplicate-method",
+      "range-method",
+      "iron",
+      "groundwater",
+      "environment",
+      "errata",
+      "raw-data"
+    ],
+    "notes": [
+      {
+        "en": "The printed Table A3.7 gives s_T+S+A = 0.55, s_T = 0.548 mg/L and CV_T = 32 % (between-target 64 % in Table A3.4); the errata (version 1.1, 2020) correct them to 0.604, 0.601 mg/L, 35 % and 70 %, which the program reproduces.",
+        "tr": "Basılı Tablo A3.7 s_T+S+A = 0,55, s_T = 0,548 mg/L ve CV_T = %32 verir (Tablo A3.4'te hedefler arası %64); düzeltme listesi (sürüm 1.1, 2020) bunları 0,604, 0,601 mg/L, %35 ve %70 olarak düzeltir; program bunları yeniden üretir."
+      },
+      {
+        "en": "The summary table gives 1.9 % for the analytical uncertainty of the validation, Table A3.4 1.8 %; the range calculation gives 2·0.89 % = 1.8 %.",
+        "tr": "Özet tablo validasyonun analitik belirsizliği için %1,9, Tablo A3.4 %1,8 verir; aralık hesabı 2·%0,89 = %1,8 verir."
+      },
+      {
+        "en": "The Guide uses d₂ = 1.128; the program uses 2/√π = 1.12838 (ISO 8258), a difference below the printed digits.",
+        "tr": "Kılavuz d₂ = 1,128 kullanır; program 2/√π = 1,12838 (ISO 8258) kullanır; fark basılı basamakların altındadır."
+      }
+    ]
+  },
+  "sampling": {
+    "quantity": "Dissolved iron in groundwater, one well",
+    "unit": "mg/L",
+    "duplicates": [
+      [
+        0.815,
+        0.834,
+        0.912,
+        0.893
+      ],
+      [
+        1.8,
+        1.83,
+        1.94,
+        1.93
+      ],
+      [
+        1.69,
+        1.68,
+        1.79,
+        1.77
+      ],
+      [
+        2.62,
+        2.61,
+        2.83,
+        2.84
+      ],
+      [
+        1.66,
+        1.63,
+        1.58,
+        1.59
+      ],
+      [
+        1.52,
+        1.53,
+        1.47,
+        1.5
+      ]
+    ],
+    "labels": [
+      "99.474",
+      "99.468",
+      "99.469",
+      "99.916",
+      "99.327",
+      "99.371"
+    ],
+    "method": "range"
+  },
+  "expected": {
+    "sampling": {
+      "mean": {
+        "value": 1.719,
+        "tolerance": 0.0005
+      },
+      "s_analysis": {
+        "value": 0.015,
+        "tolerance": 0.0005
+      },
+      "s_sampling": {
+        "value": 0.09,
+        "tolerance": 0.0005
+      },
+      "s_between_target": {
+        "value": 0.601,
+        "tolerance": 0.0005
+      },
+      "expanded_relative_analysis": {
+        "value": 1.8,
+        "tolerance": 0.05
+      },
+      "expanded_relative_sampling": {
+        "value": 10.5,
+        "tolerance": 0.05
+      },
+      "expanded_relative_measurement": {
+        "value": 11.0,
+        "tolerance": 0.5
+      },
+      "expanded_relative_between_target": {
+        "value": 70.0,
+        "tolerance": 0.5
+      }
+    },
+    "reference": {
+      "en": "Range calculations of Table A3.7 as corrected by errata 1.1 (s_T+S+A = 0.604, s_T = 0.601 mg/L, CV_T = 35 %); Table A3.4 and summary of the errata.",
+      "tr": "Düzeltme listesi 1.1 ile düzeltilmiş Tablo A3.7 aralık hesapları (s_T+S+A = 0,604, s_T = 0,601 mg/L, CV_T = %35); düzeltme listesindeki Tablo A3.4 ve özet."
+    }
+  }
+}

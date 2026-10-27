@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (82)
+- Kimya (92)
 - Elektrik ve RF (31)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
@@ -1146,6 +1146,273 @@ Kirlenmeyi saptamak için tüm işlemden geçirilen ultra saf su (50 mL buharla�
 - 60 kontrol değeri: 0 kontrol dışı, 3 uyarı ile eylem sınırları arasında
 
 **Çalıştırma:** `uncertainty run library/chemistry/tr569-table1-zinc.json --lang tr`
+
+### Serada yetişen marulda nitrat: çift numune yöntemi, klasik ANOVA (Eurachem UfS Örnek A1)
+
+`ufs-a1-nitrate-lettuce` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A1, Table A1.1 and Figure A1.2
+
+Sekiz marul bölmesi; her birinden iki numune (W düzeninde 10 baştan kompozit numune) ve HPLC ile çift analiz (Tablo A1.1).
+
+**Yaklaşım:** numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)
+
+**Adımlar:**
+
+1. Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1).
+2. Klasik iç içe ANOVA: 2n analiz çifti için KO_analiz = Σ(d²/2)/(2n); s_numune² = (KO_numune − KO_analiz)/2; s_T² = (KO_hedef − KO_numune)/4; negatif varyans tahminleri sıfır alınır.
+3. Klasik sonuçlar (Şekil A1.2): x̄ = 4345,5625 mg/kg; s_T = 556,2804, s_numune = 518,16089, s_analiz = 148,18063 mg/kg; toplam varyansın %51,58, %44,76 ve %3,66'sı (s_toplam = 774,5296 mg/kg).
+4. Bağıl genişletilmiş belirsizlik U′ = 2·100·s/x̄; x̄ tüm sonuçların ortalamasıdır (Eşitlik 4, k = 2).
+5. C hedefinin numune çiftleri çok farklıdır (ortalama 5805,5 ve 3921,5 mg/kg): klasik s_numune'yi büyütür. Kılavuzun robust tahminleri U′ = %14,5 (numune alma), %7,6 (analiz) ve %16,4 (ölçüm); klasik tahminler %23,8, %6,8 ve %24,8 verir.
+
+**Sonuç:**
+
+- s_numune = 518,2, s_analiz = 148,2, s_ölçüm = 538,9 mg/kg, ortalama 4346 mg/kg: U′ = %23,8 (numune alma), %6,82 (analiz), %24,8 (ölçüm), k = 2; hedefler arası s_T = 556,3 mg/kg
+
+**Notlar:**
+
+- Kılavuz ana sonuç olarak robust ANOVA tahminlerini (RANOVA ve RANOVA2 programları) verir. Bunların algoritması kılavuzda yoktur ve robust değerler yeniden üretilememiştir (araştırma günlüğü F63); bu nedenle proje, kılavuzun yanında yazdırdığı ve birebir yeniden üretilen klasik ANOVA'yı değerlendirir.
+- Robust tahminler (Şekil A1.2): ortalama 4408,3237, s_T 565,39868, s_numune 319,04834, s_analiz 167,94308 mg/kg. Sekiz hedef ortalamasına Huber H15 uygulanması robust ortalamayı (4408,319) verir, ancak yayımlanmış hiçbir değişken robust standart sapmaları yeniden üretmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a1-nitrate-lettuce.json --lang tr`
+
+### Kirlenmiş üst toprakta kurşun: klasik ANOVA ve belirsizlik faktörü (Eurachem UfS Örnek A2)
+
+`ufs-a2-lead-soil-uncertainty-factor` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A2, Tables A2.2–A2.4 and Figure A2.2
+
+100 grid hedefinden onu (30 m × 30 m, 0–150 mm) 3 m arayla çift numune alınarak ICP-AES ile iki kez analiz edilmiştir (Tablo A2.2). Değerler çarpıktır: belirsizlik ln x'in ANOVA'sından bir faktör olarak da ifade edilir.
+
+**Yaklaşım:** numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)
+
+**Adımlar:**
+
+1. Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1).
+2. Klasik iç içe ANOVA: 2n analiz çifti için KO_analiz = Σ(d²/2)/(2n); s_numune² = (KO_numune − KO_analiz)/2; s_T² = (KO_hedef − KO_numune)/4; negatif varyans tahminleri sıfır alınır.
+3. Klasik sonuçlar (Şekil A2.2): x̄ = 317,8 mg/kg; s_T = 197,55, s_numune = 135,43, s_analiz = 17,99, s_ölçüm = 136,62 mg/kg; U′ = %85,23 (numune alma), %11,32 (analiz), %85,98 (ölçüm).
+4. ln x'in ANOVA'sı (Tablo A2.3): ortalama 5,478 (geometrik ortalama 239,4 mg/kg), s_G = 0,66775 (hedefler arası), 0,4784 (numune alma), 0,0567 (analiz), 0,4817 (ölçüm).
+5. Genişletilmiş belirsizlik faktörü F_U = exp(2 s_G) (Eşitlik 5): ölçüm için 2,6207, numune alma için 2,6032; 300 mg/kg'lık bir sonuç 300/2,62 = 115 ile 300 × 2,62 = 784 mg/kg arasındadır (Tablo A2.4).
+6. u′ = √(exp(s_G²) − 1) = 0,5111 (Bölüm 6.3); u′ > 0,2 olduğundan 2 ile çarpılmaz.
+
+**Sonuç:**
+
+- s_numune = 135,4, s_analiz = 17,99, s_ölçüm = 136,6 mg/kg, ortalama 317,8 mg/kg: U′ = %85,2 (numune alma), %11,3 (analiz), %86,0 (ölçüm), k = 2; hedefler arası s_T = 197,6 mg/kg
+- ln x: s_G,numune = 0,4784, s_G,analiz = 0,05668, s_G,ölçüm = 0,4817; belirsizlik faktörleri F_U = 2,603 (numune alma), 1,120 (analiz), 2,621 (ölçüm)
+
+**Notlar:**
+
+- Kılavuz ana sonuç olarak robust ANOVA tahminlerini (RANOVA ve RANOVA2 programları) verir. Bunların algoritması kılavuzda yoktur ve robust değerler yeniden üretilememiştir (araştırma günlüğü F63); bu nedenle proje, kılavuzun yanında yazdırdığı ve birebir yeniden üretilen klasik ANOVA'yı değerlendirir.
+- Şekil A2.2 klasik ANOVA satırında numune alma için F_U = 2,6032 ve ölçüm için 2,6207 verir; metin yuvarlanmış s_G'den 2,6034 = exp(2·0,4784) verir.
+- Bölüm 6.4 analitik sapmayı (−%3,41 ± %1,34) rastgele analitik bileşene ekler: standart %5,24, robust numune alma terimiyle U′_ölçüm = %83,95; bu tür terimler bir model projesine eklenebilir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a2-lead-soil-uncertainty-factor.json --lang tr`
+
+### Yeraltı suyunda çözünmüş demir: klasik ANOVA (Eurachem UfS Örnek A3)
+
+`ufs-a3-iron-groundwater-anova` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A3, Tables A3.5 and A3.7; Eurachem UfS:2019 Errata, Corrections to Table A3.7, Table A3.4 and the summary on p. 60
+
+Bir yeraltı suyu kütlesinde altı izleme kuyusu; her birinden iki numune (hat üzerinde süzülmüş ve korunmuş) ve ICP-AES ile çift laboratuvar analizi (Tablo A3.7).
+
+**Yaklaşım:** numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)
+
+**Adımlar:**
+
+1. Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1).
+2. Klasik iç içe ANOVA: 2n analiz çifti için KO_analiz = Σ(d²/2)/(2n); s_numune² = (KO_numune − KO_analiz)/2; s_T² = (KO_hedef − KO_numune)/4; negatif varyans tahminleri sıfır alınır.
+3. x̄ = 1,719 mg/L'de s_analiz = 0,0136, s_numune = 0,0827, s_T = 0,601 mg/L: U′ = %1,6 (analiz), %9,6 (numune alma), %70 (kuyular arası), Tablo A3.5'teki gibi; aralık yöntemi %1,8, %10,5 ve %70 verir.
+
+**Sonuç:**
+
+- s_numune = 0,08267, s_analiz = 0,01357, s_ölçüm = 0,08377 mg/L, ortalama 1,719 mg/L: U′ = %9,62 (numune alma), %1,58 (analiz), %9,74 (ölçüm), k = 2; hedefler arası s_T = 0,6013 mg/L
+
+**Notlar:**
+
+- Tablo A3.5 RANOVA tahminlerini de verir (ROBAN 1.0.1): %1,8, %9,9 ve %72; robust algoritma uygulanmamıştır (F63).
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a3-iron-groundwater-anova.json --lang tr`
+
+### Yeraltı suyunda çözünmüş demir: aralık yöntemi (Eurachem UfS Örnek A3, düzeltilmiş)
+
+`ufs-a3-iron-groundwater-range` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A3, Tables A3.4 and A3.7; Eurachem UfS:2019 Errata, Corrections to Table A3.7, Table A3.4 and the summary on p. 60
+
+Bir yeraltı suyu kütlesinde altı izleme kuyusu; her birinden iki numune (hat üzerinde süzülmüş ve korunmuş) ve ICP-AES ile çift laboratuvar analizi (Tablo A3.7).
+
+**Yaklaşım:** numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)
+
+**Adımlar:**
+
+1. Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1).
+2. Analiz: R̄_A = |S1A1 − S1A2| ve |S2A1 − S2A2| ortalaması = 0,0173 mg/L; s_A = R̄_A/d₂ = 0,0154 mg/L (d₂ = 1,128, iki değerin aralığı).
+3. Numune alma: R̄_S = |x̄_S1 − x̄_S2| ortalaması = 0,102 mg/L; s_S+A = R̄_S/d₂ = 0,091 mg/L; s_S = √(s_S+A² − s_A²/2) = 0,090 mg/L (CV %5,23).
+4. Kuyular arası: kuyu ortalamalarının standart sapması s_T+S+A = 0,604 mg/L; s_T = √(0,604² − 0,091²/2) = 0,601 mg/L (CV %35).
+5. U′ (k = 2): analiz %1,8, numune alma %10,5, ölçüm %11, kuyular arası %70 (düzeltme listesiyle düzeltilmiş Tablo A3.4 ve özet).
+
+**Sonuç:**
+
+- s_numune = 0,08989, s_analiz = 0,01536, s_ölçüm = 0,09119 mg/L, ortalama 1,719 mg/L: U′ = %10,5 (numune alma), %1,79 (analiz), %10,6 (ölçüm), k = 2; hedefler arası s_T = 0,6008 mg/L
+
+**Notlar:**
+
+- Basılı Tablo A3.7 s_T+S+A = 0,55, s_T = 0,548 mg/L ve CV_T = %32 verir (Tablo A3.4'te hedefler arası %64); düzeltme listesi (sürüm 1.1, 2020) bunları 0,604, 0,601 mg/L, %35 ve %70 olarak düzeltir; program bunları yeniden üretir.
+- Özet tablo validasyonun analitik belirsizliği için %1,9, Tablo A3.4 %1,8 verir; aralık hesabı 2·%0,89 = %1,8 verir.
+- Kılavuz d₂ = 1,128 kullanır; program 2/√π = 1,12838 (ISO 8258) kullanır; fark basılı basamakların altındadır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a3-iron-groundwater-range.json --lang tr`
+
+### Bebek lapasında A vitamini, 40 g deney numunesi: çift numune yöntemi (Eurachem UfS Örnek A4)
+
+`ufs-a4-vitamin-a-porridge-40g` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A4, Tables A4.3, A4.5–A4.7, A4.14, A4.15 and summary; Eurachem UfS:2019 Errata, Correction to the RSD in the summary table of Example A4, p. 75
+
+Muzlu ve kayısılı yulaf lapasının on üretim partisinin her birinden iki numune (paket); her biri HPLC için çift deney numunesine bölünmüştür (aynı deney numunesinin tekrar analizi yoktur).
+
+**Yaklaşım:** numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)
+
+**Adımlar:**
+
+1. Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1).
+2. KT_analiz = 16595 (µg/100 g)², ν = 20: s_analiz = 28,805 µg/100 g, RSD %8,28 (Tablo A4.5, A4.14).
+3. KT_numune = 14231, ν = 10: V_numune = (14231/10 − 16595/20)/2 = 296,675, s_numune = 17,224 µg/100 g, RSD %4,95 (Tablo A4.6, A4.15).
+4. u_ölçüm = √(4,95² + 8,28²) = %9,65; U′ = %9,9 (numune alma), %16,6 (analiz), %19,4 (ölçüm); partiler arası RSD_B = %6,1 (düzeltme listesi 1.4a).
+
+**Sonuç:**
+
+- s_numune = 17,22, s_analiz = 28,81, s_ölçüm = 33,56 µg/100 g, ortalama 347,9 µg/100 g: U′ = %9,90 (numune alma), %16,6 (analiz), %19,3 (ölçüm), k = 2; hedefler arası s_T = 21,27 µg/100 g
+
+**Notlar:**
+
+- Basılı özet partiler arası değişkenlik için RSD_B = %8,2 verir; düzeltme listesi 1.4a (2023) bunu %6,1'e düzeltir (Tablo A4.3'ün klasik ANOVA'sı); program bunu yeniden üretir.
+- Tablo A4.7 U′'yu %17 (analiz) ve %20 (ölçüm) olarak yuvarlar; özet %16,6 ve %19,4, yani yuvarlanmış u'nun (%8,3 ve %9,7) iki katını verir. Yuvarlamadan U′_ölçüm = 2·%9,648 = %19,3.
+- Laboratuvarın kendi analitik belirsizliği (%7) burada bulunan %8,28'den küçüktür; kılavuz büyük değeri kullanır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-porridge-40g.json --lang tr`
+
+### Bebek lapasında A vitamini, 4 g deney numunesi: negatif numune alma varyansı (Eurachem UfS Örnek A4)
+
+`ufs-a4-vitamin-a-porridge-4g` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A4, Tables A4.4, A4.8–A4.10
+
+Muzlu ve kayısılı yulaf lapasının on üretim partisinin her birinden iki numune (paket); her biri HPLC için çift deney numunesine bölünmüştür (aynı deney numunesinin tekrar analizi yoktur).
+
+**Yaklaşım:** numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)
+
+**Adımlar:**
+
+1. Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1).
+2. KT_analiz = 312206,5, ν = 20: s_analiz = 124,94 µg/100 g, RSD %36,68 (Tablo A4.8).
+3. KT_numune = 102860,25, ν = 10: V_numune = (102860,25/10 − 15610,325)/2 = −2662,15 < 0; geleneksel olarak sıfır alınır (Tablo A4.9).
+4. Küçük deney porsiyonu baskındır: U′_analiz = %73,4. Kılavuz numune alma RSD'sini 40 g çalışmasından (%5) alır ve U′_ölçüm = %74 bildirir (Tablo A4.10): 4 g deney numunesi amaca uygun değildir.
+
+**Sonuç:**
+
+- s_numune = 0, s_analiz = 124,9, s_ölçüm = 124,9 µg/100 g, ortalama 340,6 µg/100 g: U′ = %0 (numune alma), %73,4 (analiz), %73,4 (ölçüm), k = 2; hedefler arası s_T = 0 µg/100 g
+
+**Notlar:**
+
+- Kılavuz robust ANOVA ile u_numune = %6,9 ve u_analiz = %30 bulur; uygulanmamıştır (F63).
+- Bu projenin ölçüm belirsizliği (%73,4) yalnızca analitik terimi içerir, çünkü bu veri setinin numune alma varyansı sıfırdır; Tablo A4.10 bunu 40 g çalışmasındaki %5 ile birleştirir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-porridge-4g.json --lang tr`
+
+### Bebek lapasında A vitamini: çift numunelerin kontrol grafiği (Eurachem UfS Örnek A4)
+
+`ufs-a4-vitamin-a-qc-chart` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A4, Section 7.3, Table A4.13 and Figure A4.4; Section 13.2
+
+Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki numune, her biri iki kez analiz (40 g); iki numunenin bağıl farkı D %, valide edilmiş belirsizlikten gelen sınırlara göre grafiğe işlenir (Tablo A4.13, Şekil A4.4).
+
+**Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
+
+**Adımlar:**
+
+1. Valide edilmiş u_ölçüm = √(u_numune² + u_analiz²) = √(4,95² + 8,28²) = %9,65 (Tablo A4.7).
+2. İki değerin aralık grafiği (Bölüm 13.2.2): CL = 1,128·u = %10,9, WL = 2,83·u = %27,3, AL = 3,69·u = %35,6 (kılavuzda %11, %27 ve %36).
+3. Her ürün ve analiz için D % = |x_S1 − x_S2|/x̄·100: 16 değerin tümü uyarı sınırının altındadır, Şekil A4.4'teki gibi.
+
+**Sonuç:**
+
+- r%-grafiği (göreli açıklık): merkez çizgisi 10,9 %; uyarı sınırları 27,3 %; eylem sınırları 35,6 % (s = 9,65 %, hedef kontrol sınırları)
+- 16 kontrol değeri: 0 kontrol dışı, 0 uyarı ile eylem sınırları arasında
+
+**Notlar:**
+
+- Bölüm 7.3 uyarı sınırı faktörünü formülde 2,38 yazar ancak 2,83 ile hesaplar (= çiftler için D_WL, Nordtest TR 569 Tablo 4).
+- Merkez çizgisi, valide edilmiş belirsizlik için beklenen aralık d₂·u'dur; 16 değerin ortalaması (%12,1) değildir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-qc-chart.json --lang tr`
+
+### Tavuk yeminde enzim: Gy kuramıyla temel numune alma hatası (Eurachem UfS Örnek A5)
+
+`ufs-a5-enzyme-feed-gy` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A5, Table A5.1; Section 10.2.7–10.2.8, Equations 6–8
+
+25 kg'lık torbadan 500 g birincil numune (%0,05 m/m enzim), < 0,5 mm'ye öğütülür ve ekstraksiyon ile LC için 2 g deney porsiyonu alınır (%5 analitik RSD). Tablo A5.1'deki malzeme özellikleriyle modelleme yaklaşımı.
+
+**Yaklaşım:** numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)
+
+**Adımlar:**
+
+1. Bileşim faktörü (Eşitlik 8): c = (1 − a_L/α)²/(a_L/α)·ρ_c + (1 − a_L/α)·ρ_m = 2158,5 g cm⁻³ (kılavuzda 2160); a_L/α = %0,05/%100, ρ_c = 1,08 ve ρ_m = 0,67 g cm⁻³.
+2. Numune alma sabitleri C = f·g·β·c, f = 0,5, β = 1: C₁ = 540 (g₁ = 0,5) ve C₂ = 270 g cm⁻³ (g₂ = 0,25).
+3. s_r² = C·d³·(1/M_S − 1/M_L) (Eşitlik 6): birincil numune s_r1 = 0,033 (d = 0,1 cm, 25 000 g'dan 500 g); deney porsiyonu s_r2 = 0,130 (d = 0,05 cm, 500 g'dan 2 g).
+4. s_t = √(s_r1² + s_r2² + 0,05²) = 0,143; U′ = 2·%14,3 = %28,5 (kılavuzda yuvarlanmış bileşenlerden %28,6); en zayıf halka deney porsiyonudur.
+
+**Sonuç:**
+
+- temel numune alma hatası: Primary sample s_r = 0,03252, Test portion s_r = 0,1296; numune alma s_r = 0,1336, toplam s_r = 0,1427; U′ = %26,7 (numune alma), %28,5 (toplam), k = 2
+
+**Notlar:**
+
+- Örnek A5 metni bileşim faktörüne 'Eşitlik 7' der; Bölüm 10.2.8'de bu Eşitlik 8'dir (ve 6 numarası iki kez kullanılmıştır).
+- Yalnızca temel numune alma hatası: hatalı numune alma hataları ve analitik sapma ihmal edilebilir kabul edilmiştir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a5-enzyme-feed-gy.json --lang tr`
+
+### Tarım toprağında kadmiyum: modelleme yaklaşımı (Eurachem UfS Örnek A6)
+
+`ufs-a6-cadmium-soil` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A6, Tables A6.1–A6.6
+
+0,32 ha'lık bir tarlanın (143 m × 22 m, 0–30 cm) kompozit numunelerden ortalama derişimi; numune alma etkilerinin (konumlar arası, strateji, derinlik, bölme, kurutma) ve analizin belirsizlik bütçesi.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Model x_site = x̄_sqr·f_strat·f_depth·f_split·f_dry·f_analiz; düzeltme faktörlerinin nominal değeri 1'dir (Bölüm 4.3).
+2. Konumlar arası: beş karenin ortalaması, u = s_kare/√5 (A tipi).
+3. Derinlik: x₋ = (x̄ − 0,1 c₋)/0,9 ve x₊ = (x̄ + 0,1 c₊)/1,1; c₋ = 0,14, c₊ = 0,1 mg/kg; yarı genişlik (x₋ − x₊)/2, dikdörtgen.
+4. Kurutma: %2'lik nem aralığı, u = %1/√3 = %0,6.
+5. Bölme u = Tablo A6.3'teki RSD'lerin ortalaması = %3,7; strateji %1 (hipoteze dayalı düzen); analiz √(3,6² + 2,7² + 2,7²) = %5,2 (Tablo A6.4).
+
+**Sonuç:**
+
+- x_site = (0,319 ± 0,059) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Tablo A6.2'den derinlik terimi %3,6'dır (x₋ = 0,339, x₊ = 0,299 mg/kg); Tablo A6.6 %3,5 verir. Bununla birleşik belirsizlik %9,1 yerine %9,2, U ise %18,2 yerine %18,4 olur; yuvarlanmış sonuç 0,32 ± 0,06 mg/kg aynıdır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-cadmium-soil.json --lang tr`
+
+### Tarım toprağında fosfor: modelleme yaklaşımı (Eurachem UfS Örnek A6)
+
+`ufs-a6-phosphorus-soil` — Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Appendix A, Example A6, Tables A6.1–A6.6
+
+0,32 ha'lık bir tarlanın (143 m × 22 m, 0–30 cm) kompozit numunelerden ortalama derişimi; numune alma etkilerinin (konumlar arası, strateji, derinlik, bölme, kurutma) ve analizin belirsizlik bütçesi.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Model x_site = x̄_sqr·f_strat·f_depth·f_split·f_dry·f_analiz; düzeltme faktörlerinin nominal değeri 1'dir (Bölüm 4.3).
+2. Konumlar arası: beş karenin ortalaması, u = s_kare/√5 (A tipi).
+3. Derinlik: x₋ = (x̄ − 0,1 c₋)/0,9 ve x₊ = (x̄ + 0,1 c₊)/1,1; c₋ = 47, c₊ = 35 mg/kg; yarı genişlik (x₋ − x₊)/2, dikdörtgen.
+4. Kurutma: %2'lik nem aralığı, u = %1/√3 = %0,6.
+5. Bölme u = %3,16 (Tablo A6.3 ortalaması); strateji %0,5; analiz √(1,7² + 9,5²) = %9,7 (Tablo A6.5).
+
+**Sonuç:**
+
+- x_site = (116 ± 26) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Tablo A6.1 s_kare = 8,0 mg/kg yazar; beş değer 7,43 mg/kg (%6,4) verir ve basılı u_b-loc = %2,9 değeri 7,43/√5'ten çıkar.
+- Tablo A6.3'teki RSD'lerin ortalaması basılı %3,3 değil %3,16'dır; proje %3,16 kullanır. Birleşik belirsizlik (%11,3) ve U = 26 mg/kg değişmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang tr`
 
 ### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
 

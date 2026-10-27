@@ -1510,3 +1510,80 @@ is reproduced. One difference is practice: the guide reads k from GUM
 Table G.2 (2.05 at ν = 62, from the row for ν = 50), where the exact
 t-value is 2.04. Examples H2–H4 (multi-interval, 30 t with substitution
 loads, error-approximation function) remain for a later session.
+
+## 2026-10-26 (session 16) — Uncertainty arising from sampling (Eurachem UfS:2019)
+
+**D50. `sampling` section (Eurachem UfS:2019).** ISO/IEC 17025 7.6.1 requires
+contributions from sampling to be considered, and the chemistry focus of the
+project made the Eurachem Guide the next document. The core module
+`sampling` implements:
+
+- the classical nested ANOVA of the duplicate method, for balanced and
+  unbalanced designs (method of moments with the coefficients k₁, k₂, k₃ of
+  the expected mean squares; 2, 2, 4 when balanced), with negative variance
+  estimates set to zero;
+- the range method of Example A3;
+- the ANOVA of ln x with the uncertainty factor F_U = exp(k s_G) and
+  u′ = √(exp(s_G²) − 1);
+- the fundamental sampling error of Gy's theory (Equations 6–8).
+
+Ten library projects cover Examples A1–A6, including a control chart of the
+duplicate differences (A4, Section 7.3) and the two modelling budgets of A6
+as GUM models. Every classical value printed in the Guide is reproduced: A1
+(Figure A1.2), A2 (Figure A2.2 and Table A2.3, F_U = 2.6207), A3 (Table A3.5
+and the corrected Table A3.7), A4 (Tables A4.5–A4.9), A5 and A6.
+
+**F63. The robust ANOVA of RANOVA/RANOVA2 is not reproducible from the Guide
+(class c, method).** The Guide reports robust estimates as the main results
+of A1 and A2 but does not give the algorithm; reference [53] points to the
+programs on the RSC website, which this session could not reach. Variants
+tried on both examples:
+
+- Huber's H15 at each level (c = 1.5, β = 0.7785) with the scale of each
+  level combined from the levels below (the AMC one-way approach extended);
+- Algorithm A on the analytical differences, the sample differences and
+  the target means;
+- H15 on all values.
+
+Two partial results: H15 on the target means with divisor n reproduces the
+robust means of both examples (4408.319 against 4408.3237; 297.310 against
+297.31). The per-level variant reproduces s_anal of A1 (167.947 against
+167.943) but not A2 (15.33 against 11.144). No variant reproduces s_samp or
+s_T. The two examples also come from different programs (RANOVA in A1,
+RANOVA2 in A2), and A3 used a third one (ROBAN 1.0.1). The program therefore
+evaluates the classical ANOVA, which the Guide prints alongside, and says so
+in every report. For the article, the point stands: an uncertainty method
+whose numerical results depend on an unpublished algorithm cannot be
+validated independently.
+
+**F64. UfS Example A3 (class a/b).** The errata (version 1.1, 2020) correct
+s_T+S+A in Table A3.7 from 0.55 to 0.604 mg/L, s_T from 0.548 to
+0.601 mg/L, and the between-target U from 64 % to 70 %. The program
+reproduces the corrected values from the raw data. The summary table still
+gives 1.9 % for the analytical U of the validation, while Table A3.4 and the
+range calculation give 1.8 % (2 × 0.89 %).
+
+**F65. UfS Example A4 (class a/b).** Errata 1.4a (2023) correct the
+between-batch RSD_B of the summary from 8.2 % to 6.1 %; the classical ANOVA
+of Table A4.3 gives 6.11 %. In Section 7.3 the warning-limit factor is
+printed as 2.38 but the computation uses 2.83, the D_WL of TR 569 for
+duplicates. The summary's U′ = 16.6 % and 19.4 % are twice the rounded u
+(8.3 % and 9.7 %); unrounded, U′_meas = 19.30 %.
+
+**F66. UfS Example A5 and Section 10.2.8 (class b).** "Equation 6" labels
+both the FSE formula and C = f g β c. Example A5 calls the constitution
+factor Equation 7, while Section 10.2.8 numbers it Equation 8. The printed
+total U′ = 28.6 % comes from the rounded components (3.3 %, 13 %, 5 %);
+unrounded it is 28.53 %. The constitution factor is 2158.5 g cm⁻³ (printed
+2160).
+
+**F67. UfS Example A6 (class a/b).**
+
+- Cadmium: Table A6.2 gives u_depth = 3.5 %, but its own data
+  (x₋ = 0.339, x₊ = 0.299 mg/kg) give 3.6 %. The combined uncertainty is
+  then 9.2 % (printed 9.1 %) and U = 18.4 % (printed 18.2 %); the rounded
+  result 0.32 ± 0.06 mg/kg is unchanged.
+- Phosphorus: Table A6.1 prints s_sqr = 8.0 mg/kg, while the five values give
+  7.43 mg/kg. The printed 6.5 % and u_b-loc = 2.9 % follow from 7.43. The
+  mean of the splitting RSDs in Table A6.3 is 3.16 %, not 3.3 %. The combined
+  11.3 % and U = 26 mg/kg are unchanged.

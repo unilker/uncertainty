@@ -11,17 +11,18 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | yedisinden biri | ölçüm modeli (7.3) |
-| `topdown` | yedisinden biri | top-down değerlendirme (7.6) |
-| `proficiency` | yedisinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | yedisinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
-| `precision_experiment` | yedisinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
-| `multivariate` | yedisinden biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
-| `control_chart` | yedisinden biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
+| `model` | sekizinden biri | ölçüm modeli (7.3) |
+| `topdown` | sekizinden biri | top-down değerlendirme (7.6) |
+| `proficiency` | sekizinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | sekizinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | sekizinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `multivariate` | sekizinden biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
+| `control_chart` | sekizinden biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
+| `sampling` | sekizinden biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); model ve çok çıktılı projelerde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.14) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.15) |
 
 ## 7.2 `metadata`
 
@@ -280,14 +281,37 @@ Birden çok çıktı büyüklüğü olan bir model (JCGM 102; bölüm 13). `anal
 | `exclude` | istatistiklerin dışında bırakılan seri numaraları (1'den başlayarak) |
 | `review` | kuruluş döneminden sonraki değerlerin uzun dönem değerlendirmesi: isteğe bağlı `previous` ve `current` özetleri (`mean`, `sd`, `n`, `dof`), `exclude_beyond` (varsayılan 4 s), `confidence` (varsayılan 0,95) |
 
-## 7.13 Hatalar
+## 7.13 `sampling`
+
+Numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019; bölüm 15): çift numune yöntemi veya Gy numune alma
+kuramıyla modelleme yaklaşımı.
+
+```json
+"sampling": {
+  "quantity": "Lead in top soil, one target", "unit": "mg/kg",
+  "duplicates": [[787, 769, 811, 780], [338, 327, 651, 563], …], "labels": ["A4", "B7", …],
+  "method": "anova", "log": true
+}
+```
+
+| Alan | İçerik |
+|---|---|
+| `duplicates` | dengeli tasarım: her numune alma hedefi için dört sonuç S1A1, S1A2, S2A1, S2A2 |
+| `targets` | `duplicates` yerine herhangi bir iç içe tasarım: her hedef için numuneler, her numune için analizleri, örneğin `[[[x, x], [x]], …]` (dengesiz tasarım, Ek D2) |
+| `labels` | hedeflerin adları |
+| `method` | `anova` (varsayılan: klasik iç içe varyans analizi) veya `range` (aralık yöntemi, yalnızca dengeli tasarım) |
+| `log` | `true`: ayrıca ln x'in ANOVA'sı ve belirsizlik faktörleri F_U = exp(k·s_G) |
+| `gy` | çift numuneler yerine temel numune alma hatası: `lot_concentration` a_L ve `particle_concentration` α (aynı birim), `critical_density` ρ_c ve `matrix_density` ρ_m (g cm⁻³), `steps` (her biri `name`, g cinsinden `sample_mass` ve `lot_mass`, cm cinsinden `particle_size` d, `size_factor` g, isteğe bağlı `shape_factor` f = 0,5 ve `liberation` β = 1), isteğe bağlı `analytical_rsd` (kesir) |
+| `coverage_factor` | bağıl genişletilmiş belirsizlikler için k (varsayılan 2) |
+
+## 7.14 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
-`proficiency`, `calibration`, `precision_experiment`, `multivariate` ve `control_chart` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+`proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart` ve `sampling` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.14 `expected`
+## 7.15 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -321,3 +345,10 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
   `sd` (güncel seri), `f`, `f_critical`, `pooled_sd`, `t`, `t_critical`, `sd_significant`, `mean_significant`
   (true/false); `precision`: `s_r_pooled` (Eşitlik 10), `s_rw_simplified`, `s_r`, `s_between`, `s_rw` (varyans
   analizi)
+* `sampling`: `mean`, `s_between_target`, `s_sampling`, `s_analysis`, `s_measurement`, `s_total`;
+  `expanded_relative_sampling`, `expanded_relative_analysis`, `expanded_relative_measurement`,
+  `expanded_relative_between_target` (% olarak U′); `percent_between_target`, `percent_sampling`,
+  `percent_analysis` (toplam varyansın yüzdesi); `sampling_variance_negative` (true/false); `log`: `mean`,
+  `s_between_target`, `s_sampling`, `s_analysis`, `s_measurement`, `s_total`, `factor_sampling`, `factor_analysis`,
+  `factor_measurement`, `relative_measurement`; `gy`: `constitution_factor`, `sampling_constants` ve `rsd` (her adım
+  için bir değerli listeler), `rsd_sampling`, `rsd_total`, `expanded_relative_sampling`, `expanded_relative_total`

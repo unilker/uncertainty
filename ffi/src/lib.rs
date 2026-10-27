@@ -123,6 +123,25 @@ const TEMPLATE_MULTIVARIATE: &str = r#"{
   "analysis": { "mcm": { "trials": 200000 } }
 }"#;
 
+const TEMPLATE_SAMPLING: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Uncertainty from sampling by the duplicate method", "tr": "Çift numune yöntemiyle numune alma belirsizliği" },
+    "field": "chemistry"
+  },
+  "sampling": {
+    "quantity": "Dissolved iron in groundwater, one well",
+    "unit": "mg/L",
+    "duplicates": [
+      [0.815, 0.834, 0.912, 0.893], [1.8, 1.83, 1.94, 1.93], [1.69, 1.68, 1.79, 1.77],
+      [2.62, 2.61, 2.83, 2.84], [1.66, 1.63, 1.58, 1.59], [1.52, 1.53, 1.47, 1.50]
+    ],
+    "labels": ["99.474", "99.468", "99.469", "99.916", "99.327", "99.371"]
+  }
+}
+"#;
+
 const TEMPLATE_CONTROL_CHART: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -194,7 +213,7 @@ pub extern "C" fn uc_version() -> *mut c_char {
 }
 
 /// A starting project: `kind` is `"model"` (default), `"topdown"`,
-/// `"proficiency"`, `"calibration"`, `"conformity"`, `"precision"`, `"multivariate"` or `"control_chart"`.
+/// `"proficiency"`, `"calibration"`, `"conformity"`, `"precision"`, `"multivariate"`, `"control_chart"` or `"sampling"`.
 ///
 /// # Safety
 /// `kind` must be null or a valid NUL-terminated string.
@@ -209,6 +228,7 @@ pub unsafe extern "C" fn uc_template(kind: *const c_char) -> *mut c_char {
         Ok("precision") => json!({ "ok": true, "project": TEMPLATE_PRECISION }),
         Ok("multivariate") => json!({ "ok": true, "project": TEMPLATE_MULTIVARIATE }),
         Ok("control_chart") => json!({ "ok": true, "project": TEMPLATE_CONTROL_CHART }),
+        Ok("sampling") => json!({ "ok": true, "project": TEMPLATE_SAMPLING }),
         Ok("" | "model") => json!({ "ok": true, "project": TEMPLATE_MODEL }),
         Ok(other) => error(format!("unknown template '{other}'")),
         Err(e) => error(e.clone()),
@@ -332,6 +352,7 @@ mod tests {
             "precision",
             "multivariate",
             "control_chart",
+            "sampling",
         ] {
             let k = CString::new(kind).unwrap();
             let t = call(unsafe { uc_template(k.as_ptr()) });

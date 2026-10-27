@@ -270,6 +270,22 @@ Table 9 (raw data only in the electronic supplement).
 | CG19-E2 | 100 mL pycnometer | 100.014 mL, u 0.89 µL, ν_eff 13, k 2.21, U 2.0 µL | 100.0142; 0.90 µL; 12.9; 2.23 (G.6.4 truncation); 2.0 µL | ✅ (F62) |
 | M3003-L3 | DMM, 1 V range | 0.95 V: u_c 5.37 µV; 500 mV: U 6.2 µV; 1 V: k 1.898 | same | ✅ (F61) |
 
+## Eurachem UfS:2019 — uncertainty from sampling (library projects and core tests)
+
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
+| UFS-A1 | nitrate in lettuce, 8 targets, classical ANOVA | x̄ 4345.5625; s_T 556.2804, s_samp 518.16089, s_anal 148.18063; 51.58/44.76/3.66 % | same (s_samp 518.16087) | ✅ |
+| UFS-A1R | same, robust ANOVA (RANOVA) | 4408.3237; 565.40, 319.05, 167.94 | robust mean by H15 on target means 4408.319; s not reproduced | ❌ method unpublished (F63) |
+| UFS-A2 | lead in soil, 10 targets, classical and ln x | 317.8; 197.55, 135.43, 17.99; U′ 85.23/11.32/85.98 %; s_G 0.66775, 0.4784, 0.0567, 0.4817; F_U 2.6032, 1.12, 2.6207; u′ 0.5111 | same | ✅ |
+| UFS-A3 | dissolved iron, 6 wells, range method | errata: s_A 0.015, s_S 0.090, s_T 0.601 mg/L; U 1.8/10.5/70 % | same | ✅ (F64) |
+| UFS-A3A | same, classical ANOVA | U 1.6/9.6/70 % | same | ✅ |
+| UFS-A4 | vitamin A, 40 g test samples | SS 16595/14231; s_anal 28.805, s_samp 17.224; RSD_B 6.1 % (errata) | same | ✅ (F65) |
+| UFS-A4S | vitamin A, 4 g test samples | V_samp −2662.15 → 0; RSD_anal 36.68 % | same | ✅ |
+| UFS-A4Q | duplicate control chart | CL 11, WL 27, AL 36 %; all D % below WL | 10.88, 27.33, 35.56 %; 0 outside WL | ✅ (F65) |
+| UFS-A5 | enzyme in feed, Gy | c 2160; C 540, 270; s_r 0.033, 0.13; s_t 0.143; U′ 26.8/28.6 % | 2158.5; 539.6, 269.8; 0.0325, 0.1296; 0.1427; 26.7/28.5 % | ✅ (F66) |
+| UFS-A6 | Cd and P in soil, modelling (GUM) | 0.32 ± 0.06, 116 ± 26 mg/kg | 0.319 ± 0.059, 115.8 ± 26.1 | ✅ (F67) |
+| UFS-D2 | unbalanced nested design | method of moments | core test: EMS coefficients and MS_anal | ✅ (core) |
+
 ## Uncorrected bias (Magnusson & Ellison 2008) — core tests
 
 | ID | Claim | Published | Engine | Status |

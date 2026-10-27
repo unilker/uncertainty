@@ -17,6 +17,8 @@
 //!   ISO 5725-2:2019 (module [`interlab`]);
 //! * internal quality control with control charts — Nordtest TR 569
 //!   ed. 6 (module [`qc`]);
+//! * uncertainty arising from sampling — Eurachem UfS:2019 (module
+//!   [`sampling`]);
 //! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
@@ -63,6 +65,7 @@ pub mod pt;
 pub mod qc;
 pub mod report;
 pub mod rng;
+pub mod sampling;
 pub mod special;
 pub mod topdown;
 

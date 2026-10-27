@@ -19,6 +19,7 @@ mod interlab;
 mod multivariate;
 mod proficiency;
 mod qc;
+mod sampling;
 mod validation;
 
 pub use validation::{validation_html, validation_markdown, ValidationItem};
@@ -476,6 +477,7 @@ pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>
         Evaluation::Interlab(a) => interlab::markdown(p, a, &checks, lang, generated),
         Evaluation::Multivariate(a) => multivariate::markdown(p, a, &checks, lang, generated),
         Evaluation::ControlChart(a) => qc::markdown(p, a, &checks, lang, generated),
+        Evaluation::Sampling(a) => sampling::markdown(p, a, &checks, lang, generated),
     }
 }
 
@@ -935,6 +937,7 @@ pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<Strin
         Evaluation::Interlab(a) => interlab::statements(a, lang),
         Evaluation::Multivariate(a) => multivariate::statements(a, lang),
         Evaluation::ControlChart(a) => qc::statements(a, lang),
+        Evaluation::Sampling(a) => sampling::statements(a, lang),
     }
 }
 
@@ -1455,7 +1458,7 @@ pub fn field_name(field: &str, lang: Lang) -> String {
 /// run without the Monte Carlo method so that the text is reproducible on
 /// every platform.
 pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String {
-    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l, il_l, mv_l, qc_l) = match lang {
+    let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l, il_l, mv_l, qc_l, sp_l) = match lang {
         Lang::En => (
             "Worked examples",
             "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
@@ -1477,6 +1480,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "repeatability and reproducibility from an interlaboratory experiment (ISO 5725-2)",
             "GUM uncertainty framework for several output quantities (JCGM 102)",
             "control chart for internal quality control (Nordtest TR 569)",
+            "uncertainty arising from sampling (Eurachem UfS:2019)",
         ),
         Lang::Tr => (
             "Çözümlü örnekler",
@@ -1499,6 +1503,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             "laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)",
             "birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)",
             "iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)",
+            "numune almadan kaynaklanan belirsizlik (Eurachem UfS:2019)",
         ),
     };
     let mut sorted: Vec<&(String, Project, Evaluation)> = items.iter().collect();
@@ -1553,6 +1558,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::Conformity(_) => cf_l.to_string(),
             Evaluation::Interlab(_) => il_l.to_string(),
             Evaluation::ControlChart(_) => qc_l.to_string(),
+            Evaluation::Sampling(_) => sp_l.to_string(),
             Evaluation::Multivariate(a) => {
                 if a.mcm.is_some() || p.analysis.mcm.is_some() {
                     format!("{mv_l} {mcm_l}")
@@ -1578,6 +1584,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::Interlab(a) => interlab::statements(a, lang),
             Evaluation::Multivariate(a) => multivariate::statements(a, lang),
             Evaluation::ControlChart(a) => qc::statements(a, lang),
+            Evaluation::Sampling(a) => sampling::statements(a, lang),
         };
         if !results.is_empty() {
             let _ = writeln!(s, "**{result_l}:**\n");
@@ -1831,6 +1838,16 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
                 let _ = write!(figures, "<figure><figcaption>{}</figcaption>{svg}</figure>", esc(caption));
             }
             anchor = format!("<h2>{}</h2>", esc(if a.values.is_empty() { l.explanation } else { d.daily }));
+        }
+        Evaluation::Sampling(a) => {
+            if let Some(svg) = sampling::chart_svg(a, lang) {
+                let _ = write!(
+                    figures,
+                    "<figure><figcaption>{}</figcaption>{svg}</figure>",
+                    esc(sampling::sp_labels(lang).chart)
+                );
+            }
+            anchor = format!("<h2>{}</h2>", esc(l.explanation));
         }
     }
     // Place the figures before the Monte Carlo section (top-down: before the

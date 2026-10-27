@@ -11,17 +11,18 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the seven | measurement model (7.3) |
-| `topdown` | one of the seven | top-down evaluation (7.6) |
-| `proficiency` | one of the seven | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the seven | calibration with uncertainties in both variables, ISO 6143 (7.8) |
-| `precision_experiment` | one of the seven | interlaboratory precision experiment, ISO 5725-2 (7.10) |
-| `multivariate` | one of the seven | model with several output quantities, JCGM 102 (7.11) |
-| `control_chart` | one of the seven | control chart for internal quality control, Nordtest TR 569 (7.12) |
+| `model` | one of the eight | measurement model (7.3) |
+| `topdown` | one of the eight | top-down evaluation (7.6) |
+| `proficiency` | one of the eight | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the eight | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the eight | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `multivariate` | one of the eight | model with several output quantities, JCGM 102 (7.11) |
+| `control_chart` | one of the eight | control chart for internal quality control, Nordtest TR 569 (7.12) |
+| `sampling` | one of the eight | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); for model and multivariate projects |
 | `reporting` | no | rounding of the reported result (7.5) |
-| `expected` | no | reference values with tolerances (7.14) |
+| `expected` | no | reference values with tolerances (7.15) |
 
 ## 7.2 `metadata`
 
@@ -280,14 +281,37 @@ A control chart for internal quality control (Nordtest TR 569; chapter 14).
 | `exclude` | run numbers (1-based) left out of the statistics |
 | `review` | long-term review of the values after the establishing period: optional `previous` and `current` summaries (`mean`, `sd`, `n`, `dof`), `exclude_beyond` (default 4 s), `confidence` (default 0.95) |
 
-## 7.13 Errors
+## 7.13 `sampling`
+
+Uncertainty arising from sampling (Eurachem UfS:2019; chapter 15): the duplicate method or the modelling
+approach with Gy's sampling theory.
+
+```json
+"sampling": {
+  "quantity": "Lead in top soil, one target", "unit": "mg/kg",
+  "duplicates": [[787, 769, 811, 780], [338, 327, 651, 563], …], "labels": ["A4", "B7", …],
+  "method": "anova", "log": true
+}
+```
+
+| Field | Content |
+|---|---|
+| `duplicates` | balanced design: for each sampling target the four results S1A1, S1A2, S2A1, S2A2 |
+| `targets` | instead of `duplicates`, any nested design: for each target the samples, for each sample its analyses, e.g. `[[[x, x], [x]], …]` (unbalanced design, Appendix D2) |
+| `labels` | names of the targets |
+| `method` | `anova` (default: classical nested analysis of variance) or `range` (range method, balanced design only) |
+| `log` | `true`: also the ANOVA of ln x and the uncertainty factors F_U = exp(k·s_G) |
+| `gy` | instead of duplicates, the fundamental sampling error: `lot_concentration` a_L and `particle_concentration` α (same unit), `critical_density` ρ_c and `matrix_density` ρ_m (g cm⁻³), `steps` (each with `name`, `sample_mass` and `lot_mass` in g, `particle_size` d in cm, `size_factor` g, optional `shape_factor` f = 0.5 and `liberation` β = 1), optional `analytical_rsd` (fraction) |
+| `coverage_factor` | k for the relative expanded uncertainties (default 2) |
+
+## 7.14 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate` and `control_chart`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart` and `sampling`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
-## 7.14 `expected`
+## 7.15 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
@@ -321,3 +345,10 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
   `sd` (current series), `f`, `f_critical`, `pooled_sd`, `t`, `t_critical`, `sd_significant`, `mean_significant`
   (true/false); `precision`: `s_r_pooled` (Equation 10), `s_rw_simplified`, `s_r`, `s_between`, `s_rw` (analysis
   of variance)
+* `sampling`: `mean`, `s_between_target`, `s_sampling`, `s_analysis`, `s_measurement`, `s_total`;
+  `expanded_relative_sampling`, `expanded_relative_analysis`, `expanded_relative_measurement`,
+  `expanded_relative_between_target` (U′ in %); `percent_between_target`, `percent_sampling`, `percent_analysis`
+  (of the total variance); `sampling_variance_negative` (true/false); `log`: `mean`, `s_between_target`,
+  `s_sampling`, `s_analysis`, `s_measurement`, `s_total`, `factor_sampling`, `factor_analysis`,
+  `factor_measurement`, `relative_measurement`; `gy`: `constitution_factor`, `sampling_constants` and `rsd` (lists,
+  one per step), `rsd_sampling`, `rsd_total`, `expanded_relative_sampling`, `expanded_relative_total`

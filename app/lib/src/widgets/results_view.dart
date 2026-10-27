@@ -64,6 +64,9 @@ class ResultsView extends StatelessWidget {
     if (results['control_chart'] != null) {
       children.addAll(_controlChart(context, results['control_chart'] as Map<String, dynamic>, unit));
     }
+    if (results['sampling'] != null) {
+      children.addAll(_sampling(context, results['sampling'] as Map<String, dynamic>, unit));
+    }
     final checks = (results['checks'] as List?) ?? const [];
     if (checks.isNotEmpty) {
       children.add(Section(s['checks']));
@@ -668,6 +671,72 @@ class ResultsView extends StatelessWidget {
               ],
           ],
         ),
+      ]);
+    }
+    return out;
+  }
+
+  List<Widget> _sampling(BuildContext context, Map<String, dynamic> r, String unit) {
+    final s = strings;
+    final u = unit.isEmpty ? '' : ' $unit';
+    String n(dynamic v, [int sig = 4]) => v == null ? '—' : fmtNum(_d(v), sig, s.lang);
+    String pct(dynamic v) => v == null ? '' : fmtPct((_d(v) ?? double.nan) / 100, 3, s.lang);
+    final k = _d(r['coverage_factor']) ?? 2;
+    final kText = fmtNum(k, 3, s.lang);
+    if (r['design'] == 'gy') {
+      final steps = (r['steps'] as List).cast<Map<String, dynamic>>();
+      return [
+        Section(s['sp_gy']),
+        Text('${s['sp_constitution']} = ${n(r['constitution_factor'])} g cm⁻³'),
+        _table(
+          context,
+          [s['sp_step'], 'C', 's_r', 'U′ (k = $kText)'],
+          [
+            for (final st in steps) [st['name'].toString(), n(st['sampling_constant']), n(st['rsd']), pct(100 * k * (_d(st['rsd']) ?? 0))],
+            [s['sp_sampling'], '', n(r['rsd_sampling']), pct(r['expanded_relative_sampling'])],
+            if (r['analytical_rsd'] != null) [s['sp_analytical'], '', n(r['analytical_rsd']), pct(100 * k * (_d(r['analytical_rsd']) ?? 0))],
+            [s['sp_total'], '', n(r['rsd_total']), pct(r['expanded_relative_total'])],
+          ],
+        ),
+      ];
+    }
+    final mean = _d(r['mean']) ?? double.nan;
+    final share = (r['percent_of_total_variance'] as List).map(_d).toList();
+    final exp = r['expanded_relative'] as Map<String, dynamic>;
+    String rel(dynamic sd) => pct(100 * (_d(sd) ?? double.nan) / mean);
+    final variances = ((r['calculation'] as Map<String, dynamic>)['variance_estimates'] as List).map(_d).toList();
+    final out = <Widget>[
+      Section(s['sp_results']),
+      Text('${s['sp_mean']}: ${n(r['mean'], 5)}$u'),
+      _table(
+        context,
+        ['', 's', s['sp_rel'], 'U′ (k = $kText)', s['sp_share']],
+        [
+          [s['sp_between'], '${n(r['s_between_target'])}$u', rel(r['s_between_target']), pct(exp['between_target']), pct(share[0])],
+          [s['sp_sampling'], '${n(r['s_sampling'])}$u', rel(r['s_sampling']), pct(exp['sampling']), pct(share[1])],
+          [s['sp_analysis'], '${n(r['s_analysis'])}$u', rel(r['s_analysis']), pct(exp['analysis']), pct(share[2])],
+          [s['sp_measurement'], '${n(r['s_measurement'])}$u', rel(r['s_measurement']), pct(exp['measurement']), pct((share[1] ?? 0) + (share[2] ?? 0))],
+          [s['sp_total'], '${n(r['s_total'])}$u', rel(r['s_total']), '', ''],
+        ],
+      ),
+      if (variances.any((v) => v != null && v < 0)) Text(s['sp_negative'], key: const Key('sp-negative')),
+    ];
+    final g = r['log'] as Map<String, dynamic>?;
+    if (g != null) {
+      final f = g['factor'] as Map<String, dynamic>;
+      out.addAll([
+        Section(s['sp_log_title']),
+        _table(
+          context,
+          ['', 's_G', 'F_U'],
+          [
+            [s['sp_between'], n(g['s_between_target']), ''],
+            [s['sp_sampling'], n(g['s_sampling']), n(f['sampling'])],
+            [s['sp_analysis'], n(g['s_analysis']), n(f['analysis'])],
+            [s['sp_measurement'], n(g['s_measurement']), n(f['measurement'])],
+          ],
+        ),
+        Text("u′ = √(exp(s_G²) − 1) = ${n(g['relative_measurement'])}"),
       ]);
     }
     return out;

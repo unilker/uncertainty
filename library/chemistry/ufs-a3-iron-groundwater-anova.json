@@ -1,0 +1,128 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a3-iron-groundwater-anova",
+    "title": {
+      "en": "Dissolved iron in groundwater: classical ANOVA (Eurachem UfS Example A3)",
+      "tr": "Yeraltı suyunda çözünmüş demir: klasik ANOVA (Eurachem UfS Örnek A3)"
+    },
+    "description": {
+      "en": "Six monitoring wells of a groundwater body, each sampled twice (on-line filtered and preserved) with duplicate laboratory analyses by ICP-AES (Table A3.7).",
+      "tr": "Bir yeraltı suyu kütlesinde altı izleme kuyusu; her birinden iki numune (hat üzerinde süzülmüş ve korunmuş) ve ICP-AES ile çift laboratuvar analizi (Tablo A3.7)."
+    },
+    "explanation": [
+      {
+        "en": "Duplicate method (Section 9.4.2): two samples are taken from each target by independent applications of the protocol and each is analysed twice; s_meas² = s_samp² + s_anal² (Equation 1).",
+        "tr": "Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1)."
+      },
+      {
+        "en": "Classical nested ANOVA: MS_anal = Σ(d²/2)/(2n) for the 2n analytical pairs; s_samp² = (MS_samp − MS_anal)/2; s_T² = (MS_target − MS_samp)/4; negative variance estimates are set to zero.",
+        "tr": "Klasik iç içe ANOVA: 2n analiz çifti için KO_analiz = Σ(d²/2)/(2n); s_numune² = (KO_numune − KO_analiz)/2; s_T² = (KO_hedef − KO_numune)/4; negatif varyans tahminleri sıfır alınır."
+      },
+      {
+        "en": "s_anal = 0.0136, s_samp = 0.0827, s_T = 0.601 mg/L at x̄ = 1.719 mg/L: U′ = 1.6 % (analysis), 9.6 % (sampling), 70 % (between wells), as in Table A3.5; the range method gives 1.8 %, 10.5 % and 70 %.",
+        "tr": "x̄ = 1,719 mg/L'de s_analiz = 0,0136, s_numune = 0,0827, s_T = 0,601 mg/L: U′ = %1,6 (analiz), %9,6 (numune alma), %70 (kuyular arası), Tablo A3.5'teki gibi; aralık yöntemi %1,8, %10,5 ve %70 verir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A3, Tables A3.5 and A3.7",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      },
+      {
+        "document": "Eurachem UfS:2019 Errata, version 1.4a (2023)",
+        "section": "Corrections to Table A3.7, Table A3.4 and the summary on p. 60",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "duplicate-method",
+      "anova",
+      "iron",
+      "groundwater",
+      "environment",
+      "raw-data"
+    ],
+    "notes": [
+      {
+        "en": "Table A3.5 also gives RANOVA estimates (ROBAN 1.0.1): 1.8 %, 9.9 % and 72 %; the robust algorithm is not implemented (F63).",
+        "tr": "Tablo A3.5 RANOVA tahminlerini de verir (ROBAN 1.0.1): %1,8, %9,9 ve %72; robust algoritma uygulanmamıştır (F63)."
+      }
+    ]
+  },
+  "sampling": {
+    "quantity": "Dissolved iron in groundwater, one well",
+    "unit": "mg/L",
+    "duplicates": [
+      [
+        0.815,
+        0.834,
+        0.912,
+        0.893
+      ],
+      [
+        1.8,
+        1.83,
+        1.94,
+        1.93
+      ],
+      [
+        1.69,
+        1.68,
+        1.79,
+        1.77
+      ],
+      [
+        2.62,
+        2.61,
+        2.83,
+        2.84
+      ],
+      [
+        1.66,
+        1.63,
+        1.58,
+        1.59
+      ],
+      [
+        1.52,
+        1.53,
+        1.47,
+        1.5
+      ]
+    ],
+    "labels": [
+      "99.474",
+      "99.468",
+      "99.469",
+      "99.916",
+      "99.327",
+      "99.371"
+    ]
+  },
+  "expected": {
+    "sampling": {
+      "expanded_relative_analysis": {
+        "value": 1.6,
+        "tolerance": 0.05
+      },
+      "expanded_relative_sampling": {
+        "value": 9.6,
+        "tolerance": 0.05
+      },
+      "expanded_relative_between_target": {
+        "value": 70.0,
+        "tolerance": 0.5
+      }
+    },
+    "reference": {
+      "en": "ANOVA row of Table A3.5 (the RANOVA row, 1.8 %, 9.9 % and 72 %, is not compared).",
+      "tr": "Tablo A3.5'in ANOVA satırı (RANOVA satırı, %1,8, %9,9 ve %72, karşılaştırılmamıştır)."
+    }
+  }
+}

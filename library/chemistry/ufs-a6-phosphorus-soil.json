@@ -1,0 +1,192 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a6-phosphorus-soil",
+    "title": {
+      "en": "Phosphorus in agricultural top soil: modelling approach (Eurachem UfS Example A6)",
+      "tr": "Tarım toprağında fosfor: modelleme yaklaşımı (Eurachem UfS Örnek A6)"
+    },
+    "description": {
+      "en": "Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from composite samples; uncertainty budget of the sampling effects (between locations, strategy, depth, splitting, drying) and of the analysis.",
+      "tr": "0,32 ha'lık bir tarlanın (143 m × 22 m, 0–30 cm) kompozit numunelerden ortalama derişimi; numune alma etkilerinin (konumlar arası, strateji, derinlik, bölme, kurutma) ve analizin belirsizlik bütçesi."
+    },
+    "explanation": [
+      {
+        "en": "Model x_site = x̄_sqr·f_strat·f_depth·f_split·f_dry·f_anal with nominal correction factors of 1 (Section 4.3).",
+        "tr": "Model x_site = x̄_sqr·f_strat·f_depth·f_split·f_dry·f_analiz; düzeltme faktörlerinin nominal değeri 1'dir (Bölüm 4.3)."
+      },
+      {
+        "en": "Between locations: mean of the five squares with u = s_sqr/√5 (Type A).",
+        "tr": "Konumlar arası: beş karenin ortalaması, u = s_kare/√5 (A tipi)."
+      },
+      {
+        "en": "Depth: x₋ = (x̄ − 0.1 c₋)/0.9 and x₊ = (x̄ + 0.1 c₊)/1.1 with c₋ = 47, c₊ = 35 mg/kg; half-width (x₋ − x₊)/2, rectangular.",
+        "tr": "Derinlik: x₋ = (x̄ − 0,1 c₋)/0,9 ve x₊ = (x̄ + 0,1 c₊)/1,1; c₋ = 47, c₊ = 35 mg/kg; yarı genişlik (x₋ − x₊)/2, dikdörtgen."
+      },
+      {
+        "en": "Drying: 2 % range of moisture, u = 1 %/√3 = 0.6 %.",
+        "tr": "Kurutma: %2'lik nem aralığı, u = %1/√3 = %0,6."
+      },
+      {
+        "en": "Splitting u = 3.16 % (mean of Table A6.3); strategy 0.5 %; analysis √(1.7² + 9.5²) = 9.7 % (Table A6.5).",
+        "tr": "Bölme u = %3,16 (Tablo A6.3 ortalaması); strateji %0,5; analiz √(1,7² + 9,5²) = %9,7 (Tablo A6.5)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A6, Tables A6.1–A6.6",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "modelling",
+      "gum",
+      "soil",
+      "environment",
+      "phosphorus"
+    ],
+    "notes": [
+      {
+        "en": "Table A6.1 prints s_sqr = 8.0 mg/kg; the five values give 7.43 mg/kg (6.4 %), and u_b-loc = 2.9 % as printed follows from 7.43/√5.",
+        "tr": "Tablo A6.1 s_kare = 8,0 mg/kg yazar; beş değer 7,43 mg/kg (%6,4) verir ve basılı u_b-loc = %2,9 değeri 7,43/√5'ten çıkar."
+      },
+      {
+        "en": "The mean of the RSDs of Table A6.3 is 3.16 %, not the printed 3.3 %; the project uses 3.16 %. The combined uncertainty (11.3 %) and U = 26 mg/kg are unchanged.",
+        "tr": "Tablo A6.3'teki RSD'lerin ortalaması basılı %3,3 değil %3,16'dır; proje %3,16 kullanır. Birleşik belirsizlik (%11,3) ve U = 26 mg/kg değişmez."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "x_site",
+      "unit": "mg/kg",
+      "expression": "x_sqr * f_strat * f_depth * f_split * f_dry * f_Rw * f_bias",
+      "description": {
+        "en": "Mean phosphorus content of the field",
+        "tr": "Tarlanın ortalama fosfor içeriği"
+      }
+    },
+    "inputs": [
+      {
+        "name": "x_sqr",
+        "unit": "mg/kg",
+        "description": {
+          "en": "Phosphorus in the composite samples of five squares A1, A3, B2, C1, C3 (Table A6.1)",
+          "tr": "Beş karenin (A1, A3, B2, C1, C3) kompozit numunelerinde fosfor (Tablo A6.1)"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            124,
+            112,
+            120,
+            118,
+            105
+          ]
+        }
+      },
+      {
+        "name": "f_strat",
+        "description": {
+          "en": "Sampling strategy (bias from the spatial pattern)",
+          "tr": "Numune alma stratejisi (konumsal düzenden sapma)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.005
+        }
+      },
+      {
+        "name": "f_depth",
+        "description": {
+          "en": "'Depth effect': ±10 % in depth with the gradient of Table A6.2, rectangular",
+          "tr": "'Derinlik etkisi': Tablo A6.2'deki gradyanla derinlikte ±%10, dikdörtgen"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.0,
+          "half_width": 0.06472
+        }
+      },
+      {
+        "name": "f_split",
+        "description": {
+          "en": "Splitting by coning and quartering: mean RSD of duplicate splits (Table A6.3)",
+          "tr": "Konileme ve dörde bölme ile bölme: çift bölmelerin ortalama RSD'si (Tablo A6.3)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.0316
+        }
+      },
+      {
+        "name": "f_dry",
+        "description": {
+          "en": "Moisture of air-dried soil, a range of 2 %, rectangular",
+          "tr": "Havada kurutulmuş toprağın nemi, %2'lik aralık, dikdörtgen"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.0,
+          "half_width": 0.01
+        }
+      },
+      {
+        "name": "f_Rw",
+        "description": {
+          "en": "Within-laboratory reproducibility (CAL method)",
+          "tr": "Laboratuvar içi tekrarüretilebilirlik (CAL yöntemi)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.017
+        }
+      },
+      {
+        "name": "f_bias",
+        "description": {
+          "en": "Trueness from the reproducibility s_R of an interlaboratory comparison",
+          "tr": "Laboratuvarlar arası karşılaştırmanın tekrarüretilebilirliği s_R'den doğruluk"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.095
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 116,
+        "tolerance": 0.5
+      },
+      "expanded_uncertainty": {
+        "value": 26,
+        "tolerance": 0.5
+      }
+    },
+    "reference": {
+      "en": "Measurement result and expanded uncertainty of Section 6.7 (k = 2).",
+      "tr": "Bölüm 6.7'deki ölçüm sonucu ve genişletilmiş belirsizlik (k = 2)."
+    }
+  }
+}

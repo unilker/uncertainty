@@ -55,6 +55,7 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 | 10 | Mateos R. ve ark., *Talanta* 207 (2020) 120274 | Ağırlıklı geri kazanım (MUPR dipnot) | Düşük | **alındı** |
 | 11 | Kallner A., "Uncertainty in measurement — introduction and examples from laboratory medicine", *eJIFCC* 13(1) (2002) | Klinik laboratuvar örnekleri (ek, istenmemişti) | — | **alındı** |
 | 12 | Wilrich P.-T., "Critical values of Mandel's h and k, the Grubbs and the Cochran test statistic", *AStA Adv. Stat. Anal.* 97 (2013) 1–10 | ISO 5725-2 Ek D formüllerinin kaynağı; D.3 yaklaşımının (±0,003) doğruluğunu ve Tablo D.1 katsayılarını kontrol etmek için | Düşük | bekleniyor |
+| 13 | RANOVA/RANOVA2 belgeleri (RSC/AMC) ve robust ANOVA algoritmasının yayımlandığı makale (ör. Ramsey M.H., *J. Anal. At. Spectrom.* 13 (1998) 97–104; AMC Technical Brief "Robust ANOVA") | UfS A1/A2 robust sonuçlarını yeniden üretmek (F63); RSC sitesi bu oturumdan erişilemedi | Orta | bekleniyor |
 
 ## C. Literatür taraması için erişim
 

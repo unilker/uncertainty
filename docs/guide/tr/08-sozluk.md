@@ -91,3 +91,12 @@ GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlard
 | coverage region (hyper-ellipsoidal, hyper-rectangular) | kapsam bölgesi (hiper-elipsoit, hiper-dikdörtgen) | JCGM 102 3.24, 6.5 |
 | implicit measurement model | örtük ölçüm modeli | JCGM 102 6.3 |
 | multivariate t-distribution | çok değişkenli t dağılımı | JCGM 102 5.3.2 |
+| sampling target | numune alma hedefi | UfS:2019 Appendix B |
+| primary sample / test portion | birincil numune / deney porsiyonu | UfS:2019 Appendix B |
+| duplicate method (balanced design) | çift numune yöntemi (dengeli tasarım) | UfS:2019 9.4.2 |
+| nested analysis of variance | iç içe varyans analizi | UfS:2019 9.4.2 |
+| between-target variability | hedefler arası değişkenlik | UfS:2019 |
+| sampling bias | numune alma sapması | UfS:2019 |
+| uncertainty factor | belirsizlik faktörü | UfS:2019 9.5.3 |
+| fundamental sampling error | temel numune alma hatası | UfS:2019 10.2.7 |
+| constitution factor / sampling constant | bileşim faktörü / numune alma sabiti | UfS:2019 10.2.8 |

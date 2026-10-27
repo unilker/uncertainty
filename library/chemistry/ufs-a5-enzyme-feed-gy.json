@@ -1,0 +1,134 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a5-enzyme-feed-gy",
+    "title": {
+      "en": "Enzyme in chicken feed: fundamental sampling error by Gy's theory (Eurachem UfS Example A5)",
+      "tr": "Tavuk yeminde enzim: Gy kuramıyla temel numune alma hatası (Eurachem UfS Örnek A5)"
+    },
+    "description": {
+      "en": "A 500 g primary sample from a 25 kg bag (0.05 % m/m enzyme), ground to < 0.5 mm, and a 2 g test portion for extraction and LC (5 % analytical RSD). Modelling approach with the material properties of Table A5.1.",
+      "tr": "25 kg'lık torbadan 500 g birincil numune (%0,05 m/m enzim), < 0,5 mm'ye öğütülür ve ekstraksiyon ile LC için 2 g deney porsiyonu alınır (%5 analitik RSD). Tablo A5.1'deki malzeme özellikleriyle modelleme yaklaşımı."
+    },
+    "explanation": [
+      {
+        "en": "Constitution factor (Equation 8): c = (1 − a_L/α)²/(a_L/α)·ρ_c + (1 − a_L/α)·ρ_m = 2158.5 g cm⁻³ (2160 in the Guide), with a_L/α = 0.05 %/100 %, ρ_c = 1.08 and ρ_m = 0.67 g cm⁻³.",
+        "tr": "Bileşim faktörü (Eşitlik 8): c = (1 − a_L/α)²/(a_L/α)·ρ_c + (1 − a_L/α)·ρ_m = 2158,5 g cm⁻³ (kılavuzda 2160); a_L/α = %0,05/%100, ρ_c = 1,08 ve ρ_m = 0,67 g cm⁻³."
+      },
+      {
+        "en": "Sampling constants C = f·g·β·c with f = 0.5, β = 1: C₁ = 540 (g₁ = 0.5) and C₂ = 270 g cm⁻³ (g₂ = 0.25).",
+        "tr": "Numune alma sabitleri C = f·g·β·c, f = 0,5, β = 1: C₁ = 540 (g₁ = 0,5) ve C₂ = 270 g cm⁻³ (g₂ = 0,25)."
+      },
+      {
+        "en": "s_r² = C·d³·(1/M_S − 1/M_L) (Equation 6): primary sample s_r1 = 0.033 (d = 0.1 cm, 500 g of 25 000 g); test portion s_r2 = 0.130 (d = 0.05 cm, 2 g of 500 g).",
+        "tr": "s_r² = C·d³·(1/M_S − 1/M_L) (Eşitlik 6): birincil numune s_r1 = 0,033 (d = 0,1 cm, 25 000 g'dan 500 g); deney porsiyonu s_r2 = 0,130 (d = 0,05 cm, 500 g'dan 2 g)."
+      },
+      {
+        "en": "s_t = √(s_r1² + s_r2² + 0.05²) = 0.143; U′ = 2·14.3 % = 28.5 % (28.6 % in the Guide from the rounded components); the test portion is the weakest link.",
+        "tr": "s_t = √(s_r1² + s_r2² + 0,05²) = 0,143; U′ = 2·%14,3 = %28,5 (kılavuzda yuvarlanmış bileşenlerden %28,6); en zayıf halka deney porsiyonudur."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A5, Table A5.1; Section 10.2.7–10.2.8, Equations 6–8",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "modelling",
+      "sampling-theory",
+      "gy",
+      "fundamental-sampling-error",
+      "enzyme",
+      "feed"
+    ],
+    "notes": [
+      {
+        "en": "The text of Example A5 calls the constitution factor 'Equation 7'; in Section 10.2.8 it is Equation 8 (and the number 6 is used twice).",
+        "tr": "Örnek A5 metni bileşim faktörüne 'Eşitlik 7' der; Bölüm 10.2.8'de bu Eşitlik 8'dir (ve 6 numarası iki kez kullanılmıştır)."
+      },
+      {
+        "en": "Fundamental sampling error only: incorrect sampling errors and analytical bias are assumed negligible.",
+        "tr": "Yalnızca temel numune alma hatası: hatalı numune alma hataları ve analitik sapma ihmal edilebilir kabul edilmiştir."
+      }
+    ]
+  },
+  "sampling": {
+    "quantity": "Enzyme in chicken feed, one 25 kg bag",
+    "unit": "% m/m",
+    "gy": {
+      "lot_concentration": 0.05,
+      "particle_concentration": 100,
+      "critical_density": 1.08,
+      "matrix_density": 0.67,
+      "analytical_rsd": 0.05,
+      "steps": [
+        {
+          "name": "Primary sample",
+          "sample_mass": 500,
+          "lot_mass": 25000,
+          "particle_size": 0.1,
+          "size_factor": 0.5
+        },
+        {
+          "name": "Test portion",
+          "sample_mass": 2,
+          "lot_mass": 500,
+          "particle_size": 0.05,
+          "size_factor": 0.25
+        }
+      ]
+    }
+  },
+  "expected": {
+    "sampling": {
+      "gy": {
+        "constitution_factor": {
+          "value": 2160,
+          "tolerance": 2
+        },
+        "sampling_constants": [
+          {
+            "value": 540,
+            "tolerance": 0.5
+          },
+          {
+            "value": 270,
+            "tolerance": 0.3
+          }
+        ],
+        "rsd": [
+          {
+            "value": 0.033,
+            "tolerance": 0.0005
+          },
+          {
+            "value": 0.13,
+            "tolerance": 0.005
+          }
+        ],
+        "rsd_total": {
+          "value": 0.143,
+          "tolerance": 0.0005
+        },
+        "expanded_relative_sampling": {
+          "value": 26.8,
+          "tolerance": 0.1
+        },
+        "expanded_relative_total": {
+          "value": 28.6,
+          "tolerance": 0.1
+        }
+      }
+    },
+    "reference": {
+      "en": "Values of Section 5 and the summary of Example A5 (c, C₁, C₂, s_r1, s_r2, s_t; U′ 26.8 % sampling, 28.6 % total).",
+      "tr": "Örnek A5'in Bölüm 5 ve özet değerleri (c, C₁, C₂, s_r1, s_r2, s_t; U′ numune alma %26,8, toplam %28,6)."
+    }
+  }
+}

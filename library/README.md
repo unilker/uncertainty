@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**180 examples / örnek** (84 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 21 control charts / kontrol grafiği, 7 conformity assessment / uygunluk değerlendirmesi).
+**190 examples / örnek** (86 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -39,6 +39,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`quam-a5-cadmium-release`](chemistry/quam-a5-cadmium-release.json) | Cadmium released from ceramic ware | Seramik kaplardan salınan kadmiyum | EURACHEM/CITAC Guide CG 4 Example A5, Tables A5.3 and A5.4 |
 | [`quam-a7-assay-standard`](chemistry/quam-a7-assay-standard.json) | Lead assay standard for IDMS | IDMS için kurşun tayin standardı | EURACHEM/CITAC Guide CG 4 Example A7, Eq. (8), Table A7.3 |
 | [`quam-a7-lead-double-idms`](chemistry/quam-a7-lead-double-idms.json) | Lead in water by double isotope dilution | Suda kurşunun çift izotop seyreltmesiyle tayini | EURACHEM/CITAC Guide CG 4 Example A7, Eq. (5), Tables A7.4–A7.8 |
+| [`ufs-a6-cadmium-soil`](chemistry/ufs-a6-cadmium-soil.json) | Cadmium in agricultural top soil: modelling approach (Eurachem UfS Example A6) | Tarım toprağında kadmiyum: modelleme yaklaşımı (Eurachem UfS Örnek A6) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A6, Tables A6.1–A6.6 |
+| [`ufs-a6-phosphorus-soil`](chemistry/ufs-a6-phosphorus-soil.json) | Phosphorus in agricultural top soil: modelling approach (Eurachem UfS Example A6) | Tarım toprağında fosfor: modelleme yaklaşımı (Eurachem UfS Örnek A6) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A6, Tables A6.1–A6.6 |
 
 ## Chemistry, top-down / Kimya, top-down
 
@@ -133,6 +135,19 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`tr569-ex8-copper-x-review`](chemistry/tr569-ex8-copper-x-review.json) | Copper in water by ICP-OES: review of preliminary X-chart limits (Nordtest TR 569 Example 8) | ICP-OES ile suda bakır: ön X-grafiği sınırlarının gözden geçirilmesi (Nordtest TR 569 Örnek 8) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 8 |
 | [`tr569-ex9-zinc-procedural-blank`](chemistry/tr569-ex9-zinc-procedural-blank.json) | Zinc in hydrogen peroxide: X-chart of a procedural blank (Nordtest TR 569 Example 9) | Hidrojen peroksitte çinko: yöntem körünün X-grafiği (Nordtest TR 569 Örnek 9) | Nordtest TR 569 ed. 6 (2026) Chapter 14, Example 9 |
 | [`tr569-table1-zinc`](chemistry/tr569-table1-zinc.json) | Zinc in water: X-chart from 60 control values (Nordtest TR 569 Table 1) | Sudaki çinko: 60 kontrol değerinden X-grafiği (Nordtest TR 569 Tablo 1) | Nordtest TR 569 ed. 6 (2026) Chapter 2, Table 1 and Figure 1; Chapters 7 and 9 |
+| [`ufs-a4-vitamin-a-qc-chart`](chemistry/ufs-a4-vitamin-a-qc-chart.json) | Vitamin A in baby porridge: control chart of duplicate samples (Eurachem UfS Example A4) | Bebek lapasında A vitamini: çift numunelerin kontrol grafiği (Eurachem UfS Örnek A4) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A4, Section 7.3, Table A4.13 and Figure A4.4; Section 13.2 |
+
+## Chemistry, uncertainty from sampling (Eurachem UfS) / Kimya, numune alma belirsizliği (Eurachem UfS)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`ufs-a1-nitrate-lettuce`](chemistry/ufs-a1-nitrate-lettuce.json) | Nitrate in glasshouse lettuce: duplicate method, classical ANOVA (Eurachem UfS Example A1) | Serada yetişen marulda nitrat: çift numune yöntemi, klasik ANOVA (Eurachem UfS Örnek A1) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A1, Table A1.1 and Figure A1.2 |
+| [`ufs-a2-lead-soil-uncertainty-factor`](chemistry/ufs-a2-lead-soil-uncertainty-factor.json) | Lead in contaminated top soil: classical ANOVA and uncertainty factor (Eurachem UfS Example A2) | Kirlenmiş üst toprakta kurşun: klasik ANOVA ve belirsizlik faktörü (Eurachem UfS Örnek A2) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A2, Tables A2.2–A2.4 and Figure A2.2 |
+| [`ufs-a3-iron-groundwater-anova`](chemistry/ufs-a3-iron-groundwater-anova.json) | Dissolved iron in groundwater: classical ANOVA (Eurachem UfS Example A3) | Yeraltı suyunda çözünmüş demir: klasik ANOVA (Eurachem UfS Örnek A3) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A3, Tables A3.5 and A3.7 |
+| [`ufs-a3-iron-groundwater-range`](chemistry/ufs-a3-iron-groundwater-range.json) | Dissolved iron in groundwater: range method (Eurachem UfS Example A3, corrected) | Yeraltı suyunda çözünmüş demir: aralık yöntemi (Eurachem UfS Örnek A3, düzeltilmiş) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A3, Tables A3.4 and A3.7 |
+| [`ufs-a4-vitamin-a-porridge-40g`](chemistry/ufs-a4-vitamin-a-porridge-40g.json) | Vitamin A in baby porridge, 40 g test samples: duplicate method (Eurachem UfS Example A4) | Bebek lapasında A vitamini, 40 g deney numunesi: çift numune yöntemi (Eurachem UfS Örnek A4) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A4, Tables A4.3, A4.5–A4.7, A4.14, A4.15 and summary |
+| [`ufs-a4-vitamin-a-porridge-4g`](chemistry/ufs-a4-vitamin-a-porridge-4g.json) | Vitamin A in baby porridge, 4 g test samples: negative sampling variance (Eurachem UfS Example A4) | Bebek lapasında A vitamini, 4 g deney numunesi: negatif numune alma varyansı (Eurachem UfS Örnek A4) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A4, Tables A4.4, A4.8–A4.10 |
+| [`ufs-a5-enzyme-feed-gy`](chemistry/ufs-a5-enzyme-feed-gy.json) | Enzyme in chicken feed: fundamental sampling error by Gy's theory (Eurachem UfS Example A5) | Tavuk yeminde enzim: Gy kuramıyla temel numune alma hatası (Eurachem UfS Örnek A5) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A5, Table A5.1; Section 10.2.7–10.2.8, Equations 6–8 |
 
 ## Electrical and RF / Elektrik ve RF
 

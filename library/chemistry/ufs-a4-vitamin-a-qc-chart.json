@@ -1,0 +1,174 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a4-vitamin-a-qc-chart",
+    "title": {
+      "en": "Vitamin A in baby porridge: control chart of duplicate samples (Eurachem UfS Example A4)",
+      "tr": "Bebek lapasında A vitamini: çift numunelerin kontrol grafiği (Eurachem UfS Örnek A4)"
+    },
+    "description": {
+      "en": "Quality control of sampling: two samples from one batch of each of eight porridges, each analysed twice (40 g); the relative difference D % of the two samples is charted against limits from the validated uncertainty (Table A4.13, Figure A4.4).",
+      "tr": "Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki numune, her biri iki kez analiz (40 g); iki numunenin bağıl farkı D %, valide edilmiş belirsizlikten gelen sınırlara göre grafiğe işlenir (Tablo A4.13, Şekil A4.4)."
+    },
+    "explanation": [
+      {
+        "en": "Validated u_meas = √(u_samp² + u_anal²) = √(4.95² + 8.28²) = 9.65 % (Table A4.7).",
+        "tr": "Valide edilmiş u_ölçüm = √(u_numune² + u_analiz²) = √(4,95² + 8,28²) = %9,65 (Tablo A4.7)."
+      },
+      {
+        "en": "Range chart of two values (Section 13.2.2): CL = 1.128·u = 10.9 %, WL = 2.83·u = 27.3 %, AL = 3.69·u = 35.6 % (11 %, 27 % and 36 % in the Guide).",
+        "tr": "İki değerin aralık grafiği (Bölüm 13.2.2): CL = 1,128·u = %10,9, WL = 2,83·u = %27,3, AL = 3,69·u = %35,6 (kılavuzda %11, %27 ve %36)."
+      },
+      {
+        "en": "D % = |x_S1 − x_S2|/x̄·100 for each product and analysis: all 16 values are below the warning limit, as in Figure A4.4.",
+        "tr": "Her ürün ve analiz için D % = |x_S1 − x_S2|/x̄·100: 16 değerin tümü uyarı sınırının altındadır, Şekil A4.4'teki gibi."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A4, Section 7.3, Table A4.13 and Figure A4.4; Section 13.2",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "quality-control",
+      "control-chart",
+      "range-chart",
+      "vitamin-a",
+      "food",
+      "raw-data"
+    ],
+    "notes": [
+      {
+        "en": "Section 7.3 writes the warning-limit factor as 2.38 in the formula but computes with 2.83 (= D_WL for duplicates, Nordtest TR 569 Table 4).",
+        "tr": "Bölüm 7.3 uyarı sınırı faktörünü formülde 2,38 yazar ancak 2,83 ile hesaplar (= çiftler için D_WL, Nordtest TR 569 Tablo 4)."
+      },
+      {
+        "en": "The central line is the expected range d₂·u for the validated uncertainty, not the mean of the 16 values (12.1 %).",
+        "tr": "Merkez çizgisi, valide edilmiş belirsizlik için beklenen aralık d₂·u'dur; 16 değerin ortalaması (%12,1) değildir."
+      }
+    ]
+  },
+  "control_chart": {
+    "quantity": "Vitamin A, duplicate samples (40 g test samples)",
+    "chart": "relative_range",
+    "runs": [
+      [
+        322,
+        350
+      ],
+      [
+        332,
+        358
+      ],
+      [
+        443,
+        461
+      ],
+      [
+        318,
+        390
+      ],
+      [
+        252,
+        265
+      ],
+      [
+        274,
+        233
+      ],
+      [
+        206,
+        198
+      ],
+      [
+        392,
+        375
+      ],
+      [
+        319,
+        375
+      ],
+      [
+        317,
+        393
+      ],
+      [
+        430,
+        388
+      ],
+      [
+        383,
+        334
+      ],
+      [
+        219,
+        227
+      ],
+      [
+        239,
+        217
+      ],
+      [
+        225,
+        195
+      ],
+      [
+        335,
+        416
+      ]
+    ],
+    "labels": [
+      "P1-A1",
+      "P2-A1",
+      "P3-A1",
+      "P4-A1",
+      "P5-A1",
+      "P6-A1",
+      "P7-A1",
+      "P8-A1",
+      "P1-A2",
+      "P2-A2",
+      "P3-A2",
+      "P4-A2",
+      "P5-A2",
+      "P6-A2",
+      "P7-A2",
+      "P8-A2"
+    ],
+    "central_line": {
+      "mean": 10.88
+    },
+    "limits": {
+      "basis": "target",
+      "sd": 9.65
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "center": {
+        "value": 11.0,
+        "tolerance": 0.15
+      },
+      "upper_warning": {
+        "value": 27.0,
+        "tolerance": 0.5
+      },
+      "upper_action": {
+        "value": 36.0,
+        "tolerance": 0.5
+      },
+      "outside_warning": 0,
+      "out_of_control": 0
+    },
+    "reference": {
+      "en": "Limits of Section 7.3 (CL 11 %, WL 27 %, AL 36 %) and Figure A4.4: no value outside the warning limit.",
+      "tr": "Bölüm 7.3'ün sınırları (CL %11, WL %27, AL %36) ve Şekil A4.4: uyarı sınırı dışında değer yok."
+    }
+  }
+}

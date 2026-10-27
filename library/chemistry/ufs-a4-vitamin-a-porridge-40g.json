@@ -1,0 +1,184 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a4-vitamin-a-porridge-40g",
+    "title": {
+      "en": "Vitamin A in baby porridge, 40 g test samples: duplicate method (Eurachem UfS Example A4)",
+      "tr": "Bebek lapasında A vitamini, 40 g deney numunesi: çift numune yöntemi (Eurachem UfS Örnek A4)"
+    },
+    "description": {
+      "en": "Two samples (packages) from each of ten production batches of an oat porridge with bananas and apricots, each split into duplicate test samples for HPLC (no analytical duplicates of one test sample).",
+      "tr": "Muzlu ve kayısılı yulaf lapasının on üretim partisinin her birinden iki numune (paket); her biri HPLC için çift deney numunesine bölünmüştür (aynı deney numunesinin tekrar analizi yoktur)."
+    },
+    "explanation": [
+      {
+        "en": "Duplicate method (Section 9.4.2): two samples are taken from each target by independent applications of the protocol and each is analysed twice; s_meas² = s_samp² + s_anal² (Equation 1).",
+        "tr": "Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1)."
+      },
+      {
+        "en": "SS_anal = 16595 (µg/100 g)², ν = 20: s_anal = 28.805 µg/100 g, RSD 8.28 % (Tables A4.5, A4.14).",
+        "tr": "KT_analiz = 16595 (µg/100 g)², ν = 20: s_analiz = 28,805 µg/100 g, RSD %8,28 (Tablo A4.5, A4.14)."
+      },
+      {
+        "en": "SS_samp = 14231, ν = 10: V_samp = (14231/10 − 16595/20)/2 = 296.675, s_samp = 17.224 µg/100 g, RSD 4.95 % (Tables A4.6, A4.15).",
+        "tr": "KT_numune = 14231, ν = 10: V_numune = (14231/10 − 16595/20)/2 = 296,675, s_numune = 17,224 µg/100 g, RSD %4,95 (Tablo A4.6, A4.15)."
+      },
+      {
+        "en": "u_meas = √(4.95² + 8.28²) = 9.65 %; U′ = 9.9 % (sampling), 16.6 % (analysis), 19.4 % (measurement); between batches RSD_B = 6.1 % (errata 1.4a).",
+        "tr": "u_ölçüm = √(4,95² + 8,28²) = %9,65; U′ = %9,9 (numune alma), %16,6 (analiz), %19,4 (ölçüm); partiler arası RSD_B = %6,1 (düzeltme listesi 1.4a)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A4, Tables A4.3, A4.5–A4.7, A4.14, A4.15 and summary",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      },
+      {
+        "document": "Eurachem UfS:2019 Errata, version 1.4a (2023)",
+        "section": "Correction to the RSD in the summary table of Example A4, p. 75",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "duplicate-method",
+      "anova",
+      "vitamin-a",
+      "food",
+      "errata",
+      "raw-data"
+    ],
+    "notes": [
+      {
+        "en": "The printed summary gives RSD_B = 8.2 % for the between-batch variation; errata 1.4a (2023) corrects it to 6.1 % (classical ANOVA of Table A4.3), which the program reproduces.",
+        "tr": "Basılı özet partiler arası değişkenlik için RSD_B = %8,2 verir; düzeltme listesi 1.4a (2023) bunu %6,1'e düzeltir (Tablo A4.3'ün klasik ANOVA'sı); program bunu yeniden üretir."
+      },
+      {
+        "en": "Table A4.7 rounds U′ to 17 % (analysis) and 20 % (measurement); the summary gives 16.6 % and 19.4 %, i.e. twice the rounded u of 8.3 % and 9.7 %. Unrounded, U′_meas = 2·9.648 % = 19.3 %.",
+        "tr": "Tablo A4.7 U′'yu %17 (analiz) ve %20 (ölçüm) olarak yuvarlar; özet %16,6 ve %19,4, yani yuvarlanmış u'nun (%8,3 ve %9,7) iki katını verir. Yuvarlamadan U′_ölçüm = 2·%9,648 = %19,3."
+      },
+      {
+        "en": "The laboratory's own analytical uncertainty (7 %) is lower than the 8.28 % found here; the Guide uses the larger value.",
+        "tr": "Laboratuvarın kendi analitik belirsizliği (%7) burada bulunan %8,28'den küçüktür; kılavuz büyük değeri kullanır."
+      }
+    ]
+  },
+  "sampling": {
+    "quantity": "Vitamin A (retinol) in baby porridge powder, 40 g test samples",
+    "unit": "µg/100 g",
+    "duplicates": [
+      [
+        402,
+        325,
+        361,
+        351
+      ],
+      [
+        382,
+        319,
+        349,
+        362
+      ],
+      [
+        332,
+        291,
+        397,
+        348
+      ],
+      [
+        280,
+        278,
+        358,
+        321
+      ],
+      [
+        370,
+        409,
+        378,
+        460
+      ],
+      [
+        344,
+        318,
+        381,
+        392
+      ],
+      [
+        297,
+        333,
+        341,
+        315
+      ],
+      [
+        336,
+        320,
+        292,
+        306
+      ],
+      [
+        372,
+        353,
+        332,
+        337
+      ],
+      [
+        407,
+        361,
+        322,
+        382
+      ]
+    ],
+    "labels": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B8",
+      "B9",
+      "B10"
+    ]
+  },
+  "expected": {
+    "sampling": {
+      "mean": {
+        "value": 347.85,
+        "tolerance": 0.005
+      },
+      "s_analysis": {
+        "value": 28.80538,
+        "tolerance": 5e-05
+      },
+      "s_sampling": {
+        "value": 17.224,
+        "tolerance": 0.0005
+      },
+      "expanded_relative_sampling": {
+        "value": 9.9,
+        "tolerance": 0.05
+      },
+      "expanded_relative_analysis": {
+        "value": 16.6,
+        "tolerance": 0.05
+      },
+      "expanded_relative_measurement": {
+        "value": 19.4,
+        "tolerance": 0.15
+      },
+      "expanded_relative_between_target": {
+        "value": 12.2,
+        "tolerance": 0.05
+      }
+    },
+    "reference": {
+      "en": "Tables A4.5, A4.6 and A4.14–A4.15; U′ of the summary table and RSD_B = 6.1 % as corrected by errata 1.4a.",
+      "tr": "Tablo A4.5, A4.6 ve A4.14–A4.15; özet tablonun U′ değerleri ve düzeltme listesi 1.4a ile düzeltilmiş RSD_B = %6,1."
+    }
+  }
+}

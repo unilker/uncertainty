@@ -16,6 +16,7 @@ import 'package:uncertainty_app/src/widgets/conformity_editor.dart';
 import 'package:uncertainty_app/src/widgets/control_chart_editor.dart';
 import 'package:uncertainty_app/src/widgets/precision_editor.dart';
 import 'package:uncertainty_app/src/widgets/proficiency_editor.dart';
+import 'package:uncertainty_app/src/widgets/sampling_editor.dart';
 
 /// Pumps until [finder] matches, letting real asynchronous work (asset
 /// loading, the engine isolate) progress in between.
@@ -61,6 +62,23 @@ void main() {
         [9.01, 9.17],
       ]);
       expect(parsePairs('1 2 3'), isNull);
+    });
+
+    test('duplicate samples need four values per target', () {
+      final (r, bad) = parseDuplicates('A4\t787\t769\t811\t780\n\nB7; 338; 327; 651; 563');
+      expect(bad, isNull);
+      expect(r!.$1, ['A4', 'B7']);
+      expect(r.$2[1], [338, 327, 651, 563]);
+      expect(parseDuplicates('1 2 3 4\n\n1 2 3').$2, 3);
+      expect(
+        duplicatesToText({
+          'duplicates': [
+            [1.5, 2, 3, 4],
+          ],
+          'labels': ['x'],
+        }, 'tr'),
+        'x\t1,5\t2\t3\t4',
+      );
     });
 
     test('control-chart runs with optional labels', () {
@@ -124,6 +142,8 @@ void main() {
 
     await tester.enterText(find.byKey(const Key('search')), 'quam-a1-cadmium-standard-volume');
     await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Cadmium standard with the volume sub-model'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Cadmium standard with the volume sub-model'));
     await tester.pumpAndSettle();
     expect(find.text('Input quantities'), findsNothing); // on the overview tab
@@ -145,6 +165,8 @@ void main() {
     await tester.pumpWidget(UncertaintyApp(state: state));
     await pumpUntilFound(tester, find.textContaining('Example library ('));
     await tester.enterText(find.byKey(const Key('search')), 'nist-tn1900-e11');
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)'));
     await tester.pumpAndSettle();
@@ -329,6 +351,24 @@ void main() {
     await pumpUntilFound(tester, find.byKey(const Key('control-chart')));
     expect(find.text('60 control values: 57 within the warning limits, 3 between warning and action limits (in control), 0 out of control.'), findsOneWidget);
     expect(find.text('65.474 µg/L'), findsWidgets); // upper warning limit
+  });
+
+  testWidgets('lead in soil by the duplicate method of Eurachem UfS Example A2', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'ufs-a2');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('Lead in contaminated top soil'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('sp-data')), findsOneWidget);
+    expect(find.byKey(const Key('sp-method')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.text('Uncertainty from sampling'));
+    expect(find.text('136.6 mg/kg'), findsOneWidget); // s_meas, Figure A2.2
+    expect(find.text('2.621'), findsOneWidget); // F_U, measurement
   });
 
   testWidgets('top-down forms show and edit the raw data', (tester) async {

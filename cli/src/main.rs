@@ -14,12 +14,13 @@ Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
 calibration with uncertainties in both variables (ISO 6143); conformity
 assessment (JCGM 106); repeatability and reproducibility from interlaboratory
 experiments (ISO 5725-2); models with several output quantities (JCGM 102);
-control charts for internal quality control (Nordtest TR 569).
+control charts for internal quality control (Nordtest TR 569); uncertainty
+arising from sampling (Eurachem UfS:2019).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -49,8 +50,10 @@ TEMPLATE:
     calibration with uncertainties in both variables (ISO 6143), with
     --conformity a conformity assessment (JCGM 106), with --precision an
     interlaboratory precision experiment (ISO 5725-2), with --multivariate a
-    model with several output quantities (JCGM 102), or with --control-chart
-    a control chart for internal quality control (Nordtest TR 569).
+    model with several output quantities (JCGM 102), with --control-chart a
+    control chart for internal quality control (Nordtest TR 569), or with
+    --sampling the duplicate method for the uncertainty from sampling
+    (Eurachem UfS:2019).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -211,6 +214,25 @@ const TEMPLATE_CONFORMITY: &str = r#"{
 }
 "#;
 
+const TEMPLATE_SAMPLING: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Uncertainty from sampling by the duplicate method", "tr": "Çift numune yöntemiyle numune alma belirsizliği" },
+    "field": "chemistry"
+  },
+  "sampling": {
+    "quantity": "Dissolved iron in groundwater, one well",
+    "unit": "mg/L",
+    "duplicates": [
+      [0.815, 0.834, 0.912, 0.893], [1.8, 1.83, 1.94, 1.93], [1.69, 1.68, 1.79, 1.77],
+      [2.62, 2.61, 2.83, 2.84], [1.66, 1.63, 1.58, 1.59], [1.52, 1.53, 1.47, 1.50]
+    ],
+    "labels": ["99.474", "99.468", "99.469", "99.916", "99.327", "99.371"]
+  }
+}
+"#;
+
 const TEMPLATE_CONTROL_CHART: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -268,6 +290,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--control-chart") => {
             print!("{TEMPLATE_CONTROL_CHART}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--sampling") => {
+            print!("{TEMPLATE_SAMPLING}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--calibration") => {
