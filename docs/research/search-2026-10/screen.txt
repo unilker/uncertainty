@@ -1,0 +1,653 @@
+bayes|2020|19|Metrologia|Guidance on Bayesian uncertainty evaluation for a class of GUM measurement models|10.1088/1681-7575/abb065
+bayes|2021|10|Measurement|Uncertainty calculation methodologies in microflow measurements: Comparison of GUM, GUM-S1 and Bayesian approach|10.1016/j.measurement.2021.109589
+bayes|2020|15|Measurement|Evaluation of roundness error uncertainty by a Bayesian dynamic model|10.1016/j.measurement.2020.107565
+bayes|2021|9|Metrologia|Rejection sampling for Bayesian uncertainty evaluation using the Monte Carlo techniques of GUM-S1|10.1088/1681-7575/ac3920
+bayes|2021|7|Measurement|A Bayesian method for on-line evaluation of uncertainty in measurement of Coriolis flow meters|10.1016/j.measurement.2021.109448
+bayes|2020|14|Measurement|Bayesian uncertainty evaluation of stitching interferometry for cylindrical surface|10.1016/j.measurement.2020.107626
+bayes|2022|11|Measurement|GUM method for evaluation of measurement uncertainty: BPL long wave time service monitoring|10.1016/j.measurement.2021.110459
+bayes|2022|13|Metrology|The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty|10.3390/metrology2010009
+bayes|2025|2|Measurement|Dynamic uncertainty evaluation of cylindricity error based on Bayesian deep neural network propagation method|10.1016/j.measurement.2024.116070
+bayes|2016|42|Measurement|Comparison of GUM and Monte Carlo methods for evaluating measurement uncertainty of perspiration measurement systems|10.1016/j.measurement.2016.03.007
+bayes|2018|21|Measurement|Measurement uncertainty and its connection with true value in the GUM versus JCGM documents|10.1016/j.measurement.2018.05.105
+bayes|2026|0|Measurement Science and Tech|A GUM-based method for uncertainty evaluation of the slope in linear measurement models|10.1088/1361-6501/ae7c98
+bayes|2026|10|Measurement|Uncertainty in lifetime data quantified with Bayesian adaptive Hamiltonian methods|10.1016/j.measurement.2026.121455
+bayes|2021|3|Measurement Science and Tech|GUI for Bayesian sample size planning in type A uncertainty evaluation|10.1088/1361-6501/abe2bd
+bayes|2016|13|Measurement|A Bayesian approach to evaluating uncertainty of inaccurate categorical measurements|10.1016/j.measurement.2016.05.043
+bayes|2025|6|IEEE Transactions on Instrum|Machine Learning-Based Measurement Models: A Novel Methodology for GUM-Based Uncertainty Evaluation|10.1109/tim.2025.3643048
+bayes|2020|9|IEEE Transactions on Instrum|GUM-Based Decisional Criteria to Make Decisions in Presence of Measurement Uncertainty|10.1109/tim.2019.2963581
+bayes|2026|0|Measurement Science and Tech|Image-based angular measurement system for solar positioning: metrological characterization and gum-compliant uncertainty analysis|10.1088/1361-6501/ae90d2
+bayes|2026|0|Measurement|Bayesian physics-informed neural networks for safe cementing pressure control with uncertainty quantification|10.1016/j.measurement.2026.123322
+bayes|2022|10|Measurement|Efficient two-stage strain/temperature measurement method for BOTDA system based on Bayesian uncertainty quantification|10.1016/j.measurement.2022.111966
+bayes|2021|3|Measurement Science and Tech|Uncertainty evaluation in atomic force microscopy measurement of nanoparticles based on statistical mixed model in a Bayesian framework|10.1088/1361-6501/abe47f
+bayes|2017|27|Measurement|Reference and additional methods for measurement uncertainty evaluation|10.1016/j.measurement.2016.10.022
+bayes|2018|12|Metrologia|Approximate Bayesian evaluations of measurement uncertainty|10.1088/1681-7575/aaa5be
+bayes|2018|10|tm - Technisches Messen|Development of a virtual metrological CT for numerical measurement uncertainty determination using aRTist 2|10.1515/teme-2018-0044
+bayes|2026|1|IEEE Transactions on Instrum|Uncertainty Evaluation and Validation Based on Enhanced Adaptive Bayesian Monte Carlo Dropout Method in TSOM|10.1109/tim.2026.3661708
+bayes|2026|0|Measurement|Bayesian convolutional neural network-based segmentation model and uncertainty quantification for particle detection in flotation process|10.1016/j.measurement.2026.123054
+bayes|2019|68|Measurement|Measurement uncertainty evaluation of ultrasonic wall thickness measurement|10.1016/j.measurement.2019.01.027
+bayes|2020|13|Measurement|Forward and inverse problems of Type A uncertainty evaluation|10.1016/j.measurement.2020.108072
+bayes|2019|14|Measurement|Point-straight line distance as model for uncertainty evaluation of coordinate measurement|10.1016/j.measurement.2018.11.008
+bayes|2025|11|Measurement|Validation of the GUM uncertainty framework and the Unscented transformation for Brewer UV irradiance measurements using the Monte Carlo method|10.1016/j.measurement.2024.115466
+bayes|2022|29|Metrology|GUM-Compliant Uncertainty Evaluation Using Virtual Experiments|10.3390/metrology2010008
+bayes|2016|14|Clinical Chemistry and Labor|Measurement uncertainty for clinical laboratories – a revision of the concept|10.1515/cclm-2016-0311
+bayes|2026|0|Measurement|Physics-constrained Bayesian transformer for temperature soft sensing with uncertainty quantification in nuclear waste incinerators|10.1016/j.measurement.2026.123274
+bayes|2023|29|Measurement|Uncertainty evaluation of an on-machine chromatic confocal measurement system|10.1016/j.measurement.2023.112995
+bayes|2025|6|Measurement|Bayesian approach for uncertainty quantification in elastic wave tomography of concrete structures|10.1016/j.measurement.2024.116327
+bayes|2022|13|Measurement|Uncertainty evaluation in time-dependent measurements|10.1016/j.measurement.2022.111196
+bayes|2016|24|Measurement|Comparing methods for evaluating measurement uncertainty given in the JCGM ‘Evaluation of Measurement Data’ documents|10.1016/j.measurement.2016.08.015
+bayes|2024|19|Measurement|An uncertainty-based quality evaluation tool for nanoindentation systems|10.1016/j.measurement.2023.113974
+bayes|2022|8|Measurement|Evaluation of accurate uncertainty of measurement of L subshell ionization cross-sections|10.1016/j.measurement.2021.110322
+bayes|2025|4|Measurement|Evaluation of magnetic influence and uncertainty in weight mass measurement|10.1016/j.measurement.2024.115930
+bayes|2020|23|Measurement|Foundations of uncertainty in evaluation of nominal properties|10.1016/j.measurement.2019.107397
+bayes|2026|0|Measurement|Uncertainty quantification of thermal parameters and thermal reconstruction for motorized spindles using PRNN-based Bayesian inference|10.1016/j.measurement.2026.122620
+bayes|2026|6|Measurement|Uncertainty-aware multi-modal axial fan fault diagnosis: fusion of acoustic fingerprinting with transformer-BiGRU-Bayesian architecture|10.1016/j.measurement.2025.119522
+bayes|2021|5|Measurement|Multistage Bayesian fusion evaluation technique endorsing immersive virtual maintenance|10.1016/j.measurement.2021.109344
+bayes|2026|1|Measurement|Uncertainty quantified and adaptive thresholding Bayesian autoencoder for trustworthy online anomaly detection in metal additive manufacturing process|10.1016/j.measurement.2026.121923
+bayes|2020|13|Measurement|Kinetic friction coefficient modeling and uncertainty measurement evaluation for a journal bearing test apparatus|10.1016/j.measurement.2020.107470
+bayes|2026|0|Measurement Science and Tech|Finite-sample evaluation of dispersion estimators for measurement uncertainty: effects of distribution, replication structure, contamination, and unce|10.1088/1361-6501/aeabcc
+bayes|2018|5|IEEE Transactions on Instrum|Evaluating the Uncertainty of Digitizing Waveform Recorders Coherently With the GUM|10.1109/tim.2018.2815433
+bayes|2026|2|Measurement|Bayesian method for quantitative damage evaluation of concrete using sparse embedded piezoelectric transducers|10.1016/j.measurement.2026.120770
+bayes|2024|4|Measurement|Determining the sensitivity coefficients of factors contributing to Rockwell hardness for uncertainty evaluation|10.1016/j.measurement.2024.114310
+bayes|2019|0|Measurement Science and Tech|Evaluation of measurement uncertainty from a nonstationary process|10.1088/1361-6501/ab048e
+bayes|2018|18|Metrologia|Bayesian methods for type A evaluation of standard uncertainty|10.1088/1681-7575/aad103
+bayes|2020|16|Metrologia|A simple method for Bayesian uncertainty evaluation in linear models|10.1088/1681-7575/aba3b8
+bayes|2017|21|Measurement|Evaluation of measurement value and uncertainty of sound pressure level difference obtained by active device noise reduction|10.1016/j.measurement.2016.10.050
+bayes|2026|12|Measurement|Measurement uncertainty evaluation with small samples: A review and prospect|10.1016/j.measurement.2025.119031
+bayes|2017|93|Measurement|Measurement of the total protein in serum by biuret method with uncertainty evaluation|10.1016/j.measurement.2017.08.013
+bayes|2022|8|Measurement|Validation of the sensitivity analysis method of coordinate measurement uncertainty evaluation|10.1016/j.measurement.2022.111454
+bayes|2017|1|ACTA IMEKO|Improved evaluation of uncertainty for indirect measurement|10.21014/acta_imeko.v6i2.320
+bayes|2024|2|Measurement Science and Tech|Type A standard uncertainty evaluation in one measurement through uncertainty propagation from voxel values’ distribution for computed tomography metr|10.1088/1361-6501/ad30ba
+bayes|2016|22|Measurement|Uncertainty evaluation of trigonometric method for vertical angle calibration of the total station instrument|10.1016/j.measurement.2015.10.037
+bias|2018|20|Measurement|Uncertainty and bias in electronic tide-gauge records: Evidence from collocated sensors|10.1016/j.measurement.2018.05.012
+bias|2024|3|Measurement|A hybrid bias correction algorithm for estimating straight line parameters|10.1016/j.measurement.2023.113805
+bias|2025|14|Measurement|Cross-domain bearing fault diagnosis under missing labels with uncertainty modeling and digital twin correction|10.1016/j.measurement.2025.116869
+bias|2020|12|Talanta|Impact of recovery correction or subjecting calibrators to sample preparation on measurement uncertainty: PAH determinations in waters|10.1016/j.talanta.2019.120274
+bias|2026|0|Measurement|Bias correction of spaceborne GNSS-R wind speed retrieval based on statistical distribution modeling|10.1016/j.measurement.2026.122664
+bias|2026|0|Measurement|Stereo digital image correlation for rotor blade deformation measurement: Optical misalignment correction, identification of deformation parameters an|10.1016/j.measurement.2025.119249
+bias|2020|0|Measurement|Reply to comments on “Uncertainty and bias in electronic tide gauge records: Evidence from collocated sensors” by Pytharouli S., Chaikalis S. and Stir|10.1016/j.measurement.2020.107658
+bias|2026|0|Measurement|An estimation method for the area of uncertainty of lost targets with expectation–maximization correction|10.1016/j.measurement.2025.119779
+bias|2018|0|Accreditation and Quality As|Correction to: Measurement uncertainty: requirements set in the accreditation standards|10.1007/s00769-018-1323-y
+bias|2026|0|IEEE Transactions on Instrum|Code Estimation in Noncooperative GNSS Signal Quality Monitoring: Uncertainty Measurement and Correction Solution|10.1109/tim.2026.3705047
+bias|2026|0|Measurement Science and Tech|Missing-aware measurement correction and conformal uncertainty quantification for bridge modal-frequency anomaly detection|10.1088/1361-6501/ae9daa
+bias|2026|0|Analytica Chimica Acta|Measurement uncertainty evaluation from analytical validation data: Asymmetric coverage interval due to uncorrected significant bias|10.1016/j.aca.2026.346327
+bias|2019|5|Measurement|Comments on the article “Uncertainty and bias in electronic tide-gauge records: Evidence from collocated sensors” by Stella Pytharouli, Spyros Chaikal|10.1016/j.measurement.2018.12.007
+bias|2026|0|Measurement Science and Tech|Data-driven bias correction of standard deviation estimators via symbolic regression: compact formulas for normal and symmetrically truncated distribu|10.1088/1361-6501/ae9e5d
+bias|2026|0|Measurement|Uncertainty-fused statistical detection with MiniRocket and dual-scoring TCN for small-sample electricity theft detection and load data recovery|10.1016/j.measurement.2025.120017
+bias|2016|20|Clinical Chemistry and Labor|Is the combination of trueness and precision in one expression meaningful? On the use of total error and uncertainty in clinical chemistry|10.1515/cclm-2015-0975
+bias|2021|0|Accreditation and Quality As|Correction to: Confidence intervals for robust estimates of measurement uncertainty|10.1007/s00769-021-01457-9
+bias|2021|9|Measurement Science and Tech|Multi-Δt approach for peak-locking error correction and uncertainty quantification in PIV|10.1088/1361-6501/abdcde
+bias|2019|19|Measurement Science and Tech|Uncertainty modeling of the spatial coordinate error correction system of the CMM based on laser tracer multi-station measurement|10.1088/1361-6501/aafb1b
+bias|2017|12|Measurement|Measurement analysis in uncertainty space|10.1016/j.measurement.2017.04.012
+bias|2019|29|Measurement|On the meaning of measurement uncertainty|10.1016/j.measurement.2018.09.073
+bias|2026|0|Measurement Science and Tech|GNSS pseudorange bias correction in urban environments using a hybrid CNN-LSTM architecture|10.1088/1361-6501/aea179
+bias|2025|7|IEEE Transactions on Instrum|Bootstrap-Based Multitask Deep Learning Method for Uncertainty Estimation and Correction in TSOM|10.1109/tim.2025.3550236
+bias|2023|6|Measurement|A propensity-based framework for measurement uncertainty analysis|10.1016/j.measurement.2023.112693
+bias|2024|6|Measurement|Application-oriented meta-model of measurement uncertainty|10.1016/j.measurement.2023.114044
+bias|2025|0|IEEE Transactions on Instrum|Bias Detection and Correction for Urban GNSS Positioning via Time-Differenced Nonconvex Sparsity Penalty Framework|10.1109/tim.2025.3643043
+bias|2019|22|Measurement|Quantifying uncertainty in railway noise measurement|10.1016/j.measurement.2019.01.024
+bias|2016|11|Measurement|Relational measurements and uncertainty|10.1016/j.measurement.2016.06.058
+bias|2026|0|tm - Technisches Messen|Measurement uncertainty of spectral mismatch correction factors in photometry|10.1515/teme-2026-0018
+bias|2021|19|Measurement|Measurement uncertainty of generalized stiffness of machine tools|10.1016/j.measurement.2020.108692
+bias|2022|11|Analytica Chimica Acta|An improved calibrated mass spectrometry for absolute copper isotope-ratio measurement using two strategies for mass bias correction factor|10.1016/j.aca.2022.339905
+bias|2021|6|Measurement|Determination of GNSS receiver elevation-dependent clock bias accuracy|10.1016/j.measurement.2020.108336
+bias|2023|3|Measurement|Prediction of structural high-frequency vibration with considering uncertainty in measurement|10.1016/j.measurement.2023.113751
+bias|2024|1|MAPAN|Correction: Review on Classification, Sources and Management of Road Dust and Determination of Uncertainty Associated with Measurement of Particle Siz|10.1007/s12647-023-00715-0
+bias|2025|1|Measurement|AIMUMETER: Neural network based aircraft take-off and landing distance measurement system with uncertainty measurement|10.1016/j.measurement.2025.117341
+bias|2021|9|Measurement|Determining signal entropy in uncertainty space|10.1016/j.measurement.2021.109336
+bias|2023|2|IEEE Transactions on Instrum|Uncertainty Analysis in Cryptographic Key Recovery for Machine Learning-Based Power Measurements Attacks|10.1109/tim.2023.3284933
+bias|2018|11|Measurement|A novel vibration sensor system for frequency measurement based on Bias Flip technique|10.1016/j.measurement.2018.03.070
+bias|2019|11|MAPAN|Analysis of the Influence of Water-Vapor Correction Term on the Measurement Uncertainty of Wind Speed|10.1007/s12647-019-00338-4
+bias|2025|16|Measurement|Facial thermal imaging: A systematic review with guidelines and measurement uncertainty estimation|10.1016/j.measurement.2024.115879
+bias|2016|23|Measurement|Uncertainty analysis for a phase-detector based phase noise measurement system|10.1016/j.measurement.2016.02.026
+bias|2022|25|Measurement|Attitude and gyro bias estimation by SVD-aided EKF|10.1016/j.measurement.2022.112209
+bias|2026|0|Measurement|How uncertainty and underdetermination allow measurement to produce useful results|10.1016/j.measurement.2026.120330
+bias|2022|3|Measurement|Data entropy decomposition into functional and uncertainty components|10.1016/j.measurement.2021.110541
+bias|2022|4|Measurement|Criticalities of Eurachem/CITAC guide uncertainty of qualitative results|10.1016/j.measurement.2022.110911
+bias|2017|6|Measurement|A modified ISO 13528 robust analysis (Algorithm A) that takes measurement uncertainty into account|10.1016/j.measurement.2017.07.006
+bias|2021|8|Measurement|Uncertainty on measurement of elastomeric isolators effective properties|10.1016/j.measurement.2021.109511
+bias|2026|1|Measurement|Uncertainty and purpose of measurements of carbon sequestration in soil|10.1016/j.measurement.2026.120331
+bias|2026|0|Measurement|Indirect mortality measurement in poultry houses using calibrated sensing, uncertainty, and applicability control|10.1016/j.measurement.2026.122158
+bias|2019|1|Measurement|Minimum uncertainty slant angle for trihedral pyramid targets|10.1016/j.measurement.2018.12.053
+bias|2016|2|Measurement|Model uncertainty and reference value of the Planck constant|10.1016/j.measurement.2016.07.056
+cal|2026|0|Measurement Science and Tech|A weighted least-squares-based amplitude and phase calibration method for millimeter-wave radar|10.1088/1361-6501/ae8569
+cal|2022|7|Metrologia|Errors-in-variables calibration with dark uncertainty|10.1088/1681-7575/ac711c
+cal|2016|11|Metrologia|Force calibration using errors-in-variables regression and Monte Carlo uncertainty evaluation|10.1088/0026-1394/53/3/965
+cal|2019|12|Measurement Science and Tech|Self-calibration for the 2D stage based on weighted least squares|10.1088/1361-6501/ab3d16
+cal|2018|0|tm - Technisches Messen|Einsatz von Gaußprozessen und Weighted Least-Squares-Verfahren für die Fusion von konfokaler Mikroskopie und Weißlichtinterferometrie / Gaussian proce|10.1515/teme-2018-0034
+cal|2023|15|Measurement|Fast and almost unbiased weighted least squares fitting of circles|10.1016/j.measurement.2022.112294
+cal|2024|0|Analytica Chimica Acta|An exhaustive analysis of the use of image moments for second-order calibration. A comparison with multivariate curve resolution-alternating least-squ|10.1016/j.aca.2023.342177
+cal|2024|9|Analytica Chimica Acta|Multivariate curve resolution-alternating least-squares and second-order advantage in first-order calibration. A systematic characterisation for three|10.1016/j.aca.2024.343159
+cal|2021|18|Measurement|Location and estimation of multiple outliers in weighted total least squares|10.1016/j.measurement.2021.109591
+cal|2025|9|Measurement|Automatic phase aberration compensation for digital holographic microscopy by alternating weighted least squares fitting|10.1016/j.measurement.2025.118124
+cal|2024|10|Measurement|Low frequency load identification under high noise level using weighted total least squares|10.1016/j.measurement.2024.115125
+cal|2021|12|Measurement|GPR uncertainty modelling and analysis of object depth based on constrained least squares|10.1016/j.measurement.2021.109799
+cal|2026|0|Metrology|An Uncertainty-Aware Kernel-Based Method for Regression: The Generalized Least Squares Support Vector Machine|10.3390/metrology6030044
+cal|2026|0|Measurement|Robust TDOA estimation in noisy environments using weighted least squares–enhanced array rearranged synchrosqueezing transform|10.1016/j.measurement.2026.122099
+cal|2024|8|Measurement Science and Tech|Damped least squares method for nonlinear mixed additive and multiplicative errors model|10.1088/1361-6501/ad3391
+cal|2023|6|Measurement Science and Tech|Iteratively weighted least squares solution for universal 3D similarity transformation|10.1088/1361-6501/accb00
+cal|2019|6|Chemometrics and Intelligent|Fourier transform infrared imaging and quantitative analysis of pre-treated wood fibers: A comparison between partial least squares and multivariate c|10.1016/j.chemolab.2019.103890
+cal|2022|7|Analytical Chemistry|Goodness-of-Fit Tests in Calibration: Are They Any Good for Selecting Least-Squares Weighting Formulas?|10.1021/acs.analchem.2c02904
+cal|2016|118|Measurement|A T-wave alternans assessment method based on least squares curve fitting technique|10.1016/j.measurement.2016.01.046
+cal|2025|0|Measurement|Comment on: “A generalized weighted total least squares-based, iterative solution to the estimation of 3D similarity transformation parameters” by Wan|10.1016/j.measurement.2024.116521
+cal|2017|94|TrAC Trends in Analytical Ch|Applications of electrochemical data analysis by multivariate curve resolution-alternating least squares|10.1016/j.trac.2017.01.005
+cal|2020|32|Analytical Chemistry|Least Squares Methods for Treating Problems with Uncertainty inxandy|10.1021/acs.analchem.0c02178
+cal|2025|2|Measurement|A generalized weighted total least squares-based, iterative solution to the estimation of 3D similarity transformation parameters|10.1016/j.measurement.2024.116522
+cal|2021|5|Measurement Science and Tech|A universal and fast method to solve linear systems with correlated coefficients using weighted total least squares|10.1088/1361-6501/ac32ec
+cal|2023|12|Measurement|A generalized weighted total least squares-based, iterative solution to the estimation of 3D similarity transformation parameters|10.1016/j.measurement.2023.112563
+cal|2016|183|TrAC Trends in Analytical Ch|Evaluation of analytical calibration based on least-squares linear regression for instrumental techniques: A tutorial review|10.1016/j.trac.2015.12.006
+cal|2018|36|Analytica Chimica Acta|Application of a sparseness constraint in multivariate curve resolution – Alternating least squares|10.1016/j.aca.2017.08.021
+cal|2026|1|IEEE Transactions on Instrum|Taylor Weighted Least Squares Phasor Estimation of Electrical Waveforms Affected by Harmonics and Interharmonics|10.1109/tim.2026.3682743
+cal|2021|35|IEEE Transactions on Instrum|Accurate Dynamic Phasor Estimation by Matrix Pencil and Taylor Weighted Least Squares Method|10.1109/tim.2021.3066187
+cal|2024|12|Measurement Science and Tech|M robust bias-corrected weighted least squares iteration solution of mixed additive and multiplicative random error model|10.1088/1361-6501/ad2ac3
+cal|2020|16|Talanta|Data mining Raman microspectroscopic responses of cells to drugs in vitro using multivariate curve resolution-alternating least squares|10.1016/j.talanta.2019.120386
+cal|2020|10|Talanta|Characterisation of complex perfume and essential oil blends using multivariate curve resolution-alternating least squares algorithms on average mass |10.1016/j.talanta.2020.121208
+cal|2016|30|Chemometrics and Intelligent|Variable space boosting partial least squares for multivariate calibration of near-infrared spectroscopy|10.1016/j.chemolab.2016.08.005
+cal|2020|39|Analytical Chemistry|Calibration Transfer of Partial Least Squares Regression
+Models between Desktop Nuclear Magnetic Resonance Spectrometers|10.1021/acs.analchem.0c00902
+cal|2023|0|Measurement Science and Tech|Precise plane registration with multiple geometric feature matching and weighted least squares estimation|10.1088/1361-6501/acf77b
+cal|2026|1|Talanta|Characterization of long-term atmospheric corrosion of iron in indoor and outdoor conditions using Raman spectroscopy coupled to multivariate curve re|10.1016/j.talanta.2026.129569
+cal|2016|33|Analytical Chemistry|Multivariate Curve Resolution-Alternating Least Squares Analysis of High-Resolution Liquid Chromatography–Mass Spectrometry Data|10.1021/acs.analchem.6b03116
+cal|2020|4|Chemometrics and Intelligent|Interval estimation in multivariate curve resolution by exploiting the principles of error propagation in linear least squares|10.1016/j.chemolab.2020.104166
+cal|2020|1|Measurement Science and Tech|Joint weighted least squares for normal decomposition of 3D measurement surface|10.1088/1361-6501/ab4e50
+cal|2017|19|Measurement Science and Tech|Empirical mode decomposition-adaptive least squares method for dynamic calibration of pressure sensors|10.1088/1361-6501/aa5c25
+cal|2018|18|Chemometrics and Intelligent|A novel multivariate calibration method based on variable adaptive boosting partial least squares algorithm|10.1016/j.chemolab.2018.03.013
+cal|2016|82|Talanta|Simultaneous determination of hydroquinone, catechol and resorcinol by voltammetry using graphene screen-printed electrodes and partial least squares |10.1016/j.talanta.2016.07.007
+cal|2016|4|Analytica Chimica Acta|New strategy to identify radicals in a time evolving EPR data set by multivariate curve resolution-alternating least squares|10.1016/j.aca.2016.10.028
+cal|2018|4|Microchemical Journal|Quantum chemical computation-based strategy for alternating least squares initialization in multivariate curve resolution analysis of spectral-pH data|10.1016/j.microc.2018.04.022
+cal|2023|4|IEEE Transactions on Instrum|Multiclass Weighted Least Squares Twin Bounded Support Vector Machine for Intelligent Water Leakage Diagnosis|10.1109/tim.2023.3267379
+cal|2025|20|Measurement|A fault diagnosis method using decomposition denoising improved multiscale weighted permutation entropy and one-versus-one least squares twin SVM|10.1016/j.measurement.2025.118012
+cal|2022|13|Chemometrics and Intelligent|Soft variable selection combining partial least squares and attention mechanism for multivariable calibration|10.1016/j.chemolab.2022.104532
+cal|2019|32|Analytical Chemistry|Inhomogeneous Molecular Distributions and Cytochrome Types and Redox States in Fungal Cells Revealed by Raman Hyperspectral Imaging Using Multivariate|10.1021/acs.analchem.9b03261
+cal|2019|53|The Analyst|A novel multivariate curve resolution-alternating least squares (MCR-ALS) methodology for application in hyperspectral Raman imaging analysis|10.1039/c9an00787c
+cal|2022|2|Talanta|Corrigendum to “Data mining Raman microspectroscopic responses of cells to drugs in vitro using multivariate curve resolution-alternating least square|10.1016/j.talanta.2021.122682
+cal|2018|4|Chemometrics and Intelligent|Variable selection in partial least squares with the weighted variable contribution to the first singular value of the covariance matrix|10.1016/j.chemolab.2018.11.003
+cal|2016|8|Microchemical Journal|Evaluation of cloud point extraction coupled with fluorescence spectroscopy and multivariate curve resolution–alternating least squares for tributylti|10.1016/j.microc.2015.08.012
+cal|2017|45|Talanta|Detection of inborn errors of metabolism utilizing GC-MS urinary metabolomics coupled with a modified orthogonal partial least squares discriminant an|10.1016/j.talanta.2017.01.018
+conform|2026|0|tm - Technisches Messen|How uncertain can (geometric) measurements be for a conformity and non-conformity assessment?|10.1515/teme-2026-0007
+conform|2017|35|Talanta|Risk of false decision on conformity of a multicomponent material when test results of the components’ content are correlated|10.1016/j.talanta.2017.06.073
+conform|2017|2|Accreditation and Quality As|Optimizing measurement uncertainty to reduce the risk and cost in the process of conformity assessment|10.1007/s00769-017-1294-4
+conform|2018|18|Talanta|Total risk of a false decision on conformity of an alloy due to measurement uncertainty and correlation of test results|10.1016/j.talanta.2018.07.049
+conform|2017|39|Talanta|Conformity assessment of multicomponent materials or objects: Risk of false decisions due to measurement uncertainty – A case study of denatured alcoh|10.1016/j.talanta.2016.11.035
+conform|2026|0|SoftwareX|GoRent: Open-source software for transparent rule-based rental risk assessment and intervention support|10.1016/j.softx.2026.102795
+conform|2022|4|Chemometrics and Intelligent|Definition of medicine shelf-life based on the assessment of the total risk of false conformity decisions due to measurement uncertainty – A multipara|10.1016/j.chemolab.2022.104649
+conform|2016|20|Metrologia|Bayesian conformity assessment in presence of systematic measurement errors|10.1088/0026-1394/53/2/s74
+conform|2021|8|Measurement|A modified Bayes’ theorem for reliable conformity assessment in industrial metrology|10.1016/j.measurement.2021.109967
+conform|2023|1|Accreditation and Quality As|Sampling in the context of conformity assessment|10.1007/s00769-023-01542-1
+conform|2026|0|SoftwareX|CLARO: Constrained budget allocation with rule-based decision interpretation|10.1016/j.softx.2026.102935
+conform|2026|1|Measurement|Economic optimisation of acceptance interval in conformity assessment for processes with known and unknown biases|10.1016/j.measurement.2025.119847
+conform|2018|10|Measurement|Managing the uncertainty of conformity assessment in environmental testing by machine learning|10.1016/j.measurement.2017.12.034
+conform|2016|2|MAPAN|Conformity Assessment and Validation of Automatic Meter Reading Systems|10.1007/s12647-016-0181-5
+conform|2022|4|Metrologia|Economic optimization of acceptance interval in conformity assessment: 1. Process with no systematic effect|10.1088/1681-7575/ac6fa1
+conform|2022|3|Metrologia|Economic optimization of acceptance interval in conformity assessment: 2. Process with unknown systematic effect|10.1088/1681-7575/ac6fa2
+conform|2024|75|Microchemical Journal|Bioaccumulation of metals in muscle tissues of economically important fish species from black sea Lagoon lakes in Türkiye: Consumer health risk and nu|10.1016/j.microc.2024.111337
+conform|2024|3|Measurement|Conformity assessment of a proficiency test using turbine flowmeters based on the concept of tolerance intervals|10.1016/j.measurement.2024.115287
+conform|2024|0|Microchemical Journal|Total combined risk of false conformity decisions in pharmaceutical equivalence of acetaminophen oral solution|10.1016/j.microc.2024.110610
+conform|2025|4|Metrology|The Importance of Measurement Uncertainty Arising from the Sampling Process in Conformity Assessment: The Case of Fuel Quality|10.3390/metrology5010007
+conform|2023|4|Acta IMEKO|Overestimation of conformity assessment risks in legal requirements of weighing instruments|10.21014/actaimeko.v12i3.1471
+conform|2024|3|Measurement Science and Tech|Probabilities of true and false decisions in conformity assessment of a finite sample of items|10.1088/1361-6501/ad2439
+conform|2026|0|SoftwareX|NanoRisk-Web: An open-source Bayesian decision-support platform for occupational health risk assessment of engineered nanomaterials|10.1016/j.softx.2026.103061
+conform|2022|4|MAPAN|Accreditation of conformity assessment bodies in the field of environmental testing in India|10.1007/s12647-022-00563-4
+conform|2026|0|Acta IMEKO|Monte Carlo-based uncertainty quantification for conformity assessment and traceable calibration of high-frequency instrumentation|10.21014/actaimeko.v15i2.2285
+conform|2019|34|Talanta|Risk of false conformity decisions of multicomponent items controlled by correlated measurement results due to the sharing of analytical steps|10.1016/j.talanta.2018.12.021
+conform|2026|6|Microchemical Journal|UHPLC-MS/MS detection and health risk assessment of triazole pesticides in dates cultivated in the UAE: Protecting consumer health|10.1016/j.microc.2026.117160
+conform|2026|0|Measurement|Decentered process effect on conformity assessment risks for manufacturing of non-automatic weighing instruments|10.1016/j.measurement.2026.120882
+conform|2017|11|Microchemical Journal|The role of measurement uncertainty in the conformity assessment of the chemical composition of feeds|10.1016/j.microc.2016.11.014
+conform|2023|2|Accreditation and Quality As|Need for a protocol for performance evaluation of the gas analyzers used in biomethane conformity assessment|10.1007/s00769-023-01562-x
+conform|2022|4|Measurement|Fit-for-purpose risks in conformity assessment of a substance or material – A case study of synthetic air|10.1016/j.measurement.2021.110542
+conform|2023|3|Chemometrics and Intelligent|Risk of false conformity decisions in LAL gel-clot test due to false-negative results|10.1016/j.chemolab.2023.104760
+conform|2022|13|Microchemical Journal|Establishment of modified QuEChERS-GC–MS-LC–MS/MS method for simultaneous screening of multi-class multi-pesticide residues in betelvine and consumer |10.1016/j.microc.2022.107444
+conform|2017|31|Clinical Chemistry and Labor|Selecting multi-rule quality control procedures based on patient risk|10.1515/cclm-2016-1077
+conform|2020|9|Measurement|Correlation of test results and influence of a mass balance constraint on risks in conformity assessment of a substance or material|10.1016/j.measurement.2020.107947
+conform|2025|1|Acta IMEKO|Conformity assessment applied to custody transfer in the oil and gas industry: A brief review|10.21014/actaimeko.v14i4.2007
+conform|2025|3|Chemometrics and Intelligent|Use of measurement uncertainty in conformity assessment and process capability indices in quality evaluation of pharmaceutical manufacturing processes|10.1016/j.chemolab.2025.105470
+conform|2025|2|Accreditation and Quality As|Mapping conformity assessment bodies in the Republic of Serbia: focus on ISO/IEC 17025 accredited laboratories|10.1007/s00769-025-01678-2
+conform|2022|6|Accreditation and Quality As|Impact of the COVID-19 pandemic on accredited conformity assessment bodies: insights from a multinational study|10.1007/s00769-022-01514-x
+conform|2026|2|Measurement|Interoperability challenges between the Digital Conformity Credential data model (UNTP-DCC) and the data structures for the Digital Calibration Certif|10.1016/j.measurement.2025.118816
+conform|2021|12|Measurement|Specific risks of false decisions in conformity assessment of a substance or material with a mass balance constraint – A case study of potassium iodat|10.1016/j.measurement.2020.108662
+conform|2022|1|tm - Technisches Messen|Conformity assessment of photo-optical measurement data registration in legal metrology|10.1515/teme-2022-0033
+conform|2024|2|Accreditation and Quality As|Residue behavior and consumer risk assessment of combination product of betacyfluthrin and imidacloprid on cucumber (Cucumis sativus L.)|10.1007/s00769-024-01573-2
+conform|2023|0|tm - Technisches Messen|Corrigendum to: Conformity assessment of photo-optical measurement data registration in legal metrology – ensuring admissibility as evidence of measur|10.1515/teme-2023-0039
+conform|2019|30|Chemometrics and Intelligent|Spreadsheet for evaluation of global risks in conformity assessment of a multicomponent material or object|10.1016/j.chemolab.2019.02.010
+conform|2026|2|Journal of Open Source Softw|geopolrisk-py: A Python-Based Library to Operationalize the Geopolitical Supply Risk Method for use in Life Cycle Assessment and Comparative Risk Asse|10.21105/joss.09600
+conform|2023|2|Acta IMEKO|Statements of conformity provided by laboratories|10.21014/actaimeko.v12i2.1468
+conform|2026|0|Analytical Chemistry|Semisupervised Learning Process Based on a Laplacian Regularized One Class Support Vector Machine with Dynamic Decision Rule for Near-Infrared Data Cl|10.1021/acs.analchem.4c06621
+conform|2022|6|Measurement|A new approach to derive buildings footprint from light detection and ranging data using rule-based learning techniques and decision tree|10.1016/j.measurement.2022.110781
+dcc|2021|26|Measurement|Towards a new generation of digital calibration certificate: Analysis and survey|10.1016/j.measurement.2021.109611
+dcc|2023|11|Acta IMEKO|Digital Calibration Certificate in an industrial application|10.21014/actaimeko.v12i1.1402
+dcc|2026|0|Metrologia|Digital precision in metrology: significant figures and trailing zeros as machine readable metadata|10.1088/1681-7575/aea165
+dcc|2021|10|Metrology|Calibration of a Digital Current Transformer Measuring Bridge: Metrological Challenges and Uncertainty Contributions|10.3390/metrology1020007
+dcc|2022|8|Metrology|The Storage within Digital Calibration Certificates of Uncertainty Information Obtained Using a Monte Carlo Method|10.3390/metrology2010003
+dcc|2018|26|Precision Engineering|Application of the adaptive Monte Carlo method in a five-axis machine tool calibration uncertainty estimation including the thermal behavior|10.1016/j.precisioneng.2018.02.011
+dcc|2023|5|Measurement Science and Tech|Machine-readable data and metadata of international key comparisons in radionuclide metrology|10.1088/1361-6501/accd0b
+dcc|2026|4|Metrology|Metrological Validation of Low-Cost DS18B20 Digital Temperature Sensors Using the TH-001 Procedure: Calibration Models, Uncertainty, and Reproducibili|10.3390/metrology6010021
+dcc|2020|3|ACTA IMEKO|Calibration procedures for torque measuring devices by using a reference type torque calibration machine at NMIJ|10.21014/acta_imeko.v9i5.964
+dcc|2026|0|Chemometrics and Intelligent|Chemometric and machine-learning strategies for calibration transfer and uncertainty quantification in portable optical analytical systems|10.1016/j.chemolab.2026.105848
+dcc|2026|1|Measurement|Force signal alignment in dynamic testing machine calibration applications|10.1016/j.measurement.2025.119070
+dcc|2020|0|ACTA IMEKO|Design of fully automatic calibration machine for reference block based on machine vision|10.21014/acta_imeko.v9i5.976
+dcc|2018|56|Measurement|Calibration of an interferometric on-machine probing system on an ultra-precision turning machine|10.1016/j.measurement.2017.12.038
+dcc|2023|3|Metrologia|Evaluation of long-term robustness of the International System of Reference (SIR) used in radionuclide metrology based on the meta-analysis of its mac|10.1088/1681-7575/ad0a36
+dcc|2022|6|tm - Technisches Messen|The digital transformation and novel calibration approaches|10.1515/teme-2021-0136
+dcc|2024|16|Measurement|Analytical results for uncertainty propagation through trained machine learning regression models|10.1016/j.measurement.2024.114841
+dcc|2021|15|Metrologia|Primary calibration system for digital accelerometers|10.1088/1681-7575/ac0403
+dcc|2020|5|ACTA IMEKO|Dynamic calibration of digital angular rate sensors|10.21014/acta_imeko.v9i5.1008
+dcc|2019|10|Measurement|Calibration of a torque measuring device using an electromagnetic force torque standard machine|10.1016/j.measurement.2019.07.049
+dcc|2021|14|Measurement Science and Tech|An efficient solution for correlative microscopy and co-localized observations based on multiscale multimodal machine-readable nanoGPS tags|10.1088/1361-6501/abce39
+educ|2023|2|Acta IMEKO|Mathmet Measurement Uncertainty Training activity – Overview of courses, software, and classroom examples|10.21014/actaimeko.v12i2.1310
+educ|2024|4|Metrology|Novel Method of Fitting a Nonlinear Function to Data of Measurement Based on Linearization by Change Variables, Examples and Uncertainty|10.3390/metrology4040042
+educ|2021|10|Measurement|The Rasch distribution: A discrete, general form of the Gauss distribution of uncertainty in scientific measurement|10.1016/j.measurement.2020.108672
+educ|2019|7|Measurement|Interlaboratory comparisons’ measurement uncertainty in the field of environmental noise|10.1016/j.measurement.2019.106932
+educ|2017|12|Measurement|Educational aspects of uncertainty calculation with software tools|10.1016/j.measurement.2015.11.005
+educ|2016|3|Measurement|Estimating uncertainty when using transient data in steady-state calculations|10.1016/j.measurement.2016.07.084
+educ|2026|0|Measurement|A method for estimating measurement uncertainty in wireless electromyography ergonomic monitoring|10.1016/j.measurement.2026.121781
+educ|2018|7|Measurement|Influence of vision measurement system spatial configuration on measurement uncertainty, based on the example of electric traction application|10.1016/j.measurement.2017.11.022
+educ|2018|15|Measurement|Study of detailed deviation zone considering coordinate metrology uncertainty|10.1016/j.measurement.2016.12.032
+educ|2026|0|Measurement|Analysis of measurement uncertainty in experimental methods applied to daylight in buildings|10.1016/j.measurement.2026.122776
+educ|2016|24|Measurement|Determining environmental noise measurement uncertainty in the context of the Italian legislative framework|10.1016/j.measurement.2016.07.007
+educ|2026|1|Measurement|Measurement system analysis of nucleation kinetics in L-glutamic acid Crystallization: Quantifying uncertainty and reproducibility|10.1016/j.measurement.2026.122840
+educ|2026|0|Measurement|Advanced signal processing using automated uncertainty propagation—An educational approach|10.1016/j.measurement.2025.119109
+educ|2023|11|Measurement|The uncertainty analysis of bridge displacement in computer vision|10.1016/j.measurement.2023.113559
+educ|2022|14|Measurement|A self-adaptive method for the assessment of dynamic measurement uncertainty|10.1016/j.measurement.2022.111116
+educ|2022|8|Measurement|LNG mass flow measurement uncertainty reduction using calculated Young’s modulus and Poisson’s ratio for Coriolis flowmeters|10.1016/j.measurement.2021.110413
+educ|2026|0|Acta IMEKO|The influence of measurement uncertainty of associated quantities on the uncertainty of liquefied petroleum gas mass in a dynamic measurement system|10.21014/actaimeko.v15i1.2023
+educ|2016|5|Measurement|Estimation of the measurement uncertainty in the anisotropy test|10.1016/j.measurement.2016.07.027
+educ|2026|0|Measurement|Measurement and characterization of LEO NTN downlink channel dynamics with uncertainty analysis|10.1016/j.measurement.2026.123385
+gummcm|2021|37|Precision Engineering|Efficient uncertainty estimation of indirectly measured geometric errors of five-axis machine tools via Monte-Carlo validated GUM framework|10.1016/j.precisioneng.2020.09.027
+gummcm|2023|0|tm - Technisches Messen|Systematische Simulationsmethode zur effizienten Abschätzung von Unsicherheiten komplexer Messungen – ein Zwischenweg von klassischem GUM und der Mont|10.1515/teme-2023-0067
+gummcm|2019|5|MAPAN|Analysis and Comparison of Hyper-Ellipsoidal and Smallest Coverage Regions for Multivariate Monte Carlo Measurement Uncertainty Analysis Simulation Da|10.1007/s12647-019-00324-w
+gummcm|2019|6|MAPAN|Uncertainty Evaluation by Monte Carlo Method|10.1007/s12647-019-00347-3
+gummcm|2026|0|MAPAN|Comparison of GUM and Monte Carlo Evaluations of the Uncertainty in the Reference Error of an Electrolytic Conductivity Meter|10.1007/s12647-026-00973-8
+gummcm|2019|5|Metrologia|Monte Carlo sampling bias in the microwave uncertainty framework|10.1088/1681-7575/ab2c18
+gummcm|2024|4|MAPAN|Evaluation of Humidity Sensor Calibration Uncertainty by Monte Carlo Method|10.1007/s12647-024-00742-5
+gummcm|2019|13|Measurement|Why the scaled and shifted t-distribution should not be used in the Monte Carlo method for estimating measurement uncertainty?|10.1016/j.measurement.2018.12.089
+gummcm|2021|15|Analytical Chemistry|A Monte Carlo Method for Analyzing Systematic and Random Uncertainty in Quantitative Nuclear Magnetic Resonance Measurements|10.1021/acs.analchem.1c00407
+gummcm|2017|18|Measurement|Analysis of measurement uncertainty for contact-less method used to measure the position of catenary contact wire, performed with the use of Monte Car|10.1016/j.measurement.2016.11.008
+gummcm|2024|1|tm - Technisches Messen|Monte Carlo Method for Uncertainty Estimations of Cyber-Physical Finite Element Sensor Networks|10.1515/teme-2024-0050
+gummcm|2025|3|Metrologia|A practically oriented, efficient alternative to the Monte Carlo method for measurement uncertainty estimation|10.1088/1681-7575/adb3ab
+gummcm|2018|26|Measurement|Measurement uncertainty estimation based on multiple regression analysis (MRA) and Monte Carlo (MC) simulations – Application to agar diffusion method|10.1016/j.measurement.2017.10.057
+gummcm|2016|12|International Journal of Met|Comparison of the GUM and Monte Carlo methods on the flatness uncertainty estimation in coordinate measuring machine|10.1051/ijmqe/2016013
+gummcm|2019|11|Measurement|Influence of laser tracker noise on the uncertainty of machine tool volumetric verification using the Monte Carlo method|10.1016/j.measurement.2018.10.012
+gummcm|2022|15|Measurement|Dynamic evaluation and analysis of the uncertainty of roundness error measurement by Markov Chain Monte Carlo method|10.1016/j.measurement.2022.111771
+gummcm|2019|15|Measurement|Uncertainty metric in model-based eddy current inversion using the adaptive Monte Carlo method|10.1016/j.measurement.2019.01.004
+gummcm|2021|1|MAPAN|Feasible methods for g-measurement and uncertainty comparison with Monte Carlo method|10.1007/s12647-021-00457-x
+gummcm|2025|1|Measurement|RETRACTED: A quantification method for model parameter uncertainty based on an improved sequential Monte Carlo filter|10.1016/j.measurement.2025.118287
+gummcm|2019|10|MAPAN|Uncertainty Analysis of Distortion Coefficient of Piston Gauge Using Monte Carlo Method|10.1007/s12647-019-00305-z
+gummcm|2016|10|Measurement Science and Tech|Dynamic measurements and uncertainty estimation of clinical thermometers using Monte Carlo method|10.1088/0957-0233/27/9/095001
+gummcm|2016|16|Analytica Chimica Acta|Uncertainty evaluation for the quantification of low masses of benzo[a]pyrene: Comparison between the Law of Propagation of Uncertainty and the Monte |10.1016/j.aca.2016.03.032
+gummcm|2019|20|Analytica Chimica Acta|Standard addition method with cumulative additions: Monte Carlo uncertainty evaluation|10.1016/j.aca.2019.02.002
+gummcm|2018|17|Measurement|Measurement uncertainty evaluation in whiplash test model via neural network and support vector machine-based Monte Carlo method|10.1016/j.measurement.2018.01.065
+gummcm|2019|10|MAPAN|Evaluation of Uncertainty in the Effective Area and Distortion Coefficients of Air Piston Gauge Using Monte Carlo Method|10.1007/s12647-019-00336-6
+gummcm|2021|24|Accreditation and Quality As|Getting started with uncertainty evaluation using the Monte Carlo method in R|10.1007/s00769-021-01469-5
+gummcm|2017|7|MAPAN|Estimation of Uncertainty in the Calibration of Industrial Platinum Resistance Thermometers (IPRT) Using Monte Carlo Method|10.1007/s12647-017-0222-8
+gummcm|2020|29|Metrologia|Consistency in Monte Carlo Uncertainty Analyses|10.1088/1681-7575/aba5aa
+gummcm|2025|9|Measurement|Analysis of standard uncertainty using the Monte Carlo method for arc measurement on a coordinate measuring machine|10.1016/j.measurement.2025.117589
+gummcm|2021|13|IEEE Transactions on Instrum|Evaluation of Angle Measurement Uncertainty of Fiber Optic Gyroscope Based on Monte Carlo Method|10.1109/tim.2021.3080390
+gummcm|2024|9|IEEE Transactions on Instrum|Addressing Uncertainty on Machine Learning Models for Long-Period Fiber Grating Signal Conditioning Using Monte Carlo Method|10.1109/tim.2024.3350133
+gummcm|2026|0|Accreditation and Quality As|An adaptive Monte Carlo method for evaluating uncertainty in confidence level of non-targeted principal component analysis classification|10.1007/s00769-026-01698-6
+gummcm|2026|0|IEEE Transactions on Instrum|Evaluation of Measurement Uncertainty for Photoelectric Anemometers Based on Monte Carlo Method|10.1109/tim.2026.3709400
+gummcm|2025|0|Measurement|Retraction notice to “A quantification method for model parameter uncertainty based on an improved sequential Monte Carlo filter” [Measurement 256 (20|10.1016/j.measurement.2025.118707
+gummcm|2021|0|MAPAN|Systematic Sharing and Reconstruction of Monte Carlo Output Distributions for Metrological Uncertainty Evaluation|10.1007/s12647-021-00498-2
+gummcm|2023|0|Acta IMEKO|Monte Carlo human identification refinement using joints uncertainty|10.21014/actaimeko.v12i2.1423
+gummcm|2019|10|Measurement Science and Tech|Uncertainty evaluation of straightness in coordinate measuring machines based on error ellipse theory integrated with Monte Carlo method|10.1088/1361-6501/ab5334
+gummcm|2023|9|SoftwareX|In-Cognitive: A web-based Python application for fuzzy cognitive map design, simulation, and uncertainty analysis based on the Monte Carlo method|10.1016/j.softx.2023.101513
+gummcm|2026|0|Metrology|Uncertainty Propagation in Curvature-Based Surface Form Metrology: A Monte Carlo and Differential Geometry Approach|10.3390/metrology6020043
+gummcm|2024|2|Accreditation and Quality As|Use of the Monte Carlo method for the estimation of measurement uncertainty in chemical analysis systems with intensive mathematical treatment|10.1007/s00769-023-01572-9
+gummcm|2019|29|MAPAN|Monte Carlo Simulation in Uncertainty Evaluation: Strategy, Implications and Future Prospects|10.1007/s12647-019-00345-5
+gummcm|2016|32|The Analyst|The Monte Carlo validation framework for the discriminant partial least squares model extended with variable selection methods applied to authenticity|10.1039/c5an01656h
+gummcm|2021|5|Measurement Science and Tech|Investigation of the British pendulum calibration uncertainty by Monte Carlo simulation|10.1088/1361-6501/ac2c4b
+gummcm|2016|25|Precision Engineering|Evaluating a task-specific measurement uncertainty for gear measuring instruments via Monte Carlo simulation|10.1016/j.precisioneng.2016.01.001
+gummcm|2024|2|Measurement Science and Tech|Monte Carlo uncertainty quantification method of pneumatic measurement tube frequency response|10.1088/1361-6501/ad8f4f
+gummcm|2020|0|ACTA IMEKO|Monte Carlo determination of the uncertainty of effective area and deformation coefficient for a piston cylinder unit|10.21014/acta_imeko.v9i5.996
+mcm|2021|9|Measurement|Adaptive Quasi-Monte Carlo method for nonlinear function error propagation and its application in geodetic measurement|10.1016/j.measurement.2021.110122
+mcm|2026|0|Measurement|BIM-based Adaptive Monte Carlo Localization (AMCL) method for indoor mobile robot|10.1016/j.measurement.2026.120943
+mcm|2018|7|Measurement Science and Tech|Uncertainty propagation using the Monte Carlo method in the measurement of airborne particle size distribution with a scanning mobility particle sizer|10.1088/1361-6501/aaae87
+mcm|2019|10|MAPAN|Measurement Uncertainty Evaluation in Vickers Hardness Scale Using Law of Propagation of Uncertainty and Monte Carlo Simulation|10.1007/s12647-019-00341-9
+mcm|2021|2|Measurement Science and Tech|Uncertainty quantification for aerodynamic pressure probes, using adaptive quasi-Monte Carlo|10.1088/1361-6501/ac3f84
+mcm|2023|3|Measurement|Uncertainty budget of a large-range nanopositioning platform based on Monte Carlo simulation|10.1016/j.measurement.2023.112469
+mcm|2022|18|Measurement|A Monte Carlo approach to evaluate the local measurement uncertainty in transient heat transfer experiments using liquid crystal thermography|10.1016/j.measurement.2021.110648
+mcm|2026|0|Metrologia|Monte Carlo uncertainty evaluation of gravimetric gas mixture with asymmetric distributions|10.1088/1681-7575/ae549b
+mcm|2016|12|Measurement Science and Tech|Measurement uncertainty on the circular features in coordinate measurement system based on the error ellipse and Monte Carlo methods|10.1088/0957-0233/27/12/125016
+mcm|2016|22|Measurement|Evaluation of point cloud registration using Monte Carlo method|10.1016/j.measurement.2016.06.030
+mcm|2019|71|Measurement|Modeling and optimization of machining parameters during grinding of flat glass using response surface methodology and probabilistic uncertainty analy|10.1016/j.measurement.2019.05.098
+mcm|2024|2|IEEE Transactions on Instrum|Adaptive Edge-Enhanced Markov Chain Monte Carlo Method for Sound Speed Reconstruction in Ultrasound Computed Tomography|10.1109/tim.2024.3449935
+mcm|2021|5|Measurement Science and Tech|Monte Carlo reconstruction: a concept for propagating uncertainty in computed tomography|10.1088/1361-6501/ac07db
+mcm|2021|21|Measurement Science and Tech|Calibration and uncertainty analysis of a combined tracking-based vision measurement system using Monte Carlo simulation|10.1088/1361-6501/abed85
+mcm|2017|0|Measurement|Data evaluation of linkage of RMO.M.D-K4 comparisons to CCM.D-K4 “Hydrometer” by numerical simulation, based on Monte Carlo method|10.1016/j.measurement.2017.07.010
+mcm|2017|21|Measurement Science and Tech|Monte Carlo based analysis of confocal peak extraction uncertainty|10.1088/1361-6501/aa7e84
+mcm|2021|13|Measurement|A Monte Carlo simulation investigation on the effect of the probability distribution of input quantities on the effective area of a pressure balance a|10.1016/j.measurement.2020.108853
+mcm|2019|12|Precision Engineering|Comparative evaluation of estimation of hole plate measurement uncertainty via Monte Carlo simulation|10.1016/j.precisioneng.2019.02.007
+mcm|2019|4|Precision Engineering|Comparative evaluation of estimation of step gauge measurement uncertainty via Monte Carlo simulation|10.1016/j.precisioneng.2018.10.007
+mcm|2024|4|Analytical and Bioanalytical|Application of the adaptive Monte Carlo method for uncertainty evaluation in the determination of total testosterone in human serum by triple isotope |10.1007/s00216-024-05380-z
+mcm|2024|11|Analytica Chimica Acta|Measurement uncertainty for <711> Dissolution tests using Monte Carlo methods – Uncertainties arising from sampling and analytical steps|10.1016/j.aca.2024.343285
+mcm|2025|5|Measurement|Defect estimation using surrogate-based Monte Carlo Bayesian optimization|10.1016/j.measurement.2025.117449
+ml|2026|0|Measurement|AI-accelerated finite-size scaling for evaluating asymmetric epistemic uncertainty in digital quantum metrology standards|10.1016/j.measurement.2026.122683
+ml|2021|8|Metrology|Digital Representation of Measurement Uncertainty: A Case Study Linking an RMO Key Comparison with a CIPM Key Comparison|10.3390/metrology1020011
+ml|2022|5|Metrology|New Frontiers in Measurement Uncertainty|10.3390/metrology2040029
+ml|2026|2|Metrology|Evaluating Measurement Uncertainty Using Measurement Models with Arguments Subject to a Constraint|10.3390/metrology6010016
+ml|2026|1|Measurement|Uncertainty-aware metrics for evaluating machine learning regression models in materials testing|10.1016/j.measurement.2026.122931
+ml|2025|2|Metrology|Measurement Uncertainty Evaluation: Differences Between Virtual Experiments and the Standardized Approach|10.3390/metrology5040059
+ml|2026|2|Measurement|A robust uncertainty quantification framework for machine learning–based wet-gas flow metering|10.1016/j.measurement.2026.120670
+ml|2026|1|Measurement|Metrology lasers for traceable length metrology in nanopositioning machines – towards a 10−12 uncertainty level in vacuum wavelength|10.1016/j.measurement.2025.118512
+ml|2025|0|Metrology|Analysis of Measurement Uncertainty of Natural Source Zone Depletion Rate of Hydrocarbons as a Function of the Uncertainty of Subsurface Temperature|10.3390/metrology5010010
+ml|2021|8|Metrology|A Possibilistic Kalman Filter for the Reduction of the Final Measurement Uncertainty, in Presence of Unknown Systematic Errors|10.3390/metrology1010003
+ml|2025|15|Metrology|Measurement Uncertainty Evaluation for Sensor Network Metrology|10.3390/metrology5010003
+ml|2025|5|Metrology|Enhanced Vectorial Measurement Uncertainty Model|10.3390/metrology5020019
+ml|2023|11|Metrology|Estimation of Measurement Uncertainty of the Real-Time Location System (RTLS) with Ultra-Wideband (UWB) Technology|10.3390/metrology3020007
+ml|2016|11|Measurement|Uncertainty estimation of an indexed metrology platform for the verification of portable coordinate measuring instruments|10.1016/j.measurement.2015.12.024
+ml|2026|1|Measurement|Interpretable multi-objective machine learning with calibrated uncertainty for deployment-oriented prediction of defects and properties in polymer FFF|10.1016/j.measurement.2025.119350
+ml|2026|0|Measurement|Model-adequacy–guided infrared reflectance thickness metrology: separating two-beam truncation error, model-choice sensitivity, and conditional uncert|10.1016/j.measurement.2026.123283
+ml|2025|3|Metrology|Uncertainty in Dimensional Measurements During Open-Die Forging|10.3390/metrology5030055
+ml|2025|3|MAPAN|Metrology-Aware Co-optimization of Wind–Solar Distributed Generation and Demand Response Under Measurement Uncertainty|10.1007/s12647-025-00854-6
+ml|2021|38|Precision Engineering|Statistical point cloud model to investigate measurement uncertainty in coordinate metrology|10.1016/j.precisioneng.2021.01.008
+ml|2023|0|Acta IMEKO|Trans-conductance amplifier calibration protocol establishment – metrology ambiguities, constraints, and measurement uncertainty propagation analysis|10.21014/actaimeko.v12i3.1462
+ml|2026|0|Measurement|Research on probe error compensation and uncertainty assessment for on-machine measurement of face gears|10.1016/j.measurement.2026.121612
+ml|2026|7|Measurement|A value-guided mission planning framework for Earth Observation Satellites under uncertainty in digital twins|10.1016/j.measurement.2025.119686
+ml|2023|6|Measurement Science and Tech|Uncertainty assessment of machine tool squareness error identification using on-machine measurement|10.1088/1361-6501/ad1368
+ml|2026|1|Metrology|Uncertainty Evaluation Framework of Large-Scale Metrology for Precision Manufacturing in Shop Floor Environment|10.3390/metrology6020042
+ml|2026|0|Measurement|Uncertainty estimation of five-axis on-machine measurement based on sensitivity analysis of multi-source uncertainties|10.1016/j.measurement.2026.122364
+ml|2026|0|Measurement|Spatially adaptive uncertainty evaluation framework for on-machine measurement systems in GD&T capability assessment|10.1016/j.measurement.2026.123197
+multiv|2016|17|Measurement|Uncertainty evaluation of multivariate quantities: A case study on electrical impedance|10.1016/j.measurement.2015.08.043
+multiv|2018|7|Measurement Science and Tech|Approach to determine measurement uncertainty in complex nanosystems with multiparametric dependencies and multivariate output quantities|10.1088/1361-6501/aa9d70
+multiv|2020|13|Clinical Chemistry and Labor|Measurement uncertainty estimation for derived biological quantities|10.1515/cclm-2020-1003
+multiv|2018|49|Measurement|Modal frequency-environmental condition relation development using long-term structural health monitoring measurement: Uncertainty quantification, spa|10.1016/j.measurement.2018.08.022
+multiv|2023|3|Microchemical Journal|Bottom-up and top-down measurement uncertainty evaluation for multivariate spectrophotometric procedures|10.1016/j.microc.2023.109194
+multiv|2024|1|Accreditation and Quality As|A practical two-step procedure for taking into account all available information (prior and current) about influence quantities in measurement uncerta|10.1007/s00769-024-01583-0
+multiv|2017|37|Measurement|A height measurement uncertainty model for archaeological surveys by aerial photogrammetry|10.1016/j.measurement.2016.11.033
+multiv|2022|18|Measurement|Optimal placement of non-redundant sensors for structural health monitoring under model uncertainty and measurement noise|10.1016/j.measurement.2022.112102
+multiv|2026|1|Microchemical Journal|Development of a Python-based tool for evaluation of multivariate decision risk considering measurement uncertainty and correlation effects|10.1016/j.microc.2026.117824
+multiv|2026|0|Measurement|Uncertainty model and optimization priority strategy in multi-station laser measurement multilateration systems|10.1016/j.measurement.2026.122348
+multiv|2016|5|Measurement|Uncertainty model of electro-optical thrombus growth estimation for early risk detection|10.1016/j.measurement.2015.05.045
+multiv|2020|22|Talanta|Measurement uncertainty evaluation from correlated validation data: Determination of elemental impurities in pharmaceutical products by ICP-MS|10.1016/j.talanta.2020.121386
+multiv|2026|1|Measurement|Electronic nose mixed gas detection: a model based on multi-scale self-attention and uncertainty assessment|10.1016/j.measurement.2026.122411
+multiv|2024|14|Measurement|Predicting damage and quantifying uncertainty in composite plates with semi-supervised VAE-BNN model|10.1016/j.measurement.2024.115069
+multiv|2018|7|Metrologia|Uncertainty propagation through integrated quantities for radiation thermometry|10.1088/1681-7575/aaebbf
+multiv|2026|2|Measurement|Uncertainty calibration in PHM model from classification to time-series prediction|10.1016/j.measurement.2026.120433
+multiv|2025|2|Measurement Science and Tech|Global-local uncertainty-driven planning of robotic active sampling for multivariate Gaussian field estimation|10.1088/1361-6501/ae1aab
+multiv|2021|6|Measurement|Measurements of optical properties of liquids in a quartz cuvette: Rigorous model, uncertainty analysis and comparison with popular approximations|10.1016/j.measurement.2021.109069
+multiv|2017|38|Measurement|Virtual CMM-based model for uncertainty estimation of coordinate measurements performed in industrial conditions|10.1016/j.measurement.2016.12.027
+multiv|2017|17|IEEE Transactions on Instrum|Measurement Uncertainty Model for Vector Network Analyzers With Frequency Extension Modules at Terahertz Frequencies|10.1109/tim.2017.2668718
+multiv|2018|18|Measurement Science and Tech|Assessing the limitations of effective number of samples for finding the uncertainty of the mean of correlated data|10.1088/1361-6501/aae91d
+multiv|2024|8|Measurement Science and Tech|On soft measurement modeling for predicting photovoltaic power with uncertainty based on the Takagi–Sugeno model|10.1088/1361-6501/ad6921
+multiv|2017|41|IEEE Transactions on Instrum|A Displacement Uncertainty Model for 2-D DIC Measurement Under Motion Blur Conditions|10.1109/tim.2016.2644898
+precision|2021|1|Accreditation and Quality As|Evaluation of reproducibility uncertainty in micropipette calibrations for non-nominal volumes through an interlaboratory study|10.1007/s00769-020-01453-5
+precision|2022|0|Accreditation and Quality As|Correction to: Evaluation of reproducibility uncertainty in micropipette calibrations for non‑nominal volumes through an interlaboratory study|10.1007/s00769-022-01524-9
+precision|2016|72|Measurement|Repeatability and Reproducibility techniques for the analysis of measurement systems|10.1016/j.measurement.2016.02.041
+precision|2016|18|Measurement|An investigation of accuracy, repeatability and reproducibility of laser micromachining systems|10.1016/j.measurement.2016.03.033
+precision|2024|35|Precision Engineering|Comparing repeatability and reproducibility of topographic measurement types directly using linear regression analyses of measured heights|10.1016/j.precisioneng.2024.02.009
+precision|2021|2|Analytical and Bioanalytical|Comparison of reproducibility precision on mass fraction in some interlaboratory studies of methods of food analysis|10.1007/s00216-021-03736-3
+precision|2022|5|IEEE Transactions on Instrum|On the Breathability Measurement of Surgical Masks: Uncertainty, Repeatability, and Reproducibility Analysis|10.1109/tim.2022.3142754
+precision|2026|0|Microchemical Journal|International interlaboratory validation of an integrated pretreatment and measurement strategy for particulate TOC determination: technical basis for|10.1016/j.microc.2026.119796
+precision|2019|8|Clinical Chemistry and Labor|Repeatability and reproducibility of lipoprotein particle profile measurements in plasma samples by ultracentrifugation|10.1515/cclm-2019-0729
+precision|2022|27|Precision Engineering|Laser micro-machining of freeform surfaces: Accuracy, repeatability and reproducibility achievable with multi-axis processing strategies|10.1016/j.precisioneng.2022.08.009
+precision|2018|17|Analytical Chemistry|Improved Extraction Repeatability and Spectral Reproducibility
+for Liquid Extraction Surface Analysis–Mass Spectrometry Using
+Superhydrophobic–Superhy|10.1021/acs.analchem.8b00973
+precision|2017|13|Analytical Chemistry|Interlaboratory Reproducibility of Droplet Digital Polymerase Chain Reaction Using a New DNA Reference Material Format|10.1021/acs.analchem.6b05032
+precision|2024|4|Chemometrics and Intelligent|An alternative for the robust assessment of the repeatability and reproducibility of analytical measurements using bivariate dispersion|10.1016/j.chemolab.2024.105148
+precision|2016|252|Analytical Chemistry|Interlaboratory Reproducibility of a Targeted Metabolomics Platform for Analysis of Human Serum and Plasma|10.1021/acs.analchem.6b02930
+precision|2021|6|Metrologia|Interlaboratory consensus building|10.1088/1681-7575/ac0ea2
+precision|2025|2|The Analyst|Do experimental projection methods outcompete retention time prediction models in non-target screening? A case study on LC/HRMS interlaboratory compar|10.1039/d5an00323g
+precision|2018|76|TrAC Trends in Analytical Ch|Developments and interlaboratory study of the analysis of short-chain chlorinated paraffins|10.1016/j.trac.2018.01.004
+precision|2019|7|Metrologia|Homogeneous data clusters in interlaboratory studies|10.1088/1681-7575/ab1559
+precision|2022|8|Clinical Chemistry and Labor|Interlaboratory comparison study of immunosuppressant analysis using a fully automated LC-MS/MS system|10.1515/cclm-2021-1340
+precision|2016|48|Measurement|Repeatability of linear and radial dimension of ABS replicas fabricated by fused deposition modelling and chemical vapor smoothing process: A case stu|10.1016/j.measurement.2016.07.064
+precision|2020|6|Analytical and Bioanalytical|Interlaboratory consensus building challenge|10.1007/s00216-020-02695-5
+precision|2026|0|Microchemical Journal|Protocol-aware reproducibility case study of electronic-nose drift compensation across chronological target periods|10.1016/j.microc.2026.120061
+precision|2016|16|Measurement|Study of manufacturing and measurement reproducibility on a laser textured structured surface|10.1016/j.measurement.2016.03.042
+precision|2017|65|Analytical Chemistry|International Interlaboratory Digital PCR Study Demonstrating High Reproducibility for the Measurement of a Rare Sequence Variant|10.1021/acs.analchem.6b03980
+precision|2018|12|Metrologia|A new method for estimating consensus values in interlaboratory comparisons|10.1088/1681-7575/aaa170
+precision|2021|4|Analytical and Bioanalytical|Solution to interlaboratory consensus building challenge|10.1007/s00216-020-03053-1
+precision|2023|0|Acta IMEKO|Developments of interlaboratory comparisons on pressure measurements in the Philippines|10.21014/actaimeko.v12i2.1448
+precision|2025|0|MAPAN|Interlaboratory Comparison of Vacuum Pressure Gauge Calibration Across Public Institution Branches|10.1007/s12647-025-00831-z
+precision|2016|59|TrAC Trends in Analytical Ch|An interlaboratory study on passive sampling of emerging water pollutants|10.1016/j.trac.2015.10.013
+precision|2018|14|Precision Engineering|Interlaboratory comparison of a physical and a virtual assembly measured by CT|10.1016/j.precisioneng.2017.08.018
+precision|2023|1|Metrologia|On modelling of artefact instability in interlaboratory comparisons|10.1088/1681-7575/ace18f
+precision|2023|10|Measurement|Interlaboratory comparison of battery impedance analyzers calibration|10.1016/j.measurement.2023.113176
+precision|2026|0|Precision Engineering|Repeatability of stylus measurements in a multiscale approach|10.1016/j.precisioneng.2025.12.001
+precision|2026|0|MAPAN|APMP Interlaboratory Comparison of Sound Level Meters: Investigation of the Instability of the Free-Field Response Level|10.1007/s12647-026-00932-3
+precision|2025|1|Talanta|l(+)-tartaric acid of grape origin: Definition of threshold limits for the 13C/12C and 18O/16O stable isotope ratios and validation of the isotopic me|10.1016/j.talanta.2025.128071
+precision|2022|0|Talanta|New approaches for interlaboratory comparisons analysis using dark uncertainty applied to radioactive materials|10.1016/j.talanta.2022.123394
+precision|2022|5|Accreditation and Quality As|Interlaboratory comparisons of chemical measurements: Quo Vadis?|10.1007/s00769-022-01505-y
+precision|2017|13|Analytical and Bioanalytical|Comparison of potential higher order reference methods for total haemoglobin quantification—an interlaboratory study|10.1007/s00216-016-0176-7
+precision|2021|2|Accreditation and Quality As|Practical guidance for organizing small interlaboratory comparisons|10.1007/s00769-021-01458-8
+precision|2025|3|Accreditation and Quality As|Is everything wrong in analytical chemistry? A study on reproducibility|10.1007/s00769-025-01649-7
+precision|2017|0|Analytical and Bioanalytical|Erratum to: Comparison of potential higher order reference methods for total haemoglobin quantification—an interlaboratory study|10.1007/s00216-017-0366-y
+precision|2017|48|Analytical and Bioanalytical|Results of an interlaboratory method performance study for the size determination and quantification of silver nanoparticles in chicken meat by single|10.1007/s00216-017-0427-2
+precision|2017|83|Metrologia|Consensus building for interlaboratory studies, key comparisons, and meta-analysis|10.1088/1681-7575/aa6c0e
+precision|2022|7|Accreditation and Quality As|Preparation of a reference material for tea containing five pesticide residues and its evaluation in an interlaboratory comparison study in China|10.1007/s00769-022-01494-y
+precision|2025|4|Metrology|Accuracy and Repeatability of Rolling Stock Current Distortion Tests for Interference to Signalling|10.3390/metrology5010017
+precision|2018|15|Chemometrics and Intelligent|Efficient and robust analysis of interlaboratory studies|10.1016/j.chemolab.2018.01.003
+precision|2025|2|Measurement|Innovation evaluation and design method of machine tools repeatability|10.1016/j.measurement.2025.118560
+precision|2024|5|Talanta|Passivation strategies for enhancing sensitivity and repeatability of microelectrode electrochemical sensors|10.1016/j.talanta.2024.125946
+precision|2023|2|Metrologia|Measurement science meets the reproducibility challenge|10.1088/1681-7575/acdef7
+precision|2020|87|Analytical Chemistry|Interlaboratory and Interplatform Study of Steroids Collision Cross Section by Traveling Wave Ion Mobility Spectrometry|10.1021/acs.analchem.9b05247
+precision|2025|6|Analytical Chemistry|Single-Cell Lipidomics by LC-MS Interlaboratory Study Reveals the Impact of X-ray Irradiation on a Pancreatic Cancer Cell Line and Its Bystanders|10.1021/acs.analchem.5c02010
+precision|2019|8|Analytical Chemistry|Reproducibility and Replicability|10.1021/acs.analchem.9b02719
+precision|2026|2|Metrology|Interlaboratory Comparison of SI-Traceable Flow Metering Calibration Facilities with Gaseous Carbon Dioxide|10.3390/metrology6020022
+precision|2020|3|MAPAN|Characterization of Melt Flow Index of Commercial Polystyrene Using Data from Interlaboratory Comparison|10.1007/s12647-020-00394-1
+pt|2026|0|Metrology|Assigned-Value Uncertainty in Limited-Participant Proficiency Testing: Monte Carlo Evaluation of ISO 13528 Estimators in an Industrial Calibration Sce|10.3390/metrology6040076
+pt|2024|6|Accreditation and Quality As|S-score: a new score for binary qualitative proficiency testing schemes interpretable as the z-score|10.1007/s00769-023-01561-y
+pt|2022|7|Accreditation and Quality As|Is the z score sufficient to assess participants’ performance in proficiency testing? The hidden corrective action|10.1007/s00769-022-01496-w
+pt|2024|1|Microchemical Journal|Evaluation of an international proficiency test on cadmium in infant formula using assigned reference values|10.1016/j.microc.2024.111332
+pt|2026|0|Accreditation and Quality As|A comprehensive intra-laboratory ranking method for multi-component proficiency testing combining Z-score grouping and polygon area|10.1007/s00769-026-01700-1
+pt|2023|1|Accreditation and Quality As|Indonesian proficiency testing for electrolytic conductivity measurement of synthetic wastewater: a comparison of performance evaluation based on four|10.1007/s00769-022-01526-7
+pt|2024|0|Accreditation and Quality As|Promotion of metrological traceability through the provision of a metrologically traceable proficiency testing reference value for the mass fraction o|10.1007/s00769-024-01618-6
+pt|2019|5|Accreditation and Quality As|First Indonesian proficiency testing using reference value from isotope dilution mass spectrometry method for benzoic acid, methyl paraben, and n-buty|10.1007/s00769-019-01398-4
+pt|2026|0|Accreditation and Quality As|An 8-year review of blood alcohol concentration analysis of proficiency testing using population statistics and econometrics: interlaboratory variatio|10.1007/s00769-026-01722-9
+pt|2016|10|Accreditation and Quality As|Proficiency testing: binary data analysis|10.1007/s00769-016-1208-x
+pt|2020|1|MAPAN|Evaluating the Performance of Laboratories Testing Sphygmomanometers in Legal Metrology due to Proficiency Testing|10.1007/s12647-020-00388-z
+pt|2023|1|MAPAN|Enhancing Proficiency Testing: Exploring the Innovations in ISO/IEC 17043:2023|10.1007/s12647-023-00684-4
+pt|2023|2|Acta IMEKO|β-risk in proficiency testing in relation to the number of participants|10.21014/actaimeko.v12i3.1433
+pt|2024|1|Accreditation and Quality As|Evaluation of proficiency testing participants uncertainty: use relative uncertainty|10.1007/s00769-023-01565-8
+pt|2021|12|Accreditation and Quality As|Boxplot fences in proficiency testing|10.1007/s00769-021-01474-8
+pt|2019|7|Accreditation and Quality As|Quantitative scores for binary qualitative proficiency testing|10.1007/s00769-019-01386-8
+pt|2026|0|Microchemical Journal|A Metrological Reliability Index for food safety measurements: validation on national monitoring and proficiency-testing data|10.1016/j.microc.2026.119912
+pt|2016|0|Accreditation and Quality As|Bias analysis of proficiency testing programme results|10.1007/s00769-016-1197-9
+pt|2024|5|Accreditation and Quality As|Comparisons of real versus synthetic proficiency testing items|10.1007/s00769-024-01582-1
+pt|2018|3|Accreditation and Quality As|Changes to proficiency testing in developing countries over the last 10 years|10.1007/s00769-018-1322-z
+pt|2018|3|Accreditation and Quality As|Microbiology proficiency testing schemes in wine|10.1007/s00769-018-1342-8
+pt|2025|0|Accreditation and Quality As|Proficiency testing of temperature and relative humidity in clean environments: evaluation of inspection and testing organizations in china|10.1007/s00769-025-01689-z
+pt|2017|9|Accreditation and Quality As|Do accredited laboratories perform better in proficiency testing than non-accredited laboratories?|10.1007/s00769-017-1262-z
+pt|2020|3|Measurement|Variations in the classification of laboratory performance due to different protocols for use in proficiency testing programs|10.1016/j.measurement.2019.107354
+pt|2017|1|Accreditation and Quality As|Organisation of proficiency schemes by testing and calibration laboratories|10.1007/s00769-017-1260-1
+pt|2019|8|Accreditation and Quality As|Proficiency testing for total mercury in oyster with a metrologically traceable reference value from isotope dilution mass spectrometry: implications |10.1007/s00769-019-01379-7
+pt|2016|6|Accreditation and Quality As|Measurement results in a Proficiency Testing programme need to be evaluated against independent criteria|10.1007/s00769-016-1202-3
+pt|2018|2|Accreditation and Quality As|A proficiency testing scheme to evaluate the effectiveness of laboratory sample reduction of a soil sample|10.1007/s00769-018-1357-1
+pt|2026|0|Accreditation and Quality As|Long-term performance assessment of neutron activation analysis at the RA-3 reactor based on international proficiency testing|10.1007/s00769-026-01737-2
+pt|2025|0|MAPAN|A new Approach for Qualitative Proficiency Testing Assessment Based on Homogeneity Proportion Tests|10.1007/s12647-025-00835-9
+pt|2020|2|Accreditation and Quality As|Proficiency-testing scheme for haloanisoles and halophenols in oak wood|10.1007/s00769-020-01428-6
+pt|2020|1|Accreditation and Quality As|Model of uncertainty for the variability of water microbiological enumeration in a proficiency testing scheme|10.1007/s00769-019-01420-9
+pt|2024|1|Accreditation and Quality As|A comparison of proficiency testing evaluation criteria approaches for fitness-for-purpose|10.1007/s00769-024-01590-1
+pt|2018|2|Accreditation and Quality As|Proficiency testing for pH measurements: a 3-year evaluation|10.1007/s00769-018-1362-4
+pt|2021|4|Accreditation and Quality As|Proficiency tests: a tool for improvement and testing analytical performance at Gamma-Ray Spectroscopy Laboratory|10.1007/s00769-021-01468-6
+pt|2026|0|Accreditation and Quality As|Single-point assessment and long-term evaluation of quantitative proficiency testing results in a food microbiology laboratory|10.1007/s00769-026-01733-6
+pt|2024|0|Accreditation and Quality As|Carbon monoxide proficiency testing scheme with metrological traceability|10.1007/s00769-024-01600-2
+pt|2020|3|The Analyst|A critical view at the ISO 13528 and IUPAC's harmonized protocol approach for proficiency testing for homogeneity assessment for quantitative variable|10.1039/d0an01607a
+pt|2026|0|Accreditation and Quality As|Proficiency testing leftovers as a tool for evidence-based standard method revision: a case study|10.1007/s00769-026-01731-8
+pt|2021|1|Accreditation and Quality As|Proficiency testing to evaluate the effectiveness of laboratories analyzing active ingredient in formulation samples|10.1007/s00769-021-01478-4
+pt|2024|1|Accreditation and Quality As|Unlocking the secret to reliable leather test results: the importance of proficiency testing in establishing metrological traceability|10.1007/s00769-024-01612-y
+pt|2017|0|MAPAN|Certification of the Melt Flow Index of a Polymeric Reference Material Based on a Proficiency Testing Scheme|10.1007/s12647-017-0206-8
+pt|2019|1|Accreditation and Quality As|Results of a proficiency testing on the calibration of clinical liquid-in-glass thermometer|10.1007/s00769-019-01406-7
+pt|2019|0|Accreditation and Quality As|Enumeration of lactic acid bacteria: lacuna and improvement areas highlighted by proficiency testing|10.1007/s00769-019-01391-x
+pt|2023|0|Accreditation and Quality As|Proficiency testing interpretation based on analysis of variance method|10.1007/s00769-023-01548-9
+pt|2024|1|Accreditation and Quality As|A new proficiency testing scheme for occupational hygiene laboratories undertaking the analysis of diesel engine particulate emissions|10.1007/s00769-024-01598-7
+pt|2016|5|TrAC Trends in Analytical Ch|Proficiency testing for determination of formaldehyde in leather in China|10.1016/j.trac.2016.06.014
+pt|2023|8|Talanta|APMP-APLAC joint proficiency testing programs for elemental analysis in food with metrological reference values: Assessment of participants' performan|10.1016/j.talanta.2022.124184
+pt|2019|3|Accreditation and Quality As|Fifteen years of proficiency testing of total petrol hydrocarbon determination in soil: a story of success|10.1007/s00769-019-01383-x
+pt|2021|4|Accreditation and Quality As|The mycotoxin proficiency testing schemes organized by Turkish National Food Reference Laboratory between the years 2013 and 2020|10.1007/s00769-021-01463-x
+pt|2016|16|TrAC Trends in Analytical Ch|Proficiency testing of laboratories for paralytic shellfish poisoning toxins in shellfish by QUASIMEME: A review|10.1016/j.trac.2015.09.004
+pt|2020|4|Accreditation and Quality As|Reference versus consensus values in proficiency testing of clinical chemistry: a statistical comparison based on laboratories results in Colombia|10.1007/s00769-019-01423-6
+pt|2016|0|Accreditation and Quality As|Probabilistic comparison and assessment of proficiency testing schemes and laboratories in the somatic cell count of raw milk|10.1007/s00769-016-1207-y
+pt|2026|0|Accreditation and Quality As|An asymmetric sample design for source-oriented diagnostic information in proficiency testing|10.1007/s00769-026-01742-5
+pt|2019|6|Accreditation and Quality As|Designing a formulation of synthetic wastewater as proficiency testing sample: a feasibility study on a laboratory scale|10.1007/s00769-019-01399-3
+pt|2026|0|Accreditation and Quality As|A probabilistic classification framework for laboratory performance evaluation in mycotoxin proficiency testing: integrating z-scores, ζ-scores and me|10.1007/s00769-026-01738-1
+pt|2020|6|Accreditation and Quality As|Inter-laboratory proficiency testing of the measurement of gypsum parameters with small numbers of participants|10.1007/s00769-020-01451-7
+qc|2018|5|Clinical Chemistry and Labor|Finding best practice in internal quality control procedures using external quality assurance performance|10.1515/cclm-2018-0185
+qc|2026|0|Clinical Chemistry and Labor|Independent internal quality control: an essential element of objective verification under ISO 15189:2022|10.1515/cclm-2026-1252
+qc|2019|45|Clinical Chemistry and Labor|Design and implementation of quality control plans that integrate moving average and internal quality control: incorporating the best of both worlds|10.1515/cclm-2019-0027
+qc|2017|17|Clinical Chemistry and Labor|Can a combination of average of normals and “real time” External Quality Assurance replace Internal Quality Control?|10.1515/cclm-2017-0115
+qc|2020|62|Clinical Chemistry and Labor|The internal quality control in the traceability era|10.1515/cclm-2020-0371
+qc|2025|3|Clinical Chemistry and Labor|IFCC recommendations for internal quality control practice: a missed opportunity|10.1515/cclm-2025-0486
+qc|2019|31|Chemometrics and Intelligent|Optimal design of the synthetic control chart for monitoring the multivariate coefficient of variation|10.1016/j.chemolab.2019.02.001
+qc|2018|5|Clinical Chemistry and Labor|High-sensitivity cardiac troponin-I analytical imprecisions evaluated by internal quality control or imprecision profile|10.1515/cclm-2018-0529
+qc|2022|4|Clinical Chemistry and Labor|Practical application of European biological variation combined with Westgard Sigma Rules in internal quality control|10.1515/cclm-2022-0327
+qc|2022|15|Clinical Chemistry and Labor|Rethinking internal quality control: the time is now|10.1515/cclm-2022-0587
+qc|2020|6|Clinical Chemistry and Labor|Independent internal quality control (IQC) for faecal immunochemical tests (FIT) for haemoglobin: use of FIT manufacturers’ IQC for other FIT systems|10.1515/cclm-2020-0286
+qc|2022|34|Clinical Chemistry and Labor|The next wave of innovation in laboratory automation: systems for auto-verification, quality control and specimen quality assurance|10.1515/cclm-2022-0409
+qc|2026|0|Clinical Chemistry and Labor|On repeating out-of-control quality control measurements in medical laboratories|10.1515/cclm-2026-0926
+qc|2023|7|Clinical Chemistry and Labor|Evaluation of analytical performance of homocysteine LC-MS/MS assay and design of internal quality control strategy|10.1515/cclm-2022-0805
+qc|2018|2|Clinical Chemistry and Labor|National surveys on internal quality control for blood gas analysis and related electrolytes in clinical laboratories of China|10.1515/cclm-2018-0155
+qc|2022|95|Chemometrics and Intelligent|Using hyperspectral imaging technology and machine learning algorithms for assessing internal quality parameters of apple fruits|10.1016/j.chemolab.2022.104650
+qc|2022|2|Clinical Chemistry and Labor|What is the best external quality control sample for your laboratory?|10.1515/cclm-2022-1097
+qc|2017|0|Clinical Chemistry and Labor|Between-laboratory analysis of IgG antibodies against Aspergillus fumigatus in paired quality control samples|10.1515/cclm-2016-1053
+qc|2026|0|Accreditation and Quality As|Explainable language model reasoning for laboratory quality control: validation of the ChatGPT-5 as a digital quality assistant|10.1007/s00769-026-01707-8
+qc|2022|15|Clinical Chemistry and Labor|Point-of-care testing in primary healthcare: a scoring system to determine the frequency of performing internal quality control|10.1515/cclm-2021-1258
+qc|2023|15|Clinical Chemistry and Labor|Quality standards and internal quality control practices in medical laboratories: an IFCC global survey of member societies|10.1515/cclm-2023-0492
+qc|2023|3|MAPAN|Monitoring Air Quality using the Neural Network based Control Chart|10.1007/s12647-023-00663-9
+qc|2021|0|Accreditation and Quality As|Statistical internal quality control (SIQC) in chemical measurement—do we really understand it?|10.1007/s00769-021-01467-7
+qc|2019|72|Clinical Chemistry and Labor|Commutability of reference and control materials: an essential factor for assuring the quality of measurements in Laboratory Medicine|10.1515/cclm-2019-0154
+qc|2020|6|Clinical Chemistry and Labor|Reference-mean-centered statistical quality control|10.1515/cclm-2019-1034
+qc|2019|1|Accreditation and Quality As|Verifying and assigning own target values and ranges for internal quality control|10.1007/s00769-019-01385-9
+qc|2026|0|Chemometrics and Intelligent|Non-destructive internal quality assessment of citrus via hyperspectral images and Water–Sugar-And–SSC/TA (WSAS) index|10.1016/j.chemolab.2026.105757
+qc|2022|34|Clinical Chemistry and Labor|Redesigning the surveillance of in vitro diagnostic medical devices and of medical laboratory performance by quality control in the traceability era|10.1515/cclm-2022-1257
+qc|2023|9|Clinical Chemistry and Labor|Managing the Quality Control of multiple instruments|10.1515/cclm-2023-0592
+qc|2018|1|Analytical and Bioanalytical|Piotr Konieczka, Jacek Namieśnik: Quality assurance and quality control in the analytical chemical laboratory: a practical approach, 2nd ed.|10.1007/s00216-018-1461-4
+qc|2023|9|Clinical Chemistry and Labor|Precision quality control: a dynamic model for risk-based analysis of analytical quality|10.1515/cclm-2022-1094
+qc|2018|69|Clinical Chemistry and Labor|Moving average quality control: principles, practical application and future perspectives|10.1515/cclm-2018-0795
+qc|2017|4|Clinical Chemistry and Labor|Quality control materials for pharmacogenomic testing in the clinic|10.1515/cclm-2016-0755
+qc|2020|3|Chemometrics and Intelligent|Rapid quality control of industrial flocculents using Fourier transform mid-infrared spectra and multivariate analysis|10.1016/j.chemolab.2020.104030
+qc|2022|15|Analytical and Bioanalytical|Are basic laboratory skills adequately acquired by undergraduate science students? How control quality methodologies applied to laboratory lessons may|10.1007/s00216-022-03992-x
+qc|2022|2|Clinical Chemistry and Labor|Frozen serum sample pool should not be used as internal quality assessment for lipemia (L) index|10.1515/cclm-2022-0647
+qc|2017|1|Clinical Chemistry and Labor|Laboratory Management, Accreditation, Quality Assurance|10.1515/cclm-2017-5025
+qc|2026|0|Accreditation and Quality As|Optimizing patient-risk-based internal quality control in clinical chemistry by bias determination|10.1007/s00769-026-01720-x
+qc|2026|1|Clinical Chemistry and Labor|Prospective real-time implementation and verification of patient-based real-time quality control using average of normals in a tertiary hospital labor|10.1515/cclm-2026-0201
+qc|2022|1|Analytical and Bioanalytical|Correction to: Are basic laboratory skills adequately acquired by undergraduate science students? How control quality methodologies applied to laborat|10.1007/s00216-022-04033-3
+qc|2025|1|Metrology|Distinguishing Constant and Variable Bias in Systematic Error: A New Error Model for Metrology and Clinical Laboratory Quality Control|10.3390/metrology5040067
+qc|2017|37|Clinical Chemistry and Labor|An approach for estimating measurement uncertainty in medical laboratories using data from long-term quality control and external quality assessment s|10.1515/cclm-2016-0896
+qc|2024|3|Clinical Chemistry and Labor|Assessment of accuracy of laboratory testing results, relative to peer group consensus values in external quality control, by bivariate z-score analys|10.1515/cclm-2023-0835
+qc|2026|0|Clinical Chemistry and Labor|Interference by saline-based reconstitution of lyophilized quality control plasma in 75 routine laboratory tests|10.1515/cclm-2026-1310
+qc|2025|3|Clinical Chemistry and Labor|Evidence-based assessment of the application of Six Sigma to infectious disease serology quality control|10.1515/cclm-2024-1455
+qc|2024|14|Clinical Chemistry and Labor|QC Constellation: a cutting-edge solution for risk and patient-based quality control in clinical laboratories|10.1515/cclm-2024-0156
+qc|2026|0|Accreditation and Quality As|A control-chart approach for sample homogeneity verification in food and water microbiology proficiency testing schemes|10.1007/s00769-026-01717-6
+qc|2017|42|Clinical Chemistry and Labor|Moving sum of number of positive patient result as a quality control tool|10.1515/cclm-2016-0950
+qc|2023|6|Clinical Chemistry and Labor|The effect of ratios upon improving patient-based real-time quality control (PBRTQC) performance|10.1515/cclm-2023-0865
+qc|2021|1|Clinical Chemistry and Labor|Laboratory Management, Accreditation, Quality Assurance, performance specification|10.1515/cclm-2021-5026
+qc|2021|4|Chemometrics and Intelligent|Quality assessment of leaves quality using texture and DWT based local feature extraction analysis|10.1016/j.chemolab.2020.104195
+qc|2016|51|Chemometrics and Intelligent|Quality prediction and quality-relevant monitoring with multilinear PLS for batch processes|10.1016/j.chemolab.2015.11.004
+qc|2024|8|Analytical Chemistry|MobiLipid: A Tool for Enhancing CCS Quality Control of Ion Mobility–Mass Spectrometry Lipidomics by Internal Standardization|10.1021/acs.analchem.4c01253
+qc|2016|4|Clinical Chemistry and Labor|Laboratory analytical quality – the process continues|10.1515/cclm-2016-0321
+qc|2023|0|Clinical Chemistry and Labor|EFLM Symposium - Quality in clinical laboratory: a moving target|10.1515/cclm-2023-7019
+qc|2026|1|Clinical Chemistry and Labor|Assessing the performance of EWMA and CUSUM algorithms in patient-based real-time quality control of electrolytes|10.1515/cclm-2026-0049
+qc|2023|73|Clinical Chemistry and Labor|Quality indicators in laboratory medicine: state-of-the-art, quality specifications and future strategies|10.1515/cclm-2022-1143
+qc|2026|1|Clinical Chemistry and Labor|Scenario-based multi-parametric QC for quality control of complex algorithms used in clinical care|10.1515/cclm-2026-0759
+sampling|2021|18|Chemometrics and Intelligent|An uncertainty sampling strategy based model updating method for soluble solid content and firmness prediction of apples from different years|10.1016/j.chemolab.2021.104426
+sampling|2024|6|Analytica Chimica Acta|Nonparametric estimation of measurement uncertainty arising from sampling|10.1016/j.aca.2024.342597
+sampling|2024|2|Microchemical Journal|Measurement uncertainty arising from sampling and analytical steps of dissolution test of glyburide tablets|10.1016/j.microc.2023.109552
+sampling|2025|3|Microchemical Journal|Measurement uncertainty for 〈788〉 Particulate matter in injections – uncertainties arising from sampling and analytical steps|10.1016/j.microc.2025.112950
+sampling|2021|2|Analytica Chimica Acta|Sampling particulate matter for analysis – Controlling uncertainty and bias using the theory of sampling|10.1016/j.aca.2021.338982
+sampling|2024|9|Accreditation and Quality As|Measurement uncertainty from sampling and its role in validation of measurement procedures|10.1007/s00769-024-01575-0
+sampling|2021|6|Analytica Chimica Acta|Extensions to the Theory of Sampling 1. The extended Gy's formula, the segregation paradox and the fundamental sampling uncertainty (FSU)|10.1016/j.aca.2021.339127
+sampling|2025|1|Clinical Chemistry and Labor|Clinical validation of a DBS-based LC-MS/MS method for 25-hydroxyvitamin D: from lab sampling to home sampling|10.1515/cclm-2025-1002
+sampling|2020|1|Accreditation and Quality As|A novel nested design approach for estimation of uncertainty arising from sampling in feed|10.1007/s00769-020-01443-7
+sampling|2025|11|Measurement|Misalignment measurement in electron beam lithography from multi-scale grid by sampling Moiré method|10.1016/j.measurement.2025.117270
+sampling|2018|8|Metrologia|Constructing an uncertainty budget for voltage RMS measurement with a sampling voltmeter|10.1088/1681-7575/aaa178
+sampling|2017|10|Accreditation and Quality As|Combined uncertainty factor for sampling and analysis|10.1007/s00769-017-1271-y
+sampling|2017|6|Measurement|Uncertainty propagation in computationally expensive models: A survey of sampling methods and application to scatterometry|10.1016/j.measurement.2016.06.009
+sampling|2020|2|Accreditation and Quality As|Estimation of the measurement uncertainty, including the contribution arising from sampling, of water quality parameters in surface waters of the Loir|10.1007/s00769-020-01436-6
+sampling|2017|0|Accreditation and Quality As|Correction to: Combined uncertainty factor for sampling and analysis|10.1007/s00769-017-1305-5
+sampling|2020|0|Journal of Open Source Softw|Geometric nested sampling: sampling from distributions defined on non-trivial geometries|10.21105/joss.01809
+sampling|2026|0|Microchemical Journal|Reducing analytical uncertainty in siloxane monitoring of biogas and biomethane through optimized storage conditions from sampling to analysis|10.1016/j.microc.2026.119749
+sampling|2023|9|Measurement|Energy-saving profile optimization for underwater glider sampling: The soft actor critic method|10.1016/j.measurement.2023.113008
+sampling|2026|0|IEEE Transactions on Instrum|Robust Visual Localization via Uncertainty-Guided Sampling and Geometry-Aware Global Encoding|10.1109/tim.2026.3744025
+sampling|2024|5|Microchemical Journal|From flames to lab: A robust non-destructive sampling method for evaluating PAH exposure in firefighters’ personal protection equipment|10.1016/j.microc.2024.111909
+sampling|2018|8|Talanta|Method development and validation for total mercury determination in coke oven gas combining a trap sampling method with CVAAS detection|10.1016/j.talanta.2018.05.098
+sampling|2019|35|Precision Engineering|Uncertainty-guided intelligent sampling strategy for high-efficiency surface measurement via free-knot B-spline regression modelling|10.1016/j.precisioneng.2018.09.002
+sampling|2025|3|Clinical Chemistry and Labor|VeRUS: verification of reference intervals based on the uncertainty of sampling|10.1515/cclm-2025-0728
+sampling|2017|7|Measurement|A compressive sampling-based method for classification and parameter estimation of FSK signals|10.1016/j.measurement.2015.12.038
+sampling|2021|34|Measurement|An adaptive sampling method for accurate measurement of aeroengine blades|10.1016/j.measurement.2020.108531
+sampling|2016|6|SoftwareX|A GPU code for analytic continuation through a sampling method|10.1016/j.softx.2016.08.003
+sampling|2018|50|Measurement|A hybrid measurement sampling method for accurate inspection of geometric errors on freeform surfaces|10.1016/j.measurement.2018.03.013
+sampling|2021|41|Measurement|A novel compressive sampling method for ECG wearable measurement systems|10.1016/j.measurement.2020.108259
+sampling|2020|24|Measurement|A sampling method for blade measurement based on statistical analysis of profile deviations|10.1016/j.measurement.2020.107949
+sampling|2021|5|Measurement Science and Tech|Simplified calibration process and uncertainty assessment for sampling large numbers of single-use thermistors for upper-air temperature measurement|10.1088/1361-6501/abd0c0
+sampling|2026|0|IEEE Transactions on Instrum|Uncertainty-Guided Active Sampling with NTK Gradient Balancing for Physics-Informed Neural Networks Applied to Catenary Icing Parameter Identification|10.1109/tim.2026.3731753
+sampling|2021|6|Accreditation and Quality As|Impact of the sampling process on the measurement uncertainty, a case study: physicochemical parameters in diesel|10.1007/s00769-020-01452-6
+sampling|2022|10|Microchemical Journal|A simple sampling method for quantification of hazardous volatile organic compounds in mainstream cigarette smoke: Method development and prestudy val|10.1016/j.microc.2022.107602
+sampling|2016|64|Measurement|A practical sampling method for profile measurement of complex blades|10.1016/j.measurement.2015.11.039
+sampling|2024|4|Analytical Chemistry|Advanced Method Optimization for Sampling and Analysis Instrumentation|10.1021/acs.analchem.3c05763
+sampling|2021|10|Measurement|A digital image correlation-aided sampling moiré method for high-accurate in-plane displacement measurements|10.1016/j.measurement.2021.109699
+sampling|2018|21|Talanta|Evaluation of sampling adsorbents and validation of a LC-HRMS method for determination of 28 airborne pesticides|10.1016/j.talanta.2018.06.078
+sampling|2025|4|Measurement|A new weight setting method for estimating ODR of sampling oscilloscope time base jitter|10.1016/j.measurement.2024.116024
+sw|2026|2|Precision Engineering|Diameter measurement of nano/micro-optical fiber based on effective refractive index including uncertainty analysis with Monte Carlo simulation|10.1016/j.precisioneng.2025.09.009
+sw|2019|6|MAPAN|Measurement Uncertainty Evaluation Using Monte Carlo Simulation for Newly Established Line Scale Calibration Facility at CSIR-NPLI|10.1007/s12647-019-00327-7
+sw|2016|43|Measurement Science and Tech|GUM2DFT—a software tool for uncertainty evaluation of transient signals in the frequency domain|10.1088/0957-0233/27/5/055001
+swval|2019|7|Measurement|In-Situ object calibration software (ISOCS) technique for 235U mass verification|10.1016/j.measurement.2019.05.058
+swval|2026|1|Measurement|A priori estimation of measurement uncertainty as a tool to improve verification of geometric product specifications with coordinate measuring machine|10.1016/j.measurement.2025.120275
+swval|2019|20|Measurement|Characterization of uncertainty contributions in a high-accuracy PMU validation system|10.1016/j.measurement.2019.06.013
+swval|2023|3|Measurement|Laboratory and field validation of a new Coriolis metering concept for better measurement uncertainty, reliability and process insight|10.1016/j.measurement.2023.113136
+swval|2022|14|Measurement|Uncertainty estimation of atmospheric corrections in large-scale reference networks for PPP-RTK|10.1016/j.measurement.2022.110744
+swval|2024|7|Measurement|Stability study and uncertainty evaluation of CO2 certified reference materials for greenhouse gases monitoring|10.1016/j.measurement.2024.114653
+swval|2022|16|Precision Engineering|Toward traceable XCT measurement of AM lattice structures: Uncertainty in calibrated reference object measurement|10.1016/j.precisioneng.2022.05.010
+swval|2025|1|Measurement|Dynamic validation of safety integrity level for safety instrumented system considering random/fuzzy uncertainty|10.1016/j.measurement.2025.117797
+swval|2024|4|Accreditation and Quality As|The role of measurement uncertainty in the validation of a measurement procedure|10.1007/s00769-024-01593-y
+swval|2023|3|Measurement|Geometrical interpretation of Data Reconciliation and uncertainty reduction in Multi-Sensor systems|10.1016/j.measurement.2023.112715
+swval|2026|0|Measurement Science and Tech|Characterization of string-parsing latency as an uncertainty contribution to software timestamping in a virtual measurement system|10.1088/1361-6501/aeb96a
+swval|2023|0|Measurement|Corrigendum to “Geometrical interpretation of Data Reconciliation and uncertainty reduction in Multi-Sensor systems” [Measurement 213 (2023) 112715]|10.1016/j.measurement.2023.113563
+swval|2016|19|Measurement Science and Tech|Uncertainty of measurement for large product verification: evaluation of large aero gas turbine engine datums|10.1088/0957-0233/27/11/115003
+swval|2024|1|tm - Technisches Messen|Measurement uncertainty, data quality and data-driven modelling|10.1515/teme-2024-0088
+swval|2019|13|Measurement Science and Tech|Validation and uncertainty analysis of global luminescent oil-film skin-friction field measurement|10.1088/1361-6501/ab512a
+swval|2024|4|Measurement Science and Tech|Analysis of measurement uncertainty for verification/calibration of particulate matter measuring instruments using the gravimetric method|10.1088/1361-6501/ad41ff
+swval|2018|3|Measurement|Validation tests of attitude determination software for nanosatellite embedded systems|10.1016/j.measurement.2017.11.040
+swval|2024|6|Measurement|Transferable intervalization and midpoint de-mixing interval independent component analysis for industrial fault detection under data uncertainty|10.1016/j.measurement.2024.115025
+swval|2023|2|Measurement Science and Tech|Experimental validation and uncertainty analysis of an innovative IoT infrared sensor for in-situ wall thermal transmittance measurement|10.1088/1361-6501/acf064
+swval|2023|44|Measurement|Uncertainty characterization of a CNN method for Lithium-Ion Batteries state of charge estimation using EIS data|10.1016/j.measurement.2023.113341
+swval|2016|26|Measurement|Sustainable cultivation location optimization of the Jatropha curcas L. under uncertainty: A unified fuzzy data envelopment analysis approach|10.1016/j.measurement.2016.03.063
+swval|2022|1|MAPAN|Measurement Uncertainty of Chromatographic Analyses: A Comparative Study on the Role of Reference Materials|10.1007/s12647-022-00595-w
+swval|2026|0|Measurement|Exploring spatial and temporal variability of CR index and its uncertainty in Europe using Sentinel-1 data and Google Earth Engine|10.1016/j.measurement.2025.119509
+swval|2021|1|IEEE Transactions on Instrum|Verification of a Capacitive Voltage Divider With 6-
+                    μ
+                    rad Uncertainty Up To 100 kV|10.1109/tim.2021.3056647
+swval|2021|8|Journal of Open Source Softw|Vizumap: an R package for visualising uncertainty in spatial data|10.21105/joss.02409
+swval|2018|32|IEEE Transactions on Instrum|High-Precision Measurement of Sine and Pulse Reference Signals Using Software-Defined Radio|10.1109/tim.2018.2794940
+swval|2017|20|Analytical and Bioanalytical|Uncertainty evaluation in normalization of isotope delta measurement results against international reference materials|10.1007/s00216-017-0659-1
+topdown|2020|10|Clinical Chemistry and Labor|Top-down and bottom-up approaches for the estimation of measurement uncertainty in coagulation assays|10.1515/cclm-2020-0038
+topdown|2019|27|Talanta|Top-down evaluation of matrix effects uncertainty|10.1016/j.talanta.2018.09.039
+topdown|2020|13|Clinical Chemistry and Labor|Influence of reagent lots and multiple measuring systems on estimating the coefficient of variation from quality control data; implications for uncert|10.1515/cclm-2020-0320
+topdown|2020|11|Accreditation and Quality As|Estimation of measurement uncertainty and validation of RP-HPLC for simultaneous determination of five antihistamines in pharmaceutical formulations|10.1007/s00769-019-01422-7
+topdown|2020|1|Talanta|Erratum to “Top-down evaluation of matrix effects uncertainty” [Talanta 192 (2018) 278–287]|10.1016/j.talanta.2019.120476
+topdown|2020|13|ACTA IMEKO|Estimation of microwave resonant measurements uncertainty from uncalibrated data|10.21014/acta_imeko.v9i3.782
+topdown|2016|14|Accreditation and Quality As|Analysis of the relationships between proficiency testing, validation of methods and estimation of measurement uncertainty: a qualitative study with e|10.1007/s00769-016-1194-z
+topdown|2021|11|Chemometrics and Intelligent|Bottom-up and top-down uncertainty quantification for measurements|10.1016/j.chemolab.2020.104224
+topdown|2023|5|Accreditation and Quality As|Estimation of uncertainty from duplicate measurements: new quantification procedure in the case of concentration-dependent precision|10.1007/s00769-023-01556-9
+topdown|2022|1|Accreditation and Quality As|Uncertainty of measurement of pesticide residues in vegetable products: application of alternative approaches based on quality control data for multi/|10.1007/s00769-022-01512-z
+topdown|2025|2|Accreditation and Quality As|Method validation of pyriproxyfen and bifenthrin for simultaneous determination in pesticide formulation using simplified reverse phase high-performan|10.1007/s00769-025-01683-5
+topdown|2018|1|Accreditation and Quality As|Validation of an in-house measurement procedure for determination of selected priority hazardous substances in water and estimation of measurement unc|10.1007/s00769-018-1334-8
+topdown|2025|3|Microchemical Journal|Unveiling the pharmaceutical footprint in freshwater and seawater: HRMS method optimization, validation, and uncertainty estimation|10.1016/j.microc.2025.112933
+topdown|2017|0|Accreditation and Quality As|Uncertainty estimation of the determination of chemical sum parameters in water|10.1007/s00769-017-1276-6
+topdown|2017|0|Accreditation and Quality As|Correction to: Uncertainty estimation of the determination of chemical sum parameters in water|10.1007/s00769-017-1290-8
+topdown|2020|11|Accreditation and Quality As|Challenges for the estimation of uncertainty of measurements made in situ|10.1007/s00769-020-01446-4
+topdown|2026|0|MAPAN|Estimation of Uncertainty of an Ozone Analyzer Installed at an Ambient Air Quality Station in Delhi|10.1007/s12647-026-00906-5
+topdown|2018|8|The Analyst|Compromise in uncertainty estimation by modelling and validation approaches for an HPLC-UV method for measurement of biochemical indicators of vitamin|10.1039/c7an01804e
+topdown|2022|12|Accreditation and Quality As|Validation and measurement uncertainty of rapid and simultaneous determination of 19 elements in drinking water using ICP-MS|10.1007/s00769-022-01516-9
+topdown|2021|5|IEEE Transactions on Instrum|Crosstalk Effects in the Uncertainty Estimation of Multiplexed Data Acquisition Systems|10.1109/tim.2021.3075782
+topdown|2025|1|Analytical Chemistry|Calibrated Uncertainty Estimation for Soil Organic Carbon from Raman Spectra|10.1021/acs.analchem.5c04616
+topdown|2017|26|Talanta|Multielemental analysis of 18 essential and toxic elements in amniotic fluid samples by ICP-MS: Full procedure validation and estimation of measuremen|10.1016/j.talanta.2017.05.078
+topdown|2017|7|Accreditation and Quality As|Criteria for using proficiency test results for estimation of measurement uncertainty: feed analysis example|10.1007/s00769-017-1252-1
+topdown|2026|0|Measurement Science and Tech|Error estimation method for EV charging facilities based on topology and data-driven coupling for error uncertainty|10.1088/1361-6501/ae8e9d
+topdown|2023|1|MAPAN|Validation of the ASTM E1898-21 Method with Estimation of Analytical Uncertainty for the Determination of Silver by FAAS|10.1007/s12647-023-00678-2
+topdown|2022|12|Measurement Science and Tech|Uncertainty of PIV/PTV based Eulerian pressure estimation using velocity uncertainty|10.1088/1361-6501/ac56bf
+weigh|2018|0|ACTA IMEKO|Cross-floating calibration study. Trim masses: on the standard balance or on the balance under calibration|10.21014/acta_imeko.v7i1.498
+weigh|2019|1|ACTA IMEKO|EURAMET cg-18 – state-of-the-art calibration guideline for non-automatic weighing instruments|10.21014/acta_imeko.v8i3.655
+weigh|2026|0|SoftwareX|Bilancio: An instrument-level balance-sheet simulator for monetary economics|10.1016/j.softx.2026.102606
+weigh|2025|0|MAPAN|Assessment of Metrological Characterization of 30,000 kg Weighing Balance Using a Novel Step-Up Method Expandable up to 50,000 kg|10.1007/s12647-025-00822-0
+weigh|2026|0|Accreditation and Quality As|Established uncertainty evaluation method associated with weighing for serum glucose quantification based on ID-LC-MS/MS|10.1007/s00769-026-01743-4
+weigh|2019|6|Measurement Science and Tech|Modelling methods for pressure balance calibration|10.1088/1361-6501/ab5910
+weigh|2017|8|Measurement|A high gas pressure calibration system using a liquid-lubricated pressure balance|10.1016/j.measurement.2017.01.054
+weigh|2018|0|Measurement Science and Tech|Uncertainty contribution on the density of liquids due to unknown sinker temperature in hydrostatic weighing apparatus|10.1088/1361-6501/aa99c2
+weigh|2018|6|Measurement|PCA exchange method for compensation of error sources in pressure balance calibration|10.1016/j.measurement.2018.04.021
+weigh|2026|0|Measurement Science and Tech|Development, calibration and validation of a six-component balance for rotor tests|10.1088/1361-6501/ae5998
+weigh|2021|27|tm - Technisches Messen|The progress in development of the Planck-Balance 2 (PB2): A tabletop Kibble balance for the mass calibration of E2 class weights|10.1515/teme-2021-0101
+weigh|2016|30|Measurement|Calibration procedures and uncertainty analysis for a thermal mass gas flowmeter of a new generation|10.1016/j.measurement.2016.03.073
+weigh|2019|21|Measurement Science and Tech|Torsional thrust balance for electric propulsion application with electrostatic calibration device|10.1088/1361-6501/ab0f0e
+weigh|2022|3|Metrologia|Enhanced dilution step and gravimetric preparation uncertainty for low-amount fraction standard gas mixtures using a newly developed automatic weighin|10.1088/1681-7575/ac8484
+weigh|2020|3|ACTA IMEKO|Generation of static and dynamic small calibration forces and their measurements by electromagnetic force compensation balance|10.21014/acta_imeko.v9i5.951
+weigh|2024|6|Measurement|Azimuth calibration based on equal angle balance correction algorithm for measurement-while-drilling system|10.1016/j.measurement.2023.113891

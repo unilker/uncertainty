@@ -1,0 +1,74 @@
+A	10.1016/j.talanta.2026.130826	Closest competitor in chemistry: a spreadsheet implementing international guidance (Eurachem/CITAC); compare scope, validation and usability with this program.
+A	10.3390/metrology2010009	GUM Tree Calculator (Python): automatic propagation, complex quantities; open-source benchmark for the GUM framework.
+A	10.2533/chimia.2022.596	METAS UncLib applied in chemical analysis: linear propagation library used by an NMI.
+A	10.51843/measure.13.4.6	Suncal (Sandia): graded software quality assurance of an uncertainty calculator — model for the validation report (ISO/IEC 17025 7.11).
+A	10.1080/19315775.2015.11721732	NIST Uncertainty Machine (listed as missing; DOI now known).
+A	10.1021/acs.jchemed.0c00096	Teaching Monte Carlo propagation with the NIST Uncertainty Machine.
+A	10.3390/metrology5040072	VNA Tools: NMI metrology software supporting the digital traceability chain.
+A	10.21014/actaimeko.v12i2.1310	Mathmet survey of courses, software and classroom examples, checked against JCGM 100/101/102 — the reference landscape for the gap analysis.
+A	10.1016/j.measurement.2015.11.005	Educational aspects of uncertainty calculation with software tools.
+A	10.1007/s00769-021-01469-5	Getting started with the Monte Carlo method in R (AQA): accessible MCM implementation.
+A	10.59161/wrxd1297	Software metrology and the international system (NIST, 2025): context for validating measurement software.
+A	10.1088/0957-0233/27/5/055001	GUM2DFT: software for uncertainty of transient signals (PTB) — example of validated special-purpose tool.
+B	10.1515/pac-2022-1203	IUPAC Technical Report (2024): brief guide to measurement uncertainty, classical and Bayesian, with code; chemistry examples for the library.
+B	10.1088/1681-7575/adfb80	New definition of measurement uncertainty proposed to the JCGM (2025): affects terminology of the guide and the article.
+B	10.1007/s00769-022-01509-8	GUM-6 guidance on developing and using measurement models.
+B	10.1088/1681-7575/abb065	Guidance on Bayesian uncertainty evaluation for GUM models (Metrologia 2020).
+B	10.1088/1681-7575/aaa5be	Approximate Bayesian evaluations of measurement uncertainty (Possolo, Metrologia 2018).
+B	10.1088/1681-7575/ac3920	Rejection sampling for Bayesian evaluation with the MCM of GUM-S1.
+B	10.1088/1681-7575/aba5aa	Consistency in Monte Carlo uncertainty analyses (Metrologia 2020).
+B	10.1088/1681-7575/adb3ab	Efficient alternative to MCM for expensive models (Metrologia 2025).
+B	10.1016/j.measurement.2018.12.089	Argues against the scaled-shifted t-distribution for Type A inputs in MCM — relevant to the program's JCLM 101 6.4.9 choice (discuss).
+B	10.1016/j.measurement.2016.08.015	Comparison of methods given in the JCGM documents.
+B	10.1016/j.measurement.2018.05.105	Kacker: uncertainty and true value in GUM vs JCGM documents.
+B	10.1088/1361-6501/aeabcc	Finite-sample evaluation of dispersion estimators (MST 2026): Type A with few replicates, relevant to ν_eff findings (F69).
+B	10.1016/j.measurement.2025.119031	Measurement uncertainty with small samples: review (2026).
+B	10.1007/s12647-019-00324-w	Hyper-ellipsoidal vs smallest coverage regions for multivariate MCM (JCGM 102 module).
+B	10.3390/metrology2010008	GUM-compliant evaluation using virtual experiments (PTB, 2022).
+C	10.1016/j.aca.2026.346327	Asymmetric coverage interval for an uncorrected significant bias from validation data (ACA 2026) — compare with the program's RSSu/SUMU/Ue intervals.
+C	10.1007/s00769-017-1268-6	Synek (2017): uncorrected bias in the expanded uncertainty with fixed coverage probability.
+C	10.1016/j.cca.2019.03.1633	Review of procedures for incorporating uncorrected bias (Clin. Chim. Acta 2019).
+C	10.1016/j.talanta.2019.120476	Erratum to Palma et al. (2019) — must be checked against the library projects built from that paper.
+C	10.1016/j.talanta.2020.121386	Uncertainty from correlated validation data (ICP-MS, Talanta 2020).
+C	10.1016/j.talanta.2019.120274	Recovery correction vs calibrators through sample preparation (Talanta 2020; Mateos et al., already used).
+C	10.1515/cclm-2016-0896	Uncertainty in medical laboratories from long-term QC and EQA data.
+C	10.1016/j.cca.2026.121067	ISO/TS 20914 vs GUM/Eurachem approaches compared (2026).
+C	10.1007/s00769-023-01556-9	Uncertainty from duplicate measurements with concentration-dependent precision (AQA 2023).
+C	10.1016/j.microc.2023.109194	Bottom-up and top-down evaluation for multivariate spectrophotometric procedures.
+D	10.21014/tc24-2025.030	New Eurachem guide VaMPIS (2025): validation of procedures that include sampling — next extension of the sampling module.
+D	10.1007/s00769-024-01575-0	Ramsey & Rostron (2024): UfS and its role in validation.
+D	10.1016/j.aca.2024.342597	Nonparametric estimation of uncertainty from sampling (ACA 2024) — alternative to robust ANOVA (F63).
+D	10.1007/s10661-016-5584-9	Modified RANOVA for heterogeneous areas — may document the robust ANOVA algorithm (F63).
+D	10.1007/s00769-017-1271-y	Combined uncertainty factor for sampling and analysis.
+D	10.1007/s00769-020-01443-7	Nested design for uncertainty from sampling in feed.
+D	10.1016/j.aca.2021.338982	Theory of Sampling for particulate matter: controlling uncertainty and bias.
+D	10.1016/j.aca.2021.339127	Extended Gy's formula and fundamental sampling uncertainty (ACA 2021).
+D	10.1016/j.aca.2024.343285	Uncertainty from sampling and analytical steps in dissolution tests by MCM.
+E	10.1088/1681-7575/ac6fa1	Economic optimisation of acceptance intervals, process without systematic effect (Metrologia 2022, part 1).
+E	10.1088/1681-7575/ac6fa2	Same, process with unknown systematic effect (part 2).
+E	10.1088/1361-6501/ad2439	True and false decision probabilities for a finite sample of items (MST 2024).
+E	10.1016/j.chemolab.2019.02.010	Spreadsheet for global risks of multicomponent materials (IUPAC project).
+E	10.1016/j.talanta.2018.12.021	Risks for correlated multicomponent results sharing analytical steps.
+E	10.1016/j.microc.2026.117824	Python tool for multivariate decision risk with correlation (2026).
+E	10.1016/j.measurement.2025.119847	Economic optimisation of acceptance interval with known and unknown biases (2026).
+E	10.1088/0026-1394/53/2/s74	Bayesian conformity assessment with systematic errors (Metrologia 2016).
+E	10.21014/actaimeko.v12i3.1471	Overestimated conformity risks in legal requirements for weighing instruments.
+F	10.21014/acta_imeko.v8i3.655	EURAMET cg-18 state of the art (Fritsch et al., 2019) — context for the cg-18 projects and findings F68–F70.
+F	10.1080/19315775.2015.11721736	Calibration of weighing instruments: uncertainty, minimum weight, safe weighing range.
+F	10.21014/tc6-2025.054	NAWI calibration data as structured (machine-readable) data (2025).
+F	10.1016/j.measurement.2026.120882	Decentred process effect on conformity risks in manufacturing of NAWIs (2026).
+G	10.3390/metrology6040076	Assigned-value uncertainty with few PT participants: Monte Carlo study of ISO 13528 estimators (2026).
+G	10.1039/d0an01607a	Critical view of the ISO 13528 and IUPAC homogeneity assessment.
+G	10.1016/j.measurement.2017.07.006	Algorithm A modified to take the reported uncertainties into account.
+G	10.1007/s00769-021-01474-8	Boxplot fences in proficiency testing.
+G	10.1088/1681-7575/aa6c0e	Consensus building for interlaboratory studies and key comparisons (NIST Consensus Builder).
+G	10.1016/j.chemolab.2018.01.003	Efficient and robust analysis of interlaboratory studies.
+G	10.1007/s00769-021-01467-7	Statistical internal quality control in chemical measurement — do we really understand it?
+G	10.1515/cclm-2020-0371	Internal quality control in the traceability era.
+H	10.1021/acs.analchem.0c02178	Least squares with uncertainty in x and y (Anal. Chem. 2020).
+H	10.1088/1681-7575/ac711c	Errors-in-variables calibration with dark uncertainty (Metrologia 2022).
+H	10.1021/acs.analchem.2c02904	Goodness-of-fit tests and weighting in calibration (Anal. Chem. 2022).
+H	10.1016/j.trac.2015.12.006	Tutorial review of least-squares calibration for instrumental techniques (TrAC 2016).
+I	10.1016/j.measurement.2021.109611	Survey of digital calibration certificates.
+I	10.3390/metrology2010003	Storing Monte Carlo uncertainty information in digital calibration certificates.
+I	10.1088/1681-7575/aea165	Significant figures and trailing zeros as machine-readable metadata (Metrologia 2026) — relevant to report rounding.

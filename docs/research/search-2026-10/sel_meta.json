@@ -1,0 +1,934 @@
+{
+ "10.1016/j.talanta.2026.130826": {
+  "au": [
+   "Bettencourt da Silva Ricardo J.N."
+  ],
+  "title": "User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty",
+  "venue": "Talanta",
+  "vol": "",
+  "year": "2026",
+  "page": "130826",
+  "cited": "0"
+ },
+ "10.3390/metrology2010009": {
+  "au": [
+   "Hall Blair D."
+  ],
+  "title": "The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty",
+  "venue": "Metrology",
+  "vol": "2",
+  "year": "2022",
+  "page": "128-149",
+  "cited": "13"
+ },
+ "10.2533/chimia.2022.596": {
+  "au": [
+   "Lobsiger Simon",
+   "Wollensack Michael",
+   "Zeier Markus"
+  ],
+  "title": "METAS UncLib – A Measurement Uncertainty Calculator in Chemical Analysis",
+  "venue": "CHIMIA",
+  "vol": "76",
+  "year": "2022",
+  "page": "596",
+  "cited": "0"
+ },
+ "10.51843/measure.13.4.6": {
+  "au": [
+   "Delker Collin"
+  ],
+  "title": "Sandia's Uncertainty Calculator: A Case Study in the Graded Approach",
+  "venue": "NCSLI Measure",
+  "vol": "13",
+  "year": "2021",
+  "page": "34-39",
+  "cited": "0"
+ },
+ "10.1080/19315775.2015.11721732": {
+  "au": [
+   "Lafarge Thomas",
+   "Possolo Antonio"
+  ],
+  "title": "The NIST Uncertainty Machine",
+  "venue": "NCSLI Measure",
+  "vol": "10",
+  "year": "2015",
+  "page": "20-27",
+  "cited": "65"
+ },
+ "10.1021/acs.jchemed.0c00096": {
+  "au": [
+   "Albert Daniel R."
+  ],
+  "title": "Monte Carlo Uncertainty Propagation with the NIST Uncertainty Machine",
+  "venue": "Journal of Chemical Education",
+  "vol": "97",
+  "year": "2020",
+  "page": "1491-1494",
+  "cited": "33"
+ },
+ "10.3390/metrology5040072": {
+  "au": [
+   "Zeier Markus",
+   "Wollensack Michael",
+   "Hoffmann Johannes",
+   "Morrissey Peter",
+   "Ruefenacht Juerg",
+   "Stalder Daniel"
+  ],
+  "title": "VNA Tools—A Metrology Software Supporting the Digital Traceability Chain",
+  "venue": "Metrology",
+  "vol": "5",
+  "year": "2025",
+  "page": "72",
+  "cited": "2"
+ },
+ "10.21014/actaimeko.v12i2.1310": {
+  "au": [
+   "Pennecchi Francesca",
+   "Harris Peter"
+  ],
+  "title": "Mathmet Measurement Uncertainty Training activity – Overview of courses, software, and classroom examples",
+  "venue": "Acta IMEKO",
+  "vol": "12",
+  "year": "2023",
+  "page": "1-6",
+  "cited": "2"
+ },
+ "10.1016/j.measurement.2015.11.005": {
+  "au": [
+   "Zangl Hubert",
+   "Hoermaier Klaus"
+  ],
+  "title": "Educational aspects of uncertainty calculation with software tools",
+  "venue": "Measurement",
+  "vol": "101",
+  "year": "2017",
+  "page": "257-264",
+  "cited": "12"
+ },
+ "10.1007/s00769-021-01469-5": {
+  "au": [
+   "Veen Adriaan M. H. van der",
+   "Cox Maurice G."
+  ],
+  "title": "Getting started with uncertainty evaluation using the Monte Carlo method in R",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "26",
+  "year": "2021",
+  "page": "129-141",
+  "cited": "24"
+ },
+ "10.59161/wrxd1297": {
+  "au": [
+   "Black Paul E.",
+   "Flater David"
+  ],
+  "title": "Integrating software metrology with the international metrology system",
+  "venue": "150th anniversary of the Metre Convention — From Units to the Universe",
+  "vol": "",
+  "year": "2025",
+  "page": "",
+  "cited": "0"
+ },
+ "10.1088/0957-0233/27/5/055001": {
+  "au": [
+   "Eichstädt S",
+   "Wilkens V"
+  ],
+  "title": "GUM2DFT—a software tool for uncertainty evaluation of transient signals in the frequency domain",
+  "venue": "Measurement Science and Technology",
+  "vol": "27",
+  "year": "2016",
+  "page": "055001",
+  "cited": "43"
+ },
+ "10.1515/pac-2022-1203": {
+  "au": [
+   "Possolo Antonio",
+   "Hibbert David Brynn",
+   "Stohner Jürgen",
+   "Bodnar Olha",
+   "Meija Juris"
+  ],
+  "title": "A brief guide to measurement uncertainty (IUPAC Technical Report)",
+  "venue": "Pure and Applied Chemistry",
+  "vol": "96",
+  "year": "2024",
+  "page": "113-134",
+  "cited": "27"
+ },
+ "10.1088/1681-7575/adfb80": {
+  "au": [
+   "Possolo Antonio"
+  ],
+  "title": "Measurement uncertainty redefined",
+  "venue": "Metrologia",
+  "vol": "62",
+  "year": "2025",
+  "page": "042101",
+  "cited": "12"
+ },
+ "10.1007/s00769-022-01509-8": {
+  "au": [
+   "van der Veen Adriaan M. H.",
+   "Cox Maurice G.",
+   "Possolo Antonio"
+  ],
+  "title": "GUM guidance on developing and using measurement models",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "27",
+  "year": "2022",
+  "page": "295-297",
+  "cited": "4"
+ },
+ "10.1088/1681-7575/abb065": {
+  "au": [
+   "Demeyer S",
+   "Fischer N",
+   "Elster C"
+  ],
+  "title": "Guidance on Bayesian uncertainty evaluation for a class of GUM measurement models",
+  "venue": "Metrologia",
+  "vol": "58",
+  "year": "2020",
+  "page": "014001",
+  "cited": "19"
+ },
+ "10.1088/1681-7575/aaa5be": {
+  "au": [
+   "Possolo Antonio",
+   "Bodnar Olha"
+  ],
+  "title": "Approximate Bayesian evaluations of measurement uncertainty",
+  "venue": "Metrologia",
+  "vol": "55",
+  "year": "2018",
+  "page": "147-157",
+  "cited": "12"
+ },
+ "10.1088/1681-7575/ac3920": {
+  "au": [
+   "Marschall Manuel",
+   "Wübbeler Gerd",
+   "Elster Clemens"
+  ],
+  "title": "Rejection sampling for Bayesian uncertainty evaluation using the Monte Carlo techniques of GUM-S1",
+  "venue": "Metrologia",
+  "vol": "59",
+  "year": "2021",
+  "page": "015004",
+  "cited": "9"
+ },
+ "10.1088/1681-7575/aba5aa": {
+  "au": [
+   "Jamroz Benjamin F",
+   "Williams Dylan F"
+  ],
+  "title": "Consistency in Monte Carlo Uncertainty Analyses",
+  "venue": "Metrologia",
+  "vol": "57",
+  "year": "2020",
+  "page": "065008",
+  "cited": "29"
+ },
+ "10.1088/1681-7575/adb3ab": {
+  "au": [
+   "Degenhardt Johannes",
+   "Tutsch Rainer",
+   "Hu Xiukun",
+   "Dai Gaoliang"
+  ],
+  "title": "A practically oriented, efficient alternative to the Monte Carlo method for measurement uncertainty estimation",
+  "venue": "Metrologia",
+  "vol": "62",
+  "year": "2025",
+  "page": "025004",
+  "cited": "3"
+ },
+ "10.1016/j.measurement.2018.12.089": {
+  "au": [
+   "Huang Hening"
+  ],
+  "title": "Why the scaled and shifted t-distribution should not be used in the Monte Carlo method for estimating measurement uncertainty?",
+  "venue": "Measurement",
+  "vol": "136",
+  "year": "2019",
+  "page": "282-288",
+  "cited": "13"
+ },
+ "10.1016/j.measurement.2016.08.015": {
+  "au": [
+   "Stant L.T.",
+   "Aaen P.H.",
+   "Ridler N.M."
+  ],
+  "title": "Comparing methods for evaluating measurement uncertainty given in the JCGM ‘Evaluation of Measurement Data’ documents",
+  "venue": "Measurement",
+  "vol": "94",
+  "year": "2016",
+  "page": "847-851",
+  "cited": "24"
+ },
+ "10.1016/j.measurement.2018.05.105": {
+  "au": [
+   "Kacker Raghu N."
+  ],
+  "title": "Measurement uncertainty and its connection with true value in the GUM versus JCGM documents",
+  "venue": "Measurement",
+  "vol": "127",
+  "year": "2018",
+  "page": "525-532",
+  "cited": "21"
+ },
+ "10.1088/1361-6501/aeabcc": {
+  "au": [
+   "Petitjean Alban",
+   "Musset Olivier"
+  ],
+  "title": "Finite-sample evaluation of dispersion estimators for measurement uncertainty: effects of distribution, replication structure, contamination, and uncertainty propagation",
+  "venue": "Measurement Science and Technology",
+  "vol": "37",
+  "year": "2026",
+  "page": "405002",
+  "cited": "0"
+ },
+ "10.1016/j.measurement.2025.119031": {
+  "au": [
+   "Xia Haojie",
+   "Ding Yinye",
+   "Chen Wenhao",
+   "Zhang Jin",
+   "Li Hongli",
+   "Zhao Huining",
+   "Song Rencheng"
+  ],
+  "title": "Measurement uncertainty evaluation with small samples: A review and prospect",
+  "venue": "Measurement",
+  "vol": "258",
+  "year": "2026",
+  "page": "119031",
+  "cited": "12"
+ },
+ "10.1007/s12647-019-00324-w": {
+  "au": [
+   "Ramnath Vishal"
+  ],
+  "title": "Analysis and Comparison of Hyper-Ellipsoidal and Smallest Coverage Regions for Multivariate Monte Carlo Measurement Uncertainty Analysis Simulation Datasets",
+  "venue": "MAPAN",
+  "vol": "34",
+  "year": "2019",
+  "page": "387-402",
+  "cited": "5"
+ },
+ "10.3390/metrology2010008": {
+  "au": [
+   "Wübbeler Gerd",
+   "Marschall Manuel",
+   "Kniel Karin",
+   "Heißelmann Daniel",
+   "Härtig Frank",
+   "Elster Clemens"
+  ],
+  "title": "GUM-Compliant Uncertainty Evaluation Using Virtual Experiments",
+  "venue": "Metrology",
+  "vol": "2",
+  "year": "2022",
+  "page": "114-127",
+  "cited": "29"
+ },
+ "10.1016/j.aca.2026.346327": {
+  "au": [
+   "do Nascimento Maranho Ricardo Luiz",
+   "Lourenço Felipe Rebello"
+  ],
+  "title": "Measurement uncertainty evaluation from analytical validation data: Asymmetric coverage interval due to uncorrected significant bias",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1425",
+  "year": "2026",
+  "page": "346327",
+  "cited": "0"
+ },
+ "10.1007/s00769-017-1268-6": {
+  "au": [
+   "Synek Václav"
+  ],
+  "title": "How to encompass an uncorrected bias into the expanded uncertainty with a fixed coverage probability: calculation procedures",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "22",
+  "year": "2017",
+  "page": "179-186",
+  "cited": "7"
+ },
+ "10.1016/j.cca.2019.03.1633": {
+  "au": [
+   "Frenkel Robert",
+   "Farrance Ian",
+   "Badrick Tony"
+  ],
+  "title": "Bias in analytical chemistry: A review of selected procedures for incorporating uncorrected bias into the expanded uncertainty of analytical measurements and a graphical method for evaluating the concordance of reference and test procedures",
+  "venue": "Clinica Chimica Acta",
+  "vol": "495",
+  "year": "2019",
+  "page": "129-138",
+  "cited": "19"
+ },
+ "10.1016/j.talanta.2019.120476": {
+  "au": [
+   "Palma Carla",
+   "Morgado Vanessa",
+   "da Silva Ricardo J.N. Bettencourt"
+  ],
+  "title": "Erratum to “Top-down evaluation of matrix effects uncertainty” [Talanta 192 (2018) 278–287]",
+  "venue": "Talanta",
+  "vol": "208",
+  "year": "2020",
+  "page": "120476",
+  "cited": "1"
+ },
+ "10.1016/j.talanta.2020.121386": {
+  "au": [
+   "Milde David",
+   "Pluháček Tomáš",
+   "Kuba Martin",
+   "Součková Jitka",
+   "Bettencourt da Silva Ricardo J.N."
+  ],
+  "title": "Measurement uncertainty evaluation from correlated validation data: Determination of elemental impurities in pharmaceutical products by ICP-MS",
+  "venue": "Talanta",
+  "vol": "220",
+  "year": "2020",
+  "page": "121386",
+  "cited": "22"
+ },
+ "10.1016/j.talanta.2019.120274": {
+  "au": [
+   "Mateos Rocío",
+   "Oliveira Cristina M.",
+   "Díez-Pascual Ana María",
+   "Vera-López Soledad",
+   "San Andrés María Paz",
+   "da Silva Ricardo J.N. Bettencourt"
+  ],
+  "title": "Impact of recovery correction or subjecting calibrators to sample preparation on measurement uncertainty: PAH determinations in waters",
+  "venue": "Talanta",
+  "vol": "207",
+  "year": "2020",
+  "page": "120274",
+  "cited": "12"
+ },
+ "10.1515/cclm-2016-0896": {
+  "au": [
+   "Padoan Andrea",
+   "Antonelli Giorgia",
+   "Aita Ada",
+   "Sciacovelli Laura",
+   "Plebani Mario"
+  ],
+  "title": "An approach for estimating measurement uncertainty in medical laboratories using data from long-term quality control and external quality assessment schemes",
+  "venue": "Clinical Chemistry and Laboratory Medicine (CCLM)",
+  "vol": "55",
+  "year": "2017",
+  "page": "",
+  "cited": "37"
+ },
+ "10.1016/j.cca.2026.121067": {
+  "au": [
+   "Şeneş Mehmet",
+   "Alpdemir Medine",
+   "Yurt Emine Feyza"
+  ],
+  "title": "Measurement uncertainty in urine drug analysis: A comparison of ISO/TS 20914 and GUM/Eurachem approaches",
+  "venue": "Clinica Chimica Acta",
+  "vol": "590",
+  "year": "2026",
+  "page": "121067",
+  "cited": "0"
+ },
+ "10.1007/s00769-023-01556-9": {
+  "au": [
+   "Synek Václav",
+   "Kříženecká Sylvie"
+  ],
+  "title": "Estimation of uncertainty from duplicate measurements: new quantification procedure in the case of concentration-dependent precision",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "28",
+  "year": "2023",
+  "page": "279-298",
+  "cited": "5"
+ },
+ "10.1016/j.microc.2023.109194": {
+  "au": [
+   "Renato Couto Aldo",
+   "Rebello Lourenço Felipe"
+  ],
+  "title": "Bottom-up and top-down measurement uncertainty evaluation for multivariate spectrophotometric procedures",
+  "venue": "Microchemical Journal",
+  "vol": "193",
+  "year": "2023",
+  "page": "109194",
+  "cited": "3"
+ },
+ "10.21014/tc24-2025.030": {
+  "au": [
+   "Ramsey Michael"
+  ],
+  "title": "Validation of Measurement Procedures that Include Sampling (VaMPIS) – a new Eurachem Guide",
+  "venue": "Proceedings of the IMEKO TC8, TC11 and TC24 Conference on Chemical Measurements",
+  "vol": "",
+  "year": "2025",
+  "page": "155-157",
+  "cited": "0"
+ },
+ "10.1007/s00769-024-01575-0": {
+  "au": [
+   "Ramsey Michael H.",
+   "Rostron Peter D."
+  ],
+  "title": "Measurement uncertainty from sampling and its role in validation of measurement procedures",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "29",
+  "year": "2024",
+  "page": "153-162",
+  "cited": "9"
+ },
+ "10.1016/j.aca.2024.342597": {
+  "au": [
+   "Lourenço Felipe Rebello",
+   "Oliveira Elcio Cruz de"
+  ],
+  "title": "Nonparametric estimation of measurement uncertainty arising from sampling",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1305",
+  "year": "2024",
+  "page": "342597",
+  "cited": "6"
+ },
+ "10.1007/s10661-016-5584-9": {
+  "au": [
+   "Dołęgowska Sabina",
+   "Gałuszka Agnieszka",
+   "Migaszewski Zdzisław M."
+  ],
+  "title": "Heterogeneous areas—identification of outliers and calculation of soil sampling uncertainty using the modified RANOVA method",
+  "venue": "Environmental Monitoring and Assessment",
+  "vol": "188",
+  "year": "2016",
+  "page": "581",
+  "cited": "4"
+ },
+ "10.1007/s00769-017-1271-y": {
+  "au": [
+   "Ramsey Michael H.",
+   "Ellison Stephen L. R."
+  ],
+  "title": "Combined uncertainty factor for sampling and analysis",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "22",
+  "year": "2017",
+  "page": "187-189",
+  "cited": "10"
+ },
+ "10.1007/s00769-020-01443-7": {
+  "au": [
+   "Kostakis Marios",
+   "Kritikou Evangelia",
+   "Koupa Anastasia",
+   "Thomaidis Nikolaos"
+  ],
+  "title": "A novel nested design approach for estimation of uncertainty arising from sampling in feed",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "25",
+  "year": "2020",
+  "page": "329-333",
+  "cited": "1"
+ },
+ "10.1016/j.aca.2021.338982": {
+  "au": [
+   "Sona Mirela",
+   "Dubé Jean-Sébastien"
+  ],
+  "title": "Sampling particulate matter for analysis – Controlling uncertainty and bias using the theory of sampling",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1185",
+  "year": "2021",
+  "page": "338982",
+  "cited": "2"
+ },
+ "10.1016/j.aca.2021.339127": {
+  "au": [
+   "Svensmark Bo"
+  ],
+  "title": "Extensions to the Theory of Sampling 1. The extended Gy's formula, the segregation paradox and the fundamental sampling uncertainty (FSU)",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1187",
+  "year": "2021",
+  "page": "339127",
+  "cited": "6"
+ },
+ "10.1016/j.aca.2024.343285": {
+  "au": [
+   "Martins Maisa Torres",
+   "Lourenço Felipe Rebello"
+  ],
+  "title": "Measurement uncertainty for &lt;711&gt; Dissolution tests using Monte Carlo methods – Uncertainties arising from sampling and analytical steps",
+  "venue": "Analytica Chimica Acta",
+  "vol": "1330",
+  "year": "2024",
+  "page": "343285",
+  "cited": "11"
+ },
+ "10.1088/1681-7575/ac6fa1": {
+  "au": [
+   "Shirono Katsuhiro",
+   "Tanaka Hideyuki",
+   "Koike Masayoshi"
+  ],
+  "title": "Economic optimization of acceptance interval in conformity assessment: 1. Process with no systematic effect",
+  "venue": "Metrologia",
+  "vol": "59",
+  "year": "2022",
+  "page": "045005",
+  "cited": "4"
+ },
+ "10.1088/1681-7575/ac6fa2": {
+  "au": [
+   "Shirono Katsuhiro",
+   "Tanaka Hideyuki",
+   "Koike Masayoshi"
+  ],
+  "title": "Economic optimization of acceptance interval in conformity assessment: 2. Process with unknown systematic effect",
+  "venue": "Metrologia",
+  "vol": "59",
+  "year": "2022",
+  "page": "045006",
+  "cited": "3"
+ },
+ "10.1088/1361-6501/ad2439": {
+  "au": [
+   "Pennecchi F",
+   "Kuselman I"
+  ],
+  "title": "Probabilities of true and false decisions in conformity assessment of a finite sample of items",
+  "venue": "Measurement Science and Technology",
+  "vol": "35",
+  "year": "2024",
+  "page": "056003",
+  "cited": "3"
+ },
+ "10.1016/j.chemolab.2019.02.010": {
+  "au": [
+   "Bettencourt da Silva Ricardo J.N.",
+   "Lourenço Felipe R.",
+   "Pennecchi Francesca R.",
+   "Hibbert D. Brynn",
+   "Kuselman Ilya"
+  ],
+  "title": "Spreadsheet for evaluation of global risks in conformity assessment of a multicomponent material or object",
+  "venue": "Chemometrics and Intelligent Laboratory Systems",
+  "vol": "188",
+  "year": "2019",
+  "page": "1-5",
+  "cited": "30"
+ },
+ "10.1016/j.talanta.2018.12.021": {
+  "au": [
+   "Lourenço Felipe R.",
+   "Bettencourt da Silva Ricardo J.N."
+  ],
+  "title": "Risk of false conformity decisions of multicomponent items controlled by correlated measurement results due to the sharing of analytical steps",
+  "venue": "Talanta",
+  "vol": "196",
+  "year": "2019",
+  "page": "174-181",
+  "cited": "34"
+ },
+ "10.1016/j.microc.2026.117824": {
+  "au": [
+   "Maranho Ricardo Luiz N.",
+   "Lourenço Felipe R."
+  ],
+  "title": "Development of a Python-based tool for evaluation of multivariate decision risk considering measurement uncertainty and correlation effects",
+  "venue": "Microchemical Journal",
+  "vol": "224",
+  "year": "2026",
+  "page": "117824",
+  "cited": "1"
+ },
+ "10.1016/j.measurement.2025.119847": {
+  "au": [
+   "Shirono Katsuhiro",
+   "Takai Junnosuke",
+   "Tanaka Hideyuki"
+  ],
+  "title": "Economic optimisation of acceptance interval in conformity assessment for processes with known and unknown biases",
+  "venue": "Measurement",
+  "vol": "261",
+  "year": "2026",
+  "page": "119847",
+  "cited": "1"
+ },
+ "10.1088/0026-1394/53/2/s74": {
+  "au": [
+   "Carobbi Carlo",
+   "Pennecchi Francesca"
+  ],
+  "title": "Bayesian conformity assessment in presence of systematic measurement errors",
+  "venue": "Metrologia",
+  "vol": "53",
+  "year": "2016",
+  "page": "S74-S80",
+  "cited": "20"
+ },
+ "10.21014/actaimeko.v12i3.1471": {
+  "au": [
+   "Purata-Sifuentes Omar-Jair",
+   "Purata-Funes Elvia-Andrea",
+   "Foyer Gisa"
+  ],
+  "title": "Overestimation of conformity assessment risks in legal requirements of weighing instruments",
+  "venue": "Acta IMEKO",
+  "vol": "12",
+  "year": "2023",
+  "page": "1-7",
+  "cited": "4"
+ },
+ "10.21014/acta_imeko.v8i3.655": {
+  "au": [
+   "Fritsch Klaus"
+  ],
+  "title": "EURAMET cg-18 – state-of-the-art calibration guideline for non-automatic weighing instruments",
+  "venue": "ACTA IMEKO",
+  "vol": "8",
+  "year": "2019",
+  "page": "10",
+  "cited": "1"
+ },
+ "10.1080/19315775.2015.11721736": {
+  "au": [
+   "Fritsch Klaus",
+   "Ciesniewski Ian"
+  ],
+  "title": "Calibration of Weighing Instruments: Measurement Uncertainty, Minimum Weight and the Safe Weighing Range",
+  "venue": "NCSLI Measure",
+  "vol": "10",
+  "year": "2015",
+  "page": "56-65",
+  "cited": "1"
+ },
+ "10.21014/tc6-2025.054": {
+  "au": [
+   "Sheveleva Tatyana",
+   "Foyer Gisa"
+  ],
+  "title": "Measurement Data and Information of Non-Automatic Weighing Instruments as Structured Data",
+  "venue": "Proceedings of the IMEKO TC6 Conference on Digitalization - M4DConf 2025",
+  "vol": "",
+  "year": "2025",
+  "page": "292-296",
+  "cited": "0"
+ },
+ "10.1016/j.measurement.2026.120882": {
+  "au": [
+   "Purata-Sifuentes Omar-Jair",
+   "Martínez-Velázquez Francisco-Javier",
+   "Báez-Macías José-Antonio",
+   "Sánchez-Martínez José-Yahir"
+  ],
+  "title": "Decentered process effect on conformity assessment risks for manufacturing of non-automatic weighing instruments",
+  "venue": "Measurement",
+  "vol": "270",
+  "year": "2026",
+  "page": "120882",
+  "cited": "0"
+ },
+ "10.3390/metrology6040076": {
+  "au": [
+   "Ilinca Radu",
+   "Luțescu Dan-Adrian",
+   "Barabas Albert Zsolt",
+   "Albu Cristina-Crenguța",
+   "Ganea Ionela",
+   "Dimitriu Daniela Cristina"
+  ],
+  "title": "Assigned-Value Uncertainty in Limited-Participant Proficiency Testing: Monte Carlo Evaluation of ISO 13528 Estimators in an Industrial Calibration Scenario",
+  "venue": "Metrology",
+  "vol": "6",
+  "year": "2026",
+  "page": "76",
+  "cited": "0"
+ },
+ "10.1039/d0an01607a": {
+  "au": [
+   "Coucke Wim",
+   "Soumali Mohamed Rida"
+  ],
+  "title": "A critical view at the ISO 13528 and IUPAC's harmonized protocol approach for proficiency testing for homogeneity assessment for quantitative variables",
+  "venue": "The Analyst",
+  "vol": "145",
+  "year": "2020",
+  "page": "7630-7635",
+  "cited": "3"
+ },
+ "10.1016/j.measurement.2017.07.006": {
+  "au": [
+   "Carobbi Carlo"
+  ],
+  "title": "A modified ISO 13528 robust analysis (Algorithm A) that takes measurement uncertainty into account",
+  "venue": "Measurement",
+  "vol": "110",
+  "year": "2017",
+  "page": "296-306",
+  "cited": "6"
+ },
+ "10.1007/s00769-021-01474-8": {
+  "au": [
+   "Morales Clara",
+   "Giraldo Ramón",
+   "Torres Marta"
+  ],
+  "title": "Boxplot fences in proficiency testing",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "26",
+  "year": "2021",
+  "page": "193-200",
+  "cited": "12"
+ },
+ "10.1088/1681-7575/aa6c0e": {
+  "au": [
+   "Koepke Amanda",
+   "Lafarge Thomas",
+   "Possolo Antonio",
+   "Toman Blaza"
+  ],
+  "title": "Consensus building for interlaboratory studies, key comparisons, and meta-analysis",
+  "venue": "Metrologia",
+  "vol": "54",
+  "year": "2017",
+  "page": "S34-S62",
+  "cited": "83"
+ },
+ "10.1016/j.chemolab.2018.01.003": {
+  "au": [
+   "Molenaar Jaap",
+   "Cofino Wim P.",
+   "Torfs Paul J.J.F."
+  ],
+  "title": "Efficient and robust analysis of interlaboratory studies",
+  "venue": "Chemometrics and Intelligent Laboratory Systems",
+  "vol": "175",
+  "year": "2018",
+  "page": "65-73",
+  "cited": "15"
+ },
+ "10.1007/s00769-021-01467-7": {
+  "au": [
+   "Thompson Michael"
+  ],
+  "title": "Statistical internal quality control (SIQC) in chemical measurement—do we really understand it?",
+  "venue": "Accreditation and Quality Assurance",
+  "vol": "26",
+  "year": "2021",
+  "page": "99-101",
+  "cited": "0"
+ },
+ "10.1515/cclm-2020-0371": {
+  "au": [
+   "Braga Federica",
+   "Pasqualetti Sara",
+   "Aloisio Elena",
+   "Panteghini Mauro"
+  ],
+  "title": "The internal quality control in the traceability era",
+  "venue": "Clinical Chemistry and Laboratory Medicine (CCLM)",
+  "vol": "59",
+  "year": "2020",
+  "page": "291-300",
+  "cited": "62"
+ },
+ "10.1021/acs.analchem.0c02178": {
+  "au": [
+   "Tellinghuisen Joel"
+  ],
+  "title": "Least Squares Methods for Treating Problems with Uncertainty in<i>x</i>and<i>y</i>",
+  "venue": "Analytical Chemistry",
+  "vol": "92",
+  "year": "2020",
+  "page": "10863-10871",
+  "cited": "32"
+ },
+ "10.1088/1681-7575/ac711c": {
+  "au": [
+   "Cecelski Christina E",
+   "Toman Blaza",
+   "Liu Fong-Ha",
+   "Meija Juris",
+   "Possolo Antonio"
+  ],
+  "title": "Errors-in-variables calibration with dark uncertainty",
+  "venue": "Metrologia",
+  "vol": "59",
+  "year": "2022",
+  "page": "045002",
+  "cited": "7"
+ },
+ "10.1021/acs.analchem.2c02904": {
+  "au": [
+   "Tellinghuisen Joel"
+  ],
+  "title": "Goodness-of-Fit Tests in Calibration: Are They Any Good for Selecting Least-Squares Weighting Formulas?",
+  "venue": "Analytical Chemistry",
+  "vol": "94",
+  "year": "2022",
+  "page": "15997-16005",
+  "cited": "7"
+ },
+ "10.1016/j.trac.2015.12.006": {
+  "au": [
+   "Raposo Francisco"
+  ],
+  "title": "Evaluation of analytical calibration based on least-squares linear regression for instrumental techniques: A tutorial review",
+  "venue": "TrAC Trends in Analytical Chemistry",
+  "vol": "77",
+  "year": "2016",
+  "page": "167-185",
+  "cited": "183"
+ },
+ "10.1016/j.measurement.2021.109611": {
+  "au": [
+   "Gadelrab Mohammed S.",
+   "Abouhogail Reham A."
+  ],
+  "title": "Towards a new generation of digital calibration certificate: Analysis and survey",
+  "venue": "Measurement",
+  "vol": "181",
+  "year": "2021",
+  "page": "109611",
+  "cited": "26"
+ },
+ "10.3390/metrology2010003": {
+  "au": [
+   "Smith Ian",
+   "Luo Yuhui",
+   "Hutzschenreuter Daniel"
+  ],
+  "title": "The Storage within Digital Calibration Certificates of Uncertainty Information Obtained Using a Monte Carlo Method",
+  "venue": "Metrology",
+  "vol": "2",
+  "year": "2022",
+  "page": "33-45",
+  "cited": "8"
+ },
+ "10.1088/1681-7575/aea165": {
+  "au": [
+   "Volinsky Alex A"
+  ],
+  "title": "Digital precision in metrology: significant figures and trailing zeros as machine readable metadata",
+  "venue": "Metrologia",
+  "vol": "63",
+  "year": "2026",
+  "page": "055006",
+  "cited": "0"
+ }
+}
