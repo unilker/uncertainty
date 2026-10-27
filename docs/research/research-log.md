@@ -1667,3 +1667,289 @@ does not follow from the table's own entries either: √(5.694² + 0.635²) =
   value of the weights (calibrated at ρ_a1): (ρ_a − ρ₀)(ρ_a − ρ₀ − 2(ρ_a1 − ρ₀))
   = (ρ_a − ρ_a1)² − (ρ_a1 − ρ₀)². It is a covariance between m_c and the
   buoyancy term rather than a variance, and is best presented that way.
+
+## 2026-10-27 (session 18) — Software tools: full texts and the MUPR spreadsheet
+
+The author supplied the full texts of four papers on software tools
+(Hall 2022, GTC; Lobsiger et al. 2022, METAS UncLib; Pennecchi & Harris
+2023, Mathmet survey; Bettencourt da Silva 2026, MUPR spreadsheet) and the
+nine electronic supplements of the last. They are used locally only. The
+comparison and the gap analysis are in `literature-review.md` §3.
+
+The spreadsheet workbooks are protected with the password given in the
+paper. In the second copy received, supplements 01, 02 and 05–08 are
+complete. Supplements 03 and 04 (soil pH) are truncated (no zip central
+directory). Of 03, the sheet "Analysis sequence" can be read up to row 6 943,
+which holds all the data. The sheets "Performance Model" and "Trueness" are
+missing. Of 04, only two sheets are present.
+
+**D53. Recomputation of Supplementary Material 06** (fluoranthene,
+low spikes excluded). The values were read from the workbook and recomputed
+independently:
+
+- The weighted mean recovery R̿ = 0.748871 and χ² = 40.97 > χ²₀.₀₅,₁₉ =
+  30.14 (Eq. 16.1–16.2) follow from the 20 mean recoveries and their
+  uncertainties (sheet "Trueness", CF16:CG35).
+- The recoveries are not compatible, so s(R_m) = 0.087552 is added:
+  u(R̄) = √((√Σu²(R_k)/N)² + s²(R_m)) = 0.096291.
+- The recovery differs from 1: t = 2.608 > 2.093 (ν = 19).
+- For a single result of 10 mg/kg: c = 13.3534 mg/kg, u = 1.84285 mg/kg
+  (precision 0.66932, trueness 1.71701) and U = 3.857 mg/kg with k = 2.093.
+  This is the row "Sample 10 [1]" of the sheet "Analysis sequence".
+
+The spreadsheet's ν is the minimum of the ν of the components (19), not
+Welch–Satterthwaite. The program reproduces that with `coverage_dof`.
+
+**F71. Bettencourt da Silva (2026), text against its supplement
+(class b).**
+
+- Section 3.2 reports (13.4 ± 3.9) mg/kg "for k = 2.01". The supplement gives
+  k = 2.093 (ν = 19), and 3.9 follows only from that value:
+  2.01 × 1.843 = 3.70 would round to 3.7.
+- Section 3.1 gives s_r = 0.238 (ν = 56) and s_I = 0.0685 (ν = 82) for the pH
+  example. That would make s_r larger than s_I by a factor of 3.5, while the
+  text says that "no significant difference is observed" between them.
+- Supplement 03 settles it. Every row of "Analysis sequence" uses
+  s_r = 0.023773 and s_I = 0.068460 (columns BH, BI), so s_r = 0.0238 is
+  meant.
+- The precision term of a duplicate, √(s_I² − s_r²/2) = 0.066364, and
+  k = 2.0032 for ν = 56 follow from these values.
+- The values without the control standards (s_r = 0.229, s_I = 0.0573) are
+  presumably 0.0229 and 0.0573. Supplement 04 is truncated, so this could not
+  be checked.
+
+**F72. Bettencourt da Silva (2026) — absolute precision of a
+recovery-corrected result (class a).**
+
+- For relative precision the spreadsheet uses s = s′·c at the corrected value
+  c = x/R̄. That is the correct propagation.
+- For absolute precision (interval I, s_I = 0.075185 mg/kg on the
+  measured-value scale) it uses s_I itself, not s_I/R̄.
+- At x = 0.1 mg/kg this gives (0.13 ± 0.16) mg/kg, the value printed in the
+  paper. The propagation for y = x/R̄ gives u = √((0.075185/0.748871)² +
+  0.01717²) = 0.10186 mg/kg and U = 0.21 mg/kg: a relative expanded
+  uncertainty of 160 % instead of 121 %.
+- This is the omission already found in MUPR Eq. (B6.8) (F17), here carried
+  into the software. The program divides absolute components by R̄ (D18).
+
+**F73. Bettencourt da Silva (2026) — mean recovery and its uncertainty
+(class c, method).**
+
+- R̄ is the weighted mean of Eq. (16.1), which the MUPR footnote to Eq. (8)
+  allows. Its uncertainty, however, is the arithmetic-mean form of Eq. (12),
+  √Σu²(R_k)/N = 0.04008.
+- The uncertainty of the weighted mean itself would be
+  (Σ1/u²(R_k))^(−1/2) = 0.00996.
+- One test (SS95(SP1), spiked at 0.1 mg/kg, u = 0.751) contributes 0.0375 of
+  the 0.0401 but has almost no weight in R̄. Without it √Σu²/N = 0.0141.
+- With s(R_m) added, the three consistent choices give at 10 mg/kg:
+  - spreadsheet (weighted R̄, Eq. 12 u): 13.35 mg/kg, U = 3.86 mg/kg;
+  - Eq. (8)–(12) throughout (arithmetic R̄ = 0.76307, as in the program):
+    13.10 mg/kg, U = 3.72 mg/kg;
+  - weighted R̄ with its own uncertainty: 13.35 mg/kg, U = 3.57 mg/kg.
+- The program had no weighted mean recovery; D54 adds it, with the
+  uncertainty of the weighted mean itself.
+
+**Implications for the article.**
+
+- The closest tool in chemistry is a spreadsheet by the author of the
+  guidance it implements. Recomputing one published example from its
+  supplement found one text–software discrepancy and two departures from the
+  guide's equations.
+- This supports the article's argument that each implementation should be
+  checked automatically against published examples, and that such checks
+  should be repeatable by anyone.
+- The Mathmet figures (54 % of tools with any validation evidence; 20 %, 6 %
+  and 31 % with JCGM 102 support) quantify the gap in the wider landscape.
+
+**D54. Weighted mean recovery and given recoveries.**
+
+- `recovery.mean = "weighted"` combines the tests by R̿ = Σ(R_k/u²)/Σ(1/u²)
+  (MUPR Eq. 16.1, allowed by the footnote to Eq. 8). The uncertainty is that
+  of a weighted mean, u(R̿) = (Σ1/u²)^(−1/2).
+- The spreadsheet's combination, R̿ with the Eq. (12) uncertainty (F73), is
+  deliberately not offered: it pairs an estimator with the uncertainty of
+  another.
+- s(R), the significance test (ν = N − 1 with s(R)), the correction and the
+  χ² test are unchanged. The default stays the arithmetic mean of
+  Eq. (8)–(12), so existing projects give the same results.
+- A new test type `given` takes a recovery and its standard uncertainty
+  evaluated elsewhere (`recovery_percent`, `u_percent`), e.g. the mean
+  recoveries of a validation spreadsheet.
+- The ν-dependent weights of Mateos et al. (2020) (F46) remain outside the
+  program.
+
+Two library projects take the 20 recoveries of Supplementary Material 06:
+`bettencourt2026-fluoranthene-weighted` and `-arithmetic`. Their expected
+values are recomputed by an independent script. R̿ = 74.887 %, χ² = 40.973
+and s(R) = 8.755 % agree with the workbook to all printed digits. The
+expanded uncertainties at 0.1 and 10 mg/kg are:
+
+| Variant | 0.1 mg/kg | 10 mg/kg |
+|---|---|---|
+| weighted | 0.213 | 3.575 |
+| arithmetic | 0.209 | 3.724 |
+| spreadsheet | 0.161 | 3.857 |
+
+The report, the app's recovery form (mean: arithmetic or weighted; test type
+"recovery with its uncertainty") and guide chapters 5 and 7 describe the
+option. The library has 205 projects and the workspace 180 tests.
+
+## 2026-10-27 (session 19) — Open-access papers: Suncal, the new definition, cg-18, conformity
+
+Open-access papers on the reading list were downloaded where the publisher
+serves the PDF directly:
+
+- Possolo (2025);
+- Fritsch (2019);
+- Shirono et al. (2022, parts 1 and 2);
+- from OSTI (public reports): the Suncal paper (Delker, *NCSLI Measure*
+  13(3), 2021), the Suncal software-QA slides (NCSLI 2021) and the slides on
+  guard bands under process bias (Delker & Peguero, NCSLI 2022).
+
+Springer, De Gruyter, MDPI and Taylor & Francis did not return a PDF to a
+plain request. Those papers are left for the author to download. The
+comparison is in `literature-review.md` §2–3.
+
+**Suncal (Delker 2021).**
+
+- The closest competitor for calibration laboratories:
+  - GUM solved symbolically, with MCM in parallel and the GUM validity
+    check of DEM-ES-010;
+  - several outputs with joint densities;
+  - units;
+  - ANOVA and autocorrelation of measured data;
+  - curve fits with prediction bands;
+  - decision risk with TUR-based and risk-based guard bands;
+  - calibration intervals.
+- Its software QA is a graded approach. Requirements are traced to
+  automated black-box tests against GUM and TN 1900 examples, with the
+  tolerance set by the published significant figures. This is the same
+  policy as the library's `expected` blocks (D15).
+- It does not cover chemistry top-down, PT, sampling or QC charts. It has no
+  mobile version and is in English only.
+
+**F28 confirmed independently.** Delker (2021, footnote 1) states that
+TN 1900 "reported the wrong answer for both value and uncertainty" of the
+airspeed example because the factor 2 was left out of the equation. That is
+finding F28, made here from the equation and the printed values (v = 57.48
+against 40.64 m/s, ratio √2). The Suncal result, (57.49 ± 0.67) m/s for
+95 %, is close to the library project: 57.47 m/s, u = 0.348 m/s,
+1.96u = 0.68 m/s, Monte Carlo interval [56.81, 58.17] m/s.
+
+**F74. Delker (2021), airspeed example — inputs exchanged (class b).** The
+text lists Δp = 14.7 psia ± 0.3 psia and p_a = 8.0 inches H₂O ± 0.1 inches
+H₂O. In Kline & McClintock (1953) and TN 1900 E4 it is the other way round:
+the pitot pressure difference is 8.0 in H₂O (1.993 kPa) and the atmospheric
+pressure 14.7 psia (101.4 kPa). The printed result, 57.49 m/s, follows only
+from the latter: √(2 · 1992.7 · 287.06 · 292.83/101 353) = 57.49 m/s. With
+the inputs as printed, v would be 2 924 m/s, about 50 times larger.
+
+**Possolo (2025).** The JCGM presented a new definition of measurement
+uncertainty for public discussion (July 2025): "the doubt about the true value
+of the measurand that remains after making a measurement", "described fully
+and quantitatively by a probability distribution". It separates what
+uncertainty is from how it is evaluated and expressed. The glossary (chapter
+8, EN and TR) now notes it beside VIM 2.26.
+
+**Gaps found, candidates for the next sessions.**
+
+- *cg-18 §8, uncertainty of a weighing result in use* (Fritsch 2019):
+  - U(W) = k√(α² + β²R²);
+  - the global uncertainty U_gl = U(W) + |a₁|R ≈ α_gl + β_gl·R, with the
+    error function of D52;
+  - minimum weight m_min = U/TOL and, with a safety factor,
+    m_min,SF = α·SF/(TOL − β·SF);
+  - the safe weighing range.
+
+  Examples H1 and H2 of cg-18 give the values needed to validate it.
+- *TUR-based guard bands* (Suncal; Delker & Peguero 2022): the RSS guard
+  band and Dobbert's managed guard band ("Method 6", PFA ≤ 2 % for any
+  in-tolerance probability). The conformity module has the JCGM 106 guard
+  bands and the guard band for a target consumer risk, but not these
+  calibration-practice rules (ANSI/NCSL Z540.3).
+- *Economic optimisation of the acceptance interval* (Shirono et al. 2022):
+  a later extension of the conformity module, with the summary tables as
+  test cases.
+
+## 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G)
+
+**D55. `error_function.in_use`.** The core functions follow cg-18 7.4.1–7.4.4
+for the terms of the uncertainty in use:
+
+- the absolute term per interval, α_W² = d₀²/12 + d²/12 + s² (7.4.1-6);
+- the relative terms:
+  - u(a₁) of the fit (C2.2-16d);
+  - temperature (7.4.3-1);
+  - buoyancy (7.4.3-4 or -5);
+  - adjustment (7.4.3-6);
+  - tare from the slopes between the test points (7.4.4-4, -5);
+  - creep and hysteresis (7.4.4-7, -9);
+  - eccentricity taken in full (7.4.4-10).
+
+They give u²(W) = α_W² + β_W²R² (7.4.5-2) and U(W) = k·u(W), with k = 2 by
+default (7.5.1-2b). The linear forms per interval (7.5.2-3d, -3f) and the
+global uncertainty U_gl(W) = U(W) + |a₁|R in its linear form (7.5.2-3a, -3e)
+follow. The minimum weight is R_min = α_gl/(Req − β_gl) (G-7) and
+R_min,SF = α_gl·SF/(Req − β_gl·SF) (G-9), searched interval by interval for
+multi-interval instruments.
+
+Design choices:
+
+- The block needs the straight line through zero, E = a₁R, which 7.5.2-3e
+  prescribes. With a constant term, u²(E_appr) is not of the form α² + β²R².
+- The term a₁²u²(R) of C2.2-16d is neglected, as the guide does (footnotes
+  10–12).
+- A reading equal to Max_i belongs to interval i (Max_{i−1} < R ≤ Max_i).
+- Only the uncertainty of the general weighing result W is given. W*
+  (7.4.5-1a, conditions of the calibration) differs only in the eccentricity
+  term and the environmental terms.
+
+The report has a section with the intervals, the relative terms, the linear
+forms and the minimum weight (EN and TR); the app shows the same. Four library
+projects reproduce H1.4/A, H1.4/B, H2.4/A and H2.4/B from the test points and
+the repeatability readings. Their generator recomputes every printed value
+independently and requires agreement except for the two findings below.
+
+The fits behind the examples were identified by recomputation:
+
+- H1/A: the 7.1.2-5e budget, a₁ = 6.7096·10⁻⁶, u(a₁) = 1.2416·10⁻⁶.
+- H1/B and H2/B: 7.1.2-5c.
+- H2/A: the conservative 7.1.2-5d.
+
+All four use uncorrelated weights p_j = 1/u²(E_j) (C2.2-18b). The text does not
+say which budget each fit uses.
+
+**F75. cg-18 H2.4/A — first-order U(W) of intervals 2 and 3 (class b).**
+
+- The table prints U(W) = 10.190 g + 3.434·10⁻⁴(R − 12 000 g) and
+  20.311 g + 3.923·10⁻⁴(R − 30 000 g).
+- 10.190 and 20.311 g are the global uncertainties at 12 000 and 30 000 g,
+  U(W) + |a₁|R: 8.129 + 2.060 and 15.158 + 5.151 g.
+- U(W) itself is 2√(9.917 + 4.589·10⁻⁸·12 000²) = 8.129 g and 15.16 g.
+- The slopes and the global lines are right.
+- In H2.4/B, where a₁ = 0, both lines coincide and the printed 6.616 and
+  11.951 g are right, which confirms the reading.
+
+**F76. cg-18 H1.4/B — tare term (class b).**
+
+- The errors 0, 0, −0.1, 0, −0.1 mg at 0, 50, 100, 150, 220 g give slopes
+  q_E = 0, −2·10⁻⁶, +2·10⁻⁶ and −1.43·10⁻⁶.
+- 7.4.4-5 then gives (q_E,max − q_E,min)/√12 = 4·10⁻⁶/√12 = 1.155·10⁻⁶. The
+  guide prints 5.774·10⁻⁷ = 2·10⁻⁶/√12, as if max|q| − min|q| were taken.
+- With the formula, β_W² = 7.432·10⁻¹² instead of 6.433·10⁻¹², the U_gl slope
+  is 4.851·10⁻⁶ instead of 4.479·10⁻⁶, and the minimum weight 0.0728 g
+  instead of 0.0727 g.
+- In H1/A and H2/A, where all slopes have one sign, both readings agree with
+  the printed values.
+
+Minor points:
+
+- H1/B and H2/A print a₁ without its sign (both are negative).
+- H1/B prints the eccentricity term as 1.154·10⁻⁶; 0.0002/(100√3) =
+  1.1547·10⁻⁶.
+- H1/A and H1/B print α_W² as 1.467 and 1.466·10⁻⁸ for the same d and s;
+  the value is 1.4663·10⁻⁸.
+
+The library has 209 projects.
+

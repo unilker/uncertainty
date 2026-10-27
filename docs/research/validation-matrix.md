@@ -210,6 +210,17 @@ Table 9 (raw data only in the electronic supplement).
 | Palma-Pb | Pb (EPA 3051A) | 1.90 / 10.1 (10.08 in Eq. 21) | 1.895 / 10.08 | 65.2 / 57.6 — 65.2 / 57.6 | ✅ |
 | Palma-Zn | Zn (OSPAR) | 0.365 / 9.13 | 0.3655 / 9.132 | 78.7 / 78.6 — 78.6 / 78.7 | ✅ |
 
+## Bettencourt da Silva (2026), MUPR spreadsheet — library projects
+
+Fluoranthene in river sediments, Supplementary Material 06: 20 mean recoveries with u(R_k) from the sheet
+"Trueness", two-interval precision model, s(R) added (χ² test failed), k = 2.093 (ν = 19). Expected values are
+recomputed by an independent script. The spreadsheet's own uncertainties differ for the reasons of F72 and F73.
+
+| ID | Mean recovery | χ² / s(R) | Spreadsheet | Engine (0.1 / 10 mg/kg) | Status |
+|---|---|---|---|---|---|
+| Bet-weighted | R̿ = 74.887 % (Eq. 16.1), u = 8.812 % | 40.973 / 8.755 % | R̿ 74.887 %, χ² 40.973, s 8.755 %; U 0.161 / 3.857 | (0.1335 ± 0.2127) / (13.353 ± 3.575) | ✅ R̿, χ², s; U by design (F72, F73) |
+| Bet-arithmetic | R̄ = 76.307 % (Eq. 8–12), u = 9.629 % | 40.973 / 8.755 % | — | (0.1311 ± 0.2091) / (13.105 ± 3.724) | ✅ recomputed |
+
 ## JCGM 106:2012 — conformity assessment (library projects and core tests)
 
 | ID | Example | Published | Engine | Status |
@@ -269,6 +280,10 @@ Table 9 (raw data only in the electronic supplement).
 | CG18-H2 | 60 kg multi-interval balance (2/5/10 g): zero, 10 kg, 60 kg (5d, 5e, option 2), adjusted 60 kg (5c) | u(E) 1.238, 1.552, 5.978, 5.948, 5.941, 5.739 g; k 2.52, 2.17, 2.05, 2.05, 2.05, 2.025 | 1.238, 1.552; 5.973, 5.944, 5.938, 5.725 (mpe 0.90 g for 3 × 20 kg F2); k exact 2.03, 2.01 | ✅ (F68) |
 | CG18-H3 | 30 t weighbridge, substitution loads: zero, 10 t, 15 t, 30 t | u(E) 6.75, 7.98, 14.60, 23.85 kg; ν_eff 5, 9, 109, 783; U 18, 19, 29, 48 kg | 6.75, 7.98, 14.60, 23.86; ν_eff 5, 9.8, 37, 157; U 17.9, 18.5, 30.3, 48.1 | ✅ u(E); ν_eff differs (F69) |
 | CG18-H4 | error function E = a₁I, 400 g balance, s_m = 0, 0.05, 0.25 mg | a₁ 0.00083/0.00084; U(â) 5.109·10⁻⁸, 5.637·10⁻⁸, 1.745·10⁻⁷; χ² 12.5, 7.3; u(E_appr) Tables H4.6, H4.8; 2 points fail C2.2-2b at s_m = 0.05 | same; minimal s_m 0.044 mg (C2.2-2a), 0.22 mg (C2.2-2b) | ✅ (F70) |
+| CG18-H1.4/A | weighing result in use, 220 g balance (5e fit, built-in adjustment, ΔT = 3 K) | a₁ 6.709·10⁻⁶, u(a₁) 1.242·10⁻⁶; α² 1.467·10⁻⁸ g², β² 8.390·10⁻¹²; U_gl = 2.422·10⁻⁴ g + 1.150·10⁻⁵R; R_min,SF 0.0729 g (1 %, SF 3) | 6.710·10⁻⁶, 1.242·10⁻⁶; 1.466·10⁻⁸, 8.389·10⁻¹²; 2.422·10⁻⁴ + 1.150·10⁻⁵R; 0.07292 g | ✅ |
+| CG18-H1.4/B | same, adjusted before calibration (5c fit) | a₁ 3.895·10⁻⁷ (sign omitted), u(a₁) 6.337·10⁻⁷; tare 5.774·10⁻⁷; β² 6.433·10⁻¹²; U_gl slope 4.479·10⁻⁶; R_min,SF 0.0727 g | −3.898·10⁻⁷, 6.332·10⁻⁷; tare 1.155·10⁻⁶ (7.4.4-5); 7.432·10⁻¹²; 4.851·10⁻⁶; 0.07277 g | ✅ except tare (F76) |
+| CG18-H2.4/A | weighing result in use, 60 kg multi-interval (5d fit), three PWI | a₁ 1.717·10⁻⁴ (sign omitted), u 6.459·10⁻⁵; α² 1.867/9.917/16.167 g²; β² 4.589·10⁻⁸; slopes 2.574/3.434/3.923·10⁻⁴; U_gl 2.733 + 4.291·10⁻⁴R, 10.190 + 5.151·10⁻⁴(R − 12 kg), 20.311 + 5.641·10⁻⁴(R − 30 kg); R_min,SF 598 g | same; U(W) at 12 and 30 kg 8.129 and 15.16 g (printed 10.190, 20.311) | ✅ except two intercepts (F75) |
+| CG18-H2.4/B | same, adjusted before calibration (5c fit) | a₁ 0, u 6.043·10⁻⁵; α² 1.467/7.417/13.667 g²; β² 2.449·10⁻⁸; U_gl 2.422 + 1.706·10⁻⁴R, 6.616 + 2.355·10⁻⁴(R − 12 kg), 11.951 + 2.744·10⁻⁴(R − 30 kg); R_min,SF 502 g | same; 501.5 g | ✅ |
 | CG19-E1 | 1000 mL flask (Tanaka density) | V₂₀ 999.628 mL, u 0.017 mL, ν_eff 19, k 2.15, U 0.036 mL | 999.622; 0.0169; 19.5; 2.14; 0.036 | ✅ (F62) |
 | CG19-E2 | 100 mL pycnometer | 100.014 mL, u 0.89 µL, ν_eff 13, k 2.21, U 2.0 µL | 100.0142; 0.90 µL; 12.9; 2.23 (G.6.4 truncation); 2.0 µL | ✅ (F62) |
 | M3003-L3 | DMM, 1 V range | 0.95 V: u_c 5.37 µV; 500 mV: U 6.2 µV; 1 V: k 1.898 | same | ✅ (F61) |
@@ -323,6 +338,8 @@ The top-down cases (Nordtest §3, §5.3, §6.1–6.3, §8 A–D; MUPR Ex. 2, 3, 
 B2, B4, B5, B6; QUAM A4, A6) are stored as 22 top-down project files that
 start from the raw data wherever the documents give them (duplicate pairs,
 control-chart results, replicate groups, PT rounds, the 22 PT results of B6).
+The two projects from Bettencourt da Silva (2026) start from the 20 mean
+recoveries of the spreadsheet (`"type": "given"`).
 Tolerances reflect the documents' printed rounding; where a guide computes
 from rounded intermediates the tolerance is widened and the reason stated in
 the file (MUPR B1 at 50 mg/L, B5 with t = 4.30; Nordtest §8 B, C).

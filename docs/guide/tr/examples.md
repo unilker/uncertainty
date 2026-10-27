@@ -2,12 +2,12 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (92)
+- Kimya (94)
 - Elektrik ve RF (31)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
 - Uzunluk (11)
-- Kütle (24)
+- Kütle (28)
 - Fiziksel özellikler (8)
 - Basınç (1)
 - Sıcaklık (10)
@@ -1413,6 +1413,66 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 - Tablo A6.3'teki RSD'lerin ortalaması basılı %3,3 değil %3,16'dır; proje %3,16 kullanır. Birleşik belirsizlik (%11,3) ve U = 26 mg/kg değişmez.
 
 **Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang tr`
+
+### Nehir sedimentlerinde fluoranten, aritmetik ortalama geri kazanım (MUPR Eş. 8–12) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-arithmetic` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedimentlerinde fluorantenin top-down belirsizliği: iki aralıklı kesinlik modeli ve uyumlu olmayan 20 ortalama geri kazanım; bu nedenle geri kazanımların dağılımı eklenir ve sonuçlar geri kazanım için düzeltilir.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Nehir sedimentlerinde fluoranten, hızlandırılmış çözücü ekstraksiyonu ve GC-MS/MS ile; sekiz günde valide edilmiştir. Makalenin elektronik tablosu Eurachem/CITAC MUPR rehberini uygular; Ek Materyal 06, doğal kütle kesrinin %10'undan küçük katkıları dışarıda bırakır.
+2. Kesinlik modeli: I. aralık (−0,1 ile 1,5 mg/kg arası) sabit mutlak s_I = 0,075185 mg/kg (= 1,5 mg/kg × s′_I); II. aralık (1,5 ile 10,01 mg/kg arası) sabit bağıl s′_I = %5,0123. Tek sonuç raporlandığından kesinlik bileşeni s_I'dır.
+3. Geri kazanım: SRM'den, doğal analit içermeyen bir sedimentin üç katkısından ve doğal analit içeren sedimentlerin 16 katkısından 20 ortalama geri kazanım; her birinin u(R_k) değeri elektronik tablodandır (kesinlik modeli ve katkı belirsizliği). Değerler %53,2 ile %89,8 arasındadır.
+4. χ² testi (Eş. 16.2): χ² = 40,97 > χ²(0,95; 19) = 30,14; geri kazanımlar uyumlu değildir, bu nedenle s(R) = %8,755 ortalama geri kazanımın belirsizliğine eklenir (MUPR 8.2.7).
+5. Aritmetik ortalama geri kazanım R̄ = ΣR_k/N = %76,307, u(R̄) = √Σu²(R_k)/N = %4,008 (Eş. 12); s(R) ile: u = %9,629. u(R̄)'nin büyük kısmı SS95(SP1) testinden (u = %75) gelir.
+6. Anlamlılık (Eş. 13): |1 − R|/u = 2,461 > t(0,975; 19) = 2,093; sonuçlar düzeltilir, c = x/R. Kapsam faktörü k = 2,093, elektronik tablodaki gibi bileşenlerin en küçük serbestlik derecesinden (ν = 19, geri kazanımlar).
+7. Sonuçlar: x = 0,1 mg/kg → (0,1310 ± 0,2091) mg/kg; x = 10 mg/kg → (13,105 ± 3,724) mg/kg (%28,4).
+
+**Sonuç:**
+
+- w(fluoranthene) = (0,13 ± 0,21) mg/kg (k = 2,09)
+- w(fluoranthene) = (13,1 ± 3,7) mg/kg (k = 2,09)
+
+**Notlar:**
+
+- Elektronik tablo 10 mg/kg'da (13,35 ± 3,86) mg/kg ve 0,1 mg/kg'da (0,134 ± 0,161) mg/kg verir. Ağırlıklı ortalama R̿ = %74,887 ile aritmetik ortalamanın belirsizliğini, √Σu²/N = %4,008, birlikte kullanır (araştırma günlüğü F73) ve I. aralığın mutlak kesinliğini R̿'ya bölmez (F72). Makale metni k = 2,01 yazar; tablo 2,093 kullanır (F71).
+- Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (16.1)'in ağırlıklı ortalamasını kendi belirsizliğiyle kullanır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang tr`
+
+### Nehir sedimentlerinde fluoranten, ağırlıklı ortalama geri kazanım (MUPR Eş. 16.1) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-weighted` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedimentlerinde fluorantenin top-down belirsizliği: iki aralıklı kesinlik modeli ve uyumlu olmayan 20 ortalama geri kazanım; bu nedenle geri kazanımların dağılımı eklenir ve sonuçlar geri kazanım için düzeltilir.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Nehir sedimentlerinde fluoranten, hızlandırılmış çözücü ekstraksiyonu ve GC-MS/MS ile; sekiz günde valide edilmiştir. Makalenin elektronik tablosu Eurachem/CITAC MUPR rehberini uygular; Ek Materyal 06, doğal kütle kesrinin %10'undan küçük katkıları dışarıda bırakır.
+2. Kesinlik modeli: I. aralık (−0,1 ile 1,5 mg/kg arası) sabit mutlak s_I = 0,075185 mg/kg (= 1,5 mg/kg × s′_I); II. aralık (1,5 ile 10,01 mg/kg arası) sabit bağıl s′_I = %5,0123. Tek sonuç raporlandığından kesinlik bileşeni s_I'dır.
+3. Geri kazanım: SRM'den, doğal analit içermeyen bir sedimentin üç katkısından ve doğal analit içeren sedimentlerin 16 katkısından 20 ortalama geri kazanım; her birinin u(R_k) değeri elektronik tablodandır (kesinlik modeli ve katkı belirsizliği). Değerler %53,2 ile %89,8 arasındadır.
+4. χ² testi (Eş. 16.2): χ² = 40,97 > χ²(0,95; 19) = 30,14; geri kazanımlar uyumlu değildir, bu nedenle s(R) = %8,755 ortalama geri kazanımın belirsizliğine eklenir (MUPR 8.2.7).
+5. Ağırlıklı ortalama geri kazanım R̿ = Σ(R_k/u²)/Σ(1/u²) = %74,887, u(R̿) = (Σ1/u²)^−½ = %0,996; s(R) ile: u = %8,812.
+6. Anlamlılık (Eş. 13): |1 − R|/u = 2,850 > t(0,975; 19) = 2,093; sonuçlar düzeltilir, c = x/R. Kapsam faktörü k = 2,093, elektronik tablodaki gibi bileşenlerin en küçük serbestlik derecesinden (ν = 19, geri kazanımlar).
+7. Sonuçlar: x = 0,1 mg/kg → (0,1335 ± 0,2127) mg/kg; x = 10 mg/kg → (13,353 ± 3,575) mg/kg (%26,8).
+
+**Sonuç:**
+
+- w(fluoranthene) = (0,13 ± 0,21) mg/kg (k = 2,09)
+- w(fluoranthene) = (13,4 ± 3,6) mg/kg (k = 2,09)
+
+**Notlar:**
+
+- Elektronik tablo 10 mg/kg'da (13,35 ± 3,86) mg/kg ve 0,1 mg/kg'da (0,134 ± 0,161) mg/kg verir. Ağırlıklı ortalama R̿ = %74,887 ile aritmetik ortalamanın belirsizliğini, √Σu²/N = %4,008, birlikte kullanır (araştırma günlüğü F73) ve I. aralığın mutlak kesinliğini R̿'ya bölmez (F72). Makale metni k = 2,01 yazar; tablo 2,093 kullanır (F71).
+- Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (8)–(12)'nin aritmetik ortalamasını kullanır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang tr`
 
 ### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
 
@@ -3791,6 +3851,67 @@ Sıfır yükte yalnızca sıfırda yuvarlama ve tekrarlanabilirlik katkı verir;
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang tr`
 
+### Terazi 220 g / 0,1 mg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H1.4/A)
+
+`cg18-h1-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1.1/A to H1.4/A; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Electronic balance, Max 220 g, d = 0.1 mg. Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), 7.1.2-5e (room temperature variation 5 K) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = 6,71e-06, u(a₁) = 1,242e-06.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 1,467e-08 g² (7.4.1-6); s tekrarlanabilirlik deneyinden (0,000114 g), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 1,242e-06 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 1,299e-06 (K_T = 1,5e-06/K, ΔT = 3 K: yerleşik ayar 3 K'de devreye girer, 7.4.3-1), kaldırma kuvveti √(1,07·10⁻⁴ + 1,33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1,636e-06 (7.4.3-4), dara deney noktalarından (q_E,maks − q_E,min)/√12 = 1,072e-06 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 1,155e-06 (7.4.4-10); β_W² = 8,389e-12.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 0,0002422 g + 1,151e-05·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 3 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0,07292 g (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = 6,710 × 10⁻⁶·I; χ²_göz = 0,298, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 1,24 × 10⁻⁶
+- U_gl(W) = 0,0002422 g + 1,151 × 10⁻⁵·R
+- R_min,SF = 0,0729 g (Req = %1, SF = 3)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+- H1/A hataları 7.1.2-5e bütçesiyle (oda sıcaklığı değişimi), H2/A ise en tutucu 7.1.2-5d bütçesiyle uydurur; basılı a₁ ve u(a₁) yalnızca bu seçimlerle yeniden elde edilir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h1-a-weighing-result.json --lang tr`
+
+### Terazi 220 g / 0,1 mg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H1.4/B)
+
+`cg18-h1-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1.1/B to H1.4/B; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Electronic balance, Max 220 g, d = 0.1 mg. Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), 7.1.2-5c (adjusted immediately before calibration) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = -3,898e-07, u(a₁) = 6,332e-07.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 1,467e-08 g² (7.4.1-6); s tekrarlanabilirlik deneyinden (0,000114 g), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 6,332e-07 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 1,299e-06 (K_T = 1,5e-06/K, ΔT = 3 K: yerleşik ayar 3 K'de devreye girer, 7.4.3-1), kaldırma kuvveti √(1,07·10⁻⁴ + 1,33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1,636e-06 (7.4.3-4), dara deney noktalarından (q_E,maks − q_E,min)/√12 = 1,155e-06 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 1,155e-06 (7.4.4-10); β_W² = 7,432e-12.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 0,0002422 g + 4,851e-06·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 3 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0,07277 g (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = -3,898 × 10⁻⁷·I; χ²_göz = 0,331, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6,33 × 10⁻⁷
+- U_gl(W) = 0,0002422 g + 4,851 × 10⁻⁶·R
+- R_min,SF = 0,0728 g (Req = %1, SF = 3)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+- Kılavuz u_bağıl(δR_Dara) = 5,774·10⁻⁷ basar. Deney noktaları arasındaki eğimler 0, −2·10⁻⁶, +2·10⁻⁶ ve −1,43·10⁻⁶'dır; dolayısıyla (q_E,maks − q_E,min)/√12 = 4·10⁻⁶/√12 = 1,155e-06 (7.4.4-5); basılı değer 2·10⁻⁶ genişliğe karşılık gelir. Proje formülü kullanır: β_W² = 6,433·10⁻¹² yerine 7,432e-12, U_gl(W) eğimi 4,479·10⁻⁶ yerine 4,851e-06, minimum tartım 0,0727 g yerine 0,07277 g (araştırma günlüğü F76).
+- Kılavuz a₁ = 3,895·10⁻⁷ değerini işaretsiz basar; hatalar (100 g ve 220 g'da −0,1 mg) a₁ = −3,895·10⁻⁷ verir. Genel belirsizliğe yalnızca |a₁| girer.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h1-b-weighing-result.json --lang tr`
+
 ### Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesi olmadan 10 kg'da hata (EURAMET cg-18 H2, seçenek 1)
 
 `cg18-h2-60kg-10kg-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
@@ -3948,6 +4069,67 @@ Bulunduğu hâliyle, kalibrasyondan önce ayarlanmadan kalibre edilen 60 kg'lık
 - E = (0,0 ± 3,1) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,52 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang tr`
+
+### Çok aralıklı tartı aleti 12/30/60 kg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H2.4/A)
+
+`cg18-h2-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2.1/A to H2.4/A; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Multi-interval scale, Max 12/30/60 kg, d = 2/5/10 g. Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), 7.1.2-5d (no information on the air density) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = -0,0001717, u(a₁) = 6,459e-05.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 1,867 g², 9,917 g², 16,17 g² (7.4.1-6); s tekrarlanabilirlik deneylerinden (1,095, 2,739, 2,739 g), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 6,459e-05 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 1,732e-06 (K_T = 2e-06/K, ΔT = 3 K: yerleşik ayar 3 K'de devreye girer, 7.4.3-1), kaldırma kuvveti ilgili değil, dara deney noktalarından (q_E,maks − q_E,min)/√12 = 0,0001444 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 0,0001443 (7.4.4-10); β_W² = 4,586e-08.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d, aralık başına -3f); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 2,733 g + 0,0004291·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 2 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 597,8 g (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = -0,0001717·I; χ²_göz = 1,82, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6,46 × 10⁻⁵
+- U_gl(W) = 2,733 g + 0,0004291·R
+- R_min,SF = 598 g (Req = %1, SF = 2)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+- Kılavuz ikinci ve üçüncü aralığın birinci mertebe U(W)'sini 10,190 g + 3,434·10⁻⁴(R − 12 000 g) ve 20,311 g + 3,923·10⁻⁴(R − 30 000 g) olarak basar. 10,190 g ve 20,311 g, 12 000 g ve 30 000 g'daki genel belirsizliklerdir, U(W) + |a₁|R; U(W)'nin kendisi orada 8,129 g ve 15,16 g'dır. Eğimler ve genel belirsizlik doğruları doğrudur (araştırma günlüğü F75).
+- Kılavuz a₁ = 1,717·10⁻⁴ değerini işaretsiz basar; hatalar negatiftir (20 kg'da −5 g, 40 ve 60 kg'da −10 g).
+- H1/A hataları 7.1.2-5e bütçesiyle (oda sıcaklığı değişimi), H2/A ise en tutucu 7.1.2-5d bütçesiyle uydurur; basılı a₁ ve u(a₁) yalnızca bu seçimlerle yeniden elde edilir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-a-weighing-result.json --lang tr`
+
+### Çok aralıklı tartı aleti 12/30/60 kg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H2.4/B)
+
+`cg18-h2-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2.1/B to H2.4/B; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Multi-interval scale, Max 12/30/60 kg, d = 2/5/10 g. Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), 7.1.2-5c (adjusted immediately before calibration) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = 0, u(a₁) = 6,043e-05.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 1,467 g², 7,417 g², 13,67 g² (7.4.1-6); s tekrarlanabilirlik deneylerinden (0,8944, 2,236, 2,236 g), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 6,043e-05 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 1,732e-06 (K_T = 2e-06/K, ΔT = 3 K: yerleşik ayar 3 K'de devreye girer, 7.4.3-1), kaldırma kuvveti ilgili değil, dara deney noktalarından (q_E,maks − q_E,min)/√12 = 0 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 0,0001443 (7.4.4-10); β_W² = 2,449e-08.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d, aralık başına -3f); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 2,422 g + 0,0001706·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 2 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 501,5 g (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = 0·I; χ²_göz = 0, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6,04 × 10⁻⁵
+- U_gl(W) = 2,422 g + 0,0001706·R
+- R_min,SF = 502 g (Req = %1, SF = 2)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-b-weighing-result.json --lang tr`
 
 ### Köprü kantar 30 t: 10 t standart ağırlıkta hata (EURAMET cg-18 H3)
 

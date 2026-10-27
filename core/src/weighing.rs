@@ -292,6 +292,190 @@ pub fn minimum_s_m(
     Ok(hi)
 }
 
+// ---------------------------------------------------------------------------
+// Uncertainty of a weighing result in use (7.4, 7.5) and minimum weight (G)
+// ---------------------------------------------------------------------------
+
+/// Relative standard uncertainty of an off-centre load in use, the effect
+/// found at calibration taken in full: ΔI_ecc,max/(L_ecc√3) (7.4.4-10).
+pub fn relative_eccentricity(deviation: f64, load: f64) -> f64 {
+    deviation.abs() / (load * 3f64.sqrt())
+}
+
+/// Temperature drift of the sensitivity, K_T·ΔT/√12 (7.4.3-1).
+pub fn relative_temperature(coefficient: f64, delta_t: f64) -> f64 {
+    (coefficient * delta_t).abs() / 12f64.sqrt()
+}
+
+/// Change of the adjustment due to the air density, instrument not adjusted
+/// before use, from the temperature variation ΔT at the site (7.4.3-4):
+/// √(1.07·10⁻⁴ + 1.33·10⁻⁶ K⁻²·ΔT²)·ρ₀/ρ_c.
+pub fn relative_buoyancy(delta_t: f64, rho_0: f64, rho_c: f64) -> f64 {
+    (1.07e-4 + 1.33e-6 * delta_t * delta_t).sqrt() * rho_0 / rho_c
+}
+
+/// The most conservative buoyancy term, 0.1ρ₀/(ρ_c√3) (7.4.3-5).
+pub fn relative_buoyancy_conservative(rho_0: f64, rho_c: f64) -> f64 {
+    0.1 * rho_0 / (rho_c * 3f64.sqrt())
+}
+
+/// Drift of the adjustment between calibrations, ΔE(Max)/(Max√3) (7.4.3-6).
+pub fn relative_adjustment(delta_e_max: f64, max: f64) -> f64 {
+    delta_e_max.abs() / (max * 3f64.sqrt())
+}
+
+/// Tare balancing: the non-linearity of the error curve from the slopes
+/// q_E = ΔE/ΔI between consecutive test points, (q_E,max − q_E,min)/√12
+/// (7.4.4-4, -5). `points` are (indication, error) in the same unit.
+pub fn relative_tare(points: &[(f64, f64)]) -> Result<f64, UncError> {
+    let mut p = points.to_vec();
+    p.sort_by(|a, b| a.0.total_cmp(&b.0));
+    let q: Vec<f64> = p.windows(2).filter(|w| w[1].0 > w[0].0).map(|w| (w[1].1 - w[0].1) / (w[1].0 - w[0].0)).collect();
+    if q.is_empty() {
+        return Err(invalid("the tare term needs at least two test points with different indications"));
+    }
+    let max = q.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+    let min = q.iter().copied().fold(f64::INFINITY, f64::min);
+    Ok((max - min) / 12f64.sqrt())
+}
+
+/// Creep and hysteresis from the error on return to zero after loading
+/// upwards, |E₀|/(Max√3) (7.4.4-7), or from m·mpe(Max)/(Max√3) (7.4.4-9a, -9b).
+pub fn relative_time(limit: f64, max: f64) -> f64 {
+    limit.abs() / (max * 3f64.sqrt())
+}
+
+/// One weighing interval (or range) in use: upper limit Max_i, scale
+/// interval d_i and the standard deviation s of a single reading.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct UseInterval {
+    pub max: f64,
+    pub d: f64,
+    pub s: f64,
+}
+
+/// The uncertainty of a weighing result in use, u²(W) = α_W² + β_W²R²
+/// (7.4.5-1b, -2), with the error approximated by E(R) = a₁R (C2.2-16).
+#[derive(Clone, Debug, PartialEq)]
+pub struct WeighingInUse {
+    /// Intervals in ascending order of Max.
+    pub intervals: Vec<UseInterval>,
+    /// Scale interval at zero, d₀.
+    pub d0: f64,
+    /// Relative standard uncertainties, u(a₁) of the error function included.
+    pub relative: Vec<f64>,
+    /// Slope a₁ of the approximated error.
+    pub a1: f64,
+    /// Coverage factor (7.5.1-2b; normally 2).
+    pub k: f64,
+}
+
+/// The linear forms of 7.5.2-3d/-3f and 7.5.2-3e for each interval:
+/// U(W) ≈ U(L_i) + b_i(R − L_i) and U_gl(W) ≈ c_i + (b_i + |a₁|)(R − L_i),
+/// where L_i = Max_{i−1} (0 for the first interval).
+#[derive(Clone, Debug, PartialEq)]
+pub struct InUseResult {
+    pub alpha_squared: Vec<f64>,
+    pub beta_squared: f64,
+    pub lower: Vec<f64>,
+    pub expanded_at_lower: Vec<f64>,
+    pub slope: Vec<f64>,
+    pub global_at_lower: Vec<f64>,
+    pub global_slope: Vec<f64>,
+}
+
+impl WeighingInUse {
+    pub fn evaluate(&self) -> Result<InUseResult, UncError> {
+        if self.intervals.is_empty() {
+            return Err(invalid("at least one weighing interval is needed"));
+        }
+        let mut prev = 0.0;
+        for i in &self.intervals {
+            if !(i.max > prev && i.d > 0.0 && i.s >= 0.0 && i.max.is_finite() && i.s.is_finite()) {
+                return Err(invalid("intervals need increasing Max > 0, d > 0 and s ≥ 0"));
+            }
+            prev = i.max;
+        }
+        if !(self.d0 > 0.0 && self.k > 0.0 && self.a1.is_finite())
+            || self.relative.iter().any(|u| !(u.is_finite() && *u >= 0.0))
+        {
+            return Err(invalid("d₀ and k must be positive and the relative terms finite and non-negative"));
+        }
+        let beta_squared: f64 = self.relative.iter().map(|u| u * u).sum();
+        let alpha_squared: Vec<f64> =
+            self.intervals.iter().map(|i| self.d0 * self.d0 / 12.0 + i.d * i.d / 12.0 + i.s * i.s).collect();
+        let n = self.intervals.len();
+        let (mut lower, mut at_lower, mut slope, mut g_lower, mut g_slope) = (vec![], vec![], vec![], vec![], vec![]);
+        for i in 0..n {
+            let lo = if i == 0 { 0.0 } else { self.intervals[i - 1].max };
+            let hi = self.intervals[i].max;
+            let u = |r: f64| self.k * (alpha_squared[i] + beta_squared * r * r).sqrt();
+            let b = (u(hi) - u(lo)) / (hi - lo);
+            lower.push(lo);
+            at_lower.push(u(lo));
+            slope.push(b);
+            g_lower.push(u(lo) + self.a1.abs() * lo);
+            g_slope.push(b + self.a1.abs());
+        }
+        Ok(InUseResult {
+            alpha_squared,
+            beta_squared,
+            lower,
+            expanded_at_lower: at_lower,
+            slope,
+            global_at_lower: g_lower,
+            global_slope: g_slope,
+        })
+    }
+}
+
+impl InUseResult {
+    /// The interval that contains the reading, Max_{i−1} < R ≤ Max_i (the
+    /// last one beyond Max).
+    pub fn interval(&self, reading: f64) -> usize {
+        (0..self.lower.len()).rev().find(|&i| reading > self.lower[i]).unwrap_or(0)
+    }
+
+    /// U(W) = k√(α_i² + β²R²) (7.5.1-2b) for coverage factor `k`.
+    pub fn expanded(&self, reading: f64, k: f64) -> f64 {
+        let i = self.interval(reading);
+        k * (self.alpha_squared[i] + self.beta_squared * reading * reading).sqrt()
+    }
+
+    /// The linear form of U(W) (7.5.2-3d, -3f).
+    pub fn expanded_linear(&self, reading: f64) -> f64 {
+        let i = self.interval(reading);
+        self.expanded_at_lower[i] + self.slope[i] * (reading - self.lower[i])
+    }
+
+    /// The global uncertainty in its linear form (7.5.2-3e, G-3).
+    pub fn global(&self, reading: f64) -> f64 {
+        let i = self.interval(reading);
+        self.global_at_lower[i] + self.global_slope[i] * (reading - self.lower[i])
+    }
+
+    /// Minimum weight R_min,SF: the smallest reading with
+    /// U_gl(W)/R ≤ Req/SF (G-5 to G-9), searched interval by interval
+    /// (the first interval gives G-9, α_gl·SF/(Req − β_gl·SF)). None if no
+    /// reading up to the last Max qualifies.
+    pub fn minimum_weight(&self, requirement: f64, safety_factor: f64, last_max: f64) -> Option<f64> {
+        let target = requirement / safety_factor;
+        for i in 0..self.lower.len() {
+            let lo = self.lower[i];
+            let hi = if i + 1 < self.lower.len() { self.lower[i + 1] } else { last_max };
+            let intercept = self.global_at_lower[i] - self.global_slope[i] * lo;
+            let denom = target - self.global_slope[i];
+            if denom > 0.0 {
+                let r = intercept / denom;
+                if (lo..=hi).contains(&r) {
+                    return Some(r);
+                }
+            }
+        }
+        None
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -416,5 +600,59 @@ mod tests {
         assert!(
             approximate(&p, Polynomial { degree: 0, through_zero: false }, ReferenceCorrelation::None, 0.0).is_err()
         );
+    }
+
+    #[test]
+    fn weighing_result_of_example_h1() {
+        // cg-18 H1.4/A: 220 g / 0.1 mg, s = 0.000114 g, K_T = 1.5·10⁻⁶/K, ΔT = 3 K.
+        let tare =
+            relative_tare(&[(0.0, 0.0), (50.0004, 0.0004), (100.0006, 0.0007), (150.0009, 0.0010), (220.0014, 0.0013)])
+                .unwrap();
+        close(tare, 1.072e-6, 5e-10);
+        close(relative_temperature(1.5e-6, 3.0), 1.299e-6, 5e-10);
+        close(relative_buoyancy(3.0, 1.2, 8000.0), 1.636e-6, 5e-10);
+        close(relative_eccentricity(0.0002, 100.0), 1.155e-6, 5e-10);
+        let w = WeighingInUse {
+            intervals: vec![UseInterval { max: 220.0, d: 0.0001, s: 0.000114 }],
+            d0: 0.0001,
+            relative: vec![1.2416e-6, 1.299e-6, 1.636e-6, tare, 1.155e-6],
+            a1: 6.709e-6,
+            k: 2.0,
+        };
+        let r = w.evaluate().unwrap();
+        close(r.alpha_squared[0], 1.467e-8, 1e-11);
+        close(r.beta_squared, 8.390e-12, 5e-15);
+        close(r.expanded_at_lower[0], 2.422e-4, 1e-7);
+        close(r.slope[0], 4.796e-6, 2e-9);
+        close(r.global_slope[0], 1.150e-5, 5e-9);
+        close(r.minimum_weight(0.01, 3.0, 220.0).unwrap(), 0.0729, 5e-5);
+        close(r.expanded_linear(220.0), r.expanded(220.0, 2.0), 1e-15);
+    }
+
+    #[test]
+    fn multi_interval_linear_forms_are_continuous() {
+        let w = WeighingInUse {
+            intervals: vec![
+                UseInterval { max: 12000.0, d: 2.0, s: 1.095 },
+                UseInterval { max: 30000.0, d: 5.0, s: 2.739 },
+                UseInterval { max: 60000.0, d: 10.0, s: 2.739 },
+            ],
+            d0: 2.0,
+            relative: vec![(4.589e-8f64).sqrt()],
+            a1: -1.717e-4,
+            k: 2.0,
+        };
+        let r = w.evaluate().unwrap();
+        // H2.4/A: α² = 1.867, 9.917, 16.167 g²; slopes 2.574, 3.434, 3.923 (×10⁻⁴).
+        close(r.alpha_squared[1], 9.917, 2e-3);
+        close(r.slope[1], 3.434e-4, 2e-7);
+        close(r.slope[2], 3.923e-4, 3e-7);
+        // The global form is U(W) + |a₁|R at the lower limit of each interval.
+        let u2 = 2.0 * (r.alpha_squared[1] + r.beta_squared * 12000.0f64.powi(2)).sqrt();
+        close(r.global_at_lower[1], u2 + 1.717e-4 * 12000.0, 1e-9);
+        close(r.minimum_weight(0.01, 2.0, 60000.0).unwrap(), 598.0, 0.5);
+        assert_eq!(r.interval(12000.0), 0);
+        assert_eq!(r.interval(12000.5), 1);
+        assert_eq!(r.interval(0.0), 0);
     }
 }

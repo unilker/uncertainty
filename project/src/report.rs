@@ -735,6 +735,8 @@ struct TdLabels {
     test: &'static str,
     mean_recovery: &'static str,
     u_recovery: &'static str,
+    weighted_recovery: &'static str,
+    u_weighted: &'static str,
     sd_recoveries: &'static str,
     u_used: &'static str,
     significance: &'static str,
@@ -802,6 +804,8 @@ const TD_EN: TdLabels = TdLabels {
     test: "Test",
     mean_recovery: "Mean recovery R̄",
     u_recovery: "Standard uncertainty of R̄",
+    weighted_recovery: "Weighted mean recovery R̿ (MUPR Eq. 16.1)",
+    u_weighted: "Standard uncertainty of R̿, (Σ1/u²)^−½",
     sd_recoveries: "Standard deviation of the recoveries s(R)",
     u_used: "Uncertainty used (with s(R))",
     significance: "Significance test",
@@ -869,6 +873,8 @@ const TD_TR: TdLabels = TdLabels {
     test: "Deney",
     mean_recovery: "Ortalama geri kazanım R̄",
     u_recovery: "R̄'nin standart belirsizliği",
+    weighted_recovery: "Ağırlıklı ortalama geri kazanım R̿ (MUPR Eş. 16.1)",
+    u_weighted: "R̿'nin standart belirsizliği, (Σ1/u²)^−½",
     sd_recoveries: "Geri kazanımların standart sapması s(R)",
     u_used: "Kullanılan belirsizlik (s(R) dahil)",
     significance: "Anlamlılık testi",
@@ -1145,8 +1151,10 @@ fn topdown_markdown(
                 fmt_pct(e.u, 3, lang, false)
             );
         }
-        let _ = writeln!(s, "\n- {}: {}", d.mean_recovery, fmt_pct(r.mean, 4, lang, false));
-        let _ = writeln!(s, "- {}: {}", d.u_recovery, fmt_pct(r.u_mean, 3, lang, false));
+        let (mean_label, u_label) =
+            if r.weighted { (d.weighted_recovery, d.u_weighted) } else { (d.mean_recovery, d.u_recovery) };
+        let _ = writeln!(s, "\n- {}: {}", mean_label, fmt_pct(r.mean, 4, lang, false));
+        let _ = writeln!(s, "- {}: {}", u_label, fmt_pct(r.u_mean, 3, lang, false));
         if let Some(sd) = r.sd_of_recoveries {
             let _ = writeln!(s, "- {}: {}", d.sd_recoveries, fmt_pct(sd, 3, lang, false));
         }

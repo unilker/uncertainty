@@ -86,7 +86,17 @@ kazanım** R̄ ile ele alır (`"recovery"` bölümü):
 * referans malzeme veya katkılı kör: Rᵢ = c̄ᵢ/Cᵢ, u²(Rᵢ) = Rᵢ²[(sᵢ/(c̄ᵢ√nᵢ))² + (u(Cᵢ)/Cᵢ)²] (Eş. 8–9);
 * doğal analit içeren katkılı numune: Rᵢ = (c̄ − c̄₀)/c₊; her iki ortalamanın ve katkının belirsizlikleriyle
   (Eş. 10–11);
+* başka bir yerde (bir validasyon tablosunda, yayımlanmış bir çizelgede) değerlendirilmiş ve standart
+  belirsizliğiyle verilen bir geri kazanım;
 * R̄ = ΣRᵢ/N ve u(R̄) = √(Σu²(Rᵢ))/N (Eş. 12).
+
+**Ağırlıklı ortalama geri kazanım.** u(Rᵢ) değerleri belirgin biçimde farklıysa MUPR Eş. (8)'in dipnotu, daha
+az belirsiz geri kazanımlara daha çok ağırlık veren ağırlıklı ortalamaya izin verir. `"mean": "weighted"` ile
+program R̿ = Σ(Rᵢ/u²(Rᵢ))/Σ(1/u²(Rᵢ)) (Eş. 16.1) ve ağırlıklı ortalamanın standart belirsizliğini,
+u(R̿) = (Σ1/u²(Rᵢ))^−½, kullanır. Böylece u(Rᵢ) değeri büyük olan bir deneyin (örneğin doğal analitten çok küçük
+bir katkının) etkisi neredeyse kalmaz; oysa bu deney √(Σu²(Rᵢ))/N'yi belirler. Kütüphanedeki
+`bettencourt2026-fluoranthene-weighted` ve `-arithmetic` projeleri aynı 20 geri kazanım üzerinde iki seçeneği
+karşılaştırır.
 
 **Anlamlılık testi (Eş. 13).** |1 − R̄|/u(R̄), seçilen güven düzeyi (varsayılan %95) için iki taraflı t
 değerinden büyükse geri kazanım 1'den anlamlı olarak farklıdır ve sonuçlar düzeltilir, c_düz = c/R̄; bağıl

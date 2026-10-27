@@ -132,14 +132,18 @@ uncertainty shared by all references. Each reference:
 
 ### Recovery
 
-`{ "name", "tests": [ … ], "include_sd_of_recoveries": false, "dof", "confidence": 0.95, "correction":
-"if_significant" | "always" | "never" }` with tests:
+`{ "name", "tests": [ … ], "mean": "arithmetic" | "weighted", "include_sd_of_recoveries": false, "dof",
+"confidence": 0.95, "correction": "if_significant" | "always" | "never" }` with tests:
 
 | `type` | Fields |
 |---|---|
 | `reference` | `measured` or `mean`, `sd`, `n`; `reference`; `u_reference` or `expanded` with `k` |
 | `spiked` | `after` or `mean_after`, `sd_after`, `n_after`; the same for `before`; `spike`; `u_spike` or `u_spike_percent` |
 | `recoveries` | `values_percent`, or `mean_percent`, `sd_percent`, `n` |
+| `given` | `recovery_percent`, `u_percent` (a recovery and its standard uncertainty evaluated elsewhere) |
+
+`"mean": "weighted"` combines the tests by the inverse-variance weighted mean of MUPR Eq. (16.1) with
+u(R̿) = (Σ1/u²)^−½; the default is the arithmetic mean of Eq. (8)–(12).
 
 The default degrees of freedom of the significance test are Σ(nᵢ − 1) over the tests, or N − 1 if that sum is
 zero or s(R) is included.
@@ -327,6 +331,31 @@ The error approximation function of a weighing instrument (EURAMET cg-18 Appendi
 | `s_m` | model term on the diagonal of U(e) (C2.2-3c), default 0 |
 | `coverage_factor` | k of U(E_appr) and of the residual test C2.2-2b (default 2) |
 | `readings` | readings R (`reading`, optional `u_reading`) at which E_appr(R) and its uncertainty are reported |
+| `in_use` | uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, Appendix G; 16.5); needs `degree` 1 and `through_zero` |
+
+```json
+"in_use": {
+  "intervals": [{ "max": 12000, "d": 2, "repeatability": [9998, 10000, 9998, 10000, 10000] },
+                { "max": 30000, "d": 5, "s": 2.739 }],
+  "eccentricity": { "deviation": 5, "load": 20000 }, "temperature": { "coefficient": 2e-6, "delta_t": 3 },
+  "buoyancy": { "delta_t": 3 }, "tare": true, "requirement": 0.01, "safety_factor": 2, "readings": [12000, 30000]
+}
+```
+
+| Field of `in_use` | Content (masses in `unit`) |
+|---|---|
+| `intervals` | weighing intervals or ranges in ascending order: `max`, scale interval `d`, and `s` or the `repeatability` readings |
+| `d0` | scale interval at zero (default: `d` of the first interval) |
+| `eccentricity` | `deviation` ΔI_ecc,max and `load` L_ecc: u_rel = ΔI_ecc,max/(L_ecc√3) (7.4.4-10) |
+| `temperature` | `coefficient` K_T (1/K) and `delta_t` ΔT (K): K_T·ΔT/√12 (7.4.3-1) |
+| `buoyancy` | `delta_t` (7.4.3-4), `conservative: true` (7.4.3-5) or `relative`; `rho_0` (1.2) and `rho_c` (8000 kg/m³) |
+| `adjustment` | `delta_e_max` ΔE(Max) between calibrations: ΔE/(Max√3) (7.4.3-6) |
+| `tare` | `true`: tare balancing in use, (q_E,max − q_E,min)/√12 from the test points (7.4.4-5) |
+| `time` | creep and hysteresis: `e0` (7.4.4-7) or `mpe_max` with `multiplier` (7.4.4-9a, -9b) |
+| `relative` | further relative standard uncertainties `{ "name", "u" }` |
+| `coverage_factor` | k of U(W) and U_gl(W) (default 2, 7.5.1) |
+| `requirement`, `safety_factor` | relative weighing tolerance Req (0.01 = 1 %) and SF (default 1) for the minimum weight (G-7, G-9) |
+| `readings` | readings at which U(W) and U_gl(W) are reported |
 
 ## 7.15 Errors
 
@@ -378,4 +407,6 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
   one per step), `rsd_sampling`, `rsd_total`, `expanded_relative_sampling`, `expanded_relative_total`
 * `error_function`: `coefficients` and `u_coefficients` (lists, in the order of the powers), `chi_squared`,
   `chi_squared_passed` (true/false), `residual_failures` (number of points failing C2.2-2b), `u_approximated` (list,
-  one per point), `readings` (list of `{ "error", "u" }`)
+  one per point), `readings` (list of `{ "error", "u" }`); `in_use`: `alpha_squared`, `expanded_at_lower`, `slope`,
+  `global_at_lower`, `global_slope` (lists, one per interval), `beta_squared`, `minimum_weight` (with the safety
+  factor)

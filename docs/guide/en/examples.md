@@ -2,12 +2,12 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (92)
+- Chemistry (94)
 - Electrical and RF (31)
 - Flow and volume (7)
 - General (method validation) (19)
 - Length (11)
-- Mass (24)
+- Mass (28)
 - Physical properties (8)
 - Pressure (1)
 - Temperature (10)
@@ -1413,6 +1413,66 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 - The mean of the RSDs of Table A6.3 is 3.16 %, not the printed 3.3 %; the project uses 3.16 %. The combined uncertainty (11.3 %) and U = 26 mg/kg are unchanged.
 
 **Run:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang en`
+
+### Fluoranthene in river sediments, arithmetic mean recovery (MUPR Eq. 8–12) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-arithmetic` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+Top-down uncertainty of fluoranthene in river sediments from the in-house validation data of the MUPR spreadsheet: a two-interval precision model and 20 mean recoveries that are not compatible, so the dispersion of the recoveries is added and results are corrected for recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Fluoranthene in river sediments by accelerated solvent extraction and GC-MS/MS, validated over eight days. The spreadsheet of the paper implements the Eurachem/CITAC MUPR guide; Supplementary Material 06 excludes the spikes smaller than 10 % of the native mass fraction.
+2. Precision model: interval I (−0.1 to 1.5 mg/kg) constant absolute s_I = 0.075185 mg/kg (= 1.5 mg/kg × s′_I); interval II (1.5 to 10.01 mg/kg) constant relative s′_I = 5.0123 %. A single result is reported, so s_I is the precision component.
+3. Recovery: 20 mean recoveries, from the CRM, three spikes of a sediment without native analyte and 16 spikes of sediments with native analyte, each with u(R_k) from the spreadsheet (precision model and spike uncertainty). They range from 53.2 % to 89.8 %.
+4. χ² test (Eq. 16.2): χ² = 40.97 > χ²(0.95; 19) = 30.14; the recoveries are not compatible, so s(R) = 8.755 % is added to the uncertainty of the mean recovery (MUPR 8.2.7).
+5. Arithmetic mean recovery R̄ = ΣR_k/N = 76.307 % with u(R̄) = √Σu²(R_k)/N = 4.008 % (Eq. 12); with s(R): u = 9.629 %. The test SS95(SP1) (u = 75 %) contributes most of u(R̄).
+6. Significance (Eq. 13): |1 − R|/u = 2.461 > t(0.975; 19) = 2.093; results are corrected, c = x/R. Coverage factor k = 2.093 from the minimum degrees of freedom of the components (ν = 19, the recoveries), as in the spreadsheet.
+7. Results: x = 0.1 mg/kg → (0.1310 ± 0.2091) mg/kg; x = 10 mg/kg → (13.105 ± 3.724) mg/kg (28.4 %).
+
+**Result:**
+
+- w(fluoranthene) = (0.13 ± 0.21) mg/kg (k = 2.09)
+- w(fluoranthene) = (13.1 ± 3.7) mg/kg (k = 2.09)
+
+**Notes:**
+
+- The spreadsheet reports (13.35 ± 3.86) mg/kg at 10 mg/kg and (0.134 ± 0.161) mg/kg at 0.1 mg/kg. It uses the weighted mean R̿ = 74.887 % with the uncertainty of the arithmetic mean, √Σu²/N = 4.008 % (research log F73), and does not divide the absolute precision of interval I by R̿ (F72). The text of the paper prints k = 2.01; the spreadsheet uses 2.093 (F71).
+- The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the weighted mean of MUPR Eq. (16.1) with its own uncertainty.
+
+**Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang en`
+
+### Fluoranthene in river sediments, weighted mean recovery (MUPR Eq. 16.1) (Bettencourt da Silva 2026)
+
+`bettencourt2026-fluoranthene-weighted` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
+
+Top-down uncertainty of fluoranthene in river sediments from the in-house validation data of the MUPR spreadsheet: a two-interval precision model and 20 mean recoveries that are not compatible, so the dispersion of the recoveries is added and results are corrected for recovery.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Fluoranthene in river sediments by accelerated solvent extraction and GC-MS/MS, validated over eight days. The spreadsheet of the paper implements the Eurachem/CITAC MUPR guide; Supplementary Material 06 excludes the spikes smaller than 10 % of the native mass fraction.
+2. Precision model: interval I (−0.1 to 1.5 mg/kg) constant absolute s_I = 0.075185 mg/kg (= 1.5 mg/kg × s′_I); interval II (1.5 to 10.01 mg/kg) constant relative s′_I = 5.0123 %. A single result is reported, so s_I is the precision component.
+3. Recovery: 20 mean recoveries, from the CRM, three spikes of a sediment without native analyte and 16 spikes of sediments with native analyte, each with u(R_k) from the spreadsheet (precision model and spike uncertainty). They range from 53.2 % to 89.8 %.
+4. χ² test (Eq. 16.2): χ² = 40.97 > χ²(0.95; 19) = 30.14; the recoveries are not compatible, so s(R) = 8.755 % is added to the uncertainty of the mean recovery (MUPR 8.2.7).
+5. Weighted mean recovery R̿ = Σ(R_k/u²)/Σ(1/u²) = 74.887 % with u(R̿) = (Σ1/u²)^−½ = 0.996 %; with s(R): u = 8.812 %.
+6. Significance (Eq. 13): |1 − R|/u = 2.850 > t(0.975; 19) = 2.093; results are corrected, c = x/R. Coverage factor k = 2.093 from the minimum degrees of freedom of the components (ν = 19, the recoveries), as in the spreadsheet.
+7. Results: x = 0.1 mg/kg → (0.1335 ± 0.2127) mg/kg; x = 10 mg/kg → (13.353 ± 3.575) mg/kg (26.8 %).
+
+**Result:**
+
+- w(fluoranthene) = (0.13 ± 0.21) mg/kg (k = 2.09)
+- w(fluoranthene) = (13.4 ± 3.6) mg/kg (k = 2.09)
+
+**Notes:**
+
+- The spreadsheet reports (13.35 ± 3.86) mg/kg at 10 mg/kg and (0.134 ± 0.161) mg/kg at 0.1 mg/kg. It uses the weighted mean R̿ = 74.887 % with the uncertainty of the arithmetic mean, √Σu²/N = 4.008 % (research log F73), and does not divide the absolute precision of interval I by R̿ (F72). The text of the paper prints k = 2.01; the spreadsheet uses 2.093 (F71).
+- The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the arithmetic mean of MUPR Eq. (8)–(12).
+
+**Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang en`
 
 ### Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)
 
@@ -3791,6 +3851,67 @@ At zero load only the rounding at zero and the repeatability contribute; the rep
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang en`
 
+### Balance 220 g / 0.1 mg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H1.4/A)
+
+`cg18-h1-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1.1/A to H1.4/A; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic balance, Max 220 g, d = 0.1 mg. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5e (room temperature variation 5 K) (C2.2-18b, uncorrelated reference masses): a₁ = 6.71e-06, u(a₁) = 1.242e-06.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.467e-08 g² (7.4.1-6), with s from the repeatability test (0.000114 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 1.242e-06 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.299e-06 (K_T = 1.5e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy √(1.07·10⁻⁴ + 1.33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1.636e-06 (7.4.3-4), tare (q_E,max − q_E,min)/√12 = 1.072e-06 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 1.155e-06 (7.4.4-10); β_W² = 8.389e-12.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 0.0002422 g + 1.151e-05·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 3: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0.07292 g (G-9).
+
+**Result:**
+
+- E_appr(I) = 6.710 × 10⁻⁶·I; χ²_obs = 0.298, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 1.24 × 10⁻⁶
+- U_gl(W) = 0.0002422 g + 1.151 × 10⁻⁵·R
+- R_min,SF = 0.0729 g (Req = 1 %, SF = 3)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.
+
+**Run:** `uncertainty run library/mass/cg18-h1-a-weighing-result.json --lang en`
+
+### Balance 220 g / 0.1 mg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H1.4/B)
+
+`cg18-h1-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H1.1/B to H1.4/B; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic balance, Max 220 g, d = 0.1 mg. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5c (adjusted immediately before calibration) (C2.2-18b, uncorrelated reference masses): a₁ = -3.898e-07, u(a₁) = 6.332e-07.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.467e-08 g² (7.4.1-6), with s from the repeatability test (0.000114 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 6.332e-07 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.299e-06 (K_T = 1.5e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy √(1.07·10⁻⁴ + 1.33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1.636e-06 (7.4.3-4), tare (q_E,max − q_E,min)/√12 = 1.155e-06 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 1.155e-06 (7.4.4-10); β_W² = 7.432e-12.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 0.0002422 g + 4.851e-06·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 3: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0.07277 g (G-9).
+
+**Result:**
+
+- E_appr(I) = -3.898 × 10⁻⁷·I; χ²_obs = 0.331, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6.33 × 10⁻⁷
+- U_gl(W) = 0.0002422 g + 4.851 × 10⁻⁶·R
+- R_min,SF = 0.0728 g (Req = 1 %, SF = 3)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints u_rel(δR_Tare) = 5.774·10⁻⁷. The slopes between the test points are 0, −2·10⁻⁶, +2·10⁻⁶ and −1.43·10⁻⁶, so (q_E,max − q_E,min)/√12 = 4·10⁻⁶/√12 = 1.155e-06 (7.4.4-5); the printed value corresponds to a width of 2·10⁻⁶. The project uses the formula: β_W² = 7.432e-12 instead of 6.433·10⁻¹², U_gl(W) slope 4.851e-06 instead of 4.479·10⁻⁶, minimum weight 0.07277 g instead of 0.0727 g (research log F76).
+- The guide prints a₁ = 3.895·10⁻⁷ without its sign; the errors (−0.1 mg at 100 g and 220 g) give a₁ = −3.895·10⁻⁷. Only |a₁| enters the global uncertainty.
+
+**Run:** `uncertainty run library/mass/cg18-h1-b-weighing-result.json --lang en`
+
 ### Multi-interval balance 60 kg: error at 10 kg without buoyancy correction (EURAMET cg-18 H2, option 1)
 
 `cg18-h2-60kg-10kg-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
@@ -3948,6 +4069,67 @@ A 60 kg multi-interval balance (2 g / 5 g / 10 g) calibrated as found, not adjus
 - E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang en`
+
+### Multi-interval scale 12/30/60 kg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H2.4/A)
+
+`cg18-h2-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2.1/A to H2.4/A; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Multi-interval scale, Max 12/30/60 kg, d = 2/5/10 g. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5d (no information on the air density) (C2.2-18b, uncorrelated reference masses): a₁ = -0.0001717, u(a₁) = 6.459e-05.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.867 g², 9.917 g², 16.17 g² (7.4.1-6), with s from the repeatability tests (1.095, 2.739, 2.739 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 6.459e-05 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.732e-06 (K_T = 2e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy not relevant, tare (q_E,max − q_E,min)/√12 = 0.0001444 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.0001443 (7.4.4-10); β_W² = 4.586e-08.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d, -3f per interval), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 2.733 g + 0.0004291·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 2: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 597.8 g (G-9).
+
+**Result:**
+
+- E_appr(I) = -0.0001717·I; χ²_obs = 1.82, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6.46 × 10⁻⁵
+- U_gl(W) = 2.733 g + 0.0004291·R
+- R_min,SF = 598 g (Req = 1 %, SF = 2)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints the first-order U(W) of the second and third intervals as 10.190 g + 3.434·10⁻⁴(R − 12 000 g) and 20.311 g + 3.923·10⁻⁴(R − 30 000 g). 10.190 g and 20.311 g are the global uncertainties at 12 000 g and 30 000 g, U(W) + |a₁|R; U(W) itself is 8.129 g and 15.16 g there. The slopes and the global lines are right (research log F75).
+- The guide prints a₁ = 1.717·10⁻⁴ without its sign; the errors are negative (−5 g at 20 kg, −10 g at 40 and 60 kg).
+- H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.
+
+**Run:** `uncertainty run library/mass/cg18-h2-a-weighing-result.json --lang en`
+
+### Multi-interval scale 12/30/60 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H2.4/B)
+
+`cg18-h2-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2.1/B to H2.4/B; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Multi-interval scale, Max 12/30/60 kg, d = 2/5/10 g. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5c (adjusted immediately before calibration) (C2.2-18b, uncorrelated reference masses): a₁ = 0, u(a₁) = 6.043e-05.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.467 g², 7.417 g², 13.67 g² (7.4.1-6), with s from the repeatability tests (0.8944, 2.236, 2.236 g) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 6.043e-05 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.732e-06 (K_T = 2e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy not relevant, tare (q_E,max − q_E,min)/√12 = 0 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.0001443 (7.4.4-10); β_W² = 2.449e-08.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d, -3f per interval), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 2.422 g + 0.0001706·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 2: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 501.5 g (G-9).
+
+**Result:**
+
+- E_appr(I) = 0·I; χ²_obs = 0, ν = 4 (C2.2-2a ✓); s_m = 0 g
+- u(a1) = 6.04 × 10⁻⁵
+- U_gl(W) = 2.422 g + 0.0001706·R
+- R_min,SF = 502 g (Req = 1 %, SF = 2)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+
+**Run:** `uncertainty run library/mass/cg18-h2-b-weighing-result.json --lang en`
 
 ### Weighbridge 30 t: error at 10 t of standard weights (EURAMET cg-18 H3)
 

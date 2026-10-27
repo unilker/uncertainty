@@ -1,0 +1,189 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg18-h1-a-weighing-result",
+    "title": {
+      "en": "Balance 220 g / 0.1 mg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H1.4/A)",
+      "tr": "Terazi 220 g / 0,1 mg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H1.4/A)"
+    },
+    "description": {
+      "en": "Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.",
+      "tr": "Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım."
+    },
+    "explanation": [
+      {
+        "en": "Electronic balance, Max 220 g, d = 0.1 mg. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget 7.1.2-5e (room temperature variation 5 K) (C2.2-18b, uncorrelated reference masses): a₁ = 6.71e-06, u(a₁) = 1.242e-06.",
+        "tr": "Electronic balance, Max 220 g, d = 0.1 mg. Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), 7.1.2-5e (room temperature variation 5 K) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = 6,71e-06, u(a₁) = 1,242e-06."
+      },
+      {
+        "en": "Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 1.467e-08 g² (7.4.1-6), with s from the repeatability test (0.000114 g) and d₀ = d₁.",
+        "tr": "Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 1,467e-08 g² (7.4.1-6); s tekrarlanabilirlik deneyinden (0,000114 g), d₀ = d₁."
+      },
+      {
+        "en": "Relative terms (in use): u(a₁) = 1.242e-06 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 1.299e-06 (K_T = 1.5e-06/K, ΔT = 3 K: the built-in adjustment acts at 3 K, 7.4.3-1), buoyancy √(1.07·10⁻⁴ + 1.33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1.636e-06 (7.4.3-4), tare (q_E,max − q_E,min)/√12 = 1.072e-06 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 1.155e-06 (7.4.4-10); β_W² = 8.389e-12.",
+        "tr": "Bağıl terimler (kullanımda): uyumdan u(a₁) = 1,242e-06 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 1,299e-06 (K_T = 1,5e-06/K, ΔT = 3 K: yerleşik ayar 3 K'de devreye girer, 7.4.3-1), kaldırma kuvveti √(1,07·10⁻⁴ + 1,33·10⁻⁶·ΔT²)·ρ₀/ρ_c = 1,636e-06 (7.4.3-4), dara deney noktalarından (q_E,maks − q_E,min)/√12 = 1,072e-06 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 1,155e-06 (7.4.4-10); β_W² = 8,389e-12."
+      },
+      {
+        "en": "U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 0.0002422 g + 1.151e-05·R in the first interval (7.5.2-3e).",
+        "tr": "U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 0,0002422 g + 1,151e-05·R (7.5.2-3e)."
+      },
+      {
+        "en": "Minimum weight for Req = 1 % and the safety factor SF = 3: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0.07292 g (G-9).",
+        "tr": "Req = %1 ve güvenlik faktörü SF = 3 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 0,07292 g (G-9)."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 18 v4.0 (2015), Guidelines on the Calibration of Non-Automatic Weighing Instruments",
+        "section": "Appendix H1.1/A to H1.4/A; 7.4, 7.5; Appendix G",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg18",
+      "balance",
+      "weighing-instrument",
+      "uncertainty-in-use",
+      "minimum-weight",
+      "error-function",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).",
+        "tr": "Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4)."
+      },
+      {
+        "en": "H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.",
+        "tr": "H1/A hataları 7.1.2-5e bütçesiyle (oda sıcaklığı değişimi), H2/A ise en tutucu 7.1.2-5d bütçesiyle uydurur; basılı a₁ ve u(a₁) yalnızca bu seçimlerle yeniden elde edilir."
+      }
+    ]
+  },
+  "error_function": {
+    "instrument": "Electronic balance, Max 220 g, d = 0.1 mg",
+    "unit": "g",
+    "error_unit": "g",
+    "points": [
+      {
+        "indication": 0.0,
+        "error": 0.0,
+        "u_reference": 0.0,
+        "u_indication": 0.000118
+      },
+      {
+        "indication": 50.0004,
+        "error": 0.0004,
+        "u_reference": 0.000107,
+        "u_indication": 0.000124
+      },
+      {
+        "indication": 100.0006,
+        "error": 0.0007,
+        "u_reference": 0.000205,
+        "u_indication": 0.000134
+      },
+      {
+        "indication": 150.0009,
+        "error": 0.001,
+        "u_reference": 0.000312,
+        "u_indication": 0.000149
+      },
+      {
+        "indication": 220.0014,
+        "error": 0.0013,
+        "u_reference": 0.000459,
+        "u_indication": 0.000175
+      }
+    ],
+    "through_zero": true,
+    "reference_correlation": "none",
+    "in_use": {
+      "intervals": [
+        {
+          "max": 220.0,
+          "d": 0.0001,
+          "repeatability": [
+            100.0006,
+            100.0003,
+            100.0005,
+            100.0004,
+            100.0005
+          ]
+        }
+      ],
+      "eccentricity": {
+        "deviation": 0.0002,
+        "load": 100.0
+      },
+      "temperature": {
+        "coefficient": 1.5e-06,
+        "delta_t": 3.0
+      },
+      "tare": true,
+      "requirement": 0.01,
+      "safety_factor": 3.0,
+      "readings": [
+        220.0
+      ],
+      "buoyancy": {
+        "delta_t": 3.0
+      }
+    }
+  },
+  "expected": {
+    "error_function": {
+      "coefficients": [
+        {
+          "value": 6.7096087808629734e-06,
+          "tolerance": 1.00635e-08
+        }
+      ],
+      "u_coefficients": [
+        {
+          "value": 1.242e-06,
+          "tolerance": 1.5000000000000002e-09
+        }
+      ],
+      "in_use": {
+        "alpha_squared": [
+          {
+            "value": 1.467e-08,
+            "tolerance": 2.934e-11
+          }
+        ],
+        "beta_squared": {
+          "value": 8.39e-12,
+          "tolerance": 1.678e-14
+        },
+        "expanded_at_lower": [
+          {
+            "value": 0.0002422,
+            "tolerance": 4.844e-07
+          }
+        ],
+        "slope": [
+          {
+            "value": 4.796e-06,
+            "tolerance": 9.592e-09
+          }
+        ],
+        "global_slope": [
+          {
+            "value": 1.15e-05,
+            "tolerance": 2.3e-08
+          }
+        ],
+        "minimum_weight": {
+          "value": 0.0729,
+          "tolerance": 0.0001229
+        }
+      }
+    },
+    "reference": {
+      "en": "EURAMET cg-18 v4.0 H1.1/A to H1.4/A: printed values of the uncertainty of a weighing result and the minimum weight.",
+      "tr": "EURAMET cg-18 v4.0 Ek H1.1/A to H1.4/A: tartım sonucunun belirsizliğinin ve minimum tartımın basılı değerleri."
+    }
+  }
+}

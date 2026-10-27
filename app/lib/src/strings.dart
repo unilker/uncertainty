@@ -227,6 +227,10 @@ class S {
     'ef_residual': ['Residual', 'Artık'],
     'ef_min_s_m': ['Smallest s_m for C2.2-2a / C2.2-2b', 'C2.2-2a / C2.2-2b için en küçük s_m'],
     'ef_readings': ['Approximated errors at readings', 'Okumalarda yaklaşık hatalar'],
+    'ef_in_use': ['Uncertainty of a weighing result in use (cg-18 7.4, 7.5)', 'Kullanımda tartım sonucunun belirsizliği (cg-18 7.4, 7.5)'],
+    'ef_from': ['from R', 'başlangıç R'],
+    'ef_slope': ['slope of U(W)', "U(W)'nin eğimi"],
+    'ef_min_weight': ['Minimum weight (Appendix G)', 'Minimum tartım (Ek G)'],
     'new_qc': ['New control chart', 'Yeni kontrol grafiği'],
     'new_qc_sub': ['Internal quality control (Nordtest TR 569)', 'İç kalite kontrolü (Nordtest TR 569)'],
     'qc_sample': ['Control sample', 'Kontrol numunesi'],
@@ -473,6 +477,9 @@ class S {
     'test_reference': ['reference material / spiked blank', 'referans malzeme / katkılı kör'],
     'test_spiked': ['spiked sample', 'katkılı numune'],
     'test_recoveries': ['list of recoveries', 'geri kazanım listesi'],
+    'test_given': ['recovery with its uncertainty', 'belirsizliğiyle geri kazanım'],
+    'mean_arithmetic': ['arithmetic (MUPR Eq. 8–12)', 'aritmetik (MUPR Eş. 8–12)'],
+    'mean_weighted': ['weighted, 1/u² (MUPR Eq. 16.1)', 'ağırlıklı, 1/u² (MUPR Eş. 16.1)'],
     'engine_error': ['Calculation error', 'Hesaplama hatası'],
   };
 

@@ -25,6 +25,8 @@ sayısal verileri ve sonuçları kaynak gösterilerek alınır.
 A7; B2, B4, B6, B8, B9, B10, B7 yerine NUM kılavuzu ve ek olarak Kallner).
 Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 
+**2026-10-27 güncellemesi:** Açık erişimli olduğu hâlde buradan indirilemeyen makalelerin listesi `status.md` §3'tedir.
+
 ## A. Standartlar (öncelik sırasıyla)
 
 | # | Belge | Ne için gerekli | Öncelik | Durum |
@@ -49,7 +51,7 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 | 4 | Palma C., Morgado V., Bettencourt da Silva R., *Talanta* 192 (2019) 278–287 | Matris etkisi belirsizliği (MUPR B5–B6) | Orta | **alındı** |
 | 5 | Kragten J., "Calculating standard deviations and confidence intervals with a universally applicable spreadsheet technique", *Analyst* 119 (1994) 2161–2166 | EURACHEM'in kullandığı sayısal yöntem; Kragten görünümünün birincil kaynağı | Orta | bekleniyor |
 | 6 | Wichmann B.A., Hill I.D., *Comput. Stat. Data Anal.* 51 (2006) 1614–1622 | Rastgele sayı üreticisinin birincil kaynağı | Orta | **alındı, doğrulandı (D29)** |
-| 7 | Lafarge T., Possolo A., "The NIST Uncertainty Machine", *NCSLI Measure* 10(3) (2015) 20–27 | Karşılaştırmalı değerlendirme; makalede atıf | Orta | kullanıcı kılavuzu (v1.4) alındı ve kullanıldı (D30); makalenin kendisi bekleniyor |
+| 7 | Lafarge T., Possolo A., "The NIST Uncertainty Machine", *NCSLI Measure* 10(3) (2015) 20–27, https://doi.org/10.1080/19315775.2015.11721732 | Karşılaştırmalı değerlendirme; makalede atıf | Orta | kullanıcı kılavuzu (v1.4) alındı ve kullanıldı (D30); makalenin kendisi bekleniyor |
 | 8 | Zeier M. ve ark., *Metrologia* 49 (2012) 809 | Rakip yazılım analizi | Düşük | **alındı** |
 | 9 | Marsaglia G., Tsang W.W., *ACM TOMS* 26 (2000) 363–372 | Gamma üreticisinin kaynağı | Düşük | **alındı, doğrulandı (D29)** |
 | 10 | Mateos R. ve ark., *Talanta* 207 (2020) 120274 | Ağırlıklı geri kazanım (MUPR dipnot) | Düşük | **alındı** |
