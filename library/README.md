@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**190 examples / örnek** (86 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 conformity assessment / uygunluk değerlendirmesi).
+**203 examples / örnek** (96 model, 36 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 3 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -271,12 +271,30 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`cg18-h1-220g-max-option1`](mass/cg18-h1-220g-max-option1.json) | Laboratory balance 220 g / 0.1 mg: error at 220 g without buoyancy correction (EURAMET cg-18 H1, option 1) | Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesi olmadan 220 g'da hata (EURAMET cg-18 H1, seçenek 1) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
 | [`cg18-h1-220g-max-option2`](mass/cg18-h1-220g-max-option2.json) | Laboratory balance 220 g / 0.1 mg: error at 220 g with the buoyancy correction (EURAMET cg-18 H1, option 2) | Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesiyle 220 g'da hata (EURAMET cg-18 H1, seçenek 2) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
 | [`cg18-h1-220g-zero`](mass/cg18-h1-220g-zero.json) | Laboratory balance 220 g / 0.1 mg: error at zero load (EURAMET cg-18 H1) | Laboratuvar terazisi 220 g / 0,1 mg: sıfır yükte hata (EURAMET cg-18 H1) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H1 |
+| [`cg18-h2-60kg-10kg-option1`](mass/cg18-h2-60kg-10kg-option1.json) | Multi-interval balance 60 kg: error at 10 kg without buoyancy correction (EURAMET cg-18 H2, option 1) | Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesi olmadan 10 kg'da hata (EURAMET cg-18 H2, seçenek 1) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H2, H2.3/A |
+| [`cg18-h2-60kg-max-adjusted`](mass/cg18-h2-60kg-max-adjusted.json) | Multi-interval balance 60 kg, adjusted before calibration: error at Max (EURAMET cg-18 H2, second situation) | Çok aralıklı terazi 60 kg, kalibrasyondan önce ayarlanmış: Max'ta hata (EURAMET cg-18 H2, ikinci durum) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H2, H2.3/B |
+| [`cg18-h2-60kg-max-option1-delta-t`](mass/cg18-h2-60kg-max-option1-delta-t.json) | Multi-interval balance 60 kg: error at Max with the buoyancy term for ΔT = 10 K (EURAMET cg-18 H2, option 1, formula 7.1.2-5e) | Çok aralıklı terazi 60 kg: ΔT = 10 K için kaldırma kuvveti terimiyle Max'ta hata (EURAMET cg-18 H2, seçenek 1, 7.1.2-5e formülü) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H2, H2.3/A |
+| [`cg18-h2-60kg-max-option1`](mass/cg18-h2-60kg-max-option1.json) | Multi-interval balance 60 kg: error at Max without buoyancy correction (EURAMET cg-18 H2, option 1) | Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesi olmadan Max'ta hata (EURAMET cg-18 H2, seçenek 1) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H2, H2.3/A |
+| [`cg18-h2-60kg-max-option2`](mass/cg18-h2-60kg-max-option2.json) | Multi-interval balance 60 kg: error at Max with the buoyancy correction (EURAMET cg-18 H2, option 2) | Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesiyle Max'ta hata (EURAMET cg-18 H2, seçenek 2) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H2, H2.3/A |
+| [`cg18-h2-60kg-zero`](mass/cg18-h2-60kg-zero.json) | Multi-interval balance 60 kg: error at zero load (EURAMET cg-18 H2) | Çok aralıklı terazi 60 kg: sıfır yükte hata (EURAMET cg-18 H2) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H2, H2.3/A |
+| [`cg18-h3-30t-10t-weights`](mass/cg18-h3-30t-10t-weights.json) | Weighbridge 30 t: error at 10 t of standard weights (EURAMET cg-18 H3) | Köprü kantar 30 t: 10 t standart ağırlıkta hata (EURAMET cg-18 H3) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H3, H3.2/A and H3.3/A |
+| [`cg18-h3-30t-15t-substitution`](mass/cg18-h3-30t-15t-substitution.json) | Weighbridge 30 t: error at 15 t with a substitution load (EURAMET cg-18 H3) | Köprü kantar 30 t: ikame yüküyle 15 t'da hata (EURAMET cg-18 H3) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H3, H3.2/A and H3.3/A |
+| [`cg18-h3-30t-max-substitution`](mass/cg18-h3-30t-max-substitution.json) | Weighbridge 30 t: error at Max with two substitution loads (EURAMET cg-18 H3) | Köprü kantar 30 t: iki ikame yüküyle Max'ta hata (EURAMET cg-18 H3) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H3, H3.2/A and H3.3/A |
+| [`cg18-h3-30t-zero`](mass/cg18-h3-30t-zero.json) | Weighbridge 30 t: error at zero load (EURAMET cg-18 H3) | Köprü kantar 30 t: sıfır yükte hata (EURAMET cg-18 H3) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H3, H3.2/A and H3.3/A |
 | [`ea402-s2-weight-10kg`](mass/ea402-s2-weight-10kg.json) | Calibration of a 10 kg weight | 10 kg'lık bir ağırlığın kalibrasyonu | EA-4/02 M:2022 S2 |
 | [`jcgm101-9.3-mass-calibration-higher-order`](mass/jcgm101-9.3-mass-calibration-higher-order.json) | Mass calibration (GUM with second-order terms) | Kütle kalibrasyonu (ikinci mertebe terimli GUM) | JCGM 101:2008 9.3, Table 6 |
 | [`jcgm101-9.3-mass-calibration`](mass/jcgm101-9.3-mass-calibration.json) | Mass calibration (first-order GUM) | Kütle kalibrasyonu (birinci mertebe GUM) | JCGM 101:2008 9.3, Tables 6 and 7 |
 | [`m3003-k4-weight-10kg`](mass/m3003-k4-weight-10kg.json) | 10 kg weight of OIML class M1 (UKAS M3003 K.4) | OIML M1 sınıfı 10 kg ağırlık (UKAS M3003 K.4) | UKAS M3003 ed. 6 (2024) Appendix K.4 |
 | [`m3003-k5-weighing-machine-200g`](mass/m3003-k5-weighing-machine-200g.json) | Weighing machine of 205 g capacity at 200 g (UKAS M3003 K.5) | 200 g'de 205 g kapasiteli tartı aleti (UKAS M3003 K.5) | UKAS M3003 ed. 6 (2024) Appendix K.5 |
 | [`nist-tn1900-e1-weighing`](mass/nist-tn1900-e1-weighing.json) | Mass of a powder by weighing (NIST TN 1900 E1) | Tartımla toz kütlesi (NIST TN 1900 E1) | NIST Technical Note 1900 Example E1, Exhibit 1 |
+
+## Mass, error approximation functions (EURAMET cg-18) / Kütle, hata yaklaşım fonksiyonları (EURAMET cg-18)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`cg18-h4-400g-error-function-sm-0.05`](mass/cg18-h4-400g-error-function-sm-0.05.json) | Balance 400 g / 0.1 mg: error approximation function with s_m = 0.05 mg, χ² test passed (EURAMET cg-18 H4) | Terazi 400 g / 0,1 mg: s_m = 0,05 mg ile hata yaklaşım fonksiyonu, χ² testi geçer (EURAMET cg-18 H4) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H4; Appendix C2.2 |
+| [`cg18-h4-400g-error-function-sm-0.25`](mass/cg18-h4-400g-error-function-sm-0.25.json) | Balance 400 g / 0.1 mg: error approximation function with s_m = 0.25 mg, residual test passed (EURAMET cg-18 H4) | Terazi 400 g / 0,1 mg: s_m = 0,25 mg ile hata yaklaşım fonksiyonu, artık testi geçer (EURAMET cg-18 H4) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H4; Appendix C2.2 |
+| [`cg18-h4-400g-error-function`](mass/cg18-h4-400g-error-function.json) | Balance 400 g / 0.1 mg: error approximation function E = a₁I, first fit (EURAMET cg-18 H4) | Terazi 400 g / 0,1 mg: hata yaklaşım fonksiyonu E = a₁I, ilk uyum (EURAMET cg-18 H4) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H4; Appendix C2.2 |
 
 ## Physical properties / Fiziksel özellikler
 

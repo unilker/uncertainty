@@ -19,6 +19,7 @@ class LibraryEntry {
   bool get isMultivariate => project.containsKey('multivariate');
   bool get isControlChart => project.containsKey('control_chart');
   bool get isSampling => project.containsKey('sampling');
+  bool get isErrorFunction => project.containsKey('error_function');
 
   /// Short description of the method for the library list.
   String get methodLabel => isTopDown
@@ -37,6 +38,8 @@ class LibraryEntry {
       ? 'TR 569'
       : isSampling
       ? 'UfS'
+      : isErrorFunction
+      ? 'cg-18 C'
       : 'GUM + MCM';
 
   /// Title, description and id in both languages, for searching.

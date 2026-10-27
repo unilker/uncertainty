@@ -21,6 +21,7 @@ pub mod report;
 pub mod sampling;
 pub mod schema;
 pub mod topdown;
+pub mod weighing;
 
 use schema::*;
 use std::fmt;
@@ -103,6 +104,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
         p.multivariate.is_some(),
         p.control_chart.is_some(),
         p.sampling.is_some(),
+        p.error_function.is_some(),
     ]
     .iter()
     .filter(|&&b| b)
@@ -110,7 +112,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
     if primary > 1 || (primary == 0 && p.conformity.is_none()) {
         return Err(ProjectError::Format(
             "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\", \
-             \"precision_experiment\", \"multivariate\", \"control_chart\", \"sampling\" and \"conformity\" (which may also accompany \"model\")"
+             \"precision_experiment\", \"multivariate\", \"control_chart\", \"sampling\", \"error_function\" and \"conformity\" (which may also accompany \"model\")"
                 .into(),
         ));
     }
@@ -276,6 +278,8 @@ pub enum Evaluation {
     ControlChart(Box<qc::ControlChartAnalysis>),
     /// Measurement uncertainty arising from sampling (Eurachem UfS:2019).
     Sampling(Box<sampling::SamplingAnalysis>),
+    /// Error approximation function of a weighing instrument (EURAMET cg-18).
+    ErrorFunction(Box<weighing::ErrorFunctionAnalysis>),
 }
 
 impl Evaluation {
@@ -354,6 +358,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     }
     if let Some(spec) = &p.sampling {
         return Ok(Evaluation::Sampling(Box::new(sampling::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.error_function {
+        return Ok(Evaluation::ErrorFunction(Box::new(weighing::evaluate(spec)?)));
     }
     if let (Some(spec), None) = (&p.conformity, &p.model) {
         return Ok(Evaluation::Conformity(Box::new(conformity::evaluate(spec, None)?)));
@@ -507,6 +514,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             }
             out
         }
+        Evaluation::ErrorFunction(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.error_function.as_ref()) {
+                weighing::check(exp, a, &mut out);
+            }
+            out
+        }
     }
 }
 
@@ -656,6 +670,15 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": a.quantity, "unit": a.unit },
                 "sampling": sampling::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::ErrorFunction(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.instrument, "unit": a.error_unit },
+                "error_function": weighing::results_json(a),
                 "checks": checks,
             });
         }

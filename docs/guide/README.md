@@ -17,7 +17,8 @@
 13. [Several output quantities (JCGM 102)](en/13-multivariate.md)
 14. [Control charts (Nordtest TR 569)](en/14-control-charts.md)
 15. [Uncertainty from sampling (Eurachem UfS)](en/15-sampling.md)
-16. [Worked examples](en/examples.md) (generated)
+16. [Calibration of weighing instruments (EURAMET cg-18)](en/16-weighing.md)
+17. [Worked examples](en/examples.md) (generated)
 
 **Türkçe**
 
@@ -36,7 +37,8 @@
 13. [Birden çok çıktı büyüklüğü (JCGM 102)](tr/13-cok-ciktili.md)
 14. [Kontrol grafikleri (Nordtest TR 569)](tr/14-kontrol-grafikleri.md)
 15. [Numune alma belirsizliği (Eurachem UfS)](tr/15-numune-alma.md)
-16. [Çözümlü örnekler](tr/examples.md) (otomatik üretilir)
+16. [Tartı aletlerinin kalibrasyonu (EURAMET cg-18)](tr/16-tarti-aletleri.md)
+17. [Çözümlü örnekler](tr/examples.md) (otomatik üretilir)
 
 The worked-examples chapters are generated from the example library and checked by the test suite
 (`project/tests/library.rs`). After changing the library, regenerate them with

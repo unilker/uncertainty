@@ -29,6 +29,7 @@ use crate::proficiency::{ExpectedProficiency, ProficiencySpec};
 use crate::qc::{ControlChartSpec, ExpectedControlChart};
 use crate::sampling::{ExpectedSampling, SamplingSpec};
 use crate::topdown::{ExpectedTopDown, TopDownSpec};
+use crate::weighing::{ErrorFunctionSpec, ExpectedErrorFunction};
 use serde::{Deserialize, Serialize};
 
 pub const FORMAT_ID: &str = "uncertainty-calculations/project";
@@ -107,6 +108,10 @@ pub struct Project {
     /// Measurement uncertainty arising from sampling (Eurachem UfS:2019).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub sampling: Option<SamplingSpec>,
+    /// Approximation of the errors of a weighing instrument (EURAMET cg-18
+    /// Appendix C).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub error_function: Option<ErrorFunctionSpec>,
     /// Conformity assessment (JCGM 106): of the result of a model project, or
     /// a project of its own.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -571,6 +576,8 @@ pub struct Expected {
     pub control_chart: Option<ExpectedControlChart>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub sampling: Option<ExpectedSampling>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub error_function: Option<ExpectedErrorFunction>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,

@@ -19,6 +19,8 @@
 //!   ed. 6 (module [`qc`]);
 //! * uncertainty arising from sampling — Eurachem UfS:2019 (module
 //!   [`sampling`]);
+//! * approximation of the errors of a weighing instrument — EURAMET cg-18
+//!   Appendix C (module [`weighing`]);
 //! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
@@ -68,6 +70,7 @@ pub mod rng;
 pub mod sampling;
 pub mod special;
 pub mod topdown;
+pub mod weighing;
 
 pub use distribution::{Distribution, TypeA};
 pub use error::UncError;

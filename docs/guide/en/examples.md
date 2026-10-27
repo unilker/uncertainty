@@ -7,7 +7,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Flow and volume (7)
 - General (method validation) (19)
 - Length (11)
-- Mass (11)
+- Mass (24)
 - Physical properties (8)
 - Pressure (1)
 - Temperature (10)
@@ -3790,6 +3790,351 @@ At zero load only the rounding at zero and the repeatability contribute; the rep
 - E = (0.00000 ± 0.00034) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.87, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang en`
+
+### Multi-interval balance 60 kg: error at 10 kg without buoyancy correction (EURAMET cg-18 H2, option 1)
+
+`cg18-h2-60kg-10kg-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+First load point, in the 2 g interval; no air density known and not adjusted before calibration: conservative buoyancy term 7.1.2-5d.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.
+2. Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 1.095 g and 2.739 g, ν = 4 (7.1.1-5).
+3. Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).
+4. F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).
+5. Interval 1 (d = 2 g): u(I) = √(1.095² + 0.577² + 0.577² + 0.722²) = 1.545 g; one 10 kg F2 weight (mpe 0.16 g): u(m_c) = 0.092, u(m_D) = 0.046, u(m_B) = 0.110 g (7.1.2-5d); u(m_ref) = 0.151 g.
+6. u(E) = 1.552 g, ν_eff = 16, k = 2.17, U = 3.37 g.
+
+**Result:**
+
+- E = (0.0 ± 3.4) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.17, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h2-60kg-10kg-option1.json --lang en`
+
+### Multi-interval balance 60 kg, adjusted before calibration: error at Max (EURAMET cg-18 H2, second situation)
+
+`cg18-h2-60kg-max-adjusted` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/B
+
+Second situation: the instrument is adjusted with its built-in weights immediately before calibration; the repeatability is better (s = 2.236 g).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.
+2. Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 0.894 g and 2.236 g, ν = 4 (7.1.1-5).
+3. Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).
+4. F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).
+5. Adjusted with the built-in weights immediately before calibration: buoyancy only from the density tolerance of the weights, u_rel = mpe/(4m_N√3) (7.1.2-5c).
+6. s = 2.236 g at 25 kg: u(I) = 5.694 g, u(m_ref) = 0.595 g, u(E) = 5.725 g, ν_eff = 172, k = 2.01, U = 11.53 g.
+
+**Result:**
+
+- E = (0 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.01, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- With mpe = 0.96 g as in the budget, u(m_ref) = 0.635 g and u(E) = 5.729 g; the table prints 5.739 g, which does not follow from its own entries √(5.694² + 0.635²) (F68).
+- The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
+
+**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-adjusted.json --lang en`
+
+### Multi-interval balance 60 kg: error at Max without buoyancy correction (EURAMET cg-18 H2, option 1)
+
+`cg18-h2-60kg-max-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+Error at 60 kg in the 10 g interval, the largest U of the certificate.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.
+2. Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 1.095 g and 2.739 g, ν = 4 (7.1.1-5).
+3. Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).
+4. F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).
+5. Interval 3 (d = 10 g): u(I) = √(2.739² + 0.577² + 2.887² + 4.330²) = 5.909 g; test load 3 × 20 kg F2 (mpe 0.90 g): u(m_ref) = 0.871 g.
+6. E = 59 990 − 60 000 = −10 g; u(E) = 5.973 g, ν_eff = 90, k = 2.03, U = 12.11 g.
+
+**Result:**
+
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The budget uses mpe = 0.96 g for the 60 kg test load (u(m_c) = 0.554 g, u(m_D) = 0.277 g, u(m_B) = 0.658 g), while three 20 kg F2 weights have mpe = 3 × 0.30 g = 0.90 g (OIML R111). The project uses 0.90 g: u(m_ref) = 0.871 g instead of 0.904 g, and u(E) = 5.973 g instead of 5.978 g (research log F68).
+- The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
+
+**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-option1.json --lang en`
+
+### Multi-interval balance 60 kg: error at Max with the buoyancy term for ΔT = 10 K (EURAMET cg-18 H2, option 1, formula 7.1.2-5e)
+
+`cg18-h2-60kg-max-option1-delta-t` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+As option 1, with the buoyancy uncertainty from the expected temperature variation of the room (10 K, a room with windows).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.
+2. Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 1.095 g and 2.739 g, ν = 4 (7.1.1-5).
+3. Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).
+4. F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).
+5. Buoyancy from the room temperature variation of 10 K: u_rel = √(1.07·10⁻⁴ + 1.33·10⁻⁶·100)·ρ₀/ρ_c + mpe/(4m_N√3) = 4.49·10⁻⁶, u = 0.269 g; u(m_ref) = 0.640 g.
+6. u(E) = 5.944 g, k = 2.03, U = 12.06 g; the buoyancy term hardly matters next to the indication.
+
+**Result:**
+
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The budget uses mpe = 0.96 g for the 60 kg test load (u(m_c) = 0.554 g, u(m_D) = 0.277 g, u(m_B) = 0.658 g), while three 20 kg F2 weights have mpe = 3 × 0.30 g = 0.90 g (OIML R111). The project uses 0.90 g: u(m_ref) = 0.871 g instead of 0.904 g, and u(E) = 5.973 g instead of 5.978 g (research log F68).
+- The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
+- With mpe = 0.96 g, formula 7.1.2-5e gives 0.278 g at 60 kg and 0.180 g at 40 kg; the table prints 0.276 g and 0.178 g.
+
+**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-option1-delta-t.json --lang en`
+
+### Multi-interval balance 60 kg: error at Max with the buoyancy correction (EURAMET cg-18 H2, option 2)
+
+`cg18-h2-60kg-max-option2` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+The air density during calibration is computed from the CIPM formula and the buoyancy correction applied; the adjustment air density is unknown.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.
+2. Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 1.095 g and 2.739 g, ν = 4 (7.1.1-5).
+3. Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).
+4. F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).
+5. Air density 1.173 kg/m³ (990 hPa, 50 %RH, 21 °C) with u = 0.018 kg/m³ for a temperature variation of 10 K (A3-2); weights ρ = (7950 ± 70) kg/m³.
+6. The correction −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) = +1.3 mg and its uncertainty (about 2 mg) are negligible next to d = 10 g: u(E) = 5.938 g, U = 12.05 g.
+
+**Result:**
+
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The budget uses mpe = 0.96 g for the 60 kg test load (u(m_c) = 0.554 g, u(m_D) = 0.277 g, u(m_B) = 0.658 g), while three 20 kg F2 weights have mpe = 3 × 0.30 g = 0.90 g (OIML R111). The project uses 0.90 g: u(m_ref) = 0.871 g instead of 0.904 g, and u(E) = 5.973 g instead of 5.978 g (research log F68).
+- The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
+
+**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-option2.json --lang en`
+
+### Multi-interval balance 60 kg: error at zero load (EURAMET cg-18 H2)
+
+`cg18-h2-60kg-zero` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+A 60 kg multi-interval balance (2 g / 5 g / 10 g) calibrated as found, not adjusted before calibration.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.
+2. Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 1.095 g and 2.739 g, ν = 4 (7.1.1-5).
+3. Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).
+4. F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).
+5. At zero only d₀ and the repeatability of interval 1 contribute: u(E) = √(1.095² + 0.577²) = 1.238 g, ν_eff = 6.5, truncated to 6: k = 2.52, U = 3.12 g.
+
+**Result:**
+
+- E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang en`
+
+### Weighbridge 30 t: error at 10 t of standard weights (EURAMET cg-18 H3)
+
+`cg18-h3-30t-10t-weights` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also the reference for the substitution loads.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Weighbridge 30 000 kg / 10 kg, tested in the service mode d_T = 1 kg: E = I − L_T (7.1-1). Each indication carries the rounding at zero and at the load (d_T/√12), repeatability, eccentricity and creep/hysteresis.
+2. Repeatability from six loadings of about 10 420 kg (10 405 … 10 425 kg): s = 6.74 kg, ν = 5 (7.1.1-5). Eccentricity 15 kg at 10 420 kg, the larger relative value of the two tests: half-width ΔI·L/(2L_ecc) (7.1.1-10). Creep from the return to zero E₀ = 4 kg: half-width E₀·L/Max (7.4.4-7).
+3. Standard weights 10 × 1000 kg, M1 (mpe 50 g each), at nominal value: u(m_c) = mpe/√3 and drift D = mpe (7.1.2-3, -11), summed linearly for the weights used; buoyancy 7.1.2-5d with u_rel = 1.6·10⁻⁵, for the substitution loads too (ρ ≥ 4400 kg/m³).
+4. u(I) = √(6.74² + 0.29² + 0.29² + 4.16² + 0.77²) = 7.97 kg; u(m_ref) = √(0.29² + 0.29² + 0.16²) = 0.44 kg; u(E) = 7.98 kg, ν_eff = 9.8 → 9, k = 2.32, U = 18.5 kg.
+
+**Result:**
+
+- E = (10 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.32, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h3-30t-10t-weights.json --lang en`
+
+### Weighbridge 30 t: error at 15 t with a substitution load (EURAMET cg-18 H3)
+
+`cg18-h3-30t-15t-substitution` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+5 t of standard weights on top of the substitution load L_sub1 (trailer and containers, adjusted to read like the 10 t of standard weights).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Weighbridge 30 000 kg / 10 kg, tested in the service mode d_T = 1 kg: E = I − L_T (7.1-1). Each indication carries the rounding at zero and at the load (d_T/√12), repeatability, eccentricity and creep/hysteresis.
+2. Repeatability from six loadings of about 10 420 kg (10 405 … 10 425 kg): s = 6.74 kg, ν = 5 (7.1.1-5). Eccentricity 15 kg at 10 420 kg, the larger relative value of the two tests: half-width ΔI·L/(2L_ecc) (7.1.1-10). Creep from the return to zero E₀ = 4 kg: half-width E₀·L/Max (7.4.4-7).
+3. Standard weights 10 × 1000 kg, M1 (mpe 50 g each), at nominal value: u(m_c) = mpe/√3 and drift D = mpe (7.1.2-3, -11), summed linearly for the weights used; buoyancy 7.1.2-5d with u_rel = 1.6·10⁻⁵, for the substitution loads too (ρ ≥ 4400 kg/m³).
+4. Substitution (4.3.3, 7.1.2-15): L_sub1 = m_ref + I(L_sub1) − I(m_ref) at 10 t, and L_sub1 + L_sub2 = 2m_ref + I₁ + I₂ with I₂ = I(L_sub1 + L_sub2) − I(m_ref + L_sub1) at 20 t. Every indication used for the adjustment brings its own rounding, repeatability, eccentricity and creep; the standard weights are the same in every step.
+5. u(L_sub1)² = u²(m_ref) + 2u²(I at 10 t) = 0.44² + 2·7.97²: u(L_sub1) = 11.28 kg. With u(I at 15 t) = 9.27 kg and 5 t of standard weights: u(E) = 14.60 kg.
+6. With ν = 5 for each of the three repeatability terms, ν_eff = 37 and k = 2.07: U = 30.3 kg instead of 29 kg.
+
+**Result:**
+
+- E = (15 ± 30) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.07, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The guide's ν_eff counts only the repeatability of the indication at the load; the repeatability terms of the indications used to adjust the substitution loads (7.1.2-15) are given infinite degrees of freedom. The program gives each of them ν = 5 (research log F69).
+- Counting the three repeatability terms as one estimate of the same s (ν = 5), as Welch–Satterthwaite requires when the same s is used three times, gives ν_eff = 12 and k = 2.23 (U = 32.6 kg).
+
+**Run:** `uncertainty run library/mass/cg18-h3-30t-15t-substitution.json --lang en`
+
+### Weighbridge 30 t: error at Max with two substitution loads (EURAMET cg-18 H3)
+
+`cg18-h3-30t-max-substitution` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+10 t of standard weights on top of the substitution loads L_sub1 + L_sub2; the largest U of the certificate.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Weighbridge 30 000 kg / 10 kg, tested in the service mode d_T = 1 kg: E = I − L_T (7.1-1). Each indication carries the rounding at zero and at the load (d_T/√12), repeatability, eccentricity and creep/hysteresis.
+2. Repeatability from six loadings of about 10 420 kg (10 405 … 10 425 kg): s = 6.74 kg, ν = 5 (7.1.1-5). Eccentricity 15 kg at 10 420 kg, the larger relative value of the two tests: half-width ΔI·L/(2L_ecc) (7.1.1-10). Creep from the return to zero E₀ = 4 kg: half-width E₀·L/Max (7.4.4-7).
+3. Standard weights 10 × 1000 kg, M1 (mpe 50 g each), at nominal value: u(m_c) = mpe/√3 and drift D = mpe (7.1.2-3, -11), summed linearly for the weights used; buoyancy 7.1.2-5d with u_rel = 1.6·10⁻⁵, for the substitution loads too (ρ ≥ 4400 kg/m³).
+4. Substitution (4.3.3, 7.1.2-15): L_sub1 = m_ref + I(L_sub1) − I(m_ref) at 10 t, and L_sub1 + L_sub2 = 2m_ref + I₁ + I₂ with I₂ = I(L_sub1 + L_sub2) − I(m_ref + L_sub1) at 20 t. Every indication used for the adjustment brings its own rounding, repeatability, eccentricity and creep; the standard weights are the same in every step.
+5. u(L_sub1 + L_sub2)² = 4u²(m_ref) + 2u²(I at 10 t) + 2u²(I at 20 t) = 4·0.44² + 2·7.97² + 2·10.82²: 19.02 kg; with u(I at 30 t) = 14.38 kg: u(E) = 23.85 kg.
+6. The same standard weights enter three times (m_ref and twice inside the substitution loads); the model adds their errors linearly, the guide in quadrature (7.1.3-1c): 1.32 kg instead of 0.98 kg, without effect on u(E).
+7. E = 30 040 − 30 010 = 30 kg; u(E) = 23.86 kg, ν_eff = 157, k = 2.02, U = 48.1 kg.
+
+**Result:**
+
+- E = (30 ± 48) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.02, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The guide's ν_eff counts only the repeatability of the indication at the load; the repeatability terms of the indications used to adjust the substitution loads (7.1.2-15) are given infinite degrees of freedom. The program gives each of them ν = 5 (research log F69).
+- The budget uses s = 6.74 kg at every load, although the repeatability test at 24 160 kg gave s = 9.03 kg. With 9.03 kg for the three indications at 20 t and 30 t, u(E) at 30 t would be 26.0 kg instead of 23.9 kg (F69).
+
+**Run:** `uncertainty run library/mass/cg18-h3-30t-max-substitution.json --lang en`
+
+### Weighbridge 30 t: error at zero load (EURAMET cg-18 H3)
+
+`cg18-h3-30t-zero` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+A road-vehicle weighbridge 30 000 kg / 10 kg, outdoors, calibrated as found.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Weighbridge 30 000 kg / 10 kg, tested in the service mode d_T = 1 kg: E = I − L_T (7.1-1). Each indication carries the rounding at zero and at the load (d_T/√12), repeatability, eccentricity and creep/hysteresis.
+2. Repeatability from six loadings of about 10 420 kg (10 405 … 10 425 kg): s = 6.74 kg, ν = 5 (7.1.1-5). Eccentricity 15 kg at 10 420 kg, the larger relative value of the two tests: half-width ΔI·L/(2L_ecc) (7.1.1-10). Creep from the return to zero E₀ = 4 kg: half-width E₀·L/Max (7.4.4-7).
+3. Standard weights 10 × 1000 kg, M1 (mpe 50 g each), at nominal value: u(m_c) = mpe/√3 and drift D = mpe (7.1.2-3, -11), summed linearly for the weights used; buoyancy 7.1.2-5d with u_rel = 1.6·10⁻⁵, for the substitution loads too (ρ ≥ 4400 kg/m³).
+4. At zero: u(E) = √(6.74² + 0.29²) = 6.75 kg, ν_eff = 5, k = 2.65, U = 17.9 kg.
+
+**Result:**
+
+- E = (0 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.65, corresponding to a coverage probability of approximately 95.45 %.
+
+**Run:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang en`
+
+### Balance 400 g / 0.1 mg: error approximation function E = a₁I, first fit (EURAMET cg-18 H4)
+
+`cg18-h4-400g-error-function` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H4; Appendix C2.2
+
+Error approximation function E = a₁I of a 400 g balance from nine test points with correlated reference masses.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Balance 400 g / 0.1 mg, adjusted immediately before calibration; nine test points 0 … 400 g with E2 weights (50 g, 100 g, 2 × 200 g), N = 3 cycles: E_j = I_j − m_c,j.
+2. u(I_j) from the repeatability s = 0.052 mg/√3 = 0.030 mg (7.1.1-6), the rounding d/√12 at zero and at the load, and the eccentricity 0.10 mg at 200 g (7.1.1-10): 0.042 … 0.077 mg.
+3. u(m_ref,j) from U(m_c)/2 and the drift of the weights, summed over the weights used, and the buoyancy term of 7.1.2-5b, which is negative here (ρ_a = 1.090, ρ_a1 = 1.045 kg/m³, ρ = (8000 ± 60) kg/m³): 0.014 … 0.077 mg.
+4. U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); E(I) = a₁I by generalized least squares: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv with ν = 9 − 1 = 8 (C2.2-6 to -9).
+5. Without a model term: a₁ = 0.000 83 mg/g, U(â) = 5.109·10⁻⁸ (mg/g)², u(a₁) = 0.000 23 mg/g; χ²_obs = 12.5 > ν = 8: the χ² test C2.2-2a fails.
+6. The program also finds the smallest model terms: s_m = 0.044 mg for C2.2-2a and 0.22 mg for C2.2-2b; the guide uses the round values 0.05 and 0.25 mg.
+
+**Result:**
+
+- E_appr(I) = 0.0008340·I; χ²_obs = 12.5, ν = 8 (C2.2-2a ✗); s_m = 0 mg
+- u(a1) = 0.000226
+
+**Notes:**
+
+- Table H4.1 lists e = 0.213, 0.274 and 0.181 mg at 100, 150 and 250 g, and Tables H4.6/H4.8 the indications 100.000 200, 150.000 267 and 250.000 200 g; the budget gives 0.113, 0.240 and 0.081 mg (100.000 100, 150.000 233, 250.000 100 g). The printed a₁, U(â), χ²_obs and residuals follow from the budget values, which the project uses (research log F70).
+- The buoyancy 'variance' of 7.1.2-5b is negative: it removes the part of u(ρ) already contained in the certificate value of the weights, calibrated at ρ_a1. It is a covariance correction, not a variance; u²(m_ref) stays positive.
+
+**Run:** `uncertainty run library/mass/cg18-h4-400g-error-function.json --lang en`
+
+### Balance 400 g / 0.1 mg: error approximation function with s_m = 0.05 mg, χ² test passed (EURAMET cg-18 H4)
+
+`cg18-h4-400g-error-function-sm-0.05` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H4; Appendix C2.2
+
+Error approximation function E = a₁I of a 400 g balance from nine test points with correlated reference masses.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Balance 400 g / 0.1 mg, adjusted immediately before calibration; nine test points 0 … 400 g with E2 weights (50 g, 100 g, 2 × 200 g), N = 3 cycles: E_j = I_j − m_c,j.
+2. u(I_j) from the repeatability s = 0.052 mg/√3 = 0.030 mg (7.1.1-6), the rounding d/√12 at zero and at the load, and the eccentricity 0.10 mg at 200 g (7.1.1-10): 0.042 … 0.077 mg.
+3. u(m_ref,j) from U(m_c)/2 and the drift of the weights, summed over the weights used, and the buoyancy term of 7.1.2-5b, which is negative here (ρ_a = 1.090, ρ_a1 = 1.045 kg/m³, ρ = (8000 ± 60) kg/m³): 0.014 … 0.077 mg.
+4. U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); E(I) = a₁I by generalized least squares: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv with ν = 9 − 1 = 8 (C2.2-6 to -9).
+5. With s_m = 0.05 mg on the diagonal of U(e): a₁ = 0.000 84 mg/g, U(â) = 5.637·10⁻⁸ (mg/g)², u(a₁) = 0.000 24 mg/g; χ²_obs = 7.3 ≤ 8 (C2.2-2a passes).
+6. u(E_appr,j) = I_j·u(a₁) (C2.2-11): 0.012 mg at 50 g … 0.095 mg at 400 g. The residuals at 150 g (−0.114 mg) and 250 g (+0.129 mg) exceed U(E_appr) = 2u: the stricter test C2.2-2b fails at two points (Table H4.6).
+
+**Result:**
+
+- E_appr(I) = 0.0008384·I; χ²_obs = 7.32, ν = 8 (C2.2-2a ✓); s_m = 0.05 mg
+- u(a1) = 0.000237
+
+**Notes:**
+
+- Table H4.1 lists e = 0.213, 0.274 and 0.181 mg at 100, 150 and 250 g, and Tables H4.6/H4.8 the indications 100.000 200, 150.000 267 and 250.000 200 g; the budget gives 0.113, 0.240 and 0.081 mg (100.000 100, 150.000 233, 250.000 100 g). The printed a₁, U(â), χ²_obs and residuals follow from the budget values, which the project uses (research log F70).
+- The buoyancy 'variance' of 7.1.2-5b is negative: it removes the part of u(ρ) already contained in the certificate value of the weights, calibrated at ρ_a1. It is a covariance correction, not a variance; u²(m_ref) stays positive.
+
+**Run:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.05.json --lang en`
+
+### Balance 400 g / 0.1 mg: error approximation function with s_m = 0.25 mg, residual test passed (EURAMET cg-18 H4)
+
+`cg18-h4-400g-error-function-sm-0.25` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H4; Appendix C2.2
+
+Error approximation function E = a₁I of a 400 g balance from nine test points with correlated reference masses.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Balance 400 g / 0.1 mg, adjusted immediately before calibration; nine test points 0 … 400 g with E2 weights (50 g, 100 g, 2 × 200 g), N = 3 cycles: E_j = I_j − m_c,j.
+2. u(I_j) from the repeatability s = 0.052 mg/√3 = 0.030 mg (7.1.1-6), the rounding d/√12 at zero and at the load, and the eccentricity 0.10 mg at 200 g (7.1.1-10): 0.042 … 0.077 mg.
+3. u(m_ref,j) from U(m_c)/2 and the drift of the weights, summed over the weights used, and the buoyancy term of 7.1.2-5b, which is negative here (ρ_a = 1.090, ρ_a1 = 1.045 kg/m³, ρ = (8000 ± 60) kg/m³): 0.014 … 0.077 mg.
+4. U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); E(I) = a₁I by generalized least squares: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv with ν = 9 − 1 = 8 (C2.2-6 to -9).
+5. To meet C2.2-2b at every point, s_m is raised to 0.25 mg: a₁ = 0.000 84 mg/g, U(â) = 1.745·10⁻⁷ (mg/g)², u(a₁) = 0.000 42 mg/g; all residuals lie within U(E_appr) (Table H4.8).
+6. The price is a much larger uncertainty of the approximated error: U(E_appr) = 0.334 mg at 400 g instead of 0.190 mg.
+
+**Result:**
+
+- E_appr(I) = 0.0008407·I; χ²_obs = 0.679, ν = 8 (C2.2-2a ✓); s_m = 0.25 mg
+- u(a1) = 0.000418
+
+**Notes:**
+
+- Table H4.1 lists e = 0.213, 0.274 and 0.181 mg at 100, 150 and 250 g, and Tables H4.6/H4.8 the indications 100.000 200, 150.000 267 and 250.000 200 g; the budget gives 0.113, 0.240 and 0.081 mg (100.000 100, 150.000 233, 250.000 100 g). The printed a₁, U(â), χ²_obs and residuals follow from the budget values, which the project uses (research log F70).
+- The buoyancy 'variance' of 7.1.2-5b is negative: it removes the part of u(ρ) already contained in the certificate value of the weights, calibrated at ρ_a1. It is a covariance correction, not a variance; u²(m_ref) stays positive.
+- Table H4.8 prints the e values of Table H4.1 (0.213, 0.274, 0.181 mg) next to residuals computed from the budget values.
+
+**Run:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.25.json --lang en`
 
 ### Calibration of a 10 kg weight
 

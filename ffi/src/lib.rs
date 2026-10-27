@@ -142,6 +142,36 @@ const TEMPLATE_SAMPLING: &str = r#"{
 }
 "#;
 
+const TEMPLATE_ERROR_FUNCTION: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Error approximation function of a balance", "tr": "Terazinin hata yaklaşım fonksiyonu" },
+    "field": "mass"
+  },
+  "error_function": {
+    "instrument": "Electronic balance, Max 400 g, d = 0.1 mg",
+    "unit": "g",
+    "error_unit": "mg",
+    "error_factor": 1000,
+    "through_zero": true,
+    "s_m": 0.05,
+    "points": [
+      {"indication": 0.0, "reference": 0.0, "u_reference": 0.0, "u_indication": 0.041633},
+      {"indication": 50.000067, "reference": 50.000006, "u_reference": 0.014201, "u_indication": 0.051174},
+      {"indication": 100.0001, "reference": 99.999987, "u_reference": 0.023057, "u_indication": 0.052678},
+      {"indication": 150.000233, "reference": 149.999993, "u_reference": 0.037282, "u_indication": 0.055095},
+      {"indication": 200.000267, "reference": 200.000013, "u_reference": 0.038426, "u_indication": 0.05831},
+      {"indication": 250.0001, "reference": 250.000019, "u_reference": 0.052835, "u_indication": 0.062199},
+      {"indication": 300.0002, "reference": 300.0, "u_reference": 0.06152, "u_indication": 0.066646},
+      {"indication": 350.000267, "reference": 350.000006, "u_reference": 0.075871, "u_indication": 0.071545},
+      {"indication": 400.0004, "reference": 400.00001, "u_reference": 0.076852, "u_indication": 0.076811}
+    ],
+    "readings": [ { "reading": 120 } ]
+  }
+}
+"#;
+
 const TEMPLATE_CONTROL_CHART: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -213,7 +243,7 @@ pub extern "C" fn uc_version() -> *mut c_char {
 }
 
 /// A starting project: `kind` is `"model"` (default), `"topdown"`,
-/// `"proficiency"`, `"calibration"`, `"conformity"`, `"precision"`, `"multivariate"`, `"control_chart"` or `"sampling"`.
+/// `"proficiency"`, `"calibration"`, `"conformity"`, `"precision"`, `"multivariate"`, `"control_chart"`, `"sampling"` or `"error_function"`.
 ///
 /// # Safety
 /// `kind` must be null or a valid NUL-terminated string.
@@ -229,6 +259,7 @@ pub unsafe extern "C" fn uc_template(kind: *const c_char) -> *mut c_char {
         Ok("multivariate") => json!({ "ok": true, "project": TEMPLATE_MULTIVARIATE }),
         Ok("control_chart") => json!({ "ok": true, "project": TEMPLATE_CONTROL_CHART }),
         Ok("sampling") => json!({ "ok": true, "project": TEMPLATE_SAMPLING }),
+        Ok("error_function") => json!({ "ok": true, "project": TEMPLATE_ERROR_FUNCTION }),
         Ok("" | "model") => json!({ "ok": true, "project": TEMPLATE_MODEL }),
         Ok(other) => error(format!("unknown template '{other}'")),
         Err(e) => error(e.clone()),
@@ -353,6 +384,7 @@ mod tests {
             "multivariate",
             "control_chart",
             "sampling",
+            "error_function",
         ] {
             let k = CString::new(kind).unwrap();
             let t = call(unsafe { uc_template(k.as_ptr()) });

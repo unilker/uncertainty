@@ -1,0 +1,139 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg18-h2-60kg-zero",
+    "title": {
+      "en": "Multi-interval balance 60 kg: error at zero load (EURAMET cg-18 H2)",
+      "tr": "Çok aralıklı terazi 60 kg: sıfır yükte hata (EURAMET cg-18 H2)"
+    },
+    "description": {
+      "en": "A 60 kg multi-interval balance (2 g / 5 g / 10 g) calibrated as found, not adjusted before calibration.",
+      "tr": "Bulunduğu hâliyle, kalibrasyondan önce ayarlanmadan kalibre edilen 60 kg'lık çok aralıklı terazi (2 g / 5 g / 10 g)."
+    },
+    "explanation": [
+      {
+        "en": "Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.",
+        "tr": "Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1)."
+      },
+      {
+        "en": "Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 1.095 g and 2.739 g, ν = 4 (7.1.1-5).",
+        "tr": "10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 1,095 g ve 2,739 g, ν = 4 (7.1.1-5)."
+      },
+      {
+        "en": "Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).",
+        "tr": "Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10)."
+      },
+      {
+        "en": "F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).",
+        "tr": "Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5)."
+      },
+      {
+        "en": "At zero only d₀ and the repeatability of interval 1 contribute: u(E) = √(1.095² + 0.577²) = 1.238 g, ν_eff = 6.5, truncated to 6: k = 2.52, U = 3.12 g.",
+        "tr": "Sıfırda yalnızca d₀ ve 1. aralığın tekrarlanabilirliği katkı verir: u(E) = √(1,095² + 0,577²) = 1,238 g, ν_eff = 6,5, 6'ya kesilir: k = 2,52, U = 3,12 g."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 18 v4.0 (2015), Guidelines on the Calibration of Non-Automatic Weighing Instruments",
+        "section": "Appendix H2, H2.3/A",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg18",
+      "balance",
+      "weighing-instrument",
+      "calibration",
+      "validation",
+      "multi-interval"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "E",
+      "unit": "g",
+      "expression": "I_L + dI_dig0 + dI_rep",
+      "description": {
+        "en": "Error of indication",
+        "tr": "Gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_L",
+        "unit": "g",
+        "description": {
+          "en": "Indication at the load",
+          "tr": "Yükteki gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.0
+        }
+      },
+      {
+        "name": "dI_dig0",
+        "unit": "g",
+        "description": {
+          "en": "Rounding at zero",
+          "tr": "Sıfırda yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        }
+      },
+      {
+        "name": "dI_rep",
+        "unit": "g",
+        "description": {
+          "en": "Repeatability (s = 1.095 g, ν = 4)",
+          "tr": "Tekrarlanabilirlik (s = 1,095 g, ν = 4)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 1.0954451150103321,
+          "pooled_dof": 4,
+          "n": 1
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0,
+        "tolerance": 1e-12
+      },
+      "standard_uncertainty": {
+        "value": 1.238,
+        "tolerance": 0.0005
+      },
+      "coverage_factor": {
+        "value": 2.52,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 3.12,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "EURAMET cg-18 v4.0 H2.3/A, load 0: u(E) = 1.238 g, ν_eff = 6, k = 2.52, U = 3.120 g.",
+      "tr": "EURAMET cg-18 v4.0 H2.3/A, yük 0: u(E) = 1,238 g, ν_eff = 6, k = 2,52, U = 3,120 g."
+    }
+  }
+}

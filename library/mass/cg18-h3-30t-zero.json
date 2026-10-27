@@ -1,0 +1,136 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg18-h3-30t-zero",
+    "title": {
+      "en": "Weighbridge 30 t: error at zero load (EURAMET cg-18 H3)",
+      "tr": "Köprü kantar 30 t: sıfır yükte hata (EURAMET cg-18 H3)"
+    },
+    "description": {
+      "en": "A road-vehicle weighbridge 30 000 kg / 10 kg, outdoors, calibrated as found.",
+      "tr": "Açık havada, bulunduğu hâliyle kalibre edilen 30 000 kg / 10 kg'lık karayolu taşıtı köprü kantarı."
+    },
+    "explanation": [
+      {
+        "en": "Weighbridge 30 000 kg / 10 kg, tested in the service mode d_T = 1 kg: E = I − L_T (7.1-1). Each indication carries the rounding at zero and at the load (d_T/√12), repeatability, eccentricity and creep/hysteresis.",
+        "tr": "Köprü kantar 30 000 kg / 10 kg, servis modunda d_T = 1 kg ile denenmiştir: E = I − L_T (7.1-1). Her gösterge sıfırda ve yükte yuvarlama (d_T/√12), tekrarlanabilirlik, eksantriklik ve sürünme/histerezis taşır."
+      },
+      {
+        "en": "Repeatability from six loadings of about 10 420 kg (10 405 … 10 425 kg): s = 6.74 kg, ν = 5 (7.1.1-5). Eccentricity 15 kg at 10 420 kg, the larger relative value of the two tests: half-width ΔI·L/(2L_ecc) (7.1.1-10). Creep from the return to zero E₀ = 4 kg: half-width E₀·L/Max (7.4.4-7).",
+        "tr": "Yaklaşık 10 420 kg'lık altı yüklemeden tekrarlanabilirlik (10 405 … 10 425 kg): s = 6,74 kg, ν = 5 (7.1.1-5). Eksantriklik 10 420 kg'da 15 kg, iki denemenin bağıl olarak büyüğü: yarı genişlik ΔI·L/(2L_ecc) (7.1.1-10). Sıfıra dönüşteki E₀ = 4 kg'dan sürünme: yarı genişlik E₀·L/Max (7.4.4-7)."
+      },
+      {
+        "en": "Standard weights 10 × 1000 kg, M1 (mpe 50 g each), at nominal value: u(m_c) = mpe/√3 and drift D = mpe (7.1.2-3, -11), summed linearly for the weights used; buoyancy 7.1.2-5d with u_rel = 1.6·10⁻⁵, for the substitution loads too (ρ ≥ 4400 kg/m³).",
+        "tr": "Standart ağırlıklar 10 × 1000 kg, M1 (her biri mpe 50 g), nominal değerinde: u(m_c) = mpe/√3 ve sürüklenme D = mpe (7.1.2-3, -11), kullanılan ağırlıklar için doğrusal toplanır; kaldırma kuvveti 7.1.2-5d, u_rel = 1,6·10⁻⁵, ikame yükleri için de (ρ ≥ 4400 kg/m³)."
+      },
+      {
+        "en": "At zero: u(E) = √(6.74² + 0.29²) = 6.75 kg, ν_eff = 5, k = 2.65, U = 17.9 kg.",
+        "tr": "Sıfırda: u(E) = √(6,74² + 0,29²) = 6,75 kg, ν_eff = 5, k = 2,65, U = 17,9 kg."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 18 v4.0 (2015), Guidelines on the Calibration of Non-Automatic Weighing Instruments",
+        "section": "Appendix H3, H3.2/A and H3.3/A",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg18",
+      "balance",
+      "weighing-instrument",
+      "calibration",
+      "validation",
+      "weighbridge",
+      "substitution"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "E",
+      "unit": "kg",
+      "expression": "I_L + dI_dig0 + dI_rep",
+      "description": {
+        "en": "Error of indication",
+        "tr": "Gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_L",
+        "unit": "kg",
+        "description": {
+          "en": "Indication at the load",
+          "tr": "Yükteki gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.0
+        }
+      },
+      {
+        "name": "dI_dig0",
+        "unit": "kg",
+        "description": {
+          "en": "Rounding at zero",
+          "tr": "Sıfırda yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dI_rep",
+        "unit": "kg",
+        "description": {
+          "en": "Repeatability (s = 6.743 kg, ν = 5)",
+          "tr": "Tekrarlanabilirlik (s = 6,743 kg, ν = 5)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 6.742897497861485,
+          "pooled_dof": 5,
+          "n": 1
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0,
+        "tolerance": 1e-12
+      },
+      "standard_uncertainty": {
+        "value": 6.75,
+        "tolerance": 0.005
+      },
+      "coverage_factor": {
+        "value": 2.65,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 18,
+        "tolerance": 0.5
+      }
+    },
+    "reference": {
+      "en": "EURAMET cg-18 v4.0 H3.3/A, load 0: u(E) = 6.75 kg, ν_eff = 5, k = 2.65, U = 18 kg.",
+      "tr": "EURAMET cg-18 v4.0 H3.3/A, yük 0: u(E) = 6,75 kg, ν_eff = 5, k = 2,65, U = 18 kg."
+    }
+  }
+}

@@ -64,6 +64,9 @@ class ResultsView extends StatelessWidget {
     if (results['control_chart'] != null) {
       children.addAll(_controlChart(context, results['control_chart'] as Map<String, dynamic>, unit));
     }
+    if (results['error_function'] != null) {
+      children.addAll(_errorFunction(context, results['error_function'] as Map<String, dynamic>));
+    }
     if (results['sampling'] != null) {
       children.addAll(_sampling(context, results['sampling'] as Map<String, dynamic>, unit));
     }
@@ -674,6 +677,57 @@ class ResultsView extends StatelessWidget {
       ]);
     }
     return out;
+  }
+
+  List<Widget> _errorFunction(BuildContext context, Map<String, dynamic> r) {
+    final s = strings;
+    String n(dynamic v, [int sig = 4]) => v == null ? '—' : fmtNum(_d(v), sig, s.lang);
+    final k = _d(r['coverage_factor']) ?? 2;
+    final powers = ((r['function'] as Map)['powers'] as List).cast<int>();
+    final coef = (r['coefficients'] as List).map(_d).toList();
+    final uCoef = (r['u_coefficients'] as List).map(_d).toList();
+    final failures = (r['residual_failures'] as List).cast<int>();
+    final points = (r['points'] as List).cast<Map<String, dynamic>>();
+    final minSm = r['min_s_m'] as Map<String, dynamic>;
+    final readings = (r['readings'] as List? ?? const []).cast<Map<String, dynamic>>();
+    final passed = r['chi_squared_passed'] == true;
+    return [
+      Section(s['ef_results']),
+      _table(
+        context,
+        [s['ef_coefficient'], 'â', 'u(â)'],
+        [
+          for (var i = 0; i < powers.length; i++) ['a${powers[i]}', n(coef[i], 5), n(uCoef[i], 3)],
+        ],
+      ),
+      Text('${passed ? s['ef_chi_ok'] : s['ef_chi_fail']}: χ² = ${n(r['chi_squared'], 3)}, ν = ${r['dof']}; s_m = ${n(r['s_m'], 3)}', key: const Key('ef-chi')),
+      Text('${s['ef_min_s_m']}: ${n(minSm['chi_squared'], 3)} / ${n(minSm['residuals'], 3)}'),
+      _table(
+        context,
+        ['I', 'E', 'E_appr', s['ef_residual'], 'U(E_appr)', 'C2.2-2b'],
+        [
+          for (final (j, p) in points.indexed)
+            [
+              n(p['indication'], 7),
+              n(p['error'], 3),
+              n(p['approximated'], 3),
+              n(p['residual'], 3),
+              n(k * (_d(p['u_approximated']) ?? 0), 3),
+              failures.contains(j) ? '✗' : '✓',
+            ],
+        ],
+      ),
+      if (readings.isNotEmpty) ...[
+        Section(s['ef_readings']),
+        _table(
+          context,
+          ['R', 'E_appr', 'U (k = ${n(k, 3)})'],
+          [
+            for (final x in readings) [n(x['reading'], 7), n(x['error'], 4), n(x['expanded'], 3)],
+          ],
+        ),
+      ],
+    ];
   }
 
   List<Widget> _sampling(BuildContext context, Map<String, dynamic> r, String unit) {

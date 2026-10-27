@@ -15,12 +15,13 @@ calibration with uncertainties in both variables (ISO 6143); conformity
 assessment (JCGM 106); repeatability and reproducibility from interlaboratory
 experiments (ISO 5725-2); models with several output quantities (JCGM 102);
 control charts for internal quality control (Nordtest TR 569); uncertainty
-arising from sampling (Eurachem UfS:2019).
+arising from sampling (Eurachem UfS:2019); error approximation functions of
+weighing instruments (EURAMET cg-18, Appendix C).
 
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -53,7 +54,8 @@ TEMPLATE:
     model with several output quantities (JCGM 102), with --control-chart a
     control chart for internal quality control (Nordtest TR 569), or with
     --sampling the duplicate method for the uncertainty from sampling
-    (Eurachem UfS:2019).
+    (Eurachem UfS:2019), or with --error-function the error approximation
+    function of a weighing instrument (EURAMET cg-18, Appendix C).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -233,6 +235,36 @@ const TEMPLATE_SAMPLING: &str = r#"{
 }
 "#;
 
+const TEMPLATE_ERROR_FUNCTION: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Error approximation function of a balance", "tr": "Terazinin hata yaklaşım fonksiyonu" },
+    "field": "mass"
+  },
+  "error_function": {
+    "instrument": "Electronic balance, Max 400 g, d = 0.1 mg",
+    "unit": "g",
+    "error_unit": "mg",
+    "error_factor": 1000,
+    "through_zero": true,
+    "s_m": 0.05,
+    "points": [
+      {"indication": 0.0, "reference": 0.0, "u_reference": 0.0, "u_indication": 0.041633},
+      {"indication": 50.000067, "reference": 50.000006, "u_reference": 0.014201, "u_indication": 0.051174},
+      {"indication": 100.0001, "reference": 99.999987, "u_reference": 0.023057, "u_indication": 0.052678},
+      {"indication": 150.000233, "reference": 149.999993, "u_reference": 0.037282, "u_indication": 0.055095},
+      {"indication": 200.000267, "reference": 200.000013, "u_reference": 0.038426, "u_indication": 0.05831},
+      {"indication": 250.0001, "reference": 250.000019, "u_reference": 0.052835, "u_indication": 0.062199},
+      {"indication": 300.0002, "reference": 300.0, "u_reference": 0.06152, "u_indication": 0.066646},
+      {"indication": 350.000267, "reference": 350.000006, "u_reference": 0.075871, "u_indication": 0.071545},
+      {"indication": 400.0004, "reference": 400.00001, "u_reference": 0.076852, "u_indication": 0.076811}
+    ],
+    "readings": [ { "reading": 120 } ]
+  }
+}
+"#;
+
 const TEMPLATE_CONTROL_CHART: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -290,6 +322,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--control-chart") => {
             print!("{TEMPLATE_CONTROL_CHART}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--error-function") => {
+            print!("{TEMPLATE_ERROR_FUNCTION}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--sampling") => {

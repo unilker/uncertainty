@@ -11,18 +11,19 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the eight | measurement model (7.3) |
-| `topdown` | one of the eight | top-down evaluation (7.6) |
-| `proficiency` | one of the eight | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the eight | calibration with uncertainties in both variables, ISO 6143 (7.8) |
-| `precision_experiment` | one of the eight | interlaboratory precision experiment, ISO 5725-2 (7.10) |
-| `multivariate` | one of the eight | model with several output quantities, JCGM 102 (7.11) |
-| `control_chart` | one of the eight | control chart for internal quality control, Nordtest TR 569 (7.12) |
-| `sampling` | one of the eight | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
+| `model` | one of the nine | measurement model (7.3) |
+| `topdown` | one of the nine | top-down evaluation (7.6) |
+| `proficiency` | one of the nine | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the nine | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the nine | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `multivariate` | one of the nine | model with several output quantities, JCGM 102 (7.11) |
+| `control_chart` | one of the nine | control chart for internal quality control, Nordtest TR 569 (7.12) |
+| `sampling` | one of the nine | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
+| `error_function` | one of the nine | error approximation function of a weighing instrument, EURAMET cg-18 (7.14) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); for model and multivariate projects |
 | `reporting` | no | rounding of the reported result (7.5) |
-| `expected` | no | reference values with tolerances (7.15) |
+| `expected` | no | reference values with tolerances (7.16) |
 
 ## 7.2 `metadata`
 
@@ -304,14 +305,37 @@ approach with Gy's sampling theory.
 | `gy` | instead of duplicates, the fundamental sampling error: `lot_concentration` a_L and `particle_concentration` α (same unit), `critical_density` ρ_c and `matrix_density` ρ_m (g cm⁻³), `steps` (each with `name`, `sample_mass` and `lot_mass` in g, `particle_size` d in cm, `size_factor` g, optional `shape_factor` f = 0.5 and `liberation` β = 1), optional `analytical_rsd` (fraction) |
 | `coverage_factor` | k for the relative expanded uncertainties (default 2) |
 
-## 7.14 Errors
+## 7.14 `error_function`
+
+The error approximation function of a weighing instrument (EURAMET cg-18 Appendix C2.2; chapter 16).
+
+```json
+"error_function": {
+  "instrument": "Balance 400 g / 0.1 mg", "unit": "g", "error_unit": "mg", "error_factor": 1000,
+  "points": [{ "indication": 50.000067, "reference": 50.000006, "u_reference": 0.0142, "u_indication": 0.0512 }, …],
+  "through_zero": true, "s_m": 0.05, "readings": [{ "reading": 120 }]
+}
+```
+
+| Field | Content |
+|---|---|
+| `points` | test points: `indication`, either `error` (in `error_unit`) or `reference` (the reference mass, in `unit`), and `u_reference`, `u_indication` (in `error_unit`) |
+| `error_factor` | E = (I − m_ref)·factor for points given with `reference` (default 1) |
+| `degree` | degree nₐ of the polynomial (default 1) |
+| `through_zero` | `true`: no constant term, E = a₁I (+ a₂I² …) (C2.2-16) |
+| `reference_correlation` | `full` (default, U(m_ref) = s sᵀ, C2.2-3b) or `none` |
+| `s_m` | model term on the diagonal of U(e) (C2.2-3c), default 0 |
+| `coverage_factor` | k of U(E_appr) and of the residual test C2.2-2b (default 2) |
+| `readings` | readings R (`reading`, optional `u_reading`) at which E_appr(R) and its uncertainty are reported |
+
+## 7.15 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart` and `sampling`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling` and `error_function`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
-## 7.15 `expected`
+## 7.16 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
 `uncertainty check`. `reference` is a text naming where the values come from.
@@ -352,3 +376,6 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
   `s_sampling`, `s_analysis`, `s_measurement`, `s_total`, `factor_sampling`, `factor_analysis`,
   `factor_measurement`, `relative_measurement`; `gy`: `constitution_factor`, `sampling_constants` and `rsd` (lists,
   one per step), `rsd_sampling`, `rsd_total`, `expanded_relative_sampling`, `expanded_relative_total`
+* `error_function`: `coefficients` and `u_coefficients` (lists, in the order of the powers), `chi_squared`,
+  `chi_squared_passed` (true/false), `residual_failures` (number of points failing C2.2-2b), `u_approximated` (list,
+  one per point), `readings` (list of `{ "error", "u" }`)

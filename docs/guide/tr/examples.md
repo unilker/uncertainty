@@ -7,7 +7,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
 - Uzunluk (11)
-- Kütle (11)
+- Kütle (24)
 - Fiziksel özellikler (8)
 - Basınç (1)
 - Sıcaklık (10)
@@ -3790,6 +3790,351 @@ Sıfır yükte yalnızca sıfırda yuvarlama ve tekrarlanabilirlik katkı verir;
 - E = (0,00000 ± 0,00034) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,87 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang tr`
+
+### Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesi olmadan 10 kg'da hata (EURAMET cg-18 H2, seçenek 1)
+
+`cg18-h2-60kg-10kg-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+2 g'lık aralıktaki ilk yük noktası; hava yoğunluğu bilinmiyor ve kalibrasyondan önce ayarlanmamış: temkinli kaldırma kuvveti terimi 7.1.2-5d.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1).
+2. 10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 1,095 g ve 2,739 g, ν = 4 (7.1.1-5).
+3. Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10).
+4. Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5).
+5. 1. aralık (d = 2 g): u(I) = √(1,095² + 0,577² + 0,577² + 0,722²) = 1,545 g; bir adet 10 kg F2 ağırlık (mpe 0,16 g): u(m_c) = 0,092, u(m_D) = 0,046, u(m_B) = 0,110 g (7.1.2-5d); u(m_ref) = 0,151 g.
+6. u(E) = 1,552 g, ν_eff = 16, k = 2,17, U = 3,37 g.
+
+**Sonuç:**
+
+- E = (0,0 ± 3,4) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,17 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-10kg-option1.json --lang tr`
+
+### Çok aralıklı terazi 60 kg, kalibrasyondan önce ayarlanmış: Max'ta hata (EURAMET cg-18 H2, ikinci durum)
+
+`cg18-h2-60kg-max-adjusted` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/B
+
+İkinci durum: terazi kalibrasyondan hemen önce dahili ağırlıklarıyla ayarlanır; tekrarlanabilirlik daha iyidir (s = 2,236 g).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1).
+2. 10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 0,894 g ve 2,236 g, ν = 4 (7.1.1-5).
+3. Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10).
+4. Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5).
+5. Kalibrasyondan hemen önce dahili ağırlıklarla ayarlanmış: kaldırma kuvveti yalnızca ağırlıkların yoğunluk toleransından, u_rel = mpe/(4m_N√3) (7.1.2-5c).
+6. 25 kg'da s = 2,236 g: u(I) = 5,694 g, u(m_ref) = 0,595 g, u(E) = 5,725 g, ν_eff = 172, k = 2,01, U = 11,53 g.
+
+**Sonuç:**
+
+- E = (0 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,01 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Bütçedeki gibi mpe = 0,96 g ile u(m_ref) = 0,635 g ve u(E) = 5,729 g olur; tabloda 5,739 g basılıdır ve kendi girdilerinden √(5,694² + 0,635²) çıkmaz (F68).
+- Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-adjusted.json --lang tr`
+
+### Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesi olmadan Max'ta hata (EURAMET cg-18 H2, seçenek 1)
+
+`cg18-h2-60kg-max-option1` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+10 g'lık aralıkta 60 kg'da hata; sertifikadaki en büyük U.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1).
+2. 10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 1,095 g ve 2,739 g, ν = 4 (7.1.1-5).
+3. Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10).
+4. Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5).
+5. 3. aralık (d = 10 g): u(I) = √(2,739² + 0,577² + 2,887² + 4,330²) = 5,909 g; deney yükü 3 × 20 kg F2 (mpe 0,90 g): u(m_ref) = 0,871 g.
+6. E = 59 990 − 60 000 = −10 g; u(E) = 5,973 g, ν_eff = 90, k = 2,03, U = 12,11 g.
+
+**Sonuç:**
+
+- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Bütçe 60 kg'lık deney yükü için mpe = 0,96 g kullanır (u(m_c) = 0,554 g, u(m_D) = 0,277 g, u(m_B) = 0,658 g); oysa üç adet 20 kg F2 ağırlığın mpe'si 3 × 0,30 g = 0,90 g'dır (OIML R111). Proje 0,90 g kullanır: u(m_ref) 0,904 g yerine 0,871 g, u(E) 5,978 g yerine 5,973 g olur (araştırma günlüğü F68).
+- Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-option1.json --lang tr`
+
+### Çok aralıklı terazi 60 kg: ΔT = 10 K için kaldırma kuvveti terimiyle Max'ta hata (EURAMET cg-18 H2, seçenek 1, 7.1.2-5e formülü)
+
+`cg18-h2-60kg-max-option1-delta-t` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+Seçenek 1 gibi; kaldırma kuvveti belirsizliği odanın beklenen sıcaklık değişiminden (10 K, pencereli oda).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1).
+2. 10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 1,095 g ve 2,739 g, ν = 4 (7.1.1-5).
+3. Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10).
+4. Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5).
+5. 10 K'lik oda sıcaklığı değişiminden kaldırma kuvveti: u_rel = √(1,07·10⁻⁴ + 1,33·10⁻⁶·100)·ρ₀/ρ_c + mpe/(4m_N√3) = 4,49·10⁻⁶, u = 0,269 g; u(m_ref) = 0,640 g.
+6. u(E) = 5,944 g, k = 2,03, U = 12,06 g; kaldırma kuvveti terimi göstergenin yanında neredeyse önemsizdir.
+
+**Sonuç:**
+
+- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Bütçe 60 kg'lık deney yükü için mpe = 0,96 g kullanır (u(m_c) = 0,554 g, u(m_D) = 0,277 g, u(m_B) = 0,658 g); oysa üç adet 20 kg F2 ağırlığın mpe'si 3 × 0,30 g = 0,90 g'dır (OIML R111). Proje 0,90 g kullanır: u(m_ref) 0,904 g yerine 0,871 g, u(E) 5,978 g yerine 5,973 g olur (araştırma günlüğü F68).
+- Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
+- mpe = 0,96 g ile 7.1.2-5e formülü 60 kg'da 0,278 g ve 40 kg'da 0,180 g verir; tabloda 0,276 g ve 0,178 g basılıdır.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-option1-delta-t.json --lang tr`
+
+### Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesiyle Max'ta hata (EURAMET cg-18 H2, seçenek 2)
+
+`cg18-h2-60kg-max-option2` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+Kalibrasyon sırasındaki hava yoğunluğu CIPM formülünden hesaplanır ve kaldırma kuvveti düzeltmesi uygulanır; ayar sırasındaki hava yoğunluğu bilinmez.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1).
+2. 10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 1,095 g ve 2,739 g, ν = 4 (7.1.1-5).
+3. Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10).
+4. Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5).
+5. Hava yoğunluğu 1,173 kg/m³ (990 hPa, %50 bağıl nem, 21 °C), 10 K'lik sıcaklık değişimi için u = 0,018 kg/m³ (A3-2); ağırlıklar ρ = (7950 ± 70) kg/m³.
+6. Düzeltme −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) = +1,3 mg ve belirsizliği (yaklaşık 2 mg), d = 10 g'ın yanında ihmal edilebilir: u(E) = 5,938 g, U = 12,05 g.
+
+**Sonuç:**
+
+- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Bütçe 60 kg'lık deney yükü için mpe = 0,96 g kullanır (u(m_c) = 0,554 g, u(m_D) = 0,277 g, u(m_B) = 0,658 g); oysa üç adet 20 kg F2 ağırlığın mpe'si 3 × 0,30 g = 0,90 g'dır (OIML R111). Proje 0,90 g kullanır: u(m_ref) 0,904 g yerine 0,871 g, u(E) 5,978 g yerine 5,973 g olur (araştırma günlüğü F68).
+- Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-option2.json --lang tr`
+
+### Çok aralıklı terazi 60 kg: sıfır yükte hata (EURAMET cg-18 H2)
+
+`cg18-h2-60kg-zero` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H2, H2.3/A
+
+Bulunduğu hâliyle, kalibrasyondan önce ayarlanmadan kalibre edilen 60 kg'lık çok aralıklı terazi (2 g / 5 g / 10 g).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1).
+2. 10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 1,095 g ve 2,739 g, ν = 4 (7.1.1-5).
+3. Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10).
+4. Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5).
+5. Sıfırda yalnızca d₀ ve 1. aralığın tekrarlanabilirliği katkı verir: u(E) = √(1,095² + 0,577²) = 1,238 g, ν_eff = 6,5, 6'ya kesilir: k = 2,52, U = 3,12 g.
+
+**Sonuç:**
+
+- E = (0,0 ± 3,1) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,52 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang tr`
+
+### Köprü kantar 30 t: 10 t standart ağırlıkta hata (EURAMET cg-18 H3)
+
+`cg18-h3-30t-10t-weights` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+Yük alıcısında 10 × 1000 kg standart ağırlık; bu yük m_ref, ikame yükleri için de referanstır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Köprü kantar 30 000 kg / 10 kg, servis modunda d_T = 1 kg ile denenmiştir: E = I − L_T (7.1-1). Her gösterge sıfırda ve yükte yuvarlama (d_T/√12), tekrarlanabilirlik, eksantriklik ve sürünme/histerezis taşır.
+2. Yaklaşık 10 420 kg'lık altı yüklemeden tekrarlanabilirlik (10 405 … 10 425 kg): s = 6,74 kg, ν = 5 (7.1.1-5). Eksantriklik 10 420 kg'da 15 kg, iki denemenin bağıl olarak büyüğü: yarı genişlik ΔI·L/(2L_ecc) (7.1.1-10). Sıfıra dönüşteki E₀ = 4 kg'dan sürünme: yarı genişlik E₀·L/Max (7.4.4-7).
+3. Standart ağırlıklar 10 × 1000 kg, M1 (her biri mpe 50 g), nominal değerinde: u(m_c) = mpe/√3 ve sürüklenme D = mpe (7.1.2-3, -11), kullanılan ağırlıklar için doğrusal toplanır; kaldırma kuvveti 7.1.2-5d, u_rel = 1,6·10⁻⁵, ikame yükleri için de (ρ ≥ 4400 kg/m³).
+4. u(I) = √(6,74² + 0,29² + 0,29² + 4,16² + 0,77²) = 7,97 kg; u(m_ref) = √(0,29² + 0,29² + 0,16²) = 0,44 kg; u(E) = 7,98 kg, ν_eff = 9,8 → 9, k = 2,32, U = 18,5 kg.
+
+**Sonuç:**
+
+- E = (10 ± 18) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,32 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-10t-weights.json --lang tr`
+
+### Köprü kantar 30 t: ikame yüküyle 15 t'da hata (EURAMET cg-18 H3)
+
+`cg18-h3-30t-15t-substitution` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+İkame yükü L_ikame1 (10 t standart ağırlıkla aynı göstergeyi verecek şekilde ayarlanmış römork ve konteynerler) üzerinde 5 t standart ağırlık.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Köprü kantar 30 000 kg / 10 kg, servis modunda d_T = 1 kg ile denenmiştir: E = I − L_T (7.1-1). Her gösterge sıfırda ve yükte yuvarlama (d_T/√12), tekrarlanabilirlik, eksantriklik ve sürünme/histerezis taşır.
+2. Yaklaşık 10 420 kg'lık altı yüklemeden tekrarlanabilirlik (10 405 … 10 425 kg): s = 6,74 kg, ν = 5 (7.1.1-5). Eksantriklik 10 420 kg'da 15 kg, iki denemenin bağıl olarak büyüğü: yarı genişlik ΔI·L/(2L_ecc) (7.1.1-10). Sıfıra dönüşteki E₀ = 4 kg'dan sürünme: yarı genişlik E₀·L/Max (7.4.4-7).
+3. Standart ağırlıklar 10 × 1000 kg, M1 (her biri mpe 50 g), nominal değerinde: u(m_c) = mpe/√3 ve sürüklenme D = mpe (7.1.2-3, -11), kullanılan ağırlıklar için doğrusal toplanır; kaldırma kuvveti 7.1.2-5d, u_rel = 1,6·10⁻⁵, ikame yükleri için de (ρ ≥ 4400 kg/m³).
+4. İkame (4.3.3, 7.1.2-15): 10 t'da L_ikame1 = m_ref + I(L_ikame1) − I(m_ref) ve 20 t'da I₂ = I(L_ikame1 + L_ikame2) − I(m_ref + L_ikame1) ile L_ikame1 + L_ikame2 = 2m_ref + I₁ + I₂. Ayar için kullanılan her gösterge kendi yuvarlamasını, tekrarlanabilirliğini, eksantrikliğini ve sürünmesini getirir; standart ağırlıklar her adımda aynıdır.
+5. u(L_ikame1)² = u²(m_ref) + 2u²(10 t'da I) = 0,44² + 2·7,97²: u(L_ikame1) = 11,28 kg. 15 t'da u(I) = 9,27 kg ve 5 t standart ağırlıkla: u(E) = 14,60 kg.
+6. Üç tekrarlanabilirlik teriminin her biri için ν = 5 ile ν_eff = 37 ve k = 2,07: U = 29 kg yerine 30,3 kg.
+
+**Sonuç:**
+
+- E = (15 ± 30) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,07 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Kılavuzun ν_eff'i yalnızca yükteki göstergenin tekrarlanabilirliğini sayar; ikame yüklerini ayarlamada kullanılan göstergelerin tekrarlanabilirlik terimlerine (7.1.2-15) sonsuz serbestlik derecesi verilir. Program her birine ν = 5 verir (araştırma günlüğü F69).
+- Üç tekrarlanabilirlik terimini aynı s'nin tek bir tahmini (ν = 5) olarak saymak, Welch–Satterthwaite'in aynı s üç kez kullanıldığında gerektirdiği gibi, ν_eff = 12 ve k = 2,23 verir (U = 32,6 kg).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-15t-substitution.json --lang tr`
+
+### Köprü kantar 30 t: iki ikame yüküyle Max'ta hata (EURAMET cg-18 H3)
+
+`cg18-h3-30t-max-substitution` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+İkame yükleri L_ikame1 + L_ikame2 üzerinde 10 t standart ağırlık; sertifikadaki en büyük U.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Köprü kantar 30 000 kg / 10 kg, servis modunda d_T = 1 kg ile denenmiştir: E = I − L_T (7.1-1). Her gösterge sıfırda ve yükte yuvarlama (d_T/√12), tekrarlanabilirlik, eksantriklik ve sürünme/histerezis taşır.
+2. Yaklaşık 10 420 kg'lık altı yüklemeden tekrarlanabilirlik (10 405 … 10 425 kg): s = 6,74 kg, ν = 5 (7.1.1-5). Eksantriklik 10 420 kg'da 15 kg, iki denemenin bağıl olarak büyüğü: yarı genişlik ΔI·L/(2L_ecc) (7.1.1-10). Sıfıra dönüşteki E₀ = 4 kg'dan sürünme: yarı genişlik E₀·L/Max (7.4.4-7).
+3. Standart ağırlıklar 10 × 1000 kg, M1 (her biri mpe 50 g), nominal değerinde: u(m_c) = mpe/√3 ve sürüklenme D = mpe (7.1.2-3, -11), kullanılan ağırlıklar için doğrusal toplanır; kaldırma kuvveti 7.1.2-5d, u_rel = 1,6·10⁻⁵, ikame yükleri için de (ρ ≥ 4400 kg/m³).
+4. İkame (4.3.3, 7.1.2-15): 10 t'da L_ikame1 = m_ref + I(L_ikame1) − I(m_ref) ve 20 t'da I₂ = I(L_ikame1 + L_ikame2) − I(m_ref + L_ikame1) ile L_ikame1 + L_ikame2 = 2m_ref + I₁ + I₂. Ayar için kullanılan her gösterge kendi yuvarlamasını, tekrarlanabilirliğini, eksantrikliğini ve sürünmesini getirir; standart ağırlıklar her adımda aynıdır.
+5. u(L_ikame1 + L_ikame2)² = 4u²(m_ref) + 2u²(10 t'da I) + 2u²(20 t'da I) = 4·0,44² + 2·7,97² + 2·10,82²: 19,02 kg; 30 t'da u(I) = 14,38 kg ile: u(E) = 23,85 kg.
+6. Aynı standart ağırlıklar üç kez girer (m_ref ve ikame yüklerinin içinde iki kez); model hatalarını doğrusal, kılavuz karesel olarak toplar (7.1.3-1c): 0,98 kg yerine 1,32 kg; u(E)'ye etkisi yoktur.
+7. E = 30 040 − 30 010 = 30 kg; u(E) = 23,86 kg, ν_eff = 157, k = 2,02, U = 48,1 kg.
+
+**Sonuç:**
+
+- E = (30 ± 48) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,02 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Kılavuzun ν_eff'i yalnızca yükteki göstergenin tekrarlanabilirliğini sayar; ikame yüklerini ayarlamada kullanılan göstergelerin tekrarlanabilirlik terimlerine (7.1.2-15) sonsuz serbestlik derecesi verilir. Program her birine ν = 5 verir (araştırma günlüğü F69).
+- Bütçe her yükte s = 6,74 kg kullanır; oysa 24 160 kg'daki tekrarlanabilirlik deneyi s = 9,03 kg vermiştir. 20 t ve 30 t'daki üç gösterge için 9,03 kg ile 30 t'da u(E) 23,9 kg yerine 26,0 kg olurdu (F69).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-max-substitution.json --lang tr`
+
+### Köprü kantar 30 t: sıfır yükte hata (EURAMET cg-18 H3)
+
+`cg18-h3-30t-zero` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3, H3.2/A and H3.3/A
+
+Açık havada, bulunduğu hâliyle kalibre edilen 30 000 kg / 10 kg'lık karayolu taşıtı köprü kantarı.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Köprü kantar 30 000 kg / 10 kg, servis modunda d_T = 1 kg ile denenmiştir: E = I − L_T (7.1-1). Her gösterge sıfırda ve yükte yuvarlama (d_T/√12), tekrarlanabilirlik, eksantriklik ve sürünme/histerezis taşır.
+2. Yaklaşık 10 420 kg'lık altı yüklemeden tekrarlanabilirlik (10 405 … 10 425 kg): s = 6,74 kg, ν = 5 (7.1.1-5). Eksantriklik 10 420 kg'da 15 kg, iki denemenin bağıl olarak büyüğü: yarı genişlik ΔI·L/(2L_ecc) (7.1.1-10). Sıfıra dönüşteki E₀ = 4 kg'dan sürünme: yarı genişlik E₀·L/Max (7.4.4-7).
+3. Standart ağırlıklar 10 × 1000 kg, M1 (her biri mpe 50 g), nominal değerinde: u(m_c) = mpe/√3 ve sürüklenme D = mpe (7.1.2-3, -11), kullanılan ağırlıklar için doğrusal toplanır; kaldırma kuvveti 7.1.2-5d, u_rel = 1,6·10⁻⁵, ikame yükleri için de (ρ ≥ 4400 kg/m³).
+4. Sıfırda: u(E) = √(6,74² + 0,29²) = 6,75 kg, ν_eff = 5, k = 2,65, U = 17,9 kg.
+
+**Sonuç:**
+
+- E = (0 ± 18) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,65 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang tr`
+
+### Terazi 400 g / 0,1 mg: hata yaklaşım fonksiyonu E = a₁I, ilk uyum (EURAMET cg-18 H4)
+
+`cg18-h4-400g-error-function` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H4; Appendix C2.2
+
+Korelasyonlu referans kütlelerle dokuz deney noktasından 400 g'lık bir terazinin hata yaklaşım fonksiyonu E = a₁I.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Terazi 400 g / 0,1 mg, kalibrasyondan hemen önce ayarlanmış; E2 ağırlıklarla (50 g, 100 g, 2 × 200 g) 0 … 400 g arasında dokuz deney noktası, N = 3 çevrim: E_j = I_j − m_c,j.
+2. u(I_j), tekrarlanabilirlik s = 0,052 mg/√3 = 0,030 mg (7.1.1-6), sıfırda ve yükte yuvarlama d/√12 ve 200 g'da 0,10 mg eksantriklikten (7.1.1-10): 0,042 … 0,077 mg.
+3. u(m_ref,j), U(m_c)/2 ve ağırlıkların sürüklenmesinden (kullanılan ağırlıklar üzerinden toplanarak) ve burada negatif olan 7.1.2-5b kaldırma kuvveti teriminden (ρ_a = 1,090, ρ_a1 = 1,045 kg/m³, ρ = (8000 ± 60) kg/m³): 0,014 … 0,077 mg.
+4. U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); genelleştirilmiş en küçük karelerle E(I) = a₁I: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv, ν = 9 − 1 = 8 (C2.2-6 … -9).
+5. Model terimi olmadan: a₁ = 0,000 83 mg/g, U(â) = 5,109·10⁻⁸ (mg/g)², u(a₁) = 0,000 23 mg/g; χ²_obs = 12,5 > ν = 8: χ² testi C2.2-2a başarısız.
+6. Program en küçük model terimlerini de bulur: C2.2-2a için s_m = 0,044 mg ve C2.2-2b için 0,22 mg; kılavuz 0,05 ve 0,25 mg yuvarlak değerlerini kullanır.
+
+**Sonuç:**
+
+- E_yakl(I) = 0,0008340·I; χ²_göz = 12,5, ν = 8 (C2.2-2a ✗); s_m = 0 mg
+- u(a1) = 0,000226
+
+**Notlar:**
+
+- Tablo H4.1 100, 150 ve 250 g'da e = 0,213, 0,274 ve 0,181 mg, Tablo H4.6/H4.8 ise 100,000 200, 150,000 267 ve 250,000 200 g göstergelerini verir; bütçe 0,113, 0,240 ve 0,081 mg (100,000 100, 150,000 233, 250,000 100 g) verir. Basılı a₁, U(â), χ²_obs ve artıklar bütçe değerlerinden çıkar; proje bunları kullanır (araştırma günlüğü F70).
+- 7.1.2-5b'nin kaldırma kuvveti 'varyansı' negatiftir: ρ_a1'de kalibre edilmiş ağırlıkların sertifika değerinde zaten bulunan u(ρ) payını çıkarır. Bu bir varyans değil kovaryans düzeltmesidir; u²(m_ref) pozitif kalır.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h4-400g-error-function.json --lang tr`
+
+### Terazi 400 g / 0,1 mg: s_m = 0,05 mg ile hata yaklaşım fonksiyonu, χ² testi geçer (EURAMET cg-18 H4)
+
+`cg18-h4-400g-error-function-sm-0.05` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H4; Appendix C2.2
+
+Korelasyonlu referans kütlelerle dokuz deney noktasından 400 g'lık bir terazinin hata yaklaşım fonksiyonu E = a₁I.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Terazi 400 g / 0,1 mg, kalibrasyondan hemen önce ayarlanmış; E2 ağırlıklarla (50 g, 100 g, 2 × 200 g) 0 … 400 g arasında dokuz deney noktası, N = 3 çevrim: E_j = I_j − m_c,j.
+2. u(I_j), tekrarlanabilirlik s = 0,052 mg/√3 = 0,030 mg (7.1.1-6), sıfırda ve yükte yuvarlama d/√12 ve 200 g'da 0,10 mg eksantriklikten (7.1.1-10): 0,042 … 0,077 mg.
+3. u(m_ref,j), U(m_c)/2 ve ağırlıkların sürüklenmesinden (kullanılan ağırlıklar üzerinden toplanarak) ve burada negatif olan 7.1.2-5b kaldırma kuvveti teriminden (ρ_a = 1,090, ρ_a1 = 1,045 kg/m³, ρ = (8000 ± 60) kg/m³): 0,014 … 0,077 mg.
+4. U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); genelleştirilmiş en küçük karelerle E(I) = a₁I: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv, ν = 9 − 1 = 8 (C2.2-6 … -9).
+5. U(e)'nin köşegeninde s_m = 0,05 mg ile: a₁ = 0,000 84 mg/g, U(â) = 5,637·10⁻⁸ (mg/g)², u(a₁) = 0,000 24 mg/g; χ²_obs = 7,3 ≤ 8 (C2.2-2a geçer).
+6. u(E_yakl,j) = I_j·u(a₁) (C2.2-11): 50 g'da 0,012 mg … 400 g'da 0,095 mg. 150 g'daki (−0,114 mg) ve 250 g'daki (+0,129 mg) artıklar U(E_yakl) = 2u'yu aşar: daha katı C2.2-2b testi iki noktada başarısızdır (Tablo H4.6).
+
+**Sonuç:**
+
+- E_yakl(I) = 0,0008384·I; χ²_göz = 7,32, ν = 8 (C2.2-2a ✓); s_m = 0,05 mg
+- u(a1) = 0,000237
+
+**Notlar:**
+
+- Tablo H4.1 100, 150 ve 250 g'da e = 0,213, 0,274 ve 0,181 mg, Tablo H4.6/H4.8 ise 100,000 200, 150,000 267 ve 250,000 200 g göstergelerini verir; bütçe 0,113, 0,240 ve 0,081 mg (100,000 100, 150,000 233, 250,000 100 g) verir. Basılı a₁, U(â), χ²_obs ve artıklar bütçe değerlerinden çıkar; proje bunları kullanır (araştırma günlüğü F70).
+- 7.1.2-5b'nin kaldırma kuvveti 'varyansı' negatiftir: ρ_a1'de kalibre edilmiş ağırlıkların sertifika değerinde zaten bulunan u(ρ) payını çıkarır. Bu bir varyans değil kovaryans düzeltmesidir; u²(m_ref) pozitif kalır.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.05.json --lang tr`
+
+### Terazi 400 g / 0,1 mg: s_m = 0,25 mg ile hata yaklaşım fonksiyonu, artık testi geçer (EURAMET cg-18 H4)
+
+`cg18-h4-400g-error-function-sm-0.25` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H4; Appendix C2.2
+
+Korelasyonlu referans kütlelerle dokuz deney noktasından 400 g'lık bir terazinin hata yaklaşım fonksiyonu E = a₁I.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Terazi 400 g / 0,1 mg, kalibrasyondan hemen önce ayarlanmış; E2 ağırlıklarla (50 g, 100 g, 2 × 200 g) 0 … 400 g arasında dokuz deney noktası, N = 3 çevrim: E_j = I_j − m_c,j.
+2. u(I_j), tekrarlanabilirlik s = 0,052 mg/√3 = 0,030 mg (7.1.1-6), sıfırda ve yükte yuvarlama d/√12 ve 200 g'da 0,10 mg eksantriklikten (7.1.1-10): 0,042 … 0,077 mg.
+3. u(m_ref,j), U(m_c)/2 ve ağırlıkların sürüklenmesinden (kullanılan ağırlıklar üzerinden toplanarak) ve burada negatif olan 7.1.2-5b kaldırma kuvveti teriminden (ρ_a = 1,090, ρ_a1 = 1,045 kg/m³, ρ = (8000 ± 60) kg/m³): 0,014 … 0,077 mg.
+4. U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); genelleştirilmiş en küçük karelerle E(I) = a₁I: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv, ν = 9 − 1 = 8 (C2.2-6 … -9).
+5. C2.2-2b'yi her noktada sağlamak için s_m 0,25 mg'a çıkarılır: a₁ = 0,000 84 mg/g, U(â) = 1,745·10⁻⁷ (mg/g)², u(a₁) = 0,000 42 mg/g; tüm artıklar U(E_yakl) içindedir (Tablo H4.8).
+6. Bedeli, yaklaşık hatanın çok daha büyük belirsizliğidir: 400 g'da U(E_yakl) 0,190 mg yerine 0,334 mg.
+
+**Sonuç:**
+
+- E_yakl(I) = 0,0008407·I; χ²_göz = 0,679, ν = 8 (C2.2-2a ✓); s_m = 0,25 mg
+- u(a1) = 0,000418
+
+**Notlar:**
+
+- Tablo H4.1 100, 150 ve 250 g'da e = 0,213, 0,274 ve 0,181 mg, Tablo H4.6/H4.8 ise 100,000 200, 150,000 267 ve 250,000 200 g göstergelerini verir; bütçe 0,113, 0,240 ve 0,081 mg (100,000 100, 150,000 233, 250,000 100 g) verir. Basılı a₁, U(â), χ²_obs ve artıklar bütçe değerlerinden çıkar; proje bunları kullanır (araştırma günlüğü F70).
+- 7.1.2-5b'nin kaldırma kuvveti 'varyansı' negatiftir: ρ_a1'de kalibre edilmiş ağırlıkların sertifika değerinde zaten bulunan u(ρ) payını çıkarır. Bu bir varyans değil kovaryans düzeltmesidir; u²(m_ref) pozitif kalır.
+- Tablo H4.8, bütçe değerlerinden hesaplanmış artıkların yanında Tablo H4.1'in e değerlerini (0,213, 0,274, 0,181 mg) basar.
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.25.json --lang tr`
 
 ### 10 kg'lık bir ağırlığın kalibrasyonu
 

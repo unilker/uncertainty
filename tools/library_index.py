@@ -29,11 +29,11 @@ def text(t, lang):
 
 def main():
     rows = {}
-    counts = {"model": 0, "topdown": 0, "proficiency": 0, "calibration": 0, "precision_experiment": 0, "multivariate": 0, "control_chart": 0, "sampling": 0, "conformity": 0}
+    counts = {"model": 0, "topdown": 0, "proficiency": 0, "calibration": 0, "precision_experiment": 0, "multivariate": 0, "control_chart": 0, "sampling": 0, "error_function": 0, "conformity": 0}
     for path in sorted(LIB.glob("*/*.json")):
         p = json.loads(path.read_text(encoding="utf-8"))
         m = p["metadata"]
-        kind = next((k for k in ("topdown", "proficiency", "calibration", "precision_experiment", "multivariate", "control_chart", "sampling") if k in p),
+        kind = next((k for k in ("topdown", "proficiency", "calibration", "precision_experiment", "multivariate", "control_chart", "sampling", "error_function") if k in p),
                     "model" if "model" in p else "conformity")
         counts[kind] += 1
         s = (m.get("sources") or [{}])[0]
@@ -48,9 +48,10 @@ def main():
            f"{counts['multivariate']} multivariate / çok çıktılı, "
            f"{counts['control_chart']} control charts / kontrol grafiği, "
            f"{counts['sampling']} sampling / numune alma, "
+           f"{counts['error_function']} error functions / hata fonksiyonu, "
            f"{counts['conformity']} conformity assessment / uygunluk değerlendirmesi).", ""]
     for field, heading in FIELDS.items():
-        for kind in ("model", "multivariate", "topdown", "proficiency", "calibration", "precision_experiment", "control_chart", "sampling", "conformity"):
+        for kind in ("model", "multivariate", "topdown", "proficiency", "calibration", "precision_experiment", "control_chart", "sampling", "error_function", "conformity"):
             if (field, kind) not in rows:
                 continue
             en, tr = heading.split(" / ")
@@ -61,6 +62,7 @@ def main():
                      "multivariate": f"{en}, several output quantities (JCGM 102) / {tr}, birden çok çıktı büyüklüğü (JCGM 102)",
                      "control_chart": f"{en}, control charts (Nordtest TR 569) / {tr}, kontrol grafikleri (Nordtest TR 569)",
                      "sampling": f"{en}, uncertainty from sampling (Eurachem UfS) / {tr}, numune alma belirsizliği (Eurachem UfS)",
+                     "error_function": f"{en}, error approximation functions (EURAMET cg-18) / {tr}, hata yaklaşım fonksiyonları (EURAMET cg-18)",
                      "conformity": f"{en}, conformity assessment (JCGM 106) / {tr}, uygunluk değerlendirmesi (JCGM 106)"}[kind]
             out += [f"## {title}", "", "| File / Dosya | Title | Başlık | Source / Kaynak |", "|---|---|---|---|"]
             out += rows.pop((field, kind)) + [""]

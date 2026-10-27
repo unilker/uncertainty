@@ -101,3 +101,9 @@ Turkish reports.
 | uncertainty factor | belirsizlik faktörü | UfS:2019 9.5.3 |
 | fundamental sampling error | temel numune alma hatası | UfS:2019 10.2.7 |
 | constitution factor / sampling constant | bileşim faktörü / numune alma sabiti | UfS:2019 10.2.8 |
+| error of indication | gösterge hatası | cg-18 7.1 |
+| error approximation function | hata yaklaşım fonksiyonu | cg-18 Appendix C |
+| substitution load | ikame yükü | cg-18 4.3.3 |
+| eccentricity / repeatability test | eksantriklik / tekrarlanabilirlik deneyi | cg-18 5.1, 5.3 |
+| multi-interval instrument | çok aralıklı tartı aleti | cg-18 H2 |
+| air buoyancy correction | hava kaldırma kuvveti düzeltmesi | cg-18 4.2.4 |

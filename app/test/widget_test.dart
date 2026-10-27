@@ -14,6 +14,7 @@ import 'package:uncertainty_app/src/widgets/charts.dart';
 import 'package:uncertainty_app/src/widgets/calibration_editor.dart';
 import 'package:uncertainty_app/src/widgets/conformity_editor.dart';
 import 'package:uncertainty_app/src/widgets/control_chart_editor.dart';
+import 'package:uncertainty_app/src/widgets/error_function_editor.dart';
 import 'package:uncertainty_app/src/widgets/precision_editor.dart';
 import 'package:uncertainty_app/src/widgets/proficiency_editor.dart';
 import 'package:uncertainty_app/src/widgets/sampling_editor.dart';
@@ -62,6 +63,21 @@ void main() {
         [9.01, 9.17],
       ]);
       expect(parsePairs('1 2 3'), isNull);
+    });
+
+    test('test points of an error function need four values', () {
+      final (rows, bad) = parseTestPoints('0\t0\t0\t0,0416\n50.000067 50.000006 0.0142 0.0512');
+      expect(bad, isNull);
+      expect(rows![1], [50.000067, 50.000006, 0.0142, 0.0512]);
+      expect(parseTestPoints('1 2 3').$2, 1);
+      expect(parseTestPoints('x 1 2 3 4').$2, 1);
+      final ef = {
+        'points': [
+          {'indication': 1.5, 'error': 0.2, 'u_reference': 0.01, 'u_indication': 0.02},
+        ],
+      };
+      expect(pointsUseReference(ef), isFalse);
+      expect(testPointsToText(ef, 'tr'), '1,5\t0,2\t0,01\t0,02');
     });
 
     test('duplicate samples need four values per target', () {
@@ -369,6 +385,23 @@ void main() {
     await pumpUntilFound(tester, find.text('Uncertainty from sampling'));
     expect(find.text('136.6 mg/kg'), findsOneWidget); // s_meas, Figure A2.2
     expect(find.text('2.621'), findsOneWidget); // F_U, measurement
+  });
+
+  testWidgets('the error function of EURAMET cg-18 H4 with s_m = 0.05 mg', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'cg18-h4-400g-error-function-sm-0.05');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('error approximation function with s_m = 0.05 mg'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Data'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('ef-data')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.byKey(const Key('ef-chi')));
+    expect(find.text('0.00083839'), findsOneWidget); // a₁, H4.4
+    expect(find.textContaining('χ² test passed (C2.2-2a): χ² = 7.32, ν = 8'), findsOneWidget);
   });
 
   testWidgets('top-down forms show and edit the raw data', (tester) async {

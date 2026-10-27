@@ -1587,3 +1587,83 @@ unrounded it is 28.53 %. The constitution factor is 2158.5 g cm⁻³ (printed
   7.43 mg/kg. The printed 6.5 % and u_b-loc = 2.9 % follow from 7.43. The
   mean of the splitting RSDs in Table A6.3 is 3.16 %, not 3.3 %. The combined
   11.3 % and U = 26 mg/kg are unchanged.
+
+## 2026-10-27 (session 17) — EURAMET cg-18 Examples H2–H4; error approximation function
+
+**D51. Examples H2 and H3 as models.** As for H1 (D49), each term of the
+budgets is an input of E = I − m_ref:
+
+- **H2** (60 kg, multi-interval): six projects. The rounding at the load uses
+  d of the interval that contains the load, and the repeatability the test in
+  the same interval. The buoyancy follows 7.1.2-5d, -5e or -5c, or the
+  correction is applied (option 2).
+- **H3** (30 t weighbridge): four projects. Each substitution step
+  L_sub = m_ref + I(L_sub) − I(m_ref) brings the indications used for the
+  adjustment as inputs of their own (rounding, repeatability, eccentricity,
+  creep), and the same standard weights enter every step. This reproduces
+  u(L_sub1) = 11.28 kg and u(L_sub1 + L_sub2) = 19.02 kg of formula
+  7.1.2-15b.
+
+Every printed u(E) of the selected points is reproduced. The coverage factors
+differ where the guide reads Table G.2 at a lower ν, as in H1.
+
+**D52. `error_function` section (cg-18 Appendix C2.2).** The core module
+`weighing` fits a polynomial E(I) (with or without a₀) by generalized least
+squares. The covariance matrix is U(e) = s sᵀ + diag(u²(I)) + s_m²·I. The
+module computes â, U(â), the residuals, χ²_obs with ν = n − n_par, both
+criteria C2.2-2a (χ²_obs ≤ ν) and C2.2-2b (each residual within k·u(E_appr)),
+u(E_appr) at the points and at readings (C2.2-11 to -14), and, by bisection,
+the smallest s_m meeting each criterion. Example H4 is reproduced for
+s_m = 0, 0.05 and 0.25 mg: a₁, U(â), χ²_obs, u(E_appr) of Tables H4.6 and
+H4.8, and the two points (150 g, 250 g) failing C2.2-2b. Its data need
+s_m = 0.044 mg for C2.2-2a and 0.22 mg for C2.2-2b; the guide's 0.05 and
+0.25 mg are rounded-up choices.
+
+**F68. cg-18 H2 — mpe of the 60 kg test load (class b).** The budgets use
+u(m_c) = 0.554 g, u(m_D) = 0.277 g and u(m_B) = 0.658 g at 60 kg, i.e.
+mpe = 0.96 g. The test load is three 20 kg F2 weights, mpe 3 × 0.30 g = 0.90 g
+(OIML R111). The 10, 20 and 40 kg columns use the R111 values (0.16, 0.30,
+0.60 g). The projects use 0.90 g: u(E) = 5.973 g instead of 5.978 g (A,
+option 1), and 5.725 g instead of 5.739 g (B). The printed B value 5.739 g
+does not follow from the table's own entries either: √(5.694² + 0.635²) =
+5.729 g. Also, with mpe = 0.96 g formula 7.1.2-5e gives 0.278 and 0.180 g at
+60 and 40 kg; the table prints 0.276 and 0.178 g.
+
+**F69. cg-18 H3 — degrees of freedom with substitution and repeatability
+(class c, method).**
+
+- The ν_eff of the budget (109 at 15 t, 783 at 30 t) counts only the
+  repeatability of the indication at the load. The repeatability terms of the
+  indications that adjust the substitution loads (inside u(L_sub),
+  7.1.2-15b) are treated as exact. Counting each with ν = 5 gives ν_eff = 37
+  and 157 (k = 2.07 and 2.02; U = 30.3 kg instead of 29 kg at 15 t).
+- Strictly, all these terms use the same s (ν = 5). Their variances then
+  have to be summed before Welch–Satterthwaite, which gives ν_eff ≈ 12 and
+  k = 2.23 at 15 t (U = 32.6 kg).
+- The budget also uses s = 6.74 kg (test at 10 420 kg) at every load,
+  although the test at 24 160 kg gave s = 9.03 kg. With 9.03 kg for the three
+  indications at 20 and 30 t, u(E) at 30 t would be 26.0 kg instead of
+  23.9 kg.
+- Formula 7.1.3-1c adds the reference-mass uncertainty of the current
+  weights and that inside u(L_sub) in quadrature, although they are the same
+  weights. Adding them linearly gives 1.32 kg instead of 0.98 kg at 30 t, with
+  no effect on u(E).
+
+**F70. cg-18 H4 — tables of the error function (class b).**
+
+- Table H4.1 lists e = 0.213, 0.274 and 0.181 mg at 100, 150 and 250 g.
+  Tables H4.6 and H4.8 list the indications 100.000 200, 150.000 267 and
+  250.000 200 g. The budget gives 0.113, 0.240 and 0.081 mg (100.000 100,
+  150.000 233, 250.000 100 g). The printed a₁, U(â), χ²_obs and residuals
+  follow from the budget values; with the H4.1 values a₁ would be
+  0.000 91 mg/g and χ²_obs = 15.4.
+- Table H4.8 prints the H4.1 errors next to residuals from the budget values.
+- Table H4.2 is not symmetric: (8,2) = 1.077·10⁻⁴ against (2,8) =
+  1.077·10⁻³, and (9,2) = 1.091·10⁻⁴ against (2,9) = 1.091·10⁻³.
+- Table H4.5 prints "5,322·10⁻³³" for 5.322·10⁻³.
+- The budget labels the drift row at 250–400 g "u(m_c)".
+- The buoyancy contribution of 7.1.2-5b is printed as a negative variance.
+  It is the removal of the part of u(ρ) already contained in the calibration
+  value of the weights (calibrated at ρ_a1): (ρ_a − ρ₀)(ρ_a − ρ₀ − 2(ρ_a1 − ρ₀))
+  = (ρ_a − ρ_a1)² − (ρ_a1 − ρ₀)². It is a covariance between m_c and the
+  buoyancy term rather than a variance, and is best presented that way.

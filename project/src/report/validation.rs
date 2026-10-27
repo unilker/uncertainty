@@ -120,7 +120,9 @@ const V_TR: VLabels = VLabels {
 };
 
 fn method_of(p: &Project) -> &'static str {
-    if p.sampling.is_some() {
+    if p.error_function.is_some() {
+        "EURAMET cg-18 App. C"
+    } else if p.sampling.is_some() {
         "Eurachem UfS:2019"
     } else if p.control_chart.is_some() {
         "Nordtest TR 569"

@@ -266,6 +266,9 @@ Table 9 (raw data only in the electronic supplement).
 | M3003-K10 | sheet thickness | 1.514 mm, u_c 0.009 63 mm, ν_eff 50, U 0.019 mm | same | ✅ |
 | M3003-K11 | PT100 probe; gas temperature | u_c 0.042 25 °C; 22.97 °C, u_c 0.086 38 °C | same; 0.086 35 °C | ✅ |
 | CG18-H1 | 220 g / 0.1 mg balance: zero, 220 g (5d, 5e), 100 g and 220 g with buoyancy correction | u(E) 0.000 118, 0.001 971, 0.000 491, 0.000 149, 0.000 226 g; k 2.87, 2.00, 2.00, 2.25, 2.05 | same; k = 2.04 exact at ν = 62 (guide uses GUM Table G.2) | ✅ |
+| CG18-H2 | 60 kg multi-interval balance (2/5/10 g): zero, 10 kg, 60 kg (5d, 5e, option 2), adjusted 60 kg (5c) | u(E) 1.238, 1.552, 5.978, 5.948, 5.941, 5.739 g; k 2.52, 2.17, 2.05, 2.05, 2.05, 2.025 | 1.238, 1.552; 5.973, 5.944, 5.938, 5.725 (mpe 0.90 g for 3 × 20 kg F2); k exact 2.03, 2.01 | ✅ (F68) |
+| CG18-H3 | 30 t weighbridge, substitution loads: zero, 10 t, 15 t, 30 t | u(E) 6.75, 7.98, 14.60, 23.85 kg; ν_eff 5, 9, 109, 783; U 18, 19, 29, 48 kg | 6.75, 7.98, 14.60, 23.86; ν_eff 5, 9.8, 37, 157; U 17.9, 18.5, 30.3, 48.1 | ✅ u(E); ν_eff differs (F69) |
+| CG18-H4 | error function E = a₁I, 400 g balance, s_m = 0, 0.05, 0.25 mg | a₁ 0.00083/0.00084; U(â) 5.109·10⁻⁸, 5.637·10⁻⁸, 1.745·10⁻⁷; χ² 12.5, 7.3; u(E_appr) Tables H4.6, H4.8; 2 points fail C2.2-2b at s_m = 0.05 | same; minimal s_m 0.044 mg (C2.2-2a), 0.22 mg (C2.2-2b) | ✅ (F70) |
 | CG19-E1 | 1000 mL flask (Tanaka density) | V₂₀ 999.628 mL, u 0.017 mL, ν_eff 19, k 2.15, U 0.036 mL | 999.622; 0.0169; 19.5; 2.14; 0.036 | ✅ (F62) |
 | CG19-E2 | 100 mL pycnometer | 100.014 mL, u 0.89 µL, ν_eff 13, k 2.21, U 2.0 µL | 100.0142; 0.90 µL; 12.9; 2.23 (G.6.4 truncation); 2.0 µL | ✅ (F62) |
 | M3003-L3 | DMM, 1 V range | 0.95 V: u_c 5.37 µV; 500 mV: U 6.2 µV; 1 V: k 1.898 | same | ✅ (F61) |

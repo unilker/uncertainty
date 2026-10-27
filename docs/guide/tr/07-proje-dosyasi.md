@@ -11,18 +11,19 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | sekizinden biri | ölçüm modeli (7.3) |
-| `topdown` | sekizinden biri | top-down değerlendirme (7.6) |
-| `proficiency` | sekizinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | sekizinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
-| `precision_experiment` | sekizinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
-| `multivariate` | sekizinden biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
-| `control_chart` | sekizinden biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
-| `sampling` | sekizinden biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
+| `model` | dokuzundan biri | ölçüm modeli (7.3) |
+| `topdown` | dokuzundan biri | top-down değerlendirme (7.6) |
+| `proficiency` | dokuzundan biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | dokuzundan biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | dokuzundan biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `multivariate` | dokuzundan biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
+| `control_chart` | dokuzundan biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
+| `sampling` | dokuzundan biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
+| `error_function` | dokuzundan biri | tartı aletinin hata yaklaşım fonksiyonu, EURAMET cg-18 (7.14) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); model ve çok çıktılı projelerde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
-| `expected` | hayır | toleranslarıyla referans değerler (7.15) |
+| `expected` | hayır | toleranslarıyla referans değerler (7.16) |
 
 ## 7.2 `metadata`
 
@@ -304,14 +305,37 @@ kuramıyla modelleme yaklaşımı.
 | `gy` | çift numuneler yerine temel numune alma hatası: `lot_concentration` a_L ve `particle_concentration` α (aynı birim), `critical_density` ρ_c ve `matrix_density` ρ_m (g cm⁻³), `steps` (her biri `name`, g cinsinden `sample_mass` ve `lot_mass`, cm cinsinden `particle_size` d, `size_factor` g, isteğe bağlı `shape_factor` f = 0,5 ve `liberation` β = 1), isteğe bağlı `analytical_rsd` (kesir) |
 | `coverage_factor` | bağıl genişletilmiş belirsizlikler için k (varsayılan 2) |
 
-## 7.14 Hatalar
+## 7.14 `error_function`
+
+Bir tartı aletinin hata yaklaşım fonksiyonu (EURAMET cg-18 Ek C2.2; bölüm 16).
+
+```json
+"error_function": {
+  "instrument": "Balance 400 g / 0.1 mg", "unit": "g", "error_unit": "mg", "error_factor": 1000,
+  "points": [{ "indication": 50.000067, "reference": 50.000006, "u_reference": 0.0142, "u_indication": 0.0512 }, …],
+  "through_zero": true, "s_m": 0.05, "readings": [{ "reading": 120 }]
+}
+```
+
+| Alan | İçerik |
+|---|---|
+| `points` | deney noktaları: `indication`, ya `error` (`error_unit` cinsinden) ya da `reference` (referans kütle, `unit` cinsinden) ve `u_reference`, `u_indication` (`error_unit` cinsinden) |
+| `error_factor` | `reference` ile verilen noktalar için E = (I − m_ref)·faktör (varsayılan 1) |
+| `degree` | polinomun derecesi nₐ (varsayılan 1) |
+| `through_zero` | `true`: sabit terim yok, E = a₁I (+ a₂I² …) (C2.2-16) |
+| `reference_correlation` | `full` (varsayılan, U(m_ref) = s sᵀ, C2.2-3b) veya `none` |
+| `s_m` | U(e)'nin köşegenindeki model terimi (C2.2-3c), varsayılan 0 |
+| `coverage_factor` | U(E_yakl)'nin ve C2.2-2b artık testinin k'sı (varsayılan 2) |
+| `readings` | E_yakl(R) ve belirsizliğinin raporlandığı okumalar R (`reading`, isteğe bağlı `u_reading`) |
+
+## 7.15 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
-`proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart` ve `sampling` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+`proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling` ve `error_function` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
-## 7.15 `expected`
+## 7.16 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
 `uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
@@ -352,3 +376,6 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
   `s_between_target`, `s_sampling`, `s_analysis`, `s_measurement`, `s_total`, `factor_sampling`, `factor_analysis`,
   `factor_measurement`, `relative_measurement`; `gy`: `constitution_factor`, `sampling_constants` ve `rsd` (her adım
   için bir değerli listeler), `rsd_sampling`, `rsd_total`, `expanded_relative_sampling`, `expanded_relative_total`
+* `error_function`: `coefficients` ve `u_coefficients` (kuvvetlerin sırasıyla listeler), `chi_squared`,
+  `chi_squared_passed` (true/false), `residual_failures` (C2.2-2b'yi sağlamayan nokta sayısı), `u_approximated`
+  (her nokta için bir değerli liste), `readings` (`{ "error", "u" }` listesi)
