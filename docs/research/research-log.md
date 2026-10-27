@@ -1667,3 +1667,98 @@ does not follow from the table's own entries either: √(5.694² + 0.635²) =
   value of the weights (calibrated at ρ_a1): (ρ_a − ρ₀)(ρ_a − ρ₀ − 2(ρ_a1 − ρ₀))
   = (ρ_a − ρ_a1)² − (ρ_a1 − ρ₀)². It is a covariance between m_c and the
   buoyancy term rather than a variance, and is best presented that way.
+
+## 2026-10-27 (session 18) — Software tools: full texts and the MUPR spreadsheet
+
+The author supplied the full texts of four papers on software tools
+(Hall 2022, GTC; Lobsiger et al. 2022, METAS UncLib; Pennecchi & Harris
+2023, Mathmet survey; Bettencourt da Silva 2026, MUPR spreadsheet) and the
+nine electronic supplements of the last. They are used locally only. The
+comparison and the gap analysis are in `literature-review.md` §3.
+
+The spreadsheet workbooks are protected with the password given in the
+paper. In the second copy received, supplements 01, 02 and 05–08 are
+complete. Supplements 03 and 04 (soil pH) are truncated (no zip central
+directory). Of 03, the sheet "Analysis sequence" can be read up to row 6 943,
+which holds all the data. The sheets "Performance Model" and "Trueness" are
+missing. Of 04, only two sheets are present.
+
+**D53. Recomputation of Supplementary Material 06** (fluoranthene,
+low spikes excluded). The values were read from the workbook and recomputed
+independently:
+
+- The weighted mean recovery R̿ = 0.748871 and χ² = 40.97 > χ²₀.₀₅,₁₉ =
+  30.14 (Eq. 16.1–16.2) follow from the 20 mean recoveries and their
+  uncertainties (sheet "Trueness", CF16:CG35).
+- The recoveries are not compatible, so s(R_m) = 0.087552 is added:
+  u(R̄) = √((√Σu²(R_k)/N)² + s²(R_m)) = 0.096291.
+- The recovery differs from 1: t = 2.608 > 2.093 (ν = 19).
+- For a single result of 10 mg/kg: c = 13.3534 mg/kg, u = 1.84285 mg/kg
+  (precision 0.66932, trueness 1.71701) and U = 3.857 mg/kg with k = 2.093.
+  This is the row "Sample 10 [1]" of the sheet "Analysis sequence".
+
+The spreadsheet's ν is the minimum of the ν of the components (19), not
+Welch–Satterthwaite. The program reproduces that with `coverage_dof`.
+
+**F71. Bettencourt da Silva (2026), text against its supplement
+(class b).**
+
+- Section 3.2 reports (13.4 ± 3.9) mg/kg "for k = 2.01". The supplement gives
+  k = 2.093 (ν = 19), and 3.9 follows only from that value:
+  2.01 × 1.843 = 3.70 would round to 3.7.
+- Section 3.1 gives s_r = 0.238 (ν = 56) and s_I = 0.0685 (ν = 82) for the pH
+  example. That would make s_r larger than s_I by a factor of 3.5, while the
+  text says that "no significant difference is observed" between them.
+- Supplement 03 settles it. Every row of "Analysis sequence" uses
+  s_r = 0.023773 and s_I = 0.068460 (columns BH, BI), so s_r = 0.0238 is
+  meant.
+- The precision term of a duplicate, √(s_I² − s_r²/2) = 0.066364, and
+  k = 2.0032 for ν = 56 follow from these values.
+- The values without the control standards (s_r = 0.229, s_I = 0.0573) are
+  presumably 0.0229 and 0.0573. Supplement 04 is truncated, so this could not
+  be checked.
+
+**F72. Bettencourt da Silva (2026) — absolute precision of a
+recovery-corrected result (class a).**
+
+- For relative precision the spreadsheet uses s = s′·c at the corrected value
+  c = x/R̄. That is the correct propagation.
+- For absolute precision (interval I, s_I = 0.075185 mg/kg on the
+  measured-value scale) it uses s_I itself, not s_I/R̄.
+- At x = 0.1 mg/kg this gives (0.13 ± 0.16) mg/kg, the value printed in the
+  paper. The propagation for y = x/R̄ gives u = √((0.075185/0.748871)² +
+  0.01717²) = 0.10186 mg/kg and U = 0.21 mg/kg: a relative expanded
+  uncertainty of 160 % instead of 121 %.
+- This is the omission already found in MUPR Eq. (B6.8) (F17), here carried
+  into the software. The program divides absolute components by R̄ (D18).
+
+**F73. Bettencourt da Silva (2026) — mean recovery and its uncertainty
+(class c, method).**
+
+- R̄ is the weighted mean of Eq. (16.1), which the MUPR footnote to Eq. (8)
+  allows. Its uncertainty, however, is the arithmetic-mean form of Eq. (12),
+  √Σu²(R_k)/N = 0.04008.
+- The uncertainty of the weighted mean itself would be
+  (Σ1/u²(R_k))^(−1/2) = 0.00996.
+- One test (SS95(SP1), spiked at 0.1 mg/kg, u = 0.751) contributes 0.0375 of
+  the 0.0401 but has almost no weight in R̄. Without it √Σu²/N = 0.0141.
+- With s(R_m) added, the three consistent choices give at 10 mg/kg:
+  - spreadsheet (weighted R̄, Eq. 12 u): 13.35 mg/kg, U = 3.86 mg/kg;
+  - Eq. (8)–(12) throughout (arithmetic R̄ = 0.76307, as in the program):
+    13.10 mg/kg, U = 3.72 mg/kg;
+  - weighted R̄ with its own uncertainty: 13.35 mg/kg, U = 3.57 mg/kg.
+- The program has no weighted mean recovery. Adding one, as an option
+  `"mean": "weighted"` with u(R̿) = (Σ1/u²)^(−1/2), would cover this case and
+  that of Mateos et al. (2020) (F46).
+
+**Implications for the article.**
+
+- The closest tool in chemistry is a spreadsheet by the author of the
+  guidance it implements. Recomputing one published example from its
+  supplement found one text–software discrepancy and two departures from the
+  guide's equations.
+- This supports the article's argument that each implementation should be
+  checked automatically against published examples, and that such checks
+  should be repeatable by anyone.
+- The Mathmet figures (54 % of tools with any validation evidence; 20 %, 6 %
+  and 31 % with JCGM 102 support) quantify the gap in the wider landscape.

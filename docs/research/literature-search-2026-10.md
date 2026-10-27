@@ -40,14 +40,19 @@ records what was found so far.
 ## Main implications
 
 - The closest work to this program is Bettencourt da Silva (2026), a
-  spreadsheet that implements the international guidance for chemistry; the
-  gap analysis has to compare scope (top-down, sampling, PT, conformity,
-  calibration), validation evidence and bilingual reporting with it.
+  spreadsheet that implements the Eurachem/CITAC MUPR guide for chemistry.
+  Its full text and supplement have been read. Recomputing the fluoranthene
+  example and the pH data found a k printed as 2.01 instead of 2.09, s_r
+  printed as 0.238 instead of 0.0238, absolute precision not
+  divided by R̄, and a weighted mean recovery combined with the uncertainty of
+  the arithmetic mean (research log F71–F73).
 - Tool landscape: GUM Tree Calculator, METAS UncLib, Suncal, NIST Uncertainty
   Machine, VNA Tools, and the Mathmet survey of MU software against
-  JCGM 100/101/102. Working hypothesis, to be checked in the full texts:
-  none of them combines a library of hundreds of self-checking published
-  examples with a validation report for ISO/IEC 17025 7.11.
+  JCGM 100/101/102. The four full texts read so far (GTC, UncLib, Mathmet,
+  MUPR spreadsheet) confirm the working hypothesis: none combines bottom-up
+  and top-down methods with offline mobile use and a library of hundreds of
+  self-checking published examples (`literature-review.md` §3). Suncal and
+  the NIST Uncertainty Machine paper are still to be read.
 - Methods: the proposed new VIM definition of measurement uncertainty
   (Possolo 2025) and the IUPAC brief guide (2024) should be reflected in the
   guide's terminology. Huang (2019, title and venue only so far) argues against the scaled and shifted
@@ -68,14 +73,14 @@ records what was found so far.
 
 | | Reference | Relevance | Link |
 |---|---|---|---|
-| ★ OA | Bettencourt da Silva (2026). User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty. *Talanta* 130826. Cited 0. | Closest competitor in chemistry: a spreadsheet implementing international guidance (Eurachem/CITAC); compare scope, validation and usability with this program. | https://doi.org/10.1016/j.talanta.2026.130826 |
-| ★ OA | Hall (2022). The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty. *Metrology* 2, 128-149. Cited 13. | GUM Tree Calculator (Python): automatic propagation, complex quantities; open-source benchmark for the GUM framework. | https://doi.org/10.3390/metrology2010009 |
-| ★ OA | Lobsiger et al. (2022). METAS UncLib – A Measurement Uncertainty Calculator in Chemical Analysis. *CHIMIA* 76, 596. Cited 0. | METAS UncLib applied in chemical analysis: linear propagation library used by an NMI. | https://doi.org/10.2533/chimia.2022.596 |
+| ★ OA | Bettencourt da Silva (2026). User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty. *Talanta* 130826. Cited 0. | Closest competitor in chemistry: a spreadsheet implementing international guidance (Eurachem/CITAC); compare scope, validation and usability with this program. **Read** with the supplement (2026-10-27): literature-review.md §3, research log D53, F71–F73. | https://doi.org/10.1016/j.talanta.2026.130826 |
+| ★ OA | Hall (2022). The GUM Tree Calculator: A Python Package for Measurement Modelling and Data Processing with Automatic Evaluation of Uncertainty. *Metrology* 2, 128-149. Cited 13. | GUM Tree Calculator (Python): automatic propagation, complex quantities; open-source benchmark for the GUM framework. **Read** (2026-10-27): Willink ν for correlated inputs and JSON archives of uncertain numbers are features to adopt. | https://doi.org/10.3390/metrology2010009 |
+| ★ OA | Lobsiger et al. (2022). METAS UncLib – A Measurement Uncertainty Calculator in Chemical Analysis. *CHIMIA* 76, 596. Cited 0. | METAS UncLib applied in chemical analysis: linear propagation library used by an NMI. **Read** (2026-10-27). | https://doi.org/10.2533/chimia.2022.596 |
 | ★ | Sandia National Laboratories & Delker (2021). Sandia's Uncertainty Calculator: A Case Study in the Graded Approach. *NCSLI Measure* 13, 34-39. Cited 0. | Suncal (Sandia): graded software quality assurance of an uncertainty calculator — model for the validation report (ISO/IEC 17025 7.11). | https://doi.org/10.51843/measure.13.4.6 |
 | ★ | Lafarge & Possolo (2015). The NIST Uncertainty Machine. *NCSLI Measure* 10, 20-27. Cited 65. | NIST Uncertainty Machine (listed as missing; DOI now known). | https://doi.org/10.1080/19315775.2015.11721732 |
 |  | Albert (2020). Monte Carlo Uncertainty Propagation with the NIST Uncertainty Machine. *Journal of Chemical Education* 97, 1491-1494. Cited 33. | Teaching Monte Carlo propagation with the NIST Uncertainty Machine. | https://doi.org/10.1021/acs.jchemed.0c00096 |
 | OA | Zeier et al. (2025). VNA Tools—A Metrology Software Supporting the Digital Traceability Chain. *Metrology* 5, 72. Cited 2. | VNA Tools: NMI metrology software supporting the digital traceability chain. | https://doi.org/10.3390/metrology5040072 |
-| ★ OA | Pennecchi & Harris (2023). Mathmet Measurement Uncertainty Training activity – Overview of courses, software, and classroom examples. *Acta IMEKO* 12, 1-6. Cited 2. | Mathmet survey of courses, software and classroom examples, checked against JCGM 100/101/102 — the reference landscape for the gap analysis. | https://doi.org/10.21014/actaimeko.v12i2.1310 |
+| ★ OA | Pennecchi & Harris (2023). Mathmet Measurement Uncertainty Training activity – Overview of courses, software, and classroom examples. *Acta IMEKO* 12, 1-6. Cited 2. | Mathmet survey of courses, software and classroom examples, checked against JCGM 100/101/102 — the reference landscape for the gap analysis. **Read** (2026-10-27): 35 tools analysed, 54 % with validation evidence, JCGM 102 support 20 %/6 %/31 %. | https://doi.org/10.21014/actaimeko.v12i2.1310 |
 |  | Zangl & Hoermaier (2017). Educational aspects of uncertainty calculation with software tools. *Measurement* 101, 257-264. Cited 12. | Educational aspects of uncertainty calculation with software tools. | https://doi.org/10.1016/j.measurement.2015.11.005 |
 | OA | Veen & Cox (2021). Getting started with uncertainty evaluation using the Monte Carlo method in R. *Accreditation and Quality Assurance* 26, 129-141. Cited 24. | Getting started with the Monte Carlo method in R (AQA): accessible MCM implementation. | https://doi.org/10.1007/s00769-021-01469-5 |
 |  | Black & Flater (2025). Integrating software metrology with the international metrology system. *150th anniversary of the Metre Convention — From Units to the Universe*. Cited 0. | Software metrology and the international system (NIST, 2025): context for validating measurement software. | https://doi.org/10.59161/wrxd1297 |
