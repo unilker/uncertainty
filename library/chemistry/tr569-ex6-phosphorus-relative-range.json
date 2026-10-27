@@ -1,0 +1,74 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex6-phosphorus-relative-range",
+    "title": {
+      "en": "Total phosphorus in water: r%-chart of duplicates (Nordtest TR 569 Example 6)",
+      "tr": "Suda toplam fosfor: paralel tayinlerin r%-grafiği (Nordtest TR 569 Örnek 6)"
+    },
+    "description": {
+      "en": "Test samples above 10 µg/L analysed in duplicate; the absolute difference as per cent of the mean is plotted, since the relative standard deviation is about constant well above the LOQ.",
+      "tr": "10 µg/L'nin üzerindeki numuneler paralel analiz edilir; LOQ'nun çok üzerinde göreli standart sapma yaklaşık sabit olduğundan farkın ortalamaya yüzde oranı çizilir."
+    },
+    "explanation": [
+      {
+        "en": "Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).",
+        "tr": "Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den)."
+      },
+      {
+        "en": "Mean r% 1.88 %, CV = 1.88/1.128 = 1.67 %; warning limit 2.83·1.67 = 4.73 %, action limit 3.69·1.67 = 6.16 %.",
+        "tr": "Ortalama r% %1,88, CV = 1,88/1,128 = %1,67; uyarı sınırı 2,83·1,67 = %4,73, eylem sınırı 3,69·1,67 = %6,16."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 6",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "phosphorus",
+      "water",
+      "relative-range",
+      "duplicates"
+    ]
+  },
+  "control_chart": {
+    "quantity": "total P, duplicates of test samples",
+    "chart": "relative_range",
+    "replicates": 2,
+    "central_line": {
+      "mean": 1.88
+    },
+    "limits": {
+      "basis": "statistical",
+      "sd": 1.67
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "sd": {
+        "value": 1.67,
+        "tolerance": 1e-12
+      },
+      "upper_warning": {
+        "value": 4.73,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 6.16,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 6. The example rounds CV = 1.88/1.128 = 1.667 % to 1.67 % before multiplying by the factors; with the unrounded value the limits would be 4.72 % and 6.14 %.",
+      "tr": "TR 569 Örnek 6. Örnek CV = 1,88/1,128 = %1,667 değerini katsayılarla çarpmadan önce %1,67'ye yuvarlar; yuvarlanmamış değerle sınırlar %4,72 ve %6,14 olurdu."
+    }
+  }
+}

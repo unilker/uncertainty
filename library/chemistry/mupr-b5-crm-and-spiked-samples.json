@@ -1,0 +1,155 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-b5-crm-and-spiked-samples",
+    "title": {
+      "en": "Arsenic: CRM and spiked samples with matrix-dependent recovery",
+      "tr": "Arsenik: matrise bağlı geri kazanımlı CRM ve katkılı numuneler"
+    },
+    "description": {
+      "en": "MUPR Example B5: recoveries vary with the matrix, so their standard deviation is included and k = t(2).",
+      "tr": "MUPR Örnek B5: geri kazanımlar matrisle değiştiğinden standart sapmaları dahil edilir ve k = t(2)."
+    },
+    "explanation": [
+      {
+        "en": "R̿ = 94.98 % from the CRM and two spiked sediments; s(R) = 7.32 %, u(R̿) with s(R) = 8.00 % (Eq. B5.1–B5.3).",
+        "tr": "CRM ve iki katkılı sedimentten R̿ = %94,98; s(R) = %7,32, s(R) dahil u(R̿) = %8,00 (Eş. B5.1–B5.3)."
+      },
+      {
+        "en": "|1 − R̿|/u = 0.63 ≤ t₂ = 4.30: not corrected; with ν = 2 the coverage factor is t₀.₉₇₅(2) = 4.30 and U = 0.395 w.",
+        "tr": "|1 − R̿|/u = 0,63 ≤ t₂ = 4,30: düzeltilmez; ν = 2 ile kapsam faktörü t₀,₉₇₅(2) = 4,30 ve U = 0,395 w."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example B5",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "recovery",
+      "spike",
+      "matrix-effects"
+    ]
+  },
+  "topdown": {
+    "quantity": "w(As)",
+    "unit": "mg/kg",
+    "levels": [
+      16.0
+    ],
+    "precision": [
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "groups",
+          "relative": true,
+          "groups": [
+            {
+              "label": "A1",
+              "sd_percent": 2.93,
+              "n": 10
+            },
+            {
+              "label": "B",
+              "sd_percent": 5.46,
+              "n": 10
+            },
+            {
+              "label": "C",
+              "sd_percent": 4.83,
+              "n": 9
+            }
+          ]
+        }
+      }
+    ],
+    "recovery": {
+      "name": "u(R̿)",
+      "include_sd_of_recoveries": true,
+      "tests": [
+        {
+          "type": "reference",
+          "label": "WQB-1",
+          "mean": 21.04,
+          "sd": 0.779,
+          "n": 10,
+          "reference": 23.0,
+          "expanded": 1.84,
+          "k": 2
+        },
+        {
+          "type": "spiked",
+          "label": "A",
+          "mean_after": 22.546,
+          "sd_after": 0.782,
+          "n_after": 10,
+          "mean_before": 15.79,
+          "sd_before": 0.106,
+          "n_before": 10,
+          "spike": 7.501,
+          "u_spike_percent": 0.93
+        },
+        {
+          "type": "spiked",
+          "label": "C",
+          "mean_after": 14.31,
+          "sd_after": 1.83,
+          "n_after": 9,
+          "mean_before": 6.461,
+          "sd_before": 0.312,
+          "n_before": 9,
+          "spike": 7.591,
+          "u_spike_percent": 0.93
+        }
+      ]
+    },
+    "coverage_probability": 0.95,
+    "coverage_dof": 2
+  },
+  "expected": {
+    "topdown": {
+      "recovery": {
+        "mean_percent": {
+          "value": 94.98,
+          "tolerance": 0.005
+        },
+        "sd_percent": {
+          "value": 7.32,
+          "tolerance": 0.005
+        },
+        "standard_uncertainty_percent": {
+          "value": 8.0,
+          "tolerance": 0.005
+        },
+        "statistic": {
+          "value": 0.6275,
+          "tolerance": 0.0005
+        },
+        "critical": {
+          "value": 4.3,
+          "tolerance": 0.005
+        },
+        "significant": false
+      },
+      "levels": [
+        {
+          "level": 16.0,
+          "relative_expanded_percent": {
+            "value": 39.5,
+            "tolerance": 0.1
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "MUPR Example B5, Eq. (B5.1)–(B5.6) (U = 0.395 w with t rounded to 4.30; with t₀.₉₇₅(2) = 4.303, 0.3955 w).",
+      "tr": "MUPR Örnek B5, Eş. (B5.1)–(B5.6) (t 4,30'a yuvarlanarak U = 0,395 w; t₀,₉₇₅(2) = 4,303 ile 0,3955 w)."
+    }
+  }
+}

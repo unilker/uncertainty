@@ -1,0 +1,148 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e4-pitot-tube",
+    "title": {
+      "en": "Airspeed with a Pitot tube (NIST TN 1900 E4)",
+      "tr": "Pitot tüpüyle hava hızı (NIST TN 1900 E4)"
+    },
+    "description": {
+      "en": "TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pressure, the air pressure and the temperature.",
+      "tr": "TN 1900 E4 (Kline ve McClintock, 1953'ten): fark basıncı, hava basıncı ve sıcaklıktan hava hızı."
+    },
+    "explanation": [
+      {
+        "en": "v = √(2ΔR_sT/p), where the air density ρ = p/(R_sT) comes from the ideal gas law; R_s = 287.058 J kg⁻¹ K⁻¹ is the specific gas constant of dry air.",
+        "tr": "v = √(2ΔR_sT/p); burada hava yoğunluğu ρ = p/(R_sT) ideal gaz yasasından gelir; R_s = 287,058 J kg⁻¹ K⁻¹ kuru havanın özgül gaz sabitidir."
+      },
+      {
+        "en": "Δ = 1.993 kPa (U-tube manometer), p = 101.4 kPa (Bourdon gauge) and T = 292.8 K (mercury-in-glass thermometer) with 95 % expanded uncertainties 0.025 kPa, 2.1 kPa and 0.11 K; the standard uncertainties are half of these.",
+        "tr": "Δ = 1,993 kPa (U-tüp manometre), p = 101,4 kPa (Bourdon manometre) ve T = 292,8 K (cıvalı cam termometre); %95 genişletilmiş belirsizlikleri 0,025 kPa, 2,1 kPa ve 0,11 K'dir, standart belirsizlikler bunların yarısıdır."
+      },
+      {
+        "en": "For a power law the relative uncertainties add in quadrature with weights ½: u(v)/v = ½ √((u_Δ/Δ)² + (u_p/p)² + (u_T/T)²) = 0.61 %, dominated by the air pressure. The Monte Carlo interval is slightly shifted towards lower values (v ∝ p^−½), and the GUM interval is not validated for two significant digits of u (end-point differences 0.007 and 0.009 m/s against δ = 0.005 m/s), as the second-digit differences between the two intervals printed in TN 1900 also show.",
+        "tr": "Üslü bir bağıntıda bağıl belirsizlikler ½ ağırlıkla kareler toplamı olarak birleşir: u(v)/v = ½ √((u_Δ/Δ)² + (u_p/p)² + (u_T/T)²) = %0,61; baskın katkı hava basıncınındır. Monte Carlo aralığı biraz daha düşük değerlere kaymıştır (v ∝ p^−½) ve GUM aralığı u'nun iki anlamlı basamağı için doğrulanmaz (uç nokta farkları 0,007 ve 0,009 m/s, δ = 0,005 m/s); TN 1900'de basılı iki aralık arasındaki ikinci basamak farkları da bunu gösterir."
+      }
+    ],
+    "field": "flow",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E4",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "non-linear",
+      "power-law",
+      "pressure"
+    ],
+    "notes": [
+      {
+        "en": "With the stated equation and inputs, v = 57.48 m/s and u(v) = 0.348 m/s. TN 1900 prints v = 40.64 m/s and u(v) = 0.25 m/s, which are those values divided by √2, i.e. the result of v = √(ΔR_sT/p) without the factor 2. The relative uncertainty, 0.61 %, is the same in both.",
+        "tr": "Verilen denklem ve girdilerle v = 57,48 m/s ve u(v) = 0,348 m/s bulunur. TN 1900 ise v = 40,64 m/s ve u(v) = 0,25 m/s basar; bunlar aynı değerlerin √2'ye bölünmüşüdür, yani 2 çarpanı olmadan v = √(ΔR_sT/p) bağıntısının sonucudur. Bağıl belirsizlik (%0,61) her ikisinde de aynıdır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "v",
+      "unit": "m/s",
+      "expression": "sqrt(2 * 1000 * Delta * R_s * T / (1000 * p))",
+      "description": {
+        "en": "Airspeed",
+        "tr": "Hava hızı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "Delta",
+        "unit": "kPa",
+        "description": {
+          "en": "Difference between total and static pressure",
+          "tr": "Toplam ve statik basınç farkı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.993,
+          "sd": 0.0125
+        }
+      },
+      {
+        "name": "R_s",
+        "unit": "J/(kg K)",
+        "description": {
+          "en": "Specific gas constant of dry air",
+          "tr": "Kuru havanın özgül gaz sabiti"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 287.058
+        }
+      },
+      {
+        "name": "T",
+        "unit": "K",
+        "description": {
+          "en": "Air temperature",
+          "tr": "Hava sıcaklığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 292.8,
+          "sd": 0.055
+        }
+      },
+      {
+        "name": "p",
+        "unit": "kPa",
+        "description": {
+          "en": "Air pressure",
+          "tr": "Hava basıncı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 101.4,
+          "sd": 1.05
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 4,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 57.47363917484259,
+        "tolerance": 0.01
+      },
+      "standard_uncertainty": {
+        "value": 0.3478965363437814,
+        "tolerance": 0.002
+      }
+    },
+    "mcm": {
+      "interval_low": {
+        "value": 56.808958800527236,
+        "tolerance": 0.01
+      },
+      "interval_high": {
+        "value": 58.166603820405406,
+        "tolerance": 0.01
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "NIST TN 1900 E4: v = 40.64 m/s, u(v) = 0.25 m/s (relative 0.61 %), Monte Carlo 95 % interval [40.17, 41.13] m/s, each multiplied by √2 to correct for the missing factor 2 (see note).",
+      "tr": "NIST TN 1900 E4: v = 40,64 m/s, u(v) = 0,25 m/s (bağıl %0,61), Monte Carlo %95 aralığı [40,17; 41,13] m/s; eksik 2 çarpanı için her biri √2 ile çarpılmıştır (nota bakınız)."
+    }
+  }
+}

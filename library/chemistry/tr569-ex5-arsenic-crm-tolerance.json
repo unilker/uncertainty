@@ -1,0 +1,70 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex5-arsenic-crm-tolerance",
+    "title": {
+      "en": "Arsenic in a fish CRM by ICP-MS: chart with action limits only at ± 15 % (Nordtest TR 569 Example 5)",
+      "tr": "ICP-MS ile balık CRM'sinde arsenik: yalnızca ± %15 eylem sınırlı grafik (Nordtest TR 569 Örnek 5)"
+    },
+    "description": {
+      "en": "CRM NRC DORM-2 (dogfish muscle), 18.0 µg/g arsenic, analysed once in each run; the laboratory accepts deviations of up to 15 % from the reference value.",
+      "tr": "CRM NRC DORM-2 (köpek balığı kası), 18,0 µg/g arsenik, her seride bir kez analiz edilir; laboratuvar referans değerden %15'e kadar sapmayı kabul eder."
+    },
+    "explanation": [
+      {
+        "en": "Central line the reference value; action limits CL ± tolerance = 18.0 ± 2.7 µg/g; no warning limits (Chapters 5 and 7).",
+        "tr": "Merkez çizgisi referans değer; eylem sınırları CL ± tolerans = 18,0 ± 2,7 µg/g; uyarı sınırı yok (Bölüm 5 ve 7)."
+      },
+      {
+        "en": "Without warning limits the rule two out of three is not available, so the chart is less sensitive to a drift of the mean.",
+        "tr": "Uyarı sınırları olmadan üçte iki kuralı uygulanamaz; bu nedenle grafik ortalamadaki kaymaya daha az duyarlıdır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 5",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "arsenic",
+      "crm",
+      "icp-ms",
+      "action-limits-only",
+      "tolerance"
+    ]
+  },
+  "control_chart": {
+    "quantity": "As, CRM DORM-2",
+    "unit": "µg/g",
+    "central_line": {
+      "reference": 18.0
+    },
+    "limits": {
+      "basis": "tolerance",
+      "tolerance_percent": 15.0
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_action": {
+        "value": 15.3,
+        "tolerance": 1e-09
+      },
+      "upper_action": {
+        "value": 20.7,
+        "tolerance": 1e-09
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 5.",
+      "tr": "TR 569 Örnek 5."
+    }
+  }
+}

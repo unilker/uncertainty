@@ -1,0 +1,224 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso6143-b3-no-ndir-power",
+    "title": {
+      "en": "NO in N₂ by NDIR: power function (ISO 6143 Example 3)",
+      "tr": "N₂ içinde NO, NDIR: üslü fonksiyon (ISO 6143 Örnek 3)"
+    },
+    "description": {
+      "en": "ISO 6143:2025 B.2.4: a non-linear NDIR calibration with twelve points; the power analysis function x = b₀ + b₁y^(1+b₂) fitted by generalized least squares.",
+      "tr": "ISO 6143:2025 B.2.4: on iki noktalı doğrusal olmayan bir NDIR kalibrasyonu; x = b₀ + b₁y^(1+b₂) üslü analiz fonksiyonu genelleştirilmiş en küçük karelerle uydurulur."
+    },
+    "explanation": [
+      {
+        "en": "Twelve reference gas mixtures from 1 µmol/mol to 10 µmol/mol NO in N₂ measured by non-dispersive infrared absorption; the response is clearly non-linear: the straight line gives S_res = 273 (limit 20) and Γ = 6.84 > 2.",
+        "tr": "N₂ içinde 1 µmol/mol – 10 µmol/mol NO içeren on iki referans gaz karışımı, dağılmasız kızılötesi absorpsiyonla ölçülmüştür; yanıt belirgin biçimde doğrusal değildir: doğru S_res = 273 (sınır 20) ve Γ = 6,84 > 2 verir."
+      },
+      {
+        "en": "Power function: b₂ = 0.0850 ± 0.0051; S_res = 8.38 (limit 18) and Γ = 1.16 ≤ 2: admissible.",
+        "tr": "Üslü fonksiyon: b₂ = 0,0850 ± 0,0051; S_res = 8,38 (sınır 18) ve Γ = 1,16 ≤ 2: kabul edilebilir."
+      },
+      {
+        "en": "Mixture with y = 4950.6 ± 11: x = 5.3456 µmol/mol, u(x) = 0.0142 µmol/mol.",
+        "tr": "y = 4950,6 ± 11 olan karışım: x = 5,3456 µmol/mol, u(x) = 0,0142 µmol/mol."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 6143:2025, Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures",
+        "section": "Annex B.2.4 (Tables B.11, B.12)",
+        "url": "https://www.iso.org/standard/84420.html"
+      }
+    ],
+    "tags": [
+      "iso6143",
+      "gas-analysis",
+      "calibration",
+      "generalized-least-squares",
+      "errors-in-variables",
+      "non-linear"
+    ],
+    "notes": [
+      {
+        "en": "For this non-linear function the parameter covariances are computed by implicit differentiation of the minimum condition, the exact form of the numerical differentiation of A.2; they agree with B_LEAST within 0.3 %. A Monte Carlo simulation of the whole calibration (4000 refits, research log F42) gives u(x) = 0.0142 µmol/mol as well.",
+        "tr": "Bu doğrusal olmayan fonksiyon için parametre kovaryansları, en küçük koşulunun kapalı türevlenmesiyle, yani A.2'deki sayısal türevlemenin tam biçimiyle hesaplanır; B_LEAST ile %0,3 içinde uyumludur. Tüm kalibrasyonun Monte Carlo benzetimi (4000 yeniden uydurma, araştırma günlüğü F42) de u(x) = 0,0142 µmol/mol verir."
+      }
+    ]
+  },
+  "calibration": {
+    "analyte": "NO",
+    "unit": "µmol/mol",
+    "response_unit": "NDIR signal",
+    "points": [
+      {
+        "name": "M1",
+        "x": 1.0006,
+        "u_x": 0.00134,
+        "y": 963.7988,
+        "u_y": 14
+      },
+      {
+        "name": "M2",
+        "x": 1.001,
+        "u_x": 0.0011,
+        "y": 966.2585,
+        "u_y": 12.5
+      },
+      {
+        "name": "M3",
+        "x": 1.9995,
+        "u_x": 0.0032,
+        "y": 1912.5692,
+        "u_y": 16.8
+      },
+      {
+        "name": "M4",
+        "x": 3.0018,
+        "u_x": 0.0034,
+        "y": 2846.9306,
+        "u_y": 11.6
+      },
+      {
+        "name": "M5",
+        "x": 3.9982,
+        "u_x": 0.0058,
+        "y": 3754.9386,
+        "u_y": 10.8
+      },
+      {
+        "name": "M6",
+        "x": 4.0043,
+        "u_x": 0.0058,
+        "y": 3764.5905,
+        "u_y": 12.1
+      },
+      {
+        "name": "M7",
+        "x": 4.9981,
+        "u_x": 0.0058,
+        "y": 4647.1511,
+        "u_y": 14.4
+      },
+      {
+        "name": "M8",
+        "x": 5.9961,
+        "u_x": 0.0078,
+        "y": 5529.9991,
+        "u_y": 12.1
+      },
+      {
+        "name": "M9",
+        "x": 7.9974,
+        "u_x": 0.0084,
+        "y": 7246.0082,
+        "u_y": 11.9
+      },
+      {
+        "name": "M10",
+        "x": 7.9995,
+        "u_x": 0.01,
+        "y": 7240.4767,
+        "u_y": 10.7
+      },
+      {
+        "name": "M11",
+        "x": 9.998,
+        "u_x": 0.012,
+        "y": 8884.6955,
+        "u_y": 10.1
+      },
+      {
+        "name": "M12",
+        "x": 10.006,
+        "u_x": 0.0104,
+        "y": 8902.6916,
+        "u_y": 14.1
+      }
+    ],
+    "function": "power",
+    "samples": [
+      {
+        "name": "S1",
+        "y": 4950.6,
+        "u_y": 11
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "calibration": {
+      "params": [
+        {
+          "value": 0.1213,
+          "tolerance": 0.00024260000000000002
+        },
+        {
+          "value": 0.00051211,
+          "tolerance": 1.02422e-06
+        },
+        {
+          "value": 0.08499,
+          "tolerance": 0.00016998
+        }
+      ],
+      "u_params": [
+        {
+          "value": 0.018095,
+          "tolerance": 5.4285e-05
+        },
+        {
+          "value": 2.4143e-05,
+          "tolerance": 7.242899999999999e-08
+        },
+        {
+          "value": 0.0050692,
+          "tolerance": 1.5207600000000002e-05
+        }
+      ],
+      "cov_params": [
+        {
+          "value": -3.9719e-07,
+          "tolerance": 1.98595e-09
+        },
+        {
+          "value": 8.2385e-05,
+          "tolerance": 4.1192500000000003e-07
+        },
+        {
+          "value": -1.2233e-07,
+          "tolerance": 6.116500000000001e-10
+        }
+      ],
+      "s_res": {
+        "value": 8.3804,
+        "tolerance": 0.0083804
+      },
+      "gamma": {
+        "value": 1.1594,
+        "tolerance": 0.0011594
+      },
+      "admissible": true,
+      "samples": {
+        "S1": {
+          "x": {
+            "value": 5.3456,
+            "tolerance": 0.00053456
+          },
+          "u": {
+            "value": 0.014169,
+            "tolerance": 2.8338e-05
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 6143:2025 B.2.4, power-function parameters and Table B.12 (B_LEAST).",
+      "tr": "ISO 6143:2025 B.2.4, üslü fonksiyon parametreleri ve Tablo B.12 (B_LEAST)."
+    }
+  }
+}

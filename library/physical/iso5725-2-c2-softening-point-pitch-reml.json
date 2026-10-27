@@ -1,0 +1,425 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso5725-2-c2-softening-point-pitch-reml",
+    "title": {
+      "en": "Softening point of pitch: REML estimates (ISO 5725-2 Example C.2)",
+      "tr": "Ziftin yumuşama noktası: REML tahminleri (ISO 5725-2 Örnek C.2)"
+    },
+    "description": {
+      "en": "ISO 5725-2:2019 C.2.9: the data of Example C.2 evaluated by restricted maximum likelihood (Annex B.2).",
+      "tr": "ISO 5725-2:2019 C.2.9: Örnek C.2 verilerinin kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi."
+    },
+    "explanation": [
+      {
+        "en": "Form A (Table C.7): sixteen laboratories, four levels, two results per cell. Laboratory 8 had no sample for level 1; laboratory 5 has a single result at level 2, which is discarded (8.4.3 a), so p = 15 at levels 1 and 2.",
+        "tr": "Form A (Tablo C.7): on altı laboratuvar, dört düzey, hücre başına iki sonuç. 8. laboratuvarın 1. düzey numunesi yoktur; 5. laboratuvarın 2. düzeyde tek sonucu vardır ve atılır (8.4.3 a); bu nedenle 1. ve 2. düzeylerde p = 15."
+      },
+      {
+        "en": "With two results in every cell the REML estimates equal the ANOVA estimates unless the estimate of σ_L² is negative; Table C.13 agrees with Table C.12 except s_R at level 4 (see the notes).",
+        "tr": "Her hücrede iki sonuç varken σ_L² tahmini negatif olmadıkça REML tahminleri ANOVA tahminlerine eşittir; Tablo C.13, 4. düzeydeki s_R dışında Tablo C.12 ile aynıdır (notlara bakınız)."
+      }
+    ],
+    "field": "physical",
+    "sources": [
+      {
+        "document": "ISO 5725-2:2019, Accuracy (trueness and precision) of measurement methods and results — Part 2: Basic method for the determination of repeatability and reproducibility of a standard measurement method",
+        "section": "Annex C.2.9 (Table C.13), Annex B.2",
+        "url": "https://www.iso.org/standard/69419.html"
+      }
+    ],
+    "tags": [
+      "iso5725-2",
+      "interlaboratory-study",
+      "precision",
+      "pitch",
+      "missing-data",
+      "reml"
+    ],
+    "notes": [
+      {
+        "en": "Table C.13 gives s_R = 1.918 °C at level 4 where Table C.12 gives 1.915 °C; for balanced cells both methods give 1.9175 °C (research log F48).",
+        "tr": "Tablo C.13 4. düzeyde s_R = 1,918 °C verirken Tablo C.12 1,915 °C verir; dengeli hücrelerde her iki yöntem de 1,9175 °C verir (araştırma günlüğü F48)."
+      }
+    ]
+  },
+  "precision_experiment": {
+    "quantity": "Softening point of pitch",
+    "unit": "°C",
+    "laboratories": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "levels": [
+      {
+        "name": "1",
+        "results": [
+          [
+            91.0,
+            89.6
+          ],
+          [
+            89.7,
+            89.8
+          ],
+          [
+            88.0,
+            87.5
+          ],
+          [
+            89.2,
+            88.5
+          ],
+          [
+            89.0,
+            90.0
+          ],
+          [
+            88.5,
+            90.5
+          ],
+          [
+            88.9,
+            88.2
+          ],
+          [],
+          [
+            90.1,
+            88.4
+          ],
+          [
+            86.0,
+            85.8
+          ],
+          [
+            87.6,
+            84.4
+          ],
+          [
+            88.2,
+            87.4
+          ],
+          [
+            91.0,
+            90.4
+          ],
+          [
+            87.5,
+            87.8
+          ],
+          [
+            87.5,
+            87.6
+          ],
+          [
+            88.8,
+            85.0
+          ]
+        ]
+      },
+      {
+        "name": "2",
+        "results": [
+          [
+            97.0,
+            97.2
+          ],
+          [
+            98.5,
+            97.2
+          ],
+          [
+            97.8,
+            94.5
+          ],
+          [
+            96.8,
+            97.5
+          ],
+          [
+            97.2
+          ],
+          [
+            97.8,
+            97.2
+          ],
+          [
+            96.6,
+            97.5
+          ],
+          [
+            96.0,
+            97.5
+          ],
+          [
+            95.5,
+            96.8
+          ],
+          [
+            95.2,
+            95.0
+          ],
+          [
+            93.2,
+            93.4
+          ],
+          [
+            95.8,
+            95.4
+          ],
+          [
+            98.2,
+            99.5
+          ],
+          [
+            97.0,
+            95.5
+          ],
+          [
+            95.0,
+            95.2
+          ],
+          [
+            95.0,
+            93.2
+          ]
+        ]
+      },
+      {
+        "name": "3",
+        "results": [
+          [
+            96.5,
+            97.0
+          ],
+          [
+            97.2,
+            97.0
+          ],
+          [
+            94.2,
+            95.8
+          ],
+          [
+            96.0,
+            98.0
+          ],
+          [
+            98.2,
+            98.5
+          ],
+          [
+            99.5,
+            103.2
+          ],
+          [
+            98.2,
+            99.0
+          ],
+          [
+            98.4,
+            97.4
+          ],
+          [
+            98.2,
+            96.7
+          ],
+          [
+            94.8,
+            93.0
+          ],
+          [
+            93.6,
+            93.9
+          ],
+          [
+            95.8,
+            95.4
+          ],
+          [
+            98.0,
+            97.0
+          ],
+          [
+            97.1,
+            96.6
+          ],
+          [
+            97.8,
+            99.2
+          ],
+          [
+            97.2,
+            97.8
+          ]
+        ]
+      },
+      {
+        "name": "4",
+        "results": [
+          [
+            104.0,
+            104.0
+          ],
+          [
+            102.6,
+            103.6
+          ],
+          [
+            103.0,
+            99.5
+          ],
+          [
+            102.5,
+            103.5
+          ],
+          [
+            101.0,
+            100.2
+          ],
+          [
+            102.2,
+            102.0
+          ],
+          [
+            102.8,
+            102.2
+          ],
+          [
+            102.6,
+            103.9
+          ],
+          [
+            102.8,
+            102.0
+          ],
+          [
+            99.8,
+            100.8
+          ],
+          [
+            98.2,
+            97.8
+          ],
+          [
+            101.7,
+            101.2
+          ],
+          [
+            104.5,
+            105.6
+          ],
+          [
+            105.2,
+            101.8
+          ],
+          [
+            101.5,
+            100.9
+          ],
+          [
+            99.5,
+            99.8
+          ]
+        ]
+      }
+    ],
+    "exclude": [
+      {
+        "laboratory": "5",
+        "level": "2",
+        "reason": {
+          "en": "single result: the method was first applied incorrectly and too little material remained (C.2.1.4); the solitary result is discarded (8.4.3 a)",
+          "tr": "tek sonuç: yöntem önce yanlış uygulanmış ve yeterli malzeme kalmamıştır (C.2.1.4); tek sonuç atılır (8.4.3 a)"
+        }
+      }
+    ],
+    "method": "reml",
+    "relationships": []
+  },
+  "expected": {
+    "precision_experiment": {
+      "levels": {
+        "1": {
+          "p": 15,
+          "m": {
+            "value": 88.4,
+            "tolerance": 0.005
+          },
+          "s_r": {
+            "value": 1.109,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 1.67,
+            "tolerance": 0.0005
+          }
+        },
+        "2": {
+          "p": 15,
+          "m": {
+            "value": 96.27,
+            "tolerance": 0.005
+          },
+          "s_r": {
+            "value": 0.925,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 1.597,
+            "tolerance": 0.0005
+          }
+        },
+        "3": {
+          "p": 16,
+          "m": {
+            "value": 97.07,
+            "tolerance": 0.005
+          },
+          "s_r": {
+            "value": 0.993,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 2.01,
+            "tolerance": 0.0005
+          }
+        },
+        "4": {
+          "p": 16,
+          "m": {
+            "value": 101.96,
+            "tolerance": 0.005
+          },
+          "s_r": {
+            "value": 1.004,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 1.918,
+            "tolerance": 0.0005
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 5725-2:2019, Table C.13.",
+      "tr": "ISO 5725-2:2019, Tablo C.13."
+    }
+  }
+}

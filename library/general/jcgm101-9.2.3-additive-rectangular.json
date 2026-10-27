@@ -1,0 +1,128 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.2.3-additive-rectangular",
+    "title": {
+      "en": "Additive model with rectangular inputs",
+      "tr": "Dikdörtgen dağılımlı girdilerle toplamsal model"
+    },
+    "description": {
+      "en": "JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviation 1.",
+      "tr": "JCGM 101 9.2.3: her biri standart sapması 1 olan dikdörtgen dağılımlı dört bağımsız girdi."
+    },
+    "explanation": [
+      {
+        "en": "The model Y = X1 + X2 + X3 + X4 is linear with unit sensitivity coefficients, so the GUM law of propagation gives u(y)² = Σ u(xᵢ)² exactly.",
+        "tr": "Y = X1 + X2 + X3 + X4 modeli doğrusaldır ve tüm duyarlılık katsayıları 1'dir; bu nedenle GUM belirsizlik yayılım yasası u(y)² = Σ u(xᵢ)² sonucunu tam olarak verir."
+      },
+      {
+        "en": "The output PDF is a convolution of four rectangular PDFs: its 95 % endpoints are ±2√3[2 − (3/5)^{1/4}] = ±3.88 (JCGM 101 Annex E), slightly inside the GUM interval ±3.92.",
+        "tr": "Çıktı olasılık yoğunluk fonksiyonu dört dikdörtgen dağılımın konvolüsyonudur: %95 uç noktaları ±2√3[2 − (3/5)^{1/4}] = ±3,88'dir (JCGM 101 Ek E), GUM aralığı ±3,92'nin biraz içindedir."
+      },
+      {
+        "en": "With two significant digits of u(y) = 2.0 the numerical tolerance is δ = 0.05; the exact endpoint difference 3.920 − 3.881 = 0.039 is below δ, so the GUM interval is validated — but only just.",
+        "tr": "u(y) = 2,0 için iki anlamlı basamakta sayısal tolerans δ = 0,05'tir; uç noktalar arasındaki kesin fark 3,920 − 3,881 = 0,039, δ'dan küçük olduğundan GUM aralığı doğrulanır, ancak sınıra çok yakındır."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.2.3",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm101",
+      "validation",
+      "linear"
+    ],
+    "notes": [
+      {
+        "en": "JCGM 101 Table 3 reports the GUM interval validated in one of its two adaptive runs and not in the other (9.2.3.4): with d ≈ 0.039 against δ = 0.05, Monte Carlo noise in the endpoints can decide the outcome.",
+        "tr": "JCGM 101 Tablo 3, iki uyarlamalı çalışmasından birinde GUM aralığını doğrulanmış, diğerinde doğrulanmamış olarak verir (9.2.3.4): δ = 0,05'e karşı d ≈ 0,039 olduğunda sonucu uç noktalardaki Monte Carlo gürültüsü belirleyebilir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "Y",
+      "expression": "X1 + X2 + X3 + X4"
+    },
+    "inputs": [
+      {
+        "name": "X1",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.7320508075688772
+        }
+      },
+      {
+        "name": "X2",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.7320508075688772
+        }
+      },
+      {
+        "name": "X3",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.7320508075688772
+        }
+      },
+      {
+        "name": "X4",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.7320508075688772
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 2000000,
+      "seed": 2,
+      "interval": "symmetric",
+      "validation_ndig": 2
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0,
+        "tolerance": 1e-12
+      },
+      "standard_uncertainty": {
+        "value": 2.0,
+        "tolerance": 1e-12
+      }
+    },
+    "mcm": {
+      "standard_uncertainty": {
+        "value": 2.0,
+        "tolerance": 0.005
+      },
+      "interval_low": {
+        "value": -3.8812,
+        "tolerance": 0.01
+      },
+      "interval_high": {
+        "value": 3.8812,
+        "tolerance": 0.01
+      },
+      "gum_validated": true
+    },
+    "reference": {
+      "en": "JCGM 101:2008 Table 3 and Annex E (analytic endpoints ±3.8812).",
+      "tr": "JCGM 101:2008 Tablo 3 ve Ek E (analitik uç noktalar ±3,8812)."
+    }
+  }
+}

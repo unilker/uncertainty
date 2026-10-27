@@ -1,0 +1,215 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k7-thermocouple-furnace",
+    "title": {
+      "en": "Temperature of the furnace in a thermocouple calibration at 1000 °C (UKAS M3003 K.7, first budget)",
+      "tr": "1000 °C'de termoçift kalibrasyonunda fırın sıcaklığı (UKAS M3003 K.7, birinci bütçe)"
+    },
+    "description": {
+      "en": "First part of K.7: the temperature at the hot junctions from the two reference thermocouples.",
+      "tr": "K.7'nin birinci kısmı: iki referans termoçiftten sıcak bağlantılardaki sıcaklık."
+    },
+    "explanation": [
+      {
+        "en": "An N-type thermocouple is compared with two R-type reference thermocouples at 1000 °C; four readings each with reversed polarity give 10 502.5 µV and 10 504.0 µV (1000.4 °C and 1000.6 °C) for the standards and 36 248 µV for the unknown.",
+        "tr": "N tipi bir termoçift 1000 °C'de iki R tipi referans termoçiftle karşılaştırılır; ters çevrilmiş kutuplamayla dörder okuma standartlar için 10 502,5 µV ve 10 504,0 µV (1000,4 °C ve 1000,6 °C), bilinmeyen için 36 248 µV verir."
+      },
+      {
+        "en": "Furnace temperature t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), mean 1000.5 °C; u_c(t_X) = 0.641 °C (K.7.19), dominated by the furnace non-uniformity ±1 °C.",
+        "tr": "Fırın sıcaklığı t_X = t_S + c_S(δV_iS1 + δV_iS2 + δV_R) − (c_S/c_S0)·δt_0S + δt_D + δt_F + δt_r (K.7.2), ortalama 1000,5 °C; u_c(t_X) = 0,641 °C (K.7.19); ±1 °C fırın homojensizliği baskındır."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.7 (K.7.19)",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "temperature",
+      "thermocouple",
+      "furnace"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "t_X",
+      "unit": "°C",
+      "expression": "t_S + c_S*dV_iS1 + c_S*dV_iS2 + c_S*dV_R - c_S/c_S0*dt_0S + dt_D + dt_F + dt_r",
+      "description": {
+        "en": "Temperature of the furnace at the thermocouples",
+        "tr": "Termoçiftlerin bulunduğu yerde fırın sıcaklığı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "t_S",
+        "description": {
+          "en": "Reference thermocouples, mean of the two (certificate U = 0.3 °C, k = 2)",
+          "tr": "Referans termoçiftler, ikisinin ortalaması (sertifika U = 0,3 °C, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1000.5,
+          "expanded": 0.3,
+          "k": 2
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "c_S",
+        "description": {
+          "en": "Sensitivity of the R-type thermocouple at 1000 °C",
+          "tr": "R tipi termoçiftin 1000 °C'deki duyarlılığı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.077
+        },
+        "unit": "°C/µV"
+      },
+      {
+        "name": "c_S0",
+        "description": {
+          "en": "Sensitivity of the R-type thermocouple at 0 °C",
+          "tr": "R tipi termoçiftin 0 °C'deki duyarlılığı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.189
+        },
+        "unit": "°C/µV"
+      },
+      {
+        "name": "dV_iS1",
+        "description": {
+          "en": "Microvoltmeter calibration (U = 2.0 µV, k = 2)",
+          "tr": "Mikrovoltmetre kalibrasyonu (U = 2,0 µV, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 2.0,
+          "k": 2
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dV_iS2",
+        "description": {
+          "en": "Microvoltmeter resolution (1 µV digit)",
+          "tr": "Mikrovoltmetre çözünürlüğü (1 µV basamak)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dV_R",
+        "description": {
+          "en": "Parasitic voltages of the switch contacts",
+          "tr": "Anahtar kontaklarının parazit gerilimleri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        },
+        "unit": "µV"
+      },
+      {
+        "name": "dt_0S",
+        "description": {
+          "en": "Reference junction temperature of the standards",
+          "tr": "Standartların referans bağlantı sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dt_D",
+        "description": {
+          "en": "Drift of the reference thermocouples",
+          "tr": "Referans termoçiftlerin sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.3
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dt_F",
+        "description": {
+          "en": "Non-uniformity of the furnace",
+          "tr": "Fırının homojen olmaması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dt_r",
+        "description": {
+          "en": "Repeatability of the furnace temperature (s = 0.10 °C, ν = 9)",
+          "tr": "Fırın sıcaklığının tekrarlanabilirliği (s = 0,10 °C, ν = 9)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.1,
+          "pooled_dof": 9,
+          "n": 1
+        },
+        "unit": "°C"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1000.5,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 0.641,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.7.19: u_c(t_X) = 0.641 °C.",
+      "tr": "UKAS M3003 6. baskı K.7.19: u_c(t_X) = 0,641 °C."
+    }
+  }
+}

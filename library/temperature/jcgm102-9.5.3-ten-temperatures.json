@@ -1,0 +1,440 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm102-9.5.3-ten-temperatures",
+    "title": {
+      "en": "Ten Celsius temperatures with one resistance thermometer, implicit model (JCGM 102 9.5.3)",
+      "tr": "Tek direnç termometresiyle on Celsius sıcaklığı, örtük model (JCGM 102 9.5.3)"
+    },
+    "description": {
+      "en": "JCGM 102:2011 9.5.3: ten temperatures measured with the same calibrated thermometer are correlated through its calibration constants (Tables 15 and 16).",
+      "tr": "JCGM 102:2011 9.5.3: aynı kalibre termometreyle ölçülen on sıcaklık, kalibrasyon sabitleri üzerinden koreledir (Tablo 15 ve 16)."
+    },
+    "explanation": [
+      {
+        "en": "Implicit model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): the thermometer resistance R(θ) compared with a standard resistor R_S by a bridge measuring r = R(θ)/R_S.",
+        "tr": "Örtük model h(θ, X) = R₀(1 + Aθ + Bθ²) − r R_S = 0 (31): termometre direnci R(θ), r = R(θ)/R_S oranını ölçen bir köprüyle standart direnç R_S ile karşılaştırılır."
+      },
+      {
+        "en": "The calibration constants R₀, A and B are correlated (Table 13); θ is found by Newton's method and u(θ) from C_y U_y C_yᵀ = C_x U_x C_xᵀ with C_y = (A + 2Bθ)R₀ (6.3.1.3, 9.5.2.6).",
+        "tr": "Kalibrasyon sabitleri R₀, A ve B koreledir (Tablo 13); θ Newton yöntemiyle, u(θ) ise C_y = (A + 2Bθ)R₀ ile C_y U_y C_yᵀ = C_x U_x C_xᵀ bağıntısından bulunur (6.3.1.3, 9.5.2.6)."
+      },
+      {
+        "en": "The ten equations (32) share R₀, A, B and R_S; C_y is diagonal and C_x = [C_x⁽¹⁾ C_x⁽²⁾] (9.5.3.5). The uncertainty is smallest near 0 °C and grows above 25 °C, outside the calibration points (9.5.3.6).",
+        "tr": "On denklem (32) R₀, A, B ve R_S'yi paylaşır; C_y köşegendir ve C_x = [C_x⁽¹⁾ C_x⁽²⁾] (9.5.3.5). Belirsizlik 0 °C yakınında en küçüktür ve kalibrasyon noktalarının dışında, 25 °C'nin üzerinde artar (9.5.3.6)."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "JCGM 102:2011, Evaluation of measurement data — Supplement 2 to the “Guide to the expression of uncertainty in measurement” — Extension to any number of output quantities",
+        "section": "9.5.3 (Tables 14–16)",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_102_2011_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm102",
+      "multivariate",
+      "implicit-model",
+      "resistance-thermometer",
+      "correlated-outputs"
+    ],
+    "notes": [
+      {
+        "en": "Table 15 labels the seventh column θ6 instead of θ7.",
+        "tr": "Tablo 15 yedinci sütunu θ7 yerine θ6 olarak adlandırır."
+      }
+    ]
+  },
+  "multivariate": {
+    "implicit": true,
+    "outputs": [
+      {
+        "name": "theta1",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta1 + B*theta1^2) - r1*RS",
+        "start": 20
+      },
+      {
+        "name": "theta2",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta2 + B*theta2^2) - r2*RS",
+        "start": 20
+      },
+      {
+        "name": "theta3",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta3 + B*theta3^2) - r3*RS",
+        "start": 20
+      },
+      {
+        "name": "theta4",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta4 + B*theta4^2) - r4*RS",
+        "start": 20
+      },
+      {
+        "name": "theta5",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta5 + B*theta5^2) - r5*RS",
+        "start": 20
+      },
+      {
+        "name": "theta6",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta6 + B*theta6^2) - r6*RS",
+        "start": 20
+      },
+      {
+        "name": "theta7",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta7 + B*theta7^2) - r7*RS",
+        "start": 20
+      },
+      {
+        "name": "theta8",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta8 + B*theta8^2) - r8*RS",
+        "start": 20
+      },
+      {
+        "name": "theta9",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta9 + B*theta9^2) - r9*RS",
+        "start": 20
+      },
+      {
+        "name": "theta10",
+        "unit": "°C",
+        "expression": "R0*(1 + A*theta10 + B*theta10^2) - r10*RS",
+        "start": 20
+      }
+    ],
+    "inputs": [
+      {
+        "name": "R0",
+        "unit": "Ω",
+        "distribution": {
+          "type": "normal",
+          "mean": 99.9961,
+          "sd": 0.0005
+        }
+      },
+      {
+        "name": "A",
+        "unit": "°C⁻¹",
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0039096,
+          "sd": 2.7e-06
+        }
+      },
+      {
+        "name": "B",
+        "unit": "°C⁻²",
+        "distribution": {
+          "type": "normal",
+          "mean": -6e-07,
+          "sd": 1.1e-07
+        }
+      },
+      {
+        "name": "RS",
+        "unit": "Ω",
+        "distribution": {
+          "type": "normal",
+          "mean": 99.99947,
+          "sd": 0.0001
+        }
+      },
+      {
+        "name": "r1",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0000053,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r2",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0150054,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r3",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0300055,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r4",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0450056,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r5",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0600056,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r6",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0780057,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r7",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0900058,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r8",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.1050059,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r9",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.120006,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "r10",
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0780057,
+          "sd": 5e-06
+        }
+      }
+    ],
+    "correlations": [
+      {
+        "a": "R0",
+        "b": "A",
+        "r": -0.155
+      },
+      {
+        "a": "R0",
+        "b": "B",
+        "r": 0.092
+      },
+      {
+        "a": "A",
+        "b": "B",
+        "r": -0.959
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.95
+    },
+    "mcm": null
+  },
+  "expected": {
+    "multivariate": {
+      "gum": {
+        "estimate": {
+          "theta1": {
+            "value": 0.01,
+            "tolerance": 5e-05
+          },
+          "theta2": {
+            "value": 3.8491,
+            "tolerance": 5e-05
+          },
+          "theta3": {
+            "value": 7.6928,
+            "tolerance": 5e-05
+          },
+          "theta4": {
+            "value": 11.541,
+            "tolerance": 5e-05
+          },
+          "theta5": {
+            "value": 15.3938,
+            "tolerance": 5e-05
+          },
+          "theta6": {
+            "value": 20.0232,
+            "tolerance": 5e-05
+          },
+          "theta7": {
+            "value": 23.1131,
+            "tolerance": 5e-05
+          },
+          "theta8": {
+            "value": 26.9797,
+            "tolerance": 5e-05
+          },
+          "theta9": {
+            "value": 30.8509,
+            "tolerance": 5e-05
+          },
+          "theta10": {
+            "value": 20.0232,
+            "tolerance": 5e-05
+          }
+        },
+        "standard_uncertainty": {
+          "theta1": {
+            "value": 0.0018,
+            "tolerance": 5e-05
+          },
+          "theta2": {
+            "value": 0.0027,
+            "tolerance": 5e-05
+          },
+          "theta3": {
+            "value": 0.004,
+            "tolerance": 5e-05
+          },
+          "theta4": {
+            "value": 0.0046,
+            "tolerance": 5e-05
+          },
+          "theta5": {
+            "value": 0.0047,
+            "tolerance": 5e-05
+          },
+          "theta6": {
+            "value": 0.0045,
+            "tolerance": 5e-05
+          },
+          "theta7": {
+            "value": 0.0046,
+            "tolerance": 5e-05
+          },
+          "theta8": {
+            "value": 0.006,
+            "tolerance": 5e-05
+          },
+          "theta9": {
+            "value": 0.0089,
+            "tolerance": 5e-05
+          },
+          "theta10": {
+            "value": 0.0045,
+            "tolerance": 5e-05
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "theta1",
+              "theta10"
+            ],
+            "value": 0.054,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta2",
+              "theta10"
+            ],
+            "value": 0.58,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta3",
+              "theta10"
+            ],
+            "value": 0.691,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta4",
+              "theta10"
+            ],
+            "value": 0.766,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta5",
+              "theta10"
+            ],
+            "value": 0.847,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta6",
+              "theta10"
+            ],
+            "value": 0.918,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta7",
+              "theta10"
+            ],
+            "value": 0.841,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta8",
+              "theta10"
+            ],
+            "value": 0.549,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta9",
+              "theta10"
+            ],
+            "value": 0.264,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta2",
+              "theta3"
+            ],
+            "value": 0.815,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "theta2",
+              "theta9"
+            ],
+            "value": -0.358,
+            "tolerance": 0.0005
+          }
+        ]
+      }
+    },
+    "reference": {
+      "en": "JCGM 102:2011 Tables 15 and 16.",
+      "tr": "JCGM 102:2011 Tablo 15 ve 16."
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm106-8.3-speed-limit",
+    "title": {
+      "en": "Speed limit enforcement: guarded rejection (JCGM 106 8.3.3)",
+      "tr": "Hız sınırı denetimi: korumalı ret (JCGM 106 8.3.3)"
+    },
+    "description": {
+      "en": "JCGM 106:2012 8.3.3 Example 1: speed limit 100 km/h, radar with relative standard uncertainty 2 %; a ticket only if the probability that the limit was exceeded is at least 99.9 %.",
+      "tr": "JCGM 106:2012 8.3.3 Örnek 1: hız sınırı 100 km/h, bağıl standart belirsizliği %2 olan radar; yalnızca sınırın aşılmış olma olasılığı en az %99,9 ise ceza."
+    },
+    "explanation": [
+      {
+        "en": "Knowledge of the speed for a measured v is a normal PDF with standard deviation 0.02v.",
+        "tr": "Ölçülen v için hız hakkındaki bilgi, standart sapması 0,02v olan normal bir olasılık yoğunluğudur."
+      },
+      {
+        "en": "The acceptance limit v_max satisfies (v_max − v₀)/(0.02 v_max) = z = 3.09, so v_max = v₀/(1 − 0.02z) = 100/(1 − 0.0618) ≈ 107 km/h.",
+        "tr": "Kabul sınırı v_max, (v_max − v₀)/(0,02 v_max) = z = 3,09 eşitliğini sağlar; dolayısıyla v_max = v₀/(1 − 0,02z) = 100/(1 − 0,0618) ≈ 107 km/h."
+      },
+      {
+        "en": "The interval 100 km/h to 107 km/h is a guard band: a measured speed of 107 km/h or more gives at least 99.9 % probability that the limit was exceeded.",
+        "tr": "100 km/h – 107 km/h aralığı bir koruma bandıdır: 107 km/h veya daha yüksek ölçülen hız, sınırın aşılmış olma olasılığını en az %99,9 yapar."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment",
+        "section": "8.3.3, Example 1",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_106_2012_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm106",
+      "conformity-assessment",
+      "guard-band",
+      "guarded-rejection"
+    ],
+    "notes": [
+      {
+        "en": "The program solves the condition exactly with z = Φ⁻¹(0.999) = 3.0902, giving 106.59 km/h; the standard rounds to 107 km/h. The measured speeds 105 and 108 km/h illustrate both sides of the acceptance limit.",
+        "tr": "Program koşulu z = Φ⁻¹(0,999) = 3,0902 ile tam çözer ve 106,59 km/h verir; standart 107 km/h'ye yuvarlar. 105 ve 108 km/h ölçülen hızlar kabul sınırının iki yanını gösterir."
+      }
+    ]
+  },
+  "conformity": {
+    "quantity": "v",
+    "unit": "km/h",
+    "upper": 100,
+    "rule": "guarded_rejection",
+    "probability": 0.999,
+    "u_relative": 0.02,
+    "results": [
+      {
+        "name": "car A",
+        "value": 105
+      },
+      {
+        "name": "car B",
+        "value": 108
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "acceptance_upper": {
+        "value": 107,
+        "tolerance": 0.5
+      },
+      "results": {
+        "car A": {
+          "accepted": true
+        },
+        "car B": {
+          "accepted": false
+        }
+      }
+    },
+    "reference": {
+      "en": "JCGM 106:2012 8.3.3, Example 1 (v_max ≈ 107 km/h).",
+      "tr": "JCGM 106:2012 8.3.3, Örnek 1 (v_max ≈ 107 km/h)."
+    }
+  }
+}

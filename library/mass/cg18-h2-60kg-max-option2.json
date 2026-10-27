@@ -1,0 +1,267 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg18-h2-60kg-max-option2",
+    "title": {
+      "en": "Multi-interval balance 60 kg: error at Max with the buoyancy correction (EURAMET cg-18 H2, option 2)",
+      "tr": "Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesiyle Max'ta hata (EURAMET cg-18 H2, seçenek 2)"
+    },
+    "description": {
+      "en": "The air density during calibration is computed from the CIPM formula and the buoyancy correction applied; the adjustment air density is unknown.",
+      "tr": "Kalibrasyon sırasındaki hava yoğunluğu CIPM formülünden hesaplanır ve kaldırma kuvveti düzeltmesi uygulanır; ayar sırasındaki hava yoğunluğu bilinmez."
+    },
+    "explanation": [
+      {
+        "en": "Multi-interval instrument 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: E = I − m_ref (7.1-1) with the rounding at zero (d₀ = 2 g) and at the load (d of its interval), repeatability, eccentricity and the reference mass.",
+        "tr": "Çok aralıklı terazi 12 kg / 2 g, 30 kg / 5 g, 60 kg / 10 g: sıfırda (d₀ = 2 g) ve yükte (aralığının d'si) yuvarlama, tekrarlanabilirlik, eksantriklik ve referans kütle ile E = I − m_ref (7.1-1)."
+      },
+      {
+        "en": "Repeatability from five readings at 10 kg (interval 1) and 25 kg (intervals 2 and 3): s = 1.095 g and 2.739 g, ν = 4 (7.1.1-5).",
+        "tr": "10 kg'da (1. aralık) ve 25 kg'da (2. ve 3. aralık) beş okumadan tekrarlanabilirlik: s = 1,095 g ve 2,739 g, ν = 4 (7.1.1-5)."
+      },
+      {
+        "en": "Eccentricity ΔI_ecc,max = 5 g at L_ecc = 20 kg: half-width ΔI·L/(2L_ecc), rectangular (7.1.1-10).",
+        "tr": "Eksantriklik L_ecc = 20 kg'da ΔI_ecc,maks = 5 g: yarı genişlik ΔI·L/(2L_ecc), dikdörtgen (7.1.1-10)."
+      },
+      {
+        "en": "F2 weights used at their nominal value: u(m_c) = mpe/√3 (7.1.2-3), with the mpe summed for a combination of weights; drift D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1.5).",
+        "tr": "Nominal değerinde kullanılan F2 ağırlıkları: u(m_c) = mpe/√3 (7.1.2-3), ağırlık kombinasyonu için mpe'ler toplanır; sürüklenme D = mpe/2, u = mpe/(2√3) (7.1.2-11, k_D = 1,5)."
+      },
+      {
+        "en": "Air density 1.173 kg/m³ (990 hPa, 50 %RH, 21 °C) with u = 0.018 kg/m³ for a temperature variation of 10 K (A3-2); weights ρ = (7950 ± 70) kg/m³.",
+        "tr": "Hava yoğunluğu 1,173 kg/m³ (990 hPa, %50 bağıl nem, 21 °C), 10 K'lik sıcaklık değişimi için u = 0,018 kg/m³ (A3-2); ağırlıklar ρ = (7950 ± 70) kg/m³."
+      },
+      {
+        "en": "The correction −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) = +1.3 mg and its uncertainty (about 2 mg) are negligible next to d = 10 g: u(E) = 5.938 g, U = 12.05 g.",
+        "tr": "Düzeltme −m_N(ρ_a − ρ₀)(1/ρ − 1/ρ_c) = +1,3 mg ve belirsizliği (yaklaşık 2 mg), d = 10 g'ın yanında ihmal edilebilir: u(E) = 5,938 g, U = 12,05 g."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 18 v4.0 (2015), Guidelines on the Calibration of Non-Automatic Weighing Instruments",
+        "section": "Appendix H2, H2.3/A",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg18",
+      "balance",
+      "weighing-instrument",
+      "calibration",
+      "validation",
+      "multi-interval"
+    ],
+    "notes": [
+      {
+        "en": "The budget uses mpe = 0.96 g for the 60 kg test load (u(m_c) = 0.554 g, u(m_D) = 0.277 g, u(m_B) = 0.658 g), while three 20 kg F2 weights have mpe = 3 × 0.30 g = 0.90 g (OIML R111). The project uses 0.90 g: u(m_ref) = 0.871 g instead of 0.904 g, and u(E) = 5.973 g instead of 5.978 g (research log F68).",
+        "tr": "Bütçe 60 kg'lık deney yükü için mpe = 0,96 g kullanır (u(m_c) = 0,554 g, u(m_D) = 0,277 g, u(m_B) = 0,658 g); oysa üç adet 20 kg F2 ağırlığın mpe'si 3 × 0,30 g = 0,90 g'dır (OIML R111). Proje 0,90 g kullanır: u(m_ref) 0,904 g yerine 0,871 g, u(E) 5,978 g yerine 5,973 g olur (araştırma günlüğü F68)."
+      },
+      {
+        "en": "The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).",
+        "tr": "Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "E",
+      "unit": "g",
+      "expression": "I_L + dI_dig0 + dI_rep + dI_digL + dI_ecc - (m_N + dm_c + dm_D - m_N*(rho_a - rho_0)*(1/rho - 1/rho_c))",
+      "description": {
+        "en": "Error of indication",
+        "tr": "Gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_L",
+        "unit": "g",
+        "description": {
+          "en": "Indication at the load",
+          "tr": "Yükteki gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 59990.0
+        }
+      },
+      {
+        "name": "dI_dig0",
+        "unit": "g",
+        "description": {
+          "en": "Rounding at zero",
+          "tr": "Sıfırda yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        }
+      },
+      {
+        "name": "dI_rep",
+        "unit": "g",
+        "description": {
+          "en": "Repeatability (s = 2.739 g, ν = 4)",
+          "tr": "Tekrarlanabilirlik (s = 2,739 g, ν = 4)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 2.7386127875258306,
+          "pooled_dof": 4,
+          "n": 1
+        }
+      },
+      {
+        "name": "dI_digL",
+        "unit": "g",
+        "description": {
+          "en": "Rounding at the load",
+          "tr": "Yükte yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5.0
+        }
+      },
+      {
+        "name": "dI_ecc",
+        "unit": "g",
+        "description": {
+          "en": "Eccentricity (7.1.1-10)",
+          "tr": "Eksantriklik (7.1.1-10)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 7.5
+        }
+      },
+      {
+        "name": "m_N",
+        "unit": "g",
+        "description": {
+          "en": "Nominal value of the test load",
+          "tr": "Deney yükünün nominal değeri"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 60000.0
+        }
+      },
+      {
+        "name": "dm_c",
+        "unit": "g",
+        "description": {
+          "en": "Weights at nominal value, F2 mpe = 0.90 g (7.1.2-3)",
+          "tr": "Nominal değerindeki ağırlıklar, F2 mpe = 0,90 g (7.1.2-3)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.8999999999999999
+        }
+      },
+      {
+        "name": "dm_D",
+        "unit": "g",
+        "description": {
+          "en": "Drift of the weights, D = mpe/2 (7.1.2-11)",
+          "tr": "Ağırlıkların sürüklenmesi, D = mpe/2 (7.1.2-11)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.44999999999999996
+        }
+      },
+      {
+        "name": "rho_a",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Air density during calibration (CIPM formula; ΔT = 10 K by A3-2)",
+          "tr": "Kalibrasyon sırasında hava yoğunluğu (CIPM formülü; A3-2 ile ΔT = 10 K)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.173,
+          "sd": 0.018
+        }
+      },
+      {
+        "name": "rho",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the weights",
+          "tr": "Ağırlıkların yoğunluğu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 7950.0,
+          "sd": 70.0
+        }
+      },
+      {
+        "name": "rho_0",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Reference air density",
+          "tr": "Referans hava yoğunluğu"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 1.2
+        }
+      },
+      {
+        "name": "rho_c",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Reference density of the weights",
+          "tr": "Ağırlıkların referans yoğunluğu"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 8000.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": -10.0,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 5.941,
+        "tolerance": 0.006
+      },
+      "coverage_factor": {
+        "value": 2.05,
+        "tolerance": 0.025
+      },
+      "expanded_uncertainty": {
+        "value": 12.18,
+        "tolerance": 0.15
+      }
+    },
+    "reference": {
+      "en": "EURAMET cg-18 v4.0 H2.3/A, option 2, 60 kg: δm_B = 2.138·10⁻⁸·m_N, u(E) = 5.941 g, ν_eff = 88, k = 2.05, U = 12.180 g.",
+      "tr": "EURAMET cg-18 v4.0 H2.3/A, seçenek 2, 60 kg: δm_B = 2,138·10⁻⁸·m_N, u(E) = 5,941 g, ν_eff = 88, k = 2,05, U = 12,180 g."
+    }
+  }
+}

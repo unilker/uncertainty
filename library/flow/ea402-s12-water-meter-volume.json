@@ -1,0 +1,186 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s12-water-meter-volume",
+    "title": {
+      "en": "Water meter calibration: reference volume",
+      "tr": "Su sayacı kalibrasyonu: referans hacim"
+    },
+    "description": {
+      "en": "EA-4/02 S12 (first budget): volume passed through a household water meter, measured in a volumetric standard at 2500 L/h.",
+      "tr": "EA-4/02 S12 (birinci bütçe): 2500 L/h'te bir konut tipi su sayacından geçen hacmin hacimsel standartta ölçülmesi."
+    },
+    "explanation": [
+      {
+        "en": "V_X = V_S[1 + β_S(t_S − 20)][1 + γ_W(t_X − t_S)][1 − κ_W p_X], correcting the standard's reading to the temperature and pressure of the water at the meter.",
+        "tr": "V_X = V_S[1 + β_S(t_S − 20)][1 + γ_W(t_X − t_S)][1 − κ_W p_X]; standardın okuması sayaçtaki suyun sıcaklık ve basıncına düzeltilir."
+      },
+      {
+        "en": "The temperature of the water at the meter (±2 °C) gives the largest correction uncertainty: c(t_X) = 0.030 L/K.",
+        "tr": "Sayaçtaki su sıcaklığı (±2 °C) en büyük düzeltme belirsizliğini verir: c(t_X) = 0,030 L/K."
+      },
+      {
+        "en": "V_X = 199.93 L with u = 0.109 L.",
+        "tr": "V_X = 199,93 L, u = 0,109 L."
+      }
+    ],
+    "field": "flow",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S12",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "volume"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "V_X",
+      "unit": "L",
+      "expression": "(V_iS + dV_iS)*(1 + beta_S*(t_S - 20))*(1 + gamma_W*(t_X - t_S))*(1 - kappa_W*p_X)",
+      "description": {
+        "en": "Volume at the meter",
+        "tr": "Sayaçtaki hacim"
+      }
+    },
+    "inputs": [
+      {
+        "name": "V_iS",
+        "unit": "L",
+        "description": {
+          "en": "Indication of the volumetric standard",
+          "tr": "Hacimsel standardın göstergesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 200.0,
+          "expanded": 0.2,
+          "k": 2
+        }
+      },
+      {
+        "name": "dV_iS",
+        "unit": "L",
+        "description": {
+          "en": "Reading of the standard",
+          "tr": "Standardın okunması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.02
+        }
+      },
+      {
+        "name": "beta_S",
+        "unit": "1/K",
+        "description": {
+          "en": "Cubic expansion coefficient of the standard",
+          "tr": "Standardın hacimsel genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 5.1e-05,
+          "half_width": 5e-07
+        }
+      },
+      {
+        "name": "t_S",
+        "unit": "°C",
+        "description": {
+          "en": "Water temperature in the standard",
+          "tr": "Standarttaki su sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 15.0,
+          "half_width": 2.0
+        }
+      },
+      {
+        "name": "gamma_W",
+        "unit": "1/K",
+        "description": {
+          "en": "Expansion coefficient of water",
+          "tr": "Suyun genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.00015,
+          "half_width": 5e-06
+        }
+      },
+      {
+        "name": "t_X",
+        "unit": "°C",
+        "description": {
+          "en": "Water temperature at the meter",
+          "tr": "Sayaçtaki su sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 16.0,
+          "half_width": 2.0
+        }
+      },
+      {
+        "name": "kappa_W",
+        "unit": "1/kPa",
+        "description": {
+          "en": "Compressibility of water",
+          "tr": "Suyun sıkıştırılabilirliği"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 4.6e-07,
+          "half_width": 5e-09
+        }
+      },
+      {
+        "name": "p_X",
+        "unit": "kPa",
+        "description": {
+          "en": "Gauge pressure at the meter",
+          "tr": "Sayaçtaki gösterge basıncı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 500.0,
+          "half_width": 50.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 199.93,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 0.109,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S12.9 (V_X = 199.93 L, u = 0.109 L).",
+      "tr": "EA-4/02 M:2022 S12.9 (V_X = 199,93 L, u = 0,109 L)."
+    }
+  }
+}

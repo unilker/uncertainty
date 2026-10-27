@@ -1,0 +1,22 @@
+[workspace]
+resolver = "2"
+members = ["core", "project", "cli", "ffi"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/unilker/uncertainty"
+rust-version = "1.75"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+
+# Monte Carlo tests draw millions of samples; keep them fast in `cargo test`.
+[profile.test]
+opt-level = 3
+
+[profile.dev]
+opt-level = 1

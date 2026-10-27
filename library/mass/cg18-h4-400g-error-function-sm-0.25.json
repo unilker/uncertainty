@@ -1,0 +1,196 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg18-h4-400g-error-function-sm-0.25",
+    "title": {
+      "en": "Balance 400 g / 0.1 mg: error approximation function with s_m = 0.25 mg, residual test passed (EURAMET cg-18 H4)",
+      "tr": "Terazi 400 g / 0,1 mg: s_m = 0,25 mg ile hata yaklaşım fonksiyonu, artık testi geçer (EURAMET cg-18 H4)"
+    },
+    "description": {
+      "en": "Error approximation function E = a₁I of a 400 g balance from nine test points with correlated reference masses.",
+      "tr": "Korelasyonlu referans kütlelerle dokuz deney noktasından 400 g'lık bir terazinin hata yaklaşım fonksiyonu E = a₁I."
+    },
+    "explanation": [
+      {
+        "en": "Balance 400 g / 0.1 mg, adjusted immediately before calibration; nine test points 0 … 400 g with E2 weights (50 g, 100 g, 2 × 200 g), N = 3 cycles: E_j = I_j − m_c,j.",
+        "tr": "Terazi 400 g / 0,1 mg, kalibrasyondan hemen önce ayarlanmış; E2 ağırlıklarla (50 g, 100 g, 2 × 200 g) 0 … 400 g arasında dokuz deney noktası, N = 3 çevrim: E_j = I_j − m_c,j."
+      },
+      {
+        "en": "u(I_j) from the repeatability s = 0.052 mg/√3 = 0.030 mg (7.1.1-6), the rounding d/√12 at zero and at the load, and the eccentricity 0.10 mg at 200 g (7.1.1-10): 0.042 … 0.077 mg.",
+        "tr": "u(I_j), tekrarlanabilirlik s = 0,052 mg/√3 = 0,030 mg (7.1.1-6), sıfırda ve yükte yuvarlama d/√12 ve 200 g'da 0,10 mg eksantriklikten (7.1.1-10): 0,042 … 0,077 mg."
+      },
+      {
+        "en": "u(m_ref,j) from U(m_c)/2 and the drift of the weights, summed over the weights used, and the buoyancy term of 7.1.2-5b, which is negative here (ρ_a = 1.090, ρ_a1 = 1.045 kg/m³, ρ = (8000 ± 60) kg/m³): 0.014 … 0.077 mg.",
+        "tr": "u(m_ref,j), U(m_c)/2 ve ağırlıkların sürüklenmesinden (kullanılan ağırlıklar üzerinden toplanarak) ve burada negatif olan 7.1.2-5b kaldırma kuvveti teriminden (ρ_a = 1,090, ρ_a1 = 1,045 kg/m³, ρ = (8000 ± 60) kg/m³): 0,014 … 0,077 mg."
+      },
+      {
+        "en": "U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); E(I) = a₁I by generalized least squares: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv with ν = 9 − 1 = 8 (C2.2-6 to -9).",
+        "tr": "U(e) = s sᵀ + diag(u²(I_j)) + s_m²·I (C2.2-3a, -3b, -3c); genelleştirilmiş en küçük karelerle E(I) = a₁I: â₁ = (XᵀPX)⁻¹XᵀPe, U(â) = (XᵀPX)⁻¹, χ²_obs = vᵀPv, ν = 9 − 1 = 8 (C2.2-6 … -9)."
+      },
+      {
+        "en": "To meet C2.2-2b at every point, s_m is raised to 0.25 mg: a₁ = 0.000 84 mg/g, U(â) = 1.745·10⁻⁷ (mg/g)², u(a₁) = 0.000 42 mg/g; all residuals lie within U(E_appr) (Table H4.8).",
+        "tr": "C2.2-2b'yi her noktada sağlamak için s_m 0,25 mg'a çıkarılır: a₁ = 0,000 84 mg/g, U(â) = 1,745·10⁻⁷ (mg/g)², u(a₁) = 0,000 42 mg/g; tüm artıklar U(E_yakl) içindedir (Tablo H4.8)."
+      },
+      {
+        "en": "The price is a much larger uncertainty of the approximated error: U(E_appr) = 0.334 mg at 400 g instead of 0.190 mg.",
+        "tr": "Bedeli, yaklaşık hatanın çok daha büyük belirsizliğidir: 400 g'da U(E_yakl) 0,190 mg yerine 0,334 mg."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 18 v4.0 (2015), Guidelines on the Calibration of Non-Automatic Weighing Instruments",
+        "section": "Appendix H4; Appendix C2.2",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg18",
+      "balance",
+      "weighing-instrument",
+      "calibration",
+      "error-function",
+      "generalized-least-squares",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "Table H4.1 lists e = 0.213, 0.274 and 0.181 mg at 100, 150 and 250 g, and Tables H4.6/H4.8 the indications 100.000 200, 150.000 267 and 250.000 200 g; the budget gives 0.113, 0.240 and 0.081 mg (100.000 100, 150.000 233, 250.000 100 g). The printed a₁, U(â), χ²_obs and residuals follow from the budget values, which the project uses (research log F70).",
+        "tr": "Tablo H4.1 100, 150 ve 250 g'da e = 0,213, 0,274 ve 0,181 mg, Tablo H4.6/H4.8 ise 100,000 200, 150,000 267 ve 250,000 200 g göstergelerini verir; bütçe 0,113, 0,240 ve 0,081 mg (100,000 100, 150,000 233, 250,000 100 g) verir. Basılı a₁, U(â), χ²_obs ve artıklar bütçe değerlerinden çıkar; proje bunları kullanır (araştırma günlüğü F70)."
+      },
+      {
+        "en": "The buoyancy 'variance' of 7.1.2-5b is negative: it removes the part of u(ρ) already contained in the certificate value of the weights, calibrated at ρ_a1. It is a covariance correction, not a variance; u²(m_ref) stays positive.",
+        "tr": "7.1.2-5b'nin kaldırma kuvveti 'varyansı' negatiftir: ρ_a1'de kalibre edilmiş ağırlıkların sertifika değerinde zaten bulunan u(ρ) payını çıkarır. Bu bir varyans değil kovaryans düzeltmesidir; u²(m_ref) pozitif kalır."
+      },
+      {
+        "en": "Table H4.8 prints the e values of Table H4.1 (0.213, 0.274, 0.181 mg) next to residuals computed from the budget values.",
+        "tr": "Tablo H4.8, bütçe değerlerinden hesaplanmış artıkların yanında Tablo H4.1'in e değerlerini (0,213, 0,274, 0,181 mg) basar."
+      }
+    ]
+  },
+  "error_function": {
+    "instrument": "Electronic balance, Max 400 g, d = 0.1 mg",
+    "unit": "g",
+    "error_unit": "mg",
+    "error_factor": 1000,
+    "points": [
+      {
+        "indication": 0.0,
+        "reference": 0.0,
+        "u_reference": 0.0,
+        "u_indication": 0.041633
+      },
+      {
+        "indication": 50.000067,
+        "reference": 50.000006,
+        "u_reference": 0.014201,
+        "u_indication": 0.051174
+      },
+      {
+        "indication": 100.0001,
+        "reference": 99.999987,
+        "u_reference": 0.023057,
+        "u_indication": 0.052678
+      },
+      {
+        "indication": 150.000233,
+        "reference": 149.999993,
+        "u_reference": 0.037282,
+        "u_indication": 0.055095
+      },
+      {
+        "indication": 200.000267,
+        "reference": 200.000013,
+        "u_reference": 0.038426,
+        "u_indication": 0.05831
+      },
+      {
+        "indication": 250.0001,
+        "reference": 250.000019,
+        "u_reference": 0.052835,
+        "u_indication": 0.062199
+      },
+      {
+        "indication": 300.0002,
+        "reference": 300.0,
+        "u_reference": 0.06152,
+        "u_indication": 0.066646
+      },
+      {
+        "indication": 350.000267,
+        "reference": 350.000006,
+        "u_reference": 0.075871,
+        "u_indication": 0.071545
+      },
+      {
+        "indication": 400.0004,
+        "reference": 400.00001,
+        "u_reference": 0.076852,
+        "u_indication": 0.076811
+      }
+    ],
+    "through_zero": true,
+    "s_m": 0.25
+  },
+  "expected": {
+    "error_function": {
+      "coefficients": [
+        {
+          "value": 0.00084,
+          "tolerance": 5e-06
+        }
+      ],
+      "u_coefficients": [
+        {
+          "value": 0.00042,
+          "tolerance": 5e-06
+        }
+      ],
+      "chi_squared_passed": true,
+      "residual_failures": 0,
+      "u_approximated": [
+        {
+          "value": 0.0,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.021,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.042,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.063,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.084,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.104,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.125,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.146,
+          "tolerance": 0.0005
+        },
+        {
+          "value": 0.167,
+          "tolerance": 0.0005
+        }
+      ]
+    },
+    "reference": {
+      "en": "EURAMET cg-18 v4.0 H4.4, s_m = 0.25 mg: a₁ = 0.000 84 mg/g, U(â) = 1.745·10⁻⁷ (mg/g)², u(a₁) = 0.000 42 mg/g; u(E_appr) of Table H4.8.",
+      "tr": "EURAMET cg-18 v4.0 H4.4, s_m = 0,25 mg: a₁ = 0,000 84 mg/g, U(â) = 1,745·10⁻⁷ (mg/g)², u(a₁) = 0,000 42 mg/g; Tablo H4.8'in u(E_yakl) değerleri."
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex8-copper-x-review",
+    "title": {
+      "en": "Copper in water by ICP-OES: review of preliminary X-chart limits (Nordtest TR 569 Example 8)",
+      "tr": "ICP-OES ile suda bakır: ön X-grafiği sınırlarının gözden geçirilmesi (Nordtest TR 569 Örnek 8)"
+    },
+    "description": {
+      "en": "Synthetic standard (1.00 ± 0.02 mg/L) measured in duplicate; preliminary limits from the first 60 runs, x̄ = 1.055 mg/L, s = 0.0667 mg/L. The last 60 values are reviewed: 11 outside the warning limits; one value more than 4 s from the central line is excluded, leaving 59 values with x̄ = 1.041 mg/L and s_Rw = 0.0834 mg/L.",
+      "tr": "Paralel ölçülen sentetik standart (1,00 ± 0,02 mg/L); ön sınırlar ilk 60 seriden, x̄ = 1,055 mg/L, s = 0,0667 mg/L. Son 60 değer gözden geçirilir: 11'i uyarı sınırları dışında; merkez çizgisinden 4 s'den uzak bir değer dışarıda bırakılır, x̄ = 1,041 mg/L ve s_Rw = 0,0834 mg/L olan 59 değer kalır."
+    },
+    "explanation": [
+      {
+        "en": "Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).",
+        "tr": "X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7)."
+      },
+      {
+        "en": "More than 6 of about 60 values outside the warning limits: the standard deviation has probably increased, so the F-test is applied (Chapter 10).",
+        "tr": "Yaklaşık 60 değerden 6'dan fazlası uyarı sınırları dışında: standart sapma muhtemelen artmıştır, bu nedenle F-testi uygulanır (Bölüm 10)."
+      },
+      {
+        "en": "F = 0.0834²/0.0667² = 1.563 with ν = 58 and 59: below the critical value (1.67 in Table 3 at 60/60; 1.68 exactly), no significant increase.",
+        "tr": "F = 0,0834²/0,0667² = 1,563, ν = 58 ve 59: kritik değerin altında (Tablo 3'te 60/60 için 1,67; tam değeri 1,68), anlamlı artış yok."
+      },
+      {
+        "en": "t-test of the means with the pooled s_p = √((59·0.0667² + 58·0.0834²)/117) = 0.07545 mg/L (Equation 9): t = |1.055 − 1.041|/0.07545·√(60·59/119) = 1.012 < 1.98 (ν = 117): no significant change of the central line.",
+        "tr": "Birleştirilmiş s_p = √((59·0,0667² + 58·0,0834²)/117) = 0,07545 mg/L ile ortalamalara t-testi (Eşitlik 9): t = |1,055 − 1,041|/0,07545·√(60·59/119) = 1,012 < 1,98 (ν = 117): merkez çizgisinde anlamlı değişiklik yok."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 8",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "copper",
+      "water",
+      "icp-oes",
+      "x-chart",
+      "review",
+      "f-test",
+      "t-test"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Cu, synthetic standard 1.00 mg/L",
+    "unit": "mg/L",
+    "replicates": 2,
+    "central_line": {
+      "mean": 1.055
+    },
+    "limits": {
+      "basis": "statistical",
+      "sd": 0.0667
+    },
+    "review": {
+      "previous": {
+        "mean": 1.055,
+        "sd": 0.0667,
+        "n": 60
+      },
+      "current": {
+        "mean": 1.041,
+        "sd": 0.0834,
+        "n": 59
+      }
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_warning": {
+        "value": 0.92,
+        "tolerance": 0.005
+      },
+      "upper_warning": {
+        "value": 1.19,
+        "tolerance": 0.005
+      },
+      "lower_action": {
+        "value": 0.85,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 1.26,
+        "tolerance": 0.005
+      },
+      "review": {
+        "f": {
+          "value": 1.563,
+          "tolerance": 0.0005
+        },
+        "f_critical": {
+          "value": 1.67,
+          "tolerance": 0.015
+        },
+        "pooled_sd": {
+          "value": 0.07545,
+          "tolerance": 5e-05
+        },
+        "t": {
+          "value": 1.012,
+          "tolerance": 0.0005
+        },
+        "t_critical": {
+          "value": 1.98,
+          "tolerance": 0.005
+        },
+        "sd_significant": false,
+        "mean_significant": false
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 8. The critical F of 1.67 is read from Table 3 at 60 and 60 degrees of freedom; the program computes F₀.₉₇₅(58, 59) exactly.",
+      "tr": "TR 569 Örnek 8. 1,67 kritik F değeri Tablo 3'ten 60 ve 60 serbestlik derecesinde okunmuştur; program F₀.₉₇₅(58, 59) değerini tam olarak hesaplar."
+    }
+  }
+}

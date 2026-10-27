@@ -1,0 +1,185 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k11-gas-temperature",
+    "title": {
+      "en": "Temperature of gas in a container from a calibrated PT100 probe (UKAS M3003 K.11, second budget)",
+      "tr": "Kalibre edilmiş PT100 probdan kaptaki gazın sıcaklığı (UKAS M3003 K.11, ikinci bütçe)"
+    },
+    "description": {
+      "en": "The probe L is attached to the outside of the vessel; its correction comes from the calibration function ΔT_u = 0.000 55·I_u + 0.419 °C.",
+      "tr": "L probu kabın dışına bağlanır; düzeltmesi ΔT_u = 0,000 55·I_u + 0,419 °C kalibrasyon fonksiyonundan gelir."
+    },
+    "explanation": [
+      {
+        "en": "T_g = (I_u − ΔT_u) − ΔT_ug − δT_h − δT_r (K.11.11): I_u = 23.4 °C (mean of four), ΔT_u = 0.431 °C.",
+        "tr": "T_g = (I_u − ΔT_u) − ΔT_ug − δT_h − δT_r (K.11.11): I_u = 23,4 °C (dördün ortalaması), ΔT_u = 0,431 °C."
+      },
+      {
+        "en": "Calibration of L U = 0.084 49 °C (k = 2, first budget), fit ±0.012 °C, drift ±0.004 67 °C, probe–gas difference ±0.1 °C, self-heating ±4 mK, repeatability s = 0.076 °C (ν = 49) for the mean of four.",
+        "tr": "L'nin kalibrasyonu U = 0,084 49 °C (k = 2, birinci bütçe), uydurma ±0,012 °C, sürüklenme ±0,004 67 °C, prob–gaz farkı ±0,1 °C, kendi kendine ısınma ±4 mK, dört okumanın ortalaması için tekrarlanabilirlik s = 0,076 °C (ν = 49)."
+      },
+      {
+        "en": "u_c = 0.0864 °C; T_g = 22.97 °C ± 0.17 °C (k = 2).",
+        "tr": "u_c = 0,0864 °C; T_g = 22,97 °C ± 0,17 °C (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.11 (K.11.17–K.11.18)",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "temperature",
+      "pt100",
+      "gas"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "T_g",
+      "unit": "°C",
+      "expression": "I_u - (0.00055*I_u + 0.419 + dT_cal + dT_fit + dT_drift) - dT_ug - dT_h - dT_r",
+      "description": {
+        "en": "Temperature of the gas",
+        "tr": "Gazın sıcaklığı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_u",
+        "description": {
+          "en": "Indication of probe L (0.1 °C resolution)",
+          "tr": "L probunun göstergesi (0,1 °C çözünürlük)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 23.4,
+          "half_width": 0.05
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_cal",
+        "description": {
+          "en": "Calibration of L (U = 0.084 49 °C, k = 2)",
+          "tr": "L'nin kalibrasyonu (U = 0,084 49 °C, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.08449,
+          "k": 2
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_fit",
+        "description": {
+          "en": "Linear fit of the calibration data of L",
+          "tr": "L'nin kalibrasyon verilerine doğrusal uydurma"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.012
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_drift",
+        "description": {
+          "en": "Drift of L",
+          "tr": "L'nin sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.00467
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_ug",
+        "description": {
+          "en": "Difference between probe and gas",
+          "tr": "Prob ile gaz arasındaki fark"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_h",
+        "description": {
+          "en": "Self-heating of L on the vessel",
+          "tr": "L'nin kap üzerinde kendi kendine ısınması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.004
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_r",
+        "description": {
+          "en": "Repeatability of the vessel temperature (s = 0.076 °C, ν = 49, mean of four)",
+          "tr": "Kap sıcaklığının tekrarlanabilirliği (s = 0,076 °C, ν = 49, dördün ortalaması)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.076,
+          "pooled_dof": 49,
+          "n": 4
+        },
+        "unit": "°C"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 22.97,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 0.08638,
+        "tolerance": 5e-05
+      },
+      "expanded_uncertainty": {
+        "value": 0.17276,
+        "tolerance": 0.0001
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.11.17–K.11.18: u_c = 0.086 38 °C, U = 0.172 76 °C; 22.97 °C ± 0.17 °C.",
+      "tr": "UKAS M3003 6. baskı K.11.17–K.11.18: u_c = 0,086 38 °C, U = 0,172 76 °C; 22,97 °C ± 0,17 °C."
+    }
+  }
+}

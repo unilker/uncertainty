@@ -1,0 +1,132 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso13528-e5-los-angeles-reference-value",
+    "title": {
+      "en": "Assigned value from a comparison with a CRM: Los Angeles value of aggregates (ISO 13528 E.5)",
+      "tr": "CRM ile karşılaştırmadan atanan değer: agregaların Los Angeles değeri (ISO 13528 E.5)"
+    },
+    "description": {
+      "en": "ISO 13528:2022 E.5 (7.5): the proficiency test item and a similar CRM are tested in duplicate on 20 samples; x_pt is the certified value plus the average difference, u(x_pt) combines the CRM uncertainty and the standard uncertainty of the difference.",
+      "tr": "ISO 13528:2022 E.5 (7.5): yeterlilik testi numunesi ve benzer bir CRM 20 numunede ikişer kez test edilir; x_pt sertifikalı değer artı ortalama farktır, u(x_pt) CRM belirsizliğini ve farkın standart belirsizliğini birleştirir."
+    },
+    "explanation": [
+      {
+        "en": "Certified value of the CRM 21.62 LA units with standard uncertainty 0.26 LA units, which already includes inhomogeneity, transport and long-term stability.",
+        "tr": "CRM'nin sertifikalı değeri 21,62 LA birimi, standart belirsizliği 0,26 LA birimi; bu belirsizlik homojensizlik, taşıma ve uzun süreli kararlılığı zaten içerir."
+      },
+      {
+        "en": "Differences of the duplicate means, PT item − CRM, for the 20 samples (Table E.8): mean d = 1.727, s = 1.071, u(d) = s/√20 = 0.239 LA units.",
+        "tr": "20 numune için ikili ortalamaların farkları, YT numunesi − CRM (Tablo E.8): ortalama d = 1,727, s = 1,071, u(d) = s/√20 = 0,239 LA birimi,"
+      },
+      {
+        "en": "x_pt = 21.62 + 1.73 = 23.35 LA units and u(x_pt) = √(0.26² + 0.239²) = 0.35 LA units.",
+        "tr": "x_pt = 21,62 + 1,73 = 23,35 LA birimi ve u(x_pt) = √(0,26² + 0,239²) = 0,35 LA birimi,"
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+        "section": "Annex E.5 (Table E.8)",
+        "url": "https://www.iso.org/standard/78879.html"
+      }
+    ],
+    "tags": [
+      "iso13528",
+      "proficiency-testing",
+      "reference-value",
+      "crm"
+    ],
+    "notes": [
+      {
+        "en": "The differences are recomputed from the duplicate results of Table E.8 and agree with its last column. The Monte Carlo method uses the scaled and shifted t distribution with 19 degrees of freedom for d (JCGM 101 6.4.9).",
+        "tr": "Farklar Tablo E.8'deki ikili sonuçlardan yeniden hesaplanır ve tablonun son sütunuyla uyumludur. Monte Carlo yöntemi d için 19 serbestlik dereceli ölçeklenmiş ve kaydırılmış t dağılımını kullanır (JCGM 101 6.4.9)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "x_pt",
+      "unit": "LA units",
+      "expression": "x_CRM + d"
+    },
+    "inputs": [
+      {
+        "name": "x_CRM",
+        "unit": "LA units",
+        "description": {
+          "en": "certified value of the CRM",
+          "tr": "CRM'nin sertifikalı değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 21.62,
+          "sd": 0.26
+        }
+      },
+      {
+        "name": "d",
+        "unit": "LA units",
+        "description": {
+          "en": "average difference PT item − CRM over 20 samples",
+          "tr": "20 numunede ortalama fark YT numunesi − CRM"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            2.0,
+            1.05,
+            0.5,
+            1.1,
+            1.75,
+            2.7,
+            -0.6,
+            -0.35,
+            2.5,
+            0.95,
+            3.1,
+            1.5,
+            2.0,
+            1.05,
+            2.3,
+            2.05,
+            2.8,
+            3.0,
+            2.15,
+            3.0
+          ]
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 13528
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 23.35,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 0.35,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "ISO 13528:2022 E.5 (x_pt = 23.35, u(x_pt) = 0.35 LA units; Table E.8: d = 1.73, s = 1.07, u(d) = 0.24).",
+      "tr": "ISO 13528:2022 E.5 (x_pt = 23,35, u(x_pt) = 0,35 LA birimi; Tablo E.8: d = 1,73, s = 1,07, u(d) = 0,24)."
+    }
+  }
+}

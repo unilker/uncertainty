@@ -1,0 +1,161 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-b1-nitrate",
+    "title": {
+      "en": "Nitrate in drinking water: two precision intervals",
+      "tr": "İçme suyunda nitrat: iki kesinlik aralığı"
+    },
+    "description": {
+      "en": "MUPR Example B1: absolute precision below 0.4 mg/L, relative above; recovery from 20 spiked waters; stock solution and dilution components.",
+      "tr": "MUPR Örnek B1: 0,4 mg/L altında mutlak, üstünde bağıl kesinlik; 20 katkılı sudan geri kazanım; stok çözelti ve seyreltme bileşenleri."
+    },
+    "explanation": [
+      {
+        "en": "Interval I (c < 0.4 mg/L): s_I = 0.0328 mg/L; interval II: s′_I = 8.43 % (with dilution F = 100, u′_F = 2.2 %).",
+        "tr": "Aralık I (c < 0,4 mg/L): s_I = 0,0328 mg/L; aralık II: s′_I = %8,43 (F = 100 seyreltme, u′_F = %2,2)."
+      },
+      {
+        "en": "R̄ = 0.389/0.400 = 97.25 %, u(R̄) = 2.85 %; |1 − R̄|/u = 0.96 ≤ t₁₉ = 2.09: no correction, u′ = u(R̄).",
+        "tr": "R̄ = 0,389/0,400 = %97,25, u(R̄) = %2,85; |1 − R̄|/u = 0,96 ≤ t₁₉ = 2,09: düzeltme yok, u′ = u(R̄)."
+      },
+      {
+        "en": "U = 2√(s² + c²(u′²_R + 2u′²_DSS [+ u′²_F])): (0.261 ± 0.068) mg/L and (50.0 ± 9.3) mg/L.",
+        "tr": "U = 2√(s² + c²(u′²_R + 2u′²_DSS [+ u′²_F])): (0,261 ± 0,068) mg/L ve (50,0 ± 9,3) mg/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example B1",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "recovery",
+      "ranges"
+    ],
+    "notes": [
+      {
+        "en": "Finding: the guide prints |1 − R̄|/u = 0.982 using R̄ rounded to 0.972; with R̄ = 0.9725 the statistic is 0.963. The conclusion is the same.",
+        "tr": "Bulgu: rehber R̄'yi 0,972'ye yuvarlayarak |1 − R̄|/u = 0,982 yazar; R̄ = 0,9725 ile istatistik 0,963'tür. Sonuç aynıdır."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "c(NO₃⁻)",
+    "unit": "mg/L",
+    "levels": [
+      0.261,
+      50.0
+    ],
+    "precision": [
+      {
+        "name": "s_I⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.0328,
+          "dof": 19
+        },
+        "range": {
+          "max": 0.4
+        }
+      },
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 8.43,
+          "dof": 19
+        },
+        "range": {
+          "min": 0.4
+        }
+      }
+    ],
+    "recovery": {
+      "name": "u(R̄)",
+      "tests": [
+        {
+          "type": "reference",
+          "label": "spiked waters",
+          "mean": 0.389,
+          "sd": 0.0328,
+          "n": 20,
+          "reference": 0.4,
+          "expanded": 0.018,
+          "k": 2
+        }
+      ]
+    },
+    "components": [
+      {
+        "name": "u′(DSS)",
+        "description": {
+          "en": "Stock solution, used for calibrators and spikes (counted twice)",
+          "tr": "Stok çözelti; kalibrantlar ve katkılar için kullanılır (iki kez sayılır)"
+        },
+        "u_percent": 0.95,
+        "multiplicity": 2
+      },
+      {
+        "name": "u′(F)",
+        "description": {
+          "en": "Dilution of samples above 0.4 mg/L",
+          "tr": "0,4 mg/L üzerindeki numunelerin seyreltilmesi"
+        },
+        "u_percent": 2.2,
+        "range": {
+          "min": 0.4
+        }
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "recovery": {
+        "mean_percent": {
+          "value": 97.25,
+          "tolerance": 0.005
+        },
+        "standard_uncertainty_percent": {
+          "value": 2.85,
+          "tolerance": 0.005
+        },
+        "statistic": {
+          "value": 0.963,
+          "tolerance": 0.0005
+        },
+        "critical": {
+          "value": 2.093,
+          "tolerance": 0.0005
+        },
+        "significant": false
+      },
+      "levels": [
+        {
+          "level": 0.261,
+          "expanded_uncertainty": {
+            "value": 0.0676,
+            "tolerance": 5e-05
+          }
+        },
+        {
+          "level": 50.0,
+          "expanded_uncertainty": {
+            "value": 9.26,
+            "tolerance": 0.01
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "MUPR Example B1, Eq. (B1.3) and B1.7.iv (U = 0.0676 mg/L at 0.261 mg/L; 9.26 mg/L at 50 mg/L, computed by the guide with u′(R̄) rounded to 0.0285; unrounded 9.27 mg/L).",
+      "tr": "MUPR Örnek B1, Eş. (B1.3) ve B1.7.iv (0,261 mg/L'de U = 0,0676 mg/L; 50 mg/L'de 9,26 mg/L, rehber u′(R̄)'yi 0,0285'e yuvarlayarak hesaplar; yuvarlanmamış 9,27 mg/L)."
+    }
+  }
+}

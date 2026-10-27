@@ -1,0 +1,200 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a6-cadmium-soil",
+    "title": {
+      "en": "Cadmium in agricultural top soil: modelling approach (Eurachem UfS Example A6)",
+      "tr": "Tarım toprağında kadmiyum: modelleme yaklaşımı (Eurachem UfS Örnek A6)"
+    },
+    "description": {
+      "en": "Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from composite samples; uncertainty budget of the sampling effects (between locations, strategy, depth, splitting, drying) and of the analysis.",
+      "tr": "0,32 ha'lık bir tarlanın (143 m × 22 m, 0–30 cm) kompozit numunelerden ortalama derişimi; numune alma etkilerinin (konumlar arası, strateji, derinlik, bölme, kurutma) ve analizin belirsizlik bütçesi."
+    },
+    "explanation": [
+      {
+        "en": "Model x_site = x̄_sqr·f_strat·f_depth·f_split·f_dry·f_anal with nominal correction factors of 1 (Section 4.3).",
+        "tr": "Model x_site = x̄_sqr·f_strat·f_depth·f_split·f_dry·f_analiz; düzeltme faktörlerinin nominal değeri 1'dir (Bölüm 4.3)."
+      },
+      {
+        "en": "Between locations: mean of the five squares with u = s_sqr/√5 (Type A).",
+        "tr": "Konumlar arası: beş karenin ortalaması, u = s_kare/√5 (A tipi)."
+      },
+      {
+        "en": "Depth: x₋ = (x̄ − 0.1 c₋)/0.9 and x₊ = (x̄ + 0.1 c₊)/1.1 with c₋ = 0.14, c₊ = 0.1 mg/kg; half-width (x₋ − x₊)/2, rectangular.",
+        "tr": "Derinlik: x₋ = (x̄ − 0,1 c₋)/0,9 ve x₊ = (x̄ + 0,1 c₊)/1,1; c₋ = 0,14, c₊ = 0,1 mg/kg; yarı genişlik (x₋ − x₊)/2, dikdörtgen."
+      },
+      {
+        "en": "Drying: 2 % range of moisture, u = 1 %/√3 = 0.6 %.",
+        "tr": "Kurutma: %2'lik nem aralığı, u = %1/√3 = %0,6."
+      },
+      {
+        "en": "Splitting u = mean of the RSDs of Table A6.3 = 3.7 %; strategy 1 % (hypothesis-based pattern); analysis √(3.6² + 2.7² + 2.7²) = 5.2 % (Table A6.4).",
+        "tr": "Bölme u = Tablo A6.3'teki RSD'lerin ortalaması = %3,7; strateji %1 (hipoteze dayalı düzen); analiz √(3,6² + 2,7² + 2,7²) = %5,2 (Tablo A6.4)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A6, Tables A6.1–A6.6",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "modelling",
+      "gum",
+      "soil",
+      "environment",
+      "cadmium"
+    ],
+    "notes": [
+      {
+        "en": "The depth term from Table A6.2 is 3.6 % (x₋ = 0.339, x₊ = 0.299 mg/kg); Table A6.6 gives 3.5 %. With it the combined uncertainty is 9.2 % instead of 9.1 %, and U = 18.4 % instead of 18.2 %; the rounded result 0.32 ± 0.06 mg/kg is the same.",
+        "tr": "Tablo A6.2'den derinlik terimi %3,6'dır (x₋ = 0,339, x₊ = 0,299 mg/kg); Tablo A6.6 %3,5 verir. Bununla birleşik belirsizlik %9,1 yerine %9,2, U ise %18,2 yerine %18,4 olur; yuvarlanmış sonuç 0,32 ± 0,06 mg/kg aynıdır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "x_site",
+      "unit": "mg/kg",
+      "expression": "x_sqr * f_strat * f_depth * f_split * f_dry * f_Rw * f_ref * f_bias",
+      "description": {
+        "en": "Mean cadmium content of the field",
+        "tr": "Tarlanın ortalama kadmiyum içeriği"
+      }
+    },
+    "inputs": [
+      {
+        "name": "x_sqr",
+        "unit": "mg/kg",
+        "description": {
+          "en": "Cadmium in the composite samples of five squares A1, A3, B2, C1, C3 (Table A6.1)",
+          "tr": "Beş karenin (A1, A3, B2, C1, C3) kompozit numunelerinde kadmiyum (Tablo A6.1)"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            0.27,
+            0.285,
+            0.343,
+            0.355,
+            0.343
+          ]
+        }
+      },
+      {
+        "name": "f_strat",
+        "description": {
+          "en": "Sampling strategy (bias from the spatial pattern)",
+          "tr": "Numune alma stratejisi (konumsal düzenden sapma)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.01
+        }
+      },
+      {
+        "name": "f_depth",
+        "description": {
+          "en": "'Depth effect': ±10 % in depth with the gradient of Table A6.2, rectangular",
+          "tr": "'Derinlik etkisi': Tablo A6.2'deki gradyanla derinlikte ±%10, dikdörtgen"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.0,
+          "half_width": 0.0624
+        }
+      },
+      {
+        "name": "f_split",
+        "description": {
+          "en": "Splitting by coning and quartering: mean RSD of duplicate splits (Table A6.3)",
+          "tr": "Konileme ve dörde bölme ile bölme: çift bölmelerin ortalama RSD'si (Tablo A6.3)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.037
+        }
+      },
+      {
+        "name": "f_dry",
+        "description": {
+          "en": "Moisture of air-dried soil, a range of 2 %, rectangular",
+          "tr": "Havada kurutulmuş toprağın nemi, %2'lik aralık, dikdörtgen"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.0,
+          "half_width": 0.01
+        }
+      },
+      {
+        "name": "f_Rw",
+        "description": {
+          "en": "Within-laboratory reproducibility (mean of 10 test samples, GF-ZAAS)",
+          "tr": "Laboratuvar içi tekrarüretilebilirlik (10 deney numunesinin ortalaması, GF-ZAAS)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.036
+        }
+      },
+      {
+        "name": "f_ref",
+        "description": {
+          "en": "Certified value of the CRM",
+          "tr": "CRM'nin sertifikalı değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.027
+        }
+      },
+      {
+        "name": "f_bias",
+        "description": {
+          "en": "Day-to-day bias correction with the CRM (mean of 3)",
+          "tr": "CRM ile günden güne sapma düzeltmesi (3'ün ortalaması)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.027
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.32,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 0.06,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "Measurement result and expanded uncertainty of Section 6.7 (k = 2).",
+      "tr": "Bölüm 6.7'deki ölçüm sonucu ve genişletilmiş belirsizlik (k = 2)."
+    }
+  }
+}

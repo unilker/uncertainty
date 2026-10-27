@@ -1,0 +1,110 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s12-water-meter-mean-error",
+    "title": {
+      "en": "Water meter calibration: mean of three runs",
+      "tr": "Su sayacı kalibrasyonu: üç çalışmanın ortalaması"
+    },
+    "description": {
+      "en": "EA-4/02 S12 (third budget): mean relative error of three runs, with the Welch–Satterthwaite formula and k from the t-distribution.",
+      "tr": "EA-4/02 S12 (üçüncü bütçe): üç çalışmanın ortalama bağıl hatası; Welch–Satterthwaite formülü ve t dağılımından k."
+    },
+    "explanation": [
+      {
+        "en": "e_X,av = ē_X + δe_X: the scatter of the three runs (s = 0.001, u = s/√3, 2 degrees of freedom) is added to the uncertainty of a single run (0.68 × 10⁻³).",
+        "tr": "e_X,ort = ē_X + δe_X: üç çalışmanın saçılımı (s = 0,001, u = s/√3, 2 serbestlik derecesi) tek çalışmanın belirsizliğine (0,68 × 10⁻³) eklenir."
+      },
+      {
+        "en": "s = 0.00104, so u = s/√3 = 0.60 × 10⁻³ (EA-4/02 prints s = 0.001); combined u = 0.91 × 10⁻³ with ν_eff = 10, so k = t₀.₉₅₄₅(10) = 2.28 (EA-4/02 Table E.1) and U = 0.002.",
+        "tr": "s = 0,00104 ve u = s/√3 = 0,60 × 10⁻³ (EA-4/02 s = 0,001 yazar); birleşik u = 0,91 × 10⁻³ ve ν_eff = 10 olduğundan k = t₀,₉₅₄₅(10) = 2,28 (EA-4/02 Tablo E.1) ve U = 0,002."
+      }
+    ],
+    "field": "flow",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S12",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "welch-satterthwaite"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "e_Xav",
+      "expression": "e_X + de_X",
+      "description": {
+        "en": "Mean relative error of indication",
+        "tr": "Ortalama bağıl gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "e_X",
+        "description": {
+          "en": "Error of a single run (uncertainty from the second budget)",
+          "tr": "Tek çalışmanın hatası (belirsizlik ikinci bütçeden)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.0006813235340147147
+        }
+      },
+      {
+        "name": "de_X",
+        "description": {
+          "en": "Relative errors of the three runs (Type A)",
+          "tr": "Üç çalışmanın bağıl hataları (A tipi)"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            0.0003,
+            0.0005,
+            0.0022
+          ]
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "reporting": {
+    "significant_digits": 1
+  },
+  "expected": {
+    "gum": {
+      "standard_uncertainty": {
+        "value": 0.00091,
+        "tolerance": 1e-05
+      },
+      "coverage_factor": {
+        "value": 2.28,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 0.002,
+        "tolerance": 0.0002
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S12.11–S12.13 (u = 0.91 × 10⁻³, ν_eff = 10, k = 2.28, U = 0.002).",
+      "tr": "EA-4/02 M:2022 S12.11–S12.13 (u = 0,91 × 10⁻³, ν_eff = 10, k = 2,28, U = 0,002)."
+    }
+  }
+}

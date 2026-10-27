@@ -1,0 +1,87 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm106-9.5-ball-bearings",
+    "title": {
+      "en": "Ball bearings: acceptance limit for a required consumer's risk (JCGM 106 9.5.4)",
+      "tr": "Bilyalı rulmanlar: istenen tüketici riski için kabul sınırı (JCGM 106 9.5.4)"
+    },
+    "description": {
+      "en": "JCGM 106:2012 9.5.4 Example: radial error motion ≤ 2 µm, gamma process PDF with mean 1 µm and standard deviation 0.5 µm, measuring system u_m = 0.25 µm; global consumer's risk at most 0.1 %.",
+      "tr": "JCGM 106:2012 9.5.4 Örnek: radyal hata hareketi ≤ 2 µm, ortalaması 1 µm ve standart sapması 0,5 µm olan gama süreç dağılımı, ölçüm sistemi u_m = 0,25 µm; küresel tüketici riski en çok %0,1."
+    },
+    "explanation": [
+      {
+        "en": "The radial error motion is positive, so the process PDF is a gamma density with α = (1/0.5)² = 4 and λ = 1/0.5² = 4 µm⁻¹ (Annex B, Formula 22); 4.2 % of the bearings exceed 2 µm.",
+        "tr": "Radyal hata hareketi pozitiftir; bu nedenle süreç dağılımı α = (1/0,5)² = 4 ve λ = 1/0,5² = 4 µm⁻¹ olan bir gama yoğunluğudur (Ek B, Formül 22); rulmanların %4,2'si 2 µm'yi aşar."
+      },
+      {
+        "en": "With A = T − 2r u_m, R_C(r) and R_P(r) follow from Formulae (23) and (24); R_C = 0.1 % is reached for r ≈ 0.65, so A ≈ 1.7 µm, with R_P ≈ 7.5 %.",
+        "tr": "A = T − 2r u_m ile R_C(r) ve R_P(r), Formül (23) ve (24)'ten bulunur; R_C = %0,1, r ≈ 0,65 için sağlanır; dolayısıyla A ≈ 1,7 µm ve R_P ≈ %7,5'tir."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment",
+        "section": "9.5.4, Example",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_106_2012_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm106",
+      "conformity-assessment",
+      "global-risk",
+      "guarded-acceptance",
+      "gamma-prior"
+    ],
+    "notes": [
+      {
+        "en": "The text states the acceptance interval 0 ≤ Y_m ≤ A and Formula (23) for R_C includes the lower limit 0, but Formula (24) for R_P omits it. The printed R_P ≈ 7.5 % follows from (24); with the lower acceptance limit 0, R_P would be 8.9 % (research log F45). The project uses the acceptance interval Y_m ≤ A, which reproduces both R_C and R_P (the lower limit has no effect on R_C).",
+        "tr": "Metin kabul aralığını 0 ≤ Y_m ≤ A olarak verir ve R_C için Formül (23) alt sınır 0'ı içerir; ancak R_P için Formül (24) bunu dışarıda bırakır. Basılı R_P ≈ %7,5 değeri (24)'ten çıkar; alt kabul sınırı 0 ile R_P %8,9 olurdu (araştırma günlüğü F45). Proje Y_m ≤ A kabul aralığını kullanır; bu hem R_C'yi hem R_P'yi yeniden üretir (alt sınırın R_C'ye etkisi yoktur)."
+      }
+    ]
+  },
+  "conformity": {
+    "quantity": "radial error motion",
+    "unit": "µm",
+    "upper": 2.0,
+    "rule": "guarded_acceptance",
+    "target_consumer_risk": 0.001,
+    "u": 0.25,
+    "process": {
+      "distribution": "gamma",
+      "mean": 1.0,
+      "sd": 0.5
+    }
+  },
+  "expected": {
+    "conformity": {
+      "conforming": {
+        "value": 0.958,
+        "tolerance": 0.0005
+      },
+      "r": {
+        "value": 0.65,
+        "tolerance": 0.01
+      },
+      "acceptance_upper": {
+        "value": 1.7,
+        "tolerance": 0.05
+      },
+      "consumer_risk": {
+        "value": 0.001,
+        "tolerance": 1e-05
+      },
+      "producer_risk": {
+        "value": 0.075,
+        "tolerance": 0.001
+      }
+    },
+    "reference": {
+      "en": "JCGM 106:2012 9.5.4, Example (4.2 % non-conforming, r ≈ 0.65, A ≈ 1.7 µm, R_P ≈ 7.5 %).",
+      "tr": "JCGM 106:2012 9.5.4, Örnek (%4,2 uygunsuz, r ≈ 0,65, A ≈ 1,7 µm, R_P ≈ %7,5)."
+    }
+  }
+}

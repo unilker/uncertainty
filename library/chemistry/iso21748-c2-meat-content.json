@@ -1,0 +1,166 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso21748-c2-meat-content",
+    "title": {
+      "en": "Meat content from nitrogen and fat (ISO 21748 C.2)",
+      "tr": "Azot ve yağdan et içeriği (ISO 21748 C.2)"
+    },
+    "description": {
+      "en": "ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs each carry reproducibility-based uncertainties (Clause 12), written as a measurement model with relative error terms.",
+      "tr": "ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."
+    },
+    "explanation": [
+      {
+        "en": "w_meat = w_pro + w_fat with w_pro = 100 w_N/f_N (Formulae C.1, C.2); w_N = 3.29 % (Kjeldahl, mean of duplicates), f_N = 3.65 ± 0.052, w_fat = 5.50 %.",
+        "tr": "w_meat = w_pro + w_fat, w_pro = 100 w_N/f_N (Formül C.1, C.2); w_N = %3,29 (Kjeldahl, ikili ölçüm ortalaması), f_N = 3,65 ± 0,052, w_fat = %5,50."
+      },
+      {
+        "en": "The nitrogen result carries the between-laboratory term s_L = 1.1 % and the repeatability s_r = 1.8 % of a single result divided by √2 for the duplicate (ISO 21748 Table 1): e_L ~ N(0, 0.011²), e_r ~ N(0, (0.018/√2)²), so u(w_N)/w_N = 1.7 % (Formula C.3). Fat carries s_R = 2.0 %.",
+        "tr": "Azot sonucu laboratuvarlar arası s_L = %1,1 terimini ve ikili ölçüm için √2'ye bölünmüş tek sonuç tekrarlanabilirliğini s_r = %1,8 taşır (ISO 21748 Tablo 1): e_L ~ N(0; 0,011²), e_r ~ N(0; (0,018/√2)²); dolayısıyla u(w_N)/w_N = %1,7 (Formül C.3). Yağ s_R = %2,0 taşır."
+      },
+      {
+        "en": "The law of propagation gives w_meat = 95.6 % with u = 1.99 % and U = 4.0 % (k = 2); w_pro contributes 99.7 % of the variance.",
+        "tr": "Yayılım yasası w_meat = %95,6, u = %1,99 ve U = %4,0 (k = 2) verir; varyansın %99,7'si w_pro'dan gelir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+        "section": "Annex C.2, Table C.1",
+        "url": "https://www.iso.org/standard/71615.html"
+      }
+    ],
+    "tags": [
+      "iso21748",
+      "reproducibility",
+      "combined-result",
+      "food"
+    ],
+    "notes": [
+      {
+        "en": "Table C.1 rounds the relative uncertainties (0.017, 0.014, 0.022) before combining and prints u = 1.98 %; with the unrounded terms u = 1.99 %. Both give U = 4.0 %.",
+        "tr": "Tablo C.1 bağıl belirsizlikleri (0,017; 0,014; 0,022) birleştirmeden önce yuvarlar ve u = %1,98 basar; yuvarlanmamış terimlerle u = %1,99'dur. İkisi de U = %4,0 verir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "w_meat",
+      "unit": "%",
+      "expression": "100 * w_N * (1 + e_L + e_r) / f_N + w_fat * (1 + e_fat)",
+      "description": {
+        "en": "Total meat content",
+        "tr": "Toplam et içeriği"
+      }
+    },
+    "inputs": [
+      {
+        "name": "w_N",
+        "unit": "%",
+        "description": {
+          "en": "Total nitrogen content (Kjeldahl)",
+          "tr": "Toplam azot içeriği (Kjeldahl)"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 3.29
+        }
+      },
+      {
+        "name": "e_L",
+        "description": {
+          "en": "Relative laboratory effect, s_L = 0.011",
+          "tr": "Bağıl laboratuvar etkisi, s_L = 0,011"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0,
+          "sd": 0.011
+        }
+      },
+      {
+        "name": "e_r",
+        "description": {
+          "en": "Relative repeatability of the mean of duplicates, 0.018/√2",
+          "tr": "İkili ölçüm ortalamasının bağıl tekrarlanabilirliği, 0,018/√2"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0,
+          "sd": 0.0127279
+        }
+      },
+      {
+        "name": "f_N",
+        "description": {
+          "en": "Nitrogen factor of the meat",
+          "tr": "Etin azot faktörü"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 3.65,
+          "sd": 0.052
+        }
+      },
+      {
+        "name": "w_fat",
+        "unit": "%",
+        "description": {
+          "en": "Fat content",
+          "tr": "Yağ içeriği"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 5.5
+        }
+      },
+      {
+        "name": "e_fat",
+        "description": {
+          "en": "Relative reproducibility of the fat result, s_R = 0.02",
+          "tr": "Yağ sonucunun bağıl tekrarüretilebilirliği, s_R = 0,02"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0,
+          "sd": 0.02
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 21
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 95.6,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 1.98,
+        "tolerance": 0.015
+      },
+      "expanded_uncertainty": {
+        "value": 4.0,
+        "tolerance": 0.05
+      }
+    },
+    "reference": {
+      "en": "ISO 21748:2017 Table C.1 and C.2.6 (w_meat = 95.6 %, u = 1.98 %, U = 4.0 %).",
+      "tr": "ISO 21748:2017 Tablo C.1 ve C.2.6 (w_meat = %95,6, u = %1,98, U = %4,0)."
+    }
+  }
+}

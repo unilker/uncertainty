@@ -1,0 +1,17 @@
+[package]
+name = "uncertainty-cli"
+description = "Command-line interface of Uncertainty Calculations (Belirsizlik Hesaplamaları)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "uncertainty"
+path = "src/main.rs"
+
+[dependencies]
+uncertainty-core = { path = "../core" }
+uncertainty-project = { path = "../project" }
+serde_json = "1"

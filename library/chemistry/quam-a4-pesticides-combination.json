@@ -1,0 +1,130 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a4-pesticides-combination",
+    "title": {
+      "en": "Organophosphorus pesticides in bread: combination",
+      "tr": "Ekmekte organofosforlu pestisitler: birleştirme"
+    },
+    "description": {
+      "en": "QUAM Example A4: the relative uncertainty from in-house validation data (precision, recovery, homogeneity) combined in a multiplicative model at P = 1.",
+      "tr": "QUAM Örnek A4: laboratuvar içi validasyon verilerinden (kesinlik, geri kazanım, homojenlik) elde edilen bağıl belirsizliğin P = 1'de çarpımsal modelde birleştirilmesi."
+    },
+    "explanation": [
+      {
+        "en": "P_op = F_I · F_hom / Rec, evaluated at nominal values: precision 0.27 (from 15 duplicates), recovery 0.90 with u = 0.043 (correction applied because t = 2.31 > t_crit), homogeneity 0.20.",
+        "tr": "P_op = F_I · F_hom / Rec, anma değerlerinde değerlendirilir: kesinlik 0,27 (15 mükerrer ölçümden), geri kazanım 0,90 ve u = 0,043 (t = 2,31 > t_kritik olduğundan düzeltme uygulanır), homojenlik 0,20."
+      },
+      {
+        "en": "Relative uncertainty: √(0.27² + 0.048² + 0.20²) = 0.34; at P = 1.1111 the guide's spreadsheet gives u = 0.377.",
+        "tr": "Bağıl belirsizlik: √(0,27² + 0,048² + 0,20²) = 0,34; P = 1,1111'de rehberin tablolaması u = 0,377 verir."
+      },
+      {
+        "en": "With relative uncertainties of 20–27 % the model is visibly non-linear: the Monte Carlo distribution is skewed and its standard deviation differs from the GUM value.",
+        "tr": "%20–27 bağıl belirsizliklerle model belirgin biçimde doğrusal değildir: Monte Carlo dağılımı çarpıktır ve standart sapması GUM değerinden farklıdır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A4, Tables A4.4 and A4.5",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "validation-data",
+      "recovery",
+      "non-linear"
+    ],
+    "notes": [
+      {
+        "en": "Finding: Table A4.2 contains typographical errors in derived columns (mean 0.75 for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); the guide quotes t_crit = 2.021, i.e. t(40), for 41 degrees of freedom (t(41) = 2.0195). Neither changes the conclusion.",
+        "tr": "Bulgu: Tablo A4.2'nin türetilmiş sütunlarında yazım hataları vardır (0,075 yerine ortalama 0,75, −0,01 yerine fark −0,10, 0,01 yerine ortalama 0,10); rehber 41 serbestlik derecesi için t_kritik = 2,021, yani t(40) kullanır (t(41) = 2,0195). Hiçbiri sonucu değiştirmez."
+      },
+      {
+        "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.377 to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+        "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,377) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "P_op",
+      "expression": "F_I * F_hom / Rec",
+      "description": {
+        "en": "Pesticide level relative to the measured value",
+        "tr": "Ölçülen değere göre pestisit düzeyi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "F_I",
+        "description": {
+          "en": "Intermediate precision factor",
+          "tr": "Ara kesinlik çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.27
+        }
+      },
+      {
+        "name": "Rec",
+        "description": {
+          "en": "Mean recovery",
+          "tr": "Ortalama geri kazanım"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9,
+          "sd": 0.043
+        }
+      },
+      {
+        "name": "F_hom",
+        "description": {
+          "en": "Sample inhomogeneity factor",
+          "tr": "Numune homojensizliği çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.2
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "kragten": true
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 4
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.1111,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.377,
+        "tolerance": 0.0005
+      },
+      "kragten_uncertainty": {
+        "value": 0.377,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "QUAM:2012 Table A4.5 (P = 1.1111, u = 0.377).",
+      "tr": "QUAM:2012 Tablo A4.5 (P = 1,1111, u = 0,377)."
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum-h2-reactance",
+    "title": {
+      "en": "Reactance from correlated V, I and φ (GUM H.2)",
+      "tr": "Korelasyonlu V, I ve φ'den reaktans (GUM H.2)"
+    },
+    "description": {
+      "en": "GUM H.2: the reactance X = (V/I) sin φ from correlated simultaneous measurements of voltage, current and phase angle.",
+      "tr": "GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümlerinden X = (V/I) sin φ reaktansı."
+    },
+    "explanation": [
+      {
+        "en": "Five simultaneous sets of readings of the voltage V across an element, the current I through it and the phase angle φ give the means of GUM Table H.2 with s(x̄) = 0.0032 V, 0.0095 mA and 0.00075 rad, and the correlation coefficients r(V, I) = −0.36, r(V, φ) = 0.86, r(I, φ) = −0.65 (GUM 5.2.3). The project uses these values unrounded, recomputed from the five sets of Table H.2 (s(x̄) = 0.003209 V, 0.009471 mA, 0.000752 rad; r = −0.3553, 0.8576, −0.6451).",
+        "tr": "Bir devre elemanının uçlarındaki V gerilimi, içinden geçen I akımı ve φ faz açısının beş eşzamanlı okuma takımı, GUM Tablo H.2'deki ortalamaları s(x̄) = 0,0032 V, 0,0095 mA ve 0,00075 rad ile ve r(V, I) = −0,36, r(V, φ) = 0,86, r(I, φ) = −0,65 korelasyon katsayılarıyla verir (GUM 5.2.3). Proje bu değerleri Tablo H.2'deki beş takımdan yeniden hesaplanmış, yuvarlanmamış biçimde kullanır (s(x̄) = 0,003209 V, 0,009471 mA, 0,000752 rad; r = −0,3553; 0,8576; −0,6451)."
+      },
+      {
+        "en": "Approach 1 of GUM H.2.3 evaluates the model at the means and propagates with Equation (16), which includes the covariance terms 2c_ic_ju(x_i)u(x_j)r(x_i, x_j).",
+        "tr": "GUM H.2.3'ün 1. yaklaşımı modeli ortalamalarda hesaplar ve kovaryans terimlerini, 2c_ic_ju(x_i)u(x_j)r(x_i, x_j), içeren Eşitlik (16) ile yayar."
+      },
+      {
+        "en": "For X = (V/I) sin φ the correlation of V and φ increases the variance; u_c(X) = 0.295 Ω (relative 0.13 %).",
+        "tr": "X = (V/I) sin φ için V ile φ arasındaki korelasyon varyansı artırır; u_c(X) = 0,295 Ω (bağıl %0,13)."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement",
+        "section": "H.2, Tables H.2 and H.3",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "gum",
+      "correlation",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "Approach 1 with the unrounded data gives u_c(X) = 0.29558 Ω, approach 2 0.29549 Ω; GUM Table H.3 prints 0.295, so the tolerance is 0.0006 Ω.",
+        "tr": "Yuvarlanmamış verilerle 1. yaklaşım u_c(X) = 0,29558 Ω, 2. yaklaşım 0,29549 Ω verir; GUM Tablo H.3 0,295 bastığından tolerans 0,0006 Ω'dur."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "X",
+      "unit": "Ω",
+      "expression": "1000 * V / I * sin(phi)",
+      "description": {
+        "en": "The reactance x = (v/i) sin φ",
+        "tr": "X = (v/i) sin φ reaktansı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "V",
+        "unit": "V",
+        "description": {
+          "en": "Mean of five voltage readings",
+          "tr": "Beş gerilim okumasının ortalaması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 4.999,
+          "sd": 0.003209361
+        }
+      },
+      {
+        "name": "I",
+        "unit": "mA",
+        "description": {
+          "en": "Mean of five current readings",
+          "tr": "Beş akım okumasının ortalaması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 19.661,
+          "sd": 0.009471008
+        }
+      },
+      {
+        "name": "phi",
+        "unit": "rad",
+        "description": {
+          "en": "Mean of five phase-angle readings",
+          "tr": "Beş faz açısı okumasının ortalaması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.04446,
+          "sd": 0.000752064
+        }
+      }
+    ],
+    "correlations": [
+      {
+        "a": "V",
+        "b": "I",
+        "r": -0.355311
+      },
+      {
+        "a": "V",
+        "b": "phi",
+        "r": 0.857624
+      },
+      {
+        "a": "I",
+        "b": "phi",
+        "r": -0.645111
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 2,
+      "interval": "symmetric"
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 219.847,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.295,
+        "tolerance": 0.0006
+      }
+    },
+    "reference": {
+      "en": "JCGM 100:2008 Table H.3: X = 219.847 Ω, u_c = 0.295 Ω.",
+      "tr": "JCGM 100:2008 Tablo H.3: X = 219,847 Ω, u_c = 0,295 Ω."
+    }
+  }
+}

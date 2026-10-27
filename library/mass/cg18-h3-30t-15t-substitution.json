@@ -1,0 +1,371 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg18-h3-30t-15t-substitution",
+    "title": {
+      "en": "Weighbridge 30 t: error at 15 t with a substitution load (EURAMET cg-18 H3)",
+      "tr": "Köprü kantar 30 t: ikame yüküyle 15 t'da hata (EURAMET cg-18 H3)"
+    },
+    "description": {
+      "en": "5 t of standard weights on top of the substitution load L_sub1 (trailer and containers, adjusted to read like the 10 t of standard weights).",
+      "tr": "İkame yükü L_ikame1 (10 t standart ağırlıkla aynı göstergeyi verecek şekilde ayarlanmış römork ve konteynerler) üzerinde 5 t standart ağırlık."
+    },
+    "explanation": [
+      {
+        "en": "Weighbridge 30 000 kg / 10 kg, tested in the service mode d_T = 1 kg: E = I − L_T (7.1-1). Each indication carries the rounding at zero and at the load (d_T/√12), repeatability, eccentricity and creep/hysteresis.",
+        "tr": "Köprü kantar 30 000 kg / 10 kg, servis modunda d_T = 1 kg ile denenmiştir: E = I − L_T (7.1-1). Her gösterge sıfırda ve yükte yuvarlama (d_T/√12), tekrarlanabilirlik, eksantriklik ve sürünme/histerezis taşır."
+      },
+      {
+        "en": "Repeatability from six loadings of about 10 420 kg (10 405 … 10 425 kg): s = 6.74 kg, ν = 5 (7.1.1-5). Eccentricity 15 kg at 10 420 kg, the larger relative value of the two tests: half-width ΔI·L/(2L_ecc) (7.1.1-10). Creep from the return to zero E₀ = 4 kg: half-width E₀·L/Max (7.4.4-7).",
+        "tr": "Yaklaşık 10 420 kg'lık altı yüklemeden tekrarlanabilirlik (10 405 … 10 425 kg): s = 6,74 kg, ν = 5 (7.1.1-5). Eksantriklik 10 420 kg'da 15 kg, iki denemenin bağıl olarak büyüğü: yarı genişlik ΔI·L/(2L_ecc) (7.1.1-10). Sıfıra dönüşteki E₀ = 4 kg'dan sürünme: yarı genişlik E₀·L/Max (7.4.4-7)."
+      },
+      {
+        "en": "Standard weights 10 × 1000 kg, M1 (mpe 50 g each), at nominal value: u(m_c) = mpe/√3 and drift D = mpe (7.1.2-3, -11), summed linearly for the weights used; buoyancy 7.1.2-5d with u_rel = 1.6·10⁻⁵, for the substitution loads too (ρ ≥ 4400 kg/m³).",
+        "tr": "Standart ağırlıklar 10 × 1000 kg, M1 (her biri mpe 50 g), nominal değerinde: u(m_c) = mpe/√3 ve sürüklenme D = mpe (7.1.2-3, -11), kullanılan ağırlıklar için doğrusal toplanır; kaldırma kuvveti 7.1.2-5d, u_rel = 1,6·10⁻⁵, ikame yükleri için de (ρ ≥ 4400 kg/m³)."
+      },
+      {
+        "en": "Substitution (4.3.3, 7.1.2-15): L_sub1 = m_ref + I(L_sub1) − I(m_ref) at 10 t, and L_sub1 + L_sub2 = 2m_ref + I₁ + I₂ with I₂ = I(L_sub1 + L_sub2) − I(m_ref + L_sub1) at 20 t. Every indication used for the adjustment brings its own rounding, repeatability, eccentricity and creep; the standard weights are the same in every step.",
+        "tr": "İkame (4.3.3, 7.1.2-15): 10 t'da L_ikame1 = m_ref + I(L_ikame1) − I(m_ref) ve 20 t'da I₂ = I(L_ikame1 + L_ikame2) − I(m_ref + L_ikame1) ile L_ikame1 + L_ikame2 = 2m_ref + I₁ + I₂. Ayar için kullanılan her gösterge kendi yuvarlamasını, tekrarlanabilirliğini, eksantrikliğini ve sürünmesini getirir; standart ağırlıklar her adımda aynıdır."
+      },
+      {
+        "en": "u(L_sub1)² = u²(m_ref) + 2u²(I at 10 t) = 0.44² + 2·7.97²: u(L_sub1) = 11.28 kg. With u(I at 15 t) = 9.27 kg and 5 t of standard weights: u(E) = 14.60 kg.",
+        "tr": "u(L_ikame1)² = u²(m_ref) + 2u²(10 t'da I) = 0,44² + 2·7,97²: u(L_ikame1) = 11,28 kg. 15 t'da u(I) = 9,27 kg ve 5 t standart ağırlıkla: u(E) = 14,60 kg."
+      },
+      {
+        "en": "With ν = 5 for each of the three repeatability terms, ν_eff = 37 and k = 2.07: U = 30.3 kg instead of 29 kg.",
+        "tr": "Üç tekrarlanabilirlik teriminin her biri için ν = 5 ile ν_eff = 37 ve k = 2,07: U = 29 kg yerine 30,3 kg."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 18 v4.0 (2015), Guidelines on the Calibration of Non-Automatic Weighing Instruments",
+        "section": "Appendix H3, H3.2/A and H3.3/A",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg18",
+      "balance",
+      "weighing-instrument",
+      "calibration",
+      "validation",
+      "weighbridge",
+      "substitution"
+    ],
+    "notes": [
+      {
+        "en": "The guide's ν_eff counts only the repeatability of the indication at the load; the repeatability terms of the indications used to adjust the substitution loads (7.1.2-15) are given infinite degrees of freedom. The program gives each of them ν = 5 (research log F69).",
+        "tr": "Kılavuzun ν_eff'i yalnızca yükteki göstergenin tekrarlanabilirliğini sayar; ikame yüklerini ayarlamada kullanılan göstergelerin tekrarlanabilirlik terimlerine (7.1.2-15) sonsuz serbestlik derecesi verilir. Program her birine ν = 5 verir (araştırma günlüğü F69)."
+      },
+      {
+        "en": "Counting the three repeatability terms as one estimate of the same s (ν = 5), as Welch–Satterthwaite requires when the same s is used three times, gives ν_eff = 12 and k = 2.23 (U = 32.6 kg).",
+        "tr": "Üç tekrarlanabilirlik terimini aynı s'nin tek bir tahmini (ν = 5) olarak saymak, Welch–Satterthwaite'in aynı s üç kez kullanıldığında gerektirdiği gibi, ν_eff = 12 ve k = 2,23 verir (U = 32,6 kg)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "E",
+      "unit": "kg",
+      "expression": "I_L + dI_dig0 + dI_rep + dI_digL + dI_ecc + dI_time - (5 * (1000 + dm_c + dm_D + dm_B) + 10 * (1000 + dm_c + dm_D + dm_B) + (dI_dig0_s1 + dI_rep_s1 + dI_digL_s1 + dI_ecc_s1 + dI_time_s1) - (dI_dig0_r1 + dI_rep_r1 + dI_digL_r1 + dI_ecc_r1 + dI_time_r1) + dm_Bsub)",
+      "description": {
+        "en": "Error of indication",
+        "tr": "Gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_L",
+        "unit": "kg",
+        "description": {
+          "en": "Indication at the load",
+          "tr": "Yükteki gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 15015.0
+        }
+      },
+      {
+        "name": "dI_dig0",
+        "unit": "kg",
+        "description": {
+          "en": "Rounding at zero",
+          "tr": "Sıfırda yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dI_rep",
+        "unit": "kg",
+        "description": {
+          "en": "Repeatability (s = 6.743 kg, ν = 5)",
+          "tr": "Tekrarlanabilirlik (s = 6,743 kg, ν = 5)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 6.742897497861485,
+          "pooled_dof": 5,
+          "n": 1
+        }
+      },
+      {
+        "name": "dI_digL",
+        "unit": "kg",
+        "description": {
+          "en": "Rounding at the load",
+          "tr": "Yükte yuvarlama"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dI_ecc",
+        "unit": "kg",
+        "description": {
+          "en": "Eccentricity (7.1.1-10)",
+          "tr": "Eksantriklik (7.1.1-10)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 10.796545105566219
+        }
+      },
+      {
+        "name": "dI_time",
+        "unit": "kg",
+        "description": {
+          "en": "Creep and hysteresis (7.4.4-7)",
+          "tr": "Sürünme ve histerezis (7.4.4-7)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        }
+      },
+      {
+        "name": "dm_c",
+        "unit": "kg",
+        "description": {
+          "en": "Error of one 1000 kg weight (M1, at nominal value)",
+          "tr": "Bir adet 1000 kg ağırlığın hatası (M1, nominal değerinde)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        }
+      },
+      {
+        "name": "dm_D",
+        "unit": "kg",
+        "description": {
+          "en": "Drift of one 1000 kg weight, D = mpe",
+          "tr": "Bir adet 1000 kg ağırlığın sürüklenmesi, D = mpe"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        }
+      },
+      {
+        "name": "dm_B",
+        "unit": "kg",
+        "description": {
+          "en": "Air buoyancy per 1000 kg (7.1.2-5d)",
+          "tr": "1000 kg başına hava kaldırma kuvveti (7.1.2-5d)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.027499999999999997
+        }
+      },
+      {
+        "name": "dI_dig0_s1",
+        "unit": "kg",
+        "description": {
+          "en": "Rounding at zero, I(L_sub1)",
+          "tr": "Sıfırda yuvarlama, I(L_ikame1)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dI_rep_s1",
+        "unit": "kg",
+        "description": {
+          "en": "Repeatability, I(L_sub1) (s = 6.743 kg, ν = 5)",
+          "tr": "Tekrarlanabilirlik, I(L_ikame1) (s = 6,743 kg, ν = 5)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 6.742897497861485,
+          "pooled_dof": 5,
+          "n": 1
+        }
+      },
+      {
+        "name": "dI_digL_s1",
+        "unit": "kg",
+        "description": {
+          "en": "Rounding at the load, I(L_sub1)",
+          "tr": "Yükte yuvarlama, I(L_ikame1)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dI_ecc_s1",
+        "unit": "kg",
+        "description": {
+          "en": "Eccentricity, I(L_sub1) (7.1.1-10)",
+          "tr": "Eksantriklik, I(L_ikame1) (7.1.1-10)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 7.197696737044146
+        }
+      },
+      {
+        "name": "dI_time_s1",
+        "unit": "kg",
+        "description": {
+          "en": "Creep and hysteresis, I(L_sub1) (7.4.4-7)",
+          "tr": "Sürünme ve histerezis, I(L_ikame1) (7.4.4-7)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.3333333333333333
+        }
+      },
+      {
+        "name": "dI_dig0_r1",
+        "unit": "kg",
+        "description": {
+          "en": "Rounding at zero, I(m_ref) at 10 t",
+          "tr": "Sıfırda yuvarlama, 10 t'da I(m_ref)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dI_rep_r1",
+        "unit": "kg",
+        "description": {
+          "en": "Repeatability, I(m_ref) at 10 t (s = 6.743 kg, ν = 5)",
+          "tr": "Tekrarlanabilirlik, 10 t'da I(m_ref) (s = 6,743 kg, ν = 5)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 6.742897497861485,
+          "pooled_dof": 5,
+          "n": 1
+        }
+      },
+      {
+        "name": "dI_digL_r1",
+        "unit": "kg",
+        "description": {
+          "en": "Rounding at the load, I(m_ref) at 10 t",
+          "tr": "Yükte yuvarlama, 10 t'da I(m_ref)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "dI_ecc_r1",
+        "unit": "kg",
+        "description": {
+          "en": "Eccentricity, I(m_ref) at 10 t (7.1.1-10)",
+          "tr": "Eksantriklik, 10 t'da I(m_ref) (7.1.1-10)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 7.197696737044146
+        }
+      },
+      {
+        "name": "dI_time_r1",
+        "unit": "kg",
+        "description": {
+          "en": "Creep and hysteresis, I(m_ref) at 10 t (7.4.4-7)",
+          "tr": "Sürünme ve histerezis, 10 t'da I(m_ref) (7.4.4-7)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.3333333333333333
+        }
+      },
+      {
+        "name": "dm_Bsub",
+        "unit": "kg",
+        "description": {
+          "en": "Air buoyancy of the substitution loads (7.1.2-5d, ρ ≥ 4400 kg/m³)",
+          "tr": "İkame yüklerinin hava kaldırma kuvveti (7.1.2-5d, ρ ≥ 4400 kg/m³)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.27499999999999997
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 15.0,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 14.6,
+        "tolerance": 0.02
+      }
+    },
+    "reference": {
+      "en": "EURAMET cg-18 v4.0 H3.3/A, 15 000 kg = ½m_ref + L_sub1: E = 15 kg, u(E) = 14.60 kg (ν_eff = 109, k = 2.02, U = 29 kg; the coverage factor is not compared, see the notes).",
+      "tr": "EURAMET cg-18 v4.0 H3.3/A, 15 000 kg = ½m_ref + L_ikame1: E = 15 kg, u(E) = 14,60 kg (ν_eff = 109, k = 2,02, U = 29 kg; kapsam faktörü karşılaştırılmamıştır, notlara bakınız)."
+    }
+  }
+}

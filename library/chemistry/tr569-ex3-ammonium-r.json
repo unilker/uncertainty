@@ -1,0 +1,75 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex3-ammonium-r",
+    "title": {
+      "en": "Ammonium nitrogen in water: R-chart of duplicate test samples (Nordtest TR 569 Example 3)",
+      "tr": "Suda amonyum azotu: paralel numunelerin R-grafiği (Nordtest TR 569 Örnek 3)"
+    },
+    "description": {
+      "en": "One test sample below 100 µg/L analysed in duplicate in each run; the range of the duplicates is plotted.",
+      "tr": "Her seride 100 µg/L'nin altındaki bir numune paralel analiz edilir; paralel tayinlerin açıklığı çizilir."
+    },
+    "explanation": [
+      {
+        "en": "Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).",
+        "tr": "Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den)."
+      },
+      {
+        "en": "Mean range 0.559 µg/L, s = 0.559/1.128 = 0.496 µg/L; warning limit 2.83·0.496 = 1.40 µg/L, action limit 3.69·0.496 = 1.83 µg/L.",
+        "tr": "Ortalama açıklık 0,559 µg/L, s = 0,559/1,128 = 0,496 µg/L; uyarı sınırı 2,83·0,496 = 1,40 µg/L, eylem sınırı 3,69·0,496 = 1,83 µg/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 3",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "ammonium",
+      "water",
+      "r-chart",
+      "duplicates"
+    ]
+  },
+  "control_chart": {
+    "quantity": "N-NH₄, duplicates of test samples",
+    "unit": "µg/L",
+    "chart": "range",
+    "replicates": 2,
+    "central_line": {
+      "mean": 0.559
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "sd": {
+        "value": 0.496,
+        "tolerance": 0.001
+      },
+      "center": {
+        "value": 0.559,
+        "tolerance": 1e-09
+      },
+      "upper_warning": {
+        "value": 1.4,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 1.83,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 3. The example calls s the pooled repeatability standard deviation; its value is the mean range divided by 1.128.",
+      "tr": "TR 569 Örnek 3. Örnek s'ye birleştirilmiş tekrarlanabilirlik standart sapması der; değeri ortalama açıklığın 1,128'e bölümüdür."
+    }
+  }
+}

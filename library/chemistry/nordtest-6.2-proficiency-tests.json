@@ -1,0 +1,113 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-6.2-proficiency-tests",
+    "title": {
+      "en": "Bias from proficiency tests",
+      "tr": "Yeterlilik testlerinden sapma"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §6.2: u(bias) from six proficiency tests.",
+      "tr": "Nordtest TR 537 §6.2: altı yeterlilik testinden u(bias)."
+    },
+    "explanation": [
+      {
+        "en": "u(C_ref,1) = s_R/√n_Lab = 8.7/√23 = 1.8 %; the other five values are 2.9, 1.7, 4.1, 3.0 and 2.1 %; ū(C_ref) = 2.6 %.",
+        "tr": "u(C_ref,1) = s_R/√n_Lab = 8,7/√23 = %1,8; diğer beş değer %2,9, 1,7, 4,1, 3,0 ve 2,1; ū(C_ref) = %2,6."
+      },
+      {
+        "en": "Biases +2, +7, −2, +3, +6, +5 %: RMS_bias = 4.6 %; u(bias) = √(4.6² + 2.6²) = 5.3 %.",
+        "tr": "Sapmalar +2, +7, −2, +3, +6, +5 %: RMS_bias = %4,6; u(bias) = √(4,6² + 2,6²) = %5,3."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§6.2",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "proficiency-tests",
+      "bias"
+    ],
+    "notes": [
+      {
+        "en": "Finding: the mean of the six u(C_ref,i) is 2.60 %; the handbook prints 2.7 % in the step table and then uses 2.6 %.",
+        "tr": "Bulgu: altı u(C_ref,i) değerinin ortalaması %2,60'tır; el kitabı adım tablosunda %2,7 yazar, ardından %2,6 kullanır."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "c",
+    "bias": [
+      {
+        "name": "u(bias)",
+        "kind": "proficiency_tests",
+        "references": [
+          {
+            "label": "PT 1",
+            "bias_percent": 2.0,
+            "sd_reproducibility_percent": 8.7,
+            "labs": 23
+          },
+          {
+            "label": "PT 2",
+            "bias_percent": 7.0,
+            "u_reference_percent": 2.9
+          },
+          {
+            "label": "PT 3",
+            "bias_percent": -2.0,
+            "u_reference_percent": 1.7
+          },
+          {
+            "label": "PT 4",
+            "bias_percent": 3.0,
+            "u_reference_percent": 4.1
+          },
+          {
+            "label": "PT 5",
+            "bias_percent": 6.0,
+            "u_reference_percent": 3.0
+          },
+          {
+            "label": "PT 6",
+            "bias_percent": 5.0,
+            "u_reference_percent": 2.1
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "u(bias)": {
+          "value": 5.3,
+          "tolerance": 0.02
+        }
+      },
+      "bias": {
+        "u(bias)": {
+          "rms": {
+            "value": 4.6,
+            "tolerance": 0.01
+          },
+          "mean_u_reference": {
+            "value": 2.6,
+            "tolerance": 0.005
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §6.2 (RMS_bias 4.6 %, ū(C_ref) 2.6 %, u(bias) 5.3 %).",
+      "tr": "Nordtest TR 537 §6.2 (RMS_bias %4,6, ū(C_ref) %2,6, u(bias) %5,3)."
+    }
+  }
+}

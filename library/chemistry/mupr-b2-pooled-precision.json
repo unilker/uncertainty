@@ -1,0 +1,205 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-b2-pooled-precision",
+    "title": {
+      "en": "Nitrate: pooled precision and two recovery levels",
+      "tr": "Nitrat: birleştirilmiş kesinlik ve iki geri kazanım düzeyi"
+    },
+    "description": {
+      "en": "MUPR Example B2: precision pooled from several materials (raw data for two of them), transition concentration and overall recovery.",
+      "tr": "MUPR Örnek B2: birden fazla malzemeden birleştirilmiş kesinlik (ikisi için ham veri), geçiş derişimi ve genel geri kazanım."
+    },
+    "explanation": [
+      {
+        "en": "Pooled s_I⟨I⟩ = 0.0285 mg/L (Eq. B2.1) and s′_I⟨II⟩ = 7.73 % (Eq. B2.2); the two models meet at c_T = 0.0285/0.0773 = 0.37 mg/L.",
+        "tr": "Birleştirilmiş s_I⟨I⟩ = 0,0285 mg/L (Eş. B2.1) ve s′_I⟨II⟩ = %7,73 (Eş. B2.2); iki model c_T = 0,0285/0,0773 = 0,37 mg/L'de buluşur."
+      },
+      {
+        "en": "Recoveries 97.2 % and 102.0 % are compatible; R̿ = 99.6 %, u = 2.24 %, not significant (38 degrees of freedom).",
+        "tr": "%97,2 ve %102,0 geri kazanımları uyumludur; R̿ = %99,6, u = %2,24, anlamlı değil (38 serbestlik derecesi)."
+      },
+      {
+        "en": "At 50 mg/L: U = 0.169 c = 8.45 mg/L.",
+        "tr": "50 mg/L'de: U = 0,169 c = 8,45 mg/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example B2, Tables B2.1–B2.3",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "pooled-precision",
+      "recovery"
+    ],
+    "notes": [
+      {
+        "en": "The guide divides the rounded s_I(2) = 0.0250 by 0.3033 (8.24 %); unrounded 8.25 %. Group 2 enters the absolute pool, so the budget is unaffected.",
+        "tr": "Rehber yuvarlanmış s_I(2) = 0,0250'yi 0,3033'e böler (%8,24); yuvarlanmamış %8,25. Grup 2 mutlak birleştirmeye girdiğinden bütçe etkilenmez."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "c(NO₃⁻)",
+    "unit": "mg/L",
+    "levels": [
+      50.0
+    ],
+    "precision": [
+      {
+        "name": "s_I(P)⟨I⟩",
+        "description": {
+          "en": "Pooled intermediate precision, three low-level materials",
+          "tr": "Birleştirilmiş ara kesinlik, üç düşük düzeyli malzeme"
+        },
+        "data": {
+          "type": "groups",
+          "groups": [
+            {
+              "label": "1",
+              "sd": 0.0328,
+              "n": 20
+            },
+            {
+              "label": "2",
+              "values": [
+                0.288,
+                0.345,
+                0.315,
+                0.272,
+                0.303,
+                0.297
+              ]
+            },
+            {
+              "label": "3",
+              "sd": 0.0245,
+              "n": 20
+            }
+          ]
+        },
+        "range": {
+          "max": 0.37
+        }
+      },
+      {
+        "name": "s′_I(P)⟨II⟩",
+        "description": {
+          "en": "Pooled relative intermediate precision",
+          "tr": "Birleştirilmiş bağıl ara kesinlik"
+        },
+        "data": {
+          "type": "groups",
+          "relative": true,
+          "groups": [
+            {
+              "label": "1",
+              "sd_percent": 8.43,
+              "n": 20
+            },
+            {
+              "label": "4",
+              "values": [
+                0.773,
+                0.732,
+                0.772,
+                0.817,
+                0.803,
+                0.812
+              ]
+            }
+          ]
+        },
+        "range": {
+          "min": 0.37
+        }
+      }
+    ],
+    "recovery": {
+      "name": "u(R̿)",
+      "tests": [
+        {
+          "type": "reference",
+          "label": "0.4 mg/L",
+          "mean": 0.389,
+          "sd": 0.0328,
+          "n": 20,
+          "reference": 0.4,
+          "u_reference": 0.009
+        },
+        {
+          "type": "reference",
+          "label": "0.2 mg/L",
+          "mean": 0.204,
+          "sd": 0.0245,
+          "n": 20,
+          "reference": 0.2,
+          "u_reference": 0.0041
+        }
+      ]
+    },
+    "components": [
+      {
+        "name": "u′(DSS)",
+        "description": {
+          "en": "Stock solution, used for calibrators and spikes (counted twice)",
+          "tr": "Stok çözelti; kalibrantlar ve katkılar için kullanılır (iki kez sayılır)"
+        },
+        "u_percent": 0.95,
+        "multiplicity": 2
+      },
+      {
+        "name": "u′(F)",
+        "u_percent": 2.2,
+        "range": {
+          "min": 0.37
+        }
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s_I(P)⟨I⟩": {
+          "value": 0.0285,
+          "tolerance": 5e-05
+        },
+        "s′_I(P)⟨II⟩": {
+          "value": 7.73,
+          "tolerance": 0.005
+        }
+      },
+      "recovery": {
+        "mean_percent": {
+          "value": 99.6,
+          "tolerance": 0.05
+        },
+        "standard_uncertainty_percent": {
+          "value": 2.24,
+          "tolerance": 0.005
+        },
+        "significant": false
+      },
+      "levels": [
+        {
+          "level": 50.0,
+          "expanded_uncertainty": {
+            "value": 8.45,
+            "tolerance": 0.005
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "MUPR Example B2, Eq. (B2.1)–(B2.7).",
+      "tr": "MUPR Örnek B2, Eş. (B2.1)–(B2.7)."
+    }
+  }
+}

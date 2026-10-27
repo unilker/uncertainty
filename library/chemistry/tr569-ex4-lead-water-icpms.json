@@ -1,0 +1,77 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex4-lead-water-icpms",
+    "title": {
+      "en": "Lead in water by ICP-MS: X-chart of an in-house lake water (Nordtest TR 569 Example 4)",
+      "tr": "ICP-MS ile suda kurşun: laboratuvar içi göl suyunun X-grafiği (Nordtest TR 569 Örnek 4)"
+    },
+    "description": {
+      "en": "Low lead concentration (0.29 µg/L) in a preserved lake water, analysed once in each run; statistical limits.",
+      "tr": "Korunmuş göl suyunda düşük kurşun derişimi (0,29 µg/L), her seride bir kez analiz edilir; istatistiksel sınırlar."
+    },
+    "explanation": [
+      {
+        "en": "Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).",
+        "tr": "X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7)."
+      },
+      {
+        "en": "Twelve consecutive values above the central line: out of statistical control, but not out of control (Chapter 9); the results can be reported.",
+        "tr": "Merkez çizgisinin üstünde art arda on iki değer: istatistiksel kontrol dışı, ancak kontrol dışı değil (Bölüm 9); sonuçlar raporlanabilir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 4",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "lead",
+      "water",
+      "icp-ms",
+      "x-chart"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Pb, in-house lake water",
+    "unit": "µg/L",
+    "central_line": {
+      "mean": 0.294
+    },
+    "limits": {
+      "basis": "statistical",
+      "sd": 0.008
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_warning": {
+        "value": 0.278,
+        "tolerance": 0.0005
+      },
+      "upper_warning": {
+        "value": 0.31,
+        "tolerance": 0.0005
+      },
+      "lower_action": {
+        "value": 0.27,
+        "tolerance": 0.0005
+      },
+      "upper_action": {
+        "value": 0.318,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 4.",
+      "tr": "TR 569 Örnek 4."
+    }
+  }
+}

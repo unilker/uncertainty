@@ -1,0 +1,193 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k3-attenuator-30db-mismatch-e5",
+    "title": {
+      "en": "30 dB attenuator with the mismatch term from formula E5 (UKAS M3003 K.3, E.9.5)",
+      "tr": "E5 formülünden uyumsuzluk terimiyle 30 dB zayıflatıcı (UKAS M3003 K.3, E.9.5)"
+    },
+    "description": {
+      "en": "The budget of K.3 with the mismatch standard deviation recomputed from the coefficients the example gives (finding F57).",
+      "tr": "Örneğin verdiği katsayılardan yeniden hesaplanan uyumsuzluk standart sapmasıyla K.3 bütçesi (bulgu F57)."
+    },
+    "explanation": [
+      {
+        "en": "A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), dual-channel 30 MHz IF substitution at 10 GHz.",
+        "tr": "A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), 10 GHz'de çift kanallı 30 MHz IF yer değiştirme."
+      },
+      {
+        "en": "Four readings 30.04, 30.07, 30.03, 30.06 dB: mean 30.050 dB, s = 0.018 dB, u = 0.009 dB (3 degrees of freedom).",
+        "tr": "Dört okuma 30,04, 30,07, 30,03, 30,06 dB: ortalama 30,050 dB, s = 0,018 dB, u = 0,009 dB (3 serbestlik derecesi)."
+      },
+      {
+        "en": "Formula E5 (Harris and Warner): M = 8.686/√2 · [M_G + M_L + M_GL]^½ dB with M_G = |Γ_G|²(|s11a|² + |s11b|²), M_L = |Γ_L|²(|s22a|² + |s22b|²), M_GL = |Γ_G|²|Γ_L|²(|s21a|⁴ + |s21b|⁴).",
+        "tr": "E5 formülü (Harris ve Warner): M = 8,686/√2 · [M_G + M_L + M_GL]^½ dB; M_G = |Γ_G|²(|s11a|² + |s11b|²), M_L = |Γ_L|²(|s22a|² + |s22b|²), M_GL = |Γ_G|²|Γ_L|²(|s21a|⁴ + |s21b|⁴)."
+      },
+      {
+        "en": "With Γ_G = Γ_L = 0.03, s11a = s11b = 0.05, s22a = 0.05, s22b = 0.01, s21a = 1, s21b = 0.31 (K.3.6): M = 0.0170 dB, and u_c = 0.0202 dB instead of 0.0245 dB.",
+        "tr": "Γ_G = Γ_L = 0,03, s11a = s11b = 0,05, s22a = 0,05, s22b = 0,01, s21a = 1, s21b = 0,31 ile (K.3.6): M = 0,0170 dB ve u_c = 0,0245 dB yerine 0,0202 dB."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.3 and E.9.5",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "rf",
+      "attenuation",
+      "mismatch",
+      "type-a",
+      "finding"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "A_X",
+      "unit": "dB",
+      "expression": "A_obs + dA_IF + dD_IF + dL_M + dR_D + dM + dA_L",
+      "description": {
+        "en": "Attenuation of the 30 dB step at 10 GHz",
+        "tr": "10 GHz'de 30 dB kademenin zayıflaması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "A_obs",
+        "description": {
+          "en": "Indicated attenuation A_b − A_a, four measurements",
+          "tr": "Gösterilen zayıflama A_b − A_a, dört ölçüm"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            30.04,
+            30.07,
+            30.03,
+            30.06
+          ]
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dA_IF",
+        "description": {
+          "en": "Calibration of the reference IF attenuator (U = 0.005 dB, k = 2)",
+          "tr": "Referans IF zayıflatıcının kalibrasyonu (U = 0,005 dB, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.005,
+          "k": 2
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dD_IF",
+        "description": {
+          "en": "Drift of the IF attenuator",
+          "tr": "IF zayıflatıcının sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.002
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dL_M",
+        "description": {
+          "en": "Mixer non-linearity (±0.002 dB per 10 dB)",
+          "tr": "Karıştırıcı doğrusal olmama (10 dB başına ±0,002 dB)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.006
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dR_D",
+        "description": {
+          "en": "Resolution at the 0 dB and 30 dB readings, two rectangles combined",
+          "tr": "0 dB ve 30 dB okumalarında çözünürlük, iki dikdörtgenin birleşimi"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 0.01
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dM",
+        "description": {
+          "en": "Mismatch (Harris and Warner, E.9.5)",
+          "tr": "Uyumsuzluk (Harris ve Warner, E.9.5)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.01699604129169282
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dA_L",
+        "description": {
+          "en": "Signal leakage",
+          "tr": "Sinyal kaçağı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.001
+        },
+        "unit": "dB"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 30.05,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.02021836012775502,
+        "tolerance": 5e-06
+      },
+      "expanded_uncertainty": {
+        "value": 0.04043672025551004,
+        "tolerance": 1e-05
+      }
+    },
+    "reference": {
+      "en": "Recomputed from formula E5 and the data of K.3.6 (research log F57); not a printed result.",
+      "tr": "E5 formülü ve K.3.6 verilerinden yeniden hesaplanmıştır (araştırma günlüğü F57); basılı bir sonuç değildir."
+    }
+  }
+}

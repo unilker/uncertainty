@@ -1,0 +1,137 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s9-dmm-100v",
+    "title": {
+      "en": "Calibration of a hand-held digital multimeter at 100 V",
+      "tr": "El tipi sayısal multimetrenin 100 V'ta kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S9: error of indication of a 3½-digit DMM; the resolution term dominates and the output is nearly rectangular.",
+      "tr": "EA-4/02 S9: 3½ basamaklı multimetrenin gösterge hatası; çözünürlük terimi baskındır ve çıktı neredeyse dikdörtgen dağılımlıdır."
+    },
+    "explanation": [
+      {
+        "en": "E_X = V_iX − V_S + δV_iX − δV_S (V); the resolution of 0.1 V gives ±0.05 V (rectangular), u = 0.029 V.",
+        "tr": "E_X = V_iX − V_S + δV_iX − δV_S (V); 0,1 V çözünürlük ±0,05 V (dikdörtgen), u = 0,029 V verir."
+      },
+      {
+        "en": "Because one rectangular term dominates (ratio of the others 0.22 ≤ 0.3), EA-4/02 uses k = 0.95·√3 = 1.65 for 95 % instead of k = 2: U = 0.05 V (S9.14).",
+        "tr": "Tek bir dikdörtgen terim baskın olduğundan (diğerlerinin oranı 0,22 ≤ 0,3) EA-4/02 %95 için k = 2 yerine k = 0,95·√3 = 1,65 kullanır: U = 0,05 V (S9.14)."
+      },
+      {
+        "en": "The Monte Carlo 95 % interval shows directly that ±2u = ±0.06 V overstates the coverage; no rule of thumb is needed.",
+        "tr": "Monte Carlo %95 aralığı ±2u = ±0,06 V'un kapsamı fazla gösterdiğini doğrudan ortaya koyar; pratik bir kurala gerek kalmaz."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S9",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "dominant-rectangular"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "E_X",
+      "unit": "V",
+      "expression": "V_iX - V_S + dV_iX - dV_S",
+      "description": {
+        "en": "Error of indication",
+        "tr": "Gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "V_iX",
+        "unit": "V",
+        "description": {
+          "en": "Indication of the DMM",
+          "tr": "Multimetrenin göstergesi"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 100.1
+        }
+      },
+      {
+        "name": "V_S",
+        "unit": "V",
+        "description": {
+          "en": "Voltage of the calibrator",
+          "tr": "Kalibratörün gerilimi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100.0,
+          "expanded": 0.002,
+          "k": 2
+        }
+      },
+      {
+        "name": "dV_iX",
+        "unit": "V",
+        "description": {
+          "en": "Resolution of the DMM",
+          "tr": "Multimetrenin çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.05
+        }
+      },
+      {
+        "name": "dV_S",
+        "unit": "V",
+        "description": {
+          "en": "Calibrator: specification and drift",
+          "tr": "Kalibratör: şartname ve sürüklenme"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.011
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 9,
+      "coverage_probability": 0.95
+    }
+  },
+  "reporting": {
+    "significant_digits": 1
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.1,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 0.03,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S9.12–S9.14 (u = 0.030 V).",
+      "tr": "EA-4/02 M:2022 S9.12–S9.14 (u = 0,030 V)."
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso13528-e1-censored-deleted",
+    "title": {
+      "en": "Censored results in a PT round: censored results deleted (ISO 13528 E.1)",
+      "tr": "Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1)"
+    },
+    "description": {
+      "en": "ISO 13528:2022 E.1: 23 results of which five are ‘less than’ values; the robust average and standard deviation of Algorithm A depend on how the censored results are treated.",
+      "tr": "ISO 13528:2022 E.1: beşi ‘küçüktür’ değeri olan 23 sonuç; Algoritma A'nın robust ortalaması ve standart sapması sansürlü sonuçların nasıl işlendiğine bağlıdır."
+    },
+    "explanation": [
+      {
+        "en": "23 participants, five of them reporting ‘<10’, ‘<10’, ‘<20’, ‘<30’ and ‘<50’ (Table E.1).",
+        "tr": "23 katılımcı; beşi ‘<10’, ‘<10’, ‘<20’, ‘<30’ ve ‘<50’ bildirmiştir (Tablo E.1)."
+      },
+      {
+        "en": "The five censored results are reported as ‘less than’ and excluded from the statistics (5.5.3), leaving p = 18.",
+        "tr": "Beş sansürlü sonuç ‘küçüktür’ olarak bildirilir ve istatistiklerin dışında kalır (5.5.3); p = 18 kalır."
+      },
+      {
+        "en": "Algorithm A (C.3.1) on the p = 18 values: x* = 26.81, s* = 5.29. The three treatments give x* from 23.95 to 26.81 and s* from 5.29 to 8.60: the proficiency testing provider has to decide the treatment beforehand (5.5.3.3).",
+        "tr": "p = 18 değer üzerinde Algoritma A (C,3,1): x* = 26,81, s* = 5,29. Üç yaklaşım x* için 23,95–26,81 ve s* için 5,29–8,60 verir: yeterlilik testi sağlayıcısı yaklaşımı önceden belirlemelidir (5.5.3.3)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+        "section": "Annex E.1 (Table E.1)",
+        "url": "https://www.iso.org/standard/78879.html"
+      }
+    ],
+    "tags": [
+      "iso13528",
+      "proficiency-testing",
+      "censored-results",
+      "algorithm-a"
+    ],
+    "notes": [
+      {
+        "en": "Table E.1 marks with ‘#’ the results outside x* ± 3s*; with the robust values here the z scores of those results exceed 3 in absolute value (Z = 50 when the ‘<’ is ignored, Y = 45 when the censored results are deleted).",
+        "tr": "Tablo E.1, x* ± 3s* dışındaki sonuçları ‘#’ ile işaretler; buradaki robust değerlerle bu sonuçların z skorlarının mutlak değeri 3'ü aşar (‘<’ yok sayıldığında Z = 50, sansürlü sonuçlar çıkarıldığında Y = 45)."
+      }
+    ]
+  },
+  "proficiency": {
+    "quantity": "result",
+    "results": [
+      {
+        "lab": "A",
+        "less_than": 10
+      },
+      {
+        "lab": "B",
+        "less_than": 10
+      },
+      {
+        "lab": "C",
+        "value": 12
+      },
+      {
+        "lab": "D",
+        "value": 19
+      },
+      {
+        "lab": "E",
+        "less_than": 20
+      },
+      {
+        "lab": "F",
+        "value": 20
+      },
+      {
+        "lab": "G",
+        "value": 23
+      },
+      {
+        "lab": "H",
+        "value": 23
+      },
+      {
+        "lab": "J",
+        "value": 25
+      },
+      {
+        "lab": "K",
+        "value": 25
+      },
+      {
+        "lab": "L",
+        "value": 26
+      },
+      {
+        "lab": "M",
+        "value": 28
+      },
+      {
+        "lab": "N",
+        "value": 28
+      },
+      {
+        "lab": "P",
+        "less_than": 30
+      },
+      {
+        "lab": "Q",
+        "value": 28
+      },
+      {
+        "lab": "R",
+        "value": 29
+      },
+      {
+        "lab": "S",
+        "value": 30
+      },
+      {
+        "lab": "T",
+        "value": 30
+      },
+      {
+        "lab": "U",
+        "value": 31
+      },
+      {
+        "lab": "V",
+        "value": 32
+      },
+      {
+        "lab": "W",
+        "value": 32
+      },
+      {
+        "lab": "Y",
+        "value": 45
+      },
+      {
+        "lab": "Z",
+        "less_than": 50
+      }
+    ],
+    "assigned_value": {
+      "method": "algorithm_a"
+    },
+    "sd_pt": {
+      "method": "robust"
+    }
+  },
+  "expected": {
+    "proficiency": {
+      "robust_mean": {
+        "value": 26.81,
+        "tolerance": 0.005
+      },
+      "robust_sd": {
+        "value": 5.29,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "ISO 13528:2022 Table E.1 (x* = 26.81, s* = 5.29).",
+      "tr": "ISO 13528:2022 Tablo E.1 (x* = 26,81, s* = 5,29),"
+    }
+  }
+}

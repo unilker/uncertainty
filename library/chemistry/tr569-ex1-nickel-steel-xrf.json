@@ -1,0 +1,86 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex1-nickel-steel-xrf",
+    "title": {
+      "en": "Nickel in low-alloy steel by XRF: target limits from the required uncertainty (Nordtest TR 569 Example 1)",
+      "tr": "XRF ile düşük alaşımlı çelikte nikel: gerekli belirsizlikten hedef sınırlar (Nordtest TR 569 Örnek 1)"
+    },
+    "description": {
+      "en": "X-chart of a steel test sample, mean over one year 4.58 weight-% with s = 0.026 weight-%; required expanded uncertainty U = 4 % (relative).",
+      "tr": "Bir çelik numunenin X-grafiği; bir yıllık ortalama ağırlıkça %4,58, s = ağırlıkça %0,026; gerekli genişletilmiş belirsizlik U = %4 (göreli)."
+    },
+    "explanation": [
+      {
+        "en": "u_c = U/2 = 2 %; the requirement on s_Rw is half of u_c: s_Rw = U/4 = 1 % (relative) = 0.0458 weight-%.",
+        "tr": "u_c = U/2 = %2; s_Rw için gereklilik u_c'nin yarısıdır: s_Rw = U/4 = %1 (göreli) = ağırlıkça %0,0458."
+      },
+      {
+        "en": "Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).",
+        "tr": "Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7)."
+      },
+      {
+        "en": "The method performs with s = 0.026 weight-%, below the target: the target limits are wider than statistical limits and give fewer false alarms while the results remain fit for purpose.",
+        "tr": "Yöntem hedefin altında s = ağırlıkça %0,026 ile çalışır: hedef sınırlar istatistiksel sınırlardan geniştir ve sonuçlar amaca uygun kalırken daha az yanlış alarm verir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 1",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "nickel",
+      "steel",
+      "xrf",
+      "x-chart",
+      "target-limits"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Ni, steel control sample",
+    "unit": "weight-%",
+    "central_line": {
+      "mean": 4.58
+    },
+    "limits": {
+      "basis": "target",
+      "expanded_percent": 4.0
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "sd": {
+        "value": 0.0458,
+        "tolerance": 5e-05
+      },
+      "lower_warning": {
+        "value": 4.49,
+        "tolerance": 0.005
+      },
+      "upper_warning": {
+        "value": 4.67,
+        "tolerance": 0.005
+      },
+      "lower_action": {
+        "value": 4.44,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 4.72,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 1.",
+      "tr": "TR 569 Örnek 1."
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "cg19-ex2-pycnometer-100ml",
+    "title": {
+      "en": "Gravimetric calibration of a 100 mL glass pycnometer (EURAMET cg-19 Example 2)",
+      "tr": "100 mL'lik cam piknometrenin gravimetrik kalibrasyonu (EURAMET cg-19 Örnek 2)"
+    },
+    "description": {
+      "en": "A 100 mL pycnometer weighed ten times; water at 18.94 °C, air 0.23 °C warmer; the meniscus contribution is negligible.",
+      "tr": "On kez tartılan 100 mL'lik piknometre; su 18,94 °C, hava 0,23 °C daha sıcak; menisküs katkısı ihmal edilebilir."
+    },
+    "explanation": [
+      {
+        "en": "V₂₀ = m/(ρ_W − ρ_A)·(1 − ρ_A/ρ_B)·[1 − γ(t − 20 °C)] + δV_men + δV_rep (equation 5), with the instrument temperature t = t_W + δt_s.",
+        "tr": "V₂₀ = m/(ρ_W − ρ_A)·(1 − ρ_A/ρ_B)·[1 − γ(t − 20 °C)] + δV_men + δV_rep (eşitlik 5); alet sıcaklığı t = t_W + δt_s."
+      },
+      {
+        "en": "Water density from Tanaka's formula at t_W, ρ_W = a₅[1 − (t + a₁)²(t + a₂)/(a₃(t + a₄))], with its own uncertainty 4.5·10⁻⁷ g/mL and 5 ppm (rectangular) for the purity of the water (6.3.3). The temperature of the water thus enters both the density and the expansion of the instrument, with their correlation.",
+        "tr": "Su yoğunluğu t_W'de Tanaka formülünden, ρ_W = a₅[1 − (t + a₁)²(t + a₂)/(a₃(t + a₄))]; formülün kendi belirsizliği 4,5·10⁻⁷ g/mL ve suyun saflığı için 5 ppm (dikdörtgen) (6.3.3). Suyun sıcaklığı böylece hem yoğunluğa hem de aletin genleşmesine, korelasyonlarıyla birlikte girer."
+      },
+      {
+        "en": "Thermometer U = 0.009 °C (k = 2) and resolution 0.001 °C; difference between water and instrument from |t_A − t_W|/(8√3) (6.3.2); air density, density of the weights and expansion coefficient as in the example.",
+        "tr": "Termometre U = 0,009 °C (k = 2) ve çözünürlük 0,001 °C; su ile alet arasındaki fark |t_A − t_W|/(8√3) ile (6.3.2); hava yoğunluğu, ağırlıkların yoğunluğu ve genleşme katsayısı örnekteki gibi."
+      },
+      {
+        "en": "m = 99.7500 g with u(m) = 0.000 11 g from U(balance) = 0.000 15 g (k = 2) and the 0.1 mg resolution for both weighings; s(V₀) = 0.0026 mL for n = 10.",
+        "tr": "m = 99,7500 g, u(m) = 0,000 11 g; her iki tartım için U(terazi) = 0,000 15 g (k = 2) ve 0,1 mg çözünürlükten; n = 10 için s(V₀) = 0,0026 mL."
+      },
+      {
+        "en": "Repeatability dominates: u(V₂₀) = 0.89 µL, ν_eff = 13, k = 2.21; V₂₀ = 100.014 mL ± 0.0020 mL.",
+        "tr": "Tekrarlanabilirlik baskındır: u(V₂₀) = 0,89 µL, ν_eff = 13, k = 2,21; V₂₀ = 100,014 mL ± 0,0020 mL."
+      },
+      {
+        "en": "The example states k for 'approximately 95 %', but k = t(ν_eff) for 95.45 %, as in EA-4/02; the project uses p = 95.45 %.",
+        "tr": "Örnek k'yı 'yaklaşık %95' için verir, ancak k, EA-4/02'deki gibi %95,45 için t(ν_eff)'dir; proje p = %95,45 kullanır."
+      }
+    ],
+    "field": "flow",
+    "sources": [
+      {
+        "document": "EURAMET Calibration Guide No. 19 v4.1 (2025), Guidelines on the Determination of Uncertainty in Gravimetric Volume Calibration",
+        "section": "7.2 (Tables 3 and 4)",
+        "url": "https://www.euramet.org/publications-media-centre/calibration-guidelines"
+      }
+    ],
+    "tags": [
+      "euramet-cg19",
+      "volume",
+      "gravimetric",
+      "calibration",
+      "validation",
+      "pycnometer",
+      "glassware"
+    ],
+    "notes": [
+      {
+        "en": "Research log F62: Table 4 gives ν_eff(V₂₀) = 1727, whereas 7.2.5 gives 13, which the Welch–Satterthwaite formula reproduces and which k = 2.21 corresponds to. As in Example 1, u(ρ_A) = 1.74·10⁻⁶ g/mL does not follow from the stated inputs (4.8·10⁻⁷ g/mL).",
+        "tr": "Araştırma günlüğü F62: Tablo 4 ν_eff(V₂₀) = 1727 verir; 7.2.5 ise Welch–Satterthwaite formülünün yeniden ürettiği ve k = 2,21'in karşılık geldiği 13 değerini verir. Örnek 1'deki gibi u(ρ_A) = 1,74·10⁻⁶ g/mL belirtilen girdilerden çıkmaz (4,8·10⁻⁷ g/mL)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "V_20",
+      "unit": "mL",
+      "expression": "m/(rho_W - rho_A)*(1 - rho_A/rho_B)*(1 - gamma*(t_W + d_ts - 20)) + dV_men + dV_rep",
+      "description": {
+        "en": "Volume at 20 °C",
+        "tr": "20 °C'deki hacim"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "t_W",
+        "unit": "°C",
+        "expression": "t_W0 + d_res",
+        "description": {
+          "en": "Water temperature",
+          "tr": "Su sıcaklığı"
+        }
+      },
+      {
+        "name": "rho_W",
+        "unit": "g/mL",
+        "expression": "0.99997495*(1 - (t_W - 3.983035)^2*(t_W + 301.797)/(522528.9*(t_W + 69.34881))) + d_form + d_pur",
+        "description": {
+          "en": "Water density (Tanaka 2001)",
+          "tr": "Su yoğunluğu (Tanaka 2001)"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "name": "m",
+        "description": {
+          "en": "Mass of water, I_L − I_E (balance U and resolution for both weighings)",
+          "tr": "Su kütlesi, I_L − I_E (her iki tartım için terazi U ve çözünürlüğü)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 99.75,
+          "sd": 0.000114
+        },
+        "unit": "g"
+      },
+      {
+        "name": "t_W0",
+        "description": {
+          "en": "Measured water temperature (thermometer U = 0.009 °C, k = 2)",
+          "tr": "Ölçülen su sıcaklığı (termometre U = 0,009 °C, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 18.94,
+          "expanded": 0.009,
+          "k": 2
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "d_res",
+        "description": {
+          "en": "Resolution of the thermometer (0.001 °C)",
+          "tr": "Termometrenin çözünürlüğü (0,001 °C)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.0005
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "d_ts",
+        "description": {
+          "en": "Difference between water and instrument temperature",
+          "tr": "Su ile alet sıcaklığı arasındaki fark"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.02875
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "d_form",
+        "description": {
+          "en": "Uncertainty of Tanaka's formula",
+          "tr": "Tanaka formülünün belirsizliği"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 4.5e-07
+        },
+        "unit": "g/mL"
+      },
+      {
+        "name": "d_pur",
+        "description": {
+          "en": "Purity of the water (5 ppm)",
+          "tr": "Suyun saflığı (5 ppm)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 4.992e-06
+        },
+        "unit": "g/mL"
+      },
+      {
+        "name": "rho_A",
+        "description": {
+          "en": "Air density (u as printed in the example)",
+          "tr": "Hava yoğunluğu (u örnekte basıldığı gibi)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0012,
+          "sd": 1.74e-06
+        },
+        "unit": "g/mL"
+      },
+      {
+        "name": "rho_B",
+        "description": {
+          "en": "Density of the reference weights (±0.06 g/mL, u = 0.0346 g/mL as in the summary table)",
+          "tr": "Referans ağırlıkların yoğunluğu (±0,06 g/mL, özet tablodaki gibi u = 0,0346 g/mL)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 8.0,
+          "half_width": 0.06
+        },
+        "unit": "g/mL"
+      },
+      {
+        "name": "gamma",
+        "description": {
+          "en": "Cubic expansion coefficient of the glass (±5 %)",
+          "tr": "Camın hacimsel genleşme katsayısı (±%5)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1e-05,
+          "half_width": 5e-07
+        },
+        "unit": "1/°C"
+      },
+      {
+        "name": "dV_men",
+        "description": {
+          "en": "Meniscus reading (negligible)",
+          "tr": "Menisküs okuma (ihmal edilebilir)"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.0
+        },
+        "unit": "mL"
+      },
+      {
+        "name": "dV_rep",
+        "description": {
+          "en": "Repeatability (s(V₀) = 0.0026 mL, mean of 10)",
+          "tr": "Tekrarlanabilirlik (s(V₀) = 0,0026 mL, 10 ölçümün ortalaması)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.0026,
+          "pooled_dof": 9,
+          "n": 10
+        },
+        "unit": "mL"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.9545
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 100.014,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.00089,
+        "tolerance": 2e-05
+      },
+      "effective_dof": {
+        "value": 13,
+        "tolerance": 1
+      },
+      "coverage_factor": {
+        "value": 2.21,
+        "tolerance": 0.025
+      },
+      "expanded_uncertainty": {
+        "value": 0.002,
+        "tolerance": 0.0001
+      }
+    },
+    "reference": {
+      "en": "EURAMET cg-19 v4.1 7.2, Table 4: V₂₀ = 100.014 mL, u = 0.89 µL, ν_eff = 13 (7.2.5), k = 2.21, U = 2.0 µL. ν_eff = 12.9 is rounded to 13 in the example; GUM G.6.4 truncates it to 12, which gives k = 2.23 and the same U = 2.0 µL.",
+      "tr": "EURAMET cg-19 v4.1 7.2, Tablo 4: V₂₀ = 100,014 mL, u = 0,89 µL, ν_eff = 13 (7.2.5), k = 2,21, U = 2,0 µL. Örnek ν_eff = 12,9 değerini 13'e yuvarlar; GUM G.6.4 onu 12'ye keser, bu da k = 2,23 ve aynı U = 2,0 µL verir."
+    }
+  }
+}

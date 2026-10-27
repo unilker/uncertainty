@@ -1,0 +1,98 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso21748-c3-aerobic-plate-count-flour",
+    "title": {
+      "en": "Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3)",
+      "tr": "Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+    },
+    "description": {
+      "en": "ISO 21748:2017 C.3 (AOAC 990.12, flour): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
+      "tr": "ISO 21748:2017 C.3 (AOAC 990.12, un): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği."
+    },
+    "explanation": [
+      {
+        "en": "Collaborative study (12 laboratories, ISO 5725-2): s_R = 5.8 %, s_r = 5.3 % relative to log10(count), so s_L = √(s_R² − s_r²) = 2.4 %.",
+        "tr": "Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %5,8, s_r = %5,3; dolayısıyla s_L = √(s_R² − s_r²) = %2,4."
+      },
+      {
+        "en": "The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 5.5 %.",
+        "tr": "Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %5,5."
+      },
+      {
+        "en": "Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 6.3 % and U = 12.6 % (k = 2).",
+        "tr": "Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %6,3 ve U = %12,6 (k = 2)."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+        "section": "Annex C.3, Tables C.2–C.4",
+        "url": "https://www.iso.org/standard/71615.html"
+      }
+    ],
+    "tags": [
+      "iso21748",
+      "reproducibility",
+      "microbiology",
+      "relative"
+    ],
+    "notes": [
+      {
+        "en": "ISO 21748 Table C.4 prints u = 6.4 % and C.3.7 U = 12.8 % for flour, but its own inputs give √(2.4² + 5.0² + 3.0²) = 6.30 % (unrounded s_L: 6.29 %) and U = 12.6 %. The intervals of Table C.5 for flour follow from the printed 12.8 %. The project checks the recomputed values.",
+        "tr": "ISO 21748 Tablo C.4 un için u = %6,4 ve C.3.7 U = %12,8 basar; ancak kendi girdileri √(2,4² + 5,0² + 3,0²) = %6,30 (yuvarlanmamış s_L ile %6,29) ve U = %12,6 verir. Tablo C.5'teki un aralıkları basılı %12,8'den çıkar. Proje yeniden hesaplanan değerleri kontrol eder."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "log10(CFU), flour",
+    "precision": [
+      {
+        "name": "s′_R",
+        "data": {
+          "type": "reproducibility",
+          "sd_reproducibility_percent": 5.8,
+          "sd_repeatability_percent": 5.3,
+          "lab_repeatability_percent": 5.0
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "sample preparation",
+        "u_percent": 3.0
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s′_R": {
+          "value": 5.5,
+          "tolerance": 0.05
+        }
+      },
+      "levels": [
+        {
+          "relative_standard_percent": {
+            "value": 6.289,
+            "tolerance": 0.005
+          },
+          "relative_expanded_percent": {
+            "value": 12.58,
+            "tolerance": 0.01
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "ISO 21748:2017 Tables C.3 and C.4 and C.3.7 (flour: s′_R = 5.5 %, u = 6.4 %, U = 12.8 %); flour: recomputed, see note.",
+      "tr": "ISO 21748:2017 Tablo C.3 ve C.4 ile C.3.7 (un: s′_R = %5,5, u = %6,4, U = %12,8); un: yeniden hesaplanmış, nota bakınız."
+    }
+  }
+}

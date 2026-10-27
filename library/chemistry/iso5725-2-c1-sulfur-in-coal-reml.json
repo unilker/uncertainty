@@ -1,0 +1,323 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso5725-2-c1-sulfur-in-coal-reml",
+    "title": {
+      "en": "Sulfur content of coal: REML estimates (ISO 5725-2 Example C.1)",
+      "tr": "Kömürün kükürt içeriği: REML tahminleri (ISO 5725-2 Örnek C.1)"
+    },
+    "description": {
+      "en": "ISO 5725-2:2019 C.1.9: the data of Example C.1 evaluated by restricted maximum likelihood (Annex B.2) instead of Formulae (23)–(31).",
+      "tr": "ISO 5725-2:2019 C.1.9: Örnek C.1 verilerinin Formül (23)–(31) yerine kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi."
+    },
+    "explanation": [
+      {
+        "en": "Form A (Table C.1): eight laboratories, four levels; laboratories 1 and 5 reported four or five results instead of three. All results are retained to show the calculation for unequal numbers of results (C.1.2, Note).",
+        "tr": "Form A (Tablo C.1): sekiz laboratuvar, dört düzey; 1. ve 5. laboratuvarlar üç yerine dört veya beş sonuç bildirmiştir. Eşit olmayan sonuç sayılarıyla hesaplamayı göstermek için tüm sonuçlar tutulur (C.1.2, Not)."
+      },
+      {
+        "en": "REML (B.2) maximizes the likelihood of the data with the general mean removed; σ_r² and σ_L² are the variance components of the one-way random-effects model. With unequal n_ij the general mean is weighted by w_i = 1/(s_L² + s_r²/n_i) (Formulae B.5, B.6).",
+        "tr": "REML (B.2), genel ortalaması çıkarılmış verinin olabilirliğini en büyükler; σ_r² ve σ_L² tek yönlü rastgele etkiler modelinin varyans bileşenleridir. Eşit olmayan n_ij ile genel ortalama w_i = 1/(s_L² + s_r²/n_i) ağırlıklarıyla alınır (Formül B.5, B.6)."
+      },
+      {
+        "en": "The estimates (Table C.6) differ from Table C.5 by at most one unit in the third decimal: no material difference.",
+        "tr": "Tahminler (Tablo C.6) Tablo C.5'ten üçüncü ondalıkta en çok bir birim farklıdır: önemli bir fark yoktur."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 5725-2:2019, Accuracy (trueness and precision) of measurement methods and results — Part 2: Basic method for the determination of repeatability and reproducibility of a standard measurement method",
+        "section": "Annex C.1.9 (Table C.6), Annex B.2",
+        "url": "https://www.iso.org/standard/69419.html"
+      }
+    ],
+    "tags": [
+      "iso5725-2",
+      "interlaboratory-study",
+      "precision",
+      "coal",
+      "reml"
+    ]
+  },
+  "precision_experiment": {
+    "quantity": "Sulfur content of coal",
+    "unit": "%",
+    "laboratories": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "levels": [
+      {
+        "name": "1",
+        "results": [
+          [
+            0.71,
+            0.71,
+            0.7,
+            0.71
+          ],
+          [
+            0.69,
+            0.67,
+            0.68
+          ],
+          [
+            0.66,
+            0.65,
+            0.69
+          ],
+          [
+            0.67,
+            0.65,
+            0.66
+          ],
+          [
+            0.7,
+            0.69,
+            0.66,
+            0.71,
+            0.69
+          ],
+          [
+            0.73,
+            0.74,
+            0.73
+          ],
+          [
+            0.71,
+            0.71,
+            0.69
+          ],
+          [
+            0.7,
+            0.65,
+            0.68
+          ]
+        ]
+      },
+      {
+        "name": "2",
+        "results": [
+          [
+            1.2,
+            1.18,
+            1.23,
+            1.21
+          ],
+          [
+            1.22,
+            1.21,
+            1.22
+          ],
+          [
+            1.28,
+            1.31,
+            1.3
+          ],
+          [
+            1.23,
+            1.18,
+            1.2
+          ],
+          [
+            1.31,
+            1.22,
+            1.22,
+            1.24
+          ],
+          [
+            1.39,
+            1.36,
+            1.37
+          ],
+          [
+            1.2,
+            1.26,
+            1.26
+          ],
+          [
+            1.24,
+            1.22,
+            1.3
+          ]
+        ]
+      },
+      {
+        "name": "3",
+        "results": [
+          [
+            1.68,
+            1.7,
+            1.68,
+            1.69
+          ],
+          [
+            1.64,
+            1.64,
+            1.65
+          ],
+          [
+            1.61,
+            1.61,
+            1.62
+          ],
+          [
+            1.68,
+            1.66,
+            1.66
+          ],
+          [
+            1.64,
+            1.67,
+            1.6,
+            1.66,
+            1.68
+          ],
+          [
+            1.7,
+            1.73,
+            1.73
+          ],
+          [
+            1.69,
+            1.7,
+            1.68
+          ],
+          [
+            1.67,
+            1.68,
+            1.67
+          ]
+        ]
+      },
+      {
+        "name": "4",
+        "results": [
+          [
+            3.26,
+            3.26,
+            3.2,
+            3.24
+          ],
+          [
+            3.2,
+            3.2,
+            3.2
+          ],
+          [
+            3.37,
+            3.36,
+            3.38
+          ],
+          [
+            3.16,
+            3.22,
+            3.23
+          ],
+          [
+            3.2,
+            3.19,
+            3.18,
+            3.27,
+            3.24
+          ],
+          [
+            3.27,
+            3.31,
+            3.29
+          ],
+          [
+            3.27,
+            3.24,
+            3.23
+          ],
+          [
+            3.25,
+            3.26,
+            3.26
+          ]
+        ]
+      }
+    ],
+    "method": "reml",
+    "relationships": []
+  },
+  "expected": {
+    "precision_experiment": {
+      "levels": {
+        "1": {
+          "p": 8,
+          "m": {
+            "value": 0.69,
+            "tolerance": 0.0005
+          },
+          "s_r": {
+            "value": 0.015,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 0.027,
+            "tolerance": 0.0005
+          }
+        },
+        "2": {
+          "p": 8,
+          "m": {
+            "value": 1.254,
+            "tolerance": 0.0005
+          },
+          "s_r": {
+            "value": 0.029,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 0.062,
+            "tolerance": 0.0005
+          }
+        },
+        "3": {
+          "p": 8,
+          "m": {
+            "value": 1.668,
+            "tolerance": 0.0005
+          },
+          "s_r": {
+            "value": 0.017,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 0.036,
+            "tolerance": 0.0005
+          }
+        },
+        "4": {
+          "p": 8,
+          "m": {
+            "value": 3.253,
+            "tolerance": 0.0005
+          },
+          "s_r": {
+            "value": 0.026,
+            "tolerance": 0.0005
+          },
+          "s_R": {
+            "value": 0.06,
+            "tolerance": 0.0005
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 5725-2:2019, Table C.6.",
+      "tr": "ISO 5725-2:2019, Tablo C.6."
+    }
+  }
+}

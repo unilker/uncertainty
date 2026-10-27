@@ -1,0 +1,221 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e11-step-attenuator",
+    "title": {
+      "en": "Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)",
+      "tr": "Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11)"
+    },
+    "description": {
+      "en": "TN 1900 E11: EA-4/02 S7 re-evaluated with the Monte Carlo method; the dominant arcsine mismatch term makes the distribution of a linear sum bimodal.",
+      "tr": "TN 1900 E11: EA-4/02 S7 Monte Carlo yöntemiyle yeniden değerlendirilir; baskın arksinüs uyumsuzluk terimi doğrusal bir toplamın dağılımını iki tepeli yapar."
+    },
+    "explanation": [
+      {
+        "en": "L_X = L_S + δL_S + δL_D + δL_M + δL_K + δL_ib − δL_ia + δL_0b − δL_0a, the 30 dB step of the attenuator measured against a calibrated reference attenuator (EA-4/02 S7).",
+        "tr": "L_X = L_S + δL_S + δL_D + δL_M + δL_K + δL_ib − δL_ia + δL_0b − δL_0a; zayıflatıcının 30 dB kademesi kalibre edilmiş bir referans zayıflatıcıya karşı ölçülür (EA-4/02 S7)."
+      },
+      {
+        "en": "L_S is the mean of four readings, 30.0402 dB, u = 0.0091 dB, modelled by TN 1900 as a t₃ variable rescaled to standard deviation 0.0091 dB. Mismatch (u = 0.02 dB), drift and leakage (±0.003 dB) are arcsine (U-shaped); δL_S and the reference detector resolutions are rectangular; the null detector terms are Gaussian (TN 1900 Exhibit 16).",
+        "tr": "L_S dört okumanın ortalamasıdır, 30,0402 dB, u = 0,0091 dB; TN 1900 bunu standart sapması 0,0091 dB olacak şekilde ölçeklenmiş bir t₃ değişkeni olarak modeller. Uyumsuzluk (u = 0,02 dB), kayma ve sızıntı (±0,003 dB) arksinüs (U biçimli); δL_S ve referans dedektör çözünürlükleri dikdörtgen; sıfır dedektörü terimleri normal dağılımlıdır (TN 1900 Şekil 16)."
+      },
+      {
+        "en": "The Monte Carlo method gives 30.043 dB, u = 0.0224 dB and the 95 % interval [30.006, 30.081] dB. u²(δL_M) is 79 % of u²(L_X), so the output density has two modes: the conventional interval ± 2u is conservative (99 % effective coverage).",
+        "tr": "Monte Carlo yöntemi 30,043 dB, u = 0,0224 dB ve %95 aralığı [30,006; 30,081] dB verir. u²(δL_M), u²(L_X)'in %79'udur; bu nedenle çıktı yoğunluğu iki tepelidir ve klasik ± 2u aralığı muhafazakârdır (etkin kapsam %99)."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E11, Exhibits 16 and 17",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "ea402-s7",
+      "arcsine",
+      "student-t",
+      "bimodal"
+    ],
+    "notes": [
+      {
+        "en": "TN 1900 rescales the t₃ distribution of L_S to standard deviation u = 0.0091 dB (scale 0.0091/√3 dB). JCGM 101 6.4.9 instead uses the scale s/√n = 0.0091 dB, i.e. a standard deviation of 0.0158 dB. Because the GUM uncertainty of a t input is its scale, the GUM evaluation is switched off; the EA-4/02 GUM result is in 'ea402-s7-step-attenuator-30db'.",
+        "tr": "TN 1900, L_S'nin t₃ dağılımını standart sapması u = 0,0091 dB olacak şekilde ölçekler (ölçek 0,0091/√3 dB). JCGM 101 6.4.9 ise ölçek olarak s/√n = 0,0091 dB alır, yani standart sapma 0,0158 dB olur. Bir t girdisinin GUM belirsizliği ölçeği olduğundan GUM değerlendirmesi kapatılmıştır; EA-4/02 GUM sonucu 'ea402-s7-step-attenuator-30db' projesindedir."
+      },
+      {
+        "en": "TN 1900 models the leakage δL_K as arcsine on ±0.003 dB (u = 0.0021 dB) and remarks that the 0.0017 dB of EA-4/02 S7.12 corresponds to a rectangular distribution, although EA-4/02 calls the term U-shaped.",
+        "tr": "TN 1900, sızıntı terimi δL_K'yı ±0,003 dB üzerinde arksinüs olarak modeller (u = 0,0021 dB) ve EA-4/02 S7.12'deki 0,0017 dB'in dikdörtgen dağılıma karşılık geldiğini, oysa EA-4/02'nin terimi U biçimli olarak nitelediğini belirtir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "L_X",
+      "unit": "dB",
+      "expression": "L_S + dL_S + dL_D + dL_M + dL_K + dL_ib - dL_ia + dL_0b - dL_0a",
+      "description": {
+        "en": "Attenuation of the 30 dB step",
+        "tr": "30 dB kademesinin zayıflatması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "L_S",
+        "unit": "dB",
+        "description": {
+          "en": "Mean of four attenuation differences",
+          "tr": "Dört zayıflatma farkının ortalaması"
+        },
+        "distribution": {
+          "type": "t",
+          "mean": 30.0402,
+          "dof": 3,
+          "scale": 0.005253887449625595
+        }
+      },
+      {
+        "name": "dL_S",
+        "unit": "dB",
+        "description": {
+          "en": "Correction from the calibration of the reference attenuator",
+          "tr": "Referans zayıflatıcının kalibrasyonundan düzeltme"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.003,
+          "half_width": 0.0043301
+        }
+      },
+      {
+        "name": "dL_D",
+        "unit": "dB",
+        "description": {
+          "en": "Drift of the reference attenuator",
+          "tr": "Referans zayıflatıcının kayması"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 0.0019799
+        }
+      },
+      {
+        "name": "dL_M",
+        "unit": "dB",
+        "description": {
+          "en": "Mismatch loss correction",
+          "tr": "Uyumsuzluk kaybı düzeltmesi"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 0.0282843
+        }
+      },
+      {
+        "name": "dL_K",
+        "unit": "dB",
+        "description": {
+          "en": "Leakage correction",
+          "tr": "Sızıntı düzeltmesi"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 0.003
+        }
+      },
+      {
+        "name": "dL_ia",
+        "unit": "dB",
+        "description": {
+          "en": "Resolution of the reference detector at 0 dB",
+          "tr": "Referans dedektörün 0 dB'deki çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.0005196
+        }
+      },
+      {
+        "name": "dL_ib",
+        "unit": "dB",
+        "description": {
+          "en": "Resolution of the reference detector at 30 dB",
+          "tr": "Referans dedektörün 30 dB'deki çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.0005196
+        }
+      },
+      {
+        "name": "dL_0a",
+        "unit": "dB",
+        "description": {
+          "en": "Resolution of the null detector at 0 dB",
+          "tr": "Sıfır dedektörünün 0 dB'deki çözünürlüğü"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.002
+        }
+      },
+      {
+        "name": "dL_0b",
+        "unit": "dB",
+        "description": {
+          "en": "Resolution of the null detector at 30 dB",
+          "tr": "Sıfır dedektörünün 30 dB'deki çözünürlüğü"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.002
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": null,
+    "mcm": {
+      "trials": 2000000,
+      "seed": 11,
+      "interval": "symmetric",
+      "coverage_probability": 0.95
+    }
+  },
+  "reporting": {
+    "significant_digits": 3
+  },
+  "expected": {
+    "mcm": {
+      "estimate": {
+        "value": 30.043,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.0224,
+        "tolerance": 0.0002
+      },
+      "interval_low": {
+        "value": 30.006,
+        "tolerance": 0.0005
+      },
+      "interval_high": {
+        "value": 30.081,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "NIST TN 1900 E11: L_X = 30.043 dB, u = 0.0224 dB, 95 % interval [30.006, 30.081] dB (Monte Carlo, M = 10⁷).",
+      "tr": "NIST TN 1900 E11: L_X = 30,043 dB, u = 0,0224 dB, %95 aralığı [30,006; 30,081] dB (Monte Carlo, M = 10⁷)."
+    }
+  }
+}

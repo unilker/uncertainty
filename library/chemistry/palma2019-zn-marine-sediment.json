@@ -1,0 +1,185 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "palma2019-zn-marine-sediment",
+    "title": {
+      "en": "Zinc in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)",
+      "tr": "Deniz sedimentlerinde çinko, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)"
+    },
+    "description": {
+      "en": "Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Zn in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.",
+      "tr": "Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde toplam Zn belirsizliği."
+    },
+    "explanation": [
+      {
+        "en": "Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 4 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); total Zn by the OSPAR procedure, flame AAS.",
+        "tr": "İki belirsizlik modeli: tespit sınırından 2w_LOQ = 4 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); OSPAR yöntemiyle toplam Zn, alevli AAS."
+      },
+      {
+        "en": "Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.108 mg/kg (I) and 2.69 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.117 mg/kg (I) and 2.92 % (II).",
+        "tr": "Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,108 mg/kg (I) ve %2,69 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,117 mg/kg (I) ve %2,92 (II)."
+      },
+      {
+        "en": "Matrix effects: the recoveries of Zn in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.324 mg/kg (I) and 8.1 % (II) (Formulae 16, 17).",
+        "tr": "Matris etkileri: yeterlilik testlerinin sedimentlerinde Zn geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,324 mg/kg (I) ve %8,1 (II) (Formül 16, 17)."
+      },
+      {
+        "en": "Trueness: weighted mean recovery R̄_w = 102 % with u(R̄) = 1.45 %, i.e. u′_T = 1.42 % of the result; in Interval I it is taken at 2w_LOQ: 0.0569 mg/kg.",
+        "tr": "Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %102, u(R̄) = %1,45; yani sonucun u′_T = %1,42'si; Aralık I'de 2w_LOQ'da alınır: 0,0569 mg/kg."
+      },
+      {
+        "en": "u_c = 0.365 mg/kg in Interval I and u′_c = 9.13 % in Interval II (Formulae 20, 21); U = 2u_c.",
+        "tr": "Aralık I'de u_c = 0,365 mg/kg ve Aralık II'de u′_c = %9,13 (Formül 20, 21); U = 2u_c."
+      },
+      {
+        "en": "Matrix effects contribute 78.6 % (I) and 78.7 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 78.7 % and 78.6 %).",
+        "tr": "Matris etkileri varyansın %78,6 (I) ve %78,7 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %78,7 ve %78,6)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "C. Palma, V. Morgado, R. J. N. Bettencourt da Silva, Top-down evaluation of matrix effects uncertainty, Talanta 192 (2019) 278–287",
+        "section": "Table 9",
+        "url": "https://doi.org/10.1016/j.talanta.2018.09.039"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "matrix-effects",
+      "two-intervals",
+      "environmental",
+      "proficiency-tests"
+    ],
+    "notes": [
+      {
+        "en": "The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.",
+        "tr": "Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(Zn)",
+    "unit": "mg/kg",
+    "levels": [
+      2,
+      20
+    ],
+    "precision": [
+      {
+        "name": "s_r(h)⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.108
+        },
+        "range": {
+          "max": 4
+        }
+      },
+      {
+        "name": "s_I⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.117
+        },
+        "range": {
+          "max": 4
+        }
+      },
+      {
+        "name": "s′_r(h)⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 2.69
+        },
+        "range": {
+          "min": 4
+        }
+      },
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 2.92
+        },
+        "range": {
+          "min": 4
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "u_ME⟨I⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u": 0.324,
+        "range": {
+          "max": 4
+        }
+      },
+      {
+        "name": "u′_ME⟨II⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u_percent": 8.1,
+        "range": {
+          "min": 4
+        }
+      },
+      {
+        "name": "u_T⟨I⟩",
+        "description": {
+          "en": "trueness at 2w_LOQ",
+          "tr": "2w_LOQ'da doğruluk"
+        },
+        "u": 0.056863,
+        "range": {
+          "max": 4
+        }
+      },
+      {
+        "name": "u′_T⟨II⟩",
+        "description": {
+          "en": "trueness, u(R̄)/R̄_w",
+          "tr": "doğruluk, u(R̄)/R̄_w"
+        },
+        "u_percent": 1.421569,
+        "range": {
+          "min": 4
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "levels": [
+        {
+          "level": 2,
+          "standard_uncertainty": {
+            "value": 0.365,
+            "tolerance": 0.001
+          }
+        },
+        {
+          "level": 20,
+          "relative_standard_percent": {
+            "value": 9.13,
+            "tolerance": 0.01
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Palma et al. (2019) Table 9: u_c⟨I⟩ = 0.365 mg/kg, u′_c⟨II⟩ = 9.13 %; tolerance one unit of the last printed digit, since the components are themselves rounded.",
+      "tr": "Palma ve ark. (2019) Tablo 9: u_c⟨I⟩ = 0,365 mg/kg, u′_c⟨II⟩ = %9,13; tolerans basılı son basamağın bir birimidir, çünkü bileşenlerin kendileri de yuvarlanmıştır."
+    }
+  }
+}

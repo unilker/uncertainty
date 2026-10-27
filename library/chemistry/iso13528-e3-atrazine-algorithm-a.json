@@ -1,0 +1,270 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso13528-e3-atrazine-algorithm-a",
+    "title": {
+      "en": "Atrazine in drinking water: robust average by Algorithm A (ISO 13528 E.3)",
+      "tr": "İçme suyunda atrazin: Algoritma A ile robust ortalama (ISO 13528 E.3)"
+    },
+    "description": {
+      "en": "ISO 13528:2022 E.3: assigned value and standard deviation for proficiency assessment from 34 participant results with Algorithm A; z scores.",
+      "tr": "ISO 13528:2022 E.3: 34 katılımcı sonucundan Algoritma A ile atanan değer ve yeterlilik değerlendirmesi için standart sapma; z skorları."
+    },
+    "explanation": [
+      {
+        "en": "34 participants reported atrazine in drinking water (Table E.4, ordered by value). Two very low results (0.040 and 0.055 mg/L) and one high result (0.4246 mg/L) lie far from the majority.",
+        "tr": "34 katılımcı içme suyunda atrazin sonucu bildirmiştir (Tablo E.4, değere göre sıralı). İki çok düşük (0,040 ve 0,055 mg/L) ve bir yüksek (0,4246 mg/L) sonuç çoğunluktan çok uzaktır."
+      },
+      {
+        "en": "Algorithm A (C.3.1) starts from x* = median = 0.2620 and s* = MADe = 0.0386 mg/L, replaces every result outside x* ± 1.5s* by the nearer limit and recomputes x* as the mean and s* as 1.134 × the standard deviation of the modified values.",
+        "tr": "Algoritma A (C.3.1) x* = medyan = 0,2620 ve s* = MADe = 0,0386 mg/L değerleriyle başlar, x* ± 1,5s* dışındaki her sonucu yakın sınırla değiştirir ve x*'ı değiştirilmiş değerlerin ortalaması, s*'ı standart sapmalarının 1,134 katı olarak yeniden hesaplar."
+      },
+      {
+        "en": "After six iterations the third significant figures no longer change: x* = 0.2570 mg/L, s* = 0.0395 mg/L. The arithmetic mean 0.2512 and standard deviation 0.0672 mg/L are pulled by the three outlying results.",
+        "tr": "Altı iterasyondan sonra üçüncü anlamlı basamaklar değişmez: x* = 0,2570 mg/L, s* = 0,0395 mg/L. Aritmetik ortalama 0,2512 ve standart sapma 0,0672 mg/L, üç uç sonuç tarafından çekilir."
+      },
+      {
+        "en": "The assigned value is x_pt = x* with u(x_pt) = 1.25 s*/√p = 1.25 × 0.0395/√34 = 0.0085 mg/L (Formula 6) and σ_pt = s*. Since u(x_pt) < 0.3σ_pt = 0.0119 mg/L the uncertainty of the assigned value is negligible (9.2.1) and z scores are used; laboratories 1, 2 and 34 receive action signals.",
+        "tr": "Atanan değer x_pt = x*, u(x_pt) = 1,25 s*/√p = 1,25 × 0,0395/√34 = 0,0085 mg/L (Formül 6) ve σ_pt = s*'tır. u(x_pt) < 0,3σ_pt = 0,0119 mg/L olduğundan atanan değerin belirsizliği ihmal edilebilir (9.2.1) ve z skorları kullanılır; 1, 2 ve 34 numaralı laboratuvarlar eylem sinyali alır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+        "section": "E.3, Tables E.4 and E.5",
+        "url": "https://www.iso.org/standard/78879.html"
+      }
+    ],
+    "tags": [
+      "iso13528",
+      "proficiency-testing",
+      "algorithm-a",
+      "robust-statistics"
+    ],
+    "notes": [
+      {
+        "en": "The stopping rule of C.3.1 (no change in the third significant figures) is used; iterating to full convergence gives x* = 0.257011 and s* = 0.039520 mg/L, the same to the printed digits. The nIQR of Table E.5 (0.0402) corresponds to quartiles by linear interpolation between order statistics; other quartile definitions give 0.0379 to 0.0423 (Table E.5, note).",
+        "tr": "C.3.1'in durma kuralı (üçüncü anlamlı basamaklarda değişiklik olmaması) kullanılmıştır; tam yakınsamaya kadar iterasyon x* = 0,257011 ve s* = 0,039520 mg/L verir, basılı basamaklara kadar aynıdır. Tablo E.5'teki nIQR (0,0402), sıra istatistikleri arasında doğrusal enterpolasyonla bulunan çeyreklere karşılık gelir; diğer çeyrek tanımları 0,0379 ile 0,0423 arası değerler verir (Tablo E.5, not)."
+      }
+    ]
+  },
+  "proficiency": {
+    "quantity": "atrazine",
+    "unit": "mg/L",
+    "results": [
+      {
+        "lab": "1",
+        "value": 0.04
+      },
+      {
+        "lab": "2",
+        "value": 0.055
+      },
+      {
+        "lab": "3",
+        "value": 0.178
+      },
+      {
+        "lab": "4",
+        "value": 0.202
+      },
+      {
+        "lab": "5",
+        "value": 0.206
+      },
+      {
+        "lab": "6",
+        "value": 0.227
+      },
+      {
+        "lab": "7",
+        "value": 0.228
+      },
+      {
+        "lab": "8",
+        "value": 0.23
+      },
+      {
+        "lab": "9",
+        "value": 0.23
+      },
+      {
+        "lab": "10",
+        "value": 0.235
+      },
+      {
+        "lab": "11",
+        "value": 0.236
+      },
+      {
+        "lab": "12",
+        "value": 0.237
+      },
+      {
+        "lab": "13",
+        "value": 0.243
+      },
+      {
+        "lab": "14",
+        "value": 0.244
+      },
+      {
+        "lab": "15",
+        "value": 0.245
+      },
+      {
+        "lab": "16",
+        "value": 0.2555
+      },
+      {
+        "lab": "17",
+        "value": 0.26
+      },
+      {
+        "lab": "18",
+        "value": 0.264
+      },
+      {
+        "lab": "19",
+        "value": 0.267
+      },
+      {
+        "lab": "20",
+        "value": 0.27
+      },
+      {
+        "lab": "21",
+        "value": 0.273
+      },
+      {
+        "lab": "22",
+        "value": 0.274
+      },
+      {
+        "lab": "23",
+        "value": 0.274
+      },
+      {
+        "lab": "24",
+        "value": 0.278
+      },
+      {
+        "lab": "25",
+        "value": 0.2811
+      },
+      {
+        "lab": "26",
+        "value": 0.287
+      },
+      {
+        "lab": "27",
+        "value": 0.287
+      },
+      {
+        "lab": "28",
+        "value": 0.288
+      },
+      {
+        "lab": "29",
+        "value": 0.289
+      },
+      {
+        "lab": "30",
+        "value": 0.295
+      },
+      {
+        "lab": "31",
+        "value": 0.296
+      },
+      {
+        "lab": "32",
+        "value": 0.311
+      },
+      {
+        "lab": "33",
+        "value": 0.331
+      },
+      {
+        "lab": "34",
+        "value": 0.4246
+      }
+    ],
+    "assigned_value": {
+      "method": "algorithm_a"
+    },
+    "sd_pt": {
+      "method": "robust"
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "proficiency": {
+      "median": {
+        "value": 0.262,
+        "tolerance": 5e-05
+      },
+      "made": {
+        "value": 0.0386,
+        "tolerance": 5e-05
+      },
+      "niqr": {
+        "value": 0.0402,
+        "tolerance": 5e-05
+      },
+      "robust_mean": {
+        "value": 0.257,
+        "tolerance": 5e-05
+      },
+      "robust_sd": {
+        "value": 0.0395,
+        "tolerance": 5e-05
+      },
+      "iterations": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "mean": {
+        "value": 0.2512,
+        "tolerance": 5e-05
+      },
+      "sd": {
+        "value": 0.0672,
+        "tolerance": 5e-05
+      },
+      "assigned_value": {
+        "value": 0.257,
+        "tolerance": 5e-05
+      },
+      "u_assigned": {
+        "value": 0.0085,
+        "tolerance": 5e-05
+      },
+      "sd_pt": {
+        "value": 0.0395,
+        "tolerance": 5e-05
+      },
+      "scores": {
+        "1": {
+          "z": {
+            "value": -5.491169028340081,
+            "tolerance": 0.02
+          }
+        },
+        "34": {
+          "z": {
+            "value": 4.2406123481781375,
+            "tolerance": 0.02
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 13528:2022 Table E.4 (x* = 0.2570, s* = 0.0395 mg/L after 6 iterations) and Table E.5 (median 0.2620, nIQR 0.0402, MADe 0.0386, u(x_pt) = 0.0085, arithmetic 0.2512 and 0.0672 mg/L); z scores recomputed from these values.",
+      "tr": "ISO 13528:2022 Tablo E.4 (6 iterasyondan sonra x* = 0,2570, s* = 0,0395 mg/L) ve Tablo E.5 (medyan 0,2620, nIQR 0,0402, MADe 0,0386, u(x_pt) = 0,0085, aritmetik 0,2512 ve 0,0672 mg/L); z skorları bu değerlerden yeniden hesaplanmıştır."
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-8-pcb-crm",
+    "title": {
+      "en": "PCB in sediment: control sample and one CRM",
+      "tr": "Sedimentte PCB: kontrol numunesi ve tek CRM"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §8.3 Example C.",
+      "tr": "Nordtest TR 537 §8.3 Örnek C."
+    },
+    "explanation": [
+      {
+        "en": "u(Rw) = 8 % from the control chart; CRM (152 ± 14) µg/kg, mean result 144 µg/kg: b = −5.3 %, s_bias = 8 % (n = 22), u(C_ref) = 7/152 = 4.6 %.",
+        "tr": "Kontrol grafiğinden u(Rw) = %8; CRM (152 ± 14) µg/kg, ortalama sonuç 144 µg/kg: b = −%5,3, s_bias = %8 (n = 22), u(C_ref) = 7/152 = %4,6."
+      },
+      {
+        "en": "u(bias) = 7.2 %, u_c = √(8² + 7.2²) = 10.8 %, U = 21.5 % → 22 %.",
+        "tr": "u(bias) = %7,2, u_c = √(8² + 7,2²) = %10,8, U = %21,5 → %22."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§8.3 Example C",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "crm"
+    ],
+    "notes": [
+      {
+        "en": "From the stated values b = 5.26 % and u(C_ref) = 4.61 % give u(bias) = 7.20 %; the handbook uses the rounded 5.3 % and 4.6 % (7.22 %). Its summary table prints u(C_ref) = 4.7 % and u(bias) = 7.29 %.",
+        "tr": "Verilen değerlerden b = %5,26 ve u(C_ref) = %4,61 ile u(bias) = %7,20 bulunur; el kitabı yuvarlanmış %5,3 ve %4,6 değerlerini kullanır (%7,22). Özet tablosu u(C_ref) = %4,7 ve u(bias) = %7,29 yazar."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(ΣPCB₇)",
+    "unit": "µg/kg",
+    "precision": [
+      {
+        "name": "u(Rw)",
+        "description": {
+          "en": "Control chart of a CRM",
+          "tr": "Bir CRM'nin kontrol grafiği"
+        },
+        "data": {
+          "type": "given",
+          "sd_percent": 8.0
+        }
+      }
+    ],
+    "bias": [
+      {
+        "name": "u(bias)",
+        "kind": "crm",
+        "references": [
+          {
+            "label": "CRM",
+            "reference": 152.0,
+            "expanded": 14.0,
+            "k": 2,
+            "mean": 144.0,
+            "sd_percent": 8.0,
+            "n": 22
+          }
+        ]
+      }
+    ]
+  },
+  "reporting": {
+    "decimal_places": 0,
+    "rounding": "up"
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "u(bias)": {
+          "value": 7.22,
+          "tolerance": 0.03
+        }
+      },
+      "levels": [
+        {
+          "relative_standard_percent": {
+            "value": 10.8,
+            "tolerance": 0.05
+          },
+          "relative_expanded_percent": {
+            "value": 21.6,
+            "tolerance": 0.15
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §8.3 Example C (u(bias) 7.22 %, u_c 10.8 %, U 21.6 → 22 %); computed from 144 and 152 rather than the rounded 5.3 % and 4.6 %.",
+      "tr": "Nordtest TR 537 §8.3 Örnek C (u(bias) %7,22, u_c %10,8, U %21,6 → %22); yuvarlanmış %5,3 ve %4,6 yerine 144 ve 152'den hesaplanmıştır."
+    }
+  }
+}

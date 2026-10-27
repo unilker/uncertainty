@@ -1,0 +1,175 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.3-mass-calibration",
+    "title": {
+      "en": "Mass calibration (first-order GUM)",
+      "tr": "Kütle kalibrasyonu (birinci mertebe GUM)"
+    },
+    "description": {
+      "en": "JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weight; first-order GUM vs MCM.",
+      "tr": "JCGM 101 9.3: 100 g'lık bir ağırlığın referans ağırlıkla karşılaştırılarak kalibrasyonu; birinci mertebe GUM ile MCM karşılaştırması."
+    },
+    "explanation": [
+      {
+        "en": "The conventional mass of W follows from weighing against R in air: m_W = (m_R,c + δm_R,c)[1 + (ρ_a − ρ_a0)(1/ρ_W − 1/ρ_R)], reported as the deviation δm = m_W − 100 g (in mg).",
+        "tr": "W ağırlığının konvansiyonel kütlesi, havada R ile karşılaştırmalı tartımdan elde edilir: m_W = (m_R,c + δm_R,c)[1 + (ρ_a − ρ_a0)(1/ρ_W − 1/ρ_R)]; sonuç δm = m_W − 100 g sapması olarak (mg) verilir."
+      },
+      {
+        "en": "At the estimates, ρ_a = ρ_a0 = 1.2 kg/m³, so the sensitivity coefficients of the three densities are zero: a first-order evaluation ignores the buoyancy correction entirely (u = 0.0539 mg).",
+        "tr": "Tahmin değerlerinde ρ_a = ρ_a0 = 1,2 kg/m³ olduğundan üç yoğunluğun duyarlılık katsayıları sıfırdır: birinci mertebe değerlendirme kaldırma kuvveti düzeltmesini tamamen yok sayar (u = 0,0539 mg)."
+      },
+      {
+        "en": "The Monte Carlo method propagates the full distributions and gives u = 0.0755 mg: the first-order GUM result is not validated even for one significant digit (n_dig = 1, δ = 0.005 mg).",
+        "tr": "Monte Carlo yöntemi dağılımların tamamını yayar ve u = 0,0755 mg verir: birinci mertebe GUM sonucu tek anlamlı basamak için bile (n_dig = 1, δ = 0,005 mg) doğrulanmaz."
+      },
+      {
+        "en": "The project 'jcgm101-9.3-mass-calibration-higher-order' repeats the evaluation with the second-order terms of GUM 5.1.2, which are validated.",
+        "tr": "'jcgm101-9.3-mass-calibration-higher-order' projesi, değerlendirmeyi GUM 5.1.2'nin ikinci mertebe terimleriyle tekrarlar; bu sonuç doğrulanır."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.3, Tables 6 and 7",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm101",
+      "validation",
+      "non-linear",
+      "buoyancy"
+    ],
+    "notes": [
+      {
+        "en": "JCGM 101 Table 6 reports the shortest interval [1.0834, 1.3825] from M = 0.72 × 10⁶; the output PDF is symmetric about 1.2340, so the probabilistically symmetric interval is used here (far less dispersed).",
+        "tr": "JCGM 101 Tablo 6, M = 0,72 × 10⁶ ile en kısa aralığı [1,0834; 1,3825] olarak verir; çıktı dağılımı 1,2340 etrafında simetrik olduğundan burada çok daha az saçılımlı olan olasılıksal simetrik aralık kullanılmıştır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dm",
+      "unit": "mg",
+      "expression": "(m_Rc + dm_Rc) * (1 + (rho_a - 1.2) * (1/rho_W - 1/rho_R)) - 100000",
+      "description": {
+        "en": "Deviation of the conventional mass of W from 100 g",
+        "tr": "W'nin konvansiyonel kütlesinin 100 g'dan sapması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "m_Rc",
+        "unit": "mg",
+        "description": {
+          "en": "Conventional mass of the reference weight",
+          "tr": "Referans ağırlığın konvansiyonel kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100000.0,
+          "sd": 0.05
+        }
+      },
+      {
+        "name": "dm_Rc",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of the small weight added to balance",
+          "tr": "Dengelemek için eklenen küçük ağırlığın kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.234,
+          "sd": 0.02
+        }
+      },
+      {
+        "name": "rho_a",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Air density",
+          "tr": "Hava yoğunluğu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1.2,
+          "half_width": 0.1
+        }
+      },
+      {
+        "name": "rho_W",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the weight W",
+          "tr": "W ağırlığının yoğunluğu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 8000.0,
+          "half_width": 1000.0
+        }
+      },
+      {
+        "name": "rho_R",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the reference weight R",
+          "tr": "R referans ağırlığının yoğunluğu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 8000.0,
+          "half_width": 50.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 2000000,
+      "seed": 4,
+      "interval": "symmetric",
+      "validation_ndig": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.234,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0539,
+        "tolerance": 5e-05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 1.233998,
+        "tolerance": 0.0002
+      },
+      "standard_uncertainty": {
+        "value": 0.075484,
+        "tolerance": 0.0002
+      },
+      "interval_low": {
+        "value": 1.08443,
+        "tolerance": 0.0006
+      },
+      "interval_high": {
+        "value": 1.38359,
+        "tolerance": 0.0006
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "GUM: JCGM 101:2008 Table 6. MCM: independent 2 × 10⁸-trial reference (validation/reference_values.json); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶.",
+      "tr": "GUM: JCGM 101:2008 Tablo 6. MCM: bağımsız 2 × 10⁸ denemeli referans (validation/reference_values.json); toleranslar M = 2 × 10⁶'da motor saçılımının ≈ 5 katı."
+    }
+  }
+}

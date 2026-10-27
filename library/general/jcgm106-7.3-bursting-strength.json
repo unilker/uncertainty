@@ -1,0 +1,67 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm106-7.3-bursting-strength",
+    "title": {
+      "en": "Bursting strength of a container: probability of conformity (JCGM 106 7.3)",
+      "tr": "Bir kabın patlama dayanımı: uygunluk olasılığı (JCGM 106 7.3)"
+    },
+    "description": {
+      "en": "JCGM 106:2012 7.3 Example 2: single lower tolerance limit B ≥ 490 kPa, destructive test b = 509.7 kPa with u = 8.6 kPa.",
+      "tr": "JCGM 106:2012 7.3 Örnek 2: tek alt tolerans sınırı B ≥ 490 kPa, tahribatlı deney b = 509,7 kPa, u = 8,6 kPa."
+    },
+    "explanation": [
+      {
+        "en": "For a lower limit z = (y − T_L)/u = (509.7 − 490)/8.6 = 2.3 and p_c = Φ(2.3) = 0.99 (Formulae 8, 10).",
+        "tr": "Alt sınır için z = (y − T_L)/u = (509,7 − 490)/8,6 = 2,3 ve p_c = Φ(2,3) = 0,99 (Formül 8, 10)."
+      },
+      {
+        "en": "The probability refers to the container before the test destroyed it: there is a 99 % probability that it conformed.",
+        "tr": "Olasılık, deneyin yok ettiği kabın deneyden önceki durumuna aittir: uygun olmuş olma olasılığı %99'dur."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment",
+        "section": "7.3.3, Example 2",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_106_2012_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm106",
+      "conformity-assessment",
+      "probability-of-conformity"
+    ]
+  },
+  "conformity": {
+    "quantity": "B",
+    "unit": "kPa",
+    "lower": 490,
+    "results": [
+      {
+        "name": "container",
+        "value": 509.7,
+        "u": 8.6
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "results": {
+        "container": {
+          "conformance_probability": {
+            "value": 0.99,
+            "tolerance": 0.005
+          },
+          "accepted": true
+        }
+      }
+    },
+    "reference": {
+      "en": "JCGM 106:2012 7.3, Example 2 (p_c = 0.99).",
+      "tr": "JCGM 106:2012 7.3, Örnek 2 (p_c = 0,99)."
+    }
+  }
+}

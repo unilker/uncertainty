@@ -1,0 +1,66 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex11-micropipette-tolerance",
+    "title": {
+      "en": "Bias of a 1 mL micropipette: chart with action limits at the tolerance (Nordtest TR 569 Example 11)",
+      "tr": "1 mL mikropipetin sapması: toleransta eylem sınırlı grafik (Nordtest TR 569 Örnek 11)"
+    },
+    "description": {
+      "en": "A fixed 1 mL micropipette tested ten times (Nordtest TR 626); the mean volume is plotted against the nominal value with action limits at the laboratory's tolerance of ± 1 %.",
+      "tr": "Sabit hacimli 1 mL mikropipet on kez test edilir (Nordtest TR 626); ortalama hacim, laboratuvarın ± %1 toleransındaki eylem sınırlarıyla nominal değere karşı çizilir."
+    },
+    "explanation": [
+      {
+        "en": "Central line the nominal value 1.00 mL; action limits 1.00 ± 0.01 mL; no warning limits (instrument qualification, Chapter 11).",
+        "tr": "Merkez çizgisi nominal değer 1,00 mL; eylem sınırları 1,00 ± 0,01 mL; uyarı sınırı yok (cihaz yeterliliği, Bölüm 11)."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 11",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "pipette",
+      "volume",
+      "action-limits-only",
+      "tolerance",
+      "instrument-qualification"
+    ]
+  },
+  "control_chart": {
+    "quantity": "mean volume of a 1 mL micropipette",
+    "unit": "mL",
+    "central_line": {
+      "reference": 1.0
+    },
+    "limits": {
+      "basis": "tolerance",
+      "tolerance": 0.01
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_action": {
+        "value": 0.99,
+        "tolerance": 1e-12
+      },
+      "upper_action": {
+        "value": 1.01,
+        "tolerance": 1e-12
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 11.",
+      "tr": "TR 569 Örnek 11."
+    }
+  }
+}

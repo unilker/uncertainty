@@ -1,0 +1,216 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s6-power-sensor-18ghz",
+    "title": {
+      "en": "Calibration of a power sensor at 18 GHz",
+      "tr": "Bir güç sensörünün 18 GHz'de kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S6: calibration factor of a thermistor power sensor against a standard sensor; mismatch terms are U-shaped.",
+      "tr": "EA-4/02 S6: bir termistör güç sensörünün kalibrasyon faktörünün standart sensöre karşı belirlenmesi; uyumsuzluk terimleri U biçimlidir."
+    },
+    "explanation": [
+      {
+        "en": "K_X = (K_S + δK_D) · (M_Sr·M_Xc)/(M_Sc·M_Xr) · p_Cr · p_Cc · p, where p is the observed power ratio.",
+        "tr": "K_X = (K_S + δK_D) · (M_Sr·M_Xc)/(M_Sc·M_Xr) · p_Cr · p_Cc · p; p gözlenen güç oranıdır."
+      },
+      {
+        "en": "Mismatch factors have limits 1 ± 2|Γ_G||Γ| and an arc sine (U-shaped) distribution because the phase is unknown (u = a/√2).",
+        "tr": "Uyumsuzluk çarpanlarının sınırları 1 ± 2|Γ_G||Γ|'dır; faz bilinmediği için ark sinüs (U biçimli) dağılım kullanılır (u = a/√2)."
+      },
+      {
+        "en": "p is a Type A estimate from three repeated measurements (2 degrees of freedom), which gives ν_eff ≈ 310.",
+        "tr": "p, üç tekrarlı ölçümden A tipi tahmindir (2 serbestlik derecesi); bu ν_eff ≈ 310 verir."
+      },
+      {
+        "en": "K_X = 0.933 ± 0.032 (k = 2).",
+        "tr": "K_X = 0,933 ± 0,032 (k = 2)."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S6",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "type-a",
+      "u-shaped",
+      "rf"
+    ],
+    "notes": [
+      {
+        "en": "The heading of the example says 19 GHz; the text and the result refer to 18 GHz.",
+        "tr": "Örneğin başlığında 19 GHz yazmaktadır; metin ve sonuç 18 GHz'e aittir."
+      },
+      {
+        "en": "With three observations the t distribution for p has ν = 2 and no finite variance; the Monte Carlo standard deviation is therefore unstable, while the coverage interval remains well defined (JCGM 101 6.4.9).",
+        "tr": "Üç gözlemle p için t dağılımı ν = 2'dir ve sonlu varyansı yoktur; bu nedenle Monte Carlo standart sapması kararsızdır, kapsam aralığı ise iyi tanımlıdır (JCGM 101 6.4.9)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "K_X",
+      "expression": "(K_S + dK_D) * M_Sr * M_Xc / (M_Sc * M_Xr) * p_Cr * p_Cc * p",
+      "description": {
+        "en": "Calibration factor of the sensor",
+        "tr": "Sensörün kalibrasyon faktörü"
+      }
+    },
+    "inputs": [
+      {
+        "name": "K_S",
+        "description": {
+          "en": "Calibration factor of the standard",
+          "tr": "Standardın kalibrasyon faktörü"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.957,
+          "expanded": 0.011,
+          "k": 2
+        }
+      },
+      {
+        "name": "dK_D",
+        "description": {
+          "en": "Drift of the standard",
+          "tr": "Standardın sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": -0.001,
+          "half_width": 0.002
+        }
+      },
+      {
+        "name": "M_Sr",
+        "description": {
+          "en": "Mismatch, standard, reference port",
+          "tr": "Uyumsuzluk, standart, referans kapısı"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 1.0,
+          "half_width": 0.0008
+        }
+      },
+      {
+        "name": "M_Sc",
+        "description": {
+          "en": "Mismatch, standard, 18 GHz",
+          "tr": "Uyumsuzluk, standart, 18 GHz"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 1.0,
+          "half_width": 0.014000000000000002
+        }
+      },
+      {
+        "name": "M_Xr",
+        "description": {
+          "en": "Mismatch, unknown, reference port",
+          "tr": "Uyumsuzluk, bilinmeyen, referans kapısı"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 1.0,
+          "half_width": 0.0008
+        }
+      },
+      {
+        "name": "M_Xc",
+        "description": {
+          "en": "Mismatch, unknown, 18 GHz",
+          "tr": "Uyumsuzluk, bilinmeyen, 18 GHz"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 1.0,
+          "half_width": 0.016800000000000002
+        }
+      },
+      {
+        "name": "p_Cr",
+        "description": {
+          "en": "Power meter, reference ratio",
+          "tr": "Güç ölçer, referans oranı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.00142
+        }
+      },
+      {
+        "name": "p_Cc",
+        "description": {
+          "en": "Power meter, 18 GHz ratio",
+          "tr": "Güç ölçer, 18 GHz oranı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.000142
+        }
+      },
+      {
+        "name": "p",
+        "description": {
+          "en": "Observed power ratio (3 measurements)",
+          "tr": "Gözlenen güç oranı (3 ölçüm)"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            0.977226924627,
+            0.967109233555,
+            0.983627227552
+          ]
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.933,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.01623,
+        "tolerance": 0.0001
+      },
+      "expanded_uncertainty": {
+        "value": 0.032,
+        "tolerance": 0.0005
+      },
+      "effective_dof": {
+        "value": 310.0,
+        "tolerance": 15.0
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S6.12–S6.13 (u = 0.0162, U = 0.032, ν_eff ≈ 310).",
+      "tr": "EA-4/02 M:2022 S6.12–S6.13 (u = 0,0162, U = 0,032, ν_eff ≈ 310)."
+    }
+  }
+}

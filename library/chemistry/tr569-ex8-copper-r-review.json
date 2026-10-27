@@ -1,0 +1,100 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex8-copper-r-review",
+    "title": {
+      "en": "Copper in water by ICP-OES: R-chart of duplicates and its review (Nordtest TR 569 Example 8)",
+      "tr": "ICP-OES ile suda bakır: paralel tayinlerin R-grafiği ve gözden geçirilmesi (Nordtest TR 569 Örnek 8)"
+    },
+    "description": {
+      "en": "Duplicates of test samples; preliminary mean range 0.11 mg/L, s_r = 0.0975 mg/L; s_r of the last 60 runs 0.0957 mg/L.",
+      "tr": "Numunelerin paralel tayinleri; ön ortalama açıklık 0,11 mg/L, s_r = 0,0975 mg/L; son 60 serinin s_r'si 0,0957 mg/L."
+    },
+    "explanation": [
+      {
+        "en": "Range chart of duplicates: central line the mean range, s = mean range/d₂ with d₂ = 1.128 (Equation 4), upper warning limit D_WL·s = 2.833 s and upper action limit D_AL·s = 3.686 s (Table 4, from ISO 8258).",
+        "tr": "Paralel tayinlerin açıklık grafiği: merkez çizgisi ortalama açıklık, s = ortalama açıklık/d₂, d₂ = 1,128 (Eşitlik 4); üst uyarı sınırı D_WL·s = 2,833 s ve üst eylem sınırı D_AL·s = 3,686 s (Tablo 4, ISO 8258'den)."
+      },
+      {
+        "en": "Warning limit 2.833·0.0975 = 0.28 mg/L, action limit 3.686·0.0975 = 0.36 mg/L.",
+        "tr": "Uyarı sınırı 2,833·0,0975 = 0,28 mg/L, eylem sınırı 3,686·0,0975 = 0,36 mg/L."
+      },
+      {
+        "en": "F = 0.0975²/0.0957² = 1.04 below the critical value 1.67 (ν = 60, 60): the repeatability has not changed. s_r exceeds s_Rw of the X-chart because the X-chart plots means of two results.",
+        "tr": "F = 0,0975²/0,0957² = 1,04, kritik değer 1,67'nin altında (ν = 60, 60): tekrarlanabilirlik değişmemiştir. X-grafiği iki sonucun ortalamalarını çizdiğinden s_r, X-grafiğinin s_Rw'sinden büyüktür."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 8",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "copper",
+      "water",
+      "icp-oes",
+      "r-chart",
+      "review",
+      "f-test"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Cu, duplicates of test samples",
+    "unit": "mg/L",
+    "chart": "range",
+    "replicates": 2,
+    "central_line": {
+      "mean": 0.11
+    },
+    "review": {
+      "previous": {
+        "sd": 0.0975,
+        "n": 60,
+        "dof": 60
+      },
+      "current": {
+        "sd": 0.0957,
+        "n": 60,
+        "dof": 60
+      }
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "sd": {
+        "value": 0.0975,
+        "tolerance": 5e-05
+      },
+      "upper_warning": {
+        "value": 0.28,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 0.36,
+        "tolerance": 0.005
+      },
+      "review": {
+        "f": {
+          "value": 1.038,
+          "tolerance": 0.0005
+        },
+        "f_critical": {
+          "value": 1.67,
+          "tolerance": 0.005
+        },
+        "sd_significant": false
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 8. The example prints F = 1.037; 0.0975²/0.0957² = 1.0380.",
+      "tr": "TR 569 Örnek 8. Örnek F = 1,037 yazar; 0,0975²/0,0957² = 1,0380'dir."
+    }
+  }
+}

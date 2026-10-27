@@ -1,0 +1,246 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm102-9.4-resistance-reactance-alternative",
+    "title": {
+      "en": "Resistance, reactance and impedance from simultaneous indication values, t covariance (JCGM 102 9.4)",
+      "tr": "Eşzamanlı gösterge değerlerinden direnç, reaktans ve empedans, t kovaryansı (JCGM 102 9.4)"
+    },
+    "description": {
+      "en": "JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated averages; GUM framework with the covariance matrix of the multivariate t-distribution and Monte Carlo method with the multivariate t-distribution.",
+      "tr": "JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan üç çıktı büyüklüğü; çok değişkenli t dağılımının kovaryans matrisi ile GUM yaklaşımı ve çok değişkenli t dağılımıyla Monte Carlo yöntemi."
+    },
+    "explanation": [
+      {
+        "en": "Ohm's law for an alternating current: R = (V/I) cos φ, X = (V/I) sin φ, Z = V/I (model 26), with n = 6 sets of simultaneous indication values of V, I and φ (Table 8; set 6 is the average of sets 1 to 5).",
+        "tr": "Alternatif akım için Ohm yasası: R = (V/I) cos φ, X = (V/I) sin φ, Z = V/I (model 26); V, I ve φ'nin n = 6 eşzamanlı gösterge değeri takımıyla (Tablo 8; 6. takım 1–5. takımların ortalamasıdır)."
+      },
+      {
+        "en": "The estimates are the averages; the matrix of sums of squares and products M gives the covariance matrix of the averages and the correlation coefficients of Table 10.",
+        "tr": "Tahminler ortalamalardır; kareler ve çarpımlar toplamı matrisi M, ortalamaların kovaryans matrisini ve Tablo 10'daki korelasyon katsayılarını verir."
+      },
+      {
+        "en": "Monte Carlo method: X is drawn from the multivariate t-distribution t_ν(x̄, S/n), ν = n − N = 3, S = M/ν (5.3.2.4). Because Z² = R² + X², U_y is singular in theory (9.4.2.3 note 2).",
+        "tr": "Monte Carlo yöntemi: X, çok değişkenli t dağılımından t_ν(x̄, S/n), ν = n − N = 3, S = M/ν olarak çekilir (5.3.2.4). Z² = R² + X² olduğundan U_y teoride tekildir (9.4.2.3 not 2)."
+      },
+      {
+        "en": "The alternative GUM evaluation uses V(X) = M/((ν − 2)n), which agrees with the Monte Carlo results (9.4.2.5–9.4.2.7).",
+        "tr": "Alternatif GUM değerlendirmesi V(X) = M/((ν − 2)n) kullanır; bu Monte Carlo sonuçlarıyla uyuşur (9.4.2.5–9.4.2.7)."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "JCGM 102:2011, Evaluation of measurement data — Supplement 2 to the “Guide to the expression of uncertainty in measurement” — Extension to any number of output quantities",
+        "section": "9.4 (Tables 8–11)",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_102_2011_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm102",
+      "multivariate",
+      "impedance",
+      "multivariate-t",
+      "indication-values"
+    ],
+    "notes": [
+      {
+        "en": "With ν = 3 the multivariate t-distribution has no fourth moment, so the Monte Carlo standard deviations converge slowly: with 10⁶ trials, seeds 1 to 6 give u(R) between 0.128 Ω and 0.136 Ω and r(R, X) between −0.580 and −0.600. The tolerances of the Monte Carlo values cover this spread; the printed MCM row is one such realization.",
+        "tr": "ν = 3 olduğunda çok değişkenli t dağılımının dördüncü momenti yoktur; bu yüzden Monte Carlo standart sapmaları yavaş yakınsar: 10⁶ denemeyle 1–6 tohumları u(R) için 0,128 Ω ile 0,136 Ω, r(R, X) için −0,580 ile −0,600 arasında değerler verir. Monte Carlo değerlerinin toleransları bu yayılımı kapsar; basılı MCM satırı bu tür bir gerçekleşmedir."
+      },
+      {
+        "en": "Table 8 prints set 6 as φ = 1.0445 rad, the rounded average of sets 1 to 5 (1.04446). With the rounded value the estimate of R is 127.7307 Ω instead of the printed 127.732 Ω; the project uses 1.04446 rad, the value of Table 9 (research log F51).",
+        "tr": "Tablo 8, 6. takımı φ = 1,0445 rad olarak, yani 1–5. takımların yuvarlanmış ortalaması (1,04446) olarak basar. Yuvarlanmış değerle R'nin tahmini basılı 127,732 Ω yerine 127,7307 Ω olur; proje Tablo 9'daki değer olan 1,04446 rad'ı kullanır (araştırma günlüğü F51)."
+      }
+    ]
+  },
+  "multivariate": {
+    "outputs": [
+      {
+        "name": "R",
+        "unit": "Ω",
+        "expression": "V/(I*1e-3)*cos(phi)"
+      },
+      {
+        "name": "X",
+        "unit": "Ω",
+        "expression": "V/(I*1e-3)*sin(phi)"
+      },
+      {
+        "name": "Z",
+        "unit": "Ω",
+        "expression": "V/(I*1e-3)"
+      }
+    ],
+    "indications": [
+      {
+        "inputs": [
+          "V",
+          "I",
+          "phi"
+        ],
+        "units": [
+          "V",
+          "mA",
+          "rad"
+        ],
+        "values": [
+          [
+            5.007,
+            19.663,
+            1.0456
+          ],
+          [
+            4.994,
+            19.639,
+            1.0438
+          ],
+          [
+            5.005,
+            19.64,
+            1.0468
+          ],
+          [
+            4.99,
+            19.685,
+            1.0428
+          ],
+          [
+            4.999,
+            19.678,
+            1.0433
+          ],
+          [
+            4.999,
+            19.661,
+            1.04446
+          ]
+        ],
+        "covariance": "t"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.95
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1,
+      "validation_ndig": 2
+    }
+  },
+  "expected": {
+    "multivariate": {
+      "gum": {
+        "estimate": {
+          "R": {
+            "value": 127.732,
+            "tolerance": 0.0005
+          },
+          "X": {
+            "value": 219.847,
+            "tolerance": 0.0005
+          },
+          "Z": {
+            "value": 254.26,
+            "tolerance": 0.0005
+          }
+        },
+        "standard_uncertainty": {
+          "R": {
+            "value": 0.13,
+            "tolerance": 0.0005
+          },
+          "X": {
+            "value": 0.54,
+            "tolerance": 0.0005
+          },
+          "Z": {
+            "value": 0.431,
+            "tolerance": 0.0005
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "R",
+              "X"
+            ],
+            "value": -0.588,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "R",
+              "Z"
+            ],
+            "value": -0.485,
+            "tolerance": 0.0005
+          },
+          {
+            "between": [
+              "X",
+              "Z"
+            ],
+            "value": 0.99251,
+            "tolerance": 5e-06
+          }
+        ]
+      },
+      "mcm": {
+        "estimate": {
+          "R": {
+            "value": 127.732,
+            "tolerance": 0.002
+          },
+          "X": {
+            "value": 219.847,
+            "tolerance": 0.004
+          },
+          "Z": {
+            "value": 254.26,
+            "tolerance": 0.004
+          }
+        },
+        "standard_uncertainty": {
+          "R": {
+            "value": 0.13,
+            "tolerance": 0.007
+          },
+          "X": {
+            "value": 0.536,
+            "tolerance": 0.012
+          },
+          "Z": {
+            "value": 0.429,
+            "tolerance": 0.008
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "R",
+              "X"
+            ],
+            "value": -0.587,
+            "tolerance": 0.015
+          },
+          {
+            "between": [
+              "R",
+              "Z"
+            ],
+            "value": -0.482,
+            "tolerance": 0.015
+          }
+        ]
+      }
+    },
+    "reference": {
+      "en": "JCGM 102:2011 Table 11, rows Alt. GUF and MCM (M = 10⁶).",
+      "tr": "JCGM 102:2011 Tablo 11, Alt. GUF ve MCM satırları (M = 10⁶)."
+    }
+  }
+}

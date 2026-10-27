@@ -1,0 +1,8 @@
+// The Rust engine (crate uncertainty-ffi) is linked statically into the
+// application; build it first with app/tool/build_engine_apple.sh macos.
+// -force_load keeps every object of the library, -u keeps the entry points
+// that the Dart code looks up with DynamicLibrary.process(), and global
+// symbols are not stripped.
+UNCERTAINTY_ENGINE = $(PROJECT_DIR)/../../target/apple/macos/libuncertainty_ffi.a
+OTHER_LDFLAGS = $(inherited) -force_load "$(UNCERTAINTY_ENGINE)" -Wl,-u,_uc_version -Wl,-u,_uc_template -Wl,-u,_uc_validate -Wl,-u,_uc_evaluate -Wl,-u,_uc_free
+STRIP_STYLE = non-global

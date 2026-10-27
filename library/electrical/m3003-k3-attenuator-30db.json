@@ -1,0 +1,194 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k3-attenuator-30db",
+    "title": {
+      "en": "30 dB coaxial attenuator at 10 GHz (UKAS M3003 K.3)",
+      "tr": "10 GHz'de 30 dB koaksiyel zayıflatıcı (UKAS M3003 K.3)"
+    },
+    "description": {
+      "en": "Calibration of a coaxial step attenuator by IF substitution; the mismatch term dominates.",
+      "tr": "Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyumsuzluk terimi baskındır."
+    },
+    "explanation": [
+      {
+        "en": "A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), dual-channel 30 MHz IF substitution at 10 GHz.",
+        "tr": "A_X = A_b − A_a + δA_IF + δD_IF + δL_M + δR_D + δM + δA_L (K.3.1), 10 GHz'de çift kanallı 30 MHz IF yer değiştirme."
+      },
+      {
+        "en": "Four readings 30.04, 30.07, 30.03, 30.06 dB: mean 30.050 dB, s = 0.018 dB, u = 0.009 dB (3 degrees of freedom).",
+        "tr": "Dört okuma 30,04, 30,07, 30,03, 30,06 dB: ortalama 30,050 dB, s = 0,018 dB, u = 0,009 dB (3 serbestlik derecesi)."
+      },
+      {
+        "en": "Mismatch standard uncertainty 0.022 dB as printed in the budget (K.3.9); u_c = 0.0245 dB; A_X = 30.050 dB ± 0.049 dB (k = 2).",
+        "tr": "Bütçedeki gibi uyumsuzluk standart belirsizliği 0,022 dB (K.3.9); u_c = 0,0245 dB; A_X = 30,050 dB ± 0,049 dB (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.3",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "rf",
+      "attenuation",
+      "mismatch",
+      "type-a"
+    ],
+    "notes": [
+      {
+        "en": "Research log F57: Formula E5 with the reflection and scattering coefficients of K.3.6 gives a mismatch standard deviation of 0.0170 dB, not the 0.022 dB of the budget; see the project m3003-k3-attenuator-30db-mismatch-e5.",
+        "tr": "Araştırma günlüğü F57: K.3.6'daki yansıma ve saçılma katsayılarıyla E5 formülü 0,022 dB değil 0,0170 dB uyumsuzluk standart sapması verir; m3003-k3-attenuator-30db-mismatch-e5 projesine bakınız."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "A_X",
+      "unit": "dB",
+      "expression": "A_obs + dA_IF + dD_IF + dL_M + dR_D + dM + dA_L",
+      "description": {
+        "en": "Attenuation of the 30 dB step at 10 GHz",
+        "tr": "10 GHz'de 30 dB kademenin zayıflaması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "A_obs",
+        "description": {
+          "en": "Indicated attenuation A_b − A_a, four measurements",
+          "tr": "Gösterilen zayıflama A_b − A_a, dört ölçüm"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            30.04,
+            30.07,
+            30.03,
+            30.06
+          ]
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dA_IF",
+        "description": {
+          "en": "Calibration of the reference IF attenuator (U = 0.005 dB, k = 2)",
+          "tr": "Referans IF zayıflatıcının kalibrasyonu (U = 0,005 dB, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.005,
+          "k": 2
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dD_IF",
+        "description": {
+          "en": "Drift of the IF attenuator",
+          "tr": "IF zayıflatıcının sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.002
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dL_M",
+        "description": {
+          "en": "Mixer non-linearity (±0.002 dB per 10 dB)",
+          "tr": "Karıştırıcı doğrusal olmama (10 dB başına ±0,002 dB)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.006
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dR_D",
+        "description": {
+          "en": "Resolution at the 0 dB and 30 dB readings, two rectangles combined",
+          "tr": "0 dB ve 30 dB okumalarında çözünürlük, iki dikdörtgenin birleşimi"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 0.01
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dM",
+        "description": {
+          "en": "Mismatch (Harris and Warner, E.9.5)",
+          "tr": "Uyumsuzluk (Harris ve Warner, E.9.5)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.022
+        },
+        "unit": "dB"
+      },
+      {
+        "name": "dA_L",
+        "description": {
+          "en": "Signal leakage",
+          "tr": "Sinyal kaçağı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.001
+        },
+        "unit": "dB"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 30.05,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.0245,
+        "tolerance": 0.0001
+      },
+      "expanded_uncertainty": {
+        "value": 0.0491,
+        "tolerance": 5e-05
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.3.9–K.3.10: u_c = 0.0245 dB (0.024 57 unrounded), U = 0.0491 dB; 30.050 dB ± 0.049 dB.",
+      "tr": "UKAS M3003 6. baskı K.3.9–K.3.10: u_c = 0,0245 dB (yuvarlanmamış 0,024 57), U = 0,0491 dB; 30,050 dB ± 0,049 dB."
+    }
+  }
+}

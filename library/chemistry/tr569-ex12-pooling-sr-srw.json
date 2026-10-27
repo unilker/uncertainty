@@ -1,0 +1,142 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex12-pooling-sr-srw",
+    "title": {
+      "en": "Repeatability and within-laboratory reproducibility from replicate control results (Nordtest TR 569 Example 12)",
+      "tr": "Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrarüretilebilirlik (Nordtest TR 569 Örnek 12)"
+    },
+    "description": {
+      "en": "Three replicates of a QC sample on each of eight days. The standard deviation of all 24 results together is too low an estimate of s_Rw and would give control limits that are too narrow.",
+      "tr": "Sekiz günün her birinde bir kalite kontrol numunesinin üç tekrarı. 24 sonucun birlikte standart sapması s_Rw için fazla düşük bir tahmindir ve çok dar kontrol sınırları verir."
+    },
+    "explanation": [
+      {
+        "en": "s_r: the standard deviations of the eight days (0.058 to 0.252) pooled by Equation 10: 0.15.",
+        "tr": "s_r: sekiz günün standart sapmaları (0,058 – 0,252) Eşitlik 10 ile birleştirilir: 0,15."
+      },
+      {
+        "en": "Simplified s_Rw: the standard deviations of the first, second and third results over the days (0.226, 0.342, 0.226) pooled by Equation 10: 0.270.",
+        "tr": "Basitleştirilmiş s_Rw: günler boyunca birinci, ikinci ve üçüncü sonuçların standart sapmaları (0,226, 0,342, 0,226) Eşitlik 10 ile birleştirilir: 0,270."
+      },
+      {
+        "en": "One-way analysis of variance: s_r = 0.1541, between-day s_I = 0.2246, s_Rw = √(s_r² + s_I²) = 0.272 (footnote 24).",
+        "tr": "Tek yönlü varyans analizi: s_r = 0,1541, günler arası s_I = 0,2246, s_Rw = √(s_r² + s_I²) = 0,272 (dipnot 24)."
+      },
+      {
+        "en": "The X-chart of the daily means has s = √(s_I² + s_r²/3); its limits follow from the eight means.",
+        "tr": "Günlük ortalamaların X-grafiğinin s'si √(s_I² + s_r²/3)'tür; sınırları sekiz ortalamadan çıkar."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 12 and footnote 24",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "pooling",
+      "anova",
+      "repeatability",
+      "intermediate-precision",
+      "raw-data"
+    ],
+    "notes": [
+      {
+        "en": "Research log F53: footnote 24 gives s_Rw = √(0.01541² + 0.02246²) = 0.0272; the values are s_r = 0.1541, s_I = 0.2246 and s_Rw = 0.272 as in the text.",
+        "tr": "Araştırma günlüğü F53: dipnot 24 s_Rw = √(0,01541² + 0,02246²) = 0,0272 verir; değerler metindeki gibi s_r = 0,1541, s_I = 0,2246 ve s_Rw = 0,272'dir."
+      }
+    ]
+  },
+  "control_chart": {
+    "quantity": "QC sample",
+    "runs": [
+      [
+        7.1,
+        7.1,
+        7.0
+      ],
+      [
+        6.9,
+        6.7,
+        6.8
+      ],
+      [
+        6.6,
+        6.5,
+        6.9
+      ],
+      [
+        6.7,
+        6.5,
+        6.6
+      ],
+      [
+        7.0,
+        6.9,
+        6.6
+      ],
+      [
+        7.3,
+        7.4,
+        7.3
+      ],
+      [
+        7.1,
+        7.1,
+        6.9
+      ],
+      [
+        7.0,
+        6.5,
+        6.8
+      ]
+    ],
+    "labels": [
+      "day 1",
+      "day 2",
+      "day 3",
+      "day 4",
+      "day 5",
+      "day 6",
+      "day 7",
+      "day 8"
+    ]
+  },
+  "expected": {
+    "control_chart": {
+      "precision": {
+        "s_r_pooled": {
+          "value": 0.15,
+          "tolerance": 0.005
+        },
+        "s_rw_simplified": {
+          "value": 0.27,
+          "tolerance": 0.0005
+        },
+        "s_r": {
+          "value": 0.1541,
+          "tolerance": 5e-05
+        },
+        "s_between": {
+          "value": 0.2246,
+          "tolerance": 0.0001
+        },
+        "s_rw": {
+          "value": 0.272,
+          "tolerance": 0.0005
+        }
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 12; footnote 24 prints √(0.01541² + 0.02246²) = 0.0272, ten times too small (research log F53).",
+      "tr": "TR 569 Örnek 12; dipnot 24 √(0,01541² + 0,02246²) = 0,0272 yazar, on kat küçük (araştırma günlüğü F53)."
+    }
+  }
+}

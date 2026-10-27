@@ -1,0 +1,220 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k2-power-sensor-18ghz",
+    "title": {
+      "en": "Coaxial power sensor at 18 GHz (UKAS M3003 K.2)",
+      "tr": "18 GHz'de koaksiyel güç sensörü (UKAS M3003 K.2)"
+    },
+    "description": {
+      "en": "Calibration factor of an unknown power sensor by substitution against a standard sensor on a monitored source; four connections.",
+      "tr": "Bilinmeyen bir güç sensörünün kalibrasyon faktörü, izlenen bir kaynakta standart sensörle yer değiştirme yöntemiyle; dört bağlantı."
+    },
+    "explanation": [
+      {
+        "en": "K_X = (K_S + δD_S)·f_DC·f_M·f_REF (K.2.1). M3003 combines all terms in percentage points of the calibration factor, so the model adds them to the observed K_X.",
+        "tr": "K_X = (K_S + δD_S)·f_DC·f_M·f_REF (K.2.1). M3003 tüm terimleri kalibrasyon faktörünün yüzde puanı olarak birleştirir; model bu nedenle onları gözlenen K_X'e ekler."
+      },
+      {
+        "en": "Mismatch limits 200·|Γ_G|·|Γ| %: 0.08 % at 50 MHz for both sensors, 1.40 % (standard) and 1.68 % (unknown) at 18 GHz, U-shaped (arc sine, u = a/√2).",
+        "tr": "Uyumsuzluk sınırları 200·|Γ_G|·|Γ| %: her iki sensör için 50 MHz'de %0,08, 18 GHz'de %1,40 (standart) ve %1,68 (bilinmeyen), U biçimli (ark sinüs, u = a/√2)."
+      },
+      {
+        "en": "Four values 93.45, 92.20, 93.95, 93.02 %: mean 93.16 %, s = 0.7415 %, u = s/√4 = 0.37 % (3 degrees of freedom).",
+        "tr": "Dört değer 93,45, 92,20, 93,95, 93,02 %: ortalama %93,16, s = %0,7415, u = s/√4 = %0,37 (3 serbestlik derecesi)."
+      },
+      {
+        "en": "u_c = 1.69 %, dominated by the 18 GHz mismatch terms; K_X = 93.2 % ± 3.4 % (k = 2).",
+        "tr": "u_c = %1,69, 18 GHz uyumsuzluk terimleri baskındır; K_X = %93,2 ± %3,4 (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.2",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "rf",
+      "power",
+      "mismatch",
+      "u-shaped",
+      "type-a"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "K_X",
+      "unit": "%",
+      "expression": "K_obs + dK_S + dD_S + d_DC + d_REF + M_1 + M_2 + M_3 + M_4",
+      "description": {
+        "en": "Calibration factor of the unknown sensor",
+        "tr": "Bilinmeyen sensörün kalibrasyon faktörü"
+      }
+    },
+    "inputs": [
+      {
+        "name": "K_obs",
+        "description": {
+          "en": "Observed calibration factor, four connections",
+          "tr": "Gözlenen kalibrasyon faktörü, dört bağlantı"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            93.45,
+            92.2,
+            93.95,
+            93.02
+          ]
+        },
+        "unit": "%"
+      },
+      {
+        "name": "dK_S",
+        "description": {
+          "en": "Calibration factor of the standard (U = 1.1 %, k = 2)",
+          "tr": "Standardın kalibrasyon faktörü (U = %1,1, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 1.1,
+          "k": 2
+        },
+        "unit": "%"
+      },
+      {
+        "name": "dD_S",
+        "description": {
+          "en": "Drift of the standard since calibration",
+          "tr": "Kalibrasyondan beri standardın sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.2
+        },
+        "unit": "%"
+      },
+      {
+        "name": "d_DC",
+        "description": {
+          "en": "Instrumentation linearity (U = 0.1 %, k = 2)",
+          "tr": "Ölçüm düzeni doğrusallığı (U = %0,1, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.1,
+          "k": 2
+        },
+        "unit": "%"
+      },
+      {
+        "name": "d_REF",
+        "description": {
+          "en": "Stability of the 50 MHz reference",
+          "tr": "50 MHz referansın kararlılığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.2
+        },
+        "unit": "%"
+      },
+      {
+        "name": "M_1",
+        "description": {
+          "en": "Mismatch, standard sensor at 50 MHz",
+          "tr": "Uyumsuzluk, standart sensör, 50 MHz"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 0.08
+        },
+        "unit": "%"
+      },
+      {
+        "name": "M_2",
+        "description": {
+          "en": "Mismatch, unknown sensor at 50 MHz",
+          "tr": "Uyumsuzluk, bilinmeyen sensör, 50 MHz"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 0.08
+        },
+        "unit": "%"
+      },
+      {
+        "name": "M_3",
+        "description": {
+          "en": "Mismatch, standard sensor at 18 GHz",
+          "tr": "Uyumsuzluk, standart sensör, 18 GHz"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 1.4
+        },
+        "unit": "%"
+      },
+      {
+        "name": "M_4",
+        "description": {
+          "en": "Mismatch, unknown sensor at 18 GHz",
+          "tr": "Uyumsuzluk, bilinmeyen sensör, 18 GHz"
+        },
+        "distribution": {
+          "type": "arcsine",
+          "value": 0.0,
+          "half_width": 1.68
+        },
+        "unit": "%"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 93.16,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 1.69,
+        "tolerance": 0.005
+      },
+      "expanded_uncertainty": {
+        "value": 3.39,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.2.9–K.2.10: u_c = 1.69 %, U = 3.39 %; 93.2 % ± 3.4 %.",
+      "tr": "UKAS M3003 6. baskı K.2.9–K.2.10: u_c = %1,69, U = %3,39; %93,2 ± %3,4."
+    }
+  }
+}

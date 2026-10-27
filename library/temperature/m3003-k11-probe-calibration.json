@@ -1,0 +1,181 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k11-probe-calibration",
+    "title": {
+      "en": "Calibration of a PT100 probe in a dry block against a reference probe (UKAS M3003 K.11, first budget)",
+      "tr": "Kuru blokta referans proba karşı PT100 prob kalibrasyonu (UKAS M3003 K.11, birinci bütçe)"
+    },
+    "description": {
+      "en": "Error of the laboratory probe L at 20.4 °C against the reference probe S, whose calibration function is ΔT_S = 0.000 01·I_S + 0.0108 °C.",
+      "tr": "Laboratuvar probu L'nin 20,4 °C'de, kalibrasyon fonksiyonu ΔT_S = 0,000 01·I_S + 0,0108 °C olan referans prob S'ye karşı hatası."
+    },
+    "explanation": [
+      {
+        "en": "ΔT_L = I_L − (I_S − ΔT_S − ΔT_SL) − δΔT_L (K.11.2): resolution 0.1 °C (L) and 0.01 °C (S), calibration of S U = 0.024 °C (k = 2), fit ±0.005 °C, drift ±0.008 °C, block gradients ±0.048 °C, repeatability 0.001 23 °C (ν = 24).",
+        "tr": "ΔT_L = I_L − (I_S − ΔT_S − ΔT_SL) − δΔT_L (K.11.2): çözünürlük 0,1 °C (L) ve 0,01 °C (S), S'nin kalibrasyonu U = 0,024 °C (k = 2), uydurma ±0,005 °C, sürüklenme ±0,008 °C, blok gradyanları ±0,048 °C, tekrarlanabilirlik 0,001 23 °C (ν = 24)."
+      },
+      {
+        "en": "I_S = 19.979 °C is derived so that ΔT_L = 0.432 °C at I_L = 20.4 °C, as in the table of K.11.10 (the indication of S is not printed).",
+        "tr": "I_S = 19,979 °C, K.11.10 tablosundaki gibi I_L = 20,4 °C'de ΔT_L = 0,432 °C olacak biçimde türetilmiştir (S'nin göstergesi basılmamıştır)."
+      },
+      {
+        "en": "u_c = 0.042 25 °C, U = 0.084 °C (k = 2); this U enters the second budget as the calibration uncertainty of L.",
+        "tr": "u_c = 0,042 25 °C, U = 0,084 °C (k = 2); bu U ikinci bütçeye L'nin kalibrasyon belirsizliği olarak girer."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.11 (K.11.9)",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "temperature",
+      "pt100",
+      "dry-block"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dT_L",
+      "unit": "°C",
+      "expression": "I_L - (I_S - (0.00001*I_S + 0.0108 + dT_cal + dT_fit + dT_drift) - dT_SL) - d_rep",
+      "description": {
+        "en": "Error of probe L",
+        "tr": "L probunun hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_L",
+        "description": {
+          "en": "Indication of probe L (0.1 °C resolution)",
+          "tr": "L probunun göstergesi (0,1 °C çözünürlük)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 20.4,
+          "half_width": 0.05
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "I_S",
+        "description": {
+          "en": "Indication of reference probe S (0.01 °C resolution; derived value)",
+          "tr": "Referans prob S'nin göstergesi (0,01 °C çözünürlük; türetilmiş değer)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 19.979,
+          "half_width": 0.005
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_cal",
+        "description": {
+          "en": "Calibration of S (U = 0.024 °C, k = 2)",
+          "tr": "S'nin kalibrasyonu (U = 0,024 °C, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.024,
+          "k": 2
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_fit",
+        "description": {
+          "en": "Linear fit of the calibration data of S",
+          "tr": "S'nin kalibrasyon verilerine doğrusal uydurma"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.005
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_drift",
+        "description": {
+          "en": "Drift of S",
+          "tr": "S'nin sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.008
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "dT_SL",
+        "description": {
+          "en": "Gradients and installation in the block",
+          "tr": "Blokta gradyanlar ve montaj"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.048
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "d_rep",
+        "description": {
+          "en": "Repeatability (s = 0.001 23 °C, ν = 24)",
+          "tr": "Tekrarlanabilirlik (s = 0,001 23 °C, ν = 24)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.00123,
+          "pooled_dof": 24,
+          "n": 1
+        },
+        "unit": "°C"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "standard_uncertainty": {
+        "value": 0.04225,
+        "tolerance": 5e-06
+      },
+      "expanded_uncertainty": {
+        "value": 0.08449,
+        "tolerance": 1e-05
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.11.9: u_c = 0.042 25 °C, U = 0.084 49 °C.",
+      "tr": "UKAS M3003 6. baskı K.11.9: u_c = 0,042 25 °C, U = 0,084 49 °C."
+    }
+  }
+}

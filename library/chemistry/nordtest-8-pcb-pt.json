@@ -1,0 +1,120 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-8-pcb-pt",
+    "title": {
+      "en": "PCB in sediment: control sample and proficiency tests",
+      "tr": "Sedimentte PCB: kontrol numunesi ve yeterlilik testleri"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §8.3 Example D.",
+      "tr": "Nordtest TR 537 §8.3 Örnek D."
+    },
+    "explanation": [
+      {
+        "en": "Biases −2, −12, −5 %: RMS_bias = 7.6 %; u(C_ref,i) 2.7, 2.5, 3.5 % → 2.9 %; u(bias) = 8.1 %.",
+        "tr": "Sapmalar −2, −12, −5 %: RMS_bias = %7,6; u(C_ref,i) %2,7, 2,5, 3,5 → %2,9; u(bias) = %8,1."
+      },
+      {
+        "en": "u_c = √(8² + 8.1²) = 11.4 %, U = 22.8 % → 23 %.",
+        "tr": "u_c = √(8² + 8,1²) = %11,4, U = %22,8 → %23."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§8.3 Example D",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "proficiency-tests"
+    ]
+  },
+  "topdown": {
+    "quantity": "w(ΣPCB₇)",
+    "unit": "µg/kg",
+    "precision": [
+      {
+        "name": "u(Rw)",
+        "description": {
+          "en": "Control chart of an in-house material",
+          "tr": "Laboratuvar içi malzemenin kontrol grafiği"
+        },
+        "data": {
+          "type": "given",
+          "sd_percent": 8.0
+        }
+      }
+    ],
+    "bias": [
+      {
+        "name": "u(bias)",
+        "kind": "proficiency_tests",
+        "references": [
+          {
+            "label": "PT 1",
+            "bias_percent": -2.0,
+            "u_reference_percent": 2.7
+          },
+          {
+            "label": "PT 2",
+            "bias_percent": -12.0,
+            "u_reference_percent": 2.5
+          },
+          {
+            "label": "PT 3",
+            "bias_percent": -5.0,
+            "u_reference_percent": 3.5
+          }
+        ]
+      }
+    ]
+  },
+  "reporting": {
+    "decimal_places": 0,
+    "rounding": "up"
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "u(bias)": {
+          "value": 8.1,
+          "tolerance": 0.05
+        }
+      },
+      "bias": {
+        "u(bias)": {
+          "rms": {
+            "value": 7.6,
+            "tolerance": 0.01
+          },
+          "mean_u_reference": {
+            "value": 2.9,
+            "tolerance": 0.005
+          }
+        }
+      },
+      "levels": [
+        {
+          "relative_standard_percent": {
+            "value": 11.4,
+            "tolerance": 0.01
+          },
+          "relative_expanded_percent": {
+            "value": 22.8,
+            "tolerance": 0.03
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §8.3 Example D (RMS_bias 7.6 %, u(bias) 8.1 %, u_c 11.4 %, U 22.8 → 23 %).",
+      "tr": "Nordtest TR 537 §8.3 Örnek D (RMS_bias %7,6, u(bias) %8,1, u_c %11,4, U %22,8 → %23)."
+    }
+  }
+}

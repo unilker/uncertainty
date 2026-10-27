@@ -1,0 +1,77 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex9-zinc-procedural-blank",
+    "title": {
+      "en": "Zinc in hydrogen peroxide: X-chart of a procedural blank (Nordtest TR 569 Example 9)",
+      "tr": "Hidrojen peroksitte çinko: yöntem körünün X-grafiği (Nordtest TR 569 Örnek 9)"
+    },
+    "description": {
+      "en": "Ultrapure water taken through the whole procedure (evaporation of 50 mL, HCl, dilution to 5 mL, ICP-OES) to detect contamination; negative values are plotted as well.",
+      "tr": "Kirlenmeyi saptamak için tüm işlemden geçirilen ultra saf su (50 mL buharlaştırma, HCl, 5 mL'ye seyreltme, ICP-OES); negatif değerler de çizilir."
+    },
+    "explanation": [
+      {
+        "en": "Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).",
+        "tr": "X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7)."
+      },
+      {
+        "en": "The lower limits are negative: −0.051 mg/L and −0.096 mg/L.",
+        "tr": "Alt sınırlar negatiftir: −0,051 mg/L ve −0,096 mg/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 9",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "zinc",
+      "blank",
+      "icp-oes",
+      "x-chart"
+    ]
+  },
+  "control_chart": {
+    "quantity": "Zn, procedural blank",
+    "unit": "mg/L",
+    "central_line": {
+      "mean": 0.039
+    },
+    "limits": {
+      "basis": "statistical",
+      "sd": 0.045
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_warning": {
+        "value": -0.051,
+        "tolerance": 1e-09
+      },
+      "upper_warning": {
+        "value": 0.129,
+        "tolerance": 1e-09
+      },
+      "lower_action": {
+        "value": -0.096,
+        "tolerance": 1e-09
+      },
+      "upper_action": {
+        "value": 0.174,
+        "tolerance": 1e-09
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 9.",
+      "tr": "TR 569 Örnek 9."
+    }
+  }
+}

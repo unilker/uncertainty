@@ -1,0 +1,308 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k8-pressure-indicator-2mpa",
+    "title": {
+      "en": "Digital pressure indicator at 2 MPa against a dead weight tester (UKAS M3003 K.8)",
+      "tr": "Ölü ağırlık test cihazına karşı 2 MPa'da dijital basınç göstergesi (UKAS M3003 K.8)"
+    },
+    "description": {
+      "en": "Error of a DPI at 2 MPa; the budget is in relative terms (ppm), as is the convention for pressure.",
+      "tr": "2 MPa'da bir dijital basınç göstergesinin hatası; bütçe, basınçta alışıldığı gibi göreli (ppm) olarak verilir."
+    },
+    "explanation": [
+      {
+        "en": "Generated pressure P_X = 2.000 806 MPa from the masses, the effective area A₀ = 80.6516 mm², gravity, buoyancy and fluid head (K.8.15); indication I_X = 2.000 84 MPa.",
+        "tr": "Kütlelerden, etkin alan A₀ = 80,6516 mm², yerçekimi, kaldırma kuvveti ve sıvı yükünden üretilen basınç P_X = 2,000 806 MPa (K.8.15); gösterge I_X = 2,000 84 MPa."
+      },
+      {
+        "en": "Relative contributions to P_X: area 32.2 ppm (k = 2) and drift ±30 ppm; distortion 1.0 ppm (k = 2); masses 7.3 ppm (k = 2, as in the budget) and drift ±7.6 ppm; piston temperature ±0.5 °C × 23 ppm/°C; gravity 3 ppm (k = 2); buoyancy ±13 ppm; fluid head ±13.5 ppm; other fluid effects ±2 ppm; verticality ±3.4 ppm.",
+        "tr": "P_X'e göreli katkılar: alan 32,2 ppm (k = 2) ve sürüklenme ±30 ppm; deformasyon 1,0 ppm (k = 2); kütleler 7,3 ppm (k = 2, bütçedeki gibi) ve sürüklenme ±7,6 ppm; piston sıcaklığı ±0,5 °C × 23 ppm/°C; yerçekimi 3 ppm (k = 2); kaldırma kuvveti ±13 ppm; sıvı yükü ±13,5 ppm; diğer sıvı etkileri ±2 ppm; düşeylik ±3,4 ppm."
+      },
+      {
+        "en": "Indication: rounding ±50 ppm (200 Pa steps) and repeatability 16 ppm (ν = 9, one reading). u_c = 43.0 ppm; ΔI_X = 17 ppm ± 86 ppm (k = 2), i.e. 34 Pa ± 170 Pa.",
+        "tr": "Gösterge: yuvarlama ±50 ppm (200 Pa adım) ve tekrarlanabilirlik 16 ppm (ν = 9, tek okuma). u_c = 43,0 ppm; ΔI_X = 17 ppm ± 86 ppm (k = 2), yani 34 Pa ± 170 Pa."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "pressure",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.8",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "pressure",
+      "dead-weight-tester",
+      "relative"
+    ],
+    "notes": [
+      {
+        "en": "Research log F60: K.8.5.1 says the relative mass uncertainty of 7.3 ppm is to be treated as the semi-range of a rectangular distribution, but the budget treats it as an expanded uncertainty with k = 2 (u = 3.65 ppm instead of 4.21 ppm). The effect on u_c is below its last printed digit (43.0 ppm either way).",
+        "tr": "Araştırma günlüğü F60: K.8.5.1, 7,3 ppm'lik göreli kütle belirsizliğinin dikdörtgen dağılımın yarı genişliği olarak alınacağını söyler; bütçe ise onu k = 2 ile genişletilmiş belirsizlik olarak alır (u = 4,21 ppm yerine 3,65 ppm). u_c'ye etkisi son basılı basamağın altındadır (her iki durumda 43,0 ppm)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "e",
+      "unit": "ppm",
+      "expression": "1e6*(I_X - P_X)/P_X - (A_cal + a_p + A_drift + m_cal + m_drift + lambda*dt + g + air + head + fluid + level) + d_res + d_rep",
+      "description": {
+        "en": "Relative error of indication of the DPI",
+        "tr": "Dijital basınç göstergesinin göreli gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "I_X",
+        "description": {
+          "en": "Indication",
+          "tr": "Gösterge"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 2.00084
+        },
+        "unit": "MPa"
+      },
+      {
+        "name": "P_X",
+        "description": {
+          "en": "Generated pressure",
+          "tr": "Üretilen basınç"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 2.000806
+        },
+        "unit": "MPa"
+      },
+      {
+        "name": "A_cal",
+        "description": {
+          "en": "Effective area, calibration (U = 32.2 ppm, k = 2)",
+          "tr": "Etkin alan, kalibrasyon (U = 32,2 ppm, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 32.2,
+          "k": 2
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "a_p",
+        "description": {
+          "en": "Distortion coefficient at 2 MPa (U = 1.0 ppm, k = 2)",
+          "tr": "2 MPa'da deformasyon katsayısı (U = 1,0 ppm, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 1.0,
+          "k": 2
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "A_drift",
+        "description": {
+          "en": "Drift of the effective area",
+          "tr": "Etkin alanın sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 30.0
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "m_cal",
+        "description": {
+          "en": "Calibration of the total load (U = 7.3 ppm, k = 2)",
+          "tr": "Toplam yükün kalibrasyonu (U = 7,3 ppm, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 7.3,
+          "k": 2
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "m_drift",
+        "description": {
+          "en": "Drift of the total load",
+          "tr": "Toplam yükün sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 7.6
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "lambda",
+        "description": {
+          "en": "Temperature coefficient of piston and cylinder",
+          "tr": "Piston ve silindirin sıcaklık katsayısı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 23.0
+        },
+        "unit": "ppm/°C"
+      },
+      {
+        "name": "dt",
+        "description": {
+          "en": "Temperature of the piston",
+          "tr": "Piston sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        },
+        "unit": "°C"
+      },
+      {
+        "name": "g",
+        "description": {
+          "en": "Local gravity (U = 3 ppm, k = 2)",
+          "tr": "Yerel yerçekimi (U = 3 ppm, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 3.0,
+          "k": 2
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "air",
+        "description": {
+          "en": "Air buoyancy approximation",
+          "tr": "Hava kaldırma kuvveti yaklaşımı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 13.0
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "head",
+        "description": {
+          "en": "Fluid head (3 mm of oil)",
+          "tr": "Sıvı yükü (3 mm yağ)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 13.5
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "fluid",
+        "description": {
+          "en": "Buoyancy volume, surface tension, fluid density",
+          "tr": "Kaldırma hacmi, yüzey gerilimi, sıvı yoğunluğu"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "level",
+        "description": {
+          "en": "Verticality of the piston (0.15°)",
+          "tr": "Pistonun düşeyliği (0,15°)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 3.4
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "d_res",
+        "description": {
+          "en": "Rounding of the indication (200 Pa steps)",
+          "tr": "Göstergenin yuvarlanması (200 Pa adım)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 50.0
+        },
+        "unit": "ppm"
+      },
+      {
+        "name": "d_rep",
+        "description": {
+          "en": "Repeatability (s = 16 ppm, ν = 9, one reading)",
+          "tr": "Tekrarlanabilirlik (s = 16 ppm, ν = 9, tek okuma)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 16.0,
+          "pooled_dof": 9,
+          "n": 1
+        },
+        "unit": "ppm"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 17.0,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 43.0,
+        "tolerance": 0.05
+      },
+      "expanded_uncertainty": {
+        "value": 86.0,
+        "tolerance": 0.05
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.8.16–K.8.17: u_c = 43.0 ppm, U = 86.0 ppm; 17 ppm ± 86 ppm.",
+      "tr": "UKAS M3003 6. baskı K.8.16–K.8.17: u_c = 43,0 ppm, U = 86,0 ppm; 17 ppm ± 86 ppm."
+    }
+  }
+}

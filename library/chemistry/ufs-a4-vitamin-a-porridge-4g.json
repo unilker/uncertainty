@@ -1,0 +1,164 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a4-vitamin-a-porridge-4g",
+    "title": {
+      "en": "Vitamin A in baby porridge, 4 g test samples: negative sampling variance (Eurachem UfS Example A4)",
+      "tr": "Bebek lapasında A vitamini, 4 g deney numunesi: negatif numune alma varyansı (Eurachem UfS Örnek A4)"
+    },
+    "description": {
+      "en": "Two samples (packages) from each of ten production batches of an oat porridge with bananas and apricots, each split into duplicate test samples for HPLC (no analytical duplicates of one test sample).",
+      "tr": "Muzlu ve kayısılı yulaf lapasının on üretim partisinin her birinden iki numune (paket); her biri HPLC için çift deney numunesine bölünmüştür (aynı deney numunesinin tekrar analizi yoktur)."
+    },
+    "explanation": [
+      {
+        "en": "Duplicate method (Section 9.4.2): two samples are taken from each target by independent applications of the protocol and each is analysed twice; s_meas² = s_samp² + s_anal² (Equation 1).",
+        "tr": "Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1)."
+      },
+      {
+        "en": "SS_anal = 312206.5, ν = 20: s_anal = 124.94 µg/100 g, RSD 36.68 % (Table A4.8).",
+        "tr": "KT_analiz = 312206,5, ν = 20: s_analiz = 124,94 µg/100 g, RSD %36,68 (Tablo A4.8)."
+      },
+      {
+        "en": "SS_samp = 102860.25, ν = 10: V_samp = (102860.25/10 − 15610.325)/2 = −2662.15 < 0, conventionally set to zero (Table A4.9).",
+        "tr": "KT_numune = 102860,25, ν = 10: V_numune = (102860,25/10 − 15610,325)/2 = −2662,15 < 0; geleneksel olarak sıfır alınır (Tablo A4.9)."
+      },
+      {
+        "en": "The small test portion dominates: U′_anal = 73.4 %. The Guide takes the sampling RSD of the 40 g study (5 %) and reports U′_meas = 74 % (Table A4.10): a 4 g test sample is not fit for purpose.",
+        "tr": "Küçük deney porsiyonu baskındır: U′_analiz = %73,4. Kılavuz numune alma RSD'sini 40 g çalışmasından (%5) alır ve U′_ölçüm = %74 bildirir (Tablo A4.10): 4 g deney numunesi amaca uygun değildir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A4, Tables A4.4, A4.8–A4.10",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "duplicate-method",
+      "anova",
+      "negative-variance",
+      "vitamin-a",
+      "food",
+      "raw-data"
+    ],
+    "notes": [
+      {
+        "en": "With a robust ANOVA the Guide finds u_samp = 6.9 % and u_anal = 30 %; it is not implemented (F63).",
+        "tr": "Kılavuz robust ANOVA ile u_numune = %6,9 ve u_analiz = %30 bulur; uygulanmamıştır (F63)."
+      },
+      {
+        "en": "The measurement uncertainty of this project (73.4 %) contains the analytical term only, since the sampling variance of this data set is zero; Table A4.10 combines it with 5 % from the 40 g study.",
+        "tr": "Bu projenin ölçüm belirsizliği (%73,4) yalnızca analitik terimi içerir, çünkü bu veri setinin numune alma varyansı sıfırdır; Tablo A4.10 bunu 40 g çalışmasındaki %5 ile birleştirir."
+      }
+    ]
+  },
+  "sampling": {
+    "quantity": "Vitamin A (retinol) in baby porridge powder, 4 g test samples",
+    "unit": "µg/100 g",
+    "duplicates": [
+      [
+        400,
+        491,
+        323,
+        355
+      ],
+      [
+        413,
+        159,
+        392,
+        434
+      ],
+      [
+        315,
+        391,
+        252,
+        454
+      ],
+      [
+        223,
+        220,
+        357,
+        469
+      ],
+      [
+        462,
+        343,
+        262,
+        293
+      ],
+      [
+        353,
+        265,
+        305,
+        456
+      ],
+      [
+        298,
+        234,
+        152,
+        323
+      ],
+      [
+        425,
+        263,
+        417,
+        353
+      ],
+      [
+        622,
+        189,
+        291,
+        272
+      ],
+      [
+        292,
+        397,
+        142,
+        568
+      ]
+    ],
+    "labels": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B8",
+      "B9",
+      "B10"
+    ]
+  },
+  "expected": {
+    "sampling": {
+      "mean": {
+        "value": 340.625,
+        "tolerance": 0.0005
+      },
+      "s_analysis": {
+        "value": 124.9413,
+        "tolerance": 0.0005
+      },
+      "s_sampling": {
+        "value": 0.0,
+        "tolerance": 0.0
+      },
+      "sampling_variance_negative": true,
+      "expanded_relative_analysis": {
+        "value": 73.4,
+        "tolerance": 0.05
+      }
+    },
+    "reference": {
+      "en": "Tables A4.8 and A4.9 (V_samp = −2662.15 set to zero) and the analytical U′ of Table A4.10.",
+      "tr": "Tablo A4.8 ve A4.9 (V_numune = −2662,15 sıfır alınır) ve Tablo A4.10'un analitik U′ değeri."
+    }
+  }
+}

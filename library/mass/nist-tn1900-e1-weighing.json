@@ -1,0 +1,137 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e1-weighing",
+    "title": {
+      "en": "Mass of a powder by weighing (NIST TN 1900 E1)",
+      "tr": "Tartımla toz kütlesi (NIST TN 1900 E1)"
+    },
+    "description": {
+      "en": "TN 1900 E1: mass of a powder from three weighings with a single-pan balance; linear model, GUM and MCM agree.",
+      "tr": "TN 1900 E1: tek kefeli terazide üç tartımdan toz kütlesi; doğrusal model, GUM ve MCM aynı sonucu verir."
+    },
+    "explanation": [
+      {
+        "en": "The mass of the powder is m_P = c_P − c_E − (c_R2 − c_R1): the reading with the powder in the container, minus the reading of the empty container, minus the drift of the balance between two readings of a reference weight.",
+        "tr": "Tozun kütlesi m_P = c_P − c_E − (c_R2 − c_R1) bağıntısıyla bulunur: toz dolu kabın okuması, boş kabın okuması ve referans ağırlığın iki okuması arasındaki terazi kaymasının farkı."
+      },
+      {
+        "en": "The standard uncertainties of c_P and c_E (0.005015 g) combine the uncertainty of the container (0.005 g) with those of the balance (calibration, repeatability, linearity, temperature: 0.1, 0.1, 0.2 and 0.3 mg); that of the drift term is 0.0005477 g (TN 1900 Exhibit 1).",
+        "tr": "c_P ve c_E'nin standart belirsizlikleri (0,005015 g), kabın belirsizliğini (0,005 g) terazinin kalibrasyon, tekrarlanabilirlik, doğrusallık ve sıcaklık bileşenleriyle (0,1; 0,1; 0,2 ve 0,3 mg) birleştirir; kayma teriminin belirsizliği 0,0005477 g'dır (TN 1900 Şekil 1)."
+      },
+      {
+        "en": "All sensitivity coefficients are ±1, so u(m_P)² = u(c_P)² + u(c_E)² + u(c_R2 − c_R1)², u = 0.0071 g; the output is Gaussian and the Monte Carlo method gives the same 95 % interval [50.270, 50.298] g.",
+        "tr": "Tüm duyarlılık katsayıları ±1 olduğundan u(m_P)² = u(c_P)² + u(c_E)² + u(c_R2 − c_R1)², u = 0,0071 g olur; çıktı normal dağılımlıdır ve Monte Carlo yöntemi aynı %95 aralığını, [50,270; 50,298] g, verir."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E1, Exhibit 1",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "linear",
+      "balance"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "m_P",
+      "unit": "g",
+      "expression": "c_P - c_E - dc_R",
+      "description": {
+        "en": "Mass of the powder",
+        "tr": "Tozun kütlesi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "c_P",
+        "unit": "g",
+        "description": {
+          "en": "Reading with the powder in the container",
+          "tr": "Toz dolu kabın okuması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 53.768,
+          "sd": 0.005015
+        }
+      },
+      {
+        "name": "c_E",
+        "unit": "g",
+        "description": {
+          "en": "Reading of the empty container",
+          "tr": "Boş kabın okuması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 3.436,
+          "sd": 0.005015
+        }
+      },
+      {
+        "name": "dc_R",
+        "unit": "g",
+        "description": {
+          "en": "Drift c_R2 − c_R1 of the reference-weight readings",
+          "tr": "Referans ağırlık okumalarının kayması c_R2 − c_R1"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.048,
+          "sd": 0.0005477
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 50.284,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.0071,
+        "tolerance": 5e-05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 50.284,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.0071,
+        "tolerance": 5e-05
+      },
+      "interval_low": {
+        "value": 50.27,
+        "tolerance": 0.0005
+      },
+      "interval_high": {
+        "value": 50.298,
+        "tolerance": 0.0005
+      },
+      "gum_validated": true
+    },
+    "reference": {
+      "en": "NIST TN 1900 E1: m_P = 50.284 g, u = 0.0071 g, 95 % interval [50.270, 50.298] g.",
+      "tr": "NIST TN 1900 E1: m_P = 50,284 g, u = 0,0071 g, %95 aralığı [50,270; 50,298] g."
+    }
+  }
+}

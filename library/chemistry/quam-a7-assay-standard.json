@@ -1,0 +1,154 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a7-assay-standard",
+    "title": {
+      "en": "Lead assay standard for IDMS",
+      "tr": "IDMS için kurşun tayin standardı"
+    },
+    "description": {
+      "en": "QUAM Example A7, Eq. (8): amount content of the primary lead assay standard prepared gravimetrically.",
+      "tr": "QUAM Örnek A7, Eş. (8): gravimetrik olarak hazırlanmış birincil kurşun tayin standardının madde miktarı içeriği."
+    },
+    "explanation": [
+      {
+        "en": "c_z = 10⁶ · (m₂/d₂) · m₁ · w / (d₁ · M): a mass m₁ of lead of purity w dissolved, diluted by mass (d₁, d₂) and an aliquot m₂ taken; M is the molar mass of lead in the assay material.",
+        "tr": "c_z = 10⁶ · (m₂/d₂) · m₁ · w / (d₁ · M): saflığı w olan m₁ kütlesindeki kurşun çözülür, kütlece seyreltilir (d₁, d₂) ve m₂ kadar alınır; M tayin malzemesindeki kurşunun molar kütlesidir."
+      },
+      {
+        "en": "All inputs are Gaussian with the standard uncertainties of Table A7.3; c_z = 0.092605 µmol/g, u = 0.000028 µmol/g.",
+        "tr": "Tüm girdiler Tablo A7.3'teki standart belirsizliklerle normal dağılımlıdır; c_z = 0,092605 µmol/g, u = 0,000028 µmol/g."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A7, Eq. (8), Table A7.3",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "validation",
+      "idms",
+      "gravimetric"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_z",
+      "unit": "µmol/g",
+      "expression": "1e6 * m2 / d2 * m1 * w / d1 / M",
+      "description": {
+        "en": "Amount content of the assay standard",
+        "tr": "Tayin standardının madde miktarı içeriği"
+      }
+    },
+    "inputs": [
+      {
+        "name": "m1",
+        "unit": "g",
+        "description": {
+          "en": "Mass of lead",
+          "tr": "Kurşun kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.36544,
+          "sd": 5e-05
+        }
+      },
+      {
+        "name": "d1",
+        "unit": "g",
+        "description": {
+          "en": "First dilution (total mass)",
+          "tr": "Birinci seyreltme (toplam kütle)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 196.14,
+          "sd": 0.03
+        }
+      },
+      {
+        "name": "m2",
+        "unit": "g",
+        "description": {
+          "en": "Aliquot of the first dilution",
+          "tr": "Birinci seyreltmeden alınan kütle"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0292,
+          "sd": 0.0002
+        }
+      },
+      {
+        "name": "d2",
+        "unit": "g",
+        "description": {
+          "en": "Second dilution (total mass)",
+          "tr": "İkinci seyreltme (toplam kütle)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 99.931,
+          "sd": 0.01
+        }
+      },
+      {
+        "name": "w",
+        "description": {
+          "en": "Purity of the lead",
+          "tr": "Kurşunun saflığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.99999,
+          "sd": 5e-06
+        }
+      },
+      {
+        "name": "M",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of lead in the assay material",
+          "tr": "Tayin malzemesindeki kurşunun molar kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 207.2104,
+          "sd": 0.001
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 7
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.092605,
+        "tolerance": 1e-06
+      },
+      "standard_uncertainty": {
+        "value": 2.8e-05,
+        "tolerance": 5e-07
+      }
+    },
+    "reference": {
+      "en": "QUAM:2012 Example A7, Table A7.3.",
+      "tr": "QUAM:2012 Örnek A7, Tablo A7.3."
+    }
+  }
+}

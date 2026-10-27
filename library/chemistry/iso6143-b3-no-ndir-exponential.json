@@ -1,0 +1,215 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso6143-b3-no-ndir-exponential",
+    "title": {
+      "en": "NO in N₂ by NDIR: exponential function (ISO 6143 Example 3)",
+      "tr": "N₂ içinde NO, NDIR: üstel fonksiyon (ISO 6143 Örnek 3)"
+    },
+    "description": {
+      "en": "ISO 6143:2025 B.2.4: the same NDIR calibration with the exponential analysis function x = b₀ + b₁e^(b₂y), the function of choice in the standard; the parameter uncertainties printed there are known to be wrong.",
+      "tr": "ISO 6143:2025 B.2.4: aynı NDIR kalibrasyonu, standardın tercih ettiği x = b₀ + b₁e^(b₂y) üstel analiz fonksiyonuyla; orada basılan parametre belirsizliklerinin yanlış olduğu bilinmektedir."
+    },
+    "explanation": [
+      {
+        "en": "Twelve reference gas mixtures from 1 µmol/mol to 10 µmol/mol NO in N₂ measured by non-dispersive infrared absorption; the response is clearly non-linear: the straight line gives S_res = 273 (limit 20) and Γ = 6.84 > 2.",
+        "tr": "N₂ içinde 1 µmol/mol – 10 µmol/mol NO içeren on iki referans gaz karışımı, dağılmasız kızılötesi absorpsiyonla ölçülmüştür; yanıt belirgin biçimde doğrusal değildir: doğru S_res = 273 (sınır 20) ve Γ = 6,84 > 2 verir."
+      },
+      {
+        "en": "Exponential function: b₀ = −47.96, b₁ = 47.97, b₂ = 2.128 × 10⁻⁵ (b₀ and b₁ almost cancel: their correlation is −1.000); S_res = 0.657 (limit 18) and Γ = 0.353, the best fit of the three-parameter functions considered in the standard (the comparison table adds the quadratic polynomial, Γ = 0.44, which the standard does not try).",
+        "tr": "Üstel fonksiyon: b₀ = −47,96, b₁ = 47,97, b₂ = 2,128 × 10⁻⁵ (b₀ ile b₁ neredeyse birbirini götürür: korelasyonları −1,000'dir); S_res = 0,657 (sınır 18) ve Γ = 0,353; standardın denediği üç parametreli fonksiyonların en iyi uyumu (karşılaştırma tablosu standardın denemediği ikinci derece polinomu da ekler, Γ = 0,44)."
+      },
+      {
+        "en": "Mixture with y = 4950.6 ± 11: x = 5.3357 µmol/mol, u(x) = 0.0142 µmol/mol; the power function gives 5.3456 µmol/mol, within one standard uncertainty.",
+        "tr": "y = 4950,6 ± 11 olan karışım: x = 5,3357 µmol/mol, u(x) = 0,0142 µmol/mol; üslü fonksiyon 5,3456 µmol/mol verir, bir standart belirsizlik içinde."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 6143:2025, Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures",
+        "section": "Annex B.1 and B.2.4 (Tables B.11, B.12)",
+        "url": "https://www.iso.org/standard/84420.html"
+      }
+    ],
+    "tags": [
+      "iso6143",
+      "gas-analysis",
+      "calibration",
+      "generalized-least-squares",
+      "errors-in-variables",
+      "non-linear",
+      "erratum"
+    ],
+    "notes": [
+      {
+        "en": "ISO 6143 B.1 and B.2.4 state that B_LEAST gives incorrect parameter uncertainties for the exponential function (found at METAS). The printed u(b) = 8.14 × 10⁻², 7.40 × 10⁻², 3.71 × 10⁻¹¹ are about 39 times too small; this program gives 3.18, 3.17 and 1.27 × 10⁻⁶, in agreement with ODRPACK (scipy.odr) and a Monte Carlo simulation of the calibration (3.13, 3.12, 1.24 × 10⁻⁶).",
+        "tr": "ISO 6143 B.1 ve B.2.4, B_LEAST'in üstel fonksiyon için yanlış parametre belirsizlikleri verdiğini belirtir (METAS'ta bulunmuştur). Basılan u(b) = 8,14 × 10⁻², 7,40 × 10⁻², 3,71 × 10⁻¹¹ değerleri yaklaşık 39 kat küçüktür; bu program 3,18, 3,17 ve 1,27 × 10⁻⁶ verir; ODRPACK (scipy.odr) ve kalibrasyonun Monte Carlo benzetimiyle (3,13, 3,12, 1,24 × 10⁻⁶) uyumludur."
+      },
+      {
+        "en": "Table B.12 gives u(x) = 0.01328 µmol/mol for the exponential function; first-order propagation with the correct covariances gives 0.01425 and the Monte Carlo simulation 0.01406 µmol/mol: the printed value is 6 % to 7 % too low, more than the 'about 3 %' the standard allows for iteration settings (research log F42). The project checks the parameters and x against the standard and u(x) against the independent calculations.",
+        "tr": "Tablo B.12 üstel fonksiyon için u(x) = 0,01328 µmol/mol verir; doğru kovaryanslarla birinci mertebe yayılım 0,01425, Monte Carlo benzetimi 0,01406 µmol/mol verir: basılı değer %6–7 küçüktür; bu, standardın iterasyon ayarları için öngördüğü 'yaklaşık %3'ten fazladır (araştırma günlüğü F42). Proje parametreleri ve x'i standarda, u(x)'i bağımsız hesaplara göre kontrol eder."
+      }
+    ]
+  },
+  "calibration": {
+    "analyte": "NO",
+    "unit": "µmol/mol",
+    "response_unit": "NDIR signal",
+    "points": [
+      {
+        "name": "M1",
+        "x": 1.0006,
+        "u_x": 0.00134,
+        "y": 963.7988,
+        "u_y": 14
+      },
+      {
+        "name": "M2",
+        "x": 1.001,
+        "u_x": 0.0011,
+        "y": 966.2585,
+        "u_y": 12.5
+      },
+      {
+        "name": "M3",
+        "x": 1.9995,
+        "u_x": 0.0032,
+        "y": 1912.5692,
+        "u_y": 16.8
+      },
+      {
+        "name": "M4",
+        "x": 3.0018,
+        "u_x": 0.0034,
+        "y": 2846.9306,
+        "u_y": 11.6
+      },
+      {
+        "name": "M5",
+        "x": 3.9982,
+        "u_x": 0.0058,
+        "y": 3754.9386,
+        "u_y": 10.8
+      },
+      {
+        "name": "M6",
+        "x": 4.0043,
+        "u_x": 0.0058,
+        "y": 3764.5905,
+        "u_y": 12.1
+      },
+      {
+        "name": "M7",
+        "x": 4.9981,
+        "u_x": 0.0058,
+        "y": 4647.1511,
+        "u_y": 14.4
+      },
+      {
+        "name": "M8",
+        "x": 5.9961,
+        "u_x": 0.0078,
+        "y": 5529.9991,
+        "u_y": 12.1
+      },
+      {
+        "name": "M9",
+        "x": 7.9974,
+        "u_x": 0.0084,
+        "y": 7246.0082,
+        "u_y": 11.9
+      },
+      {
+        "name": "M10",
+        "x": 7.9995,
+        "u_x": 0.01,
+        "y": 7240.4767,
+        "u_y": 10.7
+      },
+      {
+        "name": "M11",
+        "x": 9.998,
+        "u_x": 0.012,
+        "y": 8884.6955,
+        "u_y": 10.1
+      },
+      {
+        "name": "M12",
+        "x": 10.006,
+        "u_x": 0.0104,
+        "y": 8902.6916,
+        "u_y": 14.1
+      }
+    ],
+    "function": "exponential",
+    "samples": [
+      {
+        "name": "S1",
+        "y": 4950.6,
+        "u_y": 11
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "calibration": {
+      "params": [
+        {
+          "value": -47.963,
+          "tolerance": 0.095926
+        },
+        {
+          "value": 47.969,
+          "tolerance": 0.09593800000000001
+        },
+        {
+          "value": 2.1283e-05,
+          "tolerance": 4.2566e-08
+        }
+      ],
+      "u_params": [
+        {
+          "value": 3.1816,
+          "tolerance": 0.015908
+        },
+        {
+          "value": 3.1705,
+          "tolerance": 0.015852500000000002
+        },
+        {
+          "value": 1.2739e-06,
+          "tolerance": 6.3695e-09
+        }
+      ],
+      "s_res": {
+        "value": 0.6572,
+        "tolerance": 0.0013144
+      },
+      "gamma": {
+        "value": 0.3529,
+        "tolerance": 0.0007058
+      },
+      "admissible": true,
+      "samples": {
+        "S1": {
+          "x": {
+            "value": 5.3357,
+            "tolerance": 0.00053357
+          },
+          "u": {
+            "value": 0.014246,
+            "tolerance": 4.2738e-05
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 6143:2025 B.2.4, exponential parameters, S_res, Γ and x of Table B.12 (B_LEAST); u(b) and u(x) from ODRPACK (scipy.odr, cov_beta) for the same data.",
+      "tr": "ISO 6143:2025 B.2.4, üstel parametreler, S_res, Γ ve Tablo B.12'deki x (B_LEAST); u(b) ve u(x) aynı veriler için ODRPACK'ten (scipy.odr, cov_beta)."
+    }
+  }
+}

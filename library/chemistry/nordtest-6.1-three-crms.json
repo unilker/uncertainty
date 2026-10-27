@@ -1,0 +1,91 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nordtest-6.1-three-crms",
+    "title": {
+      "en": "Bias from several certified reference materials",
+      "tr": "Birden fazla sertifikalı referans malzemeden sapma"
+    },
+    "description": {
+      "en": "Nordtest TR 537 §6.1: u(bias) from three CRMs by the RMS of the biases.",
+      "tr": "Nordtest TR 537 §6.1: üç CRM'den sapmaların karesel ortalamasının karekökü (RMS) ile u(bias)."
+    },
+    "explanation": [
+      {
+        "en": "Biases 3.48, −0.9 and 2.5 %: RMS_bias = √(Σbᵢ²/N) = 2.53 %; ū(C_ref) = (2.16 + 1.8 + 1.8)/3 = 1.92 %.",
+        "tr": "Sapmalar %3,48, −0,9 ve 2,5: RMS_bias = √(Σbᵢ²/N) = %2,53; ū(C_ref) = (2,16 + 1,8 + 1,8)/3 = %1,92."
+      },
+      {
+        "en": "u(bias) = √(RMS_bias² + ū(C_ref)²) = 3.2 %.",
+        "tr": "u(bias) = √(RMS_bias² + ū(C_ref)²) = %3,2."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 537 ed. 4 (2017), Handbook for calculation of measurement uncertainty in environmental laboratories",
+        "section": "§6.1",
+        "url": "https://nordtest.info/images/documents/nt-technical-reports/NT_TR_537_edition4_English_Handbook_for_calculation_of_measurement_uncertainty_in_environmental_laboratories.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "nordtest",
+      "crm",
+      "bias"
+    ]
+  },
+  "topdown": {
+    "quantity": "c",
+    "bias": [
+      {
+        "name": "u(bias)",
+        "kind": "crm",
+        "references": [
+          {
+            "label": "CRM 1",
+            "bias_percent": 3.48,
+            "u_reference_percent": 2.16
+          },
+          {
+            "label": "CRM 2",
+            "bias_percent": -0.9,
+            "u_reference_percent": 1.8
+          },
+          {
+            "label": "CRM 3",
+            "bias_percent": 2.5,
+            "u_reference_percent": 1.8
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "u(bias)": {
+          "value": 3.2,
+          "tolerance": 0.05
+        }
+      },
+      "bias": {
+        "u(bias)": {
+          "rms": {
+            "value": 2.53,
+            "tolerance": 0.005
+          },
+          "mean_u_reference": {
+            "value": 1.92,
+            "tolerance": 0.005
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "Nordtest TR 537 §6.1 (RMS_bias 2.53 %, ū(C_ref) 1.92 %, u(bias) 3.2 %).",
+      "tr": "Nordtest TR 537 §6.1 (RMS_bias %2,53, ū(C_ref) %1,92, u(bias) %3,2)."
+    }
+  }
+}

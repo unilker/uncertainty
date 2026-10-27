@@ -1,0 +1,92 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso21748-c3-aerobic-plate-count-vegetables",
+    "title": {
+      "en": "Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3)",
+      "tr": "Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+    },
+    "description": {
+      "en": "ISO 21748:2017 C.3 (AOAC 990.12, vegetables): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
+      "tr": "ISO 21748:2017 C.3 (AOAC 990.12, sebze): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği."
+    },
+    "explanation": [
+      {
+        "en": "Collaborative study (12 laboratories, ISO 5725-2): s_R = 9.2 %, s_r = 6.3 % relative to log10(count), so s_L = √(s_R² − s_r²) = 6.7 %.",
+        "tr": "Ortak çalışma (12 laboratuvar, ISO 5725-2): log10(sayım)'a göre s_R = %9,2, s_r = %6,3; dolayısıyla s_L = √(s_R² − s_r²) = %6,7."
+      },
+      {
+        "en": "The laboratory's repeatability from 10 replicates is s_l = 5.0 %; ISO 21748 7.3.2 allows it in place of s_r: s′_R = √(s_L² + s_l²) = 8.4 %.",
+        "tr": "Laboratuvarın 10 tekrardan bulunan tekrarlanabilirliği s_l = %5,0'dır; ISO 21748 7.3.2 bunun s_r yerine kullanılmasına izin verir: s′_R = √(s_L² + s_l²) = %8,4."
+      },
+      {
+        "en": "Sub-sampling and weighing, not covered by the study, add 3.0 % (expert estimate); u = √(s′_R² + 3.0²) = 8.9 % and U = 17.8 % (k = 2).",
+        "tr": "Çalışmanın kapsamadığı alt örnekleme ve tartım %3,0 ekler (uzman tahmini); u = √(s′_R² + 3,0²) = %8,9 ve U = %17,8 (k = 2)."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation",
+        "section": "Annex C.3, Tables C.2–C.4",
+        "url": "https://www.iso.org/standard/71615.html"
+      }
+    ],
+    "tags": [
+      "iso21748",
+      "reproducibility",
+      "microbiology",
+      "relative"
+    ]
+  },
+  "topdown": {
+    "quantity": "log10(CFU), vegetables",
+    "precision": [
+      {
+        "name": "s′_R",
+        "data": {
+          "type": "reproducibility",
+          "sd_reproducibility_percent": 9.2,
+          "sd_repeatability_percent": 6.3,
+          "lab_repeatability_percent": 5.0
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "sample preparation",
+        "u_percent": 3.0
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s′_R": {
+          "value": 8.4,
+          "tolerance": 0.05
+        }
+      },
+      "levels": [
+        {
+          "relative_standard_percent": {
+            "value": 8.9,
+            "tolerance": 0.05
+          },
+          "relative_expanded_percent": {
+            "value": 17.8,
+            "tolerance": 0.05
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "ISO 21748:2017 Tables C.3 and C.4 and C.3.7 (vegetables: s′_R = 8.4 %, u = 8.9 %, U = 17.8 %).",
+      "tr": "ISO 21748:2017 Tablo C.3 ve C.4 ile C.3.7 (sebze: s′_R = %8,4, u = %8,9, U = %17,8)."
+    }
+  }
+}

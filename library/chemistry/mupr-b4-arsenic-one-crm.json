@@ -1,0 +1,172 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-b4-arsenic-one-crm",
+    "title": {
+      "en": "Arsenic in sediment: one CRM",
+      "tr": "Sedimentte arsenik: tek CRM"
+    },
+    "description": {
+      "en": "MUPR Example B4: pooled relative precision and the recovery of one CRM.",
+      "tr": "MUPR Örnek B4: birleştirilmiş bağıl kesinlik ve tek CRM'nin geri kazanımı."
+    },
+    "explanation": [
+      {
+        "en": "s′_I(P) = 4.52 % pooled from three materials (Eq. B4.1); below 6.46 mg/kg it is used as an absolute 4.52 % × 6.46 = 0.292 mg/kg.",
+        "tr": "Üç malzemeden birleştirilmiş s′_I(P) = %4,52 (Eş. B4.1); 6,46 mg/kg altında mutlak 4,52 % × 6,46 = 0,292 mg/kg olarak kullanılır."
+      },
+      {
+        "en": "CRM WQB-1 (23.00 ± 1.84) mg/kg, mean 21.040 mg/kg: R̄ = 91.5 %, u = 3.81 %; 2.24 ≤ t₉ = 2.26: not corrected.",
+        "tr": "CRM WQB-1 (23,00 ± 1,84) mg/kg, ortalama 21,040 mg/kg: R̄ = %91,5, u = %3,81; 2,24 ≤ t₉ = 2,26: düzeltilmez."
+      },
+      {
+        "en": "U = 2w√(0.0452² + 0.0381²) = 0.118 w: (16.0 ± 1.9) mg/kg.",
+        "tr": "U = 2w√(0,0452² + 0,0381²) = 0,118 w: (16,0 ± 1,9) mg/kg."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example B4",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "crm",
+      "recovery"
+    ]
+  },
+  "topdown": {
+    "quantity": "w(As)",
+    "unit": "mg/kg",
+    "levels": [
+      16.0
+    ],
+    "precision": [
+      {
+        "name": "s_I⟨I⟩",
+        "data": {
+          "type": "groups",
+          "relative": true,
+          "groups": [
+            {
+              "label": "A1",
+              "sd_percent": 2.93,
+              "n": 10
+            },
+            {
+              "label": "B",
+              "sd_percent": 5.46,
+              "n": 10
+            },
+            {
+              "label": "C",
+              "sd_percent": 4.83,
+              "n": 9
+            }
+          ]
+        },
+        "to_absolute_at": 6.46,
+        "range": {
+          "max": 6.46
+        }
+      },
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "groups",
+          "relative": true,
+          "groups": [
+            {
+              "label": "A1",
+              "sd_percent": 2.93,
+              "n": 10
+            },
+            {
+              "label": "B",
+              "sd_percent": 5.46,
+              "n": 10
+            },
+            {
+              "label": "C",
+              "sd_percent": 4.83,
+              "n": 9
+            }
+          ]
+        },
+        "range": {
+          "min": 6.46
+        }
+      }
+    ],
+    "recovery": {
+      "name": "u(R̄)",
+      "tests": [
+        {
+          "type": "reference",
+          "label": "WQB-1",
+          "mean": 21.04,
+          "sd": 0.779,
+          "n": 10,
+          "reference": 23.0,
+          "expanded": 1.84,
+          "k": 2
+        }
+      ]
+    }
+  },
+  "expected": {
+    "topdown": {
+      "components": {
+        "s_I⟨I⟩": {
+          "value": 0.292,
+          "tolerance": 0.0005
+        },
+        "s′_I⟨II⟩": {
+          "value": 4.52,
+          "tolerance": 0.005
+        }
+      },
+      "recovery": {
+        "mean_percent": {
+          "value": 91.48,
+          "tolerance": 0.005
+        },
+        "standard_uncertainty_percent": {
+          "value": 3.81,
+          "tolerance": 0.005
+        },
+        "statistic": {
+          "value": 2.24,
+          "tolerance": 0.005
+        },
+        "critical": {
+          "value": 2.26,
+          "tolerance": 0.005
+        },
+        "significant": false
+      },
+      "levels": [
+        {
+          "level": 16.0,
+          "expanded_uncertainty": {
+            "value": 1.89,
+            "tolerance": 0.005
+          },
+          "relative_expanded_percent": {
+            "value": 11.8,
+            "tolerance": 0.05
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "MUPR Example B4, Eq. (B4.1)–(B4.5).",
+      "tr": "MUPR Örnek B4, Eş. (B4.1)–(B4.5)."
+    }
+  }
+}

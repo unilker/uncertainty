@@ -1,0 +1,142 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "mupr-b3-linear-precision",
+    "title": {
+      "en": "Nitrate: precision as a linear function of concentration",
+      "tr": "Nitrat: derişimin doğrusal fonksiyonu olarak kesinlik"
+    },
+    "description": {
+      "en": "MUPR Example B3: the intermediate precision of four materials is modelled as s_I = a + b·c by least squares and applied to a diluted sample.",
+      "tr": "MUPR Örnek B3: dört malzemenin ara kesinliği en küçük kareler ile s_I = a + b·c olarak modellenir ve seyreltilmiş bir numuneye uygulanır."
+    },
+    "explanation": [
+      {
+        "en": "Table B3.1: (c, s_I) = (0.389, 0.0328), (0.303, 0.0250), (0.204, 0.0245), (0.785, 0.0322) mg/L give s_I = 0.0232 + 0.0128 c (r = 0.727).",
+        "tr": "Tablo B3.1: (c, s_I) = (0,389; 0,0328), (0,303; 0,0250), (0,204; 0,0245), (0,785; 0,0322) mg/L, s_I = 0,0232 + 0,0128 c (r = 0,727) verir."
+      },
+      {
+        "en": "The sample is diluted 100-fold, so the model is applied to the test solution: s(c_s) = 100·(a + b·c_s/100); at c_s = 57.5 mg/L, s = 3.06 mg/L.",
+        "tr": "Numune 100 kat seyreltildiğinden model test çözeltisine uygulanır: s(c_s) = 100·(a + b·c_s/100); c_s = 57,5 mg/L'de s = 3,06 mg/L."
+      },
+      {
+        "en": "With the recovery (2.24 %), stock solution (2 × 0.95 %) and dilution (2.2 %) components: U = 7.28 mg/L.",
+        "tr": "Geri kazanım (%2,24), stok çözelti (2 × %0,95) ve seyreltme (%2,2) bileşenleriyle: U = 7,28 mg/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide, Evaluation of measurement uncertainty from in-house precision and recovery data (MUPR), 1st ed. (2026)",
+        "section": "Example B3, Table B3.1, Eq. (B3.1)",
+        "url": "https://eurachem.org/images/stories/Guides/pdf/MUPR_2026_EN_v01.pdf"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "mupr",
+      "precision-model",
+      "linear"
+    ],
+    "notes": [
+      {
+        "en": "Finding: least squares gives the intercept 0.02324 (printed 0.0233); slope 0.0128 and r = 0.7266 agree.",
+        "tr": "Bulgu: en küçük kareler kesim noktasını 0,02324 verir (basılı 0,0233); eğim 0,0128 ve r = 0,7266 uyumludur."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "c(NO₃⁻)",
+    "unit": "mg/L",
+    "levels": [
+      57.5
+    ],
+    "precision": [
+      {
+        "name": "s_I(c)",
+        "description": {
+          "en": "Linear precision model fitted to four materials (test-solution concentrations)",
+          "tr": "Dört malzemeye uydurulmuş doğrusal kesinlik modeli (test çözeltisi derişimleri)"
+        },
+        "data": {
+          "type": "linear",
+          "points": [
+            [
+              0.389,
+              0.0328
+            ],
+            [
+              0.3033,
+              0.025
+            ],
+            [
+              0.204,
+              0.0245
+            ],
+            [
+              0.7848,
+              0.0322
+            ]
+          ],
+          "dilution_factor": 100
+        }
+      }
+    ],
+    "recovery": {
+      "name": "u(R̿)",
+      "tests": [
+        {
+          "type": "reference",
+          "label": "0.4 mg/L",
+          "mean": 0.389,
+          "sd": 0.0328,
+          "n": 20,
+          "reference": 0.4,
+          "u_reference": 0.009
+        },
+        {
+          "type": "reference",
+          "label": "0.2 mg/L",
+          "mean": 0.204,
+          "sd": 0.0245,
+          "n": 20,
+          "reference": 0.2,
+          "u_reference": 0.0041
+        }
+      ]
+    },
+    "components": [
+      {
+        "name": "u′(DSS)",
+        "description": {
+          "en": "Stock solution, used for calibrators and spikes (counted twice)",
+          "tr": "Stok çözelti; kalibrantlar ve katkılar için kullanılır (iki kez sayılır)"
+        },
+        "u_percent": 0.95,
+        "multiplicity": 2
+      },
+      {
+        "name": "u′(F)",
+        "u_percent": 2.2
+      }
+    ]
+  },
+  "expected": {
+    "topdown": {
+      "levels": [
+        {
+          "level": 57.5,
+          "expanded_uncertainty": {
+            "value": 7.28,
+            "tolerance": 0.01
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "MUPR Example B3, Eq. (B3.1) (U = 7.28 mg/L with the printed intercept 0.0233; 7.27 mg/L with the least-squares 0.02324).",
+      "tr": "MUPR Örnek B3, Eş. (B3.1) (basılı kesim noktası 0,0233 ile U = 7,28 mg/L; en küçük kareler değeri 0,02324 ile 7,27 mg/L)."
+    }
+  }
+}

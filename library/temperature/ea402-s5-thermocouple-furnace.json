@@ -1,0 +1,187 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s5-thermocouple-furnace",
+    "title": {
+      "en": "Thermocouple calibration: furnace temperature",
+      "tr": "Termokupl kalibrasyonu: fırın sıcaklığı"
+    },
+    "description": {
+      "en": "EA-4/02 S5 (first budget): temperature of a furnace at 1000 °C measured with a type N reference thermocouple.",
+      "tr": "EA-4/02 S5 (birinci bütçe): 1000 °C'deki fırının sıcaklığının N tipi referans termokupl ile ölçülmesi."
+    },
+    "explanation": [
+      {
+        "en": "t_X = t_S(V_iS + δV_iS1 + δV_iS2 + δV_R − δt_0S/C_S0) + δt_S + δt_D + δt_F, linearised with the sensitivity C_S = 0.077 °C/µV of the reference thermocouple and C_S0 = 0.189 °C/µV at the reference junction.",
+        "tr": "t_X = t_S(V_iS + δV_iS1 + δV_iS2 + δV_R − δt_0S/C_S0) + δt_S + δt_D + δt_F; referans termokuplun duyarlılığı C_S = 0,077 °C/µV ve referans eklemde C_S0 = 0,189 °C/µV ile doğrusallaştırılmıştır."
+      },
+      {
+        "en": "The non-uniformity of the furnace temperature (±1 °C, rectangular) dominates: u(t_X) = 0.641 °C.",
+        "tr": "Fırın sıcaklığının homojen olmaması (±1 °C, dikdörtgen) baskındır: u(t_X) = 0,641 °C."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S5",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "thermocouple"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "t_X",
+      "unit": "°C",
+      "expression": "t_S + 0.077*(V_iS1 + V_iS2 + V_R) - 0.077/0.189*t_0S + dt_S + dt_D + dt_F",
+      "description": {
+        "en": "Temperature of the furnace",
+        "tr": "Fırının sıcaklığı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "t_S",
+        "unit": "°C",
+        "description": {
+          "en": "Temperature from the reference thermocouple",
+          "tr": "Referans termokupldan sıcaklık"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1000.5,
+          "sd": 0.1
+        }
+      },
+      {
+        "name": "V_iS1",
+        "unit": "µV",
+        "description": {
+          "en": "Voltmeter calibration",
+          "tr": "Voltmetre kalibrasyonu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 2.0,
+          "k": 2
+        }
+      },
+      {
+        "name": "V_iS2",
+        "unit": "µV",
+        "description": {
+          "en": "Voltmeter resolution",
+          "tr": "Voltmetre çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "V_R",
+        "unit": "µV",
+        "description": {
+          "en": "Contact parasitic voltages",
+          "tr": "Kontak parazitik gerilimleri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        }
+      },
+      {
+        "name": "t_0S",
+        "unit": "°C",
+        "description": {
+          "en": "Reference temperature of the cold junction",
+          "tr": "Soğuk eklemin referans sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        }
+      },
+      {
+        "name": "dt_S",
+        "unit": "°C",
+        "description": {
+          "en": "Calibration of the reference thermocouple",
+          "tr": "Referans termokupl kalibrasyonu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.3,
+          "k": 2
+        }
+      },
+      {
+        "name": "dt_D",
+        "unit": "°C",
+        "description": {
+          "en": "Drift of the reference thermocouple",
+          "tr": "Referans termokuplun sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.3
+        }
+      },
+      {
+        "name": "dt_F",
+        "unit": "°C",
+        "description": {
+          "en": "Non-uniformity of the furnace",
+          "tr": "Fırın sıcaklığının homojen olmaması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1000.5,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 0.641,
+        "tolerance": 0.0005
+      },
+      "expanded_uncertainty": {
+        "value": 1.3,
+        "tolerance": 0.05
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S5.9 (u(t_X) = 0.641 °C).",
+      "tr": "EA-4/02 M:2022 S5.9 (u(t_X) = 0,641 °C)."
+    }
+  }
+}

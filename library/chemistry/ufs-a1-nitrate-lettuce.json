@@ -1,0 +1,169 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ufs-a1-nitrate-lettuce",
+    "title": {
+      "en": "Nitrate in glasshouse lettuce: duplicate method, classical ANOVA (Eurachem UfS Example A1)",
+      "tr": "Serada yetişen marulda nitrat: çift numune yöntemi, klasik ANOVA (Eurachem UfS Örnek A1)"
+    },
+    "description": {
+      "en": "Eight bays of lettuce, each sampled twice (10-head composite samples, W pattern) with duplicate analyses by HPLC (Table A1.1).",
+      "tr": "Sekiz marul bölmesi; her birinden iki numune (W düzeninde 10 baştan kompozit numune) ve HPLC ile çift analiz (Tablo A1.1)."
+    },
+    "explanation": [
+      {
+        "en": "Duplicate method (Section 9.4.2): two samples are taken from each target by independent applications of the protocol and each is analysed twice; s_meas² = s_samp² + s_anal² (Equation 1).",
+        "tr": "Çift numune yöntemi (Bölüm 9.4.2): her hedeften protokolün bağımsız uygulamalarıyla iki numune alınır ve her biri iki kez analiz edilir; s_ölçüm² = s_numune² + s_analiz² (Eşitlik 1)."
+      },
+      {
+        "en": "Classical nested ANOVA: MS_anal = Σ(d²/2)/(2n) for the 2n analytical pairs; s_samp² = (MS_samp − MS_anal)/2; s_T² = (MS_target − MS_samp)/4; negative variance estimates are set to zero.",
+        "tr": "Klasik iç içe ANOVA: 2n analiz çifti için KO_analiz = Σ(d²/2)/(2n); s_numune² = (KO_numune − KO_analiz)/2; s_T² = (KO_hedef − KO_numune)/4; negatif varyans tahminleri sıfır alınır."
+      },
+      {
+        "en": "Classical results (Figure A1.2): x̄ = 4345.5625 mg/kg; s_T = 556.2804, s_samp = 518.16089, s_anal = 148.18063 mg/kg; 51.58 %, 44.76 % and 3.66 % of the total variance (s_total = 774.5296 mg/kg).",
+        "tr": "Klasik sonuçlar (Şekil A1.2): x̄ = 4345,5625 mg/kg; s_T = 556,2804, s_numune = 518,16089, s_analiz = 148,18063 mg/kg; toplam varyansın %51,58, %44,76 ve %3,66'sı (s_toplam = 774,5296 mg/kg)."
+      },
+      {
+        "en": "Relative expanded uncertainty U′ = 2·100·s/x̄ with the mean x̄ of all results (Equation 4, k = 2).",
+        "tr": "Bağıl genişletilmiş belirsizlik U′ = 2·100·s/x̄; x̄ tüm sonuçların ortalamasıdır (Eşitlik 4, k = 2)."
+      },
+      {
+        "en": "Target C has very different sample duplicates (5805.5 and 3921.5 mg/kg on average): it inflates the classical s_samp. The robust estimates of the Guide give U′ = 14.5 % (sampling), 7.6 % (analysis) and 16.4 % (measurement); the classical ones 23.8 %, 6.8 % and 24.8 %.",
+        "tr": "C hedefinin numune çiftleri çok farklıdır (ortalama 5805,5 ve 3921,5 mg/kg): klasik s_numune'yi büyütür. Kılavuzun robust tahminleri U′ = %14,5 (numune alma), %7,6 (analiz) ve %16,4 (ölçüm); klasik tahminler %23,8, %6,8 ve %24,8 verir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019, Measurement uncertainty arising from sampling: a guide to methods and approaches, 2nd ed., M. H. Ramsey, S. L. R. Ellison and P. Rostron (eds.)",
+        "section": "Appendix A, Example A1, Table A1.1 and Figure A1.2",
+        "url": "https://eurachem.org/index.php/publications/guides/musamp"
+      }
+    ],
+    "tags": [
+      "eurachem-ufs",
+      "sampling",
+      "duplicate-method",
+      "anova",
+      "nitrate",
+      "lettuce",
+      "food",
+      "raw-data"
+    ],
+    "notes": [
+      {
+        "en": "The Guide reports robust ANOVA estimates (programs RANOVA and RANOVA2) as its main result. Their algorithm is not given in the Guide and the robust values could not be reproduced (research log F63), so this project evaluates the classical ANOVA, whose results the Guide prints alongside and which are reproduced exactly.",
+        "tr": "Kılavuz ana sonuç olarak robust ANOVA tahminlerini (RANOVA ve RANOVA2 programları) verir. Bunların algoritması kılavuzda yoktur ve robust değerler yeniden üretilememiştir (araştırma günlüğü F63); bu nedenle proje, kılavuzun yanında yazdırdığı ve birebir yeniden üretilen klasik ANOVA'yı değerlendirir."
+      },
+      {
+        "en": "The robust estimates (Figure A1.2): mean 4408.3237, s_T 565.39868, s_samp 319.04834, s_anal 167.94308 mg/kg. Huber's H15 applied to the eight target means reproduces the robust mean (4408.319), but no published variant reproduces the robust standard deviations.",
+        "tr": "Robust tahminler (Şekil A1.2): ortalama 4408,3237, s_T 565,39868, s_numune 319,04834, s_analiz 167,94308 mg/kg. Sekiz hedef ortalamasına Huber H15 uygulanması robust ortalamayı (4408,319) verir, ancak yayımlanmış hiçbir değişken robust standart sapmaları yeniden üretmez."
+      }
+    ]
+  },
+  "sampling": {
+    "quantity": "Nitrate in lettuce, one bay",
+    "unit": "mg/kg",
+    "duplicates": [
+      [
+        3898,
+        4139,
+        4466,
+        4693
+      ],
+      [
+        3910,
+        3993,
+        4201,
+        4126
+      ],
+      [
+        5708,
+        5903,
+        4061,
+        3782
+      ],
+      [
+        5028,
+        4754,
+        5450,
+        5416
+      ],
+      [
+        4640,
+        4401,
+        4248,
+        4191
+      ],
+      [
+        5182,
+        5023,
+        4662,
+        4839
+      ],
+      [
+        3028,
+        3224,
+        3023,
+        2901
+      ],
+      [
+        3966,
+        4283,
+        4131,
+        3788
+      ]
+    ],
+    "labels": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ]
+  },
+  "expected": {
+    "sampling": {
+      "mean": {
+        "value": 4345.5625,
+        "tolerance": 5e-05
+      },
+      "s_between_target": {
+        "value": 556.2804,
+        "tolerance": 5e-05
+      },
+      "s_sampling": {
+        "value": 518.16089,
+        "tolerance": 5e-05
+      },
+      "s_analysis": {
+        "value": 148.18063,
+        "tolerance": 5e-06
+      },
+      "s_total": {
+        "value": 774.5296,
+        "tolerance": 5e-05
+      },
+      "percent_between_target": {
+        "value": 51.583582,
+        "tolerance": 5e-05
+      },
+      "percent_sampling": {
+        "value": 44.756204,
+        "tolerance": 5e-05
+      },
+      "percent_analysis": {
+        "value": 3.6602174,
+        "tolerance": 5e-06
+      }
+    },
+    "reference": {
+      "en": "Classical ANOVA results printed in Figure A1.2 (the robust results are not compared).",
+      "tr": "Şekil A1.2'de yazdırılan klasik ANOVA sonuçları (robust sonuçlar karşılaştırılmamıştır)."
+    }
+  }
+}

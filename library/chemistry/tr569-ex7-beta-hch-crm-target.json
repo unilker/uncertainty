@@ -1,0 +1,82 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex7-beta-hch-crm-target",
+    "title": {
+      "en": "β-HCH in cod liver oil by GC-ECD: target limits around the reference value (Nordtest TR 569 Example 7)",
+      "tr": "GC-ECD ile morina karaciğeri yağında β-HCH: referans değer çevresinde hedef sınırlar (Nordtest TR 569 Örnek 7)"
+    },
+    "description": {
+      "en": "CRM BCR 598, 16 µg/kg β-hexachlorocyclohexane, analysed once in each run; target s of 15 %.",
+      "tr": "CRM BCR 598, 16 µg/kg β-heksaklorosikloheksan, her seride bir kez analiz edilir; %15 hedef s."
+    },
+    "explanation": [
+      {
+        "en": "Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).",
+        "tr": "Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7)."
+      },
+      {
+        "en": "s_target = 0.15·16.0 = 2.4 µg/kg; a trend above the central line ended in two of three values above the warning limit, an out-of-control situation (Example 7, comment).",
+        "tr": "s_hedef = 0,15·16,0 = 2,4 µg/kg; merkez çizgisinin üzerindeki bir eğilim üç değerden ikisinin uyarı sınırının üstünde olmasıyla, yani kontrol dışı bir durumla sonuçlanmıştır (Örnek 7, yorum)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 7",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "beta-hch",
+      "pesticide",
+      "crm",
+      "gc",
+      "target-limits"
+    ]
+  },
+  "control_chart": {
+    "quantity": "β-HCH, CRM BCR 598",
+    "unit": "µg/kg",
+    "central_line": {
+      "reference": 16.0
+    },
+    "limits": {
+      "basis": "target",
+      "sd_percent": 15.0
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "sd": {
+        "value": 2.4,
+        "tolerance": 1e-09
+      },
+      "lower_warning": {
+        "value": 11.2,
+        "tolerance": 1e-09
+      },
+      "upper_warning": {
+        "value": 20.8,
+        "tolerance": 1e-09
+      },
+      "lower_action": {
+        "value": 8.8,
+        "tolerance": 1e-09
+      },
+      "upper_action": {
+        "value": 23.2,
+        "tolerance": 1e-09
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 7.",
+      "tr": "TR 569 Örnek 7."
+    }
+  }
+}

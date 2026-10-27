@@ -1,0 +1,185 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "palma2019-ni-marine-sediment",
+    "title": {
+      "en": "Nickel in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)",
+      "tr": "Deniz sedimentlerinde nikel, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)"
+    },
+    "description": {
+      "en": "Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of acid-extractable Ni in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.",
+      "tr": "Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde asitte ekstrakte edilebilir Ni belirsizliği."
+    },
+    "explanation": [
+      {
+        "en": "Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 15 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); acid-extractable Ni by the EPA 3051A procedure, flame AAS.",
+        "tr": "İki belirsizlik modeli: tespit sınırından 2w_LOQ = 15 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); EPA 3051A yöntemiyle asitte ekstrakte edilebilir Ni, alevli AAS."
+      },
+      {
+        "en": "Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.346 mg/kg (I) and 2.58 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 1.13 mg/kg (I) and 7.54 % (II).",
+        "tr": "Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,346 mg/kg (I) ve %2,58 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 1,13 mg/kg (I) ve %7,54 (II)."
+      },
+      {
+        "en": "Matrix effects: the recoveries of Ni in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.352 mg/kg (I) and 2.35 % (II) (Formulae 16, 17).",
+        "tr": "Matris etkileri: yeterlilik testlerinin sedimentlerinde Ni geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,352 mg/kg (I) ve %2,35 (II) (Formül 16, 17)."
+      },
+      {
+        "en": "Trueness: weighted mean recovery R̄_w = 87.7 % with u(R̄) = 1.31 %, i.e. u′_T = 1.49 % of the result; in Interval I it is taken at 2w_LOQ: 0.224 mg/kg.",
+        "tr": "Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %87,7, u(R̄) = %1,31; yani sonucun u′_T = %1,49'si; Aralık I'de 2w_LOQ'da alınır: 0,224 mg/kg."
+      },
+      {
+        "en": "u_c = 1.25 mg/kg in Interval I and u′_c = 8.44 % in Interval II (Formulae 20, 21); U = 2u_c.",
+        "tr": "Aralık I'de u_c = 1,25 mg/kg ve Aralık II'de u′_c = %8,44 (Formül 20, 21); U = 2u_c."
+      },
+      {
+        "en": "Matrix effects contribute 7.9 % (I) and 7.7 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 7.9 % and 7.7 %).",
+        "tr": "Matris etkileri varyansın %7,9 (I) ve %7,7 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %7,9 ve %7,7)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "C. Palma, V. Morgado, R. J. N. Bettencourt da Silva, Top-down evaluation of matrix effects uncertainty, Talanta 192 (2019) 278–287",
+        "section": "Table 9",
+        "url": "https://doi.org/10.1016/j.talanta.2018.09.039"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "matrix-effects",
+      "two-intervals",
+      "environmental",
+      "proficiency-tests"
+    ],
+    "notes": [
+      {
+        "en": "The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.",
+        "tr": "Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(Ni)",
+    "unit": "mg/kg",
+    "levels": [
+      7.5,
+      75.0
+    ],
+    "precision": [
+      {
+        "name": "s_r(h)⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.346
+        },
+        "range": {
+          "max": 15.0
+        }
+      },
+      {
+        "name": "s_I⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 1.13
+        },
+        "range": {
+          "max": 15.0
+        }
+      },
+      {
+        "name": "s′_r(h)⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 2.58
+        },
+        "range": {
+          "min": 15.0
+        }
+      },
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 7.54
+        },
+        "range": {
+          "min": 15.0
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "u_ME⟨I⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u": 0.352,
+        "range": {
+          "max": 15.0
+        }
+      },
+      {
+        "name": "u′_ME⟨II⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u_percent": 2.35,
+        "range": {
+          "min": 15.0
+        }
+      },
+      {
+        "name": "u_T⟨I⟩",
+        "description": {
+          "en": "trueness at 2w_LOQ",
+          "tr": "2w_LOQ'da doğruluk"
+        },
+        "u": 0.224059,
+        "range": {
+          "max": 15.0
+        }
+      },
+      {
+        "name": "u′_T⟨II⟩",
+        "description": {
+          "en": "trueness, u(R̄)/R̄_w",
+          "tr": "doğruluk, u(R̄)/R̄_w"
+        },
+        "u_percent": 1.493729,
+        "range": {
+          "min": 15.0
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "levels": [
+        {
+          "level": 7.5,
+          "standard_uncertainty": {
+            "value": 1.25,
+            "tolerance": 0.01
+          }
+        },
+        {
+          "level": 75.0,
+          "relative_standard_percent": {
+            "value": 8.44,
+            "tolerance": 0.01
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Palma et al. (2019) Table 9: u_c⟨I⟩ = 1.25 mg/kg, u′_c⟨II⟩ = 8.44 %; tolerance one unit of the last printed digit, since the components are themselves rounded.",
+      "tr": "Palma ve ark. (2019) Tablo 9: u_c⟨I⟩ = 1,25 mg/kg, u′_c⟨II⟩ = %8,44; tolerans basılı son basamağın bir birimidir, çünkü bileşenlerin kendileri de yuvarlanmıştır."
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ex3-ammonium-x",
+    "title": {
+      "en": "Ammonium nitrogen in water: X-chart of a standard solution (Nordtest TR 569 Example 3)",
+      "tr": "Suda amonyum azotu: standart çözeltinin X-grafiği (Nordtest TR 569 Örnek 3)"
+    },
+    "description": {
+      "en": "Indophenol blue method, 20 µg/L control solution prepared from (NH₄)₂SO₄, independent of the NH₄Cl calibration standards; the mean of duplicates is plotted.",
+      "tr": "İndofenol mavisi yöntemi; NH₄Cl kalibrasyon standartlarından bağımsız olarak (NH₄)₂SO₄'ten hazırlanmış 20 µg/L kontrol çözeltisi; paralel tayinlerin ortalaması çizilir."
+    },
+    "explanation": [
+      {
+        "en": "Central line the mean x̄ = 19.99 µg/L; s = 0.521 µg/L of the means.",
+        "tr": "Merkez çizgisi ortalama x̄ = 19,99 µg/L; ortalamaların s'si 0,521 µg/L."
+      },
+      {
+        "en": "Statistical control limits for an X-chart: warning limits CL ± 2s and action limits CL ± 3s (Chapter 7).",
+        "tr": "X-grafiği için istatistiksel kontrol sınırları: uyarı sınırları CL ± 2s, eylem sınırları CL ± 3s (Bölüm 7)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 14, Example 3",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "ammonium",
+      "water",
+      "x-chart"
+    ]
+  },
+  "control_chart": {
+    "quantity": "N-NH₄, standard solution 20 µg/L",
+    "unit": "µg/L",
+    "central_line": {
+      "mean": 19.99
+    },
+    "replicates": 2,
+    "limits": {
+      "basis": "statistical",
+      "sd": 0.521
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_warning": {
+        "value": 18.95,
+        "tolerance": 0.005
+      },
+      "upper_warning": {
+        "value": 21.03,
+        "tolerance": 0.005
+      },
+      "lower_action": {
+        "value": 18.43,
+        "tolerance": 0.005
+      },
+      "upper_action": {
+        "value": 21.55,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "TR 569 Example 3.",
+      "tr": "TR 569 Örnek 3."
+    }
+  }
+}

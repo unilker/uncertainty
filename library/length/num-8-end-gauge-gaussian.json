@@ -1,0 +1,193 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "num-8-end-gauge-gaussian",
+    "title": {
+      "en": "End-gauge calibration with Gaussian inputs (NIST Uncertainty Machine §8)",
+      "tr": "Normal girdilerle uç mastarı kalibrasyonu (NIST Uncertainty Machine §8)"
+    },
+    "description": {
+      "en": "NUM manual §8: GUM H.1 with the six inputs of the GUM's first-order budget, all modelled as Gaussian; the Monte Carlo method finds the second-order contributions that Gauss's formula misses.",
+      "tr": "NUM kılavuzu §8: GUM H.1'in birinci mertebe bütçesindeki altı girdiyle, hepsi normal dağılımlı; Monte Carlo yöntemi Gauss formülünün kaçırdığı ikinci mertebe katkıları bulur."
+    },
+    "explanation": [
+      {
+        "en": "l = l_S + d − l_S(δα·θ + α_S·δθ) with l_S = 50 000 623(25) nm, d = 215(9.7) nm, δα = 0(0.58 × 10⁻⁶) °C⁻¹, θ = −0.1(0.41) °C, α_S = 11.5(1.2) × 10⁻⁶ °C⁻¹ and δθ = 0(0.029) °C (GUM Table H.1), all Gaussian.",
+        "tr": "l = l_S + d − l_S(δα·θ + α_S·δθ); l_S = 50 000 623(25) nm, d = 215(9,7) nm, δα = 0(0,58 × 10⁻⁶) °C⁻¹, θ = −0,1(0,41) °C, α_S = 11,5(1,2) × 10⁻⁶ °C⁻¹ ve δθ = 0(0,029) °C (GUM Tablo H.1), hepsi normal dağılımlı."
+      },
+      {
+        "en": "At the estimates δα = δθ = 0, so θ and α_S have zero sensitivity coefficients and Gauss's formula gives u(l) = 31.7 nm; the program warns that the second-order products δα·θ and α_S·δθ are missed.",
+        "tr": "Tahminlerde δα = δθ = 0 olduğundan θ ve α_S'nin duyarlılık katsayıları sıfırdır ve Gauss formülü u(l) = 31,7 nm verir; program δα·θ ve α_S·δθ ikinci mertebe çarpımlarının kaçırıldığı uyarısını verir."
+      },
+      {
+        "en": "The Monte Carlo method gives a standard deviation of 33.9 nm and the 99 % probabilistically symmetric interval (50 000 749, 50 000 927) nm, close to the GUM's own interval (50 000 745, 50 000 931) nm (k = 2.92 from ν_eff = 16.7). The interval of this project's GUM evaluation, 50 000 838 ± 82 nm (k = 2.58), is too short by 7 nm at each end and is not validated.",
+        "tr": "Monte Carlo yöntemi 33,9 nm standart sapma ve %99 olasılıksal simetrik aralığı (50 000 749; 50 000 927) nm verir; bu, GUM'un kendi aralığına, (50 000 745; 50 000 931) nm (ν_eff = 16,7'den k = 2,92), yakındır. Bu projenin GUM değerlendirmesinin aralığı, 50 000 838 ± 82 nm (k = 2,58), her uçta 7 nm kısadır ve doğrulanmaz."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "T. Lafarge, A. Possolo, NIST Uncertainty Machine — User's Manual, version 1.4 (NIST, 2020)",
+        "section": "§8, Table 3 and Figure 3",
+        "url": "https://uncertainty.nist.gov/NISTUncertaintyMachine-UserManual.pdf"
+      },
+      {
+        "document": "JCGM 100:2008, Evaluation of measurement data — Guide to the expression of uncertainty in measurement",
+        "section": "H.1, Table H.1",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "nist-uncertainty-machine",
+      "gum",
+      "second-order",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "The project 'gum-h1-end-gauge' reproduces the GUM's own evaluation (θ split into its mean and cyclic part, Welch–Satterthwaite, k = 2.92).",
+        "tr": "'gum-h1-end-gauge' projesi GUM'un kendi değerlendirmesini yeniden üretir (θ ortalama ve çevrimsel kısmına ayrılır, Welch–Satterthwaite, k = 2,92)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "l",
+      "unit": "nm",
+      "expression": "l_S + d - l_S * (d_alpha * theta + alpha_S * d_theta)",
+      "description": {
+        "en": "Length of the end gauge at 20 °C",
+        "tr": "Uç mastarının 20 °C'deki uzunluğu"
+      }
+    },
+    "inputs": [
+      {
+        "name": "l_S",
+        "unit": "nm",
+        "description": {
+          "en": "Length of the reference standard",
+          "tr": "Referans standardın uzunluğu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 50000623,
+          "sd": 25
+        }
+      },
+      {
+        "name": "d",
+        "unit": "nm",
+        "description": {
+          "en": "Measured difference in length",
+          "tr": "Ölçülen uzunluk farkı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 215,
+          "sd": 9.7
+        }
+      },
+      {
+        "name": "d_alpha",
+        "unit": "1/°C",
+        "description": {
+          "en": "Difference of the expansion coefficients",
+          "tr": "Genleşme katsayılarının farkı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0,
+          "sd": 5.8e-07
+        }
+      },
+      {
+        "name": "theta",
+        "unit": "°C",
+        "description": {
+          "en": "Deviation of the temperature from 20 °C",
+          "tr": "Sıcaklığın 20 °C'den sapması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -0.1,
+          "sd": 0.41
+        }
+      },
+      {
+        "name": "alpha_S",
+        "unit": "1/°C",
+        "description": {
+          "en": "Expansion coefficient of the standard",
+          "tr": "Standardın genleşme katsayısı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.15e-05,
+          "sd": 1.2e-06
+        }
+      },
+      {
+        "name": "d_theta",
+        "unit": "°C",
+        "description": {
+          "en": "Temperature difference between the gauges",
+          "tr": "Mastarlar arasındaki sıcaklık farkı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0,
+          "sd": 0.029
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_probability": 0.99
+    },
+    "mcm": {
+      "trials": 2000000,
+      "seed": 8,
+      "interval": "symmetric"
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 50000838,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 31.7,
+        "tolerance": 0.05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 50000837.9,
+        "tolerance": 0.1
+      },
+      "standard_uncertainty": {
+        "value": 33.9,
+        "tolerance": 0.1
+      },
+      "interval_low": {
+        "value": 50000749,
+        "tolerance": 1.5
+      },
+      "interval_high": {
+        "value": 50000927,
+        "tolerance": 1.5
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "NIST Uncertainty Machine manual §8, Figure 3 (Gauss's formula 50 000 838 nm, u = 31.7 nm; Monte Carlo, M = 10⁶: mean 50 000 837.9 nm, sd 33.9 nm, 99 % symmetric interval (50 000 749, 50 000 927) nm).",
+      "tr": "NIST Uncertainty Machine kılavuzu §8, Şekil 3 (Gauss formülü 50 000 838 nm, u = 31,7 nm; Monte Carlo, M = 10⁶: ortalama 50 000 837,9 nm, standart sapma 33,9 nm, %99 simetrik aralık (50 000 749; 50 000 927) nm)."
+    }
+  }
+}

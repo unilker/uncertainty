@@ -1,0 +1,160 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s2-weight-10kg",
+    "title": {
+      "en": "Calibration of a 10 kg weight",
+      "tr": "10 kg'lık bir ağırlığın kalibrasyonu"
+    },
+    "description": {
+      "en": "EA-4/02 S2: OIML class M1 weight calibrated against an F2 standard with a mass comparator (ABBA).",
+      "tr": "EA-4/02 S2: OIML M1 sınıfı ağırlığın F2 standarda karşı kütle komparatörüyle (ABBA) kalibrasyonu."
+    },
+    "explanation": [
+      {
+        "en": "m_X = m_S + δm_D + δm + δm_C + δB (deviations from 10 kg, in mg).",
+        "tr": "m_X = m_S + δm_D + δm + δm_C + δB (10 kg'dan sapmalar, mg)."
+      },
+      {
+        "en": "The observed difference is the mean of three ABBA comparisons (+10, +30, +20 mg); its standard uncertainty uses the pooled standard deviation s_p = 25 mg from an earlier evaluation: u(δm) = 25/√3 = 14.4 mg.",
+        "tr": "Gözlenen fark üç ABBA karşılaştırmasının ortalamasıdır (+10, +30, +20 mg); standart belirsizliği daha önceki bir değerlendirmeden birleştirilmiş standart sapma s_p = 25 mg ile hesaplanır: u(δm) = 25/√3 = 14,4 mg."
+      },
+      {
+        "en": "Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.",
+        "tr": "Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır."
+      },
+      {
+        "en": "m_X = 10 000.025 kg ± 58 mg (k = 2).",
+        "tr": "m_X = 10 000,025 kg ± 58 mg (k = 2)."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S2",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "Finding: the guide combines contributions rounded to three significant figures (14.4 for 14.43 mg), giving 29.2 mg and U = 58 mg; unrounded, u = 29.26 mg and U = 58.5 mg (59 mg when rounded to two digits).",
+        "tr": "Bulgu: rehber üç anlamlı basamağa yuvarlanmış katkıları (14,43 yerine 14,4 mg) birleştirerek 29,2 mg ve U = 58 mg bulur; yuvarlanmamış değerlerle u = 29,26 mg ve U = 58,5 mg'dir (iki basamakta 59 mg)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "m_X",
+      "unit": "mg",
+      "expression": "m_S + dm_D + dm + dm_C + dB",
+      "description": {
+        "en": "Deviation of the weight from 10 kg",
+        "tr": "Ağırlığın 10 kg'dan sapması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "m_S",
+        "unit": "mg",
+        "description": {
+          "en": "Standard (certificate: +5 mg, U = 45 mg, k = 2)",
+          "tr": "Standart (sertifika: +5 mg, U = 45 mg, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 5.0,
+          "expanded": 45.0,
+          "k": 2
+        }
+      },
+      {
+        "name": "dm_D",
+        "unit": "mg",
+        "description": {
+          "en": "Drift of the standard since its last calibration",
+          "tr": "Standardın son kalibrasyondan beri sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 15.0
+        }
+      },
+      {
+        "name": "dm",
+        "unit": "mg",
+        "description": {
+          "en": "Observed difference (mean of 3, s_p = 25 mg)",
+          "tr": "Gözlenen fark (3 ölçüm ortalaması, s_p = 25 mg)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 20.0,
+          "sd": 14.433756729740645
+        }
+      },
+      {
+        "name": "dm_C",
+        "unit": "mg",
+        "description": {
+          "en": "Comparator eccentricity and magnetic effects",
+          "tr": "Komparatör eksantrikliği ve manyetik etkiler"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 10.0
+        }
+      },
+      {
+        "name": "dB",
+        "unit": "mg",
+        "description": {
+          "en": "Air buoyancy",
+          "tr": "Hava kaldırma kuvveti"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 10.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 25.0,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 29.2,
+        "tolerance": 0.1
+      },
+      "expanded_uncertainty": {
+        "value": 58.0,
+        "tolerance": 0.6
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S2.10–S2.11 (u = 29.2 mg, U = 58 mg).",
+      "tr": "EA-4/02 M:2022 S2.10–S2.11 (u = 29,2 mg, U = 58 mg)."
+    }
+  }
+}

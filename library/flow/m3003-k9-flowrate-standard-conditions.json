@@ -1,0 +1,379 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k9-flowrate-standard-conditions",
+    "title": {
+      "en": "Volume flowrate referred to standard pressure and temperature (UKAS M3003 K.9)",
+      "tr": "Standart basınç ve sıcaklığa indirgenmiş hacimsel debi (UKAS M3003 K.9)"
+    },
+    "description": {
+      "en": "Flowrate from a 4–20 mA flowmeter at 1018 hPa and 295.1 K, expressed at 1013.25 hPa and 293.15 K; three partial budgets in one model.",
+      "tr": "1018 hPa ve 295,1 K'de 4–20 mA'lik bir debimetreden debi, 1013,25 hPa ve 293,15 K'de ifade edilir; üç kısmi bütçe tek modelde."
+    },
+    "explanation": [
+      {
+        "en": "Q_s = Q_m·(P_m/P_s)·(T_s/T_m) + δQ_s (K.9.2), with Q_m = A·i + B and A = 6.25 L s⁻¹ mA⁻¹, B = −24.95 L s⁻¹ (K.9.4): i = 6.0 mA gives Q_m = 12.55 L s⁻¹.",
+        "tr": "Q_s = Q_m·(P_m/P_s)·(T_s/T_m) + δQ_s (K.9.2); Q_m = A·i + B, A = 6,25 L s⁻¹ mA⁻¹, B = −24,95 L s⁻¹ (K.9.4): i = 6,0 mA, Q_m = 12,55 L s⁻¹ verir."
+      },
+      {
+        "en": "Partial budgets: u(Q_m) = 0.207 L s⁻¹ (calibration, drift, environment, current); u(P_m) = 1.322 hPa; u(T_m) = 0.144 K; repeatability of Q_s s = 0.18 L s⁻¹ (ν = 24, one reading).",
+        "tr": "Kısmi bütçeler: u(Q_m) = 0,207 L s⁻¹ (kalibrasyon, sürüklenme, ortam, akım); u(P_m) = 1,322 hPa; u(T_m) = 0,144 K; Q_s tekrarlanabilirliği s = 0,18 L s⁻¹ (ν = 24, tek okuma)."
+      },
+      {
+        "en": "Q_s = 12.53 L s⁻¹, u_c = 0.275 L s⁻¹, ν_eff = 130; Q_s = (12.53 ± 0.55) L s⁻¹ (k = 2).",
+        "tr": "Q_s = 12,53 L s⁻¹, u_c = 0,275 L s⁻¹, ν_eff = 130; Q_s = (12,53 ± 0,55) L s⁻¹ (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "flow",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.9",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "flow",
+      "standard-conditions",
+      "intermediate"
+    ],
+    "notes": [
+      {
+        "en": "With ν_eff = 130 the coverage factor for 95.45 % is 2.03 (Appendix B table: 2.025 at 100), which would give U = 0.56 L/s; the example uses k = 2.",
+        "tr": "ν_eff = 130 ile %95,45 için kapsam faktörü 2,03'tür (Ek B tablosu: 100'de 2,025); bu U = 0,56 L/s verirdi; örnek k = 2 kullanır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "Q_s",
+      "unit": "L/s",
+      "expression": "Q_m*(P_m/P_s)*(T_s/T_m) + dQ_s",
+      "description": {
+        "en": "Flowrate at standard conditions",
+        "tr": "Standart koşullarda debi"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "Q_m",
+        "unit": "L/s",
+        "expression": "A*i + B + dq_cal - dq_d - dq_T",
+        "description": {
+          "en": "Flowrate at the meter",
+          "tr": "Debimetrede debi"
+        }
+      },
+      {
+        "name": "P_m",
+        "unit": "hPa",
+        "expression": "p_m - dp_m - dp_f - dp_d - dp_T",
+        "description": {
+          "en": "Fluid pressure at the meter",
+          "tr": "Debimetrede akışkan basıncı"
+        }
+      },
+      {
+        "name": "T_m",
+        "unit": "K",
+        "expression": "t_m - dt_m - dt_f - dt_d - dt_T",
+        "description": {
+          "en": "Fluid temperature at the meter",
+          "tr": "Debimetrede akışkan sıcaklığı"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "name": "A",
+        "description": {
+          "en": "Slope of the calibration function",
+          "tr": "Kalibrasyon fonksiyonunun eğimi"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 6.25
+        },
+        "unit": "L s⁻¹/mA"
+      },
+      {
+        "name": "B",
+        "description": {
+          "en": "Intercept of the calibration function",
+          "tr": "Kalibrasyon fonksiyonunun kesişimi"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": -24.95
+        },
+        "unit": "L/s"
+      },
+      {
+        "name": "i",
+        "description": {
+          "en": "Measured current (U = 0.021 mA, k = 2)",
+          "tr": "Ölçülen akım (U = 0,021 mA, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 6.0,
+          "expanded": 0.021,
+          "k": 2
+        },
+        "unit": "mA"
+      },
+      {
+        "name": "dq_cal",
+        "description": {
+          "en": "Flowmeter calibration (U = 0.26 L/s, k = 2)",
+          "tr": "Debimetre kalibrasyonu (U = 0,26 L/s, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.26,
+          "k": 2
+        },
+        "unit": "L/s"
+      },
+      {
+        "name": "dq_d",
+        "description": {
+          "en": "Calibration drift",
+          "tr": "Kalibrasyon sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.23
+        },
+        "unit": "L/s"
+      },
+      {
+        "name": "dq_T",
+        "description": {
+          "en": "Environmental effects",
+          "tr": "Ortam etkileri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.11
+        },
+        "unit": "L/s"
+      },
+      {
+        "name": "p_m",
+        "description": {
+          "en": "Pressure indication (1 hPa resolution)",
+          "tr": "Basınç göstergesi (1 hPa çözünürlük)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 1018.0,
+          "half_width": 0.5
+        },
+        "unit": "hPa"
+      },
+      {
+        "name": "dp_m",
+        "description": {
+          "en": "Gauge calibration (U = 1.8 hPa, k = 2)",
+          "tr": "Manometre kalibrasyonu (U = 1,8 hPa, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 1.8,
+          "k": 2
+        },
+        "unit": "hPa"
+      },
+      {
+        "name": "dp_f",
+        "description": {
+          "en": "Uncorrected calibration error",
+          "tr": "Düzeltilmemiş kalibrasyon hatası"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.056
+        },
+        "unit": "hPa"
+      },
+      {
+        "name": "dp_d",
+        "description": {
+          "en": "Gauge drift",
+          "tr": "Manometre sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.25
+        },
+        "unit": "hPa"
+      },
+      {
+        "name": "dp_T",
+        "description": {
+          "en": "Environmental effects on the gauge",
+          "tr": "Manometreye ortam etkileri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.0
+        },
+        "unit": "hPa"
+      },
+      {
+        "name": "t_m",
+        "description": {
+          "en": "Corrected temperature indication (0.1 K resolution)",
+          "tr": "Düzeltilmiş sıcaklık göstergesi (0,1 K çözünürlük)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 295.1,
+          "half_width": 0.05
+        },
+        "unit": "K"
+      },
+      {
+        "name": "dt_m",
+        "description": {
+          "en": "Thermometer calibration (U = 0.055 K, k = 2)",
+          "tr": "Termometre kalibrasyonu (U = 0,055 K, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.055,
+          "k": 2
+        },
+        "unit": "K"
+      },
+      {
+        "name": "dt_f",
+        "description": {
+          "en": "Residual error after the mean correction",
+          "tr": "Ortalama düzeltmeden sonra kalan hata"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.02
+        },
+        "unit": "K"
+      },
+      {
+        "name": "dt_d",
+        "description": {
+          "en": "Thermometer drift",
+          "tr": "Termometre sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.13
+        },
+        "unit": "K"
+      },
+      {
+        "name": "dt_T",
+        "description": {
+          "en": "Installation effects",
+          "tr": "Montaj etkileri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.2
+        },
+        "unit": "K"
+      },
+      {
+        "name": "P_s",
+        "description": {
+          "en": "Standard pressure",
+          "tr": "Standart basınç"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 1013.25
+        },
+        "unit": "hPa"
+      },
+      {
+        "name": "T_s",
+        "description": {
+          "en": "Standard temperature",
+          "tr": "Standart sıcaklık"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 293.15
+        },
+        "unit": "K"
+      },
+      {
+        "name": "dQ_s",
+        "description": {
+          "en": "Repeatability of Q_s (s = 0.18 L/s, ν = 24, one reading)",
+          "tr": "Q_s'nin tekrarlanabilirliği (s = 0,18 L/s, ν = 24, tek okuma)"
+        },
+        "distribution": {
+          "type": "type_a_pooled",
+          "mean": 0.0,
+          "pooled_sd": 0.18,
+          "pooled_dof": 24,
+          "n": 1
+        },
+        "unit": "L/s"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 12.53,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 0.275,
+        "tolerance": 0.0005
+      },
+      "effective_dof": {
+        "value": 130,
+        "tolerance": 1
+      },
+      "expanded_uncertainty": {
+        "value": 0.55,
+        "tolerance": 0.005
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.9.10–K.9.12: u_c = 0.275 L/s, ν_eff = 130, U = 0.55 L/s; (12.53 ± 0.55) L/s.",
+      "tr": "UKAS M3003 6. baskı K.9.10–K.9.12: u_c = 0,275 L/s, ν_eff = 130, U = 0,55 L/s; (12,53 ± 0,55) L/s."
+    }
+  }
+}

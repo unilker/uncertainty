@@ -1,0 +1,185 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "palma2019-li-marine-sediment",
+    "title": {
+      "en": "Lithium in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)",
+      "tr": "Deniz sedimentlerinde lityum, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)"
+    },
+    "description": {
+      "en": "Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Li in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.",
+      "tr": "Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde toplam Li belirsizliği."
+    },
+    "explanation": [
+      {
+        "en": "Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 1 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); total Li by the OSPAR procedure, flame AAS.",
+        "tr": "İki belirsizlik modeli: tespit sınırından 2w_LOQ = 1 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); OSPAR yöntemiyle toplam Li, alevli AAS."
+      },
+      {
+        "en": "Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.0345 mg/kg (I) and 3.45 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.058 mg/kg (I) and 5.8 % (II).",
+        "tr": "Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,0345 mg/kg (I) ve %3,45 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,058 mg/kg (I) ve %5,8 (II)."
+      },
+      {
+        "en": "Matrix effects: the recoveries of Li in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 0.1 mg/kg (I) and 10 % (II) (Formulae 16, 17).",
+        "tr": "Matris etkileri: yeterlilik testlerinin sedimentlerinde Li geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 0,1 mg/kg (I) ve %10 (II) (Formül 16, 17)."
+      },
+      {
+        "en": "Trueness: weighted mean recovery R̄_w = 102 % with u(R̄) = 3.95 %, i.e. u′_T = 3.87 % of the result; in Interval I it is taken at 2w_LOQ: 0.0387 mg/kg.",
+        "tr": "Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %102, u(R̄) = %3,95; yani sonucun u′_T = %3,87'si; Aralık I'de 2w_LOQ'da alınır: 0,0387 mg/kg."
+      },
+      {
+        "en": "u_c = 0.127 mg/kg in Interval I and u′_c = 12.67 % in Interval II (Formulae 20, 21); U = 2u_c.",
+        "tr": "Aralık I'de u_c = 0,127 mg/kg ve Aralık II'de u′_c = %12,67 (Formül 20, 21); U = 2u_c."
+      },
+      {
+        "en": "Matrix effects contribute 62.3 % (I) and 62.3 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 62.3 % and 62.4 %).",
+        "tr": "Matris etkileri varyansın %62,3 (I) ve %62,3 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %62,3 ve %62,4)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "C. Palma, V. Morgado, R. J. N. Bettencourt da Silva, Top-down evaluation of matrix effects uncertainty, Talanta 192 (2019) 278–287",
+        "section": "Table 9",
+        "url": "https://doi.org/10.1016/j.talanta.2018.09.039"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "matrix-effects",
+      "two-intervals",
+      "environmental",
+      "proficiency-tests"
+    ],
+    "notes": [
+      {
+        "en": "The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.",
+        "tr": "Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(Li)",
+    "unit": "mg/kg",
+    "levels": [
+      0.5,
+      5.0
+    ],
+    "precision": [
+      {
+        "name": "s_r(h)⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.0345
+        },
+        "range": {
+          "max": 1.0
+        }
+      },
+      {
+        "name": "s_I⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.058
+        },
+        "range": {
+          "max": 1.0
+        }
+      },
+      {
+        "name": "s′_r(h)⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 3.45
+        },
+        "range": {
+          "min": 1.0
+        }
+      },
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 5.8
+        },
+        "range": {
+          "min": 1.0
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "u_ME⟨I⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u": 0.1,
+        "range": {
+          "max": 1.0
+        }
+      },
+      {
+        "name": "u′_ME⟨II⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u_percent": 10.0,
+        "range": {
+          "min": 1.0
+        }
+      },
+      {
+        "name": "u_T⟨I⟩",
+        "description": {
+          "en": "trueness at 2w_LOQ",
+          "tr": "2w_LOQ'da doğruluk"
+        },
+        "u": 0.038725,
+        "range": {
+          "max": 1.0
+        }
+      },
+      {
+        "name": "u′_T⟨II⟩",
+        "description": {
+          "en": "trueness, u(R̄)/R̄_w",
+          "tr": "doğruluk, u(R̄)/R̄_w"
+        },
+        "u_percent": 3.872549,
+        "range": {
+          "min": 1.0
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "levels": [
+        {
+          "level": 0.5,
+          "standard_uncertainty": {
+            "value": 0.127,
+            "tolerance": 0.001
+          }
+        },
+        {
+          "level": 5.0,
+          "relative_standard_percent": {
+            "value": 12.7,
+            "tolerance": 0.1
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Palma et al. (2019) Table 9: u_c⟨I⟩ = 0.127 mg/kg, u′_c⟨II⟩ = 12.7 %; tolerance one unit of the last printed digit, since the components are themselves rounded.",
+      "tr": "Palma ve ark. (2019) Tablo 9: u_c⟨I⟩ = 0,127 mg/kg, u′_c⟨II⟩ = %12,7; tolerans basılı son basamağın bir birimidir, çünkü bileşenlerin kendileri de yuvarlanmıştır."
+    }
+  }
+}

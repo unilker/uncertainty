@@ -1,0 +1,75 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tr569-ch7-case2-target-mean",
+    "title": {
+      "en": "Setting the limits of an X-chart, case 2 (Nordtest TR 569 Chapter 7)",
+      "tr": "X-grafiğinin sınırlarının belirlenmesi, durum 2 (Nordtest TR 569 Bölüm 7)"
+    },
+    "description": {
+      "en": "Case 2: target limits from a required s_Rw of 5 %, mean central line 59.2 µg/L.",
+      "tr": "Durum 2: gerekli %5 s_Rw'den hedef sınırlar, ortalama merkez çizgisi 59,2 µg/L."
+    },
+    "explanation": [
+      {
+        "en": "Target control limits: s_target from the requirement replaces the s of the method; warning limits CL ± 2s_target, action limits CL ± 3s_target (Chapter 7).",
+        "tr": "Hedef kontrol sınırları: yöntemin s'si yerine gereklilikten s_hedef kullanılır; uyarı sınırları CL ± 2s_hedef, eylem sınırları CL ± 3s_hedef (Bölüm 7)."
+      },
+      {
+        "en": "The relative standard deviation applies to the central line: s = p·CL/100.",
+        "tr": "Göreli standart sapma merkez çizgisine uygulanır: s = p·CL/100."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Nordtest TR 569 ed. 6 (2026), Handbook of Internal Quality Control, by B. Magnusson, H. Hovind, M. Krysell, U. Lund, I. Mäkinen and E. Sahlin",
+        "section": "Chapter 7, Setting the control limits and the central line in X-charts, case 2",
+        "url": "https://www.nordtest.info/wp/wp-content/uploads/2026/03/NT_TR_569_ed6_Eng.pdf"
+      }
+    ],
+    "tags": [
+      "nordtest-tr569",
+      "internal-quality-control",
+      "control-chart",
+      "x-chart",
+      "limits"
+    ]
+  },
+  "control_chart": {
+    "quantity": "control sample",
+    "unit": "µg/L",
+    "central_line": {
+      "mean": 59.2
+    },
+    "limits": {
+      "basis": "target",
+      "sd_percent": 5.0
+    }
+  },
+  "expected": {
+    "control_chart": {
+      "lower_warning": {
+        "value": 53.3,
+        "tolerance": 0.05
+      },
+      "upper_warning": {
+        "value": 65.1,
+        "tolerance": 0.05
+      },
+      "lower_action": {
+        "value": 50.3,
+        "tolerance": 0.05
+      },
+      "upper_action": {
+        "value": 68.1,
+        "tolerance": 0.05
+      }
+    },
+    "reference": {
+      "en": "TR 569 Chapter 7, values to 0.1 µg/L.",
+      "tr": "TR 569 Bölüm 7, 0,1 µg/L'ye yuvarlanmış değerler."
+    }
+  }
+}

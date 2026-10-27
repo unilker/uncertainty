@@ -1,0 +1,189 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "palma2019-pb-marine-sediment",
+    "title": {
+      "en": "Lead in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)",
+      "tr": "Deniz sedimentlerinde kurşun, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)"
+    },
+    "description": {
+      "en": "Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of acid-extractable Pb in marine sediments from duplicate analyses, the intermediate precision of a homogeneous sample, the variability of recoveries in 36 proficiency tests (matrix effects) and the weighted mean recovery.",
+      "tr": "Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homojen bir numunenin ara kesinliğinden, 36 yeterlilik testindeki geri kazanım değişkenliğinden (matris etkileri) ve ağırlıklı ortalama geri kazanımdan deniz sedimentlerinde asitte ekstrakte edilebilir Pb belirsizliği."
+    },
+    "explanation": [
+      {
+        "en": "Two models of the uncertainty: Interval I from the limit of detection to 2w_LOQ = 20 mg/kg (absolute components), Interval II above 2w_LOQ (relative components); acid-extractable Pb by the EPA 3051A procedure, flame AAS.",
+        "tr": "İki belirsizlik modeli: tespit sınırından 2w_LOQ = 20 mg/kg'a kadar Aralık I (mutlak bileşenler), 2w_LOQ üzerinde Aralık II (bağıl bileşenler); EPA 3051A yöntemiyle asitte ekstrakte edilebilir Pb, alevli AAS."
+      },
+      {
+        "en": "Precision: repeatability of duplicate analyses of real sediments, which includes subsampling, s_r(h) = 0.714 mg/kg (I) and 4.95 % (II) (mean range/1.128), and the intermediate precision of a homogeneous sample, s_I = 0.804 mg/kg (I) and 4.02 % (II).",
+        "tr": "Kesinlik: gerçek sedimentlerin ikili analizlerinin alt örneklemeyi de içeren tekrarlanabilirliği, s_r(h) = 0,714 mg/kg (I) ve %4,95 (II) (ortalama aralık/1,128), ve homojen bir numunenin ara kesinliği, s_I = 0,804 mg/kg (I) ve %4,02 (II)."
+      },
+      {
+        "en": "Matrix effects: the recoveries of Pb in the sediments of the proficiency tests vary more than the intermediate precision explains; s_ME = √(s′(R)² − s_I²) = 1.53 mg/kg (I) and 7.65 % (II) (Formulae 16, 17).",
+        "tr": "Matris etkileri: yeterlilik testlerinin sedimentlerinde Pb geri kazanımları ara kesinliğin açıklayabileceğinden fazla değişir; s_ME = √(s′(R)² − s_I²) = 1,53 mg/kg (I) ve %7,65 (II) (Formül 16, 17)."
+      },
+      {
+        "en": "Trueness: weighted mean recovery R̄_w = 91.9 % with u(R̄) = 1.41 %, i.e. u′_T = 1.53 % of the result; in Interval I it is taken at 2w_LOQ: 0.307 mg/kg.",
+        "tr": "Doğruluk: ağırlıklı ortalama geri kazanım R̄_w = %91,9, u(R̄) = %1,41; yani sonucun u′_T = %1,53'si; Aralık I'de 2w_LOQ'da alınır: 0,307 mg/kg."
+      },
+      {
+        "en": "u_c = 1.9 mg/kg in Interval I and u′_c = 10.08 % in Interval II (Formulae 20, 21); U = 2u_c.",
+        "tr": "Aralık I'de u_c = 1,9 mg/kg ve Aralık II'de u′_c = %10,08 (Formül 20, 21); U = 2u_c."
+      },
+      {
+        "en": "Matrix effects contribute 65.2 % (I) and 57.6 % (II) of the variance (the variance shares of the report; χ_ME of Table 9: 65.2 % and 57.6 %).",
+        "tr": "Matris etkileri varyansın %65,2 (I) ve %57,6 (II) kadarını oluşturur (raporun varyans payları; Tablo 9'daki χ_ME: %65,2 ve %57,6)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "C. Palma, V. Morgado, R. J. N. Bettencourt da Silva, Top-down evaluation of matrix effects uncertainty, Talanta 192 (2019) 278–287",
+        "section": "Table 9, Section 4.1",
+        "url": "https://doi.org/10.1016/j.talanta.2018.09.039"
+      }
+    ],
+    "tags": [
+      "top-down",
+      "matrix-effects",
+      "two-intervals",
+      "environmental",
+      "proficiency-tests"
+    ],
+    "notes": [
+      {
+        "en": "The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.",
+        "tr": "Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir."
+      },
+      {
+        "en": "For lead the text gives u′_P = 6.38 % and Table 9 6.37 %; √((5.583/1.128)² + 4.02²) = 6.38 %. The text gives u_c = 6.04 mg/kg at 60 mg/kg, whereas 10.08 % × 60 mg/kg = 6.05 mg/kg.",
+        "tr": "Kurşun için metin u′_P = %6,38, Tablo 9 ise %6,37 verir; √((5,583/1,128)² + 4,02²) = %6,38'dir. Metin 60 mg/kg'da u_c = 6,04 mg/kg verir; oysa %10,08 × 60 mg/kg = 6,05 mg/kg'dır."
+      }
+    ]
+  },
+  "topdown": {
+    "quantity": "w(Pb)",
+    "unit": "mg/kg",
+    "levels": [
+      10,
+      100
+    ],
+    "precision": [
+      {
+        "name": "s_r(h)⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.714
+        },
+        "range": {
+          "max": 20
+        }
+      },
+      {
+        "name": "s_I⟨I⟩",
+        "data": {
+          "type": "given",
+          "sd": 0.804
+        },
+        "range": {
+          "max": 20
+        }
+      },
+      {
+        "name": "s′_r(h)⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 4.95
+        },
+        "range": {
+          "min": 20
+        }
+      },
+      {
+        "name": "s′_I⟨II⟩",
+        "data": {
+          "type": "given",
+          "sd_percent": 4.02
+        },
+        "range": {
+          "min": 20
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "u_ME⟨I⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u": 1.53,
+        "range": {
+          "max": 20
+        }
+      },
+      {
+        "name": "u′_ME⟨II⟩",
+        "description": {
+          "en": "matrix effects",
+          "tr": "matris etkileri"
+        },
+        "u_percent": 7.65,
+        "range": {
+          "min": 20
+        }
+      },
+      {
+        "name": "u_T⟨I⟩",
+        "description": {
+          "en": "trueness at 2w_LOQ",
+          "tr": "2w_LOQ'da doğruluk"
+        },
+        "u": 0.306855,
+        "range": {
+          "max": 20
+        }
+      },
+      {
+        "name": "u′_T⟨II⟩",
+        "description": {
+          "en": "trueness, u(R̄)/R̄_w",
+          "tr": "doğruluk, u(R̄)/R̄_w"
+        },
+        "u_percent": 1.534276,
+        "range": {
+          "min": 20
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "topdown": {
+      "levels": [
+        {
+          "level": 10,
+          "standard_uncertainty": {
+            "value": 1.9,
+            "tolerance": 0.01
+          }
+        },
+        {
+          "level": 100,
+          "relative_standard_percent": {
+            "value": 10.1,
+            "tolerance": 0.1
+          }
+        }
+      ]
+    },
+    "reference": {
+      "en": "Palma et al. (2019) Table 9: u_c⟨I⟩ = 1.9 mg/kg, u′_c⟨II⟩ = 10.1 %; tolerance one unit of the last printed digit, since the components are themselves rounded.",
+      "tr": "Palma ve ark. (2019) Tablo 9: u_c⟨I⟩ = 1,9 mg/kg, u′_c⟨II⟩ = %10,1; tolerans basılı son basamağın bir birimidir, çünkü bileşenlerin kendileri de yuvarlanmıştır."
+    }
+  }
+}

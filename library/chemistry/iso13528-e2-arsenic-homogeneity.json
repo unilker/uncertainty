@@ -1,0 +1,142 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso13528-e2-arsenic-homogeneity",
+    "title": {
+      "en": "Arsenic in chocolate: homogeneity and stability of PT items (ISO 13528 E.2)",
+      "tr": "Çikolatada arsenik: YT numunelerinin homojenliği ve kararlılığı (ISO 13528 E.2)"
+    },
+    "description": {
+      "en": "ISO 13528:2022 E.2: between-sample standard deviation from 10 items measured in duplicate, compared with 0.3σ_pt, and a stability check after six weeks at 60 °C.",
+      "tr": "ISO 13528:2022 E.2: ikişer kez ölçülen 10 numuneden numuneler arası standart sapma, 0,3σ_pt ile karşılaştırma ve 60 °C'de altı hafta sonra kararlılık kontrolü."
+    },
+    "explanation": [
+      {
+        "en": "Ten vials, selected by stratified random sampling from 1 000, are each tested twice under repeatability conditions (Table E.2).",
+        "tr": "1 000 şişeden tabakalı rastgele örneklemeyle seçilen on şişe, tekrarlanabilirlik koşullarında ikişer kez test edilmiştir (Tablo E.2)."
+      },
+      {
+        "en": "Analysis of variance (B.3): general average 0.18715 mg/kg, standard deviation of the item averages s_x = 0.00398, within-sample s_w = 0.00556 and between-sample s_s = √(s_x² − s_w²/2) = 0.00060 mg/kg.",
+        "tr": "Varyans analizi (B.3): genel ortalama 0,18715 mg/kg, numune ortalamalarının standart sapması s_x = 0,00398, numune içi s_w = 0,00556 ve numuneler arası s_s = √(s_x² − s_w²/2) = 0,00060 mg/kg."
+      },
+      {
+        "en": "With the provisional σ_pt = 15 % of the average = 0.02807 mg/kg, s_s is far below 0.3σ_pt = 0.00842 mg/kg: the items are sufficiently homogeneous. The expanded criterion of B.2.3 (F₁ = 1.88, F₂ = 1.01 for g = 10) gives √c = 0.0133 mg/kg.",
+        "tr": "Ortalamanın %15'i olan geçici σ_pt = 0,02807 mg/kg ile s_s, 0,3σ_pt = 0,00842 mg/kg'nin çok altındadır: numuneler yeterince homojendir. B.2.3'ün genişletilmiş ölçütü (g = 10 için F₁ = 1,88, F₂ = 1,01) √c = 0,0133 mg/kg verir."
+      },
+      {
+        "en": "Stability: two items stored at 60 °C for six weeks give an average of 0.19375 mg/kg; the difference 0.00660 mg/kg from the homogeneity mean is below 0.3σ_pt, so stability is sufficient (B.5.1).",
+        "tr": "Kararlılık: 60 °C'de altı hafta saklanan iki numune 0,19375 mg/kg ortalama verir; homojenlik ortalamasından 0,00660 mg/kg'lik fark 0,3σ_pt'nin altındadır, dolayısıyla kararlılık yeterlidir (B.5.1)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 13528:2022, Statistical methods for use in proficiency testing by interlaboratory comparison",
+        "section": "E.2, Tables E.2 and E.3",
+        "url": "https://www.iso.org/standard/78879.html"
+      }
+    ],
+    "tags": [
+      "iso13528",
+      "proficiency-testing",
+      "homogeneity",
+      "stability"
+    ]
+  },
+  "proficiency": {
+    "quantity": "As",
+    "unit": "mg/kg",
+    "homogeneity": {
+      "items": [
+        [
+          0.185,
+          0.194
+        ],
+        [
+          0.187,
+          0.189
+        ],
+        [
+          0.182,
+          0.186
+        ],
+        [
+          0.188,
+          0.196
+        ],
+        [
+          0.191,
+          0.181
+        ],
+        [
+          0.188,
+          0.18
+        ],
+        [
+          0.187,
+          0.196
+        ],
+        [
+          0.177,
+          0.186
+        ],
+        [
+          0.179,
+          0.187
+        ],
+        [
+          0.188,
+          0.196
+        ]
+      ],
+      "sd_pt_percent_of_mean": 15
+    },
+    "stability": {
+      "values": [
+        0.191,
+        0.198,
+        0.19,
+        0.196
+      ]
+    }
+  },
+  "expected": {
+    "proficiency": {
+      "homogeneity": {
+        "mean": {
+          "value": 0.18715,
+          "tolerance": 5e-06
+        },
+        "s_x": {
+          "value": 0.00398,
+          "tolerance": 5e-06
+        },
+        "s_w": {
+          "value": 0.00556,
+          "tolerance": 5e-06
+        },
+        "s_s": {
+          "value": 0.0006,
+          "tolerance": 5e-06
+        },
+        "criterion": {
+          "value": 0.00842,
+          "tolerance": 5e-06
+        },
+        "sufficient": true
+      },
+      "stability": {
+        "difference": {
+          "value": 0.0066,
+          "tolerance": 5e-06
+        },
+        "sufficient": true
+      }
+    },
+    "reference": {
+      "en": "ISO 13528:2022 E.2 (Tables E.2 and E.3 and the summary statistics printed with them).",
+      "tr": "ISO 13528:2022 E.2 (Tablo E.2 ve E.3 ile bunlarla birlikte basılı özet istatistikler)."
+    }
+  }
+}

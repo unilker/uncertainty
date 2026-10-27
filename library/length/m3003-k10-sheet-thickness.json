@@ -1,0 +1,198 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "m3003-k10-sheet-thickness",
+    "title": {
+      "en": "Thickness of an aluminium test sample (UKAS M3003 K.10)",
+      "tr": "Alüminyum deney numunesinin kalınlığı (UKAS M3003 K.10)"
+    },
+    "description": {
+      "en": "Mean of five thickness readings at the centre of a sample, measured in an uncontrolled environment; the calibration correction is not applied.",
+      "tr": "Bir numunenin merkezinde beş kalınlık okumasının ortalaması, kontrolsüz bir ortamda; kalibrasyon düzeltmesi uygulanmaz."
+    },
+    "explanation": [
+      {
+        "en": "w = w_ave + Δw_cal + δw_T (K.10.1): readings 1.51, 1.51, 1.52, 1.50, 1.53 mm give 1.514 mm, s = 0.0114 mm, u = 0.0051 mm (ν = 4).",
+        "tr": "w = w_ave + Δw_cal + δw_T (K.10.1): 1,51, 1,51, 1,52, 1,50, 1,53 mm okumaları 1,514 mm, s = 0,0114 mm, u = 0,0051 mm (ν = 4) verir."
+      },
+      {
+        "en": "Resolution ±0.005 mm; calibration U = 0.015 mm (k = 2); drift limit max(0.002, mean(0.002, 0.004, 0.001)) = 0.002 33 mm; uncorrected error ±0.001 mm; temperature ±10 K with 11.9·10⁻⁶ K⁻¹ × 3 mm = 3.57·10⁻⁵ mm/K (K.10.7).",
+        "tr": "Çözünürlük ±0,005 mm; kalibrasyon U = 0,015 mm (k = 2); sürüklenme sınırı max(0,002, ort(0,002, 0,004, 0,001)) = 0,002 33 mm; düzeltilmemiş hata ±0,001 mm; sıcaklık ±10 K, 11,9·10⁻⁶ K⁻¹ × 3 mm = 3,57·10⁻⁵ mm/K (K.10.7)."
+      },
+      {
+        "en": "u_c = 0.009 63 mm, ν_eff = 50; w = 1.514 mm ± 0.019 mm (k = 2).",
+        "tr": "u_c = 0,009 63 mm, ν_eff = 50; w = 1,514 mm ± 0,019 mm (k = 2)."
+      },
+      {
+        "en": "Reported as in M3003: expanded uncertainty with k = 2 for a coverage probability of approximately 95 %.",
+        "tr": "M3003'teki gibi raporlanır: yaklaşık %95 kapsam olasılığı için k = 2 ile genişletilmiş belirsizlik."
+      }
+    ],
+    "field": "length",
+    "sources": [
+      {
+        "document": "UKAS M3003 ed. 6 (2024), The Expression of Uncertainty and Confidence in Measurement",
+        "section": "Appendix K.10",
+        "url": "https://www.ukas.com/wp-content/uploads/2023/05/M3003-The-expression-of-uncertainty-and-confidence-in-measurement.pdf"
+      }
+    ],
+    "tags": [
+      "ukas-m3003",
+      "calibration",
+      "validation",
+      "length",
+      "thickness",
+      "testing",
+      "drift"
+    ],
+    "notes": [
+      {
+        "en": "With ν_eff = 50 the coverage factor for 95.45 % is 2.05 (Appendix B), which would give U = 0.020 mm; the example uses k = 2.",
+        "tr": "ν_eff = 50 ile %95,45 için kapsam faktörü 2,05'tir (Ek B); bu U = 0,020 mm verirdi; örnek k = 2 kullanır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "w",
+      "unit": "mm",
+      "expression": "w_ave + d_res + d_cal + d_drift + d_unc + c_T*d_T",
+      "description": {
+        "en": "Thickness at the centre of the sample",
+        "tr": "Numunenin merkezindeki kalınlık"
+      }
+    },
+    "inputs": [
+      {
+        "name": "w_ave",
+        "description": {
+          "en": "Indicated thickness, five readings",
+          "tr": "Gösterilen kalınlık, beş okuma"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            1.51,
+            1.51,
+            1.52,
+            1.5,
+            1.53
+          ]
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "d_res",
+        "description": {
+          "en": "Resolution",
+          "tr": "Çözünürlük"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.005
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "d_cal",
+        "description": {
+          "en": "Calibration (U = 0.015 mm, k = 2)",
+          "tr": "Kalibrasyon (U = 0,015 mm, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "expanded": 0.015,
+          "k": 2
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "d_drift",
+        "description": {
+          "en": "Calibration drift",
+          "tr": "Kalibrasyon sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.00233
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "d_unc",
+        "description": {
+          "en": "Uncorrected calibration error",
+          "tr": "Düzeltilmemiş kalibrasyon hatası"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.001
+        },
+        "unit": "mm"
+      },
+      {
+        "name": "c_T",
+        "description": {
+          "en": "Temperature sensitivity",
+          "tr": "Sıcaklık duyarlılığı"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 3.57e-05
+        },
+        "unit": "mm/K"
+      },
+      {
+        "name": "d_T",
+        "description": {
+          "en": "Deviation from the calibration temperature",
+          "tr": "Kalibrasyon sıcaklığından sapma"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 10.0
+        },
+        "unit": "K"
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.514,
+        "tolerance": 5e-07
+      },
+      "standard_uncertainty": {
+        "value": 0.00963,
+        "tolerance": 5e-06
+      },
+      "effective_dof": {
+        "value": 50,
+        "tolerance": 1
+      },
+      "expanded_uncertainty": {
+        "value": 0.019,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "UKAS M3003 ed. 6 K.10.8–K.10.9: u_c = 0.009 63 mm, ν_eff = 50, U = 0.019 mm; 1.514 mm ± 0.019 mm.",
+      "tr": "UKAS M3003 6. baskı K.10.8–K.10.9: u_c = 0,009 63 mm, ν_eff = 50, U = 0,019 mm; 1,514 mm ± 0,019 mm."
+    }
+  }
+}

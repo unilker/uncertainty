@@ -1,0 +1,187 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "nist-tn1900-e3-falling-ball-viscometer",
+    "title": {
+      "en": "Falling-ball viscometer (NIST TN 1900 E3)",
+      "tr": "Düşen bilyalı viskozimetre (NIST TN 1900 E3)"
+    },
+    "description": {
+      "en": "TN 1900 E3: dynamic viscosity of a NaOH solution by comparison with a calibration liquid; large relative uncertainties of the travel times make the output skewed.",
+      "tr": "TN 1900 E3: bir NaOH çözeltisinin dinamik viskozitesi kalibrasyon sıvısıyla karşılaştırılarak; düşme sürelerinin büyük bağıl belirsizlikleri çıktıyı çarpık yapar."
+    },
+    "explanation": [
+      {
+        "en": "μ_M = μ_C (ρ_B − ρ_M)/(ρ_B − ρ_C) · t_M/t_C with μ_C = 4.63 mPa s, ρ_B = 2217, ρ_C = 810, ρ_M = 1180 kg/m³, t_C = 36.6 s and t_M = 61 s; all inputs Gaussian.",
+        "tr": "μ_M = μ_C (ρ_B − ρ_M)/(ρ_B − ρ_C) · t_M/t_C; μ_C = 4,63 mPa s, ρ_B = 2217, ρ_C = 810, ρ_M = 1180 kg/m³, t_C = 36,6 s ve t_M = 61 s; tüm girdiler normal dağılımlı."
+      },
+      {
+        "en": "The relative standard uncertainties are 1 % for μ_C, 15 % for t_C and 10 % for t_M; the densities have u = 0.5 kg/m³. TN 1900 notes that these are deliberately large.",
+        "tr": "Bağıl standart belirsizlikler μ_C için %1, t_C için %15 ve t_M için %10'dur; yoğunlukların u'su 0,5 kg/m³'tür. TN 1900 bu değerlerin bilerek büyük seçildiğini belirtir."
+      },
+      {
+        "en": "Substituting the estimates gives 5.69 mPa s and the first-order law of propagation u = 1.03 mPa s. Because 1/t_C is strongly non-linear over ±15 %, the Monte Carlo mean is 5.82 mPa s, u = 1.11 mPa s, and the 95 % interval [4.05, 8.39] mPa s is asymmetric about the estimate.",
+        "tr": "Tahminlerin yerine konmasıyla 5,69 mPa s ve birinci mertebe yayılım yasasıyla u = 1,03 mPa s bulunur. 1/t_C, ±%15 aralığında belirgin biçimde doğrusal olmadığından Monte Carlo ortalaması 5,82 mPa s, u = 1,11 mPa s olur ve %95 aralığı, [4,05; 8,39] mPa s, tahmine göre asimetriktir."
+      },
+      {
+        "en": "The GUM interval 5.69 ± 2.01 mPa s is therefore not validated: its end points lie 0.38 mPa s and 0.69 mPa s below those of the Monte Carlo interval. The shortest Monte Carlo interval, [3.84, 8.05] mPa s, differs again from the probabilistically symmetric one used by TN 1900.",
+        "tr": "Bu nedenle GUM aralığı, 5,69 ± 2,01 mPa s, doğrulanmaz: uç noktaları Monte Carlo aralığınınkilerin 0,38 mPa s ve 0,69 mPa s altındadır. En kısa Monte Carlo aralığı, [3,84; 8,05] mPa s, TN 1900'ün kullandığı olasılıksal simetrik aralıktan da farklıdır."
+      }
+    ],
+    "field": "physical",
+    "sources": [
+      {
+        "document": "NIST Technical Note 1900, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results (A. Possolo, 2015)",
+        "section": "Example E3, Exhibit 3",
+        "url": "https://doi.org/10.6028/NIST.TN.1900"
+      }
+    ],
+    "tags": [
+      "nist-tn1900",
+      "non-linear",
+      "skewed",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "TN 1900 states that the conventional propagation formula, as implemented in the NIST Uncertainty Machine, gives 1.11 mPa s, identical to the Monte Carlo value. The first-order law of propagation (GUM eq. 10) applied to the stated model and inputs gives 1.027 mPa s; with the second-order terms of GUM 5.1.2 it gives about 1.10 mPa s. The NIST Uncertainty Machine manual (v1.4, §9) repeats the statement, but the output it prints in Figure 5 gives u(y) = 1 mPa s for Gauss's formula, consistent with 1.027 mPa s: the 1.11 mPa s of the text is the Monte Carlo value.",
+        "tr": "TN 1900, NIST Uncertainty Machine'de uygulanan klasik yayılım formülünün 1,11 mPa s verdiğini ve bunun Monte Carlo değeriyle aynı olduğunu belirtir. Birinci mertebe yayılım yasası (GUM eş. 10) verilen model ve girdilere uygulandığında 1,027 mPa s; GUM 5.1.2'nin ikinci mertebe terimleriyle yaklaşık 1,10 mPa s verir. NIST Uncertainty Machine kılavuzu (sürüm 1.4, §9) aynı ifadeyi tekrarlar; ancak Şekil 5'te bastığı çıktı Gauss formülü için u(y) = 1 mPa s verir ve bu 1,027 mPa s ile tutarlıdır: metindeki 1,11 mPa s Monte Carlo değeridir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "mu_M",
+      "unit": "mPa s",
+      "expression": "mu_C * (rho_B - rho_M) / (rho_B - rho_C) * t_M / t_C",
+      "description": {
+        "en": "Dynamic viscosity of the NaOH solution",
+        "tr": "NaOH çözeltisinin dinamik viskozitesi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "mu_C",
+        "unit": "mPa s",
+        "description": {
+          "en": "Viscosity of the calibration liquid",
+          "tr": "Kalibrasyon sıvısının viskozitesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 4.63,
+          "sd": 0.0463
+        }
+      },
+      {
+        "name": "rho_B",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the ball",
+          "tr": "Bilyanın yoğunluğu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 2217,
+          "sd": 0.5
+        }
+      },
+      {
+        "name": "rho_C",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the calibration liquid",
+          "tr": "Kalibrasyon sıvısının yoğunluğu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 810,
+          "sd": 0.5
+        }
+      },
+      {
+        "name": "rho_M",
+        "unit": "kg/m³",
+        "description": {
+          "en": "Density of the NaOH solution",
+          "tr": "NaOH çözeltisinin yoğunluğu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1180,
+          "sd": 0.5
+        }
+      },
+      {
+        "name": "t_C",
+        "unit": "s",
+        "description": {
+          "en": "Travel time of the ball in the calibration liquid",
+          "tr": "Bilyanın kalibrasyon sıvısındaki düşme süresi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 36.6,
+          "sd": 5.49
+        }
+      },
+      {
+        "name": "t_M",
+        "unit": "s",
+        "description": {
+          "en": "Travel time of the ball in the NaOH solution",
+          "tr": "Bilyanın NaOH çözeltisindeki düşme süresi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 61,
+          "sd": 6.1
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 2000000,
+      "seed": 3,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 5.69,
+        "tolerance": 0.005
+      },
+      "standard_uncertainty": {
+        "value": 1.0269,
+        "tolerance": 0.0005
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 5.82,
+        "tolerance": 0.01
+      },
+      "standard_uncertainty": {
+        "value": 1.11,
+        "tolerance": 0.01
+      },
+      "interval_low": {
+        "value": 4.05,
+        "tolerance": 0.01
+      },
+      "interval_high": {
+        "value": 8.39,
+        "tolerance": 0.02
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "NIST TN 1900 E3: estimate 5.69 mPa s from the measurement equation; Monte Carlo 5.82 mPa s, u = 1.11 mPa s, 95 % interval [4.05, 8.39] mPa s. GUM u = 1.027 mPa s: first-order law of propagation evaluated analytically (see note).",
+      "tr": "NIST TN 1900 E3: ölçüm denkleminden tahmin 5,69 mPa s; Monte Carlo 5,82 mPa s, u = 1,11 mPa s, %95 aralığı [4,05; 8,39] mPa s. GUM u = 1,027 mPa s: birinci mertebe yayılım yasasının analitik değeri (nota bakınız)."
+    }
+  }
+}

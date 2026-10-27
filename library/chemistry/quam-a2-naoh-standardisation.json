@@ -1,0 +1,154 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "quam-a2-naoh-standardisation",
+    "title": {
+      "en": "Standardising a sodium hydroxide solution",
+      "tr": "Sodyum hidroksit çözeltisinin ayarlanması"
+    },
+    "description": {
+      "en": "QUAM Example A2: NaOH standardised against potassium hydrogen phthalate (KHP); summary budget with the guide's standard uncertainties.",
+      "tr": "QUAM Örnek A2: NaOH çözeltisinin potasyum hidrojen ftalata (KHP) karşı ayarlanması; rehberin standart belirsizlikleriyle özet bütçe."
+    },
+    "explanation": [
+      {
+        "en": "c_NaOH = 1000 · m_KHP · P_KHP / (M_KHP · V_T) · rep (mol/L), where rep is a repeatability factor with relative standard uncertainty 0.05 %.",
+        "tr": "c_NaOH = 1000 · m_KHP · P_KHP / (M_KHP · V_T) · rep (mol/L); burada rep, bağıl standart belirsizliği %0,05 olan tekrarlanabilirlik çarpanıdır."
+      },
+      {
+        "en": "For a product/quotient model, relative uncertainties combine in quadrature: u_c/c = √[(0.0005)² + (0.00013/0.3888)² + (0.00029)² + (0.0038/204.2212)² + (0.013/18.64)²].",
+        "tr": "Çarpım/bölüm modelinde bağıl belirsizlikler kareler toplamının karekökü ile birleşir: u_c/c = √[(0,0005)² + (0,00013/0,3888)² + (0,00029)² + (0,0038/204,2212)² + (0,013/18,64)²]."
+      },
+      {
+        "en": "The titration volume and the repeatability dominate; c = (0.10214 ± 0.00020) mol/L with k = 2.",
+        "tr": "Titrasyon hacmi ve tekrarlanabilirlik baskındır; k = 2 ile c = (0,10214 ± 0,00020) mol/L."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EURACHEM/CITAC Guide CG 4, Quantifying Uncertainty in Analytical Measurement, 3rd ed. (QUAM:2012.P1)",
+        "section": "Example A2, Tables A2.2 and A2.3",
+        "url": "https://www.eurachem.org/images/stories/Guides/pdf/QUAM2012_P1.pdf"
+      }
+    ],
+    "tags": [
+      "quam",
+      "validation",
+      "titration"
+    ],
+    "notes": [
+      {
+        "en": "The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.000099 mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.",
+        "tr": "Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,000099 mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "c_NaOH",
+      "unit": "mol/L",
+      "expression": "1000 * m_KHP * P_KHP / (M_KHP * V_T) * rep",
+      "description": {
+        "en": "Concentration of the NaOH solution",
+        "tr": "NaOH çözeltisinin derişimi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "rep",
+        "description": {
+          "en": "Repeatability factor",
+          "tr": "Tekrarlanabilirlik çarpanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.0005
+        }
+      },
+      {
+        "name": "m_KHP",
+        "unit": "g",
+        "description": {
+          "en": "Mass of KHP",
+          "tr": "KHP kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.3888,
+          "sd": 0.00013
+        }
+      },
+      {
+        "name": "P_KHP",
+        "description": {
+          "en": "Purity of KHP",
+          "tr": "KHP saflığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0,
+          "sd": 0.00029
+        }
+      },
+      {
+        "name": "M_KHP",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of KHP",
+          "tr": "KHP'nin molar kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 204.2212,
+          "sd": 0.0038
+        }
+      },
+      {
+        "name": "V_T",
+        "unit": "mL",
+        "description": {
+          "en": "Titration volume of NaOH",
+          "tr": "NaOH titrasyon hacmi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 18.64,
+          "sd": 0.013
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2,
+      "kragten": true
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 21
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.102136,
+        "tolerance": 5e-07
+      },
+      "standard_uncertainty": {
+        "value": 9.9e-05,
+        "tolerance": 5e-07
+      },
+      "kragten_uncertainty": {
+        "value": 9.9e-05,
+        "tolerance": 5e-07
+      }
+    },
+    "reference": {
+      "en": "QUAM:2012 Table A2.3 (c = 0.102136 mol/L, u_c = 0.000099 mol/L).",
+      "tr": "QUAM:2012 Tablo A2.3 (c = 0,102136 mol/L, u_c = 0,000099 mol/L)."
+    }
+  }
+}

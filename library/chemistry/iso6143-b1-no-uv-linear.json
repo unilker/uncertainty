@@ -1,0 +1,178 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso6143-b1-no-uv-linear",
+    "title": {
+      "en": "NO in N₂ by UV absorption: straight-line analysis function (ISO 6143 Example 1)",
+      "tr": "N₂ içinde NO, UV absorpsiyonu: doğrusal analiz fonksiyonu (ISO 6143 Örnek 1)"
+    },
+    "description": {
+      "en": "ISO 6143:2025 B.2.2: three reference gas mixtures (5 µmol/mol to 50 µmol/mol) with uncertainties in both the contents and the UV responses, a straight-line analysis function by generalized least squares and the contents of three mixtures with their covariances.",
+      "tr": "ISO 6143:2025 B.2.2: hem içeriklerinde hem de UV yanıtlarında belirsizlik bulunan üç referans gaz karışımı (5 µmol/mol – 50 µmol/mol), genelleştirilmiş en küçük karelerle doğrusal analiz fonksiyonu ve üç karışımın içerikleri ile kovaryansları."
+    },
+    "explanation": [
+      {
+        "en": "Steps A–G of ISO 6143 6.1: the responses are the means of ten measurements, u(y) their standard deviations of the mean; the relative uncertainty of both x and y is 1 % (contents) and 2 % (responses).",
+        "tr": "ISO 6143 6.1 adım A–G: yanıtlar on ölçümün ortalamaları, u(y) ortalamanın standart sapmalarıdır; x'in bağıl belirsizliği %1, y'ninki %2'dir."
+      },
+      {
+        "en": "Step H: x = b₀ + b₁y is fitted by minimising S = Σ[(x̂ᵢ − xᵢ)²/u²(xᵢ) + (ŷᵢ − yᵢ)²/u²(yᵢ)] over b and the adjusted responses ŷᵢ (Annex A): b₀ = −0.3575 µmol/mol, b₁ = 24.612 µmol/mol.",
+        "tr": "Adım H: x = b₀ + b₁y, S = Σ[(x̂ᵢ − xᵢ)²/u²(xᵢ) + (ŷᵢ − yᵢ)²/u²(yᵢ)] toplamı b ve düzeltilmiş yanıtlar ŷᵢ üzerinden en küçüklenerek uydurulur (Ek A): b₀ = −0,3575 µmol/mol, b₁ = 24,612 µmol/mol."
+      },
+      {
+        "en": "Validation (6.2.2): S_res = 0.674 against the acceptance limit 2(n − N − 1) = 2, and the largest weighted deviation Γ = 0.568 ≤ 2: the straight line is compatible with the data.",
+        "tr": "Doğrulama (6.2.2): S_res = 0,674, kabul sınırı 2(n − N − 1) = 2 ile karşılaştırılır; en büyük ağırlıklı sapma Γ = 0,568 ≤ 2: doğru, verilerle uyumludur."
+      },
+      {
+        "en": "Steps I–K (6.3): for each mixture x = G(y) and u²(x) = (∂G/∂y)²u²(y) + Σ (∂G/∂bⱼ)(∂G/∂bₗ)u(bⱼ, bₗ); the three results are correlated through the common calibration.",
+        "tr": "Adım I–K (6.3): her karışım için x = G(y) ve u²(x) = (∂G/∂y)²u²(y) + Σ (∂G/∂bⱼ)(∂G/∂bₗ)u(bⱼ, bₗ); üç sonuç ortak kalibrasyon nedeniyle koreledir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 6143:2025, Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures",
+        "section": "Annex B.2.2 (Tables B.1–B.6)",
+        "url": "https://www.iso.org/standard/84420.html"
+      }
+    ],
+    "tags": [
+      "iso6143",
+      "gas-analysis",
+      "calibration",
+      "generalized-least-squares",
+      "errors-in-variables"
+    ],
+    "notes": [
+      {
+        "en": "The covariances of the three results printed in B.2.2 (1.16 × 10⁻², 1.48 × 10⁻², 1.37 × 10⁻¹ (µmol/mol)²) are reproduced; the report gives them as correlation coefficients.",
+        "tr": "B.2.2'de basılan üç sonucun kovaryansları (1,16 × 10⁻², 1,48 × 10⁻², 1,37 × 10⁻¹ (µmol/mol)²) yeniden üretilir; rapor bunları korelasyon katsayıları olarak verir."
+      }
+    ]
+  },
+  "calibration": {
+    "analyte": "NO",
+    "unit": "µmol/mol",
+    "response_unit": "absorbance",
+    "points": [
+      {
+        "name": "M1",
+        "x": 4.5,
+        "u_x": 0.045,
+        "y": 0.1969,
+        "u_y": 0.003938
+      },
+      {
+        "name": "M2",
+        "x": 18.75,
+        "u_x": 0.1875,
+        "y": 0.7874,
+        "u_y": 0.015748
+      },
+      {
+        "name": "M3",
+        "x": 50,
+        "u_x": 0.5,
+        "y": 2.0228,
+        "u_y": 0.040456
+      }
+    ],
+    "function": "linear",
+    "samples": [
+      {
+        "name": "S1",
+        "y": 0.258,
+        "u_y": 0.00516
+      },
+      {
+        "name": "S2",
+        "y": 0.6,
+        "u_y": 0.012
+      },
+      {
+        "name": "S3",
+        "y": 1.8,
+        "u_y": 0.036
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "calibration": {
+      "params": [
+        {
+          "value": -0.35747,
+          "tolerance": 7.1494e-05
+        },
+        {
+          "value": 24.612,
+          "tolerance": 0.0012305999999999999
+        }
+      ],
+      "u_params": [
+        {
+          "value": 0.15716,
+          "tolerance": 7.858e-05
+        },
+        {
+          "value": 0.48048,
+          "tolerance": 0.00024024000000000002
+        }
+      ],
+      "cov_params": [
+        {
+          "value": -0.056921,
+          "tolerance": 2.84605e-05
+        }
+      ],
+      "s_res": {
+        "value": 0.6743,
+        "tolerance": 0.00033715000000000004
+      },
+      "gamma": {
+        "value": 0.568,
+        "tolerance": 0.0005679999999999999
+      },
+      "admissible": true,
+      "samples": {
+        "S1": {
+          "x": {
+            "value": 5.9923,
+            "tolerance": 0.00029961500000000004
+          },
+          "u": {
+            "value": 0.16377,
+            "tolerance": 8.1885e-05
+          }
+        },
+        "S2": {
+          "x": {
+            "value": 14.409,
+            "tolerance": 0.0007204500000000001
+          },
+          "u": {
+            "value": 0.35599,
+            "tolerance": 0.000177995
+          }
+        },
+        "S3": {
+          "x": {
+            "value": 43.943,
+            "tolerance": 0.00219715
+          },
+          "u": {
+            "value": 1.1631,
+            "tolerance": 0.00058155
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 6143:2025 B.2.2, parameters and Tables B.4 and B.6 (B_LEAST).",
+      "tr": "ISO 6143:2025 B.2.2, parametreler ile Tablo B.4 ve B.6 (B_LEAST)."
+    }
+  }
+}

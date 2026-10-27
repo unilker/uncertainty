@@ -1,0 +1,144 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "num-3-ratio-abc",
+    "title": {
+      "en": "Product and ratio y = ab/c with a wide triangular divisor (NIST Uncertainty Machine §3)",
+      "tr": "Geniş üçgen bölenli çarpım ve oran y = ab/c (NIST Uncertainty Machine §3)"
+    },
+    "description": {
+      "en": "NUM manual §3: Gaussian a, rectangular b and a triangular divisor c with a 30 % relative uncertainty; the first-order GUM result is far from the Monte Carlo result.",
+      "tr": "NUM kılavuzu §3: normal a, dikdörtgen b ve bağıl belirsizliği %30 olan üçgen bölen c; birinci mertebe GUM sonucu Monte Carlo sonucundan çok uzaktır."
+    },
+    "explanation": [
+      {
+        "en": "a ~ N(32, 0.5²); b rectangular with mean 0.9 and standard deviation 0.025 (half-width 0.025√3); c symmetric triangular with mean 1 and standard deviation 0.3 (half-width 0.3√6 = 0.735).",
+        "tr": "a ~ N(32, 0,5²); b ortalaması 0,9 ve standart sapması 0,025 olan dikdörtgen (yarı genişlik 0,025√3); c ortalaması 1 ve standart sapması 0,3 olan simetrik üçgen (yarı genişlik 0,3√6 = 0,735)."
+      },
+      {
+        "en": "Gauss's formula at the estimates: y = 32 × 0.9 / 1 = 28.8 and u(y)/y = √((0.5/32)² + (0.025/0.9)² + 0.3²), u(y) = 8.7; c contributes 99 % of the variance.",
+        "tr": "Tahminlerde Gauss formülü: y = 32 × 0,9 / 1 = 28,8 ve u(y)/y = √((0,5/32)² + (0,025/0,9)² + 0,3²), u(y) = 8,7; varyansın %99'u c'den gelir."
+      },
+      {
+        "en": "Because 1/c is strongly convex over [0.27, 1.73], the Monte Carlo mean is 32.2, the standard deviation 13 and the 95 % interval (18.2, 67): the distribution of y is markedly right-skewed and the GUM interval 28.8 ± 17.1 is not validated.",
+        "tr": "1/c, [0,27; 1,73] aralığında belirgin biçimde dışbükey olduğundan Monte Carlo ortalaması 32,2, standart sapması 13 ve %95 aralığı (18,2; 67) olur: y'nin dağılımı belirgin biçimde sağa çarpıktır ve GUM aralığı 28,8 ± 17,1 doğrulanmaz."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "T. Lafarge, A. Possolo, NIST Uncertainty Machine — User's Manual, version 1.4 (NIST, 2020)",
+        "section": "§3, Figure 1",
+        "url": "https://uncertainty.nist.gov/NISTUncertaintyMachine-UserManual.pdf"
+      }
+    ],
+    "tags": [
+      "nist-uncertainty-machine",
+      "non-linear",
+      "triangular",
+      "skewed",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "The text of §3 says that the GUM method gives y = 32.2 and u(y) = 12.5, but the output of the NIST Uncertainty Machine printed in Figure 1 gives y = 28.8 and u(y) = 8.7 for Gauss's formula (32.2 and 13 are the Monte Carlo mean and standard deviation). The program reproduces the values of Figure 1.",
+        "tr": "§3'ün metni GUM yönteminin y = 32,2 ve u(y) = 12,5 verdiğini söyler; ancak Şekil 1'de basılı NIST Uncertainty Machine çıktısı Gauss formülü için y = 28,8 ve u(y) = 8,7 verir (32,2 ve 13 Monte Carlo ortalaması ve standart sapmasıdır). Program Şekil 1'deki değerleri yeniden üretir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "y",
+      "expression": "a * b / c",
+      "description": {
+        "en": "Output quantity",
+        "tr": "Çıktı büyüklüğü"
+      }
+    },
+    "inputs": [
+      {
+        "name": "a",
+        "description": {
+          "en": "Gaussian factor",
+          "tr": "Normal çarpan"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 32,
+          "sd": 0.5
+        }
+      },
+      {
+        "name": "b",
+        "description": {
+          "en": "Rectangular factor",
+          "tr": "Dikdörtgen çarpan"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.9,
+          "half_width": 0.0433013
+        }
+      },
+      {
+        "name": "c",
+        "description": {
+          "en": "Triangular divisor",
+          "tr": "Üçgen bölen"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 1.0,
+          "half_width": 0.734847
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 2000000,
+      "seed": 3,
+      "interval": "symmetric"
+    }
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 28.8,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 8.7,
+        "tolerance": 0.05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 32.2,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 13.0,
+        "tolerance": 0.5
+      },
+      "interval_low": {
+        "value": 18.2,
+        "tolerance": 0.05
+      },
+      "interval_high": {
+        "value": 67.0,
+        "tolerance": 0.5
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "NIST Uncertainty Machine manual §3, Figure 1 (Gauss's formula y = 28.8, u = 8.7; Monte Carlo, M = 10⁶: mean 32.2, sd 13, 95 % interval (18.2, 67)).",
+      "tr": "NIST Uncertainty Machine kılavuzu §3, Şekil 1 (Gauss formülü y = 28,8, u = 8,7; Monte Carlo, M = 10⁶: ortalama 32,2, standart sapma 13, %95 aralığı (18,2; 67))."
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.2.4-additive-dominant-rectangular",
+    "title": {
+      "en": "Additive model with a dominant rectangular input",
+      "tr": "Baskın dikdörtgen girdili toplamsal model"
+    },
+    "description": {
+      "en": "JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.",
+      "tr": "JCGM 101 9.2.4: 9.2.3 ile aynı, ancak X4'ün standart sapması 10'dur."
+    },
+    "explanation": [
+      {
+        "en": "The model Y = X1 + X2 + X3 + X4 is linear with unit sensitivity coefficients, so the GUM law of propagation gives u(y)² = Σ u(xᵢ)² exactly.",
+        "tr": "Y = X1 + X2 + X3 + X4 modeli doğrusaldır ve tüm duyarlılık katsayıları 1'dir; bu nedenle GUM belirsizlik yayılım yasası u(y)² = Σ u(xᵢ)² sonucunu tam olarak verir."
+      },
+      {
+        "en": "The output is nearly rectangular: its 95 % interval is about ±17.0, while the GUM interval (normal assumption) is ±19.9 — the central limit theorem does not apply when one input dominates.",
+        "tr": "Çıktı neredeyse dikdörtgen dağılımlıdır: %95 aralığı yaklaşık ±17,0 iken GUM aralığı (normal varsayımı) ±19,9'dur; bir girdi baskın olduğunda merkezi limit teoremi geçerli olmaz."
+      },
+      {
+        "en": "The GUM result is not validated for n_dig = 2 (δ = 0.5) but would be for n_dig = 1 (δ = 5).",
+        "tr": "GUM sonucu n_dig = 2 için (δ = 0,5) doğrulanmaz, n_dig = 1 için (δ = 5) doğrulanırdı."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.2.4",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      }
+    ],
+    "tags": [
+      "jcgm101",
+      "validation",
+      "linear"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "Y",
+      "expression": "X1 + X2 + X3 + X4"
+    },
+    "inputs": [
+      {
+        "name": "X1",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.7320508075688772
+        }
+      },
+      {
+        "name": "X2",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.7320508075688772
+        }
+      },
+      {
+        "name": "X3",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 1.7320508075688772
+        }
+      },
+      {
+        "name": "X4",
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 17.32050807568877
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 2000000,
+      "seed": 3,
+      "interval": "symmetric",
+      "validation_ndig": 2
+    }
+  },
+  "expected": {
+    "gum": {
+      "standard_uncertainty": {
+        "value": 10.149,
+        "tolerance": 0.0005
+      }
+    },
+    "mcm": {
+      "standard_uncertainty": {
+        "value": 10.15,
+        "tolerance": 0.06
+      },
+      "interval_low": {
+        "value": -17.0,
+        "tolerance": 0.06
+      },
+      "interval_high": {
+        "value": 17.0,
+        "tolerance": 0.06
+      },
+      "gum_validated": false
+    },
+    "reference": {
+      "en": "JCGM 101:2008 Table 4 (u(y) = √103 = 10.149).",
+      "tr": "JCGM 101:2008 Tablo 4 (u(y) = √103 = 10,149)."
+    }
+  }
+}

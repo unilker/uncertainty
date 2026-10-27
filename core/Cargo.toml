@@ -1,0 +1,13 @@
+[package]
+name = "uncertainty-core"
+description = "Measurement uncertainty evaluation engine (GUM uncertainty framework and Monte Carlo method, JCGM 100/101)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+# The core deliberately has no dependencies: every numerical algorithm is
+# implemented and validated here so that results are traceable to the
+# documented procedures (see docs/research/validation-matrix.md).
+[dependencies]

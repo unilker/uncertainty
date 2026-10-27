@@ -1,0 +1,198 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iso6143-b2-n2-natural-gas-covariances",
+    "title": {
+      "en": "N₂ in natural gas by GC-TCD: correlated reference mixtures (ISO 6143 Example 2)",
+      "tr": "Doğal gazda N₂, GC-TCD: korelasyonlu referans karışımlar (ISO 6143 Örnek 2)"
+    },
+    "description": {
+      "en": "ISO 6143:2025 B.2.3: the straight line again, now with the covariances of reference mixtures that share their history (a dilution series and a common set of primary standards).",
+      "tr": "ISO 6143:2025 B.2.3: yine doğru; bu kez geçmişi ortak olan referans karışımların (bir seyreltme serisi ve ortak bir birincil standart seti) kovaryanslarıyla."
+    },
+    "explanation": [
+      {
+        "en": "Eight calibration points: a blank (M1, x = 0.0015 %) and seven reference gas mixtures; N₂ in a synthetic natural gas by gas chromatography with a thermal conductivity detector (peak areas y).",
+        "tr": "Sekiz kalibrasyon noktası: bir kör (M1, x = %0,0015) ve yedi referans gaz karışımı; sentetik doğal gazda N₂, ısıl iletkenlik dedektörlü gaz kromatografisiyle (pik alanları y)."
+      },
+      {
+        "en": "M7 was diluted from M4 (factor about 3): u(x₄, x₇) = 0.00016 %²; M5 and M8 were certified with a common calibration: u(x₅, x₈) = 0.0001 %².",
+        "tr": "M7, M4'ten seyreltilmiştir (yaklaşık 3 kat): u(x₄, x₇) = 0,00016 %²; M5 ve M8 ortak bir kalibrasyonla sertifikalandırılmıştır: u(x₅, x₈) = 0,0001 %²."
+      },
+      {
+        "en": "The covariances enter only the propagation (Formula A.7): the parameters are unchanged, u(b₁) rises from 2.416 × 10⁻⁸ to 2.550 × 10⁻⁸ and u(x) of the two mixtures by 3 % to 4 %.",
+        "tr": "Kovaryanslar yalnızca yayılıma girer (Formül A.7): parametreler değişmez, u(b₁) 2,416 × 10⁻⁸'den 2,550 × 10⁻⁸'e, iki karışımın u(x) değerleri %3–4 artar."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "ISO 6143:2025, Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures",
+        "section": "Annex B.2.3 (Table B.10)",
+        "url": "https://www.iso.org/standard/84420.html"
+      }
+    ],
+    "tags": [
+      "iso6143",
+      "gas-analysis",
+      "calibration",
+      "generalized-least-squares",
+      "errors-in-variables",
+      "gas-chromatography",
+      "correlation"
+    ]
+  },
+  "calibration": {
+    "analyte": "N₂",
+    "unit": "%",
+    "response_unit": "peak area",
+    "points": [
+      {
+        "name": "M1",
+        "x": 0.0015,
+        "u_x": 0.0009,
+        "y": 60,
+        "u_y": 35
+      },
+      {
+        "name": "M2",
+        "x": 0.1888,
+        "u_x": 0.00045,
+        "y": 7786,
+        "u_y": 135.7
+      },
+      {
+        "name": "M3",
+        "x": 1.99,
+        "u_x": 0.004,
+        "y": 81700,
+        "u_y": 36.7
+      },
+      {
+        "name": "M4",
+        "x": 3.796,
+        "u_x": 0.039,
+        "y": 156200,
+        "u_y": 223.2
+      },
+      {
+        "name": "M5",
+        "x": 5.677,
+        "u_x": 0.0125,
+        "y": 233300,
+        "u_y": 137.2
+      },
+      {
+        "name": "M6",
+        "x": 7.118,
+        "u_x": 0.0125,
+        "y": 293000,
+        "u_y": 245.5
+      },
+      {
+        "name": "M7",
+        "x": 9.21,
+        "u_x": 0.02,
+        "y": 380600,
+        "u_y": 125.1
+      },
+      {
+        "name": "M8",
+        "x": 10.9,
+        "u_x": 0.025,
+        "y": 449700,
+        "u_y": 321.8
+      }
+    ],
+    "covariances": [
+      {
+        "between": [
+          "M4",
+          "M7"
+        ],
+        "value": 0.00016
+      },
+      {
+        "between": [
+          "M5",
+          "M8"
+        ],
+        "value": 0.0001
+      }
+    ],
+    "function": "linear",
+    "compare": false,
+    "samples": [
+      {
+        "name": "S1",
+        "y": 70000,
+        "u_y": 40
+      },
+      {
+        "name": "S2",
+        "y": 370000,
+        "u_y": 200
+      }
+    ]
+  },
+  "reporting": {
+    "significant_digits": 2
+  },
+  "expected": {
+    "calibration": {
+      "params": [
+        {
+          "value": 0.0003981,
+          "tolerance": 3.981e-07
+        },
+        {
+          "value": 2.4285e-05,
+          "tolerance": 1.21425e-09
+        }
+      ],
+      "u_params": [
+        {
+          "value": 0.0011463,
+          "tolerance": 1.1463000000000001e-06
+        },
+        {
+          "value": 2.5497e-08,
+          "tolerance": 2.5497e-11
+        }
+      ],
+      "cov_params": [
+        {
+          "value": -7.601e-12,
+          "tolerance": 7.601e-15
+        }
+      ],
+      "samples": {
+        "S1": {
+          "x": {
+            "value": 1.7004,
+            "tolerance": 0.00017004
+          },
+          "u": {
+            "value": 0.0020926,
+            "tolerance": 2.0926e-06
+          }
+        },
+        "S2": {
+          "x": {
+            "value": 8.9859,
+            "tolerance": 0.0008985900000000001
+          },
+          "u": {
+            "value": 0.010406,
+            "tolerance": 1.0406e-05
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "ISO 6143:2025 B.2.3, parameters with covariances and Table B.10 (B_LEAST).",
+      "tr": "ISO 6143:2025 B.2.3, kovaryanslı parametreler ve Tablo B.10 (B_LEAST)."
+    }
+  }
+}

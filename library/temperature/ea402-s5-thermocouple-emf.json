@@ -1,0 +1,178 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s5-thermocouple-emf",
+    "title": {
+      "en": "Thermocouple calibration: emf of the unknown",
+      "tr": "Termokupl kalibrasyonu: bilinmeyenin emk'sı"
+    },
+    "description": {
+      "en": "EA-4/02 S5 (second budget): emf of the type N thermocouple under calibration at 1000 °C.",
+      "tr": "EA-4/02 S5 (ikinci bütçe): kalibre edilen N tipi termokuplun 1000 °C'deki emk'sı."
+    },
+    "explanation": [
+      {
+        "en": "V_X = V_iX + δV_iX1 + δV_iX2 + δV_R + δV_LX + Δt/C_X − δt_0X/C_X0, where Δt = t − t_X is the difference between the calibration point (1000 °C) and the furnace temperature of the first budget, with u = 0.641 °C.",
+        "tr": "V_X = V_iX + δV_iX1 + δV_iX2 + δV_R + δV_LX + Δt/C_X − δt_0X/C_X0; burada Δt = t − t_X, kalibrasyon noktası (1000 °C) ile birinci bütçedeki fırın sıcaklığı arasındaki farktır ve u = 0,641 °C'dir."
+      },
+      {
+        "en": "The furnace temperature dominates (24.65 µV of 25.0 µV); V_X = (36 229 ± 50) µV (k = 2).",
+        "tr": "Fırın sıcaklığı baskındır (25,0 µV'nin 24,65 µV'u); V_X = (36 229 ± 50) µV (k = 2)."
+      }
+    ],
+    "field": "temperature",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S5",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "thermocouple"
+    ],
+    "notes": [
+      {
+        "en": "Finding: the printed contribution of δt (24.5 µV) is inconsistent with 0.641 °C × 38.46 µV/°C = 24.65 µV; the printed total 25.0 µV follows from 24.65. The estimate of Δt is −0.5 °C (printed 0.5 °C), giving V_X = 36 248 − 19.2 = 36 229 µV as stated.",
+        "tr": "Bulgu: δt'nin basılı katkısı (24,5 µV) 0,641 °C × 38,46 µV/°C = 24,65 µV ile tutarsızdır; basılı toplam 25,0 µV, 24,65 değerinden elde edilir. Δt'nin tahmini −0,5 °C'dir (basılı 0,5 °C); bu, belirtilen V_X = 36 248 − 19,2 = 36 229 µV sonucunu verir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "V_X",
+      "unit": "µV",
+      "expression": "V_iX + V_iX1 + V_iX2 + V_R + V_LX + dt/0.026 - t_0X/0.039",
+      "description": {
+        "en": "Emf of the thermocouple at 1000 °C",
+        "tr": "Termokuplun 1000 °C'deki emk'sı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "V_iX",
+        "unit": "µV",
+        "description": {
+          "en": "Mean voltmeter reading",
+          "tr": "Ortalama voltmetre okuması"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 36248.0,
+          "sd": 1.6
+        }
+      },
+      {
+        "name": "V_iX1",
+        "unit": "µV",
+        "description": {
+          "en": "Voltmeter calibration",
+          "tr": "Voltmetre kalibrasyonu"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 1.0
+        }
+      },
+      {
+        "name": "V_iX2",
+        "unit": "µV",
+        "description": {
+          "en": "Voltmeter resolution",
+          "tr": "Voltmetre çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.5
+        }
+      },
+      {
+        "name": "V_R",
+        "unit": "µV",
+        "description": {
+          "en": "Contact parasitic voltages",
+          "tr": "Kontak parazitik gerilimleri"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 2.0
+        }
+      },
+      {
+        "name": "V_LX",
+        "unit": "µV",
+        "description": {
+          "en": "Extension leads",
+          "tr": "Uzatma kabloları"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5.0
+        }
+      },
+      {
+        "name": "dt",
+        "unit": "°C",
+        "description": {
+          "en": "Calibration point minus furnace temperature",
+          "tr": "Kalibrasyon noktası eksi fırın sıcaklığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -0.5,
+          "sd": 0.641
+        }
+      },
+      {
+        "name": "t_0X",
+        "unit": "°C",
+        "description": {
+          "en": "Reference junction temperature",
+          "tr": "Referans eklem sıcaklığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 36229.0,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 25.0,
+        "tolerance": 0.05
+      },
+      "expanded_uncertainty": {
+        "value": 50.0,
+        "tolerance": 0.5
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S5.10–S5.12 (u(V_X) = 25.0 µV, U = 50 µV).",
+      "tr": "EA-4/02 M:2022 S5.10–S5.12 (u(V_X) = 25,0 µV, U = 50 µV)."
+    }
+  }
+}

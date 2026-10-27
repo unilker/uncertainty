@@ -1,0 +1,127 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ea402-s12-water-meter-error",
+    "title": {
+      "en": "Water meter calibration: relative error of one run",
+      "tr": "Su sayacı kalibrasyonu: tek çalışmanın bağıl hatası"
+    },
+    "description": {
+      "en": "EA-4/02 S12 (second budget): relative error of indication of the meter for a single run.",
+      "tr": "EA-4/02 S12 (ikinci bütçe): tek bir çalışma için sayacın bağıl gösterge hatası."
+    },
+    "explanation": [
+      {
+        "en": "e_X = (V_iX + δV_iX2 − δV_iX1)/V_X − 1: the meter's start and stop readings each carry a resolution term ±0.1 L.",
+        "tr": "e_X = (V_iX + δV_iX2 − δV_iX1)/V_X − 1: sayacın başlangıç ve bitiş okumalarının her biri ±0,1 L çözünürlük terimi taşır."
+      },
+      {
+        "en": "V_X comes from the first budget (199.93 L, u = 0.109 L).",
+        "tr": "V_X birinci bütçeden gelir (199,93 L, u = 0,109 L)."
+      }
+    ],
+    "field": "flow",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S12",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      }
+    ],
+    "tags": [
+      "ea-4/02",
+      "calibration",
+      "validation",
+      "volume"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "e_X",
+      "expression": "(V_iX + dV_iX2 - dV_iX1)/V_X - 1",
+      "description": {
+        "en": "Relative error of indication",
+        "tr": "Bağıl gösterge hatası"
+      }
+    },
+    "inputs": [
+      {
+        "name": "V_iX",
+        "unit": "L",
+        "description": {
+          "en": "Indicated volume",
+          "tr": "Gösterilen hacim"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 200.0
+        }
+      },
+      {
+        "name": "dV_iX1",
+        "unit": "L",
+        "description": {
+          "en": "Resolution at start",
+          "tr": "Başlangıçta çözünürlük"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        }
+      },
+      {
+        "name": "dV_iX2",
+        "unit": "L",
+        "description": {
+          "en": "Resolution at stop",
+          "tr": "Bitişte çözünürlük"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 0.1
+        }
+      },
+      {
+        "name": "V_X",
+        "unit": "L",
+        "description": {
+          "en": "Volume at the meter (first budget)",
+          "tr": "Sayaçtaki hacim (birinci bütçe)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 199.93299718175953,
+          "sd": 0.109
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.0003,
+        "tolerance": 6e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.00068,
+        "tolerance": 5e-06
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S12.10 (e_X = 0.0003, u = 0.68 × 10⁻³).",
+      "tr": "EA-4/02 M:2022 S12.10 (e_X = 0,0003, u = 0,68 × 10⁻³)."
+    }
+  }
+}
