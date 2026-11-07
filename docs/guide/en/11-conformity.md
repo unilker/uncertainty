@@ -43,6 +43,15 @@ relative uncertainty at the measured value, which gives L/(1 ∓ k·u_rel).
 Acceptance limits can also be given directly with `acceptance_lower` and `acceptance_upper`; the rule is then
 inferred from them.
 
+**Guard bands from the test uncertainty ratio.** Calibration practice (ANSI/NCSL Z540.3 and its handbook) sets
+the acceptance limits from TUR = (T_U − T_L)/2 / U₉₅ with U₉₅ = 2u (equal to C_m of JCGM 106). With `tur_method`
+the limits are ± GBF·(T_U − T_L)/2 about the centre: `rss` GBF = √(1 − 1/TUR²); `dobbert` (managed guard band,
+"method 6") GBF = 1 − M/TUR with M = 1.04 − exp(0.38 ln TUR − 0.54), which keeps the global PFA at or below about 2 %
+for any in-tolerance probability (GBF > 1 above TUR ≈ 4.6: limits outside the tolerance); `rp10` (NCSLI RP-10)
+GBF = 1.25 − 1/TUR; `test95` GBF = 1 − 1/TUR (both 1 above TUR = 4). A two-sided tolerance and a fixed u are
+needed. The factors and the global risks agree with Sandia's Suncal (library projects `tur-guard-band-*`). A
+guard band for a required global PFA is `target_consumer_risk` (11.3).
+
 For each result the report gives p_c, the decision and the specific risk. If the item is accepted, this is
 the consumer's risk 1 − p_c; if it is rejected, it is the producer's risk p_c (9.3.2).
 

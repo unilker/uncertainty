@@ -36,7 +36,7 @@ elektrik/RF ve akış metrolojisinden örnekler içerir.
     faktörü, Gy numune alma kuramı
 16. [Tartı aletlerinin kalibrasyonu (EURAMET cg-18)](16-tarti-aletleri.md): gösterge hatası, ikame yükleri, hata
     yaklaşım fonksiyonu
-17. [Çözümlü örnekler](examples.md): kütüphanedeki 279 örneğin tamamı, sonuçları program tarafından yeniden
+17. [Çözümlü örnekler](examples.md): kütüphanedeki 282 örneğin tamamı, sonuçları program tarafından yeniden
     hesaplanmış olarak
 
 3.–5. bölümler yalnızca programı değil yöntemlerin kendisini de anlatır: dayanak belgelerle birlikte
@@ -47,7 +47,7 @@ okunabilecek kısa bir belirsizlik değerlendirme rehberi olarak tasarlanmışt�
 Her hesaplama yöntemi yayımlanmış çözümlü örneklerle doğrulanmıştır. Örnekler basılı sonuçlarla eşleştirilmez,
 *girdilerinden* (belgeler veriyorsa ham verilerden) yeniden hesaplanır; her karşılaştırmanın belgelenmiş bir
 toleransı vardır: belgenin basılı yuvarlaması ya da ölçülen Monte Carlo saçılımının yaklaşık beş katı.
-Kütüphanedeki 279 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
+Kütüphanedeki 282 örnek test takımının parçasıdır: programdaki bir değişiklik herhangi bir sonucu toleransının
 ötesinde değiştirirse derleme başarısız olur.
 
 Örneklerin girdilerinden yeniden hesaplanması, yayımlanmış örneklerin kendi içinde tutarsız olduğu yerleri de

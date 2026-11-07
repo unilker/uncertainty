@@ -10,11 +10,11 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **279** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **202** Rust testi (bunlardan biri 279 projenin tamamını çalıştırır), **22** Flutter testi |
+| Kütüphane | **282** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **203** Rust testi (bunlardan biri 282 projenin tamamını çalıştırır), **22** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D76, bulgular F1–F97 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D77, bulgular F1–F97 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -132,14 +132,9 @@ indirilemedi; Drive klasörüne konacak:
      - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak;
      - uzlaşıda sonlu ν_j için σ_j önselleri (NICOB §A.3), birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
      - (tamam) uygulamada `consensus` formu ve şablonu (D76); homojenlikte Bayes model anahtarı ve önsel ölçekleri.
-1. **TUR'a dayalı koruma bantları (konformite modülü).**
-   - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
-     guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert
-     2008'den doğrulanmalı).
-   - TUR ile tolerans içi olasılığa göre global PFA/PFR.
-   - Kaynaklar: Delker & Peguero 2022 (OSTI 2004392), Suncal belgeleri,
-     ANSI/NCSL Z540.3.
-   - Doğrulama vakaları bulunmalı.
+1. **TUR'a dayalı koruma bantları — tamam (D77).** `tur_method`: RSS, Dobbert (M = 1,04 − exp(0,38 ln TUR − 0,54),
+   GBF = 1 − M/TUR), RP-10, U₉₅; Suncal ile doğrulandı. Kalan: Dobbert 2008 ve Z540.3 el kitabını birincil kaynak
+   olarak okumak; en az maliyet/minimaks yöntemleri.
 2. **cg-18 H3.4/A ve H3.4/B** (30 t köprü kantar): tartım sonucunun
    belirsizliği ve minimum tartım. Veriler `cg18.txt` 5600–6110
    satırlarında; aynı `in_use` bloğu kullanılır.

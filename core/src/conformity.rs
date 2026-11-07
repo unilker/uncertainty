@@ -155,6 +155,56 @@ pub fn capability_index(t: &Tolerance, u: f64) -> Option<f64> {
     t.width().map(|w| w / (4.0 * u))
 }
 
+/// Guard-band methods of calibration practice that depend only on the test
+/// uncertainty ratio TUR = (T_U − T_L)/2 / U₉₅ with U₉₅ = 2u (ANSI/NCSL Z540.3
+/// handbook; Delker & Peguero 2022; implemented as in Sandia's Suncal). The
+/// guard-band factor GBF gives the acceptance limits at ± GBF·(T_U − T_L)/2
+/// about the centre of the tolerance.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum TurMethod {
+    /// Root-sum-square: GBF = √(1 − 1/TUR²).
+    Rss,
+    /// Dobbert's managed guard band ("method 6"): GBF = 1 − M/TUR with
+    /// M = 1.04 − exp(0.38 ln TUR − 0.54); it keeps the global PFA at or below
+    /// about 2 % for any in-tolerance probability. GBF exceeds 1 for
+    /// TUR > 4.6 (acceptance limits outside the tolerance).
+    Dobbert,
+    /// NCSLI RP-10: GBF = 1.25 − 1/TUR for TUR ≤ 4, otherwise 1.
+    Rp10,
+    /// Subtracting U₉₅ from the tolerance: GBF = 1 − 1/TUR for TUR ≤ 4,
+    /// otherwise 1.
+    Test95,
+}
+
+pub fn tur_guard_band_factor(method: TurMethod, tur: f64) -> Result<f64, UncError> {
+    if !(tur > 0.0) || !tur.is_finite() {
+        return Err(UncError::InvalidOption("the test uncertainty ratio must be positive".into()));
+    }
+    Ok(match method {
+        TurMethod::Rss => {
+            if tur < 1.0 {
+                return Err(UncError::InvalidOption("the RSS guard band needs TUR ≥ 1".into()));
+            }
+            (1.0 - 1.0 / (tur * tur)).sqrt()
+        }
+        TurMethod::Dobbert => 1.0 - (1.04 - (0.38 * tur.ln() - 0.54).exp()) / tur,
+        TurMethod::Rp10 => {
+            if tur <= 4.0 {
+                1.25 - 1.0 / tur
+            } else {
+                1.0
+            }
+        }
+        TurMethod::Test95 => {
+            if tur <= 4.0 {
+                1.0 - 1.0 / tur
+            } else {
+                1.0
+            }
+        }
+    })
+}
+
 /// Acceptance interval from a guard band w (positive: guarded acceptance,
 /// negative: guarded rejection, zero: simple acceptance) applied to the
 /// present tolerance limits, JCGM 106 8.3.
@@ -479,6 +529,25 @@ pub fn guard_band_for_consumer_risk(process: &Process, um: f64, t: &Tolerance, t
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn tur_guard_band_factors_match_suncal() {
+        // Sandia Suncal 1.7.1, suncal.risk.guardband_tur, at TUR = 1.5, 2, 3, 4, 6.
+        let cases = [
+            (1.5, [0.7453559925, 0.759881796, 0.5833333333, 0.3333333333]),
+            (2.0, [0.8660254038, 0.859177346, 0.75, 0.5]),
+            (3.0, [0.9428090416, 0.948227242, 0.9166666667, 0.6666666667]),
+            (4.0, [0.9682458366, 0.9867196755, 1.0, 0.75]),
+            (6.0, [0.9860132972, 1.0185455598, 1.0, 1.0]),
+        ];
+        for (tur, want) in cases {
+            for (m, w) in [TurMethod::Rss, TurMethod::Dobbert, TurMethod::Rp10, TurMethod::Test95].iter().zip(want) {
+                let g = tur_guard_band_factor(*m, tur).unwrap();
+                assert!((g - w).abs() < 1e-9, "{m:?} at {tur}: {g} vs {w}");
+            }
+        }
+        assert!(tur_guard_band_factor(TurMethod::Rss, 0.5).is_err());
+    }
 
     fn close(a: f64, b: f64, t: f64) -> bool {
         (a - b).abs() <= t

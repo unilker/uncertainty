@@ -3250,3 +3250,23 @@ procedures are switched on (DL with bootstrap by default; Linear Pool, ML, Bayes
 Linear Pool weights of participants that remain are kept when the list is pasted again. The library list labels
 consensus projects "NICOB" and multicomponent projects "JCGM 106" (both were shown as "GUM + MCM"). Flutter test
 for the parser (22 tests).
+
+## 2026-11-07 (session 21, continued) — Guard bands from the test uncertainty ratio
+
+**D77. `conformity.tur_method`: RSS, Dobbert, NCSLI RP-10, U₉₅.** TUR = (T_U − T_L)/2 / U₉₅ with U₉₅ = 2u; the
+acceptance limits are ± GBF·(T_U − T_L)/2 about the centre; the rule (guarded acceptance or rejection) follows
+from the sign of the guard band. Formulas as implemented in Suncal (`suncal.risk.guardband_tur`): RSS √(1 − 1/TUR²);
+Dobbert 1 − M/TUR, M = 1.04 − exp(0.38 ln TUR − 0.54) (the status note had written M as the guard-band factor;
+corrected); RP-10 1.25 − 1/TUR and U₉₅ 1 − 1/TUR, both 1 above TUR = 4. Dobbert's factor exceeds 1 above TUR ≈ 4.6
+(limits outside the tolerance); Suncal does not cap it and neither does the program. The PFA-target and
+4:1-equivalent methods are covered by `target_consumer_risk` (D27). The min-cost and minimax methods (Easterling
+1991) are not implemented.
+
+- Core test: the four factors at TUR = 1.5, 2, 3, 4, 6 against Suncal to 10⁻⁹.
+- Library (`tools/generators/tur_guard_bands.py`): Dobbert at TUR 2.5, RSS at 1.5, RP-10 at 2.0, with a normal
+  process of 95 % in-tolerance probability; TUR, GBF, acceptance limits and the global PFA and PFR agree with
+  Suncal's PFA_norm/PFR_norm to 2 × 10⁻⁶ (an independent implementation of the global risks). Dobbert at TUR 2.5:
+  PFA 0.69 % (1.18 % without a guard band), and at most 1.93 % over all in-tolerance probabilities, consistent
+  with the method's 2 % design.
+- Primary sources still to read for the article: Dobbert (2008) and the Z540.3 handbook; Delker & Peguero (2022)
+  is cited as the Sandia reference.

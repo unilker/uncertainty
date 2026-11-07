@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**279 examples / örnek** (139 model, 39 top-down, 9 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 25 conformity assessment / uygunluk değerlendirmesi).
+**282 examples / örnek** (139 model, 39 top-down, 9 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 28 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -313,6 +313,9 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`jcgm106-8.3-speed-limit`](general/jcgm106-8.3-speed-limit.json) | Speed limit enforcement: guarded rejection (JCGM 106 8.3.3) | Hız sınırı denetimi: korumalı ret (JCGM 106 8.3.3) | JCGM 106:2012 8.3.3, Example 1 |
 | [`jcgm106-9.5-ball-bearings`](general/jcgm106-9.5-ball-bearings.json) | Ball bearings: acceptance limit for a required consumer's risk (JCGM 106 9.5.4) | Bilyalı rulmanlar: istenen tüketici riski için kabul sınırı (JCGM 106 9.5.4) | JCGM 106:2012 9.5.4, Example |
 | [`jcgm106-9.5-precision-resistors`](general/jcgm106-9.5-precision-resistors.json) | Precision resistors: global consumer's and producer's risks (JCGM 106 9.5.3) | Hassas dirençler: küresel tüketici ve üretici riskleri (JCGM 106 9.5.3) | JCGM 106:2012 9.5.3, Example |
+| [`tur-guard-band-dobbert-tur2-5`](general/tur-guard-band-dobbert-tur2-5.json) | Acceptance limits from the test uncertainty ratio: Dobbert's managed guard band (method 6), TUR = 2.5, global risks for a 95 % in-tolerance process | Test belirsizlik oranından kabul sınırları: Dobbert'in yönetilen koruma bandı (yöntem 6), TUR = 2,5, %95 tolerans içi süreç için küresel riskler | Sandia National Laboratories |
+| [`tur-guard-band-rp10-tur2-0`](general/tur-guard-band-rp10-tur2-0.json) | Acceptance limits from the test uncertainty ratio: NCSLI RP-10 guard band, TUR = 2.0, global risks for a 95 % in-tolerance process | Test belirsizlik oranından kabul sınırları: NCSLI RP-10 koruma bandı, TUR = 2,0, %95 tolerans içi süreç için küresel riskler | Sandia National Laboratories |
+| [`tur-guard-band-rss-tur1-5`](general/tur-guard-band-rss-tur1-5.json) | Acceptance limits from the test uncertainty ratio: root-sum-square guard band, TUR = 1.5, global risks for a 95 % in-tolerance process | Test belirsizlik oranından kabul sınırları: karelerin toplamının kökü koruma bandı, TUR = 1,5, %95 tolerans içi süreç için küresel riskler | Sandia National Laboratories |
 
 ## Length / Uzunluk
 

@@ -222,6 +222,7 @@ Next to `model` (the result is assessed) or as the only section of a project (JC
 | `acceptance_lower`, `acceptance_upper` | acceptance limits given directly (the rule follows from them) |
 | `distribution` | model projects: `normal` (default) or `t` (effective degrees of freedom) |
 | `quantity`, `unit`, `u` or `u_relative`, `dof`, `results` | projects of their own: property, measuring system, measured values (`name`, `value`, optional `u`) |
+| `tur_method` | `rss`, `dobbert`, `rp10` or `test95`: acceptance limits from the test uncertainty ratio (11.2) |
 | `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma` with `mean`, `sd`, or `lognormal` with `meanlog`, `sdlog`; required R_C (finds r) |
 | `posterior` | `true`: p_c of the results from the posterior with the process PDF as prior (projects of their own) |
 | `distribution`, `exact_sdlog` | PDF for the measurand: `normal`, `t` (model projects) or `lognormal` (s_G = u/\|y\|, or exact with `exact_sdlog`) |

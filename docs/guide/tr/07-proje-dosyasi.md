@@ -222,6 +222,7 @@ Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş
 | `acceptance_lower`, `acceptance_upper` | doğrudan verilen kabul sınırları (kural bunlardan çıkarılır) |
 | `distribution` | model projeleri: `normal` (varsayılan) veya `t` (etkin serbestlik derecesi) |
 | `quantity`, `unit`, `u` veya `u_relative`, `dof`, `results` | kendi başına projeler: özellik, ölçüm sistemi, ölçülen değerler (`name`, `value`, isteğe bağlı `u`) |
+| `tur_method` | `rss`, `dobbert`, `rp10` veya `test95`: test belirsizlik oranından kabul sınırları (11.2) |
 | `process`, `target_consumer_risk` | küresel riskler: `distribution` `mean`, `sd` ile `normal` veya `gamma`, ya da `meanlog`, `sdlog` ile `lognormal`; istenen R_C (r'yi bulur) |
 | `posterior` | `true`: sonuçların p_c değeri, süreç dağılımı önsel alınarak sonsal dağılımdan (kendi başına projeler) |
 | `distribution`, `exact_sdlog` | ölçülen büyüklüğün dağılımı: `normal`, `t` (model projeleri) veya `lognormal` (s_G = u/\|y\|, `exact_sdlog` ile kesin) |

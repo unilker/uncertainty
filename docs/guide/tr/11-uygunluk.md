@@ -44,6 +44,15 @@ değerde uygular; bu L/(1 ∓ k·u_bağıl) verir.
 Kabul sınırları `acceptance_lower` ve `acceptance_upper` ile doğrudan da verilebilir; kural bu durumda
 sınırlardan çıkarılır.
 
+**Test belirsizlik oranından koruma bantları.** Kalibrasyon uygulaması (ANSI/NCSL Z540.3 ve el kitabı) kabul
+sınırlarını TUR = (T_U − T_L)/2 / U₉₅ ile belirler; U₉₅ = 2u (JCGM 106'daki C_m'ye eşittir). `tur_method` ile
+sınırlar merkezin ± GBF·(T_U − T_L)/2 uzağındadır: `rss` GBF = √(1 − 1/TUR²); `dobbert` (yönetilen koruma bandı,
+"yöntem 6") GBF = 1 − M/TUR, M = 1,04 − exp(0,38 ln TUR − 0,54); bu, tolerans içi olasılık ne olursa olsun küresel
+PFA'yı yaklaşık %2'nin altında tutar (TUR ≈ 4,6'nın üstünde GBF > 1: sınırlar tolerans dışında); `rp10` (NCSLI RP-10)
+GBF = 1,25 − 1/TUR; `test95` GBF = 1 − 1/TUR (ikisi de TUR = 4'ün üstünde 1). İki taraflı tolerans ve sabit u
+gerekir. Çarpanlar ve küresel riskler Sandia'nın Suncal programıyla aynıdır (kütüphane projeleri `tur-guard-band-*`).
+İstenen bir küresel PFA için koruma bandı `target_consumer_risk` ile bulunur (11.3).
+
 Rapor her sonuç için p_c değerini, kararı ve özgül riski verir. Ürün kabul edildiyse bu tüketici riski
 1 − p_c, reddedildiyse üretici riski p_c'dir (9.3.2).
 

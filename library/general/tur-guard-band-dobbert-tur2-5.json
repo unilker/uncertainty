@@ -1,0 +1,108 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "tur-guard-band-dobbert-tur2-5",
+    "field": "general",
+    "title": {
+      "en": "Acceptance limits from the test uncertainty ratio: Dobbert's managed guard band (method 6), TUR = 2.5, global risks for a 95 % in-tolerance process",
+      "tr": "Test belirsizlik oranından kabul sınırları: Dobbert'in yönetilen koruma bandı (yöntem 6), TUR = 2,5, %95 tolerans içi süreç için küresel riskler"
+    },
+    "description": {
+      "en": "Tolerance ±1 (normalised), U₉₅ = 2u = 0.4, so TUR = 1/U₉₅ = 2.5. GBF = 1 − M/TUR, M = 1.04 − exp(0.38 ln TUR − 0.54). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).",
+      "tr": "Tolerans ±1 (normalize), U₉₅ = 2u = 0,4, dolayısıyla TUR = 1/U₉₅ = 2,5. GBF = 1 − M/TUR, M = 1,04 − exp(0,38 ln TUR − 0,54). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213)."
+    },
+    "explanation": [
+      {
+        "en": "Guard-band factor GBF = 0.914186: the acceptance limits are ±0.914186, a guard band of 0.085814 inside each tolerance limit.",
+        "tr": "Koruma bandı çarpanı GBF = 0,914186: kabul sınırları ±0,914186; her tolerans sınırının 0,085814 içinde bir koruma bandı."
+      },
+      {
+        "en": "Global consumer's risk (probability of false acceptance) 0.688 % instead of 1.177 % with simple acceptance; producer's risk 5.22 %.",
+        "tr": "Küresel tüketici riski (yanlış kabul olasılığı) basit kabuldeki %1,177 yerine %0,688; üretici riski %5,22."
+      },
+      {
+        "en": "Dobbert's method keeps the global PFA at or below about 2 % whatever the in-tolerance probability: for TUR = 2.5 its maximum over ITP is 1.93 % (Suncal).",
+        "tr": "Dobbert yöntemi, tolerans içi olasılık ne olursa olsun küresel PFA'yı yaklaşık %2'nin altında tutar: TUR = 2,5 için ITP üzerindeki en büyük değeri %1,93'tür (Suncal)."
+      }
+    ],
+    "tags": [
+      "guard-band",
+      "tur",
+      "pfa",
+      "calibration",
+      "z540.3",
+      "dobbert"
+    ],
+    "notes": [
+      {
+        "en": "TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.",
+        "tr": "TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir."
+      }
+    ],
+    "sources": [
+      {
+        "document": "Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm)",
+        "url": "https://pypi.org/project/suncal/"
+      },
+      {
+        "document": "Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)",
+        "url": "https://www.osti.gov/biblio/2004392"
+      }
+    ]
+  },
+  "conformity": {
+    "quantity": "Normalised deviation from nominal",
+    "lower": -1,
+    "upper": 1,
+    "u": 0.2,
+    "tur_method": "dobbert",
+    "process": {
+      "distribution": "normal",
+      "mean": 0,
+      "sd": 0.5102134569246539
+    },
+    "results": [
+      {
+        "name": "reading 0.70",
+        "value": 0.7
+      },
+      {
+        "name": "reading 0.95",
+        "value": 0.95
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "tur": {
+        "value": 2.5,
+        "tolerance": 1e-12
+      },
+      "guard_band_factor": {
+        "value": 0.9141856345435068,
+        "tolerance": 1e-09
+      },
+      "acceptance_lower": {
+        "value": -0.9141856345435068,
+        "tolerance": 1e-09
+      },
+      "acceptance_upper": {
+        "value": 0.9141856345435068,
+        "tolerance": 1e-09
+      },
+      "consumer_risk": {
+        "value": 0.0068831838402677575,
+        "tolerance": 2e-06
+      },
+      "producer_risk": {
+        "value": 0.05216244734420719,
+        "tolerance": 2e-06
+      }
+    },
+    "reference": {
+      "en": "Suncal 1.7.1: guard-band factor and PFA_norm/PFR_norm(itp = 0.95, TUR, GB) for the global risks.",
+      "tr": "Suncal 1.7.1: koruma bandı çarpanı ve küresel riskler için PFA_norm/PFR_norm(itp = 0,95, TUR, GB)."
+    }
+  }
+}

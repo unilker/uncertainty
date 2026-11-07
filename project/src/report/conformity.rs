@@ -12,6 +12,7 @@ pub(super) struct CfLabels {
     pub acceptance: &'static str,
     pub probability_rule: [&'static str; 2],
     pub capability: &'static str,
+    pub tur: &'static str,
     pub results: &'static str,
     pub name: &'static str,
     pub value: &'static str,
@@ -52,6 +53,7 @@ const CF_EN: CfLabels = CfLabels {
     acceptance: "Acceptance interval",
     probability_rule: ["acceptance limits set so that the probability of conformity at a limit is", "acceptance limits set so that the probability of non-conformity at a limit is"],
     capability: "Measurement capability index C_m = T/(4u)",
+    tur: "Test uncertainty ratio TUR = (T_U − T_L)/2 / U₉₅ = {t}; guard-band factor ({m}) {g}: acceptance limits at ± GBF·(T_U − T_L)/2 about the centre",
     results: "Assessed results",
     name: "Result",
     value: "Measured value",
@@ -92,6 +94,7 @@ const CF_TR: CfLabels = CfLabels {
     acceptance: "Kabul aralığı",
     probability_rule: ["kabul sınırları, bir sınırdaki uygunluk olasılığı şu değer olacak şekilde belirlendi:", "kabul sınırları, bir sınırdaki uygunsuzluk olasılığı şu değer olacak şekilde belirlendi:"],
     capability: "Ölçüm yeterlilik indeksi C_m = T/(4u)",
+    tur: "Test belirsizlik oranı TUR = (T_U − T_L)/2 / U₉₅ = {t}; koruma bandı çarpanı ({m}) {g}: kabul sınırları merkezin ± GBF·(T_U − T_L)/2 uzağında",
     results: "Değerlendirilen sonuçlar",
     name: "Sonuç",
     value: "Ölçülen değer",
@@ -220,6 +223,19 @@ pub(super) fn section(s: &mut String, a: &ConformityAnalysis, lang: Lang) {
     let _ = writeln!(s, "- {}: {acc_text}", d.acceptance);
     if let Some(c) = a.capability_index {
         let _ = writeln!(s, "- {}: {}", d.capability, fmt_num(c, 3, lang));
+    }
+    if let Some((m, t, g)) = a.tur {
+        let name = match m {
+            crate::conformity::TurMethodSpec::Rss => "RSS",
+            crate::conformity::TurMethodSpec::Dobbert => "Dobbert",
+            crate::conformity::TurMethodSpec::Rp10 => "NCSLI RP-10",
+            crate::conformity::TurMethodSpec::Test95 => "U₉₅",
+        };
+        let _ = writeln!(
+            s,
+            "- {}",
+            d.tur.replace("{t}", &fmt_num(t, 3, lang)).replace("{m}", name).replace("{g}", &fmt_num(g, 4, lang))
+        );
     }
     if let Some(nu) = a.results.first().and_then(|r| r.dof).filter(|nu| nu.is_finite()) {
         let _ = writeln!(s, "\n{}", d.t_note.replace("{nu}", &fmt_num(nu, 3, lang)));

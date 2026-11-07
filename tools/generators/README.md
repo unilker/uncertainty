@@ -38,6 +38,7 @@ recomputed.
 | `merkatas2019.py` | Merkatas et al. 2019: G from 16 results, four procedures of Table 4 |
 | `ume_procedure.py` | TÜBİTAK UME draft uncertainty procedure, Examples 19.1 and 19.2 |
 | `../research/article_stats.py` | (not a generator) summary numbers for the article → `docs/article/numbers.md` |
+| `tur_guard_bands.py` | TUR-based guard bands (RSS, Dobbert, RP-10) checked against Suncal |
 | `koepke2017.py` | Koepke et al. 2017 (NIST Consensus Builder): G, half-lives of ¹³⁷Cs and ⁹⁰Sr |
 | `eurachem_compliance.py` | Eurachem/CITAC compliance assessment guide 2021, Annex B Examples 1–3 |
 | `tr569.py` | Nordtest TR 569 control charts |

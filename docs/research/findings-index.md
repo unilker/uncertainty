@@ -113,7 +113,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F96 | Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.) |
 | F97 | BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article, not to be reported). | 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets |
 
-## Decisions (76)
+## Decisions (77)
 
 | D | Decision | Session |
 |---|---|---|
@@ -193,3 +193,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D74 | Library-wide comparison with Sandia's Suncal 1.7.1 | 2026-11-07 (session 21, continued) — Benchmark against Suncal |
 | D75 | Beta input distribution. | 2026-11-07 (session 21, continued) — Beta distribution; IUPAC 2024 Examples 4H and 5C |
 | D76 | Consensus template and editor. | 2026-11-07 (session 21, continued) — Consensus in the application |
+| D77 | `conformity.tur_method`: RSS, Dobbert, NCSLI RP-10, U₉₅. | 2026-11-07 (session 21, continued) — Guard bands from the test uncertainty ratio |

@@ -5,7 +5,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Chemistry (143)
 - Electrical and RF (36)
 - Flow and volume (7)
-- General (method validation) (21)
+- General (method validation) (24)
 - Length (12)
 - Mass (29)
 - Physical properties (15)
@@ -4707,6 +4707,79 @@ A fixed 1 mL micropipette tested ten times (Nordtest TR 626); the mean volume is
 - X-chart: central line 1.0000 mL; action limits 0.99000 1.0100 mL (action limits at the tolerance)
 
 **Run:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang en`
+
+### Acceptance limits from the test uncertainty ratio: Dobbert's managed guard band (method 6), TUR = 2.5, global risks for a 95 % in-tolerance process
+
+`tur-guard-band-dobbert-tur2-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerance ±1 (normalised), U₉₅ = 2u = 0.4, so TUR = 1/U₉₅ = 2.5. GBF = 1 − M/TUR, M = 1.04 − exp(0.38 ln TUR − 0.54). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guard-band factor GBF = 0.914186: the acceptance limits are ±0.914186, a guard band of 0.085814 inside each tolerance limit.
+2. Global consumer's risk (probability of false acceptance) 0.688 % instead of 1.177 % with simple acceptance; producer's risk 5.22 %.
+3. Dobbert's method keeps the global PFA at or below about 2 % whatever the in-tolerance probability: for TUR = 2.5 its maximum over ITP is 1.93 % (Suncal).
+
+**Result:**
+
+- Probability that reading 0.70 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 93 %; accepted under guarded acceptance.
+- Probability that reading 0.95 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 60 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
+
+**Run:** `uncertainty run library/general/tur-guard-band-dobbert-tur2-5.json --lang en`
+
+### Acceptance limits from the test uncertainty ratio: NCSLI RP-10 guard band, TUR = 2.0, global risks for a 95 % in-tolerance process
+
+`tur-guard-band-rp10-tur2-0` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerance ±1 (normalised), U₉₅ = 2u = 0.5, so TUR = 1/U₉₅ = 2.0. GBF = 1.25 − 1/TUR (TUR ≤ 4). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guard-band factor GBF = 0.750000: the acceptance limits are ±0.750000, a guard band of 0.250000 inside each tolerance limit.
+2. Global consumer's risk (probability of false acceptance) 0.321 % instead of 1.337 % with simple acceptance; producer's risk 14.00 %.
+
+**Result:**
+
+- Probability that reading 0.70 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 88 %; accepted under guarded acceptance.
+- Probability that reading 0.95 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 58 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
+
+**Run:** `uncertainty run library/general/tur-guard-band-rp10-tur2-0.json --lang en`
+
+### Acceptance limits from the test uncertainty ratio: root-sum-square guard band, TUR = 1.5, global risks for a 95 % in-tolerance process
+
+`tur-guard-band-rss-tur1-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerance ±1 (normalised), U₉₅ = 2u = 0.6667, so TUR = 1/U₉₅ = 1.5. GBF = √(1 − 1/TUR²). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guard-band factor GBF = 0.745356: the acceptance limits are ±0.745356, a guard band of 0.254644 inside each tolerance limit.
+2. Global consumer's risk (probability of false acceptance) 0.568 % instead of 1.541 % with simple acceptance; producer's risk 17.70 %.
+
+**Result:**
+
+- Probability that reading 0.70 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 82 %; accepted under guarded acceptance.
+- Probability that reading 0.95 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 56 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
+
+**Run:** `uncertainty run library/general/tur-guard-band-rss-tur1-5.json --lang en`
 
 ### Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)
 

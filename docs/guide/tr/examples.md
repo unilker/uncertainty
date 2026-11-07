@@ -5,7 +5,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Kimya (143)
 - Elektrik ve RF (36)
 - Akış ve hacim (7)
-- Genel (yöntem doğrulama) (21)
+- Genel (yöntem doğrulama) (24)
 - Uzunluk (12)
 - Kütle (29)
 - Fiziksel özellikler (15)
@@ -4707,6 +4707,79 @@ Sabit hacimli 1 mL mikropipet on kez test edilir (Nordtest TR 626); ortalama hac
 - X-grafiği: merkez çizgisi 1,0000 mL; eylem sınırları 0,99000 1,0100 mL (toleransta eylem sınırları)
 
 **Çalıştırma:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang tr`
+
+### Test belirsizlik oranından kabul sınırları: Dobbert'in yönetilen koruma bandı (yöntem 6), TUR = 2,5, %95 tolerans içi süreç için küresel riskler
+
+`tur-guard-band-dobbert-tur2-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerans ±1 (normalize), U₉₅ = 2u = 0,4, dolayısıyla TUR = 1/U₉₅ = 2,5. GBF = 1 − M/TUR, M = 1,04 − exp(0,38 ln TUR − 0,54). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Koruma bandı çarpanı GBF = 0,914186: kabul sınırları ±0,914186; her tolerans sınırının 0,085814 içinde bir koruma bandı.
+2. Küresel tüketici riski (yanlış kabul olasılığı) basit kabuldeki %1,177 yerine %0,688; üretici riski %5,22.
+3. Dobbert yöntemi, tolerans içi olasılık ne olursa olsun küresel PFA'yı yaklaşık %2'nin altında tutar: TUR = 2,5 için ITP üzerindeki en büyük değeri %1,93'tür (Suncal).
+
+**Sonuç:**
+
+- reading 0.70 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %93; korumalı kabul kuralına göre kabul.
+- reading 0.95 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %60; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
+
+**Çalıştırma:** `uncertainty run library/general/tur-guard-band-dobbert-tur2-5.json --lang tr`
+
+### Test belirsizlik oranından kabul sınırları: NCSLI RP-10 koruma bandı, TUR = 2,0, %95 tolerans içi süreç için küresel riskler
+
+`tur-guard-band-rp10-tur2-0` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerans ±1 (normalize), U₉₅ = 2u = 0,5, dolayısıyla TUR = 1/U₉₅ = 2,0. GBF = 1,25 − 1/TUR (TUR ≤ 4). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Koruma bandı çarpanı GBF = 0,750000: kabul sınırları ±0,750000; her tolerans sınırının 0,250000 içinde bir koruma bandı.
+2. Küresel tüketici riski (yanlış kabul olasılığı) basit kabuldeki %1,337 yerine %0,321; üretici riski %14,00.
+
+**Sonuç:**
+
+- reading 0.70 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %88; korumalı kabul kuralına göre kabul.
+- reading 0.95 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %58; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
+
+**Çalıştırma:** `uncertainty run library/general/tur-guard-band-rp10-tur2-0.json --lang tr`
+
+### Test belirsizlik oranından kabul sınırları: karelerin toplamının kökü koruma bandı, TUR = 1,5, %95 tolerans içi süreç için küresel riskler
+
+`tur-guard-band-rss-tur1-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerans ±1 (normalize), U₉₅ = 2u = 0,6667, dolayısıyla TUR = 1/U₉₅ = 1,5. GBF = √(1 − 1/TUR²). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Koruma bandı çarpanı GBF = 0,745356: kabul sınırları ±0,745356; her tolerans sınırının 0,254644 içinde bir koruma bandı.
+2. Küresel tüketici riski (yanlış kabul olasılığı) basit kabuldeki %1,541 yerine %0,568; üretici riski %17,70.
+
+**Sonuç:**
+
+- reading 0.70 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %82; korumalı kabul kuralına göre kabul.
+- reading 0.95 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %56; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
+
+**Çalıştırma:** `uncertainty run library/general/tur-guard-band-rss-tur1-5.json --lang tr`
 
 ### Taşıt emisyonlarında karbon monoksit, tekrar üretilebilirlik verilerinden (ISO 21748 C.1)
 

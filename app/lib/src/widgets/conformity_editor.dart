@@ -53,6 +53,7 @@ class _ConformityFieldsState extends State<ConformityFields> {
     final m = widget.map;
     final rule = m['rule'] as String? ?? 'simple_acceptance';
     final byProbability = m.containsKey('probability');
+    final tur = m['tur_method'] as String?;
     return Wrap(
       spacing: 12,
       runSpacing: 8,
@@ -87,7 +88,34 @@ class _ConformityFieldsState extends State<ConformityFields> {
             },
           ),
         ),
-        if (rule != 'simple_acceptance') ...[
+        SizedBox(
+          width: 220,
+          child: DropdownButtonFormField<String>(
+            key: const Key('cf-tur'),
+            isExpanded: true,
+            initialValue: tur ?? 'none',
+            decoration: InputDecoration(labelText: s['cf_tur'], isDense: true),
+            items: [
+              for (final t in const ['none', 'rss', 'dobbert', 'rp10', 'test95']) DropdownMenuItem(value: t, child: Text(s['cf_tur_$t'])),
+            ],
+            onChanged: (v) {
+              setState(() {
+                if (v == null || v == 'none') {
+                  m.remove('tur_method');
+                } else {
+                  m['tur_method'] = v;
+                  m['rule'] = 'simple_acceptance';
+                  m.remove('r');
+                  m.remove('probability');
+                  m.remove('guard_band');
+                  m.remove('target_consumer_risk');
+                }
+              });
+              widget.onChanged();
+            },
+          ),
+        ),
+        if (rule != 'simple_acceptance' && tur == null) ...[
           SegmentedButton<bool>(
             segments: [
               ButtonSegment(value: false, label: Text(s['cf_by_r'])),

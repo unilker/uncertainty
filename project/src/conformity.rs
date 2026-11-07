@@ -76,6 +76,10 @@ pub struct ConformitySpec {
     /// Required global consumer's risk: the guard-band multiplier r is found.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target_consumer_risk: Option<f64>,
+    /// Guard band from the test uncertainty ratio: `rss`, `dobbert`, `rp10`
+    /// or `test95` (two-sided tolerance, fixed u; TUR = (T_U − T_L)/2 / 2u).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tur_method: Option<TurMethodSpec>,
     /// PDF for the measurand: `normal` (default), `t` with the effective
     /// degrees of freedom (model projects; give `dof` otherwise) or
     /// `lognormal` with median y and s_G = u/|y| (Eurachem/CITAC 2021,
@@ -94,6 +98,26 @@ pub enum RuleSpec {
     SimpleAcceptance,
     GuardedAcceptance,
     GuardedRejection,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TurMethodSpec {
+    Rss,
+    Dobbert,
+    Rp10,
+    Test95,
+}
+
+impl TurMethodSpec {
+    pub fn method(self) -> cf::TurMethod {
+        match self {
+            TurMethodSpec::Rss => cf::TurMethod::Rss,
+            TurMethodSpec::Dobbert => cf::TurMethod::Dobbert,
+            TurMethodSpec::Rp10 => cf::TurMethod::Rp10,
+            TurMethodSpec::Test95 => cf::TurMethod::Test95,
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
@@ -176,6 +200,10 @@ pub struct ExpectedConformity {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub capability_index: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tur: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub guard_band_factor: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub conforming: Option<Check>,
@@ -230,6 +258,8 @@ pub struct ConformityAnalysis {
     pub acceptance: Acceptance,
     /// C_m = T/(4u) for a two-sided tolerance and a fixed u.
     pub capability_index: Option<f64>,
+    /// TUR and guard-band factor when the acceptance limits come from a TUR method.
+    pub tur: Option<(TurMethodSpec, f64, f64)>,
     pub results: Vec<AssessedResult>,
     pub process: Option<ProcessSpec>,
     /// The conformance probabilities are posterior ones.
@@ -335,11 +365,12 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         spec.probability.is_some(),
         explicit,
         spec.target_consumer_risk.is_some(),
+        spec.tur_method.is_some(),
     ];
     if ways.iter().filter(|&&b| b).count() > 1 {
         return Err(err(
             "r",
-            "give only one of r, guard_band, probability, acceptance limits and target_consumer_risk",
+            "give only one of r, guard_band, probability, acceptance limits, target_consumer_risk and tur_method",
         ));
     }
     if spec.rule == RuleSpec::SimpleAcceptance
@@ -362,6 +393,7 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
     }
     let mut r_used = None;
     let mut rule_used = spec.rule;
+    let mut tur_used = None;
     let (acceptance, guard_band) = if explicit {
         let a = Acceptance { lower: spec.acceptance_lower, upper: spec.acceptance_upper };
         if a.lower.is_some() != tolerance.lower.is_some() || a.upper.is_some() != tolerance.upper.is_some() {
@@ -402,6 +434,26 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
             return Err(need_u("probability"));
         }
         (a, None)
+    } else if let Some(m) = spec.tur_method {
+        let (Some(tl), Some(tu)) = (tolerance.lower, tolerance.upper) else {
+            return Err(err("tur_method", "needs a two-sided tolerance"));
+        };
+        if spec.u_relative.is_some() {
+            return Err(err("tur_method", "needs a fixed u of the measuring system"));
+        }
+        let half = 0.5 * (tu - tl);
+        let tur = half / (2.0 * band_u("tur_method")?);
+        let gbf = cf::tur_guard_band_factor(m.method(), tur).map_err(|e| err("tur_method", e.to_string()))?;
+        let w = (1.0 - gbf) * half;
+        rule_used = if w > 0.0 {
+            RuleSpec::GuardedAcceptance
+        } else if w < 0.0 {
+            RuleSpec::GuardedRejection
+        } else {
+            RuleSpec::SimpleAcceptance
+        };
+        tur_used = Some((m, tur, gbf));
+        (cf::acceptance_from_guard_band(&tolerance, w), (w != 0.0).then_some(w))
     } else if let Some(target) = spec.target_consumer_risk {
         let proc_ = process.as_ref().ok_or_else(|| err("target_consumer_risk", "needs a process PDF"))?;
         if spec.u_relative.is_some() {
@@ -511,6 +563,7 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         probability: spec.probability,
         acceptance,
         capability_index: fixed_u.and_then(|u| cf::capability_index(&tolerance, u)),
+        tur: tur_used,
         results,
         process: spec.process.clone(),
         posterior: spec.posterior,
@@ -536,6 +589,8 @@ pub fn check(e: &ExpectedConformity, a: &ConformityAnalysis, out: &mut Vec<crate
     push("conformity.acceptance_lower".into(), a.acceptance.lower, &e.acceptance_lower);
     push("conformity.acceptance_upper".into(), a.acceptance.upper, &e.acceptance_upper);
     push("conformity.capability_index".into(), a.capability_index, &e.capability_index);
+    push("conformity.tur".into(), a.tur.map(|t| t.1), &e.tur);
+    push("conformity.guard_band_factor".into(), a.tur.map(|t| t.2), &e.guard_band_factor);
     push("conformity.r".into(), a.r, &e.r);
     let g = a.global.as_ref();
     push("conformity.conforming".into(), g.map(|g| g.conforming), &e.conforming);
@@ -581,6 +636,7 @@ pub fn results_json(a: &ConformityAnalysis) -> serde_json::Value {
         "probability": a.probability,
         "acceptance": { "lower": a.acceptance.lower, "upper": a.acceptance.upper },
         "capability_index": a.capability_index,
+        "tur": a.tur.map(|(m, t, g)| json!({"method": m, "tur": t, "guard_band_factor": g})),
         "posterior": a.posterior,
         "results": a.results.iter().map(|r| json!({
             "name": r.name, "value": r.value, "u": r.u, "dof": r.dof,
