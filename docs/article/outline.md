@@ -41,13 +41,13 @@ Working title options:
 > 569), uncertainty from sampling, weighing instruments (EURAMET cg-18) and consensus values with degrees of
 > equivalence. Each algorithm cites the clause it implements. The program is validated on [277] worked examples
 > from [36] guidance documents and papers, stored as project files that the test suite recomputes from their
-> inputs at every change. Reproducing the examples exposed [97] discrepancies: intermediate rounding, misprints,
-> and [24+] inconsistencies that change a printed result, among them [examples: GUM-5 effective degrees of freedom
+> inputs at every change. Reproducing the examples produced [97] findings: intermediate rounding, misprints,
+> and [29] inconsistencies that change a printed result, among them [examples: GUM-5 effective degrees of freedom
 > for correlated inputs, ...]. Bayesian random-effects consensus values that the literature obtains by MCMC are
 > reproduced exactly on a deterministic grid. We argue that worked examples should be published with machine-
 > readable inputs and checked by independent recomputation, and we make the library available for that purpose.
 
-(Numbers in brackets are generated; the class counts must be redone after the D12 audit, §9.)
+(Numbers in brackets are generated in `numbers.md`; classes from `docs/research/finding-classes.tsv`, D73.)
 
 ## 3. Introduction
 
@@ -95,8 +95,10 @@ Table 1: features × standard clauses (generate from `iso17025-mapping.md` and t
 
 ### 6.1 What recomputation reveals (the audit)
 
-Classification (D12): (a) intermediate rounding; (b) misprint or transcription without effect; (c) inconsistency
-that changes a printed result. Figure 2: findings per document by class.
+Classification (D12, D73): (a) intermediate rounding; (b) misprint or transcription without effect; (c)
+inconsistency that changes a printed result; (n) no discrepancy (methodological note, summary, full
+reproduction). Counts: a 26, b 25, c 23, mixed 12, n 11; 29 findings with a class c component. Figure 2:
+findings per document by class (table "Findings by document and class" in `numbers.md`).
 
 Selected class-c findings for Table 4 (check each against the current edition before submission):
 
@@ -154,8 +156,8 @@ Repository, licence (GPL-3.0), tagged release with Zenodo DOI, `CITATION.cff`, t
 
 ## 9. Before submission (open)
 
-- [ ] D12 audit of the finding classes: 25 entries carry no class in their heading; F80 undecided; recheck class-c
-      findings against current editions and errata (F40 resolved in D41 is the model).
+- [x] D12 audit of the finding classes (D73): every finding has a class in `finding-classes.tsv`.
+- [ ] Recheck the class-c findings against current editions and errata (F40, resolved in D41, is the model).
 - [ ] Benchmarks against NUM and Suncal on a common subset (≈ 20 models, GUM and MCM).
 - [ ] Independent review by a metrologist outside the project (NMI or accredited laboratory).
 - [ ] Systematic literature search finished (task 41; `literature-search-2026-10.md`) and audits of worked

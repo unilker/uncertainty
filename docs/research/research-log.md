@@ -3170,3 +3170,38 @@ to be verified at submission). The numbers of the paper are generated (`tools/re
 The skeleton maps every section to its evidence (F, D, validation rows), lists Figures 1–3 and Tables 1–4, and
 keeps the pre-submission checklist; the D12 class audit is now its first item (25 findings carry no class in
 their heading).
+
+## 2026-11-07 (session 21, continued) — D12 audit of the finding classes
+
+**D73. Classes for the findings without a class in their heading; class n.** D12 defines (a) intermediate
+rounding, (b) misprint or transcription without effect on the result, (c) inconsistency that changes a printed
+result. Some early entries are not discrepancies at all (methodological notes, summaries, a full reproduction):
+they get the new label **n**. The classes of all findings are kept in `docs/research/finding-classes.tsv`
+(heading classes, overridden by this audit); `tools/research/article_stats.py` reads it.
+
+| F | Class | Reason |
+|---|---|---|
+| F1 | a | GUM H.1 values follow from unrounded u; printed rounded values reproduce with them |
+| F2 | n | Monte Carlo dispersion of printed MCM values (inherent) |
+| F3 | n | methodological: location of shortest intervals |
+| F4 | n | methodological: GUF slightly conservative |
+| F5 | c | arithmetic slip changes u(bias) 4.1 → 4.2 % |
+| F6 | b | 2.7 % printed, 2.6 % used; result consistent |
+| F7 | b | n = 47 stated, 46 pairs listed; result reproduced |
+| F8 | a, b | BOD from rounded biases; PCB summary table differs from the example |
+| F9 | a | rounded R̄; the 3.69 factor stays "to verify" |
+| F10 | a, c | rounded linearity term; Table A2.4 not reproducible |
+| F11 | n | summary of F1, F5–F10 |
+| F12 | c, b | summary u_c inconsistent with its inputs; typos |
+| F13 | b | derived columns and t value misprinted; statistic reproduced |
+| F14 | c | 0.19 dm² printed and used for 0.152 dm² |
+| F15 | b | 0.12 for 1.2 % m/m |
+| F16 | n | fully reproduced |
+| F17 | a, b | rounded intermediates; χ² about the unweighted mean; Eq. (B6.8) factor omitted (same conclusions) |
+| F18 | a, b | rounded contributions and misprints (S13 is F21) |
+| F19 | n | methodological: second-order terms |
+| F20 | n | summary |
+| F23 | n | methodological: verdict near the threshold |
+| F31, F35 | n | methodological: conventions for t inputs |
+| F37 | n | methodological: Algorithm A with bimodal data |
+| F80 | c | printed global risks follow from a joint PDF whose s.d. depends on the measured value; the conditional form gives other values |
