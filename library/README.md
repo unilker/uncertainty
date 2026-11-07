@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**227 examples / örnek** (108 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 11 conformity assessment / uygunluk değerlendirmesi).
+**229 examples / örnek** (110 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 11 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -234,6 +234,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`gum5-e9-torque-slope-ols`](general/gum5-e9-torque-slope-ols.json) | Torque sensor calibration, straight line through the origin, ordinary least squares with the GUF (JCGM GUM-5 Example 9) | Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile sıradan en küçük kareler (JCGM GUM-5 Örnek 9) | JCGM GUM-5:2026 Example 9, Tables 9.1–9.3 |
+| [`gum5-e9-torque-slope-wls`](general/gum5-e9-torque-slope-wls.json) | Torque sensor calibration, straight line through the origin, weighted least squares with the GUF (JCGM GUM-5 Example 9) | Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile ağırlıklı en küçük kareler (JCGM GUM-5 Örnek 9) | JCGM GUM-5:2026 Example 9, Tables 9.1–9.3 |
 | [`jcgm101-9.2.2-additive-gaussian`](general/jcgm101-9.2.2-additive-gaussian.json) | Additive model with Gaussian inputs | Normal dağılımlı girdilerle toplamsal model | JCGM 101:2008 9.2.2 |
 | [`jcgm101-9.2.3-additive-rectangular`](general/jcgm101-9.2.3-additive-rectangular.json) | Additive model with rectangular inputs | Dikdörtgen dağılımlı girdilerle toplamsal model | JCGM 101:2008 9.2.3 |
 | [`jcgm101-9.2.4-additive-dominant-rectangular`](general/jcgm101-9.2.4-additive-dominant-rectangular.json) | Additive model with a dominant rectangular input | Baskın dikdörtgen girdili toplamsal model | JCGM 101:2008 9.2.4 |

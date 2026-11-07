@@ -1,0 +1,205 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e9-torque-slope-wls",
+    "title": {
+      "en": "Torque sensor calibration, straight line through the origin, weighted least squares with the GUF (JCGM GUM-5 Example 9)",
+      "tr": "Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile ağırlıklı en küçük kareler (JCGM GUM-5 Örnek 9)"
+    },
+    "description": {
+      "en": "Slope β of Y = βX from eight torque levels; the WLS estimator (9.4) is linear in the means Y_i, so the LPU and Welch–Satterthwaite apply directly.",
+      "tr": "Sekiz tork seviyesinden Y = βX'in eğimi β; AEKK kestiricisi (9.4) Y_i ortalamalarında doğrusaldır, bu nedenle LPU ve Welch–Satterthwaite doğrudan uygulanır."
+    },
+    "explanation": [
+      {
+        "en": "The reference torques x_i are taken as exact (9.3); each mean Y_i has u(y_i) = s_i/√n_i with ν_i = n_i − 1 (Table 9.2). The standard deviations differ by an order of magnitude between levels.",
+        "tr": "Referans torklar x_i kesin kabul edilir (9.3); her Y_i ortalamasının u(y_i) = s_i/√n_i ve ν_i = n_i − 1'dir (Tablo 9.2). Standart sapmalar seviyeler arasında bir büyüklük mertebesi farklıdır."
+      },
+      {
+        "en": "β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i² with n_iW_i = 1/u²(y_i); the coefficients of Y_i are written into the expression. β = 1.00849, u(β) = 0.00077, ν_eff = 13.31.",
+        "tr": "β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i², n_iW_i = 1/u²(y_i); Y_i katsayıları ifadeye yazılmıştır. β = 1,00849, u(β) = 0,00077, ν_eff = 13,31."
+      },
+      {
+        "en": "Bayesian analysis of the same data with unknown variances σ_i² (9.5.2): NI-Bayes 1.0092 ± 0.0011, Inf-Bayes 1.0091 ± 0.0009 (Table 9.3, reproduced by quadrature of (9.17)). WLS gives a smaller u than both, because it treats the weights 1/u²(y_i) from three to six readings as exact (9.7.3).",
+        "tr": "Aynı verilerin bilinmeyen σ_i² varyanslarıyla Bayesçi analizi (9.5.2): NI-Bayes 1,0092 ± 0,0011, Inf-Bayes 1,0091 ± 0,0009 (Tablo 9.3, (9.17)'nin sayısal integrasyonuyla yeniden üretildi). AEKK ikisinden de küçük u verir, çünkü üç ila altı okumadan gelen 1/u²(y_i) ağırlıklarını kesin sayar (9.7.3)."
+      }
+    ],
+    "field": "general",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 9, Tables 9.1–9.3",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "calibration",
+      "least-squares",
+      "straight-line",
+      "welch-satterthwaite",
+      "torque"
+    ],
+    "notes": [
+      {
+        "en": "Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).",
+        "tr": "Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "beta",
+      "expression": "0.01172995665*Y1 + 0.02611498511*Y2 + 0.06374300572*Y3 + 0.1047057242*Y4 + 0.03661696445*Y5 + 0.156745096*Y6 + 0.09600596629*Y7 + 0.006123075128*Y8",
+      "description": {
+        "en": "Slope of the calibration line Y = βX",
+        "tr": "Kalibrasyon doğrusunun eğimi Y = βX"
+      }
+    },
+    "inputs": [
+      {
+        "name": "Y1",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 0.101 N·m (6 readings, s = 0.0055 N·m)",
+          "tr": "x = 0,101 N·m'de ortalama sensör yanıtı (6 okuma, s = 0,0055 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.095,
+          "sd": 0.0022453656
+        },
+        "dof": 5
+      },
+      {
+        "name": "Y2",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 0.201 N·m (6 readings, s = 0.0052 N·m)",
+          "tr": "x = 0,201 N·m'de ortalama sensör yanıtı (6 okuma, s = 0,0052 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.1966,
+          "sd": 0.0021228911
+        },
+        "dof": 5
+      },
+      {
+        "name": "Y3",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 0.305 N·m (6 readings, s = 0.0041 N·m)",
+          "tr": "x = 0,305 N·m'de ortalama sensör yanıtı (6 okuma, s = 0,0041 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.3016,
+          "sd": 0.001673818
+        },
+        "dof": 5
+      },
+      {
+        "name": "Y4",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 0.501 N·m (6 readings, s = 0.0041 N·m)",
+          "tr": "x = 0,501 N·m'de ortalama sensör yanıtı (6 okuma, s = 0,0041 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.4983,
+          "sd": 0.001673818
+        },
+        "dof": 5
+      },
+      {
+        "name": "Y5",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 1.001 N·m (6 readings, s = 0.0098 N·m)",
+          "tr": "x = 1,001 N·m'de ortalama sensör yanıtı (6 okuma, s = 0,0098 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.0083,
+          "sd": 0.0040008332
+        },
+        "dof": 5
+      },
+      {
+        "name": "Y6",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 3.0 N·m (6 readings, s = 0.0082 N·m)",
+          "tr": "x = 3,0 N·m'de ortalama sensör yanıtı (6 okuma, s = 0,0082 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 3.0266,
+          "sd": 0.003347636
+        },
+        "dof": 5
+      },
+      {
+        "name": "Y7",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 4.001 N·m (6 readings, s = 0.0121 N·m)",
+          "tr": "x = 4,001 N·m'de ortalama sensör yanıtı (6 okuma, s = 0,0121 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 4.0466,
+          "sd": 0.0049398043
+        },
+        "dof": 5
+      },
+      {
+        "name": "Y8",
+        "unit": "N·m",
+        "description": {
+          "en": "Mean sensor response at x = 5.007 N·m (3 readings, s = 0.0379 N·m)",
+          "tr": "x = 5,007 N·m'de ortalama sensör yanıtı (3 okuma, s = 0,0379 N·m)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 5.0666,
+          "sd": 0.0218815752
+        },
+        "dof": 2
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "dof_rounding": "exact"
+    },
+    "mcm": null
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.0085,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0008,
+        "tolerance": 5e-05
+      },
+      "effective_dof": {
+        "value": 13.31,
+        "tolerance": 0.01
+      },
+      "expanded_uncertainty": {
+        "value": 0.0016,
+        "tolerance": 6e-05
+      }
+    },
+    "reference": {
+      "en": "JCGM GUM-5:2026 Table 9.3, WLS: β = 1.0085, u = 0.0008, [1.0069, 1.0101]; ν_eff = 14 in 9.5.1.4; recomputed 13.31 (F83).",
+      "tr": "JCGM GUM-5:2026 Tablo 9.3, WLS: β = 1,0085, u = 0,0008, [1,0069; 1,0101]; 9.5.1.4'te ν_eff = 14; yeniden hesaplanan 13,31 (F83)."
+    }
+  }
+}

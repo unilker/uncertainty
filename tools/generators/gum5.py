@@ -568,3 +568,55 @@ p4 = {"format": "uncertainty-calculations/project", "version": 1,
                          "JCGM GUM-5:2026 Tablo 4.6 ve 4.3.6.9; beklenen değerler yeniden hesaplandı: Ar 4,0 ± 2,4, CH₄ 0,026 ± 0,013, CO 0,112 ± 0,061, H₂ 0,020 ± 0,012, O₂ 1,07 ± 0,52, N₂ 799 649 ± 5 µmol/mol basıldığı gibi; CO₂ 200 345 ± 4 (basılı ± 5), H₂O 0,389 (basılı 0,379); r(CO₂, N₂) −0,85 (−0,86), r(Ar, N₂) −0,55 (−0,50).")}}
 Path("library/chemistry/gum5-e4-gravimetric-gas-mixture.json").write_text(json.dumps(p4, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print("wrote gum5-e4-gravimetric-gas-mixture")
+
+# --- Example 9: torque sensor, straight line through the origin: OLS and WLS with the GUF -----------------
+XT = [0.101, 0.201, 0.305, 0.501, 1.001, 3.000, 4.001, 5.007]
+YT = [0.0950, 0.1966, 0.3016, 0.4983, 1.0083, 3.0266, 4.0466, 5.0666]
+ST = [0.0055, 0.0052, 0.0041, 0.0041, 0.0098, 0.0082, 0.0121, 0.0379]
+NT = [6, 6, 6, 6, 6, 6, 6, 3]
+UT = [s_ / math.sqrt(n_) for s_, n_ in zip(ST, NT)]
+assert [round(v, 4) for v in UT] == [0.0022, 0.0021, 0.0017, 0.0017, 0.0040, 0.0033, 0.0049, 0.0219]
+BAYES9 = {"NI": (1.00921, 0.00106, 1.00701, 1.01121), "Inf": (1.00909, 0.00087, 1.00731, 1.01076)}   # tools/research/gum5/ex9_bayes.py
+
+
+def ls9(w):
+    sxx = sum(wi * xi * xi for wi, xi in zip(w, XT))
+    b = sum(wi * xi * yi for wi, xi, yi in zip(w, XT, YT)) / sxx
+    ui = [wi * xi * ui_ / sxx for wi, xi, ui_ in zip(w, XT, UT)]
+    uc = math.sqrt(sum(v * v for v in ui))
+    return b, uc, uc ** 4 / sum(v ** 4 / (n_ - 1) for v, n_ in zip(ui, NT)), [wi * xi / sxx for wi, xi in zip(w, XT)]
+
+
+for kind, w, printed in (("ols", [float(n_) for n_ in NT], (1.0107, 0.0015, 2.7, 1.0055, 1.0158)),
+                         ("wls", [1 / v ** 2 for v in UT], (1.0085, 0.0008, 14, 1.0069, 1.0101))):
+    b9, u9, nu9, coef = ls9(w)
+    assert abs(b9 - printed[0]) < 5e-5 and abs(u9 - printed[1]) < 5e-5
+    expr = " + ".join(f"{cf:.10g}*Y{i + 1}" for i, cf in enumerate(coef))
+    ins = []
+    for i in range(8):
+        q = inp(f"Y{i + 1}", {"type": "normal", "mean": YT[i], "sd": round(UT[i], 10)}, "N·m", f"Mean sensor response at x = {XT[i]} N·m ({NT[i]} readings, s = {ST[i]} N·m)",
+                f"x = {c(XT[i])} N·m'de ortalama sensör yanıtı ({NT[i]} okuma, s = {c(ST[i])} N·m)")
+        q["dof"] = NT[i] - 1
+        ins.append(q)
+    wls = kind == "wls"
+    half = (printed[4] - printed[3]) / 2
+    write("general", f"gum5-e9-torque-slope-{kind}",
+          T(f"Torque sensor calibration, straight line through the origin, {'weighted' if wls else 'ordinary'} least squares with the GUF (JCGM GUM-5 Example 9)",
+            f"Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile {'ağırlıklı' if wls else 'sıradan'} en küçük kareler (JCGM GUM-5 Örnek 9)"),
+          T(f"Slope β of Y = βX from eight torque levels; the {'WLS' if wls else 'OLS'} estimator (9.4) is linear in the means Y_i, so the LPU and Welch–Satterthwaite apply directly.",
+            f"Sekiz tork seviyesinden Y = βX'in eğimi β; {'AEKK' if wls else 'SEKK'} kestiricisi (9.4) Y_i ortalamalarında doğrusaldır, bu nedenle LPU ve Welch–Satterthwaite doğrudan uygulanır."),
+          [T("The reference torques x_i are taken as exact (9.3); each mean Y_i has u(y_i) = s_i/√n_i with ν_i = n_i − 1 (Table 9.2). The standard deviations differ by an order of magnitude between levels.",
+             "Referans torklar x_i kesin kabul edilir (9.3); her Y_i ortalamasının u(y_i) = s_i/√n_i ve ν_i = n_i − 1'dir (Tablo 9.2). Standart sapmalar seviyeler arasında bir büyüklük mertebesi farklıdır."),
+           T(f"β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i² with {'n_iW_i = 1/u²(y_i)' if wls else 'W_i = 1, i.e. weights n_i'}; the coefficients of Y_i are written into the expression. β = {b9:.5f}, u(β) = {u9:.5f}, ν_eff = {nu9:.2f}.",
+             f"β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i², {'n_iW_i = 1/u²(y_i)' if wls else 'W_i = 1, yani ağırlıklar n_i'}; Y_i katsayıları ifadeye yazılmıştır. β = {c(f'{b9:.5f}')}, u(β) = {c(f'{u9:.5f}')}, ν_eff = {c(f'{nu9:.2f}')}."),
+           T(f"Bayesian analysis of the same data with unknown variances σ_i² (9.5.2): NI-Bayes {BAYES9['NI'][0]:.4f} ± {BAYES9['NI'][1]:.4f}, Inf-Bayes {BAYES9['Inf'][0]:.4f} ± {BAYES9['Inf'][1]:.4f} (Table 9.3, reproduced by quadrature of (9.17)). {'WLS gives a smaller u than both, because it treats the weights 1/u²(y_i) from three to six readings as exact (9.7.3).' if wls else 'OLS gives the data with ten times larger scatter the same weight (9.7.2).'}",
+             f"Aynı verilerin bilinmeyen σ_i² varyanslarıyla Bayesçi analizi (9.5.2): NI-Bayes {c(f'{BAYES9[chr(78)+chr(73)][0]:.4f}')} ± {c(f'{BAYES9[chr(78)+chr(73)][1]:.4f}')}, Inf-Bayes {c(f'{BAYES9[chr(73)+chr(110)+chr(102)][0]:.4f}')} ± {c(f'{BAYES9[chr(73)+chr(110)+chr(102)][1]:.4f}')} (Tablo 9.3, (9.17)'nin sayısal integrasyonuyla yeniden üretildi). {'AEKK ikisinden de küçük u verir, çünkü üç ila altı okumadan gelen 1/u²(y_i) ağırlıklarını kesin sayar (9.7.3).' if wls else 'SEKK on kat büyük saçılımlı verilere aynı ağırlığı verir (9.7.2).'}")],
+          "Example 9, Tables 9.1–9.3", ["calibration", "least-squares", "straight-line", "welch-satterthwaite", "torque"],
+          {"output": {"name": "beta", "expression": expr, "description": T("Slope of the calibration line Y = βX", "Kalibrasyon doğrusunun eğimi Y = βX")}, "inputs": ins},
+          {"gum": {"estimate": chk(printed[0], 5e-5), "standard_uncertainty": chk(printed[1], 5e-5), "effective_dof": chk(round(nu9, 2), 0.01),
+                   "expanded_uncertainty": chk(round(half, 5), 6e-5)}},
+          T(f"JCGM GUM-5:2026 Table 9.3, {kind.upper()}: β = {printed[0]}, u = {printed[1]}, [{printed[3]}, {printed[4]}]; ν_eff = {printed[2]} in 9.5.1.4" + ("; recomputed 13.31 (F83)." if wls else "."),
+            f"JCGM GUM-5:2026 Tablo 9.3, {kind.upper()}: β = {c(printed[0])}, u = {c(printed[1])}, [{c(printed[3])}; {c(printed[4])}]; 9.5.1.4'te ν_eff = {c(printed[2])}" + ("; yeniden hesaplanan 13,31 (F83)." if wls else ".")),
+          notes=[T("Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).",
+                   "Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).")],
+          analysis={"gum": {"dof_rounding": "exact"}, "mcm": None}, field="general")

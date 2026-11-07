@@ -5,7 +5,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Chemistry (107)
 - Electrical and RF (34)
 - Flow and volume (7)
-- General (method validation) (19)
+- General (method validation) (21)
 - Length (11)
 - Mass (28)
 - Physical properties (10)
@@ -3472,6 +3472,54 @@ TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pr
 **Run:** `uncertainty run library/flow/nist-tn1900-e4-pitot-tube.json --lang en`
 
 ## General (method validation)
+
+### Torque sensor calibration, straight line through the origin, ordinary least squares with the GUF (JCGM GUM-5 Example 9)
+
+`gum5-e9-torque-slope-ols` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Slope β of Y = βX from eight torque levels; the OLS estimator (9.4) is linear in the means Y_i, so the LPU and Welch–Satterthwaite apply directly.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. The reference torques x_i are taken as exact (9.3); each mean Y_i has u(y_i) = s_i/√n_i with ν_i = n_i − 1 (Table 9.2). The standard deviations differ by an order of magnitude between levels.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i² with W_i = 1, i.e. weights n_i; the coefficients of Y_i are written into the expression. β = 1.01065, u(β) = 0.00152, ν_eff = 2.72.
+3. Bayesian analysis of the same data with unknown variances σ_i² (9.5.2): NI-Bayes 1.0092 ± 0.0011, Inf-Bayes 1.0091 ± 0.0009 (Table 9.3, reproduced by quadrature of (9.17)). OLS gives the data with ten times larger scatter the same weight (9.7.2).
+
+**Result:**
+
+- beta = (1.0106 ± 0.0051), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 3.38, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).
+
+**Run:** `uncertainty run library/general/gum5-e9-torque-slope-ols.json --lang en`
+
+### Torque sensor calibration, straight line through the origin, weighted least squares with the GUF (JCGM GUM-5 Example 9)
+
+`gum5-e9-torque-slope-wls` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Slope β of Y = βX from eight torque levels; the WLS estimator (9.4) is linear in the means Y_i, so the LPU and Welch–Satterthwaite apply directly.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. The reference torques x_i are taken as exact (9.3); each mean Y_i has u(y_i) = s_i/√n_i with ν_i = n_i − 1 (Table 9.2). The standard deviations differ by an order of magnitude between levels.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i² with n_iW_i = 1/u²(y_i); the coefficients of Y_i are written into the expression. β = 1.00849, u(β) = 0.00077, ν_eff = 13.31.
+3. Bayesian analysis of the same data with unknown variances σ_i² (9.5.2): NI-Bayes 1.0092 ± 0.0011, Inf-Bayes 1.0091 ± 0.0009 (Table 9.3, reproduced by quadrature of (9.17)). WLS gives a smaller u than both, because it treats the weights 1/u²(y_i) from three to six readings as exact (9.7.3).
+
+**Result:**
+
+- beta = (1.0085 ± 0.0016), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.16, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).
+
+**Run:** `uncertainty run library/general/gum5-e9-torque-slope-wls.json --lang en`
 
 ### Additive model with Gaussian inputs
 

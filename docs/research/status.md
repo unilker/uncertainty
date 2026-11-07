@@ -10,11 +10,11 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **227** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **187** Rust testi (bunlardan biri 227 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **229** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **187** Rust testi (bunlardan biri 229 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D60, bulgular F1–F82 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D60, bulgular F1–F83 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -31,6 +31,7 @@ kalındığını ve sırada ne olduğunu kaydeder.
      τ'nun modu 0; basılı 0,3 µmol/mol `getmode` kodundan (F81).
    - Örnek 4 (gravimetrik gaz karışımı, 8 çıktı, `multivariate`): Tablo 4.2 Tablo 4.1'den çıkmıyor; u(CO₂)
      3,96 (basılı 5), H₂O 0,389 (basılı 0,379) (F82).
+   - Örnek 9 (tork, EKK/AEKK ve Bayesçi eğim): model projeleri; Bayesçi sonuçlar betikle (F83 küçük).
    - Örnek 6, 7, 8, 13, 16 zaten kütüphanedeydi (JCGM 101/102); GUM-5 kaynak olarak eklendi.
 3. **Kanıt betikleri:** `tools/research/gum5/` (ex2_mcm.py, ex10_risks.py, ex12_posterior.py).
 
@@ -104,8 +105,7 @@ indirilemedi; Drive klasörüne konacak:
 ## 4. Sıradaki işler (öncelik sırasıyla)
 
 0. **GUM-5'in kalan örnekleri** (metin: geçici alandaki `drive2/gum5/ex*.txt`; klasördeki PDF'ten yeniden
-   çıkarılabilir): Örnek 5 (sera gazı envanteri), 9 (EKK ve
-   Bayesçi kalibrasyon), 11 (2B görüntü pikselleri). Ardından `drive-inventory-2026-11.md` sırası: WG1 tanımları
+   çıkarılabilir): Örnek 5 (sera gazı envanteri), 11 (2B görüntü pikselleri). Ardından `drive-inventory-2026-11.md` sırası: WG1 tanımları
    → sözlük; Eurachem/CITAC uygunluk 2021; EMUE derlemesi ve IUPAC 2024 örnekleri; ILAC P14; Nordtest TR 537 TR;
    Possolo & Meija 2022; BIPM qNMR; uzlaşı değeri modülü (Koepke, DerSimonian–Laird).
    - Açık kalan küçük işler: skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si), uygulamada

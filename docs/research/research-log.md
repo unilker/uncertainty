@@ -2341,3 +2341,25 @@ has 226 projects.
      molar-mass correlations agree.
 
 The library has 227 projects.
+
+**GUM-5:2026 Example 9 (torque sensor, OLS, WLS and Bayesian slope).**
+
+- Table 9.3 reproduces: OLS 1.01065 ± 0.00152 with ν_eff = 2.72 and
+  [1.0055, 1.0158]; WLS 1.00849 ± 0.00077 and [1.0069, 1.0101].
+- The Bayesian posterior (9.17) was evaluated by quadrature:
+  - NI-Bayes 1.00921 ± 0.00106, [1.00701, 1.01121];
+  - Inf-Bayes 1.00909 ± 0.00087, [1.00731, 1.01076].
+  - Script: `tools/research/gum5/ex9_bayes.py`.
+- Both estimators are linear in the means Y_i, so the library projects
+  `gum5-e9-torque-slope-ols` and `-wls` are ordinary model projects.
+  Their coefficients are written into the expression, with ν_i = n_i − 1
+  on the inputs.
+- The Bayesian slope (a product of scaled t-densities and a normal prior)
+  is not a program feature. It is a candidate for a "calibration with
+  unknown per-level variances" option.
+
+**F83. GUM-5 Example 9 — ν_eff of WLS (class a).** 9.5.1.4 gives
+ν_eff = 14 for WLS. G.2b gives 13.31 with the unrounded u(y_i), and 13.17
+with those of Table 9.2. The interval at four decimals is the same.
+
+The library has 229 projects.

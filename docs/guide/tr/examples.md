@@ -5,7 +5,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Kimya (107)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
-- Genel (yöntem doğrulama) (19)
+- Genel (yöntem doğrulama) (21)
 - Uzunluk (11)
 - Kütle (28)
 - Fiziksel özellikler (10)
@@ -3472,6 +3472,54 @@ TN 1900 E4 (Kline ve McClintock, 1953'ten): fark basıncı, hava basıncı ve s�
 **Çalıştırma:** `uncertainty run library/flow/nist-tn1900-e4-pitot-tube.json --lang tr`
 
 ## Genel (yöntem doğrulama)
+
+### Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile sıradan en küçük kareler (JCGM GUM-5 Örnek 9)
+
+`gum5-e9-torque-slope-ols` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Sekiz tork seviyesinden Y = βX'in eğimi β; SEKK kestiricisi (9.4) Y_i ortalamalarında doğrusaldır, bu nedenle LPU ve Welch–Satterthwaite doğrudan uygulanır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Referans torklar x_i kesin kabul edilir (9.3); her Y_i ortalamasının u(y_i) = s_i/√n_i ve ν_i = n_i − 1'dir (Tablo 9.2). Standart sapmalar seviyeler arasında bir büyüklük mertebesi farklıdır.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i², W_i = 1, yani ağırlıklar n_i; Y_i katsayıları ifadeye yazılmıştır. β = 1,01065, u(β) = 0,00152, ν_eff = 2,72.
+3. Aynı verilerin bilinmeyen σ_i² varyanslarıyla Bayesçi analizi (9.5.2): NI-Bayes 1,0092 ± 0,0011, Inf-Bayes 1,0091 ± 0,0009 (Tablo 9.3, (9.17)'nin sayısal integrasyonuyla yeniden üretildi). SEKK on kat büyük saçılımlı verilere aynı ağırlığı verir (9.7.2).
+
+**Sonuç:**
+
+- beta = (1,0106 ± 0,0051); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 3,38 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).
+
+**Çalıştırma:** `uncertainty run library/general/gum5-e9-torque-slope-ols.json --lang tr`
+
+### Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile ağırlıklı en küçük kareler (JCGM GUM-5 Örnek 9)
+
+`gum5-e9-torque-slope-wls` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Sekiz tork seviyesinden Y = βX'in eğimi β; AEKK kestiricisi (9.4) Y_i ortalamalarında doğrusaldır, bu nedenle LPU ve Welch–Satterthwaite doğrudan uygulanır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Referans torklar x_i kesin kabul edilir (9.3); her Y_i ortalamasının u(y_i) = s_i/√n_i ve ν_i = n_i − 1'dir (Tablo 9.2). Standart sapmalar seviyeler arasında bir büyüklük mertebesi farklıdır.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i², n_iW_i = 1/u²(y_i); Y_i katsayıları ifadeye yazılmıştır. β = 1,00849, u(β) = 0,00077, ν_eff = 13,31.
+3. Aynı verilerin bilinmeyen σ_i² varyanslarıyla Bayesçi analizi (9.5.2): NI-Bayes 1,0092 ± 0,0011, Inf-Bayes 1,0091 ± 0,0009 (Tablo 9.3, (9.17)'nin sayısal integrasyonuyla yeniden üretildi). AEKK ikisinden de küçük u verir, çünkü üç ila altı okumadan gelen 1/u²(y_i) ağırlıklarını kesin sayar (9.7.3).
+
+**Sonuç:**
+
+- beta = (1,0085 ± 0,0016); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,16 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).
+
+**Çalıştırma:** `uncertainty run library/general/gum5-e9-torque-slope-wls.json --lang tr`
 
 ### Normal dağılımlı girdilerle toplamsal model
 
