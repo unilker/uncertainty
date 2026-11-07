@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (120)
+- Kimya (122)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -164,6 +164,31 @@ y = ṅ₁x₁/(ṅ₁ + ṅ₂), ṅ_j = q_mj/M̄_j (E3.8.1): permeasyon hızı
 - E3.8.5.2, E_A = 59,164 kJ/mol, k₀ = 43,069 µg/min ve 4,81·10⁻⁷ µg min⁻¹ K⁻¹ sıcaklık duyarlılığı verir. Belirtilen iki hızdan (52,45 °C'de 7,4921 µg/min, 62,00 °C'de 13,599 µg/min) E_A = 56,64 kJ/mol ve k₀ = 9,1·10⁹ µg/min çıkar (k₀ hızdan büyük olmalıdır); 62 °C'de dṁ/dT = 0,82 µg min⁻¹ K⁻¹'dir ve belirtilen 0,0022 µg/min katkısı bu değere u(T) = 0,0027 K ile karşılık gelir. Katkı burada ihmal edilebilir (araştırma günlüğü F89).
 
 **Çalıştırma:** `uncertainty run library/chemistry/emue-e3.8-ammonia-permeation.json --lang tr`
+
+### İdrarda efedrin: korumalı ret kuralı olarak WADA karar sınırı (EMUE E6.5, JCGM 106)
+
+`emue-e6.5-ephedrine-wada-decision-limit` — EMPIR 17NRM05 EMUE, Example E6.5, E6.5.2–E6.5.3, Table E6.5.2
+
+Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle aşmasını gerektirir; hedef belirsizlik u_c,max = 0,5 µg/mL ile: DL = T + 1,645 u_c,max.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. 0,95 olasılıklı korumalı ret ve sabit u = 0,5 µg/mL, karar sınırını DL = 10,822 µg/mL verir; WADA DL = 11 µg/mL belirler (TD DL), yani yukarı yuvarlar.
+2. Laboratuvarın üç EQAS turundaki üçlü ölçüm ortalamaları (10,6 ve 11,7 µg/mL'de zenginleştirilmiş) 11,83, 11,67 ve 11,47 µg/mL'dir; hepsi DL'yi aşar ve olumsuz bulgu olarak raporlanır; numuneler T'nin üstünde zenginleştirilmiştir.
+
+**Sonuç:**
+
+- EQAS 1 için γ(ephedrine) ≤ 10 µg/mL şartına uygunluk olasılığı: p_c = %0,012; korumalı ret kuralına göre ret.
+- EQAS 2 için γ(ephedrine) ≤ 10 µg/mL şartına uygunluk olasılığı: p_c = %0,043; korumalı ret kuralına göre ret.
+- EQAS 3 için γ(ephedrine) ≤ 10 µg/mL şartına uygunluk olasılığı: p_c = %0,17; korumalı ret kuralına göre ret.
+
+**Notlar:**
+
+- Tablo E6.5.2, 2. turun ortalamasını (11,5, 11,9, 11,6) 11,6 (doğrusu 11,67) ve 3. turun standart sapmasını (11,5, 11,4, 11,5) 0,45 µg/mL (doğrusu 0,058, %0,5) olarak basar. z puanları 0,27, 0,71 ve 0,47, belirtilen standart sapmaların hiçbirinden çıkmaz: σ = u_c,max = 0,5 µg/mL ile −0,93, −1,27 ve 0,73'tür (araştırma günlüğü F91).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang tr`
 
 ### Paslanmaz çelikte nikel: iki taraflı şartnamede korumalı kabul (Eurachem/CITAC uygunluk rehberi, Örnek B1)
 
@@ -2098,6 +2123,26 @@ MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedime
 - Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (8)–(12)'nin aritmetik ortalamasını kullanır.
 
 **Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang tr`
+
+### Doping kontrolünde idrarda efedrin: ara kesinlik ve bir SRM'den top-down belirsizlik (EMUE E6.5)
+
+`emue-e6.5-ephedrine-wada-topdown` — EMPIR 17NRM05 EMUE, Example E6.5, Table E6.5.1
+
+Üçlü sonuçların ortalaması için u_c(x) = √(s_w²/n + u_bias²); u_bias² = s_ref²/n′ + Δ² + u²(x_ref), bir SRM'nin 30 analizinden (Tablo E6.5.1); WADA, 10 µg/mL eşiği yakınında u_c ≤ 0,5 µg/mL (%5) ister.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Tek sonucun ara kesinliği s_w = %4,2, bir idrar KK numunesinden; raporlanan sonuç üç tayinin ortalamasıdır (WADA ISL); kesinlik katkısı %4,2/√3 = %2,42'dir.
+2. SRM 10,00 ± 0,06 µg/mL (k = 2), 30 tekrarlanabilirlik sonucunun ortalaması 10,3 µg/mL, RSD %1,97: Δ = %3,0, s/√n = %0,36, u(x_ref) = %0,3; u_bias = %3,04; belirsizlik olarak girilen düzeltilmemiş sapma baskındır (Nordtest TR 537, tek SRM).
+3. u_c = √(2,42² + 3,04²) = %3,89, yani eşikte 0,39 µg/mL; u_c,max = 0,5 µg/mL'nin altındadır; rehber yuvarlanmış %2,4 ve %3,0'dan %3,8 verir.
+
+**Sonuç:**
+
+- γ(ephedrine) = (10,00 ± 0,78) µg/mL (k = 2,00)
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang tr`
 
 ### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
 

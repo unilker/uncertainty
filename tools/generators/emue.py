@@ -299,3 +299,60 @@ for corr in (True, False):
                                      "EMUE E3.3.6: A = 88,94 nmol/mol, B = 4,19 nmol/(mol·a.u.), V_AB (E3.3.18); doğrulama y = 982,0 nmol/mol, u = 4,7 (kovaryanssız 4,5). Beklenen değerler yeniden hesaplandı (F90).")}}
     Path(f"library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("wrote", "emue-e3.3-no2-analyser-dynamic-dilution" + slug)
+
+# --- E6.5: ephedrine in urine (WADA): top-down budget and decision limit --------------------------------
+up = 4.2 / math.sqrt(3)
+ub = math.sqrt((1.97 / math.sqrt(30)) ** 2 + 3.0 ** 2 + 0.3 ** 2)
+uc65 = math.hypot(up, ub)
+assert round(up, 1) == 2.4 and round(ub, 1) == 3.0 and round(uc65, 2) == 3.89 and round(math.hypot(2.4, 3.0), 1) == 3.8
+td65 = {"format": "uncertainty-calculations/project", "version": 1,
+        "metadata": {"id": "emue-e6.5-ephedrine-wada-topdown", "field": "chemistry",
+                     "title": T("Ephedrine in urine for anti-doping testing: top-down uncertainty from intermediate precision and a CRM (EMUE E6.5)",
+                                "Doping kontrolünde idrarda efedrin: ara kesinlik ve bir SRM'den top-down belirsizlik (EMUE E6.5)"),
+                     "description": T("u_c(x) = √(s_w²/n + u_bias²) for the mean of triplicate results, with u_bias² = s_ref²/n′ + Δ² + u²(x_ref) from 30 analyses of a CRM (Table E6.5.1); WADA requires u_c ≤ 0.5 µg/mL (5 %) near the threshold of 10 µg/mL.",
+                                      "Üçlü sonuçların ortalaması için u_c(x) = √(s_w²/n + u_bias²); u_bias² = s_ref²/n′ + Δ² + u²(x_ref), bir SRM'nin 30 analizinden (Tablo E6.5.1); WADA, 10 µg/mL eşiği yakınında u_c ≤ 0,5 µg/mL (%5) ister."),
+                     "explanation": [
+                         T("Intermediate precision of a single result s_w = 4.2 % from a urine QC sample; the reported result is the mean of three determinations (WADA ISL), so the precision contribution is 4.2 %/√3 = 2.42 %.",
+                           "Tek sonucun ara kesinliği s_w = %4,2, bir idrar KK numunesinden; raporlanan sonuç üç tayinin ortalamasıdır (WADA ISL); kesinlik katkısı %4,2/√3 = %2,42'dir."),
+                         T("CRM 10.00 ± 0.06 µg/mL (k = 2), mean of 30 repeatability results 10.3 µg/mL with RSD 1.97 %: Δ = 3.0 %, s/√n = 0.36 %, u(x_ref) = 0.3 %; u_bias = 3.04 %, dominated by the uncorrected bias that is entered as an uncertainty (Nordtest TR 537, one CRM).",
+                           "SRM 10,00 ± 0,06 µg/mL (k = 2), 30 tekrarlanabilirlik sonucunun ortalaması 10,3 µg/mL, RSD %1,97: Δ = %3,0, s/√n = %0,36, u(x_ref) = %0,3; u_bias = %3,04; belirsizlik olarak girilen düzeltilmemiş sapma baskındır (Nordtest TR 537, tek SRM)."),
+                         T(f"u_c = √(2.42² + 3.04²) = {uc65:.2f} %, i.e. 0.39 µg/mL at the threshold, below u_c,max = 0.5 µg/mL; the guide gives 3.8 % from the rounded 2.4 % and 3.0 %.",
+                           f"u_c = √(2,42² + 3,04²) = %{c(f'{uc65:.2f}')}, yani eşikte 0,39 µg/mL; u_c,max = 0,5 µg/mL'nin altındadır; rehber yuvarlanmış %2,4 ve %3,0'dan %3,8 verir.")],
+                     "sources": [{"document": DOC, "section": "Example E6.5, Table E6.5.1", "url": URL}],
+                     "tags": ["emue", "anti-doping", "top-down", "nordtest", "crm", "bias"], "notes": []},
+        "topdown": {"quantity": "γ(ephedrine)", "unit": "µg/mL", "levels": [10.0],
+                    "precision": [{"name": "u(Rw), mean of 3", "description": T("s_w = 4.2 % of a single result, divided by √3 for the mean of triplicates", "Tek sonucun s_w = %4,2'si, üçlü ortalama için √3'e bölünmüş"),
+                                   "data": {"type": "given", "sd_percent": round(up, 6)}}],
+                    "bias": [{"name": "u(bias)", "kind": "crm", "references": [{"label": "ephedrine urine CRM", "reference": 10.00, "expanded": 0.06, "k": 2, "mean": 10.3, "sd_percent": 1.97, "n": 30}]}]},
+        "expected": {"topdown": {"components": {"u(Rw), mean of 3": chk(round(up, 3), 0.001), "u(bias)": chk(round(ub, 3), 0.002)},
+                                 "levels": [{"level": 10.0, "relative_standard_percent": chk(round(uc65, 2), 0.01)}]},
+                     "reference": T("EMUE E6.5, Table E6.5.1: u_prec = 2.4 %, u_bias = 3.0 %, u_c = 3.8 % (recomputed 3.89 % without rounding, F91).",
+                                    "EMUE E6.5, Tablo E6.5.1: u_prec = %2,4, u_bias = %3,0, u_c = %3,8 (yuvarlamasız yeniden hesaplanan %3,89, F91).")}}
+Path("library/chemistry/emue-e6.5-ephedrine-wada-topdown.json").write_text(json.dumps(td65, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote emue-e6.5-ephedrine-wada-topdown")
+DL = 10 + NDc.inv_cdf(0.95) * 0.5
+assert round(DL, 2) == 10.82
+means = [sum(v) / 3 for v in ((11.8, 12.1, 11.6), (11.5, 11.9, 11.6), (11.5, 11.4, 11.5))]
+cf65 = {"format": "uncertainty-calculations/project", "version": 1,
+        "metadata": {"id": "emue-e6.5-ephedrine-wada-decision-limit", "field": "chemistry",
+                     "title": T("Ephedrine in urine: WADA decision limit as a guarded-rejection rule (EMUE E6.5, JCGM 106)",
+                                "İdrarda efedrin: korumalı ret kuralı olarak WADA karar sınırı (EMUE E6.5, JCGM 106)"),
+                     "description": T("Threshold T = 10 µg/mL; an adverse analytical finding requires the concentration to exceed T with at least 95 % confidence, using the target uncertainty u_c,max = 0.5 µg/mL: DL = T + 1.645 u_c,max.",
+                                      "Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle aşmasını gerektirir; hedef belirsizlik u_c,max = 0,5 µg/mL ile: DL = T + 1,645 u_c,max."),
+                     "explanation": [
+                         T(f"Guarded rejection with probability 0.95 and the fixed u = 0.5 µg/mL gives the decision limit DL = {DL:.3f} µg/mL; WADA sets DL = 11 µg/mL (TD DL), i.e. rounded upwards.",
+                           f"0,95 olasılıklı korumalı ret ve sabit u = 0,5 µg/mL, karar sınırını DL = {c(f'{DL:.3f}')} µg/mL verir; WADA DL = 11 µg/mL belirler (TD DL), yani yukarı yuvarlar."),
+                         T("The means of the laboratory's triplicates in three EQAS rounds (spiked at 10.6 and 11.7 µg/mL) are 11.83, 11.67 and 11.47 µg/mL; all exceed DL and would be reported as adverse findings, the samples being spiked above T.",
+                           "Laboratuvarın üç EQAS turundaki üçlü ölçüm ortalamaları (10,6 ve 11,7 µg/mL'de zenginleştirilmiş) 11,83, 11,67 ve 11,47 µg/mL'dir; hepsi DL'yi aşar ve olumsuz bulgu olarak raporlanır; numuneler T'nin üstünde zenginleştirilmiştir.")],
+                     "sources": [{"document": DOC, "section": "Example E6.5, E6.5.2–E6.5.3, Table E6.5.2", "url": URL}],
+                     "tags": ["emue", "anti-doping", "decision-limit", "guarded-rejection", "conformity-assessment", "jcgm106"],
+                     "notes": [T("Table E6.5.2 prints the mean of round 2 (11.5, 11.9, 11.6) as 11.6 (it is 11.67) and the standard deviation of round 3 (11.5, 11.4, 11.5) as 0.45 µg/mL (it is 0.058, 0.5 %). Its z-scores 0.27, 0.71 and 0.47 follow from none of the stated standard deviations: with σ = u_c,max = 0.5 µg/mL they are −0.93, −1.27 and 0.73 (research log F91).",
+                                 "Tablo E6.5.2, 2. turun ortalamasını (11,5, 11,9, 11,6) 11,6 (doğrusu 11,67) ve 3. turun standart sapmasını (11,5, 11,4, 11,5) 0,45 µg/mL (doğrusu 0,058, %0,5) olarak basar. z puanları 0,27, 0,71 ve 0,47, belirtilen standart sapmaların hiçbirinden çıkmaz: σ = u_c,max = 0,5 µg/mL ile −0,93, −1,27 ve 0,73'tür (araştırma günlüğü F91).")]},
+        "conformity": {"quantity": "γ(ephedrine)", "unit": "µg/mL", "upper": 10.0, "rule": "guarded_rejection", "probability": 0.95, "u": 0.5,
+                       "results": [{"name": f"EQAS {i + 1}", "value": round(m, 4)} for i, m in enumerate(means)]},
+        "expected": {"conformity": {"acceptance_upper": chk(round(DL, 4), 1e-4),
+                                    "results": {f"EQAS {i + 1}": {"accepted": False} for i in range(3)}},
+                     "reference": T("EMUE E6.5: DL = T + 1.645 u_c,max, set at 11 µg/mL for T = 10 µg/mL and u_c,max = 0.5 µg/mL.",
+                                    "EMUE E6.5: DL = T + 1,645 u_c,max; T = 10 µg/mL ve u_c,max = 0,5 µg/mL için 11 µg/mL olarak belirlenmiştir.")}}
+Path("library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json").write_text(json.dumps(cf65, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote emue-e6.5-ephedrine-wada-decision-limit")

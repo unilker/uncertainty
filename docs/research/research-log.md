@@ -2768,3 +2768,39 @@ validation uncertainty (class c).**
    difference in A (0.27 nmol/mol) is far below u(A) = 16.9.
 
 The library has 247 projects.
+
+**EMUE E6.5 (ephedrine in urine, WADA).**
+
+- Library projects:
+  - `emue-e6.5-ephedrine-wada-topdown` (Nordtest one-CRM bias):
+    u_prec = 2.425 %, u_bias = 3.036 %, u_c = 3.89 %.
+  - `emue-e6.5-ephedrine-wada-decision-limit` (guarded rejection, p = 0.95,
+    u = 0.5 µg/mL): DL = 10.822 µg/mL, which WADA sets at 11; all three
+    EQAS means are rejected.
+- Steps 8–9 of Table E6.5.2 reproduce: |Δ| = 0.47, 0.63, 0.37 and
+  U(Δ) = 2√(u²(x) + u²(X)) with u(X) = 1.25 s*/√p = 0.93, 0.92, 0.89.
+
+**F91. EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b).**
+
+1. **u_c (class a).** Table E6.5.1 gives u_c = 3.8 % from the rounded
+   2.4 % and 3.0 %; unrounded √(2.425² + 3.036²) = 3.89 %. The table then
+   uses u_c(x) = 0.038x. The conclusion u_c < u_c,max is unaffected.
+2. **Table E6.5.2 (class b).**
+   - The mean of round 2, (11.5, 11.9, 11.6), is printed 11.6; it is
+     11.67.
+   - The standard deviation of round 3, (11.5, 11.4, 11.5), is printed
+     0.45 µg/mL; it is 0.058 µg/mL, 0.50 %, whereas the relative value
+     printed is 0.4 %.
+3. **z-scores (class c).** The printed 0.27, 0.71 and 0.47 follow from none
+   of the stated scales.
+   - With σ = u_c,max = 0.5 µg/mL ("the target standard uncertainty as the
+     standard deviation for performance rating") they are −0.93, −1.27 and
+     0.73.
+   - With the robust s_R they are −0.88, −1.19 and 1.05.
+   - All |z| < 2, so the conclusion "satisfactory" holds.
+4. **For the article.** u_bias includes Δ² (the 3 % bias against the CRM is
+   not corrected but entered as an uncertainty, Nordtest style). It
+   dominates u_c, the same practice that E2.2 (scenario 2) calls poor when
+   a known correction exists.
+
+The library has 249 projects.

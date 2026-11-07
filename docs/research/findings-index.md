@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (90)
+## Findings (91)
 
 | F | Finding | Session |
 |---|---|---|
@@ -105,6 +105,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F88 | EMUE E2.2 — table slips and the worked example (class b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 | F89 | EMUE E3.8 — Arrhenius parameters and notation (classes c and b; no effect on the result). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 | F90 | EMUE E3.3 — covariance matrix of the reference values and the validation uncertainty (class c). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| F91 | EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 
 ## Decisions (63)
 

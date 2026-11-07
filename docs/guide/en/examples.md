@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (120)
+- Chemistry (122)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -164,6 +164,31 @@ y = ṅ₁x₁/(ṅ₁ + ṅ₂) with ṅ_j = q_mj/M̄_j (E3.8.1): permeation ra
 - E3.8.5.2 gives E_A = 59.164 kJ/mol, k₀ = 43.069 µg/min and a temperature sensitivity of 4.81·10⁻⁷ µg min⁻¹ K⁻¹. From the two stated rates (7.4921 µg/min at 52.45 °C, 13.599 µg/min at 62.00 °C) E_A = 56.64 kJ/mol and k₀ = 9.1·10⁹ µg/min (k₀ must exceed the rate); dṁ/dT at 62 °C is 0.82 µg min⁻¹ K⁻¹, and the stated contribution of 0.0022 µg/min corresponds to this value with u(T) = 0.0027 K. The contribution is negligible here (research log F89).
 
 **Run:** `uncertainty run library/chemistry/emue-e3.8-ammonia-permeation.json --lang en`
+
+### Ephedrine in urine: WADA decision limit as a guarded-rejection rule (EMUE E6.5, JCGM 106)
+
+`emue-e6.5-ephedrine-wada-decision-limit` — EMPIR 17NRM05 EMUE, Example E6.5, E6.5.2–E6.5.3, Table E6.5.2
+
+Threshold T = 10 µg/mL; an adverse analytical finding requires the concentration to exceed T with at least 95 % confidence, using the target uncertainty u_c,max = 0.5 µg/mL: DL = T + 1.645 u_c,max.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guarded rejection with probability 0.95 and the fixed u = 0.5 µg/mL gives the decision limit DL = 10.822 µg/mL; WADA sets DL = 11 µg/mL (TD DL), i.e. rounded upwards.
+2. The means of the laboratory's triplicates in three EQAS rounds (spiked at 10.6 and 11.7 µg/mL) are 11.83, 11.67 and 11.47 µg/mL; all exceed DL and would be reported as adverse findings, the samples being spiked above T.
+
+**Result:**
+
+- Probability that EQAS 1 conforms to γ(ephedrine) ≤ 10 µg/mL: p_c = 0.012 %; rejected under guarded rejection.
+- Probability that EQAS 2 conforms to γ(ephedrine) ≤ 10 µg/mL: p_c = 0.043 %; rejected under guarded rejection.
+- Probability that EQAS 3 conforms to γ(ephedrine) ≤ 10 µg/mL: p_c = 0.17 %; rejected under guarded rejection.
+
+**Notes:**
+
+- Table E6.5.2 prints the mean of round 2 (11.5, 11.9, 11.6) as 11.6 (it is 11.67) and the standard deviation of round 3 (11.5, 11.4, 11.5) as 0.45 µg/mL (it is 0.058, 0.5 %). Its z-scores 0.27, 0.71 and 0.47 follow from none of the stated standard deviations: with σ = u_c,max = 0.5 µg/mL they are −0.93, −1.27 and 0.73 (research log F91).
+
+**Run:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang en`
 
 ### Nickel in stainless steel: guarded acceptance with a two-sided specification (Eurachem/CITAC compliance guide, Example B1)
 
@@ -2098,6 +2123,26 @@ Top-down uncertainty of fluoranthene in river sediments from the in-house valida
 - The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the arithmetic mean of MUPR Eq. (8)–(12).
 
 **Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang en`
+
+### Ephedrine in urine for anti-doping testing: top-down uncertainty from intermediate precision and a CRM (EMUE E6.5)
+
+`emue-e6.5-ephedrine-wada-topdown` — EMPIR 17NRM05 EMUE, Example E6.5, Table E6.5.1
+
+u_c(x) = √(s_w²/n + u_bias²) for the mean of triplicate results, with u_bias² = s_ref²/n′ + Δ² + u²(x_ref) from 30 analyses of a CRM (Table E6.5.1); WADA requires u_c ≤ 0.5 µg/mL (5 %) near the threshold of 10 µg/mL.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Intermediate precision of a single result s_w = 4.2 % from a urine QC sample; the reported result is the mean of three determinations (WADA ISL), so the precision contribution is 4.2 %/√3 = 2.42 %.
+2. CRM 10.00 ± 0.06 µg/mL (k = 2), mean of 30 repeatability results 10.3 µg/mL with RSD 1.97 %: Δ = 3.0 %, s/√n = 0.36 %, u(x_ref) = 0.3 %; u_bias = 3.04 %, dominated by the uncorrected bias that is entered as an uncertainty (Nordtest TR 537, one CRM).
+3. u_c = √(2.42² + 3.04²) = 3.89 %, i.e. 0.39 µg/mL at the threshold, below u_c,max = 0.5 µg/mL; the guide gives 3.8 % from the rounded 2.4 % and 3.0 %.
+
+**Result:**
+
+- γ(ephedrine) = (10.00 ± 0.78) µg/mL (k = 2.00)
+
+**Run:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang en`
 
 ### Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)
 
