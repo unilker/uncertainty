@@ -1,5 +1,8 @@
 # Publication plan
 
+> The manuscript skeleton is now `docs/article/outline.md` (2026-11-07); this file keeps the journal table and
+> the first contribution claims.
+
 ## Target journals (shortlist)
 
 Quartiles change yearly and differ between JCR and SJR categories:

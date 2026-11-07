@@ -121,8 +121,9 @@ indirilemedi; Drive klasörüne konacak:
    - BIPM ISRD qNMR saflık bütçeleri: 9 proje (D69), tablolar arası tutarsızlıklar (F97).
    - Bayesçi öğreticiler, Toman 2016, Degenhardt 2025 okundu (D70); Possolo & Bodnar 2018 krom örneği kütüphanede.
    - UME prosedür taslağı: iki örnek kütüphanede, yazara notlar (D71).
-   - Sıradakiler: QAC 2026, A2LA G104, eğitim örnekleri (Kirkup, White 2008, Leito, Kessel); ardından makale taslağı
-     (`docs/article/outline.md`).
+   - Makale iskeleti yazıldı: `docs/article/outline.md` (D72).
+   - Sıradakiler: makale iskeletindeki §9 kontrol listesi (D12 sınıf denetimi, NUM/Suncal karşılaştırması);
+     QAC 2026, A2LA G104, eğitim örnekleri (Kirkup, White 2008, Leito, Kessel).
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
      - tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar);
@@ -170,11 +171,12 @@ indirilemedi; Drive klasörüne konacak:
 | Dosya | İçerik |
 |---|---|
 | `research-log.md` | tüm kararlar ve bulgular, tam metin (değiştirilmez, yalnızca eklenir) |
-| `findings-index.md` | 76 bulgu ve 55 kararın dizini (`tools/research/findings_index.py` ile üretilir) |
+| `findings-index.md` | 97 bulgu ve 71 kararın dizini (`tools/research/findings_index.py` ile üretilir) |
 | `validation-matrix.md` | her örnek için basılı ve hesaplanan değerler |
 | `literature-review.md`, `literature-search-2026-10.md`, `search-2026-10/` | literatür incelemesi, tarama raporu ve ham tarama verileri |
 | `sources-provenance.md` | okunan her belgenin kaynağı ve nasıl edinildiği |
-| `publication-plan.md` | hedef dergiler, katkı iddiaları, makale taslağı |
+| `publication-plan.md` | hedef dergiler, katkı iddiaları, ilk taslak |
+| `../article/outline.md`, `../article/numbers.md` | makale iskeleti (bölümler, kanıtlar, şekiller, kontrol listesi) ve üretilen sayılar (`tools/research/article_stats.py`) |
 | `tools/generators/`, `tools/research/` | kütüphaneyi üreten betikler; bulguların arkasındaki analiz betikleri |
 
 Gönderimden önce yapılacaklar:

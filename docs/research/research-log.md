@@ -3160,3 +3160,13 @@ budgets recomputed from their inputs by validated software.
      belirsizlik*, *etkin serbestlik derecesi*, *kapsam aralığı/olasılığı/faktörü*, *koruma bandı*, *özgül risk*.
      The procedure says *tolerans aralığı* and *kabul aralığı* where the guide mostly says *tolerans sınırı* and
      *kabul sınırı* (both are used correctly: the interval is bounded by the limits).
+
+## 2026-11-07 (session 21, continued) — Article skeleton
+
+**D72. One main paper; skeleton in `docs/article/outline.md`.** Software, validation and the audit of the worked
+examples go into one Q1 paper (first choice *Measurement*; *Metrologia* or *Talanta* as alternatives, quartiles
+to be verified at submission). The numbers of the paper are generated (`tools/research/article_stats.py` →
+`docs/article/numbers.md`): 277 projects, 36 source documents, 222 validated rows (23 with a finding), F1–F97.
+The skeleton maps every section to its evidence (F, D, validation rows), lists Figures 1–3 and Tables 1–4, and
+keeps the pre-submission checklist; the D12 class audit is now its first item (25 findings carry no class in
+their heading).
