@@ -2541,3 +2541,42 @@ limits for a relative uncertainty (classes a, b and noted).**
      u = 0.7 ng/g to reproduce the guide.
 
 The library has 236 projects.
+
+**F85, addendum — source data and the cause of the "curious" n = 2
+(EMUE compendium 2021, Example E5.1).**
+
+- **Data confirmed.** EMUE E5.1.5 lists the boundary pixels as (4, 2),
+  (5, 2), (6, 2), (7, 2), (7, 3), (8, 3), (8, 4), …, (3, 3), (4, 3), with
+  the origin at the centre of the bottom-left pixel. The 38 pixels read
+  from GUM-5 Figure 11.1, shifted by (−1, −1) and traversed
+  counter-clockwise from (4, 2), give exactly that sequence.
+- **Areas.** Recomputed for n = 1–8: 65.12, 63.99, 64.15, 65.72, 65.72,
+  65.27, 65.23, 65.38. EMUE Table E5.1.1 gives 65.11, 63.88, 64.21, 65.73,
+  65.67, 65.25, 65.21, 65.38.
+- **MCM.** EMUE gives 65.5 ± 1.6; the recomputation 65.45 ± 1.55. GUM-5
+  11.5.5 gives 65.4 and 11.6.1 gives 65.0.
+- **EMUE computes everything per coordinate and unweighted.**
+  RMSR = √(S/(m − k)) and AIC = S + 2k, with S the residual sum of squares
+  in pixel² units, m = 38 and k = 2n + 1. Recomputed per-coordinate values
+  agree, e.g. n = 6: RMSR 0.26/0.27 (EMUE 0.26/0.29) and AIC 28/28 (EMUE
+  28/28). The per-coordinate AIC minimum is at n = 2, as in EMUE.
+- **GUM-5 merged the two coordinates inconsistently.**
+  - Its RMSR is √(RMSR_x² + RMSR_y²): 0.96 = √(0.64² + 0.72²), 0.39 =
+    √(0.26² + 0.29²).
+  - Its AIC is S_x + S_y + 2(2n + 1): 38.5 for n = 1, 29.8 for n = 6. That
+    is the total misfit with the parameter penalty of one coordinate.
+  - Neither matches its own text (χ² weighted by 1/u₀², 2m data, 4n + 2
+    parameters).
+  - EMUE also gives the extreme areas as 48 and 86 (mean 67, u = 11.0);
+    GUM-5 gives 47 and 85 (mean 66). The figure has 47 interior pixels.
+- **Cause of n = 2.**
+  - An information criterion needs −2 ln L. For a known standard deviation
+    u₀ that is χ² = S/u₀² = 12 S. Using the unweighted S understates the
+    misfit term by a factor of 12, so the parameter penalty dominates.
+  - With χ² the criteria select n = 6 (AIC) and n = 4 (AICc, BIC). n = 6 is
+    the RMSR choice of both documents.
+  - The conclusion of GUM-5 11.7.3 and EMUE that RMSR saturation is better
+    than the information criteria for small data sets is therefore not
+    supported: the criteria were misapplied.
+  - Class c for the article; it applies to both documents. The RMSR values
+    of 0.26–0.29 at n = 6 are consistent with u₀ = 0.29, as EMUE notes.
