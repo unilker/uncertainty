@@ -1,0 +1,111 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iupac2024-3e-4m-iridium-molar-mass-bayes",
+    "field": "chemistry",
+    "title": {
+      "en": "Molar mass of iridium from three mutually inconsistent determinations: laboratory effects and a Bayesian random-effects model (IUPAC 2024, Examples 3E, 4M and 4N)",
+      "tr": "Birbiriyle tutarsız üç tayinden iridyumun mol kütlesi: laboratuvar etkileri ve Bayesçi rastgele etkiler modeli (IUPAC 2024, Örnek 3E, 4M ve 4N)"
+    },
+    "description": {
+      "en": "Three isotope-ratio determinations behind the 2021 standard atomic weight of iridium (Prohaska et al.) give M = 192.216 77(81), 192.216 62(29) and 192.217 63(17) g/mol. Their standard deviation is 1.6 times the geometric mean of the uncertainties; Cochran's Q test confirms the inconsistency. Laboratory effects with standard deviation τ reconcile them.",
+      "tr": "İridyumun 2021 standart atom ağırlığının (Prohaska vd.) dayandığı üç izotop oranı tayini M = 192,216 77(81), 192,216 62(29) ve 192,217 63(17) g/mol verir. Standart sapmaları belirsizliklerin geometrik ortalamasının 1,6 katıdır; Cochran Q testi tutarsızlığı doğrular. Standart sapması τ olan laboratuvar etkileri bunları uzlaştırır."
+    },
+    "explanation": [
+      {
+        "en": "3E: the naive τ = √(s² − ū_g²) = √(0.000 54² − 0.000 34²) = 0.000 42 g/mol, from the standard deviation s = 0.000545 g/mol and the geometric mean ū_g = 0.000342 g/mol of the uncertainties. With three values its reliability is questionable.",
+        "tr": "3E: saf τ = √(s² − ū_g²) = √(0,000 54² − 0,000 34²) = 0,000 42 g/mol; s = 0,000545 g/mol standart sapma, ū_g = 0,000342 g/mol belirsizliklerin geometrik ortalamasıdır. Üç değerle güvenilirliği sorgulanabilir."
+      },
+      {
+        "en": "4M: the prior for M is Gaussian with the 1993 standard atomic weight, 192.217 ± 0.0015 g/mol; the prior for τ is half-Cauchy with median 0.000 42 g/mol (the naive value of 3E). The posterior is q(M, τ) ∝ p_M(M) p_τ(τ) L(M, τ).",
+        "tr": "4M: M'nin önseli 1993 standart atom ağırlığıyla normaldir, 192,217 ± 0,0015 g/mol; τ'nun önseli ortancası 0,000 42 g/mol (3E'deki saf değer) olan yarım Cauchy'dir. Sonsal q(M, τ) ∝ p_M(M) p_τ(τ) L(M, τ)."
+      },
+      {
+        "en": "4N samples the posterior by random-walk Metropolis (10⁴ draws after burn-in and thinning). The program integrates M out analytically (for fixed τ the posterior of M is Gaussian) and evaluates the posterior of τ on a grid, which gives the same answer without Monte Carlo error: M = 192.2171(4) g/mol and a posterior median of τ of 0.0005 g/mol, as printed.",
+        "tr": "4N sonsalı rastgele yürüyüşlü Metropolis ile örnekler (ısınma ve seyreltmeden sonra 10⁴ çekiliş). Program M'yi analitik olarak integre eder (sabit τ için M'nin sonsalı normaldir) ve τ'nun sonsalını bir ızgarada hesaplar; bu, Monte Carlo hatası olmadan aynı sonucu verir: basılı değerlerle aynı, M = 192,2171(4) g/mol ve τ'nun sonsal ortancası 0,0005 g/mol."
+      },
+      {
+        "en": "The posterior of τ is markedly skewed to the right, so its median, not its mean, is reported. The DerSimonian–Laird estimate and the degrees of equivalence are shown for comparison.",
+        "tr": "τ'nun sonsalı belirgin biçimde sağa çarpıktır; bu nedenle ortalaması değil ortancası verilir. Karşılaştırma için DerSimonian–Laird kestirimi ve eşdeğerlik dereceleri de gösterilmiştir."
+      }
+    ],
+    "tags": [
+      "iupac-2024",
+      "consensus",
+      "dark-uncertainty",
+      "bayes",
+      "half-cauchy",
+      "atomic-weight"
+    ],
+    "notes": [
+      {
+        "en": "The guide gives p = 0.0082 for Cochran's Q test; the three values give Q = 9.56 and p = 0.0084. Their standard deviation is 0.000 545 g/mol, printed as 0.000 54 (research log F94).",
+        "tr": "Rehber Cochran Q testi için p = 0,0082 verir; üç değer Q = 9,56 ve p = 0,0084 verir. Standart sapmaları 0,000 545 g/mol'dür, 0,000 54 olarak basılmıştır (araştırma günlüğü F94)."
+      },
+      {
+        "en": "The labels Ir-1 to Ir-3 follow the order of the guide; Prohaska et al. (2022) §8.4 name the sources.",
+        "tr": "Ir-1 – Ir-3 etiketleri rehberdeki sırayı izler; kaynakların adları Prohaska vd. (2022) §8.4'tedir."
+      }
+    ],
+    "sources": [
+      {
+        "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+        "section": "Examples 3E, 4M, 4N",
+        "url": "https://doi.org/10.1515/pac-2022-1203"
+      }
+    ]
+  },
+  "consensus": {
+    "measurand": "M(Ir)",
+    "unit": "g/mol",
+    "results": [
+      {
+        "name": "Ir-1",
+        "value": 192.21677,
+        "u": 0.00081
+      },
+      {
+        "name": "Ir-2",
+        "value": 192.21662,
+        "u": 0.00029
+      },
+      {
+        "name": "Ir-3",
+        "value": 192.21763,
+        "u": 0.00017
+      }
+    ],
+    "bayes": {
+      "tau_median": 0.00042,
+      "mu_mean": 192.217,
+      "mu_sd": 0.0015
+    },
+    "trials": 100000,
+    "seed": 1
+  },
+  "expected": {
+    "consensus": {
+      "q_p_value": {
+        "value": 0.0082,
+        "tolerance": 0.0003
+      },
+      "bayes_mean": {
+        "value": 192.2171,
+        "tolerance": 5e-05
+      },
+      "bayes_u": {
+        "value": 0.0004,
+        "tolerance": 5e-05
+      },
+      "bayes_tau_median": {
+        "value": 0.0005,
+        "tolerance": 5e-05
+      }
+    },
+    "reference": {
+      "en": "IUPAC 2024, Example 3E: p = 0.0082; Example 4N: M = 192.2171(4) g/mol, median of τ 0.0005 g/mol (MCMC). Grid in numpy: 192.217 119, 0.000 440, τ median 0.000 506.",
+      "tr": "IUPAC 2024, Örnek 3E: p = 0,0082; Örnek 4N: M = 192,2171(4) g/mol, τ ortancası 0,0005 g/mol (MCMC). numpy ızgara: 192,217 119, 0,000 440, τ ortancası 0,000 506."
+    }
+  }
+}

@@ -2928,7 +2928,7 @@ with a chart of the degrees of equivalence, JSON and an app view.
   −ln L in (μ, τ).
 - Not implemented: the hierarchical Bayesian procedure (§A.3; half-Cauchy priors on τ and on the σ_j, MCMC),
   the leave-one-out DoE and the bilateral DoE B_ij. Recorded as open items.
-- Library (258 projects): `koepke2017-newtonian-constant-g` (DL, bootstrap, Linear Pool, ML),
+- Library (258 projects at D66): `koepke2017-newtonian-constant-g` (DL, bootstrap, Linear Pool, ML),
   `koepke2017-half-life-cs137`, `koepke2017-half-life-sr90` (in days, as Table 3; duplicate labels Fl65 split
   into Fl65a/b/c), `iupac2024-4f-ccqm-k145-nickel-bovine-liver`. Evidence: `tools/research/consensus/
   koepke2017.py` (numpy, independent implementation of DL, bootstrap and Linear Pool).
@@ -2963,3 +2963,46 @@ the bootstrap percentiles (6.673 22, 6.674 35) and with the t_{13} interval (6.6
 so it cannot tell which was used. The ML row (6.673 78) and the Linear Pool row (6.673 67) reproduce exactly.
 Likely cause: rounding of an intermediate value, or digits of Table 1 not printed (CODATA 2014 Table XXVII
 carries the same digits). Impact: one unit in the fifth decimal, 0.04 u.
+
+## 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N
+
+**D67. Bayesian random-effects model without MCMC (`consensus.bayes`).**
+
+- Model: x_j ~ N(μ, τ² + σ_j²) with σ_j = u_j, τ half-Cauchy with median s, μ Gaussian (m₀, s₀) or flat.
+  This is NICOB's hierarchical Bayesian procedure (§A.3) when no ν_j are given (the manual: "when they are
+  based on infinitely many degrees of freedom … σ_j = u_j") and IUPAC 2024 Example 4M.
+- For fixed τ the posterior of μ is Gaussian with precision P(τ) = Σ1/v_j (+ 1/s₀²), v_j = τ² + u_j²; the
+  marginal likelihood of τ is ∏v_j^{−1/2} P^{−1/2} exp{−½(Σx_j²/v_j (+ m₀²/s₀²) − P μ̂_τ²)}.
+- The grid τ = s·tan(πθ/2), θ uniform on (0, 1) (10⁵ midpoints), makes the half-Cauchy prior density constant,
+  so the posterior weights are the marginal likelihoods. The tails of the prior are covered without a cut-off.
+- μ: posterior mean and s.d. of the Gaussian mixture; quantiles by Newton's method on the mixture CDF with a
+  bisection safeguard. τ: posterior median and quantiles from the cumulative weights.
+- Default prior on τ (`"bayes": {}`): median of |x_j − median(x)|, as NICOB; μ flat (NICOB: N(0, 10⁵)).
+- Results are deterministic (no seed) and exact up to the grid. Not implemented: NICOB's half-Cauchy priors on
+  the σ_j when ν_j are given (needs n + 2 dimensions; MCMC or nested quadrature).
+
+| Case | Printed (MCMC) | Program (grid) |
+|---|---|---|
+| IUPAC 4M/4N, iridium | M = 192.2171(4) g/mol; median τ 0.0005 g/mol | 192.217 119 (0.000 440); median τ 0.000 506; 95 % (192.216 16, 192.217 95) |
+| Koepke Table 2, G | 6.673 77, 0.000 33, (6.673 10, 6.674 42) | 6.673 773, 0.000 329, (6.673 105, 6.674 409) |
+| Koepke Table 4, ¹³⁷Cs | 29.94 (0.19) a | 29.944 (0.185) a |
+| Koepke Table 4, ⁹⁰Sr | 28.71 (0.16) a | 28.708 (0.160) a |
+
+For the article: the grid reproduces the MCMC results of NICOB and of the IUPAC guide to their printed digits
+(one exception, F95) in a fraction of a second, without convergence diagnostics or a seed. For the two-parameter
+random-effects model the MCMC of the guide (5 × 10⁵ Metropolis steps) is not needed.
+
+Library: `iupac2024-3e-4m-iridium-molar-mass-bayes`; the three Koepke projects now include the Bayesian row.
+
+**F94. IUPAC 2024 Example 3E — rounding of s and of the p-value of Q (class a).** The three molar masses have
+s = 0.000 545 01 g/mol, printed 0.000 54 (rounds to 0.000 55); the naive τ = √(s² − ū_g²) is 0.000 4245 with the
+unrounded s (printed 0.000 42, which also follows from the rounded inputs). Cochran's Q about the weighted mean is
+9.562, p = 0.008 39 with 2 degrees of freedom; printed p = 0.0082 (Q = 9.61 would give it). Impact: none on the
+conclusions.
+
+**F95. Koepke et al. 2017 Table 4 — Bayesian u for ¹³⁷Cs (class a, Monte Carlo).** The exact posterior s.d. of
+the hierarchical model with the NICOB defaults is 0.185 a; printed 0.19 a. The posterior mean (29.944 a) and the
+⁹⁰Sr row (28.708, 0.160 a) and the G row agree. The difference, 3 %, is of the size of the Monte Carlo error of a
+standard deviation from a few thousand effectively independent MCMC draws; the printed value is the rounding of
+an MCMC estimate, not of the exact posterior. To note in the article as an example of the reproducibility of
+MCMC-based reference values.

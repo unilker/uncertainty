@@ -58,12 +58,13 @@ def linear_pool(x, u, K=10 ** 6, seed=1):
     return exact, np.percentile(s, [2.5, 97.5])
 
 
-for name, x, u, f in (("G", G, uG, 1), ("Cs-137 /a", Cs, uCs, 1 / 365.25), ("Sr-90 /a", Sr, uSr, 1 / 365.25)):
-    mu, um, tau, Q, ukh = dl(x, u)
-    ub, ci = bootstrap(x, u)
-    (m, s), lci = linear_pool(x, u)
-    t = stats.t.ppf(0.975, len(x) - 1)
-    print(f"{name}: DL mu={mu * f:.7g} u={um * f:.5g} tau={tau * f:.5g} Q={Q:.4f} uKH={ukh * f:.5g}"
-          f" t-interval=({(mu - t * um) * f:.7g}, {(mu + t * um) * f:.7g})")
-    print(f"   bootstrap u={ub * f:.5g} interval=({ci[0] * f:.7g}, {ci[1] * f:.7g})")
-    print(f"   Linear Pool mean={m * f:.7g} u={s * f:.5g} interval=({lci[0] * f:.7g}, {lci[1] * f:.7g})")
+if __name__ == "__main__":
+    for name, x, u, f in (("G", G, uG, 1), ("Cs-137 /a", Cs, uCs, 1 / 365.25), ("Sr-90 /a", Sr, uSr, 1 / 365.25)):
+        mu, um, tau, Q, ukh = dl(x, u)
+        ub, ci = bootstrap(x, u)
+        (m, s), lci = linear_pool(x, u)
+        t = stats.t.ppf(0.975, len(x) - 1)
+        print(f"{name}: DL mu={mu * f:.7g} u={um * f:.5g} tau={tau * f:.5g} Q={Q:.4f} uKH={ukh * f:.5g}"
+              f" t-interval=({(mu - t * um) * f:.7g}, {(mu + t * um) * f:.7g})")
+        print(f"   bootstrap u={ub * f:.5g} interval=({ci[0] * f:.7g}, {ci[1] * f:.7g})")
+        print(f"   Linear Pool mean={m * f:.7g} u={s * f:.5g} interval=({lci[0] * f:.7g}, {lci[1] * f:.7g})")

@@ -139,6 +139,7 @@
     ],
     "linear_pool": true,
     "maximum_likelihood": true,
+    "bayes": {},
     "trials": 100000,
     "seed": 1
   },
@@ -200,6 +201,22 @@
         "value": 0.0003,
         "tolerance": 5e-06
       },
+      "bayes_mean": {
+        "value": 6.67377,
+        "tolerance": 6e-06
+      },
+      "bayes_u": {
+        "value": 0.00033,
+        "tolerance": 6e-06
+      },
+      "bayes_lower": {
+        "value": 6.6731,
+        "tolerance": 1e-05
+      },
+      "bayes_upper": {
+        "value": 6.67442,
+        "tolerance": 1.5e-05
+      },
       "degrees_of_equivalence": {
         "UWash-00": {
           "d": {
@@ -216,8 +233,8 @@
       }
     },
     "reference": {
-      "en": "Koepke et al. (2017) Table 2: DerSimonian–Laird 6.673 80, u 0.000 28, (6.673 20, 6.674 40); Linear Pool 6.673 67, 0.001 24, (6.671 18, 6.675 79); maximum likelihood 6.673 78, 0.000 30. τ, Q, u_KH, the bootstrap u and percentiles and D_j: independent numpy computation (10⁵ replicates; the printed interval is consistent with them rounded to 10⁻⁴).",
-      "tr": "Koepke vd. (2017) Tablo 2: DerSimonian–Laird 6,673 80, u 0,000 28, (6,673 20, 6,674 40); doğrusal havuz 6,673 67, 0,001 24, (6,671 18, 6,675 79); en çok olabilirlik 6,673 78, 0,000 30. τ, Q, u_KH, bootstrap u ve yüzdelikleri ile D_j: bağımsız numpy hesabı (10⁵ tekrar; basılı aralık bunların 10⁻⁴'e yuvarlanmışıyla uyumludur)."
+      "en": "Koepke et al. (2017) Table 2: DerSimonian–Laird 6.673 80, u 0.000 28, (6.673 20, 6.674 40); Linear Pool 6.673 67, 0.001 24, (6.671 18, 6.675 79); maximum likelihood 6.673 78, 0.000 30; hierarchical Bayesian 6.673 77, 0.000 33, (6.673 10, 6.674 42). τ, Q, u_KH, the bootstrap u and percentiles and D_j: independent numpy computation (10⁵ replicates; the printed interval is consistent with them rounded to 10⁻⁴).",
+      "tr": "Koepke vd. (2017) Tablo 2: DerSimonian–Laird 6,673 80, u 0,000 28, (6,673 20, 6,674 40); doğrusal havuz 6,673 67, 0,001 24, (6,671 18, 6,675 79); en çok olabilirlik 6,673 78, 0,000 30; hiyerarşik Bayes 6,673 77, 0,000 33, (6,673 10, 6,674 42). τ, Q, u_KH, bootstrap u ve yüzdelikleri ile D_j: bağımsız numpy hesabı (10⁵ tekrar; basılı aralık bunların 10⁻⁴'e yuvarlanmışıyla uyumludur)."
     }
   }
 }

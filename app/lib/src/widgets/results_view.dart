@@ -165,6 +165,7 @@ class ResultsView extends StatelessWidget {
     final b = dl['bootstrap'] as Map<String, dynamic>?;
     final lp = r['linear_pool'] as Map<String, dynamic>?;
     final ml = r['maximum_likelihood'] as Map<String, dynamic>?;
+    final by = r['bayes'] as Map<String, dynamic>?;
     String n(dynamic x, [int sig = 7]) => fmtNum(_d(x), sig, s.lang);
     String interval(Map<String, dynamic> m) {
       final i = (m['interval'] as List).map((e) => _d(e)).toList();
@@ -188,6 +189,9 @@ class ResultsView extends StatelessWidget {
           if (b != null) [s['cs_interval'], interval(b)],
           if (lp != null) [s['cs_lp'], '${n(lp['mean'])}$unit, u = ${n(lp['standard_uncertainty'], 3)}$unit'],
           if (lp != null) [s['cs_interval'], interval(lp)],
+          if (by != null) [s['cs_bayes'], '${n(by['mean'])}$unit, u = ${n(by['standard_uncertainty'], 3)}$unit'],
+          if (by != null) [s['cs_interval'], interval(by)],
+          if (by != null) [s['cs_tau_median'], '${n(by['tau_median'], 3)}$unit'],
           if (ml != null) [s['cs_ml'], '${n(ml['mean'])}$unit, u = ${n(ml['standard_uncertainty'], 3)}$unit'],
           if (ml != null) [s['cs_tau'], '${n(ml['tau'], 3)}$unit, u = ${n(ml['u_tau'], 3)}$unit'],
         ],

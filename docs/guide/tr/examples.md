@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (127)
+- Kimya (128)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -1148,6 +1148,34 @@ Dönüm noktasında [Ag⁺] = √(K_sp2/[CrO₄²⁻]) ve [Cl⁻] = K_sp1/[Ag⁺
 - Örnek 4I'da basılan denklemin sağ tarafı (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E), sol tarafı ise pozitif [Ag⁺] − [Cl⁻]'dir; basıldığı gibi çözülünce klasik değerin %0,24 üstünde 10,024 mmol/L verir. İndikatör ancak eşdeğerlik noktasından sonra tepki verdiğinden dönüm noktası hacmi klorürü fazla gösterir ve kütle dengesi 9,976 mmol/L verir; rehber büyüklüğü (%0,24) verir, işaretini vermez (araştırma günlüğü F92).
 
 **Çalıştırma:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang tr`
+
+### Birbiriyle tutarsız üç tayinden iridyumun mol kütlesi: laboratuvar etkileri ve Bayesçi rastgele etkiler modeli (IUPAC 2024, Örnek 3E, 4M ve 4N)
+
+`iupac2024-3e-4m-iridium-molar-mass-bayes` — Possolo et al., Examples 3E, 4M, 4N
+
+İridyumun 2021 standart atom ağırlığının (Prohaska vd.) dayandığı üç izotop oranı tayini M = 192,216 77(81), 192,216 62(29) ve 192,217 63(17) g/mol verir. Standart sapmaları belirsizliklerin geometrik ortalamasının 1,6 katıdır; Cochran Q testi tutarsızlığı doğrular. Standart sapması τ olan laboratuvar etkileri bunları uzlaştırır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. 3E: saf τ = √(s² − ū_g²) = √(0,000 54² − 0,000 34²) = 0,000 42 g/mol; s = 0,000545 g/mol standart sapma, ū_g = 0,000342 g/mol belirsizliklerin geometrik ortalamasıdır. Üç değerle güvenilirliği sorgulanabilir.
+2. 4M: M'nin önseli 1993 standart atom ağırlığıyla normaldir, 192,217 ± 0,0015 g/mol; τ'nun önseli ortancası 0,000 42 g/mol (3E'deki saf değer) olan yarım Cauchy'dir. Sonsal q(M, τ) ∝ p_M(M) p_τ(τ) L(M, τ).
+3. 4N sonsalı rastgele yürüyüşlü Metropolis ile örnekler (ısınma ve seyreltmeden sonra 10⁴ çekiliş). Program M'yi analitik olarak integre eder (sabit τ için M'nin sonsalı normaldir) ve τ'nun sonsalını bir ızgarada hesaplar; bu, Monte Carlo hatası olmadan aynı sonucu verir: basılı değerlerle aynı, M = 192,2171(4) g/mol ve τ'nun sonsal ortancası 0,0005 g/mol.
+4. τ'nun sonsalı belirgin biçimde sağa çarpıktır; bu nedenle ortalaması değil ortancası verilir. Karşılaştırma için DerSimonian–Laird kestirimi ve eşdeğerlik dereceleri de gösterilmiştir.
+
+**Sonuç:**
+
+- M(Ir): uzlaşı değeri 192,21709 g/mol, standart belirsizlik 0,00042 g/mol, %95 kapsam aralığı [192,21619, 192,21799] g/mol (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,00061 g/mol; Cochran Q = 9,562, serbestlik derecesi 2
+- M(Ir): 192,21712 g/mol, standart belirsizlik 0,00044 g/mol, %95 inanılırlık aralığı [192,21616, 192,21795] g/mol; τ'nun sonsal ortancası 0,00051 g/mol (Bayes)
+
+**Notlar:**
+
+- Rehber Cochran Q testi için p = 0,0082 verir; üç değer Q = 9,56 ve p = 0,0084 verir. Standart sapmaları 0,000 545 g/mol'dür, 0,000 54 olarak basılmıştır (araştırma günlüğü F94).
+- Ir-1 – Ir-3 etiketleri rehberdeki sırayı izler; kaynakların adları Prohaska vd. (2022) §8.4'tedir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang tr`
 
 ### Ca²⁺ ve Mg²⁺'dan suyun toplam sertliği: geleneksel bir ölçüm modeli (IUPAC 2024, Örnek 3C ve 4A)
 
@@ -5504,6 +5532,7 @@ MacMahon vd. (2004) tarafından derlenen 19 yayımlanmış yarı ömür heteroje
 - T½(¹³⁷Cs): uzlaşı değeri 10971,1 d, standart belirsizlik 16 d, %95 kapsam aralığı [10937,5, 11004,8] d (DerSimonian–Laird, parametrik bootstrap)
 - Karanlık belirsizlik τ = 52 d; Cochran Q = 335,6, serbestlik derecesi 18
 - T½(¹³⁷Cs): 10936,4 d, standart belirsizlik 339 d, %95 kapsam aralığı [9707,80, 11406,0] d (doğrusal havuz)
+- T½(¹³⁷Cs): 10937,2 d, standart belirsizlik 67 d, %95 inanılırlık aralığı [10802,2, 11070,3] d; τ'nun sonsal ortancası 262 d (Bayes)
 
 **Notlar:**
 
@@ -5530,6 +5559,7 @@ MacMahon vd. (2004) tarafından derlenen 11 yayımlanmış yarı ömür heteroje
 - T½(⁹⁰Sr): uzlaşı değeri 10493,8 d, standart belirsizlik 40 d, %95 kapsam aralığı [10409,9, 10577,3] d (DerSimonian–Laird, parametrik bootstrap)
 - Karanlık belirsizlik τ = 105 d; Cochran Q = 400,3, serbestlik derecesi 10
 - T½(⁹⁰Sr): 10478,1 d, standart belirsizlik 282 d, %95 kapsam aralığı [9923,10, 11091,7] d (doğrusal havuz)
+- T½(⁹⁰Sr): 10485,7 d, standart belirsizlik 58 d, %95 inanılırlık aralığı [10364,6, 10597,8] d; τ'nun sonsal ortancası 147 d (Bayes)
 
 **Notlar:**
 
@@ -5557,6 +5587,7 @@ CODATA 2014 düzeltmesinde kullanılan 14 G ölçümü birbiriyle tutarsızdır 
 - G: uzlaşı değeri 6,673790 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00028 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,673226, 6,674352] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird, parametrik bootstrap)
 - Karanlık belirsizlik τ = 0,00095 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran Q = 319,1, serbestlik derecesi 13
 - G: 6,673667 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,0012 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,671166, 6,675791] 10⁻¹¹ m³ kg⁻¹ s⁻² (doğrusal havuz)
+- G: 6,673773 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00033 10⁻¹¹ m³ kg⁻¹ s⁻², %95 inanılırlık aralığı [6,673105, 6,674409] 10⁻¹¹ m³ kg⁻¹ s⁻²; τ'nun sonsal ortancası 0,0011 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
 - G: 6,673778 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00030 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0,0010 ± 0,00022 10⁻¹¹ m³ kg⁻¹ s⁻² (en çok olabilirlik)
 
 **Notlar:**

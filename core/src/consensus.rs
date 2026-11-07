@@ -384,6 +384,156 @@ pub fn maximum_likelihood(x: &[f64], u: &[f64]) -> Result<MaximumLikelihood, Unc
     Ok(MaximumLikelihood { mean, tau: t, u_mean, u_tau })
 }
 
+/// Posterior of the Gaussian random-effects model x_j ~ N(μ, τ² + u_j²)
+/// with known u_j, a half-Cauchy prior on τ and a Gaussian (or flat) prior
+/// on μ (IUPAC 2024 Examples 4M and 4N). μ is integrated out analytically;
+/// the posterior of τ is evaluated on a grid uniform in the half-Cauchy
+/// probability, τ = s·tan(πθ/2), where the prior density is constant. The
+/// result is the same at every run, without MCMC.
+#[derive(Clone, Debug, PartialEq)]
+pub struct BayesConsensus {
+    pub mean: f64,
+    pub sd: f64,
+    /// 2.5 % and 97.5 % quantiles of the marginal posterior of μ (for the
+    /// coverage probability requested).
+    pub interval: (f64, f64),
+    pub tau_median: f64,
+    pub tau_interval: (f64, f64),
+}
+
+/// Median of |x_j − median(x)|: the NICOB default for the median of the
+/// half-Cauchy prior on τ (§A.3).
+pub fn median_absolute_deviation(x: &[f64]) -> f64 {
+    let med = |v: &mut Vec<f64>| {
+        v.sort_by(f64::total_cmp);
+        let n = v.len();
+        if n % 2 == 1 {
+            v[n / 2]
+        } else {
+            0.5 * (v[n / 2 - 1] + v[n / 2])
+        }
+    };
+    let m = med(&mut x.to_vec());
+    med(&mut x.iter().map(|v| (v - m).abs()).collect())
+}
+
+/// `tau_median` is the median (= scale) of the half-Cauchy prior on τ;
+/// `mu_prior` is (mean, sd) of a Gaussian prior on μ, or None for a flat one.
+pub fn bayes_known_u(
+    x: &[f64],
+    u: &[f64],
+    tau_median: f64,
+    mu_prior: Option<(f64, f64)>,
+    p: f64,
+) -> Result<BayesConsensus, UncError> {
+    validate(x, u, &[])?;
+    if !(tau_median > 0.0) || !tau_median.is_finite() {
+        return Err(invalid("the median of the half-Cauchy prior on τ must be positive"));
+    }
+    if let Some((m0, s0)) = mu_prior {
+        if !m0.is_finite() || !(s0 > 0.0) || !s0.is_finite() {
+            return Err(invalid("the prior on μ needs a finite mean and a positive standard deviation"));
+        }
+    }
+    if !(p > 0.0 && p < 1.0) {
+        return Err(invalid("the coverage probability must lie strictly between 0 and 1"));
+    }
+    // Centre the data for numerical stability.
+    let c = x.iter().sum::<f64>() / x.len() as f64;
+    let xc: Vec<f64> = x.iter().map(|v| v - c).collect();
+    let prior = mu_prior.map(|(m0, s0)| (m0 - c, s0));
+    let m = 100_000;
+    let mut taus = Vec::with_capacity(m);
+    let mut ll = Vec::with_capacity(m);
+    let mut mt = Vec::with_capacity(m);
+    let mut prec = Vec::with_capacity(m);
+    for i in 0..m {
+        let th = (i as f64 + 0.5) / m as f64;
+        let t = tau_median * (0.5 * std::f64::consts::PI * th).tan();
+        let (mut pr, mut num, mut sx2, mut slog) = (0.0, 0.0, 0.0, 0.0);
+        for (xi, ui) in xc.iter().zip(u) {
+            let v = t * t + ui * ui;
+            pr += 1.0 / v;
+            num += xi / v;
+            sx2 += xi * xi / v;
+            slog += v.ln();
+        }
+        if let Some((m0, s0)) = prior {
+            pr += 1.0 / (s0 * s0);
+            num += m0 / (s0 * s0);
+            sx2 += m0 * m0 / (s0 * s0);
+        }
+        let mu_t = num / pr;
+        taus.push(t);
+        ll.push(-0.5 * slog - 0.5 * pr.ln() - 0.5 * (sx2 - pr * mu_t * mu_t));
+        mt.push(mu_t);
+        prec.push(pr);
+    }
+    let lmax = ll.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+    let mut w: Vec<f64> = ll.iter().map(|l| (l - lmax).exp()).collect();
+    let sw: f64 = w.iter().sum();
+    w.iter_mut().for_each(|a| *a /= sw);
+    let mean = w.iter().zip(&mt).map(|(a, b)| a * b).sum::<f64>();
+    let second = w.iter().zip(&mt).zip(&prec).map(|((a, b), q)| a * (1.0 / q + b * b)).sum::<f64>();
+    let sd = (second - mean * mean).max(0.0).sqrt();
+    let tau_q = |q: f64| {
+        let mut acc = 0.0;
+        for (a, t) in w.iter().zip(&taus) {
+            acc += a;
+            if acc >= q {
+                return *t;
+            }
+        }
+        *taus.last().unwrap()
+    };
+    // Quantiles of the mixture of normals by bisection on its CDF; only the
+    // grid points with non-negligible weight are kept.
+    let parts: Vec<(f64, f64, f64)> = w
+        .iter()
+        .zip(&mt)
+        .zip(&prec)
+        .filter(|((a, _), _)| **a > 1e-12)
+        .map(|((a, b), q)| (*a, *b, 1.0 / q.sqrt()))
+        .collect();
+    let cdf_pdf = |z: f64| {
+        parts.iter().fold((0.0, 0.0), |(f, d), (a, b, s)| {
+            let t = (z - b) / s;
+            (f + a * crate::special::normal_cdf(t), d + a * crate::special::normal_pdf(t) / s)
+        })
+    };
+    // Newton's method from the normal approximation, safeguarded by a
+    // bracket that shrinks with every step.
+    let quantile = |q: f64| {
+        let (mut lo, mut hi) = (mean - 60.0 * sd, mean + 60.0 * sd);
+        let mut z = mean + sd * crate::special::normal_quantile(q);
+        for _ in 0..60 {
+            let (f, d) = cdf_pdf(z);
+            if f < q {
+                lo = z;
+            } else {
+                hi = z;
+            }
+            let mut next = if d > 0.0 { z - (f - q) / d } else { 0.5 * (lo + hi) };
+            if !(next > lo && next < hi) {
+                next = 0.5 * (lo + hi);
+            }
+            if (next - z).abs() <= 1e-12 * sd {
+                return next;
+            }
+            z = next;
+        }
+        z
+    };
+    let a = 0.5 * (1.0 - p);
+    Ok(BayesConsensus {
+        mean: mean + c,
+        sd,
+        interval: (quantile(a) + c, quantile(1.0 - a) + c),
+        tau_median: tau_q(0.5),
+        tau_interval: (tau_q(a), tau_q(1.0 - a)),
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -451,6 +601,39 @@ mod tests {
         // Koepke et al. Table 2, maximum likelihood: 6.673 78, 0.000 30.
         let g = maximum_likelihood(&G, &UG).unwrap();
         assert!((g.mean - 6.673_778).abs() < 2e-6 && (g.u_mean - 0.000_300).abs() < 2e-6, "{g:?}");
+    }
+
+    #[test]
+    fn bayes_iupac_2024_4m_iridium() {
+        // IUPAC 2024 Examples 3E, 4M, 4N: M = 192.2171(4) g/mol, median of
+        // τ 0.0005 g/mol (MCMC, 10⁴ draws). Grid in numpy (2 × 10⁵ points):
+        // mean 192.217 1188, sd 0.000 4398, (192.216 164, 192.217 946),
+        // τ median 0.000 5061, (0.000 1008, 0.001 781).
+        let x = [192.21677, 192.21662, 192.21763];
+        let u = [0.00081, 0.00029, 0.00017];
+        let b = bayes_known_u(&x, &u, 0.00042, Some((192.217, 0.0015)), 0.95).unwrap();
+        assert!((b.mean - 192.217_118_83).abs() < 2e-9, "{b:?}");
+        assert!((b.sd - 0.000_439_833).abs() < 5e-9, "{b:?}");
+        assert!((b.interval.0 - 192.216_164).abs() < 2e-6 && (b.interval.1 - 192.217_946).abs() < 2e-6, "{b:?}");
+        assert!((b.tau_median - 0.000_506_1).abs() < 2e-7, "{b:?}");
+        assert!((b.tau_interval.1 - 0.001_781).abs() < 2e-6, "{b:?}");
+        // Cochran's Q: p = 0.0082 printed (3E); 0.008 39 from the data.
+        let d = dersimonian_laird(&x, &u).unwrap();
+        assert!((d.q_p_value - 0.008_389).abs() < 2e-6, "{}", d.q_p_value);
+    }
+
+    #[test]
+    fn nicob_hierarchical_bayes_koepke_g() {
+        // NICOB §A.3 with unspecified ν (σ_j = u_j): τ half-Cauchy with median
+        // MAD = 0.000 73, μ ~ N(0, 10⁵) (flat). Koepke Table 2: 6.673 77,
+        // 0.000 33, (6.673 10, 6.674 42); grid in numpy 6.673 7733,
+        // 0.000 328 63, (6.673 105, 6.674 409).
+        let mad = median_absolute_deviation(&G);
+        assert!((mad - 0.000_73).abs() < 1e-12, "{mad}");
+        let b = bayes_known_u(&G, &UG, mad, None, 0.95).unwrap();
+        assert!((b.mean - 6.673_773_32).abs() < 5e-9, "{b:?}");
+        assert!((b.sd - 0.000_328_63).abs() < 2e-8, "{b:?}");
+        assert!((b.interval.0 - 6.673_105).abs() < 2e-6 && (b.interval.1 - 6.674_409).abs() < 2e-6, "{b:?}");
     }
 
     #[test]

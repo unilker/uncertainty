@@ -19,6 +19,13 @@ pub(super) struct CsLabels {
     pub lp_u: &'static str,
     pub lp_int: &'static str,
     pub ml: &'static str,
+    pub bayes: &'static str,
+    pub bayes_int: &'static str,
+    pub bayes_tau: &'static str,
+    pub method_bayes: &'static str,
+    pub prior_flat: &'static str,
+    pub prior_normal: &'static str,
+    pub statement_bayes: &'static str,
     pub ml_tau: &'static str,
     pub method_ml: &'static str,
     pub statement_ml: &'static str,
@@ -48,6 +55,13 @@ const CS_EN: CsLabels = CsLabels {
     lp_u: "Standard uncertainty",
     lp_int: "{p} coverage interval",
     ml: "Maximum likelihood",
+    bayes: "Bayesian random-effects model",
+    bayes_int: "{p} credible interval (quantiles of the posterior)",
+    bayes_tau: "Dark uncertainty τ: posterior median and {p} interval",
+    method_bayes: "Gaussian likelihood with known u_j; prior: τ half-Cauchy with median {t}{unit}; μ {mu}. μ is integrated out analytically and the posterior of τ is evaluated on a grid of 10⁵ points uniform in the prior probability, so the result does not depend on a random seed (IUPAC 2024, Examples 4M and 4N, which use MCMC).",
+    prior_flat: "flat",
+    prior_normal: "Gaussian with mean {m}{unit} and standard deviation {s}{unit}",
+    statement_bayes: "{m}: {x}{unit}, standard uncertainty {u}{unit}, {p} credible interval [{lo}, {hi}]{unit}; posterior median of τ {t}{unit} (Bayes)",
     ml_tau: "Dark uncertainty τ",
     method_ml: "Gaussian random-effects model with known u_j; the likelihood is maximised over τ with μ̂(τ) the weighted mean; the standard uncertainties come from the inverse Hessian of the negative log-likelihood (IUPAC 2024, Example 4F). With few participants they tend to be too small; the bootstrap and Bayesian procedures are preferable.",
     statement_ml: "{m}: {x}{unit}, standard uncertainty {u}{unit}; τ = {t}{unit} (maximum likelihood)",
@@ -77,6 +91,13 @@ const CS_TR: CsLabels = CsLabels {
     lp_u: "Standart belirsizlik",
     lp_int: "{p} kapsam aralığı",
     ml: "En çok olabilirlik",
+    bayes: "Bayesçi rastgele etkiler modeli",
+    bayes_int: "{p} inanılırlık aralığı (sonsal dağılımın kantilleri)",
+    bayes_tau: "Karanlık belirsizlik τ: sonsal ortanca ve {p} aralık",
+    method_bayes: "u_j'leri bilinen normal olabilirlik; önsel: τ için ortancası {t}{unit} olan yarım Cauchy; μ için {mu}. μ analitik olarak integre edilir, τ'nun sonsalı önsel olasılıkta düzgün 10⁵ noktalı bir ızgarada hesaplanır; sonuç rastgele tohuma bağlı değildir (IUPAC 2024, Örnek 4M ve 4N MCMC kullanır).",
+    prior_flat: "düz",
+    prior_normal: "ortalaması {m}{unit}, standart sapması {s}{unit} olan normal",
+    statement_bayes: "{m}: {x}{unit}, standart belirsizlik {u}{unit}, {p} inanılırlık aralığı [{lo}, {hi}]{unit}; τ'nun sonsal ortancası {t}{unit} (Bayes)",
     ml_tau: "Karanlık belirsizlik τ",
     method_ml: "u_j'leri bilinen normal rastgele etkiler modeli; olabilirlik τ üzerinden, μ̂(τ) ağırlıklı ortalama olmak üzere en büyüklenir; standart belirsizlikler negatif log-olabilirliğin Hessian matrisinin tersinden gelir (IUPAC 2024, Örnek 4F). Katılımcı sayısı az olduğunda bunlar küçük kalma eğilimindedir; bootstrap ve Bayesçi yöntemler tercih edilir.",
     statement_ml: "{m}: {x}{unit}, standart belirsizlik {u}{unit}; τ = {t}{unit} (en çok olabilirlik)",
@@ -142,6 +163,19 @@ pub(super) fn statements(a: &ConsensusAnalysis, lang: Lang) -> Vec<String> {
                 .replace("{p}", &p)
                 .replace("{lo}", &fx(a, b.interval.0, lang))
                 .replace("{hi}", &fx(a, b.interval.1, lang))
+                .replace("{unit}", &unit),
+        );
+    }
+    if let Some(b) = &a.bayes {
+        out.push(
+            d.statement_bayes
+                .replace("{m}", &m)
+                .replace("{x}", &fx(a, b.mean, lang))
+                .replace("{u}", &fmt_num(b.sd, 2, lang))
+                .replace("{p}", &p)
+                .replace("{lo}", &fx(a, b.interval.0, lang))
+                .replace("{hi}", &fx(a, b.interval.1, lang))
+                .replace("{t}", &fmt_num(b.tau_median, 2, lang))
                 .replace("{unit}", &unit),
         );
     }
@@ -243,6 +277,41 @@ pub(super) fn markdown(
             fx(a, b.interval.1, lang)
         );
         let _ = writeln!(s, "\n{}\n", d.method_lp.replace("{n}", &b.trials.to_string()));
+    }
+    if let (Some(b), Some(pr)) = (&a.bayes, &a.bayes_prior) {
+        let _ = writeln!(s, "## {}\n", d.bayes);
+        let _ = writeln!(s, "- {}: {}{unit}, u = {}{unit}", d.consensus, fx(a, b.mean, lang), fmt_num(b.sd, 3, lang));
+        let _ = writeln!(
+            s,
+            "- {}: [{}, {}]{unit}",
+            d.bayes_int.replace("{p}", &pc),
+            fx(a, b.interval.0, lang),
+            fx(a, b.interval.1, lang)
+        );
+        let _ = writeln!(
+            s,
+            "- {}: {}{unit} [{}, {}]{unit}",
+            d.bayes_tau.replace("{p}", &pc),
+            fmt_num(b.tau_median, 3, lang),
+            fmt_num(b.tau_interval.0, 3, lang),
+            fmt_num(b.tau_interval.1, 3, lang)
+        );
+        let mu = match (pr.mu_mean, pr.mu_sd) {
+            (Some(m0), Some(s0)) => d
+                .prior_normal
+                .replace("{m}", &fmt_given(m0, lang))
+                .replace("{s}", &fmt_given(s0, lang))
+                .replace("{unit}", &unit),
+            _ => d.prior_flat.to_string(),
+        };
+        let _ = writeln!(
+            s,
+            "\n{}\n",
+            d.method_bayes
+                .replace("{t}", &fmt_num(pr.tau_median.unwrap_or(f64::NAN), 4, lang))
+                .replace("{mu}", &mu)
+                .replace("{unit}", &unit)
+        );
     }
     if let Some(ml) = &a.maximum_likelihood {
         let _ = writeln!(s, "## {}\n", d.ml);

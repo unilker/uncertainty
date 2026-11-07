@@ -116,6 +116,7 @@
       }
     ],
     "linear_pool": true,
+    "bayes": {},
     "trials": 100000,
     "seed": 1
   },
@@ -164,11 +165,19 @@
       "linear_pool_upper": {
         "value": 11082.1,
         "tolerance": 20.0
+      },
+      "bayes_mean": {
+        "value": 10486.33,
+        "tolerance": 1.83
+      },
+      "bayes_u": {
+        "value": 58.44,
+        "tolerance": 3.65
       }
     },
     "reference": {
-      "en": "Koepke et al. (2017) Table 4: DerSimonian–Laird 28.73 a, u 0.11 a; Linear Pool 28.68 a, u 0.77 a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
-      "tr": "Koepke vd. (2017) Tablo 4: DerSimonian–Laird 28,73 a, u 0,11 a; doğrusal havuz 28,68 a, u 0,77 a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."
+      "en": "Koepke et al. (2017) Table 4: DerSimonian–Laird 28.73 a, u 0.11 a; Linear Pool 28.68 a, u 0.77 a; hierarchical Bayesian 28.71 a, u 0.16 a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
+      "tr": "Koepke vd. (2017) Tablo 4: DerSimonian–Laird 28,73 a, u 0,11 a; doğrusal havuz 28,68 a, u 0,77 a; hiyerarşik Bayes 28,71 a, u 0,16 a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."
     }
   }
 }

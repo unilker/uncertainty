@@ -128,6 +128,13 @@ belirsizliği sonuçların tüm yayılımını kapsar.
 olabilirliği, μ̂(τ) ağırlıklı ortalama olmak üzere τ üzerinden en büyüklenir; standart belirsizlikler Hessian'ın
 tersinden gelir. Az sonuçla bunlar küçük kalır; bootstrap tercih edilir.
 
-Kütüphane: Koepke vd. 2017 (G, ¹³⁷Cs ve ⁹⁰Sr yarı ömürleri) ve IUPAC 2024 Örnek 4F (CCQM-K145). Henüz
-uygulanmayanlar: NICOB'un hiyerarşik Bayesçi yöntemi, birini dışarıda bırakan ve iki taraflı eşdeğerlik
-dereceleri.
+**Bayesçi rastgele etkiler modeli (NICOB §A.3; IUPAC 2024 Örnek 4M ve 4N).** σ_j = u_j ile normal olabilirlik,
+τ için yarım Cauchy, μ için normal ya da düz önsel. `"bayes": {}` ile NICOB varsayılanları kullanılır: τ
+önselinin ortancası |x_j − ortanca(x)|'lerin ortancasıdır, μ düzdür (NICOB: N(0, 10⁵)). μ analitik olarak
+integre edilir, τ'nun sonsalı önsel olasılıkta düzgün 10⁵ noktalı bir ızgarada (τ = s·tan(πθ/2)) hesaplanır.
+Sonuç kesindir ve her çalıştırmada aynıdır; NICOB ve rehber MCMC kullanır. Rapor μ'nün sonsal ortalamasını ve
+standart sapmasını, kantil aralığını, sağa çarpık τ'nun sonsal ortancasını ve aralığını verir. Sonlu ν_j için
+NICOB'un σ_j önselleri uygulanmamıştır.
+
+Kütüphane: Koepke vd. 2017 (G, ¹³⁷Cs ve ⁹⁰Sr yarı ömürleri) ve IUPAC 2024 Örnek 3E/4M/4N (iridyum) ve 4F
+(CCQM-K145). Henüz uygulanmayanlar: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.

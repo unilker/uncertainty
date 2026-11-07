@@ -49,7 +49,7 @@ def write(pid, title, description, explanation, notes, section, tags, measurand,
                                   {"document": NICOB, "section": "§A.2, §A.4, §A.5", "url": NICOB_URL}]},
          "consensus": {"measurand": measurand, "unit": unit,
                        "results": [{"name": n, "value": v, "u": s} for n, v, s in labs],
-                       "linear_pool": lp, **({"maximum_likelihood": True} if ml else {}), "trials": 100000, "seed": 1},
+                       "linear_pool": lp, **({"maximum_likelihood": True} if ml else {}), "bayes": {}, "trials": 100000, "seed": 1},
          "expected": {"consensus": expected, "reference": ref}}
     Path(f"library/physical/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("wrote", pid)
@@ -93,9 +93,13 @@ write("koepke2017-newtonian-constant-g",
        "linear_pool_mean": chk(6.67367, 0.000006), "linear_pool_u": chk(0.00124, 0.000006),
        "linear_pool_lower": chk(6.67118, 0.00003), "linear_pool_upper": chk(6.67579, 0.00003),
        "ml_mean": chk(6.67378, 0.000005), "ml_u": chk(0.00030, 0.000005),
+       # Hierarchical Bayes (NICOB §A.3 with σ_j = u_j): MCMC in the paper, exact grid here (6.673 773, 0.000 329,
+       # (6.673 105, 6.674 409)); tolerance half a unit plus the MCMC error of the printed limits.
+       "bayes_mean": chk(6.67377, 0.000006), "bayes_u": chk(0.00033, 0.000006),
+       "bayes_lower": chk(6.67310, 0.00001), "bayes_upper": chk(6.67442, 0.000015),
        "degrees_of_equivalence": {"UWash-00": {"d": chk(0.000465, 0.0000005)}, "LENS-14": {"d": chk(-0.001880, 0.0000005)}}},
-      T("Koepke et al. (2017) Table 2: DerSimonian–Laird 6.673 80, u 0.000 28, (6.673 20, 6.674 40); Linear Pool 6.673 67, 0.001 24, (6.671 18, 6.675 79); maximum likelihood 6.673 78, 0.000 30. τ, Q, u_KH, the bootstrap u and percentiles and D_j: independent numpy computation (10⁵ replicates; the printed interval is consistent with them rounded to 10⁻⁴).",
-        "Koepke vd. (2017) Tablo 2: DerSimonian–Laird 6,673 80, u 0,000 28, (6,673 20, 6,674 40); doğrusal havuz 6,673 67, 0,001 24, (6,671 18, 6,675 79); en çok olabilirlik 6,673 78, 0,000 30. τ, Q, u_KH, bootstrap u ve yüzdelikleri ile D_j: bağımsız numpy hesabı (10⁵ tekrar; basılı aralık bunların 10⁻⁴'e yuvarlanmışıyla uyumludur)."), ml=True)
+      T("Koepke et al. (2017) Table 2: DerSimonian–Laird 6.673 80, u 0.000 28, (6.673 20, 6.674 40); Linear Pool 6.673 67, 0.001 24, (6.671 18, 6.675 79); maximum likelihood 6.673 78, 0.000 30; hierarchical Bayesian 6.673 77, 0.000 33, (6.673 10, 6.674 42). τ, Q, u_KH, the bootstrap u and percentiles and D_j: independent numpy computation (10⁵ replicates; the printed interval is consistent with them rounded to 10⁻⁴).",
+        "Koepke vd. (2017) Tablo 2: DerSimonian–Laird 6,673 80, u 0,000 28, (6,673 20, 6,674 40); doğrusal havuz 6,673 67, 0,001 24, (6,671 18, 6,675 79); en çok olabilirlik 6,673 78, 0,000 30; hiyerarşik Bayes 6,673 77, 0,000 33, (6,673 10, 6,674 42). τ, Q, u_KH, bootstrap u ve yüzdelikleri ile D_j: bağımsız numpy hesabı (10⁵ tekrar; basılı aralık bunların 10⁻⁴'e yuvarlanmışıyla uyumludur)."), ml=True)
 
 # --- Half-lives of ¹³⁷Cs and ⁹⁰Sr (Table 3, Table 4; MacMahon et al. 2004) ----------------------------------
 A = 365.25
@@ -106,12 +110,12 @@ CS = [("WT55", 9715, 146), ("Br55", 10957, 146), ("Fa61", 11103, 146), ("Fl62", 
 SR = [("WT55", 10120, 150), ("An58", 10700, 580), ("Fl65a", 10230, 150), ("Fl65b", 10410, 330), ("Ho77", 10636, 88),
       ("La78", 10282, 12), ("Ra83", 10588, 91), ("Ko89", 10665, 37), ("Ma94", 10561, 14), ("WL96", 10495, 4),
       ("Sc04", 10557, 11)]
-REF = {"cs137": (30.04, 0.04, 29.94, 0.93, (29.9467, 30.1288), (26.571, 31.234), 0.044609, 0.928438),
-       "sr90": (28.73, 0.11, 28.68, 0.77, (28.5009, 28.9593), (27.168, 30.341), 0.110185, 0.772442)}
+REF = {"cs137": (30.04, 0.04, 29.94, 0.93, (29.9467, 30.1288), (26.571, 31.234), 0.044609, 0.928438, 29.94, 0.19),
+       "sr90": (28.73, 0.11, 28.68, 0.77, (28.5009, 28.9593), (27.168, 30.341), 0.110185, 0.772442, 28.71, 0.16)}
 for key, labs, nuc, nuc_tr in (("cs137", CS, "¹³⁷Cs", "¹³⁷Cs"), ("sr90", SR, "⁹⁰Sr", "⁹⁰Sr")):
     x, u = [a[1] for a in labs], [a[2] for a in labs]
     mu, um, tau, q, ukh = dl(x, u)
-    m_p, u_p, lpm_p, lpu_p, (lo, hi), (llo, lhi), ub, ulp = REF[key]
+    m_p, u_p, lpm_p, lpu_p, (lo, hi), (llo, lhi), ub, ulp, bm_p, bu_p = REF[key]
     n = len(labs)
     xbar = sum(x) / n
     assert round(mu / A, 2) == m_p and round(um / A, 2) == u_p and round(xbar / A, 2) == lpm_p
@@ -137,6 +141,9 @@ for key, labs, nuc, nuc_tr in (("cs137", CS, "¹³⁷Cs", "¹³⁷Cs"), ("sr90",
            # (sd/√N ≈ 1 d for the mean; ≈ 6 d for a 2.5 % tail percentile of the mixture).
            "linear_pool_mean": chk(round(lpm_p * A, 2), round(0.005 * A + 3 * ulp * A / math.sqrt(1e5), 1)),
            "linear_pool_u": chk(round(lpu_p * A, 2), round(0.005 * A + 3 * ulp * A / math.sqrt(2e5), 1)),
-           "linear_pool_lower": chk(round(llo * A, 1), 20.0), "linear_pool_upper": chk(round(lhi * A, 1), 20.0)},
-          T(f"Koepke et al. (2017) Table 4: DerSimonian–Laird {m_p} a, u {u_p} a; Linear Pool {lpm_p} a, u {lpu_p} a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
-            f"Koepke vd. (2017) Tablo 4: DerSimonian–Laird {c(m_p)} a, u {c(u_p)} a; doğrusal havuz {c(lpm_p)} a, u {c(lpu_p)} a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."))
+           "linear_pool_lower": chk(round(llo * A, 1), 20.0), "linear_pool_upper": chk(round(lhi * A, 1), 20.0),
+           # Hierarchical Bayes: exact grid 29.944 (0.185) a and 28.708 (0.160) a; the printed 0.19 a for ¹³⁷Cs is
+           # 0.005 a above the exact value (F95), so the tolerance of u is 0.01 a.
+           "bayes_mean": chk(round(bm_p * A, 2), round(0.005 * A, 2)), "bayes_u": chk(round(bu_p * A, 2), round(0.01 * A, 2))},
+          T(f"Koepke et al. (2017) Table 4: DerSimonian–Laird {m_p} a, u {u_p} a; Linear Pool {lpm_p} a, u {lpu_p} a; hierarchical Bayesian {bm_p} a, u {bu_p} a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
+            f"Koepke vd. (2017) Tablo 4: DerSimonian–Laird {c(m_p)} a, u {c(u_p)} a; doğrusal havuz {c(lpm_p)} a, u {c(lpu_p)} a; hiyerarşik Bayes {c(bm_p)} a, u {c(bu_p)} a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."))

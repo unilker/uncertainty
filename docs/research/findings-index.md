@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (93)
+## Findings (95)
 
 | F | Finding | Session |
 |---|---|---|
@@ -108,8 +108,10 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F91 | EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 | F92 | IUPAC 2024 Example 4I — sign of the endpoint correction (class c; to check against Meija et al. [14]). | 2026-11-07 (session 21, continued) — IUPAC brief guide 2024 (Possolo et al., PAC 96, 113) |
 | F93 | Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |
+| F94 | IUPAC 2024 Example 3E — rounding of s and of the p-value of Q (class a). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
+| F95 | Koepke et al. 2017 Table 4 — Bayesian u for ¹³⁷Cs (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
 
-## Decisions (66)
+## Decisions (67)
 
 | D | Decision | Session |
 |---|---|---|
@@ -179,3 +181,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D64 | CMC as a floor and the 5.3 note. | 2026-11-07 (session 21, continued) — ILAC P14:09/2020 |
 | D65 | Turkish spelling of reproducibility. | 2026-11-07 (session 21, continued) — Turkish edition of Nordtest TR 537 |
 | D66 | Consensus-value module (`consensus`). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |
+| D67 | Bayesian random-effects model without MCMC (`consensus.bayes`). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |

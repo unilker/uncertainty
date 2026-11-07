@@ -136,6 +136,8 @@ class S {
     'cs_interval': ['Coverage interval', 'Kapsam aralığı'],
     'cs_lp': ['Linear Pool', 'Doğrusal havuz'],
     'cs_ml': ['Maximum likelihood', 'En çok olabilirlik'],
+    'cs_bayes': ['Bayes (posterior mean)', 'Bayes (sonsal ortalama)'],
+    'cs_tau_median': ['τ, posterior median', 'τ, sonsal ortanca'],
     'cs_doe': ['Unilateral degrees of equivalence', 'Tek taraflı eşdeğerlik dereceleri'],
     'cs_participant': ['Participant', 'Katılımcı'],
     'cs_weight': ['DL weight', 'DL ağırlığı'],

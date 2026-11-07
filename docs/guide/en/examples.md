@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (127)
+- Chemistry (128)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -1148,6 +1148,34 @@ At the endpoint [Ag⁺] = √(K_sp2/[CrO₄²⁻]) and [Cl⁻] = K_sp1/[Ag⁺]; 
 - The equation printed in Example 4I has the right-hand side (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E) with a positive left-hand side [Ag⁺] − [Cl⁻]; solved as printed it gives 10.024 mmol/L, 0.24 % above the conventional value. Since the indicator responds only after the equivalence point, the endpoint volume overestimates the chloride and the mass balance gives 9.976 mmol/L; the guide states the magnitude, 0.24 %, but not its sign (research log F92).
 
 **Run:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang en`
+
+### Molar mass of iridium from three mutually inconsistent determinations: laboratory effects and a Bayesian random-effects model (IUPAC 2024, Examples 3E, 4M and 4N)
+
+`iupac2024-3e-4m-iridium-molar-mass-bayes` — Possolo et al., Examples 3E, 4M, 4N
+
+Three isotope-ratio determinations behind the 2021 standard atomic weight of iridium (Prohaska et al.) give M = 192.216 77(81), 192.216 62(29) and 192.217 63(17) g/mol. Their standard deviation is 1.6 times the geometric mean of the uncertainties; Cochran's Q test confirms the inconsistency. Laboratory effects with standard deviation τ reconcile them.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. 3E: the naive τ = √(s² − ū_g²) = √(0.000 54² − 0.000 34²) = 0.000 42 g/mol, from the standard deviation s = 0.000545 g/mol and the geometric mean ū_g = 0.000342 g/mol of the uncertainties. With three values its reliability is questionable.
+2. 4M: the prior for M is Gaussian with the 1993 standard atomic weight, 192.217 ± 0.0015 g/mol; the prior for τ is half-Cauchy with median 0.000 42 g/mol (the naive value of 3E). The posterior is q(M, τ) ∝ p_M(M) p_τ(τ) L(M, τ).
+3. 4N samples the posterior by random-walk Metropolis (10⁴ draws after burn-in and thinning). The program integrates M out analytically (for fixed τ the posterior of M is Gaussian) and evaluates the posterior of τ on a grid, which gives the same answer without Monte Carlo error: M = 192.2171(4) g/mol and a posterior median of τ of 0.0005 g/mol, as printed.
+4. The posterior of τ is markedly skewed to the right, so its median, not its mean, is reported. The DerSimonian–Laird estimate and the degrees of equivalence are shown for comparison.
+
+**Result:**
+
+- M(Ir): consensus value 192.21709 g/mol, standard uncertainty 0.00042 g/mol, 95 % coverage interval [192.21619, 192.21799] g/mol (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.00061 g/mol; Cochran's Q = 9.562 with 2 degrees of freedom
+- M(Ir): 192.21712 g/mol, standard uncertainty 0.00044 g/mol, 95 % credible interval [192.21616, 192.21795] g/mol; posterior median of τ 0.00051 g/mol (Bayes)
+
+**Notes:**
+
+- The guide gives p = 0.0082 for Cochran's Q test; the three values give Q = 9.56 and p = 0.0084. Their standard deviation is 0.000 545 g/mol, printed as 0.000 54 (research log F94).
+- The labels Ir-1 to Ir-3 follow the order of the guide; Prohaska et al. (2022) §8.4 name the sources.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang en`
 
 ### Total hardness of water from Ca²⁺ and Mg²⁺: a conventional measurement model (IUPAC 2024, Examples 3C and 4A)
 
@@ -5504,6 +5532,7 @@ The 19 published half-lives compiled by MacMahon et al. (2004) are heterogeneous
 - T½(¹³⁷Cs): consensus value 10971.1 d, standard uncertainty 16 d, 95 % coverage interval [10937.5, 11004.8] d (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 52 d; Cochran's Q = 335.6 with 18 degrees of freedom
 - T½(¹³⁷Cs): 10936.4 d, standard uncertainty 339 d, 95 % coverage interval [9707.80, 11406.0] d (Linear Pool)
+- T½(¹³⁷Cs): 10937.2 d, standard uncertainty 67 d, 95 % credible interval [10802.2, 11070.3] d; posterior median of τ 262 d (Bayes)
 
 **Notes:**
 
@@ -5530,6 +5559,7 @@ The 11 published half-lives compiled by MacMahon et al. (2004) are heterogeneous
 - T½(⁹⁰Sr): consensus value 10493.8 d, standard uncertainty 40 d, 95 % coverage interval [10409.9, 10577.3] d (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 105 d; Cochran's Q = 400.3 with 10 degrees of freedom
 - T½(⁹⁰Sr): 10478.1 d, standard uncertainty 282 d, 95 % coverage interval [9923.10, 11091.7] d (Linear Pool)
+- T½(⁹⁰Sr): 10485.7 d, standard uncertainty 58 d, 95 % credible interval [10364.6, 10597.8] d; posterior median of τ 147 d (Bayes)
 
 **Notes:**
 
@@ -5557,6 +5587,7 @@ The 14 measurements of G used in the CODATA 2014 adjustment are mutually inconsi
 - G: consensus value 6.673790 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00028 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.673226, 6.674352] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 0.00095 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran's Q = 319.1 with 13 degrees of freedom
 - G: 6.673667 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.0012 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.671166, 6.675791] 10⁻¹¹ m³ kg⁻¹ s⁻² (Linear Pool)
+- G: 6.673773 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00033 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % credible interval [6.673105, 6.674409] 10⁻¹¹ m³ kg⁻¹ s⁻²; posterior median of τ 0.0011 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
 - G: 6.673778 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00030 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0.0010 ± 0.00022 10⁻¹¹ m³ kg⁻¹ s⁻² (maximum likelihood)
 
 **Notes:**

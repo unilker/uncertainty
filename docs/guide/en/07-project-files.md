@@ -395,7 +395,11 @@ Expected values: `results` (per name: `risk`, `accepted`), `global_consumer_risk
 `dof` (optional) is used by the bootstrap and the Linear Pool; `weight` (optional) is the weight of a result in
 the Linear Pool. Expected values: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`, `interval_lower`,
 `interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`, `ml_mean`, `ml_u`,
-`ml_tau`, `ml_u_tau` and `degrees_of_equivalence` (per name: `d`, `expanded`). See 9.7.
+`ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`, `bayes_tau_median` and
+`degrees_of_equivalence` (per name: `d`, `expanded`). See 9.7.
+
+`"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (all optional; `"bayes": {}` uses the
+NICOB defaults) adds the Bayesian random-effects model.
 
 ## 7.15 Errors
 

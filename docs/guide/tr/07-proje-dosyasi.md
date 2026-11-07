@@ -395,7 +395,11 @@ Beklenen değerler: `results` (ad başına `risk`, `accepted`), `global_consumer
 `dof` (isteğe bağlı) bootstrap ve doğrusal havuzda kullanılır; `weight` (isteğe bağlı) bir sonucun doğrusal
 havuzdaki ağırlığıdır. Beklenen değerler: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`,
 `interval_lower`, `interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`,
-`ml_mean`, `ml_u`, `ml_tau`, `ml_u_tau` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). Bkz. 9.7.
+`ml_mean`, `ml_u`, `ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`,
+`bayes_tau_median` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). Bkz. 9.7.
+
+`"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (hepsi isteğe bağlı; `"bayes": {}` NICOB
+varsayılanlarını kullanır) Bayesçi rastgele etkiler modelini ekler.
 
 ## 7.15 Hatalar
 

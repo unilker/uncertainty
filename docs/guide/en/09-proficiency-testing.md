@@ -132,5 +132,13 @@ multimodal; its uncertainty covers the whole spread of the results.
 with known u_j, maximised over τ with μ̂(τ) the weighted mean; standard uncertainties from the inverse Hessian.
 They are too small with few results; the bootstrap is preferable.
 
-Library: Koepke et al. 2017 (G, half-lives of ¹³⁷Cs and ⁹⁰Sr) and IUPAC 2024 Example 4F (CCQM-K145). Not yet
-implemented: the hierarchical Bayesian procedure of NICOB, leave-one-out and bilateral degrees of equivalence.
+**Bayesian random-effects model (NICOB §A.3; IUPAC 2024 Examples 4M and 4N).** Gaussian likelihood with
+σ_j = u_j, a half-Cauchy prior on τ and a Gaussian or flat prior on μ. With `"bayes": {}` the NICOB defaults are
+used: the median of the prior on τ is the median of |x_j − median(x)|, and μ is flat (NICOB: N(0, 10⁵)). μ is
+integrated out analytically, and the posterior of τ is evaluated on a grid of 10⁵ points uniform in the prior
+probability (τ = s·tan(πθ/2)). The result is exact and the same at every run; NICOB and the guide use MCMC. The
+report gives the posterior mean and standard deviation of μ, its quantile interval, and the posterior median and
+interval of τ, which is skewed to the right. NICOB's priors on the σ_j for finite ν_j are not implemented.
+
+Library: Koepke et al. 2017 (G, half-lives of ¹³⁷Cs and ⁹⁰Sr) and IUPAC 2024 Examples 3E/4M/4N (iridium) and 4F
+(CCQM-K145). Not yet implemented: leave-one-out and bilateral degrees of equivalence.

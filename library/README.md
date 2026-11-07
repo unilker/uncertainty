@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**258 examples / örnek** (123 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 22 conformity assessment / uygunluk değerlendirmesi).
+**259 examples / örnek** (123 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 23 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -192,6 +192,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`gum5-e10-tspm-global-risks-acceptance-0.22`](chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json) | Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.22 mg/m³ (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,22 mg/m³ (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.3 |
 | [`gum5-e10-tspm-global-risks-shared-risk`](chemistry/gum5-e10-tspm-global-risks-shared-risk.json) | Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.2 mg/m³ (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,2 mg/m³ (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.3 |
 | [`gum5-e10-tspm-specific-risks`](chemistry/gum5-e10-tspm-specific-risks.json) | Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.4 and 10.7.2 |
+| [`iupac2024-3e-4m-iridium-molar-mass-bayes`](chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json) | Molar mass of iridium from three mutually inconsistent determinations: laboratory effects and a Bayesian random-effects model (IUPAC 2024, Examples 3E, 4M and 4N) | Birbiriyle tutarsız üç tayinden iridyumun mol kütlesi: laboratuvar etkileri ve Bayesçi rastgele etkiler modeli (IUPAC 2024, Örnek 3E, 4M ve 4N) | Possolo et al. Examples 3E, 4M, 4N |
 | [`iupac2024-4f-ccqm-k145-nickel-bovine-liver`](chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json) | Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F) | CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F) | Possolo et al. Example 4F |
 
 ## Electrical and RF / Elektrik ve RF
