@@ -11,10 +11,10 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | | |
 |---|---|
 | Kütüphane | **231** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **187** Rust testi (bunlardan biri 231 projenin tamamını çalıştırır), **21** Flutter testi |
+| Testler | **188** Rust testi (bunlardan biri 231 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D60, bulgular F1–F85 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D61, bulgular F1–F85 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -108,8 +108,8 @@ indirilemedi; Drive klasörüne konacak:
 ## 4. Sıradaki işler (öncelik sırasıyla)
 
 0. **GUM-5'in kalan örnekleri** (metin: geçici alandaki `drive2/gum5/ex*.txt`; klasördeki PDF'ten yeniden
-   çıkarılabilir): **tamamlandı.** Sıradaki: `drive-inventory-2026-11.md` sırası: WG1 tanımları
-   → sözlük; Eurachem/CITAC uygunluk 2021; EMUE derlemesi ve IUPAC 2024 örnekleri; ILAC P14; Nordtest TR 537 TR;
+   çıkarılabilir): **tamamlandı.** Sıradaki: `drive-inventory-2026-11.md` sırası: ~~WG1 tanımları → sözlük~~ (D61: MCM'de tahmin etrafında
+   simetrik yarı genişlik); Eurachem/CITAC uygunluk 2021; EMUE derlemesi ve IUPAC 2024 örnekleri; ILAC P14; Nordtest TR 537 TR;
    Possolo & Meija 2022; BIPM qNMR; uzlaşı değeri modülü (Koepke, DerSimonian–Laird).
    - Açık kalan küçük işler: skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si), uygulamada
      `homogeneity.bayes` formu, Willink 2007 metninin kendisiyle F79'u doğrulamak.

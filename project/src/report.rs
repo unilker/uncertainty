@@ -54,6 +54,7 @@ struct Labels {
     mcm_estimate: &'static str,
     mcm_u: &'static str,
     shortest: &'static str,
+    about_estimate: &'static str,
     symmetric: &'static str,
     validation: &'static str,
     validated: &'static str,
@@ -106,6 +107,7 @@ const EN: Labels = Labels {
     mcm_estimate: "Estimate (mean)",
     mcm_u: "Standard uncertainty (standard deviation)",
     shortest: "Shortest coverage interval",
+    about_estimate: "Half-width of the coverage interval symmetric about the estimate (expanded uncertainty as proposed by JCGM-WG1/WG2, 2025)",
     symmetric: "Probabilistically symmetric coverage interval",
     validation: "Validation of the GUM result (JCGM 101 clause 8)",
     validated: "validated",
@@ -158,6 +160,7 @@ const TR: Labels = Labels {
     mcm_estimate: "Tahmin (ortalama)",
     mcm_u: "Standart belirsizlik (standart sapma)",
     shortest: "En kısa kapsam aralığı",
+    about_estimate: "Tahmin etrafında simetrik kapsam aralığının yarı genişliği (JCGM-WG1/WG2'nin 2025'te önerdiği genişletilmiş belirsizlik tanımı)",
     symmetric: "Olasılıksal simetrik kapsam aralığı",
     validation: "GUM sonucunun doğrulanması (JCGM 101 Madde 8)",
     validated: "doğrulandı",
@@ -655,6 +658,15 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
         let pct = fmt_pct(m.coverage_probability, 4, lang, true);
         let _ = writeln!(s, "- {} ({pct}): [{}; {}]", l.shortest, n(sl), n(sh));
         let _ = writeln!(s, "- {} ({pct}): [{}; {}]", l.symmetric, n(yl), n(yh));
+        let k_eff =
+            if m.standard_uncertainty > 0.0 { m.expanded_about_estimate / m.standard_uncertainty } else { f64::NAN };
+        let _ = writeln!(
+            s,
+            "- {} ({pct}): U = {}, U/u = {}",
+            l.about_estimate,
+            n3(m.expanded_about_estimate),
+            fmt_num(k_eff, 3, lang)
+        );
         if let Some(v) = &a.validation {
             let verdict = if v.validated { l.validated } else { l.not_validated };
             let _ = writeln!(

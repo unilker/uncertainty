@@ -83,6 +83,10 @@ fn additive_model_dominant_rectangular_input() {
     close(m.standard_uncertainty, 10.15, 0.06, "MCM u");
     close(m.symmetric_interval.0, -17.0, 0.06, "MCM low");
     close(m.symmetric_interval.1, 17.0, 0.06, "MCM high");
+    // Symmetric distribution centred on the estimate: the half-width of the
+    // interval symmetric about ỹ equals that of the probabilistically
+    // symmetric interval (proposed definition of expanded uncertainty).
+    close(m.expanded_about_estimate, 17.0, 0.06, "MCM U about ỹ");
     assert!(!mcm::validate_gum(&g, &m, 2, IntervalKind::Symmetric).validated);
     assert!(mcm::validate_gum(&g, &m, 1, IntervalKind::Symmetric).validated);
 }
@@ -388,4 +392,20 @@ fn results_are_reproducible_for_a_seed() {
     assert_eq!(a, b);
     let c = mcm_fixed(&model, 100_000, 0.95, 78);
     assert_ne!(a.estimate, c.estimate);
+}
+
+/// Half-width of the coverage interval symmetric about the estimate
+/// (expanded uncertainty as proposed by JCGM-WG1/WG2, December 2025): for a
+/// skewed output, Y = X² with X ~ N(1, 0.5²), it differs from both the
+/// probabilistically symmetric and the shortest interval. Exact values by
+/// quadrature: E(Y) = 1.25, Pr(|Y − 1.25| ≤ U) = 0.95 at U = 2.0712 (scipy brentq).
+#[test]
+fn expanded_uncertainty_about_the_estimate() {
+    let model =
+        Model::builder().quantity("X", Distribution::Normal { mean: 1.0, sd: 0.5 }).output("Y", "X^2").build().unwrap();
+    let m = mcm_fixed(&model, 2_000_000, 0.95, 7);
+    close(m.estimate, 1.25, 0.002, "E(Y)");
+    close(m.expanded_about_estimate, 2.0712, 0.004, "U about ỹ");
+    let half_sym = 0.5 * (m.symmetric_interval.1 - m.symmetric_interval.0);
+    assert!((half_sym - m.expanded_about_estimate).abs() > 0.05, "{half_sym}");
 }

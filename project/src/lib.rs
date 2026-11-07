@@ -730,6 +730,7 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
             "coverage_probability": m.coverage_probability,
             "symmetric_interval": [m.symmetric_interval.0, m.symmetric_interval.1],
             "shortest_interval": [m.shortest_interval.0, m.shortest_interval.1],
+            "expanded_about_estimate": m.expanded_about_estimate,
             "median": m.median,
             "skewness": m.skewness,
             "excess_kurtosis": m.excess_kurtosis,

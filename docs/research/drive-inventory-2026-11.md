@@ -16,7 +16,7 @@ Key to the columns:
 | File | Status | Use | Order |
 |---|---|---|---|
 | 01 JCGM 100:2008/Amd.1:2026, nonlinearity | new | second-order term of the estimate: implemented (D56) | done |
-| 02 JCGM-WG1 News, December 2025 | new | GUM suite plan (GUM-5, GUM-7 = revised JCGM 101); proposed definitions of MU terms → glossary | 2 |
+| 02 JCGM-WG1 News, December 2025 | new | GUM suite plan (GUM-5, GUM-7 = revised JCGM 101); proposed definitions of MU terms → glossary: done (D61) | done |
 | JCGM GUMsuite 2026 | new | list of the suite; DOIs for the references | 2 |
 | JCGM GUM-5:2026, Examples (16 examples) | new | **library**: pH interpolation, BaP, molar mass of glucose, gravimetric gas mixture, GHG inventory, linear models, second-order weights, gauge block, LS vs Bayes, conformity of TSP, 2D image, between-bottle homogeneity, PRT, radioactive decay, wire rope, comparison loss | 1 |
 | JCGM GUM-1:2023 Introduction; GUM-6:2020 Models | used (GUM-6 obtained) | guide terminology; GUM-6 examples for the library | 4 |

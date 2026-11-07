@@ -101,7 +101,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F84 | GUM-5 Example 5 — estimate, notation and data (classes a and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F85 | GUM-5 Example 11 — results, information criteria and text (classes c and b; the numerical points rest on data read from the figure). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 
-## Decisions (60)
+## Decisions (61)
 
 | D | Decision | Session |
 |---|---|---|
@@ -165,3 +165,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D58 | Ensembles in the Welch–Satterthwaite formula. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | D59 | Lognormal process PDF, relative uncertainty in global risks, posterior p_c. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | D60 | Homogeneity without σ_pt; u*_bb; Bayesian between-unit standard deviation. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| D61 | Monte Carlo: half-width of the interval symmetric about the estimate. | 2026-11-07 (session 21, continued) — JCGM-WG1 News, December 2025: proposed definitions |

@@ -2448,3 +2448,38 @@ The library has 231 projects.
 
 All 16 GUM-5 examples have now been worked through: 13 as library
 projects, Example 11 by script.
+
+## 2026-11-07 (session 21, continued) — JCGM-WG1 News, December 2025: proposed definitions
+
+The WG1–WG2 joint meetings discussed definitions for the next VIM:
+measurement uncertainty, standard uncertainty, coverage interval, coverage
+probability, expanded uncertainty, coverage factor, and relative standard
+and relative expanded uncertainty. The July 2025 webinar had about 900
+attendees; two thirds of 450 respondents were in favour.
+
+- **Measurement uncertainty.** "Doubt about the value of the measurand that
+  remains after making a measurement." The Possolo (2025) text said "true
+  value". Note 1 now says "can be described" by a probability distribution.
+- **Expanded uncertainty.** "Half width of a coverage interval symmetric
+  about the measured value". VIM 2.35 defines it as k·u; k·u becomes a way
+  to obtain it.
+
+**D61. Monte Carlo: half-width of the interval symmetric about the
+estimate.**
+
+- `McmResult.expanded_about_estimate` is the q-th smallest |y_r − ỹ|, with
+  q as for the coverage intervals, so that Pr(|Y − ỹ| ≤ U) = p. It is
+  reported, with U/u, next to the probabilistically symmetric and the
+  shortest interval, and is also given in JSON and in the app.
+- Tests:
+  - symmetric output: equals the half-width of the probabilistically
+    symmetric interval (17.0 for JCGM 101 9.2.4);
+  - Y = X², X ~ N(1, 0.5²): U = 2.0712 against the exact value by
+    quadrature, and differs from the half-width of the probabilistically
+    symmetric interval.
+- For a skewed output the three intervals differ, and under the proposed
+  definition only the new one is "the" expanded uncertainty. Worth a
+  sentence in the article. GUM-5 Examples 2 and 10 report U = k·u next to
+  asymmetric MCM intervals.
+- Glossary (EN/TR) extended with the table of proposed definitions and
+  their Turkish wording.

@@ -119,3 +119,28 @@ Measurement uncertainty is described fully and quantitatively by a probability d
 the measurand." The program follows that view: the standard and expanded uncertainties and the coverage interval
 it reports are summaries of the distribution, which the Monte Carlo method gives in full. The Turkish term
 *ölçüm belirsizliği* covers both definitions.
+
+**Definitions agreed by JCGM-WG1 and WG2 (JCGM-WG1 News, December 2025).** After the webinar of July 2025 (about
+900 participants; two thirds of 450 respondents in favour) the working groups discussed these wordings, to be
+offered to WG2 for the next VIM:
+
+| Term | Proposed definition | Türkçe |
+|---|---|---|
+| measurement uncertainty | doubt about the value of the measurand that remains after making a measurement. Note 1: it can be described fully and quantitatively by a probability distribution on the set of possible values of the measurand. Note 2: for scalar measurands it can be summarised by the standard uncertainty, a coverage interval or selected quantiles; for multivariate measurands by the covariance matrix or a coverage region | bir ölçüm yapıldıktan sonra ölçülenin değeri hakkında kalan şüphe |
+| standard uncertainty | measurement uncertainty expressed by a standard deviation | standart sapmayla ifade edilen ölçüm belirsizliği |
+| coverage interval | interval believed to contain the value of the measurand with stated probability (generally not unique) | ölçülenin değerini belirtilen olasılıkla içerdiğine inanılan aralık |
+| coverage probability | probability chosen in constructing a coverage interval or region | kapsam aralığı ya da bölgesi oluşturulurken seçilen olasılık |
+| expanded uncertainty | half width of a coverage interval symmetric about the measured value; it can be obtained as standard uncertainty × coverage factor | ölçülen değer etrafında simetrik bir kapsam aralığının yarı genişliği |
+| coverage factor | numerical factor used to multiply the standard uncertainty to obtain an expanded uncertainty; k = 2 gives about 95 % for a normal distribution | |
+| relative standard / expanded uncertainty | absolute value of the quotient of the standard (expanded) uncertainty and the measured value; not defined if the measured value is zero | |
+
+Compared with the Possolo (2025) text, the agreed wording drops "true" and says "can be described". Two changes
+matter for the program:
+
+- **Expanded uncertainty.** U is defined as the half-width of an interval symmetric about the measured value,
+  not as k·u. For a GUM result the two are the same. For a Monte Carlo result the program now also reports the
+  half-width U with Pr(|Y − ỹ| ≤ U) = p, besides the probabilistically symmetric and the shortest intervals. For
+  a skewed output the three differ.
+- **Relative uncertainty.** It is the *absolute* value of the quotient and is not defined for a measured value
+  of zero. The program uses the absolute value (top-down budgets, `u_relative` in conformity assessment) and
+  gives no finite relative value at zero.

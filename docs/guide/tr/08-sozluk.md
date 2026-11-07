@@ -117,3 +117,27 @@ tanımı kamuoyu görüşüne sundu (Possolo, *Metrologia* 62 (2025) 042101). Ta
 kümesi üzerindeki bir olasılık dağılımıyla tam ve nicel olarak betimlenir." Program bu görüşü izler: raporladığı
 standart ve genişletilmiş belirsizlikler ile kapsam aralığı, dağılımın özetleridir; Monte Carlo yöntemi dağılımın
 tamamını verir. Türkçe *ölçüm belirsizliği* terimi her iki tanımı da karşılar.
+
+**JCGM-WG1 ve WG2'nin üzerinde uzlaştığı tanımlar (JCGM-WG1 News, Aralık 2025).** Temmuz 2025 web seminerinden
+sonra (yaklaşık 900 katılımcı; görüş bildiren 450 kişinin üçte ikisi olumlu) çalışma grupları, VIM'in bir sonraki
+baskısı için WG2'ye sunulacak şu ifadeleri tartıştı:
+
+| Terim | Önerilen tanım |
+|---|---|
+| ölçüm belirsizliği | bir ölçüm yapıldıktan sonra ölçülenin değeri hakkında kalan şüphe. Not 1: ölçülenin olası değerler kümesi üzerindeki bir olasılık dağılımıyla tam ve nicel olarak betimlenebilir. Not 2: skaler ölçülenlerde standart belirsizlik, bir kapsam aralığı ya da seçilmiş kantillerle; çok değişkenli ölçülenlerde kovaryans matrisi ya da bir kapsam bölgesiyle özetlenebilir |
+| standart belirsizlik | standart sapmayla ifade edilen ölçüm belirsizliği |
+| kapsam aralığı | ölçülenin değerini belirtilen olasılıkla içerdiğine inanılan aralık (genellikle tek değildir) |
+| kapsam olasılığı | bir kapsam aralığı ya da bölgesi oluşturulurken seçilen olasılık |
+| genişletilmiş belirsizlik | ölçülen değer etrafında simetrik bir kapsam aralığının yarı genişliği; standart belirsizlik × kapsam faktörü olarak elde edilebilir |
+| kapsam faktörü | genişletilmiş belirsizliği elde etmek için standart belirsizliğin çarpıldığı sayısal çarpan; normal dağılımda k = 2 yaklaşık %95 verir |
+| bağıl standart / genişletilmiş belirsizlik | standart (genişletilmiş) belirsizliğin ölçülen değere bölümünün mutlak değeri; ölçülen değer sıfırsa tanımsızdır |
+
+Uzlaşılan ifade, Possolo (2025) metnine göre "gerçek" sözcüğünü çıkarır ve "betimlenebilir" der. Program için iki
+değişiklik önemlidir:
+
+- **Genişletilmiş belirsizlik.** U, k·u olarak değil, ölçülen değer etrafında simetrik bir aralığın yarı genişliği
+  olarak tanımlanır. GUM sonucu için ikisi aynıdır. Monte Carlo sonucu için program artık olasılıksal simetrik ve en
+  kısa aralıkların yanında Pr(|Y − ỹ| ≤ U) = p olan yarı genişliği de verir. Çarpık bir çıktıda üçü birbirinden
+  farklıdır.
+- **Bağıl belirsizlik.** Bölümün *mutlak* değeridir ve ölçülen değer sıfırsa tanımsızdır. Program mutlak değeri
+  kullanır (top-down bütçeler, uygunluk değerlendirmesinde `u_relative`) ve sıfırda sonlu bir bağıl değer vermez.

@@ -173,6 +173,7 @@ class ResultsView extends StatelessWidget {
           [s['std_unc'], fmtNum(_d(m['standard_uncertainty']), 3, s.lang)],
           ['${s['shortest']} ($pct)', '[${fmtNum(shortest[0], 6, s.lang)}; ${fmtNum(shortest[1], 6, s.lang)}]'],
           ['${s['symmetric']} ($pct)', '[${fmtNum(symmetric[0], 6, s.lang)}; ${fmtNum(symmetric[1], 6, s.lang)}]'],
+          if (m['expanded_about_estimate'] != null) ['${s['about_estimate']} ($pct)', 'U = ${fmtNum(_d(m['expanded_about_estimate']), 3, s.lang)}'],
           if (v != null)
             [
               s['validation'],

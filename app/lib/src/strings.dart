@@ -127,6 +127,7 @@ class S {
     'cf_process_none': ['none', 'yok'],
     'cf_process_normal': ['normal', 'normal'],
     'cf_process_gamma': ['gamma', 'gama'],
+    'about_estimate': ['Half-width symmetric about the estimate', 'Tahmin etrafında simetrik yarı genişlik'],
     'pt_bayes': ['Bayesian between-unit s.d. (posterior mean)', 'Bayesçi birimler arası s.s. (sonsal ortalama)'],
     'pt_mode': ['mode', 'mod'],
     'cf_process_lognormal': ['lognormal', 'lognormal'],
