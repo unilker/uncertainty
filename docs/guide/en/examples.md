@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (107)
+- Chemistry (109)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -322,6 +322,55 @@ ISO 6142-1 model y_k = n_k/n_tot from three weighings, the purity tables of two 
 - Printed Table 4.6 differs in three places (research log F82): u(y_CO₂) = 5 µmol/mol and u_rel 0.003 % against 3.96 µmol/mol and 0.0020 % recomputed; y_H₂O = 0.379 against 0.389 µmol/mol (0.2003 × 1.9 + 0.7996 × 0.010); r(Ar, N₂) = −0.50 and r(CO₂, O₂) = −0.08 against −0.55 and −0.10. The other values agree.
 
 **Run:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang en`
+
+### Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): independent inputs (JCGM GUM-5 Example 5)
+
+`gum5-e5-ghg-inventory-agriculture` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their standard uncertainty by the LPU for independent inputs (5.5).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E(CO₂e) = Σ s_i A_i F_i over two fuels and three gases, with the global warming potentials s = 11/3 (CO₂ as C), 25 (CH₄) and 298 (N₂O) taken as exact (5.4.3–5.4.4). The reported relative expanded uncertainties (95 %) are converted with k = 1.96, which reproduces the budget of Table 5.3.
+2. The CO₂ from gas oil dominates: its contribution is 833.18 of the 835.16 kt, because the activity data for that line carry U_rel = 38.6 %. N₂O follows with 57.39 kt (emission factor U_rel = 216 %).
+
+**Result:**
+
+- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).
+- The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.
+
+**Run:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang en`
+
+### Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): activity data shared by CH₄ and N₂O (JCGM GUM-5 Example 5)
+
+`gum5-e5-ghg-inventory-agriculture-shared-activity` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their standard uncertainty by the LPU, with A₂ = A₃ and A₅ = A₆ as one quantity each (5.4.9).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E(CO₂e) = Σ s_i A_i F_i over two fuels and three gases, with the global warming potentials s = 11/3 (CO₂ as C), 25 (CH₄) and 298 (N₂O) taken as exact (5.4.3–5.4.4). The reported relative expanded uncertainties (95 %) are converted with k = 1.96, which reproduces the budget of Table 5.3.
+2. The CO₂ from gas oil dominates: its contribution is 833.18 of the 835.16 kt, because the activity data for that line carry U_rel = 38.6 %. N₂O follows with 57.39 kt (emission factor U_rel = 216 %).
+3. The CH₄ and N₂O lines of each fuel use numerically identical activity data with identical uncertainties, taken as one quantity (5.4.8–5.4.9). u² increases by 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = 0.0345 kt², so u = 835.16171 against 835.16169 kt: invisible here because the gas-oil CO₂ dominates (5.4.10). In the idealized case of six equal contributions the ratio u²_cor/u²_ind lies between 1 and 3 (5.4.14).
+
+**Result:**
+
+- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).
+- The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.
+
+**Run:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang en`
 
 ### Censored results in a PT round: censored results deleted (ISO 13528 E.1)
 

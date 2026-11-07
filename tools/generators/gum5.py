@@ -620,3 +620,59 @@ for kind, w, printed in (("ols", [float(n_) for n_ in NT], (1.0107, 0.0015, 2.7,
           notes=[T("Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).",
                    "Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).")],
           analysis={"gum": {"dof_rounding": "exact"}, "mcm": None}, field="general")
+
+# --- Example 5: greenhouse gas inventory, mobile machinery in agriculture (UK 2018) -----------------------
+GHG = [("CO2", "gas oil", 56317.0920, 38.6, 2.0438e-2, 2.7, "11/3"), ("CH4", "gas oil", 56317.0920, 1.6, 3.5368e-6, 80.0, "25"),
+       ("N2O", "gas oil", 56317.0920, 1.6, 3.0984e-6, 216.3, "298"), ("CO2", "petrol", 67.1856, 50.7, 1.9127e-2, 2.0, "11/3"),
+       ("CH4", "petrol", 67.1856, 1.6, 4.8654e-5, 80.0, "25"), ("N2O", "petrol", 67.1856, 1.6, 3.3578e-7, 216.3, "298")]
+SV = {"11/3": 11 / 3, "25": 25.0, "298": 298.0}
+E5 = sum(SV[s_] * a * f for _, _, a, _, f, _, s_ in GHG)
+parts5 = [SV[s_] * a * f * math.hypot(ua / 196, uf / 196) for _, _, a, ua, f, uf, s_ in GHG]
+u5 = math.sqrt(sum(p * p for p in parts5))
+assert [round(p, 4) for p in parts5] == [833.1844, 2.0329, 57.3860, 1.2198, 0.0334, 0.0074] and abs(u5 - 835.16) < 0.005
+assert abs(E5 - 4282.144) < 0.001          # Table 5.2 sums its rounded E_i: 4282.0409 (E₁ = 1150.9806 kt, A₁F₁ = 1151.0087 kt)
+extra5 = 2 * sum(SV[GHG[i][6]] * GHG[i][4] * SV[GHG[i + 1][6]] * GHG[i + 1][4] * (GHG[i][2] * GHG[i][3] / 196) ** 2 for i in (1, 4))
+ucor5 = math.sqrt(u5 ** 2 + extra5)
+
+
+def ghg_inputs(shared):
+    ins, seen = [], set()
+    for i, (g, fuel, a, ua, f, uf, s_) in enumerate(GHG, 1):
+        an = f"A{i}" if not shared or i in (1, 4) else ("A2" if i in (2, 3) else "A5")
+        if an not in seen:
+            seen.add(an)
+            ins.append(inp(an, {"type": "normal", "mean": a, "sd": round(a * ua / 196, 10)}, "TJ", f"Activity data, {fuel} ({'CH₄ and N₂O' if shared and an in ('A2', 'A5') else g}); U_rel = {ua} % (95 %)",
+                           f"Faaliyet verisi, {fuel} ({'CH₄ ve N₂O' if shared and an in ('A2', 'A5') else g}); U_rel = %{c(ua)} (%95)"))
+        ins.append(inp(f"F{i}", {"type": "normal", "mean": f, "sd": round(f * uf / 196, 15)}, "kt/TJ", f"Emission factor, {g}, {fuel}; U_rel = {uf} % (95 %)", f"Emisyon faktörü, {g}, {fuel}; U_rel = %{c(uf)} (%95)"))
+    return ins
+
+
+def ghg_expr(shared):
+    terms = []
+    for i, (_, _, _, _, _, _, s_) in enumerate(GHG, 1):
+        an = f"A{i}" if not shared or i in (1, 4) else ("A2" if i in (2, 3) else "A5")
+        terms.append(f"{s_}*{an}*F{i}")
+    return " + ".join(terms)
+
+
+GHG_EXPL = [T("E(CO₂e) = Σ s_i A_i F_i over two fuels and three gases, with the global warming potentials s = 11/3 (CO₂ as C), 25 (CH₄) and 298 (N₂O) taken as exact (5.4.3–5.4.4). The reported relative expanded uncertainties (95 %) are converted with k = 1.96, which reproduces the budget of Table 5.3.",
+              "E(CO₂e) = Σ s_i A_i F_i, iki yakıt ve üç gaz üzerinden; küresel ısınma potansiyelleri s = 11/3 (C olarak CO₂), 25 (CH₄) ve 298 (N₂O) kesin alınır (5.4.3–5.4.4). Raporlanan bağıl genişletilmiş belirsizlikler (%95) k = 1,96 ile dönüştürülür; bu, Tablo 5.3 bütçesini yeniden üretir."),
+            T(f"The CO₂ from gas oil dominates: its contribution is 833.18 of the 835.16 kt, because the activity data for that line carry U_rel = 38.6 %. N₂O follows with 57.39 kt (emission factor U_rel = 216 %).",
+              f"Gaz yağından CO₂ baskındır: 835,16 kt'nin 833,18'i ondandır, çünkü o satırın faaliyet verisi U_rel = %38,6 taşır. Ardından 57,39 kt ile N₂O gelir (emisyon faktörü U_rel = %216).")]
+GHG_REF = T("JCGM GUM-5:2026, 5.4.6, (5.6), (5.8) and Table 5.3: E(CO₂e) = 4282.04 kt, u = 835.16 kt.", "JCGM GUM-5:2026, 5.4.6, (5.6), (5.8) ve Tablo 5.3: E(CO₂e) = 4282,04 kt, u = 835,16 kt.")
+GHG_NOTES = [T("Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).",
+               "Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84)."),
+             T("The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.",
+               "N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır.")]
+for shared in (False, True):
+    write("chemistry", "gum5-e5-ghg-inventory-agriculture" + ("-shared-activity" if shared else ""),
+          T("Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): " + ("activity data shared by CH₄ and N₂O" if shared else "independent inputs") + " (JCGM GUM-5 Example 5)",
+            "Sera gazı envanteri, tarımda hareketli makineler (BK 2018): " + ("CH₄ ve N₂O'nun paylaştığı faaliyet verisi" if shared else "bağımsız girdiler") + " (JCGM GUM-5 Örnek 5)"),
+          T("CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their standard uncertainty by the LPU" + (", with A₂ = A₃ and A₅ = A₆ as one quantity each (5.4.9)." if shared else " for independent inputs (5.5)."),
+            "CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standart belirsizlikleri LPU ile" + (", A₂ = A₃ ve A₅ = A₆ her biri tek büyüklük olarak (5.4.9)." if shared else ", bağımsız girdiler için (5.5).")),
+          GHG_EXPL + ([T(f"The CH₄ and N₂O lines of each fuel use numerically identical activity data with identical uncertainties, taken as one quantity (5.4.8–5.4.9). u² increases by 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = {extra5:.4f} kt², so u = {ucor5:.5f} against {u5:.5f} kt: invisible here because the gas-oil CO₂ dominates (5.4.10). In the idealized case of six equal contributions the ratio u²_cor/u²_ind lies between 1 and 3 (5.4.14).",
+                          f"Her yakıtın CH₄ ve N₂O satırları sayısal olarak aynı faaliyet verisini aynı belirsizlikle kullanır; bunlar tek büyüklük alınır (5.4.8–5.4.9). u², 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = {c(f'{extra5:.4f}')} kt² artar; u = {c(f'{ucor5:.5f}')}, {c(f'{u5:.5f}')} kt'ye karşı: gaz yağı CO₂ baskın olduğundan burada görünmez (5.4.10). Altı eşit katkılı idealleştirilmiş durumda u²_ilişkili/u²_bağımsız oranı 1 ile 3 arasındadır (5.4.14).")] if shared else []),
+          "Example 5, Tables 5.1–5.3 and 5.4.9", ["ghg", "emission-inventory", "ipcc", "linear", "correlation" if shared else "independent", "environment"],
+          {"output": {"name": "E", "unit": "kt", "expression": ghg_expr(shared), "description": T("Total CO₂-equivalent emissions of the sub-sector", "Alt sektörün toplam CO₂ eşdeğeri emisyonları")}, "inputs": ghg_inputs(shared)},
+          {"gum": {"estimate": chk(4282.04, 0.11), "standard_uncertainty": chk(835.16, 0.005)}, "mcm": {"estimate": chk(4282.1, 3.0), "standard_uncertainty": chk(835.2, 2.0)}},
+          GHG_REF, notes=GHG_NOTES, analysis={"gum": {"coverage_factor": 1.96}, "mcm": {"trials": 1000000, "seed": 5, "interval": "symmetric"}})

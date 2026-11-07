@@ -3003,6 +3003,504 @@
   }
  },
  {
+  "path": "library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum5-e5-ghg-inventory-agriculture-shared-activity",
+    "title": {
+     "en": "Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): activity data shared by CH₄ and N₂O (JCGM GUM-5 Example 5)",
+     "tr": "Sera gazı envanteri, tarımda hareketli makineler (BK 2018): CH₄ ve N₂O'nun paylaştığı faaliyet verisi (JCGM GUM-5 Örnek 5)"
+    },
+    "description": {
+     "en": "CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their standard uncertainty by the LPU, with A₂ = A₃ and A₅ = A₆ as one quantity each (5.4.9).",
+     "tr": "CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standart belirsizlikleri LPU ile, A₂ = A₃ ve A₅ = A₆ her biri tek büyüklük olarak (5.4.9)."
+    },
+    "explanation": [
+     {
+      "en": "E(CO₂e) = Σ s_i A_i F_i over two fuels and three gases, with the global warming potentials s = 11/3 (CO₂ as C), 25 (CH₄) and 298 (N₂O) taken as exact (5.4.3–5.4.4). The reported relative expanded uncertainties (95 %) are converted with k = 1.96, which reproduces the budget of Table 5.3.",
+      "tr": "E(CO₂e) = Σ s_i A_i F_i, iki yakıt ve üç gaz üzerinden; küresel ısınma potansiyelleri s = 11/3 (C olarak CO₂), 25 (CH₄) ve 298 (N₂O) kesin alınır (5.4.3–5.4.4). Raporlanan bağıl genişletilmiş belirsizlikler (%95) k = 1,96 ile dönüştürülür; bu, Tablo 5.3 bütçesini yeniden üretir."
+     },
+     {
+      "en": "The CO₂ from gas oil dominates: its contribution is 833.18 of the 835.16 kt, because the activity data for that line carry U_rel = 38.6 %. N₂O follows with 57.39 kt (emission factor U_rel = 216 %).",
+      "tr": "Gaz yağından CO₂ baskındır: 835,16 kt'nin 833,18'i ondandır, çünkü o satırın faaliyet verisi U_rel = %38,6 taşır. Ardından 57,39 kt ile N₂O gelir (emisyon faktörü U_rel = %216)."
+     },
+     {
+      "en": "The CH₄ and N₂O lines of each fuel use numerically identical activity data with identical uncertainties, taken as one quantity (5.4.8–5.4.9). u² increases by 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = 0.0345 kt², so u = 835.16171 against 835.16169 kt: invisible here because the gas-oil CO₂ dominates (5.4.10). In the idealized case of six equal contributions the ratio u²_cor/u²_ind lies between 1 and 3 (5.4.14).",
+      "tr": "Her yakıtın CH₄ ve N₂O satırları sayısal olarak aynı faaliyet verisini aynı belirsizlikle kullanır; bunlar tek büyüklük alınır (5.4.8–5.4.9). u², 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = 0,0345 kt² artar; u = 835,16171, 835,16169 kt'ye karşı: gaz yağı CO₂ baskın olduğundan burada görünmez (5.4.10). Altı eşit katkılı idealleştirilmiş durumda u²_ilişkili/u²_bağımsız oranı 1 ile 3 arasındadır (5.4.14)."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+      "section": "Example 5, Tables 5.1–5.3 and 5.4.9",
+      "url": "https://doi.org/10.59161/YNLY8209"
+     }
+    ],
+    "tags": [
+     "gum-5",
+     "ghg",
+     "emission-inventory",
+     "ipcc",
+     "linear",
+     "correlation",
+     "environment"
+    ],
+    "notes": [
+     {
+      "en": "Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).",
+      "tr": "Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84)."
+     },
+     {
+      "en": "The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.",
+      "tr": "N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "E",
+     "unit": "kt",
+     "expression": "11/3*A1*F1 + 25*A2*F2 + 298*A2*F3 + 11/3*A4*F4 + 25*A5*F5 + 298*A5*F6",
+     "description": {
+      "en": "Total CO₂-equivalent emissions of the sub-sector",
+      "tr": "Alt sektörün toplam CO₂ eşdeğeri emisyonları"
+     }
+    },
+    "inputs": [
+     {
+      "name": "A1",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, gas oil (CO2); U_rel = 38.6 % (95 %)",
+       "tr": "Faaliyet verisi, gas oil (CO2); U_rel = %38,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 56317.092,
+       "sd": 11091.0191387755
+      }
+     },
+     {
+      "name": "F1",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CO2, gas oil; U_rel = 2.7 % (95 %)",
+       "tr": "Emisyon faktörü, CO2, gas oil; U_rel = %2,7 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.020438,
+       "sd": 0.000281543877551
+      }
+     },
+     {
+      "name": "A2",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, gas oil (CH₄ and N₂O); U_rel = 1.6 % (95 %)",
+       "tr": "Faaliyet verisi, gas oil (CH₄ ve N₂O); U_rel = %1,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 56317.092,
+       "sd": 459.7313632653
+      }
+     },
+     {
+      "name": "F2",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CH4, gas oil; U_rel = 80.0 % (95 %)",
+       "tr": "Emisyon faktörü, CH4, gas oil; U_rel = %80,0 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0000035368,
+       "sd": 0.000001443591837
+      }
+     },
+     {
+      "name": "F3",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, N2O, gas oil; U_rel = 216.3 % (95 %)",
+       "tr": "Emisyon faktörü, N2O, gas oil; U_rel = %216,3 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0000030984,
+       "sd": 0.000003419305714
+      }
+     },
+     {
+      "name": "A4",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, petrol (CO2); U_rel = 50.7 % (95 %)",
+       "tr": "Faaliyet verisi, petrol (CO2); U_rel = %50,7 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 67.1856,
+       "sd": 17.3791322449
+      }
+     },
+     {
+      "name": "F4",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CO2, petrol; U_rel = 2.0 % (95 %)",
+       "tr": "Emisyon faktörü, CO2, petrol; U_rel = %2,0 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.019127,
+       "sd": 0.000195173469388
+      }
+     },
+     {
+      "name": "A5",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, petrol (CH₄ and N₂O); U_rel = 1.6 % (95 %)",
+       "tr": "Faaliyet verisi, petrol (CH₄ ve N₂O); U_rel = %1,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 67.1856,
+       "sd": 0.5484538776
+      }
+     },
+     {
+      "name": "F5",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CH4, petrol; U_rel = 80.0 % (95 %)",
+       "tr": "Emisyon faktörü, CH4, petrol; U_rel = %80,0 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.000048654,
+       "sd": 0.00001985877551
+      }
+     },
+     {
+      "name": "F6",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, N2O, petrol; U_rel = 216.3 % (95 %)",
+       "tr": "Emisyon faktörü, N2O, petrol; U_rel = %216,3 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 3.3578e-7,
+       "sd": 3.70557214e-7
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {
+     "coverage_factor": 1.96
+    },
+    "mcm": {
+     "trials": 1000000,
+     "seed": 5,
+     "interval": "symmetric"
+    }
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 4282.04,
+      "tolerance": 0.11
+     },
+     "standard_uncertainty": {
+      "value": 835.16,
+      "tolerance": 0.005
+     }
+    },
+    "mcm": {
+     "estimate": {
+      "value": 4282.1,
+      "tolerance": 3.0
+     },
+     "standard_uncertainty": {
+      "value": 835.2,
+      "tolerance": 2.0
+     }
+    },
+    "reference": {
+     "en": "JCGM GUM-5:2026, 5.4.6, (5.6), (5.8) and Table 5.3: E(CO₂e) = 4282.04 kt, u = 835.16 kt.",
+     "tr": "JCGM GUM-5:2026, 5.4.6, (5.6), (5.8) ve Tablo 5.3: E(CO₂e) = 4282,04 kt, u = 835,16 kt."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/gum5-e5-ghg-inventory-agriculture.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum5-e5-ghg-inventory-agriculture",
+    "title": {
+     "en": "Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): independent inputs (JCGM GUM-5 Example 5)",
+     "tr": "Sera gazı envanteri, tarımda hareketli makineler (BK 2018): bağımsız girdiler (JCGM GUM-5 Örnek 5)"
+    },
+    "description": {
+     "en": "CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their standard uncertainty by the LPU for independent inputs (5.5).",
+     "tr": "CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standart belirsizlikleri LPU ile, bağımsız girdiler için (5.5)."
+    },
+    "explanation": [
+     {
+      "en": "E(CO₂e) = Σ s_i A_i F_i over two fuels and three gases, with the global warming potentials s = 11/3 (CO₂ as C), 25 (CH₄) and 298 (N₂O) taken as exact (5.4.3–5.4.4). The reported relative expanded uncertainties (95 %) are converted with k = 1.96, which reproduces the budget of Table 5.3.",
+      "tr": "E(CO₂e) = Σ s_i A_i F_i, iki yakıt ve üç gaz üzerinden; küresel ısınma potansiyelleri s = 11/3 (C olarak CO₂), 25 (CH₄) ve 298 (N₂O) kesin alınır (5.4.3–5.4.4). Raporlanan bağıl genişletilmiş belirsizlikler (%95) k = 1,96 ile dönüştürülür; bu, Tablo 5.3 bütçesini yeniden üretir."
+     },
+     {
+      "en": "The CO₂ from gas oil dominates: its contribution is 833.18 of the 835.16 kt, because the activity data for that line carry U_rel = 38.6 %. N₂O follows with 57.39 kt (emission factor U_rel = 216 %).",
+      "tr": "Gaz yağından CO₂ baskındır: 835,16 kt'nin 833,18'i ondandır, çünkü o satırın faaliyet verisi U_rel = %38,6 taşır. Ardından 57,39 kt ile N₂O gelir (emisyon faktörü U_rel = %216)."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+      "section": "Example 5, Tables 5.1–5.3 and 5.4.9",
+      "url": "https://doi.org/10.59161/YNLY8209"
+     }
+    ],
+    "tags": [
+     "gum-5",
+     "ghg",
+     "emission-inventory",
+     "ipcc",
+     "linear",
+     "independent",
+     "environment"
+    ],
+    "notes": [
+     {
+      "en": "Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).",
+      "tr": "Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84)."
+     },
+     {
+      "en": "The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.",
+      "tr": "N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır."
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "E",
+     "unit": "kt",
+     "expression": "11/3*A1*F1 + 25*A2*F2 + 298*A3*F3 + 11/3*A4*F4 + 25*A5*F5 + 298*A6*F6",
+     "description": {
+      "en": "Total CO₂-equivalent emissions of the sub-sector",
+      "tr": "Alt sektörün toplam CO₂ eşdeğeri emisyonları"
+     }
+    },
+    "inputs": [
+     {
+      "name": "A1",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, gas oil (CO2); U_rel = 38.6 % (95 %)",
+       "tr": "Faaliyet verisi, gas oil (CO2); U_rel = %38,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 56317.092,
+       "sd": 11091.0191387755
+      }
+     },
+     {
+      "name": "F1",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CO2, gas oil; U_rel = 2.7 % (95 %)",
+       "tr": "Emisyon faktörü, CO2, gas oil; U_rel = %2,7 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.020438,
+       "sd": 0.000281543877551
+      }
+     },
+     {
+      "name": "A2",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, gas oil (CH4); U_rel = 1.6 % (95 %)",
+       "tr": "Faaliyet verisi, gas oil (CH4); U_rel = %1,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 56317.092,
+       "sd": 459.7313632653
+      }
+     },
+     {
+      "name": "F2",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CH4, gas oil; U_rel = 80.0 % (95 %)",
+       "tr": "Emisyon faktörü, CH4, gas oil; U_rel = %80,0 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0000035368,
+       "sd": 0.000001443591837
+      }
+     },
+     {
+      "name": "A3",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, gas oil (N2O); U_rel = 1.6 % (95 %)",
+       "tr": "Faaliyet verisi, gas oil (N2O); U_rel = %1,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 56317.092,
+       "sd": 459.7313632653
+      }
+     },
+     {
+      "name": "F3",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, N2O, gas oil; U_rel = 216.3 % (95 %)",
+       "tr": "Emisyon faktörü, N2O, gas oil; U_rel = %216,3 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0000030984,
+       "sd": 0.000003419305714
+      }
+     },
+     {
+      "name": "A4",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, petrol (CO2); U_rel = 50.7 % (95 %)",
+       "tr": "Faaliyet verisi, petrol (CO2); U_rel = %50,7 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 67.1856,
+       "sd": 17.3791322449
+      }
+     },
+     {
+      "name": "F4",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CO2, petrol; U_rel = 2.0 % (95 %)",
+       "tr": "Emisyon faktörü, CO2, petrol; U_rel = %2,0 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.019127,
+       "sd": 0.000195173469388
+      }
+     },
+     {
+      "name": "A5",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, petrol (CH4); U_rel = 1.6 % (95 %)",
+       "tr": "Faaliyet verisi, petrol (CH4); U_rel = %1,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 67.1856,
+       "sd": 0.5484538776
+      }
+     },
+     {
+      "name": "F5",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, CH4, petrol; U_rel = 80.0 % (95 %)",
+       "tr": "Emisyon faktörü, CH4, petrol; U_rel = %80,0 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.000048654,
+       "sd": 0.00001985877551
+      }
+     },
+     {
+      "name": "A6",
+      "unit": "TJ",
+      "description": {
+       "en": "Activity data, petrol (N2O); U_rel = 1.6 % (95 %)",
+       "tr": "Faaliyet verisi, petrol (N2O); U_rel = %1,6 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 67.1856,
+       "sd": 0.5484538776
+      }
+     },
+     {
+      "name": "F6",
+      "unit": "kt/TJ",
+      "description": {
+       "en": "Emission factor, N2O, petrol; U_rel = 216.3 % (95 %)",
+       "tr": "Emisyon faktörü, N2O, petrol; U_rel = %216,3 (%95)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 3.3578e-7,
+       "sd": 3.70557214e-7
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {
+     "coverage_factor": 1.96
+    },
+    "mcm": {
+     "trials": 1000000,
+     "seed": 5,
+     "interval": "symmetric"
+    }
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 4282.04,
+      "tolerance": 0.11
+     },
+     "standard_uncertainty": {
+      "value": 835.16,
+      "tolerance": 0.005
+     }
+    },
+    "mcm": {
+     "estimate": {
+      "value": 4282.1,
+      "tolerance": 3.0
+     },
+     "standard_uncertainty": {
+      "value": 835.2,
+      "tolerance": 2.0
+     }
+    },
+    "reference": {
+     "en": "JCGM GUM-5:2026, 5.4.6, (5.6), (5.8) and Table 5.3: E(CO₂e) = 4282.04 kt, u = 835.16 kt.",
+     "tr": "JCGM GUM-5:2026, 5.4.6, (5.6), (5.8) ve Tablo 5.3: E(CO₂e) = 4282,04 kt, u = 835,16 kt."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/iso13528-e1-censored-deleted.json",
   "project": {
    "format": "uncertainty-calculations/project",

@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (107)
+- Kimya (109)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -322,6 +322,55 @@ IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağı
 - Basılı Tablo 4.6 üç yerde farklıdır (araştırma günlüğü F82): u(y_CO₂) = 5 µmol/mol ve u_rel %0,003, yeniden hesaplanan 3,96 µmol/mol ve %0,0020'ye karşı; y_H₂O = 0,379, 0,389 µmol/mol'e karşı (0,2003 × 1,9 + 0,7996 × 0,010); r(Ar, N₂) = −0,50 ve r(CO₂, O₂) = −0,08, −0,55 ve −0,10'a karşı. Diğer değerler uyumludur.
 
 **Çalıştırma:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang tr`
+
+### Sera gazı envanteri, tarımda hareketli makineler (BK 2018): bağımsız girdiler (JCGM GUM-5 Örnek 5)
+
+`gum5-e5-ghg-inventory-agriculture` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standart belirsizlikleri LPU ile, bağımsız girdiler için (5.5).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E(CO₂e) = Σ s_i A_i F_i, iki yakıt ve üç gaz üzerinden; küresel ısınma potansiyelleri s = 11/3 (C olarak CO₂), 25 (CH₄) ve 298 (N₂O) kesin alınır (5.4.3–5.4.4). Raporlanan bağıl genişletilmiş belirsizlikler (%95) k = 1,96 ile dönüştürülür; bu, Tablo 5.3 bütçesini yeniden üretir.
+2. Gaz yağından CO₂ baskındır: 835,16 kt'nin 833,18'i ondandır, çünkü o satırın faaliyet verisi U_rel = %38,6 taşır. Ardından 57,39 kt ile N₂O gelir (emisyon faktörü U_rel = %216).
+
+**Sonuç:**
+
+- E = (4300 ± 1600) kt; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84).
+- N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang tr`
+
+### Sera gazı envanteri, tarımda hareketli makineler (BK 2018): CH₄ ve N₂O'nun paylaştığı faaliyet verisi (JCGM GUM-5 Örnek 5)
+
+`gum5-e5-ghg-inventory-agriculture-shared-activity` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standart belirsizlikleri LPU ile, A₂ = A₃ ve A₅ = A₆ her biri tek büyüklük olarak (5.4.9).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E(CO₂e) = Σ s_i A_i F_i, iki yakıt ve üç gaz üzerinden; küresel ısınma potansiyelleri s = 11/3 (C olarak CO₂), 25 (CH₄) ve 298 (N₂O) kesin alınır (5.4.3–5.4.4). Raporlanan bağıl genişletilmiş belirsizlikler (%95) k = 1,96 ile dönüştürülür; bu, Tablo 5.3 bütçesini yeniden üretir.
+2. Gaz yağından CO₂ baskındır: 835,16 kt'nin 833,18'i ondandır, çünkü o satırın faaliyet verisi U_rel = %38,6 taşır. Ardından 57,39 kt ile N₂O gelir (emisyon faktörü U_rel = %216).
+3. Her yakıtın CH₄ ve N₂O satırları sayısal olarak aynı faaliyet verisini aynı belirsizlikle kullanır; bunlar tek büyüklük alınır (5.4.8–5.4.9). u², 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = 0,0345 kt² artar; u = 835,16171, 835,16169 kt'ye karşı: gaz yağı CO₂ baskın olduğundan burada görünmez (5.4.10). Altı eşit katkılı idealleştirilmiş durumda u²_ilişkili/u²_bağımsız oranı 1 ile 3 arasındadır (5.4.14).
+
+**Sonuç:**
+
+- E = (4300 ± 1600) kt; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84).
+- N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang tr`
 
 ### Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1)
 

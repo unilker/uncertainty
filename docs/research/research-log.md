@@ -2363,3 +2363,32 @@ The library has 227 projects.
 with those of Table 9.2. The interval at four decimals is the same.
 
 The library has 229 projects.
+
+**GUM-5:2026 Example 5 (GHG inventory, mobile machinery in agriculture).**
+
+- The relative expanded uncertainties (95 %) of Table 5.1 are converted with
+  k = 1.96. That reproduces Table 5.3 to four decimals (833.1844, 2.0329,
+  57.3860, 1.2198, 0.0334, 0.0074 kt) and u = 835.16 kt.
+- With shared activity data the increase of u² by (5.9) is 0.0345 kt², so
+  u_cor = 835.161 71 against 835.161 69 kt.
+- Library projects: `gum5-e5-ghg-inventory-agriculture` and
+  `-shared-activity` (A₂ = A₃, A₅ = A₆ as one input). Both include an MCM
+  check.
+
+**F84. GUM-5 Example 5 — estimate, notation and data (classes a and b).**
+
+1. **Estimate (class a).** Table 5.2 sums rounded contributions to
+   4282.0409 kt. From Table 5.1 the model gives 4282.144 kt, because
+   F₁ = 2.0438·10⁻² is rounded: E₁ = 1150.9806 kt corresponds to
+   F₁ = 2.043 75·10⁻². u is unaffected at the printed digits.
+2. **Notation (class b).** 5.4.14 defines "u_rel(A) = u_F/A"; it should be
+   u_A/A.
+3. **Data (noted, not an error).**
+   - Table 5.1 also gives A₁ the same value as A₂ and A₃ (56 317.0920 TJ of
+     gas oil), but with U_rel = 38.6 % instead of 1.6 %.
+   - If the three lines share one activity, the CO₂ line carries an extra
+     uncertainty that is not the activity's. The guide discusses only
+     A₂ = A₃.
+   - 5.4.5 quotes the inventory's U = 1635 kt; 1.96 × 835.16 = 1637 kt.
+
+The library has 231 projects.
