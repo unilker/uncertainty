@@ -2408,10 +2408,11 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
 4. Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir.
+5. Kestirimin ikinci mertebe terimiyle, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; JCGM 100:2008/Amd.1:2026 ile 4.1.4'e eklenen not 1), GUM kestirimi analitik değer olan 50·10⁻⁶ olur. JCGM 101:2008 Tablo 8 GUM çerçevesi için 0·10⁻⁶ basar; 9.4.2.2.8 bunu geçersiz sayar.
 
 **Sonuç:**
 
-- dY = (0 ± 640) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (50 ± 640) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang tr`
 
@@ -2450,10 +2451,11 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
 4. Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir.
+5. Kestirimin ikinci mertebe terimiyle, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; JCGM 100:2008/Amd.1:2026 ile 4.1.4'e eklenen not 1), GUM kestirimi analitik değer olan 150·10⁻⁶ olur. JCGM 101:2008 Tablo 8 GUM çerçevesi için 100·10⁻⁶ basar; 9.4.2.2.8 bunu geçersiz sayar.
 
 **Sonuç:**
 
-- dY = (100 ± 220) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (150 ± 220) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang tr`
 
@@ -2492,10 +2494,11 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
 4. Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir.
+5. Kestirimin ikinci mertebe terimiyle, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; JCGM 100:2008/Amd.1:2026 ile 4.1.4'e eklenen not 1), GUM kestirimi analitik değer olan 2550·10⁻⁶ olur. JCGM 101:2008 Tablo 8 GUM çerçevesi için 2500·10⁻⁶ basar; 9.4.2.2.8 bunu geçersiz sayar.
 
 **Sonuç:**
 
-- dY = (2500 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (2550 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang tr`
 

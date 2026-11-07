@@ -2408,10 +2408,11 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
 4. The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.
+5. With the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; note 1 to 4.1.4 added by JCGM 100:2008/Amd.1:2026), the GUM estimate becomes 50·10⁻⁶, the analytic value. Table 8 of JCGM 101:2008 prints 0·10⁻⁶ for the GUM framework, which 9.4.2.2.8 calls invalid.
 
 **Result:**
 
-- dY = (0 ± 640) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
+- dY = (50 ± 640) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang en`
 
@@ -2450,10 +2451,11 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
 4. The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.
+5. With the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; note 1 to 4.1.4 added by JCGM 100:2008/Amd.1:2026), the GUM estimate becomes 150·10⁻⁶, the analytic value. Table 8 of JCGM 101:2008 prints 100·10⁻⁶ for the GUM framework, which 9.4.2.2.8 calls invalid.
 
 **Result:**
 
-- dY = (100 ± 220) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (150 ± 220) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang en`
 
@@ -2492,10 +2494,11 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
 4. The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.
+5. With the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; note 1 to 4.1.4 added by JCGM 100:2008/Amd.1:2026), the GUM estimate becomes 2550·10⁻⁶, the analytic value. Table 8 of JCGM 101:2008 prints 2500·10⁻⁶ for the GUM framework, which 9.4.2.2.8 calls invalid.
 
 **Result:**
 
-- dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (2550 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang en`
 

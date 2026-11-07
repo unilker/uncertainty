@@ -117,6 +117,17 @@ mertebe terimlerle katkıda bulunuyorsa rapor uyarır ve birinci mertebe değerl
 belirtir (GUM H.1'de %12). Terimleri `"gum": { "higher_order": true }` ile etkinleştiriniz; program bu durumda
 notun normal dağılımlı girdiler varsaydığı konusunda uyarır. Bu durumlarda güvenilir denetim Monte Carlo yöntemidir (4. bölüm).
 
+**Kestirim.** GUM'un 1. düzeltmesi (JCGM 100:2008/Amd.1:2026) 4.1.4'e not 1'i ekler: doğrusal olmama belirginse
+Taylor serisinin ikinci mertebe terimi kestirime de eklenmelidir:
+
+$$y = f(x_1, \dots, x_N) + \tfrac12\sum_i\sum_j \frac{\partial^2 f}{\partial x_i\,\partial x_j}\,u(x_i, x_j).$$
+
+Bu, GUM Denklem (H.10)'dur; bağımsız girdilerde yalnızca ∂²f/∂xᵢ² u²(xᵢ) terimleri kalır. Program bu terimi her zaman
+hesaplar (JSON sonuçlarında `second_order_estimate_term`). `"higher_order": true` ile terimi y'ye ekler ve aralığı
+düzeltilmiş kestirime ortalar. Seçenek kapalıyken terim u_c(y)'nin onda birini aşarsa rapor uyarır. JCGM 101 9.4'ün
+karşılaştırma kaybı δY = X₁² + X₂² için düzeltilmiş kestirim analitik ortalamaya eşittir (x₁ = 0'da 50·10⁻⁶); birinci
+mertebe kestirim 0 ise geçersizdir (JCGM 101 9.4.2.2.8). GUM H.1'de terim, Amd.1'in belirttiği gibi sıfırdır.
+
 ## 3.6 Serbestlik dereceleri ve Welch–Satterthwaite formülü
 
 Birleşik standart belirsizliğin **etkin serbestlik derecesi** (GUM G.4.1, Eş. G.2b):

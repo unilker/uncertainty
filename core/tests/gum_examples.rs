@@ -103,6 +103,10 @@ fn h1_end_gauge() {
     close(t1, 11.7, 0.05, "l_s u(δα) u(θ)");
     close(t2, 1.7, 0.05, "l_s u(α_s) u(δθ)");
     close(g2.higher_order_variance, t1 * t1 + t2 * t2, 1e-6, "second-order variance");
+    // JCGM 100:2008/Amd.1:2026, H.1.7: "the first expression given in note 1 to
+    // 4.1.4 is equal to zero, so that the estimate l is unaffected".
+    close(g2.second_order_estimate_term, 0.0, 1e-12, "second-order term of the estimate (H.1)");
+    close(g2.estimate, g.estimate, 1e-9, "estimate unchanged by Amd.1");
     // Non-Gaussian inputs: the engine warns that the 5.1.2 note assumes normality.
     assert_eq!(g2.warnings, vec![gum::GumWarning::HigherOrderNonGaussian]);
 
@@ -198,4 +202,45 @@ fn zero_sensitivity_warning_only_when_second_order_matters() {
     );
     let g2 = gum::evaluate(&model, &GumOptions { higher_order: true, ..Default::default() }).unwrap();
     assert!(g2.warnings.is_empty());
+}
+
+#[test]
+fn second_order_term_of_the_estimate_amd1_2026() {
+    // Note 1 to 4.1.4 (Amd.1:2026): y = f(x) + ½Σ ∂²f/∂xᵢ² u²(xᵢ) for
+    // independent normal inputs. Comparison loss δY = X₁² + X₂² at x = 0,
+    // u = 0.005 (JCGM 101 9.4): the term is u₁² + u₂² = 5·10⁻⁵, the analytic mean.
+    let model = Model::builder()
+        .input(q("x1", 0.0, 0.005, None))
+        .input(q("x2", 0.0, 0.005, None))
+        .output("dY", "x1^2 + x2^2")
+        .build()
+        .unwrap();
+    let g1 = gum::evaluate(&model, &GumOptions::default()).unwrap();
+    close(g1.estimate, 0.0, 1e-15, "first order: f(x)");
+    close(g1.second_order_estimate_term, 5e-5, 1e-15, "term evaluated without higher order");
+    let g2 = gum::evaluate(&model, &GumOptions { higher_order: true, ..Default::default() }).unwrap();
+    close(g2.estimate, 5e-5, 1e-15, "estimate with the second-order term");
+    close(g2.combined_standard_uncertainty, 5e-5, 1e-15, "u_c with the 5.1.2 note");
+    assert!((g2.interval.0 + g2.interval.1) / 2.0 - 5e-5 < 1e-15, "interval centred on the corrected estimate");
+
+    // Correlated inputs (GUM H.10): y = a·b with r(a, b) = 0.5 gives
+    // ½(∂²f/∂a∂b + ∂²f/∂b∂a) r u(a) u(b) = r u(a) u(b); the warning appears
+    // when the term exceeds u_c/10 and higher-order terms are off.
+    let model = Model::builder()
+        .input(q("a", 0.0, 1.0, None))
+        .input(q("b", 0.0, 1.0, None))
+        .output("y", "a*b + 0.1*a")
+        .correlation("a", "b", 0.5)
+        .build()
+        .unwrap();
+    let g = gum::evaluate(&model, &GumOptions::default()).unwrap();
+    close(g.second_order_estimate_term, 0.5, 1e-12, "r u(a) u(b)");
+    close(g.estimate, 0.0, 1e-15, "f(x) without higher-order terms");
+    assert!(
+        g.warnings
+            .iter()
+            .any(|w| matches!(w, gum::GumWarning::NonlinearEstimate { ratio, .. } if (ratio - 5.0).abs() < 1e-9)),
+        "{:?}",
+        g.warnings
+    );
 }

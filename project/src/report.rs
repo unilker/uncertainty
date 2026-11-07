@@ -445,6 +445,10 @@ fn model_statements(p: &Project, a: &Analysis, lang: Lang) -> Vec<String> {
         .collect()
 }
 
+fn spec_higher_order(p: &Project) -> bool {
+    p.analysis.gum.as_ref().is_some_and(|g| g.higher_order)
+}
+
 /// A GUM warning in the report language.
 pub fn warning_text(w: &GumWarning, lang: Lang) -> String {
     match (w, lang) {
@@ -462,6 +466,12 @@ pub fn warning_text(w: &GumWarning, lang: Lang) -> String {
              yüksek mertebe terimleri etkinleştiriniz veya Monte Carlo yöntemini kullanınız",
             inputs.join(", "),
             100.0 * missing_share
+        ),
+        (GumWarning::NonlinearEstimate { term, ratio }, Lang::Tr) => format!(
+            "model doğrusal değildir: kestirimin ikinci mertebe terimi, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = {term:.3e}, u_c(y)'nin \
+             {} katıdır (JCGM 100:2008/Amd.1:2026, 4.1.4'e not 1) — yüksek mertebe terimleri etkinleştiriniz veya Monte \
+             Carlo yöntemini kullanınız",
+            format!("{ratio:.2}").replace('.', ",")
         ),
     }
 }
@@ -574,6 +584,21 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
         let _ =
             writeln!(s, "- {}: {}{unit}", l.estimate, fmt_estimate(g.estimate, g.combined_standard_uncertainty, lang));
         let _ = writeln!(s, "- {}: {}{unit}", l.combined, n3(g.combined_standard_uncertainty));
+        if spec_higher_order(p) {
+            let line = match lang {
+                Lang::En => format!(
+                    "- Second-order terms included: ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = {}{unit} added to f(x) (GUM H.10; JCGM 100:2008/Amd.1:2026, note 1 to 4.1.4) and {} added to u_c²(y) (GUM 5.1.2, note)",
+                    n3(g.second_order_estimate_term),
+                    n3(g.higher_order_variance)
+                ),
+                Lang::Tr => format!(
+                    "- İkinci mertebe terimler dahil: f(x)'e ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = {}{unit} eklendi (GUM H.10; JCGM 100:2008/Amd.1:2026, 4.1.4'e not 1), u_c²(y)'ye {} eklendi (GUM 5.1.2, not)",
+                    n3(g.second_order_estimate_term),
+                    n3(g.higher_order_variance)
+                ),
+            };
+            let _ = writeln!(s, "{line}");
+        }
         let _ = writeln!(s, "- {}: {}", l.eff_dof, n3(g.effective_dof));
         match (&g.dominant_rectangular, lang) {
             (Some((name, r)), Lang::En) => {

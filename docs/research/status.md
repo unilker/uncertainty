@@ -53,7 +53,13 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 ## 3. Nerede kaldık / bekleyenler
 
-**Kullanıcıdan beklenen makaleler.** Bunlar açık erişimli olsa da buradan
+**Belge klasörü (2026-11-07'den beri):**
+https://drive.google.com/drive/folders/1mgbbHJlYKsij_6twWugM8m19LktEnjk7
+
+Klasörde 92 dosya var; envanter ve kullanım sırası `drive-inventory-2026-11.md`'de. Eski klasör paylaşımdan
+kaldırıldı.
+
+**Kullanıcıdan beklenen makaleler.** Aşağıdakilerden yalnızca IUPAC 2024 geldi; diğerleri hâlâ eksik. Bunlar açık erişimli olsa da buradan
 indirilemedi; Drive klasörüne konacak:
 
 1. Possolo et al. 2024, IUPAC kısa rehberi — 10.1515/pac-2022-1203 (kütüphaneye kimya örnekleri)

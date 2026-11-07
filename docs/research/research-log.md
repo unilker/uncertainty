@@ -1983,3 +1983,45 @@ lost with the temporary working area:
 
 Licensed documents and their text extracts remain outside the repository.
 
+## 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026
+
+The author moved all papers and reference documents to a new Google Drive
+folder (92 files, `sources-provenance.md`). The previous folder is no longer
+shared. The inventory and the order of use are in `drive-inventory-2026-11.md`.
+
+**D56. Second-order term of the estimate (JCGM 100:2008/Amd.1:2026).**
+
+- Amendment 1 of the GUM adds note 1 to 4.1.4: when the nonlinearity of f is
+  significant, a Monte Carlo method can be applied, or higher-order Taylor
+  terms "must be included in the expression for y". For independent normal
+  inputs the next term is ½Σ ∂²f/∂xᵢ² u²(xᵢ). Equation (H.10) generalizes it
+  to ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ).
+- The amendment also rewrites H.1.7: the term is zero for the gauge block, so
+  only the variance terms of the 5.1.2 note matter there.
+- The program now always evaluates the term (`second_order_estimate_term`).
+  With `higher_order` it is added to y and the interval is centred on the
+  corrected estimate. Otherwise a warning `nonlinear_estimate` is given when
+  the term exceeds u_c(y)/10.
+- The threshold of a tenth of u_c is the program's choice: such a shift
+  changes the second significant digit of a result reported with u to two
+  digits.
+- The variance terms of the 5.1.2 note stay restricted to independent inputs.
+  The estimate term uses the correlations (H.10).
+
+Effect on the library:
+
+- In JCGM 101 9.4 (comparison loss δY = X₁² + X₂², higher-order terms on)
+  the GUM estimate becomes 50, 150 and 2550·10⁻⁶ for x₁ = 0, 0.010 and 0.050.
+  These are the analytic means, which MCM reproduces. Table 8 of JCGM 101:2008
+  prints 0, 100 and 2500·10⁻⁶, which 9.4.2.2.8 itself calls invalid. The
+  three projects now check the analytic estimates.
+- GUM H.1: the term is 0 (core test), as Amd.1 H.1.7 states.
+- EA-4/02 S4 and S13: the term is 0 (products of independent inputs).
+- Without higher-order terms the warning now appears for:
+  - NUM §3 ratio a/b·c (term 0.30 u_c);
+  - TN 1900 E3, the falling-ball viscometer (0.125 u_c);
+  - the correlated JCGM 101 9.4 cases (0.5 and 0.1 u_c).
+
+  Their printed results are first-order, so the expected values do not
+  change.
+

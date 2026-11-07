@@ -584,6 +584,7 @@ pub fn warning_code(w: &gum::GumWarning) -> &'static str {
         gum::GumWarning::HigherOrderNonGaussian => "higher_order_non_gaussian",
         gum::GumWarning::WelchSatterthwaiteCorrelated => "welch_satterthwaite_correlated",
         gum::GumWarning::ZeroSensitivity { .. } => "zero_sensitivity",
+        gum::GumWarning::NonlinearEstimate { .. } => "nonlinear_estimate",
     }
 }
 
@@ -689,6 +690,7 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
             "standard_uncertainty": g.combined_standard_uncertainty,
             "first_order_uncertainty": g.first_order_uncertainty,
             "higher_order_variance": g.higher_order_variance,
+            "second_order_estimate_term": g.second_order_estimate_term,
             "correlation_variance": g.correlation_variance,
             "effective_dof": if g.effective_dof.is_finite() { json!(g.effective_dof) } else { json!("inf") },
             "coverage_factor": g.coverage_factor,

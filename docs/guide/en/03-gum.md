@@ -121,6 +121,18 @@ the share of the variance the first-order evaluation misses (12 % in GUM H.1). E
 `"gum": { "higher_order": true }`; the program then warns that the note assumes Gaussian inputs. In such cases the
 Monte Carlo method (chapter 4) is the reliable check.
 
+**The estimate.** Amendment 1 of the GUM (JCGM 100:2008/Amd.1:2026) adds note 1 to 4.1.4: when the nonlinearity is
+significant, the second-order term of the Taylor series must also be added to the estimate,
+
+$$y = f(x_1, \dots, x_N) + \tfrac12\sum_i\sum_j \frac{\partial^2 f}{\partial x_i\,\partial x_j}\,u(x_i, x_j),$$
+
+which is GUM Equation (H.10); for independent inputs only the terms ∂²f/∂xᵢ² u²(xᵢ) remain. The program always
+evaluates this term (`second_order_estimate_term` in the JSON results). With `"higher_order": true` it adds the term
+to y and centres the interval on the corrected estimate. Without it, the report warns when the term exceeds a tenth
+of u_c(y). For the comparison loss δY = X₁² + X₂² of JCGM 101 9.4 the corrected estimate equals the analytic mean
+(50·10⁻⁶ at x₁ = 0), where the first-order estimate 0 is invalid (JCGM 101 9.4.2.2.8). In GUM H.1 the term is zero,
+as Amd.1 states.
+
 ## 3.6 Degrees of freedom and the Welch–Satterthwaite formula
 
 The **effective degrees of freedom** of the combined standard uncertainty (GUM G.4.1, Eq. G.2b):

@@ -3,7 +3,9 @@
 //! * Law of propagation of uncertainty, first order, with correlations
 //!   [GUM 5.1.2, 5.2.2, equations (10) and (13)].
 //! * Optional higher-order terms of the GUM 5.1.2 note (independent,
-//!   normally distributed inputs).
+//!   normally distributed inputs), and the second-order term of the estimate,
+//!   ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) [GUM H.10; JCGM 100:2008/Amd.1:2026, note 1 to
+//!   4.1.4].
 //! * Effective degrees of freedom by the Welch–Satterthwaite formula
 //!   [GUM G.4.1, equation (G.2b)] and coverage factor from the
 //!   t-distribution [GUM G.3, G.6.4].
@@ -42,7 +44,8 @@ pub enum CoverageSpec {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GumOptions {
     pub coverage: CoverageSpec,
-    /// Include the second-order terms of the GUM 5.1.2 note.
+    /// Include the second-order terms of the GUM 5.1.2 note in u_c(y) and the
+    /// second-order term of note 1 to 4.1.4 (Amd.1:2026) in y.
     pub higher_order: bool,
     pub dof_rounding: DofRounding,
 }
@@ -72,8 +75,13 @@ pub struct BudgetRow {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GumResult {
-    /// Output estimate y = f(x₁, …, x_N) [GUM 4.1.4].
+    /// Output estimate y = f(x₁, …, x_N) [GUM 4.1.4], plus the second-order
+    /// term when higher-order terms are requested.
     pub estimate: f64,
+    /// Second-order term of the estimate, δ = ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ)
+    /// [GUM H.10; Amd.1:2026, note 1 to 4.1.4]; always evaluated, added to
+    /// `estimate` only with higher-order terms.
+    pub second_order_estimate_term: f64,
     pub combined_standard_uncertainty: f64,
     /// u_c(y) from first-order terms only.
     pub first_order_uncertainty: f64,
@@ -105,6 +113,9 @@ pub enum GumWarning {
     /// first-order evaluation misses; `missing_share` is the estimated share
     /// of the variance missed (GUM 5.1.2 note).
     ZeroSensitivity { inputs: Vec<String>, missing_share: f64 },
+    /// The second-order term of the estimate (Amd.1:2026, note 1 to 4.1.4)
+    /// exceeds a tenth of u_c(y) and higher-order terms were not requested.
+    NonlinearEstimate { term: f64, ratio: f64 },
 }
 
 impl std::fmt::Display for GumWarning {
@@ -127,6 +138,13 @@ impl std::fmt::Display for GumWarning {
                  note) — enable the higher-order terms or use the Monte Carlo method",
                 inputs.join(", "),
                 100.0 * missing_share
+            ),
+            GumWarning::NonlinearEstimate { term, ratio } => write!(
+                f,
+                "the model is nonlinear: the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = {term:.3e}, \
+                 is {:.2} u_c(y) (JCGM 100:2008/Amd.1:2026, note 1 to 4.1.4) — enable the higher-order terms or use \
+                 the Monte Carlo method",
+                ratio
             ),
         }
     }
@@ -199,6 +217,25 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
             let r = model.correlation[i][j];
             if r != 0.0 {
                 correlation_var += 2.0 * ui_y[i] * ui_y[j] * r;
+            }
+        }
+    }
+
+    // Second-order term of the estimate [GUM H.10; Amd.1:2026, note 1 to
+    // 4.1.4]: ½ Σ_i Σ_j ∂²f/∂x_i∂x_j u(x_i, x_j).
+    let mut second_order_term = 0.0;
+    for i in 0..n {
+        if u[i] == 0.0 {
+            continue;
+        }
+        for j in 0..n {
+            let r = if i == j { 1.0 } else { model.correlation[i][j] };
+            if u[j] == 0.0 || r == 0.0 {
+                continue;
+            }
+            let fij = first[i].diff(j).eval(&x);
+            if fij.is_finite() {
+                second_order_term += 0.5 * fij * r * u[i] * u[j];
             }
         }
     }
@@ -276,6 +313,10 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         ));
     }
     let uc = combined_var.sqrt();
+    let estimate = if options.higher_order { y + second_order_term } else { y };
+    if !options.higher_order && uc > 0.0 && second_order_term.abs() > 0.1 * uc {
+        warnings.push(GumWarning::NonlinearEstimate { term: second_order_term, ratio: second_order_term.abs() / uc });
+    }
 
     // Welch–Satterthwaite [GUM G.2b]. Higher-order variance is treated as
     // having infinite degrees of freedom (documented assumption).
@@ -341,7 +382,8 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         .collect();
 
     Ok(GumResult {
-        estimate: y,
+        estimate,
+        second_order_estimate_term: second_order_term,
         combined_standard_uncertainty: uc,
         first_order_uncertainty: (first_order_var + correlation_var).max(0.0).sqrt(),
         correlation_variance: correlation_var,
@@ -350,7 +392,7 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         coverage_factor: k,
         coverage_probability: p,
         expanded_uncertainty: expanded,
-        interval: (y - expanded, y + expanded),
+        interval: (estimate - expanded, estimate + expanded),
         budget,
         warnings,
         dominant_rectangular,

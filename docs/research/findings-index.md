@@ -92,7 +92,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F75 | cg-18 H2.4/A — first-order U(W) of intervals 2 and 3 (class b). | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
 | F76 | cg-18 H1.4/B — tare term (class b). | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
 
-## Decisions (55)
+## Decisions (56)
 
 | D | Decision | Session |
 |---|---|---|
@@ -151,3 +151,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D53 | Recomputation of Supplementary Material 06 | 2026-10-27 (session 18) — Software tools: full texts and the MUPR spreadsheet |
 | D54 | Weighted mean recovery and given recoveries. | 2026-10-27 (session 18) — Software tools: full texts and the MUPR spreadsheet |
 | D55 | `error_function.in_use`. | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
+| D56 | Second-order term of the estimate (JCGM 100:2008/Amd.1:2026). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
