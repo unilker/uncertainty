@@ -40,7 +40,7 @@ Key to the columns:
 | File | Status | Use | Order |
 |---|---|---|---|
 | 10 NIST TN 1900; 14 Possolo 2016 (Metrologia) | used / new | TN 1900 already in the library | — |
-| 11 Possolo & Meija 2022, *Measurement Uncertainty: A Reintroduction* | new | examples for the library; Bayesian and consensus methods | 4 |
+| 11 Possolo & Meija 2022, *Measurement Uncertainty: A Reintroduction* | **done in part** (D68, F96): Hubble, anion gap, tank, Wheatstone, lead; kudzu and the ARMA, counting and model-averaging examples need methods not in the program | examples for the library; Bayesian and consensus methods | 4 |
 | 12 EMPIR EMUE compendium 2021 (41 examples) | new | **library**: E1.1, E2.1, E2.2, E3.3, E3.4, E3.8, E5.1, E6.5 done (F85–F91, D63) | done in part |
 | 30 Possolo et al. 2024, IUPAC brief guide | arrived | chemistry examples for the library: 3A, 3E, 4A, 4B, 4F, 4I, 4M, 4N done (F92, F94, D66, D67) | done in part |
 | 39 Possolo & Iyer 2017 | new | article background | 6 |

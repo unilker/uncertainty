@@ -399,7 +399,8 @@ the Linear Pool. Expected values: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `b
 `degrees_of_equivalence` (per name: `d`, `expanded`). See 9.7.
 
 `"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (all optional; `"bayes": {}` uses the
-NICOB defaults) adds the Bayesian random-effects model.
+NICOB defaults) adds the Bayesian random-effects model; `"effects": "laplace"` gives the laboratory effects a Laplace
+distribution (NIST Decision Tree).
 
 ## 7.15 Errors
 

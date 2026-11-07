@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**259 examples / örnek** (123 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 23 conformity assessment / uygunluk değerlendirmesi).
+**264 examples / örnek** (126 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 24 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -44,6 +44,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`iupac2024-4i-argentometric-titration`](chemistry/iupac2024-4i-argentometric-titration.json) | Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I) | Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I) | Possolo et al. Examples 3A and 4I |
 | [`nist-tn1900-e8-molecular-weight-co2`](chemistry/nist-tn1900-e8-molecular-weight-co2.json) | Molecular weight of carbon dioxide (NIST TN 1900 E8) | Karbondioksitin molekül ağırlığı (NIST TN 1900 E8) | NIST Technical Note 1900 Example E8, Exhibit 12 |
 | [`nist-tn1900-e9-cadmium-standard`](chemistry/nist-tn1900-e9-cadmium-standard.json) | Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9) | Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9) | NIST Technical Note 1900 Example E9 |
+| [`possolo-meija-2022-plasma-anion-gap`](chemistry/possolo-meija-2022-plasma-anion-gap.json) | Plasma anion gap: a linear combination of four ion concentrations (Possolo & Meija 2022) | Plazma anyon açığı: dört iyon derişiminin doğrusal birleşimi (Possolo & Meija 2022) | Possolo & Meija Sums, Products, and Ratios: Plasma Anion Gap, pp. 16–18 |
 | [`quam-a1-cadmium-standard-volume`](chemistry/quam-a1-cadmium-standard-volume.json) | Cadmium standard with the volume sub-model | Hacim alt modelli kadmiyum standardı | EURACHEM/CITAC Guide CG 4 Example A1, A1.4 |
 | [`quam-a1-cadmium-standard`](chemistry/quam-a1-cadmium-standard.json) | Preparation of a cadmium calibration standard | Kadmiyum kalibrasyon standardının hazırlanması | EURACHEM/CITAC Guide CG 4 Example A1, Tables A1.2 and A1.3 |
 | [`quam-a2-naoh-standardisation-submodels`](chemistry/quam-a2-naoh-standardisation-submodels.json) | NaOH standardisation with sub-models | Alt modellerle NaOH ayarlanması | EURACHEM/CITAC Guide CG 4 Example A2, A2.4 |
@@ -63,6 +64,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`gum5-e4-gravimetric-gas-mixture`](chemistry/gum5-e4-gravimetric-gas-mixture.json) | Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4) | N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4) | JCGM GUM-5:2026 Example 4, Tables 4.1–4.6 and 4.3.6.9 |
 | [`iupac2024-3a-argentometric-titration-ksp`](chemistry/iupac2024-3a-argentometric-titration-ksp.json) | Argentometric titration (Mohr) with the endpoint chemistry: implicit model with the solubility products of AgCl and Ag₂CrO₄ (IUPAC 2024, Examples 3A and 4I) | Dönüm noktası kimyasıyla arjantometrik titrasyon (Mohr): AgCl ve Ag₂CrO₄ çözünürlük çarpımlı örtük model (IUPAC 2024, Örnek 3A ve 4I) | Possolo et al. Examples 3A and 4I; Meija et al., Eq. (19) |
 | [`iupac2024-4b-silicon-isotopic-abundances`](chemistry/iupac2024-4b-silicon-isotopic-abundances.json) | Isotopic abundances of silicon from two measured isotope amount ratios (IUPAC 2024, Example 4B) | Ölçülen iki izotop miktar oranından silisyumun izotop bollukları (IUPAC 2024, Örnek 4B) | Possolo et al. Example 4B |
+| [`possolo-meija-2022-atomic-weight-lead-hipb1`](chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json) | Atomic weight and isotopic composition of lead in NRC HIPB-1 from three isotope ratios (Possolo & Meija 2022) | Üç izotop oranından NRC HIPB-1'deki kurşunun atom ağırlığı ve izotop bileşimi (Possolo & Meija 2022) | Possolo & Meija Sums, Products, and Ratios: Atomic Weight of Lead, pp. 26–29 |
 
 ## Chemistry, top-down / Kimya, top-down
 
@@ -225,6 +227,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`m3003-l3-dmm-1v-range-500mv`](electrical/m3003-l3-dmm-1v-range-500mv.json) | DMM on the 1 V range: uncertainty at 500 mV from the range formula (UKAS M3003 L.3) | 1 V kademesinde DMM: kademe formülünden 500 mV'taki belirsizlik (UKAS M3003 L.3) | UKAS M3003 ed. 6 (2024) Appendix L.3 |
 | [`nist-tn1900-e11-step-attenuator`](electrical/nist-tn1900-e11-step-attenuator.json) | Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11) | Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11) | NIST Technical Note 1900 Example E11, Exhibits 16 and 17 |
 | [`num-10-resistance`](electrical/num-10-resistance.json) | Resistance with the rounded values of GUM Table H.2 (NIST Uncertainty Machine §10) | GUM Tablo H.2'nin yuvarlanmış değerleriyle direnç (NIST Uncertainty Machine §10) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
+| [`possolo-meija-2022-wheatstone-bridge`](electrical/possolo-meija-2022-wheatstone-bridge.json) | Wheatstone bridge: a measurement model that is not a product of powers (Possolo & Meija 2022) | Wheatstone köprüsü: kuvvetler çarpımı olmayan bir ölçüm modeli (Possolo & Meija 2022) | Possolo & Meija Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26 |
 
 ## Electrical and RF, several output quantities (JCGM 102) / Elektrik ve RF, birden çok çıktı büyüklüğü (JCGM 102)
 
@@ -312,6 +315,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`m3003-k6-gauge-block-10mm-temperature-model`](length/m3003-k6-gauge-block-10mm-temperature-model.json) | Grade 2 gauge block of 10 mm with the temperature terms of its model (UKAS M3003 K.6, EA-4/02 S4) | Modelinin sıcaklık terimleriyle 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6, EA-4/02 S4) | UKAS M3003 ed. 6 (2024) Appendix K.6 |
 | [`m3003-k6-gauge-block-10mm`](length/m3003-k6-gauge-block-10mm.json) | Grade 2 gauge block of 10 mm (UKAS M3003 K.6) | 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6) | UKAS M3003 ed. 6 (2024) Appendix K.6 |
 | [`num-8-end-gauge-gaussian`](length/num-8-end-gauge-gaussian.json) | End-gauge calibration with Gaussian inputs (NIST Uncertainty Machine §8) | Normal girdilerle uç mastarı kalibrasyonu (NIST Uncertainty Machine §8) | T. Lafarge §8, Table 3 and Figure 3 |
+| [`possolo-meija-2022-storage-tank-volume`](length/possolo-meija-2022-storage-tank-volume.json) | Volume of a cylindrical storage tank: product of powers, Gauss's formula and Monte Carlo (Possolo & Meija 2022) | Silindirik depolama tankının hacmi: kuvvetler çarpımı, Gauss formülü ve Monte Carlo (Possolo & Meija 2022) | Possolo & Meija Sums, Products, and Ratios: Storage Tank, pp. 18–24 |
 
 ## Mass / Kütle
 
@@ -379,6 +383,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`koepke2017-half-life-cs137`](physical/koepke2017-half-life-cs137.json) | Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | ¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.2, Tables 3 and 4 |
 | [`koepke2017-half-life-sr90`](physical/koepke2017-half-life-sr90.json) | Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | ⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.2, Tables 3 and 4 |
 | [`koepke2017-newtonian-constant-g`](physical/koepke2017-newtonian-constant-g.json) | Newtonian constant of gravitation: consensus value of 14 measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | Newton çekim sabiti: 14 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.1, Tables 1 and 2 |
+| [`possolo-meija-2022-hubble-lemaitre-constant-laplace`](physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json) | Hubble–Lemaître constant from 22 mutually inconsistent estimates: Bayesian consensus with Laplace effects (Possolo & Meija 2022) | Birbiriyle tutarsız 22 kestirimden Hubble–Lemaître sabiti: Laplace etkili Bayesçi uzlaşı (Possolo & Meija 2022) | Possolo & Meija Consensus Building, Hubble-Lemaître Constant, pp. 146–151 |
 
 ## Pressure / Basınç
 

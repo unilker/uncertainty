@@ -10,11 +10,11 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **259** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **199** Rust testi (bunlardan biri 259 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **264** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **201** Rust testi (bunlardan biri 264 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D67, bulgular F1–F95 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D68, bulgular F1–F96 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -117,7 +117,8 @@ indirilemedi; Drive klasörüne konacak:
      - uzlaşı değeri modülü (D66, F93): DerSimonian–Laird, Knapp–Hartung, NICOB parametrik bootstrap,
        eşdeğerlik dereceleri, doğrusal havuz, en çok olabilirlik; Koepke 2017 (G, ¹³⁷Cs, ⁹⁰Sr) ve IUPAC 4F
        (CCQM-K145); Bayesçi rastgele etkiler modeli MCMC'siz ızgarada (D67; IUPAC 3E/4M/4N iridyum, F94, F95).
-   - Sıradakiler: Possolo & Meija 2022 örnekleri, BIPM qNMR saflık bütçeleri, Bayesçi öğreticiler, Degenhardt 2025,
+   - Possolo & Meija 2022: Hubble (Laplace etkili Bayes, D68), anyon açığı, tank, Wheatstone, kurşun (F96).
+   - Sıradakiler: BIPM qNMR saflık bütçeleri, Bayesçi öğreticiler, Degenhardt 2025,
      QAC 2026, UME prosedürleri.
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);

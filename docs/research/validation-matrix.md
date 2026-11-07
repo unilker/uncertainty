@@ -377,5 +377,10 @@ Machine (F29) and Suncal.
 | IUPAC24-4F | IUPAC 2024 Example 4F, CCQM-K145 Ni in bovine liver, maximum likelihood with dark uncertainty | μ̂ 2.043(15), τ̂ 0.044(14) mg/kg | 2.042 94 (0.015 44), 0.043 54 (0.014 24) | ✅ |
 | KOEPKE17-G | Koepke et al. 2017 Tables 1–2, Newtonian constant of gravitation (DL, bootstrap, Linear Pool, ML) | DL 6.673 80, 0.000 28, (6.673 20, 6.674 40); LP 6.673 67, 0.001 24, (6.671 18, 6.675 79); ML 6.673 78, 0.000 30 | DL 6.673 790, 0.000 279, (6.673 23, 6.674 35); LP 6.673 667, 0.001 243, (6.671 17, 6.675 79); ML 6.673 778, 0.000 300 | ✅ except F93 |
 | KOEPKE17-BAYES | Koepke et al. 2017 Tables 2 and 4, hierarchical Bayesian rows (NICOB §A.3, σ_j = u_j) | G 6.673 77, 0.000 33, (6.673 10, 6.674 42); ¹³⁷Cs 29.94 (0.19) a; ⁹⁰Sr 28.71 (0.16) a | 6.673 773, 0.000 329, (6.673 105, 6.674 409); 29.944 (0.185) a; 28.708 (0.160) a | ✅ except F95 |
+| PM22-HUBBLE | Possolo & Meija 2022, Hubble–Lemaître constant, Bayesian consensus with Laplace effects (Stan) | 71.69, 0.66, median τ 2.03 (km/s)/Mpc | 71.6915, 0.6603, 2.0336 (grid) | ✅ |
+| PM22-AG | Possolo & Meija 2022, plasma anion gap | 25, u 1.85 mmol/L | 25, 1.851 | ✅ |
+| PM22-TANK | Possolo & Meija 2022, storage tank V = πR²H | 7204 ± 54 m³ (Gauss and MCM) | 7204.3, 54.0 (both) | ✅ |
+| PM22-WB | Possolo & Meija 2022, Wheatstone bridge | 957 Ω, u ≈ 7 Ω; E 52 %, F 48 %, G 0.6 %, H 0.004 % | 957.2, 6.98; same shares | ✅ |
+| PM22-PB | Possolo & Meija 2022, atomic weight of lead in HIPB-1 (4 amount fractions and A_r) | u(x) 6, 37, 19, 45 × 10⁻⁶; r −0.02, +0.13, +0.18, −0.17, −0.90, −0.58; A_r 207.1791, U95 0.0002 | same u(x); r −0.011, 0.124, 0.177, −0.179, −0.895, −0.576; 207.17915, U95 0.000 17 | ✅ except F96 |
 | KOEPKE17-CS | Koepke et al. 2017 Tables 3–4, half-life of ¹³⁷Cs (19 results) | DL 30.04 (0.04) a; LP 29.94 (0.93) a | 30.037 (0.045) a; 29.94 (0.93) a | ✅ |
 | KOEPKE17-SR | Koepke et al. 2017 Tables 3–4, half-life of ⁹⁰Sr (11 results) | DL 28.73 (0.11) a; LP 28.68 (0.77) a | 28.730 (0.110) a; 28.69 (0.77) a | ✅ |

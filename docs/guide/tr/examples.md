@@ -2,13 +2,13 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (128)
-- Elektrik ve RF (34)
+- Kimya (130)
+- Elektrik ve RF (35)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
-- Uzunluk (11)
+- Uzunluk (12)
 - Kütle (29)
-- Fiziksel özellikler (13)
+- Fiziksel özellikler (14)
 - Basınç (6)
 - Sıcaklık (10)
 
@@ -1314,6 +1314,55 @@ TN 1900 E9: QUAM A1 kadmiyum standardı, c = 1000 m P / V, dikdörtgen saflık v
 - 'quam-a1-cadmium-standard' projesi m, P ve V'nin belirsizliklerini QUAM A1'deki gibi bileşenlerinden oluşturur.
 
 **Çalıştırma:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang tr`
+
+### Üç izotop oranından NRC HIPB-1'deki kurşunun atom ağırlığı ve izotop bileşimi (Possolo & Meija 2022)
+
+`possolo-meija-2022-atomic-weight-lead-hipb1` — Possolo & Meija, Sums, Products, and Ratios: Atomic Weight of Lead, pp. 26–29
+
+Tong vd. (2019) yüksek saflıktaki kurşun HIPB-1'de ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb ve ²⁰⁸Pb/²⁰⁷Pb oranlarını ölçtü. Miktar kesirleri oranlardan ve Σx = 1 kapanışından çıkar; A_r(Pb) izotop kütlelerinin bu kesirlerle ağırlıklı ortalamasıdır.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. Üç oran ve kapanış dört miktar kesrini tam olarak belirler, x(²⁰⁴Pb) = R₄/(1 + R₄ + R₆ + R₈) vb.; bu nedenle kitabın kısıtlı en çok olabilirlik uyumu (R solnp) bu açık ifadeleri verir; analitik Jakobiyen, kitaptaki Monte Carlo'nun 5 × 10⁴ yeniden uyumunun yerini alır.
+2. Kapanış miktar kesirleri arasında korelasyon doğurur (Chayes 1971); ²⁰⁶Pb ile ²⁰⁸Pb arasında güçlü biçimde negatiftir (−0,90).
+3. A_r(Pb) = 207,17915, u = 0,000 084 ve U95 % = 0,000 17 (basılı 0,0002); izotop kütlelerinin belirsizlikleri neredeyse hiç katkı vermez.
+
+**Sonuç:**
+
+- x204 = 0,01282130 mol/mol, u(x204) = 6,1 × 10⁻⁶ mol/mol (GUM)
+- x206 = 0,2709567 mol/mol, u(x206) = 3,7 × 10⁻⁵ mol/mol (GUM)
+- x207 = 0,2035126 mol/mol, u(x207) = 1,9 × 10⁻⁵ mol/mol (GUM)
+- x208 = 0,5127094 mol/mol, u(x208) = 4,5 × 10⁻⁵ mol/mol (GUM)
+- ArPb = 207,1791483 1, u(ArPb) = 8,4 × 10⁻⁵ 1 (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3,33; dikdörtgen k_q = 2,58
+
+**Notlar:**
+
+- Kitaptaki korelasyonlar 5 × 10⁴ Monte Carlo yeniden uyumundan gelir; ikisi (²⁰⁴Pb–²⁰⁶Pb −0,02 ve ²⁰⁴Pb–²⁰⁸Pb −0,17) doğrusallaştırılmış değerlerden (−0,011, −0,179) yaklaşık iki Monte Carlo standart hatası kadar farklıdır (araştırma günlüğü F96).
+- HIPB-1 kullanıcıları sertifikaya (Meija vd. 2020) dayanmalıdır; kitabın veri indirgemesi ondan biraz farklıdır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang tr`
+
+### Plazma anyon açığı: dört iyon derişiminin doğrusal birleşimi (Possolo & Meija 2022)
+
+`possolo-meija-2022-plasma-anion-gap` — Possolo & Meija, Sums, Products, and Ratios: Plasma Anion Gap, pp. 16–18
+
+Bir hasta için Δc_AG = c(Na⁺) + c(K⁺) − c(Cl⁻) − c(HCO₃⁻) (White 2008); belirsizlikler standart sapma olarak bildirilmiştir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. İlişkisiz girdilerin doğrusal birleşiminde varyanslar, işaretler ne olursa olsun toplanır: u²(Δc_AG) = 1,48² + 0,04² + 0,72² + 0,84² = (1,85 mmol/L)².
+2. Δc_AG = 25 mmol/L; normal girdilerle gerçek değer yaklaşık %68 olasılıkla 25 ± 1,85 mmol/L içindedir.
+
+**Sonuç:**
+
+- AG = (25,0 ± 3,6) mmol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang tr`
 
 ### Kadmiyum kalibrasyon standardının hazırlanması
 
@@ -3809,6 +3858,29 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 **Çalıştırma:** `uncertainty run library/electrical/num-10-resistance.json --lang tr`
 
+### Wheatstone köprüsü: kuvvetler çarpımı olmayan bir ölçüm modeli (Possolo & Meija 2022)
+
+`possolo-meija-2022-wheatstone-bridge` — Possolo & Meija, Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26
+
+Dengede R_U/R_G = R_F/R_EH; R_EH = 1/(R_E⁻¹ + R_H⁻¹), paralel E ve H'nin ortak direnci; dolayısıyla R_U = R_G R_F (R_E⁻¹ + R_H⁻¹).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. −R_G R_F/R_E², R_U/R_F, R_U/R_G ve −R_G R_F/R_H² kısmi türevleriyle Gauss formülü R_U = 957,0 Ω ve u(R_U) = 6,96 Ω ≈ 7 Ω verir.
+2. u²(R_U)'ya katkılar: E %52, F %48, G %0,6, H %0,003; kitabın aktardığı NIST Uncertainty Machine çıktısıyla aynı (E %52, F %48, G %0,6, H %0,004).
+
+**Sonuç:**
+
+- R_U = (957 ± 14) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Kitap, direncin pozitifliğine uyan lognormal modelin bu bağıl belirsizliklerde (%5'in altında) pratikte aynı sonucu verdiğini belirtir.
+
+**Çalıştırma:** `uncertainty run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang tr`
+
 ## Akış ve hacim
 
 ### 1000 mL'lik ölçülü balonun gravimetrik kalibrasyonu (EURAMET cg-19 Örnek 1)
@@ -4661,6 +4733,25 @@ NUM kılavuzu §8: GUM H.1'in birinci mertebe bütçesindeki altı girdiyle, hep
 - 'gum-h1-end-gauge' projesi GUM'un kendi değerlendirmesini yeniden üretir (θ ortalama ve çevrimsel kısmına ayrılır, Welch–Satterthwaite, k = 2,92).
 
 **Çalıştırma:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang tr`
+
+### Silindirik depolama tankının hacmi: kuvvetler çarpımı, Gauss formülü ve Monte Carlo (Possolo & Meija 2022)
+
+`possolo-meija-2022-storage-tank-volume` — Possolo & Meija, Sums, Products, and Ratios: Storage Tank, pp. 18–24
+
+V = πR²H; R = 8,40(3) m ve H = 32,50(7) m.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Kuvvetler çarpımında bağıl varyanslar üslerin kareleriyle toplanır: (u(V)/V)² = (2 × 0,03/8,40)² + (0,07/32,50)²; V = 7204 m³ ile u(V) = 53,7 m³ ≈ 54 m³.
+2. 10⁶ çekilişli Monte Carlo yöntemi 7204 m³ ± 54 m³ ve normalden ayırt edilemeyen bir dağılım verir.
+
+**Sonuç:**
+
+- V = (7200 ± 100) m³; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/length/possolo-meija-2022-storage-tank-volume.json --lang tr`
 
 ## Kütle
 
@@ -5734,6 +5825,34 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 - CODATA ayarlaması bu sabitleri korelasyonlu kılar; kılavuzda belirtildiği gibi korelasyonların hesaba katılması u(σ)'yı raporlanan basamakta değiştirmez. SI'nın 2019'daki yeniden tanımından beri h kesindir ve σ = 5,670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ belirsizlik taşımaz.
 
 **Çalıştırma:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang tr`
+
+### Birbiriyle tutarsız 22 kestirimden Hubble–Lemaître sabiti: Laplace etkili Bayesçi uzlaşı (Possolo & Meija 2022)
+
+`possolo-meija-2022-hubble-lemaitre-constant-laplace` — Possolo & Meija, Consensus Building, Hubble-Lemaître Constant, pp. 146–151
+
+H₀'ın son kestirimleri (Planck hariç) belirsizliklerinin öngördüğünden daha fazla dağılır. NIST Decision Tree'nin önerdiği gibi Laplace deney etkileri λ_j (standart sapma τ) ve bildirilen u_j'li normal hatalarla H₀,j = H₀ + λ_j + ε_j modeli bunları bir uzlaşı değerinde birleştirir.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. 22 kestirimin standart sapması 2,76, belirsizliklerinin ortancası 1,95 (km/s)/Mpc'dir; ön kestirim τ = √(2,76² − 1,95²) = 1,95 (km/s)/Mpc.
+2. Önseller kitabın Stan kodundaki gibidir: H₀ ~ N(67,4, 100²); τ ortancası mad(x) = 1,4826 × ortanca|x − ortanca(x)| = 2,89107 (km/s)/Mpc olan yarım Cauchy. Laplace etkilerinin ölçeği τ/√2'dir, böylece τ bunların standart sapmasıdır.
+3. Her kestirimin olabilirliği bir Laplace ve bir normal yoğunluğun evrişimidir ve erfc ile kapalı bir biçimi vardır; (H₀, τ) sonsalı MCMC yerine iki boyutlu bir ızgarada hesaplanır (kitap: Stan, 10⁶ yinelemeli 4 zincir).
+4. Sonsal: basılı değerlerle aynı, H₀ = 71,69 (km/s)/Mpc, u = 0,66 (km/s)/Mpc, τ ortancası 2,03 (km/s)/Mpc. Planck'ın 67,36(54) değeriyle karşılaştırma: z = (71,69 − 67,36)/√(0,66² + 0,54²) = 5,1; Hubble gerilimi.
+
+**Sonuç:**
+
+- H₀: uzlaşı değeri 71,5428 (km/s)/Mpc, standart belirsizlik 0,63 (km/s)/Mpc, %95 kapsam aralığı [70,2770, 72,7960] (km/s)/Mpc (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 2,0 (km/s)/Mpc; Cochran Q = 46,66, serbestlik derecesi 21
+- H₀: 71,6915 (km/s)/Mpc, standart belirsizlik 0,66 (km/s)/Mpc, %95 inanılırlık aralığı [70,4037, 73,0082] (km/s)/Mpc; τ'nun sonsal ortancası 2,0 (km/s)/Mpc (Bayes)
+
+**Notlar:**
+
+- Etiketler kitabı izler; hst etiketli iki çalışma ilk yazarlarıyla ayrılmıştır (Riess 2019, Freedman 2019). Kitapta hafif asimetrik belirsizlikler sol ve sağ belirsizliklerin geometrik ortalamasıyla değiştirilmiştir.
+- Karşılaştırma için DerSimonian–Laird kestirimi (normal etkiler) de gösterilmiştir.
+
+**Çalıştırma:** `uncertainty run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang tr`
 
 ## Basınç
 

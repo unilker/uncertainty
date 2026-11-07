@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (95)
+## Findings (96)
 
 | F | Finding | Session |
 |---|---|---|
@@ -110,8 +110,9 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F93 | Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |
 | F94 | IUPAC 2024 Example 3E — rounding of s and of the p-value of Q (class a). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
 | F95 | Koepke et al. 2017 Table 4 — Bayesian u for ¹³⁷Cs (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
+| F96 | Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.) |
 
-## Decisions (67)
+## Decisions (68)
 
 | D | Decision | Session |
 |---|---|---|
@@ -182,3 +183,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D65 | Turkish spelling of reproducibility. | 2026-11-07 (session 21, continued) — Turkish edition of Nordtest TR 537 |
 | D66 | Consensus-value module (`consensus`). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |
 | D67 | Bayesian random-effects model without MCMC (`consensus.bayes`). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
+| D68 | Laplace laboratory effects in the Bayesian consensus (`"effects": "laplace"`). | 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.) |

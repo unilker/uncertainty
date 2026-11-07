@@ -399,7 +399,8 @@ havuzdaki ağırlığıdır. Beklenen değerler: `mean`, `u`, `tau`, `q`, `u_kna
 `bayes_tau_median` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). Bkz. 9.7.
 
 `"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (hepsi isteğe bağlı; `"bayes": {}` NICOB
-varsayılanlarını kullanır) Bayesçi rastgele etkiler modelini ekler.
+varsayılanlarını kullanır) Bayesçi rastgele etkiler modelini ekler; `"effects": "laplace"` laboratuvar etkilerine Laplace
+dağılımı verir (NIST Decision Tree).
 
 ## 7.15 Hatalar
 

@@ -17293,6 +17293,402 @@
   }
  },
  {
+  "path": "library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "possolo-meija-2022-atomic-weight-lead-hipb1",
+    "field": "chemistry",
+    "title": {
+     "en": "Atomic weight and isotopic composition of lead in NRC HIPB-1 from three isotope ratios (Possolo & Meija 2022)",
+     "tr": "Üç izotop oranından NRC HIPB-1'deki kurşunun atom ağırlığı ve izotop bileşimi (Possolo & Meija 2022)"
+    },
+    "description": {
+     "en": "Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²⁰⁸Pb/²⁰⁷Pb in the high-purity lead HIPB-1. The amount fractions follow from the ratios and the closure Σx = 1; A_r(Pb) is their weighted average of the isotopic masses.",
+     "tr": "Tong vd. (2019) yüksek saflıktaki kurşun HIPB-1'de ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb ve ²⁰⁸Pb/²⁰⁷Pb oranlarını ölçtü. Miktar kesirleri oranlardan ve Σx = 1 kapanışından çıkar; A_r(Pb) izotop kütlelerinin bu kesirlerle ağırlıklı ortalamasıdır."
+    },
+    "explanation": [
+     {
+      "en": "Three ratios and the closure determine the four amount fractions exactly, x(²⁰⁴Pb) = R₄/(1 + R₄ + R₆ + R₈) and so on, so the constrained maximum-likelihood fit of the book (R solnp) returns these explicit expressions; the analytic Jacobian replaces the 5 × 10⁴ refits of its Monte Carlo.",
+      "tr": "Üç oran ve kapanış dört miktar kesrini tam olarak belirler, x(²⁰⁴Pb) = R₄/(1 + R₄ + R₆ + R₈) vb.; bu nedenle kitabın kısıtlı en çok olabilirlik uyumu (R solnp) bu açık ifadeleri verir; analitik Jakobiyen, kitaptaki Monte Carlo'nun 5 × 10⁴ yeniden uyumunun yerini alır."
+     },
+     {
+      "en": "The closure induces correlations between the amount fractions (Chayes 1971), strongly negative between ²⁰⁶Pb and ²⁰⁸Pb (−0.90).",
+      "tr": "Kapanış miktar kesirleri arasında korelasyon doğurur (Chayes 1971); ²⁰⁶Pb ile ²⁰⁸Pb arasında güçlü biçimde negatiftir (−0,90)."
+     },
+     {
+      "en": "A_r(Pb) = 207.17915 with u = 0.000 084 and U95 % = 0.000 17 (printed 0.0002); the uncertainties of the isotopic masses contribute almost nothing.",
+      "tr": "A_r(Pb) = 207,17915, u = 0,000 084 ve U95 % = 0,000 17 (basılı 0,0002); izotop kütlelerinin belirsizlikleri neredeyse hiç katkı vermez."
+     }
+    ],
+    "tags": [
+     "possolo-meija-2022",
+     "isotope-ratios",
+     "atomic-weight",
+     "closure",
+     "correlation",
+     "multivariate"
+    ],
+    "notes": [
+     {
+      "en": "The book's correlations come from 5 × 10⁴ Monte Carlo refits; two of them (²⁰⁴Pb–²⁰⁶Pb −0.02 and ²⁰⁴Pb–²⁰⁸Pb −0.17) differ from the linearised values (−0.011, −0.179) by about two Monte Carlo standard errors (research log F96).",
+      "tr": "Kitaptaki korelasyonlar 5 × 10⁴ Monte Carlo yeniden uyumundan gelir; ikisi (²⁰⁴Pb–²⁰⁶Pb −0,02 ve ²⁰⁴Pb–²⁰⁸Pb −0,17) doğrusallaştırılmış değerlerden (−0,011, −0,179) yaklaşık iki Monte Carlo standart hatası kadar farklıdır (araştırma günlüğü F96)."
+     },
+     {
+      "en": "Users of HIPB-1 should rely on the certificate (Meija et al. 2020); the book's data reduction differs slightly from it.",
+      "tr": "HIPB-1 kullanıcıları sertifikaya (Meija vd. 2020) dayanmalıdır; kitabın veri indirgemesi ondan biraz farklıdır."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Possolo & Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo (2022)",
+      "section": "Sums, Products, and Ratios: Atomic Weight of Lead, pp. 26–29",
+      "url": "https://doi.org/10.4224/1tqz-b038"
+     }
+    ]
+   },
+   "multivariate": {
+    "outputs": [
+     {
+      "name": "x204",
+      "unit": "mol/mol",
+      "expression": "R4/(1 + R4 + R6 + R8)"
+     },
+     {
+      "name": "x206",
+      "unit": "mol/mol",
+      "expression": "R6/(1 + R4 + R6 + R8)"
+     },
+     {
+      "name": "x207",
+      "unit": "mol/mol",
+      "expression": "1/(1 + R4 + R6 + R8)"
+     },
+     {
+      "name": "x208",
+      "unit": "mol/mol",
+      "expression": "R8/(1 + R4 + R6 + R8)"
+     },
+     {
+      "name": "ArPb",
+      "unit": "1",
+      "expression": "(A204*R4 + A206*R6 + A207 + A208*R8)/(1 + R4 + R6 + R8)"
+     }
+    ],
+    "inputs": [
+     {
+      "name": "R4",
+      "unit": "mol/mol",
+      "description": {
+       "en": "Isotope ratio n(²⁰⁴Pb)/n(²⁰⁷Pb), MC-ICP-MS (U95 % = 0.000 06, k = 2)",
+       "tr": "İzotop oranı n(²⁰⁴Pb)/n(²⁰⁷Pb), MC-ICP-MS (U95 % = 0,000 06, k = 2)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.063,
+       "sd": 0.00003
+      }
+     },
+     {
+      "name": "R6",
+      "unit": "mol/mol",
+      "description": {
+       "en": "Isotope ratio n(²⁰⁶Pb)/n(²⁰⁷Pb) (U95 % = 0.0004)",
+       "tr": "İzotop oranı n(²⁰⁶Pb)/n(²⁰⁷Pb) (U95 % = 0,0004)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 1.3314,
+       "sd": 0.0002
+      }
+     },
+     {
+      "name": "R8",
+      "unit": "mol/mol",
+      "description": {
+       "en": "Isotope ratio n(²⁰⁸Pb)/n(²⁰⁷Pb) (U95 % = 0.0008)",
+       "tr": "İzotop oranı n(²⁰⁸Pb)/n(²⁰⁷Pb) (U95 % = 0,0008)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 2.5193,
+       "sd": 0.0004
+      }
+     },
+     {
+      "name": "A204",
+      "unit": "1",
+      "description": {
+       "en": "Relative atomic mass of ²⁰⁴Pb (AME 2020)",
+       "tr": "²⁰⁴Pb'nin bağıl atom kütlesi (AME 2020)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 203.9730435,
+       "sd": 0.0000012
+      }
+     },
+     {
+      "name": "A206",
+      "unit": "1",
+      "description": {
+       "en": "Relative atomic mass of ²⁰⁶Pb (AME 2020)",
+       "tr": "²⁰⁶Pb'nin bağıl atom kütlesi (AME 2020)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 205.9744652,
+       "sd": 0.0000012
+      }
+     },
+     {
+      "name": "A207",
+      "unit": "1",
+      "description": {
+       "en": "Relative atomic mass of ²⁰⁷Pb (AME 2020)",
+       "tr": "²⁰⁷Pb'nin bağıl atom kütlesi (AME 2020)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 206.9758968,
+       "sd": 0.0000012
+      }
+     },
+     {
+      "name": "A208",
+      "unit": "1",
+      "description": {
+       "en": "Relative atomic mass of ²⁰⁸Pb (AME 2020)",
+       "tr": "²⁰⁸Pb'nin bağıl atom kütlesi (AME 2020)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 207.976652,
+       "sd": 0.0000012
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": null
+   },
+   "expected": {
+    "multivariate": {
+     "gum": {
+      "estimate": {
+       "ArPb": {
+        "value": 207.1791,
+        "tolerance": 0.00005
+       }
+      },
+      "standard_uncertainty": {
+       "x204": {
+        "value": 0.000006,
+        "tolerance": 5e-7
+       },
+       "x206": {
+        "value": 0.000037,
+        "tolerance": 5e-7
+       },
+       "x207": {
+        "value": 0.000019,
+        "tolerance": 5e-7
+       },
+       "x208": {
+        "value": 0.000045,
+        "tolerance": 5e-7
+       },
+       "ArPb": {
+        "value": 0.0001,
+        "tolerance": 0.00002
+       }
+      },
+      "correlations": [
+       {
+        "between": [
+         "x204",
+         "x206"
+        ],
+        "value": -0.02,
+        "tolerance": 0.015
+       },
+       {
+        "between": [
+         "x204",
+         "x207"
+        ],
+        "value": 0.13,
+        "tolerance": 0.01
+       },
+       {
+        "between": [
+         "x206",
+         "x207"
+        ],
+        "value": 0.18,
+        "tolerance": 0.01
+       },
+       {
+        "between": [
+         "x204",
+         "x208"
+        ],
+        "value": -0.17,
+        "tolerance": 0.015
+       },
+       {
+        "between": [
+         "x206",
+         "x208"
+        ],
+        "value": -0.9,
+        "tolerance": 0.01
+       },
+       {
+        "between": [
+         "x207",
+         "x208"
+        ],
+        "value": -0.58,
+        "tolerance": 0.01
+       }
+      ]
+     }
+    },
+    "reference": {
+     "en": "Possolo & Meija (2022), p. 29: u(x) = 0.000 006, 0.000 037, 0.000 019, 0.000 045 mol/mol; correlations −0.02, +0.13, +0.18, −0.17, −0.90, −0.58 (Monte Carlo, 5 × 10⁴); A_r(Pb) = 207.1791, U95 % = 0.0002 (u = U/2; tolerance of the correlations: Monte Carlo error).",
+     "tr": "Possolo & Meija (2022), s. 29: u(x) = 0,000 006, 0,000 037, 0,000 019, 0,000 045 mol/mol; korelasyonlar −0,02, +0,13, +0,18, −0,17, −0,90, −0,58 (Monte Carlo, 5 × 10⁴); A_r(Pb) = 207,1791, U95 % = 0,0002 (u = U/2; korelasyon toleransı: Monte Carlo hatası)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/possolo-meija-2022-plasma-anion-gap.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "possolo-meija-2022-plasma-anion-gap",
+    "field": "chemistry",
+    "title": {
+     "en": "Plasma anion gap: a linear combination of four ion concentrations (Possolo & Meija 2022)",
+     "tr": "Plazma anyon açığı: dört iyon derişiminin doğrusal birleşimi (Possolo & Meija 2022)"
+    },
+    "description": {
+     "en": "Δc_AG = c(Na⁺) + c(K⁺) − c(Cl⁻) − c(HCO₃⁻) for one patient (White 2008); the uncertainties are reported as standard deviations.",
+     "tr": "Bir hasta için Δc_AG = c(Na⁺) + c(K⁺) − c(Cl⁻) − c(HCO₃⁻) (White 2008); belirsizlikler standart sapma olarak bildirilmiştir."
+    },
+    "explanation": [
+     {
+      "en": "For a linear combination of uncorrelated inputs the variances add, whatever the signs: u²(Δc_AG) = 1.48² + 0.04² + 0.72² + 0.84² = (1.85 mmol/L)².",
+      "tr": "İlişkisiz girdilerin doğrusal birleşiminde varyanslar, işaretler ne olursa olsun toplanır: u²(Δc_AG) = 1,48² + 0,04² + 0,72² + 0,84² = (1,85 mmol/L)²."
+     },
+     {
+      "en": "Δc_AG = 25 mmol/L; with Gaussian inputs the true value lies within 25 ± 1.85 mmol/L with about 68 % probability.",
+      "tr": "Δc_AG = 25 mmol/L; normal girdilerle gerçek değer yaklaşık %68 olasılıkla 25 ± 1,85 mmol/L içindedir."
+     }
+    ],
+    "tags": [
+     "possolo-meija-2022",
+     "clinical-chemistry",
+     "linear",
+     "electrolytes"
+    ],
+    "notes": [],
+    "sources": [
+     {
+      "document": "Possolo & Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo (2022)",
+      "section": "Sums, Products, and Ratios: Plasma Anion Gap, pp. 16–18",
+      "url": "https://doi.org/10.4224/1tqz-b038"
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "AG",
+     "unit": "mmol/L",
+     "expression": "c_Na + c_K - c_Cl - c_HCO3",
+     "description": {
+      "en": "Plasma anion gap Δc_AG",
+      "tr": "Plazma anyon açığı Δc_AG"
+     }
+    },
+    "inputs": [
+     {
+      "name": "c_Na",
+      "unit": "mmol/L",
+      "description": {
+       "en": "Amount concentration of Na⁺",
+       "tr": "Na⁺ miktar derişimi"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 137,
+       "sd": 1.48
+      }
+     },
+     {
+      "name": "c_K",
+      "unit": "mmol/L",
+      "description": {
+       "en": "Amount concentration of K⁺",
+       "tr": "K⁺ miktar derişimi"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 4,
+       "sd": 0.04
+      }
+     },
+     {
+      "name": "c_Cl",
+      "unit": "mmol/L",
+      "description": {
+       "en": "Amount concentration of Cl⁻",
+       "tr": "Cl⁻ miktar derişimi"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 106,
+       "sd": 0.72
+      }
+     },
+     {
+      "name": "c_HCO3",
+      "unit": "mmol/L",
+      "description": {
+       "en": "Amount concentration of HCO₃⁻",
+       "tr": "HCO₃⁻ miktar derişimi"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 10,
+       "sd": 0.84
+      }
+     }
+    ]
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 25,
+      "tolerance": 1e-9
+     },
+     "standard_uncertainty": {
+      "value": 1.85,
+      "tolerance": 0.005
+     }
+    },
+    "reference": {
+     "en": "Possolo & Meija (2022), p. 17: Δc_AG = 25 mmol/L, u = 1.85 mmol/L.",
+     "tr": "Possolo & Meija (2022), s. 17: Δc_AG = 25 mmol/L, u = 1,85 mmol/L."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/quam-a1-cadmium-standard-volume.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -29117,6 +29513,135 @@
   }
  },
  {
+  "path": "library/electrical/possolo-meija-2022-wheatstone-bridge.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "possolo-meija-2022-wheatstone-bridge",
+    "field": "electrical",
+    "title": {
+     "en": "Wheatstone bridge: a measurement model that is not a product of powers (Possolo & Meija 2022)",
+     "tr": "Wheatstone köprüsü: kuvvetler çarpımı olmayan bir ölçüm modeli (Possolo & Meija 2022)"
+    },
+    "description": {
+     "en": "At balance R_U/R_G = R_F/R_EH, with R_EH = 1/(R_E⁻¹ + R_H⁻¹) the joint resistance of E and H in parallel, so R_U = R_G R_F (R_E⁻¹ + R_H⁻¹).",
+     "tr": "Dengede R_U/R_G = R_F/R_EH; R_EH = 1/(R_E⁻¹ + R_H⁻¹), paralel E ve H'nin ortak direnci; dolayısıyla R_U = R_G R_F (R_E⁻¹ + R_H⁻¹)."
+    },
+    "explanation": [
+     {
+      "en": "Gauss's formula with the partial derivatives −R_G R_F/R_E², R_U/R_F, R_U/R_G and −R_G R_F/R_H² gives R_U = 957.0 Ω and u(R_U) = 6.96 Ω ≈ 7 Ω.",
+      "tr": "−R_G R_F/R_E², R_U/R_F, R_U/R_G ve −R_G R_F/R_H² kısmi türevleriyle Gauss formülü R_U = 957,0 Ω ve u(R_U) = 6,96 Ω ≈ 7 Ω verir."
+     },
+     {
+      "en": "Contributions to u²(R_U): E 52 %, F 48 %, G 0.6 %, H 0.003 %, as in the NIST Uncertainty Machine output quoted by the book (E 52 %, F 48 %, G 0.6 %, H 0.004 %).",
+      "tr": "u²(R_U)'ya katkılar: E %52, F %48, G %0,6, H %0,003; kitabın aktardığı NIST Uncertainty Machine çıktısıyla aynı (E %52, F %48, G %0,6, H %0,004)."
+     }
+    ],
+    "tags": [
+     "possolo-meija-2022",
+     "resistance",
+     "bridge",
+     "nist-uncertainty-machine"
+    ],
+    "notes": [
+     {
+      "en": "The book notes that a lognormal model, which respects the positivity of resistance, gives practically the same results at these relative uncertainties (below 5 %).",
+      "tr": "Kitap, direncin pozitifliğine uyan lognormal modelin bu bağıl belirsizliklerde (%5'in altında) pratikte aynı sonucu verdiğini belirtir."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Possolo & Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo (2022)",
+      "section": "Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26",
+      "url": "https://doi.org/10.4224/1tqz-b038"
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "R_U",
+     "unit": "Ω",
+     "expression": "R_G * R_F * (1/R_E + 1/R_H)",
+     "description": {
+      "en": "Resistance of the unknown resistor U of a balanced Wheatstone bridge",
+      "tr": "Dengelenmiş Wheatstone köprüsündeki bilinmeyen U direncinin değeri"
+     }
+    },
+    "inputs": [
+     {
+      "name": "R_E",
+      "unit": "Ω",
+      "description": {
+       "en": "Decade resistor E (EICO, 0.5 %)",
+       "tr": "Dekad direnç E (EICO, %0,5)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 951,
+       "sd": 5
+      }
+     },
+     {
+      "name": "R_F",
+      "unit": "Ω",
+      "description": {
+       "en": "Fixed resistor F",
+       "tr": "Sabit direnç F"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 997,
+       "sd": 5
+      }
+     },
+     {
+      "name": "R_G",
+      "unit": "Ω",
+      "description": {
+       "en": "Decade resistor G (General Radio, 0.05 %)",
+       "tr": "Dekad direnç G (General Radio, %0,05)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 909,
+       "sd": 0.5
+      }
+     },
+     {
+      "name": "R_H",
+      "unit": "Ω",
+      "description": {
+       "en": "Resistance substitution box H, in parallel with E",
+       "tr": "E'ye paralel direnç ikame kutusu H"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 225200.0,
+       "sd": 2300.0
+      }
+     }
+    ]
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 957,
+      "tolerance": 0.5
+     },
+     "standard_uncertainty": {
+      "value": 7,
+      "tolerance": 0.5
+     }
+    },
+    "reference": {
+     "en": "Possolo & Meija (2022), p. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; contributions F 48 %, G 0.6 %, E 52 %, H 0.004 %.",
+     "tr": "Possolo & Meija (2022), s. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; katkılar F %48, G %0,6, E %52, H %0,004."
+    }
+   }
+  }
+ },
+ {
   "path": "library/flow/cg19-ex1-flask-1000ml.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -35447,6 +35972,122 @@
     "reference": {
      "en": "NIST Uncertainty Machine manual §8, Figure 3 (Gauss's formula 50 000 838 nm, u = 31.7 nm; Monte Carlo, M = 10⁶: mean 50 000 837.9 nm, sd 33.9 nm, 99 % symmetric interval (50 000 749, 50 000 927) nm).",
      "tr": "NIST Uncertainty Machine kılavuzu §8, Şekil 3 (Gauss formülü 50 000 838 nm, u = 31,7 nm; Monte Carlo, M = 10⁶: ortalama 50 000 837,9 nm, standart sapma 33,9 nm, %99 simetrik aralık (50 000 749; 50 000 927) nm)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/length/possolo-meija-2022-storage-tank-volume.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "possolo-meija-2022-storage-tank-volume",
+    "field": "length",
+    "title": {
+     "en": "Volume of a cylindrical storage tank: product of powers, Gauss's formula and Monte Carlo (Possolo & Meija 2022)",
+     "tr": "Silindirik depolama tankının hacmi: kuvvetler çarpımı, Gauss formülü ve Monte Carlo (Possolo & Meija 2022)"
+    },
+    "description": {
+     "en": "V = πR²H with R = 8.40(3) m and H = 32.50(7) m.",
+     "tr": "V = πR²H; R = 8,40(3) m ve H = 32,50(7) m."
+    },
+    "explanation": [
+     {
+      "en": "For a product of powers the relative variances add with the squares of the exponents: (u(V)/V)² = (2 × 0.03/8.40)² + (0.07/32.50)², so u(V) = 53.7 m³ ≈ 54 m³ with V = 7204 m³.",
+      "tr": "Kuvvetler çarpımında bağıl varyanslar üslerin kareleriyle toplanır: (u(V)/V)² = (2 × 0,03/8,40)² + (0,07/32,50)²; V = 7204 m³ ile u(V) = 53,7 m³ ≈ 54 m³."
+     },
+     {
+      "en": "The Monte Carlo method with 10⁶ draws gives 7204 m³ give or take 54 m³ and a distribution indistinguishable from a Gaussian one.",
+      "tr": "10⁶ çekilişli Monte Carlo yöntemi 7204 m³ ± 54 m³ ve normalden ayırt edilemeyen bir dağılım verir."
+     }
+    ],
+    "tags": [
+     "possolo-meija-2022",
+     "volume",
+     "product-of-powers",
+     "monte-carlo"
+    ],
+    "notes": [],
+    "sources": [
+     {
+      "document": "Possolo & Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo (2022)",
+      "section": "Sums, Products, and Ratios: Storage Tank, pp. 18–24",
+      "url": "https://doi.org/10.4224/1tqz-b038"
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "V",
+     "unit": "m³",
+     "expression": "pi * R^2 * H",
+     "description": {
+      "en": "Internal volume of a cylindrical storage tank",
+      "tr": "Silindirik depolama tankının iç hacmi"
+     }
+    },
+    "inputs": [
+     {
+      "name": "R",
+      "unit": "m",
+      "description": {
+       "en": "Radius, from the diameter of the roof measured with a tape",
+       "tr": "Yarıçap, çatının şeritle ölçülen çapından"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 8.4,
+       "sd": 0.03
+      }
+     },
+     {
+      "name": "H",
+      "unit": "m",
+      "description": {
+       "en": "Height, with a plumb line from the edge of the roof",
+       "tr": "Yükseklik, çatı kenarından çekül ile"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 32.5,
+       "sd": 0.07
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 1000000,
+     "seed": 1,
+     "interval": "symmetric"
+    }
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 7204,
+      "tolerance": 0.5
+     },
+     "standard_uncertainty": {
+      "value": 54,
+      "tolerance": 0.5
+     }
+    },
+    "mcm": {
+     "estimate": {
+      "value": 7204,
+      "tolerance": 0.5
+     },
+     "standard_uncertainty": {
+      "value": 54,
+      "tolerance": 0.5
+     }
+    },
+    "reference": {
+     "en": "Possolo & Meija (2022), pp. 21–24: V = 7204 m³, give or take 54 m³ (Gauss's formula and Monte Carlo, K = 10⁶).",
+     "tr": "Possolo & Meija (2022), s. 21–24: V = 7204 m³ ± 54 m³ (Gauss formülü ve Monte Carlo, K = 10⁶)."
     }
    }
   }
@@ -44767,6 +45408,213 @@
     "reference": {
      "en": "NIST Uncertainty Machine manual §11, Figure 7: σ = 5.670 3725 × 10⁻⁸, u(σ) = 2.05 × 10⁻¹³ W m⁻² K⁻⁴ (Gauss's formula and Monte Carlo), 95 % interval (5.670 332, 5.670 412 6) × 10⁻⁸ W m⁻² K⁻⁴.",
      "tr": "NIST Uncertainty Machine kılavuzu §11, Şekil 7: σ = 5,670 3725 × 10⁻⁸, u(σ) = 2,05 × 10⁻¹³ W m⁻² K⁻⁴ (Gauss formülü ve Monte Carlo), %95 aralığı (5,670 332; 5,670 412 6) × 10⁻⁸ W m⁻² K⁻⁴."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "possolo-meija-2022-hubble-lemaitre-constant-laplace",
+    "field": "physical",
+    "title": {
+     "en": "Hubble–Lemaître constant from 22 mutually inconsistent estimates: Bayesian consensus with Laplace effects (Possolo & Meija 2022)",
+     "tr": "Birbiriyle tutarsız 22 kestirimden Hubble–Lemaître sabiti: Laplace etkili Bayesçi uzlaşı (Possolo & Meija 2022)"
+    },
+    "description": {
+     "en": "Recent estimates of H₀ (Planck's excluded) are more dispersed than their uncertainties suggest. The model H₀,j = H₀ + λ_j + ε_j with Laplace experiment effects λ_j (standard deviation τ), as the NIST Decision Tree recommends, and Gaussian errors with the reported u_j blends them into a consensus value.",
+     "tr": "H₀'ın son kestirimleri (Planck hariç) belirsizliklerinin öngördüğünden daha fazla dağılır. NIST Decision Tree'nin önerdiği gibi Laplace deney etkileri λ_j (standart sapma τ) ve bildirilen u_j'li normal hatalarla H₀,j = H₀ + λ_j + ε_j modeli bunları bir uzlaşı değerinde birleştirir."
+    },
+    "explanation": [
+     {
+      "en": "The standard deviation of the 22 estimates is 2.76 and the median of their uncertainties 1.95 (km/s)/Mpc, so a preliminary τ is √(2.76² − 1.95²) = 1.95 (km/s)/Mpc.",
+      "tr": "22 kestirimin standart sapması 2,76, belirsizliklerinin ortancası 1,95 (km/s)/Mpc'dir; ön kestirim τ = √(2,76² − 1,95²) = 1,95 (km/s)/Mpc."
+     },
+     {
+      "en": "Priors as in the Stan code of the book: H₀ ~ N(67.4, 100²); τ half-Cauchy with median mad(x) = 1.4826 × median|x − median(x)| = 2.89107 (km/s)/Mpc. The Laplace effects have scale τ/√2, so that τ is their standard deviation.",
+      "tr": "Önseller kitabın Stan kodundaki gibidir: H₀ ~ N(67,4, 100²); τ ortancası mad(x) = 1,4826 × ortanca|x − ortanca(x)| = 2,89107 (km/s)/Mpc olan yarım Cauchy. Laplace etkilerinin ölçeği τ/√2'dir, böylece τ bunların standart sapmasıdır."
+     },
+     {
+      "en": "The likelihood of each estimate is the convolution of a Laplace and a Gaussian density, which has a closed form in erfc; the posterior of (H₀, τ) is evaluated on a two-dimensional grid instead of by MCMC (the book: Stan, 4 chains of 10⁶ iterations).",
+      "tr": "Her kestirimin olabilirliği bir Laplace ve bir normal yoğunluğun evrişimidir ve erfc ile kapalı bir biçimi vardır; (H₀, τ) sonsalı MCMC yerine iki boyutlu bir ızgarada hesaplanır (kitap: Stan, 10⁶ yinelemeli 4 zincir)."
+     },
+     {
+      "en": "Posterior: H₀ = 71.69 (km/s)/Mpc, u = 0.66 (km/s)/Mpc, median τ = 2.03 (km/s)/Mpc, as printed. Compared with Planck's 67.36(54), z = (71.69 − 67.36)/√(0.66² + 0.54²) = 5.1: the Hubble tension.",
+      "tr": "Sonsal: basılı değerlerle aynı, H₀ = 71,69 (km/s)/Mpc, u = 0,66 (km/s)/Mpc, τ ortancası 2,03 (km/s)/Mpc. Planck'ın 67,36(54) değeriyle karşılaştırma: z = (71,69 − 67,36)/√(0,66² + 0,54²) = 5,1; Hubble gerilimi."
+     }
+    ],
+    "tags": [
+     "possolo-meija-2022",
+     "consensus",
+     "dark-uncertainty",
+     "bayes",
+     "laplace",
+     "nist-decision-tree",
+     "cosmology"
+    ],
+    "notes": [
+     {
+      "en": "Labels follow the book; the two studies labelled hst are distinguished by their first authors (Riess 2019, Freedman 2019). Mildly asymmetric uncertainties were replaced in the book by the geometric mean of the left and right uncertainties.",
+      "tr": "Etiketler kitabı izler; hst etiketli iki çalışma ilk yazarlarıyla ayrılmıştır (Riess 2019, Freedman 2019). Kitapta hafif asimetrik belirsizlikler sol ve sağ belirsizliklerin geometrik ortalamasıyla değiştirilmiştir."
+     },
+     {
+      "en": "The DerSimonian–Laird estimate (Gaussian effects) is shown for comparison.",
+      "tr": "Karşılaştırma için DerSimonian–Laird kestirimi (normal etkiler) de gösterilmiştir."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Possolo & Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo (2022)",
+      "section": "Consensus Building, Hubble-Lemaître Constant, pp. 146–151",
+      "url": "https://doi.org/10.4224/1tqz-b038"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "H₀",
+    "unit": "(km/s)/Mpc",
+    "results": [
+     {
+      "name": "h0li",
+      "value": 72.5,
+      "u": 2.2
+     },
+     {
+      "name": "des",
+      "value": 67.8,
+      "u": 1.3
+     },
+     {
+      "name": "ryan",
+      "value": 69.32,
+      "u": 1.42
+     },
+     {
+      "name": "hst-riess19",
+      "value": 74.03,
+      "u": 1.42
+     },
+     {
+      "name": "flat",
+      "value": 67.4,
+      "u": 6.1
+     },
+     {
+      "name": "lv",
+      "value": 70.3,
+      "u": 5.15
+     },
+     {
+      "name": "h0l6",
+      "value": 73.3,
+      "u": 1.75
+     },
+     {
+      "name": "hst-freedman19",
+      "value": 69.8,
+      "u": 1.9
+     },
+     {
+      "name": "rpr",
+      "value": 73.5,
+      "u": 1.4
+     },
+     {
+      "name": "dutta",
+      "value": 70.3,
+      "u": 1.35
+     },
+     {
+      "name": "sh3",
+      "value": 76.8,
+      "u": 2.6
+     },
+     {
+      "name": "stri",
+      "value": 74.2,
+      "u": 2.85
+     },
+     {
+      "name": "mega",
+      "value": 73.9,
+      "u": 3.0
+     },
+     {
+      "name": "jaeg",
+      "value": 75.8,
+      "u": 5.05
+     },
+     {
+      "name": "muk",
+      "value": 67.6,
+      "u": 4.25
+     },
+     {
+      "name": "sedg",
+      "value": 67.4,
+      "u": 1.0
+     },
+     {
+      "name": "denz",
+      "value": 71.8,
+      "u": 3.59
+     },
+     {
+      "name": "bax",
+      "value": 73.5,
+      "u": 5.3
+     },
+     {
+      "name": "hstga",
+      "value": 73.2,
+      "u": 1.3
+     },
+     {
+      "name": "hstgb",
+      "value": 72.1,
+      "u": 2.0
+     },
+     {
+      "name": "free",
+      "value": 69.8,
+      "u": 1.7
+     },
+     {
+      "name": "sh0es",
+      "value": 73.3,
+      "u": 1.4
+     }
+    ],
+    "bayes": {
+     "tau_median": 2.89107,
+     "mu_mean": 67.4,
+     "mu_sd": 100,
+     "effects": "laplace"
+    },
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "bayes_mean": {
+      "value": 71.69,
+      "tolerance": 0.006
+     },
+     "bayes_u": {
+      "value": 0.66,
+      "tolerance": 0.006
+     },
+     "bayes_tau_median": {
+      "value": 2.03,
+      "tolerance": 0.01
+     }
+    },
+    "reference": {
+     "en": "Possolo & Meija (2022), p. 150: posterior mean 71.69 (km/s)/Mpc, standard deviation 0.66 (km/s)/Mpc, median of τ 2.03 (km/s)/Mpc (Stan). numpy grid (2000 × 1500): 71.6915, 0.6603, 2.0336.",
+     "tr": "Possolo & Meija (2022), s. 150: sonsal ortalama 71,69 (km/s)/Mpc, standart sapma 0,66 (km/s)/Mpc, τ ortancası 2,03 (km/s)/Mpc (Stan). numpy ızgara (2000 × 1500): 71,6915, 0,6603, 2,0336."
     }
    }
   }

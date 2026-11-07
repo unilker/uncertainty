@@ -24,6 +24,7 @@ pub(super) struct CsLabels {
     pub bayes_tau: &'static str,
     pub method_bayes: &'static str,
     pub prior_flat: &'static str,
+    pub laplace: &'static str,
     pub prior_normal: &'static str,
     pub statement_bayes: &'static str,
     pub ml_tau: &'static str,
@@ -60,6 +61,7 @@ const CS_EN: CsLabels = CsLabels {
     bayes_tau: "Dark uncertainty τ: posterior median and {p} interval",
     method_bayes: "Gaussian likelihood with known u_j; prior: τ half-Cauchy with median {t}{unit}; μ {mu}. μ is integrated out analytically and the posterior of τ is evaluated on a grid of 10⁵ points uniform in the prior probability, so the result does not depend on a random seed (IUPAC 2024, Examples 4M and 4N, which use MCMC).",
     prior_flat: "flat",
+    laplace: "Laplace laboratory effects with standard deviation τ (NIST Decision Tree); μ and τ on a two-dimensional grid. ",
     prior_normal: "Gaussian with mean {m}{unit} and standard deviation {s}{unit}",
     statement_bayes: "{m}: {x}{unit}, standard uncertainty {u}{unit}, {p} credible interval [{lo}, {hi}]{unit}; posterior median of τ {t}{unit} (Bayes)",
     ml_tau: "Dark uncertainty τ",
@@ -96,6 +98,7 @@ const CS_TR: CsLabels = CsLabels {
     bayes_tau: "Karanlık belirsizlik τ: sonsal ortanca ve {p} aralık",
     method_bayes: "u_j'leri bilinen normal olabilirlik; önsel: τ için ortancası {t}{unit} olan yarım Cauchy; μ için {mu}. μ analitik olarak integre edilir, τ'nun sonsalı önsel olasılıkta düzgün 10⁵ noktalı bir ızgarada hesaplanır; sonuç rastgele tohuma bağlı değildir (IUPAC 2024, Örnek 4M ve 4N MCMC kullanır).",
     prior_flat: "düz",
+    laplace: "Standart sapması τ olan Laplace laboratuvar etkileri (NIST Decision Tree); μ ve τ iki boyutlu ızgarada. ",
     prior_normal: "ortalaması {m}{unit}, standart sapması {s}{unit} olan normal",
     statement_bayes: "{m}: {x}{unit}, standart belirsizlik {u}{unit}, {p} inanılırlık aralığı [{lo}, {hi}]{unit}; τ'nun sonsal ortancası {t}{unit} (Bayes)",
     ml_tau: "Karanlık belirsizlik τ",
@@ -304,9 +307,10 @@ pub(super) fn markdown(
                 .replace("{unit}", &unit),
             _ => d.prior_flat.to_string(),
         };
+        let lap = if pr.effects == crate::consensus::Effects::Laplace { d.laplace } else { "" };
         let _ = writeln!(
             s,
-            "\n{}\n",
+            "\n{lap}{}\n",
             d.method_bayes
                 .replace("{t}", &fmt_num(pr.tau_median.unwrap_or(f64::NAN), 4, lang))
                 .replace("{mu}", &mu)

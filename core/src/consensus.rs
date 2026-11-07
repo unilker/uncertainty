@@ -534,6 +534,137 @@ pub fn bayes_known_u(
     })
 }
 
+/// ln erfcx(z) = z² + ln erfc(z) for z ≥ 5 by the asymptotic series
+/// erfcx(z) = 1/(z√π) Σ_k (−1)^k (2k − 1)!!/(2z²)^k, summed while the terms
+/// decrease (relative error below 10⁻¹⁰).
+fn ln_erfcx_large(z: f64) -> f64 {
+    let t = 1.0 / (2.0 * z * z);
+    let (mut sum, mut term) = (1.0, 1.0);
+    for k in 1..40 {
+        let next = -term * (2 * k - 1) as f64 * t;
+        if next.abs() >= term.abs() || next.abs() < 1e-17 {
+            break;
+        }
+        term = next;
+        sum += term;
+    }
+    (sum / (z * std::f64::consts::PI.sqrt())).ln()
+}
+
+/// ln of the density at d of a Laplace(0, b) plus an independent N(0, s²)
+/// variable: (1/4b)[e^{a₁} erfc(z₁) + e^{a₂} erfc(z₂)] with
+/// a₁,₂ = r²/2 ∓ d/b, z₁,₂ = (r ∓ d/s)/√2, r = s/b. For large z the identity
+/// a − z² = −d²/2s² avoids the cancellation of two large terms.
+fn ln_normal_laplace(d: f64, b: f64, s: f64) -> f64 {
+    let r = s / b;
+    let term = |sign: f64| {
+        let z = (r - sign * d / s) / std::f64::consts::SQRT_2;
+        if z < 5.0 {
+            0.5 * r * r - sign * d / b + crate::special::erfc(z).ln()
+        } else {
+            -0.5 * (d / s).powi(2) + ln_erfcx_large(z)
+        }
+    };
+    let (l1, l2) = (term(1.0), term(-1.0));
+    let m = l1.max(l2);
+    -(4.0 * b).ln() + m + ((l1 - m).exp() + (l2 - m).exp()).ln()
+}
+
+/// As [`bayes_known_u`] with Laplace laboratory effects of standard
+/// deviation τ (scale τ/√2), the model the NIST Decision Tree recommends for
+/// heavy-tailed effects (Possolo & Meija 2022, Hubble–Lemaître constant).
+/// μ cannot be integrated analytically: the posterior is evaluated on a
+/// grid in (θ, μ), τ = s·tan(πθ/2), with a second pass on μ about the mass of
+/// the first.
+pub fn bayes_laplace_known_u(
+    x: &[f64],
+    u: &[f64],
+    tau_median: f64,
+    mu_prior: Option<(f64, f64)>,
+    p: f64,
+) -> Result<BayesConsensus, UncError> {
+    validate(x, u, &[])?;
+    if !(tau_median > 0.0) || !tau_median.is_finite() {
+        return Err(invalid("the median of the half-Cauchy prior on τ must be positive"));
+    }
+    if !(p > 0.0 && p < 1.0) {
+        return Err(invalid("the coverage probability must lie strictly between 0 and 1"));
+    }
+    let (nt, nm) = (300, 300);
+    let taus: Vec<f64> =
+        (0..nt).map(|i| tau_median * (0.5 * std::f64::consts::PI * (i as f64 + 0.5) / nt as f64).tan()).collect();
+    let xmin = x.iter().copied().fold(f64::INFINITY, f64::min);
+    let xmax = x.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+    let umax = u.iter().copied().fold(0.0, f64::max);
+    let pass = |lo: f64, hi: f64| {
+        let mus: Vec<f64> = (0..nm).map(|k| lo + (hi - lo) * (k as f64 + 0.5) / nm as f64).collect();
+        let mut ll = vec![0.0; nt * nm];
+        for (i, t) in taus.iter().enumerate() {
+            let b = t / std::f64::consts::SQRT_2;
+            for (k, m) in mus.iter().enumerate() {
+                let mut l: f64 = x.iter().zip(u).map(|(xi, ui)| ln_normal_laplace(xi - m, b, *ui)).sum();
+                if let Some((m0, s0)) = mu_prior {
+                    l -= 0.5 * ((m - m0) / s0).powi(2);
+                }
+                ll[i * nm + k] = l;
+            }
+        }
+        let lmax = ll.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+        let w: Vec<f64> = ll.iter().map(|l| (l - lmax).exp()).collect();
+        let sw: f64 = w.iter().sum();
+        let mut pm = vec![0.0; nm];
+        let mut pt = vec![0.0; nt];
+        for i in 0..nt {
+            for k in 0..nm {
+                let a = w[i * nm + k] / sw;
+                pm[k] += a;
+                pt[i] += a;
+            }
+        }
+        (mus, pm, pt)
+    };
+    let span = (xmax - xmin) + umax;
+    let (mus, pm, _) = pass(xmin - 2.0 * span, xmax + 2.0 * span);
+    let m1 = mus.iter().zip(&pm).map(|(a, b)| a * b).sum::<f64>();
+    let s1 = mus.iter().zip(&pm).map(|(a, b)| b * (a - m1).powi(2)).sum::<f64>().sqrt();
+    let h = (mus[1] - mus[0]).max(s1 / 50.0);
+    let (mus, pm, pt) = pass(m1 - 12.0 * s1.max(h), m1 + 12.0 * s1.max(h));
+    let mean = mus.iter().zip(&pm).map(|(a, b)| a * b).sum::<f64>();
+    let sd = mus.iter().zip(&pm).map(|(a, b)| b * (a - mean).powi(2)).sum::<f64>().sqrt();
+    // Quantiles: the grid masses are spread uniformly over their cells.
+    let dm = mus[1] - mus[0];
+    let mu_q = |q: f64| {
+        let mut acc = 0.0;
+        for (m, w) in mus.iter().zip(&pm) {
+            if acc + w >= q {
+                return m - 0.5 * dm + dm * (q - acc) / w;
+            }
+            acc += w;
+        }
+        *mus.last().unwrap()
+    };
+    // τ: interpolation in θ, where the grid is uniform.
+    let tau_q = |q: f64| {
+        let mut acc = 0.0;
+        for (i, w) in pt.iter().enumerate() {
+            if acc + w >= q {
+                let th = (i as f64 + (q - acc) / w) / nt as f64;
+                return tau_median * (0.5 * std::f64::consts::PI * th).tan();
+            }
+            acc += w;
+        }
+        *taus.last().unwrap()
+    };
+    let a = 0.5 * (1.0 - p);
+    Ok(BayesConsensus {
+        mean,
+        sd,
+        interval: (mu_q(a), mu_q(1.0 - a)),
+        tau_median: tau_q(0.5),
+        tau_interval: (tau_q(a), tau_q(1.0 - a)),
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -634,6 +765,41 @@ mod tests {
         assert!((b.mean - 6.673_773_32).abs() < 5e-9, "{b:?}");
         assert!((b.sd - 0.000_328_63).abs() < 2e-8, "{b:?}");
         assert!((b.interval.0 - 6.673_105).abs() < 2e-6 && (b.interval.1 - 6.674_409).abs() < 2e-6, "{b:?}");
+    }
+
+    #[test]
+    fn normal_laplace_density_integrates_to_one_and_has_the_limits() {
+        // ∫ f = 1; b → 0 gives N(0, s²); s → 0 gives Laplace(0, b).
+        let (b, s) = (0.7, 0.4);
+        let h = 1e-3;
+        let total: f64 = (-20_000..20_000).map(|i| ln_normal_laplace(i as f64 * h, b, s).exp() * h).sum();
+        assert!((total - 1.0).abs() < 1e-9, "{total}");
+        let n = ln_normal_laplace(0.3, 1e-9, 0.4);
+        let expect = -0.5 * (0.3f64 / 0.4).powi(2) - (0.4 * (2.0 * std::f64::consts::PI).sqrt()).ln();
+        assert!((n - expect).abs() < 1e-6, "{n} {expect}");
+        let l = ln_normal_laplace(0.3, 0.7, 1e-6);
+        assert!((l - (-(0.3f64 / 0.7) - (1.4f64).ln())).abs() < 1e-5, "{l}");
+    }
+
+    #[test]
+    fn bayes_laplace_possolo_meija_2022_hubble() {
+        // Possolo & Meija (2022), Hubble–Lemaître constant: 22 estimates
+        // (Planck excluded), Laplace effects, τ half-Cauchy with median
+        // mad(x) = 1.4826 × 1.95, H0 ~ N(67.4, 100²). Stan: 71.69, 0.66,
+        // median τ 2.03 (km/s)/Mpc. numpy grid: 71.6915, 0.6603, 2.0336.
+        let x = [
+            72.5, 67.8, 69.32, 74.03, 67.4, 70.3, 73.3, 69.8, 73.5, 70.3, 76.8, 74.2, 73.9, 75.8, 67.6, 67.4, 71.8,
+            73.5, 73.2, 72.1, 69.8, 73.3,
+        ];
+        let u = [
+            2.2, 1.3, 1.42, 1.42, 6.1, 5.15, 1.75, 1.9, 1.4, 1.35, 2.6, 2.85, 3.0, 5.05, 4.25, 1.0, 3.59, 5.3, 1.3,
+            2.0, 1.7, 1.4,
+        ];
+        let gamma = 1.4826 * median_absolute_deviation(&x);
+        let b = bayes_laplace_known_u(&x, &u, gamma, Some((67.4, 100.0)), 0.95).unwrap();
+        assert!((b.mean - 71.6915).abs() < 0.0005, "{b:?}");
+        assert!((b.sd - 0.6603).abs() < 0.0005, "{b:?}");
+        assert!((b.tau_median - 2.034).abs() < 0.01, "{b:?}");
     }
 
     #[test]

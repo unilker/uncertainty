@@ -3006,3 +3006,42 @@ the hierarchical model with the NICOB defaults is 0.185 a; printed 0.19 a. The p
 standard deviation from a few thousand effectively independent MCMC draws; the printed value is the rounding of
 an MCMC estimate, not of the exact posterior. To note in the article as an example of the reproducibility of
 MCMC-based reference values.
+
+## 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.)
+
+The book is CC BY-SA 4.0. Five examples fit the program; the others need methods it does not have (below).
+
+**D68. Laplace laboratory effects in the Bayesian consensus (`"effects": "laplace"`).**
+
+- The NIST Decision Tree (Possolo et al. 2021) recommends Laplace effects when the effects are symmetric but
+  heavier-tailed than Gaussian. The book fits it with Stan (theta ~ double_exponential(H0, tau/√2), so τ is the
+  standard deviation of the effects).
+- The likelihood of one result is the normal–Laplace convolution
+  f(d) = (1/4b)[e^{r²/2 − d/b} erfc((r − d/s)/√2) + e^{r²/2 + d/b} erfc((r + d/s)/√2)], b = τ/√2, r = s/b.
+  For z ≥ 5 the program uses a − z² = −d²/(2s²) with the asymptotic series of erfcx, which avoids the
+  cancellation of two large terms when b → 0 (tested: unit integral, Gaussian limit b → 0, Laplace limit s → 0).
+- μ cannot be integrated analytically: (θ, μ) grid of 300 × 300, τ = s·tan(πθ/2), with a second pass on μ over
+  ±12 posterior s.d. Quantiles by interpolation within the cells. About 1.5 s for 22 results.
+- Possolo & Meija, Hubble–Lemaître constant (22 estimates, Planck excluded; τ prior median = R's mad(x),
+  1.4826 × median|x − median|; H₀ ~ N(67.4, 100²)): Stan 71.69, 0.66, median τ 2.03 (km/s)/Mpc; program
+  71.6915, 0.6603, 2.0336 (numpy grid 2000 × 1500 agrees to 10⁻⁴).
+
+Model examples (GUM and Monte Carlo, existing sections): plasma anion gap (25, u 1.85 mmol/L), storage tank
+(7204 ± 54 m³ by Gauss and by MCM), Wheatstone bridge (957 ± 7 Ω; contributions E 52 %, F 48 %, G 0.6 %,
+H 0.004 % reproduced), atomic weight of lead in HIPB-1 (multivariate: four amount fractions and A_r(Pb) =
+207.17915, u 0.000 084, U95 0.000 17, printed 0.0002). The three isotope ratios and the closure determine the
+fractions exactly, so the book's constrained MLE (R solnp) and its 5 × 10⁴ Monte Carlo refits reduce to explicit
+expressions and the analytic Jacobian.
+
+Not taken into the library (methods not in the program), recorded for the outlook of the article:
+
+- Arsenic in kudzu (NIST SRM 3268): Laplace effects and half-Cauchy priors on the σ_j with ν_j = 2 (n + 2
+  parameters; MCMC, or a 1-D table per laboratory and a convolution, too costly for the test suite). Result
+  0.895(29) mg/kg, median τ 0.167 mg/kg, 95 % (0.839, 0.951).
+- Thermal bath (ARMA model of autocorrelated readings), counting examples (Poisson, negative binomial),
+  ranking, categorical data, model averaging (Machu Picchu, influenza), model uncertainty (Pluto, Everest).
+
+**F96. Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte
+Carlo).** Linearised (and Monte Carlo with 10⁶ draws): r(²⁰⁴Pb, ²⁰⁶Pb) = −0.011, r(²⁰⁴Pb, ²⁰⁸Pb) = −0.179;
+printed −0.02 and −0.17 from 5 × 10⁴ draws, whose standard error for a correlation near 0 is about 0.0045. The
+other four correlations and the four u(x) agree. Impact: none on A_r(Pb).

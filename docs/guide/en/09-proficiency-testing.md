@@ -140,5 +140,11 @@ probability (τ = s·tan(πθ/2)). The result is exact and the same at every run
 report gives the posterior mean and standard deviation of μ, its quantile interval, and the posterior median and
 interval of τ, which is skewed to the right. NICOB's priors on the σ_j for finite ν_j are not implemented.
 
-Library: Koepke et al. 2017 (G, half-lives of ¹³⁷Cs and ⁹⁰Sr) and IUPAC 2024 Examples 3E/4M/4N (iridium) and 4F
-(CCQM-K145). Not yet implemented: leave-one-out and bilateral degrees of equivalence.
+With `"effects": "laplace"` the laboratory effects have a Laplace distribution with standard deviation τ, which
+the NIST Decision Tree recommends when a few results lie far from the others (heavier tails than Gaussian). The
+likelihood of each result is the closed-form convolution of a Laplace and a Gaussian density; μ and τ are then
+evaluated on a two-dimensional grid (about a second for 20 results). Possolo & Meija (2022) fit this model to 22
+estimates of the Hubble–Lemaître constant with Stan; the program gives the same 71.69(66) (km/s)/Mpc.
+
+Library: Koepke et al. 2017 (G, half-lives of ¹³⁷Cs and ⁹⁰Sr), IUPAC 2024 Examples 3E/4M/4N (iridium) and 4F
+(CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître constant). Not yet implemented: leave-one-out and bilateral degrees of equivalence.

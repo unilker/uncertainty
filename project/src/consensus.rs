@@ -85,6 +85,24 @@ pub struct BayesSpec {
     pub mu_mean: Option<f64>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub mu_sd: Option<f64>,
+    /// Distribution of the laboratory effects: "gaussian" (default) or
+    /// "laplace" (NIST Decision Tree, heavy tails).
+    #[serde(default, skip_serializing_if = "Effects::is_gaussian")]
+    pub effects: Effects,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
+#[serde(rename_all = "lowercase")]
+pub enum Effects {
+    #[default]
+    Gaussian,
+    Laplace,
+}
+
+impl Effects {
+    fn is_gaussian(&self) -> bool {
+        *self == Effects::Gaussian
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -223,8 +241,11 @@ pub fn evaluate(spec: &ConsensusSpec) -> Result<ConsensusAnalysis, ProjectError>
             };
             let tau_median = b.tau_median.unwrap_or_else(|| consensus::median_absolute_deviation(&x));
             Some(
-                consensus::bayes_known_u(&x, &u, tau_median, prior, spec.coverage)
-                    .map_err(|e| err("bayes", e.to_string()))?,
+                match b.effects {
+                    Effects::Gaussian => consensus::bayes_known_u(&x, &u, tau_median, prior, spec.coverage),
+                    Effects::Laplace => consensus::bayes_laplace_known_u(&x, &u, tau_median, prior, spec.coverage),
+                }
+                .map_err(|e| err("bayes", e.to_string()))?,
             )
         }
         None => None,

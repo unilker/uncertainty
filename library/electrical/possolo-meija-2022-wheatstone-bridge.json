@@ -1,0 +1,126 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "possolo-meija-2022-wheatstone-bridge",
+    "field": "electrical",
+    "title": {
+      "en": "Wheatstone bridge: a measurement model that is not a product of powers (Possolo & Meija 2022)",
+      "tr": "Wheatstone köprüsü: kuvvetler çarpımı olmayan bir ölçüm modeli (Possolo & Meija 2022)"
+    },
+    "description": {
+      "en": "At balance R_U/R_G = R_F/R_EH, with R_EH = 1/(R_E⁻¹ + R_H⁻¹) the joint resistance of E and H in parallel, so R_U = R_G R_F (R_E⁻¹ + R_H⁻¹).",
+      "tr": "Dengede R_U/R_G = R_F/R_EH; R_EH = 1/(R_E⁻¹ + R_H⁻¹), paralel E ve H'nin ortak direnci; dolayısıyla R_U = R_G R_F (R_E⁻¹ + R_H⁻¹)."
+    },
+    "explanation": [
+      {
+        "en": "Gauss's formula with the partial derivatives −R_G R_F/R_E², R_U/R_F, R_U/R_G and −R_G R_F/R_H² gives R_U = 957.0 Ω and u(R_U) = 6.96 Ω ≈ 7 Ω.",
+        "tr": "−R_G R_F/R_E², R_U/R_F, R_U/R_G ve −R_G R_F/R_H² kısmi türevleriyle Gauss formülü R_U = 957,0 Ω ve u(R_U) = 6,96 Ω ≈ 7 Ω verir."
+      },
+      {
+        "en": "Contributions to u²(R_U): E 52 %, F 48 %, G 0.6 %, H 0.003 %, as in the NIST Uncertainty Machine output quoted by the book (E 52 %, F 48 %, G 0.6 %, H 0.004 %).",
+        "tr": "u²(R_U)'ya katkılar: E %52, F %48, G %0,6, H %0,003; kitabın aktardığı NIST Uncertainty Machine çıktısıyla aynı (E %52, F %48, G %0,6, H %0,004)."
+      }
+    ],
+    "tags": [
+      "possolo-meija-2022",
+      "resistance",
+      "bridge",
+      "nist-uncertainty-machine"
+    ],
+    "notes": [
+      {
+        "en": "The book notes that a lognormal model, which respects the positivity of resistance, gives practically the same results at these relative uncertainties (below 5 %).",
+        "tr": "Kitap, direncin pozitifliğine uyan lognormal modelin bu bağıl belirsizliklerde (%5'in altında) pratikte aynı sonucu verdiğini belirtir."
+      }
+    ],
+    "sources": [
+      {
+        "document": "Possolo & Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo (2022)",
+        "section": "Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26",
+        "url": "https://doi.org/10.4224/1tqz-b038"
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "R_U",
+      "unit": "Ω",
+      "expression": "R_G * R_F * (1/R_E + 1/R_H)",
+      "description": {
+        "en": "Resistance of the unknown resistor U of a balanced Wheatstone bridge",
+        "tr": "Dengelenmiş Wheatstone köprüsündeki bilinmeyen U direncinin değeri"
+      }
+    },
+    "inputs": [
+      {
+        "name": "R_E",
+        "unit": "Ω",
+        "description": {
+          "en": "Decade resistor E (EICO, 0.5 %)",
+          "tr": "Dekad direnç E (EICO, %0,5)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 951,
+          "sd": 5
+        }
+      },
+      {
+        "name": "R_F",
+        "unit": "Ω",
+        "description": {
+          "en": "Fixed resistor F",
+          "tr": "Sabit direnç F"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 997,
+          "sd": 5
+        }
+      },
+      {
+        "name": "R_G",
+        "unit": "Ω",
+        "description": {
+          "en": "Decade resistor G (General Radio, 0.05 %)",
+          "tr": "Dekad direnç G (General Radio, %0,05)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 909,
+          "sd": 0.5
+        }
+      },
+      {
+        "name": "R_H",
+        "unit": "Ω",
+        "description": {
+          "en": "Resistance substitution box H, in parallel with E",
+          "tr": "E'ye paralel direnç ikame kutusu H"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 225200.0,
+          "sd": 2300.0
+        }
+      }
+    ]
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 957,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 7,
+        "tolerance": 0.5
+      }
+    },
+    "reference": {
+      "en": "Possolo & Meija (2022), p. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; contributions F 48 %, G 0.6 %, E 52 %, H 0.004 %.",
+      "tr": "Possolo & Meija (2022), s. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; katkılar F %48, G %0,6, E %52, H %0,004."
+    }
+  }
+}

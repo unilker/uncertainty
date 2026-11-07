@@ -136,5 +136,11 @@ Sonuç kesindir ve her çalıştırmada aynıdır; NICOB ve rehber MCMC kullanı
 standart sapmasını, kantil aralığını, sağa çarpık τ'nun sonsal ortancasını ve aralığını verir. Sonlu ν_j için
 NICOB'un σ_j önselleri uygulanmamıştır.
 
-Kütüphane: Koepke vd. 2017 (G, ¹³⁷Cs ve ⁹⁰Sr yarı ömürleri) ve IUPAC 2024 Örnek 3E/4M/4N (iridyum) ve 4F
-(CCQM-K145). Henüz uygulanmayanlar: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
+`"effects": "laplace"` ile laboratuvar etkileri standart sapması τ olan bir Laplace dağılımına sahiptir; NIST
+Decision Tree bunu birkaç sonuç diğerlerinden çok uzakta olduğunda (normalden ağır kuyruklar) önerir. Her
+sonucun olabilirliği bir Laplace ve bir normal yoğunluğun kapalı biçimli evrişimidir; μ ve τ iki boyutlu bir
+ızgarada hesaplanır (20 sonuç için yaklaşık bir saniye). Possolo & Meija (2022) bu modeli Hubble–Lemaître
+sabitinin 22 kestirimine Stan ile uydurur; program aynı 71,69(66) (km/s)/Mpc değerini verir.
+
+Kütüphane: Koepke vd. 2017 (G, ¹³⁷Cs ve ⁹⁰Sr yarı ömürleri), IUPAC 2024 Örnek 3E/4M/4N (iridyum) ve 4F
+(CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître sabiti). Henüz uygulanmayanlar: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.

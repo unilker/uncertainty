@@ -10,7 +10,7 @@ they are kept as the evidence behind entries of `docs/research/research-log.md`.
 | `cg18/` | Check of EURAMET cg-18 Example H4 (`h4.py`) | D52, F70 |
 | `gum5/` | JCGM GUM-5:2026: composition of Example 4 (`ex4_composition.py`), Monte Carlo of Example 2 (`ex2_mcm.py`), risks of Example 10 in the printed and the conditional form (`ex10_risks.py`), posterior of Example 12 (`ex12_posterior.py`), Fourier area of Example 11 (`ex11_fourier_area.py`), Bayesian slope of Example 9 (`ex9_bayes.py`) | F79–F85 |
 | `emue/` | EMUE compendium 2021: tables of E3.4 (`e34_soil_tables.py`), total risks of E2.1 (`e21_total_risks.py`, scipy), vacuum-gauge tables of E2.2 (`e22_vacuum_tables.py`), permeation of E3.8 (`e38_permeation.py`), dilution and WTLS of E3.3 (`e33_dilution.py`, `e33_wtls.py`) | F87–F90, D63 |
-| `consensus/` | Koepke et al. 2017 Tables 1–4: DerSimonian–Laird, Knapp–Hartung, the NICOB parametric bootstrap and the Linear Pool, independent numpy implementation (`koepke2017.py`); grid posterior of the Bayesian random-effects model (`bayes_grid.py`) | D66, D67, F93–F95 |
+| `consensus/` | Koepke et al. 2017 Tables 1–4: DerSimonian–Laird, Knapp–Hartung, the NICOB parametric bootstrap and the Linear Pool, independent numpy implementation (`koepke2017.py`); grid posterior of the Bayesian random-effects model (`bayes_grid.py`); Laplace effects, Hubble (`hubble_laplace.py`); lead in HIPB-1 (`lead_hipb1.py`) | D66–D68, F93–F96 |
 | `joinwords.py` | rejoins glyph-by-glyph PDF text from `pdftotext -bbox` (IUPAC 2024 PDF) | — |
 | `findings_index.py` | writes `docs/research/findings-index.md` from the research log | — |
 

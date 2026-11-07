@@ -2,13 +2,13 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (128)
-- Electrical and RF (34)
+- Chemistry (130)
+- Electrical and RF (35)
 - Flow and volume (7)
 - General (method validation) (21)
-- Length (11)
+- Length (12)
 - Mass (29)
-- Physical properties (13)
+- Physical properties (14)
 - Pressure (6)
 - Temperature (10)
 
@@ -1314,6 +1314,55 @@ TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the 
 - The project 'quam-a1-cadmium-standard' builds the uncertainties of m, P and V from their components as in QUAM A1.
 
 **Run:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang en`
+
+### Atomic weight and isotopic composition of lead in NRC HIPB-1 from three isotope ratios (Possolo & Meija 2022)
+
+`possolo-meija-2022-atomic-weight-lead-hipb1` — Possolo & Meija, Sums, Products, and Ratios: Atomic Weight of Lead, pp. 26–29
+
+Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²⁰⁸Pb/²⁰⁷Pb in the high-purity lead HIPB-1. The amount fractions follow from the ratios and the closure Σx = 1; A_r(Pb) is their weighted average of the isotopic masses.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. Three ratios and the closure determine the four amount fractions exactly, x(²⁰⁴Pb) = R₄/(1 + R₄ + R₆ + R₈) and so on, so the constrained maximum-likelihood fit of the book (R solnp) returns these explicit expressions; the analytic Jacobian replaces the 5 × 10⁴ refits of its Monte Carlo.
+2. The closure induces correlations between the amount fractions (Chayes 1971), strongly negative between ²⁰⁶Pb and ²⁰⁸Pb (−0.90).
+3. A_r(Pb) = 207.17915 with u = 0.000 084 and U95 % = 0.000 17 (printed 0.0002); the uncertainties of the isotopic masses contribute almost nothing.
+
+**Result:**
+
+- x204 = 0.01282130 mol/mol, u(x204) = 6.1 × 10⁻⁶ mol/mol (GUM)
+- x206 = 0.2709567 mol/mol, u(x206) = 3.7 × 10⁻⁵ mol/mol (GUM)
+- x207 = 0.2035126 mol/mol, u(x207) = 1.9 × 10⁻⁵ mol/mol (GUM)
+- x208 = 0.5127094 mol/mol, u(x208) = 4.5 × 10⁻⁵ mol/mol (GUM)
+- ArPb = 207.1791483 1, u(ArPb) = 8.4 × 10⁻⁵ 1 (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3.33; rectangle k_q = 2.58
+
+**Notes:**
+
+- The book's correlations come from 5 × 10⁴ Monte Carlo refits; two of them (²⁰⁴Pb–²⁰⁶Pb −0.02 and ²⁰⁴Pb–²⁰⁸Pb −0.17) differ from the linearised values (−0.011, −0.179) by about two Monte Carlo standard errors (research log F96).
+- Users of HIPB-1 should rely on the certificate (Meija et al. 2020); the book's data reduction differs slightly from it.
+
+**Run:** `uncertainty run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang en`
+
+### Plasma anion gap: a linear combination of four ion concentrations (Possolo & Meija 2022)
+
+`possolo-meija-2022-plasma-anion-gap` — Possolo & Meija, Sums, Products, and Ratios: Plasma Anion Gap, pp. 16–18
+
+Δc_AG = c(Na⁺) + c(K⁺) − c(Cl⁻) − c(HCO₃⁻) for one patient (White 2008); the uncertainties are reported as standard deviations.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. For a linear combination of uncorrelated inputs the variances add, whatever the signs: u²(Δc_AG) = 1.48² + 0.04² + 0.72² + 0.84² = (1.85 mmol/L)².
+2. Δc_AG = 25 mmol/L; with Gaussian inputs the true value lies within 25 ± 1.85 mmol/L with about 68 % probability.
+
+**Result:**
+
+- AG = (25.0 ± 3.6) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang en`
 
 ### Preparation of a cadmium calibration standard
 
@@ -3809,6 +3858,29 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 **Run:** `uncertainty run library/electrical/num-10-resistance.json --lang en`
 
+### Wheatstone bridge: a measurement model that is not a product of powers (Possolo & Meija 2022)
+
+`possolo-meija-2022-wheatstone-bridge` — Possolo & Meija, Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26
+
+At balance R_U/R_G = R_F/R_EH, with R_EH = 1/(R_E⁻¹ + R_H⁻¹) the joint resistance of E and H in parallel, so R_U = R_G R_F (R_E⁻¹ + R_H⁻¹).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Gauss's formula with the partial derivatives −R_G R_F/R_E², R_U/R_F, R_U/R_G and −R_G R_F/R_H² gives R_U = 957.0 Ω and u(R_U) = 6.96 Ω ≈ 7 Ω.
+2. Contributions to u²(R_U): E 52 %, F 48 %, G 0.6 %, H 0.003 %, as in the NIST Uncertainty Machine output quoted by the book (E 52 %, F 48 %, G 0.6 %, H 0.004 %).
+
+**Result:**
+
+- R_U = (957 ± 14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- The book notes that a lognormal model, which respects the positivity of resistance, gives practically the same results at these relative uncertainties (below 5 %).
+
+**Run:** `uncertainty run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang en`
+
 ## Flow and volume
 
 ### Gravimetric calibration of a 1000 mL volumetric flask (EURAMET cg-19 Example 1)
@@ -4661,6 +4733,25 @@ NUM manual §8: GUM H.1 with the six inputs of the GUM's first-order budget, all
 - The project 'gum-h1-end-gauge' reproduces the GUM's own evaluation (θ split into its mean and cyclic part, Welch–Satterthwaite, k = 2.92).
 
 **Run:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang en`
+
+### Volume of a cylindrical storage tank: product of powers, Gauss's formula and Monte Carlo (Possolo & Meija 2022)
+
+`possolo-meija-2022-storage-tank-volume` — Possolo & Meija, Sums, Products, and Ratios: Storage Tank, pp. 18–24
+
+V = πR²H with R = 8.40(3) m and H = 32.50(7) m.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. For a product of powers the relative variances add with the squares of the exponents: (u(V)/V)² = (2 × 0.03/8.40)² + (0.07/32.50)², so u(V) = 53.7 m³ ≈ 54 m³ with V = 7204 m³.
+2. The Monte Carlo method with 10⁶ draws gives 7204 m³ give or take 54 m³ and a distribution indistinguishable from a Gaussian one.
+
+**Result:**
+
+- V = (7200 ± 100) m³, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/length/possolo-meija-2022-storage-tank-volume.json --lang en`
 
 ## Mass
 
@@ -5734,6 +5825,34 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 - The CODATA adjustment correlates these constants; as noted in the manual, including the correlations does not change u(σ) at the reported digit. Since the 2019 redefinition of the SI, h is exact and σ = 5.670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ has no uncertainty.
 
 **Run:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang en`
+
+### Hubble–Lemaître constant from 22 mutually inconsistent estimates: Bayesian consensus with Laplace effects (Possolo & Meija 2022)
+
+`possolo-meija-2022-hubble-lemaitre-constant-laplace` — Possolo & Meija, Consensus Building, Hubble-Lemaître Constant, pp. 146–151
+
+Recent estimates of H₀ (Planck's excluded) are more dispersed than their uncertainties suggest. The model H₀,j = H₀ + λ_j + ε_j with Laplace experiment effects λ_j (standard deviation τ), as the NIST Decision Tree recommends, and Gaussian errors with the reported u_j blends them into a consensus value.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. The standard deviation of the 22 estimates is 2.76 and the median of their uncertainties 1.95 (km/s)/Mpc, so a preliminary τ is √(2.76² − 1.95²) = 1.95 (km/s)/Mpc.
+2. Priors as in the Stan code of the book: H₀ ~ N(67.4, 100²); τ half-Cauchy with median mad(x) = 1.4826 × median|x − median(x)| = 2.89107 (km/s)/Mpc. The Laplace effects have scale τ/√2, so that τ is their standard deviation.
+3. The likelihood of each estimate is the convolution of a Laplace and a Gaussian density, which has a closed form in erfc; the posterior of (H₀, τ) is evaluated on a two-dimensional grid instead of by MCMC (the book: Stan, 4 chains of 10⁶ iterations).
+4. Posterior: H₀ = 71.69 (km/s)/Mpc, u = 0.66 (km/s)/Mpc, median τ = 2.03 (km/s)/Mpc, as printed. Compared with Planck's 67.36(54), z = (71.69 − 67.36)/√(0.66² + 0.54²) = 5.1: the Hubble tension.
+
+**Result:**
+
+- H₀: consensus value 71.5428 (km/s)/Mpc, standard uncertainty 0.63 (km/s)/Mpc, 95 % coverage interval [70.2770, 72.7960] (km/s)/Mpc (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 2.0 (km/s)/Mpc; Cochran's Q = 46.66 with 21 degrees of freedom
+- H₀: 71.6915 (km/s)/Mpc, standard uncertainty 0.66 (km/s)/Mpc, 95 % credible interval [70.4037, 73.0082] (km/s)/Mpc; posterior median of τ 2.0 (km/s)/Mpc (Bayes)
+
+**Notes:**
+
+- Labels follow the book; the two studies labelled hst are distinguished by their first authors (Riess 2019, Freedman 2019). Mildly asymmetric uncertainties were replaced in the book by the geometric mean of the left and right uncertainties.
+- The DerSimonian–Laird estimate (Gaussian effects) is shown for comparison.
+
+**Run:** `uncertainty run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang en`
 
 ## Pressure
 
