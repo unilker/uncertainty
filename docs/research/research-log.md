@@ -3205,3 +3205,25 @@ they get the new label **n**. The classes of all findings are kept in `docs/rese
 | F31, F35 | n | methodological: conventions for t inputs |
 | F37 | n | methodological: Algorithm A with bimodal data |
 | F80 | c | printed global risks follow from a joint PDF whose s.d. depends on the measured value; the conditional form gives other values |
+
+## 2026-11-07 (session 21, continued) — Benchmark against Suncal
+
+**D74. Library-wide comparison with Sandia's Suncal 1.7.1** (`tools/research/benchmarks/suncal_compare.py`,
+table in `docs/research/benchmark-suncal.md`). The script translates every model project that Suncal can express
+(scalar output; no correlations, intermediates or ensembles; normal, rectangular, triangular, arcsine, constant,
+t, type_a, type_a_pooled inputs; no log10) into a Suncal model, computes Suncal's first-order GUM and, where all
+inputs are normal/rectangular/triangular/arcsine/constant, its Monte Carlo with 10⁶ draws, and compares them with
+the program's JSON output.
+
+- 107 projects compared, 30 model projects skipped.
+- First-order standard uncertainty: max relative difference 6.4 × 10⁻¹² (rounding only).
+- Estimates: identical except the two JCGM 101 comparison-loss projects that request the second-order estimate
+  term of JCGM 100 Amd.1 (Δy = 0.5u and 0.1u by design; Suncal is first order).
+- Monte Carlo standard deviation (48 projects): max relative difference 3.0 × 10⁻³; divided by the sampling
+  standard error √((κ + 2)/(4N₁) + (κ + 2)/(4N₂)) the largest |z| is 3.0 (GUM-5 Ex. 1, pH), of the size expected
+  for the largest of 48 comparisons. The program's 5 × 10⁶-trial runs with two other seeds give 0.004 0803 and
+  0.004 0820 (GUM 0.004 083), so the deviation is on Suncal's single run.
+- Suncal draws from the global NumPy generator (seeded) and needs PYTHONHASHSEED=0 for a reproducible table.
+- The NIST Uncertainty Machine is a web service; its manual examples were reproduced earlier (task 22, F29, F33,
+  F35). A scripted NUM benchmark is not possible offline; the article states the NUM comparison as the manual's
+  examples.

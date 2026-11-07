@@ -13,6 +13,7 @@ they are kept as the evidence behind entries of `docs/research/research-log.md`.
 | `consensus/` | Koepke et al. 2017 Tables 1–4: DerSimonian–Laird, Knapp–Hartung, the NICOB parametric bootstrap and the Linear Pool, independent numpy implementation (`koepke2017.py`); grid posterior of the Bayesian random-effects model (`bayes_grid.py`); Merkatas et al. 2019 (`merkatas2019.py`); Laplace effects, Hubble (`hubble_laplace.py`); lead in HIPB-1 (`lead_hipb1.py`) | D66–D68, F93–F96 |
 | `qnmr/` | BIPM ISRD qNMR budgets: recomputation of the eleven ¹H tables (`isrd_budgets.py`, also the data source of `tools/generators/bipm_isrd.py`) | D69, F97 |
 | `homogeneity/` | ISO Guide 35 C.1 chromium data and ANOVA (`cr_soil.py`, also the data source of `possolo_bodnar2018.py`) | D70 |
+| `benchmarks/` | comparison with Sandia's Suncal over the library (`suncal_compare.py`; needs `pip install suncal`) | D74 |
 | `joinwords.py` | rejoins glyph-by-glyph PDF text from `pdftotext -bbox` (IUPAC 2024 PDF) | — |
 | `findings_index.py` | writes `docs/research/findings-index.md` from the research log | — |
 

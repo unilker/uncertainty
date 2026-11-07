@@ -88,7 +88,9 @@ Table 1: features × standard clauses (generate from `iso17025-mapping.md` and t
   printed value is a Monte Carlo/MCMC estimate, its sampling error is added (D66–D68, F95, F96); independent
   recomputation (numpy/scipy scripts in `tools/research/`) where nothing is printed.
 - 5.3 Monte Carlo dispersion study (σ over 20 seeds; validation-matrix "Measured MCM dispersion").
-- 5.4 Benchmarks against NUM and Suncal (**not done**, §9).
+- 5.4 Benchmarks: Suncal 1.7.1 on 107 model projects (D74, `docs/research/benchmark-suncal.md`): first-order u
+  agrees to 6 × 10⁻¹²; Monte Carlo s.d. within sampling error (48 projects, max |z| 3.0). NUM: the manual's
+  examples (task 22; F29, F33, F35).
 - 5.5 Validation matrix summary: 222 rows ✅, 23 of them with a finding.
 
 ## 6. Results
@@ -158,7 +160,7 @@ Repository, licence (GPL-3.0), tagged release with Zenodo DOI, `CITATION.cff`, t
 
 - [x] D12 audit of the finding classes (D73): every finding has a class in `finding-classes.tsv`.
 - [ ] Recheck the class-c findings against current editions and errata (F40, resolved in D41, is the model).
-- [ ] Benchmarks against NUM and Suncal on a common subset (≈ 20 models, GUM and MCM).
+- [x] Benchmark against Suncal (D74). NUM: manual examples only (web service).
 - [ ] Independent review by a metrologist outside the project (NMI or accredited laboratory).
 - [ ] Systematic literature search finished (task 41; `literature-search-2026-10.md`) and audits of worked
       examples by others cited.

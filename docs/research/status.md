@@ -14,7 +14,7 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | Testler | **201** Rust testi (bunlardan biri 277 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D73, bulgular F1–F97 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D74, bulgular F1–F97 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -123,7 +123,8 @@ indirilemedi; Drive klasörüne konacak:
    - UME prosedür taslağı: iki örnek kütüphanede, yazara notlar (D71).
    - Makale iskeleti yazıldı: `docs/article/outline.md` (D72).
    - D12 sınıf denetimi tamam (D73): `finding-classes.tsv`; 29 bulguda c bileşeni.
-   - Sıradakiler: makale iskeletindeki §9 kontrol listesi (c sınıfı bulguları güncel baskılarla kontrol, NUM/Suncal karşılaştırması);
+   - Suncal karşılaştırması (D74): 107 projede birinci mertebe u 6×10⁻¹² içinde aynı; 48 projede MCM örnekleme hatası içinde.
+   - Sıradakiler: makale iskeletindeki §9 kontrol listesi (c sınıfı bulguları güncel baskılarla kontrol, bağımsız inceleme);
      QAC 2026, A2LA G104, eğitim örnekleri (Kirkup, White 2008, Leito, Kessel).
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
