@@ -1,0 +1,196 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iupac2024-3a-argentometric-titration-ksp",
+    "field": "chemistry",
+    "tags": [
+      "iupac-2024",
+      "titration",
+      "argentometry",
+      "mohr",
+      "volumetric"
+    ],
+    "title": {
+      "en": "Argentometric titration (Mohr) with the endpoint chemistry: implicit model with the solubility products of AgCl and Ag₂CrO₄ (IUPAC 2024, Examples 3A and 4I)",
+      "tr": "Dönüm noktası kimyasıyla arjantometrik titrasyon (Mohr): AgCl ve Ag₂CrO₄ çözünürlük çarpımlı örtük model (IUPAC 2024, Örnek 3A ve 4I)"
+    },
+    "description": {
+      "en": "At the endpoint [Ag⁺] = √(K_sp2/[CrO₄²⁻]) and [Cl⁻] = K_sp1/[Ag⁺]; the mass balance of silver and chloride gives an equation for c(NaCl) that is solved numerically.",
+      "tr": "Dönüm noktasında [Ag⁺] = √(K_sp2/[CrO₄²⁻]) ve [Cl⁻] = K_sp1/[Ag⁺]; gümüş ve klorürün kütle dengesi c(NaCl) için sayısal olarak çözülen bir denklem verir."
+    },
+    "explanation": [
+      {
+        "en": "With c(K₂CrO₄) = 1.75 mmol/L diluted to 110 mL, [Ag⁺] = 28.13 µmol/L and [Cl⁻] = 6.32 µmol/L at the endpoint: the excess silver 21.8 µmol/L × 110 mL must be subtracted from the titrant.",
+        "tr": "c(K₂CrO₄) = 1,75 mmol/L, 110 mL'ye seyreltilmiş; dönüm noktasında [Ag⁺] = 28,13 µmol/L ve [Cl⁻] = 6,32 µmol/L: fazla gümüş, 21,8 µmol/L × 110 mL, titranttan düşülmelidir."
+      },
+      {
+        "en": "(c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻] gives c(NaCl) = 9.9760 mmol/L, 0.24 % below the conventional 10.000 mmol/L; the uncertainty from the volumes is unchanged (0.026 mmol/L).",
+        "tr": "(c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻], c(NaCl) = 9,9760 mmol/L verir; klasik 10,000 mmol/L'nin %0,24 altında; hacimlerden gelen belirsizlik değişmez (0,026 mmol/L)."
+      }
+    ],
+    "notes": [
+      {
+        "en": "The equation printed in Example 4I has the right-hand side (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E) with a positive left-hand side [Ag⁺] − [Cl⁻]; solved as printed it gives 10.024 mmol/L, 0.24 % above the conventional value. Since the indicator responds only after the equivalence point, the endpoint volume overestimates the chloride and the mass balance gives 9.976 mmol/L; the guide states the magnitude, 0.24 %, but not its sign (research log F92).",
+        "tr": "Örnek 4I'da basılan denklemin sağ tarafı (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E), sol tarafı ise pozitif [Ag⁺] − [Cl⁻]'dir; basıldığı gibi çözülünce klasik değerin %0,24 üstünde 10,024 mmol/L verir. İndikatör ancak eşdeğerlik noktasından sonra tepki verdiğinden dönüm noktası hacmi klorürü fazla gösterir ve kütle dengesi 9,976 mmol/L verir; rehber büyüklüğü (%0,24) verir, işaretini vermez (araştırma günlüğü F92)."
+      }
+    ],
+    "sources": [
+      {
+        "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+        "section": "Examples 3A and 4I; Meija et al., Eq. (19)",
+        "url": "https://doi.org/10.1515/pac-2022-1203"
+      }
+    ]
+  },
+  "multivariate": {
+    "implicit": true,
+    "outputs": [
+      {
+        "name": "c_NaCl",
+        "unit": "mmol/L",
+        "expression": "1000*(sqrt(Ksp2*((V_NaCl + dV_NaCl) + (V_Ag + dV_Ag + dV_E))/(c_K*(V_NaCl + dV_NaCl))) - Ksp1/sqrt(Ksp2*((V_NaCl + dV_NaCl) + (V_Ag + dV_Ag + dV_E))/(c_K*(V_NaCl + dV_NaCl)))) - (c_Ag*(V_Ag + dV_Ag + dV_E) - c_NaCl*(V_NaCl + dV_NaCl))/((V_NaCl + dV_NaCl) + (V_Ag + dV_Ag + dV_E))",
+        "start": 10.0
+      }
+    ],
+    "inputs": [
+      {
+        "name": "c_Ag",
+        "unit": "mmol/L",
+        "description": {
+          "en": "Concentration of the AgNO₃ titrant (taken as exact)",
+          "tr": "AgNO₃ titrantının derişimi (kesin alınmıştır)"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 100.0
+        }
+      },
+      {
+        "name": "V_Ag",
+        "unit": "mL",
+        "description": {
+          "en": "Volume of titrant read at the endpoint",
+          "tr": "Dönüm noktasında okunan titrant hacmi"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 10.0
+        }
+      },
+      {
+        "name": "dV_Ag",
+        "unit": "mL",
+        "description": {
+          "en": "Resolution of the electronic burette, ±0.01 mL",
+          "tr": "Elektronik büretin çözünürlüğü, ±0,01 mL"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 0.01
+        }
+      },
+      {
+        "name": "dV_E",
+        "unit": "mL",
+        "description": {
+          "en": "Visual endpoint detection, one droplet at 95 %",
+          "tr": "Görsel dönüm noktası tespiti, %95'te bir damla"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.025
+        }
+      },
+      {
+        "name": "V_NaCl",
+        "unit": "mL",
+        "description": {
+          "en": "Nominal volume of the sample",
+          "tr": "Numunenin nominal hacmi"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 100.0
+        }
+      },
+      {
+        "name": "dV_NaCl",
+        "unit": "mL",
+        "description": {
+          "en": "Class A volumetric pipette, triangular with base 0.16 mL",
+          "tr": "A sınıfı tam pipet, taban genişliği 0,16 mL üçgen"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 0.0,
+          "half_width": 0.08
+        }
+      },
+      {
+        "name": "c_K",
+        "unit": "mol/L",
+        "description": {
+          "en": "Concentration of the K₂CrO₄ indicator in the sample before titration",
+          "tr": "Titrasyondan önce numunedeki K₂CrO₄ indikatörünün derişimi"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 0.00175
+        }
+      },
+      {
+        "name": "Ksp1",
+        "unit": "(mol/L)²",
+        "description": {
+          "en": "Solubility product of AgCl, lg K = −9.75",
+          "tr": "AgCl çözünürlük çarpımı, lg K = −9,75"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 1.778279410038923e-10
+        }
+      },
+      {
+        "name": "Ksp2",
+        "unit": "(mol/L)³",
+        "description": {
+          "en": "Solubility product of Ag₂CrO₄, lg K = −11.9",
+          "tr": "Ag₂CrO₄ çözünürlük çarpımı, lg K = −11,9"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 1.258925411794166e-12
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": null
+  },
+  "expected": {
+    "multivariate": {
+      "gum": {
+        "estimate": {
+          "c_NaCl": {
+            "value": 9.976,
+            "tolerance": 0.0002
+          }
+        },
+        "standard_uncertainty": {
+          "c_NaCl": {
+            "value": 0.0255,
+            "tolerance": 0.0003
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "IUPAC 2024, Example 4I (after Meija et al., Eq. 19): relative difference from the conventional estimate 0.24 %; lg K_sp1 = −9.75, lg K_sp2 = −11.9.",
+      "tr": "IUPAC 2024, Örnek 4I (Meija vd., Eş. 19'dan): klasik tahminden bağıl fark %0,24; lg K_sp1 = −9,75, lg K_sp2 = −11,9."
+    }
+  }
+}

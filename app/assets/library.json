@@ -11009,6 +11009,647 @@
   }
  },
  {
+  "path": "library/chemistry/iupac2024-3a-argentometric-titration-ksp.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iupac2024-3a-argentometric-titration-ksp",
+    "field": "chemistry",
+    "tags": [
+     "iupac-2024",
+     "titration",
+     "argentometry",
+     "mohr",
+     "volumetric"
+    ],
+    "title": {
+     "en": "Argentometric titration (Mohr) with the endpoint chemistry: implicit model with the solubility products of AgCl and Ag₂CrO₄ (IUPAC 2024, Examples 3A and 4I)",
+     "tr": "Dönüm noktası kimyasıyla arjantometrik titrasyon (Mohr): AgCl ve Ag₂CrO₄ çözünürlük çarpımlı örtük model (IUPAC 2024, Örnek 3A ve 4I)"
+    },
+    "description": {
+     "en": "At the endpoint [Ag⁺] = √(K_sp2/[CrO₄²⁻]) and [Cl⁻] = K_sp1/[Ag⁺]; the mass balance of silver and chloride gives an equation for c(NaCl) that is solved numerically.",
+     "tr": "Dönüm noktasında [Ag⁺] = √(K_sp2/[CrO₄²⁻]) ve [Cl⁻] = K_sp1/[Ag⁺]; gümüş ve klorürün kütle dengesi c(NaCl) için sayısal olarak çözülen bir denklem verir."
+    },
+    "explanation": [
+     {
+      "en": "With c(K₂CrO₄) = 1.75 mmol/L diluted to 110 mL, [Ag⁺] = 28.13 µmol/L and [Cl⁻] = 6.32 µmol/L at the endpoint: the excess silver 21.8 µmol/L × 110 mL must be subtracted from the titrant.",
+      "tr": "c(K₂CrO₄) = 1,75 mmol/L, 110 mL'ye seyreltilmiş; dönüm noktasında [Ag⁺] = 28,13 µmol/L ve [Cl⁻] = 6,32 µmol/L: fazla gümüş, 21,8 µmol/L × 110 mL, titranttan düşülmelidir."
+     },
+     {
+      "en": "(c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻] gives c(NaCl) = 9.9760 mmol/L, 0.24 % below the conventional 10.000 mmol/L; the uncertainty from the volumes is unchanged (0.026 mmol/L).",
+      "tr": "(c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻], c(NaCl) = 9,9760 mmol/L verir; klasik 10,000 mmol/L'nin %0,24 altında; hacimlerden gelen belirsizlik değişmez (0,026 mmol/L)."
+     }
+    ],
+    "notes": [
+     {
+      "en": "The equation printed in Example 4I has the right-hand side (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E) with a positive left-hand side [Ag⁺] − [Cl⁻]; solved as printed it gives 10.024 mmol/L, 0.24 % above the conventional value. Since the indicator responds only after the equivalence point, the endpoint volume overestimates the chloride and the mass balance gives 9.976 mmol/L; the guide states the magnitude, 0.24 %, but not its sign (research log F92).",
+      "tr": "Örnek 4I'da basılan denklemin sağ tarafı (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E), sol tarafı ise pozitif [Ag⁺] − [Cl⁻]'dir; basıldığı gibi çözülünce klasik değerin %0,24 üstünde 10,024 mmol/L verir. İndikatör ancak eşdeğerlik noktasından sonra tepki verdiğinden dönüm noktası hacmi klorürü fazla gösterir ve kütle dengesi 9,976 mmol/L verir; rehber büyüklüğü (%0,24) verir, işaretini vermez (araştırma günlüğü F92)."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+      "section": "Examples 3A and 4I; Meija et al., Eq. (19)",
+      "url": "https://doi.org/10.1515/pac-2022-1203"
+     }
+    ]
+   },
+   "multivariate": {
+    "implicit": true,
+    "outputs": [
+     {
+      "name": "c_NaCl",
+      "unit": "mmol/L",
+      "expression": "1000*(sqrt(Ksp2*((V_NaCl + dV_NaCl) + (V_Ag + dV_Ag + dV_E))/(c_K*(V_NaCl + dV_NaCl))) - Ksp1/sqrt(Ksp2*((V_NaCl + dV_NaCl) + (V_Ag + dV_Ag + dV_E))/(c_K*(V_NaCl + dV_NaCl)))) - (c_Ag*(V_Ag + dV_Ag + dV_E) - c_NaCl*(V_NaCl + dV_NaCl))/((V_NaCl + dV_NaCl) + (V_Ag + dV_Ag + dV_E))",
+      "start": 10.0
+     }
+    ],
+    "inputs": [
+     {
+      "name": "c_Ag",
+      "unit": "mmol/L",
+      "description": {
+       "en": "Concentration of the AgNO₃ titrant (taken as exact)",
+       "tr": "AgNO₃ titrantının derişimi (kesin alınmıştır)"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 100.0
+      }
+     },
+     {
+      "name": "V_Ag",
+      "unit": "mL",
+      "description": {
+       "en": "Volume of titrant read at the endpoint",
+       "tr": "Dönüm noktasında okunan titrant hacmi"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 10.0
+      }
+     },
+     {
+      "name": "dV_Ag",
+      "unit": "mL",
+      "description": {
+       "en": "Resolution of the electronic burette, ±0.01 mL",
+       "tr": "Elektronik büretin çözünürlüğü, ±0,01 mL"
+      },
+      "distribution": {
+       "type": "triangular",
+       "value": 0.0,
+       "half_width": 0.01
+      }
+     },
+     {
+      "name": "dV_E",
+      "unit": "mL",
+      "description": {
+       "en": "Visual endpoint detection, one droplet at 95 %",
+       "tr": "Görsel dönüm noktası tespiti, %95'te bir damla"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0,
+       "sd": 0.025
+      }
+     },
+     {
+      "name": "V_NaCl",
+      "unit": "mL",
+      "description": {
+       "en": "Nominal volume of the sample",
+       "tr": "Numunenin nominal hacmi"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 100.0
+      }
+     },
+     {
+      "name": "dV_NaCl",
+      "unit": "mL",
+      "description": {
+       "en": "Class A volumetric pipette, triangular with base 0.16 mL",
+       "tr": "A sınıfı tam pipet, taban genişliği 0,16 mL üçgen"
+      },
+      "distribution": {
+       "type": "triangular",
+       "value": 0.0,
+       "half_width": 0.08
+      }
+     },
+     {
+      "name": "c_K",
+      "unit": "mol/L",
+      "description": {
+       "en": "Concentration of the K₂CrO₄ indicator in the sample before titration",
+       "tr": "Titrasyondan önce numunedeki K₂CrO₄ indikatörünün derişimi"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 0.00175
+      }
+     },
+     {
+      "name": "Ksp1",
+      "unit": "(mol/L)²",
+      "description": {
+       "en": "Solubility product of AgCl, lg K = −9.75",
+       "tr": "AgCl çözünürlük çarpımı, lg K = −9,75"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 1.778279410038923e-10
+      }
+     },
+     {
+      "name": "Ksp2",
+      "unit": "(mol/L)³",
+      "description": {
+       "en": "Solubility product of Ag₂CrO₄, lg K = −11.9",
+       "tr": "Ag₂CrO₄ çözünürlük çarpımı, lg K = −11,9"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 1.258925411794166e-12
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": null
+   },
+   "expected": {
+    "multivariate": {
+     "gum": {
+      "estimate": {
+       "c_NaCl": {
+        "value": 9.976,
+        "tolerance": 0.0002
+       }
+      },
+      "standard_uncertainty": {
+       "c_NaCl": {
+        "value": 0.0255,
+        "tolerance": 0.0003
+       }
+      }
+     }
+    },
+    "reference": {
+     "en": "IUPAC 2024, Example 4I (after Meija et al., Eq. 19): relative difference from the conventional estimate 0.24 %; lg K_sp1 = −9.75, lg K_sp2 = −11.9.",
+     "tr": "IUPAC 2024, Örnek 4I (Meija vd., Eş. 19'dan): klasik tahminden bağıl fark %0,24; lg K_sp1 = −9,75, lg K_sp2 = −11,9."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iupac2024-4a-water-hardness.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iupac2024-4a-water-hardness",
+    "field": "chemistry",
+    "title": {
+     "en": "Total hardness of water from Ca²⁺ and Mg²⁺: a conventional measurement model (IUPAC 2024, Examples 3C and 4A)",
+     "tr": "Ca²⁺ ve Mg²⁺'dan suyun toplam sertliği: geleneksel bir ölçüm modeli (IUPAC 2024, Örnek 3C ve 4A)"
+    },
+    "description": {
+     "en": "H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), defined by convention; Gauss's formula with independent inputs.",
+     "tr": "H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), uzlaşımla tanımlı; bağımsız girdilerle Gauss formülü."
+    },
+    "explanation": [
+     {
+      "en": "Sensitivity coefficients M(CaCO₃)/M(Ca) = 2.4973 and M(CaCO₃)/M(Mg) = 4.1180 (the guide rounds to 2.5 and 4.1); H = 96.65 mg/L, u(H) = 3.18 mg/L ≈ 3 mg/L. The molar masses are taken as exact.",
+      "tr": "Duyarlılık katsayıları M(CaCO₃)/M(Ca) = 2,4973 ve M(CaCO₃)/M(Mg) = 4,1180 (rehber 2,5 ve 4,1'e yuvarlar); H = 96,65 mg/L, u(H) = 3,18 mg/L ≈ 3 mg/L. Mol kütleleri kesin alınır."
+     },
+     {
+      "en": "The definition of the measurand fixes the measurement function (a conventional model, 3C); Ca and Mg determined separately by AAS justify independence (4A).",
+      "tr": "Ölçülenin tanımı ölçüm fonksiyonunu belirler (geleneksel model, 3C); Ca ve Mg'nin AAS ile ayrı tayini bağımsızlığı gerekçelendirir (4A)."
+     }
+    ],
+    "tags": [
+     "iupac-2024",
+     "water",
+     "hardness",
+     "linear",
+     "conventional-model"
+    ],
+    "notes": [],
+    "sources": [
+     {
+      "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+      "section": "Examples 3C and 4A",
+      "url": "https://doi.org/10.1515/pac-2022-1203"
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "H",
+     "unit": "mg/L",
+     "expression": "g_Ca*M_CaCO3/M_Ca + g_Mg*M_CaCO3/M_Mg",
+     "description": {
+      "en": "Total hardness of water as mass concentration of CaCO₃",
+      "tr": "CaCO₃ kütle derişimi olarak suyun toplam sertliği"
+     }
+    },
+    "inputs": [
+     {
+      "name": "g_Ca",
+      "unit": "mg/L",
+      "description": {
+       "en": "Mass concentration of Ca²⁺ (AAS)",
+       "tr": "Ca²⁺ kütle derişimi (AAS)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 23.2,
+       "sd": 0.8
+      }
+     },
+     {
+      "name": "g_Mg",
+      "unit": "mg/L",
+      "description": {
+       "en": "Mass concentration of Mg²⁺ (AAS, measured separately)",
+       "tr": "Mg²⁺ kütle derişimi (AAS, ayrı ölçülmüş)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 9.4,
+       "sd": 0.6
+      }
+     },
+     {
+      "name": "M_CaCO3",
+      "unit": "g/mol",
+      "distribution": {
+       "type": "constant",
+       "value": 100.0869
+      }
+     },
+     {
+      "name": "M_Ca",
+      "unit": "g/mol",
+      "distribution": {
+       "type": "constant",
+       "value": 40.078
+      }
+     },
+     {
+      "name": "M_Mg",
+      "unit": "g/mol",
+      "distribution": {
+       "type": "constant",
+       "value": 24.305
+      }
+     }
+    ]
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 96.65,
+      "tolerance": 0.01
+     },
+     "standard_uncertainty": {
+      "value": 3.0,
+      "tolerance": 0.2
+     }
+    },
+    "reference": {
+     "en": "IUPAC 2024, Example 4A: u²(H) = 2.5² × 0.8² + 4.1² × 0.6² ≈ (3 mg/L)².",
+     "tr": "IUPAC 2024, Örnek 4A: u²(H) = 2,5² × 0,8² + 4,1² × 0,6² ≈ (3 mg/L)²."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iupac2024-4b-silicon-isotopic-abundances",
+    "field": "chemistry",
+    "title": {
+     "en": "Isotopic abundances of silicon from two measured isotope amount ratios (IUPAC 2024, Example 4B)",
+     "tr": "Ölçülen iki izotop miktar oranından silisyumun izotop bollukları (IUPAC 2024, Örnek 4B)"
+    },
+    "description": {
+     "en": "x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: three outputs from two inputs, with the covariance matrix Σ_y = JΣ_xJᵀ (Formula 3).",
+     "tr": "x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: iki girdiden üç çıktı; kovaryans matrisi Σ_y = JΣ_xJᵀ (Formül 3)."
+    },
+    "explanation": [
+     {
+      "en": "Valkiers et al., Mixture III: R₂₉/₂₈ = 0.050 0657(25), R₃₀/₂₈ = 0.032 9035(34) mol/mol, taken as uncorrelated. The Jacobian is x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]].",
+      "tr": "Valkiers vd., Karışım III: R₂₉/₂₈ = 0,050 0657(25), R₃₀/₂₈ = 0,032 9035(34) mol/mol, ilişkisiz alınmıştır. Jakobiyen x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]]'dir."
+     },
+     {
+      "en": "x₂₈ = 0.9233873(36), x₂₉ = 0.0462300(22), x₃₀ = 0.0303827(30) mol/mol. The abundances sum to 1, so their covariance matrix is singular; r(x₂₈, x₂₉) = -0.54, r(x₂₈, x₃₀) = -0.79.",
+      "tr": "x₂₈ = 0,9233873(36), x₂₉ = 0,0462300(22), x₃₀ = 0,0303827(30) mol/mol. Bolluklar toplamı 1 olduğundan kovaryans matrisi tekildir; r(x₂₈, x₂₉) = -0,54, r(x₂₈, x₃₀) = -0,79."
+     }
+    ],
+    "tags": [
+     "iupac-2024",
+     "isotope-ratio",
+     "silicon",
+     "multivariate",
+     "jcgm102",
+     "atomic-weight"
+    ],
+    "notes": [],
+    "sources": [
+     {
+      "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+      "section": "Example 4B",
+      "url": "https://doi.org/10.1515/pac-2022-1203"
+     }
+    ]
+   },
+   "multivariate": {
+    "outputs": [
+     {
+      "name": "x28",
+      "unit": "mol/mol",
+      "expression": "1/(1 + R29 + R30)"
+     },
+     {
+      "name": "x29",
+      "unit": "mol/mol",
+      "expression": "R29/(1 + R29 + R30)"
+     },
+     {
+      "name": "x30",
+      "unit": "mol/mol",
+      "expression": "R30/(1 + R29 + R30)"
+     }
+    ],
+    "inputs": [
+     {
+      "name": "R29",
+      "unit": "mol/mol",
+      "description": {
+       "en": "Amount ratio n(²⁹Si)/n(²⁸Si), Mixture III",
+       "tr": "Miktar oranı n(²⁹Si)/n(²⁸Si), Karışım III"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0500657,
+       "sd": 0.0000025
+      }
+     },
+     {
+      "name": "R30",
+      "unit": "mol/mol",
+      "description": {
+       "en": "Amount ratio n(³⁰Si)/n(²⁸Si), Mixture III",
+       "tr": "Miktar oranı n(³⁰Si)/n(²⁸Si), Karışım III"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0329035,
+       "sd": 0.0000034
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": null
+   },
+   "expected": {
+    "multivariate": {
+     "gum": {
+      "estimate": {
+       "x28": {
+        "value": 0.9233873,
+        "tolerance": 5e-8
+       },
+       "x29": {
+        "value": 0.04623,
+        "tolerance": 5e-8
+       },
+       "x30": {
+        "value": 0.0303827,
+        "tolerance": 5e-8
+       }
+      },
+      "standard_uncertainty": {
+       "x28": {
+        "value": 0.0000036,
+        "tolerance": 5e-8
+       },
+       "x29": {
+        "value": 0.0000022,
+        "tolerance": 5e-8
+       },
+       "x30": {
+        "value": 0.000003,
+        "tolerance": 5e-8
+       }
+      },
+      "correlations": [
+       {
+        "between": [
+         "x28",
+         "x29"
+        ],
+        "value": -0.538,
+        "tolerance": 0.001
+       },
+       {
+        "between": [
+         "x28",
+         "x30"
+        ],
+        "value": -0.792,
+        "tolerance": 0.001
+       }
+      ]
+     }
+    },
+    "reference": {
+     "en": "IUPAC 2024, Example 4B: x₂₈ = 0.923 3873(36), x₂₉ = 0.046 2300(22), x₃₀ = 0.030 3827(30) mol/mol.",
+     "tr": "IUPAC 2024, Örnek 4B: x₂₈ = 0,923 3873(36), x₂₉ = 0,046 2300(22), x₃₀ = 0,030 3827(30) mol/mol."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/iupac2024-4i-argentometric-titration.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iupac2024-4i-argentometric-titration",
+    "field": "chemistry",
+    "tags": [
+     "iupac-2024",
+     "titration",
+     "argentometry",
+     "mohr",
+     "volumetric"
+    ],
+    "title": {
+     "en": "Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I)",
+     "tr": "Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I)"
+    },
+    "description": {
+     "en": "c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); only the volumetric and endpoint uncertainties are considered.",
+     "tr": "c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); yalnızca hacim ve dönüm noktası belirsizlikleri dikkate alınır."
+    },
+    "explanation": [
+     {
+      "en": "Pipette: triangular, s.d. 0.08/√6 = 0.0327 mL; burette: triangular ±0.01 mL, s.d. 0.00408 mL; endpoint: normal, s.d. 0.025 mL, which dominates. c(NaCl) = 10.000 mmol/L, u = 0.0255 mmol/L (0.26 %).",
+      "tr": "Pipet: üçgen, s.s. 0,08/√6 = 0,0327 mL; büret: üçgen ±0,01 mL, s.s. 0,00408 mL; dönüm noktası: normal, s.s. 0,025 mL, baskın. c(NaCl) = 10,000 mmol/L, u = 0,0255 mmol/L (%0,26)."
+     }
+    ],
+    "notes": [
+     {
+      "en": "The endpoint (first permanent Ag₂CrO₄) lies after the equivalence point; the companion project iupac2024-3a-argentometric-titration-ksp models this chemistry instead of treating it as an uncertainty.",
+      "tr": "Dönüm noktası (ilk kalıcı Ag₂CrO₄) eşdeğerlik noktasından sonradır; eşlik eden iupac2024-3a-argentometric-titration-ksp projesi bu kimyayı belirsizlik olarak ele almak yerine modeller."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+      "section": "Examples 3A and 4I",
+      "url": "https://doi.org/10.1515/pac-2022-1203"
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "c_NaCl",
+     "unit": "mmol/L",
+     "expression": "c_Ag*(V_Ag + dV_Ag + dV_E)/(V_NaCl + dV_NaCl)",
+     "description": {
+      "en": "Amount concentration of NaCl",
+      "tr": "NaCl miktar derişimi"
+     }
+    },
+    "inputs": [
+     {
+      "name": "c_Ag",
+      "unit": "mmol/L",
+      "description": {
+       "en": "Concentration of the AgNO₃ titrant (taken as exact)",
+       "tr": "AgNO₃ titrantının derişimi (kesin alınmıştır)"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 100.0
+      }
+     },
+     {
+      "name": "V_Ag",
+      "unit": "mL",
+      "description": {
+       "en": "Volume of titrant read at the endpoint",
+       "tr": "Dönüm noktasında okunan titrant hacmi"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 10.0
+      }
+     },
+     {
+      "name": "dV_Ag",
+      "unit": "mL",
+      "description": {
+       "en": "Resolution of the electronic burette, ±0.01 mL",
+       "tr": "Elektronik büretin çözünürlüğü, ±0,01 mL"
+      },
+      "distribution": {
+       "type": "triangular",
+       "value": 0.0,
+       "half_width": 0.01
+      }
+     },
+     {
+      "name": "dV_E",
+      "unit": "mL",
+      "description": {
+       "en": "Visual endpoint detection, one droplet at 95 %",
+       "tr": "Görsel dönüm noktası tespiti, %95'te bir damla"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.0,
+       "sd": 0.025
+      }
+     },
+     {
+      "name": "V_NaCl",
+      "unit": "mL",
+      "description": {
+       "en": "Nominal volume of the sample",
+       "tr": "Numunenin nominal hacmi"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 100.0
+      }
+     },
+     {
+      "name": "dV_NaCl",
+      "unit": "mL",
+      "description": {
+       "en": "Class A volumetric pipette, triangular with base 0.16 mL",
+       "tr": "A sınıfı tam pipet, taban genişliği 0,16 mL üçgen"
+      },
+      "distribution": {
+       "type": "triangular",
+       "value": 0.0,
+       "half_width": 0.08
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": {
+     "trials": 1000000,
+     "seed": 5,
+     "interval": "symmetric"
+    }
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 10.0,
+      "tolerance": 1e-9
+     },
+     "standard_uncertainty": {
+      "value": 0.026,
+      "tolerance": 0.0006
+     }
+    },
+    "mcm": {
+     "estimate": {
+      "value": 10.0,
+      "tolerance": 0.0002
+     },
+     "standard_uncertainty": {
+      "value": 0.0255,
+      "tolerance": 0.0002
+     }
+    },
+    "reference": {
+     "en": "IUPAC 2024, Example 4I: c(NaCl) = 10.000 mmol/L, u = 0.026 mmol/L (0.26 %).",
+     "tr": "IUPAC 2024, Örnek 4I: c(NaCl) = 10,000 mmol/L, u = 0,026 mmol/L (%0,26)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/mupr-b1-nitrate.json",
   "project": {
    "format": "uncertainty-calculations/project",

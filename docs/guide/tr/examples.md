@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (122)
+- Kimya (126)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -1125,6 +1125,92 @@ ISO 6143:2025 B.2.4: on iki noktalı doğrusal olmayan bir NDIR kalibrasyonu; x 
 - Bu doğrusal olmayan fonksiyon için parametre kovaryansları, en küçük koşulunun kapalı türevlenmesiyle, yani A.2'deki sayısal türevlemenin tam biçimiyle hesaplanır; B_LEAST ile %0,3 içinde uyumludur. Tüm kalibrasyonun Monte Carlo benzetimi (4000 yeniden uydurma, araştırma günlüğü F42) de u(x) = 0,0142 µmol/mol verir.
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang tr`
+
+### Dönüm noktası kimyasıyla arjantometrik titrasyon (Mohr): AgCl ve Ag₂CrO₄ çözünürlük çarpımlı örtük model (IUPAC 2024, Örnek 3A ve 4I)
+
+`iupac2024-3a-argentometric-titration-ksp` — Possolo et al., Examples 3A and 4I; Meija et al., Eq. (19)
+
+Dönüm noktasında [Ag⁺] = √(K_sp2/[CrO₄²⁻]) ve [Cl⁻] = K_sp1/[Ag⁺]; gümüş ve klorürün kütle dengesi c(NaCl) için sayısal olarak çözülen bir denklem verir.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. c(K₂CrO₄) = 1,75 mmol/L, 110 mL'ye seyreltilmiş; dönüm noktasında [Ag⁺] = 28,13 µmol/L ve [Cl⁻] = 6,32 µmol/L: fazla gümüş, 21,8 µmol/L × 110 mL, titranttan düşülmelidir.
+2. (c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻], c(NaCl) = 9,9760 mmol/L verir; klasik 10,000 mmol/L'nin %0,24 altında; hacimlerden gelen belirsizlik değişmez (0,026 mmol/L).
+
+**Sonuç:**
+
+- c_NaCl = 9,9760 mmol/L, u(c_NaCl) = 0,026 mmol/L (GUM)
+
+**Notlar:**
+
+- Örnek 4I'da basılan denklemin sağ tarafı (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E), sol tarafı ise pozitif [Ag⁺] − [Cl⁻]'dir; basıldığı gibi çözülünce klasik değerin %0,24 üstünde 10,024 mmol/L verir. İndikatör ancak eşdeğerlik noktasından sonra tepki verdiğinden dönüm noktası hacmi klorürü fazla gösterir ve kütle dengesi 9,976 mmol/L verir; rehber büyüklüğü (%0,24) verir, işaretini vermez (araştırma günlüğü F92).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang tr`
+
+### Ca²⁺ ve Mg²⁺'dan suyun toplam sertliği: geleneksel bir ölçüm modeli (IUPAC 2024, Örnek 3C ve 4A)
+
+`iupac2024-4a-water-hardness` — Possolo et al., Examples 3C and 4A
+
+H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), uzlaşımla tanımlı; bağımsız girdilerle Gauss formülü.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Duyarlılık katsayıları M(CaCO₃)/M(Ca) = 2,4973 ve M(CaCO₃)/M(Mg) = 4,1180 (rehber 2,5 ve 4,1'e yuvarlar); H = 96,65 mg/L, u(H) = 3,18 mg/L ≈ 3 mg/L. Mol kütleleri kesin alınır.
+2. Ölçülenin tanımı ölçüm fonksiyonunu belirler (geleneksel model, 3C); Ca ve Mg'nin AAS ile ayrı tayini bağımsızlığı gerekçelendirir (4A).
+
+**Sonuç:**
+
+- H = (96,6 ± 6,2) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4a-water-hardness.json --lang tr`
+
+### Ölçülen iki izotop miktar oranından silisyumun izotop bollukları (IUPAC 2024, Örnek 4B)
+
+`iupac2024-4b-silicon-isotopic-abundances` — Possolo et al., Example 4B
+
+x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: iki girdiden üç çıktı; kovaryans matrisi Σ_y = JΣ_xJᵀ (Formül 3).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. Valkiers vd., Karışım III: R₂₉/₂₈ = 0,050 0657(25), R₃₀/₂₈ = 0,032 9035(34) mol/mol, ilişkisiz alınmıştır. Jakobiyen x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]]'dir.
+2. x₂₈ = 0,9233873(36), x₂₉ = 0,0462300(22), x₃₀ = 0,0303827(30) mol/mol. Bolluklar toplamı 1 olduğundan kovaryans matrisi tekildir; r(x₂₈, x₂₉) = -0,54, r(x₂₈, x₃₀) = -0,79.
+
+**Sonuç:**
+
+- x28 = 0,92338729 mol/mol, u(x28) = 3,6 × 10⁻⁶ mol/mol (GUM)
+- x29 = 0,04623003 mol/mol, u(x29) = 2,2 × 10⁻⁶ mol/mol (GUM)
+- x30 = 0,03038267 mol/mol, u(x30) = 3,0 × 10⁻⁶ mol/mol (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang tr`
+
+### Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I)
+
+`iupac2024-4i-argentometric-titration` — Possolo et al., Examples 3A and 4I
+
+c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); yalnızca hacim ve dönüm noktası belirsizlikleri dikkate alınır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Pipet: üçgen, s.s. 0,08/√6 = 0,0327 mL; büret: üçgen ±0,01 mL, s.s. 0,00408 mL; dönüm noktası: normal, s.s. 0,025 mL, baskın. c(NaCl) = 10,000 mmol/L, u = 0,0255 mmol/L (%0,26).
+
+**Sonuç:**
+
+- c_NaCl = (10,000 ± 0,050) mmol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Dönüm noktası (ilk kalıcı Ag₂CrO₄) eşdeğerlik noktasından sonradır; eşlik eden iupac2024-3a-argentometric-titration-ksp projesi bu kimyayı belirsizlik olarak ele almak yerine modeller.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang tr`
 
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 

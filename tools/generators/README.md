@@ -31,6 +31,7 @@ recomputed.
 | `palma2019.py`, `bettencourt2026.py` | Palma et al. 2019; Bettencourt da Silva 2026 |
 | `gum5.py` | JCGM GUM-5:2026, Examples 1–5, 9, 10, 12, 14, 15 |
 | `emue.py` | EMUE compendium 2021: E3.4, E2.1, E2.2, E3.8, E3.3, E6.5 |
+| `iupac2024.py` | IUPAC brief guide 2024, Examples 3A, 4A, 4B, 4I |
 | `eurachem_compliance.py` | Eurachem/CITAC compliance assessment guide 2021, Annex B Examples 1–3 |
 | `tr569.py` | Nordtest TR 569 control charts |
 | `m3003.py` | UKAS M3003 ed. 6 |

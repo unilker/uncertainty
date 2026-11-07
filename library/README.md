@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**249 examples / örnek** (120 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 18 conformity assessment / uygunluk değerlendirmesi).
+**253 examples / örnek** (122 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 18 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -40,6 +40,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`gum5-e5-ghg-inventory-agriculture`](chemistry/gum5-e5-ghg-inventory-agriculture.json) | Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): independent inputs (JCGM GUM-5 Example 5) | Sera gazı envanteri, tarımda hareketli makineler (BK 2018): bağımsız girdiler (JCGM GUM-5 Örnek 5) | JCGM GUM-5:2026 Example 5, Tables 5.1–5.3 and 5.4.9 |
 | [`iso13528-e5-los-angeles-reference-value`](chemistry/iso13528-e5-los-angeles-reference-value.json) | Assigned value from a comparison with a CRM: Los Angeles value of aggregates (ISO 13528 E.5) | CRM ile karşılaştırmadan atanan değer: agregaların Los Angeles değeri (ISO 13528 E.5) | ISO 13528:2022 Annex E.5 (Table E.8) |
 | [`iso21748-c2-meat-content`](chemistry/iso21748-c2-meat-content.json) | Meat content from nitrogen and fat (ISO 21748 C.2) | Azot ve yağdan et içeriği (ISO 21748 C.2) | ISO 21748:2017 Annex C.2, Table C.1 |
+| [`iupac2024-4a-water-hardness`](chemistry/iupac2024-4a-water-hardness.json) | Total hardness of water from Ca²⁺ and Mg²⁺: a conventional measurement model (IUPAC 2024, Examples 3C and 4A) | Ca²⁺ ve Mg²⁺'dan suyun toplam sertliği: geleneksel bir ölçüm modeli (IUPAC 2024, Örnek 3C ve 4A) | Possolo et al. Examples 3C and 4A |
+| [`iupac2024-4i-argentometric-titration`](chemistry/iupac2024-4i-argentometric-titration.json) | Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I) | Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I) | Possolo et al. Examples 3A and 4I |
 | [`nist-tn1900-e8-molecular-weight-co2`](chemistry/nist-tn1900-e8-molecular-weight-co2.json) | Molecular weight of carbon dioxide (NIST TN 1900 E8) | Karbondioksitin molekül ağırlığı (NIST TN 1900 E8) | NIST Technical Note 1900 Example E8, Exhibit 12 |
 | [`nist-tn1900-e9-cadmium-standard`](chemistry/nist-tn1900-e9-cadmium-standard.json) | Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9) | Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9) | NIST Technical Note 1900 Example E9 |
 | [`quam-a1-cadmium-standard-volume`](chemistry/quam-a1-cadmium-standard-volume.json) | Cadmium standard with the volume sub-model | Hacim alt modelli kadmiyum standardı | EURACHEM/CITAC Guide CG 4 Example A1, A1.4 |
@@ -59,6 +61,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
 | [`gum5-e4-gravimetric-gas-mixture`](chemistry/gum5-e4-gravimetric-gas-mixture.json) | Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4) | N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4) | JCGM GUM-5:2026 Example 4, Tables 4.1–4.6 and 4.3.6.9 |
+| [`iupac2024-3a-argentometric-titration-ksp`](chemistry/iupac2024-3a-argentometric-titration-ksp.json) | Argentometric titration (Mohr) with the endpoint chemistry: implicit model with the solubility products of AgCl and Ag₂CrO₄ (IUPAC 2024, Examples 3A and 4I) | Dönüm noktası kimyasıyla arjantometrik titrasyon (Mohr): AgCl ve Ag₂CrO₄ çözünürlük çarpımlı örtük model (IUPAC 2024, Örnek 3A ve 4I) | Possolo et al. Examples 3A and 4I; Meija et al., Eq. (19) |
+| [`iupac2024-4b-silicon-isotopic-abundances`](chemistry/iupac2024-4b-silicon-isotopic-abundances.json) | Isotopic abundances of silicon from two measured isotope amount ratios (IUPAC 2024, Example 4B) | Ölçülen iki izotop miktar oranından silisyumun izotop bollukları (IUPAC 2024, Örnek 4B) | Possolo et al. Example 4B |
 
 ## Chemistry, top-down / Kimya, top-down
 

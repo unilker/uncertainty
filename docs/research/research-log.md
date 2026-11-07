@@ -2804,3 +2804,48 @@ The library has 247 projects.
    a known correction exists.
 
 The library has 249 projects.
+
+## 2026-11-07 (session 21, continued) — IUPAC brief guide 2024 (Possolo et al., PAC 96, 113)
+
+**Text extraction.** The PDF encodes every glyph separately, so pdftotext
+returns "T h e" for "The". `tools/research/joinwords.py` rejoins the
+fragments from `pdftotext -bbox` by their horizontal gaps.
+
+**Library (`tools/generators/iupac2024.py`, 4 projects).**
+
+- `iupac2024-4a-water-hardness`: H = 96.65 mg/L, u = 3.18 mg/L (printed
+  ≈ 3).
+- `iupac2024-4b-silicon-isotopic-abundances` (multivariate): x₂₈, x₂₉, x₃₀
+  as printed, 0.923 3873(36), 0.046 2300(22) and 0.030 3827(30), with their
+  correlations. The MCM is off because the program refuses the coverage
+  region of a singular output covariance (abundances summing to 1). A
+  candidate extension is to report the MCM covariance without the region.
+- `iupac2024-4i-argentometric-titration`: c = 10.000 mmol/L,
+  u = 0.0255 mmol/L (0.26 %); GUM and MCM.
+- `iupac2024-3a-argentometric-titration-ksp`: an implicit model with the
+  solubility products, c = 9.9760 mmol/L.
+
+Not in the library:
+
+- 4H (QUAM A1 cadmium) needs a beta distribution, which the program does
+  not have; QUAM A1 itself is in the library.
+- 4F, 4M–4P (maximum likelihood, Bayes, MCMC, consensus) belong to the
+  planned consensus/Bayes module.
+
+**F92. IUPAC 2024 Example 4I — sign of the endpoint correction (class c;
+to check against Meija et al. [14]).**
+
+- The guide writes Meija et al.'s equation as [Ag⁺] − [Cl⁻] =
+  (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V(NaCl) + V_E). Here [Ag⁺] =
+  √(K_sp2(V + V_E)/(c(K₂CrO₄)V)) and [Cl⁻] = K_sp1/[Ag⁺].
+- At the endpoint [Ag⁺] = 28.1 µmol/L and [Cl⁻] = 6.3 µmol/L, so the left
+  side is positive (21.8 µmol/L). Solved as printed, the equation gives
+  c(NaCl) = 10.024 mmol/L, 0.24 % above the conventional value.
+- The mass balance (silver added − chloride present = [Ag⁺] − [Cl⁻] in
+  solution) has the opposite right side and gives 9.976 mmol/L. That is
+  0.24 % below, as expected because the chromate endpoint follows the
+  equivalence point.
+- The guide reports only "the relative difference … is 0.24 %", which holds
+  for either sign. The library project uses the mass balance.
+
+The library has 253 projects.

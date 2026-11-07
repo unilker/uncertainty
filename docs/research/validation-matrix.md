@@ -370,3 +370,6 @@ Machine (F29) and Suncal.
 | EMUE-E3.8 | EMUE E3.8, NH₃ in N₂ by permeation | y = 70.8 µmol/mol, u = 0.599 µmol/mol; E_A 59.164 kJ/mol, k₀ 43.069 µg/min, ∂ṁ/∂T 4.81·10⁻⁷ | 70.796, 0.598; E_A 56.64 kJ/mol, k₀ 9.1·10⁹, ∂ṁ/∂T 0.82 µg min⁻¹ K⁻¹ | ✅ result; F89 |
 | EMUE-E3.3 | EMUE E3.3, NO₂ analyser, dynamic dilution with correlated reference values | V_x (E3.3.17) diag 39.5/37.0/41.2, off 1.7/2.2/3.0; A 88.94, B 4.19, V_AB (E3.3.18); validation 982.0 ± 4.7 (4.5) | diag 1.34/2.53/4.48, off 1.76/2.32/3.19; V_AB exactly (program); A 89.21 (88.94 by full WTLS); 981.95 ± 4.52 (4.35) | ✅ V_AB; F90 |
 | EMUE-E6.5 | EMUE E6.5, ephedrine in urine (WADA top-down budget and decision limit) | u_c 3.8 %; DL 11 µg/mL; Table E6.5.2 | u_c 3.89 %; DL 10.822 (rounded up to 11); means 11.83/11.67/11.47, z −0.93/−1.27/0.73 (σ = 0.5) | ✅ except F91 |
+| IUPAC24-4A | IUPAC 2024 Example 4A, water hardness | u ≈ 3 mg/L | H 96.65, u 3.18 | ✅ |
+| IUPAC24-4B | IUPAC 2024 Example 4B, silicon isotopic abundances (3 outputs) | 0.923 3873(36), 0.046 2300(22), 0.030 3827(30) | same | ✅ |
+| IUPAC24-4I | IUPAC 2024 Example 4I, argentometric titration, conventional and K_sp models | 10.000 ± 0.026 mmol/L; K_sp model differs by 0.24 % | 10.000 ± 0.0255; 9.976 (mass balance) | ✅ except F92 |

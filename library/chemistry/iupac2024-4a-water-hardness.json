@@ -1,0 +1,120 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iupac2024-4a-water-hardness",
+    "field": "chemistry",
+    "title": {
+      "en": "Total hardness of water from Ca²⁺ and Mg²⁺: a conventional measurement model (IUPAC 2024, Examples 3C and 4A)",
+      "tr": "Ca²⁺ ve Mg²⁺'dan suyun toplam sertliği: geleneksel bir ölçüm modeli (IUPAC 2024, Örnek 3C ve 4A)"
+    },
+    "description": {
+      "en": "H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), defined by convention; Gauss's formula with independent inputs.",
+      "tr": "H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), uzlaşımla tanımlı; bağımsız girdilerle Gauss formülü."
+    },
+    "explanation": [
+      {
+        "en": "Sensitivity coefficients M(CaCO₃)/M(Ca) = 2.4973 and M(CaCO₃)/M(Mg) = 4.1180 (the guide rounds to 2.5 and 4.1); H = 96.65 mg/L, u(H) = 3.18 mg/L ≈ 3 mg/L. The molar masses are taken as exact.",
+        "tr": "Duyarlılık katsayıları M(CaCO₃)/M(Ca) = 2,4973 ve M(CaCO₃)/M(Mg) = 4,1180 (rehber 2,5 ve 4,1'e yuvarlar); H = 96,65 mg/L, u(H) = 3,18 mg/L ≈ 3 mg/L. Mol kütleleri kesin alınır."
+      },
+      {
+        "en": "The definition of the measurand fixes the measurement function (a conventional model, 3C); Ca and Mg determined separately by AAS justify independence (4A).",
+        "tr": "Ölçülenin tanımı ölçüm fonksiyonunu belirler (geleneksel model, 3C); Ca ve Mg'nin AAS ile ayrı tayini bağımsızlığı gerekçelendirir (4A)."
+      }
+    ],
+    "tags": [
+      "iupac-2024",
+      "water",
+      "hardness",
+      "linear",
+      "conventional-model"
+    ],
+    "notes": [],
+    "sources": [
+      {
+        "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+        "section": "Examples 3C and 4A",
+        "url": "https://doi.org/10.1515/pac-2022-1203"
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "H",
+      "unit": "mg/L",
+      "expression": "g_Ca*M_CaCO3/M_Ca + g_Mg*M_CaCO3/M_Mg",
+      "description": {
+        "en": "Total hardness of water as mass concentration of CaCO₃",
+        "tr": "CaCO₃ kütle derişimi olarak suyun toplam sertliği"
+      }
+    },
+    "inputs": [
+      {
+        "name": "g_Ca",
+        "unit": "mg/L",
+        "description": {
+          "en": "Mass concentration of Ca²⁺ (AAS)",
+          "tr": "Ca²⁺ kütle derişimi (AAS)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 23.2,
+          "sd": 0.8
+        }
+      },
+      {
+        "name": "g_Mg",
+        "unit": "mg/L",
+        "description": {
+          "en": "Mass concentration of Mg²⁺ (AAS, measured separately)",
+          "tr": "Mg²⁺ kütle derişimi (AAS, ayrı ölçülmüş)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 9.4,
+          "sd": 0.6
+        }
+      },
+      {
+        "name": "M_CaCO3",
+        "unit": "g/mol",
+        "distribution": {
+          "type": "constant",
+          "value": 100.0869
+        }
+      },
+      {
+        "name": "M_Ca",
+        "unit": "g/mol",
+        "distribution": {
+          "type": "constant",
+          "value": 40.078
+        }
+      },
+      {
+        "name": "M_Mg",
+        "unit": "g/mol",
+        "distribution": {
+          "type": "constant",
+          "value": 24.305
+        }
+      }
+    ]
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 96.65,
+        "tolerance": 0.01
+      },
+      "standard_uncertainty": {
+        "value": 3.0,
+        "tolerance": 0.2
+      }
+    },
+    "reference": {
+      "en": "IUPAC 2024, Example 4A: u²(H) = 2.5² × 0.8² + 4.1² × 0.6² ≈ (3 mg/L)².",
+      "tr": "IUPAC 2024, Örnek 4A: u²(H) = 2,5² × 0,8² + 4,1² × 0,6² ≈ (3 mg/L)²."
+    }
+  }
+}

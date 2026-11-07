@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (122)
+- Chemistry (126)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -1125,6 +1125,92 @@ ISO 6143:2025 B.2.4: a non-linear NDIR calibration with twelve points; the power
 - For this non-linear function the parameter covariances are computed by implicit differentiation of the minimum condition, the exact form of the numerical differentiation of A.2; they agree with B_LEAST within 0.3 %. A Monte Carlo simulation of the whole calibration (4000 refits, research log F42) gives u(x) = 0.0142 µmol/mol as well.
 
 **Run:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang en`
+
+### Argentometric titration (Mohr) with the endpoint chemistry: implicit model with the solubility products of AgCl and Ag₂CrO₄ (IUPAC 2024, Examples 3A and 4I)
+
+`iupac2024-3a-argentometric-titration-ksp` — Possolo et al., Examples 3A and 4I; Meija et al., Eq. (19)
+
+At the endpoint [Ag⁺] = √(K_sp2/[CrO₄²⁻]) and [Cl⁻] = K_sp1/[Ag⁺]; the mass balance of silver and chloride gives an equation for c(NaCl) that is solved numerically.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. With c(K₂CrO₄) = 1.75 mmol/L diluted to 110 mL, [Ag⁺] = 28.13 µmol/L and [Cl⁻] = 6.32 µmol/L at the endpoint: the excess silver 21.8 µmol/L × 110 mL must be subtracted from the titrant.
+2. (c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻] gives c(NaCl) = 9.9760 mmol/L, 0.24 % below the conventional 10.000 mmol/L; the uncertainty from the volumes is unchanged (0.026 mmol/L).
+
+**Result:**
+
+- c_NaCl = 9.9760 mmol/L, u(c_NaCl) = 0.026 mmol/L (GUM)
+
+**Notes:**
+
+- The equation printed in Example 4I has the right-hand side (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E) with a positive left-hand side [Ag⁺] − [Cl⁻]; solved as printed it gives 10.024 mmol/L, 0.24 % above the conventional value. Since the indicator responds only after the equivalence point, the endpoint volume overestimates the chloride and the mass balance gives 9.976 mmol/L; the guide states the magnitude, 0.24 %, but not its sign (research log F92).
+
+**Run:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang en`
+
+### Total hardness of water from Ca²⁺ and Mg²⁺: a conventional measurement model (IUPAC 2024, Examples 3C and 4A)
+
+`iupac2024-4a-water-hardness` — Possolo et al., Examples 3C and 4A
+
+H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), defined by convention; Gauss's formula with independent inputs.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Sensitivity coefficients M(CaCO₃)/M(Ca) = 2.4973 and M(CaCO₃)/M(Mg) = 4.1180 (the guide rounds to 2.5 and 4.1); H = 96.65 mg/L, u(H) = 3.18 mg/L ≈ 3 mg/L. The molar masses are taken as exact.
+2. The definition of the measurand fixes the measurement function (a conventional model, 3C); Ca and Mg determined separately by AAS justify independence (4A).
+
+**Result:**
+
+- H = (96.6 ± 6.2) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4a-water-hardness.json --lang en`
+
+### Isotopic abundances of silicon from two measured isotope amount ratios (IUPAC 2024, Example 4B)
+
+`iupac2024-4b-silicon-isotopic-abundances` — Possolo et al., Example 4B
+
+x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: three outputs from two inputs, with the covariance matrix Σ_y = JΣ_xJᵀ (Formula 3).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. Valkiers et al., Mixture III: R₂₉/₂₈ = 0.050 0657(25), R₃₀/₂₈ = 0.032 9035(34) mol/mol, taken as uncorrelated. The Jacobian is x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]].
+2. x₂₈ = 0.9233873(36), x₂₉ = 0.0462300(22), x₃₀ = 0.0303827(30) mol/mol. The abundances sum to 1, so their covariance matrix is singular; r(x₂₈, x₂₉) = -0.54, r(x₂₈, x₃₀) = -0.79.
+
+**Result:**
+
+- x28 = 0.92338729 mol/mol, u(x28) = 3.6 × 10⁻⁶ mol/mol (GUM)
+- x29 = 0.04623003 mol/mol, u(x29) = 2.2 × 10⁻⁶ mol/mol (GUM)
+- x30 = 0.03038267 mol/mol, u(x30) = 3.0 × 10⁻⁶ mol/mol (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang en`
+
+### Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I)
+
+`iupac2024-4i-argentometric-titration` — Possolo et al., Examples 3A and 4I
+
+c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); only the volumetric and endpoint uncertainties are considered.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Pipette: triangular, s.d. 0.08/√6 = 0.0327 mL; burette: triangular ±0.01 mL, s.d. 0.00408 mL; endpoint: normal, s.d. 0.025 mL, which dominates. c(NaCl) = 10.000 mmol/L, u = 0.0255 mmol/L (0.26 %).
+
+**Result:**
+
+- c_NaCl = (10.000 ± 0.050) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- The endpoint (first permanent Ag₂CrO₄) lies after the equivalence point; the companion project iupac2024-3a-argentometric-titration-ksp models this chemistry instead of treating it as an uncertainty.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang en`
 
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
