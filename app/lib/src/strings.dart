@@ -148,6 +148,13 @@ class S {
     'mc_global_producer': ["Total global producer's risk", 'Toplam küresel üretici riski'],
     'about_estimate': ['Half-width symmetric about the estimate', 'Tahmin etrafında simetrik yarı genişlik'],
     'pt_bayes': ['Bayesian between-unit s.d. (posterior mean)', 'Bayesçi birimler arası s.s. (sonsal ortalama)'],
+    'pt_bayes_on': ['Bayesian between-unit model', 'Bayesçi birimler arası model'],
+    'pt_tau_scale': ['Prior scale of τ (between units)', 'τ önsel ölçeği (birimler arası)'],
+    'pt_sigma_scale': ['Prior scale of σ (repeatability)', 'σ önsel ölçeği (tekrarlanabilirlik)'],
+    'pt_bayes_help': [
+      'Half-Cauchy priors with these medians (e.g. the preparation specification and the known repeatability); the mean has a flat prior unless mu_mean and mu_sd are set in the JSON tab.',
+      'Bu ortancalarla yarım Cauchy önseller (ör. hazırlama şartnamesi ve bilinen tekrarlanabilirlik); ortalamanın önseli, JSON sekmesinde mu_mean ve mu_sd verilmedikçe düzdür.',
+    ],
     'pt_mode': ['mode', 'mod'],
     'cf_process_lognormal': ['lognormal', 'lognormal'],
     'cf_meanlog': ['mean of ln Y', 'ln Y ortalaması'],

@@ -129,10 +129,9 @@ indirilemedi; Drive klasörüne konacak:
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
      - tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar);
-     - uygulamada `homogeneity.bayes` formu ve uygunlukta `distribution: lognormal` seçimi;
      - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak;
      - uzlaşıda sonlu ν_j için σ_j önselleri (NICOB §A.3), birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
-     - (tamam) uygulamada `consensus` formu ve şablonu (D76).
+     - (tamam) uygulamada `consensus` formu ve şablonu (D76); homojenlikte Bayes model anahtarı ve önsel ölçekleri.
 1. **TUR'a dayalı koruma bantları (konformite modülü).**
    - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
      guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert

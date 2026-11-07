@@ -222,8 +222,53 @@ class _ProficiencyEditorState extends State<ProficiencyEditor> {
         if (hom != null)
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: NumberField(map: hom, field: 'sd_pt_percent_of_mean', label: s['pt_hom_sd_percent'], width: 200, onChanged: widget.onChanged),
+            child: Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                NumberField(map: hom, field: 'sd_pt_percent_of_mean', label: s['pt_hom_sd_percent'], width: 200, onChanged: widget.onChanged),
+                SizedBox(
+                  width: 300,
+                  child: SwitchListTile(
+                    key: const Key('pt-bayes'),
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(s['pt_bayes_on']),
+                    value: hom['bayes'] != null,
+                    onChanged: (v) {
+                      setState(() {
+                        if (v) {
+                          hom['bayes'] = <String, dynamic>{};
+                        } else {
+                          hom.remove('bayes');
+                        }
+                      });
+                      widget.onChanged();
+                    },
+                  ),
+                ),
+                if (hom['bayes'] != null) ...[
+                  NumberField(
+                    key: const ValueKey('pt-tau-scale'),
+                    map: hom['bayes'] as Map<String, dynamic>,
+                    field: 'tau_scale',
+                    label: s['pt_tau_scale'],
+                    width: 220,
+                    onChanged: widget.onChanged,
+                  ),
+                  NumberField(
+                    key: const ValueKey('pt-sigma-scale'),
+                    map: hom['bayes'] as Map<String, dynamic>,
+                    field: 'sigma_scale',
+                    label: s['pt_sigma_scale'],
+                    width: 220,
+                    onChanged: widget.onChanged,
+                  ),
+                ],
+              ],
+            ),
           ),
+        if (hom?['bayes'] != null) Text(s['pt_bayes_help'], style: Theme.of(context).textTheme.bodySmall),
         Section(s['pt_stability']),
         TextFormField(
           initialValue: ((stab?['values'] as List?) ?? const []).map((e) => fmtGivenIn(e as num, s.lang)).join('\n'),
