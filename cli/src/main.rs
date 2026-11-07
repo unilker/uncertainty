@@ -21,7 +21,7 @@ weighing instruments (EURAMET cg-18, Appendix C).
 USAGE:
     uncertainty run <project.json> [options]
     uncertainty check <file-or-directory>... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -54,8 +54,10 @@ TEMPLATE:
     model with several output quantities (JCGM 102), with --control-chart a
     control chart for internal quality control (Nordtest TR 569), or with
     --sampling the duplicate method for the uncertainty from sampling
-    (Eurachem UfS:2019), or with --error-function the error approximation
-    function of a weighing instrument (EURAMET cg-18, Appendix C).
+    (Eurachem UfS:2019), with --error-function the error approximation
+    function of a weighing instrument (EURAMET cg-18, Appendix C), or with
+    --consensus the consensus value of an interlaboratory comparison (NIST
+    Consensus Builder procedures).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -216,6 +218,28 @@ const TEMPLATE_CONFORMITY: &str = r#"{
 }
 "#;
 
+const TEMPLATE_CONSENSUS: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Consensus value of an interlaboratory comparison", "tr": "Laboratuvarlar arası karşılaştırmanın uzlaşı değeri" },
+    "field": "chemistry"
+  },
+  "consensus": {
+    "measurand": "w(Ni)",
+    "unit": "mg/kg",
+    "results": [
+      { "name": "Lab A", "value": 1.930, "u": 0.110 }, { "name": "Lab B", "value": 1.984, "u": 0.020 },
+      { "name": "Lab C", "value": 2.022, "u": 0.023 }, { "name": "Lab D", "value": 2.050, "u": 0.020 },
+      { "name": "Lab E", "value": 2.077, "u": 0.035 }, { "name": "Lab F", "value": 2.150, "u": 0.030 }
+    ],
+    "linear_pool": true,
+    "bayes": {},
+    "trials": 100000
+  }
+}
+"#;
+
 const TEMPLATE_SAMPLING: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -326,6 +350,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--error-function") => {
             print!("{TEMPLATE_ERROR_FUNCTION}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--consensus") => {
+            print!("{TEMPLATE_CONSENSUS}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--sampling") => {

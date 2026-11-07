@@ -11,10 +11,10 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | | |
 |---|---|
 | Kütüphane | **279** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **202** Rust testi (bunlardan biri 279 projenin tamamını çalıştırır), **21** Flutter testi |
+| Testler | **202** Rust testi (bunlardan biri 279 projenin tamamını çalıştırır), **22** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D75, bulgular F1–F97 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D76, bulgular F1–F97 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -131,8 +131,8 @@ indirilemedi; Drive klasörüne konacak:
      - tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar);
      - uygulamada `homogeneity.bayes` formu ve uygunlukta `distribution: lognormal` seçimi;
      - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak;
-     - uzlaşıda sonlu ν_j için σ_j önselleri (NICOB §A.3), birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri;
-       uygulamada `consensus` için veri yapıştırma formu.
+     - uzlaşıda sonlu ν_j için σ_j önselleri (NICOB §A.3), birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
+     - (tamam) uygulamada `consensus` formu ve şablonu (D76).
 1. **TUR'a dayalı koruma bantları (konformite modülü).**
    - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
      guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert

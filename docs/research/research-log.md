@@ -3240,3 +3240,13 @@ Core test: the sample moments of beta(88 873.7, 7.11) and of a skewed beta on [2
 - IUPAC 2024 5C (NIST PS1 benzoic acid, beta(88 873.7, 7.11)): 0.999 920 ± 0.000 030 g/g; 95 % interval
   0.999 851–0.999 968 g/g, 0.069 mg/g below and 0.048 mg/g above the mean. This is the library's example of a
   bounded, asymmetric result (F97 item 6; the qNMR budgets of D69).
+
+## 2026-11-07 (session 21, continued) — Consensus in the application
+
+**D76. Consensus template and editor.** `uncertainty template --consensus` and the FFI template `consensus`
+(six illustrative results with the K145 values); the app has a *New consensus value* card and a *Data* tab where the
+results are pasted one per line (name, value, u, optional ν; tab, semicolon or space; decimal comma) and the
+procedures are switched on (DL with bootstrap by default; Linear Pool, ML, Bayes with Gaussian or Laplace effects).
+Linear Pool weights of participants that remain are kept when the list is pasted again. The library list labels
+consensus projects "NICOB" and multicomponent projects "JCGM 106" (both were shown as "GUM + MCM"). Flutter test
+for the parser (22 tests).

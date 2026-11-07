@@ -144,3 +144,8 @@ sabitinin 22 kestirimine Stan ile uydurur; program aynı 71,69(66) (km/s)/Mpc de
 
 Kütüphane: Koepke vd. 2017 (G, ¹³⁷Cs ve ⁹⁰Sr yarı ömürleri), IUPAC 2024 Örnek 3E/4M/4N (iridyum) ve 4F
 (CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître sabiti). Henüz uygulanmayanlar: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
+
+*Uygulamada* *Yeni uzlaşı değeri* bir şablonla başlar. *Veriler* sekmesinde katılımcı sonuçları her satıra bir
+tane yapıştırılır (ad, değer, standart belirsizlik ve isteğe bağlı serbestlik derecesi) ve yöntemler açılıp
+kapatılır; Bayes modeli normal ya da Laplace etkileri kullanabilir. *Sonuçlar* sekmesi uzlaşı değerlerini, τ'yu,
+kapsam aralıklarını ve eşdeğerlik derecelerini gösterir; HTML raporu bunların grafiğini ekler.

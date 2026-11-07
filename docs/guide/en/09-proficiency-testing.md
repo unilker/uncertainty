@@ -148,3 +148,8 @@ estimates of the Hubble–Lemaître constant with Stan; the program gives the sa
 
 Library: Koepke et al. 2017 (G, half-lives of ¹³⁷Cs and ⁹⁰Sr), IUPAC 2024 Examples 3E/4M/4N (iridium) and 4F
 (CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître constant). Not yet implemented: leave-one-out and bilateral degrees of equivalence.
+
+*In the application*, *New consensus value* starts from a template. On the *Data* tab the participants' results
+are pasted one per line (name, value, standard uncertainty and, optionally, degrees of freedom) and the procedures
+are switched on or off; the Bayesian model can use Gaussian or Laplace effects. The *Results* tab shows the
+consensus values, τ, the coverage intervals and the degrees of equivalence; the HTML report adds their chart.
