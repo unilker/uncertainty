@@ -109,10 +109,13 @@ indirilemedi; Drive klasörüne konacak:
 
 0. **GUM-5'in kalan örnekleri** (metin: geçici alandaki `drive2/gum5/ex*.txt`; klasördeki PDF'ten yeniden
    çıkarılabilir): **tamamlandı.** Sıradaki: `drive-inventory-2026-11.md` sırası: ~~WG1 tanımları → sözlük~~ (D61: MCM'de tahmin etrafında
-   simetrik yarı genişlik); ~~Eurachem/CITAC uygunluk 2021~~ (D62, F86; ölçülen için lognormal dağılım); EMUE derlemesi ve IUPAC 2024 örnekleri; ILAC P14; Nordtest TR 537 TR;
+   simetrik yarı genişlik); ~~Eurachem/CITAC uygunluk 2021~~ (D62, F86; ölçülen için lognormal dağılım); EMUE derlemesi (başlandı: E5.1 ile F85 doğrulandı; sırada E3.4 topraktaki metaller, E2.1 influenza ilacı,
+   E2.2 toplamsal/çarpımsal düzeltmeler, E3.3 NOx analizörü, E3.8 NH₃ permeasyon, E1.1 iki/çok noktalı
+   kalibrasyon, E6.5; GUM-5'e geçenler (E2.3, E3.2, E3.6, E4.6, E5.1, E6.2) tamam) ve IUPAC 2024 örnekleri; ILAC P14; Nordtest TR 537 TR;
    Possolo & Meija 2022; BIPM qNMR; uzlaşı değeri modülü (Koepke, DerSimonian–Laird).
    - Açık kalan küçük işler: skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si), uygulamada
-     `homogeneity.bayes` formu, Willink 2007 metninin kendisiyle F79'u doğrulamak.
+     `homogeneity.bayes` formu, uygunluk formunda `distribution: lognormal` seçimi, Willink 2007 metninin
+     kendisiyle F79'u doğrulamak.
 1. **TUR'a dayalı koruma bantları (konformite modülü).**
    - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
      guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert
