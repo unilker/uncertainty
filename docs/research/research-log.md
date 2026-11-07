@@ -3089,3 +3089,32 @@ not to be reported).**
 None changes a certified value materially (all within 0.2 u_c, except the excluded tables). The pattern —
 spreadsheet budgets whose displayed numbers do not reproduce one another — is the article's argument for
 budgets recomputed from their inputs by validated software.
+
+## 2026-11-07 (session 21, continued) — Bayesian tutorials, Toman 2016, Degenhardt 2025
+
+**D70. What was taken from the Bayesian and "alternative to MCM" documents.**
+
+- *Possolo & Bodnar 2018* (approximate Bayesian evaluations), §4.4 chromium in soil (ISO Guide 35 Example C.1,
+  20 bottles × 3, reprinted in their Table 3): taken into the library as a homogeneity project
+  (`possolo-bodnar-2018-chromium-soil-homogeneity-bayes`). The model and priors (τ, σ half-Cauchy with medians
+  the s.d. of the bottle averages and the median within-bottle s.d.; ω flat) are those of D60, so the existing
+  grid evaluation applies: ω = 121.624, u = 0.9986 mg/kg (paper: MCMC 121.62 (1), Laplace 0.98, REML 0.95);
+  ANOVA s_bb = 3.93, s_r = 2.87 mg/kg (= Guide 35). New expected field `homogeneity.mu_sd`.
+  Not taken: the cryptosporidiosis odds ratio (binomial data), the manometer (non-identifiable tilt angle with a
+  beta prior; Lira & Grientschnig 2010), and GUM H.5 by NICOB with σ_j priors on 4 degrees of freedom (needs the
+  σ_j priors of NICOB §A.3, not implemented; D67).
+- *Toman, Nelson & Lippa 2016* (qNMR, hierarchical Bayes): two-level model (samples within internal standards,
+  internal standards about the purity) fitted by OpenBUGS with vague priors whose parameters are not given
+  ("e and f set as large numbers"); the per-sample results are "essentially identical to the usual uncertainty
+  analysis obtained with the GUM procedure". Not reproducible exactly; recorded for the article as the
+  hierarchical alternative to the single-sample budgets of D69. The beta prior on a purity bounded by 1 g/g
+  (their eq. (8)) is the same point as F97 item 6.
+- *Klauenberg et al. 2015* (Bayesian normal linear regression, sonic nozzle): conjugate normal–inverse-gamma
+  posterior, analytic and therefore a candidate for the calibration module, but the data are in online
+  supplement B, which is not in the folder (added to `documents-needed.md`).
+- *Degenhardt et al. 2025* (SSPRC): systematic samples per input, propagated one at a time, reconstructed and
+  combined by convolution. It assumes additive, independent effects (their §4); the examples (AFM indentation)
+  are not reproducible from the paper. Not implemented: the program's models are cheap to evaluate, and the
+  second-order check of JCGM 100 Amd.1 (D56) already flags non-additivity. For the article's related work.
+- *Possolo 2019* (asymmetric uncertainties): symmetrisation of asymmetric results (Audi et al.) and the ozone
+  cross-section; outlook, together with bounded results (F97 item 6).

@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (139)
+- Chemistry (140)
 - Electrical and RF (35)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -1522,6 +1522,26 @@ TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the 
 - The project 'quam-a1-cadmium-standard' builds the uncertainties of m, P and V from their components as in QUAM A1.
 
 **Run:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang en`
+
+### Chromium in a soil reference material, 20 bottles in triplicate: ANOVA and a hierarchical Bayesian model (Possolo & Bodnar 2018; ISO Guide 35 C.1 data)
+
+`possolo-bodnar-2018-chromium-soil-homogeneity-bayes` — Possolo & Bodnar, §4.4, Tables 3 and 4
+
+w_ij = ω + β_j + ε_ij with bottle effects β_j ~ N(0, τ²) and errors ε_ij ~ N(0, σ²). The value assigned to the material is the estimate of ω; its uncertainty includes the between-bottle and the within-bottle variability.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. One-way ANOVA: s_bb = 3.93 mg/kg and s_r = 2.87 mg/kg, the values of ISO Guide 35 and of REML (R lme); ω = 121.62 mg/kg with u = s_x/√20 = 0.95 mg/kg.
+2. Bayesian model as in the paper: ω flat (N(0, 10⁵)); τ half-Cauchy with median the standard deviation of the bottle averages, 4.2656 mg/kg; σ half-Cauchy with median the median of the within-bottle standard deviations, 2.4389 mg/kg.
+3. The paper samples the posterior by MCMC (R2jags): ω = 121.62 mg/kg, u = 1 mg/kg; its Laplace approximation gives 0.98 mg/kg. The program integrates ω and the bottle effects out exactly and evaluates (τ, σ) on a grid.
+
+**Notes:**
+
+- No σ_pt is given: the ISO 13528 criteria are not evaluated (a reference-material homogeneity study).
+
+**Run:** `uncertainty run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang en`
 
 ### Atomic weight and isotopic composition of lead in NRC HIPB-1 from three isotope ratios (Possolo & Meija 2022)
 

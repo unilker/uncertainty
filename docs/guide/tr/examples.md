@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (139)
+- Kimya (140)
 - Elektrik ve RF (35)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -1522,6 +1522,26 @@ TN 1900 E9: QUAM A1 kadmiyum standardı, c = 1000 m P / V, dikdörtgen saflık v
 - 'quam-a1-cadmium-standard' projesi m, P ve V'nin belirsizliklerini QUAM A1'deki gibi bileşenlerinden oluşturur.
 
 **Çalıştırma:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang tr`
+
+### Bir toprak referans malzemesinde krom, üçer tekrarlı 20 şişe: ANOVA ve hiyerarşik Bayes modeli (Possolo & Bodnar 2018; ISO Guide 35 C.1 verileri)
+
+`possolo-bodnar-2018-chromium-soil-homogeneity-bayes` — Possolo & Bodnar, §4.4, Tables 3 and 4
+
+w_ij = ω + β_j + ε_ij; şişe etkileri β_j ~ N(0, τ²), hatalar ε_ij ~ N(0, σ²). Malzemeye atanan değer ω'nın kestirimidir; belirsizliği şişeler arası ve şişe içi değişkenliği içerir.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. Tek yönlü ANOVA: s_bb = 3,93 mg/kg ve s_r = 2,87 mg/kg, ISO Guide 35 ve REML (R lme) değerleri; ω = 121,62 mg/kg, u = s_x/√20 = 0,95 mg/kg.
+2. Makaledeki Bayes modeli: ω düz (N(0, 10⁵)); τ ortancası şişe ortalamalarının standart sapması olan yarım Cauchy, 4,2656 mg/kg; σ ortancası şişe içi standart sapmaların ortancası olan yarım Cauchy, 2,4389 mg/kg.
+3. Makale sonsalı MCMC ile örnekler (R2jags): ω = 121,62 mg/kg, u = 1 mg/kg; Laplace yaklaşımı 0,98 mg/kg verir. Program ω'yı ve şişe etkilerini kesin olarak integre eder, (τ, σ)'yı ızgarada hesaplar.
+
+**Notlar:**
+
+- σ_pt verilmemiştir: ISO 13528 ölçütleri değerlendirilmez (referans malzeme homojenlik çalışması).
+
+**Çalıştırma:** `uncertainty run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang tr`
 
 ### Üç izotop oranından NRC HIPB-1'deki kurşunun atom ağırlığı ve izotop bileşimi (Possolo & Meija 2022)
 

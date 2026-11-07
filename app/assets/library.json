@@ -18998,6 +18998,202 @@
   }
  },
  {
+  "path": "library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "possolo-bodnar-2018-chromium-soil-homogeneity-bayes",
+    "field": "chemistry",
+    "title": {
+     "en": "Chromium in a soil reference material, 20 bottles in triplicate: ANOVA and a hierarchical Bayesian model (Possolo & Bodnar 2018; ISO Guide 35 C.1 data)",
+     "tr": "Bir toprak referans malzemesinde krom, üçer tekrarlı 20 şişe: ANOVA ve hiyerarşik Bayes modeli (Possolo & Bodnar 2018; ISO Guide 35 C.1 verileri)"
+    },
+    "description": {
+     "en": "w_ij = ω + β_j + ε_ij with bottle effects β_j ~ N(0, τ²) and errors ε_ij ~ N(0, σ²). The value assigned to the material is the estimate of ω; its uncertainty includes the between-bottle and the within-bottle variability.",
+     "tr": "w_ij = ω + β_j + ε_ij; şişe etkileri β_j ~ N(0, τ²), hatalar ε_ij ~ N(0, σ²). Malzemeye atanan değer ω'nın kestirimidir; belirsizliği şişeler arası ve şişe içi değişkenliği içerir."
+    },
+    "explanation": [
+     {
+      "en": "One-way ANOVA: s_bb = 3.93 mg/kg and s_r = 2.87 mg/kg, the values of ISO Guide 35 and of REML (R lme); ω = 121.62 mg/kg with u = s_x/√20 = 0.95 mg/kg.",
+      "tr": "Tek yönlü ANOVA: s_bb = 3,93 mg/kg ve s_r = 2,87 mg/kg, ISO Guide 35 ve REML (R lme) değerleri; ω = 121,62 mg/kg, u = s_x/√20 = 0,95 mg/kg."
+     },
+     {
+      "en": "Bayesian model as in the paper: ω flat (N(0, 10⁵)); τ half-Cauchy with median the standard deviation of the bottle averages, 4.2656 mg/kg; σ half-Cauchy with median the median of the within-bottle standard deviations, 2.4389 mg/kg.",
+      "tr": "Makaledeki Bayes modeli: ω düz (N(0, 10⁵)); τ ortancası şişe ortalamalarının standart sapması olan yarım Cauchy, 4,2656 mg/kg; σ ortancası şişe içi standart sapmaların ortancası olan yarım Cauchy, 2,4389 mg/kg."
+     },
+     {
+      "en": "The paper samples the posterior by MCMC (R2jags): ω = 121.62 mg/kg, u = 1 mg/kg; its Laplace approximation gives 0.98 mg/kg. The program integrates ω and the bottle effects out exactly and evaluates (τ, σ) on a grid.",
+      "tr": "Makale sonsalı MCMC ile örnekler (R2jags): ω = 121,62 mg/kg, u = 1 mg/kg; Laplace yaklaşımı 0,98 mg/kg verir. Program ω'yı ve şişe etkilerini kesin olarak integre eder, (τ, σ)'yı ızgarada hesaplar."
+     }
+    ],
+    "tags": [
+     "possolo-bodnar-2018",
+     "iso-guide-35",
+     "homogeneity",
+     "reference-material",
+     "bayes",
+     "anova"
+    ],
+    "notes": [
+     {
+      "en": "No σ_pt is given: the ISO 13528 criteria are not evaluated (a reference-material homogeneity study).",
+      "tr": "σ_pt verilmemiştir: ISO 13528 ölçütleri değerlendirilmez (referans malzeme homojenlik çalışması)."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Possolo & Bodnar, Approximate Bayesian evaluations of measurement uncertainty, Metrologia 55 (2018) 147–157",
+      "section": "§4.4, Tables 3 and 4",
+      "url": "https://doi.org/10.1088/1681-7575/aaa5be"
+     }
+    ]
+   },
+   "proficiency": {
+    "quantity": "w(Cr)",
+    "unit": "mg/kg",
+    "homogeneity": {
+     "items": [
+      [
+       121.3,
+       128.74,
+       119.91
+      ],
+      [
+       120.87,
+       121.32,
+       119.24
+      ],
+      [
+       122.44,
+       122.96,
+       123.45
+      ],
+      [
+       117.6,
+       119.66,
+       118.96
+      ],
+      [
+       110.65,
+       112.34,
+       110.29
+      ],
+      [
+       117.29,
+       120.79,
+       121.42
+      ],
+      [
+       115.27,
+       121.45,
+       117.48
+      ],
+      [
+       118.96,
+       123.78,
+       123.29
+      ],
+      [
+       118.67,
+       116.67,
+       114.58
+      ],
+      [
+       126.24,
+       123.51,
+       126.2
+      ],
+      [
+       128.65,
+       122.02,
+       121.93
+      ],
+      [
+       126.84,
+       124.72,
+       123.14
+      ],
+      [
+       122.61,
+       128.48,
+       126.2
+      ],
+      [
+       118.95,
+       123.82,
+       118.11
+      ],
+      [
+       118.74,
+       118.23,
+       117.38
+      ],
+      [
+       119.74,
+       121.78,
+       121.01
+      ],
+      [
+       121.21,
+       123.28,
+       116.38
+      ],
+      [
+       129.3,
+       124.1,
+       122.02
+      ],
+      [
+       136.81,
+       129.8,
+       128.47
+      ],
+      [
+       127.81,
+       117.66,
+       122.9
+      ]
+     ],
+     "bayes": {
+      "tau_scale": 4.26562,
+      "sigma_scale": 2.438859
+     }
+    }
+   },
+   "expected": {
+    "proficiency": {
+     "homogeneity": {
+      "mean": {
+       "value": 121.62,
+       "tolerance": 0.005
+      },
+      "s_s": {
+       "value": 3.93,
+       "tolerance": 0.005
+      },
+      "s_w": {
+       "value": 2.87,
+       "tolerance": 0.005
+      },
+      "mu_mean": {
+       "value": 121.62,
+       "tolerance": 0.01
+      },
+      "mu_sd": {
+       "value": 1.0,
+       "tolerance": 0.05
+      }
+     }
+    },
+    "reference": {
+     "en": "Possolo & Bodnar (2018), §4.4 and Table 4: REML 121.62 (0.95) mg/kg, τ 3.93 and σ 2.87 mg/kg (= s_bb and s_r of ISO Guide 35); Bayesian (MCMC) 121.62 (1) mg/kg, Laplace 121.62 (0.98) mg/kg.",
+     "tr": "Possolo & Bodnar (2018), §4.4 ve Tablo 4: REML 121,62 (0,95) mg/kg, τ 3,93 ve σ 2,87 mg/kg (= ISO Guide 35 s_bb ve s_r); Bayes (MCMC) 121,62 (1) mg/kg, Laplace 121,62 (0,98) mg/kg."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json",
   "project": {
    "format": "uncertainty-calculations/project",

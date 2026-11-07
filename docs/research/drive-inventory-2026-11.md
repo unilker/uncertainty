@@ -57,15 +57,15 @@ Key to the columns:
 
 | File | Status | Use | Order |
 |---|---|---|---|
-| 34 Degenhardt et al. 2025, alternative to MCM (two copies) | new | cross-check of MCM; possible method | 4 |
-| 35 Klauenberg 2015; 36 Lira & Grientschnig 2010; 37 Possolo & Bodnar 2018; 38 Possolo 2019 | new | Bayesian evaluation (future module); asymmetric uncertainties | 5 |
+| 34 Degenhardt et al. 2025, alternative to MCM (two copies) | **read** (D70): not implemented | cross-check of MCM; possible method | 4 |
+| 35 Klauenberg 2015; 36 Lira & Grientschnig 2010; 37 Possolo & Bodnar 2018; 38 Possolo 2019 | **read** (D70); 37 §4.4 in the library; 35 needs its supplement | Bayesian evaluation (future module); asymmetric uncertainties | 5 |
 
 ## Purity, qNMR and key comparisons (TÜBİTAK UME work)
 
 | File | Status | Use | Order |
 |---|---|---|---|
 | 20–26 BIPM ISRD-01 to -09 (qNMR internal standards) | **done** (D69, F97): 9 budgets in the library | purity budgets: library examples | 4 |
-| 40 Westwood 2023 IUPAC; 41 Toman 2016; 43 CCQM-K55b; 44 qNMR 2023; 45 Al-Deen & Hibbert; Sanchez 2025 | new | purity and qNMR uncertainty; hierarchical Bayes | 4 |
+| 40 Westwood 2023 IUPAC; 41 Toman 2016; 43 CCQM-K55b; 44 qNMR 2023; 45 Al-Deen & Hibbert; Sanchez 2025 | 41 read (D70); others new | purity and qNMR uncertainty; hierarchical Bayes | 4 |
 
 ## Consensus values, dark uncertainty
 

@@ -333,6 +333,8 @@ pub struct ExpectedHomogeneity {
     pub sigma_hpd_upper: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub mu_mean: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mu_sd: Option<Check>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -796,6 +798,7 @@ pub fn check(e: &ExpectedProficiency, a: &ProficiencyAnalysis, out: &mut Vec<cra
         push("proficiency.homogeneity.sigma_hpd_lower".into(), b.map(|b| b.sigma.hpd.0), eh.sigma_hpd_lower.as_ref());
         push("proficiency.homogeneity.sigma_hpd_upper".into(), b.map(|b| b.sigma.hpd.1), eh.sigma_hpd_upper.as_ref());
         push("proficiency.homogeneity.mu_mean".into(), b.map(|b| b.mu_mean), eh.mu_mean.as_ref());
+        push("proficiency.homogeneity.mu_sd".into(), b.map(|b| b.mu_sd), eh.mu_sd.as_ref());
         if let Some(v) = eh.sufficient {
             verdicts.push(("proficiency.homogeneity.sufficient", h.and_then(|h| h.sufficient), v));
         }

@@ -12,6 +12,7 @@ they are kept as the evidence behind entries of `docs/research/research-log.md`.
 | `emue/` | EMUE compendium 2021: tables of E3.4 (`e34_soil_tables.py`), total risks of E2.1 (`e21_total_risks.py`, scipy), vacuum-gauge tables of E2.2 (`e22_vacuum_tables.py`), permeation of E3.8 (`e38_permeation.py`), dilution and WTLS of E3.3 (`e33_dilution.py`, `e33_wtls.py`) | F87–F90, D63 |
 | `consensus/` | Koepke et al. 2017 Tables 1–4: DerSimonian–Laird, Knapp–Hartung, the NICOB parametric bootstrap and the Linear Pool, independent numpy implementation (`koepke2017.py`); grid posterior of the Bayesian random-effects model (`bayes_grid.py`); Laplace effects, Hubble (`hubble_laplace.py`); lead in HIPB-1 (`lead_hipb1.py`) | D66–D68, F93–F96 |
 | `qnmr/` | BIPM ISRD qNMR budgets: recomputation of the eleven ¹H tables (`isrd_budgets.py`, also the data source of `tools/generators/bipm_isrd.py`) | D69, F97 |
+| `homogeneity/` | ISO Guide 35 C.1 chromium data and ANOVA (`cr_soil.py`, also the data source of `possolo_bodnar2018.py`) | D70 |
 | `joinwords.py` | rejoins glyph-by-glyph PDF text from `pdftotext -bbox` (IUPAC 2024 PDF) | — |
 | `findings_index.py` | writes `docs/research/findings-index.md` from the research log | — |
 

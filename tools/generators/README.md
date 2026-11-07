@@ -34,6 +34,7 @@ recomputed.
 | `iupac2024.py` | IUPAC brief guide 2024, Examples 3A, 3E/4M/4N, 4A, 4B, 4F, 4I |
 | `possolo_meija2022.py` | Possolo & Meija 2022: Hubble–Lemaître constant, anion gap, storage tank, Wheatstone bridge, atomic weight of lead |
 | `bipm_isrd.py` | BIPM ISRD-01, -02, -06, -07, -08: qNMR purity budgets (inputs from `tools/research/qnmr/isrd_budgets.py`) |
+| `possolo_bodnar2018.py` | Possolo & Bodnar 2018 §4.4: chromium in soil, homogeneity with a hierarchical Bayesian model |
 | `koepke2017.py` | Koepke et al. 2017 (NIST Consensus Builder): G, half-lives of ¹³⁷Cs and ⁹⁰Sr |
 | `eurachem_compliance.py` | Eurachem/CITAC compliance assessment guide 2021, Annex B Examples 1–3 |
 | `tr569.py` | Nordtest TR 569 control charts |

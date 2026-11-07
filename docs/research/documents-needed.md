@@ -114,3 +114,5 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 Erişim ihtiyaçları (C bölümü) değişmedi. D bölümüne NIST TN 1900 (F28–F30), NUM kılavuzu (F29, F33),
 ISO 6143 (F41, F42), ISO 5725-3 (F40, çözüldü), ISO 5725-2 (F47–F49), ISO 13528 (F36), ISO 21748 (F38, F39) ve
 Magnusson ve Ellison (F43) eklendi.
+
+12. **Klauenberg et al. (2015)**, *Metrologia* 52:878 — çevrimiçi Ek B (ses hızı lülesi kalibrasyon verileri, Tablo B2): Bayesçi normal doğrusal regresyon örneğini yeniden üretmek için (D70).
