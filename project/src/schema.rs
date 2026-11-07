@@ -167,6 +167,10 @@ pub struct ModelSpec {
     pub inputs: Vec<InputSpec>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub correlations: Vec<CorrelationSpec>,
+    /// Groups of inputs evaluated from the same data with a common ν, each
+    /// counted as one Welch–Satterthwaite component (Willink 2007).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ensembles: Vec<Vec<String>>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

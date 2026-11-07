@@ -346,19 +346,35 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
     }
 
     // Welch–Satterthwaite [GUM G.2b]. Higher-order variance is treated as
-    // having infinite degrees of freedom (documented assumption).
-    if model.has_correlations() && nu.iter().any(|v| v.is_finite()) {
+    // having infinite degrees of freedom (documented assumption). Inputs of
+    // an ensemble (same data, same ν) form one component whose variance
+    // includes their covariances [Willink 2007, §4.1.1; GTC]. A correlation
+    // between inputs with finite ν outside a common ensemble invalidates the
+    // formula [GUM G.4.1]; it is applied anyway, with a warning.
+    let ensemble_of = |i: usize| model.ensembles.iter().position(|e| e.contains(&i));
+    let unsupported_correlation = (0..n).any(|i| {
+        (i + 1..n).any(|j| {
+            model.correlation[i][j] != 0.0
+                && (nu[i].is_finite() || nu[j].is_finite())
+                && !(ensemble_of(i).is_some() && ensemble_of(i) == ensemble_of(j))
+        })
+    });
+    if unsupported_correlation {
         warnings.push(GumWarning::WelchSatterthwaiteCorrelated);
     }
-    let mut denom = 0.0;
-    for i in 0..n {
-        if nu[i].is_finite() && ui_y[i] != 0.0 {
-            denom += ui_y[i].powi(4) / nu[i];
+    let mut components: Vec<(f64, f64)> =
+        (0..n).filter(|&i| ensemble_of(i).is_none() && ui_y[i] != 0.0).map(|i| (ui_y[i] * ui_y[i], nu[i])).collect();
+    for e in &model.ensembles {
+        let v: f64 =
+            e.iter().map(|&i| e.iter().map(|&j| ui_y[i] * ui_y[j] * model.correlation[i][j]).sum::<f64>()).sum();
+        if v != 0.0 {
+            components.push((v, nu[e[0]]));
         }
     }
+    let denom: f64 = components.iter().filter(|c| c.1.is_finite()).map(|&(v, nu_i)| v * v / nu_i).sum();
     let nu_eff = if denom > 0.0 { (uc.powi(4) / denom).min(f64::MAX) } else { f64::INFINITY };
-    // G.2c: ν_eff ≤ Σ ν_i.
-    let nu_sum: f64 = (0..n).filter(|&i| ui_y[i] != 0.0).map(|i| nu[i]).sum();
+    // G.2c: ν_eff ≤ Σ ν_i (an ensemble counts once).
+    let nu_sum: f64 = components.iter().map(|c| c.1).sum();
     let nu_eff = nu_eff.min(nu_sum);
 
     let (k, p) = match options.coverage {

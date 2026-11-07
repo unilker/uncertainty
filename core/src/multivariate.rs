@@ -793,6 +793,7 @@ pub fn mcm(
         output_source: String::new(),
         intermediates: Vec::new(),
         correlation: model.correlation.clone(),
+        ensembles: Vec::new(),
     };
     let mut sampler = Sampler::with_students(&base, model.students.clone())?;
     let mut rng = Rng::new(options.seed);

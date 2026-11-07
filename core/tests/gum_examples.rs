@@ -244,3 +244,68 @@ fn second_order_term_of_the_estimate_amd1_2026() {
         g.warnings
     );
 }
+
+/// JCGM GUM-5:2026 Example 2 (benzo[a]pyrene, internal standard):
+/// m_E = f·A_E/A_ISE·m_ISE with r(f, m_ISE) = −0.54 and r(A_E, A_ISE) = −0.48
+/// (Table 2.1). GUM-5 prints u = 0.002 ng, u² = 4.1·10⁻⁶ ng² and
+/// ν_eff = 5.2 (G.2b, correlations ignored). A_E and A_ISE are means of the
+/// same three paired injections, so they form an ensemble with ν = 2
+/// [Willink 2007, §4.1.1]: their joint variance counts as one component and
+/// ν_eff ≈ 2.1, not the 4.8 that GUM-5 obtains from its eq. (2.3).
+#[test]
+fn gum5_example2_benzo_a_pyrene_ensemble() {
+    let build = |ensemble: bool| {
+        let mut b = Model::builder()
+            .input(q("f", 0.616, 0.017, Some(9.0)))
+            .input(q("mISE", 0.2455, 0.0036, None))
+            .input(q("AE", 85114.0, 9564.0, Some(2.0)))
+            .input(q("AISE", 917546.0, 44492.0, Some(2.0)))
+            .correlation("f", "mISE", -3.3e-5 / (0.017 * 0.0036))
+            .correlation("AE", "AISE", -2.03e8 / (9564.0 * 44492.0))
+            .output("mE", "f*AE/AISE*mISE");
+        if ensemble {
+            b = b.ensemble(&["AE", "AISE"]);
+        }
+        b.build().unwrap()
+    };
+    let opts = GumOptions { dof_rounding: gum::DofRounding::Exact, ..GumOptions::default() };
+    let plain = gum::evaluate(&build(false), &opts).unwrap();
+    close(plain.estimate, 0.014028, 5e-6, "m_E");
+    close(plain.combined_standard_uncertainty.powi(2), 4.08e-6, 0.01e-6, "u²(m_E)");
+    close(plain.effective_dof, 5.20, 0.01, "ν_eff (G.2b)");
+    assert!(plain.warnings.iter().any(|w| matches!(w, gum::GumWarning::WelchSatterthwaiteCorrelated)));
+
+    let ens = gum::evaluate(&build(true), &opts).unwrap();
+    assert_eq!(ens.combined_standard_uncertainty, plain.combined_standard_uncertainty);
+    // Ensemble component: (c_E u_E)² + (c_I u_I)² + 2 c_E c_I u(A_E, A_ISE) = 3.97e-6 ng², ν = 2.
+    close(ens.effective_dof, 2.10, 0.01, "ν_eff (ensemble)");
+    // f–m_ISE (ν = 9 and ∞) is still a correlation outside an ensemble.
+    assert!(ens.warnings.iter().any(|w| matches!(w, gum::GumWarning::WelchSatterthwaiteCorrelated)));
+}
+
+/// A single ensemble gives exactly its own ν whatever the correlation, as
+/// the Wishart distribution of the sample covariance matrix requires
+/// (cᵀSc ~ cᵀΣc·χ²_ν/ν), and no warning is raised.
+#[test]
+fn ensemble_of_paired_means_keeps_its_dof() {
+    for r in [-0.9, -0.3, 0.0, 0.5, 0.95] {
+        let model = Model::builder()
+            .input(q("a", 10.0, 0.4, Some(4.0)))
+            .input(q("b", 5.0, 0.3, Some(4.0)))
+            .correlation("a", "b", r)
+            .ensemble(&["a", "b"])
+            .output("y", "a/b")
+            .build()
+            .unwrap();
+        let g = gum::evaluate(&model, &GumOptions::default()).unwrap();
+        close(g.effective_dof, 4.0, 1e-9, "ν_eff");
+        assert!(g.warnings.is_empty(), "r = {r}: {:?}", g.warnings);
+    }
+    let err = Model::builder()
+        .input(q("a", 10.0, 0.4, Some(4.0)))
+        .input(q("b", 5.0, 0.3, Some(5.0)))
+        .ensemble(&["a", "b"])
+        .output("y", "a/b")
+        .build();
+    assert!(err.is_err());
+}

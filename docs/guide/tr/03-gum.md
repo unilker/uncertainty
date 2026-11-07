@@ -149,6 +149,16 @@ $$\nu_\text{eff} = \frac{u_c^4(y)}{\sum_i u_i^4(y)/\nu_i}.$$
 (G.4.1 notu) t dağılımına bakmadan önce varsayılan olarak ν_eff'i bir alt tam sayıya keser;
 `"dof_rounding": "exact"` kesirli değeri kullanır.
 
+**İlişkili girdiler.** G.2b eşitliği girdilerin bağımsız olduğunu varsayar. Sonlu ν'li iki girdi ilişkiliyse
+program eşitliği yine uygular ve uyarır. Bir durum ise tam olarak ele alınır: bir analitin ve iç standardının
+eşli okumalarının ortalamaları gibi **aynı veri kümesinden** değerlendirilen girdiler, ortak ν'li bir
+*topluluk* (ensemble) oluşturur. Modelde `"ensembles": [["AE", "AISE"]]` olarak tanımlanan topluluk, paydada
+tek bileşen sayılır. Bu bileşenin varyansı kovaryanslar dahil Σ_{i,j∈E} c_i c_j u(x_i, x_j), serbestlik
+derecesi ise ortak ν'dir (Willink, *Metrologia* 44 (2007) 340, §4.1.1). Bu nedenle tek bir topluluk, korelasyon
+ne olursa olsun tam olarak kendi ν'sini verir. Topluluk içindeki ya da ν'si sonsuz iki girdi arasındaki
+korelasyonlar uyarı vermez. Kütüphanedeki `gum5-e2-benzo-a-pyrene` ve `gum5-e2-benzo-a-pyrene-ensemble`
+projeleri farkı gösterir: ν_eff = 5,2'ye karşı 2,1; k = 2,5'e karşı 4,1.
+
 ## 3.7 Kapsam faktörü ve genişletilmiş belirsizlik
 
 **Genişletilmiş belirsizlik** U = k u_c(y), ölçülen büyüklüğe makul olarak atfedilebilecek değerlerin büyük

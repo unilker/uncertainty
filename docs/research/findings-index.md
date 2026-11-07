@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (78)
+## Findings (79)
 
 | F | Finding | Session |
 |---|---|---|
@@ -93,8 +93,9 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F76 | cg-18 H1.4/B — tare term (class b). | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
 | F77 | GUM-5 Example 15 — Monte Carlo standard deviation (class c). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
 | F78 | GUM-5 Example 1 — pH values and uncertainties (class c). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
+| F79 | GUM-5 Example 2 — ν_eff for correlated inputs (class c). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 
-## Decisions (57)
+## Decisions (58)
 
 | D | Decision | Session |
 |---|---|---|
@@ -155,3 +156,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D55 | `error_function.in_use`. | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
 | D56 | Second-order term of the estimate (JCGM 100:2008/Amd.1:2026). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
 | D57 | Higher-order terms for correlated inputs. | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
+| D58 | Ensembles in the Welch–Satterthwaite formula. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |

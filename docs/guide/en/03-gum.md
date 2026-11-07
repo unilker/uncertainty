@@ -154,6 +154,16 @@ Inputs with ν = ∞ (most Type B evaluations) contribute nothing to the denomin
 truncates ν_eff to the next lower integer before looking up the t-distribution, as the GUM recommends (G.4.1
 note); `"dof_rounding": "exact"` uses the fractional value.
 
+**Correlated inputs.** Eq. G.2b assumes independent inputs. If two inputs with finite ν are correlated, the
+program applies it anyway and warns. One case is handled exactly: inputs evaluated from the **same set of
+data**, such as the means of paired indications of an analyte and its internal standard, form an *ensemble*
+with a common ν. Declared in the model as `"ensembles": [["AE", "AISE"]]`, the ensemble counts as one
+component of the denominator. Its variance is Σ_{i,j∈E} c_i c_j u(x_i, x_j), the covariances included, and its
+degrees of freedom is the common ν (Willink, *Metrologia* 44 (2007) 340, §4.1.1). A single ensemble therefore
+gives exactly its own ν, whatever the correlation. Correlations inside an ensemble, or between two inputs of
+infinite ν, raise no warning. The library projects `gum5-e2-benzo-a-pyrene` and
+`gum5-e2-benzo-a-pyrene-ensemble` show the difference: ν_eff = 5.2 against 2.1, k = 2.5 against 4.1.
+
 ## 3.7 Coverage factor and expanded uncertainty
 
 The **expanded uncertainty** U = k u_c(y) defines an interval y ± U expected to contain a large fraction p of

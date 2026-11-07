@@ -2110,3 +2110,70 @@ are not available for correlated inputs; the sentence now refers to D57.
   standards contribute 0.0038 and 0.0013 of the 0.0041 (1.10.3.5 lists
   these contributions itself).
 
+
+## 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff
+
+**GUM-5:2026 Example 2 (benzo[a]pyrene, internal standard).** The budget of
+Table 2.2 reproduces: m_E = 0.014 03 ng, u² = 4.08·10⁻⁶ ng² with covariances
+and 3.14·10⁻⁶ ng² without, r(f, m_ISE) = −0.54, r(A_E, A_ISE) = −0.48 and
+ν_eff = 5.20 by G.2b. GUM-5 eq. (2.3) as printed,
+Σ_i Σ_j r_ij² c_i² c_j² u_i² u_j²/ν_i, gives 4.81. The MCM of 2.4.2 also
+reproduces (`tools/research/gum5/ex2_mcm.py`): 9.32·10⁶ of 10⁷ draws kept,
+median 0.0142 ng, shortest 95 % interval [1·10⁻⁷, 0.0321] ng against the
+printed [≈ 0, 0.032] ng.
+
+**D58. Ensembles in the Welch–Satterthwaite formula.**
+
+- A model may declare `ensembles`: groups of inputs evaluated from the same
+  data with a common finite ν. Each ensemble is one component of the G.2b
+  denominator, with variance Σ_{i,j∈E} c_i c_j u(x_i, x_j) and that ν
+  (Willink, *Metrologia* 44 (2007) 340, §4.1.1, "Result 2"; GTC 1.5.1
+  `real_ensemble` and `welch_satterthwaite`, read in the PyPI package).
+- For a single ensemble the result is exactly ν whatever the correlation, as
+  it must be: the sample covariance matrix of paired means has a Wishart
+  distribution, so cᵀSc ~ cᵀΣc·χ²_ν/ν. A core test checks this for
+  r = −0.9 … 0.95.
+- The warning that G.2b is not valid for correlated inputs is now raised per
+  pair: only for a correlation between inputs that are not both of infinite
+  ν and not in a common ensemble (GTC does the same). Before, any correlation
+  in a model with a finite ν raised it.
+- The members of an ensemble must have the same finite ν; the model is
+  rejected otherwise. The report lists each ensemble below ν_eff.
+
+**F79. GUM-5 Example 2 — ν_eff for correlated inputs (class c).**
+
+- 2.4.1.3 uses eq. (2.3), attributed to Willink (2007), and obtains
+  ν_eff,r = 4.8, k = 2.6, U = 0.0052 ng. The program reproduces 4.81 with
+  that formula.
+- A_E and A_ISE are the means of the same three paired injections (2.3.4)
+  and their covariance is estimated from the same data, so they form an
+  ensemble with ν = 2 in Willink's sense. Their joint component is
+  3.97·10⁻⁶ ng², 97 % of u². ν_eff is then 2.11, k = 4.10 and
+  U = 0.0083 ng.
+- Eq. (2.3) cannot be general for such inputs. For one ensemble of two
+  components with equal shares and r = 0.5 it gives 3.6ν, although the
+  exact value is ν. The asymmetric form, with ν_i but not ν_j, also
+  matters: with independent variance estimates and known r, the delta
+  method gives Σ_i (c_i u_i Σ_j r_ij c_j u_j)²/ν_i, which here is 3.35.
+- The printed interval [0.009, 0.019] ng is 3.2 times narrower than the
+  MCM interval. GUM-5 attributes the difference to the t-distribution with
+  ν = 1 and the truncation (2.6.2). With the ensemble ν the GUF interval
+  becomes [0.0057, 0.0223] ng. Part of the gap is the ν_eff, not only the
+  shape.
+- To check before submission: the text of Willink (2007), §§3–4. GTC is
+  the only reading here, and the paper may state eq. (2.3) for another
+  case, e.g. independent variance estimates.
+- Wording: "a strong linear relationship was observed between the areas"
+  (2.3.4) refers to r = −0.48 from three pairs. A negative correlation
+  between analyte and internal-standard areas of the same injection is
+  unusual, since the internal standard is meant to cancel injection
+  variation. This is not an error, only noted.
+
+Library projects:
+
+- `gum5-e2-benzo-a-pyrene`: G.2b as printed, ν_eff = 5.2, k = 2.5.
+- `gum5-e2-benzo-a-pyrene-ensemble`: ν_eff = 2.11.
+- Both have no MCM, since there is no joint t-distribution for a scalar
+  model. That is a candidate extension (see status.md).
+
+The library has 221 projects.

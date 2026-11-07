@@ -287,3 +287,85 @@ ph_temperature("gum5-e1-ph-temperature-interpolation-correlated",
                   f"Aynı standardın değerleri arasında r = 1 iken sıcaklıktaki interpolasyon artık bunların ortalamasını almaz: u(pH_X) = {c(f'{uyTc:.4f}')}; GUM-5'in bastığı değer budur.")],
                [{"a": "pH_S1_T1", "b": "pH_S1_T2", "r": 1.0}, {"a": "pH_S2_T1", "b": "pH_S2_T2", "r": 1.0}], 0.0041,
                T("JCGM GUM-5:2026, 1.9.1: pH_X = 7.0043 (see note), u = 0.0041.", "JCGM GUM-5:2026, 1.9.1: pH_X = 7,0043 (nota bakınız), u = 0,0041."))
+
+# --- Example 2: benzo[a]pyrene by internal standard (GC-MS) -----------------------------------------------
+# Table 2.1. A_E and A_ISE are means of three paired injections (ν = 2); f has ν = 9, m_ISE ν = ∞.
+BAP = {"f": (0.616, 0.017, 9), "mISE": (0.2455, 0.0036, None), "AE": (85114, 9564, 2), "AISE": (917546, 44492, 2)}
+r_fm = -3.3e-5 / (0.017 * 0.0036)
+r_A = -2.03e8 / (9564 * 44492)
+xb = {k: v[0] for k, v in BAP.items()}
+mE = xb["f"] * xb["AE"] / xb["AISE"] * xb["mISE"]
+cb = {"f": mE / xb["f"], "mISE": mE / xb["mISE"], "AE": mE / xb["AE"], "AISE": -mE / xb["AISE"]}
+ub = {k: cb[k] * BAP[k][1] for k in BAP}          # signed contributions c_i u_i
+v_fm = 2 * ub["f"] * ub["mISE"] * r_fm
+v_A = 2 * ub["AE"] * ub["AISE"] * r_A
+u2 = sum(v * v for v in ub.values()) + v_fm + v_A
+u2_ind = sum(v * v for v in ub.values())
+nu_ws = u2 ** 2 / (ub["f"] ** 4 / 9 + ub["AE"] ** 4 / 2 + ub["AISE"] ** 4 / 2)
+# GUM-5 eq. (2.3): Σ_i Σ_j r_ij² c_i² c_j² u_i² u_j² / ν_i.
+R = {("f", "mISE"): r_fm, ("AE", "AISE"): r_A}
+r = lambda a, b: 1.0 if a == b else R.get((a, b), R.get((b, a), 0.0))
+nu_23 = u2 ** 2 / sum(r(a, b) ** 2 * ub[a] ** 2 * ub[b] ** 2 / BAP[a][2] for a in BAP for b in BAP if BAP[a][2])
+# Willink (2007) §4.1.1: A_E and A_ISE form an ensemble, one component with ν = 2.
+v_ens = ub["AE"] ** 2 + ub["AISE"] ** 2 + v_A
+nu_ens = u2 ** 2 / (ub["f"] ** 4 / 9 + v_ens ** 2 / 2)
+assert abs(mE - 0.014) < 5e-4 and abs(u2 - 4.1e-6) < 0.05e-6 and abs(u2_ind - 3.1e-6) < 0.05e-6
+assert abs(r_fm + 0.54) < 5e-3 and abs(r_A + 0.48) < 5e-3
+assert abs(nu_ws - 5.2) < 0.05 and abs(nu_23 - 4.8) < 0.05 and abs(nu_ens - 2.10) < 0.01
+ub_ = math.sqrt(u2)
+BAP_MODEL_INPUTS = [
+    inp("f", {"type": "normal", "mean": 0.616, "sd": 0.017}, None, "GC-MS calibration factor (mean of three factors, ν = 9)", "GC-MS kalibrasyon faktörü (üç faktörün ortalaması, ν = 9)"),
+    inp("mISE", {"type": "normal", "mean": 0.2455, "sd": 0.0036}, "ng", "Mass of internal standard BaP-d12 in 1 µL of extract (certificate)", "1 µL ekstrakttaki iç standart BaP-d12 kütlesi (sertifika)"),
+    inp("AE", {"type": "normal", "mean": 85114, "sd": 9564}, "a.u.", "Mean BaP peak area of three injections", "Üç enjeksiyonun ortalama BaP pik alanı"),
+    inp("AISE", {"type": "normal", "mean": 917546, "sd": 44492}, "a.u.", "Mean BaP-d12 peak area of the same three injections", "Aynı üç enjeksiyonun ortalama BaP-d12 pik alanı"),
+]
+BAP_MODEL_INPUTS[0]["dof"] = 9
+BAP_MODEL_INPUTS[2]["dof"] = 2
+BAP_MODEL_INPUTS[3]["dof"] = 2
+BAP_CORR = [{"a": "f", "b": "mISE", "r": round(r_fm, 4)}, {"a": "AE", "b": "AISE", "r": round(r_A, 4)}]
+BAP_EXPL = [
+    T("Internal-standard model (EN 15549): m_E = f·A_E/A_ISE·m_ISE, the mass of benzo[a]pyrene in 1 µL of the second extract of a glass-fibre filter spiked with NIST SRM 2260a.",
+      "İç standart modeli (EN 15549): m_E = f·A_E/A_ISE·m_ISE; NIST SRM 2260a ile zenginleştirilmiş cam elyaf filtrenin ikinci ekstraktının 1 µL'sindeki benzo[a]piren kütlesi."),
+    T(f"The same internal standard is used in calibration and analysis, so r(f, m_ISE) = −3.3·10⁻⁵/(0.017 × 0.0036) = {r_fm:.2f}; the peak areas of the same injections give r(A_E, A_ISE) = −2.03·10⁸/(9564 × 44 492) = {r_A:.2f}.",
+      f"Kalibrasyonda ve analizde aynı iç standart kullanıldığından r(f, m_ISE) = −3,3·10⁻⁵/(0,017 × 0,0036) = {c(f'{r_fm:.2f}')}; aynı enjeksiyonların pik alanları r(A_E, A_ISE) = −2,03·10⁸/(9564 × 44 492) = {c(f'{r_A:.2f}')} verir."),
+    T(f"u²(m_E) = {u2:.3e} ng² with the covariance terms and {u2_ind:.3e} ng² without them; the A_E–A_ISE term adds {v_A:.2e} ng² because the correlation is negative while the sensitivities have opposite signs.",
+      f"Kovaryans terimleriyle u²(m_E) = {c(f'{u2:.3e}')} ng², onlarsız {c(f'{u2_ind:.3e}')} ng²; korelasyon negatif, duyarlılıklar zıt işaretli olduğundan A_E–A_ISE terimi {c(f'{v_A:.2e}')} ng² ekler."),
+]
+BAP_NOTES = [
+    T("GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).",
+      "GUM-5 (2.4.2) MCM'yi de uygular: (f, m_ISE) için iki değişkenli normal, (A_E, A_ISE) için ν = n − N = 1 olan iki değişkenli t ve negatif çekilişlerin reddi; medyan 0,014 ng, en kısa %95 aralık [≈ 0; 0,032] ng. Proje biçiminde skaler model için ortak t-dağılımı olmadığından MCM burada çalıştırılmaz; tools/research/gum5/ex2_mcm.py basılı aralığı yeniden üretir (10⁷ çekilişin 9,3·10⁶'sı tutuldu, [1·10⁻⁷; 0,0321] ng)."),
+    T("The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).",
+      "Belirsizlik yalnız temiz, zenginleştirilmiş filtre için geçerlidir; matris etkileri ve geri kazanım bilerek dışarıda bırakılmıştır (GUM-5 2.2.2, not)."),
+]
+BAP_TAGS = ["internal-standard", "gc-ms", "pah", "correlation", "welch-satterthwaite", "ratio"]
+BAP_OUT = {"name": "mE", "unit": "ng", "expression": "f*AE/AISE*mISE", "description": T("Mass of benzo[a]pyrene in 1 µL of extract", "1 µL ekstrakttaki benzo[a]piren kütlesi")}
+write("chemistry", "gum5-e2-benzo-a-pyrene",
+      T("Benzo[a]pyrene by GC-MS with an internal standard, correlated inputs (JCGM GUM-5 Example 2)",
+        "İç standartla GC-MS'te benzo[a]piren, ilişkili girdiler (JCGM GUM-5 Örnek 2)"),
+      T("Internal-standard model with two correlated pairs of inputs; LPU with covariances and the Welch–Satterthwaite ν_eff as printed.",
+        "İki ilişkili girdi çiftli iç standart modeli; kovaryanslı LPU ve basıldığı gibi Welch–Satterthwaite ν_eff."),
+      BAP_EXPL + [
+          T(f"Welch–Satterthwaite (G.2b), correlations ignored in the denominator: ν_eff = {nu_ws:.2f}, k(95 %) = 2.5; the program warns that G.2b is not valid for correlated inputs. GUM-5 eq. (2.3) gives {nu_23:.2f} and k = 2.6, U = 0.0052 ng; the ensemble treatment of the companion project gives {nu_ens:.2f}.",
+            f"Welch–Satterthwaite (G.2b), payda korelasyonsuz: ν_eff = {c(f'{nu_ws:.2f}')}, k(%95) = 2,5; program G.2b'nin ilişkili girdiler için geçerli olmadığını uyarır. GUM-5 denklem (2.3) {c(f'{nu_23:.2f}')} ve k = 2,6, U = 0,0052 ng verir; eşlik eden projedeki topluluk yaklaşımı {c(f'{nu_ens:.2f}')} verir.")],
+      "Example 2, Tables 2.1–2.3", BAP_TAGS,
+      {"output": BAP_OUT, "inputs": BAP_MODEL_INPUTS, "correlations": BAP_CORR},
+      {"gum": {"estimate": chk(0.0140, 5e-5), "standard_uncertainty": chk(0.00202, 1.5e-5), "effective_dof": chk(5.2, 0.05), "coverage_factor": chk(2.5, 0.05)}},
+      T("JCGM GUM-5:2026, 2.4.1.2–2.4.1.4 and Table 2.3: m_E = 0.014 ng, u = 0.002 ng (u² = 4.1·10⁻⁶ ng²), ν_eff = 5.2, k = 2.5.",
+        "JCGM GUM-5:2026, 2.4.1.2–2.4.1.4 ve Tablo 2.3: m_E = 0,014 ng, u = 0,002 ng (u² = 4,1·10⁻⁶ ng²), ν_eff = 5,2, k = 2,5."),
+      notes=BAP_NOTES, analysis={"gum": {"dof_rounding": "exact"}, "mcm": None})
+write("chemistry", "gum5-e2-benzo-a-pyrene-ensemble",
+      T("Benzo[a]pyrene: peak areas of the same injections as an ensemble in ν_eff (JCGM GUM-5 Example 2, Willink 2007)",
+        "Benzo[a]piren: aynı enjeksiyonların pik alanları ν_eff'te topluluk olarak (JCGM GUM-5 Örnek 2, Willink 2007)"),
+      T("The same budget with A_E and A_ISE declared an ensemble: their joint variance is one Welch–Satterthwaite component with ν = 2, giving ν_eff ≈ 2.1 instead of 5.2 or 4.8.",
+        "Aynı bütçe, A_E ve A_ISE topluluk olarak tanımlanmış: ortak varyansları ν = 2 olan tek Welch–Satterthwaite bileşenidir; ν_eff 5,2 veya 4,8 yerine ≈ 2,1 olur."),
+      BAP_EXPL + [
+          T(f"A_E and A_ISE are means of the same three paired injections; their estimated covariance matrix has a Wishart distribution with ν = 2, so the estimate of the variance of any combination c_E·A_E + c_I·A_ISE has exactly ν = 2 (Willink 2007, §4.1.1; GTC real_ensemble). Their component is (c_E u_E)² + (c_I u_I)² + 2c_E c_I u(A_E, A_ISE) = {v_ens:.3e} ng², {100 * v_ens / u2:.0f} % of u².",
+            f"A_E ve A_ISE aynı üç eşli enjeksiyonun ortalamalarıdır; tahmin edilen kovaryans matrisleri ν = 2 olan Wishart dağılımına uyar; bu nedenle her c_E·A_E + c_I·A_ISE bileşiminin varyans tahmini tam ν = 2'ye sahiptir (Willink 2007, §4.1.1; GTC real_ensemble). Bileşenleri (c_E u_E)² + (c_I u_I)² + 2c_E c_I u(A_E, A_ISE) = {c(f'{v_ens:.3e}')} ng², u²'nin %{100 * v_ens / u2:.0f}'idir."),
+          T(f"ν_eff = u⁴/[(c_f u_f)⁴/9 + {v_ens:.3e}²/2] = {nu_ens:.2f}; k(95 %) = 4.1 and U = 0.0083 ng, closer to the width of the MCM interval [≈ 0, 0.032] ng than the U = 0.0052 ng printed. GUM-5 eq. (2.3) treats the two areas as separate components and gives a ν_eff above 2 although the dominant component has ν = 2 (research log F79). The f–m_ISE correlation (ν = 9 and ∞) is not an ensemble, so the warning remains.",
+            f"ν_eff = u⁴/[(c_f u_f)⁴/9 + {c(f'{v_ens:.3e}')}²/2] = {c(f'{nu_ens:.2f}')}; k(%95) = 4,1 ve U = 0,0083 ng; basılı U = 0,0052 ng'den çok MCM aralığının [≈ 0; 0,032] ng genişliğine yakındır. GUM-5 denklem (2.3) iki alanı ayrı bileşenler olarak ele alır ve baskın bileşenin ν'si 2 olduğu hâlde 2'nin üstünde ν_eff verir (araştırma günlüğü F79). f–m_ISE korelasyonu (ν = 9 ve ∞) topluluk değildir; bu nedenle uyarı kalır.")],
+      "Example 2, Tables 2.1–2.3; Willink, Metrologia 44 (2007) 340, §4.1.1", BAP_TAGS + ["ensemble"],
+      {"output": BAP_OUT, "inputs": BAP_MODEL_INPUTS, "correlations": BAP_CORR, "ensembles": [["AE", "AISE"]]},
+      {"gum": {"estimate": chk(0.0140, 5e-5), "standard_uncertainty": chk(0.00202, 1.5e-5), "effective_dof": chk(round(nu_ens, 2), 0.01)}},
+      T(f"Budget of JCGM GUM-5:2026 Example 2 (u = 0.002 ng); ν_eff = {nu_ens:.2f} recomputed with the ensemble rule of Willink (2007), not printed in GUM-5.",
+        f"JCGM GUM-5:2026 Örnek 2 bütçesi (u = 0,002 ng); ν_eff = {c(f'{nu_ens:.2f}')} Willink (2007) topluluk kuralıyla yeniden hesaplandı, GUM-5'te basılı değildir."),
+      notes=BAP_NOTES, analysis={"gum": {"dof_rounding": "exact"}, "mcm": None})

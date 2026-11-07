@@ -45,6 +45,10 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 Bir girdinin `dof` alanı GUM yaklaşımındaki serbestlik derecesidir (varsayılan ∞; A tipi dağılımlar bunu
 kendileri belirler).
 
+`ensembles` (isteğe bağlı) aynı veriden değerlendirilen girdi gruplarını listeler, ör. `[["AE", "AISE"]]`. Bir
+grubun üyelerinin `dof` değeri aynı ve sonlu olmalıdır. Her grup Welch–Satterthwaite formülünde tek bileşendir
+(§3.6).
+
 ### Dağılımlar (`"type"`)
 
 | `type` | Alanlar |

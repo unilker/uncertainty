@@ -45,6 +45,10 @@ as `{ "en": "…", "tr": "…" }`.
 `dof` of an input is its degrees of freedom for the GUM framework (default ∞; Type A distributions set it
 themselves).
 
+`ensembles` (optional) lists groups of inputs evaluated from the same data, e.g. `[["AE", "AISE"]]`. The
+members of a group must have the same finite `dof`. Each group is one component in the Welch–Satterthwaite
+formula (§3.6).
+
 ### Distributions (`"type"`)
 
 | `type` | Fields |

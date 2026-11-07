@@ -210,6 +210,9 @@ pub fn build_model(p: &Project) -> Result<Model, ProjectError> {
     for c in &spec.correlations {
         b = b.correlation(&c.a, &c.b, c.r);
     }
+    for e in &spec.ensembles {
+        b = b.ensemble(&e.iter().map(String::as_str).collect::<Vec<_>>());
+    }
     b = b.output(&spec.output.name, &spec.output.expression);
     if let Some(u) = &spec.output.unit {
         b = b.output_unit(u);

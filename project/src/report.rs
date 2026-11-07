@@ -600,6 +600,19 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
             let _ = writeln!(s, "{line}");
         }
         let _ = writeln!(s, "- {}: {}", l.eff_dof, n3(g.effective_dof));
+        for e in &a.model.ensembles {
+            let names = e.iter().map(|&i| a.model.inputs[i].name.as_str()).collect::<Vec<_>>().join(", ");
+            let nu = n3(a.model.inputs[e[0]].gum_dof());
+            let line = match lang {
+                Lang::En => format!(
+                    "  - {names}: one ensemble (same data, ν = {nu}), counted as a single Welch–Satterthwaite component with its covariances (Willink, Metrologia 44 (2007) 340, §4.1.1)"
+                ),
+                Lang::Tr => format!(
+                    "  - {names}: tek topluluk (aynı veri, ν = {nu}); kovaryanslarıyla birlikte Welch–Satterthwaite formülünde tek bileşen sayıldı (Willink, Metrologia 44 (2007) 340, §4.1.1)"
+                ),
+            };
+            let _ = writeln!(s, "{line}");
+        }
         match (&g.dominant_rectangular, lang) {
             (Some((name, r)), Lang::En) => {
                 let _ = writeln!(

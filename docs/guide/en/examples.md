@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (99)
+- Chemistry (101)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (19)
@@ -105,6 +105,59 @@ As the 25 °C case, but with correlation 1 between the certified pH values, whic
 - 1.10.3.5 attributes u = 0.0051 to pH_X = 7.0109 and 'the data in subclause 1.7'; the calculation uses the 25 °C data of 1.8, for which pH_X = 7.0002 (research log F78).
 
 **Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang en`
+
+### Benzo[a]pyrene by GC-MS with an internal standard, correlated inputs (JCGM GUM-5 Example 2)
+
+`gum5-e2-benzo-a-pyrene` — JCGM GUM-5:2026, Example 2, Tables 2.1–2.3
+
+Internal-standard model with two correlated pairs of inputs; LPU with covariances and the Welch–Satterthwaite ν_eff as printed.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Internal-standard model (EN 15549): m_E = f·A_E/A_ISE·m_ISE, the mass of benzo[a]pyrene in 1 µL of the second extract of a glass-fibre filter spiked with NIST SRM 2260a.
+2. The same internal standard is used in calibration and analysis, so r(f, m_ISE) = −3.3·10⁻⁵/(0.017 × 0.0036) = -0.54; the peak areas of the same injections give r(A_E, A_ISE) = −2.03·10⁸/(9564 × 44 492) = -0.48.
+3. u²(m_E) = 4.077e-06 ng² with the covariance terms and 3.140e-06 ng² without them; the A_E–A_ISE term adds 1.02e-06 ng² because the correlation is negative while the sensitivities have opposite signs.
+4. Welch–Satterthwaite (G.2b), correlations ignored in the denominator: ν_eff = 5.20, k(95 %) = 2.5; the program warns that G.2b is not valid for correlated inputs. GUM-5 eq. (2.3) gives 4.81 and k = 2.6, U = 0.0052 ng; the ensemble treatment of the companion project gives 2.11.
+
+**Result:**
+
+- mE = (0.0140 ± 0.0051) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.54, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).
+- The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).
+
+**Run:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene.json --lang en`
+
+### Benzo[a]pyrene: peak areas of the same injections as an ensemble in ν_eff (JCGM GUM-5 Example 2, Willink 2007)
+
+`gum5-e2-benzo-a-pyrene-ensemble` — JCGM GUM-5:2026, Example 2, Tables 2.1–2.3; Willink, Metrologia 44 (2007) 340, §4.1.1
+
+The same budget with A_E and A_ISE declared an ensemble: their joint variance is one Welch–Satterthwaite component with ν = 2, giving ν_eff ≈ 2.1 instead of 5.2 or 4.8.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Internal-standard model (EN 15549): m_E = f·A_E/A_ISE·m_ISE, the mass of benzo[a]pyrene in 1 µL of the second extract of a glass-fibre filter spiked with NIST SRM 2260a.
+2. The same internal standard is used in calibration and analysis, so r(f, m_ISE) = −3.3·10⁻⁵/(0.017 × 0.0036) = -0.54; the peak areas of the same injections give r(A_E, A_ISE) = −2.03·10⁸/(9564 × 44 492) = -0.48.
+3. u²(m_E) = 4.077e-06 ng² with the covariance terms and 3.140e-06 ng² without them; the A_E–A_ISE term adds 1.02e-06 ng² because the correlation is negative while the sensitivities have opposite signs.
+4. A_E and A_ISE are means of the same three paired injections; their estimated covariance matrix has a Wishart distribution with ν = 2, so the estimate of the variance of any combination c_E·A_E + c_I·A_ISE has exactly ν = 2 (Willink 2007, §4.1.1; GTC real_ensemble). Their component is (c_E u_E)² + (c_I u_I)² + 2c_E c_I u(A_E, A_ISE) = 3.971e-06 ng², 97 % of u².
+5. ν_eff = u⁴/[(c_f u_f)⁴/9 + 3.971e-06²/2] = 2.11; k(95 %) = 4.1 and U = 0.0083 ng, closer to the width of the MCM interval [≈ 0, 0.032] ng than the U = 0.0052 ng printed. GUM-5 eq. (2.3) treats the two areas as separate components and gives a ν_eff above 2 although the dominant component has ν = 2 (research log F79). The f–m_ISE correlation (ν = 9 and ∞) is not an ensemble, so the warning remains.
+
+**Result:**
+
+- mE = (0.0140 ± 0.0083) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 4.10, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).
+- The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).
+
+**Run:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json --lang en`
 
 ### Relative molecular mass of glucose from standard atomic weight intervals (JCGM GUM-5 Example 3)
 
