@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (101)
+- Kimya (105)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
@@ -105,6 +105,91 @@ Aynı hücreyle ölçülen iki NIST fosfat pH standardı arasında parantez yön
 - 1.10.3.5, u = 0,0051 değerini pH_X = 7,0109'a ve '1.7 alt maddesindeki verilere' bağlar; hesap 1.8'in 25 °C verilerini kullanır ve bu veriler için pH_X = 7,0002'dir (araştırma günlüğü F78).
 
 **Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,17 mg/m³ (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.17` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; kabul sınırı 0,17 mg/m³ değerine kaydırıldı.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur.
+3. R_C = %0,0103 ve R_P = %5,370. GUM-5 0,002 % ve 5,8 % basar; ortak dağılımı %0,0020 ve %5,781 verir.
+
+**Notlar:**
+
+- GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,22 mg/m³ (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.22` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; kabul sınırı 0,22 mg/m³ değerine kaydırıldı.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur.
+3. R_C = %1,8010 ve R_P = %0,055. GUM-5 1,7 % ve < 0,1 % basar; ortak dağılımı %1,6862 ve %0,115 verir.
+
+**Notlar:**
+
+- GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,2 mg/m³ (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-global-risks-shared-risk` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; paylaşılan risk kuralı A_U = T_U.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur.
+3. R_C = %0,5790 ve R_P = %0,739. GUM-5 0,5 % ve 0,9 % basar; ortak dağılımı %0,4984 ve %0,909 verir.
+
+**Notlar:**
+
+- GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-specific-risks` — JCGM GUM-5:2026, Example 10, 10.6.4 and 10.7.2
+
+Tek sonuçların uygunluk olasılıkları, sonsal g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal önsel, u = 0,07·ρ̂, A_U = T_U = 0,2 mg/m³.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Verilen bir sonuç için olabilirlik, u = 0,07·ρ̂ standart sapmalı normaldir (10.6.4.3). Sonsal dağılımın kapalı biçimi yoktur ve sayısal olarak integre edilir; p_c = Pr(ρ ≤ T_U | ρ̂).
+3. ρ̂ = 0,190 mg/m³ %14,3 özgül tüketici riskiyle (1 − p_c) kabul edilir; ρ̂ = 0,225 mg/m³ %11,3 özgül üretici riskiyle (p_c) reddedilir: gerçek derişimin uygun olma olasılığı %11'dir (10.7.2). Önsel olmadan riskler %22,6 ve %5,6'dir; önsel geniştir, ancak üst kuyruğunda kalan sınırın yakınında ihmal edilemez.
+
+**Sonuç:**
+
+- ρ̂ = 0.190 için ρ ≤ 0,2 mg/m³ şartına uygunluk olasılığı: p_c = %86; basit kabul kuralına göre kabul.
+- ρ̂ = 0.225 için ρ ≤ 0,2 mg/m³ şartına uygunluk olasılığı: p_c = %11; basit kabul kuralına göre ret.
+
+**Notlar:**
+
+- 10.6.4 sonsal dağılımın esasen olabilirlikle belirlendiğini, bu nedenle frekansçı özgül risklerin çok yakın olacağını belirtir. T_U yakınında bu geçerli değildir: yalnız normal dağılım 0,190'da 1 − p_c = %22,6, 0,225 mg/m³'te p_c = %5,6 verir (araştırma günlüğü F80).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-specific-risks.json --lang tr`
 
 ### İç standartla GC-MS'te benzo[a]piren, ilişkili girdiler (JCGM GUM-5 Örnek 2)
 

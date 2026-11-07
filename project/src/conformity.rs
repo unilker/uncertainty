@@ -68,6 +68,11 @@ pub struct ConformitySpec {
     /// PDF of the property over the production process, for global risks.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub process: Option<ProcessSpec>,
+    /// Conformance probabilities of the measured results from the posterior
+    /// PDF, with the process PDF as prior (JCGM 106 6.2, Annex A); needs a
+    /// process and a project without a model.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub posterior: bool,
     /// Required global consumer's risk: the guard-band multiplier r is found.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target_consumer_risk: Option<f64>,
@@ -108,8 +113,37 @@ pub struct MeasuredSpec {
 #[serde(deny_unknown_fields)]
 pub struct ProcessSpec {
     pub distribution: ProcessKind,
-    pub mean: f64,
-    pub sd: f64,
+    /// Mean and standard deviation (normal, gamma).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mean: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sd: Option<f64>,
+    /// Mean and standard deviation of ln Y (lognormal).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub meanlog: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sdlog: Option<f64>,
+}
+
+impl ProcessSpec {
+    fn process(&self) -> Result<Process, ProjectError> {
+        let (a, b, names) = match self.distribution {
+            ProcessKind::Lognormal => (self.meanlog, self.sdlog, ["meanlog", "sdlog"]),
+            _ => (self.mean, self.sd, ["mean", "sd"]),
+        };
+        let other = match self.distribution {
+            ProcessKind::Lognormal => self.mean.is_some() || self.sd.is_some(),
+            _ => self.meanlog.is_some() || self.sdlog.is_some(),
+        };
+        match (a, b) {
+            (Some(a), Some(b)) if !other => Ok(match self.distribution {
+                ProcessKind::Normal => Process::Normal { mean: a, sd: b },
+                ProcessKind::Gamma => Process::Gamma { mean: a, sd: b },
+                ProcessKind::Lognormal => Process::Lognormal { meanlog: a, sdlog: b },
+            }),
+            _ => Err(err("process", format!("this distribution takes {} and {} only", names[0], names[1]))),
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -117,6 +151,7 @@ pub struct ProcessSpec {
 pub enum ProcessKind {
     Normal,
     Gamma,
+    Lognormal,
 }
 
 // ---------------------------------------------------------------------------
@@ -165,7 +200,8 @@ pub struct AssessedResult {
     pub value: f64,
     pub u: f64,
     pub dof: Option<f64>,
-    /// p_c from the normal or t PDF.
+    /// p_c from the normal or t PDF, or from the posterior with the process
+    /// PDF as prior.
     pub conformance_probability: f64,
     /// p_c from the Monte Carlo values (model projects).
     pub conformance_probability_mcm: Option<f64>,
@@ -190,6 +226,8 @@ pub struct ConformityAnalysis {
     pub capability_index: Option<f64>,
     pub results: Vec<AssessedResult>,
     pub process: Option<ProcessSpec>,
+    /// The conformance probabilities are posterior ones.
+    pub posterior: bool,
     pub global: Option<GlobalRisks>,
     /// Standard uncertainty (or scale) and degrees of freedom of the measuring
     /// system at the acceptance limits, for charts of design studies.
@@ -298,10 +336,10 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         let at = tolerance.upper.or(tolerance.lower).unwrap_or(0.0);
         system_u(at).ok_or_else(|| need_u(what))
     };
-    let process = spec.process.as_ref().map(|p| match p.distribution {
-        ProcessKind::Normal => Process::Normal { mean: p.mean, sd: p.sd },
-        ProcessKind::Gamma => Process::Gamma { mean: p.mean, sd: p.sd },
-    });
+    let process = spec.process.as_ref().map(ProcessSpec::process).transpose()?;
+    if spec.posterior && (process.is_none() || model) {
+        return Err(err("posterior", "needs a process PDF in a conformity project without a model"));
+    }
     let mut r_used = None;
     let mut rule_used = spec.rule;
     let (acceptance, guard_band) = if explicit {
@@ -346,6 +384,9 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         (a, None)
     } else if let Some(target) = spec.target_consumer_risk {
         let proc_ = process.as_ref().ok_or_else(|| err("target_consumer_risk", "needs a process PDF"))?;
+        if spec.u_relative.is_some() {
+            return Err(err("target_consumer_risk", "needs a fixed u of the measuring system"));
+        }
         let um = band_u("target_consumer_risk")?;
         let r = cf::guard_band_for_consumer_risk(proc_, um, &tolerance, target)
             .map_err(|e| err("target_consumer_risk", e.to_string()))?;
@@ -377,8 +418,16 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
     // Results.
     let mut results = Vec::new();
     let mut assess = |name: String, value: f64, u: f64, values: Option<&[f64]>| -> Result<(), ProjectError> {
-        let k = knowledge(value, u, dof);
-        let pc = cf::conformance_probability(&k, &tolerance).map_err(|e| err("results", e.to_string()))?;
+        let pc = match (&process, spec.posterior) {
+            (Some(p), true) => {
+                if dof.is_some() {
+                    return Err(err("posterior", "uses a normal likelihood; remove dof"));
+                }
+                cf::posterior_conformance_probability(p, value, u, &tolerance)
+            }
+            _ => cf::conformance_probability(&knowledge(value, u, dof), &tolerance),
+        }
+        .map_err(|e| err("results", e.to_string()))?;
         let accepted = acceptance.contains(value);
         results.push(AssessedResult {
             name,
@@ -410,11 +459,11 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
     let global = match &process {
         None => None,
         Some(p) => {
-            let um = band_u("process")?;
-            if spec.u_relative.is_some() {
-                return Err(err("process", "global risks need a fixed u of the measuring system"));
-            }
-            Some(cf::global_risks(p, um, &tolerance, &acceptance).map_err(|e| err("process", e.to_string()))?)
+            let g = match (subject.as_ref(), spec.u_relative) {
+                (None, Some(ur)) => cf::global_risks_relative(p, ur, &tolerance, &acceptance),
+                _ => cf::global_risks(p, band_u("process")?, &tolerance, &acceptance),
+            };
+            Some(g.map_err(|e| err("process", e.to_string()))?)
         }
     };
     if spec.results.is_empty()
@@ -444,6 +493,7 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         capability_index: fixed_u.and_then(|u| cf::capability_index(&tolerance, u)),
         results,
         process: spec.process.clone(),
+        posterior: spec.posterior,
         global,
     })
 }
@@ -510,6 +560,7 @@ pub fn results_json(a: &ConformityAnalysis) -> serde_json::Value {
         "probability": a.probability,
         "acceptance": { "lower": a.acceptance.lower, "upper": a.acceptance.upper },
         "capability_index": a.capability_index,
+        "posterior": a.posterior,
         "results": a.results.iter().map(|r| json!({
             "name": r.name, "value": r.value, "u": r.u, "dof": r.dof,
             "conformance_probability": r.conformance_probability,
@@ -517,8 +568,12 @@ pub fn results_json(a: &ConformityAnalysis) -> serde_json::Value {
             "accepted": r.accepted, "specific_risk": r.specific_risk,
         })).collect::<Vec<_>>(),
         "process": a.process.as_ref().map(|p| json!({
-            "distribution": match p.distribution { ProcessKind::Normal => "normal", ProcessKind::Gamma => "gamma" },
-            "mean": p.mean, "sd": p.sd,
+            "distribution": match p.distribution {
+                ProcessKind::Normal => "normal",
+                ProcessKind::Gamma => "gamma",
+                ProcessKind::Lognormal => "lognormal",
+            },
+            "mean": p.mean, "sd": p.sd, "meanlog": p.meanlog, "sdlog": p.sdlog,
         })),
         "global": a.global.map(|g| json!({
             "conforming": g.conforming, "accepted": g.accepted,

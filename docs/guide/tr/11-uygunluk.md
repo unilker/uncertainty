@@ -42,8 +42,10 @@ Rapor her sonuç için p_c değerini, kararı ve özgül riski verir. Ürün kab
 
 ## 11.3 Bir üretim sürecinin küresel riskleri (Madde 9)
 
-Bir `process` (`mean` ve `sd` ile `normal` veya `gamma` olasılık yoğunluğu) ve ölçüm sisteminin sabit bir `u`
-değeri verildiğinde program Formül (17)–(20)'yi sayısal olarak integre eder. Şunları raporlar:
+Bir `process` (`mean` ve `sd` ile `normal` veya `gamma`, ya da ln Y'nin `meanlog` ve `sdlog` değerleriyle
+`lognormal` olasılık yoğunluğu) ve ölçüm sisteminin `u` değeri verildiğinde program Formül (17)–(20)'yi sayısal
+olarak integre eder. `u_relative` ile ölçüm sistemi dağılımının standart sapması gerçek değerle orantılı
+u_rel·η olur. Şunları raporlar:
 - uygun ürünlerin oranı;
 - kabul edilen ürünlerin oranı;
 - küresel tüketici riski R_C (uygun olmadığı hâlde kabul edilen);
@@ -52,6 +54,13 @@ değeri verildiğinde program Formül (17)–(20)'yi sayısal olarak integre ede
 
 `target_consumer_risk` ile istenen R_C'yi veren koruma bandı çarpanı r bulunur (9.5.4). Gama olasılık
 yoğunluğu, bilyalı rulman örneğindeki radyal hata hareketi gibi negatif olamayan özelliklere uygundur (Ek B).
+Lognormal olasılık yoğunluğu çevresel derişimlere uygundur (JCGM GUM-5 Örnek 10). İstenen bir R_C sabit bir `u`
+gerektirir.
+
+**Önselle özgül riskler.** `process` içeren kendi başına bir projede `"posterior": true`, her sonucun uygunluk
+olasılığını sonsal dağılımdan, g(η | η_m) ∝ g₀(η)·h(η_m | η), hesaplar. Önsel g₀ süreç dağılımıdır; olabilirlik,
+sonucun u değeriyle normaldir (`u_relative` ile u_rel·η_m; JCGM 106 6.2, Ek A). Sınır önselin kuyruğundaysa bu
+fark yaratır: GUM-5 Örnek 10'da 0,225 mg/m³ için özgül üretici riski lognormal önselle %11,3, önselsiz %5,6'dır.
 
 ## 11.4 İki kullanım biçimi
 

@@ -219,7 +219,8 @@ Next to `model` (the result is assessed) or as the only section of a project (JC
 | `acceptance_lower`, `acceptance_upper` | acceptance limits given directly (the rule follows from them) |
 | `distribution` | model projects: `normal` (default) or `t` (effective degrees of freedom) |
 | `quantity`, `unit`, `u` or `u_relative`, `dof`, `results` | projects of their own: property, measuring system, measured values (`name`, `value`, optional `u`) |
-| `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma`, `mean`, `sd`; required R_C (finds r) |
+| `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma` with `mean`, `sd`, or `lognormal` with `meanlog`, `sdlog`; required R_C (finds r) |
+| `posterior` | `true`: p_c of the results from the posterior with the process PDF as prior (projects of their own) |
 
 ## 7.10 `precision_experiment`
 

@@ -210,6 +210,12 @@ pub enum Process {
         mean: f64,
         sd: f64,
     },
+    /// Lognormal PDF: ln Y is normal with mean `meanlog` and standard
+    /// deviation `sdlog` (JCGM GUM-5:2026 Example 10, Formula 10.1).
+    Lognormal {
+        meanlog: f64,
+        sdlog: f64,
+    },
 }
 
 impl Process {
@@ -222,6 +228,12 @@ impl Process {
                 }
                 let (a, l) = ((mean / sd).powi(2), mean / (sd * sd));
                 (a * l.ln() + (a - 1.0) * x.ln() - l * x - ln_gamma(a)).exp()
+            }
+            Process::Lognormal { meanlog, sdlog } => {
+                if x <= 0.0 {
+                    return 0.0;
+                }
+                normal_pdf((x.ln() - meanlog) / sdlog) / (sdlog * x)
             }
         }
     }
@@ -236,6 +248,13 @@ impl Process {
                     gamma_p((mean / sd).powi(2), x * mean / (sd * sd))
                 }
             }
+            Process::Lognormal { meanlog, sdlog } => {
+                if x <= 0.0 {
+                    0.0
+                } else {
+                    normal_cdf((x.ln() - meanlog) / sdlog)
+                }
+            }
         }
     }
 
@@ -244,12 +263,19 @@ impl Process {
         match *self {
             Process::Normal { mean, sd } => (mean - 12.0 * sd, mean + 12.0 * sd),
             Process::Gamma { mean, sd } => (0.0, mean + 40.0 * sd),
+            Process::Lognormal { meanlog, sdlog } => (0.0, (meanlog + 12.0 * sdlog).exp()),
         }
     }
 
     fn validate(&self) -> Result<(), UncError> {
         let (m, s) = match *self {
             Process::Normal { mean, sd } | Process::Gamma { mean, sd } => (mean, sd),
+            Process::Lognormal { meanlog, sdlog } => {
+                if !(meanlog.is_finite() && sdlog > 0.0 && sdlog.is_finite()) {
+                    return Err(invalid("process PDF: finite meanlog and positive sdlog"));
+                }
+                return Ok(());
+            }
         };
         if !(m.is_finite() && s > 0.0 && s.is_finite()) || matches!(self, Process::Gamma { .. }) && m <= 0.0 {
             return Err(invalid("process PDF: finite mean and positive standard deviation (gamma: positive mean)"));
@@ -325,18 +351,75 @@ fn integrate(f: impl Fn(f64) -> f64, a: f64, b: f64, breaks: &[f64]) -> f64 {
 /// measuring-system PDF with standard uncertainty u_m and an acceptance
 /// interval, JCGM 106 Formulae (17)–(20).
 pub fn global_risks(process: &Process, um: f64, t: &Tolerance, a: &Acceptance) -> Result<GlobalRisks, UncError> {
-    process.validate()?;
     if !(um > 0.0 && um.is_finite()) {
         return Err(invalid("the standard uncertainty of the measuring system must be positive"));
     }
+    global_risks_with(process, |_| um, t, a)
+}
+
+/// As [`global_risks`], with a standard uncertainty proportional to the true
+/// value, u_m(η) = u_rel·|η|: the measuring-system PDF h(η_m | η) is normal
+/// with that standard deviation.
+pub fn global_risks_relative(
+    process: &Process,
+    u_rel: f64,
+    t: &Tolerance,
+    a: &Acceptance,
+) -> Result<GlobalRisks, UncError> {
+    if !(u_rel > 0.0 && u_rel.is_finite()) {
+        return Err(invalid("the relative standard uncertainty of the measuring system must be positive"));
+    }
+    global_risks_with(process, |x| u_rel * x.abs(), t, a)
+}
+
+fn global_risks_with(
+    process: &Process,
+    um: impl Fn(f64) -> f64,
+    t: &Tolerance,
+    a: &Acceptance,
+) -> Result<GlobalRisks, UncError> {
+    process.validate()?;
     let (lo, hi) = process.support();
     let breaks: Vec<f64> = [t.lower, t.upper, a.lower, a.upper].into_iter().flatten().collect();
     let g = |x: f64| process.pdf(x);
-    let accepted = integrate(|x| g(x) * a.probability(x, um), lo, hi, &breaks);
-    let consumer = integrate(|x| if t.contains(x) { 0.0 } else { g(x) * a.probability(x, um) }, lo, hi, &breaks);
-    let producer =
-        integrate(|x| if t.contains(x) { g(x) * (1.0 - a.probability(x, um)) } else { 0.0 }, lo, hi, &breaks);
+    let pa = |x: f64| {
+        let u = um(x);
+        if u > 0.0 {
+            a.probability(x, u)
+        } else if a.contains(x) {
+            1.0
+        } else {
+            0.0
+        }
+    };
+    let accepted = integrate(|x| g(x) * pa(x), lo, hi, &breaks);
+    let consumer = integrate(|x| if t.contains(x) { 0.0 } else { g(x) * pa(x) }, lo, hi, &breaks);
+    let producer = integrate(|x| if t.contains(x) { g(x) * (1.0 - pa(x)) } else { 0.0 }, lo, hi, &breaks);
     Ok(GlobalRisks { conforming: process.conforming(t), accepted, consumer, producer })
+}
+
+/// Conformance probability from the posterior PDF g(η | η_m) ∝ g₀(η)·h(η_m | η)
+/// with the process PDF as prior g₀ and a normal likelihood of standard
+/// deviation u (JCGM 106 6.2, Annex A; JCGM GUM-5:2026 10.6.4).
+pub fn posterior_conformance_probability(process: &Process, y: f64, u: f64, t: &Tolerance) -> Result<f64, UncError> {
+    process.validate()?;
+    if !(y.is_finite() && u > 0.0 && u.is_finite()) {
+        return Err(invalid("finite measured value and positive uncertainty required"));
+    }
+    let (lo, hi) = process.support();
+    let (lo, hi) = (lo.max(y - 40.0 * u), hi.min(y + 40.0 * u));
+    if !(lo < hi) {
+        return Err(invalid("the measured value lies outside the support of the process PDF"));
+    }
+    let mut breaks: Vec<f64> = [t.lower, t.upper].into_iter().flatten().collect();
+    breaks.extend((-8..=8).map(|k| y + k as f64 * u));
+    let post = |x: f64| process.pdf(x) * normal_pdf((y - x) / u);
+    let total = integrate(post, lo, hi, &breaks);
+    if !(total > 0.0) {
+        return Err(invalid("the prior and the likelihood do not overlap"));
+    }
+    let inside = integrate(|x| if t.contains(x) { post(x) } else { 0.0 }, lo, hi, &breaks);
+    Ok((inside / total).clamp(0.0, 1.0))
 }
 
 /// Guard-band multiplier r (w = rU, U = 2u_m, applied to every tolerance
@@ -460,5 +543,34 @@ mod tests {
         let g10 = global_risks(&p, 1.0 / 40.0, &t, &a).unwrap();
         assert!(close(g2.consumer, 0.000982, 0.000002) && close(g2.producer, 0.01468, 0.00002), "{g2:?}");
         assert!(close(g10.consumer, 0.000408, 0.000002) && close(g10.producer, 0.000717, 0.000002), "{g10:?}");
+    }
+
+    /// JCGM GUM-5:2026 Example 10 (suspended particulate matter, T_U =
+    /// 0.2 mg/m³): lognormal prior with µ = −2.325 and σ = 0.434 of ln ρ,
+    /// relative measurement uncertainty 7 %. Values recomputed by quadrature
+    /// (scipy): global risks with u ∝ true value and specific risks with
+    /// u = 0.07·ρ̂, the likelihood of GUM-5 10.6.4.
+    #[test]
+    fn gum5_example10_lognormal_prior() {
+        let p = Process::Lognormal { meanlog: -2.325, sdlog: 0.434 };
+        let t = Tolerance::new(None, Some(0.2)).unwrap();
+        // Quantiles of Figure 10.1: 0.042 and 0.229 mg/m³.
+        assert!(close(p.cdf(0.04177), 0.025, 1e-4) && close(p.cdf(0.22892), 0.975, 1e-4));
+        let g = global_risks_relative(&p, 0.07, &t, &Acceptance { lower: None, upper: Some(0.2) }).unwrap();
+        assert!(close(g.consumer, 0.005790, 2e-6), "{}", g.consumer);
+        assert!(close(g.producer, 0.007392, 2e-6), "{}", g.producer);
+        let g = global_risks_relative(&p, 0.07, &t, &Acceptance { lower: None, upper: Some(0.17) }).unwrap();
+        assert!(close(g.consumer, 0.000103, 1e-6) && close(g.producer, 0.053702, 2e-6), "{g:?}");
+        // Specific producer's risk for ρ̂ = 0.225 (rejected): p_c = 11.3 % (GUM-5: about 11 %).
+        let pc = posterior_conformance_probability(&p, 0.225, 0.07 * 0.225, &t).unwrap();
+        assert!(close(pc, 0.113340, 2e-6), "{pc}");
+        // Specific consumer's risk for ρ̂ = 0.190 (accepted).
+        let pc = posterior_conformance_probability(&p, 0.19, 0.07 * 0.19, &t).unwrap();
+        assert!(close(1.0 - pc, 0.142616, 2e-6), "{pc}");
+        // A flat prior over the likelihood gives the normal p_c back.
+        let wide = Process::Normal { mean: 0.2, sd: 100.0 };
+        let pc = posterior_conformance_probability(&wide, 0.225, 0.01575, &t).unwrap();
+        let k = conformance_probability(&Knowledge::Normal { y: 0.225, u: 0.01575 }, &t).unwrap();
+        assert!(close(pc, k, 1e-6), "{pc} {k}");
     }
 }

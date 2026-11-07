@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (101)
+- Chemistry (105)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (19)
@@ -105,6 +105,91 @@ As the 25 °C case, but with correlation 1 between the certified pH values, whic
 - 1.10.3.5 attributes u = 0.0051 to pH_X = 7.0109 and 'the data in subclause 1.7'; the calculation uses the 25 °C data of 1.8, for which pH_X = 7.0002 (research log F78).
 
 **Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang en`
+
+### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.17 mg/m³ (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.17` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance limit moved to 0.17 mg/m³.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).
+3. R_C = 0.0103 % and R_P = 5.370 %. GUM-5 prints 0.002 % and 5.8 %; its joint PDF gives 0.0020 % and 5.781 %.
+
+**Notes:**
+
+- GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang en`
+
+### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.22 mg/m³ (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.22` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance limit moved to 0.22 mg/m³.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).
+3. R_C = 1.8010 % and R_P = 0.055 %. GUM-5 prints 1.7 % and < 0.1 %; its joint PDF gives 1.6862 % and 0.115 %.
+
+**Notes:**
+
+- GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang en`
+
+### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.2 mg/m³ (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-global-risks-shared-risk` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; shared-risk rule A_U = T_U.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).
+3. R_C = 0.5790 % and R_P = 0.739 %. GUM-5 prints 0.5 % and 0.9 %; its joint PDF gives 0.4984 % and 0.909 %.
+
+**Notes:**
+
+- GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang en`
+
+### Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-specific-risks` — JCGM GUM-5:2026, Example 10, 10.6.4 and 10.7.2
+
+Conformance probabilities of single results from the posterior g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal prior, u = 0.07·ρ̂, A_U = T_U = 0.2 mg/m³.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. For a given result the likelihood is normal with standard deviation u = 0.07·ρ̂ (10.6.4.3). The posterior has no closed form and is integrated numerically; p_c = Pr(ρ ≤ T_U | ρ̂).
+3. ρ̂ = 0.190 mg/m³ is accepted with a specific consumer's risk 1 − p_c = 14.3 %; ρ̂ = 0.225 mg/m³ is rejected with a specific producer's risk p_c = 11.3 %: an 11 % probability that the true concentration conforms (10.7.2). Without the prior the risks are 22.6 % and 5.6 %; the prior is wide but not negligible near the limit, which lies in its upper tail.
+
+**Result:**
+
+- Probability that ρ̂ = 0.190 conforms to ρ ≤ 0.2 mg/m³: p_c = 86 %; accepted under simple acceptance.
+- Probability that ρ̂ = 0.225 conforms to ρ ≤ 0.2 mg/m³: p_c = 11 %; rejected under simple acceptance.
+
+**Notes:**
+
+- 10.6.4 states that the posterior is essentially determined by the likelihood, so frequentist specific risks would be very close. Near T_U this does not hold: the normal PDF alone gives 1 − p_c = 22.6 % at 0.190 and p_c = 5.6 % at 0.225 mg/m³ (research log F80).
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-specific-risks.json --lang en`
 
 ### Benzo[a]pyrene by GC-MS with an internal standard, correlated inputs (JCGM GUM-5 Example 2)
 

@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**221 examples / örnek** (108 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
+**225 examples / örnek** (108 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 11 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -157,6 +157,15 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`ufs-a4-vitamin-a-porridge-40g`](chemistry/ufs-a4-vitamin-a-porridge-40g.json) | Vitamin A in baby porridge, 40 g test samples: duplicate method (Eurachem UfS Example A4) | Bebek lapasında A vitamini, 40 g deney numunesi: çift numune yöntemi (Eurachem UfS Örnek A4) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A4, Tables A4.3, A4.5–A4.7, A4.14, A4.15 and summary |
 | [`ufs-a4-vitamin-a-porridge-4g`](chemistry/ufs-a4-vitamin-a-porridge-4g.json) | Vitamin A in baby porridge, 4 g test samples: negative sampling variance (Eurachem UfS Example A4) | Bebek lapasında A vitamini, 4 g deney numunesi: negatif numune alma varyansı (Eurachem UfS Örnek A4) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A4, Tables A4.4, A4.8–A4.10 |
 | [`ufs-a5-enzyme-feed-gy`](chemistry/ufs-a5-enzyme-feed-gy.json) | Enzyme in chicken feed: fundamental sampling error by Gy's theory (Eurachem UfS Example A5) | Tavuk yeminde enzim: Gy kuramıyla temel numune alma hatası (Eurachem UfS Örnek A5) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A5, Table A5.1; Section 10.2.7–10.2.8, Equations 6–8 |
+
+## Chemistry, conformity assessment (JCGM 106) / Kimya, uygunluk değerlendirmesi (JCGM 106)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`gum5-e10-tspm-global-risks-acceptance-0.17`](chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json) | Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.17 mg/m³ (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,17 mg/m³ (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.3 |
+| [`gum5-e10-tspm-global-risks-acceptance-0.22`](chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json) | Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.22 mg/m³ (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,22 mg/m³ (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.3 |
+| [`gum5-e10-tspm-global-risks-shared-risk`](chemistry/gum5-e10-tspm-global-risks-shared-risk.json) | Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.2 mg/m³ (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,2 mg/m³ (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.3 |
+| [`gum5-e10-tspm-specific-risks`](chemistry/gum5-e10-tspm-specific-risks.json) | Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.4 and 10.7.2 |
 
 ## Electrical and RF / Elektrik ve RF
 

@@ -369,3 +369,77 @@ write("chemistry", "gum5-e2-benzo-a-pyrene-ensemble",
       T(f"Budget of JCGM GUM-5:2026 Example 2 (u = 0.002 ng); ν_eff = {nu_ens:.2f} recomputed with the ensemble rule of Willink (2007), not printed in GUM-5.",
         f"JCGM GUM-5:2026 Örnek 2 bütçesi (u = 0,002 ng); ν_eff = {c(f'{nu_ens:.2f}')} Willink (2007) topluluk kuralıyla yeniden hesaplandı, GUM-5'te basılı değildir."),
       notes=BAP_NOTES, analysis={"gum": {"dof_rounding": "exact"}, "mcm": None})
+
+# --- Example 10: conformity of total suspended particulate matter (lognormal prior) ------------------------
+# Printed values: global risks at A_U = T_U 0.5 % (consumer) and 0.9 % (producer); A_U = 0.17: 0.002 %, 5.8 %;
+# A_U = 0.22: 1.7 %, < 0.1 %; specific producer's risk at ρ̂ = 0.225: about 11 %. They follow from a joint PDF
+# whose normal part has the standard deviation 0.07·ρ̂ (10.6.3.1), normalized by C = 1/1.005. With the
+# conditional PDF of ρ̂ given ρ (standard deviation 0.07·ρ) the global risks are those below (F80).
+# tools/research/gum5/ex10_risks.py computes both by quadrature (scipy).
+MU, SG = -2.325, 0.434
+p_conf = 0.5 * (1 + math.erf((math.log(0.2) - MU) / SG / math.sqrt(2)))
+assert abs(p_conf - 0.9504) < 1e-4
+TSPM_GLOBAL = {0.17: (0.000103, 0.053702), 0.2: (0.005790, 0.007392), 0.22: (0.018010, 0.000554)}
+TSPM_PRINTED = {0.17: ("0.002 %", "5.8 %"), 0.2: ("0.5 %", "0.9 %"), 0.22: ("1.7 %", "< 0.1 %")}
+TSPM_HAT = {0.17: (0.000020, 0.057811), 0.2: (0.004984, 0.009093), 0.22: (0.016862, 0.001148)}
+TSPM_EXPL = [
+    T("Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.",
+      "Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur."),
+    T("The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).",
+      "Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur."),
+]
+TSPM_NOTE = T("GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.",
+              "GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.")
+TSPM_PROCESS = {"distribution": "lognormal", "meanlog": MU, "sdlog": SG}
+
+
+def write_cf(pid, title, desc, expl, section, tags, conformity, expected, ref, notes=()):
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": pid, "title": title, "description": desc, "explanation": expl, "field": "chemistry",
+                      "sources": [{"document": DOC, "section": section, "url": URL}], "tags": ["gum-5"] + tags,
+                      "notes": list(notes)},
+         "conformity": conformity,
+         "expected": {"conformity": expected, "reference": ref}}
+    Path(f"library/chemistry/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", pid)
+
+
+for au, slug in ((0.2, "shared-risk"), (0.17, "acceptance-0.17"), (0.22, "acceptance-0.22")):
+    rc, rp = TSPM_GLOBAL[au]
+    hc, hp = TSPM_HAT[au]
+    pc_, pp_ = TSPM_PRINTED[au]
+    shared = au == 0.2
+    write_cf(f"gum5-e10-tspm-global-risks-{slug}",
+             T(f"Suspended particulate matter in air: global risks with a lognormal prior, A_U = {au} mg/m³ (JCGM GUM-5 Example 10)",
+               f"Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = {c(au)} mg/m³ (JCGM GUM-5 Örnek 10)"),
+             T(f"T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; {'shared-risk rule A_U = T_U' if shared else 'acceptance limit moved to ' + str(au) + ' mg/m³'}.",
+               f"T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; {'paylaşılan risk kuralı A_U = T_U' if shared else 'kabul sınırı ' + c(au) + ' mg/m³ değerine kaydırıldı'}."),
+             TSPM_EXPL + [
+                 T(f"R_C = {100 * rc:.4f} % and R_P = {100 * rp:.3f} %. GUM-5 prints {pc_} and {pp_}; its joint PDF gives {100 * hc:.4f} % and {100 * hp:.3f} %.",
+                   f"R_C = %{c(f'{100 * rc:.4f}')} ve R_P = %{c(f'{100 * rp:.3f}')}. GUM-5 {pc_.replace('.', ',')} ve {pp_.replace('.', ',')} basar; ortak dağılımı %{c(f'{100 * hc:.4f}')} ve %{c(f'{100 * hp:.3f}')} verir.")],
+             "Example 10, 10.6.3", ["conformity-assessment", "global-risk", "lognormal-prior", "air-quality", "jcgm106"],
+             {"quantity": "ρ", "unit": "mg/m³", "upper": 0.2, "acceptance_upper": au, "u_relative": 0.07, "process": TSPM_PROCESS},
+             {"conforming": chk(0.9504, 1e-4), "consumer_risk": chk(rc, 2e-6), "producer_risk": chk(rp, 2e-6)},
+             T(f"JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 print R_C = {pc_}, R_P = {pp_}; the expected values are for the conditional measuring-system PDF (F80).",
+               f"JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 R_C = {pc_.replace('.', ',')}, R_P = {pp_.replace('.', ',')} basar; beklenen değerler koşullu ölçüm sistemi dağılımı içindir (F80)."),
+             notes=[TSPM_NOTE])
+
+write_cf("gum5-e10-tspm-specific-risks",
+         T("Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10)",
+           "Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10)"),
+         T("Conformance probabilities of single results from the posterior g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal prior, u = 0.07·ρ̂, A_U = T_U = 0.2 mg/m³.",
+           "Tek sonuçların uygunluk olasılıkları, sonsal g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal önsel, u = 0,07·ρ̂, A_U = T_U = 0,2 mg/m³."),
+         TSPM_EXPL[:1] + [
+             T("For a given result the likelihood is normal with standard deviation u = 0.07·ρ̂ (10.6.4.3). The posterior has no closed form and is integrated numerically; p_c = Pr(ρ ≤ T_U | ρ̂).",
+               "Verilen bir sonuç için olabilirlik, u = 0,07·ρ̂ standart sapmalı normaldir (10.6.4.3). Sonsal dağılımın kapalı biçimi yoktur ve sayısal olarak integre edilir; p_c = Pr(ρ ≤ T_U | ρ̂)."),
+             T("ρ̂ = 0.190 mg/m³ is accepted with a specific consumer's risk 1 − p_c = 14.3 %; ρ̂ = 0.225 mg/m³ is rejected with a specific producer's risk p_c = 11.3 %: an 11 % probability that the true concentration conforms (10.7.2). Without the prior the risks are 22.6 % and 5.6 %; the prior is wide but not negligible near the limit, which lies in its upper tail.",
+               "ρ̂ = 0,190 mg/m³ %14,3 özgül tüketici riskiyle (1 − p_c) kabul edilir; ρ̂ = 0,225 mg/m³ %11,3 özgül üretici riskiyle (p_c) reddedilir: gerçek derişimin uygun olma olasılığı %11'dir (10.7.2). Önsel olmadan riskler %22,6 ve %5,6'dir; önsel geniştir, ancak üst kuyruğunda kalan sınırın yakınında ihmal edilemez.")],
+         "Example 10, 10.6.4 and 10.7.2", ["conformity-assessment", "specific-risk", "posterior", "lognormal-prior", "air-quality", "jcgm106"],
+         {"quantity": "ρ", "unit": "mg/m³", "upper": 0.2, "u_relative": 0.07, "process": TSPM_PROCESS, "posterior": True,
+          "results": [{"name": "ρ̂ = 0.190", "value": 0.19}, {"name": "ρ̂ = 0.225", "value": 0.225}]},
+         {"results": {"ρ̂ = 0.190": {"conformance_probability": chk(0.857384, 2e-6), "accepted": True},
+                      "ρ̂ = 0.225": {"conformance_probability": chk(0.113340, 2e-6), "accepted": False}}},
+         T("JCGM GUM-5:2026, 10.7.2: specific producer's risk about 11 % for ρ̂ = 0.225 mg/m³ (Figure 10.3).",
+           "JCGM GUM-5:2026, 10.7.2: ρ̂ = 0,225 mg/m³ için özgül üretici riski yaklaşık %11 (Şekil 10.3)."),
+         notes=[T("10.6.4 states that the posterior is essentially determined by the likelihood, so frequentist specific risks would be very close. Near T_U this does not hold: the normal PDF alone gives 1 − p_c = 22.6 % at 0.190 and p_c = 5.6 % at 0.225 mg/m³ (research log F80).",
+                  "10.6.4 sonsal dağılımın esasen olabilirlikle belirlendiğini, bu nedenle frekansçı özgül risklerin çok yakın olacağını belirtir. T_U yakınında bu geçerli değildir: yalnız normal dağılım 0,190'da 1 − p_c = %22,6, 0,225 mg/m³'te p_c = %5,6 verir (araştırma günlüğü F80).")])

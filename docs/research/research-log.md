@@ -2177,3 +2177,64 @@ Library projects:
   model. That is a candidate extension (see status.md).
 
 The library has 221 projects.
+
+**GUM-5:2026 Example 10 (conformity of suspended particulate matter, lognormal prior).**
+
+The prior is lognormal with µ = −2.325 and σ = 0.434 for ln ρ. Its quantiles
+0.042 and 0.229 mg/m³ match Figure 10.1. T_U = 0.2 mg/m³ and the relative
+uncertainty is 7 %.
+
+**D59. Lognormal process PDF, relative uncertainty in global risks, posterior p_c.**
+
+- `process.distribution = "lognormal"` with `meanlog` and `sdlog`.
+- With `u_relative`, global risks use a measuring-system PDF h(η_m | η)
+  that is normal with standard deviation u_rel·|η|, proportional to the true
+  value. That is a PDF of η_m for every η, as JCGM 106 9.5.1 requires.
+  Before, the program refused global risks with `u_relative`. A required
+  consumer's risk (`target_consumer_risk`) still needs a fixed u.
+- `posterior: true` (conformity project with a process) computes p_c from
+  the posterior g(η | η_m) ∝ g₀(η)·h(η_m | η), with the process PDF as
+  prior and a normal likelihood of standard deviation u. That u is
+  u_rel·η_m, the value at the result (GUM-5 10.6.4.3; JCGM 106 6.2,
+  Annex A).
+- A test checks that a flat prior gives the normal p_c back.
+- The app offers the lognormal PDF and the posterior switch.
+
+**F80. GUM-5 Example 10 — joint PDF and statements on specific risks
+(modelling; class to be decided in the D12 audit).**
+
+1. **Joint PDF.** The R code of 10.6.3.1 writes the joint PDF as
+   g₀(ρ)·N(ρ̂; ρ, (0.07ρ̂)²): the standard deviation depends on the measured
+   value, not on the true value. That is not a conditional PDF of ρ̂ given
+   ρ, and its integral is 1.005, hence the constant C.
+   - This form (`tools/research/gum5/ex10_risks.py`, mode `hat`) reproduces
+     every printed global risk. A_U = T_U: 0.498 % and 0.909 % (printed
+     0.5 % and 0.9 %). A_U = 0.17: 0.0020 % and 5.78 % (0.002 %, 5.8 %).
+     A_U = 0.22: 1.69 % and 0.115 % (1.7 %, "smaller than 0.1 %").
+   - With the conditional PDF, standard deviation 0.07ρ, the risks are
+     0.579 % and 0.739 %; 0.0103 % and 5.37 %; 1.80 % and 0.055 %. The
+     library projects use these and quote the printed ones.
+   - The two forms differ by up to a factor 5 for the small consumer's risk
+     at A_U = 0.17. The statement "A_U ≤ 0.17 mg/m³ for a consumer's risk of
+     0.002 %" therefore depends on this choice.
+2. **"At least 0.22 for a producer's risk smaller than 0.1 %"** (10.6.3.4).
+   With the printed form R_P(0.22) = 0.115 %; 0.1 % needs A_U ≈ 0.223. This
+   is rounding of A_U (class a).
+3. **Specific risks.** The likelihood with u = 0.07·ρ̂ is the usual one and
+   the program reproduces it: producer's risk 11.33 % at ρ̂ = 0.225 (printed
+   "about 11 %") and consumer's risk 14.26 % at 0.190.
+   - 10.6.4 adds that the posterior is "essentially determined by the
+     likelihood", so that frequentist risks "would be very close". Near T_U
+     the normal PDF alone gives 22.6 % and 5.6 %. The limit lies in the
+     upper tail of the prior, where it falls by a factor of about 3 over
+     0.19–0.23 mg/m³.
+   - The sentence holds for the body of the distribution, not for the
+     results the figure is about.
+
+Library projects:
+
+- `gum5-e10-tspm-global-risks-shared-risk`, `-acceptance-0.17` and
+  `-acceptance-0.22`;
+- `gum5-e10-tspm-specific-risks` (posterior).
+
+The library has 225 projects.

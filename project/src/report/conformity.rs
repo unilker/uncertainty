@@ -27,6 +27,7 @@ pub(super) struct CfLabels {
     pub process: &'static str,
     pub normal: &'static str,
     pub gamma: &'static str,
+    pub lognormal: &'static str,
     pub conforming: &'static str,
     pub accepted_share: &'static str,
     pub consumer_risk: &'static str,
@@ -63,6 +64,7 @@ const CF_EN: CfLabels = CfLabels {
     process: "Process PDF",
     normal: "normal",
     gamma: "gamma",
+    lognormal: "lognormal",
     conforming: "Items that conform",
     accepted_share: "Items accepted",
     consumer_risk: "Global consumer's risk R_C (accepted, not conforming)",
@@ -99,6 +101,7 @@ const CF_TR: CfLabels = CfLabels {
     process: "Süreç olasılık yoğunluğu",
     normal: "normal",
     gamma: "gama",
+    lognormal: "lognormal",
     conforming: "Uygun ürünler",
     accepted_share: "Kabul edilen ürünler",
     consumer_risk: "Küresel tüketici riski R_C (kabul edilen, uygun olmayan)",
@@ -213,6 +216,21 @@ pub(super) fn section(s: &mut String, a: &ConformityAnalysis, lang: Lang) {
         let _ = writeln!(s, "\n{}", d.t_note.replace("{nu}", &fmt_num(nu, 3, lang)));
     }
     let _ = writeln!(s);
+    if a.posterior {
+        if let Some(p) = &a.process {
+            let note = match lang {
+                Lang::En => format!(
+                    "Conformance probabilities from the posterior PDF g(η | η_m) ∝ g₀(η)·h(η_m | η), with the process PDF ({}) as prior g₀ and a normal likelihood of standard deviation u (JCGM 106 6.2, Annex A).",
+                    process_text(p, &unit, lang)
+                ),
+                Lang::Tr => format!(
+                    "Uygunluk olasılıkları, süreç dağılımı ({}) önsel g₀ ve standart sapması u olan normal olabilirlik ile sonsal dağılımdan, g(η | η_m) ∝ g₀(η)·h(η_m | η), hesaplanmıştır (JCGM 106 6.2, Ek A).",
+                    process_text(p, &unit, lang)
+                ),
+            };
+            let _ = writeln!(s, "{note}\n");
+        }
+    }
     if !a.results.is_empty() {
         let mcm = a.results.iter().any(|r| r.conformance_probability_mcm.is_some());
         let _ = writeln!(s, "### {}\n", d.results);
@@ -247,18 +265,7 @@ pub(super) fn section(s: &mut String, a: &ConformityAnalysis, lang: Lang) {
     }
     if let (Some(g), Some(p)) = (&a.global, &a.process) {
         let _ = writeln!(s, "### {}\n", d.global);
-        let kind = match p.distribution {
-            ProcessKind::Normal => d.normal,
-            ProcessKind::Gamma => d.gamma,
-        };
-        let _ = writeln!(
-            s,
-            "- {}: {kind}, {} {}{unit}, s {}{unit}",
-            d.process,
-            if lang == Lang::Tr { "ortalama" } else { "mean" },
-            fmt_given(p.mean, lang),
-            fmt_given(p.sd, lang)
-        );
+        let _ = writeln!(s, "- {}: {}", d.process, process_text(p, &unit, lang));
         let _ = writeln!(s, "- {}: {}", d.conforming, pct(g.conforming, lang));
         let _ = writeln!(s, "- {}: {}", d.accepted_share, pct(g.accepted, lang));
         let _ = writeln!(s, "- {}: {}", d.consumer_risk, pct(g.consumer, lang));
@@ -405,4 +412,20 @@ fn limits_svg(a: &ConformityAnalysis, lang: Lang) -> Option<String> {
     }
     s.push_str("</svg>");
     Some(s)
+}
+
+/// The process PDF and its parameters, for the report.
+fn process_text(p: &crate::conformity::ProcessSpec, unit: &str, lang: Lang) -> String {
+    let d = cf_labels(lang);
+    let g = |x: Option<f64>| x.map(|v| fmt_given(v, lang)).unwrap_or_default();
+    match p.distribution {
+        ProcessKind::Lognormal => format!("{}, µ = {}, σ = {} (ln Y)", d.lognormal, g(p.meanlog), g(p.sdlog)),
+        kind => format!(
+            "{}, {} {}{unit}, s {}{unit}",
+            if kind == ProcessKind::Gamma { d.gamma } else { d.normal },
+            if lang == Lang::Tr { "ortalama" } else { "mean" },
+            g(p.mean),
+            g(p.sd)
+        ),
+    }
 }

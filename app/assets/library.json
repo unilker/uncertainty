@@ -1424,6 +1424,365 @@
   }
  },
  {
+  "path": "library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum5-e10-tspm-global-risks-acceptance-0.17",
+    "title": {
+     "en": "Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.17 mg/m³ (JCGM GUM-5 Example 10)",
+     "tr": "Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,17 mg/m³ (JCGM GUM-5 Örnek 10)"
+    },
+    "description": {
+     "en": "T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance limit moved to 0.17 mg/m³.",
+     "tr": "T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; kabul sınırı 0,17 mg/m³ değerine kaydırıldı."
+    },
+    "explanation": [
+     {
+      "en": "Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.",
+      "tr": "Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur."
+     },
+     {
+      "en": "The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).",
+      "tr": "Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur."
+     },
+     {
+      "en": "R_C = 0.0103 % and R_P = 5.370 %. GUM-5 prints 0.002 % and 5.8 %; its joint PDF gives 0.0020 % and 5.781 %.",
+      "tr": "R_C = %0,0103 ve R_P = %5,370. GUM-5 0,002 % ve 5,8 % basar; ortak dağılımı %0,0020 ve %5,781 verir."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+      "section": "Example 10, 10.6.3",
+      "url": "https://doi.org/10.59161/YNLY8209"
+     }
+    ],
+    "tags": [
+     "gum-5",
+     "conformity-assessment",
+     "global-risk",
+     "lognormal-prior",
+     "air-quality",
+     "jcgm106"
+    ],
+    "notes": [
+     {
+      "en": "GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.",
+      "tr": "GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir."
+     }
+    ]
+   },
+   "conformity": {
+    "quantity": "ρ",
+    "unit": "mg/m³",
+    "upper": 0.2,
+    "acceptance_upper": 0.17,
+    "u_relative": 0.07,
+    "process": {
+     "distribution": "lognormal",
+     "meanlog": -2.325,
+     "sdlog": 0.434
+    }
+   },
+   "expected": {
+    "conformity": {
+     "conforming": {
+      "value": 0.9504,
+      "tolerance": 0.0001
+     },
+     "consumer_risk": {
+      "value": 0.000103,
+      "tolerance": 0.000002
+     },
+     "producer_risk": {
+      "value": 0.053702,
+      "tolerance": 0.000002
+     }
+    },
+    "reference": {
+     "en": "JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 print R_C = 0.002 %, R_P = 5.8 %; the expected values are for the conditional measuring-system PDF (F80).",
+     "tr": "JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 R_C = 0,002 %, R_P = 5,8 % basar; beklenen değerler koşullu ölçüm sistemi dağılımı içindir (F80)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum5-e10-tspm-global-risks-acceptance-0.22",
+    "title": {
+     "en": "Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.22 mg/m³ (JCGM GUM-5 Example 10)",
+     "tr": "Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,22 mg/m³ (JCGM GUM-5 Örnek 10)"
+    },
+    "description": {
+     "en": "T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance limit moved to 0.22 mg/m³.",
+     "tr": "T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; kabul sınırı 0,22 mg/m³ değerine kaydırıldı."
+    },
+    "explanation": [
+     {
+      "en": "Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.",
+      "tr": "Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur."
+     },
+     {
+      "en": "The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).",
+      "tr": "Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur."
+     },
+     {
+      "en": "R_C = 1.8010 % and R_P = 0.055 %. GUM-5 prints 1.7 % and < 0.1 %; its joint PDF gives 1.6862 % and 0.115 %.",
+      "tr": "R_C = %1,8010 ve R_P = %0,055. GUM-5 1,7 % ve < 0,1 % basar; ortak dağılımı %1,6862 ve %0,115 verir."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+      "section": "Example 10, 10.6.3",
+      "url": "https://doi.org/10.59161/YNLY8209"
+     }
+    ],
+    "tags": [
+     "gum-5",
+     "conformity-assessment",
+     "global-risk",
+     "lognormal-prior",
+     "air-quality",
+     "jcgm106"
+    ],
+    "notes": [
+     {
+      "en": "GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.",
+      "tr": "GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir."
+     }
+    ]
+   },
+   "conformity": {
+    "quantity": "ρ",
+    "unit": "mg/m³",
+    "upper": 0.2,
+    "acceptance_upper": 0.22,
+    "u_relative": 0.07,
+    "process": {
+     "distribution": "lognormal",
+     "meanlog": -2.325,
+     "sdlog": 0.434
+    }
+   },
+   "expected": {
+    "conformity": {
+     "conforming": {
+      "value": 0.9504,
+      "tolerance": 0.0001
+     },
+     "consumer_risk": {
+      "value": 0.01801,
+      "tolerance": 0.000002
+     },
+     "producer_risk": {
+      "value": 0.000554,
+      "tolerance": 0.000002
+     }
+    },
+    "reference": {
+     "en": "JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 print R_C = 1.7 %, R_P = < 0.1 %; the expected values are for the conditional measuring-system PDF (F80).",
+     "tr": "JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 R_C = 1,7 %, R_P = < 0,1 % basar; beklenen değerler koşullu ölçüm sistemi dağılımı içindir (F80)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum5-e10-tspm-global-risks-shared-risk",
+    "title": {
+     "en": "Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.2 mg/m³ (JCGM GUM-5 Example 10)",
+     "tr": "Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,2 mg/m³ (JCGM GUM-5 Örnek 10)"
+    },
+    "description": {
+     "en": "T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; shared-risk rule A_U = T_U.",
+     "tr": "T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; paylaşılan risk kuralı A_U = T_U."
+    },
+    "explanation": [
+     {
+      "en": "Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.",
+      "tr": "Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur."
+     },
+     {
+      "en": "The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).",
+      "tr": "Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur."
+     },
+     {
+      "en": "R_C = 0.5790 % and R_P = 0.739 %. GUM-5 prints 0.5 % and 0.9 %; its joint PDF gives 0.4984 % and 0.909 %.",
+      "tr": "R_C = %0,5790 ve R_P = %0,739. GUM-5 0,5 % ve 0,9 % basar; ortak dağılımı %0,4984 ve %0,909 verir."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+      "section": "Example 10, 10.6.3",
+      "url": "https://doi.org/10.59161/YNLY8209"
+     }
+    ],
+    "tags": [
+     "gum-5",
+     "conformity-assessment",
+     "global-risk",
+     "lognormal-prior",
+     "air-quality",
+     "jcgm106"
+    ],
+    "notes": [
+     {
+      "en": "GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.",
+      "tr": "GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir."
+     }
+    ]
+   },
+   "conformity": {
+    "quantity": "ρ",
+    "unit": "mg/m³",
+    "upper": 0.2,
+    "acceptance_upper": 0.2,
+    "u_relative": 0.07,
+    "process": {
+     "distribution": "lognormal",
+     "meanlog": -2.325,
+     "sdlog": 0.434
+    }
+   },
+   "expected": {
+    "conformity": {
+     "conforming": {
+      "value": 0.9504,
+      "tolerance": 0.0001
+     },
+     "consumer_risk": {
+      "value": 0.00579,
+      "tolerance": 0.000002
+     },
+     "producer_risk": {
+      "value": 0.007392,
+      "tolerance": 0.000002
+     }
+    },
+    "reference": {
+     "en": "JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 print R_C = 0.5 %, R_P = 0.9 %; the expected values are for the conditional measuring-system PDF (F80).",
+     "tr": "JCGM GUM-5:2026, 10.6.3.3–10.6.3.4 R_C = 0,5 %, R_P = 0,9 % basar; beklenen değerler koşullu ölçüm sistemi dağılımı içindir (F80)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/chemistry/gum5-e10-tspm-specific-risks.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum5-e10-tspm-specific-risks",
+    "title": {
+     "en": "Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10)",
+     "tr": "Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10)"
+    },
+    "description": {
+     "en": "Conformance probabilities of single results from the posterior g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal prior, u = 0.07·ρ̂, A_U = T_U = 0.2 mg/m³.",
+     "tr": "Tek sonuçların uygunluk olasılıkları, sonsal g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal önsel, u = 0,07·ρ̂, A_U = T_U = 0,2 mg/m³."
+    },
+    "explanation": [
+     {
+      "en": "Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.",
+      "tr": "Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur."
+     },
+     {
+      "en": "For a given result the likelihood is normal with standard deviation u = 0.07·ρ̂ (10.6.4.3). The posterior has no closed form and is integrated numerically; p_c = Pr(ρ ≤ T_U | ρ̂).",
+      "tr": "Verilen bir sonuç için olabilirlik, u = 0,07·ρ̂ standart sapmalı normaldir (10.6.4.3). Sonsal dağılımın kapalı biçimi yoktur ve sayısal olarak integre edilir; p_c = Pr(ρ ≤ T_U | ρ̂)."
+     },
+     {
+      "en": "ρ̂ = 0.190 mg/m³ is accepted with a specific consumer's risk 1 − p_c = 14.3 %; ρ̂ = 0.225 mg/m³ is rejected with a specific producer's risk p_c = 11.3 %: an 11 % probability that the true concentration conforms (10.7.2). Without the prior the risks are 22.6 % and 5.6 %; the prior is wide but not negligible near the limit, which lies in its upper tail.",
+      "tr": "ρ̂ = 0,190 mg/m³ %14,3 özgül tüketici riskiyle (1 − p_c) kabul edilir; ρ̂ = 0,225 mg/m³ %11,3 özgül üretici riskiyle (p_c) reddedilir: gerçek derişimin uygun olma olasılığı %11'dir (10.7.2). Önsel olmadan riskler %22,6 ve %5,6'dir; önsel geniştir, ancak üst kuyruğunda kalan sınırın yakınında ihmal edilemez."
+     }
+    ],
+    "field": "chemistry",
+    "sources": [
+     {
+      "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+      "section": "Example 10, 10.6.4 and 10.7.2",
+      "url": "https://doi.org/10.59161/YNLY8209"
+     }
+    ],
+    "tags": [
+     "gum-5",
+     "conformity-assessment",
+     "specific-risk",
+     "posterior",
+     "lognormal-prior",
+     "air-quality",
+     "jcgm106"
+    ],
+    "notes": [
+     {
+      "en": "10.6.4 states that the posterior is essentially determined by the likelihood, so frequentist specific risks would be very close. Near T_U this does not hold: the normal PDF alone gives 1 − p_c = 22.6 % at 0.190 and p_c = 5.6 % at 0.225 mg/m³ (research log F80).",
+      "tr": "10.6.4 sonsal dağılımın esasen olabilirlikle belirlendiğini, bu nedenle frekansçı özgül risklerin çok yakın olacağını belirtir. T_U yakınında bu geçerli değildir: yalnız normal dağılım 0,190'da 1 − p_c = %22,6, 0,225 mg/m³'te p_c = %5,6 verir (araştırma günlüğü F80)."
+     }
+    ]
+   },
+   "conformity": {
+    "quantity": "ρ",
+    "unit": "mg/m³",
+    "upper": 0.2,
+    "u_relative": 0.07,
+    "process": {
+     "distribution": "lognormal",
+     "meanlog": -2.325,
+     "sdlog": 0.434
+    },
+    "posterior": true,
+    "results": [
+     {
+      "name": "ρ̂ = 0.190",
+      "value": 0.19
+     },
+     {
+      "name": "ρ̂ = 0.225",
+      "value": 0.225
+     }
+    ]
+   },
+   "expected": {
+    "conformity": {
+     "results": {
+      "ρ̂ = 0.190": {
+       "conformance_probability": {
+        "value": 0.857384,
+        "tolerance": 0.000002
+       },
+       "accepted": true
+      },
+      "ρ̂ = 0.225": {
+       "conformance_probability": {
+        "value": 0.11334,
+        "tolerance": 0.000002
+       },
+       "accepted": false
+      }
+     }
+    },
+    "reference": {
+     "en": "JCGM GUM-5:2026, 10.7.2: specific producer's risk about 11 % for ρ̂ = 0.225 mg/m³ (Figure 10.3).",
+     "tr": "JCGM GUM-5:2026, 10.7.2: ρ̂ = 0,225 mg/m³ için özgül üretici riski yaklaşık %11 (Şekil 10.3)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json",
   "project": {
    "format": "uncertainty-calculations/project",

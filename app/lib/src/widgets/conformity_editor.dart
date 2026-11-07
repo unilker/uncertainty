@@ -196,16 +196,29 @@ class _ConformityEditorState extends State<ConformityEditor> {
                 isExpanded: true,
                 initialValue: process?['distribution'] as String? ?? 'none',
                 items: [
-                  for (final d in ['none', 'normal', 'gamma']) DropdownMenuItem(value: d, child: Text(s['cf_process_$d'])),
+                  for (final d in ['none', 'normal', 'gamma', 'lognormal']) DropdownMenuItem(value: d, child: Text(s['cf_process_$d'])),
                 ],
                 onChanged: (v) {
                   setState(() {
                     if (v == 'none') {
                       _cf.remove('process');
                       _cf.remove('target_consumer_risk');
+                      _cf.remove('posterior');
                     } else {
-                      final p = (_cf['process'] ??= <String, dynamic>{'mean': 1.0, 'sd': 0.1}) as Map<String, dynamic>;
+                      final p = (_cf['process'] ??= <String, dynamic>{}) as Map<String, dynamic>;
                       p['distribution'] = v;
+                      // A lognormal PDF is given by the mean and standard deviation of ln Y.
+                      if (v == 'lognormal') {
+                        p.remove('mean');
+                        p.remove('sd');
+                        p.putIfAbsent('meanlog', () => 0.0);
+                        p.putIfAbsent('sdlog', () => 0.1);
+                      } else {
+                        p.remove('meanlog');
+                        p.remove('sdlog');
+                        p.putIfAbsent('mean', () => 1.0);
+                        p.putIfAbsent('sd', () => 0.1);
+                      }
                     }
                   });
                   widget.onChanged();
@@ -213,8 +226,26 @@ class _ConformityEditorState extends State<ConformityEditor> {
               ),
             ),
             if (process != null) ...[
-              NumberField(key: const ValueKey('cf-pm'), map: process, field: 'mean', label: s['pt_mean'], width: 140, onChanged: widget.onChanged),
-              NumberField(key: const ValueKey('cf-ps'), map: process, field: 'sd', label: s['sd'], width: 140, onChanged: widget.onChanged),
+              if (process['distribution'] == 'lognormal') ...[
+                NumberField(key: const ValueKey('cf-pml'), map: process, field: 'meanlog', label: s['cf_meanlog'], width: 140, onChanged: widget.onChanged),
+                NumberField(key: const ValueKey('cf-psl'), map: process, field: 'sdlog', label: s['cf_sdlog'], width: 140, onChanged: widget.onChanged),
+              ] else ...[
+                NumberField(key: const ValueKey('cf-pm'), map: process, field: 'mean', label: s['pt_mean'], width: 140, onChanged: widget.onChanged),
+                NumberField(key: const ValueKey('cf-ps'), map: process, field: 'sd', label: s['sd'], width: 140, onChanged: widget.onChanged),
+              ],
+              SizedBox(
+                width: 320,
+                child: SwitchListTile(
+                  key: const Key('cf-posterior'),
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(s['cf_posterior']),
+                  value: _cf['posterior'] == true,
+                  onChanged: (v) {
+                    setState(() => v ? _cf['posterior'] = true : _cf.remove('posterior'));
+                    widget.onChanged();
+                  },
+                ),
+              ),
               NumberField(
                 map: _cf,
                 field: 'target_consumer_risk',

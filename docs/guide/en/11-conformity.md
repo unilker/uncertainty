@@ -41,8 +41,9 @@ the consumer's risk 1 − p_c; if it is rejected, it is the producer's risk p_c 
 
 ## 11.3 Global risks of a production process (clause 9)
 
-With a `process` (a `normal` or `gamma` PDF with `mean` and `sd`) and a fixed `u` of the measuring system, the
-program integrates Formulae (17)–(20) numerically. It reports:
+With a `process` (a `normal` or `gamma` PDF with `mean` and `sd`, or a `lognormal` PDF with `meanlog` and
+`sdlog` of ln Y) and the `u` of the measuring system, the program integrates Formulae (17)–(20) numerically.
+With `u_relative` the standard deviation of the measuring-system PDF is u_rel·η, proportional to the true value. It reports:
 - the fraction of conforming items;
 - the fraction of accepted items;
 - the global consumer's risk R_C (accepted although non-conforming);
@@ -51,7 +52,14 @@ program integrates Formulae (17)–(20) numerically. It reports:
 
 With `target_consumer_risk` it finds the guard-band multiplier r that gives the required R_C (9.5.4). A gamma
 PDF suits properties that cannot be negative, such as the radial error motion of the ball-bearing example
-(Annex B).
+(Annex B). A lognormal PDF suits environmental concentrations (JCGM GUM-5 Example 10). A required R_C needs a
+fixed `u`.
+
+**Specific risks with a prior.** In a project of its own with a `process`, `"posterior": true` computes the
+conformance probability of each result from the posterior PDF g(η | η_m) ∝ g₀(η)·h(η_m | η). The prior g₀ is
+the process PDF; the likelihood is normal with the u of the result (u_rel·η_m with `u_relative`; JCGM 106 6.2,
+Annex A). Near a limit in the tail of the prior this matters: in GUM-5 Example 10, at 0.225 mg/m³, the specific
+producer's risk is 11.3 % with the lognormal prior and 5.6 % without it.
 
 ## 11.4 Two ways to use it
 
