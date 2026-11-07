@@ -1,6 +1,6 @@
 # Durum ve sonraki adımlar / Status and next steps
 
-Son güncelleme: **2026-10-27**. Bu dosya çalışmaya ara verildiğinde nerede
+Son güncelleme: **2026-11-07**. Bu dosya çalışmaya ara verildiğinde nerede
 kalındığını ve sırada ne olduğunu kaydeder.
 
 - Ayrıntılı gerekçeler araştırma günlüğündedir: kararlar D…, bulgular F….
@@ -10,11 +10,27 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **209** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **182** Rust testi (bunlardan biri 209 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **226** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **187** Rust testi (bunlardan biri 226 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–20 (+ ek), kararlar D1–D55, bulgular F1–F76 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D60, bulgular F1–F81 (dizin: `findings-index.md`) |
+
+## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
+
+1. **JCGM 100:2008/Amd.1:2026.** Tahminin ikinci mertebe terimi δ = ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ,xⱼ) her zaman
+   hesaplanır. `higher_order` ile tahmine eklenir, aksi hâlde |δ| > 0,1 u_c olduğunda uyarı verilir (D56).
+   İlişkili normal girdiler için yüksek mertebe varyansı Mana & Pennecchi 2007'ye göre hesaplanır (D57).
+2. **GUM-5:2026 örnekleri kütüphanede** (`tools/generators/gum5.py`):
+   - Örnek 1 (pH), 3 (glikoz), 14 (²⁰⁷Bi), 15 (çelik halat): F77, F78.
+   - Örnek 2 (benzo[a]piren): **topluluk (ensemble) Welch–Satterthwaite** (Willink 2007, D58). GUM-5
+     ν_eff = 4,8 veriyor; aynı enjeksiyonlardan gelen alanlar bir topluluk olunca ν_eff = 2,1 (F79).
+   - Örnek 10 (TSPM uygunluk): **lognormal süreç dağılımı, bağıl u ile küresel risk, önselli sonsal p_c**
+     (D59). GUM-5'in ortak dağılımı sd = 0,07·ρ̂ kullanıyor (F80).
+   - Örnek 12 (şişeler arası homojenlik): **u*_bb ve Bayesçi hiyerarşik τ**, ızgarada, MCMC'siz (D60).
+     τ'nun modu 0; basılı 0,3 µmol/mol `getmode` kodundan (F81).
+   - Örnek 6, 7, 8, 13, 16 zaten kütüphanedeydi (JCGM 101/102); GUM-5 kaynak olarak eklendi.
+3. **Kanıt betikleri:** `tools/research/gum5/` (ex2_mcm.py, ex10_risks.py, ex12_posterior.py).
 
 ## 2. Bu dönemde yapılanlar (oturum 16–20, 2026-10-26/27)
 
@@ -85,6 +101,13 @@ indirilemedi; Drive klasörüne konacak:
 
 ## 4. Sıradaki işler (öncelik sırasıyla)
 
+0. **GUM-5'in kalan örnekleri** (metin: geçici alandaki `drive2/gum5/ex*.txt`; klasördeki PDF'ten yeniden
+   çıkarılabilir): Örnek 4 (gravimetrik gaz karışımı, çok değişkenli), 5 (sera gazı envanteri), 9 (EKK ve
+   Bayesçi kalibrasyon), 11 (2B görüntü pikselleri). Ardından `drive-inventory-2026-11.md` sırası: WG1 tanımları
+   → sözlük; Eurachem/CITAC uygunluk 2021; EMUE derlemesi ve IUPAC 2024 örnekleri; ILAC P14; Nordtest TR 537 TR;
+   Possolo & Meija 2022; BIPM qNMR; uzlaşı değeri modülü (Koepke, DerSimonian–Laird).
+   - Açık kalan küçük işler: skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si), uygulamada
+     `homogeneity.bayes` formu, Willink 2007 metninin kendisiyle F79'u doğrulamak.
 1. **TUR'a dayalı koruma bantları (konformite modülü).**
    - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
      guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert
@@ -111,7 +134,7 @@ indirilemedi; Drive klasörüne konacak:
    - parametrik olmayan UfS (Lourenço & Oliveira 2024);
    - Mateos 2020'deki ν'ye bağlı ağırlıklar (F46);
    - Shirono 2022 ekonomik kabul aralığı;
-   - GTC'deki ilişkili girdiler için Willink ν'si.
+   - ~~GTC'deki ilişkili girdiler için Willink ν'si~~ (D58 ile yapıldı).
 7. **Faz 7.**
    - NIST UM ve Suncal ile karşılaştırmalı ölçümler;
    - Scopus/WoS taraması kurumsal ağdan; bunun için Claude Desktop'ta yerel
