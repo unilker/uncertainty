@@ -51,7 +51,7 @@ Key to the columns:
 | File | Status | Use | Order |
 |---|---|---|---|
 | 31 Possolo 2025 | used | glossary | — |
-| 32 Mari et al. 2025; 33 Pradella 2026 | new | glossary and the article's discussion of the new definition | 3 |
+| 32 Mari et al. 2025; 33 Pradella 2026 | new | glossary and the article's discussion of the new definition: done (glossary "The debate") | done |
 
 ## Bayesian and alternative methods
 

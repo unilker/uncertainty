@@ -146,3 +146,11 @@ değişiklik önemlidir:
   farklıdır.
 - **Bağıl belirsizlik.** Bölümün *mutlak* değeridir ve ölçülen değer sıfırsa tanımsızdır. Program mutlak değeri
   kullanır (top-down bütçeler, uygunluk değerlendirmesinde `u_relative`) ve sıfırda sonlu bir bağıl değer vermez.
+
+**Tartışma.** Mari vd. (*Metrologia* 62 (2025) 062101) değişikliğe karşı çıkar. Onların okumasına göre yeni tanım
+belirsizliği matematiksel değil psikolojik bir varlık yapar, ölçülen değerlerin dağılımı yerine kuramsal bir
+gerçek değere bağlar ve tanımsal belirsizliği olan ölçülenleri dışarıda bırakır. Bunun yerine GUM tanımının
+genelleştirilmesini önerirler. Pradella (2026) değişikliği tıbbi ve deney laboratuvarları açısından savunur (ISO
+15189, ISO/IEC 17025). Bu laboratuvarlarda nominal ve sıralı özellikler, büyüklük değerleri dağılımının parametresi
+olmayan bir belirsizlik gerektirir. Program nicel ölçülenleri değerlendirir ve her iki okumayla da uyumludur, çünkü
+dağılımı ve özetlerini raporlar.

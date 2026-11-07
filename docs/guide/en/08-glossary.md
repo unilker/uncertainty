@@ -149,3 +149,11 @@ matter for the program:
 - **Relative uncertainty.** It is the *absolute* value of the quotient and is not defined for a measured value
   of zero. The program uses the absolute value (top-down budgets, `u_relative` in conformity assessment) and
   gives no finite relative value at zero.
+
+**The debate.** Mari et al. (*Metrologia* 62 (2025) 062101) argue against the change. In their reading, the new
+definition makes uncertainty a psychological rather than a mathematical entity, ties it to a theoretical true value
+rather than to the dispersion of measured values, and excludes measurands with definitional uncertainty. They
+propose to generalize the GUM definition instead. Pradella (2026) defends the change from the side of medical and
+testing laboratories (ISO 15189, ISO/IEC 17025). For them nominal and ordinal properties need an uncertainty that
+is not a parameter of a distribution of quantity values. The program evaluates quantitative measurands and is
+compatible with both readings, because it reports the distribution and its summaries.

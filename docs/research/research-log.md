@@ -2881,3 +2881,25 @@ tekrar üretilebilirlik* for u(R_w)), as do TÜRKAK documents. The program had
 - The glossary notes the other wording of the Turkish edition: *kontrol
   kartı* beside *kontrol grafiği*, and *iki tekrarlı analiz* for
   duplicates. *SRM* for CRM and *kontrol numunesi* were already used.
+
+**Mari et al. 2025 and Pradella 2026 (definition of measurement
+uncertainty).**
+
+- Mari et al. (Metrologia 62, 062101) object to three changes made by
+  GUM-1:2023 §3.4 and proposed for VIM 4:
+  - a psychological instead of a mathematical entity;
+  - doubt about a true value instead of dispersion of attributed values;
+  - only single-valued measurands, excluding definitional uncertainty.
+  They propose generalizing the GUM definition ("mathematical entity
+  conveying information concerning the doubt about the validity of the
+  measured value").
+- Pradella (2026) supports the change for medical and testing laboratories
+  with nominal and ordinal results (ISO 15189, ISO 20914, ISO 22692).
+- WG1–WG2 kept "doubt" but dropped "true" (D61). Note 2 accepts summaries
+  such as the standard uncertainty, interval or quantiles. That answers
+  part of the second objection.
+- For the article: the program's design (the distribution as the complete
+  result; standard uncertainty, intervals and, since D61, the symmetric
+  half-width as summaries) is neutral in this debate. Nominal properties
+  (Ellisor 2025, Bilson 2025) are an outlook.
+- Glossary EN/TR: paragraph "The debate".
