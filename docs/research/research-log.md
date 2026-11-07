@@ -2672,3 +2672,26 @@ projects:
    not conservative for decisions.
 
 The library has 244 projects.
+
+**F78, addendum — the source is EMUE E1.1 (compendium 2021).**
+
+- EMUE E1.1.5.4 gives the same results: "pH_X = 7.0109 and
+  u(pH_X) = 0.0041".
+- Its own intermediate values give a different result. The temperature
+  interpolations pH_X1 = 6.8681 (S1) and pH_X2 = 7.4200 (S2) at 23.7 °C,
+  followed by interpolation in potential at E_X = −1.875 mV between
+  (6.15 mV, 6.8681) and (−26.35 mV, 7.4200), give
+  6.8681 + (8.025/32.5) × 0.5519 = 7.0044.
+- The text describes the first two steps as interpolations between
+  potentials ("(E_S1, pH^T1_S1) ≡ (6.15 mV, 6.8640) and
+  (E_S2, pH^T1_S1) ≡ (−26.35 mV, 7.4157)"). The numbers 6.8681 and 7.4200
+  are, however, interpolations in temperature of each standard; GUM-5 1.9
+  corrected the wording.
+- EMUE E1.1.7.1 contains the same reversed statement: with the standards'
+  uncertainties set to zero u becomes 0.0040, "implying that the further
+  repeated observations of the three potentials would do much to reduce
+  u(pH_X)".
+- The value 0.0041 for independent inputs and the fully correlated 0.0051
+  (E1.1.7.2) also come from EMUE.
+- GUM-5 Example 1 therefore inherited the inconsistencies of F78 from its
+  source; the article should cite both documents.
