@@ -286,6 +286,10 @@ recomputed by an independent script. The spreadsheet's own uncertainties differ 
 | CG18-H2.4/B | same, adjusted before calibration (5c fit) | a₁ 0, u 6.043·10⁻⁵; α² 1.467/7.417/13.667 g²; β² 2.449·10⁻⁸; U_gl 2.422 + 1.706·10⁻⁴R, 6.616 + 2.355·10⁻⁴(R − 12 kg), 11.951 + 2.744·10⁻⁴(R − 30 kg); R_min,SF 502 g | same; 501.5 g | ✅ |
 | GUM5-7 | JCGM GUM-5:2026 Example 7, mass calibration (= JCGM 101 9.3) | GUF1 1.2340, 0.0539, [1.1285, 1.3395] mg; GUF2 0.0750, [1.0870, 1.3810]; MCM 0.0755 | same; second-order estimate term 0 | ✅ |
 | GUM5-16 | JCGM GUM-5:2026 Example 16, comparison loss, r = 0 and 0.9 | Table 16.1 GUF2 δy 50/150/2550, u 50/112/502; Table 16.2 analytic u 67/121/505 (×10⁻⁶) | δy with the Amd.1 term 50/150/2550; u 50/111.8/502.5; correlated GUF2 (D57) 67.27/120.52/504.50 | ✅ (D56, D57) |
+| GUM5-1 | GUM-5 Example 1, pH by interpolation (25 °C; correlated standards; 23.7 °C) | 7.0002, u 0.0041; u 0.0051; 7.0043 (printed 7.0109), u 0.0041 | 7.0002, 0.0041; 0.0051; 7.0043, u 0.0032 independent / 0.0041 same-standard correlated | ✅ except F78 |
+| GUM5-3 | GUM-5 Example 3, molar mass of glucose | 180.1557, u 0.0038 | same | ✅ |
+| GUM5-14 | GUM-5 Example 14, ²⁰⁷Bi decay correction | 10.810 kBq, u 0.054 kBq; Table 14.1 | same | ✅ |
+| GUM5-15 | GUM-5 Example 15, wire rope breaking force | 10 005.7 kN, u 9.9, U 19.4 kN; MCM u 10.1 kN | GUF same; MCM 9.93 kN | ✅ GUF; MCM differs (F77) |
 | CG19-E1 | 1000 mL flask (Tanaka density) | V₂₀ 999.628 mL, u 0.017 mL, ν_eff 19, k 2.15, U 0.036 mL | 999.622; 0.0169; 19.5; 2.14; 0.036 | ✅ (F62) |
 | CG19-E2 | 100 mL pycnometer | 100.014 mL, u 0.89 µL, ν_eff 13, k 2.21, U 2.0 µL | 100.0142; 0.90 µL; 12.9; 2.23 (G.6.4 truncation); 2.0 µL | ✅ (F62) |
 | M3003-L3 | DMM, 1 V range | 0.95 V: u_c 5.37 µV; 500 mV: U 6.2 µV; 1 V: k 1.898 | same | ✅ (F61) |

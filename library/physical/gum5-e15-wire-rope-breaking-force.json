@@ -1,0 +1,172 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e15-wire-rope-breaking-force",
+    "title": {
+      "en": "Breaking force of steel wire rope from six destructive tests (JCGM GUM-5 Example 15)",
+      "tr": "Altı tahribatlı deneyden çelik halatın kopma kuvveti (JCGM GUM-5 Örnek 15)"
+    },
+    "description": {
+      "en": "F₀ = F̄ − B − B_ref − e_res − e_T: mean of six tests on pieces of one coil, with rectangular corrections for the load cells, resolution and temperature.",
+      "tr": "F₀ = F̄ − B − B_ref − e_res − e_T: bir makaradan kesilen altı parça üzerindeki deneylerin ortalaması; yük hücreleri, çözünürlük ve sıcaklık için dikdörtgen düzeltmeler."
+    },
+    "explanation": [
+      {
+        "en": "A breaking test cannot be repeated on the same sample; six pieces of the same coil are tested and their variability (rope inhomogeneity) is embedded in the results (observation equations of GUM-6).",
+        "tr": "Kopma deneyi aynı numunede tekrarlanamaz; aynı makaradan altı parça denenir ve bunların değişkenliği (halatın homojen olmaması) sonuçlara gömülür (GUM-6 gözlem denklemleri)."
+      },
+      {
+        "en": "F̄ = 10005.7 kN, s = 1.75 kN, u(F̄) = s/√6 = 0.71 kN with ν = 5; corrections B, B_ref, e_res, e_T rectangular with half-widths 6.8, 8.2, 8.7 and 10.2 kN.",
+        "tr": "F̄ = 10005,7 kN, s = 1,75 kN, u(F̄) = s/√6 = 0,71 kN, ν = 5; B, B_ref, e_res, e_T düzeltmeleri yarı genişlikleri 6,8, 8,2, 8,7 ve 10,2 kN olan dikdörtgen dağılımlar."
+      },
+      {
+        "en": "u(F₀) = 9.9 kN, ν_eff = 5·(u(F₀)/u(F̄))⁴ ≈ 1.8e+05, k = 1.96, U = 19.4 kN. The test results contribute only 0.2 % to u(F₀); the corrections dominate.",
+        "tr": "u(F₀) = 9,9 kN, ν_eff = 5·(u(F₀)/u(F̄))⁴ ≈ 1,8e+05, k = 1,96, U = 19,4 kN. Deney sonuçları u(F₀)'a yalnızca %0,2 katkı yapar; düzeltmeler baskındır."
+      }
+    ],
+    "field": "physical",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 15, 15.3, 15.4 and 15.5",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "destructive-testing",
+      "observation-equations",
+      "rectangular",
+      "type-a"
+    ],
+    "notes": [
+      {
+        "en": "GUM-5 15.5.2 prints an MCM standard deviation of 10.1 kN and the interval [9986.0, 10 025.3] kN. With the stated t-distribution for F (scale u(F̄) = 0.7 kN, ν = 5) the MCM standard deviation is √(u_c² − u²(F̄) + u²(F̄)·5/3) = 9.93 kN, practically the GUF value 9.9 kN. 10.1 kN follows if the scale is the standard deviation of a single test, s = 1.8 kN: 10.14 kN (research log F77).",
+        "tr": "GUM-5 15.5.2, 10,1 kN MCM standart sapması ve [9986,0; 10 025,3] kN aralığı basar. F için belirtilen t dağılımıyla (ölçek u(F̄) = 0,7 kN, ν = 5) MCM standart sapması √(u_c² − u²(F̄) + u²(F̄)·5/3) = 9,93 kN'dur; pratikte GUF değeri 9,9 kN'dur. 10,1 kN, ölçek olarak tek deneyin standart sapması s = 1,8 kN alınırsa çıkar: 10,14 kN (araştırma günlüğü F77)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "F_0",
+      "unit": "kN",
+      "expression": "F - B - B_ref - e_res - e_T",
+      "description": {
+        "en": "Breaking force of the rope",
+        "tr": "Halatın kopma kuvveti"
+      }
+    },
+    "inputs": [
+      {
+        "name": "F",
+        "unit": "kN",
+        "description": {
+          "en": "Breaking forces of six pieces",
+          "tr": "Altı parçanın kopma kuvvetleri"
+        },
+        "distribution": {
+          "type": "type_a",
+          "observations": [
+            10006,
+            10007,
+            10005,
+            10008,
+            10003,
+            10005
+          ]
+        }
+      },
+      {
+        "name": "B",
+        "unit": "kN",
+        "description": {
+          "en": "Error of the test machine load cell",
+          "tr": "Deney makinesi yük hücresinin hatası"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 6.8
+        }
+      },
+      {
+        "name": "B_ref",
+        "unit": "kN",
+        "description": {
+          "en": "Error of the reference load cell",
+          "tr": "Referans yük hücresinin hatası"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 8.2
+        }
+      },
+      {
+        "name": "e_res",
+        "unit": "kN",
+        "description": {
+          "en": "Resolution of the force measuring system",
+          "tr": "Kuvvet ölçme sisteminin çözünürlüğü"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 8.7
+        }
+      },
+      {
+        "name": "e_T",
+        "unit": "kN",
+        "description": {
+          "en": "Temperature effect",
+          "tr": "Sıcaklık etkisi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 10.2
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 10005.7,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 9.9,
+        "tolerance": 0.05
+      },
+      "expanded_uncertainty": {
+        "value": 19.4,
+        "tolerance": 0.05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 10005.7,
+        "tolerance": 0.05
+      },
+      "standard_uncertainty": {
+        "value": 9.929,
+        "tolerance": 0.02
+      }
+    },
+    "reference": {
+      "en": "JCGM GUM-5:2026, 15.4.1: F₀ = 10 005.7 kN, u = 9.9 kN, U = 19.4 kN (k = 1.96). The MCM standard uncertainty is recomputed: 9.93 kN for the stated inputs; the guide prints 10.1 kN (see note).",
+      "tr": "JCGM GUM-5:2026, 15.4.1: F₀ = 10 005,7 kN, u = 9,9 kN, U = 19,4 kN (k = 1,96). MCM standart belirsizliği yeniden hesaplanmıştır: belirtilen girdilerle 9,93 kN; kılavuz 10,1 kN basar (nota bakınız)."
+    }
+  }
+}

@@ -20,12 +20,17 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**212 examples / örnek** (99 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
+**219 examples / örnek** (106 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`gum5-e1-ph-temperature-interpolation-correlated`](chemistry/gum5-e1-ph-temperature-interpolation-correlated.json) | pH at 23.7 °C by three linear interpolations, certified values of each standard correlated across temperatures (JCGM GUM-5 Example 1) | Üç doğrusal interpolasyonla 23,7 °C'de pH, her standardın sertifikalı değerleri sıcaklıklar arasında ilişkili (JCGM GUM-5 Örnek 1) | JCGM GUM-5:2026 Example 1, 1.6, 1.9 and 1.10.3 |
+| [`gum5-e1-ph-temperature-interpolation`](chemistry/gum5-e1-ph-temperature-interpolation.json) | pH at 23.7 °C by three linear interpolations, independent certified values (JCGM GUM-5 Example 1) | Potansiyel ve sıcaklıkta üç doğrusal interpolasyonla 23,7 °C'de pH, bağımsız sertifikalı değerler (JCGM GUM-5 Örnek 1) | JCGM GUM-5:2026 Example 1, 1.6, 1.9 and 1.10.3 |
+| [`gum5-e1-ph-two-point-25c-correlated-standards`](chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json) | pH by two-point interpolation with fully correlated pH standards (JCGM GUM-5 Example 1) | Tam ilişkili pH standartlarıyla iki noktalı interpolasyon (JCGM GUM-5 Örnek 1) | JCGM GUM-5:2026 Example 1, 1.10.3.4 and 1.10.3.5 |
+| [`gum5-e1-ph-two-point-25c`](chemistry/gum5-e1-ph-two-point-25c.json) | pH of a test solution by two-point interpolation at 25 °C (JCGM GUM-5 Example 1) | 25 °C'de iki noktalı interpolasyonla bir deney çözeltisinin pH değeri (JCGM GUM-5 Örnek 1) | JCGM GUM-5:2026 Example 1, 1.8 |
+| [`gum5-e3-molar-mass-glucose`](chemistry/gum5-e3-molar-mass-glucose.json) | Relative molecular mass of glucose from standard atomic weight intervals (JCGM GUM-5 Example 3) | Standart atom ağırlığı aralıklarından glikozun bağıl molekül kütlesi (JCGM GUM-5 Örnek 3) | JCGM GUM-5:2026 Example 3, Tables 3.1 and 3.2 |
 | [`iso13528-e5-los-angeles-reference-value`](chemistry/iso13528-e5-los-angeles-reference-value.json) | Assigned value from a comparison with a CRM: Los Angeles value of aggregates (ISO 13528 E.5) | CRM ile karşılaştırmadan atanan değer: agregaların Los Angeles değeri (ISO 13528 E.5) | ISO 13528:2022 Annex E.5 (Table E.8) |
 | [`iso21748-c2-meat-content`](chemistry/iso21748-c2-meat-content.json) | Meat content from nitrogen and fat (ISO 21748 C.2) | Azot ve yağdan et içeriği (ISO 21748 C.2) | ISO 21748:2017 Annex C.2, Table C.1 |
 | [`nist-tn1900-e8-molecular-weight-co2`](chemistry/nist-tn1900-e8-molecular-weight-co2.json) | Molecular weight of carbon dioxide (NIST TN 1900 E8) | Karbondioksitin molekül ağırlığı (NIST TN 1900 E8) | NIST Technical Note 1900 Example E8, Exhibit 12 |
@@ -309,6 +314,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`gum5-e14-radioactive-decay-bi207`](physical/gum5-e14-radioactive-decay-bi207.json) | Activity of a ²⁰⁷Bi source corrected for decay (JCGM GUM-5 Example 14) | Bozunma için düzeltilmiş ²⁰⁷Bi kaynağının aktivitesi (JCGM GUM-5 Örnek 14) | JCGM GUM-5:2026 Example 14, 14.3 and Table 14.1 |
+| [`gum5-e15-wire-rope-breaking-force`](physical/gum5-e15-wire-rope-breaking-force.json) | Breaking force of steel wire rope from six destructive tests (JCGM GUM-5 Example 15) | Altı tahribatlı deneyden çelik halatın kopma kuvveti (JCGM GUM-5 Örnek 15) | JCGM GUM-5:2026 Example 15, 15.3, 15.4 and 15.5 |
 | [`nist-tn1900-e13-thermal-expansion-gaussian-95`](physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json) | Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
 | [`nist-tn1900-e13-thermal-expansion-gaussian-99`](physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json) | Thermal expansion coefficient, Gaussian inputs, 99 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, normal girdiler, %99 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |
 | [`nist-tn1900-e13-thermal-expansion-student-95`](physical/nist-tn1900-e13-thermal-expansion-student-95.json) | Thermal expansion coefficient, Student t₃ inputs, 95 % (NIST TN 1900 E13) | Isıl genleşme katsayısı, Student t₃ girdiler, %95 (NIST TN 1900 E13) | NIST Technical Note 1900 Example E13, Exhibit 20 |

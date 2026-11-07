@@ -1,0 +1,122 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e3-molar-mass-glucose",
+    "title": {
+      "en": "Relative molecular mass of glucose from standard atomic weight intervals (JCGM GUM-5 Example 3)",
+      "tr": "Standart atom ağırlığı aralıklarından glikozun bağıl molekül kütlesi (JCGM GUM-5 Örnek 3)"
+    },
+    "description": {
+      "en": "M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O with rectangular distributions over the IUPAC 2021 intervals of the standard atomic weights.",
+      "tr": "IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağılımlarla M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O."
+    },
+    "explanation": [
+      {
+        "en": "The isotopic composition of the glucose is unknown; for a normal material the standard atomic weights lie in the intervals [1.007 84, 1.008 11] (H), [12.0096, 12.0116] (C) and [15.999 03, 15.999 77] (O), to which rectangular distributions are assigned (GUM 4.3.7).",
+        "tr": "Glikozun izotop bileşimi bilinmemektedir; normal bir malzeme için standart atom ağırlıkları [1,007 84; 1,008 11] (H), [12,0096; 12,0116] (C) ve [15,999 03; 15,999 77] (O) aralıklarındadır; bunlara dikdörtgen dağılım atanır (GUM 4.3.7)."
+      },
+      {
+        "en": "The model is linear with exact coefficients: u(M_r) = √Σν_i²u²(A_i); the contributions are 0.00094 (H), 0.00346 (C) and 0.00128 (O), so carbon dominates.",
+        "tr": "Model kesin katsayılarla doğrusaldır: u(M_r) = √Σν_i²u²(A_i); katkılar 0,00094 (H), 0,00346 (C) ve 0,00128 (O) olup karbon baskındır."
+      },
+      {
+        "en": "M_r = 180.1557, u(M_r) = 0.0038. The rectangular distributions express the lack of knowledge of the isotopic composition, not the actual composition (GUM-5 3.4.2).",
+        "tr": "M_r = 180,1557, u(M_r) = 0,0038. Dikdörtgen dağılımlar gerçek bileşimi değil, izotop bileşimi hakkındaki bilgi eksikliğini ifade eder (GUM-5 3.4.2)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 3, Tables 3.1 and 3.2",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "molar-mass",
+      "atomic-weights",
+      "rectangular",
+      "linear"
+    ],
+    "notes": [
+      {
+        "en": "The same calculation for CO₂ is NIST TN 1900 Example E8 in the library.",
+        "tr": "CO₂ için aynı hesap kütüphanedeki NIST TN 1900 Örnek E8'dir."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "M_r",
+      "expression": "6*A_C + 12*A_H + 6*A_O",
+      "description": {
+        "en": "Relative molecular mass of glucose",
+        "tr": "Glikozun bağıl molekül kütlesi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "A_H",
+        "description": {
+          "en": "Standard atomic weight of hydrogen",
+          "tr": "Hidrojenin standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 1.00784,
+          "upper": 1.00811
+        }
+      },
+      {
+        "name": "A_C",
+        "description": {
+          "en": "Standard atomic weight of carbon",
+          "tr": "Karbonun standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 12.0096,
+          "upper": 12.0116
+        }
+      },
+      {
+        "name": "A_O",
+        "description": {
+          "en": "Standard atomic weight of oxygen",
+          "tr": "Oksijenin standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 15.99903,
+          "upper": 15.99977
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 180.1557,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0038,
+        "tolerance": 5e-05
+      }
+    },
+    "reference": {
+      "en": "JCGM GUM-5:2026, 3.3.3 and 3.3.4: M_r = 180.1557, u = 0.0038.",
+      "tr": "JCGM GUM-5:2026, 3.3.3 ve 3.3.4: M_r = 180,1557, u = 0,0038."
+    }
+  }
+}

@@ -2,17 +2,133 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (94)
+- Chemistry (99)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (19)
 - Length (11)
 - Mass (28)
-- Physical properties (8)
+- Physical properties (10)
 - Pressure (1)
 - Temperature (10)
 
 ## Chemistry
+
+### pH at 23.7 °C by three linear interpolations, independent certified values (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-temperature-interpolation` — JCGM GUM-5:2026, Example 1, 1.6, 1.9 and 1.10.3
+
+The test solution is at 23.7 °C, between the certificate temperatures 20 °C and 25 °C: interpolation in potential at each temperature, then in temperature; all inputs independent (GUM-5 1.7.1).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The algorithm of GUM-5 1.6 is the measurement model: pH_X,T1 and pH_X,T2 are interpolated in potential with the certified values at T₁ = 25 °C and T₂ = 20 °C, and pH_X at T_X = 23.7 °C is interpolated between them; T₁ and T₂ are exact certificate temperatures.
+2. pH_X,T1 = 7.0002, pH_X,T2 = 7.0161, pH_X = 0.74·pH_X,T1 + 0.26·pH_X,T2 = 7.0043; cubic interpolation in temperature changes the pH of S1 by only 0.0004 (GUM-5 1.10.1.1).
+3. With independent certified values the interpolation in temperature averages the uncertainties of the values at 20 °C and 25 °C: u(pH_X) = 0.0032.
+
+**Result:**
+
+- pH_X = (7.0043 ± 0.0063), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here (7.0043), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives 0.0032; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated (0.0041) (research log F78).
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation.json --lang en`
+
+### pH at 23.7 °C by three linear interpolations, certified values of each standard correlated across temperatures (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-temperature-interpolation-correlated` — JCGM GUM-5:2026, Example 1, 1.6, 1.9 and 1.10.3
+
+As the independent case, but the pH values of each standard at 20 °C and 25 °C are fully correlated, as the shared Bates–Guggenheim convention suggests (GUM-5 1.10.3.3).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The algorithm of GUM-5 1.6 is the measurement model: pH_X,T1 and pH_X,T2 are interpolated in potential with the certified values at T₁ = 25 °C and T₂ = 20 °C, and pH_X at T_X = 23.7 °C is interpolated between them; T₁ and T₂ are exact certificate temperatures.
+2. pH_X,T1 = 7.0002, pH_X,T2 = 7.0161, pH_X = 0.74·pH_X,T1 + 0.26·pH_X,T2 = 7.0043; cubic interpolation in temperature changes the pH of S1 by only 0.0004 (GUM-5 1.10.1.1).
+3. With r = 1 between the values of the same standard the interpolation in temperature no longer averages them: u(pH_X) = 0.0041, the value GUM-5 prints.
+
+**Result:**
+
+- pH_X = (7.0043 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here (7.0043), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives 0.0032; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated (0.0041) (research log F78).
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation-correlated.json --lang en`
+
+### pH of a test solution by two-point interpolation at 25 °C (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-two-point-25c` — JCGM GUM-5:2026, Example 1, 1.8
+
+Bracketing between two NIST phosphate pH standards measured with the same cell; inputs independent, as in IUPAC practice.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Two-point calibration by bracketing (GUM-5 1.4.2, 1.5): the pH of the test solution is interpolated linearly between the points (E_S1, pH_S1) and (E_S2, pH_S2) of two NIST phosphate standards: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).
+2. With q = (E_X − E_S1)/(E_S2 − E_S1) = 0.2469 and slope b = -0.016975 mV⁻¹, u²(pH_X) = b²(1 − q)²u²(E_S1) + (1 − q)²u²(pH_S1) + b²q²u²(E_S2) + q²u²(pH_S2) + b²u²(E_X) (Formula 1.17); the contributions are 0.0038 (pH_S1), 0.0013 (pH_S2), 0.0004, 0.0004 and 0.0001.
+3. pH_X = 7.0002, u(pH_X) = 0.0041: the certified pH values dominate. A common calibration error δE_cal of the three potentials cancels (GUM-5 1.8.2).
+
+**Result:**
+
+- pH_X = (7.0002 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c.json --lang en`
+
+### pH by two-point interpolation with fully correlated pH standards (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-two-point-25c-correlated-standards` — JCGM GUM-5:2026, Example 1, 1.10.3.4 and 1.10.3.5
+
+As the 25 °C case, but with correlation 1 between the certified pH values, which share the Bates–Guggenheim convention.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Two-point calibration by bracketing (GUM-5 1.4.2, 1.5): the pH of the test solution is interpolated linearly between the points (E_S1, pH_S1) and (E_S2, pH_S2) of two NIST phosphate standards: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).
+2. The certificates give an SI-traceable uncertainty and a much smaller one without the Bates–Guggenheim convention; the convention term is common to both standards, so the correlation of the two pH values is close to 1 (GUM-5 1.10.3.3). Here r = 1.
+3. With r = 1 the terms (1 − q)²u²(pH_S1) + 2q(1 − q)u(pH_S1, pH_S2) + q²u²(pH_S2) combine to u²(pH_S1) (Formula 1.24): u(pH_X) = 0.0051, against 0.0041 when the correlation is ignored. Perfectly correlated contributions add linearly: 0.0038 + 0.0013 = 0.0051.
+
+**Result:**
+
+- pH_X = (7.000 ± 0.010), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- 1.10.3.5 attributes u = 0.0051 to pH_X = 7.0109 and 'the data in subclause 1.7'; the calculation uses the 25 °C data of 1.8, for which pH_X = 7.0002 (research log F78).
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang en`
+
+### Relative molecular mass of glucose from standard atomic weight intervals (JCGM GUM-5 Example 3)
+
+`gum5-e3-molar-mass-glucose` — JCGM GUM-5:2026, Example 3, Tables 3.1 and 3.2
+
+M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O with rectangular distributions over the IUPAC 2021 intervals of the standard atomic weights.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The isotopic composition of the glucose is unknown; for a normal material the standard atomic weights lie in the intervals [1.007 84, 1.008 11] (H), [12.0096, 12.0116] (C) and [15.999 03, 15.999 77] (O), to which rectangular distributions are assigned (GUM 4.3.7).
+2. The model is linear with exact coefficients: u(M_r) = √Σν_i²u²(A_i); the contributions are 0.00094 (H), 0.00346 (C) and 0.00128 (O), so carbon dominates.
+3. M_r = 180.1557, u(M_r) = 0.0038. The rectangular distributions express the lack of knowledge of the isotopic composition, not the actual composition (GUM-5 3.4.2).
+
+**Result:**
+
+- M_r = (180.1557 ± 0.0075), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- The same calculation for CO₂ is NIST TN 1900 Example E8 in the library.
+
+**Run:** `uncertainty run library/chemistry/gum5-e3-molar-mass-glucose.json --lang en`
 
 ### Censored results in a PT round: censored results deleted (ISO 13528 E.1)
 
@@ -2429,7 +2545,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
-4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; second-order terms are not available for correlated inputs (GUM 5.1.2 note), so only the MCM captures it.
+4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; the GUM 5.1.2 note gives second-order terms for independent inputs only. Of the GUM-framework results, only the higher-order terms for correlated inputs (project …-correlated-higher-order, D57) capture it; the MCM does.
 
 **Result:**
 
@@ -2494,7 +2610,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
-4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; second-order terms are not available for correlated inputs (GUM 5.1.2 note), so only the MCM captures it.
+4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; the GUM 5.1.2 note gives second-order terms for independent inputs only. Of the GUM-framework results, only the higher-order terms for correlated inputs (project …-correlated-higher-order, D57) capture it; the MCM does.
 
 **Result:**
 
@@ -2559,7 +2675,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
-4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; second-order terms are not available for correlated inputs (GUM 5.1.2 note), so only the MCM captures it.
+4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; the GUM 5.1.2 note gives second-order terms for independent inputs only. Of the GUM-framework results, only the higher-order terms for correlated inputs (project …-correlated-higher-order, D57) capture it; the MCM does.
 
 **Result:**
 
@@ -3166,7 +3282,7 @@ TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pr
 
 ### Additive model with Gaussian inputs
 
-`jcgm101-9.2.2-additive-gaussian` — JCGM 101:2008, 9.2.2
+`jcgm101-9.2.2-additive-gaussian` — JCGM 101:2008, 9.2.2; JCGM GUM-5:2026, Example 6, Table 6.1
 
 JCGM 101 9.2.2: four independent inputs, each N(0, 1).
 
@@ -3185,7 +3301,7 @@ JCGM 101 9.2.2: four independent inputs, each N(0, 1).
 
 ### Additive model with rectangular inputs
 
-`jcgm101-9.2.3-additive-rectangular` — JCGM 101:2008, 9.2.3
+`jcgm101-9.2.3-additive-rectangular` — JCGM 101:2008, 9.2.3; JCGM GUM-5:2026, Example 6, Table 6.2
 
 JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviation 1.
 
@@ -3209,7 +3325,7 @@ JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviatio
 
 ### Additive model with a dominant rectangular input
 
-`jcgm101-9.2.4-additive-dominant-rectangular` — JCGM 101:2008, 9.2.4
+`jcgm101-9.2.4-additive-dominant-rectangular` — JCGM 101:2008, 9.2.4; JCGM GUM-5:2026, Example 6, Table 6.3
 
 JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.
 
@@ -3669,7 +3785,7 @@ JCGM 100 Annex H.1: calibration of a 50 mm end gauge; Welch–Satterthwaite effe
 
 ### Gauge block calibration, approximate model
 
-`jcgm101-9.5-gauge-block-approximate` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1
+`jcgm101-9.5-gauge-block-approximate` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1; JCGM GUM-5:2026, Example 8, Table 8.2
 
 JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (t, arc sine, curvilinear trapezoid); 99 % coverage.
 
@@ -3690,7 +3806,7 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 ### Gauge block calibration, non-linear model
 
-`jcgm101-9.5-gauge-block-nonlinear` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1
+`jcgm101-9.5-gauge-block-nonlinear` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1; JCGM GUM-5:2026, Example 8
 
 JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (t, arc sine, curvilinear trapezoid); 99 % coverage.
 
@@ -4530,6 +4646,51 @@ TN 1900 E1: mass of a powder from three weighings with a single-pan balance; lin
 
 ## Physical properties
 
+### Activity of a ²⁰⁷Bi source corrected for decay (JCGM GUM-5 Example 14)
+
+`gum5-e14-radioactive-decay-bi207` — JCGM GUM-5:2026, Example 14, 14.3 and Table 14.1
+
+A₁ = A₀ exp(−Δt ln2/T½) with the certified activity, the half-life from the literature and Δt = 2.73 a; check of the linearization.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. A₀ = 11.450 kBq, u = 0.050 kBq (certificate); T½ = 32.9 a, u = 1.4 a (literature, 4 %); Δt = t₁ − t₀ = 2.73 a without uncertainty.
+2. E = exp(−Δt ln2/T½) = 0.94411, A₁ = 10.810 kBq. c(A₀) = E, c(T½) = A₁Δt ln2/T½² = 0.018898 kBq/a: the contributions are 0.0472 kBq and 0.0265 kBq, u(A₁) = 0.054 kBq.
+3. The model is nonlinear in T½. Between T½ ± 3u(T½) the linearized and exact models differ by at most 0.011 kBq, much less than u(A₁), so the law of propagation is adequate (Table 14.1). The Monte Carlo result confirms it.
+4. A practical measure of the nonlinearity is u(E)/E = ln2·(u(T½)/T½)·(Δt/T½); when it reaches about 1 % the linearization should be checked (GUM-5 14.4.2). Here it is 0.25 %.
+
+**Result:**
+
+- A_1 = (10.81 ± 0.11) kBq, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/physical/gum5-e14-radioactive-decay-bi207.json --lang en`
+
+### Breaking force of steel wire rope from six destructive tests (JCGM GUM-5 Example 15)
+
+`gum5-e15-wire-rope-breaking-force` — JCGM GUM-5:2026, Example 15, 15.3, 15.4 and 15.5
+
+F₀ = F̄ − B − B_ref − e_res − e_T: mean of six tests on pieces of one coil, with rectangular corrections for the load cells, resolution and temperature.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. A breaking test cannot be repeated on the same sample; six pieces of the same coil are tested and their variability (rope inhomogeneity) is embedded in the results (observation equations of GUM-6).
+2. F̄ = 10005.7 kN, s = 1.75 kN, u(F̄) = s/√6 = 0.71 kN with ν = 5; corrections B, B_ref, e_res, e_T rectangular with half-widths 6.8, 8.2, 8.7 and 10.2 kN.
+3. u(F₀) = 9.9 kN, ν_eff = 5·(u(F₀)/u(F̄))⁴ ≈ 1.8e+05, k = 1.96, U = 19.4 kN. The test results contribute only 0.2 % to u(F₀); the corrections dominate.
+
+**Result:**
+
+- F_0 = (10006 ± 19) kN, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Notes:**
+
+- GUM-5 15.5.2 prints an MCM standard deviation of 10.1 kN and the interval [9986.0, 10 025.3] kN. With the stated t-distribution for F (scale u(F̄) = 0.7 kN, ν = 5) the MCM standard deviation is √(u_c² − u²(F̄) + u²(F̄)·5/3) = 9.93 kN, practically the GUF value 9.9 kN. 10.1 kN follows if the scale is the standard deviation of a single test, s = 1.8 kN: 10.14 kN (research log F77).
+
+**Run:** `uncertainty run library/physical/gum5-e15-wire-rope-breaking-force.json --lang en`
+
 ### Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2)
 
 `iso5725-2-c2-softening-point-pitch` — ISO 5725-2:2019, Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33)
@@ -4818,7 +4979,7 @@ EA-4/02 S5 (first budget): temperature of a furnace at 1000 °C measured with a 
 
 ### Celsius temperature from a resistance thermometer, implicit model (JCGM 102 9.5.2)
 
-`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13)
+`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13); JCGM GUM-5:2026, Example 13, 13.2
 
 JCGM 102:2011 9.5.2: one temperature from a measured resistance ratio, with the correlated calibration constants of the thermometer.
 
@@ -4837,7 +4998,7 @@ JCGM 102:2011 9.5.2: one temperature from a measured resistance ratio, with the 
 
 ### Ten Celsius temperatures with one resistance thermometer, implicit model (JCGM 102 9.5.3)
 
-`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16)
+`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16); JCGM GUM-5:2026, Example 13, 13.3, Tables 13.4 and 13.5
 
 JCGM 102:2011 9.5.3: ten temperatures measured with the same calibrated thermometer are correlated through its calibration constants (Tables 15 and 16).
 

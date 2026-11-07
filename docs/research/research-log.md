@@ -2059,3 +2059,54 @@ Effect on the library:
 GUM-5 is added as a source of the JCGM 101 9.3 and 9.4 projects. The library
 has 212 projects.
 
+**GUM-5:2026, new library projects.** `tools/generators/gum5.py` writes the
+examples not yet in the library. It recomputes each printed value and asserts
+the agreement:
+
+- Example 3 (molar mass of glucose): M_r = 180.1557, u = 0.0038.
+- Example 14 (²⁰⁷Bi decay): A₁ = 10.810 kBq, u = 0.054 kBq, and Table 14.1
+  of the linearization check to ±0.0006 kBq.
+- Example 15 (wire rope): F₀ = 10 005.7 kN, u = 9.9 kN, U = 19.4 kN.
+- Example 1 (pH):
+  - two-point interpolation at 25 °C: 7.0002, u = 0.0041;
+  - fully correlated standards: u = 0.0051;
+  - temperature interpolation: two variants, see F78.
+
+Examples 6, 8 and 13 equal JCGM 101 9.2 and 9.5 and JCGM 102 9.5, which are
+in the library; GUM-5 is added as their source. The three projects
+`jcgm101-9.4-comparison-loss-x0n0-correlated` said that second-order terms
+are not available for correlated inputs; the sentence now refers to D57.
+
+**F77. GUM-5 Example 15 — Monte Carlo standard deviation (class c).**
+
+- 15.3.1 assigns to F a t-distribution with mean 10 005.7 kN, scale
+  u(F̄) = s/√6 = 0.7 kN and ν = 5. For this model the MCM standard deviation
+  is then √(u_c² − u²(F̄) + u²(F̄)·ν/(ν − 2)) = 9.93 kN. The program's MCM
+  gives 9.93 kN (10⁶ trials).
+- 15.5.2 prints 10.1 kN and the interval [9986.0, 10 025.3] kN, half-width
+  19.6 kN.
+- 10.14 kN results if the scale is the standard deviation of one test,
+  s = 1.75 kN, instead of that of the mean.
+- The conclusion (GUF valid) is unaffected. The difference 9.9 against
+  10.1 kN that 15.6.1 attributes to the shape of the PDF is, however, this
+  input inconsistency.
+
+**F78. GUM-5 Example 1 — pH values and uncertainties (class c).**
+
+- 1.9.1 obtains pH_X,T1 = 7.0002, pH_X,T2 = 7.0161 and pH_X = 7.0043 by the
+  third interpolation, which the program reproduces. It then gives
+  "pH_X = 7.0109, u(pH_X) = 0.0041"; 7.0109 does not follow from the data.
+  1.10.3.5 repeats 7.0109 for the result of the 25 °C data of 1.8, which
+  give 7.0002.
+- For the temperature case 1.7.1 assumes all inputs independent. That gives
+  u = 0.0032: the interpolation in temperature averages the independent
+  certified values at 20 and 25 °C. The printed 0.0041 results when the
+  values of each standard at the two temperatures are fully correlated
+  (0.0041). Both variants are library projects.
+- 1.10.2.2 states that with the uncertainties of the pH standards set to
+  zero u(pH_X) becomes 0.0040, and that repeating the potential measurements
+  would reduce u. The reverse holds. Without the standards' uncertainties
+  u = 0.0006, and without the potentials' uncertainties u = 0.0040. The
+  standards contribute 0.0038 and 0.0013 of the 0.0041 (1.10.3.5 lists
+  these contributions itself).
+

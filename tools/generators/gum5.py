@@ -1,0 +1,289 @@
+"""Writes the JCGM GUM-5:2026 library projects (run from the repository root).
+
+JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples,
+doi:10.59161/YNLY8209. Examples 6, 7, 8, 13 and 16 are the JCGM 101/102 examples already in the library
+(GUM-5 is added there as a source); this script writes the other examples. Expected values are the printed
+ones; every one is recomputed here and the agreement asserted.
+"""
+import json
+import math
+import statistics as st
+from pathlib import Path
+
+DOC = "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples"
+URL = "https://doi.org/10.59161/YNLY8209"
+R3 = math.sqrt(3)
+
+
+def T(en, tr):
+    return {"en": en, "tr": tr}
+
+
+def chk(v, t):
+    return {"value": v, "tolerance": t}
+
+
+def c(x):
+    return str(x).replace(".", ",")
+
+
+def write(folder, pid, title, desc, expl, section, tags, model, expected, ref, notes=(), analysis=None, reporting=None, field=None):
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": pid, "title": title, "description": desc, "explanation": expl, "field": field or folder,
+                      "sources": [{"document": DOC, "section": section, "url": URL}], "tags": ["gum-5"] + tags,
+                      "notes": list(notes)},
+         "model": model,
+         "analysis": analysis or {"gum": {}, "mcm": {"trials": 1000000, "seed": 5, "interval": "symmetric"}},
+         "expected": {**expected, "reference": ref}}
+    if reporting:
+        p["reporting"] = reporting
+    Path(f"library/{folder}/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", pid)
+
+
+def inp(name, dist, unit=None, en=None, tr=None):
+    q = {"name": name}
+    if unit:
+        q["unit"] = unit
+    if en:
+        q["description"] = T(en, tr)
+    q["distribution"] = dist
+    return q
+
+
+# --- Example 3: relative molecular mass of glucose -------------------------------------------------------
+W = {"H": (1.00784, 1.00811, 12), "C": (12.0096, 12.0116, 6), "O": (15.99903, 15.99977, 6)}
+est = sum(n * (a + b) / 2 for a, b, n in W.values())
+u = math.sqrt(sum((n * (b - a) / (2 * R3)) ** 2 for a, b, n in W.values()))
+assert abs(est - 180.1557) < 5e-5 and abs(u - 0.0038) < 5e-5
+contrib = {k: n * (b - a) / (2 * R3) for k, (a, b, n) in W.items()}
+write("chemistry", "gum5-e3-molar-mass-glucose",
+      T("Relative molecular mass of glucose from standard atomic weight intervals (JCGM GUM-5 Example 3)",
+        "Standart atom ağırlığı aralıklarından glikozun bağıl molekül kütlesi (JCGM GUM-5 Örnek 3)"),
+      T("M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O with rectangular distributions over the IUPAC 2021 intervals of the standard atomic weights.",
+        "IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağılımlarla M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O."),
+      [T("The isotopic composition of the glucose is unknown; for a normal material the standard atomic weights lie in the intervals [1.007 84, 1.008 11] (H), [12.0096, 12.0116] (C) and [15.999 03, 15.999 77] (O), to which rectangular distributions are assigned (GUM 4.3.7).",
+         "Glikozun izotop bileşimi bilinmemektedir; normal bir malzeme için standart atom ağırlıkları [1,007 84; 1,008 11] (H), [12,0096; 12,0116] (C) ve [15,999 03; 15,999 77] (O) aralıklarındadır; bunlara dikdörtgen dağılım atanır (GUM 4.3.7)."),
+       T(f"The model is linear with exact coefficients: u(M_r) = √Σν_i²u²(A_i); the contributions are {contrib['H']:.5f} (H), {contrib['C']:.5f} (C) and {contrib['O']:.5f} (O), so carbon dominates.",
+         f"Model kesin katsayılarla doğrusaldır: u(M_r) = √Σν_i²u²(A_i); katkılar {c(f'{contrib[chr(72)]:.5f}')} (H), {c(f'{contrib[chr(67)]:.5f}')} (C) ve {c(f'{contrib[chr(79)]:.5f}')} (O) olup karbon baskındır."),
+       T(f"M_r = {est:.4f}, u(M_r) = {u:.4f}. The rectangular distributions express the lack of knowledge of the isotopic composition, not the actual composition (GUM-5 3.4.2).",
+         f"M_r = {c(f'{est:.4f}')}, u(M_r) = {c(f'{u:.4f}')}. Dikdörtgen dağılımlar gerçek bileşimi değil, izotop bileşimi hakkındaki bilgi eksikliğini ifade eder (GUM-5 3.4.2).")],
+      "Example 3, Tables 3.1 and 3.2", ["molar-mass", "atomic-weights", "rectangular", "linear"],
+      {"output": {"name": "M_r", "expression": "6*A_C + 12*A_H + 6*A_O", "description": T("Relative molecular mass of glucose", "Glikozun bağıl molekül kütlesi")},
+       "inputs": [inp("A_H", {"type": "rectangular", "lower": 1.00784, "upper": 1.00811}, None, "Standard atomic weight of hydrogen", "Hidrojenin standart atom ağırlığı"),
+                  inp("A_C", {"type": "rectangular", "lower": 12.0096, "upper": 12.0116}, None, "Standard atomic weight of carbon", "Karbonun standart atom ağırlığı"),
+                  inp("A_O", {"type": "rectangular", "lower": 15.99903, "upper": 15.99977}, None, "Standard atomic weight of oxygen", "Oksijenin standart atom ağırlığı")]},
+      {"gum": {"estimate": chk(180.1557, 5e-5), "standard_uncertainty": chk(0.0038, 5e-5)}},
+      T("JCGM GUM-5:2026, 3.3.3 and 3.3.4: M_r = 180.1557, u = 0.0038.", "JCGM GUM-5:2026, 3.3.3 ve 3.3.4: M_r = 180,1557, u = 0,0038."),
+      notes=[T("The same calculation for CO₂ is NIST TN 1900 Example E8 in the library.", "CO₂ için aynı hesap kütüphanedeki NIST TN 1900 Örnek E8'dir.")])
+
+# --- Example 14: activity of a radioactive source corrected for decay ------------------------------------
+A0, uA0, Th, uTh, dt = 11.450, 0.050, 32.9, 1.4, 2.73
+E = math.exp(-dt * math.log(2) / Th)
+A1 = A0 * E
+cT = A1 * dt * math.log(2) / Th ** 2
+uA1 = math.hypot(E * uA0, cT * uTh)
+assert abs(E - 0.94411) < 5e-6 and abs(A1 - 10.810) < 5e-4 and abs(cT - 0.018898) < 5e-7 and abs(uA1 - 0.054) < 5e-4
+lin = []
+for m in (-3, -2, -1, 0, 1, 2, 3):
+    t = Th + m * uTh
+    lin.append((t, A1 + cT * (t - Th), A0 * math.exp(-dt * math.log(2) / t)))
+printed = [(28.7, 10.731, 10.719), (30.1, 10.757, 10.752), (31.5, 10.784, 10.782), (32.9, 10.810, 10.810),
+           (34.3, 10.836, 10.835), (35.7, 10.863, 10.859), (37.1, 10.889, 10.881)]
+for (t, l, e), (tp, lp, ep) in zip(lin, printed):
+    assert abs(t - tp) < 1e-9 and abs(l - lp) < 6e-4 and abs(e - ep) < 6e-4, (t, l, e)
+write("physical", "gum5-e14-radioactive-decay-bi207",
+      T("Activity of a ²⁰⁷Bi source corrected for decay (JCGM GUM-5 Example 14)", "Bozunma için düzeltilmiş ²⁰⁷Bi kaynağının aktivitesi (JCGM GUM-5 Örnek 14)"),
+      T("A₁ = A₀ exp(−Δt ln2/T½) with the certified activity, the half-life from the literature and Δt = 2.73 a; check of the linearization.",
+        "Sertifikalı aktivite, literatürden yarı ömür ve Δt = 2,73 a ile A₁ = A₀ exp(−Δt ln2/T½); doğrusallaştırmanın denetimi."),
+      [T("A₀ = 11.450 kBq, u = 0.050 kBq (certificate); T½ = 32.9 a, u = 1.4 a (literature, 4 %); Δt = t₁ − t₀ = 2.73 a without uncertainty.",
+         "A₀ = 11,450 kBq, u = 0,050 kBq (sertifika); T½ = 32,9 a, u = 1,4 a (literatür, %4); Δt = t₁ − t₀ = 2,73 a, belirsizliksiz."),
+       T(f"E = exp(−Δt ln2/T½) = {E:.5f}, A₁ = {A1:.3f} kBq. c(A₀) = E, c(T½) = A₁Δt ln2/T½² = {cT:.6f} kBq/a: the contributions are {E * uA0:.4f} kBq and {cT * uTh:.4f} kBq, u(A₁) = {uA1:.3f} kBq.",
+         f"E = exp(−Δt ln2/T½) = {c(f'{E:.5f}')}, A₁ = {c(f'{A1:.3f}')} kBq. c(A₀) = E, c(T½) = A₁Δt ln2/T½² = {c(f'{cT:.6f}')} kBq/a: katkılar {c(f'{E * uA0:.4f}')} kBq ve {c(f'{cT * uTh:.4f}')} kBq, u(A₁) = {c(f'{uA1:.3f}')} kBq."),
+       T("The model is nonlinear in T½. Between T½ ± 3u(T½) the linearized and exact models differ by at most 0.011 kBq, much less than u(A₁), so the law of propagation is adequate (Table 14.1). The Monte Carlo result confirms it.",
+         "Model T½'ye göre doğrusal değildir. T½ ± 3u(T½) arasında doğrusallaştırılmış ve kesin modeller en çok 0,011 kBq farklıdır; bu u(A₁)'den çok küçüktür, dolayısıyla yayılım yasası yeterlidir (Tablo 14.1). Monte Carlo sonucu bunu doğrular."),
+       T("A practical measure of the nonlinearity is u(E)/E = ln2·(u(T½)/T½)·(Δt/T½); when it reaches about 1 % the linearization should be checked (GUM-5 14.4.2). Here it is 0.25 %.",
+         "Doğrusal olmamanın pratik ölçüsü u(E)/E = ln2·(u(T½)/T½)·(Δt/T½)'dir; yaklaşık %1'e ulaştığında doğrusallaştırma denetlenmelidir (GUM-5 14.4.2). Burada %0,25'tir.")],
+      "Example 14, 14.3 and Table 14.1", ["radioactivity", "decay", "non-linear", "linearity-check"],
+      {"output": {"name": "A_1", "unit": "kBq", "expression": "A_0*exp(-dt*ln(2)/T_half)", "description": T("Activity at the time of use", "Kullanım anındaki aktivite")},
+       "inputs": [inp("A_0", {"type": "normal", "mean": A0, "sd": uA0}, "kBq", "Activity at the reference date (certificate)", "Referans tarihindeki aktivite (sertifika)"),
+                  inp("T_half", {"type": "normal", "mean": Th, "sd": uTh}, "a", "Half-life of ²⁰⁷Bi", "²⁰⁷Bi'nin yarı ömrü"),
+                  inp("dt", {"type": "constant", "value": dt}, "a", "Decay time t₁ − t₀", "Bozunma süresi t₁ − t₀")]},
+      {"gum": {"estimate": chk(10.810, 5e-4), "standard_uncertainty": chk(0.054, 5e-4)}, "mcm": {"estimate": chk(10.810, 1e-3), "standard_uncertainty": chk(0.054, 1e-3)}},
+      T("JCGM GUM-5:2026, 14.3.2: A₁ = 10.810 kBq, u(A₁) = 0.054 kBq (contributions 0.0472 and 0.0265 kBq).",
+        "JCGM GUM-5:2026, 14.3.2: A₁ = 10,810 kBq, u(A₁) = 0,054 kBq (katkılar 0,0472 ve 0,0265 kBq)."))
+
+# --- Example 15: breaking force of steel wire rope -------------------------------------------------------
+F = [10006, 10007, 10005, 10008, 10003, 10005]
+mF, sF = st.mean(F), st.stdev(F)
+uF = sF / math.sqrt(len(F))
+half = {"B": 6.8, "B_ref": 8.2, "e_res": 8.7, "e_T": 10.2}
+uc = math.sqrt(uF ** 2 + sum((a / R3) ** 2 for a in half.values()))
+assert abs(mF - 10005.7) < 0.05 and abs(sF - 1.8) < 0.06 and abs(uF - 0.7) < 0.05 and abs(uc - 9.9) < 0.05 and abs(1.96 * uc - 19.4) < 0.05
+nu = (len(F) - 1) * (uc / uF) ** 4
+assert nu > 1e5
+u_mcm_stated = math.sqrt(uc ** 2 - uF ** 2 + uF ** 2 * 5 / 3)       # t-distribution, scale s/√n, ν = 5
+u_mcm_sample_sd = math.sqrt(uc ** 2 - uF ** 2 + sF ** 2 * 5 / 3)    # scale s instead of s/√n
+assert abs(u_mcm_stated - 9.93) < 0.01 and abs(u_mcm_sample_sd - 10.14) < 0.01
+write("physical", "gum5-e15-wire-rope-breaking-force",
+      T("Breaking force of steel wire rope from six destructive tests (JCGM GUM-5 Example 15)", "Altı tahribatlı deneyden çelik halatın kopma kuvveti (JCGM GUM-5 Örnek 15)"),
+      T("F₀ = F̄ − B − B_ref − e_res − e_T: mean of six tests on pieces of one coil, with rectangular corrections for the load cells, resolution and temperature.",
+        "F₀ = F̄ − B − B_ref − e_res − e_T: bir makaradan kesilen altı parça üzerindeki deneylerin ortalaması; yük hücreleri, çözünürlük ve sıcaklık için dikdörtgen düzeltmeler."),
+      [T("A breaking test cannot be repeated on the same sample; six pieces of the same coil are tested and their variability (rope inhomogeneity) is embedded in the results (observation equations of GUM-6).",
+         "Kopma deneyi aynı numunede tekrarlanamaz; aynı makaradan altı parça denenir ve bunların değişkenliği (halatın homojen olmaması) sonuçlara gömülür (GUM-6 gözlem denklemleri)."),
+       T(f"F̄ = {mF:.1f} kN, s = {sF:.2f} kN, u(F̄) = s/√6 = {uF:.2f} kN with ν = 5; corrections B, B_ref, e_res, e_T rectangular with half-widths 6.8, 8.2, 8.7 and 10.2 kN.",
+         f"F̄ = {c(f'{mF:.1f}')} kN, s = {c(f'{sF:.2f}')} kN, u(F̄) = s/√6 = {c(f'{uF:.2f}')} kN, ν = 5; B, B_ref, e_res, e_T düzeltmeleri yarı genişlikleri 6,8, 8,2, 8,7 ve 10,2 kN olan dikdörtgen dağılımlar."),
+       T(f"u(F₀) = {uc:.1f} kN, ν_eff = 5·(u(F₀)/u(F̄))⁴ ≈ {nu:.1e}, k = 1.96, U = {1.96 * uc:.1f} kN. The test results contribute only 0.2 % to u(F₀); the corrections dominate.",
+         f"u(F₀) = {c(f'{uc:.1f}')} kN, ν_eff = 5·(u(F₀)/u(F̄))⁴ ≈ {c(f'{nu:.1e}')}, k = 1,96, U = {c(f'{1.96 * uc:.1f}')} kN. Deney sonuçları u(F₀)'a yalnızca %0,2 katkı yapar; düzeltmeler baskındır.")],
+      "Example 15, 15.3, 15.4 and 15.5", ["destructive-testing", "observation-equations", "rectangular", "type-a"],
+      {"output": {"name": "F_0", "unit": "kN", "expression": "F - B - B_ref - e_res - e_T", "description": T("Breaking force of the rope", "Halatın kopma kuvveti")},
+       "inputs": [inp("F", {"type": "type_a", "observations": F}, "kN", "Breaking forces of six pieces", "Altı parçanın kopma kuvvetleri"),
+                  inp("B", {"type": "rectangular", "value": 0.0, "half_width": 6.8}, "kN", "Error of the test machine load cell", "Deney makinesi yük hücresinin hatası"),
+                  inp("B_ref", {"type": "rectangular", "value": 0.0, "half_width": 8.2}, "kN", "Error of the reference load cell", "Referans yük hücresinin hatası"),
+                  inp("e_res", {"type": "rectangular", "value": 0.0, "half_width": 8.7}, "kN", "Resolution of the force measuring system", "Kuvvet ölçme sisteminin çözünürlüğü"),
+                  inp("e_T", {"type": "rectangular", "value": 0.0, "half_width": 10.2}, "kN", "Temperature effect", "Sıcaklık etkisi")]},
+      {"gum": {"estimate": chk(10005.7, 0.05), "standard_uncertainty": chk(9.9, 0.05), "expanded_uncertainty": chk(19.4, 0.05)},
+       "mcm": {"estimate": chk(10005.7, 0.05), "standard_uncertainty": chk(round(u_mcm_stated, 3), 0.02)}},
+      T(f"JCGM GUM-5:2026, 15.4.1: F₀ = 10 005.7 kN, u = 9.9 kN, U = 19.4 kN (k = 1.96). The MCM standard uncertainty is recomputed: {u_mcm_stated:.2f} kN for the stated inputs; the guide prints 10.1 kN (see note).",
+        f"JCGM GUM-5:2026, 15.4.1: F₀ = 10 005,7 kN, u = 9,9 kN, U = 19,4 kN (k = 1,96). MCM standart belirsizliği yeniden hesaplanmıştır: belirtilen girdilerle {c(f'{u_mcm_stated:.2f}')} kN; kılavuz 10,1 kN basar (nota bakınız)."),
+      notes=[T(f"GUM-5 15.5.2 prints an MCM standard deviation of 10.1 kN and the interval [9986.0, 10 025.3] kN. With the stated t-distribution for F (scale u(F̄) = 0.7 kN, ν = 5) the MCM standard deviation is √(u_c² − u²(F̄) + u²(F̄)·5/3) = {u_mcm_stated:.2f} kN, practically the GUF value 9.9 kN. 10.1 kN follows if the scale is the standard deviation of a single test, s = 1.8 kN: {u_mcm_sample_sd:.2f} kN (research log F77).",
+               f"GUM-5 15.5.2, 10,1 kN MCM standart sapması ve [9986,0; 10 025,3] kN aralığı basar. F için belirtilen t dağılımıyla (ölçek u(F̄) = 0,7 kN, ν = 5) MCM standart sapması √(u_c² − u²(F̄) + u²(F̄)·5/3) = {c(f'{u_mcm_stated:.2f}')} kN'dur; pratikte GUF değeri 9,9 kN'dur. 10,1 kN, ölçek olarak tek deneyin standart sapması s = 1,8 kN alınırsa çıkar: {c(f'{u_mcm_sample_sd:.2f}')} kN (araştırma günlüğü F77).")],
+      )
+
+
+# --- Example 1: pH by two-point and three-stage linear interpolation -----------------------------------
+def lpu(f, x, u, corr=None):
+    """First-order LPU with central differences; corr = {(i, j): r}."""
+    n = len(x)
+    cs = []
+    for i in range(n):
+        h = max(abs(x[i]), 1.0) * 1e-6
+        xp, xm = list(x), list(x)
+        xp[i] += h
+        xm[i] -= h
+        cs.append((f(xp) - f(xm)) / (2 * h))
+    var = sum((cs[i] * u[i]) ** 2 for i in range(n))
+    for (i, j), r in (corr or {}).items():
+        var += 2 * cs[i] * cs[j] * r * u[i] * u[j]
+    return f(x), math.sqrt(var), cs
+
+
+def interp(x0, x1, y1, x2, y2):
+    return y1 + (y2 - y1) * (x0 - x1) / (x2 - x1)
+
+
+f25 = lambda v: interp(v[0], v[1], v[3], v[2], v[4])   # E_X, E_S1, E_S2, pH_S1, pH_S2
+x25 = [-1.875, 6.15, -26.35, 6.8640, 7.4157]
+u25 = [0.0250, 0.0289, 0.0289, 0.0051, 0.0051]
+y25, uy25, c25 = lpu(f25, x25, u25)
+assert abs(y25 - 7.0002) < 5e-5 and abs(uy25 - 0.0041) < 5e-5
+_, uy25r, _ = lpu(f25, x25, u25, {(3, 4): 1.0})
+assert abs(uy25r - 0.0051) < 5e-5
+parts = sorted((abs(ci * ui) for ci, ui in zip(c25, u25)), reverse=True)
+assert [round(p, 4) for p in parts] == [0.0038, 0.0013, 0.0004, 0.0004, 0.0001], parts
+
+
+def fT(v):   # T_X, E_X, E_S1, E_S2, pH_S1,T1, pH_S2,T1, pH_S1,T2, pH_S2,T2 with T1 = 25 °C, T2 = 20 °C
+    p1 = interp(v[1], v[2], v[4], v[3], v[5])
+    p2 = interp(v[1], v[2], v[6], v[3], v[7])
+    return interp(v[0], 25.0, p1, 20.0, p2)
+
+
+xT = [23.7, -1.875, 6.15, -26.35, 6.8640, 7.4157, 6.8796, 7.4323]
+uT = [0.0058, 0.025, 0.029, 0.029, 0.0051, 0.0051, 0.0051, 0.0051]
+yT, uyT, _ = lpu(fT, xT, uT)
+p1 = interp(-1.875, 6.15, 6.8640, -26.35, 7.4157)
+p2 = interp(-1.875, 6.15, 6.8796, -26.35, 7.4323)
+assert abs(p1 - 7.0002) < 5e-5 and abs(p2 - 7.0161) < 5e-5 and abs(yT - 7.0043) < 5e-5
+# GUM-5 prints u = 0.0041. With the four certified values independent (1.7.1) u = 0.0032; with the values of each
+# standard at 20 °C and 25 °C fully correlated u = 0.0041 (research log F78).
+assert abs(uyT - 0.0032) < 5e-5
+_, uyTc, _ = lpu(fT, xT, uT, {(4, 6): 1.0, (5, 7): 1.0})
+assert abs(uyTc - 0.0041) < 5e-5
+_, u_noph, _ = lpu(f25, x25, [0.025, 0.0289, 0.0289, 0, 0])
+_, u_noE, _ = lpu(f25, x25, [0, 0, 0, 0.0051, 0.0051])
+assert abs(u_noph - 0.0006) < 5e-5 and abs(u_noE - 0.0040) < 5e-5
+
+ph_inputs = [inp("E_X", {"type": "normal", "mean": -1.875, "sd": 0.0250}, "mV", "Potential in the test solution (mean of 4)", "Deney çözeltisindeki potansiyel (4 ölçümün ortalaması)"),
+             inp("E_S1", {"type": "normal", "mean": 6.15, "sd": 0.0289}, "mV", "Potential in standard S1 (SRM 186-I-g)", "S1 standardındaki potansiyel (SRM 186-I-g)"),
+             inp("E_S2", {"type": "normal", "mean": -26.35, "sd": 0.0289}, "mV", "Potential in standard S2 (SRM 186-II-g)", "S2 standardındaki potansiyel (SRM 186-II-g)"),
+             inp("pH_S1", {"type": "normal", "mean": 6.8640, "sd": 0.0051}, None, "Certified pH of S1 at 25 °C", "S1'in 25 °C'deki sertifikalı pH değeri"),
+             inp("pH_S2", {"type": "normal", "mean": 7.4157, "sd": 0.0051}, None, "Certified pH of S2 at 25 °C", "S2'nin 25 °C'deki sertifikalı pH değeri")]
+ph_expl = [T("Two-point calibration by bracketing (GUM-5 1.4.2, 1.5): the pH of the test solution is interpolated linearly between the points (E_S1, pH_S1) and (E_S2, pH_S2) of two NIST phosphate standards: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).",
+             "Parantez yöntemiyle iki noktalı kalibrasyon (GUM-5 1.4.2, 1.5): deney çözeltisinin pH değeri, iki NIST fosfat standardının (E_S1, pH_S1) ve (E_S2, pH_S2) noktaları arasında doğrusal interpolasyonla bulunur: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1)."),
+           T(f"With q = (E_X − E_S1)/(E_S2 − E_S1) = {(x25[0] - x25[1]) / (x25[2] - x25[1]):.4f} and slope b = {(x25[4] - x25[3]) / (x25[2] - x25[1]):.6f} mV⁻¹, u²(pH_X) = b²(1 − q)²u²(E_S1) + (1 − q)²u²(pH_S1) + b²q²u²(E_S2) + q²u²(pH_S2) + b²u²(E_X) (Formula 1.17); the contributions are 0.0038 (pH_S1), 0.0013 (pH_S2), 0.0004, 0.0004 and 0.0001.",
+             f"q = (E_X − E_S1)/(E_S2 − E_S1) = {c(f'{(x25[0] - x25[1]) / (x25[2] - x25[1]):.4f}')} ve eğim b = {c(f'{(x25[4] - x25[3]) / (x25[2] - x25[1]):.6f}')} mV⁻¹ ile u²(pH_X) = b²(1 − q)²u²(E_S1) + (1 − q)²u²(pH_S1) + b²q²u²(E_S2) + q²u²(pH_S2) + b²u²(E_X) (Formül 1.17); katkılar 0,0038 (pH_S1), 0,0013 (pH_S2), 0,0004, 0,0004 ve 0,0001'dir.")]
+write("chemistry", "gum5-e1-ph-two-point-25c",
+      T("pH of a test solution by two-point interpolation at 25 °C (JCGM GUM-5 Example 1)", "25 °C'de iki noktalı interpolasyonla bir deney çözeltisinin pH değeri (JCGM GUM-5 Örnek 1)"),
+      T("Bracketing between two NIST phosphate pH standards measured with the same cell; inputs independent, as in IUPAC practice.",
+        "Aynı hücreyle ölçülen iki NIST fosfat pH standardı arasında parantez yöntemi; IUPAC uygulamasındaki gibi girdiler bağımsız."),
+      ph_expl + [T(f"pH_X = {y25:.4f}, u(pH_X) = {uy25:.4f}: the certified pH values dominate. A common calibration error δE_cal of the three potentials cancels (GUM-5 1.8.2).",
+                   f"pH_X = {c(f'{y25:.4f}')}, u(pH_X) = {c(f'{uy25:.4f}')}: sertifikalı pH değerleri baskındır. Üç potansiyelin ortak kalibrasyon hatası δE_cal birbirini götürür (GUM-5 1.8.2).")],
+      "Example 1, 1.8", ["ph", "interpolation", "calibration", "electrochemistry"],
+      {"output": {"name": "pH_X", "expression": "pH_S1 + (pH_S2 - pH_S1)*(E_X - E_S1)/(E_S2 - E_S1)", "description": T("pH of the test solution", "Deney çözeltisinin pH değeri")},
+       "inputs": ph_inputs},
+      {"gum": {"estimate": chk(7.0002, 5e-5), "standard_uncertainty": chk(0.0041, 5e-5)}, "mcm": {"estimate": chk(7.0002, 1e-4), "standard_uncertainty": chk(0.0041, 1e-4)}},
+      T("JCGM GUM-5:2026, 1.8.1: pH_X = 7.0002, u = 0.0041.", "JCGM GUM-5:2026, 1.8.1: pH_X = 7,0002, u = 0,0041."))
+write("chemistry", "gum5-e1-ph-two-point-25c-correlated-standards",
+      T("pH by two-point interpolation with fully correlated pH standards (JCGM GUM-5 Example 1)", "Tam ilişkili pH standartlarıyla iki noktalı interpolasyon (JCGM GUM-5 Örnek 1)"),
+      T("As the 25 °C case, but with correlation 1 between the certified pH values, which share the Bates–Guggenheim convention.",
+        "25 °C durumu gibi, ancak Bates–Guggenheim kuralını paylaşan sertifikalı pH değerleri arasında korelasyon 1."),
+      ph_expl[:1] + [T("The certificates give an SI-traceable uncertainty and a much smaller one without the Bates–Guggenheim convention; the convention term is common to both standards, so the correlation of the two pH values is close to 1 (GUM-5 1.10.3.3). Here r = 1.",
+                       "Sertifikalar SI'ya izlenebilir bir belirsizlik ve Bates–Guggenheim kuralı olmadan çok daha küçük bir belirsizlik verir; kural terimi iki standart için ortaktır, bu nedenle iki pH değerinin korelasyonu 1'e yakındır (GUM-5 1.10.3.3). Burada r = 1."),
+                     T(f"With r = 1 the terms (1 − q)²u²(pH_S1) + 2q(1 − q)u(pH_S1, pH_S2) + q²u²(pH_S2) combine to u²(pH_S1) (Formula 1.24): u(pH_X) = {uy25r:.4f}, against {uy25:.4f} when the correlation is ignored. Perfectly correlated contributions add linearly: 0.0038 + 0.0013 = 0.0051.",
+                       f"r = 1 iken (1 − q)²u²(pH_S1) + 2q(1 − q)u(pH_S1, pH_S2) + q²u²(pH_S2) terimleri u²(pH_S1)'e indirgenir (Formül 1.24): u(pH_X) = {c(f'{uy25r:.4f}')}; korelasyon yok sayılırsa {c(f'{uy25:.4f}')}. Tam ilişkili katkılar doğrusal toplanır: 0,0038 + 0,0013 = 0,0051.")],
+      "Example 1, 1.10.3.4 and 1.10.3.5", ["ph", "interpolation", "correlation", "electrochemistry"],
+      {"output": {"name": "pH_X", "expression": "pH_S1 + (pH_S2 - pH_S1)*(E_X - E_S1)/(E_S2 - E_S1)", "description": T("pH of the test solution", "Deney çözeltisinin pH değeri")},
+       "inputs": ph_inputs, "correlations": [{"a": "pH_S1", "b": "pH_S2", "r": 1.0}]},
+      {"gum": {"estimate": chk(7.0002, 5e-5), "standard_uncertainty": chk(0.0051, 5e-5)}},
+      T("JCGM GUM-5:2026, 1.10.3.5: u(pH_X) = 0.0051 with perfectly correlated standards.", "JCGM GUM-5:2026, 1.10.3.5: tam ilişkili standartlarla u(pH_X) = 0,0051."),
+      notes=[T("1.10.3.5 attributes u = 0.0051 to pH_X = 7.0109 and 'the data in subclause 1.7'; the calculation uses the 25 °C data of 1.8, for which pH_X = 7.0002 (research log F78).",
+               "1.10.3.5, u = 0,0051 değerini pH_X = 7,0109'a ve '1.7 alt maddesindeki verilere' bağlar; hesap 1.8'in 25 °C verilerini kullanır ve bu veriler için pH_X = 7,0002'dir (araştırma günlüğü F78).")])
+PH_T_INPUTS = [inp("T_X", {"type": "normal", "mean": 23.7, "sd": 0.0058}, "°C", "Temperature of the test solution", "Deney çözeltisinin sıcaklığı"),
+               inp("E_X", {"type": "normal", "mean": -1.875, "sd": 0.025}, "mV", "Potential in the test solution", "Deney çözeltisindeki potansiyel"),
+               inp("E_S1", {"type": "normal", "mean": 6.15, "sd": 0.029}, "mV", "Potential in standard S1", "S1 standardındaki potansiyel"),
+               inp("E_S2", {"type": "normal", "mean": -26.35, "sd": 0.029}, "mV", "Potential in standard S2", "S2 standardındaki potansiyel"),
+               inp("pH_S1_T1", {"type": "normal", "mean": 6.8640, "sd": 0.0051}, None, "pH of S1 at 25 °C", "S1'in 25 °C'deki pH değeri"),
+               inp("pH_S2_T1", {"type": "normal", "mean": 7.4157, "sd": 0.0051}, None, "pH of S2 at 25 °C", "S2'nin 25 °C'deki pH değeri"),
+               inp("pH_S1_T2", {"type": "normal", "mean": 6.8796, "sd": 0.0051}, None, "pH of S1 at 20 °C", "S1'in 20 °C'deki pH değeri"),
+               inp("pH_S2_T2", {"type": "normal", "mean": 7.4323, "sd": 0.0051}, None, "pH of S2 at 20 °C", "S2'nin 20 °C'deki pH değeri"),
+               inp("T1", {"type": "constant", "value": 25.0}, "°C", "Certificate temperature T₁", "Sertifika sıcaklığı T₁"),
+               inp("T2", {"type": "constant", "value": 20.0}, "°C", "Certificate temperature T₂", "Sertifika sıcaklığı T₂")]
+PH_T_MODEL = {"output": {"name": "pH_X", "expression": "pH_T1 + (pH_T2 - pH_T1)*(T_X - T1)/(T2 - T1)", "description": T("pH of the test solution at T_X", "Deney çözeltisinin T_X'teki pH değeri")},
+              "intermediates": [{"name": "pH_T1", "expression": "pH_S1_T1 + (pH_S2_T1 - pH_S1_T1)*(E_X - E_S1)/(E_S2 - E_S1)", "description": T("pH of X interpolated at 25 °C", "X'in 25 °C'de interpolasyonla pH değeri")},
+                                {"name": "pH_T2", "expression": "pH_S1_T2 + (pH_S2_T2 - pH_S1_T2)*(E_X - E_S1)/(E_S2 - E_S1)", "description": T("pH of X interpolated at 20 °C", "X'in 20 °C'de interpolasyonla pH değeri")}],
+              "inputs": PH_T_INPUTS}
+PH_T_EXPL = [T("The algorithm of GUM-5 1.6 is the measurement model: pH_X,T1 and pH_X,T2 are interpolated in potential with the certified values at T₁ = 25 °C and T₂ = 20 °C, and pH_X at T_X = 23.7 °C is interpolated between them; T₁ and T₂ are exact certificate temperatures.",
+               "GUM-5 1.6'nın algoritması ölçüm modelidir: pH_X,T1 ve pH_X,T2, T₁ = 25 °C ve T₂ = 20 °C'deki sertifikalı değerlerle potansiyelde interpolasyonla bulunur ve T_X = 23,7 °C'deki pH_X bunların arasında interpolasyonla elde edilir; T₁ ve T₂ kesin sertifika sıcaklıklarıdır."),
+             T(f"pH_X,T1 = {p1:.4f}, pH_X,T2 = {p2:.4f}, pH_X = 0.74·pH_X,T1 + 0.26·pH_X,T2 = {yT:.4f}; cubic interpolation in temperature changes the pH of S1 by only 0.0004 (GUM-5 1.10.1.1).",
+               f"pH_X,T1 = {c(f'{p1:.4f}')}, pH_X,T2 = {c(f'{p2:.4f}')}, pH_X = 0,74·pH_X,T1 + 0,26·pH_X,T2 = {c(f'{yT:.4f}')}; sıcaklıkta kübik interpolasyon S1'in pH değerini yalnızca 0,0004 değiştirir (GUM-5 1.10.1.1).")]
+F78_NOTE = T(f"GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here ({yT:.4f}), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives {uyT:.4f}; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated ({uyTc:.4f}) (research log F78).",
+             f"GUM-5 1.9.1, üçüncü interpolasyonla pH_X = 7,0043 bulur (burada yeniden hesaplanan: {c(f'{yT:.4f}')}), ardından yöntemin pH_X = 7,0109 verdiğini söyler; 7,0109 verilerden çıkmaz. 1.7.1 tüm girdileri bağımsız varsaydığı hâlde u = 0,0041 basar; bağımsızlıkla u = {c(f'{uyT:.4f}')} çıkar. 0,0041, her standardın 20 °C ve 25 °C'deki sertifikalı değerleri tam ilişkili alındığında elde edilir ({c(f'{uyTc:.4f}')}) (araştırma günlüğü F78).")
+
+
+def ph_temperature(pid, title, desc, extra, corr, u_exp, ref):
+    model = dict(PH_T_MODEL)
+    if corr:
+        model["correlations"] = corr
+    write("chemistry", pid, title, desc, PH_T_EXPL + extra, "Example 1, 1.6, 1.9 and 1.10.3", ["ph", "interpolation", "temperature", "electrochemistry", "intermediate-quantities"] + (["correlation"] if corr else []),
+          model, {"gum": {"estimate": chk(round(yT, 4), 5e-5), "standard_uncertainty": chk(u_exp, 5e-5)}, "mcm": {"estimate": chk(round(yT, 4), 1e-4), "standard_uncertainty": chk(u_exp, 1e-4)}},
+          ref, notes=[F78_NOTE])
+
+
+ph_temperature("gum5-e1-ph-temperature-interpolation",
+               T("pH at 23.7 °C by three linear interpolations, independent certified values (JCGM GUM-5 Example 1)", "Potansiyel ve sıcaklıkta üç doğrusal interpolasyonla 23,7 °C'de pH, bağımsız sertifikalı değerler (JCGM GUM-5 Örnek 1)"),
+               T("The test solution is at 23.7 °C, between the certificate temperatures 20 °C and 25 °C: interpolation in potential at each temperature, then in temperature; all inputs independent (GUM-5 1.7.1).",
+                 "Deney çözeltisi 23,7 °C'dedir, sertifika sıcaklıkları 20 °C ile 25 °C arasında: her sıcaklıkta potansiyelde, sonra sıcaklıkta interpolasyon; tüm girdiler bağımsız (GUM-5 1.7.1)."),
+               [T(f"With independent certified values the interpolation in temperature averages the uncertainties of the values at 20 °C and 25 °C: u(pH_X) = {uyT:.4f}.",
+                  f"Sertifikalı değerler bağımsızken sıcaklıktaki interpolasyon 20 °C ve 25 °C'deki değerlerin belirsizliklerinin ortalamasını alır: u(pH_X) = {c(f'{uyT:.4f}')}.")],
+               None, round(uyT, 4),
+               T(f"JCGM GUM-5:2026, 1.9.1: pH_X,T1 = 7.0002, pH_X,T2 = 7.0161, pH_X = 7.0043; u recomputed for independent inputs ({uyT:.4f}); the guide prints 0.0041 (see note).",
+                 f"JCGM GUM-5:2026, 1.9.1: pH_X,T1 = 7,0002, pH_X,T2 = 7,0161, pH_X = 7,0043; u bağımsız girdiler için yeniden hesaplanmıştır ({c(f'{uyT:.4f}')}); kılavuz 0,0041 basar (nota bakınız)."))
+ph_temperature("gum5-e1-ph-temperature-interpolation-correlated",
+               T("pH at 23.7 °C by three linear interpolations, certified values of each standard correlated across temperatures (JCGM GUM-5 Example 1)", "Üç doğrusal interpolasyonla 23,7 °C'de pH, her standardın sertifikalı değerleri sıcaklıklar arasında ilişkili (JCGM GUM-5 Örnek 1)"),
+               T("As the independent case, but the pH values of each standard at 20 °C and 25 °C are fully correlated, as the shared Bates–Guggenheim convention suggests (GUM-5 1.10.3.3).",
+                 "Bağımsız durum gibi, ancak her standardın 20 °C ve 25 °C'deki pH değerleri, ortak Bates–Guggenheim kuralının gösterdiği gibi tam ilişkilidir (GUM-5 1.10.3.3)."),
+               [T(f"With r = 1 between the values of the same standard the interpolation in temperature no longer averages them: u(pH_X) = {uyTc:.4f}, the value GUM-5 prints.",
+                  f"Aynı standardın değerleri arasında r = 1 iken sıcaklıktaki interpolasyon artık bunların ortalamasını almaz: u(pH_X) = {c(f'{uyTc:.4f}')}; GUM-5'in bastığı değer budur.")],
+               [{"a": "pH_S1_T1", "b": "pH_S1_T2", "r": 1.0}, {"a": "pH_S2_T1", "b": "pH_S2_T2", "r": 1.0}], 0.0041,
+               T("JCGM GUM-5:2026, 1.9.1: pH_X = 7.0043 (see note), u = 0.0041.", "JCGM GUM-5:2026, 1.9.1: pH_X = 7,0043 (nota bakınız), u = 0,0041."))
