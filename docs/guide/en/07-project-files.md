@@ -63,6 +63,7 @@ formula (§3.6).
 | `curvilinear_trapezoid` | limits as above and `d` (uncertainty of the limits) |
 | `exponential` | `mean` |
 | `gamma` | `shape`, `scale` |
+| `beta` | `alpha` and `beta`, or `mean` and `sd` (method of moments); `lower`, `upper` (default 0 and 1). For bounded quantities such as a purity near 1 g/g |
 | `type_a` | `observations` (list) |
 | `type_a_pooled` | `mean`, `pooled_sd`, `pooled_dof`, `n` |
 

@@ -255,3 +255,53 @@ write("chemistry", "iupac2024-3e-4m-iridium-molar-mass-bayes",
                      "bayes_tau_median": chk(0.0005, 0.00005)}},
       T("IUPAC 2024, Example 3E: p = 0.0082; Example 4N: M = 192.2171(4) g/mol, median of τ 0.0005 g/mol (MCMC). Grid in numpy: 192.217 119, 0.000 440, τ median 0.000 506.",
         "IUPAC 2024, Örnek 3E: p = 0,0082; Örnek 4N: M = 192,2171(4) g/mol, τ ortancası 0,0005 g/mol (MCMC). numpy ızgara: 192,217 119, 0,000 440, τ ortancası 0,000 506."))
+
+# --- Example 4H: cadmium calibration standard by Monte Carlo with beta, truncated-Gaussian and triangular inputs
+h4 = 0.07 * math.sqrt(6)
+g4 = 100.28 * 0.9999 / 100.00
+u4 = g4 * math.sqrt((0.05 / 100.28) ** 2 + (0.000058 / 0.9999) ** 2 + (0.07 / 100) ** 2)
+assert round(g4, 4) == 1.0027 and round(u4, 4) == 0.0009
+write("chemistry", "iupac2024-4h-cadmium-standard-beta-mcm",
+      {"model": {"output": {"name": "gamma_Cd", "unit": "mg/mL", "expression": "w_Cd * m_Cd / V",
+                            "description": T("Mass concentration of cadmium in the calibration standard", "Kalibrasyon standardındaki kadmiyum kütle derişimi")},
+                 "inputs": [inp("m_Cd", {"type": "normal", "mean": 100.28, "sd": 0.05}, "mg", "Mass of cadmium (Gaussian; the truncation at 0 mg has no effect)", "Kadmiyum kütlesi (normal; 0 mg'deki kesmenin etkisi yoktur)"),
+                            inp("w_Cd", {"type": "beta", "mean": 0.9999, "sd": 0.000058}, "g/g", "Purity of the cadmium, beta distribution on [0, 1] with the stated mean and s.d.", "Kadmiyum saflığı, belirtilen ortalama ve s.s. ile [0, 1] üzerinde beta dağılımı"),
+                            inp("V", {"type": "triangular", "value": 100.00, "half_width": round(h4, 7)}, "mL", "Volume of the flask, symmetric triangular with s.d. 0.07 mL", "Balon hacmi, s.s. 0,07 mL olan simetrik üçgen")]}},
+      {"title": T("Cadmium calibration standard by Monte Carlo with a beta distribution for the purity (IUPAC 2024, Example 4H; QUAM A1)",
+                  "Saflık için beta dağılımıyla Monte Carlo ile kadmiyum kalibrasyon standardı (IUPAC 2024, Örnek 4H; QUAM A1)"),
+       "description": T("γ_Cd = w_Cd m_Cd/V with m_Cd = 100.28(5) mg, w_Cd = 0.999 900(58) g/g and V = 100.00(7) mL. The purity, bounded by 1 g/g, is modelled by a beta distribution, the volume by a triangular one.",
+                        "γ_Cd = w_Cd m_Cd/V; m_Cd = 100,28(5) mg, w_Cd = 0,999 900(58) g/g ve V = 100,00(7) mL. 1 g/g ile sınırlı saflık beta dağılımıyla, hacim üçgen dağılımla modellenir."),
+       "explanation": [T("The beta parameters follow from the mean and s.d. by the method of moments: α ≈ 29 720, β ≈ 2.97.",
+                         "Beta parametreleri ortalama ve s.s.'den momentler yöntemiyle çıkar: α ≈ 29 720, β ≈ 2,97."),
+                       T(f"Gauss's formula: u(γ_Cd) = {u4:.5f} mg/mL ≈ 0.0009 mg/mL. Monte Carlo: mean 1.0027 mg/mL, s.d. 0.0009 mg/mL; the distribution is unimodal, nearly symmetric but not Gaussian, so U95 is half the distance between the 2.5th and 97.5th percentiles, 0.0017 mg/mL.",
+                         f"Gauss formülü: u(γ_Cd) = {c(f'{u4:.5f}')} mg/mL ≈ 0,0009 mg/mL. Monte Carlo: ortalama 1,0027 mg/mL, s.s. 0,0009 mg/mL; dağılım tek tepeli, neredeyse simetrik ama normal değildir; bu nedenle U95, %2,5 ve %97,5 yüzdelikleri arasındaki uzaklığın yarısıdır: 0,0017 mg/mL.")],
+       "section": "Example 4H", "tags": ["iupac-2024", "monte-carlo", "beta-distribution", "purity", "quam-a1"], "notes": []},
+      {"gum": {"estimate": chk(1.0027, 0.00005), "standard_uncertainty": chk(0.0009, 0.00005)},
+       "mcm": {"estimate": chk(1.0027, 0.00005), "standard_uncertainty": chk(0.0009, 0.00005),
+               "interval_low": chk(1.00103, 0.00002), "interval_high": chk(1.00437, 0.00002)}},
+      T("IUPAC 2024, Example 4H: γ = 1.0027 mg/mL, u = 0.0009 mg/mL (Gauss and Monte Carlo, K = 10⁷), U95 = 0.0017 mg/mL (half the 2.5–97.5 % percentile range). Percentiles from numpy (10⁷ draws): 1.001 03 and 1.004 37 mg/mL.",
+        "IUPAC 2024, Örnek 4H: γ = 1,0027 mg/mL, u = 0,0009 mg/mL (Gauss ve Monte Carlo, K = 10⁷), U95 = 0,0017 mg/mL (%2,5–97,5 yüzdelik aralığının yarısı). numpy yüzdelikleri (10⁷ çekiliş): 1,001 03 ve 1,004 37 mg/mL."),
+      analysis={"gum": {}, "mcm": {"trials": 1000000, "seed": 1, "interval": "symmetric"}})
+
+# --- Example 5C: mass fraction of benzoic acid in NIST PS1 as a beta distribution -------------------------
+a5, b5 = 88873.7, 7.11
+m5 = a5 / (a5 + b5)
+s5 = math.sqrt(a5 * b5 / ((a5 + b5) ** 2 * (a5 + b5 + 1)))
+assert round(m5, 5) == 0.99992 and round(s5, 6) == 0.00003
+write("chemistry", "iupac2024-5c-benzoic-acid-purity-beta",
+      {"model": {"output": {"name": "w_BA", "unit": "g/g", "expression": "w",
+                            "description": T("Mass fraction of benzoic acid in NIST PS1", "NIST PS1'de benzoik asidin kütle kesri")},
+                 "inputs": [inp("w", {"type": "beta", "alpha": a5, "beta": b5}, "g/g", "Beta distribution that approximates the Bayesian posterior of the purity", "Saflığın Bayesçi sonsalına yaklaşan beta dağılımı")]}},
+      {"title": T("Purity of benzoic acid (NIST PS1) expressed as a beta distribution: an asymmetric interval below 1 g/g (IUPAC 2024, Example 5C)",
+                  "Beta dağılımı olarak ifade edilen benzoik asit saflığı (NIST PS1): 1 g/g'nin altında asimetrik bir aralık (IUPAC 2024, Örnek 5C)"),
+       "description": T("The state of knowledge about the mass fraction is a beta distribution with α = 88 873.7 and β = 7.11; its standard deviation is the standard uncertainty, and credible intervals follow from its quantiles.",
+                        "Kütle kesri hakkındaki bilgi durumu α = 88 873,7 ve β = 7,11 olan bir beta dağılımıdır; standart sapması standart belirsizliktir, inanılırlık aralıkları kantillerinden çıkar."),
+       "explanation": [T(f"Mean α/(α + β) = {m5:.6f} g/g; s.d. = {s5 * 1e6:.1f} × 10⁻⁶ g/g.", f"Ortalama α/(α + β) = {c(f'{m5:.6f}')} g/g; s.s. = {c(f'{s5 * 1e6:.1f}')} × 10⁻⁶ g/g."),
+                       T("The 95 % interval from the 2.5 % and 97.5 % quantiles, 0.999 851 to 0.999 968 g/g, extends 0.069 mg/g below and 0.048 mg/g above the mean: a result near a physical bound is asymmetric, which a symmetric y ± U cannot show (compare the BIPM ISRD-06 value 999.8 +0.2/−1.5 mg/g).",
+                         "%2,5 ve %97,5 kantillerinden %95 aralığı, 0,999 851 – 0,999 968 g/g, ortalamanın 0,069 mg/g altına ve 0,048 mg/g üstüne uzanır: fiziksel bir sınıra yakın bir sonuç asimetriktir; simetrik y ± U bunu gösteremez (BIPM ISRD-06'daki 999,8 +0,2/−1,5 mg/g değeriyle karşılaştırın).")],
+       "section": "Example 5C", "tags": ["iupac-2024", "beta-distribution", "purity", "asymmetric", "bounded"], "notes": []},
+      {"gum": {"estimate": chk(0.99992, 0.000005), "standard_uncertainty": chk(0.00003, 0.0000005)},
+       "mcm": {"interval_low": chk(0.999851, 0.000002), "interval_high": chk(0.999968, 0.000001)}},
+      T("IUPAC 2024, Example 5C: beta distribution with α = 88 873.7 and β = 7.11; mean and s.d. 0.999 920 and 0.000 030 g/g; quantiles 0.999 851 and 0.999 968 g/g (scipy).",
+        "IUPAC 2024, Örnek 5C: α = 88 873,7 ve β = 7,11 olan beta dağılımı; ortalama ve s.s. 0,999 920 ve 0,000 030 g/g; kantiller 0,999 851 ve 0,999 968 g/g (scipy)."),
+      analysis={"gum": {}, "mcm": {"trials": 1000000, "seed": 1, "interval": "symmetric"}})

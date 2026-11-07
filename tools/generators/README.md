@@ -31,7 +31,7 @@ recomputed.
 | `palma2019.py`, `bettencourt2026.py` | Palma et al. 2019; Bettencourt da Silva 2026 |
 | `gum5.py` | JCGM GUM-5:2026, Examples 1–5, 9, 10, 12, 14, 15 |
 | `emue.py` | EMUE compendium 2021: E3.4, E2.1, E2.2, E3.8, E3.3, E6.5 |
-| `iupac2024.py` | IUPAC brief guide 2024, Examples 3A, 3E/4M/4N, 4A, 4B, 4F, 4I |
+| `iupac2024.py` | IUPAC brief guide 2024, Examples 3A, 3E/4M/4N, 4A, 4B, 4F, 4H, 4I, 5C |
 | `possolo_meija2022.py` | Possolo & Meija 2022: Hubble–Lemaître constant, anion gap, storage tank, Wheatstone bridge, atomic weight of lead |
 | `bipm_isrd.py` | BIPM ISRD-01, -02, -06, -07, -08: qNMR purity budgets (inputs from `tools/research/qnmr/isrd_budgets.py`) |
 | `possolo_bodnar2018.py` | Possolo & Bodnar 2018 §4.4: chromium in soil, homogeneity with a hierarchical Bayesian model |

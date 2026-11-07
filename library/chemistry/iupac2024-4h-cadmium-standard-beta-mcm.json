@@ -1,0 +1,135 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iupac2024-4h-cadmium-standard-beta-mcm",
+    "field": "chemistry",
+    "title": {
+      "en": "Cadmium calibration standard by Monte Carlo with a beta distribution for the purity (IUPAC 2024, Example 4H; QUAM A1)",
+      "tr": "Saflık için beta dağılımıyla Monte Carlo ile kadmiyum kalibrasyon standardı (IUPAC 2024, Örnek 4H; QUAM A1)"
+    },
+    "description": {
+      "en": "γ_Cd = w_Cd m_Cd/V with m_Cd = 100.28(5) mg, w_Cd = 0.999 900(58) g/g and V = 100.00(7) mL. The purity, bounded by 1 g/g, is modelled by a beta distribution, the volume by a triangular one.",
+      "tr": "γ_Cd = w_Cd m_Cd/V; m_Cd = 100,28(5) mg, w_Cd = 0,999 900(58) g/g ve V = 100,00(7) mL. 1 g/g ile sınırlı saflık beta dağılımıyla, hacim üçgen dağılımla modellenir."
+    },
+    "explanation": [
+      {
+        "en": "The beta parameters follow from the mean and s.d. by the method of moments: α ≈ 29 720, β ≈ 2.97.",
+        "tr": "Beta parametreleri ortalama ve s.s.'den momentler yöntemiyle çıkar: α ≈ 29 720, β ≈ 2,97."
+      },
+      {
+        "en": "Gauss's formula: u(γ_Cd) = 0.00086 mg/mL ≈ 0.0009 mg/mL. Monte Carlo: mean 1.0027 mg/mL, s.d. 0.0009 mg/mL; the distribution is unimodal, nearly symmetric but not Gaussian, so U95 is half the distance between the 2.5th and 97.5th percentiles, 0.0017 mg/mL.",
+        "tr": "Gauss formülü: u(γ_Cd) = 0,00086 mg/mL ≈ 0,0009 mg/mL. Monte Carlo: ortalama 1,0027 mg/mL, s.s. 0,0009 mg/mL; dağılım tek tepeli, neredeyse simetrik ama normal değildir; bu nedenle U95, %2,5 ve %97,5 yüzdelikleri arasındaki uzaklığın yarısıdır: 0,0017 mg/mL."
+      }
+    ],
+    "tags": [
+      "iupac-2024",
+      "monte-carlo",
+      "beta-distribution",
+      "purity",
+      "quam-a1"
+    ],
+    "notes": [],
+    "sources": [
+      {
+        "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+        "section": "Example 4H",
+        "url": "https://doi.org/10.1515/pac-2022-1203"
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "gamma_Cd",
+      "unit": "mg/mL",
+      "expression": "w_Cd * m_Cd / V",
+      "description": {
+        "en": "Mass concentration of cadmium in the calibration standard",
+        "tr": "Kalibrasyon standardındaki kadmiyum kütle derişimi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "m_Cd",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of cadmium (Gaussian; the truncation at 0 mg has no effect)",
+          "tr": "Kadmiyum kütlesi (normal; 0 mg'deki kesmenin etkisi yoktur)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 100.28,
+          "sd": 0.05
+        }
+      },
+      {
+        "name": "w_Cd",
+        "unit": "g/g",
+        "description": {
+          "en": "Purity of the cadmium, beta distribution on [0, 1] with the stated mean and s.d.",
+          "tr": "Kadmiyum saflığı, belirtilen ortalama ve s.s. ile [0, 1] üzerinde beta dağılımı"
+        },
+        "distribution": {
+          "type": "beta",
+          "mean": 0.9999,
+          "sd": 5.8e-05
+        }
+      },
+      {
+        "name": "V",
+        "unit": "mL",
+        "description": {
+          "en": "Volume of the flask, symmetric triangular with s.d. 0.07 mL",
+          "tr": "Balon hacmi, s.s. 0,07 mL olan simetrik üçgen"
+        },
+        "distribution": {
+          "type": "triangular",
+          "value": 100.0,
+          "half_width": 0.1714643
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.0027,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0009,
+        "tolerance": 5e-05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 1.0027,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0009,
+        "tolerance": 5e-05
+      },
+      "interval_low": {
+        "value": 1.00103,
+        "tolerance": 2e-05
+      },
+      "interval_high": {
+        "value": 1.00437,
+        "tolerance": 2e-05
+      }
+    },
+    "reference": {
+      "en": "IUPAC 2024, Example 4H: γ = 1.0027 mg/mL, u = 0.0009 mg/mL (Gauss and Monte Carlo, K = 10⁷), U95 = 0.0017 mg/mL (half the 2.5–97.5 % percentile range). Percentiles from numpy (10⁷ draws): 1.001 03 and 1.004 37 mg/mL.",
+      "tr": "IUPAC 2024, Örnek 4H: γ = 1,0027 mg/mL, u = 0,0009 mg/mL (Gauss ve Monte Carlo, K = 10⁷), U95 = 0,0017 mg/mL (%2,5–97,5 yüzdelik aralığının yarısı). numpy yüzdelikleri (10⁷ çekiliş): 1,001 03 ve 1,004 37 mg/mL."
+    }
+  }
+}

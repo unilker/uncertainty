@@ -113,7 +113,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F96 | Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.) |
 | F97 | BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article, not to be reported). | 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets |
 
-## Decisions (74)
+## Decisions (75)
 
 | D | Decision | Session |
 |---|---|---|
@@ -191,3 +191,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D72 | One main paper; skeleton in `docs/article/outline.md`. | 2026-11-07 (session 21, continued) — Article skeleton |
 | D73 | Classes for the findings without a class in their heading; class n. | 2026-11-07 (session 21, continued) — D12 audit of the finding classes |
 | D74 | Library-wide comparison with Sandia's Suncal 1.7.1 | 2026-11-07 (session 21, continued) — Benchmark against Suncal |
+| D75 | Beta input distribution. | 2026-11-07 (session 21, continued) — Beta distribution; IUPAC 2024 Examples 4H and 5C |

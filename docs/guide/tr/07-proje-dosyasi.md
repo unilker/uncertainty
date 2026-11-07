@@ -63,6 +63,7 @@ grubun üyelerinin `dof` değeri aynı ve sonlu olmalıdır. Her grup Welch–Sa
 | `curvilinear_trapezoid` | yukarıdaki gibi sınırlar ve `d` (sınırların belirsizliği) |
 | `exponential` | `mean` |
 | `gamma` | `shape`, `scale` |
+| `beta` | `alpha` ve `beta` ya da `mean` ve `sd` (momentler yöntemi); `lower`, `upper` (varsayılan 0 ve 1). Saflık gibi sınırlı büyüklükler için (1 g/g yakınında) |
 | `type_a` | `observations` (liste) |
 | `type_a_pooled` | `mean`, `pooled_sd`, `pooled_dof`, `n` |
 

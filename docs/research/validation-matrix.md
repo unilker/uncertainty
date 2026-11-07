@@ -372,6 +372,8 @@ Machine (F29) and Suncal.
 | EMUE-E6.5 | EMUE E6.5, ephedrine in urine (WADA top-down budget and decision limit) | u_c 3.8 %; DL 11 µg/mL; Table E6.5.2 | u_c 3.89 %; DL 10.822 (rounded up to 11); means 11.83/11.67/11.47, z −0.93/−1.27/0.73 (σ = 0.5) | ✅ except F91 |
 | IUPAC24-4A | IUPAC 2024 Example 4A, water hardness | u ≈ 3 mg/L | H 96.65, u 3.18 | ✅ |
 | IUPAC24-4B | IUPAC 2024 Example 4B, silicon isotopic abundances (3 outputs) | 0.923 3873(36), 0.046 2300(22), 0.030 3827(30) | same | ✅ |
+| IUPAC24-4H | IUPAC 2024 Example 4H, cadmium standard by MCM with beta purity and triangular volume | γ 1.0027, u 0.0009, U95 0.0017 mg/mL | GUM 1.002 70 (0.000 864); MCM 1.002 70 (0.000 864), (1.001 03, 1.004 37) | ✅ |
+| IUPAC24-5C | IUPAC 2024 Example 5C, benzoic acid purity as beta(88 873.7, 7.11) | — (distribution given) | 0.999 920 (0.000 030); 95 % (0.999 851, 0.999 968) | ✅ |
 | IUPAC24-4I | IUPAC 2024 Example 4I, argentometric titration, conventional and K_sp models | 10.000 ± 0.026 mmol/L; K_sp model differs by 0.24 % | 10.000 ± 0.0255; 9.976 (mass balance) | ✅ except F92 |
 | IUPAC24-3E-4M | IUPAC 2024 Examples 3E, 4M, 4N, molar mass of iridium: Q test, Bayesian random-effects model (MCMC in the guide) | p = 0.0082; M = 192.2171(4) g/mol, median τ 0.0005 g/mol | p = 0.0084; 192.217 119 (0.000 440), median τ 0.000 506 (exact grid) | ✅ except F94 |
 | IUPAC24-4F | IUPAC 2024 Example 4F, CCQM-K145 Ni in bovine liver, maximum likelihood with dark uncertainty | μ̂ 2.043(15), τ̂ 0.044(14) mg/kg | 2.042 94 (0.015 44), 0.043 54 (0.014 24) | ✅ |

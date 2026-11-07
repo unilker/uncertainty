@@ -308,6 +308,7 @@ fn dist_name(d: &DistributionSpec, lang: Lang) -> &'static str {
         (Exponential { .. }, Lang::Tr) => "üstel",
         (Gamma { .. }, Lang::En) => "gamma",
         (Gamma { .. }, Lang::Tr) => "gama",
+        (Beta { .. }, _) => "beta",
         (TypeA { .. }, Lang::En) => "Type A (t)",
         (TypeA { .. }, Lang::Tr) => "A tipi (t)",
         (TypeAPooled { .. }, Lang::En) => "Type A, pooled (t)",
@@ -346,6 +347,14 @@ fn dist_info(d: &DistributionSpec, lang: Lang) -> String {
         }
         Exponential { mean } => format!("μ = {}", n(*mean)),
         Gamma { shape, scale } => format!("α = {}, θ = {}", n(*shape), n(*scale)),
+        Beta { alpha, beta, mean, sd, lower, upper } => {
+            let lim = format!("[{}, {}]", n(lower.unwrap_or(0.0)), n(upper.unwrap_or(1.0)));
+            match (alpha, beta, mean, sd) {
+                (Some(a), Some(b), _, _) => format!("α = {}, β = {}, {lim}", n(*a), n(*b)),
+                (_, _, Some(m), Some(s)) => format!("μ = {}, σ = {}, {lim}", n(*m), n(*s)),
+                _ => lim,
+            }
+        }
         TypeA { observations } => format!("n = {}", observations.len()),
         TypeAPooled { pooled_sd, pooled_dof, n: count, .. } => {
             format!("s_p = {}, ν_p = {}, n = {count}", n(*pooled_sd), n(*pooled_dof))

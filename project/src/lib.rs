@@ -184,6 +184,26 @@ pub fn to_distribution(name: &str, d: &DistributionSpec) -> Result<Distribution,
         }
         DistributionSpec::Exponential { mean } => Distribution::Exponential { mean },
         DistributionSpec::Gamma { shape, scale } => Distribution::Gamma { shape, scale },
+        DistributionSpec::Beta { alpha, beta, mean, sd, lower, upper } => {
+            let (a, b) = (lower.unwrap_or(0.0), upper.unwrap_or(1.0));
+            let (alpha, beta) = match (alpha, beta, mean, sd) {
+                (Some(al), Some(be), None, None) => (al, be),
+                (None, None, Some(m), Some(s)) => {
+                    // Method of moments on the unit interval.
+                    let (mu, v) = ((m - a) / (b - a), (s / (b - a)).powi(2));
+                    let c = mu * (1.0 - mu) / v - 1.0;
+                    if !(mu > 0.0 && mu < 1.0 && c > 0.0) {
+                        return Err(input_err(
+                            name,
+                            "beta: the mean must lie inside the limits and sd² < (m − a)(b − m)",
+                        ));
+                    }
+                    (mu * c, (1.0 - mu) * c)
+                }
+                _ => return Err(input_err(name, "beta: give alpha and beta, or mean and sd")),
+            };
+            Distribution::Beta { alpha, beta, lower: a, upper: b }
+        }
         DistributionSpec::TypeA { ref observations } => TypeA::from_observations(observations)?.distribution(),
         DistributionSpec::TypeAPooled { mean, pooled_sd, pooled_dof, n } => {
             if n == 0 {

@@ -41,6 +41,9 @@ pub enum Distribution {
     /// Gamma distribution with shape α and scale θ (mean αθ, variance αθ²)
     /// [JCGM 101 6.4.11].
     Gamma { shape: f64, scale: f64 },
+    /// Beta distribution with shapes α, β on [lower, upper]; for bounded
+    /// quantities such as a purity near 1 g/g (IUPAC 2024 Examples 4H, 5C).
+    Beta { alpha: f64, beta: f64, lower: f64, upper: f64 },
 }
 
 impl Distribution {
@@ -119,6 +122,11 @@ impl Distribution {
                     return bad("gamma: shape > 0 and scale > 0 required");
                 }
             }
+            Distribution::Beta { alpha, beta, lower, upper } => {
+                if !(finite(&[alpha, beta, lower, upper]) && alpha > 0.0 && beta > 0.0 && lower < upper) {
+                    return bad("beta: α > 0, β > 0 and lower < upper required");
+                }
+            }
         }
         Ok(())
     }
@@ -135,6 +143,7 @@ impl Distribution {
             | Distribution::Arcsine { lower, upper } => 0.5 * (lower + upper),
             Distribution::Exponential { mean } => mean,
             Distribution::Gamma { shape, scale } => shape * scale,
+            Distribution::Beta { alpha, beta, lower, upper } => lower + (upper - lower) * alpha / (alpha + beta),
         }
     }
 
@@ -160,6 +169,10 @@ impl Distribution {
             Distribution::Arcsine { lower, upper } => w(lower, upper).powi(2) / 8.0,
             Distribution::Exponential { mean } => mean * mean,
             Distribution::Gamma { shape, scale } => shape * scale * scale,
+            Distribution::Beta { alpha, beta, lower, upper } => {
+                let s = alpha + beta;
+                w(lower, upper).powi(2) * alpha * beta / (s * s * (s + 1.0))
+            }
         })
     }
 
@@ -207,6 +220,7 @@ impl Distribution {
             Distribution::Arcsine { .. } => "arcsine",
             Distribution::Exponential { .. } => "exponential",
             Distribution::Gamma { .. } => "gamma",
+            Distribution::Beta { .. } => "beta",
         }
     }
 
@@ -240,6 +254,18 @@ impl Distribution {
             }
             Distribution::Exponential { mean } => -mean * rng.uniform().ln(),
             Distribution::Gamma { shape, scale } => scale * rng.gamma(shape),
+            Distribution::Beta { alpha, beta, lower, upper } => {
+                // X = G₁/(G₁ + G₂) with G₁ ~ Γ(α), G₂ ~ Γ(β); the complement
+                // is formed from G₂ to keep the digits near the upper bound.
+                let g1 = rng.gamma(alpha);
+                let g2 = rng.gamma(beta);
+                let s = g1 + g2;
+                if alpha > beta {
+                    upper - (upper - lower) * g2 / s
+                } else {
+                    lower + (upper - lower) * g1 / s
+                }
+            }
         }
     }
 }
@@ -295,6 +321,24 @@ mod tests {
         let m = xs.iter().sum::<f64>() / n as f64;
         let v = xs.iter().map(|x| (x - m).powi(2)).sum::<f64>() / (n as f64 - 1.0);
         (m, v)
+    }
+
+    #[test]
+    fn beta_distribution_moments() {
+        // Benzoic acid NIST PS1 (IUPAC 2024 Example 5C): α = 88 873.7, β = 7.11;
+        // mean 0.999 92, s.d. √(αβ/((α+β)²(α+β+1))) = 0.000 2999.
+        let d = Distribution::Beta { alpha: 88_873.7, beta: 7.11, lower: 0.0, upper: 1.0 };
+        let (s, ab) = (88_880.81_f64, 88_873.7_f64 * 7.11);
+        assert!((d.expectation() - 88_873.7 / s).abs() < 1e-15);
+        assert!((d.gum_standard_uncertainty() - (ab / (s * s * (s + 1.0))).sqrt()).abs() < 1e-15);
+        let (m, v) = sample_moments(&d, 400_000, 7);
+        assert!((m - d.expectation()).abs() < 3e-6, "{m}");
+        assert!((v.sqrt() / d.gum_standard_uncertainty() - 1.0).abs() < 0.01, "{}", v.sqrt());
+        // A skewed beta on [2, 5]: moments of the samples.
+        let e = Distribution::Beta { alpha: 2.0, beta: 5.0, lower: 2.0, upper: 5.0 };
+        let (m, v) = sample_moments(&e, 400_000, 8);
+        assert!((m - (2.0 + 3.0 * 2.0 / 7.0)).abs() < 0.003, "{m}");
+        assert!((v / e.variance().unwrap() - 1.0).abs() < 0.01, "{v}");
     }
 
     #[test]

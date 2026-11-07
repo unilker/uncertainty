@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (141)
+- Kimya (143)
 - Elektrik ve RF (36)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -1452,6 +1452,25 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 **Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang tr`
 
+### Saflık için beta dağılımıyla Monte Carlo ile kadmiyum kalibrasyon standardı (IUPAC 2024, Örnek 4H; QUAM A1)
+
+`iupac2024-4h-cadmium-standard-beta-mcm` — Possolo et al., Example 4H
+
+γ_Cd = w_Cd m_Cd/V; m_Cd = 100,28(5) mg, w_Cd = 0,999 900(58) g/g ve V = 100,00(7) mL. 1 g/g ile sınırlı saflık beta dağılımıyla, hacim üçgen dağılımla modellenir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Beta parametreleri ortalama ve s.s.'den momentler yöntemiyle çıkar: α ≈ 29 720, β ≈ 2,97.
+2. Gauss formülü: u(γ_Cd) = 0,00086 mg/mL ≈ 0,0009 mg/mL. Monte Carlo: ortalama 1,0027 mg/mL, s.s. 0,0009 mg/mL; dağılım tek tepeli, neredeyse simetrik ama normal değildir; bu nedenle U95, %2,5 ve %97,5 yüzdelikleri arasındaki uzaklığın yarısıdır: 0,0017 mg/mL.
+
+**Sonuç:**
+
+- gamma_Cd = (1,0027 ± 0,0017) mg/mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang tr`
+
 ### Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I)
 
 `iupac2024-4i-argentometric-titration` — Possolo et al., Examples 3A and 4I
@@ -1473,6 +1492,25 @@ c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); yalnızca 
 - Dönüm noktası (ilk kalıcı Ag₂CrO₄) eşdeğerlik noktasından sonradır; eşlik eden iupac2024-3a-argentometric-titration-ksp projesi bu kimyayı belirsizlik olarak ele almak yerine modeller.
 
 **Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang tr`
+
+### Beta dağılımı olarak ifade edilen benzoik asit saflığı (NIST PS1): 1 g/g'nin altında asimetrik bir aralık (IUPAC 2024, Örnek 5C)
+
+`iupac2024-5c-benzoic-acid-purity-beta` — Possolo et al., Example 5C
+
+Kütle kesri hakkındaki bilgi durumu α = 88 873,7 ve β = 7,11 olan bir beta dağılımıdır; standart sapması standart belirsizliktir, inanılırlık aralıkları kantillerinden çıkar.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Ortalama α/(α + β) = 0,999920 g/g; s.s. = 30,0 × 10⁻⁶ g/g.
+2. %2,5 ve %97,5 kantillerinden %95 aralığı, 0,999 851 – 0,999 968 g/g, ortalamanın 0,069 mg/g altına ve 0,048 mg/g üstüne uzanır: fiziksel bir sınıra yakın bir sonuç asimetriktir; simetrik y ± U bunu gösteremez (BIPM ISRD-06'daki 999,8 +0,2/−1,5 mg/g değeriyle karşılaştırın).
+
+**Sonuç:**
+
+- w_BA = (0,999920 ± 0,000059) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang tr`
 
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 

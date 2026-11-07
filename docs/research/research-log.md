@@ -3227,3 +3227,16 @@ the program's JSON output.
 - The NIST Uncertainty Machine is a web service; its manual examples were reproduced earlier (task 22, F29, F33,
   F35). A scripted NUM benchmark is not possible offline; the article states the NUM comparison as the manual's
   examples.
+
+## 2026-11-07 (session 21, continued) — Beta distribution; IUPAC 2024 Examples 4H and 5C
+
+**D75. Beta input distribution.** `{"type": "beta", "alpha", "beta"}` or `{"mean", "sd"}` (method of moments) on
+[lower, upper] (default [0, 1]). GUM: the mean and standard deviation of the distribution; MCM: G₁/(G₁ + G₂) with
+gamma draws, the complement taken from G₂ when α > β so that values near the upper bound keep their digits.
+Core test: the sample moments of beta(88 873.7, 7.11) and of a skewed beta on [2, 5].
+
+- IUPAC 2024 4H (QUAM A1 cadmium standard, purity beta, volume triangular): GUM u 0.000 864 mg/mL, MCM mean 1.0027,
+  s.d. 0.000 864, 95 % interval 1.001 03–1.004 37 mg/mL, half-width 0.001 67 (printed 0.0009 and 0.0017).
+- IUPAC 2024 5C (NIST PS1 benzoic acid, beta(88 873.7, 7.11)): 0.999 920 ± 0.000 030 g/g; 95 % interval
+  0.999 851–0.999 968 g/g, 0.069 mg/g below and 0.048 mg/g above the mean. This is the library's example of a
+  bounded, asymmetric result (F97 item 6; the qNMR budgets of D69).

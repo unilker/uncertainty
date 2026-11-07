@@ -308,6 +308,22 @@ pub enum DistributionSpec {
         shape: f64,
         scale: f64,
     },
+    /// Beta distribution on [lower, upper] (default [0, 1]) from its shapes,
+    /// or from its mean and standard deviation (method of moments).
+    Beta {
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        alpha: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        beta: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        mean: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        lower: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        upper: Option<f64>,
+    },
     /// Type A evaluation of a series of indications (GUM 4.2): GUM uses
     /// x̄, s/√n, ν = n − 1; MCM samples t_{n−1}(x̄, s²/n) (JCGM 101 6.4.9).
     TypeA {

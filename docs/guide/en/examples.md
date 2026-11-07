@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (141)
+- Chemistry (143)
 - Electrical and RF (36)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -1452,6 +1452,25 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 **Run:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang en`
 
+### Cadmium calibration standard by Monte Carlo with a beta distribution for the purity (IUPAC 2024, Example 4H; QUAM A1)
+
+`iupac2024-4h-cadmium-standard-beta-mcm` — Possolo et al., Example 4H
+
+γ_Cd = w_Cd m_Cd/V with m_Cd = 100.28(5) mg, w_Cd = 0.999 900(58) g/g and V = 100.00(7) mL. The purity, bounded by 1 g/g, is modelled by a beta distribution, the volume by a triangular one.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The beta parameters follow from the mean and s.d. by the method of moments: α ≈ 29 720, β ≈ 2.97.
+2. Gauss's formula: u(γ_Cd) = 0.00086 mg/mL ≈ 0.0009 mg/mL. Monte Carlo: mean 1.0027 mg/mL, s.d. 0.0009 mg/mL; the distribution is unimodal, nearly symmetric but not Gaussian, so U95 is half the distance between the 2.5th and 97.5th percentiles, 0.0017 mg/mL.
+
+**Result:**
+
+- gamma_Cd = (1.0027 ± 0.0017) mg/mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang en`
+
 ### Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I)
 
 `iupac2024-4i-argentometric-titration` — Possolo et al., Examples 3A and 4I
@@ -1473,6 +1492,25 @@ c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); only the v
 - The endpoint (first permanent Ag₂CrO₄) lies after the equivalence point; the companion project iupac2024-3a-argentometric-titration-ksp models this chemistry instead of treating it as an uncertainty.
 
 **Run:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang en`
+
+### Purity of benzoic acid (NIST PS1) expressed as a beta distribution: an asymmetric interval below 1 g/g (IUPAC 2024, Example 5C)
+
+`iupac2024-5c-benzoic-acid-purity-beta` — Possolo et al., Example 5C
+
+The state of knowledge about the mass fraction is a beta distribution with α = 88 873.7 and β = 7.11; its standard deviation is the standard uncertainty, and credible intervals follow from its quantiles.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Mean α/(α + β) = 0.999920 g/g; s.d. = 30.0 × 10⁻⁶ g/g.
+2. The 95 % interval from the 2.5 % and 97.5 % quantiles, 0.999 851 to 0.999 968 g/g, extends 0.069 mg/g below and 0.048 mg/g above the mean: a result near a physical bound is asymmetric, which a symmetric y ± U cannot show (compare the BIPM ISRD-06 value 999.8 +0.2/−1.5 mg/g).
+
+**Result:**
+
+- w_BA = (0.999920 ± 0.000059) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang en`
 
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
