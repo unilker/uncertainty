@@ -93,3 +93,41 @@ yapıştırılır, her satırda bir laboratuvar: kod, sonuç, genişletilmiş be
 bağlı olarak yöntem (sekme, noktalı virgül veya boşlukla ayrılmış; ondalık virgül kabul edilir; sansürlü
 sonuç için "<0,015"). *Sonuçlar* sekmesi özet istatistikleri, atanan değeri, sinyalleriyle skor tablosunu ve z
 skorlarının grafiğini gösterir; HTML raporu homojenlik grafiğini de ekler.
+
+## 9.7 Laboratuvarlar arası karşılaştırmanın uzlaşı değeri
+
+Bir anahtar karşılaştırma, bir referans malzemenin karakterizasyonu için laboratuvarlar arası çalışma ya da
+yayımlanmış sonuçların meta-analizi, standart belirsizlikleri u_j olan n değer x_j verir. Değerler u_j'lerin
+izin verdiğinden daha fazla dağıldığında 1/u_j² ağırlıklı ortalama ve belirsizliği 1/√Σu_j⁻² fazla iyimserdir.
+`consensus` bölümü (7.14b) NIST Consensus Builder'ı (NICOB, kullanım kılavuzu 2020, Ek A; Koepke vd.,
+Metrologia 54 (2017) S34) izler ve x_j = μ + λ_j + ε_j rastgele etkiler modelini kullanır: laboratuvar etkileri
+λ_j'nin ortalaması 0, standart sapması τ'dur (*karanlık belirsizlik*).
+
+**DerSimonian–Laird.** Cochran Q = Σu_j⁻²(x_j − x̄_w)² ile τ̂² = maks{0, (Q − n + 1)/(Σu_j⁻² − Σu_j⁻⁴/Σu_j⁻²)};
+uzlaşı değeri w_j = 1/(τ̂² + u_j²) ağırlıklı ortalamadır, saf belirsizliği u_DL = 1/√Σw_j. Rapor Q'nun p
+değerini (n − 1 serbestlik dereceli χ²) ve t_{n−1} ile genişletilen Knapp–Hartung standart belirsizliğini
+u_DL·√(Σw_j(x_j − μ̂)²/(n − 1)) verir. τ̂ = 0 olduğunda yöntem ağırlıklı ortalamaya indirgenir (Cox 2002,
+Prosedür A).
+
+**Parametrik bootstrap (NICOB §A.2).** u_DL, az serbestlik derecesine dayanan τ̂'nun belirsizliğini yok sayar.
+K tekrarın her birinde τ_k, Q'nun dağılımının gama yaklaşımından (Biggerstaff ve Tweedie 1997: Q'nun kesin
+ortalama ve varyansına sahip gama), x_jk N(μ̂, τ_k² + u_j²) dağılımından ve ν_j verilmişse
+u_jk = u_j√(ν_j/χ²_ν_j) olarak çekilir; DerSimonian–Laird μ_k yeniden hesaplanır. μ_k'lerin standart sapması
+ile %2,5 ve %97,5 yüzdelikleri u'yu ve kapsam aralığını verir.
+
+**Eşdeğerlik dereceleri (NICOB §A.5.1).** D_j = x_j − μ̂ ve U95 %(D_j): bootstrap değerleri D_jk = x_jk − μ_k'nin
+ortalamasında ortalanan ve bunların %95'ini içeren en kısa aralığın yarı uzunluğu. |D_j| > U95 %(D_j) olan bir
+sonuç modelin izin verdiği aralığın dışındadır (Jones ve Spiegelhalter 2011). HTML raporu bunları çizer.
+
+**Doğrusal havuz (NICOB §A.4).** Ortalamaları x_j, standart sapmaları u_j olan normal (ν_j verilmişse ölçeklenmiş
+Student t) dağılımların eşit ya da verilen ağırlıklarla karışımından bir örneklem. Ortalaması ve standart
+sapması uzlaşı değeri ve belirsizliğidir; aralık yüzdeliklerden alınır. Karışım çok tepeli olabilir;
+belirsizliği sonuçların tüm yayılımını kapsar.
+
+**En çok olabilirlik (IUPAC 2024, Örnek 4F).** u_j'leri bilinen normal etkiler ve hatalar altında μ ve τ'nun
+olabilirliği, μ̂(τ) ağırlıklı ortalama olmak üzere τ üzerinden en büyüklenir; standart belirsizlikler Hessian'ın
+tersinden gelir. Az sonuçla bunlar küçük kalır; bootstrap tercih edilir.
+
+Kütüphane: Koepke vd. 2017 (G, ¹³⁷Cs ve ⁹⁰Sr yarı ömürleri) ve IUPAC 2024 Örnek 4F (CCQM-K145). Henüz
+uygulanmayanlar: NICOB'un hiyerarşik Bayesçi yöntemi, birini dışarıda bırakan ve iki taraflı eşdeğerlik
+dereceleri.

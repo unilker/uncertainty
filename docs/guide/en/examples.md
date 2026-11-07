@@ -2,13 +2,13 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (126)
+- Chemistry (127)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
 - Length (11)
 - Mass (29)
-- Physical properties (10)
+- Physical properties (13)
 - Pressure (6)
 - Temperature (10)
 
@@ -1189,6 +1189,32 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
 
 **Run:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang en`
+
+### Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F)
+
+`iupac2024-4f-ccqm-k145-nickel-bovine-liver` — Possolo et al., Example 4F
+
+17 national metrology institutes (UME among them) measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. The likelihood is a product of 17 Gaussian densities with mean μ and variances τ² + u_j²; for given τ it is maximised by the weighted mean with weights 1/(τ² + u_j²), so only the profile likelihood in τ needs a numerical search.
+2. μ̂ = 2.0429 mg/kg and τ̂ = 0.0435 mg/kg; their standard uncertainties come from the inverse Hessian of −ln L: 2.043(15) mg/kg and 0.044(14) mg/kg, as printed.
+3. The guide warns that maximum likelihood tends to bias the estimates and that the Hessian underestimates the variance with fewer than about 15 results; restricted maximum likelihood, the NIST Consensus Builder or Bayesian procedures are preferable. The DerSimonian–Laird estimate with the parametric bootstrap and the degrees of equivalence are shown for comparison.
+
+**Result:**
+
+- w(Ni): consensus value 2.04282 mg/kg, standard uncertainty 0.016 mg/kg, 95 % coverage interval [2.01082, 2.07470] mg/kg (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.046 mg/kg; Cochran's Q = 40.12 with 16 degrees of freedom
+- w(Ni): 2.04294 mg/kg, standard uncertainty 0.015 mg/kg; τ = 0.044 ± 0.014 mg/kg (maximum likelihood)
+
+**Notes:**
+
+- The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for JSI.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang en`
 
 ### Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I)
 
@@ -5458,6 +5484,87 @@ ISO 5725-2:2019 C.2.9: the data of Example C.2 evaluated by restricted maximum l
 - Table C.13 gives s_R = 1.918 °C at level 4 where Table C.12 gives 1.915 °C; for balanced cells both methods give 1.9175 °C (research log F48).
 
 **Run:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang en`
+
+### Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
+
+`koepke2017-half-life-cs137` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+The 19 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 336 with 18 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. DerSimonian–Laird: μ̂ = 10971.1 d = 30.037 a, u_DL = 16.4 d = 0.045 a, τ̂ = 52.2 d.
+2. The Linear Pool gives 29.94 a with standard uncertainty 0.93 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.
+3. The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).
+
+**Result:**
+
+- T½(¹³⁷Cs): consensus value 10971.1 d, standard uncertainty 16 d, 95 % coverage interval [10937.5, 11004.8] d (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 52 d; Cochran's Q = 335.6 with 18 degrees of freedom
+- T½(¹³⁷Cs): 10936.4 d, standard uncertainty 339 d, 95 % coverage interval [9707.80, 11406.0] d (Linear Pool)
+
+**Notes:**
+
+- Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.
+
+**Run:** `uncertainty run library/physical/koepke2017-half-life-cs137.json --lang en`
+
+### Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
+
+`koepke2017-half-life-sr90` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+The 11 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 400 with 10 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. DerSimonian–Laird: μ̂ = 10493.8 d = 28.730 a, u_DL = 40.2 d = 0.110 a, τ̂ = 104.7 d.
+2. The Linear Pool gives 28.68 a with standard uncertainty 0.77 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.
+3. The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).
+
+**Result:**
+
+- T½(⁹⁰Sr): consensus value 10493.8 d, standard uncertainty 40 d, 95 % coverage interval [10409.9, 10577.3] d (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 105 d; Cochran's Q = 400.3 with 10 degrees of freedom
+- T½(⁹⁰Sr): 10478.1 d, standard uncertainty 282 d, 95 % coverage interval [9923.10, 11091.7] d (Linear Pool)
+
+**Notes:**
+
+- Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.
+
+**Run:** `uncertainty run library/physical/koepke2017-half-life-sr90.json --lang en`
+
+### Newtonian constant of gravitation: consensus value of 14 measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
+
+`koepke2017-newtonian-constant-g` — Koepke, §7.1, Tables 1 and 2; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+The 14 measurements of G used in the CODATA 2014 adjustment are mutually inconsistent (Cochran's Q = 319 with 13 degrees of freedom): the measured values are about four times more dispersed than the typical stated uncertainty. The random-effects model recognises this dark uncertainty τ.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. Cochran's Q about the weighted mean with weights 1/u_j² is 319.1; τ̂² = (Q − 13)/(Σu⁻² − Σu⁻⁴/Σu⁻²) gives τ̂ = 9.45841 × 10⁻¹⁵ m³ kg⁻¹ s⁻², more than three times the median stated uncertainty 0.00027.
+2. With weights 1/(τ̂² + u_j²) the consensus value is 6.673790 and u_DL = 1/√Σw = 0.000279 (× 10⁻¹¹ m³ kg⁻¹ s⁻²). The weights are far more even than those of the conventional weighted mean, where UWash-00 alone would carry most of the weight.
+3. The parametric bootstrap (NICOB §A.2) recognises that τ̂ rests on few degrees of freedom: τ is drawn from the gamma approximation of the distribution of Q, new values are drawn from N(μ̂, τ² + u_j²), and the DerSimonian–Laird estimate is recomputed; the standard deviation and the 2.5 % and 97.5 % percentiles of the replicates give u and the 95 % coverage interval.
+4. The Linear Pool mixes the 14 Gaussian distributions with equal weights: its mean is the arithmetic mean 6.67367 and its standard deviation √(mean u² + mean (x − x̄)²) = 0.00124, more than four times u_DL; the mixture is multimodal (Koepke et al., Figure 2).
+
+**Result:**
+
+- G: consensus value 6.673790 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00028 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.673226, 6.674352] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.00095 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran's Q = 319.1 with 13 degrees of freedom
+- G: 6.673667 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.0012 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.671166, 6.675791] 10⁻¹¹ m³ kg⁻¹ s⁻² (Linear Pool)
+- G: 6.673778 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00030 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0.0010 ± 0.00022 10⁻¹¹ m³ kg⁻¹ s⁻² (maximum likelihood)
+
+**Notes:**
+
+- The printed DerSimonian–Laird value 6.673 80 is one unit in the last digit above the value recomputed from Table 1, 6.673 790 (research log F93). The printed interval (6.673 20, 6.674 40) agrees with the bootstrap percentiles rounded to 10⁻⁴.
+- The correlations between NIST-82 and LANL-97 (0.351) and between HUST-05 and HUST-09 (0.134) are ignored, as in the DerSimonian–Laird row of Table 2.
+
+**Run:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang en`
 
 ### Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13)
 

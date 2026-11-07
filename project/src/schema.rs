@@ -23,6 +23,7 @@
 
 use crate::calibration::{CalibrationSpec, ExpectedCalibration};
 use crate::conformity::{ConformitySpec, ExpectedConformity};
+use crate::consensus::{ConsensusSpec, ExpectedConsensus};
 use crate::interlab::{ExpectedInterlab, InterlabSpec};
 use crate::multiconformity::{ExpectedMulticomponent, MulticomponentSpec};
 use crate::multivariate::{ExpectedMultivariate, MultivariateSpec};
@@ -117,6 +118,10 @@ pub struct Project {
     /// total specific and global risks (EMUE E2.1).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub multicomponent_conformity: Option<MulticomponentSpec>,
+    /// Consensus value and degrees of equivalence of an interlaboratory
+    /// study or key comparison (NIST Consensus Builder).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub consensus: Option<ConsensusSpec>,
     /// Conformity assessment (JCGM 106): of the result of a model project, or
     /// a project of its own.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -615,6 +620,8 @@ pub struct Expected {
     pub error_function: Option<ExpectedErrorFunction>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub multicomponent_conformity: Option<ExpectedMulticomponent>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub consensus: Option<ExpectedConsensus>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,

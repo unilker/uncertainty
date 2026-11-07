@@ -1,0 +1,214 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "koepke2017-half-life-cs137",
+    "field": "physical",
+    "title": {
+      "en": "Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)",
+      "tr": "¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)"
+    },
+    "description": {
+      "en": "The 19 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 336 with 18 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.",
+      "tr": "MacMahon vd. (2004) tarafından derlenen 19 yayımlanmış yarı ömür heterojendir (Q = 336, serbestlik derecesi 18). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir."
+    },
+    "explanation": [
+      {
+        "en": "DerSimonian–Laird: μ̂ = 10971.1 d = 30.037 a, u_DL = 16.4 d = 0.045 a, τ̂ = 52.2 d.",
+        "tr": "DerSimonian–Laird: μ̂ = 10971,1 gün = 30,037 a, u_DL = 16,4 gün = 0,045 a, τ̂ = 52,2 gün."
+      },
+      {
+        "en": "The Linear Pool gives 29.94 a with standard uncertainty 0.93 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.",
+        "tr": "Doğrusal havuz 29,94 a ve 0,93 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir."
+      },
+      {
+        "en": "The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).",
+        "tr": "Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4)."
+      }
+    ],
+    "tags": [
+      "koepke-2017",
+      "nicob",
+      "consensus",
+      "dark-uncertainty",
+      "dersimonian-laird",
+      "linear-pool",
+      "half-life",
+      "radionuclide"
+    ],
+    "notes": [
+      {
+        "en": "Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.",
+        "tr": "Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır."
+      }
+    ],
+    "sources": [
+      {
+        "document": "Koepke, Lafarge, Possolo & Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62",
+        "section": "§7.2, Tables 3 and 4",
+        "url": "https://doi.org/10.1088/1681-7575/aa6c0e"
+      },
+      {
+        "document": "NIST Consensus Builder user manual (2020 Nov 12), Appendix A",
+        "section": "§A.2, §A.4, §A.5",
+        "url": "https://consensus.nist.gov"
+      }
+    ]
+  },
+  "consensus": {
+    "measurand": "T½(¹³⁷Cs)",
+    "unit": "d",
+    "results": [
+      {
+        "name": "WT55",
+        "value": 9715,
+        "u": 146
+      },
+      {
+        "name": "Br55",
+        "value": 10957,
+        "u": 146
+      },
+      {
+        "name": "Fa61",
+        "value": 11103,
+        "u": 146
+      },
+      {
+        "name": "Fl62",
+        "value": 10994,
+        "u": 256
+      },
+      {
+        "name": "Go63",
+        "value": 10840,
+        "u": 18
+      },
+      {
+        "name": "Ri63",
+        "value": 10665,
+        "u": 110
+      },
+      {
+        "name": "Le65",
+        "value": 11220,
+        "u": 47
+      },
+      {
+        "name": "Fl65a",
+        "value": 10921,
+        "u": 183
+      },
+      {
+        "name": "Fl65b",
+        "value": 11286,
+        "u": 256
+      },
+      {
+        "name": "Ha70",
+        "value": 11191,
+        "u": 157
+      },
+      {
+        "name": "Em72",
+        "value": 11023,
+        "u": 37
+      },
+      {
+        "name": "DP73",
+        "value": 11020.8,
+        "u": 4.1
+      },
+      {
+        "name": "Co73",
+        "value": 11034,
+        "u": 29
+      },
+      {
+        "name": "GS78",
+        "value": 10906,
+        "u": 33
+      },
+      {
+        "name": "Ho80",
+        "value": 11009,
+        "u": 11
+      },
+      {
+        "name": "MT80",
+        "value": 10967.8,
+        "u": 4.5
+      },
+      {
+        "name": "Go92",
+        "value": 10940.8,
+        "u": 6.9
+      },
+      {
+        "name": "Un02",
+        "value": 11018.3,
+        "u": 9.5
+      },
+      {
+        "name": "Sc04",
+        "value": 10970,
+        "u": 20
+      }
+    ],
+    "linear_pool": true,
+    "trials": 100000,
+    "seed": 1
+  },
+  "expected": {
+    "consensus": {
+      "mean": {
+        "value": 10972.11,
+        "tolerance": 1.83
+      },
+      "u": {
+        "value": 14.61,
+        "tolerance": 1.83
+      },
+      "tau": {
+        "value": 52.19,
+        "tolerance": 0.01
+      },
+      "q": {
+        "value": 335.6,
+        "tolerance": 0.01
+      },
+      "bootstrap_u": {
+        "value": 16.3,
+        "tolerance": 0.4
+      },
+      "interval_lower": {
+        "value": 10938.0,
+        "tolerance": 1.5
+      },
+      "interval_upper": {
+        "value": 11004.5,
+        "tolerance": 1.5
+      },
+      "linear_pool_mean": {
+        "value": 10935.59,
+        "tolerance": 5.0
+      },
+      "linear_pool_u": {
+        "value": 339.68,
+        "tolerance": 4.1
+      },
+      "linear_pool_lower": {
+        "value": 9705.1,
+        "tolerance": 20.0
+      },
+      "linear_pool_upper": {
+        "value": 11408.2,
+        "tolerance": 20.0
+      }
+    },
+    "reference": {
+      "en": "Koepke et al. (2017) Table 4: DerSimonian–Laird 30.04 a, u 0.04 a; Linear Pool 29.94 a, u 0.93 a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
+      "tr": "Koepke vd. (2017) Tablo 4: DerSimonian–Laird 30,04 a, u 0,04 a; doğrusal havuz 29,94 a, u 0,93 a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."
+    }
+  }
+}

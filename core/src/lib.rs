@@ -21,6 +21,8 @@
 //!   [`sampling`]);
 //! * approximation of the errors of a weighing instrument — EURAMET cg-18
 //!   Appendix C (module [`weighing`]);
+//! * consensus values and degrees of equivalence — NIST Consensus Builder,
+//!   Koepke et al. (2017) (module [`consensus`]);
 //! * rounding of reported results — GUM 7.2.6, MUPR §12 (module [`report`]).
 //!
 //! A measurement model is built from input quantities with assigned
@@ -54,6 +56,7 @@
 pub mod bias;
 pub mod calibration;
 pub mod conformity;
+pub mod consensus;
 pub mod distribution;
 pub mod error;
 pub mod expr;

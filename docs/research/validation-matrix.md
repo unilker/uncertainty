@@ -373,3 +373,7 @@ Machine (F29) and Suncal.
 | IUPAC24-4A | IUPAC 2024 Example 4A, water hardness | u ≈ 3 mg/L | H 96.65, u 3.18 | ✅ |
 | IUPAC24-4B | IUPAC 2024 Example 4B, silicon isotopic abundances (3 outputs) | 0.923 3873(36), 0.046 2300(22), 0.030 3827(30) | same | ✅ |
 | IUPAC24-4I | IUPAC 2024 Example 4I, argentometric titration, conventional and K_sp models | 10.000 ± 0.026 mmol/L; K_sp model differs by 0.24 % | 10.000 ± 0.0255; 9.976 (mass balance) | ✅ except F92 |
+| IUPAC24-4F | IUPAC 2024 Example 4F, CCQM-K145 Ni in bovine liver, maximum likelihood with dark uncertainty | μ̂ 2.043(15), τ̂ 0.044(14) mg/kg | 2.042 94 (0.015 44), 0.043 54 (0.014 24) | ✅ |
+| KOEPKE17-G | Koepke et al. 2017 Tables 1–2, Newtonian constant of gravitation (DL, bootstrap, Linear Pool, ML) | DL 6.673 80, 0.000 28, (6.673 20, 6.674 40); LP 6.673 67, 0.001 24, (6.671 18, 6.675 79); ML 6.673 78, 0.000 30 | DL 6.673 790, 0.000 279, (6.673 23, 6.674 35); LP 6.673 667, 0.001 243, (6.671 17, 6.675 79); ML 6.673 778, 0.000 300 | ✅ except F93 |
+| KOEPKE17-CS | Koepke et al. 2017 Tables 3–4, half-life of ¹³⁷Cs (19 results) | DL 30.04 (0.04) a; LP 29.94 (0.93) a | 30.037 (0.045) a; 29.94 (0.93) a | ✅ |
+| KOEPKE17-SR | Koepke et al. 2017 Tables 3–4, half-life of ⁹⁰Sr (11 results) | DL 28.73 (0.11) a; LP 28.68 (0.77) a | 28.730 (0.110) a; 28.69 (0.77) a | ✅ |

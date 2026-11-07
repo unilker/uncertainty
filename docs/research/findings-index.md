@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (92)
+## Findings (93)
 
 | F | Finding | Session |
 |---|---|---|
@@ -107,8 +107,9 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F90 | EMUE E3.3 — covariance matrix of the reference values and the validation uncertainty (class c). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 | F91 | EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 | F92 | IUPAC 2024 Example 4I — sign of the endpoint correction (class c; to check against Meija et al. [14]). | 2026-11-07 (session 21, continued) — IUPAC brief guide 2024 (Possolo et al., PAC 96, 113) |
+| F93 | Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |
 
-## Decisions (65)
+## Decisions (66)
 
 | D | Decision | Session |
 |---|---|---|
@@ -177,3 +178,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D63 | Multicomponent conformity: total risks (EMUE E2.1). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 | D64 | CMC as a floor and the 5.3 note. | 2026-11-07 (session 21, continued) — ILAC P14:09/2020 |
 | D65 | Turkish spelling of reproducibility. | 2026-11-07 (session 21, continued) — Turkish edition of Nordtest TR 537 |
+| D66 | Consensus-value module (`consensus`). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |

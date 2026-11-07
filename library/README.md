@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**254 examples / örnek** (123 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 18 conformity assessment / uygunluk değerlendirmesi).
+**258 examples / örnek** (123 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 22 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -192,6 +192,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`gum5-e10-tspm-global-risks-acceptance-0.22`](chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json) | Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.22 mg/m³ (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,22 mg/m³ (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.3 |
 | [`gum5-e10-tspm-global-risks-shared-risk`](chemistry/gum5-e10-tspm-global-risks-shared-risk.json) | Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.2 mg/m³ (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,2 mg/m³ (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.3 |
 | [`gum5-e10-tspm-specific-risks`](chemistry/gum5-e10-tspm-specific-risks.json) | Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10) | Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10) | JCGM GUM-5:2026 Example 10, 10.6.4 and 10.7.2 |
+| [`iupac2024-4f-ccqm-k145-nickel-bovine-liver`](chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json) | Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F) | CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F) | Possolo et al. Example 4F |
 
 ## Electrical and RF / Elektrik ve RF
 
@@ -369,6 +370,14 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 |---|---|---|---|
 | [`iso5725-2-c2-softening-point-pitch-reml`](physical/iso5725-2-c2-softening-point-pitch-reml.json) | Softening point of pitch: REML estimates (ISO 5725-2 Example C.2) | Ziftin yumuşama noktası: REML tahminleri (ISO 5725-2 Örnek C.2) | ISO 5725-2:2019 Annex C.2.9 (Table C.13), Annex B.2 |
 | [`iso5725-2-c2-softening-point-pitch`](physical/iso5725-2-c2-softening-point-pitch.json) | Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2) | Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.2) | ISO 5725-2:2019 Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33) |
+
+## Physical properties, conformity assessment (JCGM 106) / Fiziksel özellikler, uygunluk değerlendirmesi (JCGM 106)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`koepke2017-half-life-cs137`](physical/koepke2017-half-life-cs137.json) | Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | ¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.2, Tables 3 and 4 |
+| [`koepke2017-half-life-sr90`](physical/koepke2017-half-life-sr90.json) | Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | ⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.2, Tables 3 and 4 |
+| [`koepke2017-newtonian-constant-g`](physical/koepke2017-newtonian-constant-g.json) | Newtonian constant of gravitation: consensus value of 14 measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | Newton çekim sabiti: 14 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.1, Tables 1 and 2 |
 
 ## Pressure / Basınç
 

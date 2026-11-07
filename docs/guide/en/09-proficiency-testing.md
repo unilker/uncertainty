@@ -96,3 +96,41 @@ spreadsheet, one laboratory per line: code, result, expanded uncertainty, covera
 method (tab, semicolon or space separated; decimal comma accepted; "<0.015" for a censored result). The
 *Results* tab shows the summary statistics, the assigned value, the table of scores with their signals and a
 chart of the z scores; the HTML report adds the homogeneity chart.
+
+## 9.7 Consensus value of an interlaboratory comparison
+
+A key comparison, an interlaboratory study for the characterisation of a reference material or a
+meta-analysis of published results gives n values x_j with standard uncertainties u_j. When the values are more
+dispersed than the u_j allow, the weighted mean with weights 1/u_j² and its uncertainty 1/√Σu_j⁻² are too
+optimistic. The `consensus` section (7.14b) follows the NIST Consensus Builder (NICOB, user manual 2020,
+Appendix A; Koepke et al., Metrologia 54 (2017) S34) and uses the random-effects model
+x_j = μ + λ_j + ε_j: the laboratory effects λ_j have mean 0 and standard deviation τ, the *dark uncertainty*.
+
+**DerSimonian–Laird.** Cochran's Q = Σu_j⁻²(x_j − x̄_w)² gives τ̂² = max{0, (Q − n + 1)/(Σu_j⁻² − Σu_j⁻⁴/Σu_j⁻²)};
+the consensus value is the weighted mean with weights w_j = 1/(τ̂² + u_j²), with the naive u_DL = 1/√Σw_j. The
+report gives the p-value of Q (χ² with n − 1 degrees of freedom) and the Knapp–Hartung standard uncertainty
+u_DL·√(Σw_j(x_j − μ̂)²/(n − 1)), expanded with t_{n−1}. When τ̂ = 0 the procedure is the weighted mean
+(Procedure A of Cox 2002).
+
+**Parametric bootstrap (NICOB §A.2).** u_DL ignores the uncertainty of τ̂, which rests on few degrees of
+freedom. In each of K replicates τ_k is drawn from the gamma approximation of the distribution of Q
+(Biggerstaff and Tweedie 1997: the gamma with the exact mean and variance of Q), x_jk from N(μ̂, τ_k² + u_j²) and,
+when ν_j is given, u_jk = u_j√(ν_j/χ²_ν_j); the DerSimonian–Laird μ_k is recomputed. The standard deviation and
+the 2.5 % and 97.5 % percentiles of the μ_k give u and the coverage interval.
+
+**Degrees of equivalence (NICOB §A.5.1).** D_j = x_j − μ̂ with U95 %(D_j), the half-length of the shortest
+interval centred at the mean of the bootstrap values D_jk = x_jk − μ_k that contains 95 % of them. A result with
+|D_j| > U95 %(D_j) lies beyond the range allowed by the model (Jones and Spiegelhalter 2011). The HTML report
+draws them.
+
+**Linear Pool (NICOB §A.4).** A sample from the mixture of Gaussian (or, with ν_j, rescaled Student t)
+distributions with means x_j and standard deviations u_j, with equal or given weights. Its mean and standard
+deviation are the consensus value and its uncertainty; the interval is from percentiles. The mixture can be
+multimodal; its uncertainty covers the whole spread of the results.
+
+**Maximum likelihood (IUPAC 2024, Example 4F).** The likelihood of μ and τ under Gaussian effects and errors
+with known u_j, maximised over τ with μ̂(τ) the weighted mean; standard uncertainties from the inverse Hessian.
+They are too small with few results; the bootstrap is preferable.
+
+Library: Koepke et al. 2017 (G, half-lives of ¹³⁷Cs and ⁹⁰Sr) and IUPAC 2024 Example 4F (CCQM-K145). Not yet
+implemented: the hierarchical Bayesian procedure of NICOB, leave-one-out and bilateral degrees of equivalence.

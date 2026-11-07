@@ -11,16 +11,17 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | onundan biri | ölçüm modeli (7.3) |
-| `topdown` | onundan biri | top-down değerlendirme (7.6) |
-| `proficiency` | onundan biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | onundan biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
-| `precision_experiment` | onundan biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
-| `multivariate` | onundan biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
-| `control_chart` | onundan biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
-| `sampling` | onundan biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
-| `error_function` | onundan biri | tartı aletinin hata yaklaşım fonksiyonu, EURAMET cg-18 (7.14) |
-| `multicomponent_conformity` | onundan biri | birden çok ilişkili özelliği olan ürün için toplam riskler, EMUE E2.1 (11.5) |
+| `model` | on birinden biri | ölçüm modeli (7.3) |
+| `topdown` | on birinden biri | top-down değerlendirme (7.6) |
+| `proficiency` | on birinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | on birinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | on birinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `multivariate` | on birinden biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
+| `control_chart` | on birinden biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
+| `sampling` | on birinden biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
+| `error_function` | on birinden biri | tartı aletinin hata yaklaşım fonksiyonu, EURAMET cg-18 (7.14) |
+| `multicomponent_conformity` | on birinden biri | birden çok ilişkili özelliği olan ürün için toplam riskler, EMUE E2.1 (11.5) |
+| `consensus` | on birinden biri | laboratuvarlar arası karşılaştırmanın uzlaşı değeri ve eşdeğerlik dereceleri, NIST Consensus Builder (7.14b, 9.7) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); model ve çok çıktılı projelerde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
@@ -379,10 +380,27 @@ Bir tartı aletinin hata yaklaşım fonksiyonu (EURAMET cg-18 Ek C2.2; bölüm 1
 
 Beklenen değerler: `results` (ad başına `risk`, `accepted`), `global_consumer_risk`, `global_producer_risk`.
 
+## 7.14b `consensus`
+
+```json
+"consensus": {
+  "measurand": "w(Ni)", "unit": "mg/kg",
+  "results": [ { "name": "JSI", "value": 1.930, "u": 0.110 }, { "name": "UME", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
+  "coverage": 0.95,
+  "dersimonian_laird": true, "linear_pool": false, "maximum_likelihood": true,
+  "trials": 100000, "seed": 1
+}
+```
+
+`dof` (isteğe bağlı) bootstrap ve doğrusal havuzda kullanılır; `weight` (isteğe bağlı) bir sonucun doğrusal
+havuzdaki ağırlığıdır. Beklenen değerler: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`,
+`interval_lower`, `interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`,
+`ml_mean`, `ml_u`, `ml_tau`, `ml_u_tau` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). Bkz. 9.7.
+
 ## 7.15 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
-`proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling` ve `error_function` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+`proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity` ve `consensus` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 

@@ -2,13 +2,13 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (126)
+- Kimya (127)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
 - Uzunluk (11)
 - Kütle (29)
-- Fiziksel özellikler (10)
+- Fiziksel özellikler (13)
 - Basınç (6)
 - Sıcaklık (10)
 
@@ -1189,6 +1189,32 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
 
 **Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang tr`
+
+### CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F)
+
+`iupac2024-4f-ccqm-k145-nickel-bovine-liver` — Possolo et al., Example 4F
+
+17 ulusal metroloji enstitüsü (aralarında UME) sığır karaciğerindeki nikel kütle kesrini ölçtü. Sonuçlar beyan edilen belirsizliklerin öngördüğünden daha fazla dağılır; x_j = μ + λ_j + ε_j, λ_j ~ N(0, τ²) laboratuvar etkileri modeli karanlık belirsizliği (τ) tanır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. Olabilirlik, ortalaması μ ve varyansları τ² + u_j² olan 17 normal yoğunluğun çarpımıdır; verilen τ için en büyük değerini 1/(τ² + u_j²) ağırlıklı ortalamada alır, bu nedenle yalnızca τ'daki profil olabilirlik sayısal olarak aranır.
+2. μ̂ = 2,0429 mg/kg ve τ̂ = 0,0435 mg/kg; standart belirsizlikleri −ln L'nin Hessian matrisinin tersinden gelir: basılı değerlerle aynı, 2,043(15) mg/kg ve 0,044(14) mg/kg.
+3. Rehber, en çok olabilirliğin kestirimleri yanlılaştırma eğiliminde olduğunu ve yaklaşık 15'ten az sonuçta Hessian'ın varyansı küçük kestirdiğini belirtir; kısıtlı en çok olabilirlik, NIST Consensus Builder ya da Bayesçi yöntemler tercih edilir. Karşılaştırma için DerSimonian–Laird kestirimi, parametrik bootstrap ve eşdeğerlik dereceleri de verilmiştir.
+
+**Sonuç:**
+
+- w(Ni): uzlaşı değeri 2,04282 mg/kg, standart belirsizlik 0,016 mg/kg, %95 kapsam aralığı [2,01082, 2,07470] mg/kg (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,046 mg/kg; Cochran Q = 40,12, serbestlik derecesi 16
+- w(Ni): 2,04294 mg/kg, standart belirsizlik 0,015 mg/kg; τ = 0,044 ± 0,014 mg/kg (en çok olabilirlik)
+
+**Notlar:**
+
+- Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. JSI için 1,930(110) mg/kg.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang tr`
 
 ### Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I)
 
@@ -5458,6 +5484,87 @@ ISO 5725-2:2019 C.2.9: Örnek C.2 verilerinin kısıtlı en çok olabilirlikle (
 - Tablo C.13 4. düzeyde s_R = 1,918 °C verirken Tablo C.12 1,915 °C verir; dengeli hücrelerde her iki yöntem de 1,9175 °C verir (araştırma günlüğü F48).
 
 **Çalıştırma:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang tr`
+
+### ¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
+
+`koepke2017-half-life-cs137` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+MacMahon vd. (2004) tarafından derlenen 19 yayımlanmış yarı ömür heterojendir (Q = 336, serbestlik derecesi 18). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. DerSimonian–Laird: μ̂ = 10971,1 gün = 30,037 a, u_DL = 16,4 gün = 0,045 a, τ̂ = 52,2 gün.
+2. Doğrusal havuz 29,94 a ve 0,93 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir.
+3. Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4).
+
+**Sonuç:**
+
+- T½(¹³⁷Cs): uzlaşı değeri 10971,1 d, standart belirsizlik 16 d, %95 kapsam aralığı [10937,5, 11004,8] d (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 52 d; Cochran Q = 335,6, serbestlik derecesi 18
+- T½(¹³⁷Cs): 10936,4 d, standart belirsizlik 339 d, %95 kapsam aralığı [9707,80, 11406,0] d (doğrusal havuz)
+
+**Notlar:**
+
+- Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır.
+
+**Çalıştırma:** `uncertainty run library/physical/koepke2017-half-life-cs137.json --lang tr`
+
+### ⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
+
+`koepke2017-half-life-sr90` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+MacMahon vd. (2004) tarafından derlenen 11 yayımlanmış yarı ömür heterojendir (Q = 400, serbestlik derecesi 10). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. DerSimonian–Laird: μ̂ = 10493,8 gün = 28,730 a, u_DL = 40,2 gün = 0,110 a, τ̂ = 104,7 gün.
+2. Doğrusal havuz 28,68 a ve 0,77 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir.
+3. Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4).
+
+**Sonuç:**
+
+- T½(⁹⁰Sr): uzlaşı değeri 10493,8 d, standart belirsizlik 40 d, %95 kapsam aralığı [10409,9, 10577,3] d (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 105 d; Cochran Q = 400,3, serbestlik derecesi 10
+- T½(⁹⁰Sr): 10478,1 d, standart belirsizlik 282 d, %95 kapsam aralığı [9923,10, 11091,7] d (doğrusal havuz)
+
+**Notlar:**
+
+- Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır.
+
+**Çalıştırma:** `uncertainty run library/physical/koepke2017-half-life-sr90.json --lang tr`
+
+### Newton çekim sabiti: 14 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
+
+`koepke2017-newtonian-constant-g` — Koepke, §7.1, Tables 1 and 2; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+CODATA 2014 düzeltmesinde kullanılan 14 G ölçümü birbiriyle tutarsızdır (Cochran Q = 319, serbestlik derecesi 13): ölçülen değerler tipik beyan edilen belirsizliğin yaklaşık dört katı dağılır. Rastgele etkiler modeli bu karanlık belirsizliği (τ) tanır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. Ağırlıkları 1/u_j² olan ağırlıklı ortalama etrafında Cochran Q = 319,1; τ̂² = (Q − 13)/(Σu⁻² − Σu⁻⁴/Σu⁻²) bağıntısı τ̂ = 9,45841 × 10⁻¹⁵ m³ kg⁻¹ s⁻² verir; bu, beyan edilen belirsizliklerin ortancası 0,00027'nin üç katından fazladır.
+2. 1/(τ̂² + u_j²) ağırlıklarıyla uzlaşı değeri 6,673790, u_DL = 1/√Σw = 0,000279 (× 10⁻¹¹ m³ kg⁻¹ s⁻²). Ağırlıklar, UWash-00'ün tek başına ağırlığın çoğunu taşıyacağı alışılmış ağırlıklı ortalamaya göre çok daha dengelidir.
+3. Parametrik bootstrap (NICOB §A.2), τ̂'nun az serbestlik derecesine dayandığını hesaba katar: τ, Q'nun dağılımının gama yaklaşımından çekilir, yeni değerler N(μ̂, τ² + u_j²) dağılımından çekilir ve DerSimonian–Laird kestirimi yeniden hesaplanır; tekrarların standart sapması ile %2,5 ve %97,5 yüzdelikleri u'yu ve %95 kapsam aralığını verir.
+4. Doğrusal havuz 14 normal dağılımı eşit ağırlıkla karıştırır: ortalaması aritmetik ortalama 6,67367, standart sapması √(ort. u² + ort. (x − x̄)²) = 0,00124 olup u_DL'nin dört katından büyüktür; karışım çok tepelidir (Koepke vd., Şekil 2).
+
+**Sonuç:**
+
+- G: uzlaşı değeri 6,673790 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00028 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,673226, 6,674352] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,00095 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran Q = 319,1, serbestlik derecesi 13
+- G: 6,673667 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,0012 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,671166, 6,675791] 10⁻¹¹ m³ kg⁻¹ s⁻² (doğrusal havuz)
+- G: 6,673778 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00030 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0,0010 ± 0,00022 10⁻¹¹ m³ kg⁻¹ s⁻² (en çok olabilirlik)
+
+**Notlar:**
+
+- Basılı DerSimonian–Laird değeri 6,673 80, Tablo 1'den yeniden hesaplanan 6,673 790 değerinin son basamağında bir birim yukarıdadır (araştırma günlüğü F93). Basılı aralık (6,673 20, 6,674 40), 10⁻⁴'e yuvarlanmış bootstrap yüzdelikleriyle uyuşur.
+- NIST-82 ile LANL-97 (0,351) ve HUST-05 ile HUST-09 (0,134) arasındaki korelasyonlar, Tablo 2'nin DerSimonian–Laird satırında olduğu gibi göz ardı edilir.
+
+**Çalıştırma:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang tr`
 
 ### Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13)
 

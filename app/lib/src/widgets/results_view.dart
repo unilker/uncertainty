@@ -67,6 +67,9 @@ class ResultsView extends StatelessWidget {
     if (results['multicomponent_conformity'] != null) {
       children.addAll(_multicomponent(context, results['multicomponent_conformity'] as Map<String, dynamic>));
     }
+    if (results['consensus'] != null) {
+      children.addAll(_consensus(context, results['consensus'] as Map<String, dynamic>, unit));
+    }
     if (results['error_function'] != null) {
       children.addAll(_errorFunction(context, results['error_function'] as Map<String, dynamic>));
     }
@@ -152,6 +155,53 @@ class ResultsView extends StatelessWidget {
       ),
       Section(s['contributions_chart']),
       SharesChart(rows: [for (final b in budget) MapEntry(b['name'].toString(), _d(b['variance_share']) ?? 0)], lang: s.lang),
+    ];
+  }
+
+  List<Widget> _consensus(BuildContext context, Map<String, dynamic> r, String rawUnit) {
+    final s = strings;
+    final unit = rawUnit.isEmpty ? '' : ' $rawUnit';
+    final dl = r['dersimonian_laird'] as Map<String, dynamic>;
+    final b = dl['bootstrap'] as Map<String, dynamic>?;
+    final lp = r['linear_pool'] as Map<String, dynamic>?;
+    final ml = r['maximum_likelihood'] as Map<String, dynamic>?;
+    String n(dynamic x, [int sig = 7]) => fmtNum(_d(x), sig, s.lang);
+    String interval(Map<String, dynamic> m) {
+      final i = (m['interval'] as List).map((e) => _d(e)).toList();
+      return '[${n(i[0])}, ${n(i[1])}]$unit (${fmtPct(_d(m['coverage']), 3, s.lang)})';
+    }
+
+    final doe = (b?['degrees_of_equivalence'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+    final results = (r['results'] as List).cast<Map<String, dynamic>>();
+    return [
+      Section(s['cs_title']),
+      _table(
+        context,
+        ['', ''],
+        [
+          [s['cs_consensus'], '${n(dl['mean'])}$unit'],
+          [s['cs_u_dl'], '${n(dl['standard_uncertainty'], 3)}$unit'],
+          [s['cs_tau'], '${n(dl['tau'], 3)}$unit'],
+          ['Cochran Q', '${n(dl['q'], 4)} (p = ${n(dl['q_p_value'], 2)})'],
+          [s['cs_kh'], '${n(dl['u_knapp_hartung'], 3)}$unit'],
+          if (b != null) [s['cs_boot_u'], '${n(b['standard_uncertainty'], 3)}$unit'],
+          if (b != null) [s['cs_interval'], interval(b)],
+          if (lp != null) [s['cs_lp'], '${n(lp['mean'])}$unit, u = ${n(lp['standard_uncertainty'], 3)}$unit'],
+          if (lp != null) [s['cs_interval'], interval(lp)],
+          if (ml != null) [s['cs_ml'], '${n(ml['mean'])}$unit, u = ${n(ml['standard_uncertainty'], 3)}$unit'],
+          if (ml != null) [s['cs_tau'], '${n(ml['tau'], 3)}$unit, u = ${n(ml['u_tau'], 3)}$unit'],
+        ],
+      ),
+      if (doe.isNotEmpty) Section(s['cs_doe']),
+      if (doe.isNotEmpty)
+        _table(
+          context,
+          [s['cs_participant'], s['cs_weight'], 'D', 'U95 %(D)'],
+          [
+            for (var j = 0; j < doe.length; j++)
+              [doe[j]['name'].toString(), fmtPct(_d(results[j]['weight']), 3, s.lang), n(doe[j]['d'], 3), n(doe[j]['expanded'], 3)],
+          ],
+        ),
     ];
   }
 

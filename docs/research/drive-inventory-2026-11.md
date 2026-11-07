@@ -42,7 +42,7 @@ Key to the columns:
 | 10 NIST TN 1900; 14 Possolo 2016 (Metrologia) | used / new | TN 1900 already in the library | — |
 | 11 Possolo & Meija 2022, *Measurement Uncertainty: A Reintroduction* | new | examples for the library; Bayesian and consensus methods | 4 |
 | 12 EMPIR EMUE compendium 2021 (41 examples) | new | **library**: E1.1, E2.1, E2.2, E3.3, E3.4, E3.8, E5.1, E6.5 done (F85–F91, D63) | done in part |
-| 30 Possolo et al. 2024, IUPAC brief guide | arrived | chemistry examples for the library: 3A, 4A, 4B, 4I done (F92) | done in part |
+| 30 Possolo et al. 2024, IUPAC brief guide | arrived | chemistry examples for the library: 3A, 4A, 4B, 4F, 4I done (F92, D66) | done in part |
 | 39 Possolo & Iyer 2017 | new | article background | 6 |
 | Kirkup & Frenkel 2006; White 2008; Leito 2015 (Tartu MOOC); Kessel (PTB resistor) | new | training examples; Kessel resistor = GUM Workbench example | 5 |
 
@@ -71,7 +71,7 @@ Key to the columns:
 
 | File | Status | Use | Order |
 |---|---|---|---|
-| 50 NIST Consensus Builder manual; 52 Koepke 2017; 54 Toman & Elster 2013; 51 Thompson & Ellison 2011; 55 Merkatas 2019; 53 Possolo 2023 | new | consensus value module (DerSimonian–Laird, hierarchical Bayes, linear pool); PT and key comparisons | 4 |
+| 50 NIST Consensus Builder manual; 52 Koepke 2017; 54 Toman & Elster 2013; 51 Thompson & Ellison 2011; 55 Merkatas 2019; 53 Possolo 2023 | **50, 52 done** (D66, F93); 51, 53–55 to read | consensus value module (DerSimonian–Laird, hierarchical Bayes, linear pool); PT and key comparisons | 4 |
 
 ## Other topics
 

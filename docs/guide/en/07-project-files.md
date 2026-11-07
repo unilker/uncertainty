@@ -11,16 +11,17 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the ten | measurement model (7.3) |
-| `topdown` | one of the ten | top-down evaluation (7.6) |
-| `proficiency` | one of the ten | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the ten | calibration with uncertainties in both variables, ISO 6143 (7.8) |
-| `precision_experiment` | one of the ten | interlaboratory precision experiment, ISO 5725-2 (7.10) |
-| `multivariate` | one of the ten | model with several output quantities, JCGM 102 (7.11) |
-| `control_chart` | one of the ten | control chart for internal quality control, Nordtest TR 569 (7.12) |
-| `sampling` | one of the ten | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
-| `error_function` | one of the ten | error approximation function of a weighing instrument, EURAMET cg-18 (7.14) |
-| `multicomponent_conformity` | one of the ten | total risks for an item with several correlated properties, EMUE E2.1 (11.5) |
+| `model` | one of the eleven | measurement model (7.3) |
+| `topdown` | one of the eleven | top-down evaluation (7.6) |
+| `proficiency` | one of the eleven | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the eleven | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the eleven | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `multivariate` | one of the eleven | model with several output quantities, JCGM 102 (7.11) |
+| `control_chart` | one of the eleven | control chart for internal quality control, Nordtest TR 569 (7.12) |
+| `sampling` | one of the eleven | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
+| `error_function` | one of the eleven | error approximation function of a weighing instrument, EURAMET cg-18 (7.14) |
+| `multicomponent_conformity` | one of the eleven | total risks for an item with several correlated properties, EMUE E2.1 (11.5) |
+| `consensus` | one of the eleven | consensus value and degrees of equivalence of an interlaboratory comparison, NIST Consensus Builder (7.14b, 9.7) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); for model and multivariate projects |
 | `reporting` | no | rounding of the reported result (7.5) |
@@ -379,10 +380,27 @@ The error approximation function of a weighing instrument (EURAMET cg-18 Appendi
 
 Expected values: `results` (per name: `risk`, `accepted`), `global_consumer_risk`, `global_producer_risk`.
 
+## 7.14b `consensus`
+
+```json
+"consensus": {
+  "measurand": "w(Ni)", "unit": "mg/kg",
+  "results": [ { "name": "JSI", "value": 1.930, "u": 0.110 }, { "name": "UME", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
+  "coverage": 0.95,
+  "dersimonian_laird": true, "linear_pool": false, "maximum_likelihood": true,
+  "trials": 100000, "seed": 1
+}
+```
+
+`dof` (optional) is used by the bootstrap and the Linear Pool; `weight` (optional) is the weight of a result in
+the Linear Pool. Expected values: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`, `interval_lower`,
+`interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`, `ml_mean`, `ml_u`,
+`ml_tau`, `ml_u_tau` and `degrees_of_equivalence` (per name: `d`, `expanded`). See 9.7.
+
 ## 7.15 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling` and `error_function`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity` and `consensus`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 

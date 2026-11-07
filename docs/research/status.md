@@ -10,11 +10,11 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **254** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **191** Rust testi (bunlardan biri 254 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **258** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **197** Rust testi (bunlardan biri 258 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
-| Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D65, bulgular F1–F92 (dizin: `findings-index.md`) |
+| Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D66, bulgular F1–F93 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -113,16 +113,20 @@ indirilemedi; Drive klasörüne konacak:
      - WG1 tanımları (D61), Eurachem/CITAC uygunluk 2021 (D62, F86);
      - EMUE E1.1, E2.1 (D63), E2.2, E3.3, E3.4, E3.8, E5.1, E6.5 (F78 eki, F85 eki, F87–F91);
      - IUPAC 2024 3A/4A/4B/4I (F92), ILAC P14 (D64), Nordtest TR 537 TR (D65);
-     - Mari 2025 ve Pradella 2026 (sözlükte "Tartışma").
-   - Sıradakiler: uzlaşı değeri modülü (NIST Consensus Builder, Koepke 2017, DerSimonian–Laird; IUPAC 4F,
-     iridyum), Possolo & Meija 2022 örnekleri, BIPM qNMR saflık bütçeleri, Bayesçi öğreticiler, Degenhardt 2025,
+     - Mari 2025 ve Pradella 2026 (sözlükte "Tartışma");
+     - uzlaşı değeri modülü (D66, F93): DerSimonian–Laird, Knapp–Hartung, NICOB parametrik bootstrap,
+       eşdeğerlik dereceleri, doğrusal havuz, en çok olabilirlik; Koepke 2017 (G, ¹³⁷Cs, ⁹⁰Sr) ve IUPAC 4F
+       (CCQM-K145).
+   - Sıradakiler: Possolo & Meija 2022 örnekleri (IUPAC 3E/4M iridyum ile), BIPM qNMR saflık bütçeleri, Bayesçi öğreticiler, Degenhardt 2025,
      QAC 2026, UME prosedürleri.
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
      - tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar);
      - beta dağılımı (IUPAC 4H);
      - uygulamada `homogeneity.bayes` formu ve uygunlukta `distribution: lognormal` seçimi;
-     - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak.
+     - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak;
+     - uzlaşıda hiyerarşik Bayes (NICOB §A.3), birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri;
+       uygulamada `consensus` için veri yapıştırma formu.
 1. **TUR'a dayalı koruma bantları (konformite modülü).**
    - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
      guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert

@@ -11483,6 +11483,179 @@
   }
  },
  {
+  "path": "library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "iupac2024-4f-ccqm-k145-nickel-bovine-liver",
+    "field": "chemistry",
+    "title": {
+     "en": "Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F)",
+     "tr": "CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F)"
+    },
+    "description": {
+     "en": "17 national metrology institutes (UME among them) measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ.",
+     "tr": "17 ulusal metroloji enstitüsü (aralarında UME) sığır karaciğerindeki nikel kütle kesrini ölçtü. Sonuçlar beyan edilen belirsizliklerin öngördüğünden daha fazla dağılır; x_j = μ + λ_j + ε_j, λ_j ~ N(0, τ²) laboratuvar etkileri modeli karanlık belirsizliği (τ) tanır."
+    },
+    "explanation": [
+     {
+      "en": "The likelihood is a product of 17 Gaussian densities with mean μ and variances τ² + u_j²; for given τ it is maximised by the weighted mean with weights 1/(τ² + u_j²), so only the profile likelihood in τ needs a numerical search.",
+      "tr": "Olabilirlik, ortalaması μ ve varyansları τ² + u_j² olan 17 normal yoğunluğun çarpımıdır; verilen τ için en büyük değerini 1/(τ² + u_j²) ağırlıklı ortalamada alır, bu nedenle yalnızca τ'daki profil olabilirlik sayısal olarak aranır."
+     },
+     {
+      "en": "μ̂ = 2.0429 mg/kg and τ̂ = 0.0435 mg/kg; their standard uncertainties come from the inverse Hessian of −ln L: 2.043(15) mg/kg and 0.044(14) mg/kg, as printed.",
+      "tr": "μ̂ = 2,0429 mg/kg ve τ̂ = 0,0435 mg/kg; standart belirsizlikleri −ln L'nin Hessian matrisinin tersinden gelir: basılı değerlerle aynı, 2,043(15) mg/kg ve 0,044(14) mg/kg."
+     },
+     {
+      "en": "The guide warns that maximum likelihood tends to bias the estimates and that the Hessian underestimates the variance with fewer than about 15 results; restricted maximum likelihood, the NIST Consensus Builder or Bayesian procedures are preferable. The DerSimonian–Laird estimate with the parametric bootstrap and the degrees of equivalence are shown for comparison.",
+      "tr": "Rehber, en çok olabilirliğin kestirimleri yanlılaştırma eğiliminde olduğunu ve yaklaşık 15'ten az sonuçta Hessian'ın varyansı küçük kestirdiğini belirtir; kısıtlı en çok olabilirlik, NIST Consensus Builder ya da Bayesçi yöntemler tercih edilir. Karşılaştırma için DerSimonian–Laird kestirimi, parametrik bootstrap ve eşdeğerlik dereceleri de verilmiştir."
+     }
+    ],
+    "tags": [
+     "iupac-2024",
+     "key-comparison",
+     "ccqm",
+     "consensus",
+     "dark-uncertainty",
+     "maximum-likelihood",
+     "ume"
+    ],
+    "notes": [
+     {
+      "en": "The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for JSI.",
+      "tr": "Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. JSI için 1,930(110) mg/kg."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+      "section": "Example 4F",
+      "url": "https://doi.org/10.1515/pac-2022-1203"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "w(Ni)",
+    "unit": "mg/kg",
+    "results": [
+     {
+      "name": "JSI",
+      "value": 1.93,
+      "u": 0.11
+     },
+     {
+      "name": "INMC",
+      "value": 1.94,
+      "u": 0.064
+     },
+     {
+      "name": "GLHK",
+      "value": 1.942,
+      "u": 0.092
+     },
+     {
+      "name": "LNE",
+      "value": 1.958,
+      "u": 0.075
+     },
+     {
+      "name": "NIST",
+      "value": 1.984,
+      "u": 0.02
+     },
+     {
+      "name": "KRISS",
+      "value": 1.993,
+      "u": 0.033
+     },
+     {
+      "name": "INACAL",
+      "value": 2.01,
+      "u": 0.06
+     },
+     {
+      "name": "NMIA",
+      "value": 2.02,
+      "u": 0.05
+     },
+     {
+      "name": "NIM",
+      "value": 2.022,
+      "u": 0.023
+     },
+     {
+      "name": "NMIJ",
+      "value": 2.05,
+      "u": 0.02
+     },
+     {
+      "name": "RISE",
+      "value": 2.055,
+      "u": 0.052
+     },
+     {
+      "name": "NRC",
+      "value": 2.07,
+      "u": 0.05
+     },
+     {
+      "name": "PTB",
+      "value": 2.077,
+      "u": 0.035
+     },
+     {
+      "name": "LATU",
+      "value": 2.08,
+      "u": 0.059
+     },
+     {
+      "name": "LGC",
+      "value": 2.131,
+      "u": 0.042
+     },
+     {
+      "name": "UME",
+      "value": 2.15,
+      "u": 0.03
+     },
+     {
+      "name": "HSA",
+      "value": 2.18,
+      "u": 0.08
+     }
+    ],
+    "maximum_likelihood": true,
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "ml_mean": {
+      "value": 2.043,
+      "tolerance": 0.0005
+     },
+     "ml_u": {
+      "value": 0.015,
+      "tolerance": 0.0005
+     },
+     "ml_tau": {
+      "value": 0.044,
+      "tolerance": 0.0005
+     },
+     "ml_u_tau": {
+      "value": 0.014,
+      "tolerance": 0.0005
+     }
+    },
+    "reference": {
+     "en": "IUPAC 2024, Example 4F: μ̂ = 2.043(15) mg/kg and τ̂ = 0.044(14) mg/kg (scipy: 2.042939, 0.015442; 0.043541, 0.014239).",
+     "tr": "IUPAC 2024, Örnek 4F: μ̂ = 2,043(15) mg/kg ve τ̂ = 0,044(14) mg/kg (scipy: 2,042939, 0,015442; 0,043541, 0,014239)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/iupac2024-4i-argentometric-titration.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -42818,6 +42991,626 @@
     "reference": {
      "en": "ISO 5725-2:2019, Formulae (C.25)–(C.33), Tables C.10–C.12.",
      "tr": "ISO 5725-2:2019, Formül (C.25)–(C.33), Tablo C.10–C.12."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/physical/koepke2017-half-life-cs137.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "koepke2017-half-life-cs137",
+    "field": "physical",
+    "title": {
+     "en": "Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)",
+     "tr": "¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)"
+    },
+    "description": {
+     "en": "The 19 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 336 with 18 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.",
+     "tr": "MacMahon vd. (2004) tarafından derlenen 19 yayımlanmış yarı ömür heterojendir (Q = 336, serbestlik derecesi 18). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir."
+    },
+    "explanation": [
+     {
+      "en": "DerSimonian–Laird: μ̂ = 10971.1 d = 30.037 a, u_DL = 16.4 d = 0.045 a, τ̂ = 52.2 d.",
+      "tr": "DerSimonian–Laird: μ̂ = 10971,1 gün = 30,037 a, u_DL = 16,4 gün = 0,045 a, τ̂ = 52,2 gün."
+     },
+     {
+      "en": "The Linear Pool gives 29.94 a with standard uncertainty 0.93 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.",
+      "tr": "Doğrusal havuz 29,94 a ve 0,93 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir."
+     },
+     {
+      "en": "The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).",
+      "tr": "Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4)."
+     }
+    ],
+    "tags": [
+     "koepke-2017",
+     "nicob",
+     "consensus",
+     "dark-uncertainty",
+     "dersimonian-laird",
+     "linear-pool",
+     "half-life",
+     "radionuclide"
+    ],
+    "notes": [
+     {
+      "en": "Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.",
+      "tr": "Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Koepke, Lafarge, Possolo & Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62",
+      "section": "§7.2, Tables 3 and 4",
+      "url": "https://doi.org/10.1088/1681-7575/aa6c0e"
+     },
+     {
+      "document": "NIST Consensus Builder user manual (2020 Nov 12), Appendix A",
+      "section": "§A.2, §A.4, §A.5",
+      "url": "https://consensus.nist.gov"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "T½(¹³⁷Cs)",
+    "unit": "d",
+    "results": [
+     {
+      "name": "WT55",
+      "value": 9715,
+      "u": 146
+     },
+     {
+      "name": "Br55",
+      "value": 10957,
+      "u": 146
+     },
+     {
+      "name": "Fa61",
+      "value": 11103,
+      "u": 146
+     },
+     {
+      "name": "Fl62",
+      "value": 10994,
+      "u": 256
+     },
+     {
+      "name": "Go63",
+      "value": 10840,
+      "u": 18
+     },
+     {
+      "name": "Ri63",
+      "value": 10665,
+      "u": 110
+     },
+     {
+      "name": "Le65",
+      "value": 11220,
+      "u": 47
+     },
+     {
+      "name": "Fl65a",
+      "value": 10921,
+      "u": 183
+     },
+     {
+      "name": "Fl65b",
+      "value": 11286,
+      "u": 256
+     },
+     {
+      "name": "Ha70",
+      "value": 11191,
+      "u": 157
+     },
+     {
+      "name": "Em72",
+      "value": 11023,
+      "u": 37
+     },
+     {
+      "name": "DP73",
+      "value": 11020.8,
+      "u": 4.1
+     },
+     {
+      "name": "Co73",
+      "value": 11034,
+      "u": 29
+     },
+     {
+      "name": "GS78",
+      "value": 10906,
+      "u": 33
+     },
+     {
+      "name": "Ho80",
+      "value": 11009,
+      "u": 11
+     },
+     {
+      "name": "MT80",
+      "value": 10967.8,
+      "u": 4.5
+     },
+     {
+      "name": "Go92",
+      "value": 10940.8,
+      "u": 6.9
+     },
+     {
+      "name": "Un02",
+      "value": 11018.3,
+      "u": 9.5
+     },
+     {
+      "name": "Sc04",
+      "value": 10970,
+      "u": 20
+     }
+    ],
+    "linear_pool": true,
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "mean": {
+      "value": 10972.11,
+      "tolerance": 1.83
+     },
+     "u": {
+      "value": 14.61,
+      "tolerance": 1.83
+     },
+     "tau": {
+      "value": 52.19,
+      "tolerance": 0.01
+     },
+     "q": {
+      "value": 335.6,
+      "tolerance": 0.01
+     },
+     "bootstrap_u": {
+      "value": 16.3,
+      "tolerance": 0.4
+     },
+     "interval_lower": {
+      "value": 10938.0,
+      "tolerance": 1.5
+     },
+     "interval_upper": {
+      "value": 11004.5,
+      "tolerance": 1.5
+     },
+     "linear_pool_mean": {
+      "value": 10935.59,
+      "tolerance": 5.0
+     },
+     "linear_pool_u": {
+      "value": 339.68,
+      "tolerance": 4.1
+     },
+     "linear_pool_lower": {
+      "value": 9705.1,
+      "tolerance": 20.0
+     },
+     "linear_pool_upper": {
+      "value": 11408.2,
+      "tolerance": 20.0
+     }
+    },
+    "reference": {
+     "en": "Koepke et al. (2017) Table 4: DerSimonian–Laird 30.04 a, u 0.04 a; Linear Pool 29.94 a, u 0.93 a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
+     "tr": "Koepke vd. (2017) Tablo 4: DerSimonian–Laird 30,04 a, u 0,04 a; doğrusal havuz 29,94 a, u 0,93 a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/physical/koepke2017-half-life-sr90.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "koepke2017-half-life-sr90",
+    "field": "physical",
+    "title": {
+     "en": "Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)",
+     "tr": "⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)"
+    },
+    "description": {
+     "en": "The 11 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 400 with 10 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.",
+     "tr": "MacMahon vd. (2004) tarafından derlenen 11 yayımlanmış yarı ömür heterojendir (Q = 400, serbestlik derecesi 10). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir."
+    },
+    "explanation": [
+     {
+      "en": "DerSimonian–Laird: μ̂ = 10493.8 d = 28.730 a, u_DL = 40.2 d = 0.110 a, τ̂ = 104.7 d.",
+      "tr": "DerSimonian–Laird: μ̂ = 10493,8 gün = 28,730 a, u_DL = 40,2 gün = 0,110 a, τ̂ = 104,7 gün."
+     },
+     {
+      "en": "The Linear Pool gives 28.68 a with standard uncertainty 0.77 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.",
+      "tr": "Doğrusal havuz 28,68 a ve 0,77 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir."
+     },
+     {
+      "en": "The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).",
+      "tr": "Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4)."
+     }
+    ],
+    "tags": [
+     "koepke-2017",
+     "nicob",
+     "consensus",
+     "dark-uncertainty",
+     "dersimonian-laird",
+     "linear-pool",
+     "half-life",
+     "radionuclide"
+    ],
+    "notes": [
+     {
+      "en": "Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.",
+      "tr": "Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Koepke, Lafarge, Possolo & Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62",
+      "section": "§7.2, Tables 3 and 4",
+      "url": "https://doi.org/10.1088/1681-7575/aa6c0e"
+     },
+     {
+      "document": "NIST Consensus Builder user manual (2020 Nov 12), Appendix A",
+      "section": "§A.2, §A.4, §A.5",
+      "url": "https://consensus.nist.gov"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "T½(⁹⁰Sr)",
+    "unit": "d",
+    "results": [
+     {
+      "name": "WT55",
+      "value": 10120,
+      "u": 150
+     },
+     {
+      "name": "An58",
+      "value": 10700,
+      "u": 580
+     },
+     {
+      "name": "Fl65a",
+      "value": 10230,
+      "u": 150
+     },
+     {
+      "name": "Fl65b",
+      "value": 10410,
+      "u": 330
+     },
+     {
+      "name": "Ho77",
+      "value": 10636,
+      "u": 88
+     },
+     {
+      "name": "La78",
+      "value": 10282,
+      "u": 12
+     },
+     {
+      "name": "Ra83",
+      "value": 10588,
+      "u": 91
+     },
+     {
+      "name": "Ko89",
+      "value": 10665,
+      "u": 37
+     },
+     {
+      "name": "Ma94",
+      "value": 10561,
+      "u": 14
+     },
+     {
+      "name": "WL96",
+      "value": 10495,
+      "u": 4
+     },
+     {
+      "name": "Sc04",
+      "value": 10557,
+      "u": 11
+     }
+    ],
+    "linear_pool": true,
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "mean": {
+      "value": 10493.63,
+      "tolerance": 1.83
+     },
+     "u": {
+      "value": 40.18,
+      "tolerance": 1.83
+     },
+     "tau": {
+      "value": 104.67,
+      "tolerance": 0.01
+     },
+     "q": {
+      "value": 400.3,
+      "tolerance": 0.01
+     },
+     "bootstrap_u": {
+      "value": 40.2,
+      "tolerance": 0.4
+     },
+     "interval_lower": {
+      "value": 10410.0,
+      "tolerance": 1.5
+     },
+     "interval_upper": {
+      "value": 10577.4,
+      "tolerance": 1.5
+     },
+     "linear_pool_mean": {
+      "value": 10475.37,
+      "tolerance": 4.5
+     },
+     "linear_pool_u": {
+      "value": 281.24,
+      "tolerance": 3.7
+     },
+     "linear_pool_lower": {
+      "value": 9923.1,
+      "tolerance": 20.0
+     },
+     "linear_pool_upper": {
+      "value": 11082.1,
+      "tolerance": 20.0
+     }
+    },
+    "reference": {
+     "en": "Koepke et al. (2017) Table 4: DerSimonian–Laird 28.73 a, u 0.11 a; Linear Pool 28.68 a, u 0.77 a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
+     "tr": "Koepke vd. (2017) Tablo 4: DerSimonian–Laird 28,73 a, u 0,11 a; doğrusal havuz 28,68 a, u 0,77 a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/physical/koepke2017-newtonian-constant-g.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "koepke2017-newtonian-constant-g",
+    "field": "physical",
+    "title": {
+     "en": "Newtonian constant of gravitation: consensus value of 14 measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)",
+     "tr": "Newton çekim sabiti: 14 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)"
+    },
+    "description": {
+     "en": "The 14 measurements of G used in the CODATA 2014 adjustment are mutually inconsistent (Cochran's Q = 319 with 13 degrees of freedom): the measured values are about four times more dispersed than the typical stated uncertainty. The random-effects model recognises this dark uncertainty τ.",
+     "tr": "CODATA 2014 düzeltmesinde kullanılan 14 G ölçümü birbiriyle tutarsızdır (Cochran Q = 319, serbestlik derecesi 13): ölçülen değerler tipik beyan edilen belirsizliğin yaklaşık dört katı dağılır. Rastgele etkiler modeli bu karanlık belirsizliği (τ) tanır."
+    },
+    "explanation": [
+     {
+      "en": "Cochran's Q about the weighted mean with weights 1/u_j² is 319.1; τ̂² = (Q − 13)/(Σu⁻² − Σu⁻⁴/Σu⁻²) gives τ̂ = 9.45841 × 10⁻¹⁵ m³ kg⁻¹ s⁻², more than three times the median stated uncertainty 0.00027.",
+      "tr": "Ağırlıkları 1/u_j² olan ağırlıklı ortalama etrafında Cochran Q = 319,1; τ̂² = (Q − 13)/(Σu⁻² − Σu⁻⁴/Σu⁻²) bağıntısı τ̂ = 9,45841 × 10⁻¹⁵ m³ kg⁻¹ s⁻² verir; bu, beyan edilen belirsizliklerin ortancası 0,00027'nin üç katından fazladır."
+     },
+     {
+      "en": "With weights 1/(τ̂² + u_j²) the consensus value is 6.673790 and u_DL = 1/√Σw = 0.000279 (× 10⁻¹¹ m³ kg⁻¹ s⁻²). The weights are far more even than those of the conventional weighted mean, where UWash-00 alone would carry most of the weight.",
+      "tr": "1/(τ̂² + u_j²) ağırlıklarıyla uzlaşı değeri 6,673790, u_DL = 1/√Σw = 0,000279 (× 10⁻¹¹ m³ kg⁻¹ s⁻²). Ağırlıklar, UWash-00'ün tek başına ağırlığın çoğunu taşıyacağı alışılmış ağırlıklı ortalamaya göre çok daha dengelidir."
+     },
+     {
+      "en": "The parametric bootstrap (NICOB §A.2) recognises that τ̂ rests on few degrees of freedom: τ is drawn from the gamma approximation of the distribution of Q, new values are drawn from N(μ̂, τ² + u_j²), and the DerSimonian–Laird estimate is recomputed; the standard deviation and the 2.5 % and 97.5 % percentiles of the replicates give u and the 95 % coverage interval.",
+      "tr": "Parametrik bootstrap (NICOB §A.2), τ̂'nun az serbestlik derecesine dayandığını hesaba katar: τ, Q'nun dağılımının gama yaklaşımından çekilir, yeni değerler N(μ̂, τ² + u_j²) dağılımından çekilir ve DerSimonian–Laird kestirimi yeniden hesaplanır; tekrarların standart sapması ile %2,5 ve %97,5 yüzdelikleri u'yu ve %95 kapsam aralığını verir."
+     },
+     {
+      "en": "The Linear Pool mixes the 14 Gaussian distributions with equal weights: its mean is the arithmetic mean 6.67367 and its standard deviation √(mean u² + mean (x − x̄)²) = 0.00124, more than four times u_DL; the mixture is multimodal (Koepke et al., Figure 2).",
+      "tr": "Doğrusal havuz 14 normal dağılımı eşit ağırlıkla karıştırır: ortalaması aritmetik ortalama 6,67367, standart sapması √(ort. u² + ort. (x − x̄)²) = 0,00124 olup u_DL'nin dört katından büyüktür; karışım çok tepelidir (Koepke vd., Şekil 2)."
+     }
+    ],
+    "tags": [
+     "koepke-2017",
+     "nicob",
+     "consensus",
+     "dark-uncertainty",
+     "dersimonian-laird",
+     "linear-pool",
+     "newtonian-constant"
+    ],
+    "notes": [
+     {
+      "en": "The printed DerSimonian–Laird value 6.673 80 is one unit in the last digit above the value recomputed from Table 1, 6.673 790 (research log F93). The printed interval (6.673 20, 6.674 40) agrees with the bootstrap percentiles rounded to 10⁻⁴.",
+      "tr": "Basılı DerSimonian–Laird değeri 6,673 80, Tablo 1'den yeniden hesaplanan 6,673 790 değerinin son basamağında bir birim yukarıdadır (araştırma günlüğü F93). Basılı aralık (6,673 20, 6,674 40), 10⁻⁴'e yuvarlanmış bootstrap yüzdelikleriyle uyuşur."
+     },
+     {
+      "en": "The correlations between NIST-82 and LANL-97 (0.351) and between HUST-05 and HUST-09 (0.134) are ignored, as in the DerSimonian–Laird row of Table 2.",
+      "tr": "NIST-82 ile LANL-97 (0,351) ve HUST-05 ile HUST-09 (0,134) arasındaki korelasyonlar, Tablo 2'nin DerSimonian–Laird satırında olduğu gibi göz ardı edilir."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Koepke, Lafarge, Possolo & Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62",
+      "section": "§7.1, Tables 1 and 2",
+      "url": "https://doi.org/10.1088/1681-7575/aa6c0e"
+     },
+     {
+      "document": "NIST Consensus Builder user manual (2020 Nov 12), Appendix A",
+      "section": "§A.2, §A.4, §A.5",
+      "url": "https://consensus.nist.gov"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "G",
+    "unit": "10⁻¹¹ m³ kg⁻¹ s⁻²",
+    "results": [
+     {
+      "name": "NIST-82",
+      "value": 6.67248,
+      "u": 0.00043
+     },
+     {
+      "name": "TR&D-96",
+      "value": 6.6729,
+      "u": 0.0005
+     },
+     {
+      "name": "LANL-97",
+      "value": 6.67398,
+      "u": 0.0007
+     },
+     {
+      "name": "UWash-00",
+      "value": 6.674255,
+      "u": 0.000092
+     },
+     {
+      "name": "BIPM-01",
+      "value": 6.67559,
+      "u": 0.00027
+     },
+     {
+      "name": "UWup-02",
+      "value": 6.67422,
+      "u": 0.00098
+     },
+     {
+      "name": "MSL-03",
+      "value": 6.67387,
+      "u": 0.00027
+     },
+     {
+      "name": "HUST-05",
+      "value": 6.67222,
+      "u": 0.00087
+     },
+     {
+      "name": "UZur-06",
+      "value": 6.67425,
+      "u": 0.00012
+     },
+     {
+      "name": "HUST-09",
+      "value": 6.67349,
+      "u": 0.00018
+     },
+     {
+      "name": "JILA-10",
+      "value": 6.67234,
+      "u": 0.00014
+     },
+     {
+      "name": "BIPM-14",
+      "value": 6.67554,
+      "u": 0.00016
+     },
+     {
+      "name": "LENS-14",
+      "value": 6.67191,
+      "u": 0.00099
+     },
+     {
+      "name": "UCI-14",
+      "value": 6.67435,
+      "u": 0.00013
+     }
+    ],
+    "linear_pool": true,
+    "maximum_likelihood": true,
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "mean": {
+      "value": 6.6738,
+      "tolerance": 0.000011
+     },
+     "u": {
+      "value": 0.00028,
+      "tolerance": 0.000005
+     },
+     "tau": {
+      "value": 0.000946,
+      "tolerance": 5e-7
+     },
+     "q": {
+      "value": 319.1,
+      "tolerance": 0.05
+     },
+     "u_knapp_hartung": {
+      "value": 0.0003066,
+      "tolerance": 1e-7
+     },
+     "bootstrap_u": {
+      "value": 0.000279,
+      "tolerance": 0.000006
+     },
+     "interval_lower": {
+      "value": 6.67322,
+      "tolerance": 0.00001
+     },
+     "interval_upper": {
+      "value": 6.67435,
+      "tolerance": 0.00001
+     },
+     "linear_pool_mean": {
+      "value": 6.67367,
+      "tolerance": 0.000006
+     },
+     "linear_pool_u": {
+      "value": 0.00124,
+      "tolerance": 0.000006
+     },
+     "linear_pool_lower": {
+      "value": 6.67118,
+      "tolerance": 0.00003
+     },
+     "linear_pool_upper": {
+      "value": 6.67579,
+      "tolerance": 0.00003
+     },
+     "ml_mean": {
+      "value": 6.67378,
+      "tolerance": 0.000005
+     },
+     "ml_u": {
+      "value": 0.0003,
+      "tolerance": 0.000005
+     },
+     "degrees_of_equivalence": {
+      "UWash-00": {
+       "d": {
+        "value": 0.000465,
+        "tolerance": 5e-7
+       }
+      },
+      "LENS-14": {
+       "d": {
+        "value": -0.00188,
+        "tolerance": 5e-7
+       }
+      }
+     }
+    },
+    "reference": {
+     "en": "Koepke et al. (2017) Table 2: DerSimonian–Laird 6.673 80, u 0.000 28, (6.673 20, 6.674 40); Linear Pool 6.673 67, 0.001 24, (6.671 18, 6.675 79); maximum likelihood 6.673 78, 0.000 30. τ, Q, u_KH, the bootstrap u and percentiles and D_j: independent numpy computation (10⁵ replicates; the printed interval is consistent with them rounded to 10⁻⁴).",
+     "tr": "Koepke vd. (2017) Tablo 2: DerSimonian–Laird 6,673 80, u 0,000 28, (6,673 20, 6,674 40); doğrusal havuz 6,673 67, 0,001 24, (6,671 18, 6,675 79); en çok olabilirlik 6,673 78, 0,000 30. τ, Q, u_KH, bootstrap u ve yüzdelikleri ile D_j: bağımsız numpy hesabı (10⁵ tekrar; basılı aralık bunların 10⁻⁴'e yuvarlanmışıyla uyumludur)."
     }
    }
   }

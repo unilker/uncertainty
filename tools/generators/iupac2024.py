@@ -181,3 +181,42 @@ p["expected"] = {"gum": {**base["expected"]["gum"], "reported_expanded_uncertain
                                 "EA-4/02 M:2022 S2 (U = 58 mg) ve ILAC P14:09/2020 5.5; CMC örnek amaçlıdır.")}
 Path("library/mass/ilac-p14-cmc-floor-weight-10kg.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print("wrote ilac-p14-cmc-floor-weight-10kg")
+
+# --- Example 4F: CCQM-K145, nickel in bovine liver — maximum likelihood with dark uncertainty --------------
+K145 = [("JSI", 1.930, 0.110), ("INMC", 1.940, 0.064), ("GLHK", 1.942, 0.092), ("LNE", 1.958, 0.075),
+        ("NIST", 1.984, 0.020), ("KRISS", 1.993, 0.033), ("INACAL", 2.010, 0.060), ("NMIA", 2.020, 0.050),
+        ("NIM", 2.022, 0.023), ("NMIJ", 2.050, 0.020), ("RISE", 2.055, 0.052), ("NRC", 2.070, 0.050),
+        ("PTB", 2.077, 0.035), ("LATU", 2.080, 0.059), ("LGC", 2.131, 0.042), ("UME", 2.150, 0.030),
+        ("HSA", 2.180, 0.080)]
+
+
+def nll_profile(t):
+    w = [1 / (t * t + s * s) for _, _, s in K145]
+    m = sum(a * x for a, (_, x, _) in zip(w, K145)) / sum(w)
+    return sum(0.5 * (math.log(t * t + s * s) + (x - m) ** 2 / (t * t + s * s)) for _, x, s in K145), m
+
+
+grid = [i * 1e-5 for i in range(20001)]
+t_ml = min(grid, key=lambda t: nll_profile(t)[0])
+m_ml = nll_profile(t_ml)[1]
+assert round(m_ml, 3) == 2.043 and round(t_ml, 3) == 0.044
+write("chemistry", "iupac2024-4f-ccqm-k145-nickel-bovine-liver",
+      {"consensus": {"measurand": "w(Ni)", "unit": "mg/kg",
+                     "results": [{"name": n, "value": v, "u": s} for n, v, s in K145],
+                     "maximum_likelihood": True, "trials": 100000, "seed": 1}},
+      {"title": T("Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F)",
+                  "CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F)"),
+       "description": T("17 national metrology institutes (UME among them) measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ.",
+                        "17 ulusal metroloji enstitüsü (aralarında UME) sığır karaciğerindeki nikel kütle kesrini ölçtü. Sonuçlar beyan edilen belirsizliklerin öngördüğünden daha fazla dağılır; x_j = μ + λ_j + ε_j, λ_j ~ N(0, τ²) laboratuvar etkileri modeli karanlık belirsizliği (τ) tanır."),
+       "explanation": [T("The likelihood is a product of 17 Gaussian densities with mean μ and variances τ² + u_j²; for given τ it is maximised by the weighted mean with weights 1/(τ² + u_j²), so only the profile likelihood in τ needs a numerical search.",
+                         "Olabilirlik, ortalaması μ ve varyansları τ² + u_j² olan 17 normal yoğunluğun çarpımıdır; verilen τ için en büyük değerini 1/(τ² + u_j²) ağırlıklı ortalamada alır, bu nedenle yalnızca τ'daki profil olabilirlik sayısal olarak aranır."),
+                       T(f"μ̂ = {m_ml:.4f} mg/kg and τ̂ = {t_ml:.4f} mg/kg; their standard uncertainties come from the inverse Hessian of −ln L: 2.043(15) mg/kg and 0.044(14) mg/kg, as printed.",
+                         f"μ̂ = {c(f'{m_ml:.4f}')} mg/kg ve τ̂ = {c(f'{t_ml:.4f}')} mg/kg; standart belirsizlikleri −ln L'nin Hessian matrisinin tersinden gelir: basılı değerlerle aynı, 2,043(15) mg/kg ve 0,044(14) mg/kg."),
+                       T("The guide warns that maximum likelihood tends to bias the estimates and that the Hessian underestimates the variance with fewer than about 15 results; restricted maximum likelihood, the NIST Consensus Builder or Bayesian procedures are preferable. The DerSimonian–Laird estimate with the parametric bootstrap and the degrees of equivalence are shown for comparison.",
+                         "Rehber, en çok olabilirliğin kestirimleri yanlılaştırma eğiliminde olduğunu ve yaklaşık 15'ten az sonuçta Hessian'ın varyansı küçük kestirdiğini belirtir; kısıtlı en çok olabilirlik, NIST Consensus Builder ya da Bayesçi yöntemler tercih edilir. Karşılaştırma için DerSimonian–Laird kestirimi, parametrik bootstrap ve eşdeğerlik dereceleri de verilmiştir.")],
+       "section": "Example 4F", "tags": ["iupac-2024", "key-comparison", "ccqm", "consensus", "dark-uncertainty", "maximum-likelihood", "ume"], "notes": [
+           T("The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for JSI.",
+             "Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. JSI için 1,930(110) mg/kg.")]},
+      {"consensus": {"ml_mean": chk(2.043, 0.0005), "ml_u": chk(0.015, 0.0005), "ml_tau": chk(0.044, 0.0005), "ml_u_tau": chk(0.014, 0.0005)}},
+      T("IUPAC 2024, Example 4F: μ̂ = 2.043(15) mg/kg and τ̂ = 0.044(14) mg/kg (scipy: 2.042939, 0.015442; 0.043541, 0.014239).",
+        "IUPAC 2024, Örnek 4F: μ̂ = 2,043(15) mg/kg ve τ̂ = 0,044(14) mg/kg (scipy: 2,042939, 0,015442; 0,043541, 0,014239)."))

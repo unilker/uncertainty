@@ -2903,3 +2903,63 @@ uncertainty).**
   half-width as summaries) is neutral in this debate. Nominal properties
   (Ellisor 2025, Bilson 2025) are an outlook.
 - Glossary EN/TR: paragraph "The debate".
+
+## 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F
+
+**D66. Consensus-value module (`consensus`).** Core `consensus.rs`, project section `consensus`, reports EN/TR
+with a chart of the degrees of equivalence, JSON and an app view.
+
+- DerSimonian–Laird after NICOB §A.2: Cochran's Q about the 1/u² weighted mean, the method-of-moments τ̂,
+  weights 1/(τ̂² + u_j²), the naive u_DL = 1/√Σw, the p-value of Q, the Knapp–Hartung u and its t_{n−1}
+  expansion.
+- The NICOB parametric bootstrap (§A.2 (a)–(d)): τ_k from the gamma approximation of Q with the exact mean and
+  variance of Biggerstaff & Tweedie (1997), E Q = (n − 1) + τ²(S₁ − S₂/S₁),
+  Var Q = 2(n − 1) + 4τ²(S₁ − 2S₂/S₁ + S₃/S₁²) + 2τ⁴(S₂ − 2S₃/S₁ + S₂²/S₁²) with S_r = Σu_j^{−2r}, evaluated at
+  τ̂ (the manual does not say at which τ; τ̂ is the plug-in choice); τ_k² = max{0, (Q_k − n + 1)/(S₁ − S₂/S₁)};
+  x_jk ~ N(μ̂, τ_k² + u_j²); u_jk = u_j√(ν_j/χ²_ν_j) when ν_j is given. u is the s.d. of the μ_k, the interval the
+  probabilistically symmetric one (2.5 % and 97.5 % percentiles).
+- Unilateral degrees of equivalence (§A.5.1 (e)): D_j = x_j − μ̂; U95 %(D_j) is the half-length of the shortest
+  interval centred at the mean of the D_jk = x_jk − μ_k that holds 95 % of them (`mcm::half_width_about`).
+- Linear Pool (§A.4): mixture of Gaussian or rescaled Student t (s.d. u_j, so ν_j > 2) components with
+  optional weights; mean, s.d. and percentiles of the sample. DoE of the Linear Pool: D_j = x_j − μ̂ with
+  U95 % = k·u_j (§A.5.3: the D_jk = x_j + e_jk − μ̂ are symmetric about D_j).
+- Maximum likelihood (IUPAC 2024 Example 4F; Koepke Table 2): profile likelihood in τ (grid of 4000 points on
+  [0, 10 max(s, u_max)] and golden-section refinement), μ̂(τ) the weighted mean, u from the inverse Hessian of
+  −ln L in (μ, τ).
+- Not implemented: the hierarchical Bayesian procedure (§A.3; half-Cauchy priors on τ and on the σ_j, MCMC),
+  the leave-one-out DoE and the bilateral DoE B_ij. Recorded as open items.
+- Library (258 projects): `koepke2017-newtonian-constant-g` (DL, bootstrap, Linear Pool, ML),
+  `koepke2017-half-life-cs137`, `koepke2017-half-life-sr90` (in days, as Table 3; duplicate labels Fl65 split
+  into Fl65a/b/c), `iupac2024-4f-ccqm-k145-nickel-bovine-liver`. Evidence: `tools/research/consensus/
+  koepke2017.py` (numpy, independent implementation of DL, bootstrap and Linear Pool).
+
+Results against the printed values:
+
+| Case | Printed | Program |
+|---|---|---|
+| G, DL | 6.673 80, u 0.000 28, (6.673 20, 6.674 40) | 6.673 790, u_DL 0.000 279, bootstrap u 0.000 280, (6.673 226, 6.674 352); τ 0.000 946, Q 319.1 |
+| G, Linear Pool | 6.673 67, 0.001 24, (6.671 18, 6.675 79) | 6.673 667, 0.001 243, (6.671 166, 6.675 791) (10⁵ draws) |
+| G, ML | 6.673 78, 0.000 30 | 6.673 778, 0.000 300 |
+| ¹³⁷Cs, DL / LP | 30.04 (0.04) a; 29.94 (0.93) a | 30.037 (0.045) a; 29.94 (0.93) a |
+| ⁹⁰Sr, DL / LP | 28.73 (0.11) a; 28.68 (0.77) a | 28.730 (0.110) a; 28.69 (0.77) a |
+| K145 Ni, ML | μ 2.043(15), τ 0.044(14) mg/kg | 2.042 94 (0.015 44), 0.043 54 (0.014 24) |
+
+For the article:
+
+- With heterogeneous results the bootstrap u of the DL estimate hardly differs from u_DL in these three data
+  sets (0.000 279 vs 0.000 280 for G; 0.0446 vs 0.0449 a for ¹³⁷Cs), while the Knapp–Hartung u is larger
+  (0.000 307; 0.106 a for ¹³⁷Cs, 2.4 × u_DL). The choice among DL-based evaluations matters more than the
+  bootstrap itself; the Linear Pool is 4.4 (G), 7.0 (⁹⁰Sr) and 21 (¹³⁷Cs) times wider. This is the "procedure-choice" spread the
+  article can show with the program on the same data.
+- CCQM-K145 (UME participated): with the DL bootstrap, UME's D = 0.107 mg/kg and U95 % = 0.106 mg/kg, a
+  marginal |D| > U; HSA 0.137 vs 0.179 and JSI −0.113 vs 0.232 are within. The final report of K145 was not
+  consulted; its degrees of equivalence may rest on another reference value and procedure, so this is an
+  illustration of the method, not a statement on the comparison.
+
+**F93. Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding).** From the 14
+values of Table 1 the DerSimonian–Laird estimate is 6.673 790 (numpy and the program agree to 10⁻⁹), which
+rounds to 6.673 79, not the printed 6.673 80. The printed interval (6.673 20, 6.674 40) is consistent both with
+the bootstrap percentiles (6.673 22, 6.674 35) and with the t_{13} interval (6.673 19, 6.674 39) rounded to 10⁻⁴,
+so it cannot tell which was used. The ML row (6.673 78) and the Linear Pool row (6.673 67) reproduce exactly.
+Likely cause: rounding of an intermediate value, or digits of Table 1 not printed (CODATA 2014 Table XXVII
+carries the same digits). Impact: one unit in the fifth decimal, 0.04 u.
