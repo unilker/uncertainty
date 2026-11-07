@@ -138,7 +138,7 @@
         "name": "f_Rw",
         "description": {
           "en": "Within-laboratory reproducibility (mean of 10 test samples, GF-ZAAS)",
-          "tr": "Laboratuvar içi tekrarüretilebilirlik (10 deney numunesinin ortalaması, GF-ZAAS)"
+          "tr": "Laboratuvar içi tekrar üretilebilirlik (10 deney numunesinin ortalaması, GF-ZAAS)"
         },
         "distribution": {
           "type": "normal",

@@ -5,7 +5,7 @@
     "id": "tr569-ex12-pooling-sr-srw",
     "title": {
       "en": "Repeatability and within-laboratory reproducibility from replicate control results (Nordtest TR 569 Example 12)",
-      "tr": "Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrarüretilebilirlik (Nordtest TR 569 Örnek 12)"
+      "tr": "Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrar üretilebilirlik (Nordtest TR 569 Örnek 12)"
     },
     "description": {
       "en": "Three replicates of a QC sample on each of eight days. The standard deviation of all 24 results together is too low an estimate of s_Rw and would give control limits that are too narrow.",

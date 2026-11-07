@@ -38,21 +38,21 @@ GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlard
 | bias | sapma (bias) | VIM 2.18 |
 | repeatability | tekrarlanabilirlik | VIM 2.21 |
 | intermediate precision | ara kesinlik | VIM 2.22 |
-| within-laboratory reproducibility | laboratuvar içi tekrarüretilebilirlik | Nordtest |
-| reproducibility | tekrarüretilebilirlik | VIM 2.25 |
+| within-laboratory reproducibility | laboratuvar içi tekrar üretilebilirlik | Nordtest |
+| reproducibility | tekrar üretilebilirlik | VIM 2.25 |
 | recovery | geri kazanım | |
 | spike / spiked sample | katkı / katkılı numune | |
 | certified reference material (CRM) | sertifikalı referans malzeme (SRM) | VIM 5.14 |
 | proficiency test (PT) | yeterlilik testi (YT) | |
 | assigned value | atanan değer | |
-| control chart / control sample | kontrol grafiği / kontrol numunesi | |
+| control chart / control sample | kontrol grafiği (kontrol kartı) / kontrol numunesi | Nordtest TR 537 TR |
 | central line | merkez çizgisi | Nordtest TR 569 |
 | warning limit / action limit | uyarı sınırı / eylem sınırı | Nordtest TR 569 |
 | statistical / target control limits | istatistiksel / hedef kontrol sınırları | Nordtest TR 569 |
 | X-chart / range chart (R-chart, r%-chart) | X-grafiği / açıklık grafiği (R-grafiği, r%-grafiği) | Nordtest TR 569, ISO 8258 |
 | in control / out of control / out of statistical control | kontrol altında / kontrol dışı / istatistiksel kontrol dışı | Nordtest TR 569 |
 | run (analytical run, batch) | seri (analiz serisi) | Nordtest TR 569 |
-| duplicate | mükerrer (ölçüm) | |
+| duplicate | mükerrer (ölçüm); iki tekrarlı analiz | Nordtest TR 537 TR |
 | pooled standard deviation | birleştirilmiş standart sapma | |
 | calibration | kalibrasyon | VIM 2.39 |
 | metrological traceability | metrolojik izlenebilirlik | VIM 2.41 |
@@ -109,6 +109,11 @@ GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlard
 | uncertainty of a weighing result | tartım sonucunun belirsizliği | cg-18 7.4 |
 | global uncertainty | genel belirsizlik | cg-18 7.5.2 |
 | minimum weight / safety factor | minimum tartım / güvenlik faktörü | cg-18 Ek G |
+
+**Türkçe terimler.** Türkçe terimler, karşılığı bulunduğunda Nordtest TR 537'nin (4. baskı) Türkçe baskısını izler:
+*tekrar üretilebilirlik* (iki sözcük), u(R_w) için *laboratuvar içi tekrar üretilebilirlik*, *sertifikalı referans
+malzeme (SRM)*, *kontrol numunesi*; bu baskı *kontrol grafiği* yanında *kontrol kartı*, mükerrer ölçümler için de
+*iki tekrarlı analiz* der.
 
 **Ölçüm belirsizliğinin tanımı.** VIM 2.26 ölçüm belirsizliğini "bir ölçülene atfedilen büyüklük değerlerinin
 dağılımını nitelendiren negatif olmayan parametre" olarak tanımlar. JCGM Temmuz 2025'te bunun yerine geçecek bir

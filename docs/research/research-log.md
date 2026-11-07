@@ -2868,3 +2868,16 @@ explanatory sentence. 5.3 (at most two significant digits) is the default.
   coverage intervals and, since D61, the half-width about the estimate.
 
 The library has 254 projects.
+
+## 2026-11-07 (session 21, continued) — Turkish edition of Nordtest TR 537
+
+**D65. Turkish spelling of reproducibility.** The Turkish Nordtest TR 537
+writes *tekrar üretilebilirlik* as two words (32 times; *laboratuvar içi
+tekrar üretilebilirlik* for u(R_w)), as do TÜRKAK documents. The program had
+*tekrarüretilebilirlik*.
+
+- All 129 occurrences were changed in 35 tracked files: reports, app
+  strings, generators, library projects and the guide.
+- The glossary notes the other wording of the Turkish edition: *kontrol
+  kartı* beside *kontrol grafiği*, and *iki tekrarlı analiz* for
+  duplicates. *SRM* for CRM and *kontrol numunesi* were already used.

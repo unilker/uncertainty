@@ -22,9 +22,9 @@ def project(path, pid, title, desc, expl, field, sec, tags, notes, body, expecte
 
 # ------------------------------------------------------------------ C.1
 project("library/general/iso21748-c1-co-emissions.json", "iso21748-c1-co-emissions",
-  T("Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)", "Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)"),
+  T("Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)", "Taşıt emisyonlarında karbon monoksit, tekrar üretilebilirlik verilerinden (ISO 21748 C.1)"),
   T("ISO 21748:2017 C.1: type-approval test of CO emissions; with bias and precision under control the reproducibility standard deviation of the collaborative study is the standard uncertainty.",
-    "ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrarüretilebilirlik standart sapması standart belirsizliktir."),
+    "ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrar üretilebilirlik standart sapması standart belirsizliktir."),
   [T("An interlaboratory study according to ISO 5725-2 gave s_r = 0.22 g/km and s_R = 0.28 g/km, so s_L = √(s_R² − s_r²) = 0.17 g/km.",
      "ISO 5725-2'ye göre yapılan bir laboratuvarlar arası çalışma s_r = 0,22 g/km ve s_R = 0,28 g/km vermiştir; dolayısıyla s_L = √(s_R² − s_r²) = 0,17 g/km'dir."),
    T("Trueness is controlled by calibration of the gas analyser and the roller bench, whose uncertainties are negligible against s_R; the laboratory's repeatability (0.20 g/km) is within that of the study (ISO 21748 7.2, 7.3).",
@@ -56,7 +56,7 @@ for en, tr, sR, sr, adj, uc, U in foods:
                        f"ISO 21748 Tablo C.4 un için u = %6,4 ve C.3.7 U = %12,8 basar; ancak kendi girdileri √(2,4² + 5,0² + 3,0²) = %6,30 (yuvarlanmamış s_L ile %{u:.2f}) ve U = %12,6 verir. Tablo C.5'teki un aralıkları basılı %12,8'den çıkar. Proje yeniden hesaplanan değerleri kontrol eder.".replace(f"{u:.2f}", f"{u:.2f}".replace('.', ','))))
         exp_u = (round(u, 3), 0.005); exp_U = (round(2 * u, 2), 0.01)
     project(f"library/general/iso21748-c3-aerobic-plate-count-{en}.json", f"iso21748-c3-aerobic-plate-count-{en}",
-      T(f"Aerobic plate count, {en}: adjusted reproducibility (ISO 21748 C.3)", f"Aerobik koloni sayımı, {tr}: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"),
+      T(f"Aerobic plate count, {en}: adjusted reproducibility (ISO 21748 C.3)", f"Aerobik koloni sayımı, {tr}: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)"),
       T(f"ISO 21748:2017 C.3 (AOAC 990.12, {en}): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
         f"ISO 21748:2017 C.3 (AOAC 990.12, {tr}): ortak çalışmanın s_R ve s_r değerlerinden, laboratuvarın daha iyi tekrarlanabilirliğinden (7.3.2) ve bir numune hazırlama teriminden log10(sayım)'ın bağıl belirsizliği."),
       [T(f"Collaborative study (12 laboratories, ISO 5725-2): s_R = {sR} %, s_r = {sr} % relative to log10(count), so s_L = √(s_R² − s_r²) = {sL:.1f} %.",
@@ -77,9 +77,9 @@ for en, tr, sR, sr, adj, uc, U in foods:
 
 # ------------------------------------------------------------------ C.4
 project("library/chemistry/iso21748-c4-crude-fibre.json", "iso21748-c4-crude-fibre",
-  T("Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)", "Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)"),
+  T("Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)", "Hayvan yeminde ham lif, tekrar üretilebilirlik verilerinden (ISO 21748 C.4)"),
   T("ISO 21748:2017 C.4: level-dependent reproducibility from a collaborative study plus the uncertainty of drying to constant mass; the same example as QUAM A6 with a different treatment of the drying term.",
-    "ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrarüretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır."),
+    "ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrar üretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır."),
   [T("Collaborative study (Table C.6): s_R = 0.293 % at 2.3 %, 0.390 % at 5.4 % and 0.575 % at 10.1 % fibre. Bias was checked on a CRM (9.3 %, laboratory 9.16 %, Δ_l = −0.14 %) and the laboratory's repeatability agrees with the study (Table C.7).",
      "Ortak çalışma (Tablo C.6): %2,3 lifte s_R = %0,293, %5,4'te %0,390 ve %10,1'de %0,575. Sapma bir CRM üzerinde kontrol edilmiştir (%9,3; laboratuvar %9,16; Δ_l = −%0,14) ve laboratuvarın tekrarlanabilirliği çalışmayla uyumludur (Tablo C.7)."),
    T("Drying to constant mass is not covered by the study: the fixed-time drying stays within 0.002 g of extended drying, a rectangular half-width giving 0.002/√3 = 0.00115 g, i.e. 0.115 % fibre for a 1 g sample.",
@@ -106,7 +106,7 @@ project("library/chemistry/iso21748-c4-crude-fibre.json", "iso21748-c4-crude-fib
 project("library/chemistry/iso21748-c2-meat-content.json", "iso21748-c2-meat-content",
   T("Meat content from nitrogen and fat (ISO 21748 C.2)", "Azot ve yağdan et içeriği (ISO 21748 C.2)"),
   T("ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs each carry reproducibility-based uncertainties (Clause 12), written as a measurement model with relative error terms.",
-    "ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."),
+    "ISO 21748:2017 C.2: girdilerinin her biri tekrar üretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."),
   [T("w_meat = w_pro + w_fat with w_pro = 100 w_N/f_N (Formulae C.1, C.2); w_N = 3.29 % (Kjeldahl, mean of duplicates), f_N = 3.65 ± 0.052, w_fat = 5.50 %.",
      "w_meat = w_pro + w_fat, w_pro = 100 w_N/f_N (Formül C.1, C.2); w_N = %3,29 (Kjeldahl, ikili ölçüm ortalaması), f_N = 3,65 ± 0,052, w_fat = %5,50."),
    T("The nitrogen result carries the between-laboratory term s_L = 1.1 % and the repeatability s_r = 1.8 % of a single result divided by √2 for the duplicate (ISO 21748 Table 1): e_L ~ N(0, 0.011²), e_r ~ N(0, (0.018/√2)²), so u(w_N)/w_N = 1.7 % (Formula C.3). Fat carries s_R = 2.0 %.",
@@ -123,7 +123,7 @@ project("library/chemistry/iso21748-c2-meat-content.json", "iso21748-c2-meat-con
               {"name": "e_r", "description": T("Relative repeatability of the mean of duplicates, 0.018/√2", "İkili ölçüm ortalamasının bağıl tekrarlanabilirliği, 0,018/√2"), "distribution": {"type": "normal", "mean": 0, "sd": round(0.018 / math.sqrt(2), 7)}},
               {"name": "f_N", "description": T("Nitrogen factor of the meat", "Etin azot faktörü"), "distribution": {"type": "normal", "mean": 3.65, "sd": 0.052}},
               {"name": "w_fat", "unit": "%", "description": T("Fat content", "Yağ içeriği"), "distribution": {"type": "constant", "value": 5.50}},
-              {"name": "e_fat", "description": T("Relative reproducibility of the fat result, s_R = 0.02", "Yağ sonucunun bağıl tekrarüretilebilirliği, s_R = 0,02"), "distribution": {"type": "normal", "mean": 0, "sd": 0.02}}]},
+              {"name": "e_fat", "description": T("Relative reproducibility of the fat result, s_R = 0.02", "Yağ sonucunun bağıl tekrar üretilebilirliği, s_R = 0,02"), "distribution": {"type": "normal", "mean": 0, "sd": 0.02}}]},
   {"gum": {"estimate": chk(95.6, 0.05), "standard_uncertainty": chk(1.98, 0.015), "expanded_uncertainty": chk(4.0, 0.05)},
    "reference": T("ISO 21748:2017 Table C.1 and C.2.6 (w_meat = 95.6 %, u = 1.98 %, U = 4.0 %).", "ISO 21748:2017 Tablo C.1 ve C.2.6 (w_meat = %95,6, u = %1,98, U = %4,0).")},
   reporting={"significant_digits": 2}, kind="model")

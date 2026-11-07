@@ -20,7 +20,7 @@ elektrik/RF ve akış metrolojisinden örnekler içerir.
    birleştirme, serbestlik dereceleri, kapsam faktörleri
 4. [Monte Carlo yöntemi](04-monte-carlo.md): dağılımların yayılımı, kapsam aralıkları, GUM sonucunun
    doğrulanması
-5. [Top-down değerlendirme](05-top-down.md): laboratuvar içi tekrarüretilebilirlik, sapma, geri kazanım
+5. [Top-down değerlendirme](05-top-down.md): laboratuvar içi tekrar üretilebilirlik, sapma, geri kazanım
 6. [Raporlama](06-raporlama.md): yuvarlama, sonucun ifadesi, raporun içeriği
 7. [Proje dosyası başvurusu](07-proje-dosyasi.md): JSON proje biçiminin tüm alanları
 8. [Sözlük (İngilizce–Türkçe)](08-sozluk.md)
@@ -28,7 +28,7 @@ elektrik/RF ve akış metrolojisinden örnekler içerir.
 10. [Her iki değişkende belirsizlikli kalibrasyon (ISO 6143)](10-kalibrasyon.md)
 11. [Uygunluk değerlendirmesi (JCGM 106)](11-uygunluk.md): karar kuralları, koruma bantları, riskler
 12. [Laboratuvarlar arası kesinlik deneyleri (ISO 5725-2)](12-kesinlik-deneyleri.md): aykırı değer testleri,
-    tekrarlanabilirlik ve tekrarüretilebilirlik
+    tekrarlanabilirlik ve tekrar üretilebilirlik
 13. [Birden çok çıktı büyüklüğü (JCGM 102)](13-cok-ciktili.md): kovaryans matrisleri, kapsam bölgeleri
 14. [Kontrol grafikleri (Nordtest TR 569)](14-kontrol-grafikleri.md): sınırlar, günlük kurallar, uzun dönem
     değerlendirmesi

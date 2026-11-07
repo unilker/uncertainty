@@ -5,7 +5,7 @@
     "id": "nordtest-5.3-oxygen-duplicates",
     "title": {
       "en": "Dissolved oxygen: reproducibility from duplicates",
-      "tr": "Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik"
+      "tr": "Çözünmüş oksijen: mükerrer ölçümlerden tekrar üretilebilirlik"
     },
     "description": {
       "en": "Nordtest TR 537 §5.3 and Appendix 6: dissolved oxygen in sea water, 51 duplicate pairs (raw data) and a control-sample component.",
@@ -18,7 +18,7 @@
       },
       {
         "en": "With the control-sample reproducibility (0.5 %) u(Rw) = √(0.34² + 0.5²) = 0.60 %.",
-        "tr": "Kontrol numunesi tekrarüretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60."
+        "tr": "Kontrol numunesi tekrar üretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60."
       }
     ],
     "field": "chemistry",

@@ -853,7 +853,7 @@ ISO 13528:2022 E.5 (7.5): yeterlilik testi numunesi ve benzer bir CRM 20 numuned
 
 `iso21748-c2-meat-content` — ISO 21748:2017, Annex C.2, Table C.1
 
-ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır.
+ISO 21748:2017 C.2: girdilerinin her biri tekrar üretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır.
 
 **Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
 
@@ -873,13 +873,13 @@ ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirs
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang tr`
 
-### Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.1)
+### Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.1)
 
 `iso5725-2-c1-sulfur-in-coal` — ISO 5725-2:2019, Annex C.1 (Tables C.1–C.5, Formulae C.1–C.24)
 
 ISO 5725-2:2019 C.1: dört düzeyde (%0,69 – %3,25) sekiz laboratuvarlı, eksik veya aykırı veri içermeyen, hücre başına sonuç sayıları eşit olmayan tek düzeyli bir deney.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -910,7 +910,7 @@ ISO 5725-2:2019 C.1: dört düzeyde (%0,69 – %3,25) sekiz laboratuvarlı, eksi
 
 ISO 5725-2:2019 C.1.9: Örnek C.1 verilerinin Formül (23)–(31) yerine kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -933,7 +933,7 @@ ISO 5725-2:2019 C.1.9: Örnek C.1 verilerinin Formül (23)–(31) yerine kısıt
 
 ISO 5725-2:2019 C.3 ve 8.5: beş düzeyde (%4 – %20) dokuz laboratuvar, aykırı bir laboratuvar, reddedilmiş bir hücre ve kesinlik ile düzey arasındaki I–IV fonksiyonel ilişkileri (Tablo 1–4).
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -966,7 +966,7 @@ ISO 5725-2:2019 C.3 ve 8.5: beş düzeyde (%4 – %20) dokuz laboratuvar, aykır
 
 ISO 5725-2:2019 C.3.8: Örnek C.3'ün tutulan verilerinin kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -1601,11 +1601,11 @@ Bir çelik numunenin X-grafiği; bir yıllık ortalama ağırlıkça %4,58, s = 
 
 **Çalıştırma:** `uncertainty run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang tr`
 
-### ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrarüretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)
+### ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrar üretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)
 
 `tr569-ex10-boron-toys-target` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 10
 
-Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart kaymayı izler; s_hedef = %10, EN 71-3'ün %15 tekrarüretilebilirliğinin üçte ikisi.
+Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart kaymayı izler; s_hedef = %10, EN 71-3'ün %15 tekrar üretilebilirliğinin üçte ikisi.
 
 **Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
 
@@ -1620,7 +1620,7 @@ Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart k
 
 **Çalıştırma:** `uncertainty run library/chemistry/tr569-ex10-boron-toys-target.json --lang tr`
 
-### Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrarüretilebilirlik (Nordtest TR 569 Örnek 12)
+### Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrar üretilebilirlik (Nordtest TR 569 Örnek 12)
 
 `tr569-ex12-pooling-sr-srw` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 12 and footnote 24
 
@@ -2230,11 +2230,11 @@ MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedime
 
 **Çalıştırma:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang tr`
 
-### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
+### Hayvan yeminde ham lif, tekrar üretilebilirlik verilerinden (ISO 21748 C.4)
 
 `iso21748-c4-crude-fibre` — ISO 21748:2017, Annex C.4, Tables C.6–C.9
 
-ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrarüretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır.
+ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrar üretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
@@ -2525,11 +2525,11 @@ Nordtest TR 537 §3.2 ve Ek 4: NH₄-N; u(Rw) kontrol grafiğinden, u(bias) alt�
 
 **Çalıştırma:** `uncertainty run library/chemistry/nordtest-3-ammonium-pt.json --lang tr`
 
-### Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik
+### Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrar üretilebilirlik
 
 `nordtest-5.3-ammonium-duplicates` — Nordtest TR 537 ed. 4 (2017), §5.3 and Appendix 5
 
-Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrarüretilebilirliğiyle birleştirilmiştir.
+Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrar üretilebilirliğiyle birleştirilmiştir.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
@@ -2551,7 +2551,7 @@ Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N müker
 
 **Çalıştırma:** `uncertainty run library/chemistry/nordtest-5.3-ammonium-duplicates.json --lang tr`
 
-### Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik
+### Çözünmüş oksijen: mükerrer ölçümlerden tekrar üretilebilirlik
 
 `nordtest-5.3-oxygen-duplicates` — Nordtest TR 537 ed. 4 (2017), §5.3 and Appendix 6
 
@@ -2562,7 +2562,7 @@ Nordtest TR 537 §5.3 ve Ek 6: deniz suyunda çözünmüş oksijen, 51 mükerrer
 **Adımlar:**
 
 1. s_r = √(Σd²/2N) = 0,0252 mg/L, ortalama 7,50 mg/L'de, yani %0,34.
-2. Kontrol numunesi tekrarüretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60.
+2. Kontrol numunesi tekrar üretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60.
 
 **Sonuç:**
 
@@ -2967,13 +2967,13 @@ EURACHEM QUAM Örnek A4, top-down değerlendirme olarak: 15 mükerrer ölçümde
 
 `quam-a6-crude-fibre` — EURACHEM/CITAC Guide CG 4, Example A6, Tables A6.4–A6.5
 
-EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrarüretilebilirlik s_R ve kurutma payı.
+EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrar üretilebilirlik s_R ve kurutma payı.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
 **Adımlar:**
 
-1. Ampirik yöntemde ortak çalışma tekrarüretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur.
+1. Ampirik yöntemde ortak çalışma tekrar üretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur.
 2. Sabit tartıma kurutma: 1 g numunede ±2 mg = ±0,2 % m/m, dikdörtgen, u = 0,115 % m/m; yalnızca s_R/3'ü aştığı yerde, yani %2,5 düzeyinde dahil edilir.
 3. U = 2u_c: 2,5, 5 ve 10 % m/m'de 0,62, 0,8 ve 1,2 % m/m.
 
@@ -4159,7 +4159,7 @@ JCGM 106:2012 7.4 Örnek: 100 °C'de SAE 40 yağ, 12,5 mm²/s ≤ Y ≤ 16,3 mm�
 
 `jcgm106-8.3-nandrolone` — JCGM 106:2012, 8.3.3, Example 2
 
-JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrarüretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı.
+JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrar üretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı.
 
 **Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
 
@@ -4272,11 +4272,11 @@ Sabit hacimli 1 mL mikropipet on kez test edilir (Nordtest TR 626); ortalama hac
 
 **Çalıştırma:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang tr`
 
-### Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)
+### Taşıt emisyonlarında karbon monoksit, tekrar üretilebilirlik verilerinden (ISO 21748 C.1)
 
 `iso21748-c1-co-emissions` — ISO 21748:2017, Annex C.1
 
-ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrarüretilebilirlik standart sapması standart belirsizliktir.
+ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrar üretilebilirlik standart sapması standart belirsizliktir.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
@@ -4296,7 +4296,7 @@ ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol alt
 
 **Çalıştırma:** `uncertainty run library/general/iso21748-c1-co-emissions.json --lang tr`
 
-### Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+### Aerobik koloni sayımı, un: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
 `iso21748-c3-aerobic-plate-count-flour` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
 
@@ -4320,7 +4320,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, un): ortak çalışmanın s_R ve s_r değerleri
 
 **Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang tr`
 
-### Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+### Aerobik koloni sayımı, karides: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
 `iso21748-c3-aerobic-plate-count-shrimp` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
 
@@ -4340,7 +4340,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, karides): ortak çalışmanın s_R ve s_r değe
 
 **Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang tr`
 
-### Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+### Aerobik koloni sayımı, sebze: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
 `iso21748-c3-aerobic-plate-count-vegetables` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
 
@@ -5405,13 +5405,13 @@ F₀ = F̄ − B − B_ref − e_res − e_T: bir makaradan kesilen altı parça
 
 **Çalıştırma:** `uncertainty run library/physical/gum5-e15-wire-rope-breaking-force.json --lang tr`
 
-### Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.2)
+### Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.2)
 
 `iso5725-2-c2-softening-point-pitch` — ISO 5725-2:2019, Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33)
 
 ISO 5725-2:2019 C.2: halka-bilye yöntemiyle ziftin yumuşama noktası; dört düzeyde (88 °C – 102 °C), ikili sonuçlu ve iki eksik hücreli on altı laboratuvar.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -5439,7 +5439,7 @@ ISO 5725-2:2019 C.2: halka-bilye yöntemiyle ziftin yumuşama noktası; dört d�
 
 ISO 5725-2:2019 C.2.9: Örnek C.2 verilerinin kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 

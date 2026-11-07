@@ -142,7 +142,7 @@
         "name": "f_Rw",
         "description": {
           "en": "Within-laboratory reproducibility (CAL method)",
-          "tr": "Laboratuvar içi tekrarüretilebilirlik (CAL yöntemi)"
+          "tr": "Laboratuvar içi tekrar üretilebilirlik (CAL yöntemi)"
         },
         "distribution": {
           "type": "normal",
@@ -154,7 +154,7 @@
         "name": "f_bias",
         "description": {
           "en": "Trueness from the reproducibility s_R of an interlaboratory comparison",
-          "tr": "Laboratuvarlar arası karşılaştırmanın tekrarüretilebilirliği s_R'den doğruluk"
+          "tr": "Laboratuvarlar arası karşılaştırmanın tekrar üretilebilirliği s_R'den doğruluk"
         },
         "distribution": {
           "type": "normal",

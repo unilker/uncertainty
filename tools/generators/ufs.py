@@ -408,7 +408,7 @@ def soil(pid, analyte, analyte_tr, unit, squares, cm, cp, split, strat, anal_ter
 
 
 soil("ufs-a6-cadmium-soil", "Cadmium", "kadmiyum", "mg/kg", [0.270, 0.285, 0.343, 0.355, 0.343], 0.14, 0.10, 0.037, 0.01,
-     [("f_Rw", T("Within-laboratory reproducibility (mean of 10 test samples, GF-ZAAS)", "Laboratuvar içi tekrarüretilebilirlik (10 deney numunesinin ortalaması, GF-ZAAS)"), 0.036),
+     [("f_Rw", T("Within-laboratory reproducibility (mean of 10 test samples, GF-ZAAS)", "Laboratuvar içi tekrar üretilebilirlik (10 deney numunesinin ortalaması, GF-ZAAS)"), 0.036),
       ("f_ref", T("Certified value of the CRM", "CRM'nin sertifikalı değeri"), 0.027),
       ("f_bias", T("Day-to-day bias correction with the CRM (mean of 3)", "CRM ile günden güne sapma düzeltmesi (3'ün ortalaması)"), 0.027)],
      {"estimate": chk(0.32, 0.005), "expanded_uncertainty": chk(0.06, 0.005)}, ("", ""),
@@ -419,8 +419,8 @@ soil("ufs-a6-cadmium-soil", "Cadmium", "kadmiyum", "mg/kg", [0.270, 0.285, 0.343
      [T("Splitting u = mean of the RSDs of Table A6.3 = 3.7 %; strategy 1 % (hypothesis-based pattern); analysis √(3.6² + 2.7² + 2.7²) = 5.2 % (Table A6.4).",
         "Bölme u = Tablo A6.3'teki RSD'lerin ortalaması = %3,7; strateji %1 (hipoteze dayalı düzen); analiz √(3,6² + 2,7² + 2,7²) = %5,2 (Tablo A6.4).")])
 soil("ufs-a6-phosphorus-soil", "Phosphorus", "fosfor", "mg/kg", [124, 112, 120, 118, 105], 47, 35, 0.0316, 0.005,
-     [("f_Rw", T("Within-laboratory reproducibility (CAL method)", "Laboratuvar içi tekrarüretilebilirlik (CAL yöntemi)"), 0.017),
-      ("f_bias", T("Trueness from the reproducibility s_R of an interlaboratory comparison", "Laboratuvarlar arası karşılaştırmanın tekrarüretilebilirliği s_R'den doğruluk"), 0.095)],
+     [("f_Rw", T("Within-laboratory reproducibility (CAL method)", "Laboratuvar içi tekrar üretilebilirlik (CAL yöntemi)"), 0.017),
+      ("f_bias", T("Trueness from the reproducibility s_R of an interlaboratory comparison", "Laboratuvarlar arası karşılaştırmanın tekrar üretilebilirliği s_R'den doğruluk"), 0.095)],
      {"estimate": chk(116, 0.5), "expanded_uncertainty": chk(26, 0.5)}, ("", ""),
      [T("Table A6.1 prints s_sqr = 8.0 mg/kg; the five values give 7.43 mg/kg (6.4 %), and u_b-loc = 2.9 % as printed follows from 7.43/√5.",
         "Tablo A6.1 s_kare = 8,0 mg/kg yazar; beş değer 7,43 mg/kg (%6,4) verir ve basılı u_b-loc = %2,9 değeri 7,43/√5'ten çıkar."),

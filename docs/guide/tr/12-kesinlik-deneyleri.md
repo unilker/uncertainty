@@ -1,7 +1,7 @@
 # 12. Laboratuvarlar arası kesinlik deneyleri (ISO 5725-2)
 
 `precision_experiment` bölümü ISO 5725-2:2019'un temel yöntemini uygular. Yöntem, bir standart ölçüm
-yönteminin tekrarlanabilirlik ve tekrarüretilebilirlik standart sapmalarını bir deneyden tahmin eder. Bu
+yönteminin tekrarlanabilirlik ve tekrar üretilebilirlik standart sapmalarını bir deneyden tahmin eder. Bu
 deneyde p laboratuvarın her biri q düzeyi (malzemeyi) n kez ölçer. Uygulama, Ek C'deki üç örneğin tamamıyla
 (REML seçenekleri dahil; `iso5725-2-*` kütüphane projeleri) ve Tablo 1–8 ile A.1 ile doğrulanmıştır.
 

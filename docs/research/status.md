@@ -14,7 +14,7 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | Testler | **191** Rust testi (bunlardan biri 254 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D64, bulgular F1–F92 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D65, bulgular F1–F92 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -110,7 +110,7 @@ indirilemedi; Drive klasörüne konacak:
 0. **GUM-5'in kalan örnekleri** (metin: geçici alandaki `drive2/gum5/ex*.txt`; klasördeki PDF'ten yeniden
    çıkarılabilir): **tamamlandı.** Sıradaki: `drive-inventory-2026-11.md` sırası: ~~WG1 tanımları → sözlük~~ (D61: MCM'de tahmin etrafında
    simetrik yarı genişlik); ~~Eurachem/CITAC uygunluk 2021~~ (D62, F86; ölçülen için lognormal dağılım); EMUE derlemesi (başlandı: E5.1 ile F85 doğrulandı; E3.4 topraktaki metaller (F87) ve E2.1 çok bileşenli toplam riskler (D63, yeni bölüm) E2.2 vakum ölçer (F88), E3.8 NH₃ permeasyon (F89), E3.3 NOx analizörü (F90), E6.5 efedrin/WADA (F91), E1.1 (= GUM-5 Örn. 1; F78 kaynağı EMUE) tamam; sırada
-   kalan EMUE örnekleri (kimya dışı, isteğe bağlı); GUM-5'e geçenler (E2.3, E3.2, E3.6, E4.6, E5.1, E6.2) tamam) ve ~~IUPAC 2024 örnekleri~~ (4A, 4B, 4I, 3A; F92; 4H için beta dağılımı, 4F/4M–4P için uzlaşı/Bayes modülü gerekir); ~~ILAC P14~~ (D64: CMC alt sınırı); Nordtest TR 537 TR;
+   kalan EMUE örnekleri (kimya dışı, isteğe bağlı); GUM-5'e geçenler (E2.3, E3.2, E3.6, E4.6, E5.1, E6.2) tamam) ve ~~IUPAC 2024 örnekleri~~ (4A, 4B, 4I, 3A; F92; 4H için beta dağılımı, 4F/4M–4P için uzlaşı/Bayes modülü gerekir); ~~ILAC P14~~ (D64: CMC alt sınırı); ~~Nordtest TR 537 TR~~ (D65: "tekrar üretilebilirlik" yazımı);
    Possolo & Meija 2022; BIPM qNMR; uzlaşı değeri modülü (Koepke, DerSimonian–Laird).
    - Açık kalan küçük işler: skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si), uygulamada
      `homogeneity.bayes` formu, tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar), beta dağılımı, uygunluk formunda `distribution: lognormal` seçimi, Willink 2007 metninin

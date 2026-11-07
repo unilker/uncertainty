@@ -7433,7 +7433,7 @@
     },
     "description": {
      "en": "ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs each carry reproducibility-based uncertainties (Clause 12), written as a measurement model with relative error terms.",
-     "tr": "ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."
+     "tr": "ISO 21748:2017 C.2: girdilerinin her biri tekrar üretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."
     },
     "explanation": [
      {
@@ -7545,7 +7545,7 @@
       "name": "e_fat",
       "description": {
        "en": "Relative reproducibility of the fat result, s_R = 0.02",
-       "tr": "Yağ sonucunun bağıl tekrarüretilebilirliği, s_R = 0,02"
+       "tr": "Yağ sonucunun bağıl tekrar üretilebilirliği, s_R = 0,02"
       },
       "distribution": {
        "type": "normal",
@@ -7598,11 +7598,11 @@
     "id": "iso21748-c4-crude-fibre",
     "title": {
      "en": "Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)",
-     "tr": "Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)"
+     "tr": "Hayvan yeminde ham lif, tekrar üretilebilirlik verilerinden (ISO 21748 C.4)"
     },
     "description": {
      "en": "ISO 21748:2017 C.4: level-dependent reproducibility from a collaborative study plus the uncertainty of drying to constant mass; the same example as QUAM A6 with a different treatment of the drying term.",
-     "tr": "ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrarüretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır."
+     "tr": "ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrar üretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır."
     },
     "explanation": [
      {
@@ -8079,7 +8079,7 @@
     "id": "iso5725-2-c1-sulfur-in-coal",
     "title": {
      "en": "Sulfur content of coal: repeatability and reproducibility (ISO 5725-2 Example C.1)",
-     "tr": "Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.1)"
+     "tr": "Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.1)"
     },
     "description": {
      "en": "ISO 5725-2:2019 C.1: a uniform-level experiment with eight laboratories at four levels (0.69 % to 3.25 %), no missing or outlying data, unequal numbers of results per cell.",
@@ -13990,11 +13990,11 @@
     "id": "nordtest-5.3-ammonium-duplicates",
     "title": {
      "en": "Ammonium: within-laboratory reproducibility from control samples and duplicates",
-     "tr": "Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik"
+     "tr": "Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrar üretilebilirlik"
     },
     "description": {
      "en": "Nordtest TR 537 §5.3 and Appendix 5: NH₄-N duplicates of natural samples in two ranges (raw data), combined with the control-sample reproducibility.",
-     "tr": "Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrarüretilebilirliğiyle birleştirilmiştir."
+     "tr": "Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrar üretilebilirliğiyle birleştirilmiştir."
     },
     "explanation": [
      {
@@ -14437,7 +14437,7 @@
     "id": "nordtest-5.3-oxygen-duplicates",
     "title": {
      "en": "Dissolved oxygen: reproducibility from duplicates",
-     "tr": "Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik"
+     "tr": "Çözünmüş oksijen: mükerrer ölçümlerden tekrar üretilebilirlik"
     },
     "description": {
      "en": "Nordtest TR 537 §5.3 and Appendix 6: dissolved oxygen in sea water, 51 duplicate pairs (raw data) and a control-sample component.",
@@ -14450,7 +14450,7 @@
      },
      {
       "en": "With the control-sample reproducibility (0.5 %) u(Rw) = √(0.34² + 0.5²) = 0.60 %.",
-      "tr": "Kontrol numunesi tekrarüretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60."
+      "tr": "Kontrol numunesi tekrar üretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60."
      }
     ],
     "field": "chemistry",
@@ -18470,12 +18470,12 @@
     },
     "description": {
      "en": "EURACHEM QUAM Example A6: reproducibility s_R from a collaborative trial at three levels plus a drying allowance.",
-     "tr": "EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrarüretilebilirlik s_R ve kurutma payı."
+     "tr": "EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrar üretilebilirlik s_R ve kurutma payı."
     },
     "explanation": [
      {
       "en": "For an empirical method the collaborative-trial reproducibility s_R (Table A6.4) is the main component; values are in % m/m (absolute), so the fields have no _percent suffix.",
-      "tr": "Ampirik yöntemde ortak çalışma tekrarüretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur."
+      "tr": "Ampirik yöntemde ortak çalışma tekrar üretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur."
      },
      {
       "en": "Drying to constant weight: ±2 mg on a 1 g sample = ±0.2 % m/m, rectangular, u = 0.115 % m/m; it is included only where it exceeds s_R/3, i.e. at the 2.5 % level.",
@@ -19787,11 +19787,11 @@
     "id": "tr569-ex10-boron-toys-target",
     "title": {
      "en": "Boron migrating from toys by ICP-OES: target limits from the reproducibility of EN 71-3 (Nordtest TR 569 Example 10)",
-     "tr": "ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrarüretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)"
+     "tr": "ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrar üretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)"
     },
     "description": {
      "en": "No material for the whole procedure: an in-house synthetic standard of 5.0 µg/L monitors drift; s_target = 10 %, two thirds of the 15 % reproducibility of EN 71-3.",
-     "tr": "Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart kaymayı izler; s_hedef = %10, EN 71-3'ün %15 tekrarüretilebilirliğinin üçte ikisi."
+     "tr": "Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart kaymayı izler; s_hedef = %10, EN 71-3'ün %15 tekrar üretilebilirliğinin üçte ikisi."
     },
     "explanation": [
      {
@@ -19867,7 +19867,7 @@
     "id": "tr569-ex12-pooling-sr-srw",
     "title": {
      "en": "Repeatability and within-laboratory reproducibility from replicate control results (Nordtest TR 569 Example 12)",
-     "tr": "Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrarüretilebilirlik (Nordtest TR 569 Örnek 12)"
+     "tr": "Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrar üretilebilirlik (Nordtest TR 569 Örnek 12)"
     },
     "description": {
      "en": "Three replicates of a QC sample on each of eight days. The standard deviation of all 24 results together is too low an estimate of s_Rw and would give control limits that are too narrow.",
@@ -22645,7 +22645,7 @@
       "name": "f_Rw",
       "description": {
        "en": "Within-laboratory reproducibility (mean of 10 test samples, GF-ZAAS)",
-       "tr": "Laboratuvar içi tekrarüretilebilirlik (10 deney numunesinin ortalaması, GF-ZAAS)"
+       "tr": "Laboratuvar içi tekrar üretilebilirlik (10 deney numunesinin ortalaması, GF-ZAAS)"
       },
       "distribution": {
        "type": "normal",
@@ -22852,7 +22852,7 @@
       "name": "f_Rw",
       "description": {
        "en": "Within-laboratory reproducibility (CAL method)",
-       "tr": "Laboratuvar içi tekrarüretilebilirlik (CAL yöntemi)"
+       "tr": "Laboratuvar içi tekrar üretilebilirlik (CAL yöntemi)"
       },
       "distribution": {
        "type": "normal",
@@ -22864,7 +22864,7 @@
       "name": "f_bias",
       "description": {
        "en": "Trueness from the reproducibility s_R of an interlaboratory comparison",
-       "tr": "Laboratuvarlar arası karşılaştırmanın tekrarüretilebilirliği s_R'den doğruluk"
+       "tr": "Laboratuvarlar arası karşılaştırmanın tekrar üretilebilirliği s_R'den doğruluk"
       },
       "distribution": {
        "type": "normal",
@@ -30784,11 +30784,11 @@
     "id": "iso21748-c1-co-emissions",
     "title": {
      "en": "Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)",
-     "tr": "Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)"
+     "tr": "Taşıt emisyonlarında karbon monoksit, tekrar üretilebilirlik verilerinden (ISO 21748 C.1)"
     },
     "description": {
      "en": "ISO 21748:2017 C.1: type-approval test of CO emissions; with bias and precision under control the reproducibility standard deviation of the collaborative study is the standard uncertainty.",
-     "tr": "ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrarüretilebilirlik standart sapması standart belirsizliktir."
+     "tr": "ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrar üretilebilirlik standart sapması standart belirsizliktir."
     },
     "explanation": [
      {
@@ -30882,7 +30882,7 @@
     "id": "iso21748-c3-aerobic-plate-count-flour",
     "title": {
      "en": "Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3)",
-     "tr": "Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+     "tr": "Aerobik koloni sayımı, un: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)"
     },
     "description": {
      "en": "ISO 21748:2017 C.3 (AOAC 990.12, flour): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
@@ -30983,7 +30983,7 @@
     "id": "iso21748-c3-aerobic-plate-count-shrimp",
     "title": {
      "en": "Aerobic plate count, shrimp: adjusted reproducibility (ISO 21748 C.3)",
-     "tr": "Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+     "tr": "Aerobik koloni sayımı, karides: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)"
     },
     "description": {
      "en": "ISO 21748:2017 C.3 (AOAC 990.12, shrimp): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
@@ -31078,7 +31078,7 @@
     "id": "iso21748-c3-aerobic-plate-count-vegetables",
     "title": {
      "en": "Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3)",
-     "tr": "Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)"
+     "tr": "Aerobik koloni sayımı, sebze: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)"
     },
     "description": {
      "en": "ISO 21748:2017 C.3 (AOAC 990.12, vegetables): relative uncertainty of log10(count) from collaborative-study s_R and s_r, the laboratory's better repeatability (7.3.2) and a sample-preparation term.",
@@ -32338,7 +32338,7 @@
     },
     "description": {
      "en": "JCGM 106:2012 8.3.3 Example 2: threshold 2.00 µg/L; a result is suspect if the probability that the threshold is exceeded is at least 95 %; reproducibility s = 0.20 µg/L from ten spiked blanks, t distribution with ν = 9.",
-     "tr": "JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrarüretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı."
+     "tr": "JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrar üretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı."
     },
     "explanation": [
      {
@@ -42336,7 +42336,7 @@
     "id": "iso5725-2-c2-softening-point-pitch",
     "title": {
      "en": "Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2)",
-     "tr": "Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.2)"
+     "tr": "Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.2)"
     },
     "description": {
      "en": "ISO 5725-2:2019 C.2: ring-and-ball softening point of pitch, sixteen laboratories at four levels (88 °C to 102 °C) with duplicate results and two missing cells.",

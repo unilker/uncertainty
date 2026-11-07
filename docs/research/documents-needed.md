@@ -32,9 +32,9 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 | # | Belge | Ne için gerekli | Öncelik | Durum |
 |---|---|---|---|---|
 | 1 | **ISO 11352:2012** Water quality — Estimation of measurement uncertainty based on validation and quality control data | Top-down modülünün dayandığı standart; Nordtest bunu uygular, kendi örnekleri doğrulama vakası olur | Yüksek | bekleniyor |
-| 2 | **ISO 21748:2017** Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation | Tekrarüretilebilirlik (s_R) tabanlı belirsizlik; top-down modülü | Yüksek | **alındı (2026-10-26)** |
+| 2 | **ISO 21748:2017** Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation | Tekrar üretilebilirlik (s_R) tabanlı belirsizlik; top-down modülü | Yüksek | **alındı (2026-10-26)** |
 | 3 | **ISO/TS 28037:2010** Determination and use of straight-line calibration functions | Kalibrasyon eğrisi belirsizliği (kimyada temel); standarttaki örnek veri setleri doğrulama için şart | Yüksek | bekleniyor |
-| 4 | **ISO 5725-2** (2019) ve mümkünse **ISO 5725-1, -4, -6** (güncel baskılar) Accuracy (trueness and precision) of measurement methods and results | Tekrarlanabilirlik/tekrarüretilebilirlik, ANOVA, Cochran/Grubbs testleri, kritik aralık faktörleri (bulgu F9: 3.69 vs 3.64) | Yüksek | **ISO 5725-2:2019 ve :1994, ISO 5725-3:2023 ve :1994 alındı (2026-10-26)**; -1, -4, -6 bekleniyor |
+| 4 | **ISO 5725-2** (2019) ve mümkünse **ISO 5725-1, -4, -6** (güncel baskılar) Accuracy (trueness and precision) of measurement methods and results | Tekrarlanabilirlik/tekrar üretilebilirlik, ANOVA, Cochran/Grubbs testleri, kritik aralık faktörleri (bulgu F9: 3.69 vs 3.64) | Yüksek | **ISO 5725-2:2019 ve :1994, ISO 5725-3:2023 ve :1994 alındı (2026-10-26)**; -1, -4, -6 bekleniyor |
 | 5 | **ISO 13528:2022** Statistical methods for use in proficiency testing by interlaboratory comparison | Yeterlilik testi verisinden u(C_ref), robust istatistikler (Nordtest'teki 1.25 faktörü), z/ζ/En skorları | Orta | **alındı** |
 | 6 | **ISO/IEC 17025:2017** (TS EN ISO/IEC 17025) | 7.6 belirsizlik, 7.8.6 uygunluk beyanı, 7.11 yazılım validasyonu — rapor şablonu ve validasyon raporu | Orta | **alındı (TS EN, Aralık 2017)** |
 | 7 | **ISO 6143** (güncel baskı) Gas analysis — Comparison methods for determining and checking the composition of calibration gas mixtures | Her iki eksende belirsizlik olan kalibrasyon (gaz analizi) | Düşük | **alındı (EN ISO 6143:2025)** |
@@ -96,7 +96,7 @@ Eksik kalanların özeti en sondaki "Hâlâ eksik olanlar" bölümündedir.
 
 Öncelik sırasıyla:
 
-1. **ISO 5725-6:1994** (ve mümkünse **ISO 5725-1, -4**) — kritik aralık faktörleri f(n) (F9 TR 569 ile çözüldü), tekrarlanabilirlik ve tekrarüretilebilirlik sınırları (r = 2,8 s_r), laboratuvarlar arası karşılaştırmada kullanım; -4 doğruluk (trueness) tayini. ISO 5725-2 alındı ve uygulandı (D40).
+1. **ISO 5725-6:1994** (ve mümkünse **ISO 5725-1, -4**) — kritik aralık faktörleri f(n) (F9 TR 569 ile çözüldü), tekrarlanabilirlik ve tekrar üretilebilirlik sınırları (r = 2,8 s_r), laboratuvarlar arası karşılaştırmada kullanım; -4 doğruluk (trueness) tayini. ISO 5725-2 alındı ve uygulandı (D40).
 2. **ISO 11352:2012** — top-down modülünün dayandığı su kalitesi standardı.
 3. **ISO/TS 28037:2010** — doğru kalibrasyon fonksiyonları (her iki eksende belirsizlik); standarttaki örnek veri setleri doğrulama için gerekli. ISO 6143:2025 ile genelleştirilmiş en küçük kareler motoru yazıldı ve doğrulandı (D33); ISO/TS 28037'nin kendi veri setleri ek doğrulama için hâlâ gerekli.
 4. **Cordeiro ve ark. (2018)**, *Accred. Qual. Assur.* 23:57–71 — MUPR geri kazanım eşitliklerinin kaynağı.

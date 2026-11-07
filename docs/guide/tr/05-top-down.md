@@ -4,7 +4,7 @@ Rutin deneylerde eksiksiz bir ölçüm modeli kurmak çoğu zaman pratik değild
 etkileri ve günden güne değişim girdi girdi modellenmesi zor etkilerdir. **Top-down** (yukarıdan aşağı)
 yaklaşım belirsizliği laboratuvarın zaten sahip olduğu verilerden tahmin eder: yöntem validasyonu, iç kalite
 kontrol, referans malzemeler, yeterlilik testleri ve geri kazanım deneyleri. İki ana bileşeni, zaman içindeki
-rastgele etkileri kapsayan **laboratuvar içi tekrarüretilebilirlik** u(Rw) ile sistematik etkileri kapsayan
+rastgele etkileri kapsayan **laboratuvar içi tekrar üretilebilirlik** u(Rw) ile sistematik etkileri kapsayan
 **sapmanın** (gerçekliğin) belirsizliğidir.
 
 Program Nordtest TR 537'yi (4. baskı, 2017) ve Eurachem/CITAC'ın *Evaluation of measurement uncertainty from
@@ -20,7 +20,7 @@ stok çözelti için 2, MUPR B1).
 **Proje dosyalarında kural:** bağıl büyüklükler her zaman yüzde olarak, adı `_percent` ile biten alanlarda
 girilir ve raporlanır; diğer tüm değerler ölçülen büyüklüğün birimindedir.
 
-## 5.1 Laboratuvar içi tekrarüretilebilirlik u(Rw)
+## 5.1 Laboratuvar içi tekrar üretilebilirlik u(Rw)
 
 Kesinlik bileşeni rutin çalışmanın tüm adımlarını ve uzun bir dönemdeki tüm değişimlerini (farklı günler,
 analistler, kalibrasyonlar, reaktif partileri) içermelidir. Kaynaklar, `"precision"` listesinde:
@@ -137,4 +137,4 @@ genişletilmiş belirsizliktir.
 İncelenecek örnekler: Nordtest §3 (yöntemin tamamı), §5.3 (iki aralıkta mükerrerler), §6.1–6.3 (sapmanın üç
 tahmin yolu), §8 (kontrol grafiği, CRM ve YT'nin dört birleşimi); MUPR B1–B6 (geri kazanım, kesinlik modelleri,
 matris etkileri, 22 yeterlilik testi); QUAM A4 (mükerrerler ve geri kazanım) ve A6 (ampirik bir yöntemin
-tekrarüretilebilirliği).
+tekrar üretilebilirliği).

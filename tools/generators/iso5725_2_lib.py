@@ -38,7 +38,7 @@ c1_common_expl = [
 ]
 project("chemistry", "c1-sulfur-in-coal",
   T("Sulfur content of coal: repeatability and reproducibility (ISO 5725-2 Example C.1)",
-    "Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.1)"),
+    "Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.1)"),
   T("ISO 5725-2:2019 C.1: a uniform-level experiment with eight laboratories at four levels (0.69 % to 3.25 %), no missing or outlying data, unequal numbers of results per cell.",
     "ISO 5725-2:2019 C.1: dört düzeyde (%0,69 – %3,25) sekiz laboratuvarlı, eksik veya aykırı veri içermeyen, hücre başına sonuç sayıları eşit olmayan tek düzeyli bir deney."),
   c1_common_expl + [
@@ -123,7 +123,7 @@ c2_expl = [
 ]
 project("physical", "c2-softening-point-pitch",
   T("Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2)",
-    "Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.2)"),
+    "Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.2)"),
   T("ISO 5725-2:2019 C.2: ring-and-ball softening point of pitch, sixteen laboratories at four levels (88 °C to 102 °C) with duplicate results and two missing cells.",
     "ISO 5725-2:2019 C.2: halka-bilye yöntemiyle ziftin yumuşama noktası; dört düzeyde (88 °C – 102 °C), ikili sonuçlu ve iki eksik hücreli on altı laboratuvar."),
   c2_expl + [
