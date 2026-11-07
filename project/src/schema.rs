@@ -476,6 +476,31 @@ pub struct ReportingSpec {
     /// Ellison 2008): adds an interval that accounts for it.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub uncorrected_bias: Option<UncorrectedBiasSpec>,
+    /// Calibration and measurement capability of the laboratory as an
+    /// expanded uncertainty (absolute, or relative to the result): a smaller
+    /// evaluated U is not reported (ILAC P14:09/2020, 5.5).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub cmc: Option<CmcSpec>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct CmcSpec {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub expanded: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub relative_percent: Option<f64>,
+}
+
+impl CmcSpec {
+    /// The CMC as an absolute expanded uncertainty at the result y.
+    pub fn at(&self, y: f64) -> Option<f64> {
+        match (self.expanded, self.relative_percent) {
+            (Some(u), None) => Some(u),
+            (None, Some(r)) => Some(r / 100.0 * y.abs()),
+            _ => None,
+        }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -539,6 +564,7 @@ impl Default for ReportingSpec {
             rounding: RoundingSpec::default(),
             decimal_places: None,
             uncorrected_bias: None,
+            cmc: None,
         }
     }
 }
@@ -610,6 +636,9 @@ pub struct ExpectedGum {
     /// Combined standard uncertainty by Kragten's spreadsheet method.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub kragten_uncertainty: Option<Check>,
+    /// Expanded uncertainty as reported, after the CMC rule (ILAC P14 5.5).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reported_expanded_uncertainty: Option<Check>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

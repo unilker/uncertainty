@@ -7,7 +7,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Flow and volume (7)
 - General (method validation) (21)
 - Length (11)
-- Mass (28)
+- Mass (29)
 - Physical properties (10)
 - Pressure (6)
 - Temperature (10)
@@ -5216,6 +5216,32 @@ EA-4/02 S2: OIML class M1 weight calibrated against an F2 standard with a mass c
 
 **Run:** `uncertainty run library/mass/ea402-s2-weight-10kg.json --lang en`
 
+### Reporting rule of ILAC P14 5.5: the CMC as the smallest reportable uncertainty (EA-4/02 S2 weight, illustrative CMC)
+
+`ilac-p14-cmc-floor-weight-10kg` — EA-4/02 M:2022, S2; ILAC P14:09/2020, 5.3, 5.5
+
+The 10 kg weight of EA-4/02 S2 (U = 58 mg) reported by a laboratory whose accredited CMC is taken, for illustration, as 80 mg: the reported U is the CMC, not the evaluated 58 mg.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. m_X = m_S + δm_D + δm + δm_C + δB (deviations from 10 kg, in mg).
+2. The observed difference is the mean of three ABBA comparisons (+10, +30, +20 mg); its standard uncertainty uses the pooled standard deviation s_p = 25 mg from an earlier evaluation: u(δm) = 25/√3 = 14.4 mg.
+3. Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.
+4. m_X = 10 000.025 kg ± 58 mg (k = 2).
+5. ILAC P14:09/2020, 5.5: an accredited calibration laboratory shall not report a smaller measurement uncertainty than the uncertainty described by its CMC. With reporting.cmc the program reports max(U, CMC) and says so in the result statement; 5.3 limits U to at most two significant digits.
+
+**Result:**
+
+- m_X = (25 ± 80) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %. The evaluated expanded uncertainty, 59 mg, is smaller than the laboratory's calibration and measurement capability, so the CMC is reported (ILAC P14:09/2020, 5.5).
+
+**Notes:**
+
+- The CMC of 80 mg is a hypothetical value chosen to exceed the evaluated U; it is not taken from a scope of accreditation.
+
+**Run:** `uncertainty run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang en`
+
 ### Mass calibration (first-order GUM)
 
 `jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7; JCGM GUM-5:2026, Example 7, Table 7.2
@@ -5563,7 +5589,7 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 
 **Result:**
 
-- sigma = (5.6703725 ± 0.0000401) 10⁻⁸ W m⁻² K⁻⁴, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- sigma = (5.6703725 ± 0.0000401) 10⁻⁸ W m⁻² K⁻⁴, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. Note: ILAC P14:09/2020, 5.3, allows at most two significant digits for the expanded uncertainty on calibration certificates.
 
 **Notes:**
 

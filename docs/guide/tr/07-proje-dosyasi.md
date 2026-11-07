@@ -83,7 +83,7 @@ birini atlamak için `"gum": null` veya `"mcm": null` yazınız.
 ## 7.5 `reporting`
 
 `significant_digits` (varsayılan 2), `decimal_places` (anlamlı basamak yerine), `rounding` (`half_even`,
-`half_up`, `up`), `uncorrected_bias` (model projeleri: `bias`, `u_bias`, `strategy` `ue` | `rssu` | `rssu_k` |
+`half_up`, `up`), `cmc` (`expanded` veya `relative_percent`: raporlanabilecek en küçük U, ILAC P14 5.5), `uncorrected_bias` (model projeleri: `bias`, `u_bias`, `strategy` `ue` | `rssu` | `rssu_k` |
 `sumu` | `sumu_max`; bölüm 6.3).
 
 ## 7.6 `topdown`

@@ -2849,3 +2849,22 @@ to check against Meija et al. [14]).**
   for either sign. The library project uses the mass balance.
 
 The library has 253 projects.
+
+## 2026-11-07 (session 21, continued) — ILAC P14:09/2020
+
+The reporting already meets 5.2: y ± U with k, coverage probability and the
+explanatory sentence. 5.3 (at most two significant digits) is the default.
+
+**D64. CMC as a floor and the 5.3 note.**
+
+- `reporting.cmc` (`expanded` or `relative_percent`): the reported expanded
+  uncertainty is max(U, CMC) (5.5: no smaller uncertainty than the CMC).
+  The statement names the evaluated U and cites the clause.
+- `expected.gum.reported_expanded_uncertainty` checks it.
+- With `significant_digits` > 2 the statement adds a note on 5.3.
+- Library: `ilac-p14-cmc-floor-weight-10kg`, the EA-4/02 S2 weight with an
+  illustrative CMC of 80 mg, marked as hypothetical in the project.
+- The 5.2 note on asymmetric (Monte Carlo) results is covered by the
+  coverage intervals and, since D61, the half-width about the estimate.
+
+The library has 254 projects.

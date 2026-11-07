@@ -7,7 +7,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
 - Uzunluk (11)
-- Kütle (28)
+- Kütle (29)
 - Fiziksel özellikler (10)
 - Basınç (6)
 - Sıcaklık (10)
@@ -5216,6 +5216,32 @@ EA-4/02 S2: OIML M1 sınıfı ağırlığın F2 standarda karşı kütle kompara
 
 **Çalıştırma:** `uncertainty run library/mass/ea402-s2-weight-10kg.json --lang tr`
 
+### ILAC P14 5.5 raporlama kuralı: raporlanabilecek en küçük belirsizlik olarak CMC (EA-4/02 S2 kütle, örnek CMC)
+
+`ilac-p14-cmc-floor-weight-10kg` — EA-4/02 M:2022, S2; ILAC P14:09/2020, 5.3, 5.5
+
+EA-4/02 S2'deki 10 kg kütle (U = 58 mg); akredite CMC'si örnek olarak 80 mg alınan bir laboratuvar tarafından raporlanır: raporlanan U, değerlendirilen 58 mg değil CMC'dir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. m_X = m_S + δm_D + δm + δm_C + δB (10 kg'dan sapmalar, mg).
+2. Gözlenen fark üç ABBA karşılaştırmasının ortalamasıdır (+10, +30, +20 mg); standart belirsizliği daha önceki bir değerlendirmeden birleştirilmiş standart sapma s_p = 25 mg ile hesaplanır: u(δm) = 25/√3 = 14,4 mg.
+3. Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır.
+4. m_X = 10 000,025 kg ± 58 mg (k = 2).
+5. ILAC P14:09/2020, 5.5: akredite bir kalibrasyon laboratuvarı CMC'sinin tanımladığından küçük bir ölçüm belirsizliği raporlayamaz. reporting.cmc ile program max(U, CMC) raporlar ve bunu sonuç ifadesinde belirtir; 5.3, U'yu en çok iki anlamlı basamakla sınırlar.
+
+**Sonuç:**
+
+- m_X = (25 ± 80) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir. Değerlendirilen genişletilmiş belirsizlik, 59 mg, laboratuvarın kalibrasyon ve ölçüm yeteneğinden (CMC) küçük olduğundan CMC raporlanmıştır (ILAC P14:09/2020, 5.5).
+
+**Notlar:**
+
+- 80 mg'lık CMC, değerlendirilen U'yu aşacak biçimde seçilmiş varsayımsal bir değerdir; bir akreditasyon kapsamından alınmamıştır.
+
+**Çalıştırma:** `uncertainty run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang tr`
+
 ### Kütle kalibrasyonu (birinci mertebe GUM)
 
 `jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7; JCGM GUM-5:2026, Example 7, Table 7.2
@@ -5563,7 +5589,7 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 
 **Sonuç:**
 
-- sigma = (5,6703725 ± 0,0000401) 10⁻⁸ W m⁻² K⁻⁴; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- sigma = (5,6703725 ± 0,0000401) 10⁻⁸ W m⁻² K⁻⁴; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. Not: ILAC P14:09/2020, 5.3, kalibrasyon sertifikalarında genişletilmiş belirsizlik için en çok iki anlamlı basamağa izin verir.
 
 **Notlar:**
 

@@ -25,6 +25,15 @@ Program sonucu EA-4/02'nin (Madde 6) önerdiği biçimde yazar:
 Monte Carlo yöntemi kullanıldığında sonuç kapsam aralığının kendisidir; kapsam olasılığı ve aralığın türüyle
 (en kısa veya olasılıksal simetrik) birlikte verilir.
 
+**Kalibrasyon sertifikaları (ILAC P14:09/2020).**
+
+- Sonuç, yukarıdaki gibi k ve kapsam olasılığıyla y ± U olarak verilir (5.2).
+- U en çok iki anlamlı basamak taşır (5.3). `reporting.significant_digits` daha büyükse program sonuç ifadesinde
+  uyarır.
+- Akredite bir laboratuvar CMC'sinden küçük bir belirsizlik raporlayamaz (5.5). `"reporting": { "cmc": {
+  "expanded": … } }` (veya `"relative_percent"`) ile program max(U, CMC) değerini raporlar ve bunu ifadede belirtir.
+  Kütüphanedeki `ilac-p14-cmc-floor-weight-10kg` projesi bunu gösterir.
+
 ## 6.3 Bilinen bir sapma için düzeltilmemiş sonuçlar
 
 GUM, sonuçların tanınmış bütün önemli sistematik etkiler için düzeltildiğini varsayar (GUM 3.2.4). Rutin

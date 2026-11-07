@@ -31,7 +31,7 @@ Key to the columns:
 | 07b Nordtest TR 537 ed. 4, **Turkish** | new | Turkish terminology of the guide and reports | 3 |
 | 05a Eurachem/CITAC, Use of uncertainty information in compliance assessment (2021) | new | conformity module: decision rules, guard bands, examples: done (D62, F86; 5 projects) | done |
 | 06 Eurachem/CITAC QAC, 4th ed. (2026) | new | ISO/IEC 17025 mapping, QC | 5 |
-| 09 ILAC P14:09/2020 | new | rules for stating CMC and U in calibration certificates → reporting | 3 |
+| 09 ILAC P14:09/2020 | new | rules for stating CMC and U in calibration certificates → reporting: done (D64) | done |
 | A2LA G104 (2026) | new | testing-laboratory guidance; examples | 5 |
 | UKAS M3003 ed. 6 | used | — | — |
 
@@ -41,8 +41,8 @@ Key to the columns:
 |---|---|---|---|
 | 10 NIST TN 1900; 14 Possolo 2016 (Metrologia) | used / new | TN 1900 already in the library | — |
 | 11 Possolo & Meija 2022, *Measurement Uncertainty: A Reintroduction* | new | examples for the library; Bayesian and consensus methods | 4 |
-| 12 EMPIR EMUE compendium 2021 (41 examples) | new | **library** | 2 |
-| 30 Possolo et al. 2024, IUPAC brief guide | new (awaited) | chemistry examples for the library | 2 |
+| 12 EMPIR EMUE compendium 2021 (41 examples) | new | **library**: E1.1, E2.1, E2.2, E3.3, E3.4, E3.8, E5.1, E6.5 done (F85–F91, D63) | done in part |
+| 30 Possolo et al. 2024, IUPAC brief guide | arrived | chemistry examples for the library: 3A, 4A, 4B, 4I done (F92) | done in part |
 | 39 Possolo & Iyer 2017 | new | article background | 6 |
 | Kirkup & Frenkel 2006; White 2008; Leito 2015 (Tartu MOOC); Kessel (PTB resistor) | new | training examples; Kessel resistor = GUM Workbench example | 5 |
 

@@ -222,6 +222,15 @@ pub fn build_model(p: &Project) -> Result<Model, ProjectError> {
     Ok(b.build()?)
 }
 
+/// The expanded uncertainty to report: the evaluated U, or the CMC of the
+/// laboratory if U is smaller (ILAC P14:09/2020, 5.5); true if raised.
+pub fn reported_expanded(p: &Project, y: f64, u: f64) -> (f64, bool) {
+    match p.reporting.cmc.as_ref().and_then(|c| c.at(y)) {
+        Some(cmc) if cmc > u => (cmc, true),
+        _ => (u, false),
+    }
+}
+
 /// Options that may override the project file (e.g. from the command line).
 #[derive(Clone, Debug, Default)]
 pub struct Overrides {
@@ -561,6 +570,11 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
         push("gum.estimate", g.map(|g| g.estimate), &e.estimate);
         push("gum.standard_uncertainty", g.map(|g| g.combined_standard_uncertainty), &e.standard_uncertainty);
         push("gum.expanded_uncertainty", g.map(|g| g.expanded_uncertainty), &e.expanded_uncertainty);
+        push(
+            "gum.reported_expanded_uncertainty",
+            g.map(|g| reported_expanded(p, g.estimate, g.expanded_uncertainty).0),
+            &e.reported_expanded_uncertainty,
+        );
         push("gum.coverage_factor", g.map(|g| g.coverage_factor), &e.coverage_factor);
         push("gum.effective_dof", g.map(|g| g.effective_dof), &e.effective_dof);
         push(

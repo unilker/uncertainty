@@ -380,7 +380,8 @@ pub fn round_reported(value: f64, expanded: f64, spec: &ReportingSpec, lang: Lan
 /// strings, rounded per the project's reporting rule.
 pub fn reported_strings(p: &Project, a: &Analysis, lang: Lang) -> Option<(String, String)> {
     let g = a.gum.as_ref()?;
-    Some(round_reported(g.estimate, g.expanded_uncertainty, &p.reporting, lang))
+    let (u, _) = crate::reported_expanded(p, g.estimate, g.expanded_uncertainty);
+    Some(round_reported(g.estimate, u, &p.reporting, lang))
 }
 
 fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
@@ -389,7 +390,9 @@ fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
     let unit = a.model.output_unit.clone().map(|u| format!(" {u}")).unwrap_or_default();
     let k = fmt_num(g.coverage_factor, 3, lang);
     let pct = fmt_pct(g.coverage_probability, 4, lang, true);
-    Some(match lang {
+    let (_, raised) = crate::reported_expanded(p, g.estimate, g.expanded_uncertainty);
+    let evaluated = fmt_num(g.expanded_uncertainty, 2, lang);
+    let mut text = match lang {
         Lang::En => format!(
             "{} = ({v} ± {u}){unit}, where the expanded uncertainty is the combined standard uncertainty \
              multiplied by the coverage factor k = {k}, corresponding to a coverage probability of approximately {pct}.",
@@ -400,7 +403,26 @@ fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
              faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık {pct} kapsam olasılığına karşılık gelir.",
             a.model.output_name
         ),
-    })
+    };
+    if raised {
+        text += &match lang {
+            Lang::En => format!(
+                " The evaluated expanded uncertainty, {evaluated}{unit}, is smaller than the laboratory's calibration and \
+                 measurement capability, so the CMC is reported (ILAC P14:09/2020, 5.5)."
+            ),
+            Lang::Tr => format!(
+                " Değerlendirilen genişletilmiş belirsizlik, {evaluated}{unit}, laboratuvarın kalibrasyon ve ölçüm \
+                 yeteneğinden (CMC) küçük olduğundan CMC raporlanmıştır (ILAC P14:09/2020, 5.5)."
+            ),
+        };
+    }
+    if p.reporting.significant_digits > 2 {
+        text += match lang {
+            Lang::En => " Note: ILAC P14:09/2020, 5.3, allows at most two significant digits for the expanded uncertainty on calibration certificates.",
+            Lang::Tr => " Not: ILAC P14:09/2020, 5.3, kalibrasyon sertifikalarında genişletilmiş belirsizlik için en çok iki anlamlı basamağa izin verir.",
+        };
+    }
+    Some(text)
 }
 
 /// The result with an uncorrected bias (Magnusson & Ellison 2008, Table 3).

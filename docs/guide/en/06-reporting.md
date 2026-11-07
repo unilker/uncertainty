@@ -25,6 +25,15 @@ The program writes the result in the form recommended by EA-4/02 (clause 6):
 When the Monte Carlo method is used the coverage interval itself is the result; it is stated with its coverage
 probability and the kind of interval (shortest or probabilistically symmetric).
 
+**Calibration certificates (ILAC P14:09/2020).**
+
+- The result is stated as y ± U with k and the coverage probability, as above (5.2).
+- U has at most two significant digits (5.3). The program warns in the statement when
+  `reporting.significant_digits` is larger.
+- An accredited laboratory shall not report an uncertainty smaller than its CMC (5.5). With
+  `"reporting": { "cmc": { "expanded": … } }` (or `"relative_percent"`) the program reports max(U, CMC) and says
+  so in the statement. The library project `ilac-p14-cmc-floor-weight-10kg` shows this.
+
 ## 6.3 Results not corrected for a known bias
 
 The GUM assumes that results are corrected for all recognised significant systematic effects (GUM 3.2.4).

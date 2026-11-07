@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**253 examples / örnek** (122 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 18 conformity assessment / uygunluk değerlendirmesi).
+**254 examples / örnek** (123 model, 39 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 16 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 18 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -331,6 +331,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`cg18-h3-30t-max-substitution`](mass/cg18-h3-30t-max-substitution.json) | Weighbridge 30 t: error at Max with two substitution loads (EURAMET cg-18 H3) | Köprü kantar 30 t: iki ikame yüküyle Max'ta hata (EURAMET cg-18 H3) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H3, H3.2/A and H3.3/A |
 | [`cg18-h3-30t-zero`](mass/cg18-h3-30t-zero.json) | Weighbridge 30 t: error at zero load (EURAMET cg-18 H3) | Köprü kantar 30 t: sıfır yükte hata (EURAMET cg-18 H3) | EURAMET Calibration Guide No. 18 v4.0 (2015) Appendix H3, H3.2/A and H3.3/A |
 | [`ea402-s2-weight-10kg`](mass/ea402-s2-weight-10kg.json) | Calibration of a 10 kg weight | 10 kg'lık bir ağırlığın kalibrasyonu | EA-4/02 M:2022 S2 |
+| [`ilac-p14-cmc-floor-weight-10kg`](mass/ilac-p14-cmc-floor-weight-10kg.json) | Reporting rule of ILAC P14 5.5: the CMC as the smallest reportable uncertainty (EA-4/02 S2 weight, illustrative CMC) | ILAC P14 5.5 raporlama kuralı: raporlanabilecek en küçük belirsizlik olarak CMC (EA-4/02 S2 kütle, örnek CMC) | EA-4/02 M:2022 S2 |
 | [`jcgm101-9.3-mass-calibration-higher-order`](mass/jcgm101-9.3-mass-calibration-higher-order.json) | Mass calibration (GUM with second-order terms) | Kütle kalibrasyonu (ikinci mertebe terimli GUM) | JCGM 101:2008 9.3, Table 6 |
 | [`jcgm101-9.3-mass-calibration`](mass/jcgm101-9.3-mass-calibration.json) | Mass calibration (first-order GUM) | Kütle kalibrasyonu (birinci mertebe GUM) | JCGM 101:2008 9.3, Tables 6 and 7 |
 | [`m3003-k4-weight-10kg`](mass/m3003-k4-weight-10kg.json) | 10 kg weight of OIML class M1 (UKAS M3003 K.4) | OIML M1 sınıfı 10 kg ağırlık (UKAS M3003 K.4) | UKAS M3003 ed. 6 (2024) Appendix K.4 |

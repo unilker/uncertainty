@@ -159,3 +159,25 @@ write("chemistry", "iupac2024-3a-argentometric-titration-ksp",
       {"multivariate": {"gum": {"estimate": {"c_NaCl": chk(round(c_balance, 4), 2e-4)}, "standard_uncertainty": {"c_NaCl": chk(0.0255, 0.0003)}}}},
       T("IUPAC 2024, Example 4I (after Meija et al., Eq. 19): relative difference from the conventional estimate 0.24 %; lg K_sp1 = −9.75, lg K_sp2 = −11.9.",
         "IUPAC 2024, Örnek 4I (Meija vd., Eş. 19'dan): klasik tahminden bağıl fark %0,24; lg K_sp1 = −9,75, lg K_sp2 = −11,9."))
+
+# --- ILAC P14:09/2020, 5.5: the CMC as a floor for the reported uncertainty (on EA-4/02 S2) ----------------
+base = json.loads(Path("library/mass/ea402-s2-weight-10kg.json").read_text(encoding="utf-8"))
+p = json.loads(json.dumps(base))
+p["metadata"]["id"] = "ilac-p14-cmc-floor-weight-10kg"
+p["metadata"]["title"] = T("Reporting rule of ILAC P14 5.5: the CMC as the smallest reportable uncertainty (EA-4/02 S2 weight, illustrative CMC)",
+                           "ILAC P14 5.5 raporlama kuralı: raporlanabilecek en küçük belirsizlik olarak CMC (EA-4/02 S2 kütle, örnek CMC)")
+p["metadata"]["description"] = T("The 10 kg weight of EA-4/02 S2 (U = 58 mg) reported by a laboratory whose accredited CMC is taken, for illustration, as 80 mg: the reported U is the CMC, not the evaluated 58 mg.",
+                                 "EA-4/02 S2'deki 10 kg kütle (U = 58 mg); akredite CMC'si örnek olarak 80 mg alınan bir laboratuvar tarafından raporlanır: raporlanan U, değerlendirilen 58 mg değil CMC'dir.")
+p["metadata"]["explanation"] = list(base["metadata"].get("explanation", [])) + [
+    T("ILAC P14:09/2020, 5.5: an accredited calibration laboratory shall not report a smaller measurement uncertainty than the uncertainty described by its CMC. With reporting.cmc the program reports max(U, CMC) and says so in the result statement; 5.3 limits U to at most two significant digits.",
+      "ILAC P14:09/2020, 5.5: akredite bir kalibrasyon laboratuvarı CMC'sinin tanımladığından küçük bir ölçüm belirsizliği raporlayamaz. reporting.cmc ile program max(U, CMC) raporlar ve bunu sonuç ifadesinde belirtir; 5.3, U'yu en çok iki anlamlı basamakla sınırlar.")]
+p["metadata"]["sources"] = base["metadata"]["sources"] + [{"document": "ILAC P14:09/2020, ILAC Policy for Measurement Uncertainty in Calibration", "section": "5.3, 5.5", "url": "https://ilac.org/publications-and-resources/ilac-policy-series/"}]
+p["metadata"]["tags"] = sorted(set(base["metadata"]["tags"] + ["ilac-p14", "cmc", "reporting"]))
+p["metadata"]["notes"] = [T("The CMC of 80 mg is a hypothetical value chosen to exceed the evaluated U; it is not taken from a scope of accreditation.",
+                            "80 mg'lık CMC, değerlendirilen U'yu aşacak biçimde seçilmiş varsayımsal bir değerdir; bir akreditasyon kapsamından alınmamıştır.")]
+p["reporting"] = {**base.get("reporting", {}), "cmc": {"expanded": 80.0}}
+p["expected"] = {"gum": {**base["expected"]["gum"], "reported_expanded_uncertainty": chk(80.0, 1e-9)},
+                 "reference": T("EA-4/02 M:2022 S2 (U = 58 mg) and ILAC P14:09/2020 5.5; the CMC is illustrative.",
+                                "EA-4/02 M:2022 S2 (U = 58 mg) ve ILAC P14:09/2020 5.5; CMC örnek amaçlıdır.")}
+Path("library/mass/ilac-p14-cmc-floor-weight-10kg.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote ilac-p14-cmc-floor-weight-10kg")

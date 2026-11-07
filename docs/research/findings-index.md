@@ -108,7 +108,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F91 | EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 | F92 | IUPAC 2024 Example 4I — sign of the endpoint correction (class c; to check against Meija et al. [14]). | 2026-11-07 (session 21, continued) — IUPAC brief guide 2024 (Possolo et al., PAC 96, 113) |
 
-## Decisions (63)
+## Decisions (64)
 
 | D | Decision | Session |
 |---|---|---|
@@ -175,3 +175,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D61 | Monte Carlo: half-width of the interval symmetric about the estimate. | 2026-11-07 (session 21, continued) — JCGM-WG1 News, December 2025: proposed definitions |
 | D62 | Lognormal PDF for the measurand in conformity assessment. | 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021) |
 | D63 | Multicomponent conformity: total risks (EMUE E2.1). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| D64 | CMC as a floor and the 5.3 note. | 2026-11-07 (session 21, continued) — ILAC P14:09/2020 |
