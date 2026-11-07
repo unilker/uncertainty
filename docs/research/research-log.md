@@ -2392,3 +2392,59 @@ The library has 229 projects.
    - 5.4.5 quotes the inventory's U = 1635 kt; 1.96 × 835.16 = 1637 kt.
 
 The library has 231 projects.
+
+**GUM-5:2026 Example 11 (tumour section area from boundary pixels).**
+
+- **Data.** The pixel coordinates are not tabulated in the guide. The 38
+  boundary pixels were read from the grey cells of Figure 11.1 (left),
+  rendered at 200 dpi. They match the text: 38 boundary pixels and 47
+  interior pixels give the extreme areas 47 and 85 of 11.5.1, and the
+  crude u = (85 − 47)/√12 = 10.97 ≈ 11.
+- **Areas.** The parametric Fourier series fitted with t = cumulative chord
+  length, normalized with the closing chord included, reproduce the areas
+  of Table 11.1 to ±0.1 for n = 1–8: 65.12, 63.99, 64.15, 65.72, 65.72,
+  65.27, 65.23, 65.38. Normalizing by t_m as written in 11.3.8 maps the
+  last and the first point to the same t and is slightly worse.
+- **MCM (10⁵ trials).** The 11.5.4 Monte Carlo for n = 6 gives 65.45 ± 1.55
+  (printed 65.4 ± 1.6).
+- Script: `tools/research/gum5/ex11_fourier_area.py`. No library project:
+  the model is a least-squares fit inside the Monte Carlo loop, which the
+  project format cannot express.
+
+**F85. GUM-5 Example 11 — results, information criteria and text
+(classes c and b; the numerical points rest on data read from the figure).**
+
+1. **Reported result (class c).** 11.6.1 reports â = 65.0, u = 1.6 for the
+   degree-6 MCM. 11.5.5 gives 65.4, and the recomputation gives 65.45.
+2. **Neighbouring degrees (11.6.2).** Printed: n = 5 gives 65.3 ± 1.5 and
+   n = 7 gives 65.0 ± 1.5. Recomputed: 65.93 ± 1.51 and 65.40 ± 1.57.
+   - The MCM means lie 0.17–0.21 above the point estimates of Table 11.1
+     for every degree.
+   - A mean of 65.3 for n = 5 (point estimate 65.7) would be a shift of the
+     opposite sign.
+3. **Information criteria (class c).**
+   - The printed AIC column equals exactly half of AIC = χ² + 2(4n + 2)
+     when χ² is taken from the printed RMSR by (11.5), χ² = RMSR²(2m − 4n −
+     2): 38.3, 23.1, 25.2, 23.4, 27.0, 29.8, 33.7, 37.2 against 38, 23, 25,
+     23, 27, 30, 33, 37. The printed RMSR are about √2 times
+     √(Σres²/(2m − 4n − 2)), i.e. they use half the degrees of freedom.
+   - The printed BIC and AICc follow from neither form.
+   - With the formulas as stated and the figure data, AIC is minimal at
+     n = 6 and AICc and BIC at n = 4, not n = 2.
+   - 11.4.4 ("curiously, the three information criteria all exhibit minimum
+     values for n = 2") and the conclusion of 11.7.3 that RMSR saturation
+     is better than the information criteria therefore rest on the
+     computation, not on the data. Even with the printed numbers, AIC at
+     n = 2 and n = 4 differs by 0.3.
+   - To confirm with the original coordinates (compendium EMUE [1]).
+4. **Text (class b).**
+   - 11.3.2 gives 224 and 1840 pixels; the caption of Figure 11.1 gives 85
+     and 585.
+   - 11.3.8 takes the 38 midpoints from "figure 11.1 (right panel)",
+     whereas 11.4.1 uses the left panel.
+   - 11.6.1 refers to "figure 11.1 (centre)"; there is no centre panel.
+   - 11.7.4 calls the 113 fine pixels "of dimension 0.35 × 0.35" while
+     "taking each pixel as unit size".
+
+All 16 GUM-5 examples have now been worked through: 13 as library
+projects, Example 11 by script.

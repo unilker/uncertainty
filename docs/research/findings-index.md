@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (84)
+## Findings (85)
 
 | F | Finding | Session |
 |---|---|---|
@@ -99,6 +99,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F82 | GUM-5 Example 4 — Tables 4.2 and 4.6 (classes c and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F83 | GUM-5 Example 9 — ν_eff of WLS (class a). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F84 | GUM-5 Example 5 — estimate, notation and data (classes a and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F85 | GUM-5 Example 11 — results, information criteria and text (classes c and b; the numerical points rest on data read from the figure). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 
 ## Decisions (60)
 
