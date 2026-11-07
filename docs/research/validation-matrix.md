@@ -290,6 +290,7 @@ recomputed by an independent script. The spreadsheet's own uncertainties differ 
 | GUM5-2 | GUM-5 Example 2, benzo[a]pyrene by internal standard (correlated pairs) | 0.014 ng, u² 4.1·10⁻⁶ ng², ν_eff 5.2 (G.2b), 4.8 (eq. 2.3); MCM [≈ 0, 0.032] ng | 0.01403, 4.08·10⁻⁶, 5.20, 4.81; MCM script [1·10⁻⁷, 0.0321]; ensemble ν_eff 2.11 | ✅ except F79 |
 | GUM5-3 | GUM-5 Example 3, molar mass of glucose | 180.1557, u 0.0038 | same | ✅ |
 | GUM5-10 | GUM-5 Example 10, conformity of TSPM with a lognormal prior | R_C 0.5 %, R_P 0.9 % (A_U = T_U); 0.002 %, 5.8 % (0.17); 1.7 %, < 0.1 % (0.22); specific R_P ≈ 11 % at 0.225 | printed form: 0.498/0.909, 0.0020/5.78, 1.69/0.115 %; conditional h: 0.579/0.739, 0.0103/5.37, 1.80/0.055 %; posterior 11.33 % | ✅ except F80 |
+| GUM5-12 | GUM-5 Example 12, between-bottle homogeneity, Bayesian τ | MS 3.25·10⁻⁷/4.90·10⁻⁷; τ 0.00014 ± 0.00011 [0.00001, 0.00040]; σ 0.00069; HPD τ/µ [0, 0.0008], σ/µ [0.0013, 0.0020]; median 1.1, mode 0.3 µmol/mol | same; τ 1.356·10⁻⁴ ± 1.07·10⁻⁴ [5.2·10⁻⁶, 3.97·10⁻⁴]; median 1.13; mode 0; u*_bb 1.48 µmol/mol | ✅ except F81 |
 | GUM5-14 | GUM-5 Example 14, ²⁰⁷Bi decay correction | 10.810 kBq, u 0.054 kBq; Table 14.1 | same | ✅ |
 | GUM5-15 | GUM-5 Example 15, wire rope breaking force | 10 005.7 kN, u 9.9, U 19.4 kN; MCM u 10.1 kN | GUF same; MCM 9.93 kN | ✅ GUF; MCM differs (F77) |
 | CG19-E1 | 1000 mL flask (Tanaka density) | V₂₀ 999.628 mL, u 0.017 mL, ν_eff 19, k 2.15, U 0.036 mL | 999.622; 0.0169; 19.5; 2.14; 0.036 | ✅ (F62) |

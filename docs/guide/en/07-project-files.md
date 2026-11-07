@@ -177,7 +177,7 @@ zero or s(R) is included.
 | `delta_e`, `delta_e_percent` | allowance for measurement error δ_E for PA scores (default 3σ_pt) |
 | `coverage_factor` | k of U(x_pt) for E_n (default 2; a stated expanded uncertainty of a reference value is used as given) |
 | `uncertainty_screening` | `u_min`, `u_max`: numbers, or `"u_assigned"`, `"1.5_robust_sd"`, `"1.5_sd_pt"` (ISO 13528 9.8) |
-| `homogeneity` | `items` (one list of replicates per item, equal numbers), `sd_pt` or `sd_pt_percent_of_mean` (default: the σ_pt of the round) |
+| `homogeneity` | `items` (one list of replicates per item, equal numbers), `sd_pt` or `sd_pt_percent_of_mean` (default: the σ_pt of the round; without σ_pt the criteria are not evaluated), `bayes` (`tau_scale`, `sigma_scale`, optional `mu_mean`, `mu_sd`) |
 | `stability` | `values`; `reference` (default: the homogeneity average); `u_reference` and `u_values` for Formula (B.18) |
 | `algorithm_a` | `"third_significant_figure"` (stopping rule of C.3.1, default) or `"converged"` |
 
@@ -386,7 +386,9 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
     "relative_standard_percent", "relative_expanded_percent" }`
 * `proficiency`: `assigned_value`, `u_assigned`, `sd_pt`, `median`, `made`, `niqr`, `robust_mean`, `robust_sd`,
   `iterations`, `mean`, `sd`; `scores`: `{ "<lab>": { "d", "d_percent", "pa", "z", "z_prime", "zeta", "en" } }`;
-  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
+  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`, `ms_between`, `ms_within`, `u_bb_star`,
+  `tau_mean`, `tau_sd`, `tau_median`, `tau_mode`, `tau_q975`, `tau_hpd_upper`, `sigma_mean`, `sigma_hpd_lower`,
+  `sigma_hpd_upper`, `mu_mean`; `stability`: `difference`, `sufficient`
 * `calibration`: `params`, `u_params` and `cov_params` (lists; covariances in the order (0,1), (0,2), …, (1,2), …),
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<name>": { "x", "u" } }`, `drift_passed`
 * `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,

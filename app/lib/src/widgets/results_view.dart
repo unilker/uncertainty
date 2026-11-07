@@ -385,10 +385,33 @@ class ResultsView extends StatelessWidget {
             ['s_x', '${n(h['s_x'], 3)}$u'],
             ['s_w', '${n(h['s_w'], 3)}$u'],
             ['s_s', '${n(h['s_s'], 3)}$u'],
-            [s['pt_criterion'], '${n(h['criterion'], 3)}$u — ${h['sufficient'] == true ? s['pt_sufficient'] : s['pt_not_sufficient']}'],
+            if (h['u_bb_star'] != null) ['u*_bb', '${n(h['u_bb_star'], 3)}$u'],
+            if (h['criterion'] != null)
+              [s['pt_criterion'], '${n(h['criterion'], 3)}$u — ${h['sufficient'] == true ? s['pt_sufficient'] : s['pt_not_sufficient']}'],
           ],
         ),
       ]);
+      final b = r['between_unit'] as Map<String, dynamic>?;
+      if (b != null) {
+        String row(Map<String, dynamic> p) {
+          final hpd = p['hpd'] as List;
+          return '${n(p['mean'], 3)}$u (${s['pt_median']} ${n(p['median'], 3)}, ${s['pt_mode']} ${n(p['mode'], 3)}); '
+              '95 %: [${n(hpd[0], 3)}, ${n(hpd[1], 3)}]$u';
+        }
+
+        out.addAll([
+          Section(s['pt_bayes']),
+          _table(
+            context,
+            ['', ''],
+            [
+              ['τ', row(b['tau'] as Map<String, dynamic>)],
+              ['σ', row(b['sigma'] as Map<String, dynamic>)],
+              ['µ', '${n(b['mu_mean'], 6)}$u ± ${n(b['mu_sd'], 3)}$u'],
+            ],
+          ),
+        ]);
+      }
     }
     final st = r['stability'] as Map<String, dynamic>?;
     if (st != null) {

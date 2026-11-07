@@ -443,3 +443,52 @@ write_cf("gum5-e10-tspm-specific-risks",
            "JCGM GUM-5:2026, 10.7.2: ρ̂ = 0,225 mg/m³ için özgül üretici riski yaklaşık %11 (Şekil 10.3)."),
          notes=[T("10.6.4 states that the posterior is essentially determined by the likelihood, so frequentist specific risks would be very close. Near T_U this does not hold: the normal PDF alone gives 1 − p_c = 22.6 % at 0.190 and p_c = 5.6 % at 0.225 mg/m³ (research log F80).",
                   "10.6.4 sonsal dağılımın esasen olabilirlikle belirlendiğini, bu nedenle frekansçı özgül risklerin çok yakın olacağını belirtir. T_U yakınında bu geçerli değildir: yalnız normal dağılım 0,190'da 1 − p_c = %22,6, 0,225 mg/m³'te p_c = %5,6 verir (araştırma günlüğü F80).")])
+
+# --- Example 12: between-bottle homogeneity of N₂ in natural gas (Bayesian hierarchical model) -------------
+N2 = [[0.424577, 0.425167, 0.425379, 0.424522, 0.424805], [0.425572, 0.425411, 0.423638, 0.425301, 0.424527],
+      [0.424152, 0.425517, 0.425638, 0.424207, 0.425135], [0.426320, 0.424672, 0.425211, 0.425533, 0.425864],
+      [0.424855, 0.425079, 0.425413, 0.424729, 0.424725], [0.425104, 0.424773, 0.426424, 0.424266, 0.424632],
+      [0.425750, 0.424917, 0.424779, 0.425086, 0.425318], [0.425547, 0.426483, 0.424631, 0.425968, 0.424620],
+      [0.426326, 0.424646, 0.425205, 0.426302, 0.425020], [0.425968, 0.424069, 0.425988, 0.425489, 0.423936]]
+gN, mN = len(N2), len(N2[0])
+mi = [sum(r) / mN for r in N2]
+gmN = sum(mi) / gN
+ssb = mN * sum((v - gmN) ** 2 for v in mi)
+ssw = sum((x - mi[i]) ** 2 for i, r in enumerate(N2) for x in r)
+msb, msw = ssb / (gN - 1), ssw / (gN * (mN - 1))
+ubb = math.sqrt(msw / mN) * (2 / (gN * (mN - 1))) ** 0.25
+assert abs(ssb - 2.92e-6) < 0.005e-6 and abs(ssw - 1.96e-5) < 0.005e-5 and abs(msb - 3.25e-7) < 0.005e-7 and abs(msw - 4.90e-7) < 0.005e-7
+assert msb < msw and abs(ubb - 1.481e-4) < 1e-7
+MU0 = 0.4250
+write_pt = lambda pid, title, desc, expl, section, tags, prof, expected, ref, notes=(): Path(f"library/chemistry/{pid}.json").write_text(json.dumps({
+    "format": "uncertainty-calculations/project", "version": 1,
+    "metadata": {"id": pid, "title": title, "description": desc, "explanation": expl, "field": "chemistry",
+                 "sources": [{"document": DOC, "section": section, "url": URL}], "tags": ["gum-5"] + tags, "notes": list(notes)},
+    "proficiency": prof, "expected": {"proficiency": expected, "reference": ref}}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8") or print("wrote", pid)
+write_pt("gum5-e12-between-bottle-homogeneity-bayes",
+         T("Between-bottle homogeneity of nitrogen in natural gas mixtures: ANOVA, u*_bb and a Bayesian hierarchical model (JCGM GUM-5 Example 12)",
+           "Doğal gaz karışımlarında azotun şişeler arası homojenliği: ANOVA, u*_bb ve Bayesçi hiyerarşik model (JCGM GUM-5 Örnek 12)"),
+         T("Ten gas mixtures measured five times each; MS_between < MS_within, so the ANOVA gives no between-bottle standard deviation. The Bayesian model with half-Cauchy priors gives a posterior for τ.",
+           "Her biri beş kez ölçülen on gaz karışımı; MS_arası < MS_içi olduğundan ANOVA şişeler arası standart sapma vermez. Yarı-Cauchy önselli Bayesçi model τ için bir sonsal dağılım verir."),
+         [T(f"One-way ANOVA (Table 12.2): SS_between = {ssb:.3e}, ν = 9, MS_between = {msb:.3e}; SS_within = {ssw:.3e}, ν = 40, MS_within = {msw:.3e} (cmol/mol)². s_bb = √((MS_between − MS_within)/n) does not exist, and ISO 13528 sets s_s = 0.",
+            f"Tek yönlü ANOVA (Tablo 12.2): SS_arası = {c(f'{ssb:.3e}')}, ν = 9, MS_arası = {c(f'{msb:.3e}')}; SS_içi = {c(f'{ssw:.3e}')}, ν = 40, MS_içi = {c(f'{msw:.3e}')} (cmol/mol)². s_bb = √((MS_arası − MS_içi)/n) mevcut değildir; ISO 13528 s_s = 0 alır."),
+          T(f"The classical answer for this case is the between-unit standard deviation that the repeatability can hide, u*_bb = √(MS_within/n)·(2/ν_within)^¼ = {ubb:.3e} cmol/mol, {100 * ubb / gmN:.3f} % (Linsinger et al. 2001; ISO Guide 35). GUM-5 does not give it.",
+            f"Bu durumda klasik yanıt, tekrarlanabilirliğin gizleyebileceği birimler arası standart sapmadır: u*_bb = √(MS_içi/n)·(2/ν_içi)^¼ = {c(f'{ubb:.3e}')} cmol/mol, %{c(f'{100 * ubb / gmN:.3f}')} (Linsinger vd. 2001; ISO Guide 35). GUM-5 bunu vermez."),
+          T("Bayesian model y_ij = µ + B_i + ε_ij with µ ~ N(0.4250, (0.025 × 0.4250)²), τ ~ half-Cauchy(0, 0.0015 µ₀) and σ ~ half-Cauchy(0, 0.0020 µ₀), from the specification of the preparation (0.30 % at k = 2) and the known repeatability (0.20 %). The program integrates B_i and µ analytically and evaluates the posterior of (τ, σ) on a grid, where GUM-5 uses Stan (MCMC, 4 × 20 000 draws).",
+            "Bayesçi model y_ij = µ + B_i + ε_ij; µ ~ N(0,4250; (0,025 × 0,4250)²), τ ~ yarı-Cauchy(0; 0,0015 µ₀) ve σ ~ yarı-Cauchy(0; 0,0020 µ₀); ölçekler hazırlama şartnamesinden (k = 2'de %0,30) ve bilinen tekrarlanabilirlikten (%0,20) gelir. Program B_i ve µ'yü analitik olarak integre eder ve (τ, σ) sonsal dağılımını bir ızgarada hesaplar; GUM-5 ise Stan (MCMC, 4 × 20 000 çekiliş) kullanır."),
+          T("Posterior of τ: mean 0.000136, s.d. 0.000107, median 0.000113, 97.5 % quantile 0.000397 cmol/mol (Stan: 0.00014, 0.00011, —, 0.00040); shortest 95 % interval of τ/µ [0, 0.0008] and of σ/µ [0.0013, 0.0020] as in Table 12.3. The posterior mean of τ (1.36 µmol/mol) is close to u*_bb (1.48 µmol/mol).",
+            "τ'nun sonsal dağılımı: ortalama 0,000136, s.s. 0,000107, medyan 0,000113, %97,5 kantili 0,000397 cmol/mol (Stan: 0,00014; 0,00011; —; 0,00040); τ/µ için en kısa %95 aralık [0; 0,0008], σ/µ için [0,0013; 0,0020], Tablo 12.3'teki gibi. τ'nun sonsal ortalaması (1,36 µmol/mol) u*_bb'ye (1,48 µmol/mol) yakındır.")],
+         "Example 12, Tables 12.1–12.3, 12.4.5 and 12.4.8", ["homogeneity", "between-unit", "reference-material", "bayesian", "anova", "gas-analysis"],
+         {"quantity": "x(N₂)", "unit": "cmol/mol",
+          "homogeneity": {"items": N2, "bayes": {"tau_scale": round(0.0015 * MU0, 10), "sigma_scale": round(0.0020 * MU0, 10), "mu_mean": MU0, "mu_sd": round(0.025 * MU0, 10)}}},
+         {"homogeneity": {"ms_between": chk(3.25e-7, 0.005e-7), "ms_within": chk(4.90e-7, 0.005e-7), "s_s": chk(0.0, 1e-12), "u_bb_star": chk(round(ubb, 9), 1e-9),
+                          "tau_mean": chk(0.00014, 0.000005), "tau_sd": chk(0.00011, 0.000005), "tau_median": chk(0.000113, 1e-6), "tau_q975": chk(0.00040, 0.000005),
+                          "tau_mode": chk(0.0, 1e-12), "tau_hpd_upper": chk(round(0.0008 * 0.42514, 7), 0.00005 * 0.42514),
+                          "sigma_mean": chk(0.00069, 0.000005), "sigma_hpd_lower": chk(round(0.0013 * 0.42514, 7), 0.00005 * 0.42514),
+                          "sigma_hpd_upper": chk(round(0.0020 * 0.42514, 7), 0.00005 * 0.42514), "mu_mean": chk(0.42514, 0.000005)}},
+         T("JCGM GUM-5:2026, Table 12.2 (MS 3.25·10⁻⁷ and 4.90·10⁻⁷), 12.4.5 (τ 0.00014 ± 0.00011, [0.00001, 0.00040]; σ 0.00069; µ 0.42514), Table 12.3 (HPD) and 12.4.8 (median 1.1 µmol/mol); u*_bb, the median to 10⁻⁶ and the mode 0 are recomputed here.",
+           "JCGM GUM-5:2026, Tablo 12.2 (MS 3,25·10⁻⁷ ve 4,90·10⁻⁷), 12.4.5 (τ 0,00014 ± 0,00011, [0,00001; 0,00040]; σ 0,00069; µ 0,42514), Tablo 12.3 (HPD) ve 12.4.8 (medyan 1,1 µmol/mol); u*_bb, 10⁻⁶'ya kadar medyan ve mod 0 burada yeniden hesaplanmıştır."),
+         notes=[T("12.4.8 gives the mode of the posterior of τ as 0.3 µmol/mol. The marginal posterior density of τ is largest at τ = 0 here, because MS_between < MS_within and the half-Cauchy prior is largest at 0. The R function getmode of 12.5.2 tabulates exact repeats of the draws, which for continuous MCMC output are all distinct, so it returns the first draw rather than a mode (research log F81).",
+                  "12.4.8, τ'nun sonsal dağılımının modunu 0,3 µmol/mol olarak verir. Burada τ'nun marjinal sonsal yoğunluğu τ = 0'da en büyüktür, çünkü MS_arası < MS_içi'dir ve yarı-Cauchy önsel 0'da en büyüktür. 12.5.2'deki R işlevi getmode çekilişlerin tam tekrarlarını sayar; sürekli MCMC çıktısında hepsi farklı olduğundan mod yerine ilk çekilişi döndürür (araştırma günlüğü F81)."),
+                T("Equation (12.5) writes the likelihood as y_ij | µ, τ, σ ~ N(µ, τ² + σ²), as if the observations were independent; the replicates of one bottle share B_i and are correlated. The Stan code of 12.4.2 uses the hierarchical model, which the program also uses.",
+                  "Denklem (12.5) olabilirliği gözlemler bağımsızmış gibi y_ij | µ, τ, σ ~ N(µ, τ² + σ²) olarak yazar; bir şişenin tekrarları B_i'yi paylaşır ve ilişkilidir. 12.4.2'deki Stan kodu hiyerarşik modeli kullanır; program da onu kullanır.")])

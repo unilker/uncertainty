@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (105)
+- Kimya (106)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
@@ -190,6 +190,28 @@ Tek sonuçların uygunluk olasılıkları, sonsal g(ρ | ρ̂) ∝ g₀(ρ)·h(�
 - 10.6.4 sonsal dağılımın esasen olabilirlikle belirlendiğini, bu nedenle frekansçı özgül risklerin çok yakın olacağını belirtir. T_U yakınında bu geçerli değildir: yalnız normal dağılım 0,190'da 1 − p_c = %22,6, 0,225 mg/m³'te p_c = %5,6 verir (araştırma günlüğü F80).
 
 **Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-specific-risks.json --lang tr`
+
+### Doğal gaz karışımlarında azotun şişeler arası homojenliği: ANOVA, u*_bb ve Bayesçi hiyerarşik model (JCGM GUM-5 Örnek 12)
+
+`gum5-e12-between-bottle-homogeneity-bayes` — JCGM GUM-5:2026, Example 12, Tables 12.1–12.3, 12.4.5 and 12.4.8
+
+Her biri beş kez ölçülen on gaz karışımı; MS_arası < MS_içi olduğundan ANOVA şişeler arası standart sapma vermez. Yarı-Cauchy önselli Bayesçi model τ için bir sonsal dağılım verir.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. Tek yönlü ANOVA (Tablo 12.2): SS_arası = 2,924e-06, ν = 9, MS_arası = 3,249e-07; SS_içi = 1,962e-05, ν = 40, MS_içi = 4,904e-07 (cmol/mol)². s_bb = √((MS_arası − MS_içi)/n) mevcut değildir; ISO 13528 s_s = 0 alır.
+2. Bu durumda klasik yanıt, tekrarlanabilirliğin gizleyebileceği birimler arası standart sapmadır: u*_bb = √(MS_içi/n)·(2/ν_içi)^¼ = 1,481e-04 cmol/mol, %0,035 (Linsinger vd. 2001; ISO Guide 35). GUM-5 bunu vermez.
+3. Bayesçi model y_ij = µ + B_i + ε_ij; µ ~ N(0,4250; (0,025 × 0,4250)²), τ ~ yarı-Cauchy(0; 0,0015 µ₀) ve σ ~ yarı-Cauchy(0; 0,0020 µ₀); ölçekler hazırlama şartnamesinden (k = 2'de %0,30) ve bilinen tekrarlanabilirlikten (%0,20) gelir. Program B_i ve µ'yü analitik olarak integre eder ve (τ, σ) sonsal dağılımını bir ızgarada hesaplar; GUM-5 ise Stan (MCMC, 4 × 20 000 çekiliş) kullanır.
+4. τ'nun sonsal dağılımı: ortalama 0,000136, s.s. 0,000107, medyan 0,000113, %97,5 kantili 0,000397 cmol/mol (Stan: 0,00014; 0,00011; —; 0,00040); τ/µ için en kısa %95 aralık [0; 0,0008], σ/µ için [0,0013; 0,0020], Tablo 12.3'teki gibi. τ'nun sonsal ortalaması (1,36 µmol/mol) u*_bb'ye (1,48 µmol/mol) yakındır.
+
+**Notlar:**
+
+- 12.4.8, τ'nun sonsal dağılımının modunu 0,3 µmol/mol olarak verir. Burada τ'nun marjinal sonsal yoğunluğu τ = 0'da en büyüktür, çünkü MS_arası < MS_içi'dir ve yarı-Cauchy önsel 0'da en büyüktür. 12.5.2'deki R işlevi getmode çekilişlerin tam tekrarlarını sayar; sürekli MCMC çıktısında hepsi farklı olduğundan mod yerine ilk çekilişi döndürür (araştırma günlüğü F81).
+- Denklem (12.5) olabilirliği gözlemler bağımsızmış gibi y_ij | µ, τ, σ ~ N(µ, τ² + σ²) olarak yazar; bir şişenin tekrarları B_i'yi paylaşır ve ilişkilidir. 12.4.2'deki Stan kodu hiyerarşik modeli kullanır; program da onu kullanır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e12-between-bottle-homogeneity-bayes.json --lang tr`
 
 ### İç standartla GC-MS'te benzo[a]piren, ilişkili girdiler (JCGM GUM-5 Örnek 2)
 

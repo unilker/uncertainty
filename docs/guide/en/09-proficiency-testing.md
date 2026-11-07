@@ -71,6 +71,21 @@ s_s = √(s_x² − s_w²/m) (zero if negative). The items are sufficiently homo
 expanded criterion √(F₁(0.3σ_pt)² + F₂s_w²) of B.2.3 is also given, with F₁ = χ²₀.₉₅(g − 1)/(g − 1) and
 F₂ = (F₀.₉₅(g − 1, g(m − 1)) − 1)/m computed exactly (Table B.1 for m = 2).
 
+The mean squares MS_between = m·s_x² and MS_within = s_w² are listed. So is u*_bb = √(MS_within/m)·(2/ν_within)^¼,
+the between-unit standard deviation that the repeatability of the method can hide (Linsinger et al. 2001; ISO
+Guide 35). It is the usual value for the uncertainty of a reference material when MS_between < MS_within, where
+s_s is zero. Without σ_pt, for the homogeneity study of a reference material, the ISO 13528 criteria are not
+evaluated.
+
+**Bayesian between-unit standard deviation.** With `"bayes": { "tau_scale", "sigma_scale", "mu_mean", "mu_sd" }`
+the program also evaluates the hierarchical model y_ij = µ + B_i + ε_ij, B_i ~ N(0, τ²), ε_ij ~ N(0, σ²). τ and σ
+have half-Cauchy priors with the given scales, typically the specification of the preparation and the known
+repeatability. µ has a normal prior, or a flat one if `mu_mean` and `mu_sd` are omitted. The unit effects and µ
+are integrated out exactly, and the posterior of (τ, σ) is evaluated on a grid. The result is therefore the
+same at every run, without MCMC. The report gives the mean, standard deviation, median and mode of τ and σ,
+and their symmetric and shortest 95 % intervals (JCGM GUM-5 Example 12). The posterior of τ is sensitive to
+its prior scale (GUM-5 12.4.6), so the scale must be justified.
+
 The stability check compares the averages before and after: |ȳ₁ − ȳ₂| ≤ 0.3 σ_pt (B.17), widened by
 2√(u²(ȳ₁) + u²(ȳ₂)) when the uncertainties of the averages are given (B.18).
 

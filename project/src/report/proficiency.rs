@@ -54,6 +54,16 @@ pub(super) struct PtLabels {
     pub expanded_criterion: &'static str,
     pub sufficient: &'static str,
     pub not_sufficient: &'static str,
+    pub u_bb_star: &'static str,
+    pub no_sigma_pt: &'static str,
+    pub bayes_title: &'static str,
+    pub mean_col: &'static str,
+    pub sd_col: &'static str,
+    pub median_col: &'static str,
+    pub mode_col: &'static str,
+    pub q_col: &'static str,
+    pub hpd_col: &'static str,
+    pub bayes_note: &'static str,
     pub stability: &'static str,
     pub difference: &'static str,
     pub chart: &'static str,
@@ -111,6 +121,16 @@ const PT_EN: PtLabels = PtLabels {
     expanded_criterion: "Expanded criterion √c (B.2.3)",
     sufficient: "sufficient",
     not_sufficient: "not sufficient",
+    u_bb_star: "u*_bb = √(MS_within/m)·(2/ν_within)^¼ (between-unit s.d. that the repeatability can hide; Linsinger et al. 2001)",
+    no_sigma_pt: "No σ_pt is given, so the ISO 13528 criteria 0.3 σ_pt are not evaluated.",
+    bayes_title: "Bayesian between-unit standard deviation (JCGM GUM-5 Example 12)",
+    mean_col: "mean",
+    sd_col: "s.d.",
+    median_col: "median",
+    mode_col: "mode",
+    q_col: "95 % (2.5 %, 97.5 %)",
+    hpd_col: "95 % shortest",
+    bayes_note: "Model y_ij = µ + B_i + ε_ij, B_i ~ N(0, τ²), ε_ij ~ N(0, σ²), half-Cauchy priors for τ and σ. The unit effects and µ are integrated analytically and the posterior of (τ, σ) is evaluated on a grid, without MCMC. Posterior of µ: {mu}, standard deviation {u}.",
     stability: "Stability check (ISO 13528 B.5)",
     difference: "Difference of the averages",
     chart: "z scores (±2 warning, ±3 action limits)",
@@ -168,6 +188,16 @@ const PT_TR: PtLabels = PtLabels {
     expanded_criterion: "Genişletilmiş ölçüt √c (B.2.3)",
     sufficient: "yeterli",
     not_sufficient: "yeterli değil",
+    u_bb_star: "u*_bb = √(MS_içinde/m)·(2/ν_içinde)^¼ (tekrarlanabilirliğin gizleyebileceği birimler arası s.s.; Linsinger vd. 2001)",
+    no_sigma_pt: "σ_pt verilmediğinden ISO 13528'in 0,3 σ_pt ölçütleri değerlendirilmedi.",
+    bayes_title: "Bayesçi birimler arası standart sapma (JCGM GUM-5 Örnek 12)",
+    mean_col: "ortalama",
+    sd_col: "s.s.",
+    median_col: "medyan",
+    mode_col: "mod",
+    q_col: "%95 (%2,5, %97,5)",
+    hpd_col: "%95 en kısa",
+    bayes_note: "Model y_ij = µ + B_i + ε_ij, B_i ~ N(0, τ²), ε_ij ~ N(0, σ²); τ ve σ için yarı-Cauchy önseller. Birim etkileri ve µ analitik olarak integre edilir; (τ, σ) sonsal dağılımı MCMC kullanılmadan bir ızgarada hesaplanır. µ'nün sonsal dağılımı: {mu}, standart sapma {u}.",
     stability: "Kararlılık kontrolü (ISO 13528 B.5)",
     difference: "Ortalamalar arasındaki fark",
     chart: "z skorları (±2 uyarı, ±3 eylem sınırları)",
@@ -391,22 +421,56 @@ pub(super) fn markdown(
         let _ = writeln!(s, "| s_x | {}{unit} |", fmt_num(h.s_x, 3, lang));
         let _ = writeln!(s, "| s_w | {}{unit} |", fmt_num(h.s_w, 3, lang));
         let _ = writeln!(s, "| s_s | {}{unit} |", fmt_num(h.s_s, 3, lang));
-        let _ = writeln!(
-            s,
-            "| {} | {}{unit} — {} |",
-            d.criterion,
-            fmt_num(h.criterion, 3, lang),
-            if h.sufficient { d.sufficient } else { d.not_sufficient }
-        );
-        let _ = writeln!(
-            s,
-            "| {} | {}{unit} — {} (F₁ = {}, F₂ = {}) |\n",
-            d.expanded_criterion,
-            fmt_num(h.expanded_criterion, 3, lang),
-            if h.sufficient_expanded { d.sufficient } else { d.not_sufficient },
-            fmt_num(h.f1, 3, lang),
-            fmt_num(h.fm, 3, lang)
-        );
+        let ok = |b: bool| if b { d.sufficient } else { d.not_sufficient };
+        let _ = writeln!(s, "| MS_between | {} |", fmt_num(h.ms_between, 3, lang));
+        let _ = writeln!(s, "| MS_within | {} |", fmt_num(h.ms_within, 3, lang));
+        let _ = writeln!(s, "| {} | {}{unit} |", d.u_bb_star, fmt_num(h.u_bb_star, 3, lang));
+        if let (Some(c), Some(ok1), Some(ce), Some(ok2)) =
+            (h.criterion, h.sufficient, h.expanded_criterion, h.sufficient_expanded)
+        {
+            let _ = writeln!(s, "| {} | {}{unit} — {} |", d.criterion, fmt_num(c, 3, lang), ok(ok1));
+            let _ = writeln!(
+                s,
+                "| {} | {}{unit} — {} (F₁ = {}, F₂ = {}) |",
+                d.expanded_criterion,
+                fmt_num(ce, 3, lang),
+                ok(ok2),
+                fmt_num(h.f1, 3, lang),
+                fmt_num(h.fm, 3, lang)
+            );
+        }
+        let _ = writeln!(s);
+        if h.criterion.is_none() {
+            let _ = writeln!(s, "{}\n", d.no_sigma_pt);
+        }
+        if let Some(b) = &a.between_unit {
+            let _ = writeln!(s, "### {}\n", d.bayes_title);
+            let _ = writeln!(
+                s,
+                "| | {} | {} | {} | {} | {} | {} |\n|---|---:|---:|---:|---:|---:|---:|",
+                d.mean_col, d.sd_col, d.median_col, d.mode_col, d.q_col, d.hpd_col
+            );
+            for (name, p) in [("τ", &b.tau), ("σ", &b.sigma)] {
+                let n = |x: f64| fmt_num(x, 3, lang);
+                let _ = writeln!(
+                    s,
+                    "| {name} | {}{unit} | {}{unit} | {}{unit} | {}{unit} | [{}, {}]{unit} | [{}, {}]{unit} |",
+                    n(p.mean),
+                    n(p.sd),
+                    n(p.median),
+                    n(p.mode),
+                    n(p.q025),
+                    n(p.q975),
+                    n(p.hpd.0),
+                    n(p.hpd.1)
+                );
+            }
+            let _ = writeln!(
+                s,
+                "\n{}\n",
+                d.bayes_note.replace("{mu}", &fmt_num(b.mu_mean, 6, lang)).replace("{u}", &fmt_num(b.mu_sd, 3, lang))
+            );
+        }
     }
     if let Some(st) = &a.stability {
         let _ = writeln!(s, "## {}\n", d.stability);
@@ -490,8 +554,9 @@ pub(super) fn homogeneity_svg(
     let items = &spec.homogeneity.as_ref()?.items;
     let (w, ht, left, top, bottom) = (640.0, 260.0, 70.0, 12.0, 30.0);
     let vals = items.iter().flatten().copied();
-    let lo = vals.clone().fold(h.mean - h.criterion, f64::min);
-    let hi = vals.fold(h.mean + h.criterion, f64::max);
+    let crit = h.criterion.unwrap_or(0.0);
+    let lo = vals.clone().fold(h.mean - crit, f64::min);
+    let hi = vals.fold(h.mean + crit, f64::max);
     let pad = 0.08 * (hi - lo).max(1e-300);
     let (lo, hi) = (lo - pad, hi + pad);
     let plot_w = w - left - 16.0;
@@ -501,7 +566,7 @@ pub(super) fn homogeneity_svg(
         r#"<svg viewBox="0 0 {w} {ht}" width="100%" role="img" aria-label="{}" xmlns="http://www.w3.org/2000/svg">"#,
         esc(pt_labels(lang).homogeneity_chart)
     );
-    let (y1, y2) = (y_of(h.mean + h.criterion), y_of(h.mean - h.criterion));
+    let (y1, y2) = (y_of(h.mean + crit), y_of(h.mean - crit));
     let _ = write!(
         s,
         r#"<rect x="{left}" y="{y1:.1}" width="{plot_w:.1}" height="{:.1}" class="hist" opacity="0.35"/>"#,

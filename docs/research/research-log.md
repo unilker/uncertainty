@@ -2238,3 +2238,59 @@ Library projects:
 - `gum5-e10-tspm-specific-risks` (posterior).
 
 The library has 225 projects.
+
+**GUM-5:2026 Example 12 (between-bottle homogeneity, Bayesian hierarchical model).**
+Table 12.2 reproduces: SS 2.92·10⁻⁶ and 1.96·10⁻⁵, MS 3.25·10⁻⁷ and
+4.90·10⁻⁷ (cmol/mol)². MS_between < MS_within.
+
+**D60. Homogeneity without σ_pt; u*_bb; Bayesian between-unit standard deviation.**
+
+- The homogeneity section no longer needs σ_pt. Without it the ISO 13528
+  criteria are not evaluated, as for a reference material study.
+- MS_between, MS_within and u*_bb = √(MS_within/m)·(2/ν_within)^¼
+  (Linsinger et al. 2001; ISO Guide 35) are always given. Here
+  u*_bb = 1.481·10⁻⁴ cmol/mol (0.035 %).
+- `homogeneity.bayes` evaluates the model of GUM-5 (12.1)–(12.4), with
+  half-Cauchy priors for τ and σ and a normal prior for µ. B_i and µ are
+  integrated analytically: the group means are N(µ, τ² + σ²/m), the
+  within-group sum of squares is σ²χ²_{g(m−1)}, and µ is normal-conjugate.
+  The posterior of (τ, σ) is then tabulated on a 3001 × 1001 grid, with
+  quadratic spacing in τ and logarithmic spacing in σ, so no MCMC is needed.
+- Comparison with Stan (12.4.5):
+
+  | | program | Stan |
+  |---|---|---|
+  | τ mean | 1.356·10⁻⁴ | 0.00014 |
+  | τ s.d. | 1.07·10⁻⁴ | 0.00011 |
+  | τ 2.5 % | 5.2·10⁻⁶ | 0.00001 |
+  | τ 97.5 % | 3.97·10⁻⁴ | 0.00040 |
+  | σ mean | 6.885·10⁻⁴ | 0.00069 |
+  | σ s.d. | 7.2·10⁻⁵ | 0.00007 |
+  | σ 95 % interval | [5.64, 8.46]·10⁻⁴ | [0.00056, 0.00085] |
+  | µ | 0.425144 | 0.42514 |
+
+- Table 12.3 HPD: τ/µ [0, 0.0008], σ/µ [0.0013, 0.0020]. The median of τ is
+  1.13 µmol/mol (printed 1.1). An independent numpy grid gives the same
+  values (`tools/research/gum5/ex12_posterior.py`).
+
+**F81. GUM-5 Example 12 — mode of τ and likelihood (12.5) (classes c and b).**
+
+1. **Mode of τ (class c).** 12.4.8 prints "the mode of the posterior of τ
+   is 0.3 µmol mol⁻¹". The marginal posterior density of τ is largest at
+   τ = 0. MS_between < MS_within, so the likelihood decreases in τ, and the
+   half-Cauchy prior is largest at 0. The function `getmode` of 12.5.2
+   returns the most frequent exact value of the draws. For continuous MCMC
+   output all draws are distinct, so it returns the first draw, and
+   0.3 µmol/mol is an arbitrary draw. 12.5.2's remark that "even using τ = 0
+   could be justified" agrees with mode 0. Mean and median are not affected.
+2. **Likelihood (class b).** (12.5) writes y_ij | µ, τ, σ ~ N(µ, τ² + σ²),
+   as if the 50 values were independent. The replicates of a bottle share
+   B_i and are correlated: Cov(y_ij, y_ik) = τ². The Stan code (12.4.2) is
+   hierarchical and correct, so the results are not affected.
+3. **Note for the article.** The Bayesian mean τ = 1.36 µmol/mol is close to
+   the classical u*_bb = 1.48 µmol/mol, which GUM-5 does not mention. Where
+   "the classical analysis does not provide a solution" (12.1.3), the
+   standard RM practice does give one.
+
+Library project: `gum5-e12-between-bottle-homogeneity-bayes`. The library
+has 226 projects.

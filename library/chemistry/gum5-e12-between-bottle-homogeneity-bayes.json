@@ -1,0 +1,210 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e12-between-bottle-homogeneity-bayes",
+    "title": {
+      "en": "Between-bottle homogeneity of nitrogen in natural gas mixtures: ANOVA, u*_bb and a Bayesian hierarchical model (JCGM GUM-5 Example 12)",
+      "tr": "Doğal gaz karışımlarında azotun şişeler arası homojenliği: ANOVA, u*_bb ve Bayesçi hiyerarşik model (JCGM GUM-5 Örnek 12)"
+    },
+    "description": {
+      "en": "Ten gas mixtures measured five times each; MS_between < MS_within, so the ANOVA gives no between-bottle standard deviation. The Bayesian model with half-Cauchy priors gives a posterior for τ.",
+      "tr": "Her biri beş kez ölçülen on gaz karışımı; MS_arası < MS_içi olduğundan ANOVA şişeler arası standart sapma vermez. Yarı-Cauchy önselli Bayesçi model τ için bir sonsal dağılım verir."
+    },
+    "explanation": [
+      {
+        "en": "One-way ANOVA (Table 12.2): SS_between = 2.924e-06, ν = 9, MS_between = 3.249e-07; SS_within = 1.962e-05, ν = 40, MS_within = 4.904e-07 (cmol/mol)². s_bb = √((MS_between − MS_within)/n) does not exist, and ISO 13528 sets s_s = 0.",
+        "tr": "Tek yönlü ANOVA (Tablo 12.2): SS_arası = 2,924e-06, ν = 9, MS_arası = 3,249e-07; SS_içi = 1,962e-05, ν = 40, MS_içi = 4,904e-07 (cmol/mol)². s_bb = √((MS_arası − MS_içi)/n) mevcut değildir; ISO 13528 s_s = 0 alır."
+      },
+      {
+        "en": "The classical answer for this case is the between-unit standard deviation that the repeatability can hide, u*_bb = √(MS_within/n)·(2/ν_within)^¼ = 1.481e-04 cmol/mol, 0.035 % (Linsinger et al. 2001; ISO Guide 35). GUM-5 does not give it.",
+        "tr": "Bu durumda klasik yanıt, tekrarlanabilirliğin gizleyebileceği birimler arası standart sapmadır: u*_bb = √(MS_içi/n)·(2/ν_içi)^¼ = 1,481e-04 cmol/mol, %0,035 (Linsinger vd. 2001; ISO Guide 35). GUM-5 bunu vermez."
+      },
+      {
+        "en": "Bayesian model y_ij = µ + B_i + ε_ij with µ ~ N(0.4250, (0.025 × 0.4250)²), τ ~ half-Cauchy(0, 0.0015 µ₀) and σ ~ half-Cauchy(0, 0.0020 µ₀), from the specification of the preparation (0.30 % at k = 2) and the known repeatability (0.20 %). The program integrates B_i and µ analytically and evaluates the posterior of (τ, σ) on a grid, where GUM-5 uses Stan (MCMC, 4 × 20 000 draws).",
+        "tr": "Bayesçi model y_ij = µ + B_i + ε_ij; µ ~ N(0,4250; (0,025 × 0,4250)²), τ ~ yarı-Cauchy(0; 0,0015 µ₀) ve σ ~ yarı-Cauchy(0; 0,0020 µ₀); ölçekler hazırlama şartnamesinden (k = 2'de %0,30) ve bilinen tekrarlanabilirlikten (%0,20) gelir. Program B_i ve µ'yü analitik olarak integre eder ve (τ, σ) sonsal dağılımını bir ızgarada hesaplar; GUM-5 ise Stan (MCMC, 4 × 20 000 çekiliş) kullanır."
+      },
+      {
+        "en": "Posterior of τ: mean 0.000136, s.d. 0.000107, median 0.000113, 97.5 % quantile 0.000397 cmol/mol (Stan: 0.00014, 0.00011, —, 0.00040); shortest 95 % interval of τ/µ [0, 0.0008] and of σ/µ [0.0013, 0.0020] as in Table 12.3. The posterior mean of τ (1.36 µmol/mol) is close to u*_bb (1.48 µmol/mol).",
+        "tr": "τ'nun sonsal dağılımı: ortalama 0,000136, s.s. 0,000107, medyan 0,000113, %97,5 kantili 0,000397 cmol/mol (Stan: 0,00014; 0,00011; —; 0,00040); τ/µ için en kısa %95 aralık [0; 0,0008], σ/µ için [0,0013; 0,0020], Tablo 12.3'teki gibi. τ'nun sonsal ortalaması (1,36 µmol/mol) u*_bb'ye (1,48 µmol/mol) yakındır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 12, Tables 12.1–12.3, 12.4.5 and 12.4.8",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "homogeneity",
+      "between-unit",
+      "reference-material",
+      "bayesian",
+      "anova",
+      "gas-analysis"
+    ],
+    "notes": [
+      {
+        "en": "12.4.8 gives the mode of the posterior of τ as 0.3 µmol/mol. The marginal posterior density of τ is largest at τ = 0 here, because MS_between < MS_within and the half-Cauchy prior is largest at 0. The R function getmode of 12.5.2 tabulates exact repeats of the draws, which for continuous MCMC output are all distinct, so it returns the first draw rather than a mode (research log F81).",
+        "tr": "12.4.8, τ'nun sonsal dağılımının modunu 0,3 µmol/mol olarak verir. Burada τ'nun marjinal sonsal yoğunluğu τ = 0'da en büyüktür, çünkü MS_arası < MS_içi'dir ve yarı-Cauchy önsel 0'da en büyüktür. 12.5.2'deki R işlevi getmode çekilişlerin tam tekrarlarını sayar; sürekli MCMC çıktısında hepsi farklı olduğundan mod yerine ilk çekilişi döndürür (araştırma günlüğü F81)."
+      },
+      {
+        "en": "Equation (12.5) writes the likelihood as y_ij | µ, τ, σ ~ N(µ, τ² + σ²), as if the observations were independent; the replicates of one bottle share B_i and are correlated. The Stan code of 12.4.2 uses the hierarchical model, which the program also uses.",
+        "tr": "Denklem (12.5) olabilirliği gözlemler bağımsızmış gibi y_ij | µ, τ, σ ~ N(µ, τ² + σ²) olarak yazar; bir şişenin tekrarları B_i'yi paylaşır ve ilişkilidir. 12.4.2'deki Stan kodu hiyerarşik modeli kullanır; program da onu kullanır."
+      }
+    ]
+  },
+  "proficiency": {
+    "quantity": "x(N₂)",
+    "unit": "cmol/mol",
+    "homogeneity": {
+      "items": [
+        [
+          0.424577,
+          0.425167,
+          0.425379,
+          0.424522,
+          0.424805
+        ],
+        [
+          0.425572,
+          0.425411,
+          0.423638,
+          0.425301,
+          0.424527
+        ],
+        [
+          0.424152,
+          0.425517,
+          0.425638,
+          0.424207,
+          0.425135
+        ],
+        [
+          0.42632,
+          0.424672,
+          0.425211,
+          0.425533,
+          0.425864
+        ],
+        [
+          0.424855,
+          0.425079,
+          0.425413,
+          0.424729,
+          0.424725
+        ],
+        [
+          0.425104,
+          0.424773,
+          0.426424,
+          0.424266,
+          0.424632
+        ],
+        [
+          0.42575,
+          0.424917,
+          0.424779,
+          0.425086,
+          0.425318
+        ],
+        [
+          0.425547,
+          0.426483,
+          0.424631,
+          0.425968,
+          0.42462
+        ],
+        [
+          0.426326,
+          0.424646,
+          0.425205,
+          0.426302,
+          0.42502
+        ],
+        [
+          0.425968,
+          0.424069,
+          0.425988,
+          0.425489,
+          0.423936
+        ]
+      ],
+      "bayes": {
+        "tau_scale": 0.0006375,
+        "sigma_scale": 0.00085,
+        "mu_mean": 0.425,
+        "mu_sd": 0.010625
+      }
+    }
+  },
+  "expected": {
+    "proficiency": {
+      "homogeneity": {
+        "ms_between": {
+          "value": 3.25e-07,
+          "tolerance": 5e-10
+        },
+        "ms_within": {
+          "value": 4.9e-07,
+          "tolerance": 5e-10
+        },
+        "s_s": {
+          "value": 0.0,
+          "tolerance": 1e-12
+        },
+        "u_bb_star": {
+          "value": 0.000148089,
+          "tolerance": 1e-09
+        },
+        "tau_mean": {
+          "value": 0.00014,
+          "tolerance": 5e-06
+        },
+        "tau_sd": {
+          "value": 0.00011,
+          "tolerance": 5e-06
+        },
+        "tau_median": {
+          "value": 0.000113,
+          "tolerance": 1e-06
+        },
+        "tau_q975": {
+          "value": 0.0004,
+          "tolerance": 5e-06
+        },
+        "tau_mode": {
+          "value": 0.0,
+          "tolerance": 1e-12
+        },
+        "tau_hpd_upper": {
+          "value": 0.0003401,
+          "tolerance": 2.1257000000000003e-05
+        },
+        "sigma_mean": {
+          "value": 0.00069,
+          "tolerance": 5e-06
+        },
+        "sigma_hpd_lower": {
+          "value": 0.0005527,
+          "tolerance": 2.1257000000000003e-05
+        },
+        "sigma_hpd_upper": {
+          "value": 0.0008503,
+          "tolerance": 2.1257000000000003e-05
+        },
+        "mu_mean": {
+          "value": 0.42514,
+          "tolerance": 5e-06
+        }
+      }
+    },
+    "reference": {
+      "en": "JCGM GUM-5:2026, Table 12.2 (MS 3.25·10⁻⁷ and 4.90·10⁻⁷), 12.4.5 (τ 0.00014 ± 0.00011, [0.00001, 0.00040]; σ 0.00069; µ 0.42514), Table 12.3 (HPD) and 12.4.8 (median 1.1 µmol/mol); u*_bb, the median to 10⁻⁶ and the mode 0 are recomputed here.",
+      "tr": "JCGM GUM-5:2026, Tablo 12.2 (MS 3,25·10⁻⁷ ve 4,90·10⁻⁷), 12.4.5 (τ 0,00014 ± 0,00011, [0,00001; 0,00040]; σ 0,00069; µ 0,42514), Tablo 12.3 (HPD) ve 12.4.8 (medyan 1,1 µmol/mol); u*_bb, 10⁻⁶'ya kadar medyan ve mod 0 burada yeniden hesaplanmıştır."
+    }
+  }
+}

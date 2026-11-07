@@ -69,6 +69,20 @@ verir. s_s ≤ 0,3 σ_pt ise numuneler yeterince homojendir (B.1). B.2.3'ün gen
 √(F₁(0,3σ_pt)² + F₂s_w²) de verilir; F₁ = χ²₀,₉₅(g − 1)/(g − 1) ve F₂ = (F₀,₉₅(g − 1, g(m − 1)) − 1)/m tam olarak
 hesaplanır (m = 2 için Tablo B.1).
 
+Kareler ortalamaları MS_arası = m·s_x² ve MS_içi = s_w² listelenir. u*_bb = √(MS_içi/m)·(2/ν_içi)^¼ de verilir:
+yöntemin tekrarlanabilirliğinin gizleyebileceği birimler arası standart sapma (Linsinger vd. 2001; ISO Guide 35).
+MS_arası < MS_içi olup s_s sıfır çıktığında, referans malzemenin belirsizliği için olağan değer budur. Bir referans
+malzemenin homojenlik çalışmasında olduğu gibi σ_pt verilmezse ISO 13528 ölçütleri değerlendirilmez.
+
+**Bayesçi birimler arası standart sapma.** `"bayes": { "tau_scale", "sigma_scale", "mu_mean", "mu_sd" }` ile
+program hiyerarşik modeli de değerlendirir: y_ij = µ + B_i + ε_ij, B_i ~ N(0, τ²), ε_ij ~ N(0, σ²). τ ve σ verilen
+ölçeklerle yarı-Cauchy önsellere sahiptir; bu ölçekler genellikle hazırlama şartnamesi ve bilinen
+tekrarlanabilirliktir. µ normal bir önsele, `mu_mean` ve `mu_sd` verilmezse düz bir önsele sahiptir. Birim
+etkileri ve µ tam olarak integre edilir, (τ, σ) sonsal dağılımı bir ızgarada hesaplanır. Bu nedenle sonuç MCMC
+olmadan her çalıştırmada aynıdır. Rapor τ ve σ'nın ortalamasını, standart sapmasını, medyanını ve modunu, simetrik
+ve en kısa %95 aralıklarını verir (JCGM GUM-5 Örnek 12). τ'nun sonsal dağılımı önsel ölçeğine duyarlıdır (GUM-5
+12.4.6); bu nedenle ölçek gerekçelendirilmelidir.
+
 Kararlılık kontrolü öncesi ve sonrası ortalamaları karşılaştırır: |ȳ₁ − ȳ₂| ≤ 0,3 σ_pt (B.17); ortalamaların
 belirsizlikleri verilmişse ölçüt 2√(u²(ȳ₁) + u²(ȳ₂)) kadar genişletilir (B.18).
 

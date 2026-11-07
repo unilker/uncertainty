@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**225 examples / örnek** (108 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 11 conformity assessment / uygunluk değerlendirmesi).
+**226 examples / örnek** (108 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 11 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -92,6 +92,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`gum5-e12-between-bottle-homogeneity-bayes`](chemistry/gum5-e12-between-bottle-homogeneity-bayes.json) | Between-bottle homogeneity of nitrogen in natural gas mixtures: ANOVA, u*_bb and a Bayesian hierarchical model (JCGM GUM-5 Example 12) | Doğal gaz karışımlarında azotun şişeler arası homojenliği: ANOVA, u*_bb ve Bayesçi hiyerarşik model (JCGM GUM-5 Örnek 12) | JCGM GUM-5:2026 Example 12, Tables 12.1–12.3, 12.4.5 and 12.4.8 |
 | [`iso13528-e1-censored-deleted`](chemistry/iso13528-e1-censored-deleted.json) | Censored results in a PT round: censored results deleted (ISO 13528 E.1) | Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1) | ISO 13528:2022 Annex E.1 (Table E.1) |
 | [`iso13528-e1-censored-half`](chemistry/iso13528-e1-censored-half.json) | Censored results in a PT round: 0.5 × the limit (ISO 13528 E.1) | Bir YT turunda sansürlü sonuçlar: sınırın 0,5 katı (ISO 13528 E.1) | ISO 13528:2022 Annex E.1 (Table E.1) |
 | [`iso13528-e1-censored-ignored`](chemistry/iso13528-e1-censored-ignored.json) | Censored results in a PT round: ‘<’ ignored (ISO 13528 E.1) | Bir YT turunda sansürlü sonuçlar: ‘<’ işareti yok sayılarak (ISO 13528 E.1) | ISO 13528:2022 Annex E.1 (Table E.1) |

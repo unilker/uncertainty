@@ -127,6 +127,8 @@ class S {
     'cf_process_none': ['none', 'yok'],
     'cf_process_normal': ['normal', 'normal'],
     'cf_process_gamma': ['gamma', 'gama'],
+    'pt_bayes': ['Bayesian between-unit s.d. (posterior mean)', 'Bayesçi birimler arası s.s. (sonsal ortalama)'],
+    'pt_mode': ['mode', 'mod'],
     'cf_process_lognormal': ['lognormal', 'lognormal'],
     'cf_meanlog': ['mean of ln Y', 'ln Y ortalaması'],
     'cf_sdlog': ['s.d. of ln Y', 'ln Y standart sapması'],

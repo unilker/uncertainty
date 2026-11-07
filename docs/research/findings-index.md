@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (80)
+## Findings (81)
 
 | F | Finding | Session |
 |---|---|---|
@@ -95,8 +95,9 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F78 | GUM-5 Example 1 — pH values and uncertainties (class c). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
 | F79 | GUM-5 Example 2 — ν_eff for correlated inputs (class c). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F80 | GUM-5 Example 10 — joint PDF and statements on specific risks (modelling; class to be decided in the D12 audit). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F81 | GUM-5 Example 12 — mode of τ and likelihood (12.5) (classes c and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 
-## Decisions (59)
+## Decisions (60)
 
 | D | Decision | Session |
 |---|---|---|
@@ -159,3 +160,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D57 | Higher-order terms for correlated inputs. | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
 | D58 | Ensembles in the Welch–Satterthwaite formula. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | D59 | Lognormal process PDF, relative uncertainty in global risks, posterior p_c. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| D60 | Homogeneity without σ_pt; u*_bb; Bayesian between-unit standard deviation. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |

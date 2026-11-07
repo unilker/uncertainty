@@ -177,7 +177,7 @@ s(R) dahil edilmişse N − 1'dir.
 | `delta_e`, `delta_e_percent` | PA skorları için ölçüm hatası izni δ_E (varsayılan 3σ_pt) |
 | `coverage_factor` | E_n için U(x_pt)'nin k değeri (varsayılan 2; referans değerin verilmiş genişletilmiş belirsizliği olduğu gibi kullanılır) |
 | `uncertainty_screening` | `u_min`, `u_max`: sayı ya da `"u_assigned"`, `"1.5_robust_sd"`, `"1.5_sd_pt"` (ISO 13528 9.8) |
-| `homogeneity` | `items` (her numune için tekrar sonuçları listesi, sayıları eşit), `sd_pt` veya `sd_pt_percent_of_mean` (varsayılan: turun σ_pt'si) |
+| `homogeneity` | `items` (her numune için tekrar sonuçları listesi, sayıları eşit), `sd_pt` veya `sd_pt_percent_of_mean` (varsayılan: turun σ_pt'si; σ_pt yoksa ölçütler değerlendirilmez), `bayes` (`tau_scale`, `sigma_scale`, isteğe bağlı `mu_mean`, `mu_sd`) |
 | `stability` | `values`; `reference` (varsayılan: homojenlik ortalaması); Formül (B.18) için `u_reference` ve `u_values` |
 | `algorithm_a` | `"third_significant_figure"` (C.3.1'in durma kuralı, varsayılan) veya `"converged"` |
 
@@ -386,7 +386,9 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
     "relative_standard_percent", "relative_expanded_percent" }` listesi
 * `proficiency`: `assigned_value`, `u_assigned`, `sd_pt`, `median`, `made`, `niqr`, `robust_mean`, `robust_sd`,
   `iterations`, `mean`, `sd`; `scores`: `{ "<laboratuvar>": { "d", "d_percent", "pa", "z", "z_prime", "zeta", "en" } }`;
-  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
+  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`, `ms_between`, `ms_within`, `u_bb_star`,
+  `tau_mean`, `tau_sd`, `tau_median`, `tau_mode`, `tau_q975`, `tau_hpd_upper`, `sigma_mean`, `sigma_hpd_lower`,
+  `sigma_hpd_upper`, `mu_mean`; `stability`: `difference`, `sufficient`
 * `calibration`: `params`, `u_params` ve `cov_params` (listeler; kovaryanslar (0,1), (0,2), …, (1,2), … sırasıyla),
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<ad>": { "x", "u" } }`, `drift_passed`
 * `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,
