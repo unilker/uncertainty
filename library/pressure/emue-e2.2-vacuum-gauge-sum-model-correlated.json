@@ -1,0 +1,172 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "emue-e2.2-vacuum-gauge-sum-model-correlated",
+    "field": "pressure",
+    "title": {
+      "en": "Vacuum gauge, pressure difference with a common temperature error: correlation included (EMUE E2.2.7)",
+      "tr": "Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon dahil (EMUE E2.2.7)"
+    },
+    "description": {
+      "en": "Δp = p_UUC − (p_std + Δp_m) with p = p′(1 + αΔT) for both gauges (E2.2.8); point 8, specification ±0.5 % of the reading.",
+      "tr": "Δp = p_UUC − (p_std + Δp_m), iki ölçer için p = p′(1 + αΔT) (E2.2.8); 8. nokta, şartname okumanın ±%0,5'i."
+    },
+    "explanation": [
+      {
+        "en": "Both pressures depend on the same temperature error ΔT (estimate 0, u = 0.57 K) through α = 1/300 K⁻¹, which correlates them: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). Entering ΔT once as an input makes the program carry the correlation; entering two independent ΔT's ignores it.",
+        "tr": "İki basınç da α = 1/300 K⁻¹ üzerinden aynı sıcaklık hatası ΔT'ye bağlıdır (tahmin 0, u = 0,57 K); bu onları ilişkilendirir: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). ΔT'yi tek girdi olarak girmek programın korelasyonu taşımasını sağlar; iki bağımsız ΔT girmek onu yok sayar."
+      },
+      {
+        "en": "u(Δp) = 0.91 Pa and p_c = 0.75 for |Δp| ≤ 0.5 % of 255.9 Pa; ignoring the correlation would give 1.14 Pa and p_c = 0.67. u(α) does not contribute at first order, since ΔT = 0.",
+        "tr": "|Δp| ≤ 255,9 Pa'nın %0,5'i için u(Δp) = 0,91 Pa ve p_c = 0,75; korelasyonu yok saymak 1,14 Pa ve p_c = 0,67 verirdi. ΔT = 0 olduğundan u(α) birinci mertebede katkı vermez."
+      }
+    ],
+    "sources": [
+      {
+        "document": "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)",
+        "section": "Example E2.2, E2.2.7",
+        "url": "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
+      }
+    ],
+    "tags": [
+      "emue",
+      "vacuum",
+      "pressure",
+      "correlation",
+      "common-effect",
+      "conformity-assessment"
+    ],
+    "notes": []
+  },
+  "model": {
+    "output": {
+      "name": "dp",
+      "unit": "Pa",
+      "expression": "p_UUC_obs*(1 + a_UUC*dT) - (p_std_obs*(1 + a_std*dT) + dp_m)",
+      "description": {
+        "en": "Pressure difference (error of the gauge)",
+        "tr": "Basınç farkı (ölçerin hatası)"
+      }
+    },
+    "inputs": [
+      {
+        "name": "p_std_obs",
+        "unit": "Pa",
+        "description": {
+          "en": "Observed reference pressure",
+          "tr": "Gözlenen referans basınç"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 256.4,
+          "expanded": 1.5,
+          "k": 2
+        }
+      },
+      {
+        "name": "p_UUC_obs",
+        "unit": "Pa",
+        "description": {
+          "en": "Observed indication of the gauge under calibration",
+          "tr": "Kalibre edilen ölçerin gözlenen göstergesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 255.9,
+          "expanded": 0.23,
+          "k": 2
+        }
+      },
+      {
+        "name": "a_std",
+        "unit": "1/K",
+        "description": {
+          "en": "Temperature coefficient, reference",
+          "tr": "Sıcaklık katsayısı, referans"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0033333333333333335,
+          "sd": 0.0003333333333333333
+        }
+      },
+      {
+        "name": "a_UUC",
+        "unit": "1/K",
+        "description": {
+          "en": "Temperature coefficient, gauge under calibration",
+          "tr": "Sıcaklık katsayısı, kalibre edilen ölçer"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0033333333333333335,
+          "sd": 0.0003333333333333333
+        }
+      },
+      {
+        "name": "dT",
+        "unit": "K",
+        "description": {
+          "en": "Systematic error of the gas temperature",
+          "tr": "Gaz sıcaklığının sistematik hatası"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.57
+        }
+      },
+      {
+        "name": "dp_m",
+        "unit": "Pa",
+        "description": {
+          "en": "Reference pressure correction 0.05 % p_std",
+          "tr": "Referans basınç düzeltmesi %0,05 p_std"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.1282,
+          "sd": 0.5
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": null
+  },
+  "conformity": {
+    "lower": -1.2795,
+    "upper": 1.2795
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": -0.6282,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.909,
+        "tolerance": 0.005
+      }
+    },
+    "conformity": {
+      "results": {
+        "dp": {
+          "conformance_probability": {
+            "value": 0.745,
+            "tolerance": 0.005
+          },
+          "accepted": true
+        }
+      }
+    },
+    "reference": {
+      "en": "EMUE E2.2.7: u(p_std) = 0.90 Pa, u(p_UUC) = 0.51 Pa; u(Δp) = 1.14 Pa without and 0.91 Pa with the correlation; p_c = 0.67 and 0.75.",
+      "tr": "EMUE E2.2.7: u(p_std) = 0,90 Pa, u(p_UUC) = 0,51 Pa; u(Δp) korelasyonsuz 1,14 Pa, korelasyonla 0,91 Pa; p_c = 0,67 ve 0,75."
+    }
+  }
+}

@@ -9,7 +9,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Length (11)
 - Mass (28)
 - Physical properties (10)
-- Pressure (1)
+- Pressure (6)
 - Temperature (10)
 
 ## Chemistry
@@ -5369,6 +5369,110 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 **Run:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang en`
 
 ## Pressure
+
+### Vacuum gauge calibration, correction factor and conformance probability, scenario 1 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-applied` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.3
+
+Scenario 1: the reference correction Δp_m = 0.05 % p_std is applied, u(Δp_m) = 0.5 Pa. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).
+2. f = 1.0025, U(f) = 0.0071 (k = 2), p_c = 74.5 %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.
+
+**Result:**
+
+- f = (1.0024 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 75 %; accepted under simple acceptance.
+
+**Notes:**
+
+- Table E2.2.2 prints U(e) for points 4–6 as 0.0025, 0.0017 and 0.0011; they are 0.025, 0.017 and 0.012 (U(f) is printed correctly). Tables E2.2.3, E2.2.5 and E2.2.7 head the column of p_std values 'p_UUC'. The worked example of E2.2.6.1 uses σ = 0.002 for point 13, the expanded uncertainty U(f) of Table E2.2.2; with u(f) = 0.001 p_c is 100 %, as the table gives (research log F88).
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang en`
+
+### Vacuum gauge calibration, correction factor and conformance probability, scenario 3 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.7
+
+Scenario 3: the correction and its uncertainty are ignored. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).
+2. f = 1.0020, U(f) = 0.0059 (k = 2), p_c = 83.8 %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.
+
+**Result:**
+
+- f = (1.0020 ± 0.0059), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 84 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang en`
+
+### Vacuum gauge calibration, correction factor and conformance probability, scenario 2 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-in-uncertainty` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.5
+
+Scenario 2: the correction is not applied but folded into its uncertainty, u² = 0.5² + (0.05 % p_std)²/3. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).
+2. f = 1.0020, U(f) = 0.0071 (k = 2), p_c = 77.8 %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.
+
+**Result:**
+
+- f = (1.0020 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 78 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang en`
+
+### Vacuum gauge, pressure difference with a common temperature error: correlation included (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlated` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m) with p = p′(1 + αΔT) for both gauges (E2.2.8); point 8, specification ±0.5 % of the reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Both pressures depend on the same temperature error ΔT (estimate 0, u = 0.57 K) through α = 1/300 K⁻¹, which correlates them: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). Entering ΔT once as an input makes the program carry the correlation; entering two independent ΔT's ignores it.
+2. u(Δp) = 0.91 Pa and p_c = 0.75 for |Δp| ≤ 0.5 % of 255.9 Pa; ignoring the correlation would give 1.14 Pa and p_c = 0.67. u(α) does not contribute at first order, since ΔT = 0.
+
+**Result:**
+
+- dp = (-0.6 ± 1.8) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 75 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang en`
+
+### Vacuum gauge, pressure difference with a common temperature error: correlation ignored (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlation-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m) with p = p′(1 + αΔT) for both gauges (E2.2.8); point 8, specification ±0.5 % of the reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Both pressures depend on the same temperature error ΔT (estimate 0, u = 0.57 K) through α = 1/300 K⁻¹, which correlates them: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). Entering ΔT once as an input makes the program carry the correlation; entering two independent ΔT's ignores it.
+2. u(Δp) = 1.14 Pa and p_c = 0.67 for |Δp| ≤ 0.5 % of 255.9 Pa; with the correlation u(Δp) = 0.91 Pa and p_c = 0.75. u(α) does not contribute at first order, since ΔT = 0.
+
+**Result:**
+
+- dp = (-0.6 ± 2.3) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 67 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang en`
 
 ### Digital pressure indicator at 2 MPa against a dead weight tester (UKAS M3003 K.8)
 

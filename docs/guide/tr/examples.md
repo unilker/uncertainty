@@ -9,7 +9,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Uzunluk (11)
 - Kütle (28)
 - Fiziksel özellikler (10)
-- Basınç (1)
+- Basınç (6)
 - Sıcaklık (10)
 
 ## Kimya
@@ -5369,6 +5369,110 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 **Çalıştırma:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang tr`
 
 ## Basınç
+
+### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 1 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-applied` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.3
+
+Senaryo 1: referans düzeltmesi Δp_m = %0,05 p_std uygulanır, u(Δp_m) = 0,5 Pa. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106).
+2. f = 1,0025, U(f) = 0,0071 (k = 2), p_c = %74,5. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.
+
+**Sonuç:**
+
+- f = (1,0024 ± 0,0071); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %75; basit kabul kuralına göre kabul.
+
+**Notlar:**
+
+- Tablo E2.2.2, 4–6. noktalar için U(e)'yi 0,0025, 0,0017 ve 0,0011 olarak basar; doğrusu 0,025, 0,017 ve 0,012'dir (U(f) doğru basılmıştır). Tablo E2.2.3, E2.2.5 ve E2.2.7, p_std değerlerinin sütununa 'p_UUC' başlığını verir. E2.2.6.1'deki çalışılmış örnek 13. nokta için σ = 0,002 kullanır; bu, Tablo E2.2.2'deki genişletilmiş U(f)'dir; u(f) = 0,001 ile p_c, tablodaki gibi %100'dür (araştırma günlüğü F88).
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang tr`
+
+### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 3 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.7
+
+Senaryo 3: düzeltme ve belirsizliği yok sayılır. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106).
+2. f = 1,0020, U(f) = 0,0059 (k = 2), p_c = %83,8. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.
+
+**Sonuç:**
+
+- f = (1,0020 ± 0,0059); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %84; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang tr`
+
+### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 2 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-in-uncertainty` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.5
+
+Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05 p_std)²/3. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106).
+2. f = 1,0020, U(f) = 0,0071 (k = 2), p_c = %77,8. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.
+
+**Sonuç:**
+
+- f = (1,0020 ± 0,0071); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %78; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang tr`
+
+### Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon dahil (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlated` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m), iki ölçer için p = p′(1 + αΔT) (E2.2.8); 8. nokta, şartname okumanın ±%0,5'i.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. İki basınç da α = 1/300 K⁻¹ üzerinden aynı sıcaklık hatası ΔT'ye bağlıdır (tahmin 0, u = 0,57 K); bu onları ilişkilendirir: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). ΔT'yi tek girdi olarak girmek programın korelasyonu taşımasını sağlar; iki bağımsız ΔT girmek onu yok sayar.
+2. |Δp| ≤ 255,9 Pa'nın %0,5'i için u(Δp) = 0,91 Pa ve p_c = 0,75; korelasyonu yok saymak 1,14 Pa ve p_c = 0,67 verirdi. ΔT = 0 olduğundan u(α) birinci mertebede katkı vermez.
+
+**Sonuç:**
+
+- dp = (-0,6 ± 1,8) Pa; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dp için -1,2795 Pa ≤ dp ≤ 1,2795 Pa şartına uygunluk olasılığı: p_c = %75; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang tr`
+
+### Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon yok sayılmış (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlation-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m), iki ölçer için p = p′(1 + αΔT) (E2.2.8); 8. nokta, şartname okumanın ±%0,5'i.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. İki basınç da α = 1/300 K⁻¹ üzerinden aynı sıcaklık hatası ΔT'ye bağlıdır (tahmin 0, u = 0,57 K); bu onları ilişkilendirir: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). ΔT'yi tek girdi olarak girmek programın korelasyonu taşımasını sağlar; iki bağımsız ΔT girmek onu yok sayar.
+2. |Δp| ≤ 255,9 Pa'nın %0,5'i için u(Δp) = 1,14 Pa ve p_c = 0,67; korelasyonla u(Δp) = 0,91 Pa ve p_c = 0,75. ΔT = 0 olduğundan u(α) birinci mertebede katkı vermez.
+
+**Sonuç:**
+
+- dp = (-0,6 ± 2,3) Pa; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dp için -1,2795 Pa ≤ dp ≤ 1,2795 Pa şartına uygunluk olasılığı: p_c = %67; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang tr`
 
 ### Ölü ağırlık test cihazına karşı 2 MPa'da dijital basınç göstergesi (UKAS M3003 K.8)
 

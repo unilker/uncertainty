@@ -2636,3 +2636,39 @@ The library has 236 projects.
   total risk several times the largest single-component risk.
 
 The library has 239 projects.
+
+**EMUE E2.2 (vacuum gauge, sum, quotient and combined models; three
+scenarios; correlation).** Tables E2.2.2–E2.2.7 reproduce point by point
+(`tools/research/emue/e22_vacuum_tables.py`). The conformance probabilities
+of the 30 tabulated points agree to 0.1 % except two rounding cases: scenario
+1 point 9, 87.4 against 87.3, and scenario 2 point 12, 98.2 against 98.3.
+E2.2.7 reproduces: u(p_std) = 0.894 Pa, u(p_UUC) = 0.500 Pa (printed 0.51),
+u(Δp) = 1.140 and 0.909 Pa, p_c = 0.669 and 0.745. The library has five
+projects:
+
+- `emue-e2.2-vacuum-gauge-correction-applied`,
+  `-correction-in-uncertainty` and `-correction-ignored`: point 8, with
+  p_c = 74.5, 77.8 and 83.8 %.
+- `emue-e2.2-vacuum-gauge-sum-model-correlated` and
+  `-correlation-ignored`: the common temperature error ΔT is entered once
+  in the first and as two independent inputs in the second.
+
+**F88. EMUE E2.2 — table slips and the worked example (class b).**
+
+1. **U(e) in Table E2.2.2.** Points 4–6 are printed as 0.0025, 0.0017 and
+   0.0011, a factor of ten too small; the values are 0.0254, 0.0170 and
+   0.0117. U(f) of point 6 is 0.0117, printed 0.011.
+2. **Column headings.** Tables E2.2.3, E2.2.5 and E2.2.7 head a column
+   "p_UUC/Pa" that holds the p_std values (161.30, 256.40, …).
+3. **Worked example of E2.2.6.1.** It takes "σ = u(f) = 0.002" for point
+   13, the expanded U(f) of the table. It obtains p_c = 97.6 %, whereas the
+   table, with u(f) = 0.001, gives 100.0 %. The example says "say", so it
+   is illustrative, but the label u(f) is wrong.
+4. **For the article.** At point 8 the poor practices give higher
+   conformance probabilities: 77.8 % when the correction is folded into the
+   uncertainty, 83.8 % when it is ignored, against 74.5 % with the
+   correction applied. This illustrates why folding a known bias into the
+   uncertainty (cf. Magnusson & Ellison 2008, our `uncorrected_bias`) is
+   not conservative for decisions.
+
+The library has 244 projects.

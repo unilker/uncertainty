@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (87)
+## Findings (88)
 
 | F | Finding | Session |
 |---|---|---|
@@ -102,6 +102,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F85 | GUM-5 Example 11 — results, information criteria and text (classes c and b; the numerical points rest on data read from the figure). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F86 | Eurachem/CITAC compliance guide 2021 — rounding and the normal limits for a relative uncertainty (classes a, b and noted). | 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021) |
 | F87 | EMUE E3.4 — summary of the bias uncertainty (class c, small). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| F88 | EMUE E2.2 — table slips and the worked example (class b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 
 ## Decisions (63)
 

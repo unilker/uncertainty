@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**239 examples / örnek** (114 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 17 conformity assessment / uygunluk değerlendirmesi).
+**244 examples / örnek** (119 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 17 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -364,6 +364,11 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`emue-e2.2-vacuum-gauge-correction-applied`](pressure/emue-e2.2-vacuum-gauge-correction-applied.json) | Vacuum gauge calibration, correction factor and conformance probability, scenario 1 (EMUE E2.2) | Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 1 (EMUE E2.2) | EMPIR 17NRM05 EMUE Example E2.2, Tables E2.2.1–E2.2.3 |
+| [`emue-e2.2-vacuum-gauge-correction-ignored`](pressure/emue-e2.2-vacuum-gauge-correction-ignored.json) | Vacuum gauge calibration, correction factor and conformance probability, scenario 3 (EMUE E2.2) | Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 3 (EMUE E2.2) | EMPIR 17NRM05 EMUE Example E2.2, Tables E2.2.1–E2.2.7 |
+| [`emue-e2.2-vacuum-gauge-correction-in-uncertainty`](pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json) | Vacuum gauge calibration, correction factor and conformance probability, scenario 2 (EMUE E2.2) | Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 2 (EMUE E2.2) | EMPIR 17NRM05 EMUE Example E2.2, Tables E2.2.1–E2.2.5 |
+| [`emue-e2.2-vacuum-gauge-sum-model-correlated`](pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json) | Vacuum gauge, pressure difference with a common temperature error: correlation included (EMUE E2.2.7) | Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon dahil (EMUE E2.2.7) | EMPIR 17NRM05 EMUE Example E2.2, E2.2.7 |
+| [`emue-e2.2-vacuum-gauge-sum-model-correlation-ignored`](pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json) | Vacuum gauge, pressure difference with a common temperature error: correlation ignored (EMUE E2.2.7) | Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon yok sayılmış (EMUE E2.2.7) | EMPIR 17NRM05 EMUE Example E2.2, E2.2.7 |
 | [`m3003-k8-pressure-indicator-2mpa`](pressure/m3003-k8-pressure-indicator-2mpa.json) | Digital pressure indicator at 2 MPa against a dead weight tester (UKAS M3003 K.8) | Ölü ağırlık test cihazına karşı 2 MPa'da dijital basınç göstergesi (UKAS M3003 K.8) | UKAS M3003 ed. 6 (2024) Appendix K.8 |
 
 ## Temperature / Sıcaklık

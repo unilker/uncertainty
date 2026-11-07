@@ -1,0 +1,119 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "emue-e2.2-vacuum-gauge-correction-ignored",
+    "field": "pressure",
+    "title": {
+      "en": "Vacuum gauge calibration, correction factor and conformance probability, scenario 3 (EMUE E2.2)",
+      "tr": "Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 3 (EMUE E2.2)"
+    },
+    "description": {
+      "en": "Scenario 3: the correction and its uncertainty are ignored. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.",
+      "tr": "Senaryo 3: düzeltme ve belirsizliği yok sayılır. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005."
+    },
+    "explanation": [
+      {
+        "en": "Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).",
+        "tr": "Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106)."
+      },
+      {
+        "en": "f = 1.0020, U(f) = 0.0059 (k = 2), p_c = 83.8 %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.",
+        "tr": "f = 1,0020, U(f) = 0,0059 (k = 2), p_c = %83,8. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür."
+      }
+    ],
+    "sources": [
+      {
+        "document": "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)",
+        "section": "Example E2.2, Tables E2.2.1–E2.2.7",
+        "url": "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
+      }
+    ],
+    "tags": [
+      "emue",
+      "vacuum",
+      "pressure",
+      "correction",
+      "conformity-assessment",
+      "scenario-3"
+    ],
+    "notes": []
+  },
+  "model": {
+    "output": {
+      "name": "f",
+      "expression": "p_std/p_UUC",
+      "description": {
+        "en": "Correction factor of the gauge",
+        "tr": "Ölçerin düzeltme çarpanı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "p_std",
+        "unit": "Pa",
+        "description": {
+          "en": "Reference pressure (indication of the reference gauge)",
+          "tr": "Referans basınç (referans ölçerin göstergesi)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 256.4,
+          "expanded": 1.5,
+          "k": 2
+        }
+      },
+      {
+        "name": "p_UUC",
+        "unit": "Pa",
+        "description": {
+          "en": "Indication of the gauge under calibration",
+          "tr": "Kalibre edilen ölçerin göstergesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 255.9,
+          "expanded": 0.23,
+          "k": 2
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": null
+  },
+  "conformity": {
+    "lower": 0.995,
+    "upper": 1.005
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 1.002,
+        "tolerance": 5e-05
+      },
+      "expanded_uncertainty": {
+        "value": 0.0059,
+        "tolerance": 5e-05
+      }
+    },
+    "conformity": {
+      "results": {
+        "f": {
+          "conformance_probability": {
+            "value": 0.838,
+            "tolerance": 0.0005
+          },
+          "accepted": true
+        }
+      }
+    },
+    "reference": {
+      "en": "EMUE E2.2, point 8: f = 1.0020, U(f) = 0.0059, p_c = 83.8 % (Tables E2.2.6 and E2.2.7).",
+      "tr": "EMUE E2.2, 8. nokta: f = 1,0020, U(f) = 0,0059, p_c = %83,8 (Tablo E2.2.6 ve E2.2.7)."
+    }
+  }
+}

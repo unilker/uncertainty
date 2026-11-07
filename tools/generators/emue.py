@@ -6,6 +6,7 @@ import json
 import math
 import statistics as st
 from pathlib import Path
+from statistics import NormalDist
 
 DOC = "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)"
 URL = "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
@@ -126,3 +127,92 @@ p21 = {"format": "uncertainty-calculations/project", "version": 1,
                           "EMUE E2.1.6.2–E2.1.6.3: R*_tot = 0,0029, 0,0117, 0,0002; R_tot = 0,0018 (10⁷ deneme; özgün makalede 0,0019).")}}
 Path("library/chemistry/emue-e2.1-multicomponent-medication.json").write_text(json.dumps(p21, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print("wrote emue-e2.1-multicomponent-medication")
+
+# --- E2.2: vacuum gauge, correction factor and conformance probability; sum model with correlation ------
+# Point 8 of Table E2.2.1: p_std = 256.4 Pa (U = 1.5), p_UUC = 255.9 Pa (U = 0.23); Δp_m = 0.05 % p_std, U = 1 Pa.
+PS, US, PU, UU = 256.4, 1.5, 255.9, 0.23
+NDc = NormalDist()
+SC = {1: ("correction-applied", 0.0005 * PS, 0.5, 74.5, "Scenario 1: the reference correction Δp_m = 0.05 % p_std is applied, u(Δp_m) = 0.5 Pa", "Senaryo 1: referans düzeltmesi Δp_m = %0,05 p_std uygulanır, u(Δp_m) = 0,5 Pa"),
+      2: ("correction-in-uncertainty", 0.0, math.sqrt(0.25 + (0.0005 * PS) ** 2 / 3), 77.8, "Scenario 2: the correction is not applied but folded into its uncertainty, u² = 0.5² + (0.05 % p_std)²/3", "Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05 p_std)²/3"),
+      3: ("correction-ignored", 0.0, 0.0, 83.8, "Scenario 3: the correction and its uncertainty are ignored", "Senaryo 3: düzeltme ve belirsizliği yok sayılır")}
+for sc, (slug, dm, udm, pc_pr, en, tr) in SC.items():
+    ref = PS + dm
+    f = ref / PU
+    uf = f * math.sqrt((UU / 2 / PU) ** 2 + ((US / 2) ** 2 + udm ** 2) / ref ** 2)
+    pc = NDc.cdf((1.005 - f) / uf) - NDc.cdf((0.995 - f) / uf)
+    assert round(100 * pc, 1) == pc_pr
+    inputs = [inp("p_std", {"type": "normal", "mean": PS, "expanded": US, "k": 2}, "Pa", "Reference pressure (indication of the reference gauge)", "Referans basınç (referans ölçerin göstergesi)"),
+              inp("p_UUC", {"type": "normal", "mean": PU, "expanded": UU, "k": 2}, "Pa", "Indication of the gauge under calibration", "Kalibre edilen ölçerin göstergesi")]
+    if udm > 0:
+        inputs.append(inp("dp_m", {"type": "normal", "mean": round(dm, 6), "sd": round(udm, 6)}, "Pa", en.split(": ")[1], tr.split(": ")[1]))
+    expr = "(p_std + dp_m)/p_UUC" if udm > 0 else "p_std/p_UUC"
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": f"emue-e2.2-vacuum-gauge-{slug}", "field": "pressure",
+                      "title": T(f"Vacuum gauge calibration, correction factor and conformance probability, scenario {sc} (EMUE E2.2)",
+                                 f"Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo {sc} (EMUE E2.2)"),
+                      "description": T(f"{en}. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.",
+                                       f"{tr}. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005."),
+                      "explanation": [
+                          T("Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).",
+                            "Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106)."),
+                          T(f"f = {f:.4f}, U(f) = {2 * uf:.4f} (k = 2), p_c = {100 * pc:.1f} %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.",
+                            f"f = {c(f'{f:.4f}')}, U(f) = {c(f'{2 * uf:.4f}')} (k = 2), p_c = %{c(f'{100 * pc:.1f}')}. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.")],
+                      "sources": [{"document": DOC, "section": f"Example E2.2, Tables E2.2.1–E2.2.{2 * sc + 1 if sc > 1 else 3}", "url": URL}],
+                      "tags": ["emue", "vacuum", "pressure", "correction", "conformity-assessment", f"scenario-{sc}"], "notes": []},
+         "model": {"output": {"name": "f", "expression": expr, "description": T("Correction factor of the gauge", "Ölçerin düzeltme çarpanı")}, "inputs": inputs},
+         "analysis": {"gum": {"coverage_factor": 2}, "mcm": None},
+         "conformity": {"lower": 0.995, "upper": 1.005},
+         "expected": {"gum": {"estimate": chk(round(f, 4), 5e-5), "expanded_uncertainty": chk(round(2 * uf, 4), 5e-5)},
+                      "conformity": {"results": {"f": {"conformance_probability": chk(pc_pr / 100, 5e-4), "accepted": True}}},
+                      "reference": T(f"EMUE E2.2, point 8: f = {f:.4f}, U(f) = {2 * uf:.4f}, p_c = {pc_pr} % (Tables E2.2.{[2, 4, 6][sc - 1]} and E2.2.{[3, 5, 7][sc - 1]}).",
+                                     f"EMUE E2.2, 8. nokta: f = {c(f'{f:.4f}')}, U(f) = {c(f'{2 * uf:.4f}')}, p_c = %{c(pc_pr)} (Tablo E2.2.{[2, 4, 6][sc - 1]} ve E2.2.{[3, 5, 7][sc - 1]}).")}}
+    if sc == 1:
+        p["metadata"]["notes"].append(T("Table E2.2.2 prints U(e) for points 4–6 as 0.0025, 0.0017 and 0.0011; they are 0.025, 0.017 and 0.012 (U(f) is printed correctly). Tables E2.2.3, E2.2.5 and E2.2.7 head the column of p_std values 'p_UUC'. The worked example of E2.2.6.1 uses σ = 0.002 for point 13, the expanded uncertainty U(f) of Table E2.2.2; with u(f) = 0.001 p_c is 100 %, as the table gives (research log F88).",
+                                        "Tablo E2.2.2, 4–6. noktalar için U(e)'yi 0,0025, 0,0017 ve 0,0011 olarak basar; doğrusu 0,025, 0,017 ve 0,012'dir (U(f) doğru basılmıştır). Tablo E2.2.3, E2.2.5 ve E2.2.7, p_std değerlerinin sütununa 'p_UUC' başlığını verir. E2.2.6.1'deki çalışılmış örnek 13. nokta için σ = 0,002 kullanır; bu, Tablo E2.2.2'deki genişletilmiş U(f)'dir; u(f) = 0,001 ile p_c, tablodaki gibi %100'dür (araştırma günlüğü F88)."))
+    Path(f"library/pressure/emue-e2.2-vacuum-gauge-{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", f"emue-e2.2-vacuum-gauge-{slug}")
+
+# E2.2.7: p_std and p_UUC both depend on a temperature error ΔT (u = 0.57 K, α = 1/300 K⁻¹, u(α) = 1/3000 K⁻¹).
+a_ = 1 / 300
+var_s = (US / 2) ** 2 + (PS * a_ * 0.57) ** 2
+var_u = (UU / 2) ** 2 + (PU * a_ * 0.57) ** 2
+cov = (PS * a_) * (PU * a_) * 0.57 ** 2
+dp = PU - PS * 1.0005
+lim = 0.005 * PU
+for corr in (True, False):
+    u_dp = math.sqrt(var_s + var_u + 0.25 - (2 * cov if corr else 0.0))
+    pc = NDc.cdf((lim - dp) / u_dp) - NDc.cdf((-lim - dp) / u_dp)
+    assert abs(u_dp - (0.91 if corr else 1.14)) < 0.005 and round(pc, 2) == (0.75 if corr else 0.67)
+    dT = ["dT"] * 2 if corr else ["dT_std", "dT_UUC"]
+    ins = [inp("p_std_obs", {"type": "normal", "mean": PS, "expanded": US, "k": 2}, "Pa", "Observed reference pressure", "Gözlenen referans basınç"),
+           inp("p_UUC_obs", {"type": "normal", "mean": PU, "expanded": UU, "k": 2}, "Pa", "Observed indication of the gauge under calibration", "Kalibre edilen ölçerin gözlenen göstergesi"),
+           inp("a_std", {"type": "normal", "mean": a_, "sd": 1 / 3000}, "1/K", "Temperature coefficient, reference", "Sıcaklık katsayısı, referans"),
+           inp("a_UUC", {"type": "normal", "mean": a_, "sd": 1 / 3000}, "1/K", "Temperature coefficient, gauge under calibration", "Sıcaklık katsayısı, kalibre edilen ölçer")]
+    for name in dict.fromkeys(dT):
+        ins.append(inp(name, {"type": "normal", "mean": 0.0, "sd": 0.57}, "K", "Systematic error of the gas temperature" + ("" if corr else " (treated, wrongly, as separate for each gauge)"),
+                       "Gaz sıcaklığının sistematik hatası" + ("" if corr else " (yanlış olarak her ölçer için ayrı alınmış)")))
+    ins.append(inp("dp_m", {"type": "normal", "mean": round(0.0005 * PS, 6), "sd": 0.5}, "Pa", "Reference pressure correction 0.05 % p_std", "Referans basınç düzeltmesi %0,05 p_std"))
+    slug = "correlated" if corr else "correlation-ignored"
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": f"emue-e2.2-vacuum-gauge-sum-model-{slug}", "field": "pressure",
+                      "title": T("Vacuum gauge, pressure difference with a common temperature error: " + ("correlation included" if corr else "correlation ignored") + " (EMUE E2.2.7)",
+                                 "Vakum ölçer, ortak sıcaklık hatalı basınç farkı: " + ("korelasyon dahil" if corr else "korelasyon yok sayılmış") + " (EMUE E2.2.7)"),
+                      "description": T("Δp = p_UUC − (p_std + Δp_m) with p = p′(1 + αΔT) for both gauges (E2.2.8); point 8, specification ±0.5 % of the reading.",
+                                       "Δp = p_UUC − (p_std + Δp_m), iki ölçer için p = p′(1 + αΔT) (E2.2.8); 8. nokta, şartname okumanın ±%0,5'i."),
+                      "explanation": [
+                          T("Both pressures depend on the same temperature error ΔT (estimate 0, u = 0.57 K) through α = 1/300 K⁻¹, which correlates them: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). Entering ΔT once as an input makes the program carry the correlation; entering two independent ΔT's ignores it.",
+                            "İki basınç da α = 1/300 K⁻¹ üzerinden aynı sıcaklık hatası ΔT'ye bağlıdır (tahmin 0, u = 0,57 K); bu onları ilişkilendirir: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). ΔT'yi tek girdi olarak girmek programın korelasyonu taşımasını sağlar; iki bağımsız ΔT girmek onu yok sayar."),
+                          T(f"u(Δp) = {u_dp:.2f} Pa and p_c = {pc:.2f} for |Δp| ≤ 0.5 % of 255.9 Pa; " + ("ignoring the correlation would give 1.14 Pa and p_c = 0.67." if corr else "with the correlation u(Δp) = 0.91 Pa and p_c = 0.75.") + " u(α) does not contribute at first order, since ΔT = 0.",
+                            f"|Δp| ≤ 255,9 Pa'nın %0,5'i için u(Δp) = {c(f'{u_dp:.2f}')} Pa ve p_c = {c(f'{pc:.2f}')}; " + ("korelasyonu yok saymak 1,14 Pa ve p_c = 0,67 verirdi." if corr else "korelasyonla u(Δp) = 0,91 Pa ve p_c = 0,75.") + " ΔT = 0 olduğundan u(α) birinci mertebede katkı vermez.")],
+                      "sources": [{"document": DOC, "section": "Example E2.2, E2.2.7", "url": URL}],
+                      "tags": ["emue", "vacuum", "pressure", "correlation", "common-effect", "conformity-assessment"], "notes": []},
+         "model": {"output": {"name": "dp", "unit": "Pa", "expression": f"p_UUC_obs*(1 + a_UUC*{dT[1]}) - (p_std_obs*(1 + a_std*{dT[0]}) + dp_m)",
+                              "description": T("Pressure difference (error of the gauge)", "Basınç farkı (ölçerin hatası)")}, "inputs": ins},
+         "analysis": {"gum": {"coverage_factor": 2}, "mcm": None},
+         "conformity": {"lower": round(-lim, 6), "upper": round(lim, 6)},
+         "expected": {"gum": {"estimate": chk(round(dp, 4), 5e-4), "standard_uncertainty": chk(round(u_dp, 3), 0.005)},
+                      "conformity": {"results": {"dp": {"conformance_probability": chk(round(pc, 3), 0.005), "accepted": True}}},
+                      "reference": T("EMUE E2.2.7: u(p_std) = 0.90 Pa, u(p_UUC) = 0.51 Pa; u(Δp) = 1.14 Pa without and 0.91 Pa with the correlation; p_c = 0.67 and 0.75.",
+                                     "EMUE E2.2.7: u(p_std) = 0,90 Pa, u(p_UUC) = 0,51 Pa; u(Δp) korelasyonsuz 1,14 Pa, korelasyonla 0,91 Pa; p_c = 0,67 ve 0,75.")}}
+    Path(f"library/pressure/emue-e2.2-vacuum-gauge-sum-model-{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", f"emue-e2.2-vacuum-gauge-sum-model-{slug}")
