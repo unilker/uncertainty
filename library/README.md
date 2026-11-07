@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**226 examples / örnek** (108 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 11 conformity assessment / uygunluk değerlendirmesi).
+**227 examples / örnek** (108 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 11 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -48,6 +48,12 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`quam-a7-lead-double-idms`](chemistry/quam-a7-lead-double-idms.json) | Lead in water by double isotope dilution | Suda kurşunun çift izotop seyreltmesiyle tayini | EURACHEM/CITAC Guide CG 4 Example A7, Eq. (5), Tables A7.4–A7.8 |
 | [`ufs-a6-cadmium-soil`](chemistry/ufs-a6-cadmium-soil.json) | Cadmium in agricultural top soil: modelling approach (Eurachem UfS Example A6) | Tarım toprağında kadmiyum: modelleme yaklaşımı (Eurachem UfS Örnek A6) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A6, Tables A6.1–A6.6 |
 | [`ufs-a6-phosphorus-soil`](chemistry/ufs-a6-phosphorus-soil.json) | Phosphorus in agricultural top soil: modelling approach (Eurachem UfS Example A6) | Tarım toprağında fosfor: modelleme yaklaşımı (Eurachem UfS Örnek A6) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A6, Tables A6.1–A6.6 |
+
+## Chemistry, several output quantities (JCGM 102) / Kimya, birden çok çıktı büyüklüğü (JCGM 102)
+
+| File / Dosya | Title | Başlık | Source / Kaynak |
+|---|---|---|---|
+| [`gum5-e4-gravimetric-gas-mixture`](chemistry/gum5-e4-gravimetric-gas-mixture.json) | Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4) | N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4) | JCGM GUM-5:2026 Example 4, Tables 4.1–4.6 and 4.3.6.9 |
 
 ## Chemistry, top-down / Kimya, top-down
 

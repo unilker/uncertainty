@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (81)
+## Findings (82)
 
 | F | Finding | Session |
 |---|---|---|
@@ -96,6 +96,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F79 | GUM-5 Example 2 — ν_eff for correlated inputs (class c). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F80 | GUM-5 Example 10 — joint PDF and statements on specific risks (modelling; class to be decided in the D12 audit). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F81 | GUM-5 Example 12 — mode of τ and likelihood (12.5) (classes c and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F82 | GUM-5 Example 4 — Tables 4.2 and 4.6 (classes c and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 
 ## Decisions (60)
 

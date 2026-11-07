@@ -492,3 +492,79 @@ write_pt("gum5-e12-between-bottle-homogeneity-bayes",
                   "12.4.8, τ'nun sonsal dağılımının modunu 0,3 µmol/mol olarak verir. Burada τ'nun marjinal sonsal yoğunluğu τ = 0'da en büyüktür, çünkü MS_arası < MS_içi'dir ve yarı-Cauchy önsel 0'da en büyüktür. 12.5.2'deki R işlevi getmode çekilişlerin tam tekrarlarını sayar; sürekli MCMC çıktısında hepsi farklı olduğundan mod yerine ilk çekilişi döndürür (araştırma günlüğü F81)."),
                 T("Equation (12.5) writes the likelihood as y_ij | µ, τ, σ ~ N(µ, τ² + σ²), as if the observations were independent; the replicates of one bottle share B_i and are correlated. The Stan code of 12.4.2 uses the hierarchical model, which the program also uses.",
                   "Denklem (12.5) olabilirliği gözlemler bağımsızmış gibi y_ij | µ, τ, σ ~ N(µ, τ² + σ²) olarak yazar; bir şişenin tekrarları B_i'yi paylaşır ve ilişkilidir. 12.4.2'deki Stan kodu hiyerarşik modeli kullanır; program da onu kullanır.")])
+
+# --- Example 4: gravimetric preparation of a CO₂ in N₂ mixture (ISO 6142-1, multivariate LPU) --------------
+COMP = ["Ar", "CH4", "CO", "CO2", "H2", "H2O", "N2", "O2"]
+FORMULA = {"Ar": "A_Ar", "CH4": "4*A_H + A_C", "CO": "A_C + A_O", "CO2": "A_C + 2*A_O", "H2": "2*A_H", "H2O": "2*A_H + A_O",
+           "N2": "2*A_N", "O2": "2*A_O"}
+AW = {"H": (1.00784, 1.00811), "C": (12.0096, 12.0116), "N": (14.00643, 14.00728), "O": (15.99903, 15.99977), "Ar": (39.792, 39.963)}
+IMP1 = {"CH4": (0.10, 0.06), "CO": (0.5, 0.3), "H2O": (1.9, 0.1), "N2": (4.3, 2.1), "O2": (5.3, 2.6)}       # CO₂ parent, µmol/mol
+IMP2 = {"Ar": (5.0, 3.0), "CH4": (0.008, 0.005), "CO": (0.015, 0.009), "CO2": (0.010, 0.006), "H2": (0.025, 0.015), "H2O": (0.010, 0.006), "O2": (0.005, 0.003)}
+RJ = [(-152.0243, 0.0005), (93.4951, 0.0008), (717.2740, 0.0007)]
+# Table 4.1 → Table 4.2: averages and u = √(u_rpt² + (1 mg/√12)²).
+D41 = [[-152.025, -152.025, -152.024, -152.024, -152.025, -152.025, -152.025], [93.497, 93.495, 93.494, 93.494, 93.496, 93.495, 93.495],
+       [717.273, 717.274, 717.275, 717.276, 717.275, 717.274, 717.273]]
+# Table 4.2 does not follow from Table 4.1 (F82): the means are −152.0247, 93.4951, 717.2743 g (printed −152.0243,
+# 93.4951, 717.2740) and s/√7 = 0.18, 0.40, 0.42 mg (printed u_rpt 0.4, 0.7, 0.6 mg). Table 4.2 is used, as in 4.3.
+T41 = [(st.mean(d), st.stdev(d) / math.sqrt(7)) for d in D41]
+assert [round(v, 4) for v, _ in T41] == [-152.0247, 93.4951, 717.2743]
+assert [round(1000 * v, 2) for _, v in T41] == [0.18, 0.40, 0.42]
+for (rv, ur), urpt in zip(RJ, (0.0004, 0.0007, 0.0006)):
+    assert abs(math.sqrt(urpt ** 2 + (0.001 / math.sqrt(12)) ** 2) - ur) < 5e-5
+GAS_OUT = {"Ar": (4.0, 2.4), "CH4": (0.026, 0.013), "CO": (0.112, 0.061), "CO2": (200345, 5), "H2": (0.020, 0.012), "H2O": (0.379, 0.021),
+           "N2": (799649, 5), "O2": (1.07, 0.52)}
+GAS_CALC = {"Ar": (3.998262, 2.398956), "CH4": (0.0264320, 0.0126684), "CO": (0.1121686, 0.0605337), "CO2": (200345.267, 3.959638),
+            "H2": (0.0199913, 0.0119948), "H2O": (0.3886571, 0.0206013), "N2": (799649.122, 4.717640), "O2": (1.065841, 0.520910)}
+# Analytic derivatives (program); a numpy check with central differences agrees to the digits it prints
+# (tools/research/gum5/ex4_composition.py: 2.39896, 0.01267, 0.06053, 3.95964, 0.01199, 0.02060, 4.71764, 0.52091).
+inputs4 = [inp(f"r{j}", {"type": "normal", "mean": v, "sd": s}, "g", f"Mean balance difference, sample − reference cylinder, {'evacuated' if j == 0 else 'after parent gas ' + str(j)}",
+               f"Ortalama terazi farkı, numune − referans tüp, {'boşaltılmış' if j == 0 else str(j) + '. ana gazdan sonra'}") for j, (v, s) in enumerate(RJ)]
+inputs4 += [inp(f"A_{e}", {"type": "rectangular", "lower": a, "upper": b}, None, f"Standard atomic weight of {e} (IUPAC interval)", f"{e} standart atom ağırlığı (IUPAC aralığı)") for e, (a, b) in AW.items()]
+inputs4 += [inp(f"x1_{k}", {"type": "normal", "mean": v, "sd": s}, "µmol/mol", f"{k} in the carbon dioxide parent gas", f"Karbon dioksit ana gazında {k}") for k, (v, s) in IMP1.items()]
+inputs4 += [inp(f"x2_{k}", {"type": "normal", "mean": v, "sd": s}, "µmol/mol", f"{k} in the nitrogen parent gas", f"Azot ana gazında {k}") for k, (v, s) in IMP2.items()]
+frac1 = {k: (f"1e-6*x1_{k}" if k in IMP1 else None) for k in COMP}
+frac1["CO2"] = "x1_CO2"
+frac2 = {k: (f"1e-6*x2_{k}" if k in IMP2 else None) for k in COMP}
+frac2["N2"] = "x2_N2"
+inter4 = [{"name": f"M_{k}", "expression": FORMULA[k]} for k in COMP]
+inter4 += [{"name": "x1_CO2", "expression": "1 - 1e-6*(" + " + ".join(f"x1_{k}" for k in IMP1) + ")"},
+           {"name": "x2_N2", "expression": "1 - 1e-6*(" + " + ".join(f"x2_{k}" for k in IMP2) + ")"},
+           {"name": "MP1", "expression": " + ".join(f"{frac1[k]}*M_{k}" for k in COMP if frac1[k])},
+           {"name": "MP2", "expression": " + ".join(f"{frac2[k]}*M_{k}" for k in COMP if frac2[k])},
+           {"name": "m1", "expression": "r1 - r0"}, {"name": "m2", "expression": "r2 - r1"},
+           {"name": "ntot", "expression": "m1/MP1 + m2/MP2"}]
+outs4 = []
+for k in COMP:
+    terms = [t for t in (f"m1*{frac1[k]}/MP1" if frac1[k] else None, f"m2*{frac2[k]}/MP2" if frac2[k] else None) if t]
+    outs4.append({"name": f"y_{k}", "unit": "µmol/mol", "expression": f"1e6*({' + '.join(terms)})/ntot"})
+tol4 = {"Ar": (0.0005, 0.0005), "CH4": (5e-6, 5e-6), "CO": (5e-6, 5e-6), "CO2": (0.005, 0.0005), "H2": (5e-6, 5e-6), "H2O": (5e-6, 5e-6), "N2": (0.005, 0.0005), "O2": (5e-6, 5e-6)}
+p4 = {"format": "uncertainty-calculations/project", "version": 1,
+      "metadata": {"id": "gum5-e4-gravimetric-gas-mixture", "field": "chemistry",
+                   "title": T("Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4)",
+                              "N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4)"),
+                   "description": T("ISO 6142-1 model y_k = n_k/n_tot from three weighings, the purity tables of two parent gases and IUPAC atomic-weight intervals; multivariate LPU (JCGM 102).",
+                                    "Üç tartım, iki ana gazın saflık tabloları ve IUPAC atom ağırlığı aralıklarından ISO 6142-1 modeli y_k = n_k/n_tot; çok değişkenli LPU (JCGM 102)."),
+                   "explanation": [
+                       T("Masses of the parent gases m₁ = r₁ − r₀ = 245.5194 g (CO₂) and m₂ = r₂ − r₁ = 623.7789 g (N₂) from the substitution weighings of Table 4.1. Both depend on r₁, so they are correlated (4.3.1); u(r̂_j) combines the standard deviation of the mean of seven differences with the resolution 1 mg/√12 (Table 4.2).",
+                         "Ana gaz kütleleri m₁ = r₁ − r₀ = 245,5194 g (CO₂) ve m₂ = r₂ − r₁ = 623,7789 g (N₂), Tablo 4.1'in yerine koyma tartımlarından. İkisi de r₁'e bağlı olduğundan ilişkilidir (4.3.1); u(r̂_j), yedi farkın ortalamasının standart sapmasını 1 mg/√12 çözünürlükle birleştirir (Tablo 4.2)."),
+                       T("Molar masses M_i = Σ ν_ie A_e from rectangular distributions over the IUPAC intervals; CO and CO₂ share C and O, giving r = 0.960 (4.3.4.6). The major component of each parent gas is 1 − Σ impurities (4.3), which makes its covariance with each impurity −u²(x_i) (4.5); the program obtains these correlations from the shared inputs, without entering them.",
+                         "Mol kütleleri M_i = Σ ν_ie A_e, IUPAC aralıkları üzerinde dikdörtgen dağılımlarla; CO ve CO₂ C ve O'yu paylaşır, r = 0,960 (4.3.4.6). Her ana gazın baskın bileşeni 1 − Σ safsızlıklardır (4.3); bu, her safsızlıkla kovaryansını −u²(x_i) yapar (4.5); program bu korelasyonları girilmeden ortak girdilerden elde eder."),
+                       T("u(y_CO₂) = 3.96 µmol/mol is dominated by the atomic weights of N (2.8), C (2.1) and O (1.6); u(y_N₂) = 4.72 µmol/mol adds the argon impurity of the nitrogen (2.6). r(CO₂, N₂) = −0.85 and r(Ar, N₂) = −0.55.",
+                         "u(y_CO₂) = 3,96 µmol/mol'de atom ağırlıkları N (2,8), C (2,1) ve O (1,6) baskındır; u(y_N₂) = 4,72 µmol/mol'e azottaki argon safsızlığı (2,6) eklenir. r(CO₂, N₂) = −0,85 ve r(Ar, N₂) = −0,55.")],
+                   "sources": [{"document": DOC, "section": "Example 4, Tables 4.1–4.6 and 4.3.6.9", "url": URL}],
+                   "tags": ["gum-5", "gas-mixture", "gravimetry", "iso-6142", "multivariate", "jcgm102", "correlation", "molar-mass"],
+                   "notes": [T("Table 4.2 does not follow from Table 4.1: the averages of the differences are −152.0247 g and 717.2743 g (printed −152.0243 and 717.2740 g), and the standard deviations of the means are 0.18, 0.40 and 0.42 mg (printed u_rpt 0.4, 0.7 and 0.6 mg). The project uses Table 4.2, as the guide does; with the averages of Table 4.1, m₁ is 0.5 mg larger (research log F82).",
+                               "Tablo 4.2, Tablo 4.1'den çıkmaz: farkların ortalamaları −152,0247 g ve 717,2743 g'dır (basılı −152,0243 ve 717,2740 g), ortalamaların standart sapmaları 0,18, 0,40 ve 0,42 mg'dır (basılı u_rpt 0,4, 0,7 ve 0,6 mg). Proje, rehberin yaptığı gibi Tablo 4.2'yi kullanır; Tablo 4.1 ortalamalarıyla m₁ 0,5 mg daha büyüktür (araştırma günlüğü F82)."),
+                             T("Printed Table 4.6 differs in three places (research log F82): u(y_CO₂) = 5 µmol/mol and u_rel 0.003 % against 3.96 µmol/mol and 0.0020 % recomputed; y_H₂O = 0.379 against 0.389 µmol/mol (0.2003 × 1.9 + 0.7996 × 0.010); r(Ar, N₂) = −0.50 and r(CO₂, O₂) = −0.08 against −0.55 and −0.10. The other values agree.",
+                               "Basılı Tablo 4.6 üç yerde farklıdır (araştırma günlüğü F82): u(y_CO₂) = 5 µmol/mol ve u_rel %0,003, yeniden hesaplanan 3,96 µmol/mol ve %0,0020'ye karşı; y_H₂O = 0,379, 0,389 µmol/mol'e karşı (0,2003 × 1,9 + 0,7996 × 0,010); r(Ar, N₂) = −0,50 ve r(CO₂, O₂) = −0,08, −0,55 ve −0,10'a karşı. Diğer değerler uyumludur.")]},
+      "multivariate": {"outputs": outs4, "intermediates": inter4, "inputs": inputs4},
+      "analysis": {"gum": {}, "mcm": None},
+      "expected": {"multivariate": {"gum": {
+          "estimate": {f"y_{k}": chk(v[0], tol4[k][0]) for k, v in GAS_CALC.items()},
+          "standard_uncertainty": {f"y_{k}": chk(v[1], tol4[k][1]) for k, v in GAS_CALC.items()},
+          "correlations": [{"between": ["y_CO2", "y_N2"], "value": -0.85, "tolerance": 0.005}, {"between": ["y_Ar", "y_N2"], "value": -0.55, "tolerance": 0.005},
+                           {"between": ["y_Ar", "y_CO2"], "value": 0.05, "tolerance": 0.005}]}},
+          "reference": T("JCGM GUM-5:2026 Table 4.6 and 4.3.6.9; expected values recomputed: Ar 4.0 ± 2.4, CH₄ 0.026 ± 0.013, CO 0.112 ± 0.061, H₂ 0.020 ± 0.012, O₂ 1.07 ± 0.52, N₂ 799 649 ± 5 µmol/mol as printed; CO₂ 200 345 ± 4 (printed ± 5), H₂O 0.389 (printed 0.379); r(CO₂, N₂) −0.85 (−0.86), r(Ar, N₂) −0.55 (−0.50).",
+                         "JCGM GUM-5:2026 Tablo 4.6 ve 4.3.6.9; beklenen değerler yeniden hesaplandı: Ar 4,0 ± 2,4, CH₄ 0,026 ± 0,013, CO 0,112 ± 0,061, H₂ 0,020 ± 0,012, O₂ 1,07 ± 0,52, N₂ 799 649 ± 5 µmol/mol basıldığı gibi; CO₂ 200 345 ± 4 (basılı ± 5), H₂O 0,389 (basılı 0,379); r(CO₂, N₂) −0,85 (−0,86), r(Ar, N₂) −0,55 (−0,50).")}}
+Path("library/chemistry/gum5-e4-gravimetric-gas-mixture.json").write_text(json.dumps(p4, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote gum5-e4-gravimetric-gas-mixture")

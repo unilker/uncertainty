@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (106)
+- Chemistry (107)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (19)
@@ -289,6 +289,39 @@ M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O with rectangular distributions over t
 - The same calculation for CO₂ is NIST TN 1900 Example E8 in the library.
 
 **Run:** `uncertainty run library/chemistry/gum5-e3-molar-mass-glucose.json --lang en`
+
+### Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4)
+
+`gum5-e4-gravimetric-gas-mixture` — JCGM GUM-5:2026, Example 4, Tables 4.1–4.6 and 4.3.6.9
+
+ISO 6142-1 model y_k = n_k/n_tot from three weighings, the purity tables of two parent gases and IUPAC atomic-weight intervals; multivariate LPU (JCGM 102).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. Masses of the parent gases m₁ = r₁ − r₀ = 245.5194 g (CO₂) and m₂ = r₂ − r₁ = 623.7789 g (N₂) from the substitution weighings of Table 4.1. Both depend on r₁, so they are correlated (4.3.1); u(r̂_j) combines the standard deviation of the mean of seven differences with the resolution 1 mg/√12 (Table 4.2).
+2. Molar masses M_i = Σ ν_ie A_e from rectangular distributions over the IUPAC intervals; CO and CO₂ share C and O, giving r = 0.960 (4.3.4.6). The major component of each parent gas is 1 − Σ impurities (4.3), which makes its covariance with each impurity −u²(x_i) (4.5); the program obtains these correlations from the shared inputs, without entering them.
+3. u(y_CO₂) = 3.96 µmol/mol is dominated by the atomic weights of N (2.8), C (2.1) and O (1.6); u(y_N₂) = 4.72 µmol/mol adds the argon impurity of the nitrogen (2.6). r(CO₂, N₂) = −0.85 and r(Ar, N₂) = −0.55.
+
+**Result:**
+
+- y_Ar = 4.00 µmol/mol, u(y_Ar) = 2.4 µmol/mol (GUM)
+- y_CH4 = 0.0264 µmol/mol, u(y_CH4) = 0.013 µmol/mol (GUM)
+- y_CO = 0.1122 µmol/mol, u(y_CO) = 0.061 µmol/mol (GUM)
+- y_CO2 = 200345.27 µmol/mol, u(y_CO2) = 4.0 µmol/mol (GUM)
+- y_H2 = 0.0200 µmol/mol, u(y_H2) = 0.012 µmol/mol (GUM)
+- y_H2O = 0.3887 µmol/mol, u(y_H2O) = 0.021 µmol/mol (GUM)
+- y_N2 = 799649.12 µmol/mol, u(y_N2) = 4.7 µmol/mol (GUM)
+- y_O2 = 1.066 µmol/mol, u(y_O2) = 0.52 µmol/mol (GUM)
+- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3.94; rectangle k_q = 2.73
+
+**Notes:**
+
+- Table 4.2 does not follow from Table 4.1: the averages of the differences are −152.0247 g and 717.2743 g (printed −152.0243 and 717.2740 g), and the standard deviations of the means are 0.18, 0.40 and 0.42 mg (printed u_rpt 0.4, 0.7 and 0.6 mg). The project uses Table 4.2, as the guide does; with the averages of Table 4.1, m₁ is 0.5 mg larger (research log F82).
+- Printed Table 4.6 differs in three places (research log F82): u(y_CO₂) = 5 µmol/mol and u_rel 0.003 % against 3.96 µmol/mol and 0.0020 % recomputed; y_H₂O = 0.379 against 0.389 µmol/mol (0.2003 × 1.9 + 0.7996 × 0.010); r(Ar, N₂) = −0.50 and r(CO₂, O₂) = −0.08 against −0.55 and −0.10. The other values agree.
+
+**Run:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang en`
 
 ### Censored results in a PT round: censored results deleted (ISO 13528 E.1)
 

@@ -2294,3 +2294,50 @@ Table 12.2 reproduces: SS 2.92·10⁻⁶ and 1.96·10⁻⁵, MS 3.25·10⁻⁷ a
 
 Library project: `gum5-e12-between-bottle-homogeneity-bayes`. The library
 has 226 projects.
+
+**GUM-5:2026 Example 4 (gravimetric CO₂ in N₂ mixture, ISO 6142-1, multivariate LPU).**
+
+- The library project `gum5-e4-gravimetric-gas-mixture` is a `multivariate`
+  model with 25 inputs: 3 weighings, 5 atomic weights and 12 impurity
+  fractions. Its 15 intermediates are the molar masses, the major
+  components 1 − Σ impurities, MP₁, MP₂, m₁, m₂ and n_tot, and its outputs
+  are the 8 amount fractions.
+- The correlations of 4.3.1 (masses through r₁, molar masses through
+  shared elements, mass balance of the parent gases) follow from the
+  shared inputs and are not entered.
+- The correlation matrix of the molar masses (4.3.4.6) reproduces exactly
+  (0.825, 0.707, 0.960, …).
+- A numpy check with central differences agrees
+  (`tools/research/gum5/ex4_composition.py`).
+
+**F82. GUM-5 Example 4 — Tables 4.2 and 4.6 (classes c and b).**
+
+1. **Table 4.2 does not follow from Table 4.1.**
+   - The averages of the seven differences are −152.0247, 93.4951 and
+     717.2743 g; printed r̂ are −152.0243, 93.4951 and 717.2740 g.
+   - The standard deviations of the means are 0.18, 0.40 and 0.42 mg;
+     printed u_rpt are 0.4, 0.7 and 0.6 mg, which are not s either (0.49,
+     1.07, 1.11 mg).
+   - u(r̂) = √(u_rpt² + u_res²) is consistent within Table 4.2. Perhaps
+     Table 4.1 is a rounded excerpt of other data.
+   - Effect: with Table 4.1, m₁ is 0.5 mg larger. Table 4.2 is used, as in
+     the guide.
+2. **u(y_CO₂) (class c).** Recomputed 3.96 µmol/mol, which rounds to 4;
+   printed 5 µmol/mol and u_rel 0.003 % (recomputed 0.0020 %).
+   - The budget is dominated by the atomic weights of N (2.81), C (2.10) and
+     O (1.56), then r₁ (0.73) and O₂ in the CO₂ gas (0.41).
+   - u(y_N₂) = 4.72, printed 5, agrees with rounding.
+   - Treating the major components as independent inputs does not change
+     u(y_CO₂), because y is invariant to the normalization.
+3. **y_H₂O (class b).** 0.2003 × 1.9 + 0.7996 × 0.010 = 0.389 µmol/mol;
+   printed 0.379. u = 0.021 agrees, and u_rel 5 % holds for both values.
+   This is likely a transcription slip.
+4. **Correlations.** r(CO₂, N₂) is −0.854 (printed −0.86) and r(Ar, N₂)
+   −0.552 (printed −0.50); also r(Ar, CO₂) 0.051 (0.04) and r(CO₂, O₂)
+   −0.103 (−0.08).
+   - The larger printed u(y_CO₂) cannot explain these; the source of the
+     differences is not found.
+   - The other five components, all estimates except H₂O, and the
+     molar-mass correlations agree.
+
+The library has 227 projects.

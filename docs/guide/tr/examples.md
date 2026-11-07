@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (106)
+- Kimya (107)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
@@ -289,6 +289,39 @@ IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağı
 - CO₂ için aynı hesap kütüphanedeki NIST TN 1900 Örnek E8'dir.
 
 **Çalıştırma:** `uncertainty run library/chemistry/gum5-e3-molar-mass-glucose.json --lang tr`
+
+### N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4)
+
+`gum5-e4-gravimetric-gas-mixture` — JCGM GUM-5:2026, Example 4, Tables 4.1–4.6 and 4.3.6.9
+
+Üç tartım, iki ana gazın saflık tabloları ve IUPAC atom ağırlığı aralıklarından ISO 6142-1 modeli y_k = n_k/n_tot; çok değişkenli LPU (JCGM 102).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. Ana gaz kütleleri m₁ = r₁ − r₀ = 245,5194 g (CO₂) ve m₂ = r₂ − r₁ = 623,7789 g (N₂), Tablo 4.1'in yerine koyma tartımlarından. İkisi de r₁'e bağlı olduğundan ilişkilidir (4.3.1); u(r̂_j), yedi farkın ortalamasının standart sapmasını 1 mg/√12 çözünürlükle birleştirir (Tablo 4.2).
+2. Mol kütleleri M_i = Σ ν_ie A_e, IUPAC aralıkları üzerinde dikdörtgen dağılımlarla; CO ve CO₂ C ve O'yu paylaşır, r = 0,960 (4.3.4.6). Her ana gazın baskın bileşeni 1 − Σ safsızlıklardır (4.3); bu, her safsızlıkla kovaryansını −u²(x_i) yapar (4.5); program bu korelasyonları girilmeden ortak girdilerden elde eder.
+3. u(y_CO₂) = 3,96 µmol/mol'de atom ağırlıkları N (2,8), C (2,1) ve O (1,6) baskındır; u(y_N₂) = 4,72 µmol/mol'e azottaki argon safsızlığı (2,6) eklenir. r(CO₂, N₂) = −0,85 ve r(Ar, N₂) = −0,55.
+
+**Sonuç:**
+
+- y_Ar = 4,00 µmol/mol, u(y_Ar) = 2,4 µmol/mol (GUM)
+- y_CH4 = 0,0264 µmol/mol, u(y_CH4) = 0,013 µmol/mol (GUM)
+- y_CO = 0,1122 µmol/mol, u(y_CO) = 0,061 µmol/mol (GUM)
+- y_CO2 = 200345,27 µmol/mol, u(y_CO2) = 4,0 µmol/mol (GUM)
+- y_H2 = 0,0200 µmol/mol, u(y_H2) = 0,012 µmol/mol (GUM)
+- y_H2O = 0,3887 µmol/mol, u(y_H2O) = 0,021 µmol/mol (GUM)
+- y_N2 = 799649,12 µmol/mol, u(y_N2) = 4,7 µmol/mol (GUM)
+- y_O2 = 1,066 µmol/mol, u(y_O2) = 0,52 µmol/mol (GUM)
+- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3,94; dikdörtgen k_q = 2,73
+
+**Notlar:**
+
+- Tablo 4.2, Tablo 4.1'den çıkmaz: farkların ortalamaları −152,0247 g ve 717,2743 g'dır (basılı −152,0243 ve 717,2740 g), ortalamaların standart sapmaları 0,18, 0,40 ve 0,42 mg'dır (basılı u_rpt 0,4, 0,7 ve 0,6 mg). Proje, rehberin yaptığı gibi Tablo 4.2'yi kullanır; Tablo 4.1 ortalamalarıyla m₁ 0,5 mg daha büyüktür (araştırma günlüğü F82).
+- Basılı Tablo 4.6 üç yerde farklıdır (araştırma günlüğü F82): u(y_CO₂) = 5 µmol/mol ve u_rel %0,003, yeniden hesaplanan 3,96 µmol/mol ve %0,0020'ye karşı; y_H₂O = 0,379, 0,389 µmol/mol'e karşı (0,2003 × 1,9 + 0,7996 × 0,010); r(Ar, N₂) = −0,50 ve r(CO₂, O₂) = −0,08, −0,55 ve −0,10'a karşı. Diğer değerler uyumludur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang tr`
 
 ### Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1)
 

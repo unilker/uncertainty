@@ -2472,6 +2472,537 @@
   }
  },
  {
+  "path": "library/chemistry/gum5-e4-gravimetric-gas-mixture.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "gum5-e4-gravimetric-gas-mixture",
+    "field": "chemistry",
+    "title": {
+     "en": "Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4)",
+     "tr": "N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4)"
+    },
+    "description": {
+     "en": "ISO 6142-1 model y_k = n_k/n_tot from three weighings, the purity tables of two parent gases and IUPAC atomic-weight intervals; multivariate LPU (JCGM 102).",
+     "tr": "Üç tartım, iki ana gazın saflık tabloları ve IUPAC atom ağırlığı aralıklarından ISO 6142-1 modeli y_k = n_k/n_tot; çok değişkenli LPU (JCGM 102)."
+    },
+    "explanation": [
+     {
+      "en": "Masses of the parent gases m₁ = r₁ − r₀ = 245.5194 g (CO₂) and m₂ = r₂ − r₁ = 623.7789 g (N₂) from the substitution weighings of Table 4.1. Both depend on r₁, so they are correlated (4.3.1); u(r̂_j) combines the standard deviation of the mean of seven differences with the resolution 1 mg/√12 (Table 4.2).",
+      "tr": "Ana gaz kütleleri m₁ = r₁ − r₀ = 245,5194 g (CO₂) ve m₂ = r₂ − r₁ = 623,7789 g (N₂), Tablo 4.1'in yerine koyma tartımlarından. İkisi de r₁'e bağlı olduğundan ilişkilidir (4.3.1); u(r̂_j), yedi farkın ortalamasının standart sapmasını 1 mg/√12 çözünürlükle birleştirir (Tablo 4.2)."
+     },
+     {
+      "en": "Molar masses M_i = Σ ν_ie A_e from rectangular distributions over the IUPAC intervals; CO and CO₂ share C and O, giving r = 0.960 (4.3.4.6). The major component of each parent gas is 1 − Σ impurities (4.3), which makes its covariance with each impurity −u²(x_i) (4.5); the program obtains these correlations from the shared inputs, without entering them.",
+      "tr": "Mol kütleleri M_i = Σ ν_ie A_e, IUPAC aralıkları üzerinde dikdörtgen dağılımlarla; CO ve CO₂ C ve O'yu paylaşır, r = 0,960 (4.3.4.6). Her ana gazın baskın bileşeni 1 − Σ safsızlıklardır (4.3); bu, her safsızlıkla kovaryansını −u²(x_i) yapar (4.5); program bu korelasyonları girilmeden ortak girdilerden elde eder."
+     },
+     {
+      "en": "u(y_CO₂) = 3.96 µmol/mol is dominated by the atomic weights of N (2.8), C (2.1) and O (1.6); u(y_N₂) = 4.72 µmol/mol adds the argon impurity of the nitrogen (2.6). r(CO₂, N₂) = −0.85 and r(Ar, N₂) = −0.55.",
+      "tr": "u(y_CO₂) = 3,96 µmol/mol'de atom ağırlıkları N (2,8), C (2,1) ve O (1,6) baskındır; u(y_N₂) = 4,72 µmol/mol'e azottaki argon safsızlığı (2,6) eklenir. r(CO₂, N₂) = −0,85 ve r(Ar, N₂) = −0,55."
+     }
+    ],
+    "sources": [
+     {
+      "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+      "section": "Example 4, Tables 4.1–4.6 and 4.3.6.9",
+      "url": "https://doi.org/10.59161/YNLY8209"
+     }
+    ],
+    "tags": [
+     "gum-5",
+     "gas-mixture",
+     "gravimetry",
+     "iso-6142",
+     "multivariate",
+     "jcgm102",
+     "correlation",
+     "molar-mass"
+    ],
+    "notes": [
+     {
+      "en": "Table 4.2 does not follow from Table 4.1: the averages of the differences are −152.0247 g and 717.2743 g (printed −152.0243 and 717.2740 g), and the standard deviations of the means are 0.18, 0.40 and 0.42 mg (printed u_rpt 0.4, 0.7 and 0.6 mg). The project uses Table 4.2, as the guide does; with the averages of Table 4.1, m₁ is 0.5 mg larger (research log F82).",
+      "tr": "Tablo 4.2, Tablo 4.1'den çıkmaz: farkların ortalamaları −152,0247 g ve 717,2743 g'dır (basılı −152,0243 ve 717,2740 g), ortalamaların standart sapmaları 0,18, 0,40 ve 0,42 mg'dır (basılı u_rpt 0,4, 0,7 ve 0,6 mg). Proje, rehberin yaptığı gibi Tablo 4.2'yi kullanır; Tablo 4.1 ortalamalarıyla m₁ 0,5 mg daha büyüktür (araştırma günlüğü F82)."
+     },
+     {
+      "en": "Printed Table 4.6 differs in three places (research log F82): u(y_CO₂) = 5 µmol/mol and u_rel 0.003 % against 3.96 µmol/mol and 0.0020 % recomputed; y_H₂O = 0.379 against 0.389 µmol/mol (0.2003 × 1.9 + 0.7996 × 0.010); r(Ar, N₂) = −0.50 and r(CO₂, O₂) = −0.08 against −0.55 and −0.10. The other values agree.",
+      "tr": "Basılı Tablo 4.6 üç yerde farklıdır (araştırma günlüğü F82): u(y_CO₂) = 5 µmol/mol ve u_rel %0,003, yeniden hesaplanan 3,96 µmol/mol ve %0,0020'ye karşı; y_H₂O = 0,379, 0,389 µmol/mol'e karşı (0,2003 × 1,9 + 0,7996 × 0,010); r(Ar, N₂) = −0,50 ve r(CO₂, O₂) = −0,08, −0,55 ve −0,10'a karşı. Diğer değerler uyumludur."
+     }
+    ]
+   },
+   "multivariate": {
+    "outputs": [
+     {
+      "name": "y_Ar",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m2*1e-6*x2_Ar/MP2)/ntot"
+     },
+     {
+      "name": "y_CH4",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m1*1e-6*x1_CH4/MP1 + m2*1e-6*x2_CH4/MP2)/ntot"
+     },
+     {
+      "name": "y_CO",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m1*1e-6*x1_CO/MP1 + m2*1e-6*x2_CO/MP2)/ntot"
+     },
+     {
+      "name": "y_CO2",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m1*x1_CO2/MP1 + m2*1e-6*x2_CO2/MP2)/ntot"
+     },
+     {
+      "name": "y_H2",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m2*1e-6*x2_H2/MP2)/ntot"
+     },
+     {
+      "name": "y_H2O",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m1*1e-6*x1_H2O/MP1 + m2*1e-6*x2_H2O/MP2)/ntot"
+     },
+     {
+      "name": "y_N2",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m1*1e-6*x1_N2/MP1 + m2*x2_N2/MP2)/ntot"
+     },
+     {
+      "name": "y_O2",
+      "unit": "µmol/mol",
+      "expression": "1e6*(m1*1e-6*x1_O2/MP1 + m2*1e-6*x2_O2/MP2)/ntot"
+     }
+    ],
+    "intermediates": [
+     {
+      "name": "M_Ar",
+      "expression": "A_Ar"
+     },
+     {
+      "name": "M_CH4",
+      "expression": "4*A_H + A_C"
+     },
+     {
+      "name": "M_CO",
+      "expression": "A_C + A_O"
+     },
+     {
+      "name": "M_CO2",
+      "expression": "A_C + 2*A_O"
+     },
+     {
+      "name": "M_H2",
+      "expression": "2*A_H"
+     },
+     {
+      "name": "M_H2O",
+      "expression": "2*A_H + A_O"
+     },
+     {
+      "name": "M_N2",
+      "expression": "2*A_N"
+     },
+     {
+      "name": "M_O2",
+      "expression": "2*A_O"
+     },
+     {
+      "name": "x1_CO2",
+      "expression": "1 - 1e-6*(x1_CH4 + x1_CO + x1_H2O + x1_N2 + x1_O2)"
+     },
+     {
+      "name": "x2_N2",
+      "expression": "1 - 1e-6*(x2_Ar + x2_CH4 + x2_CO + x2_CO2 + x2_H2 + x2_H2O + x2_O2)"
+     },
+     {
+      "name": "MP1",
+      "expression": "1e-6*x1_CH4*M_CH4 + 1e-6*x1_CO*M_CO + x1_CO2*M_CO2 + 1e-6*x1_H2O*M_H2O + 1e-6*x1_N2*M_N2 + 1e-6*x1_O2*M_O2"
+     },
+     {
+      "name": "MP2",
+      "expression": "1e-6*x2_Ar*M_Ar + 1e-6*x2_CH4*M_CH4 + 1e-6*x2_CO*M_CO + 1e-6*x2_CO2*M_CO2 + 1e-6*x2_H2*M_H2 + 1e-6*x2_H2O*M_H2O + x2_N2*M_N2 + 1e-6*x2_O2*M_O2"
+     },
+     {
+      "name": "m1",
+      "expression": "r1 - r0"
+     },
+     {
+      "name": "m2",
+      "expression": "r2 - r1"
+     },
+     {
+      "name": "ntot",
+      "expression": "m1/MP1 + m2/MP2"
+     }
+    ],
+    "inputs": [
+     {
+      "name": "r0",
+      "unit": "g",
+      "description": {
+       "en": "Mean balance difference, sample − reference cylinder, evacuated",
+       "tr": "Ortalama terazi farkı, numune − referans tüp, boşaltılmış"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": -152.0243,
+       "sd": 0.0005
+      }
+     },
+     {
+      "name": "r1",
+      "unit": "g",
+      "description": {
+       "en": "Mean balance difference, sample − reference cylinder, after parent gas 1",
+       "tr": "Ortalama terazi farkı, numune − referans tüp, 1. ana gazdan sonra"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 93.4951,
+       "sd": 0.0008
+      }
+     },
+     {
+      "name": "r2",
+      "unit": "g",
+      "description": {
+       "en": "Mean balance difference, sample − reference cylinder, after parent gas 2",
+       "tr": "Ortalama terazi farkı, numune − referans tüp, 2. ana gazdan sonra"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 717.274,
+       "sd": 0.0007
+      }
+     },
+     {
+      "name": "A_H",
+      "description": {
+       "en": "Standard atomic weight of H (IUPAC interval)",
+       "tr": "H standart atom ağırlığı (IUPAC aralığı)"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "lower": 1.00784,
+       "upper": 1.00811
+      }
+     },
+     {
+      "name": "A_C",
+      "description": {
+       "en": "Standard atomic weight of C (IUPAC interval)",
+       "tr": "C standart atom ağırlığı (IUPAC aralığı)"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "lower": 12.0096,
+       "upper": 12.0116
+      }
+     },
+     {
+      "name": "A_N",
+      "description": {
+       "en": "Standard atomic weight of N (IUPAC interval)",
+       "tr": "N standart atom ağırlığı (IUPAC aralığı)"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "lower": 14.00643,
+       "upper": 14.00728
+      }
+     },
+     {
+      "name": "A_O",
+      "description": {
+       "en": "Standard atomic weight of O (IUPAC interval)",
+       "tr": "O standart atom ağırlığı (IUPAC aralığı)"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "lower": 15.99903,
+       "upper": 15.99977
+      }
+     },
+     {
+      "name": "A_Ar",
+      "description": {
+       "en": "Standard atomic weight of Ar (IUPAC interval)",
+       "tr": "Ar standart atom ağırlığı (IUPAC aralığı)"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "lower": 39.792,
+       "upper": 39.963
+      }
+     },
+     {
+      "name": "x1_CH4",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "CH4 in the carbon dioxide parent gas",
+       "tr": "Karbon dioksit ana gazında CH4"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.1,
+       "sd": 0.06
+      }
+     },
+     {
+      "name": "x1_CO",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "CO in the carbon dioxide parent gas",
+       "tr": "Karbon dioksit ana gazında CO"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.5,
+       "sd": 0.3
+      }
+     },
+     {
+      "name": "x1_H2O",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "H2O in the carbon dioxide parent gas",
+       "tr": "Karbon dioksit ana gazında H2O"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 1.9,
+       "sd": 0.1
+      }
+     },
+     {
+      "name": "x1_N2",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "N2 in the carbon dioxide parent gas",
+       "tr": "Karbon dioksit ana gazında N2"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 4.3,
+       "sd": 2.1
+      }
+     },
+     {
+      "name": "x1_O2",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "O2 in the carbon dioxide parent gas",
+       "tr": "Karbon dioksit ana gazında O2"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 5.3,
+       "sd": 2.6
+      }
+     },
+     {
+      "name": "x2_Ar",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "Ar in the nitrogen parent gas",
+       "tr": "Azot ana gazında Ar"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 5.0,
+       "sd": 3.0
+      }
+     },
+     {
+      "name": "x2_CH4",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "CH4 in the nitrogen parent gas",
+       "tr": "Azot ana gazında CH4"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.008,
+       "sd": 0.005
+      }
+     },
+     {
+      "name": "x2_CO",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "CO in the nitrogen parent gas",
+       "tr": "Azot ana gazında CO"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.015,
+       "sd": 0.009
+      }
+     },
+     {
+      "name": "x2_CO2",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "CO2 in the nitrogen parent gas",
+       "tr": "Azot ana gazında CO2"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.01,
+       "sd": 0.006
+      }
+     },
+     {
+      "name": "x2_H2",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "H2 in the nitrogen parent gas",
+       "tr": "Azot ana gazında H2"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.025,
+       "sd": 0.015
+      }
+     },
+     {
+      "name": "x2_H2O",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "H2O in the nitrogen parent gas",
+       "tr": "Azot ana gazında H2O"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.01,
+       "sd": 0.006
+      }
+     },
+     {
+      "name": "x2_O2",
+      "unit": "µmol/mol",
+      "description": {
+       "en": "O2 in the nitrogen parent gas",
+       "tr": "Azot ana gazında O2"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0.005,
+       "sd": 0.003
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {},
+    "mcm": null
+   },
+   "expected": {
+    "multivariate": {
+     "gum": {
+      "estimate": {
+       "y_Ar": {
+        "value": 3.998262,
+        "tolerance": 0.0005
+       },
+       "y_CH4": {
+        "value": 0.026432,
+        "tolerance": 0.000005
+       },
+       "y_CO": {
+        "value": 0.1121686,
+        "tolerance": 0.000005
+       },
+       "y_CO2": {
+        "value": 200345.267,
+        "tolerance": 0.005
+       },
+       "y_H2": {
+        "value": 0.0199913,
+        "tolerance": 0.000005
+       },
+       "y_H2O": {
+        "value": 0.3886571,
+        "tolerance": 0.000005
+       },
+       "y_N2": {
+        "value": 799649.122,
+        "tolerance": 0.005
+       },
+       "y_O2": {
+        "value": 1.065841,
+        "tolerance": 0.000005
+       }
+      },
+      "standard_uncertainty": {
+       "y_Ar": {
+        "value": 2.398956,
+        "tolerance": 0.0005
+       },
+       "y_CH4": {
+        "value": 0.0126684,
+        "tolerance": 0.000005
+       },
+       "y_CO": {
+        "value": 0.0605337,
+        "tolerance": 0.000005
+       },
+       "y_CO2": {
+        "value": 3.959638,
+        "tolerance": 0.0005
+       },
+       "y_H2": {
+        "value": 0.0119948,
+        "tolerance": 0.000005
+       },
+       "y_H2O": {
+        "value": 0.0206013,
+        "tolerance": 0.000005
+       },
+       "y_N2": {
+        "value": 4.71764,
+        "tolerance": 0.0005
+       },
+       "y_O2": {
+        "value": 0.52091,
+        "tolerance": 0.000005
+       }
+      },
+      "correlations": [
+       {
+        "between": [
+         "y_CO2",
+         "y_N2"
+        ],
+        "value": -0.85,
+        "tolerance": 0.005
+       },
+       {
+        "between": [
+         "y_Ar",
+         "y_N2"
+        ],
+        "value": -0.55,
+        "tolerance": 0.005
+       },
+       {
+        "between": [
+         "y_Ar",
+         "y_CO2"
+        ],
+        "value": 0.05,
+        "tolerance": 0.005
+       }
+      ]
+     }
+    },
+    "reference": {
+     "en": "JCGM GUM-5:2026 Table 4.6 and 4.3.6.9; expected values recomputed: Ar 4.0 ± 2.4, CH₄ 0.026 ± 0.013, CO 0.112 ± 0.061, H₂ 0.020 ± 0.012, O₂ 1.07 ± 0.52, N₂ 799 649 ± 5 µmol/mol as printed; CO₂ 200 345 ± 4 (printed ± 5), H₂O 0.389 (printed 0.379); r(CO₂, N₂) −0.85 (−0.86), r(Ar, N₂) −0.55 (−0.50).",
+     "tr": "JCGM GUM-5:2026 Tablo 4.6 ve 4.3.6.9; beklenen değerler yeniden hesaplandı: Ar 4,0 ± 2,4, CH₄ 0,026 ± 0,013, CO 0,112 ± 0,061, H₂ 0,020 ± 0,012, O₂ 1,07 ± 0,52, N₂ 799 649 ± 5 µmol/mol basıldığı gibi; CO₂ 200 345 ± 4 (basılı ± 5), H₂O 0,389 (basılı 0,379); r(CO₂, N₂) −0,85 (−0,86), r(Ar, N₂) −0,55 (−0,50)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/iso13528-e1-censored-deleted.json",
   "project": {
    "format": "uncertainty-calculations/project",
