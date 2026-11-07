@@ -8,7 +8,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - General (method validation) (21)
 - Length (12)
 - Mass (29)
-- Physical properties (14)
+- Physical properties (15)
 - Pressure (6)
 - Temperature (10)
 
@@ -5915,6 +5915,35 @@ The 14 measurements of G used in the CODATA 2014 adjustment are mutually inconsi
 - The correlations between NIST-82 and LANL-97 (0.351) and between HUST-05 and HUST-09 (0.134) are ignored, as in the DerSimonian–Laird row of Table 2.
 
 **Run:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang en`
+
+### Newtonian constant of gravitation from 16 measurements: DerSimonian–Laird with Knapp–Hartung, maximum likelihood, hierarchical Bayes and Linear Pool (Merkatas et al. 2019)
+
+`merkatas2019-newtonian-constant-g-shades` — Merkatas, Tables 1 and 4
+
+The data of Koepke et al. (2017) with JILA-10 corrected (6.672 60 ± 0.000 25) and the two HUST results of 2018 (time-of-swing and angular-acceleration-feedback). Merkatas et al. compare fourteen procedures; four of them are implemented in the program.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. DL (Table 4): DerSimonian–Laird with the Knapp–Hartung standard uncertainty and t₁₅ interval: 6.673 99, u 0.000 25, (6.673 46, 6.674 53), τ 0.000 56.
+2. ML: Gaussian maximum likelihood, 6.673 90, u 0.000 25, τ 0.000 91; the moment estimate of DL gives a markedly smaller τ.
+3. BG: the NICOB hierarchical model (MCMC in the paper, exact grid here): 6.673 89, u 0.000 27, (6.673 33, 6.674 42), posterior median of τ 0.000 95.
+4. LOP: Linear Pool, 6.673 77, u 0.001 17, (6.671 27, 6.675 77). The spread of the four consensus values (0.000 22) is comparable to their standard uncertainties: the choice of procedure is itself a source of uncertainty.
+
+**Result:**
+
+- G: consensus value 6.673993 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00016 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.673664, 6.674324] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.00056 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran's Q = 197.7 with 15 degrees of freedom
+- G: 6.673773 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.0012 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.671276, 6.675763] 10⁻¹¹ m³ kg⁻¹ s⁻² (Linear Pool)
+- G: 6.673896 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00027 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % credible interval [6.673342, 6.674415] 10⁻¹¹ m³ kg⁻¹ s⁻²; posterior median of τ 0.00094 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
+- G: 6.673900 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00025 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0.00091 ± 0.00020 10⁻¹¹ m³ kg⁻¹ s⁻² (maximum likelihood)
+
+**Notes:**
+
+- Not implemented: Birge's multiplicative models (BRE, BRM, BRQ), the CODATA expansion (MTE), Mandel–Paule, REML, Student-t effects, the Laplace model of the paper (Laplace effects and errors), and the Bayesian mixture model (BMM).
+
+**Run:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang en`
 
 ### Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13)
 

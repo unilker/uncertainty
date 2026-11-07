@@ -46307,6 +46307,223 @@
   }
  },
  {
+  "path": "library/physical/merkatas2019-newtonian-constant-g-shades.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "merkatas2019-newtonian-constant-g-shades",
+    "field": "physical",
+    "title": {
+     "en": "Newtonian constant of gravitation from 16 measurements: DerSimonian–Laird with Knapp–Hartung, maximum likelihood, hierarchical Bayes and Linear Pool (Merkatas et al. 2019)",
+     "tr": "16 ölçümden Newton çekim sabiti: Knapp–Hartung düzeltmeli DerSimonian–Laird, en çok olabilirlik, hiyerarşik Bayes ve doğrusal havuz (Merkatas vd. 2019)"
+    },
+    "description": {
+     "en": "The data of Koepke et al. (2017) with JILA-10 corrected (6.672 60 ± 0.000 25) and the two HUST results of 2018 (time-of-swing and angular-acceleration-feedback). Merkatas et al. compare fourteen procedures; four of them are implemented in the program.",
+     "tr": "Koepke vd. (2017) verileri; JILA-10 düzeltilmiş (6,672 60 ± 0,000 25) ve 2018'deki iki HUST sonucu (salınım süresi ve açısal ivme geri beslemesi) eklenmiştir. Merkatas vd. on dört yöntemi karşılaştırır; bunların dördü programda vardır."
+    },
+    "explanation": [
+     {
+      "en": "DL (Table 4): DerSimonian–Laird with the Knapp–Hartung standard uncertainty and t₁₅ interval: 6.673 99, u 0.000 25, (6.673 46, 6.674 53), τ 0.000 56.",
+      "tr": "DL (Tablo 4): Knapp–Hartung standart belirsizliği ve t₁₅ aralığıyla DerSimonian–Laird: 6,673 99, u 0,000 25, (6,673 46, 6,674 53), τ 0,000 56."
+     },
+     {
+      "en": "ML: Gaussian maximum likelihood, 6.673 90, u 0.000 25, τ 0.000 91; the moment estimate of DL gives a markedly smaller τ.",
+      "tr": "ML: normal en çok olabilirlik, 6,673 90, u 0,000 25, τ 0,000 91; DL'nin moment kestirimi belirgin biçimde daha küçük bir τ verir."
+     },
+     {
+      "en": "BG: the NICOB hierarchical model (MCMC in the paper, exact grid here): 6.673 89, u 0.000 27, (6.673 33, 6.674 42), posterior median of τ 0.000 95.",
+      "tr": "BG: NICOB hiyerarşik modeli (makalede MCMC, burada kesin ızgara): 6,673 89, u 0,000 27, (6,673 33, 6,674 42), τ'nun sonsal ortancası 0,000 95."
+     },
+     {
+      "en": "LOP: Linear Pool, 6.673 77, u 0.001 17, (6.671 27, 6.675 77). The spread of the four consensus values (0.000 22) is comparable to their standard uncertainties: the choice of procedure is itself a source of uncertainty.",
+      "tr": "LOP: doğrusal havuz, 6,673 77, u 0,001 17, (6,671 27, 6,675 77). Dört uzlaşı değerinin yayılımı (0,000 22) standart belirsizlikleriyle karşılaştırılabilir: yöntem seçimi kendisi bir belirsizlik kaynağıdır."
+     }
+    ],
+    "tags": [
+     "merkatas-2019",
+     "nicob",
+     "consensus",
+     "dark-uncertainty",
+     "dersimonian-laird",
+     "knapp-hartung",
+     "maximum-likelihood",
+     "bayes",
+     "linear-pool",
+     "newtonian-constant"
+    ],
+    "notes": [
+     {
+      "en": "Not implemented: Birge's multiplicative models (BRE, BRM, BRQ), the CODATA expansion (MTE), Mandel–Paule, REML, Student-t effects, the Laplace model of the paper (Laplace effects and errors), and the Bayesian mixture model (BMM).",
+      "tr": "Uygulanmayanlar: Birge çarpımsal modelleri (BRE, BRM, BRQ), CODATA genişletmesi (MTE), Mandel–Paule, REML, Student-t etkileri, makalenin Laplace modeli (Laplace etkileri ve hataları) ve Bayesçi karışım modeli (BMM)."
+     }
+    ],
+    "sources": [
+     {
+      "document": "Merkatas, Toman, Possolo & Schlamminger, Shades of dark uncertainty and consensus value for the Newtonian constant of gravitation, Metrologia 56 (2019) 054001",
+      "section": "Tables 1 and 4",
+      "url": "https://doi.org/10.1088/1681-7575/ab3365"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "G",
+    "unit": "10⁻¹¹ m³ kg⁻¹ s⁻²",
+    "results": [
+     {
+      "name": "NIST-82",
+      "value": 6.67248,
+      "u": 0.00043
+     },
+     {
+      "name": "TR&D-96",
+      "value": 6.6729,
+      "u": 0.0005
+     },
+     {
+      "name": "LANL-97",
+      "value": 6.67398,
+      "u": 0.0007
+     },
+     {
+      "name": "UWash-00",
+      "value": 6.674255,
+      "u": 0.000092
+     },
+     {
+      "name": "BIPM-01",
+      "value": 6.67559,
+      "u": 0.00027
+     },
+     {
+      "name": "UWup-02",
+      "value": 6.67422,
+      "u": 0.00098
+     },
+     {
+      "name": "MSL-03",
+      "value": 6.67387,
+      "u": 0.00027
+     },
+     {
+      "name": "HUST-05",
+      "value": 6.67222,
+      "u": 0.00087
+     },
+     {
+      "name": "UZur-06",
+      "value": 6.67425,
+      "u": 0.00012
+     },
+     {
+      "name": "HUST-09",
+      "value": 6.67349,
+      "u": 0.00018
+     },
+     {
+      "name": "JILA-10",
+      "value": 6.6726,
+      "u": 0.00025
+     },
+     {
+      "name": "BIPM-14",
+      "value": 6.67554,
+      "u": 0.00016
+     },
+     {
+      "name": "LENS-14",
+      "value": 6.67191,
+      "u": 0.00099
+     },
+     {
+      "name": "UCI-14",
+      "value": 6.67435,
+      "u": 0.00013
+     },
+     {
+      "name": "HUST-TOS-18",
+      "value": 6.674184,
+      "u": 0.000078
+     },
+     {
+      "name": "HUST-AAF-18",
+      "value": 6.674484,
+      "u": 0.000078
+     }
+    ],
+    "linear_pool": true,
+    "maximum_likelihood": true,
+    "bayes": {},
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "mean": {
+      "value": 6.67399,
+      "tolerance": 0.000006
+     },
+     "u_knapp_hartung": {
+      "value": 0.00025,
+      "tolerance": 0.000006
+     },
+     "tau": {
+      "value": 0.00056,
+      "tolerance": 0.000006
+     },
+     "ml_mean": {
+      "value": 6.6739,
+      "tolerance": 0.000006
+     },
+     "ml_u": {
+      "value": 0.00025,
+      "tolerance": 0.000006
+     },
+     "bayes_mean": {
+      "value": 6.67389,
+      "tolerance": 0.00001
+     },
+     "bayes_u": {
+      "value": 0.00027,
+      "tolerance": 0.000006
+     },
+     "bayes_lower": {
+      "value": 6.67333,
+      "tolerance": 0.00002
+     },
+     "bayes_upper": {
+      "value": 6.67442,
+      "tolerance": 0.00002
+     },
+     "bayes_tau_median": {
+      "value": 0.00095,
+      "tolerance": 0.00002
+     },
+     "linear_pool_mean": {
+      "value": 6.67377,
+      "tolerance": 0.000008
+     },
+     "linear_pool_u": {
+      "value": 0.00117,
+      "tolerance": 0.000008
+     },
+     "linear_pool_lower": {
+      "value": 6.67127,
+      "tolerance": 0.00003
+     },
+     "linear_pool_upper": {
+      "value": 6.67577,
+      "tolerance": 0.00003
+     }
+    },
+    "reference": {
+     "en": "Merkatas et al. (2019), Table 4, rows DL, ML, BG and LOP. ML u from the paper's table; BG and LOP from MCMC and Monte Carlo (tolerances: half a unit plus the sampling error of MCMC, about 3 × 10⁻⁶ for the mean and 10⁻⁵ for the limits; exact grid 6.673 896, 0.000 271, (6.673 342, 6.674 415), median τ 0.000 936).",
+     "tr": "Merkatas vd. (2019), Tablo 4, DL, ML, BG ve LOP satırları. BG ve LOP MCMC ve Monte Carlo'dan (toleranslar: yarım birim artı MCMC örnekleme hatası, ortalama için yaklaşık 3 × 10⁻⁶, sınırlar için 10⁻⁵; kesin ızgara 6,673 896, 0,000 271, (6,673 342, 6,674 415), τ ortancası 0,000 936)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json",
   "project": {
    "format": "uncertainty-calculations/project",

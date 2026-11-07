@@ -71,7 +71,7 @@ Key to the columns:
 
 | File | Status | Use | Order |
 |---|---|---|---|
-| 50 NIST Consensus Builder manual; 52 Koepke 2017; 54 Toman & Elster 2013; 51 Thompson & Ellison 2011; 55 Merkatas 2019; 53 Possolo 2023 | **50, 52 done** (D66, F93); 51, 53–55 to read | consensus value module (DerSimonian–Laird, hierarchical Bayes, linear pool); PT and key comparisons | 4 |
+| 50 NIST Consensus Builder manual; 52 Koepke 2017; 54 Toman & Elster 2013; 51 Thompson & Ellison 2011; 55 Merkatas 2019; 53 Possolo 2023 | **done** (D66–D68, F93; 55 Merkatas in the library; 51, 53, 54 read: no reproducible data set) | consensus value module (DerSimonian–Laird, hierarchical Bayes, linear pool); PT and key comparisons | 4 |
 
 ## Other topics
 

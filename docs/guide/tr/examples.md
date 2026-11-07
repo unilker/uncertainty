@@ -8,7 +8,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Genel (yöntem doğrulama) (21)
 - Uzunluk (12)
 - Kütle (29)
-- Fiziksel özellikler (14)
+- Fiziksel özellikler (15)
 - Basınç (6)
 - Sıcaklık (10)
 
@@ -5915,6 +5915,35 @@ CODATA 2014 düzeltmesinde kullanılan 14 G ölçümü birbiriyle tutarsızdır 
 - NIST-82 ile LANL-97 (0,351) ve HUST-05 ile HUST-09 (0,134) arasındaki korelasyonlar, Tablo 2'nin DerSimonian–Laird satırında olduğu gibi göz ardı edilir.
 
 **Çalıştırma:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang tr`
+
+### 16 ölçümden Newton çekim sabiti: Knapp–Hartung düzeltmeli DerSimonian–Laird, en çok olabilirlik, hiyerarşik Bayes ve doğrusal havuz (Merkatas vd. 2019)
+
+`merkatas2019-newtonian-constant-g-shades` — Merkatas, Tables 1 and 4
+
+Koepke vd. (2017) verileri; JILA-10 düzeltilmiş (6,672 60 ± 0,000 25) ve 2018'deki iki HUST sonucu (salınım süresi ve açısal ivme geri beslemesi) eklenmiştir. Merkatas vd. on dört yöntemi karşılaştırır; bunların dördü programda vardır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. DL (Tablo 4): Knapp–Hartung standart belirsizliği ve t₁₅ aralığıyla DerSimonian–Laird: 6,673 99, u 0,000 25, (6,673 46, 6,674 53), τ 0,000 56.
+2. ML: normal en çok olabilirlik, 6,673 90, u 0,000 25, τ 0,000 91; DL'nin moment kestirimi belirgin biçimde daha küçük bir τ verir.
+3. BG: NICOB hiyerarşik modeli (makalede MCMC, burada kesin ızgara): 6,673 89, u 0,000 27, (6,673 33, 6,674 42), τ'nun sonsal ortancası 0,000 95.
+4. LOP: doğrusal havuz, 6,673 77, u 0,001 17, (6,671 27, 6,675 77). Dört uzlaşı değerinin yayılımı (0,000 22) standart belirsizlikleriyle karşılaştırılabilir: yöntem seçimi kendisi bir belirsizlik kaynağıdır.
+
+**Sonuç:**
+
+- G: uzlaşı değeri 6,673993 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00016 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,673664, 6,674324] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,00056 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran Q = 197,7, serbestlik derecesi 15
+- G: 6,673773 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,0012 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,671276, 6,675763] 10⁻¹¹ m³ kg⁻¹ s⁻² (doğrusal havuz)
+- G: 6,673896 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00027 10⁻¹¹ m³ kg⁻¹ s⁻², %95 inanılırlık aralığı [6,673342, 6,674415] 10⁻¹¹ m³ kg⁻¹ s⁻²; τ'nun sonsal ortancası 0,00094 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
+- G: 6,673900 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00025 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0,00091 ± 0,00020 10⁻¹¹ m³ kg⁻¹ s⁻² (en çok olabilirlik)
+
+**Notlar:**
+
+- Uygulanmayanlar: Birge çarpımsal modelleri (BRE, BRM, BRQ), CODATA genişletmesi (MTE), Mandel–Paule, REML, Student-t etkileri, makalenin Laplace modeli (Laplace etkileri ve hataları) ve Bayesçi karışım modeli (BMM).
+
+**Çalıştırma:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang tr`
 
 ### Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13)
 

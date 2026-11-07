@@ -10,8 +10,8 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **274** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **201** Rust testi (bunlardan biri 274 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **275** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **201** Rust testi (bunlardan biri 275 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
 | Araştırma günlüğü | oturum 1–21, kararlar D1–D70, bulgular F1–F97 (dizin: `findings-index.md`) |

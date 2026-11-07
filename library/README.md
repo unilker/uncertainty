@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**274 examples / örnek** (135 model, 39 top-down, 9 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 24 conformity assessment / uygunluk değerlendirmesi).
+**275 examples / örnek** (135 model, 39 top-down, 9 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 25 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -393,6 +393,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`koepke2017-half-life-cs137`](physical/koepke2017-half-life-cs137.json) | Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | ¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.2, Tables 3 and 4 |
 | [`koepke2017-half-life-sr90`](physical/koepke2017-half-life-sr90.json) | Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | ⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.2, Tables 3 and 4 |
 | [`koepke2017-newtonian-constant-g`](physical/koepke2017-newtonian-constant-g.json) | Newtonian constant of gravitation: consensus value of 14 measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017) | Newton çekim sabiti: 14 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017) | Koepke §7.1, Tables 1 and 2 |
+| [`merkatas2019-newtonian-constant-g-shades`](physical/merkatas2019-newtonian-constant-g-shades.json) | Newtonian constant of gravitation from 16 measurements: DerSimonian–Laird with Knapp–Hartung, maximum likelihood, hierarchical Bayes and Linear Pool (Merkatas et al. 2019) | 16 ölçümden Newton çekim sabiti: Knapp–Hartung düzeltmeli DerSimonian–Laird, en çok olabilirlik, hiyerarşik Bayes ve doğrusal havuz (Merkatas vd. 2019) | Merkatas Tables 1 and 4 |
 | [`possolo-meija-2022-hubble-lemaitre-constant-laplace`](physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json) | Hubble–Lemaître constant from 22 mutually inconsistent estimates: Bayesian consensus with Laplace effects (Possolo & Meija 2022) | Birbiriyle tutarsız 22 kestirimden Hubble–Lemaître sabiti: Laplace etkili Bayesçi uzlaşı (Possolo & Meija 2022) | Possolo & Meija Consensus Building, Hubble-Lemaître Constant, pp. 146–151 |
 
 ## Pressure / Basınç

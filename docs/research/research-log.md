@@ -3118,3 +3118,21 @@ budgets recomputed from their inputs by validated software.
   second-order check of JCGM 100 Amd.1 (D56) already flags non-additivity. For the article's related work.
 - *Possolo 2019* (asymmetric uncertainties): symmetrisation of asymmetric results (Audi et al.) and the ozone
   cross-section; outlook, together with bounded results (F97 item 6).
+
+## 2026-11-07 (session 21, continued) — Merkatas et al. 2019; Possolo 2023; Thompson & Ellison 2011; Toman & Elster 2013
+
+- *Merkatas et al. 2019* (shades of dark uncertainty, G): Table 1 (16 values: Koepke's 14 with JILA-10 corrected
+  to 6.672 60(25), and HUST-TOS-18, HUST-AAF-18) and four rows of Table 4 reproduced in the library project
+  `merkatas2019-newtonian-constant-g-shades`: DL with Knapp–Hartung 6.673 99, u 0.000 25, τ 0.000 56; ML 6.673 90,
+  u 0.000 25, τ 0.000 91; BG (NICOB Bayes) 6.673 89, u 0.000 27, (6.673 33, 6.674 42), median τ 0.000 95 (grid
+  6.673 896, 0.000 271, (6.673 342, 6.674 415), 0.000 936); LOP 6.673 77, 0.001 17, (6.671 27, 6.675 77).
+  The other ten procedures of the table (Birge, CODATA expansion, Mandel–Paule, REML, Student t, Laplace effects
+  and errors, mixture model) are not in the program. For the article: on the same data the consensus values of
+  the fourteen procedures span 6.673 77–6.674 29 and their uncertainties 0.000 11–0.001 17, a factor of ten; the
+  procedure is part of the measurement model (Merkatas et al.; Koepke et al.).
+- *Possolo 2023* (reproducibility challenge): SiO₂ in granite G-1, 34 results without uncertainties (Fairbairn
+  1951), consensus by Rukhin's weights; the program needs u_j. Outlook.
+- *Thompson & Ellison 2011* (dark uncertainty, Accred. Qual. Assur.): the concept and its size in proficiency
+  tests; no data set. Glossary and article introduction.
+- *Toman & Elster 2013* (key comparison analysis): Bayesian treatment of key comparisons with a
+  reference-value prior; no reproducible data set in the text. Outlook.
