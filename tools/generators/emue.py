@@ -216,3 +216,44 @@ for corr in (True, False):
                                      "EMUE E2.2.7: u(p_std) = 0,90 Pa, u(p_UUC) = 0,51 Pa; u(Δp) korelasyonsuz 1,14 Pa, korelasyonla 0,91 Pa; p_c = 0,67 ve 0,75.")}}
     Path(f"library/pressure/emue-e2.2-vacuum-gauge-sum-model-{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("wrote", f"emue-e2.2-vacuum-gauge-sum-model-{slug}")
+
+# --- E3.8: NH₃ in N₂ by permeation (ISO 6145-10), amount fraction of ammonia ---------------------------
+AW38 = {"H": (1.00784, 1.00811), "C": (12.0096, 12.0116), "N": (14.00643, 14.00728), "O": (15.99903, 15.99977)}
+IMP38 = [("Ar", 5e-6, 3e-6), ("CH4", 8e-9, 5e-9), ("CO", 1.5e-8, 9e-9), ("CO2", 1e-8, 6e-9), ("H2", 2.5e-8, 1.5e-8), ("H2O", 1e-8, 6e-9), ("O2", 5e-9, 3e-9)]
+F38 = {"NH3": "A_N + 3*A_H", "H2O": "A_H*2 + A_O", "Ar": "A_Ar", "CH4": "A_C + 4*A_H", "CO": "A_C + A_O", "CO2": "A_C + 2*A_O", "H2": "2*A_H", "O2": "2*A_O", "N2": "2*A_N"}
+ins38 = [inp("q_m1", {"type": "normal", "mean": 13.599, "sd": 0.108}, "µg/min", "Permeation rate of the NH₃ tube at 62 °C (OLS slope of mass against time)", "62 °C'de NH₃ tüpünün permeasyon hızı (kütle–zaman doğrusunun EKK eğimi)"),
+         inp("q_m2", {"type": "normal", "mean": 0.3126, "sd": 0.0006}, "g/min", "Mass flow of the nitrogen carrier gas (thermal MFC, 250 mL/min)", "Azot taşıyıcı gazın kütle akışı (termal MFC, 250 mL/min)"),
+         inp("x_w1", {"type": "normal", "mean": 0.010, "sd": 0.002}, "mol/mol", "Water in the ammonia (parent 1); x(NH₃) = 1 − x_w1", "Amonyaktaki su (ana gaz 1); x(NH₃) = 1 − x_w1")]
+ins38 += [inp(f"A_{e}", {"type": "rectangular", "lower": a, "upper": b}, None, f"Standard atomic weight of {e}", f"{e} standart atom ağırlığı") for e, (a, b) in AW38.items()]
+ins38 += [inp("A_Ar", {"type": "rectangular", "value": 39.948, "half_width": 0.001}, None, "Standard atomic weight of Ar (IUPAC 2013, 39.948 ± 0.001, as in Table E3.8.4)", "Ar standart atom ağırlığı (IUPAC 2013, 39,948 ± 0,001, Tablo E3.8.4'teki gibi)")]
+ins38 += [inp(f"x2_{k}", {"type": "normal", "mean": v * 1e6, "sd": s * 1e6}, "µmol/mol", f"{k} in the nitrogen (parent 2)", f"Azottaki {k} (ana gaz 2)") for k, v, s in IMP38]
+inter38 = [{"name": "M_NH3", "expression": F38["NH3"]}, {"name": "M_H2O", "expression": F38["H2O"]},
+           {"name": "M1", "expression": "(1 - x_w1)*M_NH3 + x_w1*M_H2O"},
+           {"name": "M2", "expression": "(1 - 1e-6*(" + " + ".join(f"x2_{k}" for k, _, _ in IMP38) + "))*(" + F38["N2"] + ") + 1e-6*(" + " + ".join(f"x2_{k}*({F38[k]})" for k, _, _ in IMP38) + ")"},
+           {"name": "n1", "expression": "1e-6*q_m1/M1"}, {"name": "n2", "expression": "q_m2/M2"}]
+p38 = {"format": "uncertainty-calculations/project", "version": 1,
+       "metadata": {"id": "emue-e3.8-ammonia-permeation", "field": "chemistry",
+                    "title": T("Calibration gas mixture of NH₃ in N₂ by permeation: amount fraction of ammonia (EMUE E3.8)",
+                               "Permeasyonla N₂ içinde NH₃ kalibrasyon gazı karışımı: amonyağın madde miktarı kesri (EMUE E3.8)"),
+                    "description": T("y = ṅ₁x₁/(ṅ₁ + ṅ₂) with ṅ_j = q_mj/M̄_j (E3.8.1): permeation rate from a magnetic suspension balance, carrier flow from a thermal mass flow controller, purities of both parent gases and molar masses from standard atomic weights.",
+                                     "y = ṅ₁x₁/(ṅ₁ + ṅ₂), ṅ_j = q_mj/M̄_j (E3.8.1): permeasyon hızı manyetik askılı teraziden, taşıyıcı akış termal kütle akış kontrolöründen, iki ana gazın saflıkları ve standart atom ağırlıklarından mol kütleleri."),
+                    "explanation": [
+                        T("The NH₃ tube loses 13.599 µg/min at 62 °C (OLS; errors-in-variables gives the same slope with u = 0.088 µg/min, the guide keeps OLS with 0.108 µg/min). The nitrogen flow is 0.3126 g/min with u_rel = 0.2 %.",
+                          "NH₃ tüpü 62 °C'de 13,599 µg/min kaybeder (EKK; değişkenlerde hata regresyonu aynı eğimi u = 0,088 µg/min ile verir, rehber EKK'yı 0,108 µg/min ile tutar). Azot akışı u_bağıl = %0,2 ile 0,3126 g/min'dir."),
+                        T("Molar masses of the parent gases M̄_j = Σx_ij M_i with M_i from the IUPAC intervals; they are correlated through the shared atomic weights (r(M̄₁, M̄₂) = 0.12), and x(NH₃) = 1 − x(H₂O) is correlated with M̄₁. The program obtains these correlations from the shared inputs.",
+                          "Ana gazların mol kütleleri M̄_j = Σx_ij M_i; M_i IUPAC aralıklarından; ortak atom ağırlıkları üzerinden ilişkilidirler (r(M̄₁, M̄₂) = 0,12); x(NH₃) = 1 − x(H₂O) de M̄₁ ile ilişkilidir. Program bu korelasyonları ortak girdilerden elde eder."),
+                        T("y(NH₃) = 70.80 µmol/mol, u = 0.60 µmol/mol (0.84 %), of which the permeation rate gives 88 % of the variance, the water in the ammonia 6 % and the carrier flow 5 %; (70.8 ± 1.2) µmol/mol with k = 2.",
+                          "y(NH₃) = 70,80 µmol/mol, u = 0,60 µmol/mol (%0,84); varyansın %88'i permeasyon hızından, %6'sı amonyaktaki sudan, %5'i taşıyıcı akıştan gelir; k = 2 ile (70,8 ± 1,2) µmol/mol.")],
+                    "sources": [{"document": DOC, "section": "Example E3.8, (E3.8.1)–(E3.8.4), Tables E3.8.3–E3.8.5", "url": URL}],
+                    "tags": ["emue", "gas-mixture", "permeation", "iso-6145", "molar-mass", "correlation", "intermediate-quantities"],
+                    "notes": [T("E3.8.5.2 gives E_A = 59.164 kJ/mol, k₀ = 43.069 µg/min and a temperature sensitivity of 4.81·10⁻⁷ µg min⁻¹ K⁻¹. From the two stated rates (7.4921 µg/min at 52.45 °C, 13.599 µg/min at 62.00 °C) E_A = 56.64 kJ/mol and k₀ = 9.1·10⁹ µg/min (k₀ must exceed the rate); dṁ/dT at 62 °C is 0.82 µg min⁻¹ K⁻¹, and the stated contribution of 0.0022 µg/min corresponds to this value with u(T) = 0.0027 K. The contribution is negligible here (research log F89).",
+                                "E3.8.5.2, E_A = 59,164 kJ/mol, k₀ = 43,069 µg/min ve 4,81·10⁻⁷ µg min⁻¹ K⁻¹ sıcaklık duyarlılığı verir. Belirtilen iki hızdan (52,45 °C'de 7,4921 µg/min, 62,00 °C'de 13,599 µg/min) E_A = 56,64 kJ/mol ve k₀ = 9,1·10⁹ µg/min çıkar (k₀ hızdan büyük olmalıdır); 62 °C'de dṁ/dT = 0,82 µg min⁻¹ K⁻¹'dir ve belirtilen 0,0022 µg/min katkısı bu değere u(T) = 0,0027 K ile karşılık gelir. Katkı burada ihmal edilebilir (araştırma günlüğü F89).")]},
+       "model": {"output": {"name": "y_NH3", "unit": "µmol/mol", "expression": "1e6*n1*(1 - x_w1)/(n1 + n2)", "description": T("Amount fraction of NH₃ in the mixture", "Karışımdaki NH₃ madde miktarı kesri")},
+                 "intermediates": inter38, "inputs": ins38},
+       "analysis": {"gum": {"coverage_factor": 2}, "mcm": {"trials": 1000000, "seed": 5, "interval": "symmetric"}},
+       "expected": {"gum": {"estimate": chk(70.796, 0.001), "standard_uncertainty": chk(0.598, 0.0015), "expanded_uncertainty": chk(1.2, 0.05)},
+                    "mcm": {"estimate": chk(70.796, 0.003), "standard_uncertainty": chk(0.598, 0.003)},
+                    "reference": T("EMUE E3.8.6 and Table E3.8.5: y(NH₃) = 7.08·10⁻⁵ mol/mol, u = 5.99·10⁻⁷ mol/mol; (70.8 ± 1.2) µmol/mol (k = 2).",
+                                   "EMUE E3.8.6 ve Tablo E3.8.5: y(NH₃) = 7,08·10⁻⁵ mol/mol, u = 5,99·10⁻⁷ mol/mol; (70,8 ± 1,2) µmol/mol (k = 2).")}}
+Path("library/chemistry/emue-e3.8-ammonia-permeation.json").write_text(json.dumps(p38, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote emue-e3.8-ammonia-permeation")

@@ -2695,3 +2695,32 @@ The library has 244 projects.
   (E1.1.7.2) also come from EMUE.
 - GUM-5 Example 1 therefore inherited the inconsistencies of F78 from its
   source; the article should cite both documents.
+
+**EMUE E3.8 (NH₃ in N₂ by permeation, ISO 6145-10).**
+
+- y(NH₃) = 70.796 µmol/mol with u = 0.598 µmol/mol reproduces Table E3.8.5
+  (7.08·10⁻⁵, 5.99·10⁻⁷), using the OLS u(ṁ) = 0.108 µg/min.
+- With the errors-in-variables u = 0.088 µg/min it would be 0.50 µmol/mol;
+  the guide argues that OLS is adequate but its OLS u is the larger one.
+- Library project: `emue-e3.8-ammonia-permeation`, a model with
+  intermediates for the molar masses of both parent gases. Script:
+  `tools/research/emue/e38_permeation.py`.
+
+**F89. EMUE E3.8 — Arrhenius parameters and notation (classes c and b; no
+effect on the result).**
+
+1. **Arrhenius parameters.** From the two rates stated in E3.8.5.2,
+   7.4921 µg/min at 52.45 °C and 13.599 µg/min at 62.00 °C,
+   E_A = R ln(ṁ₂/ṁ₁)/(1/T₁ − 1/T₂) = 56.64 kJ/mol and
+   k₀ = ṁ₁ exp(E_A/RT₁) = 9.1·10⁹ µg/min.
+   - The guide prints 59.164 kJ/mol and k₀ = 43.069 µg/min; k₀ below the
+     rates is impossible for ṁ = k₀ exp(−E_A/RT).
+   - The sensitivity coefficient at 62 °C is ṁE_A/(RT²) = 0.82 µg min⁻¹
+     K⁻¹; the guide prints 4.81·10⁻⁷ µg min⁻¹ K⁻¹.
+   - The stated contribution of 0.0022 µg/min matches 0.82 with
+     u(T) = 0.0027 K, so the printed coefficient and k₀ are slips.
+   - The contribution is negligible against u(ṁ) = 0.108 µg/min.
+2. **Notation (class b).** "M̄₁ = 17.040 63 g mol⁻¹ for ammonia and
+   M̄₁ = 28.013 77 g mol⁻¹ for nitrogen": the second is M̄₂.
+
+The library has 245 projects.

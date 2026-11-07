@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (117)
+- Kimya (118)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -92,6 +92,30 @@ u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/�
 - E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.
 
 **Çalıştırma:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang tr`
+
+### Permeasyonla N₂ içinde NH₃ kalibrasyon gazı karışımı: amonyağın madde miktarı kesri (EMUE E3.8)
+
+`emue-e3.8-ammonia-permeation` — EMPIR 17NRM05 EMUE, Example E3.8, (E3.8.1)–(E3.8.4), Tables E3.8.3–E3.8.5
+
+y = ṅ₁x₁/(ṅ₁ + ṅ₂), ṅ_j = q_mj/M̄_j (E3.8.1): permeasyon hızı manyetik askılı teraziden, taşıyıcı akış termal kütle akış kontrolöründen, iki ana gazın saflıkları ve standart atom ağırlıklarından mol kütleleri.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. NH₃ tüpü 62 °C'de 13,599 µg/min kaybeder (EKK; değişkenlerde hata regresyonu aynı eğimi u = 0,088 µg/min ile verir, rehber EKK'yı 0,108 µg/min ile tutar). Azot akışı u_bağıl = %0,2 ile 0,3126 g/min'dir.
+2. Ana gazların mol kütleleri M̄_j = Σx_ij M_i; M_i IUPAC aralıklarından; ortak atom ağırlıkları üzerinden ilişkilidirler (r(M̄₁, M̄₂) = 0,12); x(NH₃) = 1 − x(H₂O) de M̄₁ ile ilişkilidir. Program bu korelasyonları ortak girdilerden elde eder.
+3. y(NH₃) = 70,80 µmol/mol, u = 0,60 µmol/mol (%0,84); varyansın %88'i permeasyon hızından, %6'sı amonyaktaki sudan, %5'i taşıyıcı akıştan gelir; k = 2 ile (70,8 ± 1,2) µmol/mol.
+
+**Sonuç:**
+
+- y_NH3 = (70,8 ± 1,2) µmol/mol; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- E3.8.5.2, E_A = 59,164 kJ/mol, k₀ = 43,069 µg/min ve 4,81·10⁻⁷ µg min⁻¹ K⁻¹ sıcaklık duyarlılığı verir. Belirtilen iki hızdan (52,45 °C'de 7,4921 µg/min, 62,00 °C'de 13,599 µg/min) E_A = 56,64 kJ/mol ve k₀ = 9,1·10⁹ µg/min çıkar (k₀ hızdan büyük olmalıdır); 62 °C'de dṁ/dT = 0,82 µg min⁻¹ K⁻¹'dir ve belirtilen 0,0022 µg/min katkısı bu değere u(T) = 0,0027 K ile karşılık gelir. Katkı burada ihmal edilebilir (araştırma günlüğü F89).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.8-ammonia-permeation.json --lang tr`
 
 ### Paslanmaz çelikte nikel: iki taraflı şartnamede korumalı kabul (Eurachem/CITAC uygunluk rehberi, Örnek B1)
 
