@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**209 examples / örnek** (96 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
+**212 examples / örnek** (99 model, 38 top-down, 7 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 13 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 7 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -162,10 +162,13 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`gum-h2-impedance`](electrical/gum-h2-impedance.json) | Impedance magnitude from correlated V and I (GUM H.2) | Korelasyonlu V ve I'dan empedans büyüklüğü (GUM H.2) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
 | [`gum-h2-reactance`](electrical/gum-h2-reactance.json) | Reactance from correlated V, I and φ (GUM H.2) | Korelasyonlu V, I ve φ'den reaktans (GUM H.2) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
 | [`gum-h2-resistance`](electrical/gum-h2-resistance.json) | Resistance from correlated V, I and φ (GUM H.2) | Korelasyonlu V, I ve φ'den direnç (GUM H.2) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
+| [`jcgm101-9.4-comparison-loss-x000-correlated-higher-order`](electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json) | Comparison loss, x₁ = 0, r = 0.9, higher-order GUM terms for correlated inputs | Karşılaştırma kaybı, x₁ = 0, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x000-correlated`](electrical/jcgm101-9.4-comparison-loss-x000-correlated.json) | Comparison loss, x₁ = 0.0, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,0, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x000`](electrical/jcgm101-9.4-comparison-loss-x000.json) | Comparison loss, x₁ = 0.0 | Karşılaştırma kaybı, x₁ = 0,0 | JCGM 101:2008 9.4, Table 8 |
+| [`jcgm101-9.4-comparison-loss-x010-correlated-higher-order`](electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json) | Comparison loss, x₁ = 0.01, r = 0.9, higher-order GUM terms for correlated inputs | Karşılaştırma kaybı, x₁ = 0,01, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x010-correlated`](electrical/jcgm101-9.4-comparison-loss-x010-correlated.json) | Comparison loss, x₁ = 0.01, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,01, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x010`](electrical/jcgm101-9.4-comparison-loss-x010.json) | Comparison loss, x₁ = 0.01 | Karşılaştırma kaybı, x₁ = 0,01 | JCGM 101:2008 9.4, Table 8 |
+| [`jcgm101-9.4-comparison-loss-x050-correlated-higher-order`](electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json) | Comparison loss, x₁ = 0.05, r = 0.9, higher-order GUM terms for correlated inputs | Karşılaştırma kaybı, x₁ = 0,05, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x050-correlated`](electrical/jcgm101-9.4-comparison-loss-x050-correlated.json) | Comparison loss, x₁ = 0.05, r = 0.9 | Karşılaştırma kaybı, x₁ = 0,05, r = 0,9 | JCGM 101:2008 9.4, Table 9 |
 | [`jcgm101-9.4-comparison-loss-x050`](electrical/jcgm101-9.4-comparison-loss-x050.json) | Comparison loss, x₁ = 0.05 | Karşılaştırma kaybı, x₁ = 0,05 | JCGM 101:2008 9.4, Table 8 |
 | [`m3003-c5-dvm-dominant-rectangular`](electrical/m3003-c5-dvm-dominant-rectangular.json) | Digital voltmeter with a dominant resolution term (UKAS M3003 Appendix C) | Baskın çözünürlük terimli dijital voltmetre (UKAS M3003 Ek C) | UKAS M3003 ed. 6 (2024) Appendix C.5–C.10 |

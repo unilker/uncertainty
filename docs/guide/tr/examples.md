@@ -3,7 +3,7 @@
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
 - Kimya (94)
-- Elektrik ve RF (31)
+- Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (19)
 - Uzunluk (11)
@@ -2396,7 +2396,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 ### Karşılaştırma kaybı, x₁ = 0,0
 
-`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2418,7 +2418,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 ### Karşılaştırma kaybı, x₁ = 0,0, r = 0,9
 
-`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2437,9 +2437,31 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang tr`
 
+### Karşılaştırma kaybı, x₁ = 0, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
+
+`jcgm101-9.4-comparison-loss-x000-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
+2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
+3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
+4. GUM-5 Örnek 16 burada yalnızca birinci mertebe terimleri uygular, çünkü JCGM 100:2008 yüksek mertebe terimleri yalnızca bağımsız girdiler için verir. İki değişkenli normal girdiler için Taylor açılımı u²(δy) = cᵀΣc + ½tr((HΣ)²) verir; H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), yani u(δy) = 67,3·10⁻⁶ (Mana ve Pennecchi 2007).
+5. JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimiyle kestirim x₁² + 2u² = 50·10⁻⁶ olur. İkisi de GUM-5 Tablo 16.2'nin analitik A sütunuyla ve Monte Carlo sonucuyla uyuşur.
+
+**Sonuç:**
+
+- dY = (50 ± 850) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang tr`
+
 ### Karşılaştırma kaybı, x₁ = 0,01
 
-`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2461,7 +2483,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 ### Karşılaştırma kaybı, x₁ = 0,01, r = 0,9
 
-`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2480,9 +2502,31 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang tr`
 
+### Karşılaştırma kaybı, x₁ = 0,01, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
+
+`jcgm101-9.4-comparison-loss-x010-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
+2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
+3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
+4. GUM-5 Örnek 16 burada yalnızca birinci mertebe terimleri uygular, çünkü JCGM 100:2008 yüksek mertebe terimleri yalnızca bağımsız girdiler için verir. İki değişkenli normal girdiler için Taylor açılımı u²(δy) = cᵀΣc + ½tr((HΣ)²) verir; H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), yani u(δy) = 120,5·10⁻⁶ (Mana ve Pennecchi 2007).
+5. JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimiyle kestirim x₁² + 2u² = 150·10⁻⁶ olur. İkisi de GUM-5 Tablo 16.2'nin analitik A sütunuyla ve Monte Carlo sonucuyla uyuşur.
+
+**Sonuç:**
+
+- dY = (150 ± 240) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang tr`
+
 ### Karşılaştırma kaybı, x₁ = 0,05
 
-`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2504,7 +2548,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 ### Karşılaştırma kaybı, x₁ = 0,05, r = 0,9
 
-`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2522,6 +2566,28 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 - dY = (2500 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang tr`
+
+### Karşılaştırma kaybı, x₁ = 0,05, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
+
+`jcgm101-9.4-comparison-loss-x050-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
+2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
+3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
+4. GUM-5 Örnek 16 burada yalnızca birinci mertebe terimleri uygular, çünkü JCGM 100:2008 yüksek mertebe terimleri yalnızca bağımsız girdiler için verir. İki değişkenli normal girdiler için Taylor açılımı u²(δy) = cᵀΣc + ½tr((HΣ)²) verir; H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), yani u(δy) = 504,5·10⁻⁶ (Mana ve Pennecchi 2007).
+5. JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimiyle kestirim x₁² + 2u² = 2550·10⁻⁶ olur. İkisi de GUM-5 Tablo 16.2'nin analitik A sütunuyla ve Monte Carlo sonucuyla uyuşur.
+
+**Sonuç:**
+
+- dY = (2550 ± 990) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001 (JCGM 102 9.3)
 
@@ -4348,7 +4414,7 @@ EA-4/02 S2: OIML M1 sınıfı ağırlığın F2 standarda karşı kütle kompara
 
 ### Kütle kalibrasyonu (birinci mertebe GUM)
 
-`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7
+`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: 100 g'lık bir ağırlığın referans ağırlıkla karşılaştırılarak kalibrasyonu; birinci mertebe GUM ile MCM karşılaştırması.
 
@@ -4373,7 +4439,7 @@ JCGM 101 9.3: 100 g'lık bir ağırlığın referans ağırlıkla karşılaştı
 
 ### Kütle kalibrasyonu (ikinci mertebe terimli GUM)
 
-`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2
+`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: aynı model, GUM 5.1.2'nin yüksek mertebe terimleriyle değerlendirilmiştir.
 

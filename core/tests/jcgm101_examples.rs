@@ -296,8 +296,15 @@ fn comparison_loss_correlated() {
         let g = gum::evaluate(&model, &GumOptions::default()).unwrap();
         // First-order GUF is unaffected by the correlation because c2 = 0.
         close(g.combined_standard_uncertainty * 1e6, [0.0, 100.0, 500.0][i], 0.5, "GUF u");
-        // Higher-order GUF is refused for correlated inputs.
-        assert!(gum::evaluate(&model, &GumOptions { higher_order: true, ..Default::default() }).is_err());
+        // Higher-order GUF with correlated normal inputs [Mana & Pennecchi 2007]
+        // gives the analytic expectation and standard deviation of Table 16.2 of
+        // JCGM GUM-5:2026: 50/150/2550 and 2σ²√(1 + r²) = 67.3, 120.5, 504.5 (×10⁻⁶).
+        let g2 = gum::evaluate(&model, &GumOptions { higher_order: true, ..Default::default() }).unwrap();
+        let s2 = 0.005f64.powi(2);
+        let analytic_u = (4.0 * c.x1 * c.x1 * s2 + 4.0 * s2 * s2 * (1.0 + c.r * c.r)).sqrt();
+        close(g2.estimate * 1e6, c.x1 * c.x1 * 1e6 + 50.0, 1e-9, "GUF2 estimate (Amd.1)");
+        close(g2.combined_standard_uncertainty, analytic_u, 1e-15, "GUF2 u, correlated");
+        close(g2.combined_standard_uncertainty * 1e6, [67.0, 121.0, 505.0][i], 0.6, "GUM-5 Table 16.2, column A");
         check_loss_case(c, 30 + i as u64);
     }
 }

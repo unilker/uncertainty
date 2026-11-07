@@ -133,6 +133,17 @@ of u_c(y). For the comparison loss δY = X₁² + X₂² of JCGM 101 9.4 the cor
 (50·10⁻⁶ at x₁ = 0), where the first-order estimate 0 is invalid (JCGM 101 9.4.2.2.8). In GUM H.1 the term is zero,
 as Amd.1 states.
 
+**Correlated inputs.** The GUM gives the higher-order variance terms for independent inputs only, and GUM-5
+Example 16 therefore does not apply them to correlated reflection coefficients. For normally distributed inputs with
+covariance matrix Σ the same Taylor expansion gives
+
+$$u_c^2(y) = \mathbf c^\top\Sigma\,\mathbf c + \tfrac12\,\mathrm{tr}\big((H\Sigma)^2\big) + \sum_{i,j,k,l} c_l\,f_{ijk}\,\Sigma_{li}\,\Sigma_{jk}$$
+
+(Mana & Pennecchi, *Metrologia* 44 (2007) 246), with H the matrix of second derivatives and f_ijk the third
+derivatives. The program uses it whenever `"higher_order": true`; for independent inputs it reduces to the 5.1.2
+note. For the comparison loss with r = 0.9 it gives u = 67, 121 and 505·10⁻⁶ at x₁ = 0, 0.010 and 0.050, the
+analytic values of GUM-5 Table 16.2.
+
 ## 3.6 Degrees of freedom and the Welch–Satterthwaite formula
 
 The **effective degrees of freedom** of the combined standard uncertainty (GUM G.4.1, Eq. G.2b):

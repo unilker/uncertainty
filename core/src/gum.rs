@@ -2,8 +2,9 @@
 //!
 //! * Law of propagation of uncertainty, first order, with correlations
 //!   [GUM 5.1.2, 5.2.2, equations (10) and (13)].
-//! * Optional higher-order terms of the GUM 5.1.2 note (independent,
-//!   normally distributed inputs), and the second-order term of the estimate,
+//! * Optional higher-order terms of the GUM 5.1.2 note for normally
+//!   distributed inputs, extended to correlated inputs [Mana & Pennecchi,
+//!   Metrologia 44 (2007) 246], and the second-order term of the estimate,
 //!   ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) [GUM H.10; JCGM 100:2008/Amd.1:2026, note 1 to
 //!   4.1.4].
 //! * Effective degrees of freedom by the Welch–Satterthwaite formula
@@ -242,30 +243,56 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
 
     let mut higher_order_var = 0.0;
     if options.higher_order {
-        if model.has_correlations() {
-            return Err(UncError::Unsupported(
-                "the higher-order terms of GUM 5.1.2 note apply to independent inputs only; \
-                 use the Monte Carlo method for correlated inputs"
-                    .into(),
-            ));
-        }
         if model.inputs.iter().any(|q| !q.distribution.is_gaussian() && u_nonzero(q)) {
             warnings.push(GumWarning::HigherOrderNonGaussian);
         }
-        // Σ_i Σ_j [ ½ (∂²f/∂x_i∂x_j)² + ∂f/∂x_i ∂³f/∂x_i∂x_j² ] u²(x_i) u²(x_j)
-        for i in 0..n {
-            if u[i] == 0.0 {
+        // Second- and third-order Taylor terms for (multivariate) normal inputs
+        // with covariance matrix Σ [Mana & Pennecchi, Metrologia 44 (2007) 246]:
+        //   ½ Σ_ijkl f_ij f_kl Σ_jk Σ_li  +  Σ_ijkl c_l f_ijk Σ_li Σ_jk,
+        // which for independent inputs is the expression of the GUM 5.1.2 note,
+        // Σ_i Σ_j [½ f_ij² + c_i f_ijj] u²(x_i) u²(x_j).
+        let active: Vec<usize> = (0..n).filter(|&i| u[i] > 0.0).collect();
+        let cov = |i: usize, j: usize| -> f64 {
+            if i == j {
+                u[i] * u[i]
+            } else {
+                model.correlation[i][j] * u[i] * u[j]
+            }
+        };
+        let m = active.len();
+        let sigma: Vec<Vec<f64>> = active.iter().map(|&i| active.iter().map(|&j| cov(i, j)).collect()).collect();
+        let second_exprs: Vec<Vec<Expr>> =
+            active.iter().map(|&i| active.iter().map(|&j| first[i].diff(j)).collect()).collect();
+        let h: Vec<Vec<f64>> = second_exprs.iter().map(|row| row.iter().map(|e| e.eval(&x)).collect()).collect();
+        // ½ tr((HΣ)²)
+        let hs: Vec<Vec<f64>> =
+            (0..m).map(|a| (0..m).map(|b| (0..m).map(|k| h[a][k] * sigma[k][b]).sum()).collect()).collect();
+        let mut v2 = 0.0;
+        for a in 0..m {
+            for b in 0..m {
+                v2 += 0.5 * hs[a][b] * hs[b][a];
+            }
+        }
+        // Σ_l Σ_ijk c_l f_ijk Σ_li Σ_jk
+        let mut v3 = 0.0;
+        for i in 0..m {
+            let csig: f64 = (0..m).map(|l| c[active[l]] * sigma[l][i]).sum();
+            if csig == 0.0 {
                 continue;
             }
-            for j in 0..n {
-                if u[j] == 0.0 {
-                    continue;
+            for j in 0..m {
+                for k in 0..m {
+                    if sigma[j][k] == 0.0 {
+                        continue;
+                    }
+                    let fijk = second_exprs[i][j].diff(active[k]).eval(&x);
+                    v3 += csig * fijk * sigma[j][k];
                 }
-                let dij = first[i].diff(j);
-                let second = dij.eval(&x);
-                let third = dij.diff(j).eval(&x);
-                higher_order_var += (0.5 * second * second + c[i] * third) * u[i].powi(2) * u[j].powi(2);
             }
+        }
+        higher_order_var = v2 + v3;
+        if !higher_order_var.is_finite() {
+            return Err(UncError::ModelNotDefined("higher-order terms are not finite at the estimates".into()));
         }
     }
 

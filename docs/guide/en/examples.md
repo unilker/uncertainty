@@ -3,7 +3,7 @@
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
 - Chemistry (94)
-- Electrical and RF (31)
+- Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (19)
 - Length (11)
@@ -2396,7 +2396,7 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 ### Comparison loss, x₁ = 0.0
 
-`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2418,7 +2418,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 ### Comparison loss, x₁ = 0.0, r = 0.9
 
-`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2437,9 +2437,31 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang en`
 
+### Comparison loss, x₁ = 0, r = 0.9, higher-order GUM terms for correlated inputs
+
+`jcgm101-9.4-comparison-loss-x000-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
+2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
+3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
+4. GUM-5 Example 16 applies only first-order terms here, as JCGM 100:2008 gives the higher-order terms for independent inputs only. For bivariate normal inputs the Taylor expansion gives u²(δy) = cᵀΣc + ½tr((HΣ)²) with H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), i.e. u(δy) = 67.3·10⁻⁶ (Mana & Pennecchi 2007).
+5. The estimate with the second-order term of JCGM 100:2008/Amd.1:2026 is x₁² + 2u² = 50·10⁻⁶. Both agree with the analytic column A of GUM-5 Table 16.2 and with the Monte Carlo result.
+
+**Result:**
+
+- dY = (50 ± 850) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang en`
+
 ### Comparison loss, x₁ = 0.01
 
-`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2461,7 +2483,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 ### Comparison loss, x₁ = 0.01, r = 0.9
 
-`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2480,9 +2502,31 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang en`
 
+### Comparison loss, x₁ = 0.01, r = 0.9, higher-order GUM terms for correlated inputs
+
+`jcgm101-9.4-comparison-loss-x010-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
+2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
+3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
+4. GUM-5 Example 16 applies only first-order terms here, as JCGM 100:2008 gives the higher-order terms for independent inputs only. For bivariate normal inputs the Taylor expansion gives u²(δy) = cᵀΣc + ½tr((HΣ)²) with H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), i.e. u(δy) = 120.5·10⁻⁶ (Mana & Pennecchi 2007).
+5. The estimate with the second-order term of JCGM 100:2008/Amd.1:2026 is x₁² + 2u² = 150·10⁻⁶. Both agree with the analytic column A of GUM-5 Table 16.2 and with the Monte Carlo result.
+
+**Result:**
+
+- dY = (150 ± 240) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang en`
+
 ### Comparison loss, x₁ = 0.05
 
-`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2504,7 +2548,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 ### Comparison loss, x₁ = 0.05, r = 0.9
 
-`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2522,6 +2566,28 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 - dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang en`
+
+### Comparison loss, x₁ = 0.05, r = 0.9, higher-order GUM terms for correlated inputs
+
+`jcgm101-9.4-comparison-loss-x050-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
+2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
+3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
+4. GUM-5 Example 16 applies only first-order terms here, as JCGM 100:2008 gives the higher-order terms for independent inputs only. For bivariate normal inputs the Taylor expansion gives u²(δy) = cᵀΣc + ½tr((HΣ)²) with H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), i.e. u(δy) = 504.5·10⁻⁶ (Mana & Pennecchi 2007).
+5. The estimate with the second-order term of JCGM 100:2008/Amd.1:2026 is x₁² + 2u² = 2550·10⁻⁶. Both agree with the analytic column A of GUM-5 Table 16.2 and with the Monte Carlo result.
+
+**Result:**
+
+- dY = (2550 ± 990) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+
+**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.001 (JCGM 102 9.3)
 
@@ -4348,7 +4414,7 @@ EA-4/02 S2: OIML class M1 weight calibrated against an F2 standard with a mass c
 
 ### Mass calibration (first-order GUM)
 
-`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7
+`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weight; first-order GUM vs MCM.
 
@@ -4373,7 +4439,7 @@ JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weigh
 
 ### Mass calibration (GUM with second-order terms)
 
-`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2
+`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.
 

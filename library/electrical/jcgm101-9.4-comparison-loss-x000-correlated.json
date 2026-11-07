@@ -35,6 +35,11 @@
         "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
         "section": "9.4, Table 9",
         "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      },
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 16, Table 16.2",
+        "url": "https://doi.org/10.59161/YNLY8209"
       }
     ],
     "tags": [

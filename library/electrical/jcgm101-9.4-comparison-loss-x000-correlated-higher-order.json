@@ -1,0 +1,152 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "jcgm101-9.4-comparison-loss-x000-correlated-higher-order",
+    "title": {
+      "en": "Comparison loss, x₁ = 0, r = 0.9, higher-order GUM terms for correlated inputs",
+      "tr": "Karşılaştırma kaybı, x₁ = 0, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri"
+    },
+    "description": {
+      "en": "JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).",
+      "tr": "JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde)."
+    },
+    "explanation": [
+      {
+        "en": "The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.",
+        "tr": "Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir."
+      },
+      {
+        "en": "Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.",
+        "tr": "∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir."
+      },
+      {
+        "en": "Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.",
+        "tr": "Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır."
+      },
+      {
+        "en": "GUM-5 Example 16 applies only first-order terms here, as JCGM 100:2008 gives the higher-order terms for independent inputs only. For bivariate normal inputs the Taylor expansion gives u²(δy) = cᵀΣc + ½tr((HΣ)²) with H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), i.e. u(δy) = 67.3·10⁻⁶ (Mana & Pennecchi 2007).",
+        "tr": "GUM-5 Örnek 16 burada yalnızca birinci mertebe terimleri uygular, çünkü JCGM 100:2008 yüksek mertebe terimleri yalnızca bağımsız girdiler için verir. İki değişkenli normal girdiler için Taylor açılımı u²(δy) = cᵀΣc + ½tr((HΣ)²) verir; H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), yani u(δy) = 67,3·10⁻⁶ (Mana ve Pennecchi 2007)."
+      },
+      {
+        "en": "The estimate with the second-order term of JCGM 100:2008/Amd.1:2026 is x₁² + 2u² = 50·10⁻⁶. Both agree with the analytic column A of GUM-5 Table 16.2 and with the Monte Carlo result.",
+        "tr": "JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimiyle kestirim x₁² + 2u² = 50·10⁻⁶ olur. İkisi de GUM-5 Tablo 16.2'nin analitik A sütunuyla ve Monte Carlo sonucuyla uyuşur."
+      }
+    ],
+    "field": "electrical",
+    "sources": [
+      {
+        "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
+        "section": "9.4, Table 9",
+        "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      },
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 16, Table 16.2",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      },
+      {
+        "document": "G. Mana, F. Pennecchi, Uncertainty propagation in non-linear measurement equations, Metrologia 44 (2007) 246–251",
+        "section": "higher-order terms for correlated inputs",
+        "url": "https://doi.org/10.1088/0026-1394/44/3/012"
+      }
+    ],
+    "tags": [
+      "asymmetric",
+      "correlation",
+      "gum-5",
+      "higher-order",
+      "jcgm101",
+      "non-linear",
+      "validation"
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "dY",
+      "unit": "10⁻⁶",
+      "expression": "1e6 * (X1^2 + X2^2)",
+      "description": {
+        "en": "Comparison loss",
+        "tr": "Karşılaştırma kaybı"
+      }
+    },
+    "inputs": [
+      {
+        "name": "X1",
+        "description": {
+          "en": "Real part of the reflection coefficient",
+          "tr": "Yansıma katsayısının gerçel kısmı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.005
+        }
+      },
+      {
+        "name": "X2",
+        "description": {
+          "en": "Imaginary part of the reflection coefficient",
+          "tr": "Yansıma katsayısının sanal kısmı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.005
+        }
+      }
+    ],
+    "correlations": [
+      {
+        "a": "X1",
+        "b": "X2",
+        "r": 0.9
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "higher_order": true
+    },
+    "mcm": {
+      "trials": 2000000,
+      "seed": 30,
+      "coverage_probability": 0.95
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 50.0,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 67.2681,
+        "tolerance": 0.001
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 50.006,
+        "tolerance": 0.2
+      },
+      "standard_uncertainty": {
+        "value": 67.278,
+        "tolerance": 0.45
+      },
+      "interval_low": {
+        "value": 0.0,
+        "tolerance": 0.001
+      },
+      "interval_high": {
+        "value": 185.095,
+        "tolerance": 1.1
+      }
+    },
+    "reference": {
+      "en": "Analytic expectation and standard deviation of δY for bivariate normal inputs (GUM-5 Table 16.2, column A: 50, 67·10⁻⁶); MCM as in the first-order project.",
+      "tr": "İki değişkenli normal girdiler için δY'nin analitik beklenen değeri ve standart sapması (GUM-5 Tablo 16.2, A sütunu: 50, 67·10⁻⁶); MCM birinci mertebe projedeki gibi."
+    }
+  }
+}

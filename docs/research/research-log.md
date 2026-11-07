@@ -2025,3 +2025,37 @@ Effect on the library:
   Their printed results are first-order, so the expected values do not
   change.
 
+**D57. Higher-order terms for correlated inputs.**
+
+- JCGM 100:2008 gives the variance terms of the 5.1.2 note for independent
+  inputs only. The program refused `higher_order` with correlations, and
+  GUM-5 Example 16 (16.4.1.1) does not apply GUF2 to the correlated
+  reflection coefficients for the same reason, while noting that the
+  calculation is possible [85].
+- For normal inputs with covariance matrix Σ the expansion to third order
+  gives u² = cᵀΣc + ½tr((HΣ)²) + Σ c_l f_ijk Σ_li Σ_jk (Mana & Pennecchi,
+  *Metrologia* 44 (2007) 246). For independent inputs this is the 5.1.2
+  note.
+- The program now uses it. For the comparison loss with r = 0.9 it gives
+  u = 67.27, 120.52 and 504.50·10⁻⁶. These are exactly the analytic values
+  of column A of GUM-5 Table 16.2 (67, 121, 505) and agree with MCM (67, 121,
+  504). Three new projects
+  `jcgm101-9.4-comparison-loss-x0n0-correlated-higher-order` check them.
+
+**GUM-5:2026, Examples 7 and 16** reproduce here without change:
+
+- **Example 7**, mass calibration, Table 7.2: GUF1 1.2340, 0.0539,
+  [1.1285, 1.3395] mg; GUF2 0.0750, [1.0870, 1.3810] mg; MCM 0.0755 mg; the
+  estimate term is 0.
+- **Example 16**, Table 16.1: GUF2 estimates 50/150/2550·10⁻⁶, as with D56,
+  and the GUF2 intervals [−48, 148], [−70, 370], [1566, 3534]. The program
+  gives [−48, 148], [−69, 369], [1565, 3535]; the guide rounds u to
+  112·10⁻⁶ and 502·10⁻⁶ before multiplying by 1.96.
+- GUM-5 calls the use of the first-order estimate with the 5.1.2 variance
+  terms "inconsistent working" (7.3.2). It states that the effect of
+  higher-order terms on the estimate "is not taken into account in
+  JCGM 100:2008" (16.3.1.5), which Amd.1 corrects.
+
+GUM-5 is added as a source of the JCGM 101 9.3 and 9.4 projects. The library
+has 212 projects.
+

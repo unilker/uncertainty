@@ -128,6 +128,17 @@ düzeltilmiş kestirime ortalar. Seçenek kapalıyken terim u_c(y)'nin onda biri
 karşılaştırma kaybı δY = X₁² + X₂² için düzeltilmiş kestirim analitik ortalamaya eşittir (x₁ = 0'da 50·10⁻⁶); birinci
 mertebe kestirim 0 ise geçersizdir (JCGM 101 9.4.2.2.8). GUM H.1'de terim, Amd.1'in belirttiği gibi sıfırdır.
 
+**İlişkili girdiler.** GUM yüksek mertebe varyans terimlerini yalnızca bağımsız girdiler için verir; bu nedenle GUM-5
+Örnek 16 ilişkili yansıma katsayılarına bunları uygulamaz. Kovaryans matrisi Σ olan normal dağılımlı girdiler için
+aynı Taylor açılımı şunu verir:
+
+$$u_c^2(y) = \mathbf c^\top\Sigma\,\mathbf c + \tfrac12\,\mathrm{tr}\big((H\Sigma)^2\big) + \sum_{i,j,k,l} c_l\,f_{ijk}\,\Sigma_{li}\,\Sigma_{jk}$$
+
+(Mana ve Pennecchi, *Metrologia* 44 (2007) 246). Burada H ikinci türevler matrisi, f_ijk ise üçüncü türevlerdir.
+Program bunu `"higher_order": true` olduğunda her zaman kullanır; bağımsız girdilerde 5.1.2 notuna indirgenir.
+r = 0,9 olan karşılaştırma kaybı için x₁ = 0, 0,010 ve 0,050'de u = 67, 121 ve 505·10⁻⁶ verir; bunlar GUM-5
+Tablo 16.2'nin analitik değerleridir.
+
 ## 3.6 Serbestlik dereceleri ve Welch–Satterthwaite formülü
 
 Birleşik standart belirsizliğin **etkin serbestlik derecesi** (GUM G.4.1, Eş. G.2b):
