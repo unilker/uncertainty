@@ -14,6 +14,7 @@
 pub mod calibration;
 pub mod conformity;
 pub mod interlab;
+pub mod multiconformity;
 pub mod multivariate;
 pub mod proficiency;
 pub mod qc;
@@ -105,6 +106,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
         p.control_chart.is_some(),
         p.sampling.is_some(),
         p.error_function.is_some(),
+        p.multicomponent_conformity.is_some(),
     ]
     .iter()
     .filter(|&&b| b)
@@ -112,7 +114,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
     if primary > 1 || (primary == 0 && p.conformity.is_none()) {
         return Err(ProjectError::Format(
             "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\", \
-             \"precision_experiment\", \"multivariate\", \"control_chart\", \"sampling\", \"error_function\" and \"conformity\" (which may also accompany \"model\")"
+             \"precision_experiment\", \"multivariate\", \"control_chart\", \"sampling\", \"error_function\", \"multicomponent_conformity\" and \"conformity\" (which may also accompany \"model\")"
                 .into(),
         ));
     }
@@ -283,6 +285,8 @@ pub enum Evaluation {
     Sampling(Box<sampling::SamplingAnalysis>),
     /// Error approximation function of a weighing instrument (EURAMET cg-18).
     ErrorFunction(Box<weighing::ErrorFunctionAnalysis>),
+    /// Total risks for an item with several correlated properties (EMUE E2.1).
+    Multicomponent(Box<multiconformity::MulticomponentAnalysis>),
 }
 
 impl Evaluation {
@@ -361,6 +365,9 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     }
     if let Some(spec) = &p.sampling {
         return Ok(Evaluation::Sampling(Box::new(sampling::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.multicomponent_conformity {
+        return Ok(Evaluation::Multicomponent(Box::new(multiconformity::evaluate(spec)?)));
     }
     if let Some(spec) = &p.error_function {
         return Ok(Evaluation::ErrorFunction(Box::new(weighing::evaluate(spec)?)));
@@ -524,6 +531,13 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             }
             out
         }
+        Evaluation::Multicomponent(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.multicomponent_conformity.as_ref()) {
+                multiconformity::check(exp, a, &mut out);
+            }
+            out
+        }
     }
 }
 
@@ -683,6 +697,15 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "project": project,
                 "output": { "name": a.instrument, "unit": a.error_unit },
                 "error_function": weighing::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::Multicomponent(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.names.join(", "), "unit": a.unit },
+                "multicomponent_conformity": multiconformity::results_json(a),
                 "checks": checks,
             });
         }

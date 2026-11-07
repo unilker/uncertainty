@@ -82,3 +82,23 @@ fark yaratır: GUM-5 Örnek 10'da 0,225 mg/m³ için özgül üretici riski logn
 JCGM 106'daki bilyalı rulman örneği tutarsızdır. Metin kabul aralığını 0 ≤ Y_m ≤ A olarak verir ve R_C
 formülü bu aralığı kullanır; ancak basılı R_P (%7,5) yalnızca alt sınır dışarıda bırakılırsa çıkar; alt
 sınırla R_P %8,9'dur (araştırma günlüğü F45).
+
+## 11.5 Birden çok ilişkili özelliği olan ürünler (toplam riskler)
+
+Dört etken maddeli bir ilaç ya da birkaç element için sertifikalandırılmış bir referans malzeme, ancak *tüm*
+özellikleri uygunsa uygundur. Her bileşen küçük risklerle değerlendirilse bile en az bir gerçek değerin tolerans
+dışında olma olasılığı kayda değer olabilir; bileşenler arasındaki korelasyonlar da bunu değiştirir.
+`multicomponent_conformity` bölümü (EMUE derlemesi 2021, Örnek E2.1; toplam riskler üzerine IUPAC projesi) şunları
+kullanır:
+
+- üretim verilerinden gerçek değerlerin çok değişkenli normal önseli: ortalamalar, standart sapmalar, korelasyon
+  matrisi;
+- u_i = u_bağıl·c_mi ve aynı korelasyonlarla çok değişkenli normal ölçüm sistemi dağılımı;
+- basit kabul: tüm deney sonuçları tolerans aralıklarının içindeyse ürün kabul edilir.
+
+Her deney sonucu vektörü için sonsal dağılım normaldir. Kabul edilen bir ürünün **toplam özgül tüketici riski**,
+en az bir gerçek değerin aralığının dışında olma olasılığıdır. Sonsal dağılım tolerans kutusu üzerinde Genz
+yöntemiyle integre edilerek hesaplanır; standart hata yaklaşık 10⁻⁶'dır. Reddedilen bir ürün için toplam özgül
+üretici riski verilir. **Toplam küresel riskler** üretim ve ölçümün Monte Carlo benzetiminden gelir. EMUE örneği
+(NyQuil tabletleri) %0,29, %1,17 ve %0,02 özgül ve %0,18 küresel tüketici riskiyle yeniden üretilir.
+

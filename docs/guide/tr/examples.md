@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (114)
+- Kimya (117)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -13,6 +13,85 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Sıcaklık (10)
 
 ## Kimya
+
+### Dört ilişkili etken maddeli bir ilaç için toplam yanlış karar riskleri (EMUE E2.1)
+
+`emue-e2.1-multicomponent-medication` — EMPIR 17NRM05 EMUE, Example E2.1, Tables E2.1.1–E2.1.2, E2.1.6
+
+NyQuil tabletleri: APAP, DEX, DOX ve PE; tolerans etiket miktarının %95–105'i, u_bağıl = %2,8; üç deney sonucu takımı için toplam özgül tüketici riskleri ve toplam küresel tüketici riski.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Her bileşen tek başına uygun olabilir, ürün bütünüyle uygun olmayabilir: toplam özgül tüketici riski, tüm deney sonuçları içerideyken en az bir gerçek içeriğin %95–105 dışında olma olasılığıdır (IUPAC projesi; EMUE E2.1.6.2).
+2. Önsel: 105 üretim partisinden çok değişkenli normal (ortalamalar %99,18, 97,70, 99,33, 98,94; s.s. %1,37, 1,02, 1,05, 1,22), Tablo E2.1.1'in Pearson korelasyonlarıyla. Olabilirlik: u_i = 0,028·c_mi ve aynı korelasyonlarla çok değişkenli normal. Sonsal dağılım normaldir, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2).
+3. Toplam özgül tüketici riskleri: sonuçlar önsel ortalamalara eşitken %0,29, alt sınırlarda %1,17, üst sınırlarda %0,02; önsel, sonsal dağılımı %100'ün altındaki ortalamalarına doğru kaydırır. Toplam küresel tüketici riski %0,18: 10 000 tabletten 18'i uygun olmadan kabul edilir.
+
+**Sonuç:**
+
+- c_m = m: kabul, toplam özgül tüketici riski %0,288
+- c_m = T_L: kabul, toplam özgül tüketici riski %1,17
+- c_m = T_U: kabul, toplam özgül tüketici riski %0,0213
+- Toplam küresel tüketici riski %0,180, üretici riski %38,9 (2000000 Monte Carlo denemesi)
+
+**Notlar:**
+
+- Program 4 boyutlu sonsal dağılımı tolerans kutusu üzerinde R'nin pmvnorm işlevi yerine Genz yöntemiyle (değişkenlere ayırma, 200 000 karşıt çekiliş, standart hata yaklaşık 10⁻⁶) integre eder; küresel riski u_i gerçek değerle orantılı alınarak Monte Carlo ile hesaplar.
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang tr`
+
+### Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)²; kesinlik, gerçeklik ve sağlamlık çalışmalarından bağıl özet değerlerle; u(δ̂)/w = 0,033.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ISO 21748 modeli y = µ + δ + B + Σc_i x′_i + e (E3.4.2): dört malzemede 11 × 2 iç içe tasarım ara kesinliği verir; ortanca RSD %3,2, daha temkinli kareler ortalamasının kökü RSD %3,6'dır (C279a'daki çinko hariç).
+2. İki SRM ve iki YT malzemesine karşı sapma, u²(δ̂) = s²_δ̂ + u²_ref, s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). Yöntem izin verilen sınırlar içinde yaklaşık %10'luk tutarlı bir düşük sapma gösterir; bu nedenle düzeltilmez.
+3. Ekstraksiyon sıcaklığı ve süresi kesinlik çalışmasında temsil edilmez; bağıl duyarlılık katsayıları 0,004 °C⁻¹ ve 9·10⁻⁴ min⁻¹, 2 × 2 faktöriyel deneyden gelir (Tablo E3.4.3); belirsizlikler ±5 °C ve ±5 min dikdörtgen. Pb stok çözeltisi (984,74 ± 0,985 mg/kg) orantılı etki olarak girer.
+4. u_bağıl = 0,0503; 27,8 mg/kg'lık bir sonuç için U = 2,79 mg/kg (k = 2).
+
+**Sonuç:**
+
+- w = (27,8 ± 2,8) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008).
+- E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang tr`
+
+### Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi, kareler ortalamasının kökü sapma belirsizliği (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748-rms-bias` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)²; kesinlik, gerçeklik ve sağlamlık çalışmalarından bağıl özet değerlerle; u(δ̂)/w = 0,035.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ISO 21748 modeli y = µ + δ + B + Σc_i x′_i + e (E3.4.2): dört malzemede 11 × 2 iç içe tasarım ara kesinliği verir; ortanca RSD %3,2, daha temkinli kareler ortalamasının kökü RSD %3,6'dır (C279a'daki çinko hariç).
+2. İki SRM ve iki YT malzemesine karşı sapma, u²(δ̂) = s²_δ̂ + u²_ref, s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). Yöntem izin verilen sınırlar içinde yaklaşık %10'luk tutarlı bir düşük sapma gösterir; bu nedenle düzeltilmez.
+3. Ekstraksiyon sıcaklığı ve süresi kesinlik çalışmasında temsil edilmez; bağıl duyarlılık katsayıları 0,004 °C⁻¹ ve 9·10⁻⁴ min⁻¹, 2 × 2 faktöriyel deneyden gelir (Tablo E3.4.3); belirsizlikler ±5 °C ve ±5 min dikdörtgen. Pb stok çözeltisi (984,74 ± 0,985 mg/kg) orantılı etki olarak girer.
+4. u_bağıl = 0,0516; 27,8 mg/kg'lık bir sonuç için U = 2,87 mg/kg (k = 2). Rehberin u(δ̂)/w = 0,033 değeri Tablo E3.4.2'nin kareler ortalamasının kökü olarak verilir, ancak ortalamasıdır; kareler ortalamasının kökü 0,035'tir ve U = 2,9 mg/kg verir.
+
+**Sonuç:**
+
+- w = (27,8 ± 2,9) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008).
+- E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang tr`
 
 ### Paslanmaz çelikte nikel: iki taraflı şartnamede korumalı kabul (Eurachem/CITAC uygunluk rehberi, Örnek B1)
 

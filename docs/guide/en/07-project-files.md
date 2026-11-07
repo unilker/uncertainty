@@ -11,15 +11,16 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the nine | measurement model (7.3) |
-| `topdown` | one of the nine | top-down evaluation (7.6) |
-| `proficiency` | one of the nine | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the nine | calibration with uncertainties in both variables, ISO 6143 (7.8) |
-| `precision_experiment` | one of the nine | interlaboratory precision experiment, ISO 5725-2 (7.10) |
-| `multivariate` | one of the nine | model with several output quantities, JCGM 102 (7.11) |
-| `control_chart` | one of the nine | control chart for internal quality control, Nordtest TR 569 (7.12) |
-| `sampling` | one of the nine | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
-| `error_function` | one of the nine | error approximation function of a weighing instrument, EURAMET cg-18 (7.14) |
+| `model` | one of the ten | measurement model (7.3) |
+| `topdown` | one of the ten | top-down evaluation (7.6) |
+| `proficiency` | one of the ten | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the ten | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the ten | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `multivariate` | one of the ten | model with several output quantities, JCGM 102 (7.11) |
+| `control_chart` | one of the ten | control chart for internal quality control, Nordtest TR 569 (7.12) |
+| `sampling` | one of the ten | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
+| `error_function` | one of the ten | error approximation function of a weighing instrument, EURAMET cg-18 (7.14) |
+| `multicomponent_conformity` | one of the ten | total risks for an item with several correlated properties, EMUE E2.1 (11.5) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); for model and multivariate projects |
 | `reporting` | no | rounding of the reported result (7.5) |
@@ -362,6 +363,21 @@ The error approximation function of a weighing instrument (EURAMET cg-18 Appendi
 | `coverage_factor` | k of U(W) and U_gl(W) (default 2, 7.5.1) |
 | `requirement`, `safety_factor` | relative weighing tolerance Req (0.01 = 1 %) and SF (default 1) for the minimum weight (G-7, G-9) |
 | `readings` | readings at which U(W) and U_gl(W) are reported |
+
+## 7.14a `multicomponent_conformity`
+
+```json
+"multicomponent_conformity": {
+  "unit": "% of label",
+  "components": [ { "name": "APAP", "prior_mean": 99.18, "prior_sd": 1.37, "lower": 95, "upper": 105 }, … ],
+  "correlation": [ [1, 0.107, …], … ],
+  "u_relative": 0.028,
+  "results": [ { "name": "lot 17", "values": [99.2, 97.7, 99.3, 98.9] } ],
+  "global_trials": 2000000, "samples": 200000, "seed": 1
+}
+```
+
+Expected values: `results` (per name: `risk`, `accepted`), `global_consumer_risk`, `global_producer_risk`.
 
 ## 7.15 Errors
 

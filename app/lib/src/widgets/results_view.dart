@@ -64,6 +64,9 @@ class ResultsView extends StatelessWidget {
     if (results['control_chart'] != null) {
       children.addAll(_controlChart(context, results['control_chart'] as Map<String, dynamic>, unit));
     }
+    if (results['multicomponent_conformity'] != null) {
+      children.addAll(_multicomponent(context, results['multicomponent_conformity'] as Map<String, dynamic>));
+    }
     if (results['error_function'] != null) {
       children.addAll(_errorFunction(context, results['error_function'] as Map<String, dynamic>));
     }
@@ -149,6 +152,32 @@ class ResultsView extends StatelessWidget {
       ),
       Section(s['contributions_chart']),
       SharesChart(rows: [for (final b in budget) MapEntry(b['name'].toString(), _d(b['variance_share']) ?? 0)], lang: s.lang),
+    ];
+  }
+
+  List<Widget> _multicomponent(BuildContext context, Map<String, dynamic> r) {
+    final s = strings;
+    final names = (r['components'] as List).join(', ');
+    final rows = <List<String>>[
+      for (final x in (r['results'] as List).cast<Map<String, dynamic>>())
+        [
+          x['name'].toString(),
+          '${x['accepted'] == true ? s['cf_accepted'] : s['cf_rejected']}; '
+              '${x['accepted'] == true ? s['mc_consumer'] : s['mc_producer']} ${fmtPct(_d(x['risk']), 3, s.lang)}',
+        ],
+    ];
+    final g = r['global'] as Map<String, dynamic>?;
+    return [
+      Section('${s['mc_title']} ($names)'),
+      _table(
+        context,
+        ['', ''],
+        [
+          ...rows,
+          if (g != null) [s['mc_global_consumer'], fmtPct(_d(g['consumer_risk']), 3, s.lang)],
+          if (g != null) [s['mc_global_producer'], fmtPct(_d(g['producer_risk']), 3, s.lang)],
+        ],
+      ),
     ];
   }
 

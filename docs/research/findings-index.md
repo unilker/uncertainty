@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (86)
+## Findings (87)
 
 | F | Finding | Session |
 |---|---|---|
@@ -101,8 +101,9 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F84 | GUM-5 Example 5 — estimate, notation and data (classes a and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F85 | GUM-5 Example 11 — results, information criteria and text (classes c and b; the numerical points rest on data read from the figure). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | F86 | Eurachem/CITAC compliance guide 2021 — rounding and the normal limits for a relative uncertainty (classes a, b and noted). | 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021) |
+| F87 | EMUE E3.4 — summary of the bias uncertainty (class c, small). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
 
-## Decisions (62)
+## Decisions (63)
 
 | D | Decision | Session |
 |---|---|---|
@@ -168,3 +169,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D60 | Homogeneity without σ_pt; u*_bb; Bayesian between-unit standard deviation. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
 | D61 | Monte Carlo: half-width of the interval symmetric about the estimate. | 2026-11-07 (session 21, continued) — JCGM-WG1 News, December 2025: proposed definitions |
 | D62 | Lognormal PDF for the measurand in conformity assessment. | 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021) |
+| D63 | Multicomponent conformity: total risks (EMUE E2.1). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |

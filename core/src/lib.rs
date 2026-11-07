@@ -62,6 +62,7 @@ pub mod gum;
 pub mod interlab;
 pub mod mcm;
 pub mod model;
+pub mod multiconformity;
 pub mod multivariate;
 pub mod pt;
 pub mod qc;

@@ -364,3 +364,5 @@ E5 (truncated Gaussian inputs); ISO/TS 28037 data sets (the GLS engine of ISO 61
 allowance as a project file; cross-checks against the NIST Uncertainty
 Machine (F29) and Suncal.
 | EUR-CA-B1–B3 | Eurachem/CITAC compliance guide 2021, Annex B Examples 1–3 and Table 1 | B1 16.2–17.8 % Ni, non-compliant; B2 204.1 ng/g, compliant; B3 3.6 (lognormal) / 3.2 (normal) ng/g; Table 1 51/149, 61/164, 18/182, 44/227 | 16.164–17.836; 204.09; 3.557 / 3.151 (exact s_G 3.498); Table 1 with k = 1.6449 (227.6) | ✅ except F86 |
+| EMUE-E3.4 | EMUE E3.4, metals in soil (ISO 21748, ruggedness coefficients, zero-intercept calibration) | Tables E3.4.1–2; u′(Pb)² = 0.002 526; (27.8 ± 2.8) mg/kg; calibration u_rel 0.019 | same to rounding; RMS of u(δ̂)/x_ref 3.50 % (printed 3.3 %) → ± 2.9 | ✅ except F87 |
+| EMUE-E2.1 | EMUE E2.1, total risks of a four-component medication | R*_tot 0.0029, 0.0117, 0.0002; R_tot 0.0018 | 0.002 88, 0.011 72, 0.000 21; 0.001 80 (program), 0.001 82 (numpy) | ✅ |

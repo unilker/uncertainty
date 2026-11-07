@@ -1,0 +1,179 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "emue-e3.4-soil-lead-iso21748-rms-bias",
+    "title": {
+      "en": "Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data, root-mean-square bias uncertainty (EMUE E3.4)",
+      "tr": "Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi, kareler ortalamasının kökü sapma belirsizliği (EMUE E3.4)"
+    },
+    "description": {
+      "en": "u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)² with relative summary values from precision, trueness and ruggedness studies; u(δ̂)/w = 0.035.",
+      "tr": "u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)²; kesinlik, gerçeklik ve sağlamlık çalışmalarından bağıl özet değerlerle; u(δ̂)/w = 0,035."
+    },
+    "explanation": [
+      {
+        "en": "ISO 21748 model y = µ + δ + B + Σc_i x′_i + e (E3.4.2): an 11 × 2 nested design on four materials gives the intermediate precision; its median RSD is 3.2 % and the more conservative root-mean-square RSD 3.6 % (zinc in C279a excluded).",
+        "tr": "ISO 21748 modeli y = µ + δ + B + Σc_i x′_i + e (E3.4.2): dört malzemede 11 × 2 iç içe tasarım ara kesinliği verir; ortanca RSD %3,2, daha temkinli kareler ortalamasının kökü RSD %3,6'dır (C279a'daki çinko hariç)."
+      },
+      {
+        "en": "Bias against two CRMs and two PT materials, u²(δ̂) = s²_δ̂ + u²_ref with s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). The procedure shows a consistent low bias near 10 %, within the permitted limits, so it is not corrected.",
+        "tr": "İki SRM ve iki YT malzemesine karşı sapma, u²(δ̂) = s²_δ̂ + u²_ref, s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). Yöntem izin verilen sınırlar içinde yaklaşık %10'luk tutarlı bir düşük sapma gösterir; bu nedenle düzeltilmez."
+      },
+      {
+        "en": "Extraction temperature and time are not represented in the precision study; their relative sensitivity coefficients 0.004 °C⁻¹ and 9·10⁻⁴ min⁻¹ come from a 2 × 2 factorial experiment (Table E3.4.3), with rectangular uncertainties ±5 °C and ±5 min. The stock solution of Pb (984.74 ± 0.985 mg/kg) enters as a proportional effect.",
+        "tr": "Ekstraksiyon sıcaklığı ve süresi kesinlik çalışmasında temsil edilmez; bağıl duyarlılık katsayıları 0,004 °C⁻¹ ve 9·10⁻⁴ min⁻¹, 2 × 2 faktöriyel deneyden gelir (Tablo E3.4.3); belirsizlikler ±5 °C ve ±5 min dikdörtgen. Pb stok çözeltisi (984,74 ± 0,985 mg/kg) orantılı etki olarak girer."
+      },
+      {
+        "en": "u_rel = 0.0516; for a result of 27.8 mg/kg, U = 2.87 mg/kg (k = 2). The guide's u(δ̂)/w = 0.033 is called the root mean square of Table E3.4.2 but is its mean; the root mean square is 0.035, which gives U = 2.9 mg/kg.",
+        "tr": "u_bağıl = 0,0516; 27,8 mg/kg'lık bir sonuç için U = 2,87 mg/kg (k = 2). Rehberin u(δ̂)/w = 0,033 değeri Tablo E3.4.2'nin kareler ortalamasının kökü olarak verilir, ancak ortalamasıdır; kareler ortalamasının kökü 0,035'tir ve U = 2,9 mg/kg verir."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)",
+        "section": "E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)",
+        "url": "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
+      }
+    ],
+    "tags": [
+      "emue",
+      "iso-21748",
+      "top-down",
+      "soil",
+      "metals",
+      "icp-oes",
+      "ruggedness",
+      "uncorrected-bias"
+    ],
+    "notes": [
+      {
+        "en": "The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).",
+        "tr": "Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008)."
+      },
+      {
+        "en": "The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.",
+        "tr": "E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "w",
+      "unit": "mg/kg",
+      "expression": "w_obs*(1 + d_bias)*(1 + e_I)*(1 + 0.004*dT)*(1 + 0.0009*dt)*(g0/984.74)",
+      "description": {
+        "en": "Aqua regia extractable Pb in soil",
+        "tr": "Toprakta kral suyunda çözünür Pb"
+      }
+    },
+    "inputs": [
+      {
+        "name": "w_obs",
+        "unit": "mg/kg",
+        "description": {
+          "en": "Measured mass fraction (result for Pb in C279a, E3.4.7)",
+          "tr": "Ölçülen kütle kesri (C279a'da Pb sonucu, E3.4.7)"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 27.8
+        }
+      },
+      {
+        "name": "d_bias",
+        "description": {
+          "en": "Relative bias term; its estimate (≈ −10 %) is not applied, its uncertainty is",
+          "tr": "Bağıl sapma terimi; tahmini (≈ −%10) uygulanmaz, belirsizliği uygulanır"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.035
+        }
+      },
+      {
+        "name": "e_I",
+        "description": {
+          "en": "Relative intermediate precision (root-mean-square RSD)",
+          "tr": "Bağıl ara kesinlik (kareler ortalamasının kökü RSD)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0,
+          "sd": 0.036
+        }
+      },
+      {
+        "name": "dT",
+        "unit": "°C",
+        "description": {
+          "en": "Deviation of the extraction temperature from 65 °C",
+          "tr": "Ekstraksiyon sıcaklığının 65 °C'den sapması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5.0
+        }
+      },
+      {
+        "name": "dt",
+        "unit": "min",
+        "description": {
+          "en": "Deviation of the extraction time from 120 min",
+          "tr": "Ekstraksiyon süresinin 120 min'den sapması"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 5.0
+        }
+      },
+      {
+        "name": "g0",
+        "unit": "mg/kg",
+        "description": {
+          "en": "Pb stock solution (certificate)",
+          "tr": "Pb stok çözeltisi (sertifika)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 984.74,
+          "sd": 0.985
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 27.8,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 1.4344,
+        "tolerance": 0.0002
+      },
+      "expanded_uncertainty": {
+        "value": 2.869,
+        "tolerance": 0.001
+      }
+    },
+    "reference": {
+      "en": "EMUE E3.4, (E3.4.18) and E3.4.7: u′(Pb)² = 0.002 526, u′ ≈ 5 %, result (27.8 ± 2.8) mg/kg (k = 2); this variant recomputes u(δ̂)/w as the root mean square (F87).",
+      "tr": "EMUE E3.4, (E3.4.18) ve E3.4.7: u′(Pb)² = 0,002 526, u′ ≈ %5, sonuç (27,8 ± 2,8) mg/kg (k = 2); bu varyant u(δ̂)/w'yi kareler ortalamasının kökü olarak yeniden hesaplar (F87)."
+    }
+  }
+}

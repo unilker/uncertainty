@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (114)
+- Chemistry (117)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -13,6 +13,85 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Temperature (10)
 
 ## Chemistry
+
+### Total risks of false decisions for a medication with four correlated active components (EMUE E2.1)
+
+`emue-e2.1-multicomponent-medication` — EMPIR 17NRM05 EMUE, Example E2.1, Tables E2.1.1–E2.1.2, E2.1.6
+
+NyQuil tablets: APAP, DEX, DOX and PE, tolerance 95–105 % of the labelled amount, u_rel = 2.8 %; total specific consumer's risks for three sets of test results and the total global consumer's risk.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Each component may conform while the item as a whole does not: the total specific consumer's risk is the probability that at least one true content lies outside 95–105 % although all test results lie inside (IUPAC project; EMUE E2.1.6.2).
+2. Prior: multivariate normal from 105 production lots (means 99.18, 97.70, 99.33, 98.94 %; s.d. 1.37, 1.02, 1.05, 1.22 %) with the Pearson correlations of Table E2.1.1. Likelihood: multivariate normal with u_i = 0.028·c_mi and the same correlations. The posterior is normal, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2).
+3. Total specific consumer's risks: 0.29 % when the results equal the prior means, 1.17 % at the lower limits and 0.02 % at the upper limits; the prior shifts the posterior towards its means, which lie below 100 %. Total global consumer's risk 0.18 %: 18 of 10 000 tablets accepted without conforming.
+
+**Result:**
+
+- c_m = m: accepted, total specific consumer's risk 0.288 %
+- c_m = T_L: accepted, total specific consumer's risk 1.17 %
+- c_m = T_U: accepted, total specific consumer's risk 0.0213 %
+- Total global consumer's risk 0.180 %, producer's risk 38.9 % (2000000 Monte Carlo trials)
+
+**Notes:**
+
+- The program integrates the 4-dimensional posterior over the tolerance box by the method of Genz (separation of variables, 200 000 antithetic draws, standard error about 10⁻⁶) instead of R's pmvnorm, and the global risk by Monte Carlo with u_i proportional to the true value.
+
+**Run:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang en`
+
+### Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)² with relative summary values from precision, trueness and ruggedness studies; u(δ̂)/w = 0.033.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ISO 21748 model y = µ + δ + B + Σc_i x′_i + e (E3.4.2): an 11 × 2 nested design on four materials gives the intermediate precision; its median RSD is 3.2 % and the more conservative root-mean-square RSD 3.6 % (zinc in C279a excluded).
+2. Bias against two CRMs and two PT materials, u²(δ̂) = s²_δ̂ + u²_ref with s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). The procedure shows a consistent low bias near 10 %, within the permitted limits, so it is not corrected.
+3. Extraction temperature and time are not represented in the precision study; their relative sensitivity coefficients 0.004 °C⁻¹ and 9·10⁻⁴ min⁻¹ come from a 2 × 2 factorial experiment (Table E3.4.3), with rectangular uncertainties ±5 °C and ±5 min. The stock solution of Pb (984.74 ± 0.985 mg/kg) enters as a proportional effect.
+4. u_rel = 0.0503; for a result of 27.8 mg/kg, U = 2.79 mg/kg (k = 2).
+
+**Result:**
+
+- w = (27.8 ± 2.8) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).
+- The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.
+
+**Run:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang en`
+
+### Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data, root-mean-square bias uncertainty (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748-rms-bias` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)² with relative summary values from precision, trueness and ruggedness studies; u(δ̂)/w = 0.035.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ISO 21748 model y = µ + δ + B + Σc_i x′_i + e (E3.4.2): an 11 × 2 nested design on four materials gives the intermediate precision; its median RSD is 3.2 % and the more conservative root-mean-square RSD 3.6 % (zinc in C279a excluded).
+2. Bias against two CRMs and two PT materials, u²(δ̂) = s²_δ̂ + u²_ref with s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). The procedure shows a consistent low bias near 10 %, within the permitted limits, so it is not corrected.
+3. Extraction temperature and time are not represented in the precision study; their relative sensitivity coefficients 0.004 °C⁻¹ and 9·10⁻⁴ min⁻¹ come from a 2 × 2 factorial experiment (Table E3.4.3), with rectangular uncertainties ±5 °C and ±5 min. The stock solution of Pb (984.74 ± 0.985 mg/kg) enters as a proportional effect.
+4. u_rel = 0.0516; for a result of 27.8 mg/kg, U = 2.87 mg/kg (k = 2). The guide's u(δ̂)/w = 0.033 is called the root mean square of Table E3.4.2 but is its mean; the root mean square is 0.035, which gives U = 2.9 mg/kg.
+
+**Result:**
+
+- w = (27.8 ± 2.9) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+
+**Notes:**
+
+- The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).
+- The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.
+
+**Run:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang en`
 
 ### Nickel in stainless steel: guarded acceptance with a two-sided specification (Eurachem/CITAC compliance guide, Example B1)
 

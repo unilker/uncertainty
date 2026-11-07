@@ -24,6 +24,7 @@
 use crate::calibration::{CalibrationSpec, ExpectedCalibration};
 use crate::conformity::{ConformitySpec, ExpectedConformity};
 use crate::interlab::{ExpectedInterlab, InterlabSpec};
+use crate::multiconformity::{ExpectedMulticomponent, MulticomponentSpec};
 use crate::multivariate::{ExpectedMultivariate, MultivariateSpec};
 use crate::proficiency::{ExpectedProficiency, ProficiencySpec};
 use crate::qc::{ControlChartSpec, ExpectedControlChart};
@@ -112,6 +113,10 @@ pub struct Project {
     /// Appendix C).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub error_function: Option<ErrorFunctionSpec>,
+    /// Conformity assessment of an item with several correlated properties:
+    /// total specific and global risks (EMUE E2.1).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub multicomponent_conformity: Option<MulticomponentSpec>,
     /// Conformity assessment (JCGM 106): of the result of a model project, or
     /// a project of its own.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -582,6 +587,8 @@ pub struct Expected {
     pub sampling: Option<ExpectedSampling>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub error_function: Option<ExpectedErrorFunction>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub multicomponent_conformity: Option<ExpectedMulticomponent>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,

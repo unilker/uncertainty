@@ -11,15 +11,16 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | dokuzundan biri | ölçüm modeli (7.3) |
-| `topdown` | dokuzundan biri | top-down değerlendirme (7.6) |
-| `proficiency` | dokuzundan biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | dokuzundan biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
-| `precision_experiment` | dokuzundan biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
-| `multivariate` | dokuzundan biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
-| `control_chart` | dokuzundan biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
-| `sampling` | dokuzundan biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
-| `error_function` | dokuzundan biri | tartı aletinin hata yaklaşım fonksiyonu, EURAMET cg-18 (7.14) |
+| `model` | onundan biri | ölçüm modeli (7.3) |
+| `topdown` | onundan biri | top-down değerlendirme (7.6) |
+| `proficiency` | onundan biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | onundan biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | onundan biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `multivariate` | onundan biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
+| `control_chart` | onundan biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
+| `sampling` | onundan biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
+| `error_function` | onundan biri | tartı aletinin hata yaklaşım fonksiyonu, EURAMET cg-18 (7.14) |
+| `multicomponent_conformity` | onundan biri | birden çok ilişkili özelliği olan ürün için toplam riskler, EMUE E2.1 (11.5) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); model ve çok çıktılı projelerde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
@@ -362,6 +363,21 @@ Bir tartı aletinin hata yaklaşım fonksiyonu (EURAMET cg-18 Ek C2.2; bölüm 1
 | `coverage_factor` | U(W) ve U_gl(W)'nin k'sı (varsayılan 2, 7.5.1) |
 | `requirement`, `safety_factor` | minimum tartım için bağıl tartım toleransı Req (0,01 = %1) ve SF (varsayılan 1) (G-7, G-9) |
 | `readings` | U(W) ve U_gl(W)'nin raporlandığı okumalar |
+
+## 7.14a `multicomponent_conformity`
+
+```json
+"multicomponent_conformity": {
+  "unit": "% of label",
+  "components": [ { "name": "APAP", "prior_mean": 99.18, "prior_sd": 1.37, "lower": 95, "upper": 105 }, … ],
+  "correlation": [ [1, 0.107, …], … ],
+  "u_relative": 0.028,
+  "results": [ { "name": "parti 17", "values": [99.2, 97.7, 99.3, 98.9] } ],
+  "global_trials": 2000000, "samples": 200000, "seed": 1
+}
+```
+
+Beklenen değerler: `results` (ad başına `risk`, `accepted`), `global_consumer_risk`, `global_producer_risk`.
 
 ## 7.15 Hatalar
 

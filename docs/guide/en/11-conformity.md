@@ -80,3 +80,23 @@ producer's risk is 11.3 % with the lognormal prior and 5.6 % without it.
 The ball-bearing example of JCGM 106 is inconsistent. The text states the acceptance interval as
 0 ≤ Y_m ≤ A and the formula for R_C uses it, but the printed R_P (7.5 %) only follows if the lower limit is
 left out; with it, R_P is 8.9 % (research log F45).
+
+## 11.5 Items with several correlated properties (total risks)
+
+A medicine with four active components, or a reference material certified for several elements, conforms only if
+*all* its properties conform. Even when every component is assessed with small risks, the probability that at least
+one true value is out of tolerance can be appreciable, and correlations between the components change it. The
+section `multicomponent_conformity` (EMUE compendium 2021, Example E2.1; IUPAC project on total risks) uses:
+
+- a multivariate normal prior of the true values, from production data: means, standard deviations, correlation
+  matrix;
+- a multivariate normal measuring-system PDF with u_i = u_rel·c_mi and the same correlations;
+- simple acceptance: an item is accepted when every test result lies within its tolerance interval.
+
+For each vector of test results the posterior is normal. The **total specific consumer's risk** of an accepted
+item is the probability that at least one true value lies outside its interval. It is computed by integrating the
+posterior over the tolerance box with the method of Genz, which gives a standard error of about 10⁻⁶. For a
+rejected item the total specific producer's risk is given. The **total global risks** come from a Monte Carlo
+simulation of production and measurement. The EMUE example (NyQuil tablets) reproduces with 0.29 %, 1.17 % and
+0.02 % specific and 0.18 % global consumer's risk.
+

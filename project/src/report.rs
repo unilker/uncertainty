@@ -16,6 +16,7 @@ use uncertainty_core::special::{normal_pdf, student_t_pdf};
 mod calibration;
 mod conformity;
 mod interlab;
+mod multiconformity;
 mod multivariate;
 mod proficiency;
 mod qc;
@@ -493,6 +494,7 @@ pub fn markdown(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>
         Evaluation::ControlChart(a) => qc::markdown(p, a, &checks, lang, generated),
         Evaluation::Sampling(a) => sampling::markdown(p, a, &checks, lang, generated),
         Evaluation::ErrorFunction(a) => weighing::markdown(p, a, &checks, lang, generated),
+        Evaluation::Multicomponent(a) => multiconformity::markdown(p, a, &checks, lang, generated),
     }
 }
 
@@ -997,6 +999,7 @@ pub fn reported_statements(p: &Project, e: &Evaluation, lang: Lang) -> Vec<Strin
         Evaluation::ControlChart(a) => qc::statements(a, lang),
         Evaluation::Sampling(a) => sampling::statements(a, lang),
         Evaluation::ErrorFunction(a) => weighing::statements(a, lang),
+        Evaluation::Multicomponent(a) => multiconformity::statements(a, lang),
     }
 }
 
@@ -1623,6 +1626,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::ControlChart(_) => qc_l.to_string(),
             Evaluation::Sampling(_) => sp_l.to_string(),
             Evaluation::ErrorFunction(_) => ef_l.to_string(),
+            Evaluation::Multicomponent(_) => cf_l.to_string(),
             Evaluation::Multivariate(a) => {
                 if a.mcm.is_some() || p.analysis.mcm.is_some() {
                     format!("{mv_l} {mcm_l}")
@@ -1650,6 +1654,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Evaluation::ControlChart(a) => qc::statements(a, lang),
             Evaluation::Sampling(a) => sampling::statements(a, lang),
             Evaluation::ErrorFunction(a) => weighing::statements(a, lang),
+            Evaluation::Multicomponent(a) => multiconformity::statements(a, lang),
         };
         if !results.is_empty() {
             let _ = writeln!(s, "**{result_l}:**\n");
@@ -1910,6 +1915,17 @@ pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) ->
                     figures,
                     "<figure><figcaption>{}</figcaption>{svg}</figure>",
                     esc(weighing::ef_labels(lang).chart)
+                );
+            }
+            anchor = format!("<h2>{}</h2>", esc(l.explanation));
+        }
+        Evaluation::Multicomponent(a) => {
+            let rows: Vec<(&str, f64)> = a.results.iter().map(|(n, _, r)| (n.as_str(), r.risk)).collect();
+            if let Some(svg) = contributions_svg(&rows, lang) {
+                let _ = write!(
+                    figures,
+                    "<figure><figcaption>{}</figcaption>{svg}</figure>",
+                    esc(multiconformity::mc_labels(lang).results)
                 );
             }
             anchor = format!("<h2>{}</h2>", esc(l.explanation));

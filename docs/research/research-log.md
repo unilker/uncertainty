@@ -2580,3 +2580,59 @@ The library has 236 projects.
     supported: the criteria were misapplied.
   - Class c for the article; it applies to both documents. The RMSR values
     of 0.26–0.29 at n = 6 are consistent with u₀ = 0.29, as EMUE notes.
+
+## 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1
+
+**EMUE E3.4 (aqua regia extractable metals in soil, ISO 21748 budget).**
+
+- Tables E3.4.1 and E3.4.2 follow from their formulas to the printed
+  rounding:
+  - s_I = √(s_w² + s_b²);
+  - s_δ̂ = √((s_I² − (1 − 1/n)s_r²)/p) with p = 11 and n = 2;
+  - u(δ̂) = √(s_δ̂² + u_ref²).
+  - Median RSD 3.2 % and root-mean-square RSD 3.6 % (zinc in C279a
+    excluded); u′(Pb)² = 0.002 526 (E3.4.18).
+  - Script: `tools/research/emue/e34_soil_tables.py`.
+- Library: `emue-e3.4-soil-lead-iso21748`, a product model of relative
+  terms that gives U = 2.79 mg/kg as printed, and the `-rms-bias` variant.
+
+**F87. EMUE E3.4 — summary of the bias uncertainty (class c, small).**
+
+- The text gives "the root mean square relative standard uncertainty, 3.3 %;
+  for comparison the median and mean are 2.9 % and 3.3 %".
+  - The root mean square of the u(δ̂)/x_ref column of Table E3.4.2 is
+    3.50 %; 3.3 % is the mean.
+  - With 3.5 %, u′(Pb) = 0.0516 and the reported (27.8 ± 2.8) mg/kg becomes
+    (27.8 ± 2.9) mg/kg.
+- The reported result 27.8 mg/kg for Pb in C279a is not the mean of Table
+  E3.4.1 (27.29 mg/kg); it may be a single result, which the text does not
+  say.
+- The time coefficient 9·10⁻⁴ min⁻¹ is called "reasonably conservative",
+  but it is below the largest unsigned value of Table E3.4.3
+  (1.6·10⁻³ min⁻¹, Cu in C282a). The temperature coefficient 0.004 °C⁻¹
+  does cover its maximum (0.0041).
+
+**D63. Multicomponent conformity: total risks (EMUE E2.1).**
+
+- New core module `multiconformity`:
+  - `mvn_box_probability`: the Genz (1992) separation-of-variables
+    integral of a multivariate normal over a box, with antithetic uniform
+    draws and a standard error. A test checks it against an exact product
+    for independent components.
+  - `Multicomponent::specific`: normal posterior (E2.1.1)–(E2.1.2) and the
+    total specific consumer's or producer's risk.
+  - `Multicomponent::global`: total global risks by Monte Carlo, with u_i
+    proportional to the true value.
+- New project section `multicomponent_conformity` with report (EN/TR), JSON,
+  checks and an app results view.
+- EMUE E2.1 reproduces exactly. By scipy and numpy:
+  R*_tot = 0.002 881, 0.011 716 and 0.000 212 (printed 0.0029, 0.0117,
+  0.0002), R_tot = 0.001 82 (printed 0.0018).
+- The program gives 0.288 %, 1.17 %, 0.0213 % and 0.180 %.
+- Library: `emue-e2.1-multicomponent-medication`. Script:
+  `tools/research/emue/e21_total_risks.py`.
+- Relevance: pharmaceutical release testing and reference materials
+  certified for several properties. Correlated production can make the
+  total risk several times the largest single-component risk.
+
+The library has 239 projects.
