@@ -25486,6 +25486,218 @@
   }
  },
  {
+  "path": "library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "ume-procedure-19-2-qnmr-purity-internal-standard",
+    "field": "chemistry",
+    "title": {
+     "en": "Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2)",
+     "tr": "İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2)"
+    },
+    "description": {
+     "en": "Multiplicative model with relative uncertainties; the values are illustrative, not from a real measurement. The integration is a separate Type B component (±0.2 %, rectangular) beside the repeatability of the ratio.",
+     "tr": "Bağıl belirsizlikli çarpımsal model; değerler örnektir, gerçek bir ölçüme ait değildir. Entegrasyon, oranın tekrarlanabilirliğinin yanında ayrı bir B tipi bileşendir (±%0,2, dikdörtgen)."
+    },
+    "explanation": [
+     {
+      "en": "Relative standard uncertainties (10⁻⁶): repeatability 671, integration 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; combined 1575; ν_eff = 121.",
+      "tr": "Bağıl standart belirsizlikler (10⁻⁶): tekrarlanabilirlik 671, entegrasyon 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; birleşik 1575; ν_eff = 121."
+     },
+     {
+      "en": "P_a = 995.0 mg/g, u_c = 1.567 mg/g, U = 2u_c = 3.13 → 3.1 mg/g: P_a = (995.0 ± 3.1) mg/g (k = 2).",
+      "tr": "P_a = 995,0 mg/g, u_c = 1,567 mg/g, U = 2u_c = 3,13 → 3,1 mg/g: P_a = (995,0 ± 3,1) mg/g (k = 2)."
+     },
+     {
+      "en": "More than half of the variance comes from the integration and about a quarter from the purity of the internal standard (54 % and 23 %).",
+      "tr": "Varyansın yarısından fazlası entegrasyondan, yaklaşık dörtte biri iç standardın saflığından gelir (%54 ve %23)."
+     }
+    ],
+    "tags": [
+     "ume",
+     "procedure",
+     "qnmr",
+     "purity",
+     "relative-uncertainty"
+    ],
+    "notes": [
+     {
+      "en": "The numbers of ¹H nuclei are not legible in the procedure (the model is an embedded equation object); N_std/N_a = 2/3 is the only ratio that reproduces the printed 995.0 mg/g, consistent with maleic acid (M = 116.072 g/mol, 2 H) as internal standard and an analyte of M = 194.19 g/mol with a methyl singlet (e.g. caffeine).",
+      "tr": "¹H çekirdek sayıları prosedürde okunamıyor (model gömülü bir denklem nesnesidir); basılı 995,0 mg/g değerini veren tek oran N_std/N_a = 2/3'tür; iç standart maleik asit (M = 116,072 g/mol, 2 H) ve bir metil singleti olan M = 194,19 g/mol'lük bir analit (ör. kafein) ile uyumludur."
+     }
+    ],
+    "sources": [
+     {
+      "document": "TÜBİTAK UME, Belirsizlik Hesapları Prosedürü (draft, November 2026), author's own document",
+      "section": "Section 19.2"
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "P_a",
+     "unit": "mg/g",
+     "expression": "R * f_int * (N_std/N_a) * (M_a/M_std) * (m_std/m_a) * P_std",
+     "description": {
+      "en": "Purity (mass fraction) of the analyte by ¹H qNMR",
+      "tr": "¹H qNMR ile analit saflığı (kütle kesri)"
+     }
+    },
+    "inputs": [
+     {
+      "name": "R",
+      "unit": "1",
+      "description": {
+       "en": "Integral ratio I_a/I_std, 5 independent samples, RSD 0.15 % (Type A)",
+       "tr": "İntegral oranı I_a/I_std, 5 bağımsız numune, %RSD 0,15 (A tipi)"
+      },
+      "distribution": {
+       "type": "t",
+       "mean": 1.40023,
+       "scale": 0.000939303,
+       "dof": 4
+      }
+     },
+     {
+      "name": "f_int",
+      "unit": "1",
+      "description": {
+       "en": "Integration (phase, baseline, limits), ±0.2 %",
+       "tr": "Entegrasyon (faz, taban çizgisi, sınırlar), ±%0,2"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "value": 1,
+       "half_width": 0.002
+      }
+     },
+     {
+      "name": "N_std",
+      "unit": "1",
+      "description": {
+       "en": "¹H nuclei of the internal-standard signal (2, e.g. maleic acid)",
+       "tr": "İç standart sinyalinin ¹H çekirdek sayısı (2, ör. maleik asit)"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 2
+      }
+     },
+     {
+      "name": "N_a",
+      "unit": "1",
+      "description": {
+       "en": "¹H nuclei of the analyte signal (3, a methyl singlet)",
+       "tr": "Analit sinyalinin ¹H çekirdek sayısı (3, bir metil singleti)"
+      },
+      "distribution": {
+       "type": "constant",
+       "value": 3
+      }
+     },
+     {
+      "name": "M_a",
+      "unit": "g/mol",
+      "description": {
+       "en": "Molar mass of the analyte (IUPAC atomic weights)",
+       "tr": "Analitin mol kütlesi (IUPAC atom ağırlıkları)"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "value": 194.19,
+       "half_width": 0.0070633
+      }
+     },
+     {
+      "name": "M_std",
+      "unit": "g/mol",
+      "description": {
+       "en": "Molar mass of the internal standard",
+       "tr": "İç standardın mol kütlesi"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "value": 116.072,
+       "half_width": 0.0034177
+      }
+     },
+     {
+      "name": "m_std",
+      "unit": "mg",
+      "description": {
+       "en": "Mass of the internal standard, microbalance u = 2.0 µg",
+       "tr": "İç standart kütlesi, mikroterazi u = 2,0 µg"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 6.512,
+       "sd": 0.002
+      }
+     },
+     {
+      "name": "m_a",
+      "unit": "mg",
+      "description": {
+       "en": "Mass of the analyte, microbalance u = 2.0 µg",
+       "tr": "Analit kütlesi, mikroterazi u = 2,0 µg"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 10.215,
+       "sd": 0.002
+      }
+     },
+     {
+      "name": "P_std",
+      "unit": "mg/g",
+      "description": {
+       "en": "Purity of the internal-standard CRM, U = 1.5 mg/g (k = 2)",
+       "tr": "İç standart CRM saflığı, U = 1,5 mg/g (k = 2)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 999.4,
+       "expanded": 1.5,
+       "k": 2
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {
+     "coverage_factor": 2
+    },
+    "mcm": null
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 995.0,
+      "tolerance": 0.05
+     },
+     "standard_uncertainty": {
+      "value": 1.567,
+      "tolerance": 0.001
+     },
+     "expanded_uncertainty": {
+      "value": 3.13,
+      "tolerance": 0.005
+     },
+     "effective_dof": {
+      "value": 121,
+      "tolerance": 1
+     }
+    },
+    "reference": {
+     "en": "UME procedure, Section 19.2: P_a = 995.0 mg/g, relative u_c = 0.001 575, u_c = 1.567 mg/g, ν_eff = 121, U = 3.13 mg/g → (995.0 ± 3.1) mg/g (k = 2).",
+     "tr": "UME prosedürü, Bölüm 19.2: P_a = 995,0 mg/g, bağıl u_c = 0,001 575, u_c = 1,567 mg/g, ν_eff = 121, U = 3,13 mg/g → (995,0 ± 3,1) mg/g (k = 2)."
+    }
+   }
+  }
+ },
+ {
   "path": "library/electrical/ea402-s3-resistor-10kohm.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -31538,6 +31750,155 @@
     "reference": {
      "en": "Possolo & Meija (2022), p. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; contributions F 48 %, G 0.6 %, E 52 %, H 0.004 %.",
      "tr": "Possolo & Meija (2022), s. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; katkılar F %48, G %0,6, E %52, H %0,004."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/electrical/ume-procedure-19-1-dmm-10v-calibration.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "ume-procedure-19-1-dmm-10v-calibration",
+    "field": "electrical",
+    "title": {
+     "en": "10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1)",
+     "tr": "Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1)"
+    },
+    "description": {
+     "en": "Additive model with absolute uncertainties: the error of indication E = V_DMM − V_ref with corrections for the calibrator certificate, its drift and the resolution.",
+     "tr": "Mutlak belirsizlikli toplamsal model: kalibratör sertifikası, kayması ve çözünürlük düzeltmeleriyle gösterge hatası E = V_DMM − V_ref."
+    },
+    "explanation": [
+     {
+      "en": "u_c = √(8.1² + 25.0² + 23.1² + 2.9²) = 35.1 µV; ν_eff = 3965 (Welch–Satterthwaite with ν = 11 for the readings); U = 2u_c = 70.2 µV.",
+      "tr": "u_c = √(8,1² + 25,0² + 23,1² + 2,9²) = 35,1 µV; ν_eff = 3965 (okumalar için ν = 11 ile Welch–Satterthwaite); U = 2u_c = 70,2 µV."
+     },
+     {
+      "en": "Dominant-component check of the procedure: the largest rectangular contribution u_R = 23.1 µV against the others u_N = 26.4 µV; u_N/u_R = 1.14 > 0.70, so k = 2 holds.",
+      "tr": "Prosedürün baskın bileşen kontrolü: en büyük dikdörtgen katkı u_R = 23,1 µV, diğerleri u_N = 26,4 µV; u_N/u_R = 1,14 > 0,70 olduğundan k = 2 uygundur."
+     },
+     {
+      "en": "Result: E = (0.21 ± 0.07) mV, or U = 7 µV/V relative to 10 V (k = 2, p ≈ 95 %).",
+      "tr": "Sonuç: E = (0,21 ± 0,07) mV; 10 V'a göre bağıl U = 7 µV/V (k = 2, p ≈ %95)."
+     }
+    ],
+    "tags": [
+     "ume",
+     "procedure",
+     "dmm",
+     "voltage",
+     "calibration",
+     "welch-satterthwaite"
+    ],
+    "notes": [],
+    "sources": [
+     {
+      "document": "TÜBİTAK UME, Belirsizlik Hesapları Prosedürü (draft, November 2026), author's own document",
+      "section": "Section 19.1"
+     }
+    ]
+   },
+   "model": {
+    "output": {
+     "name": "E",
+     "unit": "µV",
+     "expression": "x_DMM + d_res - d_cal - d_drift",
+     "description": {
+      "en": "Error of indication of the multimeter at 10 V DC, (23 ± 1) °C",
+      "tr": "Multimetrenin 10 V DC noktasındaki gösterge hatası, (23 ± 1) °C"
+     }
+    },
+    "inputs": [
+     {
+      "name": "x_DMM",
+      "unit": "µV",
+      "description": {
+       "en": "Mean of 12 readings minus 10 V (10.000 212 V; s = 27.9 µV)",
+       "tr": "12 okumanın ortalaması eksi 10 V (10,000 212 V; s = 27,9 µV)"
+      },
+      "distribution": {
+       "type": "t",
+       "mean": 212,
+       "scale": 8.054036,
+       "dof": 11
+      }
+     },
+     {
+      "name": "d_cal",
+      "unit": "µV",
+      "description": {
+       "en": "Calibrator certificate, U = 5 µV/V at 10 V (k = 2)",
+       "tr": "Kalibratör sertifikası, 10 V'ta U = 5 µV/V (k = 2)"
+      },
+      "distribution": {
+       "type": "normal",
+       "mean": 0,
+       "expanded": 50,
+       "k": 2
+      }
+     },
+     {
+      "name": "d_drift",
+      "unit": "µV",
+      "description": {
+       "en": "Annual drift of the calibrator, ±40 µV",
+       "tr": "Kalibratörün yıllık kayması, ±40 µV"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "value": 0,
+       "half_width": 40
+      }
+     },
+     {
+      "name": "d_res",
+      "unit": "µV",
+      "description": {
+       "en": "Resolution of the multimeter, 10 µV",
+       "tr": "Multimetre çözünürlüğü, 10 µV"
+      },
+      "distribution": {
+       "type": "rectangular",
+       "value": 0,
+       "half_width": 5
+      }
+     }
+    ]
+   },
+   "analysis": {
+    "gum": {
+     "coverage_factor": 2
+    },
+    "mcm": {
+     "trials": 1000000,
+     "seed": 1,
+     "interval": "symmetric"
+    }
+   },
+   "expected": {
+    "gum": {
+     "estimate": {
+      "value": 212,
+      "tolerance": 0.5
+     },
+     "standard_uncertainty": {
+      "value": 35.1,
+      "tolerance": 0.05
+     },
+     "expanded_uncertainty": {
+      "value": 70.2,
+      "tolerance": 0.05
+     },
+     "effective_dof": {
+      "value": 4000,
+      "tolerance": 100
+     }
+    },
+    "reference": {
+     "en": "UME procedure, Section 19.1: u_c = 35.1 µV, ν_eff ≈ 4000, U = 70.2 µV (k = 2); E = 0.21 mV.",
+     "tr": "UME prosedürü, Bölüm 19.1: u_c = 35,1 µV, ν_eff ≈ 4000, U = 70,2 µV (k = 2); E = 0,21 mV."
     }
    }
   }

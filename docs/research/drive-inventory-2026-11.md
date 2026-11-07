@@ -86,7 +86,7 @@ Key to the columns:
 
 | File | Use |
 |---|---|
-| Sunumlarım: *Belirsizlik_Hesaplari_Proseduru_UME.docx*, *Belirsizlik_Hesapları_Prosedürü.pptx* | UME procedure for uncertainty calculations: Turkish terminology, the program's workflow and the validation report |
+| Sunumlarım: *Belirsizlik_Hesaplari_Proseduru_UME.docx*, *Belirsizlik_Hesapları_Prosedürü.pptx* | **docx read** (D71): examples 19.1, 19.2 in the library. UME procedure for uncertainty calculations: Turkish terminology, the program's workflow and the validation report |
 | *Belirsizlik Eğitimi* 2023, 2025 (pptx); Eski Sunumlar: *Genel Metroloji* 2026, *ISO/IEC 17025 Eğitimi* 2025 | training material: examples and Turkish terminology for the guide |
 | *Belirsizlik Kaynakları.txt* | the author's reading list (GUM, EA-4/02, M3003, QUAM, Bell, Kirkup, Rabinovich, TN 1297, A2LA G104 …) |
 | TÜBİTAK sunum şablonu | template for presentations of the program |

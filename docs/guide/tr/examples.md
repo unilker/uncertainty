@@ -2,8 +2,8 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (140)
-- Elektrik ve RF (35)
+- Kimya (141)
+- Elektrik ve RF (36)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
 - Uzunluk (12)
@@ -2481,6 +2481,30 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 
 **Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang tr`
 
+### İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2)
+
+`ume-procedure-19-2-qnmr-purity-internal-standard` — TÜBİTAK UME, Section 19.2
+
+Bağıl belirsizlikli çarpımsal model; değerler örnektir, gerçek bir ölçüme ait değildir. Entegrasyon, oranın tekrarlanabilirliğinin yanında ayrı bir B tipi bileşendir (±%0,2, dikdörtgen).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bağıl standart belirsizlikler (10⁻⁶): tekrarlanabilirlik 671, entegrasyon 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; birleşik 1575; ν_eff = 121.
+2. P_a = 995,0 mg/g, u_c = 1,567 mg/g, U = 2u_c = 3,13 → 3,1 mg/g: P_a = (995,0 ± 3,1) mg/g (k = 2).
+3. Varyansın yarısından fazlası entegrasyondan, yaklaşık dörtte biri iç standardın saflığından gelir (%54 ve %23).
+
+**Sonuç:**
+
+- P_a = (995,0 ± 3,1) mg/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- ¹H çekirdek sayıları prosedürde okunamıyor (model gömülü bir denklem nesnesidir); basılı 995,0 mg/g değerini veren tek oran N_std/N_a = 2/3'tür; iç standart maleik asit (M = 116,072 g/mol, 2 H) ve bir metil singleti olan M = 194,19 g/mol'lük bir analit (ör. kafein) ile uyumludur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang tr`
+
 ### Nehir sedimentlerinde fluoranten, aritmetik ortalama geri kazanım (MUPR Eş. 8–12) (Bettencourt da Silva 2026)
 
 `bettencourt2026-fluoranthene-arithmetic` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
@@ -4108,6 +4132,26 @@ Dengede R_U/R_G = R_F/R_EH; R_EH = 1/(R_E⁻¹ + R_H⁻¹), paralel E ve H'nin o
 - Kitap, direncin pozitifliğine uyan lognormal modelin bu bağıl belirsizliklerde (%5'in altında) pratikte aynı sonucu verdiğini belirtir.
 
 **Çalıştırma:** `uncertainty run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang tr`
+
+### Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1)
+
+`ume-procedure-19-1-dmm-10v-calibration` — TÜBİTAK UME, Section 19.1
+
+Mutlak belirsizlikli toplamsal model: kalibratör sertifikası, kayması ve çözünürlük düzeltmeleriyle gösterge hatası E = V_DMM − V_ref.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. u_c = √(8,1² + 25,0² + 23,1² + 2,9²) = 35,1 µV; ν_eff = 3965 (okumalar için ν = 11 ile Welch–Satterthwaite); U = 2u_c = 70,2 µV.
+2. Prosedürün baskın bileşen kontrolü: en büyük dikdörtgen katkı u_R = 23,1 µV, diğerleri u_N = 26,4 µV; u_N/u_R = 1,14 > 0,70 olduğundan k = 2 uygundur.
+3. Sonuç: E = (0,21 ± 0,07) mV; 10 V'a göre bağıl U = 7 µV/V (k = 2, p ≈ %95).
+
+**Sonuç:**
+
+- E = (212 ± 70) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang tr`
 
 ## Akış ve hacim
 

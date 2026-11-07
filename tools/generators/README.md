@@ -36,6 +36,7 @@ recomputed.
 | `bipm_isrd.py` | BIPM ISRD-01, -02, -06, -07, -08: qNMR purity budgets (inputs from `tools/research/qnmr/isrd_budgets.py`) |
 | `possolo_bodnar2018.py` | Possolo & Bodnar 2018 §4.4: chromium in soil, homogeneity with a hierarchical Bayesian model |
 | `merkatas2019.py` | Merkatas et al. 2019: G from 16 results, four procedures of Table 4 |
+| `ume_procedure.py` | TÜBİTAK UME draft uncertainty procedure, Examples 19.1 and 19.2 |
 | `koepke2017.py` | Koepke et al. 2017 (NIST Consensus Builder): G, half-lives of ¹³⁷Cs and ⁹⁰Sr |
 | `eurachem_compliance.py` | Eurachem/CITAC compliance assessment guide 2021, Annex B Examples 1–3 |
 | `tr569.py` | Nordtest TR 569 control charts |

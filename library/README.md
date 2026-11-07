@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**275 examples / örnek** (135 model, 39 top-down, 9 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 25 conformity assessment / uygunluk değerlendirmesi).
+**277 examples / örnek** (137 model, 39 top-down, 9 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 25 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -65,6 +65,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`quam-a7-lead-double-idms`](chemistry/quam-a7-lead-double-idms.json) | Lead in water by double isotope dilution | Suda kurşunun çift izotop seyreltmesiyle tayini | EURACHEM/CITAC Guide CG 4 Example A7, Eq. (5), Tables A7.4–A7.8 |
 | [`ufs-a6-cadmium-soil`](chemistry/ufs-a6-cadmium-soil.json) | Cadmium in agricultural top soil: modelling approach (Eurachem UfS Example A6) | Tarım toprağında kadmiyum: modelleme yaklaşımı (Eurachem UfS Örnek A6) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A6, Tables A6.1–A6.6 |
 | [`ufs-a6-phosphorus-soil`](chemistry/ufs-a6-phosphorus-soil.json) | Phosphorus in agricultural top soil: modelling approach (Eurachem UfS Example A6) | Tarım toprağında fosfor: modelleme yaklaşımı (Eurachem UfS Örnek A6) | Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide UfS:2019 Appendix A, Example A6, Tables A6.1–A6.6 |
+| [`ume-procedure-19-2-qnmr-purity-internal-standard`](chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json) | Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2) | İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2) | TÜBİTAK UME Section 19.2 |
 
 ## Chemistry, several output quantities (JCGM 102) / Kimya, birden çok çıktı büyüklüğü (JCGM 102)
 
@@ -238,6 +239,7 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 | [`nist-tn1900-e11-step-attenuator`](electrical/nist-tn1900-e11-step-attenuator.json) | Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11) | Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11) | NIST Technical Note 1900 Example E11, Exhibits 16 and 17 |
 | [`num-10-resistance`](electrical/num-10-resistance.json) | Resistance with the rounded values of GUM Table H.2 (NIST Uncertainty Machine §10) | GUM Tablo H.2'nin yuvarlanmış değerleriyle direnç (NIST Uncertainty Machine §10) | JCGM 100:2008 H.2, Tables H.2 and H.3 |
 | [`possolo-meija-2022-wheatstone-bridge`](electrical/possolo-meija-2022-wheatstone-bridge.json) | Wheatstone bridge: a measurement model that is not a product of powers (Possolo & Meija 2022) | Wheatstone köprüsü: kuvvetler çarpımı olmayan bir ölçüm modeli (Possolo & Meija 2022) | Possolo & Meija Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26 |
+| [`ume-procedure-19-1-dmm-10v-calibration`](electrical/ume-procedure-19-1-dmm-10v-calibration.json) | 10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1) | Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1) | TÜBİTAK UME Section 19.1 |
 
 ## Electrical and RF, several output quantities (JCGM 102) / Elektrik ve RF, birden çok çıktı büyüklüğü (JCGM 102)
 

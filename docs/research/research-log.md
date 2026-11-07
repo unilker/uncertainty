@@ -3136,3 +3136,27 @@ budgets recomputed from their inputs by validated software.
   tests; no data set. Glossary and article introduction.
 - *Toman & Elster 2013* (key comparison analysis): Bayesian treatment of key comparisons with a
   reference-value prior; no reproducible data set in the text. Outlook.
+
+## 2026-11-07 (session 21, continued) — The author's UME procedure (draft, November 2026)
+
+**D71. The two worked examples of the procedure in the library; notes for the author.**
+
+- `ume-procedure-19-1-dmm-10v-calibration` (additive model, Welch–Satterthwaite with ν = 11 for the readings) and
+  `ume-procedure-19-2-qnmr-purity-internal-standard` (multiplicative model, relative uncertainties; illustrative
+  values). All printed numbers are reproduced: 19.1 u_c = 35.1 µV, ν_eff ≈ 4000 (3965), U = 70.2 µV, the
+  dominant-component check u_N/u_R = 1.14; 19.2 P_a = 995.0 mg/g, relative u_c 1575 × 10⁻⁶, ν_eff = 121,
+  U = 3.13 → 3.1 mg/g, variance shares 18/54/23/4/2 %.
+- Notes for the author (own document; not findings):
+  1. The model equations of Sections 19.1 and 19.2 are embedded equation objects; in the text extraction the
+     numbers of ¹H nuclei of 19.2 are missing. Only N_std/N_a = 2/3 reproduces 995.0 mg/g (maleic acid, 2 H, and
+     an analyte of 194.19 g/mol with a methyl singlet, e.g. caffeine). Stating N_a and N_std in the table would
+     make the example self-contained.
+  2. The scope includes CCQM/EURAMET comparisons and reference-material value assignment, but the procedure has no
+     section on consensus values, dark uncertainty and degrees of equivalence; the program now covers them (D66–D68)
+     and could be cited there.
+  3. A purity close to 1000 mg/g with U reaching the bound (BIPM ISRD-06 reports +0.2/−1.5 mg/g, F97 item 6)
+     deserves a sentence on asymmetric intervals at a physical limit.
+  4. Terminology agrees with the guide: *ölçülen büyüklük*, *duyarlılık katsayısı*, *birleşik standart
+     belirsizlik*, *etkin serbestlik derecesi*, *kapsam aralığı/olasılığı/faktörü*, *koruma bandı*, *özgül risk*.
+     The procedure says *tolerans aralığı* and *kabul aralığı* where the guide mostly says *tolerans sınırı* and
+     *kabul sınırı* (both are used correctly: the interval is bounded by the limits).

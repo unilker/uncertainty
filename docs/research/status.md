@@ -10,11 +10,11 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **275** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **201** Rust testi (bunlardan biri 275 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **277** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **201** Rust testi (bunlardan biri 277 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D70, bulgular F1–F97 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D71, bulgular F1–F97 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -120,8 +120,9 @@ indirilemedi; Drive klasörüne konacak:
    - Possolo & Meija 2022: Hubble (Laplace etkili Bayes, D68), anyon açığı, tank, Wheatstone, kurşun (F96).
    - BIPM ISRD qNMR saflık bütçeleri: 9 proje (D69), tablolar arası tutarsızlıklar (F97).
    - Bayesçi öğreticiler, Toman 2016, Degenhardt 2025 okundu (D70); Possolo & Bodnar 2018 krom örneği kütüphanede.
-   - Sıradakiler:
-     QAC 2026, UME prosedürleri.
+   - UME prosedür taslağı: iki örnek kütüphanede, yazara notlar (D71).
+   - Sıradakiler: QAC 2026, A2LA G104, eğitim örnekleri (Kirkup, White 2008, Leito, Kessel); ardından makale taslağı
+     (`docs/article/outline.md`).
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
      - tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar);
