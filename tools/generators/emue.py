@@ -257,3 +257,45 @@ p38 = {"format": "uncertainty-calculations/project", "version": 1,
                                    "EMUE E3.8.6 ve Tablo E3.8.5: y(NH₃) = 7,08·10⁻⁵ mol/mol, u = 5,99·10⁻⁷ mol/mol; (70,8 ± 1,2) µmol/mol (k = 2).")}}
 Path("library/chemistry/emue-e3.8-ammonia-permeation.json").write_text(json.dumps(p38, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print("wrote emue-e3.8-ammonia-permeation")
+
+# --- E3.3: NO₂ analyser calibrated with mixtures from dynamic dilution (correlated reference values) ----
+# Program (ISO 6143 GLS, covariances of the contents propagated): A = 89.208, B = 4.18480, V_AB = (285.247,
+# −1.30008, 0.0063648) — equal to the printed (E3.3.18); validation 981.95 ± 4.519 nmol/mol.
+# Full WTLS with the covariances in the weights (tools/research/emue/e33_wtls.py): A = 88.942 (printed 88.94).
+VX = [[39.5, 1.7, 2.2], [1.7, 37.0, 3.0], [2.2, 3.0, 41.2]]
+PTS = [("a", 708.1, 146.6, 0.75), ("b", 974.1, 213.7, 0.67), ("c", 1290.1, 285.0, 1.53)]
+for corr in (True, False):
+    slug = "" if corr else "-covariances-ignored"
+    cal = {"analyte": "NO₂ in synthetic air", "unit": "nmol/mol", "response_unit": "a.u.",
+           "points": [{"name": n_, "x": x_, "u_x": round(math.sqrt(VX[i][i]), 6), "y": y_, "u_y": uy_} for i, (n_, x_, y_, uy_) in enumerate(PTS)],
+           "function": "linear", "samples": [{"name": "validation", "y": 213.33, "u_y": 0.11}]}
+    if corr:
+        cal["covariances"] = [{"between": ["a", "b"], "value": 1.7}, {"between": ["a", "c"], "value": 2.2}, {"between": ["b", "c"], "value": 3.0}]
+    exp = {"params": [chk(89.208, 0.001), chk(4.18480, 1e-5)],
+           "samples": {"validation": {"x": chk(981.95, 0.01), "u": chk(4.519 if corr else 4.350, 0.002)}}}
+    if corr:
+        exp["u_params"] = [chk(round(math.sqrt(285.247), 3), 0.002), chk(round(math.sqrt(0.0063648), 6), 2e-6)]
+        exp["cov_params"] = [chk(-1.3001, 1e-4)]
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": "emue-e3.3-no2-analyser-dynamic-dilution" + slug, "field": "chemistry",
+                      "title": T("NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values" + ("" if corr else ", covariances ignored") + " (EMUE E3.3)",
+                                 "Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu" + ("" if corr else ", kovaryanslar yok sayılmış") + " (EMUE E3.3)"),
+                      "description": T("Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture diluted with two calibrated MFCs; straight-line analysis function x = A + B·w fitted with uncertainties in both variables; validation with an independent mixture of 975.5 nmol/mol.",
+                                       "Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava karışımı (708, 974, 1290 nmol/mol); her iki değişkende belirsizlikle uydurulan doğrusal analiz fonksiyonu x = A + B·w; 975,5 nmol/mol'lük bağımsız bir karışımla doğrulama."),
+                      "explanation": [
+                          T("x = x₁q₁/(q₁ + q₂) (E3.3.7) with the same parent mixture (10.252 ± 0.016 µmol/mol) and the same MFC calibration curves for all three mixtures, so the reference values are correlated (matrix E3.3.17). ISO 6143 handles such contents with their covariances.",
+                            "x = x₁q₁/(q₁ + q₂) (E3.3.7); üç karışım için de aynı ana karışım (10,252 ± 0,016 µmol/mol) ve aynı MFC kalibrasyon eğrileri kullanıldığından referans değerler ilişkilidir (matris E3.3.17). ISO 6143 bu içerikleri kovaryanslarıyla ele alır."),
+                          T("The program fits the line by generalized least squares (ISO 6143 Annex A) and propagates the covariances of the contents into the parameter covariance. That gives exactly the printed V_AB = (285, −1.30, 6.36·10⁻³), with A = 89.21 and B = 4.1848.",
+                            "Program doğruyu genelleştirilmiş en küçük karelerle uydurur (ISO 6143 Ek A) ve içeriklerin kovaryanslarını parametre kovaryansına yayar. Bu, A = 89,21 ve B = 4,1848 ile basılı V_AB = (285; −1,30; 6,36·10⁻³) değerini tam olarak verir."),
+                          T(f"Validation: w = 213.33 ± 0.11 a.u. gives x = 981.95 nmol/mol with u = {'4.52' if corr else '4.35'} nmol/mol against the reference 975.5 ± 1.5 nmol/mol: E_n = 6.5/(2·√(u² + 1.5²)) ≈ 0.68, consistent." + ("" if corr else " Ignoring the covariances lowers u by 3.7 %."),
+                            f"Doğrulama: w = 213,33 ± 0,11 a.u., x = 981,95 nmol/mol ve u = {'4,52' if corr else '4,35'} nmol/mol verir; referans 975,5 ± 1,5 nmol/mol: E_n = 6,5/(2·√(u² + 1,5²)) ≈ 0,68, tutarlı." + ("" if corr else " Kovaryansları yok saymak u'yu %3,7 düşürür."))],
+                      "sources": [{"document": DOC, "section": "Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)", "url": URL}],
+                      "tags": ["emue", "gas-analysis", "dynamic-dilution", "mfc", "iso-6143", "correlation", "errors-in-variables"],
+                      "notes": [T("The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).",
+                                  "(E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).")]},
+         "calibration": cal,
+         "expected": {"calibration": exp,
+                      "reference": T("EMUE E3.3.6: A = 88.94 nmol/mol, B = 4.19 nmol/(mol·a.u.), V_AB (E3.3.18); validation y = 982.0 nmol/mol, u = 4.7 (4.5 without covariances). Expected values recomputed (F90).",
+                                     "EMUE E3.3.6: A = 88,94 nmol/mol, B = 4,19 nmol/(mol·a.u.), V_AB (E3.3.18); doğrulama y = 982,0 nmol/mol, u = 4,7 (kovaryanssız 4,5). Beklenen değerler yeniden hesaplandı (F90).")}}
+    Path(f"library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", "emue-e3.3-no2-analyser-dynamic-dilution" + slug)

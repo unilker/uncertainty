@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (118)
+- Kimya (120)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -40,6 +40,54 @@ NyQuil tabletleri: APAP, DEX, DOX ve PE; tolerans etiket miktarının %95–105'
 - Program 4 boyutlu sonsal dağılımı tolerans kutusu üzerinde R'nin pmvnorm işlevi yerine Genz yöntemiyle (değişkenlere ayırma, 200 000 karşıt çekiliş, standart hata yaklaşık 10⁻⁶) integre eder; küresel riski u_i gerçek değerle orantılı alınarak Monte Carlo ile hesaplar.
 
 **Çalıştırma:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang tr`
+
+### Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava karışımı (708, 974, 1290 nmol/mol); her iki değişkende belirsizlikle uydurulan doğrusal analiz fonksiyonu x = A + B·w; 975,5 nmol/mol'lük bağımsız bir karışımla doğrulama.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7); üç karışım için de aynı ana karışım (10,252 ± 0,016 µmol/mol) ve aynı MFC kalibrasyon eğrileri kullanıldığından referans değerler ilişkilidir (matris E3.3.17). ISO 6143 bu içerikleri kovaryanslarıyla ele alır.
+2. Program doğruyu genelleştirilmiş en küçük karelerle uydurur (ISO 6143 Ek A) ve içeriklerin kovaryanslarını parametre kovaryansına yayar. Bu, A = 89,21 ve B = 4,1848 ile basılı V_AB = (285; −1,30; 6,36·10⁻³) değerini tam olarak verir.
+3. Doğrulama: w = 213,33 ± 0,11 a.u., x = 981,95 nmol/mol ve u = 4,52 nmol/mol verir; referans 975,5 ± 1,5 nmol/mol: E_n = 6,5/(2·√(u² + 1,5²)) ≈ 0,68, tutarlı.
+
+**Sonuç:**
+
+- x(validation) = (982,0 ± 9,0) nmol/mol (k = 2,00)
+
+**Notlar:**
+
+- (E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang tr`
+
+### Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu, kovaryanslar yok sayılmış (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava karışımı (708, 974, 1290 nmol/mol); her iki değişkende belirsizlikle uydurulan doğrusal analiz fonksiyonu x = A + B·w; 975,5 nmol/mol'lük bağımsız bir karışımla doğrulama.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7); üç karışım için de aynı ana karışım (10,252 ± 0,016 µmol/mol) ve aynı MFC kalibrasyon eğrileri kullanıldığından referans değerler ilişkilidir (matris E3.3.17). ISO 6143 bu içerikleri kovaryanslarıyla ele alır.
+2. Program doğruyu genelleştirilmiş en küçük karelerle uydurur (ISO 6143 Ek A) ve içeriklerin kovaryanslarını parametre kovaryansına yayar. Bu, A = 89,21 ve B = 4,1848 ile basılı V_AB = (285; −1,30; 6,36·10⁻³) değerini tam olarak verir.
+3. Doğrulama: w = 213,33 ± 0,11 a.u., x = 981,95 nmol/mol ve u = 4,35 nmol/mol verir; referans 975,5 ± 1,5 nmol/mol: E_n = 6,5/(2·√(u² + 1,5²)) ≈ 0,68, tutarlı. Kovaryansları yok saymak u'yu %3,7 düşürür.
+
+**Sonuç:**
+
+- x(validation) = (982,0 ± 8,7) nmol/mol (k = 2,00)
+
+**Notlar:**
+
+- (E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang tr`
 
 ### Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi (EMUE E3.4)
 

@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (118)
+- Chemistry (120)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -40,6 +40,54 @@ NyQuil tablets: APAP, DEX, DOX and PE, tolerance 95–105 % of the labelled amou
 - The program integrates the 4-dimensional posterior over the tolerance box by the method of Genz (separation of variables, 200 000 antithetic draws, standard error about 10⁻⁶) instead of R's pmvnorm, and the global risk by Monte Carlo with u_i proportional to the true value.
 
 **Run:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang en`
+
+### NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture diluted with two calibrated MFCs; straight-line analysis function x = A + B·w fitted with uncertainties in both variables; validation with an independent mixture of 975.5 nmol/mol.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7) with the same parent mixture (10.252 ± 0.016 µmol/mol) and the same MFC calibration curves for all three mixtures, so the reference values are correlated (matrix E3.3.17). ISO 6143 handles such contents with their covariances.
+2. The program fits the line by generalized least squares (ISO 6143 Annex A) and propagates the covariances of the contents into the parameter covariance. That gives exactly the printed V_AB = (285, −1.30, 6.36·10⁻³), with A = 89.21 and B = 4.1848.
+3. Validation: w = 213.33 ± 0.11 a.u. gives x = 981.95 nmol/mol with u = 4.52 nmol/mol against the reference 975.5 ± 1.5 nmol/mol: E_n = 6.5/(2·√(u² + 1.5²)) ≈ 0.68, consistent.
+
+**Result:**
+
+- x(validation) = (982.0 ± 9.0) nmol/mol (k = 2.00)
+
+**Notes:**
+
+- The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).
+
+**Run:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang en`
+
+### NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values, covariances ignored (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture diluted with two calibrated MFCs; straight-line analysis function x = A + B·w fitted with uncertainties in both variables; validation with an independent mixture of 975.5 nmol/mol.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7) with the same parent mixture (10.252 ± 0.016 µmol/mol) and the same MFC calibration curves for all three mixtures, so the reference values are correlated (matrix E3.3.17). ISO 6143 handles such contents with their covariances.
+2. The program fits the line by generalized least squares (ISO 6143 Annex A) and propagates the covariances of the contents into the parameter covariance. That gives exactly the printed V_AB = (285, −1.30, 6.36·10⁻³), with A = 89.21 and B = 4.1848.
+3. Validation: w = 213.33 ± 0.11 a.u. gives x = 981.95 nmol/mol with u = 4.35 nmol/mol against the reference 975.5 ± 1.5 nmol/mol: E_n = 6.5/(2·√(u² + 1.5²)) ≈ 0.68, consistent. Ignoring the covariances lowers u by 3.7 %.
+
+**Result:**
+
+- x(validation) = (982.0 ± 8.7) nmol/mol (k = 2.00)
+
+**Notes:**
+
+- The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).
+
+**Run:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang en`
 
 ### Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data (EMUE E3.4)
 

@@ -20,7 +20,7 @@ Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımla
 çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları,
 belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık beş katıdır.
 
-**245 examples / örnek** (120 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 6 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 17 conformity assessment / uygunluk değerlendirmesi).
+**247 examples / örnek** (120 model, 38 top-down, 8 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 14 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 7 error functions / hata fonksiyonu, 17 conformity assessment / uygunluk değerlendirmesi).
 
 ## Chemistry / Kimya
 
@@ -116,6 +116,8 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 | File / Dosya | Title | Başlık | Source / Kaynak |
 |---|---|---|---|
+| [`emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored`](chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json) | NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values, covariances ignored (EMUE E3.3) | Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu, kovaryanslar yok sayılmış (EMUE E3.3) | EMPIR 17NRM05 EMUE Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19) |
+| [`emue-e3.3-no2-analyser-dynamic-dilution`](chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json) | NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values (EMUE E3.3) | Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu (EMUE E3.3) | EMPIR 17NRM05 EMUE Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19) |
 | [`iso6143-b1-no-uv-linear`](chemistry/iso6143-b1-no-uv-linear.json) | NO in N₂ by UV absorption: straight-line analysis function (ISO 6143 Example 1) | N₂ içinde NO, UV absorpsiyonu: doğrusal analiz fonksiyonu (ISO 6143 Örnek 1) | ISO 6143:2025 Annex B.2.2 (Tables B.1–B.6) |
 | [`iso6143-b2-n2-natural-gas-covariances`](chemistry/iso6143-b2-n2-natural-gas-covariances.json) | N₂ in natural gas by GC-TCD: correlated reference mixtures (ISO 6143 Example 2) | Doğal gazda N₂, GC-TCD: korelasyonlu referans karışımlar (ISO 6143 Örnek 2) | ISO 6143:2025 Annex B.2.3 (Table B.10) |
 | [`iso6143-b2-n2-natural-gas-linear`](chemistry/iso6143-b2-n2-natural-gas-linear.json) | N₂ in natural gas by GC-TCD: straight line (ISO 6143 Example 2) | Doğal gazda N₂, GC-TCD: doğrusal fonksiyon (ISO 6143 Örnek 2) | ISO 6143:2025 Annex B.2.3 (Tables B.7, B.8) |

@@ -2724,3 +2724,47 @@ effect on the result).**
    M̄₁ = 28.013 77 g mol⁻¹ for nitrogen": the second is M̄₂.
 
 The library has 245 projects.
+
+**EMUE E3.3 (NO₂ analyser calibrated with mixtures from dynamic dilution).**
+
+- The amount fractions 708.1, 974.1 and 1290.1 nmol/mol reproduce from
+  x₁q₁/(q₁ + q₂). The flows of Table E3.3.2 follow from the MFC curves to
+  0.03 % (curve parameters rounded).
+- The program's ISO 6143 calibration with covariances of the contents gives
+  V_AB = (285.247, −1.30008, 0.0063648), exactly the printed (E3.3.18),
+  with A = 89.208 and B = 4.18480. The validation sample gives
+  981.95 ± 4.519 nmol/mol, and 4.350 without covariances.
+- Library projects: `emue-e3.3-no2-analyser-dynamic-dilution` and
+  `-covariances-ignored`. Scripts: `tools/research/emue/e33_dilution.py`
+  and `e33_wtls.py`.
+
+**F90. EMUE E3.3 — covariance matrix of the reference values and the
+validation uncertainty (class c).**
+
+1. **Diagonal of (E3.3.17).** The covariance matrix is computed "according
+   to (E3.3.14) and (E3.3.16)" from u(x₁) = 16 nmol/mol and the flow
+   uncertainties of Tables E3.3.2–E3.3.3.
+   - Those inputs give the diagonal 1.34, 2.53 and 4.48 nmol²/mol², i.e.
+     u = 1.16, 1.59, 2.12 nmol/mol.
+   - The printed diagonal is 39.5, 37.0 and 41.2, i.e. u = 6.3, 6.1 and
+     6.4 (Table E3.3.4).
+   - The off-diagonal terms do follow: 1.76, 2.32 and 3.19 against 1.7,
+     2.2 and 3.0.
+   - A contribution of about 38 nmol²/mol² per mixture is therefore
+     included but not described, and it is uncorrelated between the
+     mixtures. Its source (e.g. the impurity of the diluent, which the text
+     takes as zero) cannot be identified from the example.
+2. **Validation uncertainty.** Eq. (E3.3.19) with the printed A = 88.94,
+   B = 4.19, V_AB, w = 213.33 and u(w) = 0.11 gives y = 982.8 and
+   u = 4.47 nmol/mol; printed 982.0 and 4.7.
+   - With unrounded parameters u = 4.52 (both the program and a full WTLS).
+   - Without covariances u = 4.35, so the covariances raise u by 3.9 %;
+     printed "up to 3.4 %" with 4.5 against 4.7.
+3. **Two procedures mixed (noted).** A full WTLS with the covariances in the
+   weights reproduces the printed A = 88.94 but gives V_AB = (288.5,
+   −1.318, 0.00646). The printed V_AB equals the ISO 6143 estimate with
+   diagonal weights and propagated covariances, whose A is 89.21. The
+   printed A and V_AB appear to come from different procedures. The
+   difference in A (0.27 nmol/mol) is far below u(A) = 16.9.
+
+The library has 247 projects.
