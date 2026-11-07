@@ -34,6 +34,13 @@ Koruma bandı şu yollardan biriyle belirlenir:
   (korumalı ret) verilen değere ulaştığı yere konur. `u_relative` ile belirsizlik ölçülen değere bağlı
   olabilir; hız sınırı örneğinde (8.3.3, Örnek 1) olduğu gibi.
 
+Bağıl belirsizliği büyük (yaklaşık %20'nin üstünde) pozitif bir ölçülen büyüklük için `"distribution":
+"lognormal"`, medyanı ölçülen değere eşit ve s_G = u/|y| olan lognormal dağılımı kullanır (Eurachem/CITAC uygunluk
+rehberi 2021, Ek A, Durum 4, Eşitlik 2); `"exact_sdlog": true` ile s_G = √ln(1 + (u/y)²) alınır. Sabit bağıl
+belirsizlikte kabul sınırları tam olarak L·exp(±k·s_G) olur. Rehberin normal sınırları L(1 ± k·u_bağıl), u'yu
+sınırda alır; yani sabit `u` = u_bağıl·L. `u_relative` ve normal dağılımla program bağıl belirsizliği ölçülen
+değerde uygular; bu L/(1 ∓ k·u_bağıl) verir.
+
 Kabul sınırları `acceptance_lower` ve `acceptance_upper` ile doğrudan da verilebilir; kural bu durumda
 sınırlardan çıkarılır.
 

@@ -2,7 +2,7 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (109)
+- Chemistry (114)
 - Electrical and RF (34)
 - Flow and volume (7)
 - General (method validation) (21)
@@ -13,6 +13,122 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Temperature (10)
 
 ## Chemistry
+
+### Nickel in stainless steel: guarded acceptance with a two-sided specification (Eurachem/CITAC compliance guide, Example B1)
+
+`eurachem-compliance-b1-nickel-steel` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 1; Annex A, Case 1b
+
+Specification 16.0–18.0 % Ni, U = 0.2 % (k = 2); acceptance zone where conformity is at least 95 % probable; measured 16.1 % Ni.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 1b of Annex A: the expanded uncertainty is divided by its k = 2, u = 0.1 % Ni, and each guard band is k·u with the one-sided 95 % normal quantile k = 1.645.
+2. Acceptance zone 16.164–17.836 % Ni (printed 16.2–17.8 after rounding). 16.1 % Ni lies in the rejection zone: p_c = 84 %, the batch is non-compliant; with simple acceptance it would be compliant.
+
+**Result:**
+
+- Probability that batch conforms to 16 % ≤ w(Ni) ≤ 18 %: p_c = 84 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- The guide gives the guard band as 1.64u ≈ 0.17 %; 1.64 × 0.1 = 0.164 rounds to 0.16 % (research log F86). The rounded acceptance limits 16.2 and 17.8 % correspond to a probability of 97.7 %, not 95 %.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang en`
+
+### Analyte below an upper limit, t distribution with ν = 8: guarded rejection (Eurachem/CITAC compliance guide, Example B2)
+
+`eurachem-compliance-b2-upper-limit-t` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 2; Annex A, Case 2
+
+Upper limit 200 ng/g, u = 2.2 ng/g with 8 degrees of freedom; non-compliant only if the probability above the limit exceeds 95 %; measured 203.7 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 2 of Annex A: the guard band is t₀.₉₅(8)·u = 1.860 × 2.2 = 4.09 ng/g, so the acceptance limit is 204.09 ng/g.
+2. 203.7 ng/g lies below the acceptance limit: the probability of exceeding 200 ng/g is 93.4 %, below 95 %, and the batch is compliant. Simple acceptance would declare it non-compliant.
+
+**Result:**
+
+- Probability that batch conforms to w ≤ 200 ng/g: p_c = 6.6 %; accepted under guarded rejection.
+
+**Notes:**
+
+- The table of the example states 'the distribution … is assumed to be Normal' but the guard band uses the t distribution with 8 degrees of freedom (research log F86).
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang en`
+
+### Banned substance at a 2 ng/g limit with u_rel = 35 %: lognormal PDF, s_G ≈ u_rel (Eurachem/CITAC compliance guide, Example B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the probability above the limit is at least 95 %; measured 3.3 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 4 of Annex A: for positive quantities from products and ratios a lognormal PDF is appropriate. The acceptance limit for correct rejection is L·U_F with the uncertainty factor U_F = exp(k·s_G), k = 1.645 (Equations 1–3).
+2. Acceptance limit 3.557 ng/g; at 3.3 ng/g the probability of exceeding 2 ng/g is 92.4 % and the sample is compliant. Normal PDF: 3.151 ng/g; lognormal with s_G = u_rel: 3.557; with exact s_G = √ln(1 + u_rel²) = 0.3398: 3.498 ng/g.
+
+**Result:**
+
+- Probability that sample conforms to w ≤ 2 ng/g: p_c = 7.6 %; accepted under guarded rejection.
+
+**Notes:**
+
+- Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang en`
+
+### Banned substance at a 2 ng/g limit with u_rel = 35 %: lognormal PDF, exact s_G (Eurachem/CITAC compliance guide, Example B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal-exact` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the probability above the limit is at least 95 %; measured 3.3 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 4 of Annex A: for positive quantities from products and ratios a lognormal PDF is appropriate. The acceptance limit for correct rejection is L·U_F with the uncertainty factor U_F = exp(k·s_G), k = 1.645 (Equations 1–3).
+2. Acceptance limit 3.498 ng/g; at 3.3 ng/g the probability of exceeding 2 ng/g is 93.0 % and the sample is compliant. Normal PDF: 3.151 ng/g; lognormal with s_G = u_rel: 3.557; with exact s_G = √ln(1 + u_rel²) = 0.3398: 3.498 ng/g.
+
+**Result:**
+
+- Probability that sample conforms to w ≤ 2 ng/g: p_c = 7 %; accepted under guarded rejection.
+
+**Notes:**
+
+- Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang en`
+
+### Banned substance at a 2 ng/g limit with u_rel = 35 %: normal PDF with u = u_rel·L = 0.7 ng/g (Eurachem/CITAC compliance guide, Example B3)
+
+`eurachem-compliance-b3-banned-substance-normal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the probability above the limit is at least 95 %; measured 3.3 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 4 of Annex A: for positive quantities from products and ratios a lognormal PDF is appropriate. The acceptance limit for correct rejection is L·U_F with the uncertainty factor U_F = exp(k·s_G), k = 1.645 (Equations 1–3).
+2. Acceptance limit 3.151 ng/g; at 3.3 ng/g the probability of exceeding 2 ng/g is 96.8 % and the sample is non-compliant. Normal PDF: 3.151 ng/g; lognormal with s_G = u_rel: 3.557; with exact s_G = √ln(1 + u_rel²) = 0.3398: 3.498 ng/g.
+
+**Result:**
+
+- Probability that sample conforms to w ≤ 2 ng/g: p_c = 3.2 %; rejected under guarded rejection.
+
+**Notes:**
+
+- L(1 + k·u_rel) takes u at the limit, u = 0.35 × 2 = 0.7 ng/g, which is what this project enters. With the relative uncertainty applied at the measured value, as for the lognormal PDF, a normal PDF needs the acceptance limit L/(1 − k·u_rel) = 4.714 ng/g: at 3.151 ng/g, u = 1.10 ng/g and the probability above 2 ng/g is only 85 %. The lognormal limit L·exp(k·s_G) is exact for a constant s_G (research log F86).
+- Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang en`
 
 ### pH at 23.7 °C by three linear interpolations, independent certified values (JCGM GUM-5 Example 1)
 

@@ -37,6 +37,9 @@ pub(super) struct CfLabels {
     pub chart: &'static str,
     pub limits_chart: &'static str,
     pub t_note: &'static str,
+    pub lognormal_note: &'static str,
+    pub lognormal_exact: &'static str,
+    pub lognormal_approx: &'static str,
     pub target_note: &'static str,
 }
 
@@ -74,6 +77,9 @@ const CF_EN: CfLabels = CfLabels {
     chart: "Measured values with ± U (k = 2), tolerance limits (solid) and acceptance limits (dashed)",
     limits_chart: "PDF for a measured value at the acceptance limit, with the tolerance limit (solid) and the acceptance limit (dashed)",
     t_note: "The PDF for the measurand is a scaled and shifted t distribution with ν = {nu} (JCGM 101 6.4.9).",
+    lognormal_note: "The PDF for the measurand is lognormal with median equal to the measured value and standard deviation of ln Y {s} (Eurachem/CITAC, compliance assessment 2021, Annex A, Case 4).",
+    lognormal_exact: "s_G = √ln(1 + u_rel²)",
+    lognormal_approx: "s_G ≈ u_rel, Equation 2",
     target_note: "The guard-band multiplier r was found for the required global consumer's risk {t}.",
 };
 
@@ -111,6 +117,9 @@ const CF_TR: CfLabels = CfLabels {
     chart: "± U (k = 2) ile ölçülen değerler, tolerans sınırları (düz) ve kabul sınırları (kesikli)",
     limits_chart: "Kabul sınırındaki bir ölçülen değer için olasılık yoğunluğu, tolerans sınırı (düz) ve kabul sınırı (kesikli)",
     t_note: "Ölçülen büyüklüğün olasılık yoğunluğu ν = {nu} serbestlik dereceli ölçeklenmiş ve kaydırılmış t dağılımıdır (JCGM 101 6.4.9).",
+    lognormal_note: "Ölçülen büyüklüğün olasılık yoğunluğu, medyanı ölçülen değere eşit ve ln Y'nin standart sapması {s} olan lognormal dağılımdır (Eurachem/CITAC, uygunluk değerlendirmesi 2021, Ek A, Durum 4).",
+    lognormal_exact: "s_G = √ln(1 + u_bağıl²)",
+    lognormal_approx: "s_G ≈ u_bağıl, Eşitlik 2",
     target_note: "Koruma bandı çarpanı r, istenen küresel tüketici riski {t} için bulunmuştur.",
 };
 
@@ -214,6 +223,13 @@ pub(super) fn section(s: &mut String, a: &ConformityAnalysis, lang: Lang) {
     }
     if let Some(nu) = a.results.first().and_then(|r| r.dof).filter(|nu| nu.is_finite()) {
         let _ = writeln!(s, "\n{}", d.t_note.replace("{nu}", &fmt_num(nu, 3, lang)));
+    }
+    if let Some(exact) = a.lognormal {
+        let _ = writeln!(
+            s,
+            "\n{}",
+            d.lognormal_note.replace("{s}", if exact { d.lognormal_exact } else { d.lognormal_approx })
+        );
     }
     let _ = writeln!(s);
     if a.posterior {

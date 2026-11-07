@@ -60,7 +60,7 @@ Türkçe ve İngilizce.
   conformity (normal, t or Monte Carlo), measurement capability index, simple
   acceptance and guarded acceptance/rejection with guard bands from r, from a
   length or from a required probability, global consumer's and producer's
-  risks for normal, gamma and lognormal process distributions (fixed or
+  lognormal PDF for the measurand (Eurachem/CITAC 2021); risks for normal, gamma and lognormal process distributions (fixed or
   relative uncertainty), and specific risks from the posterior with the
   process distribution as prior (JCGM GUM-5 Example 10).
 - Interlaboratory precision experiments (ISO 5725-2:2019): Mandel's h and k,
@@ -88,12 +88,12 @@ Türkçe ve İngilizce.
   Appendix G).
 - Results not corrected for a known bias: RSSu, RSSU, SUMU, SUMU_MAX and Ue
   intervals (Magnusson & Ellison 2008), with their coverage checked by simulation.
-- [Example library](library/README.md): 231 published examples (102 model-based, 14 with several outputs:
+- [Example library](library/README.md): 236 published examples (102 model-based, 14 with several outputs:
   chemistry, mass, length, temperature, electrical, flow, pressure, physical properties;
   38 top-down: Nordtest, MUPR, QUAM A4/A6, ISO 21748, ISO 5725-3, Palma et al.
   2019, Bettencourt da Silva 2026; 8 proficiency
   testing and homogeneity: ISO 13528, GUM-5; 6 calibrations: ISO 6143; 6 interlaboratory precision
-  experiments: ISO 5725-2; 11 conformity assessments: JCGM 106 and GUM-5; 22 control
+  experiments: ISO 5725-2; 16 conformity assessments: JCGM 106, GUM-5 and Eurachem/CITAC 2021; 22 control
   charts: Nordtest TR 569 and Eurachem UfS; 7 sampling: Eurachem UfS:2019; 3 error
   functions: EURAMET cg-18) as self-checking projects.
 
@@ -141,7 +141,7 @@ hesaplanan tüm kütüphane örnekleri.
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (188 tests; one of them reruns all 231 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
+automated test (189 tests; one of them reruns all 236 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
 their raw data), all twelve calibration examples of EA-4/02 M:2022, the examples of UKAS M3003 ed. 6 (Appendices C, K, L) and of EURAMET cg-18 (H1–H4) and cg-19 v4.1, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 (with the data of the 1994 edition), Annex C of ISO 5725-2:2019 (including REML) and its Tables 1–8, Annex B of ISO 6143:2025, the examples of JCGM 106:2012 clauses 7–9 and Table 1, Chapter 7 and Examples 1–12 of Nordtest TR 569 ed. 6, Examples A1–A6 of Eurachem UfS:2019 (classical ANOVA, range method, uncertainty factor, Gy). Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).

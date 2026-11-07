@@ -29,7 +29,7 @@ Key to the columns:
 |---|---|---|---|
 | 03 Eurachem/CITAC MUPR 2026; 04 QUAM 2012; 05 UfS 2019; 07 Nordtest TR 537 EN | used | — | — |
 | 07b Nordtest TR 537 ed. 4, **Turkish** | new | Turkish terminology of the guide and reports | 3 |
-| 05a Eurachem/CITAC, Use of uncertainty information in compliance assessment (2021) | new | conformity module: decision rules, guard bands, examples | 2 |
+| 05a Eurachem/CITAC, Use of uncertainty information in compliance assessment (2021) | new | conformity module: decision rules, guard bands, examples: done (D62, F86; 5 projects) | done |
 | 06 Eurachem/CITAC QAC, 4th ed. (2026) | new | ISO/IEC 17025 mapping, QC | 5 |
 | 09 ILAC P14:09/2020 | new | rules for stating CMC and U in calibration certificates → reporting | 3 |
 | A2LA G104 (2026) | new | testing-laboratory guidance; examples | 5 |

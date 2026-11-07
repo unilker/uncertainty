@@ -221,6 +221,7 @@ Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş
 | `quantity`, `unit`, `u` veya `u_relative`, `dof`, `results` | kendi başına projeler: özellik, ölçüm sistemi, ölçülen değerler (`name`, `value`, isteğe bağlı `u`) |
 | `process`, `target_consumer_risk` | küresel riskler: `distribution` `mean`, `sd` ile `normal` veya `gamma`, ya da `meanlog`, `sdlog` ile `lognormal`; istenen R_C (r'yi bulur) |
 | `posterior` | `true`: sonuçların p_c değeri, süreç dağılımı önsel alınarak sonsal dağılımdan (kendi başına projeler) |
+| `distribution`, `exact_sdlog` | ölçülen büyüklüğün dağılımı: `normal`, `t` (model projeleri) veya `lognormal` (s_G = u/\|y\|, `exact_sdlog` ile kesin) |
 
 ## 7.10 `precision_experiment`
 

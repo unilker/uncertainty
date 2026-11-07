@@ -76,10 +76,15 @@ pub struct ConformitySpec {
     /// Required global consumer's risk: the guard-band multiplier r is found.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target_consumer_risk: Option<f64>,
-    /// Model projects: PDF for the result, `normal` (default) or `t` with the
-    /// effective degrees of freedom.
+    /// PDF for the measurand: `normal` (default), `t` with the effective
+    /// degrees of freedom (model projects; give `dof` otherwise) or
+    /// `lognormal` with median y and s_G = u/|y| (Eurachem/CITAC 2021,
+    /// Annex A, Case 4, Equation 2).
     #[serde(default)]
     pub distribution: KnowledgeSpec,
+    /// Lognormal: s_G = √ln(1 + (u/y)²) instead of the approximation u/|y|.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub exact_sdlog: bool,
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
@@ -97,6 +102,7 @@ pub enum KnowledgeSpec {
     #[default]
     Normal,
     T,
+    Lognormal,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -228,13 +234,20 @@ pub struct ConformityAnalysis {
     pub process: Option<ProcessSpec>,
     /// The conformance probabilities are posterior ones.
     pub posterior: bool,
+    /// Lognormal PDF for the measurand, with the exact s_G if true.
+    pub lognormal: Option<bool>,
     pub global: Option<GlobalRisks>,
     /// Standard uncertainty (or scale) and degrees of freedom of the measuring
     /// system at the acceptance limits, for charts of design studies.
     pub limit_knowledge: Vec<(f64, f64, Option<f64>)>,
 }
 
-fn knowledge(y: f64, u: f64, dof: Option<f64>) -> Knowledge {
+fn knowledge(y: f64, u: f64, dof: Option<f64>, lognormal: Option<bool>) -> Knowledge {
+    if let Some(exact) = lognormal {
+        let rel = u / y.abs();
+        let sdlog = if exact { (rel * rel).ln_1p().sqrt() } else { rel };
+        return Knowledge::Lognormal { y, sdlog };
+    }
     match dof {
         Some(nu) if nu.is_finite() => Knowledge::StudentT { y, u, nu },
         _ => Knowledge::Normal { y, u },
@@ -280,8 +293,15 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
                 "quantity, unit, u, u_relative, dof and results belong to a conformity project without a model",
             ));
         }
-    } else if spec.distribution != KnowledgeSpec::Normal {
-        return Err(err("distribution", "applies to model projects; give dof for a t distribution"));
+    } else if spec.distribution == KnowledgeSpec::T {
+        return Err(err("distribution", "t applies to model projects; give dof for a t distribution"));
+    }
+    let lognormal = (spec.distribution == KnowledgeSpec::Lognormal).then_some(spec.exact_sdlog);
+    if lognormal.is_some() && (spec.dof.is_some() || spec.posterior) {
+        return Err(err("distribution", "a lognormal PDF takes neither dof nor posterior"));
+    }
+    if spec.exact_sdlog && lognormal.is_none() {
+        return Err(err("exact_sdlog", "applies to a lognormal PDF"));
     }
     if spec.u.is_some() && spec.u_relative.is_some() {
         return Err(err("u", "give either u or u_relative"));
@@ -375,7 +395,7 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         (a, w)
     } else if let Some(p) = spec.probability {
         let a = cf::acceptance_from_probability(&tolerance, rule(spec.rule), p, |y| {
-            knowledge(y, system_u(y).unwrap_or(f64::NAN), dof)
+            knowledge(y, system_u(y).unwrap_or(f64::NAN), dof, lognormal)
         })
         .map_err(|e| err("probability", e.to_string()))?;
         if system_u(tolerance.upper.or(tolerance.lower).unwrap_or(0.0)).is_none() {
@@ -425,7 +445,7 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
                 }
                 cf::posterior_conformance_probability(p, value, u, &tolerance)
             }
-            _ => cf::conformance_probability(&knowledge(value, u, dof), &tolerance),
+            _ => cf::conformance_probability(&knowledge(value, u, dof, lognormal), &tolerance),
         }
         .map_err(|e| err("results", e.to_string()))?;
         let accepted = acceptance.contains(value);
@@ -494,6 +514,7 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         results,
         process: spec.process.clone(),
         posterior: spec.posterior,
+        lognormal,
         global,
     })
 }

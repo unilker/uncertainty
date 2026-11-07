@@ -1,0 +1,86 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "eurachem-compliance-b1-nickel-steel",
+    "title": {
+      "en": "Nickel in stainless steel: guarded acceptance with a two-sided specification (Eurachem/CITAC compliance guide, Example B1)",
+      "tr": "Paslanmaz çelikte nikel: iki taraflı şartnamede korumalı kabul (Eurachem/CITAC uygunluk rehberi, Örnek B1)"
+    },
+    "description": {
+      "en": "Specification 16.0–18.0 % Ni, U = 0.2 % (k = 2); acceptance zone where conformity is at least 95 % probable; measured 16.1 % Ni.",
+      "tr": "Şartname %16,0–18,0 Ni, U = %0,2 (k = 2); uygunluğun en az %95 olası olduğu kabul bölgesi; ölçülen %16,1 Ni."
+    },
+    "explanation": [
+      {
+        "en": "Case 1b of Annex A: the expanded uncertainty is divided by its k = 2, u = 0.1 % Ni, and each guard band is k·u with the one-sided 95 % normal quantile k = 1.645.",
+        "tr": "Ek A Durum 1b: genişletilmiş belirsizlik k = 2'ye bölünür, u = %0,1 Ni; her koruma bandı, tek taraflı %95 normal kantili k = 1,645 ile k·u'dur."
+      },
+      {
+        "en": "Acceptance zone 16.164–17.836 % Ni (printed 16.2–17.8 after rounding). 16.1 % Ni lies in the rejection zone: p_c = 84 %, the batch is non-compliant; with simple acceptance it would be compliant.",
+        "tr": "Kabul bölgesi %16,164–17,836 Ni (yuvarlamadan sonra basılı 16,2–17,8). %16,1 Ni ret bölgesindedir: p_c = %84, parti uygun değildir; basit kabulde uygun olurdu."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, 2nd ed. (2021)",
+        "section": "Annex B, Example 1; Annex A, Case 1b",
+        "url": "https://www.eurachem.org/index.php/publications/guides/uncertcompliance"
+      }
+    ],
+    "tags": [
+      "eurachem-compliance",
+      "conformity-assessment",
+      "guarded-acceptance",
+      "two-sided",
+      "metals"
+    ],
+    "notes": [
+      {
+        "en": "The guide gives the guard band as 1.64u ≈ 0.17 %; 1.64 × 0.1 = 0.164 rounds to 0.16 % (research log F86). The rounded acceptance limits 16.2 and 17.8 % correspond to a probability of 97.7 %, not 95 %.",
+        "tr": "Rehber koruma bandını 1,64u ≈ %0,17 olarak verir; 1,64 × 0,1 = 0,164, %0,16'ya yuvarlanır (araştırma günlüğü F86). Yuvarlanmış 16,2 ve %17,8 kabul sınırları %95'e değil %97,7 olasılığa karşılık gelir."
+      }
+    ]
+  },
+  "conformity": {
+    "quantity": "w(Ni)",
+    "unit": "%",
+    "lower": 16.0,
+    "upper": 18.0,
+    "rule": "guarded_acceptance",
+    "probability": 0.95,
+    "u": 0.1,
+    "results": [
+      {
+        "name": "batch",
+        "value": 16.1
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "acceptance_lower": {
+        "value": 16.1645,
+        "tolerance": 0.0001
+      },
+      "acceptance_upper": {
+        "value": 17.8355,
+        "tolerance": 0.0001
+      },
+      "results": {
+        "batch": {
+          "accepted": false,
+          "conformance_probability": {
+            "value": 0.8413,
+            "tolerance": 0.0001
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "Eurachem/CITAC 2021, Example B1: acceptance zone 16.2–18.0 → 16.2 % to 17.8 % Ni after rounding; 16.1 % Ni non-compliant.",
+      "tr": "Eurachem/CITAC 2021, Örnek B1: yuvarlamadan sonra kabul bölgesi %16,2–17,8 Ni; %16,1 Ni uygun değil."
+    }
+  }
+}

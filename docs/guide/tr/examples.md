@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (109)
+- Kimya (114)
 - Elektrik ve RF (34)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -13,6 +13,122 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Sıcaklık (10)
 
 ## Kimya
+
+### Paslanmaz çelikte nikel: iki taraflı şartnamede korumalı kabul (Eurachem/CITAC uygunluk rehberi, Örnek B1)
+
+`eurachem-compliance-b1-nickel-steel` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 1; Annex A, Case 1b
+
+Şartname %16,0–18,0 Ni, U = %0,2 (k = 2); uygunluğun en az %95 olası olduğu kabul bölgesi; ölçülen %16,1 Ni.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 1b: genişletilmiş belirsizlik k = 2'ye bölünür, u = %0,1 Ni; her koruma bandı, tek taraflı %95 normal kantili k = 1,645 ile k·u'dur.
+2. Kabul bölgesi %16,164–17,836 Ni (yuvarlamadan sonra basılı 16,2–17,8). %16,1 Ni ret bölgesindedir: p_c = %84, parti uygun değildir; basit kabulde uygun olurdu.
+
+**Sonuç:**
+
+- batch için 16 % ≤ w(Ni) ≤ 18 % şartına uygunluk olasılığı: p_c = %84; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- Rehber koruma bandını 1,64u ≈ %0,17 olarak verir; 1,64 × 0,1 = 0,164, %0,16'ya yuvarlanır (araştırma günlüğü F86). Yuvarlanmış 16,2 ve %17,8 kabul sınırları %95'e değil %97,7 olasılığa karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang tr`
+
+### Üst sınırın altındaki analit, ν = 8 t dağılımı: korumalı ret (Eurachem/CITAC uygunluk rehberi, Örnek B2)
+
+`eurachem-compliance-b2-upper-limit-t` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 2; Annex A, Case 2
+
+Üst sınır 200 ng/g, u = 8 serbestlik dereceli 2,2 ng/g; yalnızca sınırın üstünde olma olasılığı %95'i aşarsa uygun değil; ölçülen 203,7 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 2: koruma bandı t₀,₉₅(8)·u = 1,860 × 2,2 = 4,09 ng/g; kabul sınırı 204,09 ng/g'dır.
+2. 203,7 ng/g kabul sınırının altındadır: 200 ng/g'ı aşma olasılığı %93,4, %95'in altındadır; parti uygundur. Basit kabul onu uygun değil sayardı.
+
+**Sonuç:**
+
+- batch için w ≤ 200 ng/g şartına uygunluk olasılığı: p_c = %6,6; korumalı ret kuralına göre kabul.
+
+**Notlar:**
+
+- Örneğin tablosu 'dağılımın normal olduğu varsayılır' der, ancak koruma bandı 8 serbestlik dereceli t dağılımını kullanır (araştırma günlüğü F86).
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang tr`
+
+### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: lognormal dağılım, s_G ≈ u_bağıl (Eurachem/CITAC uygunluk rehberi, Örnek B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Üst sınır 2 ng/g, bağıl standart belirsizlik %35; sınırın üstünde olma olasılığı en az %95 ise uygun değil; ölçülen 3,3 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 4: çarpım ve oranlardan gelen pozitif büyüklükler için lognormal dağılım uygundur. Doğru ret için kabul sınırı L·U_F'dir; belirsizlik çarpanı U_F = exp(k·s_G), k = 1,645 (Eşitlik 1–3).
+2. Kabul sınırı 3,557 ng/g; 3,3 ng/g'da 2 ng/g'ı aşma olasılığı %92,4 olup numune uygundur. Normal dağılım: 3,151 ng/g; s_G = u_bağıl ile lognormal: 3,557; kesin s_G = √ln(1 + u_bağıl²) = 0,3398 ile: 3,498 ng/g.
+
+**Sonuç:**
+
+- sample için w ≤ 2 ng/g şartına uygunluk olasılığı: p_c = %7,6; korumalı ret kuralına göre kabul.
+
+**Notlar:**
+
+- Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang tr`
+
+### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: lognormal dağılım, kesin s_G (Eurachem/CITAC uygunluk rehberi, Örnek B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal-exact` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Üst sınır 2 ng/g, bağıl standart belirsizlik %35; sınırın üstünde olma olasılığı en az %95 ise uygun değil; ölçülen 3,3 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 4: çarpım ve oranlardan gelen pozitif büyüklükler için lognormal dağılım uygundur. Doğru ret için kabul sınırı L·U_F'dir; belirsizlik çarpanı U_F = exp(k·s_G), k = 1,645 (Eşitlik 1–3).
+2. Kabul sınırı 3,498 ng/g; 3,3 ng/g'da 2 ng/g'ı aşma olasılığı %93,0 olup numune uygundur. Normal dağılım: 3,151 ng/g; s_G = u_bağıl ile lognormal: 3,557; kesin s_G = √ln(1 + u_bağıl²) = 0,3398 ile: 3,498 ng/g.
+
+**Sonuç:**
+
+- sample için w ≤ 2 ng/g şartına uygunluk olasılığı: p_c = %7; korumalı ret kuralına göre kabul.
+
+**Notlar:**
+
+- Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang tr`
+
+### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: u = u_bağıl·L = 0,7 ng/g ile normal dağılım (Eurachem/CITAC uygunluk rehberi, Örnek B3)
+
+`eurachem-compliance-b3-banned-substance-normal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Üst sınır 2 ng/g, bağıl standart belirsizlik %35; sınırın üstünde olma olasılığı en az %95 ise uygun değil; ölçülen 3,3 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 4: çarpım ve oranlardan gelen pozitif büyüklükler için lognormal dağılım uygundur. Doğru ret için kabul sınırı L·U_F'dir; belirsizlik çarpanı U_F = exp(k·s_G), k = 1,645 (Eşitlik 1–3).
+2. Kabul sınırı 3,151 ng/g; 3,3 ng/g'da 2 ng/g'ı aşma olasılığı %96,8 olup numune uygun değildir. Normal dağılım: 3,151 ng/g; s_G = u_bağıl ile lognormal: 3,557; kesin s_G = √ln(1 + u_bağıl²) = 0,3398 ile: 3,498 ng/g.
+
+**Sonuç:**
+
+- sample için w ≤ 2 ng/g şartına uygunluk olasılığı: p_c = %3,2; korumalı ret kuralına göre ret.
+
+**Notlar:**
+
+- L(1 + k·u_bağıl), u'yu sınırda alır: u = 0,35 × 2 = 0,7 ng/g; bu proje bunu girer. Bağıl belirsizlik lognormal dağılımdaki gibi ölçülen değerde uygulanırsa normal dağılım L/(1 − k·u_bağıl) = 4,714 ng/g kabul sınırını gerektirir: 3,151 ng/g'da u = 1,10 ng/g ve 2 ng/g'ın üstünde olma olasılığı yalnızca %85'tir. Lognormal sınır L·exp(k·s_G), sabit s_G için kesindir (araştırma günlüğü F86).
+- Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang tr`
 
 ### Potansiyel ve sıcaklıkta üç doğrusal interpolasyonla 23,7 °C'de pH, bağımsız sertifikalı değerler (JCGM GUM-5 Örnek 1)
 

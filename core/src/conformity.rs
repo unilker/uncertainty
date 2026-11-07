@@ -64,20 +64,34 @@ impl Acceptance {
 /// PDF, or a scaled and shifted t distribution with scale u (JCGM 101 6.4.9).
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Knowledge {
-    Normal { y: f64, u: f64 },
-    StudentT { y: f64, u: f64, nu: f64 },
+    Normal {
+        y: f64,
+        u: f64,
+    },
+    StudentT {
+        y: f64,
+        u: f64,
+        nu: f64,
+    },
+    /// Lognormal PDF with median y and standard deviation `sdlog` of ln Y
+    /// (Eurachem/CITAC compliance guide 2021, Annex A, Case 4).
+    Lognormal {
+        y: f64,
+        sdlog: f64,
+    },
 }
 
 impl Knowledge {
     pub fn estimate(&self) -> f64 {
         match *self {
-            Knowledge::Normal { y, .. } | Knowledge::StudentT { y, .. } => y,
+            Knowledge::Normal { y, .. } | Knowledge::StudentT { y, .. } | Knowledge::Lognormal { y, .. } => y,
         }
     }
 
     pub fn scale(&self) -> f64 {
         match *self {
             Knowledge::Normal { u, .. } | Knowledge::StudentT { u, .. } => u,
+            Knowledge::Lognormal { y, sdlog } => y.abs() * sdlog,
         }
     }
 
@@ -87,6 +101,22 @@ impl Knowledge {
             Knowledge::Normal { y, u } => normal_cdf((x - y) / u),
             Knowledge::StudentT { y, u, nu } if nu.is_finite() => student_t_cdf((x - y) / u, nu),
             Knowledge::StudentT { y, u, .. } => normal_cdf((x - y) / u),
+            // A non-positive median (reached only while searching for a limit)
+            // is treated as all probability at zero.
+            Knowledge::Lognormal { y, .. } if y <= 0.0 => {
+                if x >= 0.0 {
+                    1.0
+                } else {
+                    0.0
+                }
+            }
+            Knowledge::Lognormal { y, sdlog } => {
+                if x <= 0.0 {
+                    0.0
+                } else {
+                    normal_cdf((x / y).ln() / sdlog)
+                }
+            }
         }
     }
 
@@ -94,6 +124,7 @@ impl Knowledge {
         let ok = match *self {
             Knowledge::Normal { y, u } => y.is_finite() && u > 0.0 && u.is_finite(),
             Knowledge::StudentT { y, u, nu } => y.is_finite() && u > 0.0 && u.is_finite() && nu > 0.0,
+            Knowledge::Lognormal { y, sdlog } => y > 0.0 && y.is_finite() && sdlog > 0.0 && sdlog.is_finite(),
         };
         if ok {
             Ok(())
@@ -572,5 +603,29 @@ mod tests {
         let pc = posterior_conformance_probability(&wide, 0.225, 0.01575, &t).unwrap();
         let k = conformance_probability(&Knowledge::Normal { y: 0.225, u: 0.01575 }, &t).unwrap();
         assert!(close(pc, k, 1e-6), "{pc} {k}");
+    }
+
+    /// Eurachem/CITAC, Use of uncertainty information in compliance
+    /// assessment (2021), Annex A Table 1 and Annex B Example 3: acceptance
+    /// limits L·exp(±k·u_rel) for a lognormal PDF with s_G = u_rel.
+    #[test]
+    fn eurachem_compliance_lognormal_acceptance_limits() {
+        let t = Tolerance::new(None, Some(100.0)).unwrap();
+        for (ur, acc, rej) in [(0.3, 61.0, 164.0), (0.5, 44.0, 227.0)] {
+            let kn = |y: f64| Knowledge::Lognormal { y, sdlog: ur };
+            let a = acceptance_from_probability(&t, Rule::GuardedAcceptance, 0.95, kn).unwrap().upper.unwrap();
+            let r = acceptance_from_probability(&t, Rule::GuardedRejection, 0.95, kn).unwrap().upper.unwrap();
+            // Exact k = 1.6449; the guide uses 1.64 (227.6 rounds to 228 with the exact k).
+            assert!(close(a, 100.0 * (-1.6448536 * ur).exp(), 1e-6) && close(a, acc, 0.6), "{a}");
+            assert!(close(r, 100.0 * (1.6448536 * ur).exp(), 1e-5) && close(r, rej, 0.7), "{r}");
+        }
+        // Example 3: L = 2 ng/g, u_rel = 35 %: acceptance limit for correct rejection 3.56 (printed 3.6).
+        let t = Tolerance::new(None, Some(2.0)).unwrap();
+        let r =
+            acceptance_from_probability(&t, Rule::GuardedRejection, 0.95, |y| Knowledge::Lognormal { y, sdlog: 0.35 })
+                .unwrap()
+                .upper
+                .unwrap();
+        assert!(close(r, 3.557, 0.001), "{r}");
     }
 }

@@ -29,6 +29,8 @@ recomputed.
 | `jcgm106.py`, `j106.py` | JCGM 106 conformity (projects and cross-check) |
 | `jcgm102.py` | JCGM 102 multivariate |
 | `palma2019.py`, `bettencourt2026.py` | Palma et al. 2019; Bettencourt da Silva 2026 |
+| `gum5.py` | JCGM GUM-5:2026, Examples 1–5, 9, 10, 12, 14, 15 |
+| `eurachem_compliance.py` | Eurachem/CITAC compliance assessment guide 2021, Annex B Examples 1–3 |
 | `tr569.py` | Nordtest TR 569 control charts |
 | `m3003.py` | UKAS M3003 ed. 6 |
 | `ufs.py` | Eurachem UfS:2019 |

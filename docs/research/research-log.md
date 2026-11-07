@@ -2483,3 +2483,61 @@ estimate.**
   asymmetric MCM intervals.
 - Glossary (EN/TR) extended with the table of proposed definitions and
   their Turkish wording.
+
+## 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021)
+
+**D62. Lognormal PDF for the measurand in conformity assessment.**
+
+- `conformity.distribution = "lognormal"`: median equal to the measured
+  value, s_G = u/|y| (Equation 2 of Annex A, Case 4), or
+  s_G = √ln(1 + (u/y)²) with `exact_sdlog`.
+- It is allowed in conformity projects of their own and in model projects,
+  but not together with `dof` or `posterior`. The report states the PDF.
+- A core test reproduces Annex A Table 1, with lognormal limits 61/164 and
+  44/227 for u_rel = 0.3 and 0.5, and the Example B3 limit of 3.557 ng/g.
+
+Library (`tools/generators/eurachem_compliance.py`, 5 projects):
+
+- B1, nickel in steel: acceptance zone 16.164–17.836 % Ni; the batch at
+  16.1 % is non-compliant, p_c = 84.1 %.
+- B2, upper limit with the t-distribution, ν = 8: acceptance limit 204.09
+  ng/g; the batch at 203.7 ng/g is compliant, exceedance probability
+  93.4 %.
+- B3, banned substance, u_rel = 35 %, in three variants:
+  - lognormal, 3.557 ng/g;
+  - lognormal with the exact s_G, 3.498 ng/g;
+  - normal with u = u_rel·L = 0.7 ng/g, 3.151 ng/g.
+  - The sample at 3.3 ng/g is compliant only under the lognormal PDF.
+
+**F86. Eurachem/CITAC compliance guide 2021 — rounding and the normal
+limits for a relative uncertainty (classes a, b and noted).**
+
+1. **Rounding (class a).**
+   - Example B1 gives the guard band as "1.64u ≈ 0.17 %"; 0.164 rounds to
+     0.16.
+   - Example B3 rounds 3.55 up to 3.6 and 3.148 up to 3.2; 3.148 rounds to
+     3.1.
+   - Table 1 uses k = 1.64: with k = 1.6449 the lognormal limit for
+     u_rel = 0.5 is 227.6, i.e. 228, not 227.
+   - The rounded B1 zone (16.2–17.8) holds 97.7 %, not 95 %.
+   - No decision changes.
+2. **Wording (class b).** The table of Example B2 states that the
+   distribution "is assumed to be Normal", but the guard band uses the
+   t-distribution with ν = 8.
+3. **Normal limits for a relative uncertainty (noted, for the article).**
+   - Table 1 and Example B3 give the normal acceptance limits as
+     L(1 ± k·u_rel), with u taken at the limit (u = u_rel·L), whereas the
+     lognormal limits L·exp(±k·s_G) apply the relative uncertainty at the
+     measured value.
+   - If u = u_rel·y at the measured value, a normal PDF needs
+     L/(1 ∓ k·u_rel): 4.71 ng/g in B3. At 3.151 ng/g, u = 1.10 ng/g and the
+     probability above 2 ng/g is 85 %, not 95 %.
+   - The comparison "normal against lognormal" in Table 1 and Figure 5 thus
+     mixes two uncertainty models. Part of the difference the guide
+     attributes to the shape of the distribution comes from where u is
+     evaluated.
+   - The program applies `u_relative` at the measured value (JCGM 106 8.3.3,
+     speed-limit example); the library's normal B3 variant enters
+     u = 0.7 ng/g to reproduce the guide.
+
+The library has 236 projects.

@@ -33,6 +33,13 @@ The guard band is set in one of these ways:
   of non-conformity (guarded rejection) reaches the given value. With `u_relative` the uncertainty may depend
   on the measured value, as in the speed-limit example (8.3.3, Example 1).
 
+For a positive measurand with a large relative uncertainty (above about 20 %), `"distribution": "lognormal"`
+uses a lognormal PDF with median equal to the measured value and s_G = u/|y| (Eurachem/CITAC compliance guide
+2021, Annex A, Case 4, Equation 2), or s_G = √ln(1 + (u/y)²) with `"exact_sdlog": true`. With a constant
+relative uncertainty the acceptance limits are then exactly L·exp(±k·s_G). The guide's normal limits L(1 ± k·u_rel)
+take u at the limit, i.e. a fixed `u` = u_rel·L. With `u_relative` and a normal PDF the program applies the
+relative uncertainty at the measured value, which gives L/(1 ∓ k·u_rel).
+
 Acceptance limits can also be given directly with `acceptance_lower` and `acceptance_upper`; the rule is then
 inferred from them.
 

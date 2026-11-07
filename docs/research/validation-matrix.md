@@ -363,3 +363,4 @@ TN 1900 observation-equation examples (regression, random effects); TN 1900
 E5 (truncated Gaussian inputs); ISO/TS 28037 data sets (the GLS engine of ISO 6143 covers the method); MUPR Appendix C
 allowance as a project file; cross-checks against the NIST Uncertainty
 Machine (F29) and Suncal.
+| EUR-CA-B1–B3 | Eurachem/CITAC compliance guide 2021, Annex B Examples 1–3 and Table 1 | B1 16.2–17.8 % Ni, non-compliant; B2 204.1 ng/g, compliant; B3 3.6 (lognormal) / 3.2 (normal) ng/g; Table 1 51/149, 61/164, 18/182, 44/227 | 16.164–17.836; 204.09; 3.557 / 3.151 (exact s_G 3.498); Table 1 with k = 1.6449 (227.6) | ✅ except F86 |

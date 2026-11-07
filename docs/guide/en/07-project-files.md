@@ -221,6 +221,7 @@ Next to `model` (the result is assessed) or as the only section of a project (JC
 | `quantity`, `unit`, `u` or `u_relative`, `dof`, `results` | projects of their own: property, measuring system, measured values (`name`, `value`, optional `u`) |
 | `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma` with `mean`, `sd`, or `lognormal` with `meanlog`, `sdlog`; required R_C (finds r) |
 | `posterior` | `true`: p_c of the results from the posterior with the process PDF as prior (projects of their own) |
+| `distribution`, `exact_sdlog` | PDF for the measurand: `normal`, `t` (model projects) or `lognormal` (s_G = u/\|y\|, or exact with `exact_sdlog`) |
 
 ## 7.10 `precision_experiment`
 
