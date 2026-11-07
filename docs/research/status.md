@@ -107,14 +107,22 @@ indirilemedi; Drive klasörüne konacak:
 
 ## 4. Sıradaki işler (öncelik sırasıyla)
 
-0. **GUM-5'in kalan örnekleri** (metin: geçici alandaki `drive2/gum5/ex*.txt`; klasördeki PDF'ten yeniden
-   çıkarılabilir): **tamamlandı.** Sıradaki: `drive-inventory-2026-11.md` sırası: ~~WG1 tanımları → sözlük~~ (D61: MCM'de tahmin etrafında
-   simetrik yarı genişlik); ~~Eurachem/CITAC uygunluk 2021~~ (D62, F86; ölçülen için lognormal dağılım); EMUE derlemesi (başlandı: E5.1 ile F85 doğrulandı; E3.4 topraktaki metaller (F87) ve E2.1 çok bileşenli toplam riskler (D63, yeni bölüm) E2.2 vakum ölçer (F88), E3.8 NH₃ permeasyon (F89), E3.3 NOx analizörü (F90), E6.5 efedrin/WADA (F91), E1.1 (= GUM-5 Örn. 1; F78 kaynağı EMUE) tamam; sırada
-   kalan EMUE örnekleri (kimya dışı, isteğe bağlı); GUM-5'e geçenler (E2.3, E3.2, E3.6, E4.6, E5.1, E6.2) tamam) ve ~~IUPAC 2024 örnekleri~~ (4A, 4B, 4I, 3A; F92; 4H için beta dağılımı, 4F/4M–4P için uzlaşı/Bayes modülü gerekir); ~~ILAC P14~~ (D64: CMC alt sınırı); ~~Nordtest TR 537 TR~~ (D65: "tekrar üretilebilirlik" yazımı);
-   Possolo & Meija 2022; BIPM qNMR; uzlaşı değeri modülü (Koepke, DerSimonian–Laird).
-   - Açık kalan küçük işler: skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si), uygulamada
-     `homogeneity.bayes` formu, tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar), beta dağılımı, uygunluk formunda `distribution: lognormal` seçimi, Willink 2007 metninin
-     kendisiyle F79'u doğrulamak.
+0. **Drive belgeleri, `drive-inventory-2026-11.md` sırası.**
+   - Tamamlananlar:
+     - GUM-5 (16 örnek; F77–F85);
+     - WG1 tanımları (D61), Eurachem/CITAC uygunluk 2021 (D62, F86);
+     - EMUE E1.1, E2.1 (D63), E2.2, E3.3, E3.4, E3.8, E5.1, E6.5 (F78 eki, F85 eki, F87–F91);
+     - IUPAC 2024 3A/4A/4B/4I (F92), ILAC P14 (D64), Nordtest TR 537 TR (D65);
+     - Mari 2025 ve Pradella 2026 (sözlükte "Tartışma").
+   - Sıradakiler: uzlaşı değeri modülü (NIST Consensus Builder, Koepke 2017, DerSimonian–Laird; IUPAC 4F,
+     iridyum), Possolo & Meija 2022 örnekleri, BIPM qNMR saflık bütçeleri, Bayesçi öğreticiler, Degenhardt 2025,
+     QAC 2026, UME prosedürleri.
+   - Açık kalan küçük işler:
+     - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
+     - tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar);
+     - beta dağılımı (IUPAC 4H);
+     - uygulamada `homogeneity.bayes` formu ve uygunlukta `distribution: lognormal` seçimi;
+     - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak.
 1. **TUR'a dayalı koruma bantları (konformite modülü).**
    - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
      guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert
