@@ -382,5 +382,6 @@ Machine (F29) and Suncal.
 | PM22-TANK | Possolo & Meija 2022, storage tank V = πR²H | 7204 ± 54 m³ (Gauss and MCM) | 7204.3, 54.0 (both) | ✅ |
 | PM22-WB | Possolo & Meija 2022, Wheatstone bridge | 957 Ω, u ≈ 7 Ω; E 52 %, F 48 %, G 0.6 %, H 0.004 % | 957.2, 6.98; same shares | ✅ |
 | PM22-PB | Possolo & Meija 2022, atomic weight of lead in HIPB-1 (4 amount fractions and A_r) | u(x) 6, 37, 19, 45 × 10⁻⁶; r −0.02, +0.13, +0.18, −0.17, −0.90, −0.58; A_r 207.1791, U95 0.0002 | same u(x); r −0.011, 0.124, 0.177, −0.179, −0.895, −0.576; 207.17915, U95 0.000 17 | ✅ except F96 |
+| BIPM-ISRD-qNMR | BIPM ISRD-01, -02, -06, -07, -08: nine ¹H qNMR purity budgets | w_A and u_c of each table (e.g. ISRD-01 T4 0.9973, 7.30 × 10⁻⁴) | same w_A to rounding; u_c within 1 % except ISRD-01 T6 (4.10 vs 3.96 × 10⁻⁴) | ✅ except F97 |
 | KOEPKE17-CS | Koepke et al. 2017 Tables 3–4, half-life of ¹³⁷Cs (19 results) | DL 30.04 (0.04) a; LP 29.94 (0.93) a | 30.037 (0.045) a; 29.94 (0.93) a | ✅ |
 | KOEPKE17-SR | Koepke et al. 2017 Tables 3–4, half-life of ⁹⁰Sr (11 results) | DL 28.73 (0.11) a; LP 28.68 (0.77) a | 28.730 (0.110) a; 28.69 (0.77) a | ✅ |

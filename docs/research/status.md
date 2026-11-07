@@ -10,11 +10,11 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **264** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **201** Rust testi (bunlardan biri 264 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **273** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **201** Rust testi (bunlardan biri 273 projenin tamamını çalıştırır), **21** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D68, bulgular F1–F96 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D69, bulgular F1–F97 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -118,7 +118,8 @@ indirilemedi; Drive klasörüne konacak:
        eşdeğerlik dereceleri, doğrusal havuz, en çok olabilirlik; Koepke 2017 (G, ¹³⁷Cs, ⁹⁰Sr) ve IUPAC 4F
        (CCQM-K145); Bayesçi rastgele etkiler modeli MCMC'siz ızgarada (D67; IUPAC 3E/4M/4N iridyum, F94, F95).
    - Possolo & Meija 2022: Hubble (Laplace etkili Bayes, D68), anyon açığı, tank, Wheatstone, kurşun (F96).
-   - Sıradakiler: BIPM qNMR saflık bütçeleri, Bayesçi öğreticiler, Degenhardt 2025,
+   - BIPM ISRD qNMR saflık bütçeleri: 9 proje (D69), tablolar arası tutarsızlıklar (F97).
+   - Sıradakiler: Toman 2016 (qNMR hiyerarşik Bayes), Bayesçi öğreticiler, Degenhardt 2025,
      QAC 2026, UME prosedürleri.
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);

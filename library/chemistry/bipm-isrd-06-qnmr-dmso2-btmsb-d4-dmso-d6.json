@@ -1,0 +1,186 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6",
+    "field": "chemistry",
+    "title": {
+      "en": "Purity of dimethyl sulfone by ¹H qNMR with BTMSB-d4 as internal standard in DMSO-d6 (BIPM ISRD-06, Table 4)",
+      "tr": "İç standart olarak BTMSB-d4 ile DMSO-d6 içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-06, Tablo 4)"
+    },
+    "description": {
+      "en": "Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.",
+      "tr": "İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir."
+    },
+    "explanation": [
+      {
+        "en": "Purity from the printed values: w_A = 0.99672 g/g (printed 0.9967); combined standard uncertainty 7.951e-04 g/g (printed 7.970e-04).",
+        "tr": "Basılı değerlerden saflık: w_A = 0,99672 g/g (basılı 0,9967); birleşik standart belirsizlik 7,951e-04 g/g (basılı 7,970e-04)."
+      },
+      {
+        "en": "The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).",
+        "tr": "Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir)."
+      }
+    ],
+    "tags": [
+      "bipm",
+      "isrd",
+      "qnmr",
+      "purity",
+      "organic-reference-material",
+      "internal-standard"
+    ],
+    "notes": [
+      {
+        "en": "Printed uncertainty components c·u: 1.49e-04, 4.98e-05, 1.66e-05, 7.34e-05, 5.52e-05, 4.67e-04, 4.77e-04, 3.99e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).",
+        "tr": "Basılı belirsizlik bileşenleri c·u: 1.49e-04, 4.98e-05, 1.66e-05, 7.34e-05, 5.52e-05, 4.67e-04, 4.77e-04, 3.99e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97)."
+      }
+    ],
+    "sources": [
+      {
+        "document": "BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/02",
+        "section": "Table 4",
+        "url": "https://www.bipm.org/en/publications/rapports-bipm"
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "w_A",
+      "unit": "g/g",
+      "expression": "R * (N_S/N_A) * (M_A/M_S) * (m_S/m_A) * w_S",
+      "description": {
+        "en": "Mass fraction (purity) of dimethyl sulfone",
+        "tr": "dimetil sülfon kütle kesri (saflık)"
+      }
+    },
+    "inputs": [
+      {
+        "name": "R",
+        "unit": "1",
+        "description": {
+          "en": "Integral ratio I_A/I_S (mean of replicates)",
+          "tr": "İntegral oranı I_A/I_S (tekrarların ortalaması)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.8173,
+          "sd": 0.00011
+        }
+      },
+      {
+        "name": "N_A",
+        "unit": "1",
+        "description": {
+          "en": "Number of ¹H nuclei of the quantified signal of dimethyl sulfone",
+          "tr": "dimetil sülfon nicel sinyalinin ¹H çekirdek sayısı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 5.9988,
+          "sd": 0.0003
+        }
+      },
+      {
+        "name": "N_S",
+        "unit": "1",
+        "description": {
+          "en": "Number of ¹H nuclei of the quantified signal of BTMSB-d4",
+          "tr": "BTMSB-d4 nicel sinyalinin ¹H çekirdek sayısı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 17.9964,
+          "sd": 0.0003
+        }
+      },
+      {
+        "name": "M_A",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of dimethyl sulfone",
+          "tr": "dimetil sülfon mol kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 94.128,
+          "sd": 0.007
+        }
+      },
+      {
+        "name": "M_S",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of BTMSB-d4",
+          "tr": "BTMSB-d4 mol kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 226.5024,
+          "sd": 0.0125
+        }
+      },
+      {
+        "name": "m_A",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of dimethyl sulfone weighed",
+          "tr": "Tartılan dimetil sülfon kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 2.6524,
+          "sd": 0.00124
+        }
+      },
+      {
+        "name": "m_S",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of BTMSB-d4 weighed",
+          "tr": "Tartılan BTMSB-d4 kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 2.5969,
+          "sd": 0.00124
+        }
+      },
+      {
+        "name": "w_S",
+        "unit": "g/g",
+        "description": {
+          "en": "Purity of the internal standard BTMSB-d4",
+          "tr": "İç standart BTMSB-d4 saflığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9991,
+          "sd": 0.0004
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": null
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.9967,
+        "tolerance": 0.000111
+      },
+      "standard_uncertainty": {
+        "value": 0.000797,
+        "tolerance": 8e-06
+      }
+    },
+    "reference": {
+      "en": "BIPM ISRD-06, Table 4: assigned value 0.9967 g/g, combined standard uncertainty 7.970e-04 g/g (k = 2 for the expanded uncertainty). Tolerance of u: 1 % or the difference to the value recomputed from the printed inputs, 0.2 % (F97).",
+      "tr": "BIPM ISRD-06, Tablo 4: atanan değer 0,9967 g/g, birleşik standart belirsizlik 7,970e-04 g/g (genişletilmiş belirsizlik için k = 2). u toleransı: %1 ya da basılı girdilerden yeniden hesaplanan değerle fark, %0,2 (F97)."
+    }
+  }
+}

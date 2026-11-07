@@ -3045,3 +3045,47 @@ Not taken into the library (methods not in the program), recorded for the outloo
 Carlo).** Linearised (and Monte Carlo with 10⁶ draws): r(²⁰⁴Pb, ²⁰⁶Pb) = −0.011, r(²⁰⁴Pb, ²⁰⁸Pb) = −0.179;
 printed −0.02 and −0.17 from 5 × 10⁴ draws, whose standard error for a correlation near 0 is about 0.0045. The
 other four correlations and the four u(x) agree. Impact: none on A_r(Pb).
+
+## 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets
+
+**D69. qNMR purity budgets in the library.** The BIPM Internal Standard Reference Data documents (ISRD-01, -02,
+-03, -06, -07, -08, -09) give worked uncertainty budgets for the purity of an analyte by ¹H (or ¹⁹F) qNMR with an
+internal standard: w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S (Eq. 1). Nine of the eleven ¹H tables are in the
+library (`tools/generators/bipm_isrd.py`) as model projects with the printed values and standard uncertainties
+as inputs and the printed purity and u_c as checks. The budgets of ISRD-02 and -03 are images in the PDFs and were
+read from rendered pages. Excluded: ISRD-03 Table 4 (normalised ratio: the product of the printed values gives
+0.999 66, printed 0.9995) and ISRD-08 Table 4 (product 1.1078, printed 0.9974); ISRD-09 (¹⁹F) gives rounded inputs
+and relative sensitivities only. Evidence: `tools/research/qnmr/isrd_budgets.py`.
+
+For TÜBİTAK UME the projects are templates for its own qNMR purity assignments: the same equation, with the
+masses, the purity of the internal standard and the integral ratio as the main components.
+
+**F97. BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article,
+not to be reported).**
+
+1. *Component of the integral ratio.* In 7 of 11 tables the printed component c·u of the ratio exceeds the
+   product of the printed sensitivity coefficient and standard uncertainty by 3–17 %: ISRD-01 T4 1.95 vs 1.74,
+   ISRD-02 T4 1.75 vs 1.65, ISRD-03 T4 1.80 vs 1.66, ISRD-06 T4 1.49 vs 1.34, T6 1.95 vs 1.73, ISRD-07 T4 1.47 vs
+   1.26, T6 1.99 vs 1.77 (× 10⁻⁴). The combined uncertainties follow the components in most tables and the printed
+   u in ISRD-01 T4 (7.32 × 10⁻⁴ in the row "Assigned value", 7.30 × 10⁻⁴ as "Combined Uncertainty").
+2. *Combined uncertainty against its own components.* ISRD-01 T6: the components give 4.12 × 10⁻⁴, the printed
+   u_c is 3.96 × 10⁻⁴ (the printed inputs give 4.10 × 10⁻⁴).
+3. *Degrees of freedom.* The printed ν_eff (ISRD-01 T4 784, T6 131; ISRD-02 T4 1655, T6 967; ISRD-03 394) are
+   reproduced with ν(R) = 4 in all five tables, whereas the text describes the ratio as the mean of four, five or
+   six replicates (ν = 3, 4 or 5 by GUM 4.2.6) or of sixteen normalised values. k = 2 is used throughout, so the
+   effect on U is nil.
+4. *Misprints.* ISRD-08 Table 2 labels the ratio "IS/IA" although its value 1.4313 is I_A/I_S (only that gives
+   998.8 mg/g), and its m_S component is printed 3.28 × 10⁻⁵ for c·u = 3.84 × 10⁻⁵. ISRD-08 Table 4 prints the two
+   ¹H-nuclei components as 1.50 × 10⁻⁵; the combined 4.2 × 10⁻⁴ needs 1.50 × 10⁻⁴; and its printed values do not
+   reproduce the purity (above). ISRD-06 Table 4 gives the IS purity 0.9991 the unit "mg.g-1" (g/g).
+5. *Same molecule, different constants.* ISRD-02 Table 4 re-evaluates the measurement of ISRD-01 Table 4 with the
+   roles exchanged (same integrals 17834/97943 and masses 2.3545/3.5063 mg), but with N(¹H, MA) 1.9996 vs 1.9994,
+   N(¹H, DMSO₂) 5.9988 vs 5.9934, M(MA) 116.080 vs 116.0724 g/mol (116.072 in ISRD-03, -07, -08) and M(DMSO₂)
+   94.1284 vs 94.136 g/mol (94.128 in ISRD-06, -07).
+6. *A bounded result.* ISRD-06 Table 6 reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at 1000 mg/g.
+   This is the situation that GUM Supplement 1 and a Bayesian treatment with a bounded prior handle consistently;
+   the program does not yet model the bound (outlook).
+
+None changes a certified value materially (all within 0.2 u_c, except the excluded tables). The pattern —
+spreadsheet budgets whose displayed numbers do not reproduce one another — is the article's argument for
+budgets recomputed from their inputs by validated software.

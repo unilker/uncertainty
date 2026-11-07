@@ -64,7 +64,7 @@ Key to the columns:
 
 | File | Status | Use | Order |
 |---|---|---|---|
-| 20–26 BIPM ISRD-01 to -09 (qNMR internal standards) | new | purity budgets: library examples | 4 |
+| 20–26 BIPM ISRD-01 to -09 (qNMR internal standards) | **done** (D69, F97): 9 budgets in the library | purity budgets: library examples | 4 |
 | 40 Westwood 2023 IUPAC; 41 Toman 2016; 43 CCQM-K55b; 44 qNMR 2023; 45 Al-Deen & Hibbert; Sanchez 2025 | new | purity and qNMR uncertainty; hierarchical Bayes | 4 |
 
 ## Consensus values, dark uncertainty

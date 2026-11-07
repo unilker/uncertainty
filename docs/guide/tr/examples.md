@@ -2,7 +2,7 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (130)
+- Kimya (139)
 - Elektrik ve RF (35)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (21)
@@ -13,6 +13,214 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Sıcaklık (10)
 
 ## Kimya
+
+### İç standart olarak maleik asit ile D2O içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-01, Tablo 4)
+
+`bipm-isrd-01-qnmr-dmso2-ma-d2o` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99726 g/g (basılı 0,9973); birleşik standart belirsizlik 7,321e-04 g/g (basılı 7,300e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9972 ± 0,0015) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.95e-04, 4.99e-05, 9.98e-05, 5.22e-05, 2.15e-05, 3.53e-04, 5.26e-04, 2.99e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmso2-ma-d2o.json --lang tr`
+
+### İç standart olarak maleik asit ile DMSO-d6 içinde ¹H qNMR ile dimetil tereftalat saflığı (BIPM ISRD-01, Tablo 6)
+
+`bipm-isrd-01-qnmr-dmtp-ma-dmso-d6` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99943 g/g (basılı 0,9995); birleşik standart belirsizlik 4,096e-04 g/g (basılı 3,960e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,99943 ± 0,00082) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.65e-04, 5.00e-05, 1.00e-04, 3.09e-05, 2.15e-05, 1.66e-04, 1.04e-04, 3.00e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmtp-ma-dmso-d6.json --lang tr`
+
+### İç standart olarak dimetil sülfon ile CDCl3 içinde ¹H qNMR ile dimetil tereftalat saflığı (BIPM ISRD-02, Tablo 6)
+
+`bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99906 g/g (basılı 0,999); birleşik standart belirsizlik 5,038e-04 g/g (basılı 5,050e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9991 ± 0,0010) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.28e-04, 5.00e-05, 5.00e-05, 4.37e-05, 6.61e-05, 1.45e-04, 2.13e-04, 4.01e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3.json --lang tr`
+
+### İç standart olarak dimetil sülfon ile D2O içinde ¹H qNMR ile maleik asit saflığı (BIPM ISRD-02, Tablo 4)
+
+`bipm-isrd-02-qnmr-ma-dmso2-d2o` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99976 g/g (basılı 0,9997); birleşik standart belirsizlik 7,880e-04 g/g (basılı 7,910e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9998 ± 0,0016) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.75e-04, 1.50e-04, 5.00e-05, 3.44e-05, 6.61e-05, 5.28e-04, 3.54e-04, 4.01e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-ma-dmso2-d2o.json --lang tr`
+
+### İç standart olarak BTMSB-d4 ile CD3OD içinde ¹H qNMR ile benzoik asit saflığı (BIPM ISRD-06, Tablo 6)
+
+`bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99977 g/g (basılı 0,9998); birleşik standart belirsizlik 7,397e-04 g/g (basılı 7,440e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9998 ± 0,0015) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.95e-04, 6.00e-05, 1.67e-05, 4.46e-05, 5.54e-05, 1.92e-04, 5.59e-04, 4.00e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+- ISRD 999,8 +0,2/−1,5 mg/g bildirir: aralık 1000 mg/g fiziksel sınırında kesilmiştir. Program simetrik GUM aralığını verir; sınır modelin parçası değildir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang tr`
+
+### İç standart olarak BTMSB-d4 ile DMSO-d6 içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-06, Tablo 4)
+
+`bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99672 g/g (basılı 0,9967); birleşik standart belirsizlik 7,951e-04 g/g (basılı 7,970e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9967 ± 0,0016) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.49e-04, 4.98e-05, 1.66e-05, 7.34e-05, 5.52e-05, 4.67e-04, 4.77e-04, 3.99e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6.json --lang tr`
+
+### İç standart olarak DSS-d6 ile D2O içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-07, Tablo 4)
+
+`bipm-isrd-07-qnmr-dmso2-dss-d6-d2o` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99625 g/g (basılı 0,9962); birleşik standart belirsizlik 1,186e-03 g/g (basılı 1,190e-03).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9962 ± 0,0024) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.47e-04, 4.98e-05, 3.32e-05, 7.33e-05, 3.62e-05, 3.81e-04, 1.00e-03, 4.86e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-dmso2-dss-d6-d2o.json --lang tr`
+
+### İç standart olarak DSS-d6 ile D2O içinde ¹H qNMR ile maleik asit saflığı (BIPM ISRD-07, Tablo 6)
+
+`bipm-isrd-07-qnmr-ma-dss-d6-d2o` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99869 g/g (basılı 0,9987); birleşik standart belirsizlik 1,085e-03 g/g (basılı 1,080e-03).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9987 ± 0,0022) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.99e-04, 1.50e-04, 3.33e-05, 3.44e-05, 3.63e-05, 2.41e-04, 9.10e-04, 4.87e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-ma-dss-d6-d2o.json --lang tr`
+
+### İç standart olarak benzoik asit ile CD3OD içinde ¹H qNMR ile BTMSB-d4 saflığı (BIPM ISRD-08, Tablo 2)
+
+`bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od` — BIPM, Table 2
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99882 g/g (basılı 0,9988); birleşik standart belirsizlik 3,119e-04 g/g (basılı 3,100e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,99882 ± 0,00062) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 2.24e-04, 1.67e-05, 1.50e-04, 5.73e-05, 4.91e-05, 1.29e-04, 3.28e-05, 2.50e-05. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od.json --lang tr`
 
 ### Dört ilişkili etken maddeli bir ilaç için toplam yanlış karar riskleri (EMUE E2.1)
 
