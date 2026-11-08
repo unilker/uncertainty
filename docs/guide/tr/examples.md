@@ -7,7 +7,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (24)
 - Uzunluk (12)
-- Kütle (29)
+- Kütle (31)
 - Fiziksel özellikler (15)
 - Basınç (6)
 - Sıcaklık (10)
@@ -5630,6 +5630,68 @@ Açık havada, bulunduğu hâliyle kalibre edilen 30 000 kg / 10 kg'lık karayol
 - E = (0 ± 18) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,65 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang tr`
+
+### Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/A)
+
+`cg18-h3-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/A to H3.4/A; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), H3.3/A (substitution loads, 7.1.2-5d, creep and hysteresis 7.4.4-7) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = 0,0009377, u(a₁) = 0,0003637.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 62,13 kg² (7.4.1-6); s tekrarlanabilirlik deneyinden (6,743 kg), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 0,0003637 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 2,309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), kaldırma kuvveti ilgili değil, sürüklenmeden ayar değişimi ΔE(Max)/(Max√3) = 0,0005774 (7.4.3-6), dara deney noktalarından (q_E,maks − q_E,min)/√12 = 0,0003457 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 0,0008311 (7.4.4-10); β_W² = 1,276e-06.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 15,76 kg + 0,002732·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 1 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 2169 kg (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = 0,0009377·I; χ²_göz = 0,167, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0,000364
+- U_gl(W) = 15,76 kg + 0,002732·R
+- R_min,SF = 2169 kg (Req = %1, SF = 1)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+- Kılavuz u(a₁) = 0,0003627 basar; kalibrasyon bütçesinin u(E_j) değerleriyle ağırlıklı uyum (C2.2-18b), basılı u(E_j) ya da nominal yüklerle de, 0,0003637 verir (araştırma günlüğü F98). Proje yeniden hesaplanan değeri kullanır; β_W², birinci mertebe doğrular ve minimum tartım basılı basamaklardan daha az değişir.
+- Sürüklenmeden kaynaklanan ayar değişimi ΔE(Max)/(Max·√3) (7.4.3-6), H3.4/A'da Max'taki hatayı (30 kg), H3.4/B'de ilk muayenedeki mpe'yi (15 kg) alır. Kullanımdaki kısa yükleme sürelerinde sünme ve histerezis ilgili değildir; SF = 2 ile minimum tartım 6 950 kg (A) ve 2 542 kg'dır (B).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-a-weighing-result.json --lang tr`
+
+### Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/B)
+
+`cg18-h3-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/B to H3.4/B; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), H3.3/B (substitution loads, adjusted before calibration) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = 0,0004286, u(a₁) = 0,0001508.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 25,33 kg² (7.4.1-6); s tekrarlanabilirlik deneyinden (2,944 kg), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 0,0001508 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 2,309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), kaldırma kuvveti ilgili değil, sürüklenmeden ayar değişimi ΔE(Max)/(Max√3) = 0,0002887 (7.4.3-6), dara deney noktalarından (q_E,maks − q_E,min)/√12 = 0,0001154 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 0,000277 (7.4.4-10); β_W² = 1,967e-07.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 10,07 kg + 0,001041·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 1 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 1124 kg (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = 0,0004286·I; χ²_göz = 0,0769, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0,000151
+- U_gl(W) = 10,07 kg + 0,001041·R
+- R_min,SF = 1124 kg (Req = %1, SF = 1)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+- Kılavuz u(a₁) = 0,0001485 basar; kalibrasyon bütçesinin u(E_j) değerleriyle ağırlıklı uyum (C2.2-18b), basılı u(E_j) ya da nominal yüklerle de, 0,0001508 verir (araştırma günlüğü F98). Proje yeniden hesaplanan değeri kullanır; β_W², birinci mertebe doğrular ve minimum tartım basılı basamaklardan daha az değişir, β_W² (1,960·10⁻⁷ yerine 1,967·10⁻⁷) ve birinci mertebe eğim (6,113·10⁻⁴ yerine 6,128·10⁻⁴) dışında.
+- Sürüklenmeden kaynaklanan ayar değişimi ΔE(Max)/(Max·√3) (7.4.3-6), H3.4/A'da Max'taki hatayı (30 kg), H3.4/B'de ilk muayenedeki mpe'yi (15 kg) alır. Kullanımdaki kısa yükleme sürelerinde sünme ve histerezis ilgili değildir; SF = 2 ile minimum tartım 6 950 kg (A) ve 2 542 kg'dır (B).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-b-weighing-result.json --lang tr`
 
 ### Terazi 400 g / 0,1 mg: hata yaklaşım fonksiyonu E = a₁I, ilk uyum (EURAMET cg-18 H4)
 

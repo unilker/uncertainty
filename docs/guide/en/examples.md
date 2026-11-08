@@ -7,7 +7,7 @@ This chapter is generated from the example library by `uncertainty catalogue lib
 - Flow and volume (7)
 - General (method validation) (24)
 - Length (12)
-- Mass (29)
+- Mass (31)
 - Physical properties (15)
 - Pressure (6)
 - Temperature (10)
@@ -5630,6 +5630,68 @@ A road-vehicle weighbridge 30 000 kg / 10 kg, outdoors, calibrated as found.
 - E = (0 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.65, corresponding to a coverage probability of approximately 95.45 %.
 
 **Run:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang en`
+
+### Weighbridge 30 t / 10 kg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/A)
+
+`cg18-h3-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/A to H3.4/A; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget H3.3/A (substitution loads, 7.1.2-5d, creep and hysteresis 7.4.4-7) (C2.2-18b, uncorrelated reference masses): a₁ = 0.0009377, u(a₁) = 0.0003637.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 62.13 kg² (7.4.1-6), with s from the repeatability test (6.743 kg) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 0.0003637 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 2.309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), buoyancy not relevant, change in adjustment due to drift ΔE(Max)/(Max√3) = 0.0005774 (7.4.3-6), tare (q_E,max − q_E,min)/√12 = 0.0003457 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.0008311 (7.4.4-10); β_W² = 1.276e-06.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 15.76 kg + 0.002732·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 1: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 2169 kg (G-9).
+
+**Result:**
+
+- E_appr(I) = 0.0009377·I; χ²_obs = 0.167, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0.000364
+- U_gl(W) = 15.76 kg + 0.002732·R
+- R_min,SF = 2169 kg (Req = 1 %, SF = 1)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints u(a₁) = 0.0003627; the weighted fit (C2.2-18b) with the u(E_j) of the calibration budget gives 0.0003637, also with the printed u(E_j) or the nominal loads (research log F98). The project uses the recomputed value; β_W², the first-order lines and the minimum weight change by less than the printed digits.
+- The change in adjustment due to drift, ΔE(Max)/(Max·√3) (7.4.3-6), takes the error at Max (30 kg) in H3.4/A and the mpe at initial verification (15 kg) in H3.4/B. Creep and hysteresis are not relevant for the short loading times in use; the minimum weight with SF = 2 is 6 950 kg (A) and 2 542 kg (B).
+
+**Run:** `uncertainty run library/mass/cg18-h3-a-weighing-result.json --lang en`
+
+### Weighbridge 30 t / 10 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/B)
+
+`cg18-h3-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/B to H3.4/B; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget H3.3/B (substitution loads, adjusted before calibration) (C2.2-18b, uncorrelated reference masses): a₁ = 0.0004286, u(a₁) = 0.0001508.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 25.33 kg² (7.4.1-6), with s from the repeatability test (2.944 kg) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 0.0001508 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 2.309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), buoyancy not relevant, change in adjustment due to drift ΔE(Max)/(Max√3) = 0.0002887 (7.4.3-6), tare (q_E,max − q_E,min)/√12 = 0.0001154 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.000277 (7.4.4-10); β_W² = 1.967e-07.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 10.07 kg + 0.001041·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 1: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 1124 kg (G-9).
+
+**Result:**
+
+- E_appr(I) = 0.0004286·I; χ²_obs = 0.0769, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0.000151
+- U_gl(W) = 10.07 kg + 0.001041·R
+- R_min,SF = 1124 kg (Req = 1 %, SF = 1)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints u(a₁) = 0.0001485; the weighted fit (C2.2-18b) with the u(E_j) of the calibration budget gives 0.0001508, also with the printed u(E_j) or the nominal loads (research log F98). The project uses the recomputed value; β_W², the first-order lines and the minimum weight change by less than the printed digits, except β_W², 1.967·10⁻⁷ instead of 1.960·10⁻⁷, and the first-order slope, 6.128·10⁻⁴ instead of 6.113·10⁻⁴.
+- The change in adjustment due to drift, ΔE(Max)/(Max·√3) (7.4.3-6), takes the error at Max (30 kg) in H3.4/A and the mpe at initial verification (15 kg) in H3.4/B. Creep and hysteresis are not relevant for the short loading times in use; the minimum weight with SF = 2 is 6 950 kg (A) and 2 542 kg (B).
+
+**Run:** `uncertainty run library/mass/cg18-h3-b-weighing-result.json --lang en`
 
 ### Balance 400 g / 0.1 mg: error approximation function E = a₁I, first fit (EURAMET cg-18 H4)
 

@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (97)
+## Findings (98)
 
 | F | Finding | Session |
 |---|---|---|
@@ -112,6 +112,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F95 | Koepke et al. 2017 Table 4 — Bayesian u for ¹³⁷Cs (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
 | F96 | Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.) |
 | F97 | BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article, not to be reported). | 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets |
+| F98 | EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small). | 2026-11-07 (session 21, continued) — EURAMET cg-18 H3.4/A and H3.4/B (30 t weighbridge in use) |
 
 ## Decisions (77)
 

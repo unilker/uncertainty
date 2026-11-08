@@ -3270,3 +3270,20 @@ corrected); RP-10 1.25 − 1/TUR and U₉₅ 1 − 1/TUR, both 1 above TUR = 4. 
   with the method's 2 % design.
 - Primary sources still to read for the article: Dobbert (2008) and the Z540.3 handbook; Delker & Peguero (2022)
   is cited as the Sandia reference.
+
+## 2026-11-07 (session 21, continued) — EURAMET cg-18 H3.4/A and H3.4/B (30 t weighbridge in use)
+
+The two weighbridge examples are now in the library (`cg18-h3-a-weighing-result`, `cg18-h3-b-weighing-result`,
+`tools/generators/cg18inuse.py`), with the calibration points of H3.3 (substitution loads: u(m_ref) ⊕ u(L_sub) as
+the reference term), the repeatability at 10 420 kg (s = 6.74 and 2.94 kg), the eccentricity test at 10 420 kg
+(15 and 5 kg), ΔT = 40 K, the change in adjustment due to drift ΔE(Max)/(Max√3) with 30 kg (A) and 15 kg (B, mpe
+at initial verification), tare from the test points, no buoyancy and no creep in use. Reproduced: α_W² = 62.133
+and 25.333 kg², the temperature, drift, tare and eccentricity terms, β_W² (A), U(W) and U_gl(W) lines, minimum
+weights 2169 kg and 1124 kg (printed 1123; SF = 1).
+
+**F98. EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small).** The guide prints
+u(a₁) = 3.627 × 10⁻⁴ (A) and 1.485 × 10⁻⁴ (B). The weighted fit through zero (C2.2-18b) with p_j = 1/u²(E_j) from
+the H3.3 budgets gives 3.637 × 10⁻⁴ and 1.508 × 10⁻⁴, and the same with the printed u(E_j) or with the nominal
+loads instead of the indications. a₁ itself agrees (9.377 vs 9.379 × 10⁻⁴; 4.286 vs 4.280 × 10⁻⁴). Not resolved:
+possibly unrounded u(E_j) of the authors' spreadsheet. Effect: β_W² of B 1.967 vs 1.960 × 10⁻⁷ and its first-order
+slope 6.128 vs 6.113 × 10⁻⁴; the minimum weights agree.
