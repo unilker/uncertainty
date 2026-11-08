@@ -11,3 +11,7 @@ rust-version.workspace = true
 uncertainty-core = { path = "../core" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+# PDF reports: pure Rust, no system libraries (report::pdf).
+pdf-writer = "0.12"
+ttf-parser = { version = "0.25", default-features = false, features = ["std"] }
+miniz_oxide = "0.8"

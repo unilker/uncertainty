@@ -29,7 +29,7 @@ cargo build --release
 | Seçenek | Anlamı |
 |---|---|
 | `--lang en` / `--lang tr` | rapor dili (varsayılan İngilizce) |
-| `--format md`, `html`, `json` | Markdown, grafikli bağımsız HTML veya makinece okunabilir sonuçlar; varsayılan olarak `--output` dosyasının uzantısından, aksi halde Markdown |
+| `--format md`, `html`, `json`, `pdf` | Markdown, grafikli bağımsız HTML, makinece okunabilir sonuçlar veya PDF belgesi (A4, grafiksiz); varsayılan olarak `--output` dosyasının uzantısından, aksi halde Markdown |
 | `--output DOSYA` (`-o`) | raporu dosyaya yazar |
 | `--no-mcm` | Monte Carlo hesabını atlar |
 | `--trials N` | sabit Monte Carlo deneme sayısı (projedekini geçersiz kılar) |
@@ -41,7 +41,7 @@ cargo build --release
 |---|---|
 | `--no-mcm` | Monte Carlo hesaplarını ve bunların referans değerlerini atlar |
 | `--lab YOL` | laboratuvarın kendi projeleri (dosya veya klasör); raporda ayrı bir bölümde verilir |
-| `--report DOSYA` | yazılım validasyon raporu yazar; DOSYA `.html` ile bitiyorsa HTML, aksi halde Markdown |
+| `--report DOSYA` | yazılım validasyon raporu yazar: DOSYA `.pdf` ile bitiyorsa PDF, `.html` ile bitiyorsa HTML, aksi halde Markdown |
 | `--lang en` / `--lang tr` | validasyon raporunun dili |
 
 Validasyon raporu, ISO/IEC 17025:2017 7.11.2'nin yazılımın kullanımdan önce ve değişikliklerden sonra

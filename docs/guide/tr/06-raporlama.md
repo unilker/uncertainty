@@ -95,6 +95,8 @@ Rapor, değerlendirmenin yeniden üretilebilir ve gözden geçirilebilir olması
 * açıklamalar, kaynaklara ilişkin notlar ve kaynakça;
 * yazılım sürümü ve atıf.
 
-Raporlar Markdown, bağımsız HTML (SVG grafikler; açık ve koyu tema; yazdırılabilir) ve JSON (ileri işleme için
-tüm değerler tam hassasiyetle) olarak alınabilir. Türkçe raporlar ondalık virgül ve öne yazılan yüzde işareti
+Raporlar Markdown, bağımsız HTML (SVG grafikler; açık ve koyu tema; yazdırılabilir), PDF (A4; grafikler dışında
+aynı metin ve tablolar, gömülü yazı tipleri, sayfa numaraları; aynı proje aynı baytları verir, böylece dosyalanmış
+bir PDF'in SHA-256 özeti kontrol edilebilir) ve JSON (ileri işleme için tüm değerler tam hassasiyetle) olarak
+alınabilir. Türkçe raporlar ondalık virgül ve öne yazılan yüzde işareti
 (%95) kullanır.

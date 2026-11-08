@@ -151,16 +151,19 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
     final app = AppScope.of(context);
     final s = app.s;
     try {
-      final r = await const Engine().evaluate(_project, EvaluateOptions(lang: app.lang, html: format == 'html', markdown: format == 'md', generated: _today()));
-      final text = r[format == 'html' ? 'html' : 'markdown'] as String;
+      final r = await const Engine().evaluate(
+        _project,
+        EvaluateOptions(lang: app.lang, html: format == 'html', markdown: format == 'md', pdf: format == 'pdf', generated: _today()),
+      );
+      final bytes = format == 'pdf' ? base64Decode(r['pdf_base64'] as String) : utf8.encode(r[format == 'html' ? 'html' : 'markdown'] as String);
       if (isMobile) {
-        await shareText(_suggestedName(format), text);
+        await shareBytes(_suggestedName(format), bytes);
         return;
       }
       final group = XTypeGroup(label: format.toUpperCase(), extensions: [format]);
       final path = await chooseSavePath(_suggestedName(format), group);
       if (path == null) return;
-      await File(path).writeAsString(text);
+      await File(path).writeAsBytes(bytes);
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${s['saved']}: $path')));
     } on Object catch (e) {
@@ -184,10 +187,12 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
             onSelected: (v) => switch (v) {
               'save_as' => _save(saveAs: true),
               'html' => _export('html'),
+              'pdf' => _export('pdf'),
               _ => _export('md'),
             },
             itemBuilder: (_) => [
               PopupMenuItem(value: 'save_as', child: Text(s['save_as'])),
+              PopupMenuItem(value: 'pdf', child: Text(s['export_pdf'])),
               PopupMenuItem(value: 'html', child: Text(s['export_html'])),
               PopupMenuItem(value: 'md', child: Text(s['export_md'])),
             ],

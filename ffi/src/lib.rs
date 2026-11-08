@@ -369,6 +369,23 @@ fn evaluate(text: Result<String, String>, opts: Result<String, String>) -> Value
     if opts.get("html").and_then(Value::as_bool).unwrap_or(false) {
         out["html"] = json!(report::html(&p, &e, lang, generated));
     }
+    if opts.get("pdf").and_then(Value::as_bool).unwrap_or(false) {
+        out["pdf_base64"] = json!(base64(&report::pdf_report(&p, &e, lang, generated)));
+    }
+    out
+}
+
+/// Standard base64 (RFC 4648) of `data`, for the PDF report in the JSON reply.
+fn base64(data: &[u8]) -> String {
+    const T: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    let mut out = String::with_capacity(data.len().div_ceil(3) * 4);
+    for c in data.chunks(3) {
+        let n = (c[0] as u32) << 16 | (*c.get(1).unwrap_or(&0) as u32) << 8 | *c.get(2).unwrap_or(&0) as u32;
+        out.push(T[(n >> 18) as usize & 63] as char);
+        out.push(T[(n >> 12) as usize & 63] as char);
+        out.push(if c.len() > 1 { T[(n >> 6) as usize & 63] as char } else { '=' });
+        out.push(if c.len() > 2 { T[n as usize & 63] as char } else { '=' });
+    }
     out
 }
 
@@ -438,5 +455,14 @@ mod tests {
         assert_eq!(r["ok"], false);
         let k = CString::new("nonsense").unwrap();
         assert_eq!(call(unsafe { uc_template(k.as_ptr()) })["ok"], false);
+    }
+
+    #[test]
+    fn base64_matches_rfc_4648() {
+        assert_eq!(base64(b""), "");
+        assert_eq!(base64(b"f"), "Zg==");
+        assert_eq!(base64(b"fo"), "Zm8=");
+        assert_eq!(base64(b"foo"), "Zm9v");
+        assert_eq!(base64(b"foobar"), "Zm9vYmFy");
     }
 }

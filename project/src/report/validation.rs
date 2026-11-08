@@ -327,6 +327,20 @@ pub fn files_digest(items: &[ValidationItem]) -> String {
     crate::sha256::sha256_hex(lines.join("\n").as_bytes())
 }
 
+/// The validation report as a PDF document.
+pub fn validation_pdf(items: &[ValidationItem], mcm: bool, lang: Lang, generated: &str) -> Vec<u8> {
+    let title = match lang {
+        Lang::En => V_EN.title,
+        Lang::Tr => V_TR.title,
+    };
+    super::pdf::from_markdown(
+        &validation_markdown(items, mcm, lang, generated),
+        title,
+        &format!("{SOFTWARE_NAME} {}", crate::software_identity()),
+        lang,
+    )
+}
+
 /// The validation report as a self-contained HTML page.
 pub fn validation_html(items: &[ValidationItem], mcm: bool, lang: Lang, generated: &str) -> String {
     let md = validation_markdown(items, mcm, lang, generated);

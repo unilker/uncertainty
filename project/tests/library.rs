@@ -105,3 +105,23 @@ fn app_library_bundle_is_up_to_date() {
         bundle_path.display()
     );
 }
+
+/// Every character of every library report (both languages) can be set in
+/// the font embedded in the PDF reports.
+#[test]
+fn pdf_font_covers_every_library_report() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../library");
+    let mut files = Vec::new();
+    collect(&root, &mut files);
+    let ov = Overrides { skip_mcm: true, ..Overrides::default() };
+    let mut text = String::new();
+    for f in &files {
+        let p = parse(&std::fs::read_to_string(f).unwrap()).unwrap();
+        let e = run(&p, &ov).unwrap();
+        for lang in [Lang::En, Lang::Tr] {
+            text.push_str(&report::markdown(&p, &e, lang, None));
+        }
+    }
+    let missing = report::pdf::missing_glyphs(&text);
+    assert!(missing.is_empty(), "characters without a glyph: {missing:?}");
+}

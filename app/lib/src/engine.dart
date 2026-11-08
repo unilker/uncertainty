@@ -99,13 +99,14 @@ Map<String, dynamic> _checked(Map<String, dynamic> r) {
 
 /// Options of an evaluation.
 class EvaluateOptions {
-  const EvaluateOptions({this.lang = 'en', this.skipMcm = false, this.trials, this.seed, this.markdown = false, this.html = false, this.generated});
+  const EvaluateOptions({this.lang = 'en', this.skipMcm = false, this.trials, this.seed, this.markdown = false, this.html = false, this.pdf = false, this.generated});
   final String lang;
   final bool skipMcm;
   final int? trials;
   final int? seed;
   final bool markdown;
   final bool html;
+  final bool pdf;
   final String? generated;
 
   Map<String, dynamic> toJson() => {
@@ -115,6 +116,7 @@ class EvaluateOptions {
     if (seed != null) 'seed': seed,
     'markdown': markdown,
     'html': html,
+    'pdf': pdf,
     if (generated != null) 'generated': generated,
   };
 }

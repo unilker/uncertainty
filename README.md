@@ -34,10 +34,11 @@ Türkçe ve İngilizce.
   predicted concentrations (EURACHEM CG4 Appendix E.4).
 - Coverage factors for dominant rectangular/trapezoidal contributions
   (EA-4/02).
-- Reporting: rounding of results by the GUM, MUPR or round-up rule.
+- Reporting: rounding of results by the EA-4/02 5 % rule (default), the MUPR or the round-up rule; results near a
+  physical bound (truncated interval, restricted Monte Carlo); software commit and project SHA-256 in every report.
 - Project files (JSON) with bilingual metadata; reports in English or Turkish
-  as Markdown or self-contained HTML (budget, contribution chart, MCM
-  histogram with the GUM PDF, validation statement, citation).
+  as Markdown, self-contained HTML (budget, contribution chart, MCM
+  histogram with the GUM PDF, validation statement, citation) or PDF (A4, fonts embedded).
 - Top-down project files with **raw validation data**: control-chart series,
   replicate groups, duplicate pairs (pooled, normalised differences, mean
   range), CRMs, proficiency-test rounds, spike recoveries; concentration
@@ -126,11 +127,11 @@ $B check library                                        # re-verify all examples
 [app/](app/README.md) — Flutter application (Linux, Windows, Android and macOS packages and an unsigned
 iOS build, all produced by the Package workflow) using the same Rust engine through a C interface
 ([ffi/](ffi/src/lib.rs)): library browser, model, top-down and proficiency-test editors with direct entry of
-raw data, a calibration editor (ISO 6143), results with budget, charts and validation, HTML/Markdown report export, English and Turkish.
+raw data, a calibration editor (ISO 6143), results with budget, charts and validation, PDF/HTML/Markdown report export, English and Turkish.
 
 Flutter uygulaması (Linux, Windows, Android ve macOS paketleri ile imzasız iOS derlemesi Package iş
 akışıyla üretilir); aynı Rust motorunu kullanır: örnek kütüphanesi, ham veri girişli model, top-down,
-yeterlilik testi ve kalibrasyon (ISO 6143) düzenleyicileri, bütçe, grafikler ve doğrulamayla sonuçlar, HTML/Markdown rapor, Türkçe ve
+yeterlilik testi ve kalibrasyon (ISO 6143) düzenleyicileri, bütçe, grafikler ve doğrulamayla sonuçlar, PDF/HTML/Markdown rapor, Türkçe ve
 İngilizce.
 
 ## User guide / Kullanım rehberi
@@ -147,7 +148,7 @@ hesaplanan tüm kütüphane örnekleri.
 ## Scientific validation / Bilimsel doğrulama
 
 Every published reference example implemented so far is reproduced by an
-automated test (213 tests; one of them reruns all 286 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
+automated test (218 tests; one of them reruns all 286 library projects): GUM H.1 and H.2, all four examples of JCGM 101 clause 9, the examples of JCGM 102 clauses 6, 7 and 9,
 EURACHEM CG4 A1–A7, Nordtest TR 537 and Eurachem MUPR 2026 (recomputed from
 their raw data), all twelve calibration examples of EA-4/02 M:2022, the examples of UKAS M3003 ed. 6 (Appendices C, K, L) and of EURAMET cg-18 (H1–H4) and cg-19 v4.1, eight examples of NIST TN 1900 and the scalar examples of the NIST Uncertainty Machine manual (§3, §7–§11), the worked examples E.1–E.5 of ISO 13528:2022, Annex C of ISO 21748:2017, Annex J of ISO 5725-3:2023 (with the data of the 1994 edition), Annex C of ISO 5725-2:2019 (including REML) and its Tables 1–8, Annex B of ISO 6143:2025, the examples of JCGM 106:2012 clauses 7–9 and Table 1, Chapter 7 and Examples 1–12 of Nordtest TR 569 ed. 6, Examples A1–A6 of Eurachem UfS:2019 (classical ANOVA, range method, uncertainty factor, Gy). Details, tolerances and findings:
 [docs/research/validation-matrix.md](docs/research/validation-matrix.md).
