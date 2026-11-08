@@ -36,6 +36,9 @@ pub(super) struct CsLabels {
     pub bilateral_note: &'static str,
     pub bilateral_none: &'static str,
     pub bilateral_pairs: &'static str,
+    pub by_procedure: &'static str,
+    pub by_procedure_note: &'static str,
+    pub bilateral_by_procedure: &'static str,
     pub method_dl: &'static str,
     pub method_lp: &'static str,
     pub chart: &'static str,
@@ -78,6 +81,9 @@ const CS_EN: CsLabels = CsLabels {
     bilateral_note: "B = Dᵢ − Dⱼ with U95 %(B) from the same draws as the unilateral degrees of equivalence (NICOB §A.5.1); a pair is marked * when |B| > U95 %(B).",
     bilateral_none: "No pair differs significantly from zero.",
     bilateral_pairs: "Pairs with |B| > U95 %(B): {n} of {m}.",
+    by_procedure: "Degrees of equivalence by procedure",
+    by_procedure_note: "D (U95 %) of each procedure, in the {v} version. Linear Pool: draws x + e − μ̂ (leave-one-out: x + e − x̃₋ⱼ with x̃₋ⱼ the pool of the others), e from N(0, u²) or a rescaled t (NICOB manual §A.5.3). Bayes: posterior predictive draws x − μ + N(0, τ² + u²), (μ, τ) from the exact grid posterior (leave-one-out: of the other results), U95 % symmetric about the mean of the draws (NICOB §A.5.2, σⱼ = uⱼ).",
+    bilateral_by_procedure: "Bilateral pairs with |B| > U95 %(B): {list}.",
     method_dl: "Random-effects model x_j = μ + λ_j + ε_j; τ by the method of moments; the bootstrap draws τ from the gamma approximation of the distribution of Q (Biggerstaff and Tweedie 1997), x_j from N(μ̂, τ² + u_j²) and, when ν_j is given, u_j √(ν_j/χ²); {n} replicates (NICOB §A.2).",
     method_lp: "Linear Pool: {n} draws from the mixture of Gaussian (or rescaled Student t) distributions with means x_j and standard deviations u_j (NICOB §A.4).",
     chart: "Unilateral degrees of equivalence D with U95 %(D)",
@@ -120,6 +126,9 @@ const CS_TR: CsLabels = CsLabels {
     bilateral_note: "B = Dᵢ − Dⱼ; U95 %(B) tek taraflı eşdeğerlik dereceleriyle aynı çekilişlerden hesaplanır (NICOB §A.5.1); |B| > U95 %(B) olan çiftler * ile işaretlidir.",
     bilateral_none: "Sıfırdan anlamlı biçimde farklı çift yoktur.",
     bilateral_pairs: "|B| > U95 %(B) olan çiftler: {m} çiftten {n}.",
+    by_procedure: "Yöntemlere göre eşdeğerlik dereceleri",
+    by_procedure_note: "Her yöntemin D (U95 %) değerleri, {v} biçiminde. Doğrusal havuz: x + e − μ̂ çekilişleri (birini dışarıda bırakan biçimde x + e − x̃₋ⱼ, x̃₋ⱼ diğerlerinin havuzu), e N(0, u²)'den ya da yeniden ölçeklenmiş t'den (NICOB kılavuzu §A.5.3). Bayes: sonsal öngörü çekilişleri x − μ + N(0, τ² + u²), (μ, τ) kesin ızgara sonsalından (birini dışarıda bırakan biçimde diğer sonuçlarınkinden); U95 % çekilişlerin ortalaması çevresinde simetriktir (NICOB §A.5.2, σⱼ = uⱼ).",
+    bilateral_by_procedure: "|B| > U95 %(B) olan iki taraflı çiftler: {list}.",
     method_dl: "Rastgele etkiler modeli x_j = μ + λ_j + ε_j; τ momentler yöntemiyle; bootstrap τ'yu Q'nun dağılımının gama yaklaşımından (Biggerstaff ve Tweedie 1997), x_j'yi N(μ̂, τ² + u_j²) dağılımından ve ν_j verilmişse u_j'yi u_j √(ν_j/χ²) olarak çeker; {n} tekrar (NICOB §A.2).",
     method_lp: "Doğrusal havuz: ortalamaları x_j, standart sapmaları u_j olan normal (ya da ölçeklenmiş Student t) dağılımların karışımından {n} çekiliş (NICOB §A.4).",
     chart: "Tek taraflı eşdeğerlik dereceleri D ve U95 %(D)",
@@ -259,6 +268,7 @@ pub(super) fn markdown(
         let _ = writeln!(s, "{}\n", if loo { d.doe_note_loo } else { d.doe_note });
     }
     bilateral_section(&mut s, a, lang);
+    by_procedure_section(&mut s, a, lang);
     let _ = writeln!(s, "## {}\n", d.dl);
     let df = (n - 1).to_string();
     let verdict = if a.dl.q_p_value < 0.05 { d.heterogeneous } else { d.homogeneous };
@@ -417,6 +427,59 @@ fn bilateral_section(s: &mut String, a: &ConsensusAnalysis, lang: Lang) {
             );
         }
         let _ = writeln!(s);
+    }
+}
+
+/// D (U95 %) of the DerSimonian–Laird, Linear Pool and Bayes procedures side
+/// by side, when the Linear Pool or Bayes degrees of equivalence exist.
+fn by_procedure_section(s: &mut String, a: &ConsensusAnalysis, lang: Lang) {
+    if a.linear_pool_doe.is_none() && a.bayes_doe.is_none() {
+        return;
+    }
+    let d = cs_labels(lang);
+    let unit = unit_of(a);
+    let (dl, loo) = unilateral(a);
+    let lp_mra = a.linear_pool.as_ref().map(|l| l.degrees_of_equivalence.as_slice());
+    let lp = a.linear_pool_doe.as_ref().map(|x| x.unilateral.as_slice()).or(if loo { None } else { lp_mra });
+    let by = a.bayes_doe.as_ref().map(|x| x.unilateral.as_slice());
+    let cols: Vec<(&str, &[uncertainty_core::consensus::DegreeOfEquivalence])> =
+        [("DerSimonian–Laird", dl), (d.lp, lp), ("Bayes", by)]
+            .into_iter()
+            .filter_map(|(n, v)| v.map(|v| (n, v)))
+            .collect();
+    let version = match (loo, lang) {
+        (true, Lang::En) => "leave-one-out",
+        (true, Lang::Tr) => "birini dışarıda bırakan",
+        (false, Lang::En) => "MRA",
+        (false, Lang::Tr) => "MRA",
+    };
+    let _ = writeln!(s, "## {}\n", d.by_procedure);
+    let _ = writeln!(s, "{}\n", d.by_procedure_note.replace("{v}", version));
+    let _ = write!(s, "| {} |", d.cols[0]);
+    for (n, _) in &cols {
+        let _ = write!(s, " {n}: D (U95 %){unit} |");
+    }
+    let _ = writeln!(s, "\n|---|{}", "---:|".repeat(cols.len()));
+    for j in 0..a.x.len() {
+        let _ = write!(s, "| {} |", a.names[j]);
+        for (_, v) in &cols {
+            let star = if v[j].d.abs() > v[j].expanded { " *" } else { "" };
+            let _ = write!(s, " {} ({}){star} |", fmt_num(v[j].d, 3, lang), fmt_num(v[j].expanded, 3, lang));
+        }
+        let _ = writeln!(s);
+    }
+    let _ = writeln!(s);
+    let mut parts = Vec::new();
+    for (n, set) in
+        [("DerSimonian–Laird", a.doe.as_ref()), (d.lp, a.linear_pool_doe.as_ref()), ("Bayes", a.bayes_doe.as_ref())]
+    {
+        if let Some(set) = set.filter(|x| !x.bilateral.is_empty() && (x.leave_one_out == loo)) {
+            let k = set.bilateral.iter().filter(|b| b.b.abs() > b.expanded).count();
+            parts.push(format!("{n} {k}/{}", set.bilateral.len()));
+        }
+    }
+    if parts.len() > 1 || (parts.len() == 1 && a.doe.is_none()) {
+        let _ = writeln!(s, "{}\n", d.bilateral_by_procedure.replace("{list}", &parts.join("; ")));
     }
 }
 

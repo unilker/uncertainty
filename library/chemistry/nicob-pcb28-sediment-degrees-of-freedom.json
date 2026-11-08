@@ -217,6 +217,72 @@
             "tolerance": 0.182
           }
         }
+      },
+      "doe": {
+        "linear_pool": {
+          "unilateral": {
+            "Lab 1": {
+              "d": {
+                "value": 0.790646116,
+                "tolerance": 0.03
+              },
+              "expanded": {
+                "value": 3.464603,
+                "tolerance": 0.103938
+              }
+            },
+            "Lab 2": {
+              "d": {
+                "value": -0.889031551,
+                "tolerance": 0.03
+              },
+              "expanded": {
+                "value": 2.939345,
+                "tolerance": 0.08818
+              }
+            },
+            "Lab 3": {
+              "d": {
+                "value": 1.066337977,
+                "tolerance": 0.03
+              },
+              "expanded": {
+                "value": 3.234495,
+                "tolerance": 0.097035
+              }
+            },
+            "Lab 4": {
+              "d": {
+                "value": -1.464752383,
+                "tolerance": 0.03
+              },
+              "expanded": {
+                "value": 2.583923,
+                "tolerance": 0.077518
+              }
+            },
+            "Lab 5": {
+              "d": {
+                "value": -2.089799238,
+                "tolerance": 0.03
+              },
+              "expanded": {
+                "value": 2.456542,
+                "tolerance": 0.073696
+              }
+            },
+            "Lab 6": {
+              "d": {
+                "value": 2.591498854,
+                "tolerance": 0.03
+              },
+              "expanded": {
+                "value": 2.443322,
+                "tolerance": 0.0733
+              }
+            }
+          }
+        }
       }
     },
     "reference": {

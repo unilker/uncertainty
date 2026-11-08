@@ -68,9 +68,10 @@ pub struct ConsensusSpec {
     /// Bayesian random-effects model with known u_j (half-Cauchy prior on τ).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub bayes: Option<BayesSpec>,
-    /// Degrees of equivalence of the DerSimonian–Laird procedure in the
-    /// leave-one-out version D*_j = x_j − μ̂_−j (NICOB §3.2.8, §A.5.1)
-    /// instead of the MRA version D_j = x_j − μ̂.
+    /// Degrees of equivalence in the leave-one-out version D*_j = x_j − μ̂_−j
+    /// (NICOB §3.2.8, §A.5) instead of the MRA version D_j = x_j − μ̂, for
+    /// every procedure requested (DerSimonian–Laird, Linear Pool, Bayes with
+    /// Gaussian effects).
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub leave_one_out: bool,
     /// Bilateral degrees of equivalence B_ij = D_i − D_j (MRA or
@@ -183,6 +184,19 @@ pub struct ExpectedConsensus {
     /// Bilateral degrees of equivalence, keyed "A|B" (B_AB = D_A − D_B).
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub bilateral: BTreeMap<String, ExpectedDoe>,
+    /// Degrees of equivalence of the other procedures, keyed `linear_pool`
+    /// or `bayes`.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub doe: BTreeMap<String, ExpectedDoeSet>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
+pub struct ExpectedDoeSet {
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub unilateral: BTreeMap<String, ExpectedDoe>,
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub bilateral: BTreeMap<String, ExpectedDoe>,
 }
 
 #[derive(Clone, Debug)]
@@ -199,6 +213,11 @@ pub struct ConsensusAnalysis {
     pub bootstrap: Option<ConsensusSample>,
     /// Leave-one-out and/or bilateral degrees of equivalence when requested.
     pub doe: Option<DegreesOfEquivalence>,
+    /// Those of the Linear Pool (when leave-one-out or bilateral is asked).
+    pub linear_pool_doe: Option<DegreesOfEquivalence>,
+    /// Those of the Bayesian procedure with Gaussian effects (always the
+    /// unilateral ones; leave-one-out and bilateral when asked).
+    pub bayes_doe: Option<DegreesOfEquivalence>,
     pub linear_pool: Option<ConsensusSample>,
     pub maximum_likelihood: Option<MaximumLikelihood>,
     pub bayes: Option<BayesConsensus>,
@@ -239,10 +258,7 @@ pub fn evaluate(spec: &ConsensusSpec) -> Result<ConsensusAnalysis, ProjectError>
     } else {
         None
     };
-    if (spec.leave_one_out || spec.bilateral) && !spec.dersimonian_laird {
-        return Err(err("leave_one_out", "leave-one-out and bilateral degrees of equivalence use DerSimonian–Laird"));
-    }
-    let doe = if spec.leave_one_out || spec.bilateral {
+    let doe = if (spec.leave_one_out || spec.bilateral) && spec.dersimonian_laird {
         Some(
             consensus::dl_degrees_of_equivalence(
                 &x,
@@ -262,6 +278,23 @@ pub fn evaluate(spec: &ConsensusSpec) -> Result<ConsensusAnalysis, ProjectError>
         Some(
             consensus::linear_pool(&x, &u, &dof, &weights, spec.coverage, spec.trials, spec.seed)
                 .map_err(|e| err("linear_pool", e.to_string()))?,
+        )
+    } else {
+        None
+    };
+    let linear_pool_doe = if (spec.leave_one_out || spec.bilateral) && spec.linear_pool {
+        Some(
+            consensus::linear_pool_degrees_of_equivalence(
+                &x,
+                &u,
+                &dof,
+                &weights,
+                spec.coverage,
+                spec.trials,
+                spec.seed,
+                spec.leave_one_out,
+            )
+            .map_err(|e| err("linear_pool", e.to_string()))?,
         )
     } else {
         None
@@ -289,6 +322,30 @@ pub fn evaluate(spec: &ConsensusSpec) -> Result<ConsensusAnalysis, ProjectError>
         }
         None => None,
     };
+    let bayes_doe = match &spec.bayes {
+        Some(b) if b.effects == Effects::Gaussian => {
+            let prior = b.mu_mean.zip(b.mu_sd);
+            let tau_median = b.tau_median.unwrap_or_else(|| consensus::median_absolute_deviation(&x));
+            Some(
+                consensus::bayes_degrees_of_equivalence(
+                    &x,
+                    &u,
+                    tau_median,
+                    prior,
+                    spec.coverage,
+                    spec.trials,
+                    spec.seed,
+                    spec.leave_one_out,
+                )
+                .map_err(|e| err("bayes", e.to_string()))?,
+            )
+        }
+        _ => None,
+    };
+    let mut bayes_doe = bayes_doe;
+    if let Some(d) = bayes_doe.as_mut().filter(|_| !spec.bilateral) {
+        d.bilateral.clear();
+    }
     let bayes_prior = spec.bayes.clone().map(|mut b| {
         b.tau_median = Some(b.tau_median.unwrap_or_else(|| consensus::median_absolute_deviation(&x)));
         b
@@ -305,6 +362,8 @@ pub fn evaluate(spec: &ConsensusSpec) -> Result<ConsensusAnalysis, ProjectError>
         dl,
         bootstrap,
         doe,
+        linear_pool_doe,
+        bayes_doe,
         linear_pool,
         maximum_likelihood,
         bayes,
@@ -364,19 +423,37 @@ pub fn check(e: &ExpectedConsensus, a: &ConsensusAnalysis, out: &mut Vec<crate::
         push(format!("leave_one_out[{name}].expanded"), doe.map_or(f64::NAN, |d| d.expanded), &ed.expanded);
     }
     for (key, ed) in &e.bilateral {
-        let pair = key.split_once('|').and_then(|(p, q)| {
-            let i = a.names.iter().position(|n| n == p)?;
-            let j = a.names.iter().position(|n| n == q)?;
-            Some((i, j))
-        });
-        let found = pair.and_then(|(i, j)| {
-            let d = a.doe.as_ref()?;
-            let (lo, hi, sign) = if i < j { (i, j, 1.0) } else { (j, i, -1.0) };
-            d.bilateral.iter().find(|b| b.i == lo && b.j == hi).map(|b| (sign * b.b, b.expanded))
-        });
+        let found = bilateral_of(a, a.doe.as_ref(), key);
         push(format!("bilateral[{key}].d"), found.map_or(f64::NAN, |f| f.0), &ed.d);
         push(format!("bilateral[{key}].expanded"), found.map_or(f64::NAN, |f| f.1), &ed.expanded);
     }
+    for (proc_, set) in &e.doe {
+        let d = match proc_.as_str() {
+            "linear_pool" => a.linear_pool_doe.as_ref(),
+            "bayes" => a.bayes_doe.as_ref(),
+            _ => None,
+        };
+        for (name, ed) in &set.unilateral {
+            let j = a.names.iter().position(|n| n == name);
+            let u = j.and_then(|j| d.map(|d| &d.unilateral[j]));
+            push(format!("doe.{proc_}.unilateral[{name}].d"), u.map_or(f64::NAN, |x| x.d), &ed.d);
+            push(format!("doe.{proc_}.unilateral[{name}].expanded"), u.map_or(f64::NAN, |x| x.expanded), &ed.expanded);
+        }
+        for (key, ed) in &set.bilateral {
+            let found = bilateral_of(a, d, key);
+            push(format!("doe.{proc_}.bilateral[{key}].d"), found.map_or(f64::NAN, |f| f.0), &ed.d);
+            push(format!("doe.{proc_}.bilateral[{key}].expanded"), found.map_or(f64::NAN, |f| f.1), &ed.expanded);
+        }
+    }
+}
+
+/// (B_AB, U95 %) for the key "A|B" from a set of degrees of equivalence.
+fn bilateral_of(a: &ConsensusAnalysis, d: Option<&DegreesOfEquivalence>, key: &str) -> Option<(f64, f64)> {
+    let (p, q) = key.split_once('|')?;
+    let i = a.names.iter().position(|n| n == p)?;
+    let j = a.names.iter().position(|n| n == q)?;
+    let (lo, hi, sign) = if i < j { (i, j, 1.0) } else { (j, i, -1.0) };
+    d?.bilateral.iter().find(|b| b.i == lo && b.j == hi).map(|b| (sign * b.b, b.expanded))
 }
 
 fn sample_json(s: &ConsensusSample, names: &[String]) -> Value {
@@ -385,6 +462,17 @@ fn sample_json(s: &ConsensusSample, names: &[String]) -> Value {
         "interval": [s.interval.0, s.interval.1], "coverage": s.coverage, "trials": s.trials,
         "degrees_of_equivalence": s.degrees_of_equivalence.iter().zip(names).map(|(d, n)| json!({
             "name": n, "d": d.d, "expanded": d.expanded,
+        })).collect::<Vec<_>>(),
+    })
+}
+
+fn doe_json(d: &DegreesOfEquivalence, names: &[String]) -> Value {
+    json!({
+        "version": if d.leave_one_out { "leave_one_out" } else { "mra" },
+        "unilateral": d.unilateral.iter().zip(names).map(|(u, n)| json!({"name": n, "d": u.d, "expanded": u.expanded})).collect::<Vec<_>>(),
+        "bilateral": d.bilateral.iter().map(|b| json!({
+            "a": names[b.i], "b": names[b.j], "d": b.b, "expanded": b.expanded,
+            "significant": b.b.abs() > b.expanded,
         })).collect::<Vec<_>>(),
     })
 }
@@ -401,14 +489,9 @@ pub fn results_json(a: &ConsensusAnalysis) -> Value {
             "u_knapp_hartung": a.dl.u_knapp_hartung, "expanded_knapp_hartung": a.knapp_hartung_expanded,
             "bootstrap": a.bootstrap.as_ref().map(|b| sample_json(b, &a.names)),
         },
-        "degrees_of_equivalence": a.doe.as_ref().map(|d| json!({
-            "version": if d.leave_one_out { "leave_one_out" } else { "mra" },
-            "unilateral": d.unilateral.iter().zip(&a.names).map(|(u, n)| json!({"name": n, "d": u.d, "expanded": u.expanded})).collect::<Vec<_>>(),
-            "bilateral": d.bilateral.iter().map(|b| json!({
-                "a": a.names[b.i], "b": a.names[b.j], "d": b.b, "expanded": b.expanded,
-                "significant": b.b.abs() > b.expanded,
-            })).collect::<Vec<_>>(),
-        })),
+        "degrees_of_equivalence": a.doe.as_ref().map(|d| doe_json(d, &a.names)),
+        "linear_pool_degrees_of_equivalence": a.linear_pool_doe.as_ref().map(|d| doe_json(d, &a.names)),
+        "bayes_degrees_of_equivalence": a.bayes_doe.as_ref().map(|d| doe_json(d, &a.names)),
         "linear_pool": a.linear_pool.as_ref().map(|b| sample_json(b, &a.names)),
         "bayes": a.bayes.as_ref().map(|b| json!({
             "mean": b.mean, "standard_uncertainty": b.sd, "interval": [b.interval.0, b.interval.1],

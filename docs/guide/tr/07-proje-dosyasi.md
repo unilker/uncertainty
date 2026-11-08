@@ -407,7 +407,8 @@ havuzdaki ağırlığıdır. Beklenen değerler: `mean`, `u`, `tau`, `q`, `u_kna
 `ml_mean`, `ml_u`, `ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`,
 `bayes_tau_median` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). `leave_one_out` eşdeğerlik derecelerini
 birini dışarıda bırakan biçimde (D*_j = x_j − μ̂₋ⱼ) verir, `bilateral` B_ij = D_i − D_j'yi ekler; beklenen değerleri
-`leave_one_out` (ad başına) ve `bilateral` (çift başına `"A|B"`, B_AB = D_A − D_B), her biri `d` ve `expanded` ile.
+`leave_one_out` (ad başına) ve `bilateral` (çift başına `"A|B"`, B_AB = D_A − D_B), her biri `d` ve `expanded` ile;
+doğrusal havuz ve Bayes için `doe` → `linear_pool` veya `bayes` → `unilateral` / `bilateral`.
 Bkz. 9.7.
 
 `"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (hepsi isteğe bağlı; `"bayes": {}` NICOB

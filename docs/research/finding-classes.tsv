@@ -98,3 +98,4 @@ F96	a	Possolo & Meija 2022, Atomic Weight of Lead	Possolo & Meija 2022, Atomic W
 F97	b	BIPM ISRD qNMR budgets	BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article, not to be reported).
 F98	a	EURAMET cg-18 H3.4/A and H3.4/B	EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small).
 F99	n	NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).	NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).
+F100	n	NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).	NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).

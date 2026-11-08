@@ -16045,6 +16045,72 @@
         "tolerance": 0.182
        }
       }
+     },
+     "doe": {
+      "linear_pool": {
+       "unilateral": {
+        "Lab 1": {
+         "d": {
+          "value": 0.790646116,
+          "tolerance": 0.03
+         },
+         "expanded": {
+          "value": 3.464603,
+          "tolerance": 0.103938
+         }
+        },
+        "Lab 2": {
+         "d": {
+          "value": -0.889031551,
+          "tolerance": 0.03
+         },
+         "expanded": {
+          "value": 2.939345,
+          "tolerance": 0.08818
+         }
+        },
+        "Lab 3": {
+         "d": {
+          "value": 1.066337977,
+          "tolerance": 0.03
+         },
+         "expanded": {
+          "value": 3.234495,
+          "tolerance": 0.097035
+         }
+        },
+        "Lab 4": {
+         "d": {
+          "value": -1.464752383,
+          "tolerance": 0.03
+         },
+         "expanded": {
+          "value": 2.583923,
+          "tolerance": 0.077518
+         }
+        },
+        "Lab 5": {
+         "d": {
+          "value": -2.089799238,
+          "tolerance": 0.03
+         },
+         "expanded": {
+          "value": 2.456542,
+          "tolerance": 0.073696
+         }
+        },
+        "Lab 6": {
+         "d": {
+          "value": 2.591498854,
+          "tolerance": 0.03
+         },
+         "expanded": {
+          "value": 2.443322,
+          "tolerance": 0.0733
+         }
+        }
+       }
+      }
      }
     },
     "reference": {
@@ -48316,6 +48382,7 @@
      }
     ],
     "linear_pool": true,
+    "bayes": {},
     "leave_one_out": true,
     "bilateral": true,
     "trials": 100000,
@@ -48466,6 +48533,206 @@
        "expanded": {
         "value": 64.128396,
         "tolerance": 1.923852
+       }
+      }
+     },
+     "bayes_mean": {
+      "value": 7062,
+      "tolerance": 0.5
+     },
+     "bayes_u": {
+      "value": 5,
+      "tolerance": 0.5
+     },
+     "bayes_lower": {
+      "value": 7053,
+      "tolerance": 0.8
+     },
+     "bayes_upper": {
+      "value": 7072,
+      "tolerance": 0.8
+     },
+     "doe": {
+      "linear_pool": {
+       "unilateral": {
+        "Lab 1": {
+         "d": {
+          "value": 14.116029075,
+          "tolerance": 0.5
+         },
+         "expanded": {
+          "value": 60.640355,
+          "tolerance": 1.819211
+         }
+        },
+        "Lab 6": {
+         "d": {
+          "value": -3.872940172,
+          "tolerance": 0.5
+         },
+         "expanded": {
+          "value": 58.806894,
+          "tolerance": 1.764207
+         }
+        },
+        "Lab 7": {
+         "d": {
+          "value": 27.757337878,
+          "tolerance": 0.5
+         },
+         "expanded": {
+          "value": 62.300572,
+          "tolerance": 1.869017
+         }
+        },
+        "Lab 9": {
+         "d": {
+          "value": -28.132430935,
+          "tolerance": 0.5
+         },
+         "expanded": {
+          "value": 59.995174,
+          "tolerance": 1.799855
+         }
+        },
+        "Lab 12": {
+         "d": {
+          "value": 36.224327523,
+          "tolerance": 0.5
+         },
+         "expanded": {
+          "value": 64.826389,
+          "tolerance": 1.944792
+         }
+        },
+        "Lab 17": {
+         "d": {
+          "value": 39.401978912,
+          "tolerance": 0.5
+         },
+         "expanded": {
+          "value": 72.400533,
+          "tolerance": 2.172016
+         }
+        }
+       },
+       "bilateral": {
+        "Lab 1|Lab 9": {
+         "d": {
+          "value": 42.24846001,
+          "tolerance": 0.7
+         },
+         "expanded": {
+          "value": 86.039937,
+          "tolerance": 2.581198
+         }
+        },
+        "Lab 7|Lab 9": {
+         "d": {
+          "value": 55.889768813,
+          "tolerance": 0.7
+         },
+         "expanded": {
+          "value": 87.085217,
+          "tolerance": 2.612556
+         }
+        }
+       }
+      },
+      "bayes": {
+       "unilateral": {
+        "Lab 1": {
+         "d": {
+          "value": 16.569965903,
+          "tolerance": 0.00001656996590307881
+         },
+         "expanded": {
+          "value": 32.150163,
+          "tolerance": 0.964505
+         }
+        },
+        "Lab 6": {
+         "d": {
+          "value": -2.416515966,
+          "tolerance": 0.0000024165159655376553
+         },
+         "expanded": {
+          "value": 32.822918,
+          "tolerance": 0.984688
+         }
+        },
+        "Lab 7": {
+         "d": {
+          "value": 30.290664453,
+          "tolerance": 0.00003029066445327771
+         },
+         "expanded": {
+          "value": 32.450002,
+          "tolerance": 0.9735
+         }
+        },
+        "Lab 9": {
+         "d": {
+          "value": -27.270882777,
+          "tolerance": 0.000027270882777233052
+         },
+         "expanded": {
+          "value": 27.751291,
+          "tolerance": 0.832539
+         }
+        },
+        "Lab 12": {
+         "d": {
+          "value": 37.788392201,
+          "tolerance": 0.00003778839220115606
+         },
+         "expanded": {
+          "value": 40.400492,
+          "tolerance": 1.212015
+         }
+        },
+        "Lab 17": {
+         "d": {
+          "value": 40.052653499,
+          "tolerance": 0.000040052653499134976
+         },
+         "expanded": {
+          "value": 54.342726,
+          "tolerance": 1.630282
+         }
+        }
+       },
+       "bilateral": {
+        "Lab 7|Lab 9": {
+         "d": {
+          "value": 57.561547231,
+          "tolerance": 0.00005756154723051076
+         },
+         "expanded": {
+          "value": 42.414995,
+          "tolerance": 1.27245
+         }
+        },
+        "Lab 9|Lab 12": {
+         "d": {
+          "value": -65.059274978,
+          "tolerance": 0.00006505927497838911
+         },
+         "expanded": {
+          "value": 48.839662,
+          "tolerance": 1.46519
+         }
+        },
+        "Lab 9|Lab 17": {
+         "d": {
+          "value": -67.323536276,
+          "tolerance": 0.00006732353627636803
+         },
+         "expanded": {
+          "value": 60.763445,
+          "tolerance": 1.822903
+         }
+        }
        }
       }
      }

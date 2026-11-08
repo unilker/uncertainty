@@ -3462,3 +3462,33 @@ shortest 95 % interval [0.998 394, 1]; the program (10⁶ draws, five seeds) agr
 estimate 0.999 77 and only cuts the interval, the restricted MCM moves the estimate to 0.999 32 and narrows the
 interval to 1.6 mg/g; for a purity this close to 1 the choice should be stated. Unit test: a normal input with
 bounds [0, 1] against the truncated normal (mass 0.904 419, s.d. 0.238 75).
+
+## 2026-11-08 (session 22, continued) — Degrees of equivalence of the Linear Pool and the Bayesian procedure
+
+**D88. Linear Pool and Bayes degrees of equivalence (MRA, leave-one-out, bilateral).** `leave_one_out` and
+`bilateral` now apply to every procedure requested; the report has a table "Degrees of equivalence by procedure",
+the JSON `linear_pool_degrees_of_equivalence` and `bayes_degrees_of_equivalence`, the expected values `doe` →
+`linear_pool` / `bayes` → `unilateral` / `bilateral`.
+
+- Bayes with known u (NICOB DoEUnilateralBayes.R with σ_j = u_j, manual §A.5.2): D_j = x_j − μ̂ (posterior mean),
+  draws x_j − μ_k + N(0, τ_k² + u_j²); leave-one-out with the posterior of the other results and the same prior
+  (NICOB passes the same τ prior scale); U95 % symmetric about the mean of the draws, as in the code. (μ, τ) are
+  drawn from the exact grid posterior (τ from the grid weights, μ | τ normal), so D is exact and only U carries
+  Monte Carlo error. Not for Laplace effects.
+- Linear Pool: the definitions of the manual §A.5.3 (see F100).
+- Independent numpy check (`tools/research/consensus/nicob_doe.py`, 10⁶ draws) on ⁶⁰Co and PCB 28: U95 % within
+  1.3 %, Bayes D exact, Linear Pool D within the Monte Carlo error of the pool mean; significant bilateral pairs
+  ⁶⁰Co: LP MRA 22/171 (port 22), LP LOO 0 (0), Bayes MRA 3 (3), Bayes LOO 7 (6, one pair at the edge); PCB 28 LP
+  MRA 6/15 (6), LOO 2 (2). The ⁶⁰Co project now also checks the Bayes consensus value of Exhibit 21: 7062.03,
+  u 4.59, (7053.1, 7071.4) kBq against 7062, 5, (7053, 7072) (MCMC, printed to the unit).
+- Observation for the article: the MRA bilateral DoE of the Linear Pool contain only u_i and u_j, not the dark
+  uncertainty, so with heterogeneous results 22 of 171 pairs of ⁶⁰Co are significant against 3–9 by the other
+  procedures; the procedure matters as much for the DoE as for the consensus value (D66).
+
+**F100. NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).**
+The manual (§A.5.3) defines D_j,k = x_j + e_j,k − μ̂ (MRA), D*_j,k = x_j + e_j,k − x̃_−j,k (leave-one-out) and
+B_ij = D_i − D_j from the same draws, e_j from N(0, u_j²) or a t. The code differs: DoEUnilateralLinearPool.R in
+the MRA version subtracts the pool draws z_k instead of μ̂ (so U also contains the spread of the pool), and
+DoEBilateralLinearPool.R always uses leave-one-out pools, draws e_j by resampling the centred pool of the other
+results (the participant's own u_j does not enter) and sets B_ij = x_i − x_j. The program implements the manual.
+Also noted in the code: "AP CHECK" comments on the treatment of excluded participants (D86).

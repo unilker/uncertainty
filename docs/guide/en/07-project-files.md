@@ -407,7 +407,8 @@ the Linear Pool. Expected values: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `b
 `ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`, `bayes_tau_median` and
 `degrees_of_equivalence` (per name: `d`, `expanded`). `leave_one_out` gives the degrees of equivalence in the
 leave-one-out version D*_j = x_j − μ̂₋ⱼ, `bilateral` adds B_ij = D_i − D_j; their expected values are `leave_one_out`
-(per name) and `bilateral` (per pair `"A|B"`, B_AB = D_A − D_B), each with `d` and `expanded`. See 9.7.
+(per name) and `bilateral` (per pair `"A|B"`, B_AB = D_A − D_B), each with `d` and `expanded`; for the Linear
+Pool and Bayes, `doe` → `linear_pool` or `bayes` → `unilateral` / `bilateral`. See 9.7.
 
 `"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (all optional; `"bayes": {}` uses the
 NICOB defaults) adds the Bayesian random-effects model; `"effects": "laplace"` gives the laboratory effects a Laplace
