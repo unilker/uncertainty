@@ -4,7 +4,7 @@ F10	Eurachem QUAM A2	c2	partly erratum	u(m_KHP) / mg; Table A2.4	0.13	0.12	0	0	u
 F12	Eurachem QUAM A3	c2	partly erratum	u_c in Table A3.1 / (mol/L)	0.00016	0.00019	0	—	the extra term in u(V_HCl) is corrected by QUAM_ERRATA_v2 (p. 55); Table A3.1 lists single-run inputs with the triplicate u_c (not in the errata); reported result unchanged
 F14	Eurachem QUAM A5	e	erratum	u(a_V) / dm²; u_c / (mg/dm²)	0.19; 0.001465	0.152; 0.00144	0	—	fully corrected by QUAM_ERRATA_v2 (pp. 72–80, amended Table A5.1); reported as a known erratum, not as a finding
 F21	EA-4/02 S13	c1	confirmed	d_X / mm	90.0003	90.0002	0.11	0	Δl and coaxiality correction of the budget differ from the data
-F28	NIST TN 1900 E4	c1	open	v / (m/s)	40.64	57.48	34	—	printed = stated equation ÷ √2; check Kline & McClintock (1953) for the definition of Δ
+F28	NIST TN 1900 E4	c1	independently checked	v / (m/s)	40.64	57.48	34	—	printed = stated equation ÷ √2; reported independently by Delker (2021, footnote 1); Kline & McClintock (1953) still to be read
 F29	NIST TN 1900 E3	c1	open	u(μ_M) / (mPa s)	1.11	1.027	—	0.075	the NUM 'Gauss' value; to be confirmed how the NUM evaluates it
 F33	NIST Uncertainty Machine manual §3	c2	confirmed	u(y) in the text	12.5	8.7	—	—	the text disagrees with the program output in Figure 1, which is reproduced
 F39	ISO 21748 C.3	c1	confirmed	U(flour) / %	12.8	12.6	0	0.016	

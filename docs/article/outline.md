@@ -1,6 +1,6 @@
 # Article outline (manuscript skeleton)
 
-Status: draft skeleton, 2026-11-07. It supersedes the outline in `docs/research/publication-plan.md` (kept for the
+Status: draft skeleton, 2026-11-07; the first prose draft is `docs/article/manuscript.md` (2026-11-08). It supersedes the outline in `docs/research/publication-plan.md` (kept for the
 target-journal table and the checklist). Every number below comes from `docs/article/numbers.md`
 (`tools/research/article_stats.py`), the validation matrix or the research log; nothing is to be typed in by hand.
 
