@@ -150,6 +150,7 @@
       }
     ],
     "linear_pool": true,
+    "bayes": {},
     "leave_one_out": true,
     "bilateral": true,
     "trials": 100000,
@@ -300,6 +301,206 @@
           "expanded": {
             "value": 64.128396,
             "tolerance": 1.923852
+          }
+        }
+      },
+      "bayes_mean": {
+        "value": 7062,
+        "tolerance": 0.5
+      },
+      "bayes_u": {
+        "value": 5,
+        "tolerance": 0.5
+      },
+      "bayes_lower": {
+        "value": 7053,
+        "tolerance": 0.8
+      },
+      "bayes_upper": {
+        "value": 7072,
+        "tolerance": 0.8
+      },
+      "doe": {
+        "linear_pool": {
+          "unilateral": {
+            "Lab 1": {
+              "d": {
+                "value": 14.116029075,
+                "tolerance": 0.5
+              },
+              "expanded": {
+                "value": 60.640355,
+                "tolerance": 1.819211
+              }
+            },
+            "Lab 6": {
+              "d": {
+                "value": -3.872940172,
+                "tolerance": 0.5
+              },
+              "expanded": {
+                "value": 58.806894,
+                "tolerance": 1.764207
+              }
+            },
+            "Lab 7": {
+              "d": {
+                "value": 27.757337878,
+                "tolerance": 0.5
+              },
+              "expanded": {
+                "value": 62.300572,
+                "tolerance": 1.869017
+              }
+            },
+            "Lab 9": {
+              "d": {
+                "value": -28.132430935,
+                "tolerance": 0.5
+              },
+              "expanded": {
+                "value": 59.995174,
+                "tolerance": 1.799855
+              }
+            },
+            "Lab 12": {
+              "d": {
+                "value": 36.224327523,
+                "tolerance": 0.5
+              },
+              "expanded": {
+                "value": 64.826389,
+                "tolerance": 1.944792
+              }
+            },
+            "Lab 17": {
+              "d": {
+                "value": 39.401978912,
+                "tolerance": 0.5
+              },
+              "expanded": {
+                "value": 72.400533,
+                "tolerance": 2.172016
+              }
+            }
+          },
+          "bilateral": {
+            "Lab 1|Lab 9": {
+              "d": {
+                "value": 42.24846001,
+                "tolerance": 0.7
+              },
+              "expanded": {
+                "value": 86.039937,
+                "tolerance": 2.581198
+              }
+            },
+            "Lab 7|Lab 9": {
+              "d": {
+                "value": 55.889768813,
+                "tolerance": 0.7
+              },
+              "expanded": {
+                "value": 87.085217,
+                "tolerance": 2.612556
+              }
+            }
+          }
+        },
+        "bayes": {
+          "unilateral": {
+            "Lab 1": {
+              "d": {
+                "value": 16.569965903,
+                "tolerance": 1.656996590307881e-05
+              },
+              "expanded": {
+                "value": 32.150163,
+                "tolerance": 0.964505
+              }
+            },
+            "Lab 6": {
+              "d": {
+                "value": -2.416515966,
+                "tolerance": 2.4165159655376553e-06
+              },
+              "expanded": {
+                "value": 32.822918,
+                "tolerance": 0.984688
+              }
+            },
+            "Lab 7": {
+              "d": {
+                "value": 30.290664453,
+                "tolerance": 3.029066445327771e-05
+              },
+              "expanded": {
+                "value": 32.450002,
+                "tolerance": 0.9735
+              }
+            },
+            "Lab 9": {
+              "d": {
+                "value": -27.270882777,
+                "tolerance": 2.7270882777233052e-05
+              },
+              "expanded": {
+                "value": 27.751291,
+                "tolerance": 0.832539
+              }
+            },
+            "Lab 12": {
+              "d": {
+                "value": 37.788392201,
+                "tolerance": 3.778839220115606e-05
+              },
+              "expanded": {
+                "value": 40.400492,
+                "tolerance": 1.212015
+              }
+            },
+            "Lab 17": {
+              "d": {
+                "value": 40.052653499,
+                "tolerance": 4.0052653499134976e-05
+              },
+              "expanded": {
+                "value": 54.342726,
+                "tolerance": 1.630282
+              }
+            }
+          },
+          "bilateral": {
+            "Lab 7|Lab 9": {
+              "d": {
+                "value": 57.561547231,
+                "tolerance": 5.756154723051076e-05
+              },
+              "expanded": {
+                "value": 42.414995,
+                "tolerance": 1.27245
+              }
+            },
+            "Lab 9|Lab 12": {
+              "d": {
+                "value": -65.059274978,
+                "tolerance": 6.505927497838911e-05
+              },
+              "expanded": {
+                "value": 48.839662,
+                "tolerance": 1.46519
+              }
+            },
+            "Lab 9|Lab 17": {
+              "d": {
+                "value": -67.323536276,
+                "tolerance": 6.732353627636803e-05
+              },
+              "expanded": {
+                "value": 60.763445,
+                "tolerance": 1.822903
+              }
+            }
           }
         }
       }

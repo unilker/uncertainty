@@ -29,13 +29,15 @@ def c(x):
     return str(x).replace(".", ",")
 
 
-def doe(ver, data, names, codes, rel=0.03):
-    """Expected (d, U) from the numpy reference: d exact, U within `rel` (Monte Carlo, 10^5 draws in the program)."""
+def doe(ver, data, names, codes, rel=0.03, tol_d=None):
+    """Expected (d, U) from the numpy reference: d exact (or within tol_d when d itself is a Monte Carlo mean, as
+    for the Linear Pool), U within `rel` (Monte Carlo, 10^5 draws in the program)."""
     out = {}
     for n in names:
         d, u = data[n] if "|" not in n else data[n]
         key = codes[n] if "|" not in n else "|".join(codes[a] for a in n.split("|"))
-        out[key] = {"d": chk(round(d, 9), 1e-6 * max(1.0, abs(d))), "expanded": chk(round(u, 6), round(rel * u, 6))}
+        td = tol_d if tol_d is not None else 1e-6 * max(1.0, abs(d))
+        out[key] = {"d": chk(round(d, 9), td), "expanded": chk(round(u, 6), round(rel * u, 6))}
     return out
 
 
@@ -61,7 +63,16 @@ expected = {"mean": chk(7062, 0.5), "bootstrap_u": chk(4, 0.6), "interval_lower"
             "linear_pool_mean": chk(7064, 1.0), "linear_pool_u": chk(29, 0.7),
             "linear_pool_lower": chk(7012, 1.5), "linear_pool_upper": chk(7127, 1.5),
             "leave_one_out": doe("loo", r["loo"][0], pick_loo, co),
-            "bilateral": doe("loo", r["loo"][1], pick_bil, co)}
+            "bilateral": doe("loo", r["loo"][1], pick_bil, co),
+            # Exhibit 21, hierarchical Bayesian (σ_j = u_j): 7062, 5, (7053, 7072); MCMC, so the printed digit plus
+            # its sampling error.
+            "bayes_mean": chk(7062, 0.5), "bayes_u": chk(5, 0.5), "bayes_lower": chk(7053, 0.8), "bayes_upper": chk(7072, 0.8),
+            # Linear Pool and Bayes degrees of equivalence, leave-one-out (numpy port; D86b). The Linear Pool D is a
+            # difference to a Monte Carlo mean: tolerance 5σ of that mean with 10^5 draws (29/√10^5 kBq).
+            "doe": {"linear_pool": {"unilateral": doe("lp", r["lp_loo"][0], pick_loo, co, tol_d=0.5),
+                                    "bilateral": doe("lp", r["lp_loo"][1], ["LNMRI|IRA", "CIEMAT|IRA"], co, tol_d=0.7)},
+                    "bayes": {"unilateral": doe("bayes", r["bayes_loo"][0], pick_loo, co),
+                              "bilateral": doe("bayes", r["bayes_loo"][1], [k for k, (b, u) in r["bayes_loo"][1].items() if abs(b) > 1.05 * u][:4], co)}}}
 write("physical", "nicob-co60-activity-leave-one-out-bilateral",
       {"field": "physical",
        "title": T("Activity of ⁶⁰Co in 19 laboratories: consensus value with leave-one-out and bilateral degrees of equivalence (NIST Consensus Builder §4.4)",
@@ -80,7 +91,7 @@ write("physical", "nicob-co60-activity-leave-one-out-bilateral",
        "sources": [{"document": MANUAL, "section": "§4.4, Exhibits 19, 21 and 22; §A.5.1", "url": URL}]},
       {"measurand": "A (SIR equivalent activity)", "unit": "kBq",
        "results": [{"name": co[n], "value": x, "u": u} for n, x, u in zip(CO_LABS, CO_X, CO_U)],
-       "linear_pool": True, "leave_one_out": True, "bilateral": True, "trials": 100000, "seed": 1},
+       "linear_pool": True, "bayes": {}, "leave_one_out": True, "bilateral": True, "trials": 100000, "seed": 1},
       expected,
       T("NICOB manual Exhibit 21: DerSimonian–Laird 7062 kBq, u 4 kBq, (7053, 7071) kBq; Linear Pool 7064, 29, (7012, 7127) kBq (tolerances: the printed digit and the Monte Carlo dispersion). Degrees of equivalence: numpy port of the NICOB source, 10⁶ draws; tolerance 3 % of U95 % (5σ of the program's 10⁵ draws).",
         "NICOB kılavuzu Örnek 21: DerSimonian–Laird 7062 kBq, u 4 kBq, (7053, 7071) kBq; Linear Pool 7064, 29, (7012, 7127) kBq (toleranslar: basılı basamak ve Monte Carlo saçılımı). Eşdeğerlik dereceleri: NICOB kaynağının numpy aktarımı, 10⁶ çekiliş; tolerans U95 %'in %3'ü (programın 10⁵ çekilişinin 5σ'sı)."))
@@ -97,7 +108,8 @@ expected = {"mean": chk(33.6, 0.05), "bootstrap_u": chk(0.77, 0.03), "interval_l
             "linear_pool_mean": chk(33.6, 0.1), "linear_pool_u": chk(1.55, 0.1),
             "linear_pool_lower": chk(31.4, 0.1), "linear_pool_upper": chk(36.3, 0.1),
             "leave_one_out": doe("loo", r["loo"][0], PCB_LABS, pc),
-            "bilateral": doe("loo", r["loo"][1], sig + ["IRMM|KRISS"], pc)}
+            "bilateral": doe("loo", r["loo"][1], sig + ["IRMM|KRISS"], pc),
+            "doe": {"linear_pool": {"unilateral": doe("lp", r["lp_loo"][0], PCB_LABS, pc, tol_d=0.03)}}}
 write("chemistry", "nicob-pcb28-sediment-degrees-of-freedom",
       {"field": "chemistry",
        "title": T("PCB 28 in sediment from six laboratories with degrees of freedom: DerSimonian–Laird, Linear Pool and leave-one-out degrees of equivalence (NIST Consensus Builder §4.2)",

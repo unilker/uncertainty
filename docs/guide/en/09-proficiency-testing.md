@@ -160,8 +160,17 @@ B_ij = D_i − D_j for every pair with U95 %(B_ij) from the same draws; the repo
 line by line; an independent numpy port agrees within the Monte Carlo dispersion (library projects
 `nicob-co60-*`, 19 laboratories, and `nicob-pcb28-*`, with degrees of freedom). For ν_j ≤ 2, where the t
 distribution has no finite variance, the program uses NICOB's approximation of the scale factor, also in the
-Linear Pool. Not implemented: the degrees of equivalence of the Bayesian and Linear Pool procedures and the
-σ_j priors with finite ν_j (D68).
+Linear Pool.
+
+The same two options apply to the **Linear Pool** and to the **Bayesian procedure** with Gaussian effects
+(NICOB §A.5.2, §A.5.3), whose degrees of equivalence the report gives side by side with those of
+DerSimonian–Laird. Linear Pool: draws x_j + e − μ̂, or x_j + e − x̃₋ⱼ with x̃₋ⱼ the pool of the other results,
+e from N(0, u_j²) or a rescaled t. Bayes: posterior predictive draws x_j − μ + N(0, τ² + u_j²), with (μ, τ) drawn
+from the exact grid posterior (of the other results for the leave-one-out version) instead of an MCMC chain. For
+the Linear Pool the program follows the definitions of the NICOB manual, which its R code does not (research log
+F100). The MRA bilateral degrees of equivalence of the Linear Pool do not contain the dark uncertainty, so with
+heterogeneous results many pairs come out significant (22 of 171 for ⁶⁰Co). Not implemented: the degrees of
+equivalence with Laplace effects and the σ_j priors with finite ν_j (D68).
 
 *In the application*, *New consensus value* starts from a template. On the *Data* tab the participants' results
 are pasted one per line (name, value, standard uncertainty and, optionally, degrees of freedom) and the procedures

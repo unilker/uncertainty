@@ -155,8 +155,17 @@ Friede 2015), e ise N(0, τ²₋ⱼ + u_j²)'den ya da ν_j verilmişse yeniden 
 |B| > U95 %(B) olan çiftleri işaretler ve on katılımcıya kadar matrisin tamamını yazar. Algoritma NICOB R kaynağını
 satır satır izler; bağımsız bir numpy aktarımı Monte Carlo saçılımı içinde uyuşur (kütüphane projeleri `nicob-co60-*`,
 19 laboratuvar, ve serbestlik dereceli `nicob-pcb28-*`). t dağılımının sonlu varyansı olmayan ν_j ≤ 2 durumunda
-program, doğrusal havuzda da NICOB'un ölçek çarpanı yaklaşımını kullanır. Uygulanmayanlar: Bayesçi ve doğrusal havuz
-yöntemlerinin eşdeğerlik dereceleri ve sonlu ν_j ile σ_j önselleri (D68).
+program, doğrusal havuzda da NICOB'un ölçek çarpanı yaklaşımını kullanır.
+
+Aynı iki seçenek **doğrusal havuz** ve normal etkili **Bayesçi yöntem** için de geçerlidir (NICOB §A.5.2, §A.5.3);
+rapor bunların eşdeğerlik derecelerini DerSimonian–Laird'inkilerle yan yana verir. Doğrusal havuz: x_j + e − μ̂
+çekilişleri ya da x̃₋ⱼ diğer sonuçların havuzu olmak üzere x_j + e − x̃₋ⱼ; e N(0, u_j²)'den ya da yeniden ölçeklenmiş
+t'den. Bayes: sonsal öngörü çekilişleri x_j − μ + N(0, τ² + u_j²); (μ, τ) bir MCMC zinciri yerine kesin ızgara
+sonsalından (birini dışarıda bırakan biçimde diğer sonuçlarınkinden) çekilir. Doğrusal havuzda program NICOB
+kılavuzunun tanımlarını izler; NICOB'un R kodu bunlardan ayrılır (araştırma günlüğü F100). Doğrusal havuzun MRA
+iki taraflı eşdeğerlik dereceleri karanlık belirsizliği içermez; bu yüzden heterojen sonuçlarda birçok çift anlamlı
+çıkar (⁶⁰Co'da 171 çiftten 22'si). Uygulanmayanlar: Laplace etkili eşdeğerlik dereceleri ve sonlu ν_j ile σ_j
+önselleri (D68).
 
 *Uygulamada* *Yeni uzlaşı değeri* bir şablonla başlar. *Veriler* sekmesinde katılımcı sonuçları her satıra bir
 tane yapıştırılır (ad, değer, standart belirsizlik ve isteğe bağlı serbestlik derecesi) ve yöntemler açılıp

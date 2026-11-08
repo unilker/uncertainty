@@ -398,6 +398,14 @@ pub fn dl_degrees_of_equivalence(
         }
         (uni, ds)
     };
+    let bilateral = bilateral_from(&unilateral, &ds, p);
+    Ok(DegreesOfEquivalence { leave_one_out, unilateral, bilateral })
+}
+
+/// B_ij = D_i − D_j with U95 % from the draws D_i,k − D_j,k, symmetric about
+/// their mean (NICOB DoEBilateral*.R).
+fn bilateral_from(unilateral: &[DegreeOfEquivalence], ds: &[Vec<f64>], p: f64) -> Vec<BilateralDoE> {
+    let n = unilateral.len();
     let mut bilateral = Vec::with_capacity(n * (n - 1) / 2);
     for i in 0..n {
         for j in i + 1..n {
@@ -411,7 +419,221 @@ pub fn dl_degrees_of_equivalence(
             });
         }
     }
-    Ok(DegreesOfEquivalence { leave_one_out, unilateral, bilateral })
+    bilateral
+}
+
+/// A deviation e ~ N(0, s²), or a Student t with ν degrees of freedom
+/// rescaled to standard deviation s (NICOB's factor for ν ≤ 2).
+fn deviation(rng: &mut Rng, s: f64, nu: f64) -> f64 {
+    if nu.is_finite() {
+        s * rng.student_t(nu) / t_scale(nu)
+    } else {
+        s * rng.normal()
+    }
+}
+
+/// A sample of the Linear Pool of the results x, u (ν, weights): the mixture
+/// drawn as in [`linear_pool`].
+fn lp_sample(x: &[f64], u: &[f64], dof: &[f64], w: &[f64], trials: usize, rng: &mut Rng) -> Vec<f64> {
+    let n = x.len();
+    let total: f64 = w.iter().sum();
+    let mut cum = Vec::with_capacity(n);
+    let mut acc = 0.0;
+    for a in w {
+        acc += a / total;
+        cum.push(acc);
+    }
+    (0..trials)
+        .map(|_| {
+            let r = rng.uniform();
+            let j = cum.iter().position(|c| r < *c).unwrap_or(n - 1);
+            x[j] + deviation(rng, u[j], dof.get(j).copied().unwrap_or(f64::INFINITY))
+        })
+        .collect()
+}
+
+/// Degrees of equivalence of the Linear Pool as the NICOB manual §A.5.3
+/// defines them: D_j = x_j − μ̂ (μ̂ the mean of the pool) with draws
+/// x_j + e_j,k − μ̂, e from N(0, u_j²) or a rescaled t_νj; leave-one-out:
+/// D*_j = x_j − μ̂_−j with draws x_j + e_j,k − x̃_−j,k, x̃_−j the pool of the
+/// other results; bilateral: B_ij = D_i − D_j from the same draws.
+///
+/// The NICOB R code differs from its manual (research log F100):
+/// DoEUnilateralLinearPool.R subtracts the pool draws also in the MRA version,
+/// and DoEBilateralLinearPool.R draws e_j from the centred pool of the others
+/// instead of from u_j and sets B_ij = x_i − x_j. The manual's definitions
+/// are implemented here.
+#[allow(clippy::too_many_arguments)]
+pub fn linear_pool_degrees_of_equivalence(
+    x: &[f64],
+    u: &[f64],
+    dof: &[f64],
+    weights: &[f64],
+    p: f64,
+    trials: usize,
+    seed: u64,
+    leave_one_out: bool,
+) -> Result<DegreesOfEquivalence, UncError> {
+    validate(x, u, dof)?;
+    check_trials(trials, p)?;
+    let n = x.len();
+    let w: Vec<f64> = if weights.is_empty() { vec![1.0; n] } else { weights.to_vec() };
+    if w.len() != n || w.iter().any(|a| !(*a >= 0.0) || !a.is_finite()) || w.iter().sum::<f64>() <= 0.0 {
+        return Err(invalid("give one non-negative weight per measured value"));
+    }
+    if leave_one_out && n < 3 {
+        return Err(invalid("leave-one-out degrees of equivalence need at least three results"));
+    }
+    let nu = |j: usize| dof.get(j).copied().unwrap_or(f64::INFINITY);
+    let mut rng = Rng::new(seed);
+    let mut uni = Vec::with_capacity(n);
+    let mut ds = Vec::with_capacity(n);
+    if !leave_one_out {
+        let pool = lp_sample(x, u, dof, &w, trials, &mut rng);
+        let mu = pool.iter().sum::<f64>() / pool.len() as f64;
+        for j in 0..n {
+            let col: Vec<f64> = (0..trials).map(|_| x[j] + deviation(&mut rng, u[j], nu(j)) - mu).collect();
+            let d = x[j] - mu;
+            uni.push(DegreeOfEquivalence { d, expanded: half_width_about(&col, d, p) });
+            ds.push(col);
+        }
+    } else {
+        for j in 0..n {
+            let others: Vec<usize> = (0..n).filter(|&i| i != j).collect();
+            let xo: Vec<f64> = others.iter().map(|&i| x[i]).collect();
+            let uo: Vec<f64> = others.iter().map(|&i| u[i]).collect();
+            let no: Vec<f64> = if dof.is_empty() { Vec::new() } else { others.iter().map(|&i| dof[i]).collect() };
+            let wo: Vec<f64> = others.iter().map(|&i| w[i]).collect();
+            let pool = lp_sample(&xo, &uo, &no, &wo, trials, &mut rng);
+            let mu = pool.iter().sum::<f64>() / pool.len() as f64;
+            let col: Vec<f64> = pool.iter().map(|z| x[j] + deviation(&mut rng, u[j], nu(j)) - z).collect();
+            let d = x[j] - mu;
+            uni.push(DegreeOfEquivalence { d, expanded: half_width_about(&col, d, p) });
+            ds.push(col);
+        }
+    }
+    let bilateral = bilateral_from(&uni, &ds, p);
+    Ok(DegreesOfEquivalence { leave_one_out, unilateral: uni, bilateral })
+}
+
+/// The exact grid posterior of the Gaussian random-effects model (as in
+/// [`bayes_known_u_grid`]) in a form to draw (μ, τ) from: τ_i on the grid,
+/// μ | τ_i ~ N(c + m_i, 1/p_i).
+struct GaussGrid {
+    c: f64,
+    taus: Vec<f64>,
+    cum: Vec<f64>,
+    mt: Vec<f64>,
+    prec: Vec<f64>,
+    mean: f64,
+}
+
+impl GaussGrid {
+    fn new(x: &[f64], u: &[f64], tau_median: f64, mu_prior: Option<(f64, f64)>, m: usize) -> Self {
+        let c = x.iter().sum::<f64>() / x.len() as f64;
+        let xc: Vec<f64> = x.iter().map(|v| v - c).collect();
+        let prior = mu_prior.map(|(m0, s0)| (m0 - c, s0));
+        let (mut taus, mut ll, mut mt, mut prec) = (Vec::new(), Vec::new(), Vec::new(), Vec::new());
+        for i in 0..m {
+            let t = tau_median * (0.5 * std::f64::consts::PI * (i as f64 + 0.5) / m as f64).tan();
+            let (mut pr, mut num, mut sx2, mut slog) = (0.0, 0.0, 0.0, 0.0);
+            for (xi, ui) in xc.iter().zip(u) {
+                let v = t * t + ui * ui;
+                pr += 1.0 / v;
+                num += xi / v;
+                sx2 += xi * xi / v;
+                slog += v.ln();
+            }
+            if let Some((m0, s0)) = prior {
+                pr += 1.0 / (s0 * s0);
+                num += m0 / (s0 * s0);
+                sx2 += m0 * m0 / (s0 * s0);
+            }
+            let mu_t = num / pr;
+            taus.push(t);
+            ll.push(-0.5 * slog - 0.5 * pr.ln() - 0.5 * (sx2 - pr * mu_t * mu_t));
+            mt.push(mu_t);
+            prec.push(pr);
+        }
+        let lmax = ll.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+        let w: Vec<f64> = ll.iter().map(|l| (l - lmax).exp()).collect();
+        let sw: f64 = w.iter().sum();
+        let mut acc = 0.0;
+        let cum = w
+            .iter()
+            .map(|a| {
+                acc += a / sw;
+                acc
+            })
+            .collect();
+        let mean = c + w.iter().zip(&mt).map(|(a, b)| a * b).sum::<f64>() / sw;
+        GaussGrid { c, taus, cum, mt, prec, mean }
+    }
+
+    fn draw(&self, rng: &mut Rng) -> (f64, f64) {
+        let r = rng.uniform();
+        let i = self.cum.partition_point(|c| *c < r).min(self.taus.len() - 1);
+        (self.c + self.mt[i] + rng.normal() / self.prec[i].sqrt(), self.taus[i])
+    }
+}
+
+/// Degrees of equivalence of the hierarchical Bayesian procedure with known
+/// u_j (NICOB manual §A.5.2; DoEUnilateralBayes.R with σ_j = u_j): D_j =
+/// x_j − μ̂ (posterior mean) with draws x_j − μ_k + N(0, τ_k² + u_j²) from
+/// the posterior predictive distribution; leave-one-out: D*_j = x_j − μ̂_−j
+/// with (μ, τ) from the posterior of the other results (the same prior);
+/// bilateral: B_ij = D_i − D_j from the same draws. U95 % is symmetric about
+/// the mean of the draws. The (μ, τ) are drawn from the exact grid posterior
+/// of [`bayes_known_u`] instead of an MCMC chain.
+#[allow(clippy::too_many_arguments)]
+pub fn bayes_degrees_of_equivalence(
+    x: &[f64],
+    u: &[f64],
+    tau_median: f64,
+    mu_prior: Option<(f64, f64)>,
+    p: f64,
+    trials: usize,
+    seed: u64,
+    leave_one_out: bool,
+) -> Result<DegreesOfEquivalence, UncError> {
+    bayes_known_u(x, u, tau_median, mu_prior, p)?;
+    check_trials(trials, p)?;
+    let n = x.len();
+    if leave_one_out && n < 3 {
+        return Err(invalid("leave-one-out degrees of equivalence need at least three results"));
+    }
+    let mut rng = Rng::new(seed);
+    let mut uni = Vec::with_capacity(n);
+    let mut ds = Vec::with_capacity(n);
+    let column = |g: &GaussGrid, j: usize, rng: &mut Rng| -> Vec<f64> {
+        (0..trials)
+            .map(|_| {
+                let (mu, tau) = g.draw(rng);
+                x[j] - mu + (tau * tau + u[j] * u[j]).sqrt() * rng.normal()
+            })
+            .collect()
+    };
+    if !leave_one_out {
+        let g = GaussGrid::new(x, u, tau_median, mu_prior, 100_000);
+        for j in 0..n {
+            let col = column(&g, j, &mut rng);
+            let (m, _) = mean_sd(&col);
+            uni.push(DegreeOfEquivalence { d: x[j] - g.mean, expanded: half_width_about(&col, m, p) });
+            ds.push(col);
+        }
+    } else {
+        for j in 0..n {
+            let xo: Vec<f64> = (0..n).filter(|&i| i != j).map(|i| x[i]).collect();
+            let uo: Vec<f64> = (0..n).filter(|&i| i != j).map(|i| u[i]).collect();
+            let g = GaussGrid::new(&xo, &uo, tau_median, mu_prior, 100_000);
+            let col = column(&g, j, &mut rng);
+            let (m, _) = mean_sd(&col);
+            uni.push(DegreeOfEquivalence { d: x[j] - g.mean, expanded: half_width_about(&col, m, p) });
+            ds.push(col);
+        }
+    }
+    let bilateral = bilateral_from(&uni, &ds, p);
+    Ok(DegreesOfEquivalence { leave_one_out, unilateral: uni, bilateral })
 }
 
 /// The Linear Pool (NICOB §A.4): a sample from the mixture Σ w_j φ_j of
@@ -1122,6 +1344,35 @@ mod tests {
         assert!(dl_degrees_of_equivalence(&x[..2], &u[..2], &[], 0.95, 20_000, 3, true).is_err());
         // NICOB's scale for ν ≤ 2 joins √(ν/(ν − 2)) only above 2; at ν = 2 it is finite.
         assert!(t_scale(2.0).is_finite() && t_scale(2.0) > 1.0 && (t_scale(10.0) - 1.25f64.sqrt()).abs() < 1e-12);
+    }
+
+    #[test]
+    fn bayes_and_linear_pool_degrees_of_equivalence() {
+        let x = [10.0, 10.4, 9.7, 10.1, 11.0];
+        let u = [0.2, 0.3, 0.25, 0.1, 0.3];
+        let mad = median_absolute_deviation(&x);
+        // Bayes, MRA: D_j = x_j − posterior mean exactly; leave-one-out uses
+        // the posterior of the other results.
+        let b = bayes_known_u(&x, &u, mad, None, 0.95).unwrap();
+        let d = bayes_degrees_of_equivalence(&x, &u, mad, None, 0.95, 20_000, 1, false).unwrap();
+        for j in 0..5 {
+            assert!((d.unilateral[j].d - (x[j] - b.mean)).abs() < 1e-9, "{:?}", d.unilateral[j]);
+            assert!(d.unilateral[j].expanded > 1.96 * u[j]);
+        }
+        let l = bayes_degrees_of_equivalence(&x, &u, mad, None, 0.95, 20_000, 1, true).unwrap();
+        let b0 = bayes_known_u(&x[1..], &u[1..], mad, None, 0.95).unwrap();
+        assert!((l.unilateral[0].d - (x[0] - b0.mean)).abs() < 1e-9);
+        assert_eq!(l.bilateral.len(), 10);
+        // Linear Pool, MRA: U95 % = 1.96 u_j for Gaussian results (the draws
+        // x_j + e − μ̂ are symmetric about D_j).
+        let p = linear_pool_degrees_of_equivalence(&x, &u, &[], &[], 0.95, 100_000, 2, false).unwrap();
+        for j in 0..5 {
+            assert!((p.unilateral[j].expanded / (1.959_964 * u[j]) - 1.0).abs() < 0.02, "{:?}", p.unilateral[j]);
+        }
+        // Bilateral, MRA: B_ij has U95 % = 1.96 √(u_i² + u_j²).
+        let b01 = &p.bilateral[0];
+        assert!((b01.expanded / (1.959_964 * (0.2f64.powi(2) + 0.3f64.powi(2)).sqrt()) - 1.0).abs() < 0.02);
+        assert!((b01.b - (x[0] - x[1])).abs() < 1e-12);
     }
 
     #[test]

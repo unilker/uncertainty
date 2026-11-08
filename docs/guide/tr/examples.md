@@ -6209,6 +6209,7 @@ Süren anahtar karşılaştırma BIPM.RI(II)-K1.Co-60'tan, NICOB kılavuzunda (�
 - A (SIR equivalent activity): uzlaşı değeri 7062,06 kBq, standart belirsizlik 4,3 kBq, %95 kapsam aralığı [7053,39, 7070,70] kBq (DerSimonian–Laird, parametrik bootstrap)
 - Karanlık belirsizlik τ = 12 kBq; Cochran Q = 36,89, serbestlik derecesi 18
 - A (SIR equivalent activity): 7063,81 kBq, standart belirsizlik 29 kBq, %95 kapsam aralığı [7012,61, 7127,20] kBq (doğrusal havuz)
+- A (SIR equivalent activity): 7062,03 kBq, standart belirsizlik 4,6 kBq, %95 inanılırlık aralığı [7053,12, 7071,35] kBq; τ'nun sonsal ortancası 12 kBq (Bayes)
 
 **Notlar:**
 

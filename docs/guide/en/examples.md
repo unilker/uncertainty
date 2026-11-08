@@ -6209,6 +6209,7 @@ SIR equivalent activities of ⁶⁰Co from the ongoing key comparison BIPM.RI(II
 - A (SIR equivalent activity): consensus value 7062.06 kBq, standard uncertainty 4.3 kBq, 95 % coverage interval [7053.39, 7070.70] kBq (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 12 kBq; Cochran's Q = 36.89 with 18 degrees of freedom
 - A (SIR equivalent activity): 7063.81 kBq, standard uncertainty 29 kBq, 95 % coverage interval [7012.61, 7127.20] kBq (Linear Pool)
+- A (SIR equivalent activity): 7062.03 kBq, standard uncertainty 4.6 kBq, 95 % credible interval [7053.12, 7071.35] kBq; posterior median of τ 12 kBq (Bayes)
 
 **Notes:**
 

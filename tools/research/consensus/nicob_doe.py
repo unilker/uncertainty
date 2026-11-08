@@ -119,6 +119,77 @@ def summarize(dx, D, labs, leave_one_out):
     return uni, bil
 
 
+# --- Linear Pool (NICOB manual §A.5.3) and Bayes with known u (§A.5.2, sigma_j = u_j) -----------------------
+def e_draws(rng, u, nu, K):
+    if nu is None or not np.isfinite(nu):
+        return rng.standard_normal(K) * u
+    return u * rng.standard_t(nu, K) / phi(nu)
+
+
+def pool(rng, x, u, nu, K):
+    j = rng.integers(0, len(x), K)
+    out = np.empty(K)
+    for i in range(len(x)):
+        m = j == i
+        out[m] = x[i] + e_draws(rng, u[i], None if nu is None else nu[i], m.sum())
+    return out
+
+
+def lp_doe(rng, x, u, nu, K, leave_one_out):
+    n = len(x)
+    dx, D = np.zeros(n), np.zeros((K, n))
+    mu = pool(rng, x, u, nu, K).mean()
+    for j in range(n):
+        nj = None if nu is None else nu[j]
+        if leave_one_out:
+            z = pool(rng, np.delete(x, j), np.delete(u, j), None if nu is None else np.delete(nu, j), K)
+            dx[j] = x[j] - z.mean()
+            D[:, j] = x[j] + e_draws(rng, u[j], nj, K) - z
+        else:
+            dx[j] = x[j] - mu
+            D[:, j] = x[j] + e_draws(rng, u[j], nj, K) - mu
+    return dx, D
+
+
+def grid_posterior(x, u, scale, N=100_000):
+    th = (np.arange(N) + 0.5) / N
+    t = scale * np.tan(th * np.pi / 2)
+    v = t[:, None] ** 2 + u**2
+    P = (1 / v).sum(1)
+    mt = (x / v).sum(1) / P
+    ll = -0.5 * np.log(v).sum(1) - 0.5 * np.log(P) - 0.5 * ((x**2 / v).sum(1) - P * mt**2)
+    w = np.exp(ll - ll.max())
+    w /= w.sum()
+    return t, w, mt, P
+
+
+def bayes_doe(rng, x, u, K, leave_one_out):
+    n = len(x)
+    scale = np.median(np.abs(x - np.median(x)))
+    dx, D = np.zeros(n), np.zeros((K, n))
+    for j in range(n):
+        xs, us = (np.delete(x, j), np.delete(u, j)) if leave_one_out else (x, u)
+        c = xs.mean()
+        t, w, mt, P = grid_posterior(xs - c, us, scale)
+        i = rng.choice(len(t), K, p=w)
+        mu = c + mt[i] + rng.standard_normal(K) / np.sqrt(P[i])
+        dx[j] = x[j] - (c + (w * mt).sum())
+        D[:, j] = x[j] - mu + rng.standard_normal(K) * np.sqrt(t[i] ** 2 + u[j] ** 2)
+    return dx, D
+
+
+def summarize_mean(dx, D, labs):
+    """U95 % symmetric about the mean of the draws (Bayes, NICOB DoEUnilateralBayes.R)."""
+    n = len(dx)
+    uni = {labs[j]: [float(dx[j]), float(sym_u(D[:, j], D[:, j].mean()))] for j in range(n)}
+    bil = {}
+    for i in range(n):
+        for j in range(i + 1, n):
+            b = D[:, i] - D[:, j]
+            bil[f"{labs[i]}|{labs[j]}"] = [float(dx[i] - dx[j]), float(sym_u(b, b.mean()))]
+    return uni, bil
+
+
 if __name__ == "__main__":
     rng = np.random.default_rng(20261108)
     out = {}
@@ -135,4 +206,17 @@ if __name__ == "__main__":
             sig = [k for k, (b, U) in r[ver][1].items() if abs(b) > U]
             print(" ", ver, "first three", {k: [round(a, 3) for a in v] for k, v in list(r[ver][0].items())[:3]},
                   "significant bilateral", len(sig), sig[:8])
+    for name, d in [("co60", CO), ("pcb28", PCB)]:
+        x, u = np.array(d["x"], float), np.array(d["u"], float)
+        nu = None if d["nu"] is None else np.array(d["nu"], float)
+        for ver, loo_ in [("lp_mra", False), ("lp_loo", True)]:
+            dx, D = lp_doe(rng, x, u, nu, 1_000_000, loo_)
+            out[name][ver] = summarize(dx, D, d["lab"], loo_)
+        if d["nu"] is None:  # Bayes with known u only (sigma_j = u_j)
+            for ver, loo_ in [("bayes_mra", False), ("bayes_loo", True)]:
+                dx, D = bayes_doe(rng, x, u, 1_000_000, loo_)
+                out[name][ver] = summarize_mean(dx, D, d["lab"])
+        for ver in [k for k in out[name] if k.startswith(("lp", "bayes"))]:
+            sig = [k for k, (b, U) in out[name][ver][1].items() if abs(b) > U]
+            print(name, ver, "significant bilateral", len(sig))
     json.dump(out, open("tools/research/consensus/nicob_doe.json", "w"), indent=1)

@@ -11,10 +11,10 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | | |
 |---|---|
 | Kütüphane | **286** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **212** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
+| Testler | **213** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–22, kararlar D1–D87, bulgular F1–F99 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–22, kararlar D1–D88, bulgular F1–F100 (dizin: `findings-index.md`) |
 
 ## 2. Oturum 22 (2026-11-08): ön inceleme ve düzeltmeler
 
@@ -31,7 +31,8 @@ bildirilmesi, F97 için BIPM'e soru, bağımsız insan yeniden hesabı.
 NICOB R kaynağına göre DerSimonian–Laird için `leave_one_out` ve `bilateral` (D86); doğrusal havuzda ν ≤ 2.
 Bağımsız numpy aktarımıyla doğrulandı; NICOB kılavuzundan iki yeni proje (⁶⁰Co, PCB 28). Sınırlı çıktılar (D87):
 `lower_bound`/`upper_bound` ile kesilmiş GUM aralığı ve sınırla kısıtlanmış MCM; ISRD-06 T6 basılı sonucu yeniden
-üretiyor. Sırada: Bayes ve doğrusal havuz eşdeğerlik dereceleri, PDF çıktısı, makale metni.
+üretiyor. Bayes ve doğrusal havuz eşdeğerlik dereceleri (D88; F100: NICOB kodu kılavuzundan farklı). Sırada: PDF çıktısı,
+makale metni.
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
