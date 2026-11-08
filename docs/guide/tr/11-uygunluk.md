@@ -45,13 +45,21 @@ Kabul sınırları `acceptance_lower` ve `acceptance_upper` ile doğrudan da ver
 sınırlardan çıkarılır.
 
 **Test belirsizlik oranından koruma bantları.** Kalibrasyon uygulaması (ANSI/NCSL Z540.3 ve el kitabı) kabul
-sınırlarını TUR = (T_U − T_L)/2 / U₉₅ ile belirler; U₉₅ = 2u (JCGM 106'daki C_m'ye eşittir). `tur_method` ile
+sınırlarını TUR = (T_U − T_L)/2 / U₉₅ ile belirler. U₉₅, %95 kapsam olasılığı için genişletilmiş belirsizliktir
+(Z540.3): varsayılan olarak k₉₅·u'dur; k₉₅, etkin serbestlik derecesi için t dağılımının %97,5 kantilidir (ν = ∞ için
+1,960). `"tur_u95": "two_u"`, Sandia'nın Suncal programındaki gibi U₉₅ = 2u alır (bu durumda TUR, JCGM 106'daki C_m'ye
+eşittir). 2u ile TUR büyük ν'de yaklaşık %2 düşük, küçük ν'de (k₉₅ > 2) yüksek çıkar. `tur_method` ile
 sınırlar merkezin ± GBF·(T_U − T_L)/2 uzağındadır: `rss` GBF = √(1 − 1/TUR²); `dobbert` (yönetilen koruma bandı,
 "yöntem 6") GBF = 1 − M/TUR, M = 1,04 − exp(0,38 ln TUR − 0,54); bu, tolerans içi olasılık ne olursa olsun küresel
-PFA'yı yaklaşık %2'nin altında tutar (TUR ≈ 4,6'nın üstünde GBF > 1: sınırlar tolerans dışında); `rp10` (NCSLI RP-10)
+PFA'yı yaklaşık %2'nin altında tutar; `rp10` (NCSLI RP-10)
 GBF = 1,25 − 1/TUR; `test95` GBF = 1 − 1/TUR (ikisi de TUR = 4'ün üstünde 1). İki taraflı tolerans ve sabit u
-gerekir. Çarpanlar ve küresel riskler Sandia'nın Suncal programıyla aynıdır (kütüphane projeleri `tur-guard-band-*`).
-İstenen bir küresel PFA için koruma bandı `target_consumer_risk` ile bulunur (11.3).
+gerekir. Çarpanlar ve küresel riskler Sandia'nın Suncal programıyla aynıdır (kütüphane projeleri `tur-guard-band-*`,
+`"tur_u95": "two_u"` ile). TUR = 4,59'un üstünde Dobbert'in M çarpanı negatiftir ve GBF 1'i aşar: kabul sınırları
+toleransın dışına çıkar (korumalı ret). Program bu durumda GBF'yi 1 ile sınırlar (basit kabul) ve bunu raporda belirtir;
+`"tur_allow_factor_above_one": true` çarpanı korur. Bu yalnızca müşteriyle kararlaştırılmış bir karar kuralıyla
+yapılmalıdır (ISO/IEC 17025:2017 7.1.3, ILAC G8). Birincil kaynaklar (Dobbert 2008, Z540.3 el kitabı) henüz
+okunmamıştır; formüller Suncal'daki uygulamadır. İstenen bir küresel PFA için koruma bandı `target_consumer_risk` ile
+bulunur (11.3).
 
 Rapor her sonuç için p_c değerini, kararı ve özgül riski verir. Ürün kabul edildiyse bu tüketici riski
 1 − p_c, reddedildiyse üretici riski p_c'dir (9.3.2).

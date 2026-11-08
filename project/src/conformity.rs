@@ -77,9 +77,22 @@ pub struct ConformitySpec {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target_consumer_risk: Option<f64>,
     /// Guard band from the test uncertainty ratio: `rss`, `dobbert`, `rp10`
-    /// or `test95` (two-sided tolerance, fixed u; TUR = (T_U − T_L)/2 / 2u).
+    /// or `test95` (two-sided tolerance, fixed u; TUR = (T_U − T_L)/2 / U₉₅).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tur_method: Option<TurMethodSpec>,
+    /// U₉₅ in the TUR: `k95` (default) k₉₅·u with k₉₅ the 97.5 % t quantile
+    /// for the degrees of freedom (ν_eff of the model, `dof`, or ∞: 1.960),
+    /// the expanded uncertainty for 95 % that ANSI/NCSL Z540.3 means; or
+    /// `two_u`, U₉₅ = 2u as in Sandia's Suncal.
+    #[serde(default, skip_serializing_if = "is_default")]
+    pub tur_u95: TurU95Spec,
+    /// Keep a guard-band factor above 1 (Dobbert's M < 0 for TUR > 4.59:
+    /// acceptance limits outside the tolerance, a guarded rejection). By
+    /// default the factor is limited to 1 (simple acceptance) and the report
+    /// says so; allow it only under a decision rule agreed with the customer
+    /// (ISO/IEC 17025:2017 7.1.3, ILAC G8).
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub tur_allow_factor_above_one: bool,
     /// PDF for the measurand: `normal` (default), `t` with the effective
     /// degrees of freedom (model projects; give `dof` otherwise) or
     /// `lognormal` with median y and s_G = u/|y| (Eurachem/CITAC 2021,
@@ -98,6 +111,33 @@ pub enum RuleSpec {
     SimpleAcceptance,
     GuardedAcceptance,
     GuardedRejection,
+}
+
+fn is_default<T: Default + PartialEq>(x: &T) -> bool {
+    *x == T::default()
+}
+
+/// The expanded uncertainty U₉₅ in the test uncertainty ratio.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TurU95Spec {
+    #[default]
+    K95,
+    TwoU,
+}
+
+/// The test uncertainty ratio and guard-band factor used.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct TurUsed {
+    pub method: TurMethodSpec,
+    pub u95: TurU95Spec,
+    /// The factor k in U₉₅ = k·u.
+    pub k: f64,
+    pub tur: f64,
+    /// The guard-band factor applied.
+    pub factor: f64,
+    /// The method's factor when it exceeded 1 and was limited to 1.
+    pub limited_from: Option<f64>,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -259,7 +299,7 @@ pub struct ConformityAnalysis {
     /// C_m = T/(4u) for a two-sided tolerance and a fixed u.
     pub capability_index: Option<f64>,
     /// TUR and guard-band factor when the acceptance limits come from a TUR method.
-    pub tur: Option<(TurMethodSpec, f64, f64)>,
+    pub tur: Option<TurUsed>,
     pub results: Vec<AssessedResult>,
     pub process: Option<ProcessSpec>,
     /// The conformance probabilities are posterior ones.
@@ -442,8 +482,23 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
             return Err(err("tur_method", "needs a fixed u of the measuring system"));
         }
         let half = 0.5 * (tu - tl);
-        let tur = half / (2.0 * band_u("tur_method")?);
-        let gbf = cf::tur_guard_band_factor(m.method(), tur).map_err(|e| err("tur_method", e.to_string()))?;
+        let k = match spec.tur_u95 {
+            TurU95Spec::TwoU => 2.0,
+            TurU95Spec::K95 => {
+                let nu = match &subject {
+                    Some(s) => s.dof,
+                    None => spec.dof,
+                };
+                match nu {
+                    Some(nu) if nu.is_finite() => uncertainty_core::special::student_t_quantile(0.975, nu),
+                    _ => uncertainty_core::special::normal_quantile(0.975),
+                }
+            }
+        };
+        let tur = half / (k * band_u("tur_method")?);
+        let raw = cf::tur_guard_band_factor(m.method(), tur).map_err(|e| err("tur_method", e.to_string()))?;
+        let limited = raw > 1.0 && !spec.tur_allow_factor_above_one;
+        let gbf = if limited { 1.0 } else { raw };
         let w = (1.0 - gbf) * half;
         rule_used = if w > 0.0 {
             RuleSpec::GuardedAcceptance
@@ -452,7 +507,8 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         } else {
             RuleSpec::SimpleAcceptance
         };
-        tur_used = Some((m, tur, gbf));
+        tur_used =
+            Some(TurUsed { method: m, u95: spec.tur_u95, k, tur, factor: gbf, limited_from: limited.then_some(raw) });
         (cf::acceptance_from_guard_band(&tolerance, w), (w != 0.0).then_some(w))
     } else if let Some(target) = spec.target_consumer_risk {
         let proc_ = process.as_ref().ok_or_else(|| err("target_consumer_risk", "needs a process PDF"))?;
@@ -589,8 +645,8 @@ pub fn check(e: &ExpectedConformity, a: &ConformityAnalysis, out: &mut Vec<crate
     push("conformity.acceptance_lower".into(), a.acceptance.lower, &e.acceptance_lower);
     push("conformity.acceptance_upper".into(), a.acceptance.upper, &e.acceptance_upper);
     push("conformity.capability_index".into(), a.capability_index, &e.capability_index);
-    push("conformity.tur".into(), a.tur.map(|t| t.1), &e.tur);
-    push("conformity.guard_band_factor".into(), a.tur.map(|t| t.2), &e.guard_band_factor);
+    push("conformity.tur".into(), a.tur.map(|t| t.tur), &e.tur);
+    push("conformity.guard_band_factor".into(), a.tur.map(|t| t.factor), &e.guard_band_factor);
     push("conformity.r".into(), a.r, &e.r);
     let g = a.global.as_ref();
     push("conformity.conforming".into(), g.map(|g| g.conforming), &e.conforming);
@@ -636,7 +692,8 @@ pub fn results_json(a: &ConformityAnalysis) -> serde_json::Value {
         "probability": a.probability,
         "acceptance": { "lower": a.acceptance.lower, "upper": a.acceptance.upper },
         "capability_index": a.capability_index,
-        "tur": a.tur.map(|(m, t, g)| json!({"method": m, "tur": t, "guard_band_factor": g})),
+        "tur": a.tur.map(|t| json!({"method": t.method, "u95": t.u95, "k": t.k, "tur": t.tur,
+            "guard_band_factor": t.factor, "limited_from": t.limited_from})),
         "posterior": a.posterior,
         "results": a.results.iter().map(|r| json!({
             "name": r.name, "value": r.value, "u": r.u, "dof": r.dof,
@@ -657,4 +714,46 @@ pub fn results_json(a: &ConformityAnalysis) -> serde_json::Value {
             "consumer_risk": g.consumer, "producer_risk": g.producer,
         })),
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn spec(json: &str) -> ConformitySpec {
+        serde_json::from_str(json).unwrap()
+    }
+
+    #[test]
+    fn tur_with_k95_and_with_2u() {
+        // u = 0.1, T = ±1: TUR = 1/(1.96·0.1) = 5.102 by default, 5 with 2u.
+        let a = evaluate(&spec(r#"{"lower": -1, "upper": 1, "u": 0.1, "tur_method": "rss"}"#), None).unwrap();
+        let t = a.tur.unwrap();
+        assert!((t.k - 1.959_964).abs() < 1e-6 && (t.tur - 1.0 / (t.k * 0.1)).abs() < 1e-12);
+        let a =
+            evaluate(&spec(r#"{"lower": -1, "upper": 1, "u": 0.1, "tur_method": "rss", "tur_u95": "two_u"}"#), None)
+                .unwrap();
+        assert_eq!(a.tur.unwrap().tur, 5.0);
+        // With ν = 4 degrees of freedom k₉₅ = 2.776: TUR = 3.602.
+        let a = evaluate(&spec(r#"{"lower": -1, "upper": 1, "u": 0.1, "dof": 4, "tur_method": "rss"}"#), None).unwrap();
+        assert!((a.tur.unwrap().k - 2.776_445).abs() < 1e-5);
+    }
+
+    #[test]
+    fn dobbert_factor_above_one_is_limited_unless_allowed() {
+        // TUR = 6 (2u): M = 1.04 − exp(0.38 ln 6 − 0.54) < 0, GBF = 1.0185.
+        let json = r#"{"lower": -1, "upper": 1, "u": 0.08333333333333333, "tur_u95": "two_u", "tur_method": "dobbert",
+            "results": [{"name": "r", "value": 0.5}]}"#;
+        let a = evaluate(&spec(json), None).unwrap();
+        let t = a.tur.unwrap();
+        assert_eq!(t.factor, 1.0);
+        let raw = t.limited_from.unwrap();
+        assert!((raw - 1.018_545_56).abs() < 1e-8, "{raw}");
+        assert_eq!(a.rule, RuleSpec::SimpleAcceptance);
+        assert_eq!(a.acceptance.upper, Some(1.0));
+        let allowed = json.replace("\"dobbert\"", "\"dobbert\", \"tur_allow_factor_above_one\": true");
+        let a = evaluate(&spec(&allowed), None).unwrap();
+        assert!(a.tur.unwrap().limited_from.is_none() && a.acceptance.upper.unwrap() > 1.0);
+        assert_eq!(a.rule, RuleSpec::GuardedRejection);
+    }
 }

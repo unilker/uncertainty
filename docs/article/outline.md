@@ -141,7 +141,8 @@ On the 16 values of G (Merkatas et al. 2019) the program reproduces DL with Knap
 ML (6.673 90, 0.000 25), the NICOB hierarchical Bayes (6.673 89, 0.000 27; exact grid instead of MCMC) and the
 Linear Pool (6.673 77, 0.001 17); the published fourteen procedures span 6.673 77–6.674 29 with u from 0.000 11
 to 0.001 17. Laplace effects reproduce the Stan result for H₀ (Possolo & Meija 2022). Figure 3: G by procedure
-with intervals. CCQM-K145 as a metrology example (UME participated; illustrative only, D66).
+with intervals. CCQM-K145 as a metrology example, participants anonymised and the official KCRV/DoE of the final report cited
+(illustrative only, D66; review item 19).
 
 ## 7. Discussion
 

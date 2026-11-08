@@ -9,9 +9,12 @@ to the same decimal place. The `"reporting"` section of a project controls this:
 |---|---|
 | `"significant_digits"` | significant digits of U (default 2) |
 | `"decimal_places"` | round U to a fixed number of decimal places instead (e.g. 0 for whole per cent) |
-| `"rounding"` | `half_even` (default): a discarded 5 rounds to even, later digits ignored (MUPR §12); `half_up`; `up`: always round U up (conservative, GUM 7.2.6) |
+| `"rounding"` | `ea4_02` (default): ordinary rounding of U, but upwards when ordinary rounding would lower U by more than 5 % (EA-4/02 M:2022, 6.3); `half_even`: a discarded 5 rounds to even, later digits ignored (MUPR §12; can lower U by up to about 5.7 %, e.g. 0.10599 → 0.10); `half_up`; `up`: always round U up (conservative, GUM 7.2.6) |
 
-The measured value is rounded to the decimal place of the rounded U. The full-precision values remain
+The measured value is rounded to the decimal place of the rounded U. The statement of the result names the rule
+used, and gives the coverage probability as "approximately 95 %" (whole per cent; 0.1 % above 99.5 %), the form of
+EA-4/02 and ILAC P14, also for k = 2 with ν_eff = ∞ (95.45 %). The default changed from `half_even` to `ea4_02` after
+the independent pre-review of 2026-11-08; projects that follow the Eurachem/CITAC MUPR rule set `"half_even"`. The full-precision values remain
 available in the budget and in the JSON results; never round intermediate values before the end of a
 calculation — several published examples change in the last digit because they did.
 

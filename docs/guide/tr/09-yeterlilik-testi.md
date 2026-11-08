@@ -101,7 +101,8 @@ yayımlanmış sonuçların meta-analizi, standart belirsizlikleri u_j olan n de
 izin verdiğinden daha fazla dağıldığında 1/u_j² ağırlıklı ortalama ve belirsizliği 1/√Σu_j⁻² fazla iyimserdir.
 `consensus` bölümü (7.14b) NIST Consensus Builder'ı (NICOB, kullanım kılavuzu 2020, Ek A; Koepke vd.,
 Metrologia 54 (2017) S34) izler ve x_j = μ + λ_j + ε_j rastgele etkiler modelini kullanır: laboratuvar etkileri
-λ_j'nin ortalaması 0, standart sapması τ'dur (*karanlık belirsizlik*).
+λ_j'nin ortalaması 0, standart sapması τ'dur (*karanlık belirsizlik*, İng. dark uncertainty: laboratuvarlar arasında
+beyan edilen belirsizliklerle açıklanamayan fazla değişkenlik; Thompson & Ellison 2011).
 
 **DerSimonian–Laird.** Cochran Q = Σu_j⁻²(x_j − x̄_w)² ile τ̂² = maks{0, (Q − n + 1)/(Σu_j⁻² − Σu_j⁻⁴/Σu_j⁻²)};
 uzlaşı değeri w_j = 1/(τ̂² + u_j²) ağırlıklı ortalamadır, saf belirsizliği u_DL = 1/√Σw_j. Rapor Q'nun p

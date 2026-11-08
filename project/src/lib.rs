@@ -22,6 +22,7 @@ pub mod qc;
 pub mod report;
 pub mod sampling;
 pub mod schema;
+pub mod sha256;
 pub mod topdown;
 pub mod weighing;
 
@@ -36,6 +37,30 @@ use uncertainty_core::{Distribution, InputQuantity, Model, UncError};
 /// ADDITIONAL-TERMS.md).
 pub const SOFTWARE_NAME: &str = "Uncertainty Calculations (Belirsizlik Hesaplamaları)";
 pub const SOFTWARE_VERSION: &str = env!("CARGO_PKG_VERSION");
+/// The git commit the software was built from ("…-modified" with
+/// uncommitted changes, "unknown" outside a checkout); see build.rs.
+pub const SOFTWARE_COMMIT: &str = env!("UC_GIT_COMMIT");
+/// Date of that commit (YYYY-MM-DD).
+pub const SOFTWARE_COMMIT_DATE: &str = env!("UC_COMMIT_DATE");
+/// The compiler that built the software.
+pub const SOFTWARE_COMPILER: &str = env!("UC_RUSTC");
+
+/// "0.1.0 (commit 809ebcf1a2b3, 2026-11-07)": the version with the commit
+/// that identifies the build in reports.
+pub fn software_identity() -> String {
+    if SOFTWARE_COMMIT == "unknown" {
+        SOFTWARE_VERSION.to_string()
+    } else {
+        format!("{SOFTWARE_VERSION} (commit {SOFTWARE_COMMIT}, {SOFTWARE_COMMIT_DATE})")
+    }
+}
+
+/// SHA-256 of the project as evaluated, serialised as compact JSON: it
+/// identifies the inputs and settings of a calculation in its report
+/// (ISO/IEC 17025:2017 7.5 technical records).
+pub fn project_digest(p: &Project) -> String {
+    sha256::sha256_hex(serde_json::to_string(p).unwrap_or_default().as_bytes())
+}
 pub const CITATION: &str = "Ün, İ. Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement uncertainty \
 evaluation software. TÜBİTAK UME. https://github.com/unilker/uncertainty";
 
@@ -660,8 +685,9 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
         .into_iter()
         .map(|c| json!({"what": c.what, "computed": c.computed, "expected": c.expected, "tolerance": c.tolerance, "passed": c.passed}))
         .collect();
-    let software = json!({ "name": SOFTWARE_NAME, "version": SOFTWARE_VERSION, "citation": CITATION });
-    let project = json!({ "id": p.metadata.id, "title": p.metadata.title.en });
+    let software = json!({ "name": SOFTWARE_NAME, "version": SOFTWARE_VERSION, "commit": SOFTWARE_COMMIT,
+        "commit_date": SOFTWARE_COMMIT_DATE, "compiler": SOFTWARE_COMPILER, "citation": CITATION });
+    let project = json!({ "id": p.metadata.id, "title": p.metadata.title.en, "sha256": project_digest(p) });
     let a = match e {
         Evaluation::Model(a) => a,
         Evaluation::TopDown(t) => {

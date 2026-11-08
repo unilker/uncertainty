@@ -102,6 +102,8 @@ class _ConformityFieldsState extends State<ConformityFields> {
               setState(() {
                 if (v == null || v == 'none') {
                   m.remove('tur_method');
+                  m.remove('tur_u95');
+                  m.remove('tur_allow_factor_above_one');
                 } else {
                   m['tur_method'] = v;
                   m['rule'] = 'simple_acceptance';
@@ -115,6 +117,29 @@ class _ConformityFieldsState extends State<ConformityFields> {
             },
           ),
         ),
+        if (tur != null)
+          SizedBox(
+            width: 220,
+            child: DropdownButtonFormField<String>(
+              key: const Key('cf-tur-u95'),
+              isExpanded: true,
+              initialValue: m['tur_u95'] as String? ?? 'k95',
+              decoration: InputDecoration(labelText: s['cf_tur_u95'], isDense: true),
+              items: [
+                for (final t in const ['k95', 'two_u']) DropdownMenuItem(value: t, child: Text(s['cf_tur_u95_$t'])),
+              ],
+              onChanged: (v) {
+                setState(() {
+                  if (v == null || v == 'k95') {
+                    m.remove('tur_u95');
+                  } else {
+                    m['tur_u95'] = v;
+                  }
+                });
+                widget.onChanged();
+              },
+            ),
+          ),
         if (rule != 'simple_acceptance' && tur == null) ...[
           SegmentedButton<bool>(
             segments: [

@@ -9,9 +9,13 @@ kadar verilmesini önerir. Proje dosyasının `"reporting"` bölümü bunu denet
 |---|---|
 | `"significant_digits"` | U'nun anlamlı basamak sayısı (varsayılan 2) |
 | `"decimal_places"` | bunun yerine U'yu sabit sayıda ondalık basamağa yuvarlar (örneğin tam yüzde için 0) |
-| `"rounding"` | `half_even` (varsayılan): atılan 5 çifte yuvarlanır, sonraki basamaklar dikkate alınmaz (MUPR §12); `half_up`; `up`: U her zaman yukarı yuvarlanır (temkinli, GUM 7.2.6) |
+| `"rounding"` | `ea4_02` (varsayılan): U olağan biçimde yuvarlanır, ancak olağan yuvarlama U'yu %5'ten fazla düşürecekse yukarı yuvarlanır (EA-4/02 M:2022, 6.3); `half_even`: atılan 5 çifte yuvarlanır, sonraki basamaklar dikkate alınmaz (MUPR §12; U'yu yaklaşık %5,7'ye kadar düşürebilir, ör. 0,10599 → 0,10); `half_up`; `up`: U her zaman yukarı yuvarlanır (temkinli, GUM 7.2.6) |
 
-Ölçülen değer, yuvarlanmış U'nun ondalık basamağına yuvarlanır. Tam hassasiyetli değerler bütçede ve JSON
+Ölçülen değer, yuvarlanmış U'nun ondalık basamağına yuvarlanır. Sonuç ifadesi kullanılan kuralı adıyla yazar ve
+kapsam olasılığını EA-4/02 ile ILAC P14'teki biçimde "yaklaşık %95" olarak verir (tam yüzde; %99,5'in üstünde %0,1
+adımla). k = 2 ve ν_eff = ∞ (%95,45) için de bu biçim kullanılır. Varsayılan kural, 8 Kasım 2026 tarihli bağımsız ön
+incelemeden sonra `half_even`'dan `ea4_02`'ye değiştirilmiştir; Eurachem/CITAC MUPR kuralını izleyen projeler
+`"half_even"` yazar. Tam hassasiyetli değerler bütçede ve JSON
 sonuçlarında kalır; ara değerleri hesabın sonundan önce asla yuvarlamayınız — yayımlanmış birçok örnek bu
 nedenle son basamakta değişir.
 

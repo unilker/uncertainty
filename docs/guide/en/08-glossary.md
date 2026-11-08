@@ -18,6 +18,8 @@ Turkish reports.
 | coverage factor | kapsam faktörü | VIM 2.38 |
 | coverage probability | kapsam olasılığı | VIM 2.37 |
 | coverage interval | kapsam aralığı | VIM 2.36 |
+| verification / validation | doğrulama / validasyon (geçerli kılma) | VIM 2.44, 2.45; ISO/IEC 17025 7.2, 7.11.2: checking the software against published examples is verification; showing it fits the laboratory's scope is validation |
+| dark uncertainty | karanlık belirsizlik | Thompson & Ellison 2011: variability between laboratories not explained by their stated uncertainties (τ); not an established Turkish term |
 | shortest / probabilistically symmetric coverage interval | en kısa / olasılıksal simetrik kapsam aralığı | JCGM 101 |
 | Type A / Type B evaluation | A tipi / B tipi değerlendirme | VIM 2.28, 2.29 |
 | uncertainty budget | belirsizlik bütçesi | VIM 2.33 |

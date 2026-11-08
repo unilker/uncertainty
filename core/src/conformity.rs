@@ -167,7 +167,8 @@ pub enum TurMethod {
     /// Dobbert's managed guard band ("method 6"): GBF = 1 − M/TUR with
     /// M = 1.04 − exp(0.38 ln TUR − 0.54); it keeps the global PFA at or below
     /// about 2 % for any in-tolerance probability. GBF exceeds 1 for
-    /// TUR > 4.6 (acceptance limits outside the tolerance).
+    /// TUR > 4.59, where M < 0 (acceptance limits outside the tolerance); the
+    /// project layer limits it to 1 unless the decision rule allows more.
     Dobbert,
     /// NCSLI RP-10: GBF = 1.25 − 1/TUR for TUR ≤ 4, otherwise 1.
     Rp10,

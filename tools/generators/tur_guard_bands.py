@@ -53,7 +53,7 @@ for m, tur, gbf, pfa, pfr, pfa0 in CASES:
                             "TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.")],
                       "sources": [{"document": "Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm)", "url": "https://pypi.org/project/suncal/"},
                                   {"document": "Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)", "url": "https://www.osti.gov/biblio/2004392"}]},
-         "conformity": {"quantity": "Normalised deviation from nominal", "lower": -1, "upper": 1, "u": u, "tur_method": m,
+         "conformity": {"quantity": "Normalised deviation from nominal", "lower": -1, "upper": 1, "u": u, "tur_method": m, "tur_u95": "two_u",
                         "process": {"distribution": "normal", "mean": 0, "sd": SDP},
                         "results": [{"name": "reading 0.70", "value": 0.70}, {"name": "reading 0.95", "value": 0.95}]},
          "expected": {"conformity": {"tur": chk(tur, 1e-12), "guard_band_factor": chk(gbf, 1e-9),

@@ -17,6 +17,8 @@ GUM'u izler; Türkçe terimler yerleşik kullanımı izler ve Türkçe raporlard
 | coverage factor | kapsam faktörü | VIM 2.38 |
 | coverage probability | kapsam olasılığı | VIM 2.37 |
 | coverage interval | kapsam aralığı | VIM 2.36 |
+| verification / validation | doğrulama / validasyon (geçerli kılma) | VIM 2.44, 2.45; ISO/IEC 17025 7.2, 7.11.2: yazılımın yayımlanmış örneklere karşı denetimi doğrulama, laboratuvarın kendi kapsamı için uygunluğunun gösterilmesi validasyondur |
+| dark uncertainty | karanlık belirsizlik | Thompson & Ellison 2011: laboratuvarlar arasında beyan edilen belirsizliklerle açıklanamayan fazla değişkenlik (τ); Türkçede yerleşik bir terim değildir |
 | shortest / probabilistically symmetric coverage interval | en kısa / olasılıksal simetrik kapsam aralığı | JCGM 101 |
 | Type A / Type B evaluation | A tipi / B tipi değerlendirme | VIM 2.28, 2.29 |
 | uncertainty budget | belirsizlik bütçesi | VIM 2.33 |

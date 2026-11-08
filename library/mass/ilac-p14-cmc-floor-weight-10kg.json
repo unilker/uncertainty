@@ -25,8 +25,8 @@
         "tr": "Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır."
       },
       {
-        "en": "m_X = 10 000.025 kg ± 58 mg (k = 2).",
-        "tr": "m_X = 10 000,025 kg ± 58 mg (k = 2)."
+        "en": "m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).",
+        "tr": "m_X = 10 000,025 g ± 58 mg (k = 2), EA-4/02'de basıldığı gibi; yuvarlanmamış U = 58,5 mg, EA-4/02 6.3 yuvarlama kuralıyla 59 mg olarak raporlanır (nota bakınız)."
       },
       {
         "en": "ILAC P14:09/2020, 5.5: an accredited calibration laboratory shall not report a smaller measurement uncertainty than the uncertainty described by its CMC. With reporting.cmc the program reports max(U, CMC) and says so in the result statement; 5.3 limits U to at most two significant digits.",

@@ -104,7 +104,8 @@ meta-analysis of published results gives n values x_j with standard uncertaintie
 dispersed than the u_j allow, the weighted mean with weights 1/u_j² and its uncertainty 1/√Σu_j⁻² are too
 optimistic. The `consensus` section (7.14b) follows the NIST Consensus Builder (NICOB, user manual 2020,
 Appendix A; Koepke et al., Metrologia 54 (2017) S34) and uses the random-effects model
-x_j = μ + λ_j + ε_j: the laboratory effects λ_j have mean 0 and standard deviation τ, the *dark uncertainty*.
+x_j = μ + λ_j + ε_j: the laboratory effects λ_j have mean 0 and standard deviation τ, the *dark uncertainty*
+(variability between laboratories that their stated uncertainties do not explain; Thompson & Ellison 2011).
 
 **DerSimonian–Laird.** Cochran's Q = Σu_j⁻²(x_j − x̄_w)² gives τ̂² = max{0, (Q − n + 1)/(Σu_j⁻² − Σu_j⁻⁴/Σu_j⁻²)};
 the consensus value is the weighted mean with weights w_j = 1/(τ̂² + u_j²), with the naive u_DL = 1/√Σw_j. The

@@ -13317,8 +13317,8 @@
      "tr": "CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F)"
     },
     "description": {
-     "en": "17 national metrology institutes (UME among them) measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ.",
-     "tr": "17 ulusal metroloji enstitüsü (aralarında UME) sığır karaciğerindeki nikel kütle kesrini ölçtü. Sonuçlar beyan edilen belirsizliklerin öngördüğünden daha fazla dağılır; x_j = μ + λ_j + ε_j, λ_j ~ N(0, τ²) laboratuvar etkileri modeli karanlık belirsizliği (τ) tanır."
+     "en": "17 national metrology institutes measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ (the variability between laboratories that the stated uncertainties do not explain).",
+     "tr": "17 ulusal metroloji enstitüsü sığır karaciğerindeki nikel kütle kesrini ölçtü. Sonuçlar beyan edilen belirsizliklerin öngördüğünden daha fazla dağılır; x_j = μ + λ_j + ε_j, λ_j ~ N(0, τ²) laboratuvar etkileri modeli karanlık belirsizliği (dark uncertainty: laboratuvarlar arasında beyan edilen belirsizliklerle açıklanamayan fazla değişkenlik, τ) tanır."
     },
     "explanation": [
      {
@@ -13340,13 +13340,16 @@
      "ccqm",
      "consensus",
      "dark-uncertainty",
-     "maximum-likelihood",
-     "ume"
+     "maximum-likelihood"
     ],
     "notes": [
      {
-      "en": "The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for JSI.",
-      "tr": "Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. JSI için 1,930(110) mg/kg."
+      "en": "The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for the first result.",
+      "tr": "Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. ilk sonuç için 1,930(110) mg/kg."
+     },
+     {
+      "en": "Participants are coded Lab 1 to Lab 17 in the order of the guide's table. The official key comparison reference value and degrees of equivalence are those of the CCQM-K145 final report in the BIPM KCDB; the degrees of equivalence computed here illustrate the procedures on the same data and are not results of the comparison.",
+      "tr": "Katılımcılar rehberin tablosundaki sırayla Lab 1 – Lab 17 olarak kodlanmıştır. Resmî anahtar karşılaştırma referans değeri ve eşdeğerlik dereceleri BIPM KCDB'deki CCQM-K145 nihai raporundakilerdir; burada hesaplanan eşdeğerlik dereceleri yöntemleri aynı veri üzerinde gösterir, karşılaştırmanın sonucu değildir."
      }
     ],
     "sources": [
@@ -13362,87 +13365,87 @@
     "unit": "mg/kg",
     "results": [
      {
-      "name": "JSI",
+      "name": "Lab 1",
       "value": 1.93,
       "u": 0.11
      },
      {
-      "name": "INMC",
+      "name": "Lab 2",
       "value": 1.94,
       "u": 0.064
      },
      {
-      "name": "GLHK",
+      "name": "Lab 3",
       "value": 1.942,
       "u": 0.092
      },
      {
-      "name": "LNE",
+      "name": "Lab 4",
       "value": 1.958,
       "u": 0.075
      },
      {
-      "name": "NIST",
+      "name": "Lab 5",
       "value": 1.984,
       "u": 0.02
      },
      {
-      "name": "KRISS",
+      "name": "Lab 6",
       "value": 1.993,
       "u": 0.033
      },
      {
-      "name": "INACAL",
+      "name": "Lab 7",
       "value": 2.01,
       "u": 0.06
      },
      {
-      "name": "NMIA",
+      "name": "Lab 8",
       "value": 2.02,
       "u": 0.05
      },
      {
-      "name": "NIM",
+      "name": "Lab 9",
       "value": 2.022,
       "u": 0.023
      },
      {
-      "name": "NMIJ",
+      "name": "Lab 10",
       "value": 2.05,
       "u": 0.02
      },
      {
-      "name": "RISE",
+      "name": "Lab 11",
       "value": 2.055,
       "u": 0.052
      },
      {
-      "name": "NRC",
+      "name": "Lab 12",
       "value": 2.07,
       "u": 0.05
      },
      {
-      "name": "PTB",
+      "name": "Lab 13",
       "value": 2.077,
       "u": 0.035
      },
      {
-      "name": "LATU",
+      "name": "Lab 14",
       "value": 2.08,
       "u": 0.059
      },
      {
-      "name": "LGC",
+      "name": "Lab 15",
       "value": 2.131,
       "u": 0.042
      },
      {
-      "name": "UME",
+      "name": "Lab 16",
       "value": 2.15,
       "u": 0.03
      },
      {
-      "name": "HSA",
+      "name": "Lab 17",
       "value": 2.18,
       "u": 0.08
      }
@@ -36248,6 +36251,7 @@
     "upper": 1,
     "u": 0.2,
     "tur_method": "dobbert",
+    "tur_u95": "two_u",
     "process": {
      "distribution": "normal",
      "mean": 0,
@@ -36355,6 +36359,7 @@
     "upper": 1,
     "u": 0.25,
     "tur_method": "rp10",
+    "tur_u95": "two_u",
     "process": {
      "distribution": "normal",
      "mean": 0,
@@ -36462,6 +36467,7 @@
     "upper": 1,
     "u": 0.3333333333333333,
     "tur_method": "rss",
+    "tur_u95": "two_u",
     "process": {
      "distribution": "normal",
      "mean": 0,
@@ -44583,8 +44589,8 @@
       "tr": "Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır."
      },
      {
-      "en": "m_X = 10 000.025 kg ± 58 mg (k = 2).",
-      "tr": "m_X = 10 000,025 kg ± 58 mg (k = 2)."
+      "en": "m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).",
+      "tr": "m_X = 10 000,025 g ± 58 mg (k = 2), EA-4/02'de basıldığı gibi; yuvarlanmamış U = 58,5 mg, EA-4/02 6.3 yuvarlama kuralıyla 59 mg olarak raporlanır (nota bakınız)."
      }
     ],
     "field": "mass",
@@ -44746,8 +44752,8 @@
       "tr": "Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır."
      },
      {
-      "en": "m_X = 10 000.025 kg ± 58 mg (k = 2).",
-      "tr": "m_X = 10 000,025 kg ± 58 mg (k = 2)."
+      "en": "m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).",
+      "tr": "m_X = 10 000,025 g ± 58 mg (k = 2), EA-4/02'de basıldığı gibi; yuvarlanmamış U = 58,5 mg, EA-4/02 6.3 yuvarlama kuralıyla 59 mg olarak raporlanır (nota bakınız)."
      },
      {
       "en": "ILAC P14:09/2020, 5.5: an accredited calibration laboratory shall not report a smaller measurement uncertainty than the uncertainty described by its CMC. With reporting.cmc the program reports max(U, CMC) and says so in the result statement; 5.3 limits U to at most two significant digits.",

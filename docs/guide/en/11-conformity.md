@@ -44,13 +44,21 @@ Acceptance limits can also be given directly with `acceptance_lower` and `accept
 inferred from them.
 
 **Guard bands from the test uncertainty ratio.** Calibration practice (ANSI/NCSL Z540.3 and its handbook) sets
-the acceptance limits from TUR = (T_U − T_L)/2 / U₉₅ with U₉₅ = 2u (equal to C_m of JCGM 106). With `tur_method`
+the acceptance limits from TUR = (T_U − T_L)/2 / U₉₅. U₉₅ is the expanded uncertainty for a coverage probability of
+95 % (Z540.3): by default k₉₅·u with k₉₅ the 97.5 % quantile of the t distribution for the effective degrees of
+freedom (1.960 for ν = ∞); `"tur_u95": "two_u"` uses U₉₅ = 2u as Sandia's Suncal does (then TUR equals C_m of
+JCGM 106). With 2u the TUR is about 2 % lower for large ν and higher for small ν (k₉₅ > 2). With `tur_method`
 the limits are ± GBF·(T_U − T_L)/2 about the centre: `rss` GBF = √(1 − 1/TUR²); `dobbert` (managed guard band,
 "method 6") GBF = 1 − M/TUR with M = 1.04 − exp(0.38 ln TUR − 0.54), which keeps the global PFA at or below about 2 %
-for any in-tolerance probability (GBF > 1 above TUR ≈ 4.6: limits outside the tolerance); `rp10` (NCSLI RP-10)
+for any in-tolerance probability; `rp10` (NCSLI RP-10)
 GBF = 1.25 − 1/TUR; `test95` GBF = 1 − 1/TUR (both 1 above TUR = 4). A two-sided tolerance and a fixed u are
-needed. The factors and the global risks agree with Sandia's Suncal (library projects `tur-guard-band-*`). A
-guard band for a required global PFA is `target_consumer_risk` (11.3).
+needed. The factors and the global risks agree with Sandia's Suncal (library projects `tur-guard-band-*`, with
+`"tur_u95": "two_u"`). Above TUR = 4.59 Dobbert's M is negative and GBF exceeds 1: the acceptance limits would lie
+outside the tolerance (a guarded rejection). The program then limits GBF to 1 (simple acceptance) and says so in the
+report; `"tur_allow_factor_above_one": true` keeps the factor, which should be done only under a decision rule
+agreed with the customer (ISO/IEC 17025:2017 7.1.3, ILAC G8). The primary sources (Dobbert 2008, the Z540.3
+handbook) have not yet been read; the formulas are those implemented in Suncal. A guard band for a required global
+PFA is `target_consumer_risk` (11.3).
 
 For each result the report gives p_c, the decision and the specific risk. If the item is accepted, this is
 the consumer's risk 1 − p_c; if it is rejected, it is the producer's risk p_c (9.3.2).

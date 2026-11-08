@@ -593,8 +593,14 @@ impl Default for ReportingSpec {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum RoundingSpec {
-    /// MUPR §12 rule (discarded 5 to even, later digits ignored).
+    /// EA-4/02 M:2022 §6.3: ordinary rounding of U unless it lowers U by
+    /// more than 5 %, then U is rounded up. The default, because it never
+    /// understates U by more than 5 % (independent review, 2026-11-08).
     #[default]
+    #[serde(rename = "ea4_02")]
+    Ea402,
+    /// MUPR §12 rule (discarded 5 to even, later digits ignored); can lower U
+    /// by up to about 5.7 % (0.10599 → 0.10).
     HalfEven,
     HalfUp,
     /// Round the uncertainty up (GUM 7.2.6).

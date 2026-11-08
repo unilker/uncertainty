@@ -13,6 +13,10 @@ pub(super) struct CfLabels {
     pub probability_rule: [&'static str; 2],
     pub capability: &'static str,
     pub tur: &'static str,
+    pub tur_k95: &'static str,
+    pub tur_two_u: &'static str,
+    pub tur_limited: &'static str,
+    pub tur_above_one: &'static str,
     pub results: &'static str,
     pub name: &'static str,
     pub value: &'static str,
@@ -53,7 +57,11 @@ const CF_EN: CfLabels = CfLabels {
     acceptance: "Acceptance interval",
     probability_rule: ["acceptance limits set so that the probability of conformity at a limit is", "acceptance limits set so that the probability of non-conformity at a limit is"],
     capability: "Measurement capability index C_m = T/(4u)",
-    tur: "Test uncertainty ratio TUR = (T_U − T_L)/2 / U₉₅ = {t}; guard-band factor ({m}) {g}: acceptance limits at ± GBF·(T_U − T_L)/2 about the centre",
+    tur: "Test uncertainty ratio TUR = (T_U − T_L)/2 / U₉₅ = {t} with U₉₅ = {k}·u ({u95}); guard-band factor ({m}) {g}: acceptance limits at ± GBF·(T_U − T_L)/2 about the centre",
+    tur_k95: "k₉₅ from the degrees of freedom",
+    tur_two_u: "2u, as in Sandia Suncal",
+    tur_limited: "The method gives a guard-band factor of {g} (> 1: acceptance limits outside the tolerance, a guarded rejection); it has been limited to 1, simple acceptance. A factor above 1 needs a decision rule agreed with the customer (ISO/IEC 17025:2017 7.1.3, ILAC G8; option tur_allow_factor_above_one).",
+    tur_above_one: "The guard-band factor exceeds 1: the acceptance limits lie outside the tolerance (guarded rejection), applied under a decision rule agreed with the customer (ISO/IEC 17025:2017 7.1.3, ILAC G8).",
     results: "Assessed results",
     name: "Result",
     value: "Measured value",
@@ -94,7 +102,11 @@ const CF_TR: CfLabels = CfLabels {
     acceptance: "Kabul aralığı",
     probability_rule: ["kabul sınırları, bir sınırdaki uygunluk olasılığı şu değer olacak şekilde belirlendi:", "kabul sınırları, bir sınırdaki uygunsuzluk olasılığı şu değer olacak şekilde belirlendi:"],
     capability: "Ölçüm yeterlilik indeksi C_m = T/(4u)",
-    tur: "Test belirsizlik oranı TUR = (T_U − T_L)/2 / U₉₅ = {t}; koruma bandı çarpanı ({m}) {g}: kabul sınırları merkezin ± GBF·(T_U − T_L)/2 uzağında",
+    tur: "Test belirsizlik oranı TUR = (T_U − T_L)/2 / U₉₅ = {t}, U₉₅ = {k}·u ({u95}); koruma bandı çarpanı ({m}) {g}: kabul sınırları merkezin ± GBF·(T_U − T_L)/2 uzağında",
+    tur_k95: "serbestlik derecesinden k₉₅",
+    tur_two_u: "Sandia Suncal'daki gibi 2u",
+    tur_limited: "Yöntem {g} koruma bandı çarpanı verir (> 1: kabul sınırları toleransın dışında, korumalı ret); çarpan 1 ile sınırlanmış, basit kabul uygulanmıştır. 1'den büyük çarpan müşteriyle kararlaştırılmış bir karar kuralı gerektirir (ISO/IEC 17025:2017 7.1.3, ILAC G8; tur_allow_factor_above_one seçeneği).",
+    tur_above_one: "Koruma bandı çarpanı 1'den büyüktür: kabul sınırları toleransın dışındadır (korumalı ret); müşteriyle kararlaştırılmış bir karar kuralıyla uygulanmıştır (ISO/IEC 17025:2017 7.1.3, ILAC G8).",
     results: "Değerlendirilen sonuçlar",
     name: "Sonuç",
     value: "Ölçülen değer",
@@ -224,18 +236,32 @@ pub(super) fn section(s: &mut String, a: &ConformityAnalysis, lang: Lang) {
     if let Some(c) = a.capability_index {
         let _ = writeln!(s, "- {}: {}", d.capability, fmt_num(c, 3, lang));
     }
-    if let Some((m, t, g)) = a.tur {
-        let name = match m {
+    if let Some(t) = a.tur {
+        let name = match t.method {
             crate::conformity::TurMethodSpec::Rss => "RSS",
             crate::conformity::TurMethodSpec::Dobbert => "Dobbert",
             crate::conformity::TurMethodSpec::Rp10 => "NCSLI RP-10",
             crate::conformity::TurMethodSpec::Test95 => "U₉₅",
         };
+        let u95 = match t.u95 {
+            crate::conformity::TurU95Spec::K95 => d.tur_k95,
+            crate::conformity::TurU95Spec::TwoU => d.tur_two_u,
+        };
         let _ = writeln!(
             s,
             "- {}",
-            d.tur.replace("{t}", &fmt_num(t, 3, lang)).replace("{m}", name).replace("{g}", &fmt_num(g, 4, lang))
+            d.tur
+                .replace("{t}", &fmt_num(t.tur, 3, lang))
+                .replace("{k}", &fmt_num(t.k, 3, lang))
+                .replace("{u95}", u95)
+                .replace("{m}", name)
+                .replace("{g}", &fmt_num(t.factor, 4, lang))
         );
+        if let Some(raw) = t.limited_from {
+            let _ = writeln!(s, "- {}", d.tur_limited.replace("{g}", &fmt_num(raw, 4, lang)));
+        } else if t.factor > 1.0 {
+            let _ = writeln!(s, "- {}", d.tur_above_one);
+        }
     }
     if let Some(nu) = a.results.first().and_then(|r| r.dof).filter(|nu| nu.is_finite()) {
         let _ = writeln!(s, "\n{}", d.t_note.replace("{nu}", &fmt_num(nu, 3, lang)));

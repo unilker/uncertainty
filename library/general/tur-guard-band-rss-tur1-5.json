@@ -53,6 +53,7 @@
     "upper": 1,
     "u": 0.3333333333333333,
     "tur_method": "rss",
+    "tur_u95": "two_u",
     "process": {
       "distribution": "normal",
       "mean": 0,

@@ -7,6 +7,10 @@
 //!   rounded to the even neighbour, and figures beyond the first discarded one
 //!   are not considered.
 //!
+//! * EA-4/02 M:2022 §6.3 (calibration certificates): U is normally rounded
+//!   to two significant digits by ordinary rounding, but it is rounded up
+//!   when ordinary rounding would decrease it by more than 5 %.
+//!
 //! Rounding works on the decimal representation of the number (not on binary
 //! floating-point arithmetic), so 0.0123 really is treated as 0.0123.
 
@@ -22,6 +26,10 @@ pub enum Rounding {
     /// is non-zero — conservative rounding of uncertainties (GUM 7.2.6;
     /// practice of Nordtest TR 537).
     Up,
+    /// EA-4/02 §6.3: ordinary rounding (half up) unless it lowers the value
+    /// by more than 5 %; then the value is rounded up. Used for uncertainties
+    /// only.
+    UpIfMoreThanFivePercentLower,
 }
 
 /// Decimal digits and exponent: value = 0.d₁d₂d₃… × 10^exp, d₁ ≠ 0.
@@ -47,7 +55,7 @@ fn round_to_place_units(x: f64, place: i32, rule: Rounding) -> u128 {
     if keep < 0 {
         // Everything is below half a unit except for `Up`.
         return match rule {
-            Rounding::Up => 1,
+            Rounding::Up | Rounding::UpIfMoreThanFivePercentLower => 1,
             _ => 0,
         };
     }
@@ -62,6 +70,10 @@ fn round_to_place_units(x: f64, place: i32, rule: Rounding) -> u128 {
         Rounding::HalfEvenFirstDiscarded => first > 5 || (first == 5 && units % 2 == 1),
         Rounding::HalfUp => first >= 5,
         Rounding::Up => first > 0 || rest_nonzero,
+        Rounding::UpIfMoreThanFivePercentLower => {
+            let kept = units as f64 * 10f64.powi(place);
+            first >= 5 || x.abs() - kept > 0.05 * x.abs() * (1.0 + 1e-12)
+        }
     };
     if round_up {
         units += 1;
@@ -178,5 +190,21 @@ mod tests {
         assert_eq!(significant_place(0.0996, 1, HalfUp), -1);
         assert_eq!(format_at_place(0.0996, -1, HalfUp), "0.1");
         assert_eq!(round_significant(-1.25, 2, HalfUp), -1.3);
+    }
+
+    #[test]
+    fn ea4_02_five_per_cent_rule() {
+        let r = UpIfMoreThanFivePercentLower;
+        // EA-4/02 S2: U = 58.52 mg → 59 mg (MUPR rule gives 58 mg).
+        assert_eq!(round_significant(58.52, 2, r), 59.0);
+        assert_eq!(round_significant(58.52, 2, HalfEvenFirstDiscarded), 58.0);
+        // 0.10599 → 0.11 (the MUPR rule gives 0.10, 5.7 % lower).
+        assert_eq!(round_significant(0.10599, 2, r), 0.11);
+        assert_eq!(round_significant(0.10599, 2, HalfEvenFirstDiscarded), 0.10);
+        // Ordinary rounding down within 5 % is kept: 1.728 → 1.7.
+        assert_eq!(round_significant(1.728, 2, r), 1.7);
+        // One significant digit: 1.4 → 2 (1 would be 29 % lower); 1.04 → 1.
+        assert_eq!(round_significant(1.4, 1, r), 2.0);
+        assert_eq!(round_significant(1.04, 1, r), 1.0);
     }
 }

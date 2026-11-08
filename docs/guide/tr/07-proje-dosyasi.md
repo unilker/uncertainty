@@ -84,7 +84,7 @@ birini atlamak için `"gum": null` veya `"mcm": null` yazınız.
 
 ## 7.5 `reporting`
 
-`significant_digits` (varsayılan 2), `decimal_places` (anlamlı basamak yerine), `rounding` (`half_even`,
+`significant_digits` (varsayılan 2), `decimal_places` (anlamlı basamak yerine), `rounding` (`ea4_02` varsayılan, `half_even`,
 `half_up`, `up`), `cmc` (`expanded` veya `relative_percent`: raporlanabilecek en küçük U, ILAC P14 5.5), `uncorrected_bias` (model projeleri: `bias`, `u_bias`, `strategy` `ue` | `rssu` | `rssu_k` |
 `sumu` | `sumu_max`; bölüm 6.3).
 
@@ -223,6 +223,8 @@ Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş
 | `distribution` | model projeleri: `normal` (varsayılan) veya `t` (etkin serbestlik derecesi) |
 | `quantity`, `unit`, `u` veya `u_relative`, `dof`, `results` | kendi başına projeler: özellik, ölçüm sistemi, ölçülen değerler (`name`, `value`, isteğe bağlı `u`) |
 | `tur_method` | `rss`, `dobbert`, `rp10` veya `test95`: test belirsizlik oranından kabul sınırları (11.2) |
+| `tur_u95` | TUR'daki U₉₅: `k95` (varsayılan, serbestlik derecesinden k₉₅·u) veya `two_u` (Suncal'daki gibi 2u) |
+| `tur_allow_factor_above_one` | 1'den büyük koruma bandı çarpanını korur (Dobbert, TUR > 4,59); varsayılan olarak 1 ile sınırlanır |
 | `process`, `target_consumer_risk` | küresel riskler: `distribution` `mean`, `sd` ile `normal` veya `gamma`, ya da `meanlog`, `sdlog` ile `lognormal`; istenen R_C (r'yi bulur) |
 | `posterior` | `true`: sonuçların p_c değeri, süreç dağılımı önsel alınarak sonsal dağılımdan (kendi başına projeler) |
 | `distribution`, `exact_sdlog` | ölçülen büyüklüğün dağılımı: `normal`, `t` (model projeleri) veya `lognormal` (s_G = u/\|y\|, `exact_sdlog` ile kesin) |

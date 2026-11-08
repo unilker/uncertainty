@@ -2951,10 +2951,11 @@ For the article:
   (0.000 307; 0.106 a for ¹³⁷Cs, 2.4 × u_DL). The choice among DL-based evaluations matters more than the
   bootstrap itself; the Linear Pool is 4.4 (G), 7.0 (⁹⁰Sr) and 21 (¹³⁷Cs) times wider. This is the "procedure-choice" spread the
   article can show with the program on the same data.
-- CCQM-K145 (UME participated): with the DL bootstrap, UME's D = 0.107 mg/kg and U95 % = 0.106 mg/kg, a
-  marginal |D| > U; HSA 0.137 vs 0.179 and JSI −0.113 vs 0.232 are within. The final report of K145 was not
-  consulted; its degrees of equivalence may rest on another reference value and procedure, so this is an
-  illustration of the method, not a statement on the comparison.
+- CCQM-K145: with the DL bootstrap, one participant has a marginal |D| > U95 % (0.107 vs 0.106 mg/kg) and the
+  others are within. Following the independent review (2026-11-08, item 19) the participants are coded Lab 1–17 in
+  the project and no degree of equivalence is attributed to a named institute: the official KCRV and degrees of
+  equivalence are those of the final report in the KCDB, which may rest on another reference value and procedure.
+  The computation illustrates the procedures on the same data, not a statement on the comparison.
 
 **F93. Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding).** From the 14
 values of Table 1 the DerSimonian–Laird estimate is 6.673 790 (numpy and the program agree to 10⁻⁹), which
@@ -3299,3 +3300,39 @@ k_p criterion. Singularity is detected by Cholesky pivots below 10⁻⁷ of the 
 covariance of the draws is singular only up to rounding. The reported region is then the hyper-rectangle.
 Core test with three abundances; MCM enabled in `iupac2024-4b-silicon-isotopic-abundances` (u(x) 3.59, 2.20,
 3.04 × 10⁻⁶, k_q 2.32) and `possolo-meija-2022-atomic-weight-lead-hipb1` (k_q 2.44).
+
+## 2026-11-08 (session 22) — Pre-review of the review package and the first fixes
+
+The review package of 2026-11-07 (Claude Doc "Bağımsız İnceleme Dosyası") came back with 22 observations. The
+reviewer's own closing note says the pre-review was made with an AI assistant (Claude), like the development, so
+it does **not** replace the independent review by a metrologist outside the project (outline §9); its item 14 asks
+for at least ten class-c findings to be recomputed by a person who has not seen the code. The observations and the
+response to each are in `docs/research/review-2026-11-08.md`.
+
+**D79. Reporting defaults for accredited calibration (review items 9, 10, 21).** (1) Rounding of U: the default is
+now `ea4_02` (EA-4/02 M:2022 6.3: ordinary rounding unless it lowers U by more than 5 %, then upwards) instead of
+the MUPR rule, which looks only at the first discarded digit and can lower U by up to 5.7 % (0.10599 → 0.10;
+EA-4/02 S2 58.52 mg → 58 mg, now 59 mg). Library reports that change: EA-4/02 S2 (59 mg), S4 (69 nm, as printed),
+M3003 K.5 (0.31 mg, as in the project's note), Nordtest nitrate (8.5, 7.1 mg/L), cg-18 H3 (19 kg), the Possolo &
+Meija tank (110 m³) and three others; no reference value changes, only the rounded statement. (2) The statement
+gives "approximately 95 %" (whole per cent, 0.1 % above 99.5 %) instead of "95.45 %" and names the rounding rule.
+(3) Software identity: `build.rs` records the git commit ("-modified" with uncommitted changes), its date and the
+compiler; every report ends with them and with the SHA-256 of the project as evaluated (compact JSON; FIPS 180-4,
+own implementation tested against the FIPS examples); the JSON results carry the same. The validation report
+(TR title now "Yazılım validasyon raporu") gives the commit, compiler, the SHA-256 of every file and of the set,
+and a separate section for the laboratory's own projects (`check --lab`). The version number stays 0.1.0 until
+the first tagged release; the commit identifies the build. (4) EA-4/02 S2 text: 10 000.025 g, not kg.
+
+**D80. TUR with k₉₅·u and Dobbert above TUR 4.59 (review item 5).** U₉₅ in the TUR is now k₉₅·u with k₉₅ the
+97.5 % t quantile for ν_eff (model) or `dof` (1.960 for ν = ∞), the expanded uncertainty for 95 % of Z540.3;
+`"tur_u95": "two_u"` keeps Suncal's 2u (the three library projects that reproduce Suncal set it). Dobbert's
+M = 1.04 − exp(0.38 ln TUR − 0.54) is negative above TUR = 4.59 and the factor exceeds 1 (acceptance outside
+the tolerance); it is now limited to 1 with a statement in the report unless `tur_allow_factor_above_one` is set
+under an agreed decision rule (ISO/IEC 17025 7.1.3, ILAC G8). Tests: TUR 5.102 vs 5 at u = 0.1, k₉₅ = 2.776 for
+ν = 4; Dobbert at TUR 6: 1.018 546 limited to 1. The primary sources (Dobbert 2008, the Z540.3 handbook) remain
+to be read (documents-needed).
+
+**D81. CCQM-K145 anonymised (review item 19).** The participants of `iupac2024-4f-ccqm-k145-nickel-bovine-liver`
+are coded Lab 1–17 in the order of the guide's table; the project notes that the official KCRV and degrees of
+equivalence are those of the final report in the KCDB. No degree of equivalence is attributed to a named
+institute in the library, the guide or the article.

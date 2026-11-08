@@ -29,7 +29,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9972 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.9972 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -52,7 +52,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.99943 ± 0.00082) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.99943 ± 0.00082) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -75,7 +75,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9991 ± 0.0010) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.9991 ± 0.0010) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -98,7 +98,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9998 ± 0.0016) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.9998 ± 0.0016) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -121,7 +121,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9998 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.9998 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -145,7 +145,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9967 ± 0.0016) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.9967 ± 0.0016) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -168,7 +168,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9962 ± 0.0024) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.9962 ± 0.0024) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -191,7 +191,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9987 ± 0.0022) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.9987 ± 0.0022) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -214,7 +214,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.99882 ± 0.00062) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_A = (0.99882 ± 0.00062) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -314,7 +314,7 @@ u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/�
 
 **Result:**
 
-- w = (27.8 ± 2.8) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w = (27.8 ± 2.8) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -340,7 +340,7 @@ u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/�
 
 **Result:**
 
-- w = (27.8 ± 2.9) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w = (27.8 ± 2.9) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -365,7 +365,7 @@ y = ṅ₁x₁/(ṅ₁ + ṅ₂) with ṅ_j = q_mj/M̄_j (E3.8.1): permeation ra
 
 **Result:**
 
-- y_NH3 = (70.8 ± 1.2) µmol/mol, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- y_NH3 = (70.8 ± 1.2) µmol/mol, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -530,7 +530,7 @@ The test solution is at 23.7 °C, between the certificate temperatures 20 °C an
 
 **Result:**
 
-- pH_X = (7.0043 ± 0.0063), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- pH_X = (7.0043 ± 0.0063), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -554,7 +554,7 @@ As the independent case, but the pH values of each standard at 20 °C and 25 °C
 
 **Result:**
 
-- pH_X = (7.0043 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- pH_X = (7.0043 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -578,7 +578,7 @@ Bracketing between two NIST phosphate pH standards measured with the same cell; 
 
 **Result:**
 
-- pH_X = (7.0002 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- pH_X = (7.0002 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c.json --lang en`
 
@@ -598,7 +598,7 @@ As the 25 °C case, but with correlation 1 between the certified pH values, whic
 
 **Result:**
 
-- pH_X = (7.000 ± 0.010), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- pH_X = (7.000 ± 0.010), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -730,7 +730,7 @@ Internal-standard model with two correlated pairs of inputs; LPU with covariance
 
 **Result:**
 
-- mE = (0.0140 ± 0.0051) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.54, corresponding to a coverage probability of approximately 95 %.
+- mE = (0.0140 ± 0.0051) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.54, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -757,7 +757,7 @@ The same budget with A_E and A_ISE declared an ensemble: their joint variance is
 
 **Result:**
 
-- mE = (0.0140 ± 0.0083) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 4.10, corresponding to a coverage probability of approximately 95 %.
+- mE = (0.0140 ± 0.0083) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 4.10, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -782,7 +782,7 @@ M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O with rectangular distributions over t
 
 **Result:**
 
-- M_r = (180.1557 ± 0.0075), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- M_r = (180.1557 ± 0.0075), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -838,7 +838,7 @@ CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their sta
 
 **Result:**
 
-- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -863,7 +863,7 @@ CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their sta
 
 **Result:**
 
-- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1049,7 +1049,7 @@ ISO 13528:2022 E.5 (7.5): the proficiency test item and a similar CRM are tested
 
 **Result:**
 
-- x_pt = (23.35 ± 0.71) LA units, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- x_pt = (23.35 ± 0.71) LA units, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1073,7 +1073,7 @@ ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs 
 
 **Result:**
 
-- w_meat = (95.6 ± 4.0) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_meat = (95.6 ± 4.0) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1400,7 +1400,7 @@ H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), defined by co
 
 **Result:**
 
-- H = (96.6 ± 6.2) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- H = (96.6 ± 6.2) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/iupac2024-4a-water-hardness.json --lang en`
 
@@ -1430,7 +1430,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 `iupac2024-4f-ccqm-k145-nickel-bovine-liver` — Possolo et al., Example 4F
 
-17 national metrology institutes (UME among them) measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ.
+17 national metrology institutes measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ (the variability between laboratories that the stated uncertainties do not explain).
 
 **Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
 
@@ -1448,7 +1448,8 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 **Notes:**
 
-- The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for JSI.
+- The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for the first result.
+- Participants are coded Lab 1 to Lab 17 in the order of the guide's table. The official key comparison reference value and degrees of equivalence are those of the CCQM-K145 final report in the BIPM KCDB; the degrees of equivalence computed here illustrate the procedures on the same data and are not results of the comparison.
 
 **Run:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang en`
 
@@ -1467,7 +1468,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 **Result:**
 
-- gamma_Cd = (1.0027 ± 0.0017) mg/mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- gamma_Cd = (1.0027 ± 0.0017) mg/mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang en`
 
@@ -1485,7 +1486,7 @@ c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); only the v
 
 **Result:**
 
-- c_NaCl = (10.000 ± 0.050) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- c_NaCl = (10.000 ± 0.050) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1508,7 +1509,7 @@ The state of knowledge about the mass fraction is a beta distribution with α = 
 
 **Result:**
 
-- w_BA = (0.999920 ± 0.000059) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- w_BA = (0.999920 ± 0.000059) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang en`
 
@@ -1528,7 +1529,7 @@ TN 1900 E8: M_r(CO₂) = A_r(C) + 2A_r(O) from the IUPAC interval atomic weights
 
 **Result:**
 
-- M_r = (44.0094 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- M_r = (44.0094 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1552,7 +1553,7 @@ TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the 
 
 **Result:**
 
-- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1626,7 +1627,7 @@ Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²�
 
 **Result:**
 
-- AG = (25.0 ± 3.6) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- AG = (25.0 ± 3.6) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang en`
 
@@ -1647,7 +1648,7 @@ EURACHEM/CITAC QUAM Example A1: 1000 mg/L Cd standard from high-purity metal (su
 
 **Result:**
 
-- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1674,7 +1675,7 @@ QUAM Example A1 with the volume of the flask modelled from its three components.
 
 **Result:**
 
-- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1698,7 +1699,7 @@ QUAM Example A2: NaOH standardised against potassium hydrogen phthalate (KHP); s
 
 **Result:**
 
-- c_NaOH = (0.10214 ± 0.00020) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_NaOH = (0.10214 ± 0.00020) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1723,7 +1724,7 @@ QUAM Example A2 with mass, molar mass and volume built from their components.
 
 **Result:**
 
-- c_NaOH = (0.1021 ± 0.0002) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_NaOH = (0.1021 ± 0.0002) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1747,7 +1748,7 @@ QUAM Example A3: HCl titrated with NaOH that was itself standardised against KHP
 
 **Result:**
 
-- c_HCl = (0.1014 ± 0.0004) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_HCl = (0.1014 ± 0.0004) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1772,7 +1773,7 @@ QUAM Example A4: the relative uncertainty from in-house validation data (precisi
 
 **Result:**
 
-- P_op = (1.11 ± 0.74), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- P_op = (1.11 ± 0.74), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1797,7 +1798,7 @@ QUAM Example A5: empirical method (BS 6748); amount of Cd leached per unit area.
 
 **Result:**
 
-- r = (0.015 ± 0.003) mg/dm², where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- r = (0.015 ± 0.003) mg/dm², where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1822,7 +1823,7 @@ QUAM Example A7, Eq. (8): amount content of the primary lead assay standard prep
 
 **Result:**
 
-- c_z = (0.092605 ± 0.000056) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_z = (0.092605 ± 0.000056) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/quam-a7-assay-standard.json --lang en`
 
@@ -1842,7 +1843,7 @@ QUAM Example A7, Eq. (5): double IDMS with mass-bias-corrected isotope ratios (r
 
 **Result:**
 
-- c_x = (0.05374 ± 0.00036) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_x = (0.05374 ± 0.00036) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2484,7 +2485,7 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 
 **Result:**
 
-- x_site = (0.319 ± 0.059) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- x_site = (0.319 ± 0.059) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2510,7 +2511,7 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 
 **Result:**
 
-- x_site = (116 ± 26) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- x_site = (116 ± 26) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2535,7 +2536,7 @@ Multiplicative model with relative uncertainties; the values are illustrative, n
 
 **Result:**
 
-- P_a = (995.0 ± 3.1) mg/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- P_a = (995.0 ± 3.1) mg/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2739,7 +2740,7 @@ MUPR Example B2: precision pooled from several materials (raw data for two of th
 
 **Result:**
 
-- c(NO₃⁻) = (50.0 ± 8.4) mg/L (k = 2.00)
+- c(NO₃⁻) = (50.0 ± 8.5) mg/L (k = 2.00)
 
 **Notes:**
 
@@ -2762,7 +2763,7 @@ MUPR Example B2, Eq. (B2.9): precision of a mean of n results on each of p days 
 
 **Result:**
 
-- c(NO₃⁻) = (57.5 ± 7.0) mg/L (k = 2.00)
+- c(NO₃⁻) = (57.5 ± 7.1) mg/L (k = 2.00)
 
 **Run:** `uncertainty run library/chemistry/mupr-b2-replicates-on-two-days.json --lang en`
 
@@ -3020,7 +3021,7 @@ Nordtest TR 537 §6.2: u(bias) from six proficiency tests.
 
 **Result:**
 
-- U = 10 % (k = 2.00), relative to the measured value
+- U = 11 % (k = 2.00), relative to the measured value
 
 **Notes:**
 
@@ -3323,7 +3324,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Zn
 **Result:**
 
 - w(Zn) = (2.00 ± 0.73) mg/kg (k = 2.00)
-- w(Zn) = (20.0 ± 3.6) mg/kg (k = 2.00)
+- w(Zn) = (20.0 ± 3.7) mg/kg (k = 2.00)
 
 **Notes:**
 
@@ -3401,7 +3402,7 @@ EA-4/02 S3: four-terminal resistor calibrated by substitution against a standard
 
 **Result:**
 
-- R_X = (10000178 ± 17) mΩ, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- R_X = (10000178 ± 17) mΩ, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/ea402-s3-resistor-10kohm.json --lang en`
 
@@ -3422,7 +3423,7 @@ EA-4/02 S6: calibration factor of a thermistor power sensor against a standard s
 
 **Result:**
 
-- K_X = (0.933 ± 0.032), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- K_X = (0.933 ± 0.032), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3447,7 +3448,7 @@ EA-4/02 S7: 30 dB step of a coaxial attenuator at 10 GHz, with mismatch from S-p
 
 **Result:**
 
-- L_X = (30.043 ± 0.044) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- L_X = (30.043 ± 0.044) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3471,7 +3472,7 @@ EA-4/02 S9: error of indication of a 3½-digit DMM; the resolution term dominate
 
 **Result:**
 
-- E_X = (0.10 ± 0.06) V, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E_X = (0.10 ± 0.06) V, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/ea402-s9-dmm-100v.json --lang en`
 
@@ -3491,7 +3492,7 @@ GUM H.2: the impedance magnitude Z = V/I from correlated simultaneous measuremen
 
 **Result:**
 
-- Z = (254.26 ± 0.46) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Z = (254.26 ± 0.46) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/gum-h2-impedance.json --lang en`
 
@@ -3511,7 +3512,7 @@ GUM H.2: the reactance X = (V/I) sin φ from correlated simultaneous measurement
 
 **Result:**
 
-- X = (219.85 ± 0.58) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- X = (219.85 ± 0.58) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3535,7 +3536,7 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 **Result:**
 
-- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3561,7 +3562,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (50 ± 640) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
+- dY = (50 ± 640) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang en`
 
@@ -3582,7 +3583,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (0.0 ± 0.0) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
+- dY = (0.0 ± 0.0) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang en`
 
@@ -3604,7 +3605,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (50 ± 850) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
+- dY = (50 ± 850) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang en`
 
@@ -3626,7 +3627,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (150 ± 220) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (150 ± 220) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang en`
 
@@ -3647,7 +3648,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (100 ± 200) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (100 ± 200) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang en`
 
@@ -3669,7 +3670,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (150 ± 240) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (150 ± 240) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang en`
 
@@ -3691,7 +3692,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (2550 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (2550 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang en`
 
@@ -3712,7 +3713,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang en`
 
@@ -3734,7 +3735,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 **Result:**
 
-- dY = (2550 ± 990) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (2550 ± 990) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang en`
 
@@ -3943,7 +3944,7 @@ A DVM reading 1.001 V for an applied 1.000 00 V; the rounding of the 1 mV digit 
 
 **Result:**
 
-- dV = (1.00 ± 0.54) mV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.77, corresponding to a coverage probability of approximately 95.45 %.
+- dV = (1.00 ± 0.54) mV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.77, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3969,7 +3970,7 @@ The voltages across a standard and an unknown 10 kΩ resistor in series are comp
 
 **Result:**
 
-- R_X = (10000.1050 ± 0.0089) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- R_X = (10000.1050 ± 0.0089) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-k1-resistor-10kohm.json --lang en`
 
@@ -3991,7 +3992,7 @@ Calibration factor of an unknown power sensor by substitution against a standard
 
 **Result:**
 
-- K_X = (93.2 ± 3.4) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- K_X = (93.2 ± 3.4) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-k2-power-sensor-18ghz.json --lang en`
 
@@ -4012,7 +4013,7 @@ Calibration of a coaxial step attenuator by IF substitution; the mismatch term d
 
 **Result:**
 
-- A_X = (30.050 ± 0.049) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- A_X = (30.050 ± 0.049) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4038,7 +4039,7 @@ The budget of K.3 with the mismatch standard deviation recomputed from the coeff
 
 **Result:**
 
-- A_X = (30.050 ± 0.040) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- A_X = (30.050 ± 0.040) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang en`
 
@@ -4059,7 +4060,7 @@ Error of a 6½-digit DMM on its 1 V range at 0.95 V, calibrated with a multifunc
 
 **Result:**
 
-- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4083,7 +4084,7 @@ Error of a 6½-digit DMM on its 1 V range at 1.0 V, calibrated with a multifunct
 
 **Result:**
 
-- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.90, corresponding to a coverage probability of approximately 95.45 %.
+- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.90, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang en`
 
@@ -4104,7 +4105,7 @@ Error of a 6½-digit DMM on its 1 V range at 0.5 V, calibrated with a multifunct
 
 **Result:**
 
-- dI = (0.0 ± 6.2) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dI = (0.0 ± 6.2) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang en`
 
@@ -4144,7 +4145,7 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 **Result:**
 
-- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/num-10-resistance.json --lang en`
 
@@ -4163,7 +4164,7 @@ At balance R_U/R_G = R_F/R_EH, with R_EH = 1/(R_E⁻¹ + R_H⁻¹) the joint res
 
 **Result:**
 
-- R_U = (957 ± 14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- R_U = (957 ± 14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4187,7 +4188,7 @@ Additive model with absolute uncertainties: the error of indication E = V_DMM �
 
 **Result:**
 
-- E = (212 ± 70) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E = (212 ± 70) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang en`
 
@@ -4212,7 +4213,7 @@ A 1000 mL glass flask filled to the mark and weighed ten times; water at 19.11 �
 
 **Result:**
 
-- V_20 = (999.622 ± 0.036) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.14, corresponding to a coverage probability of approximately 95.45 %.
+- V_20 = (999.622 ± 0.036) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.14, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4239,7 +4240,7 @@ A 100 mL pycnometer weighed ten times; water at 18.94 °C, air 0.23 °C warmer; 
 
 **Result:**
 
-- V_20 = (100.0142 ± 0.0020) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.23, corresponding to a coverage probability of approximately 95.45 %.
+- V_20 = (100.0142 ± 0.0020) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.23, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4262,7 +4263,7 @@ EA-4/02 S12 (second budget): relative error of indication of the meter for a sin
 
 **Result:**
 
-- e_X = (0.0003 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- e_X = (0.0003 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-error.json --lang en`
 
@@ -4281,7 +4282,7 @@ EA-4/02 S12 (third budget): mean relative error of three runs, with the Welch–
 
 **Result:**
 
-- e_Xav = (0.001 ± 0.002), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.28, corresponding to a coverage probability of approximately 95.45 %.
+- e_Xav = (0.001 ± 0.002), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.28, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-mean-error.json --lang en`
 
@@ -4301,7 +4302,7 @@ EA-4/02 S12 (first budget): volume passed through a household water meter, measu
 
 **Result:**
 
-- V_X = (199.93 ± 0.22) L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- V_X = (199.93 ± 0.22) L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang en`
 
@@ -4322,7 +4323,7 @@ Flowrate from a 4–20 mA flowmeter at 1018 hPa and 295.1 K, expressed at 1013.2
 
 **Result:**
 
-- Q_s = (12.52 ± 0.55) L/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- Q_s = (12.52 ± 0.55) L/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4346,7 +4347,7 @@ TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pr
 
 **Result:**
 
-- v = (57.48 ± 0.68) m/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- v = (57.48 ± 0.68) m/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4372,7 +4373,7 @@ Slope β of Y = βX from eight torque levels; the OLS estimator (9.4) is linear 
 
 **Result:**
 
-- beta = (1.0106 ± 0.0051), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 3.38, corresponding to a coverage probability of approximately 95 %.
+- beta = (1.0106 ± 0.0051), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 3.38, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4396,7 +4397,7 @@ Slope β of Y = βX from eight torque levels; the WLS estimator (9.4) is linear 
 
 **Result:**
 
-- beta = (1.0085 ± 0.0016), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.16, corresponding to a coverage probability of approximately 95 %.
+- beta = (1.0085 ± 0.0016), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.16, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4419,7 +4420,7 @@ JCGM 101 9.2.2: four independent inputs, each N(0, 1).
 
 **Result:**
 
-- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/general/jcgm101-9.2.2-additive-gaussian.json --lang en`
 
@@ -4439,7 +4440,7 @@ JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviatio
 
 **Result:**
 
-- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4463,7 +4464,7 @@ JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.
 
 **Result:**
 
-- Y = (0 ± 20), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Y = (0 ± 20), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang en`
 
@@ -4682,7 +4683,7 @@ NUM manual §3: Gaussian a, rectangular b and a triangular divisor c with a 30 %
 
 **Result:**
 
-- y = (29 ± 17), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- y = (29 ± 17), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4821,7 +4822,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, flour): relative uncertainty of log10(count) fr
 
 **Result:**
 
-- U = 12 % (k = 2.00), relative to the measured value
+- U = 13 % (k = 2.00), relative to the measured value
 
 **Notes:**
 
@@ -4886,7 +4887,7 @@ EA-4/02 S10: error of a vernier calliper measured with a gauge block; two rectan
 
 **Result:**
 
-- E_X = (100 ± 65) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E_X = (100 ± 65) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/ea402-s10-vernier-calliper.json --lang en`
 
@@ -4906,7 +4907,7 @@ EA-4/02 S13: diameter of a ring gauge compared with a 40 mm setting ring on a on
 
 **Result:**
 
-- d_X = (0.2 ± 0.9) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- d_X = (0.2 ± 0.9) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: upwards (GUM 7.2.6).
 
 **Notes:**
 
@@ -4930,7 +4931,7 @@ EA-4/02 S13: temperature sub-budget of the ring-gauge comparison; products of ze
 
 **Result:**
 
-- dl_T = (0.00 ± 0.30) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dl_T = (0.00 ± 0.30) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/ea402-s13-ring-gauge-temperature.json --lang en`
 
@@ -4950,7 +4951,7 @@ EA-4/02 S4: grade 0 steel gauge block compared with a calibrated standard; a pro
 
 **Result:**
 
-- l_X = (49999926 ± 68) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- l_X = (49999926 ± 69) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/ea402-s4-gauge-block-50mm.json --lang en`
 
@@ -4971,7 +4972,7 @@ JCGM 100 Annex H.1: calibration of a 50 mm end gauge; Welch–Satterthwaite effe
 
 **Result:**
 
-- l = (50000838 ± 92) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %.
+- l = (50000838 ± 92) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4997,7 +4998,7 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 **Result:**
 
-- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %.
+- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/jcgm101-9.5-gauge-block-approximate.json --lang en`
 
@@ -5018,7 +5019,7 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 **Result:**
 
-- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %.
+- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang en`
 
@@ -5039,7 +5040,7 @@ Mean of five thickness readings at the centre of a sample, measured in an uncont
 
 **Result:**
 
-- w = (1.514 ± 0.019) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w = (1.514 ± 0.019) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5064,7 +5065,7 @@ Comparison with a standard gauge block; the budget as printed, with the two temp
 
 **Result:**
 
-- L_X = (9.999940 ± 0.000081) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- L_X = (9.999940 ± 0.000081) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5089,7 +5090,7 @@ The budget of K.6 with −L(α·Δt + Δα·ΔT) evaluated as the model states, 
 
 **Result:**
 
-- L_X = (9.999940 ± 0.000082) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- L_X = (9.999940 ± 0.000082) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang en`
 
@@ -5109,7 +5110,7 @@ NUM manual §8: GUM H.1 with the six inputs of the GUM's first-order budget, all
 
 **Result:**
 
-- l = (50000838 ± 82) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %.
+- l = (50000838 ± 82) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5132,7 +5133,7 @@ V = πR²H with R = 8.40(3) m and H = 32.50(7) m.
 
 **Result:**
 
-- V = (7200 ± 100) m³, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- V = (7200 ± 110) m³, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/possolo-meija-2022-storage-tank-volume.json --lang en`
 
@@ -5157,7 +5158,7 @@ The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m
 
 **Result:**
 
-- E = (0.00070 ± 0.00033) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.25, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00070 ± 0.00033) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.25, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-100g-option2.json --lang en`
 
@@ -5180,7 +5181,7 @@ Not adjusted before calibration and no air density known: the buoyancy term is t
 
 **Result:**
 
-- E = (0.0013 ± 0.0039) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.0013 ± 0.0039) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1.json --lang en`
 
@@ -5203,7 +5204,7 @@ As option 1, but the buoyancy uncertainty follows from the estimated temperature
 
 **Result:**
 
-- E = (0.00130 ± 0.00098) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00130 ± 0.00098) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang en`
 
@@ -5226,7 +5227,7 @@ The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m
 
 **Result:**
 
-- E = (0.00130 ± 0.00046) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.04, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00130 ± 0.00046) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.04, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-max-option2.json --lang en`
 
@@ -5248,7 +5249,7 @@ At zero load only the rounding at zero and the repeatability contribute; the rep
 
 **Result:**
 
-- E = (0.00000 ± 0.00034) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.87, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00000 ± 0.00034) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.87, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang en`
 
@@ -5332,7 +5333,7 @@ First load point, in the 2 g interval; no air density known and not adjusted bef
 
 **Result:**
 
-- E = (0.0 ± 3.4) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.17, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.0 ± 3.4) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.17, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h2-60kg-10kg-option1.json --lang en`
 
@@ -5355,7 +5356,7 @@ Second situation: the instrument is adjusted with its built-in weights immediate
 
 **Result:**
 
-- E = (0 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.01, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.01, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5383,7 +5384,7 @@ Error at 60 kg in the 10 g interval, the largest U of the certificate.
 
 **Result:**
 
-- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5411,7 +5412,7 @@ As option 1, with the buoyancy uncertainty from the expected temperature variati
 
 **Result:**
 
-- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5440,7 +5441,7 @@ The air density during calibration is computed from the CIPM formula and the buo
 
 **Result:**
 
-- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5467,7 +5468,7 @@ A 60 kg multi-interval balance (2 g / 5 g / 10 g) calibrated as found, not adjus
 
 **Result:**
 
-- E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang en`
 
@@ -5549,7 +5550,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 
 **Result:**
 
-- E = (10 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.32, corresponding to a coverage probability of approximately 95.45 %.
+- E = (10 ± 19) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.32, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h3-30t-10t-weights.json --lang en`
 
@@ -5572,7 +5573,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 
 **Result:**
 
-- E = (15 ± 30) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.07, corresponding to a coverage probability of approximately 95.45 %.
+- E = (15 ± 30) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.07, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5601,7 +5602,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 
 **Result:**
 
-- E = (30 ± 48) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.02, corresponding to a coverage probability of approximately 95.45 %.
+- E = (30 ± 48) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.02, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5627,7 +5628,7 @@ A road-vehicle weighbridge 30 000 kg / 10 kg, outdoors, calibrated as found.
 
 **Result:**
 
-- E = (0 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.65, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.65, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang en`
 
@@ -5794,11 +5795,11 @@ EA-4/02 S2: OIML class M1 weight calibrated against an F2 standard with a mass c
 1. m_X = m_S + δm_D + δm + δm_C + δB (deviations from 10 kg, in mg).
 2. The observed difference is the mean of three ABBA comparisons (+10, +30, +20 mg); its standard uncertainty uses the pooled standard deviation s_p = 25 mg from an earlier evaluation: u(δm) = 25/√3 = 14.4 mg.
 3. Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.
-4. m_X = 10 000.025 kg ± 58 mg (k = 2).
+4. m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).
 
 **Result:**
 
-- m_X = (25 ± 58) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- m_X = (25 ± 59) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5819,12 +5820,12 @@ The 10 kg weight of EA-4/02 S2 (U = 58 mg) reported by a laboratory whose accred
 1. m_X = m_S + δm_D + δm + δm_C + δB (deviations from 10 kg, in mg).
 2. The observed difference is the mean of three ABBA comparisons (+10, +30, +20 mg); its standard uncertainty uses the pooled standard deviation s_p = 25 mg from an earlier evaluation: u(δm) = 25/√3 = 14.4 mg.
 3. Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.
-4. m_X = 10 000.025 kg ± 58 mg (k = 2).
+4. m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).
 5. ILAC P14:09/2020, 5.5: an accredited calibration laboratory shall not report a smaller measurement uncertainty than the uncertainty described by its CMC. With reporting.cmc the program reports max(U, CMC) and says so in the result statement; 5.3 limits U to at most two significant digits.
 
 **Result:**
 
-- m_X = (25 ± 80) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %. The evaluated expanded uncertainty, 59 mg, is smaller than the laboratory's calibration and measurement capability, so the CMC is reported (ILAC P14:09/2020, 5.5).
+- m_X = (25 ± 80) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. The evaluated expanded uncertainty, 59 mg, is smaller than the laboratory's calibration and measurement capability, so the CMC is reported (ILAC P14:09/2020, 5.5). U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5849,7 +5850,7 @@ JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weigh
 
 **Result:**
 
-- dm = (1.23 ± 0.10) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dm = (1.23 ± 0.11) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5874,7 +5875,7 @@ JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.
 
 **Result:**
 
-- dm = (1.23 ± 0.15) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dm = (1.23 ± 0.15) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang en`
 
@@ -5895,7 +5896,7 @@ Comparison with a class F2 standard on a mass comparator, three bracketed compar
 
 **Result:**
 
-- W_X = (10000.025 ± 0.049) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- W_X = (10000.025 ± 0.049) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5920,7 +5921,7 @@ Error of indication of an electronic balance with a 0.1 mg digit, loaded with a 
 
 **Result:**
 
-- dI_X = (-0.10 ± 0.30) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dI_X = (-0.10 ± 0.31) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -5944,7 +5945,7 @@ TN 1900 E1: mass of a powder from three weighings with a single-pan balance; lin
 
 **Result:**
 
-- m_P = (50.284 ± 0.014) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- m_P = (50.284 ± 0.014) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang en`
 
@@ -5967,7 +5968,7 @@ A₁ = A₀ exp(−Δt ln2/T½) with the certified activity, the half-life from 
 
 **Result:**
 
-- A_1 = (10.81 ± 0.11) kBq, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- A_1 = (10.81 ± 0.11) kBq, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/physical/gum5-e14-radioactive-decay-bi207.json --lang en`
 
@@ -5987,7 +5988,7 @@ F₀ = F̄ − B − B_ref − e_res − e_T: mean of six tests on pieces of one
 
 **Result:**
 
-- F_0 = (10006 ± 19) kN, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- F_0 = (10006 ± 19) kN, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6178,7 +6179,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 
 **Result:**
 
-- alpha = (17.3 ± 3.4) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- alpha = (17.3 ± 3.4) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6202,7 +6203,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 
 **Result:**
 
-- alpha = (17.3 ± 4.5) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %.
+- alpha = (17.3 ± 4.5) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6269,7 +6270,7 @@ TN 1900 E3: dynamic viscosity of a NaOH solution by comparison with a calibratio
 
 **Result:**
 
-- mu_M = (5.7 ± 2.0) mPa s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- mu_M = (5.7 ± 2.0) mPa s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6292,7 +6293,7 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 
 **Result:**
 
-- sigma = (5.6703725 ± 0.0000401) 10⁻⁸ W m⁻² K⁻⁴, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. Note: ILAC P14:09/2020, 5.3, allows at most two significant digits for the expanded uncertainty on calibration certificates.
+- sigma = (5.6703725 ± 0.0000401) 10⁻⁸ W m⁻² K⁻⁴, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 3 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3). Note: ILAC P14:09/2020, 5.3, allows at most two significant digits for the expanded uncertainty on calibration certificates.
 
 **Notes:**
 
@@ -6345,7 +6346,7 @@ Scenario 1: the reference correction Δp_m = 0.05 % p_std is applied, u(Δp_m) =
 
 **Result:**
 
-- f = (1.0024 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- f = (1.0024 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 75 %; accepted under simple acceptance.
 
 **Notes:**
@@ -6369,7 +6370,7 @@ Scenario 3: the correction and its uncertainty are ignored. Point 8 of the calib
 
 **Result:**
 
-- f = (1.0020 ± 0.0059), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- f = (1.0020 ± 0.0059), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 84 %; accepted under simple acceptance.
 
 **Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang en`
@@ -6389,7 +6390,7 @@ Scenario 2: the correction is not applied but folded into its uncertainty, u² =
 
 **Result:**
 
-- f = (1.0020 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- f = (1.0020 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 78 %; accepted under simple acceptance.
 
 **Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang en`
@@ -6409,7 +6410,7 @@ Scenario 2: the correction is not applied but folded into its uncertainty, u² =
 
 **Result:**
 
-- dp = (-0.6 ± 1.8) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dp = (-0.6 ± 1.8) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 75 %; accepted under simple acceptance.
 
 **Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang en`
@@ -6429,7 +6430,7 @@ Scenario 2: the correction is not applied but folded into its uncertainty, u² =
 
 **Result:**
 
-- dp = (-0.6 ± 2.3) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dp = (-0.6 ± 2.3) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 67 %; accepted under simple acceptance.
 
 **Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang en`
@@ -6451,7 +6452,7 @@ Error of a DPI at 2 MPa; the budget is in relative terms (ppm), as is the conven
 
 **Result:**
 
-- e = (17 ± 86) ppm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- e = (17 ± 86) ppm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6476,7 +6477,7 @@ EA-4/02 S11: temperature of the block measured with a calibrated platinum resist
 
 **Result:**
 
-- t_X = (180100 ± 330) mK, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- t_X = (180100 ± 330) mK, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6499,7 +6500,7 @@ EA-4/02 S5 (second budget): emf of the type N thermocouple under calibration at 
 
 **Result:**
 
-- V_X = (36229 ± 50) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- V_X = (36229 ± 50) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6522,7 +6523,7 @@ EA-4/02 S5 (first budget): temperature of a furnace at 1000 °C measured with a 
 
 **Result:**
 
-- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang en`
 
@@ -6596,7 +6597,7 @@ The probe L is attached to the outside of the vessel; its correction comes from 
 
 **Result:**
 
-- T_g = (22.97 ± 0.17) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- T_g = (22.97 ± 0.17) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/m3003-k11-gas-temperature.json --lang en`
 
@@ -6617,7 +6618,7 @@ Error of the laboratory probe L at 20.4 °C against the reference probe S, whose
 
 **Result:**
 
-- dT_L = (0.432 ± 0.084) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dT_L = (0.432 ± 0.084) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/m3003-k11-probe-calibration.json --lang en`
 
@@ -6639,7 +6640,7 @@ Both budgets of K.7 in one model: the furnace temperature enters the EMF of the 
 
 **Result:**
 
-- V_X = (36229 ± 52) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- V_X = (36229 ± 52) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -6663,7 +6664,7 @@ First part of K.7: the temperature at the hot junctions from the two reference t
 
 **Result:**
 
-- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/m3003-k7-thermocouple-furnace.json --lang en`
 
@@ -6683,7 +6684,7 @@ TN 1900 E2: an observation equation t_i = τ + E_i for 22 daily readings; Type A
 
 **Result:**
 
-- tau = (25.6 ± 1.8) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.08, corresponding to a coverage probability of approximately 95 %.
+- tau = (25.6 ± 1.8) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.08, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 

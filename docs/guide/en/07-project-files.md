@@ -85,7 +85,7 @@ or `"mcm": null` to skip one of the methods.
 ## 7.5 `reporting`
 
 `significant_digits` (default 2), `decimal_places` (instead of significant digits), `rounding`
-(`half_even`, `half_up`, `up`), `cmc` (`expanded` or `relative_percent`: the smallest reportable U, ILAC P14 5.5), `uncorrected_bias` (model projects: `bias`, `u_bias`, `strategy` `ue` | `rssu` |
+(`ea4_02` default, `half_even`, `half_up`, `up`; 6.1), `cmc` (`expanded` or `relative_percent`: the smallest reportable U, ILAC P14 5.5), `uncorrected_bias` (model projects: `bias`, `u_bias`, `strategy` `ue` | `rssu` |
 `rssu_k` | `sumu` | `sumu_max`; section 6.3).
 
 ## 7.6 `topdown`
@@ -223,6 +223,8 @@ Next to `model` (the result is assessed) or as the only section of a project (JC
 | `distribution` | model projects: `normal` (default) or `t` (effective degrees of freedom) |
 | `quantity`, `unit`, `u` or `u_relative`, `dof`, `results` | projects of their own: property, measuring system, measured values (`name`, `value`, optional `u`) |
 | `tur_method` | `rss`, `dobbert`, `rp10` or `test95`: acceptance limits from the test uncertainty ratio (11.2) |
+| `tur_u95` | U₉₅ in the TUR: `k95` (default, k₉₅·u from the degrees of freedom) or `two_u` (2u, as in Suncal) |
+| `tur_allow_factor_above_one` | keep a guard-band factor above 1 (Dobbert, TUR > 4.59); by default it is limited to 1 |
 | `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma` with `mean`, `sd`, or `lognormal` with `meanlog`, `sdlog`; required R_C (finds r) |
 | `posterior` | `true`: p_c of the results from the posterior with the process PDF as prior (projects of their own) |
 | `distribution`, `exact_sdlog` | PDF for the measurand: `normal`, `t` (model projects) or `lognormal` (s_G = u/\|y\|, or exact with `exact_sdlog`) |
