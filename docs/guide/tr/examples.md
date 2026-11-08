@@ -814,7 +814,7 @@ IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağı
 - y_H2O = 0,3887 µmol/mol, u(y_H2O) = 0,021 µmol/mol (GUM)
 - y_N2 = 799649,12 µmol/mol, u(y_N2) = 4,7 µmol/mol (GUM)
 - y_O2 = 1,066 µmol/mol, u(y_O2) = 0,52 µmol/mol (GUM)
-- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3,94; dikdörtgen k_q = 2,73
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,73 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
 **Notlar:**
 
@@ -1410,7 +1410,7 @@ H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), uzlaşımla t
 
 x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: iki girdiden üç çıktı; kovaryans matrisi Σ_y = JΣ_xJᵀ (Formül 3).
 
-**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
 
 **Adımlar:**
 
@@ -1422,7 +1422,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - x28 = 0,92338729 mol/mol, u(x28) = 3,6 × 10⁻⁶ mol/mol (GUM)
 - x29 = 0,04623003 mol/mol, u(x29) = 2,2 × 10⁻⁶ mol/mol (GUM)
 - x30 = 0,03038267 mol/mol, u(x30) = 3,0 × 10⁻⁶ mol/mol (GUM)
-- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,39 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
 **Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang tr`
 
@@ -1587,7 +1587,7 @@ w_ij = ω + β_j + ε_ij; şişe etkileri β_j ~ N(0, τ²), hatalar ε_ij ~ N(0
 
 Tong vd. (2019) yüksek saflıktaki kurşun HIPB-1'de ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb ve ²⁰⁸Pb/²⁰⁷Pb oranlarını ölçtü. Miktar kesirleri oranlardan ve Σx = 1 kapanışından çıkar; A_r(Pb) izotop kütlelerinin bu kesirlerle ağırlıklı ortalamasıdır.
 
-**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
 
 **Adımlar:**
 
@@ -1602,7 +1602,7 @@ Tong vd. (2019) yüksek saflıktaki kurşun HIPB-1'de ²⁰⁴Pb/²⁰⁷Pb, ²�
 - x207 = 0,2035126 mol/mol, u(x207) = 1,9 × 10⁻⁵ mol/mol (GUM)
 - x208 = 0,5127094 mol/mol, u(x208) = 4,5 × 10⁻⁵ mol/mol (GUM)
 - ArPb = 207,1791483 1, u(ArPb) = 8,4 × 10⁻⁵ 1 (GUM)
-- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3,33; dikdörtgen k_q = 2,58
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,58 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
 **Notlar:**
 
@@ -3889,7 +3889,7 @@ JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan ü�
 - R = 127,7322 Ω, u(R) = 0,058 Ω (GUM)
 - X = 219,847 Ω, u(X) = 0,24 Ω (GUM)
 - Z = 254,260 Ω, u(Z) = 0,19 Ω (GUM)
-- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,39 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
 **Notlar:**
 
@@ -3918,7 +3918,7 @@ JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan ü�
 - R = 127,732 Ω, u(R) = 0,13 Ω (GUM)
 - X = 219,847 Ω, u(X) = 0,54 Ω (GUM)
 - Z = 254,260 Ω, u(Z) = 0,43 Ω (GUM)
-- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,39 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
 **Notlar:**
 

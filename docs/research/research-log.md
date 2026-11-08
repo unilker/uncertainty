@@ -3287,3 +3287,15 @@ the H3.3 budgets gives 3.637 × 10⁻⁴ and 1.508 × 10⁻⁴, and the same wit
 loads instead of the indications. a₁ itself agrees (9.377 vs 9.379 × 10⁻⁴; 4.286 vs 4.280 × 10⁻⁴). Not resolved:
 possibly unrounded u(E_j) of the authors' spreadsheet. Effect: β_W² of B 1.967 vs 1.960 × 10⁻⁷ and its first-order
 slope 6.128 vs 6.113 × 10⁻⁴; the minimum weights agree.
+
+## 2026-11-07 (session 21, continued) — Monte Carlo with dependent outputs
+
+**D78. Multivariate MCM with a singular output covariance.** Outputs that are exactly dependent (amount fractions
+that sum to 1) made the Monte Carlo evaluation of JCGM 102 stop with an error, so IUPAC 2024 4B and the lead
+project of Possolo & Meija had MCM switched off. Now the hyper-ellipsoid is reported as not defined (JCGM 102
+9.4.2.3 note 2; k_p = NaN, JSON null, "not defined" in the reports and in the validation), while the estimates,
+covariance, correlations, λ_max and the hyper-rectangle k_q are given as usual; the adaptive procedure skips the
+k_p criterion. Singularity is detected by Cholesky pivots below 10⁻⁷ of the standard deviations, because the
+covariance of the draws is singular only up to rounding. The reported region is then the hyper-rectangle.
+Core test with three abundances; MCM enabled in `iupac2024-4b-silicon-isotopic-abundances` (u(x) 3.59, 2.20,
+3.04 × 10⁻⁶, k_q 2.32) and `possolo-meija-2022-atomic-weight-lead-hipb1` (k_q 2.44).

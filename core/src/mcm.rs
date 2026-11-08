@@ -249,7 +249,7 @@ impl Sampler {
 /// Lower-triangular Cholesky factor L with V = L Lᵀ, or None if V is not
 /// positive semi-definite (within rounding). A zero pivot is accepted when the
 /// corresponding row is fully determined by earlier rows (|r| = 1).
-pub(crate) fn cholesky(v: &[Vec<f64>]) -> Option<Vec<Vec<f64>>> {
+pub fn cholesky(v: &[Vec<f64>]) -> Option<Vec<Vec<f64>>> {
     let n = v.len();
     let mut l = vec![vec![0.0; n]; n];
     for i in 0..n {

@@ -213,4 +213,4 @@ write("chemistry", "possolo-meija-2022-atomic-weight-lead-hipb1",
                            {"between": ["x207", "x208"], "value": -0.58, "tolerance": 0.01}]}}},
       T("Possolo & Meija (2022), p. 29: u(x) = 0.000 006, 0.000 037, 0.000 019, 0.000 045 mol/mol; correlations −0.02, +0.13, +0.18, −0.17, −0.90, −0.58 (Monte Carlo, 5 × 10⁴); A_r(Pb) = 207.1791, U95 % = 0.0002 (u = U/2; tolerance of the correlations: Monte Carlo error).",
         "Possolo & Meija (2022), s. 29: u(x) = 0,000 006, 0,000 037, 0,000 019, 0,000 045 mol/mol; korelasyonlar −0,02, +0,13, +0,18, −0,17, −0,90, −0,58 (Monte Carlo, 5 × 10⁴); A_r(Pb) = 207,1791, U95 % = 0,0002 (u = U/2; korelasyon toleransı: Monte Carlo hatası)."),
-      analysis={"gum": {}, "mcm": None})
+      analysis={"gum": {}, "mcm": {"trials": 200000, "seed": 1}})

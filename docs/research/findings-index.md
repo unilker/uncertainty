@@ -114,7 +114,7 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F97 | BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article, not to be reported). | 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets |
 | F98 | EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small). | 2026-11-07 (session 21, continued) — EURAMET cg-18 H3.4/A and H3.4/B (30 t weighbridge in use) |
 
-## Decisions (77)
+## Decisions (78)
 
 | D | Decision | Session |
 |---|---|---|
@@ -195,3 +195,4 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D75 | Beta input distribution. | 2026-11-07 (session 21, continued) — Beta distribution; IUPAC 2024 Examples 4H and 5C |
 | D76 | Consensus template and editor. | 2026-11-07 (session 21, continued) — Consensus in the application |
 | D77 | `conformity.tur_method`: RSS, Dobbert, NCSLI RP-10, U₉₅. | 2026-11-07 (session 21, continued) — Guard bands from the test uncertainty ratio |
+| D78 | Multivariate MCM with a singular output covariance. | 2026-11-07 (session 21, continued) — Monte Carlo with dependent outputs |

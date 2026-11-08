@@ -11,10 +11,10 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | | |
 |---|---|
 | Kütüphane | **284** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **203** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
+| Testler | **204** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D77, bulgular F1–F98 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–21, kararlar D1–D78, bulgular F1–F98 (dizin: `findings-index.md`) |
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 
@@ -128,7 +128,6 @@ indirilemedi; Drive klasörüne konacak:
      QAC 2026, A2LA G104, eğitim örnekleri (Kirkup, White 2008, Leito, Kessel).
    - Açık kalan küçük işler:
      - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
-     - tekil çıktı kovaryanslı çok değişkenli MCM (bolluklar);
      - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak;
      - uzlaşıda sonlu ν_j için σ_j önselleri (NICOB §A.3), birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
      - (tamam) uygulamada `consensus` formu ve şablonu (D76); homojenlikte Bayes model anahtarı ve önsel ölçekleri.

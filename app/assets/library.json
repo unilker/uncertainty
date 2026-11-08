@@ -13241,7 +13241,10 @@
    },
    "analysis": {
     "gum": {},
-    "mcm": null
+    "mcm": {
+     "trials": 200000,
+     "seed": 1
+    }
    },
    "expected": {
     "multivariate": {
@@ -19615,7 +19618,10 @@
    },
    "analysis": {
     "gum": {},
-    "mcm": null
+    "mcm": {
+     "trials": 200000,
+     "seed": 1
+    }
    },
    "expected": {
     "multivariate": {

@@ -814,7 +814,7 @@ ISO 6142-1 model y_k = n_k/n_tot from three weighings, the purity tables of two 
 - y_H2O = 0.3887 µmol/mol, u(y_H2O) = 0.021 µmol/mol (GUM)
 - y_N2 = 799649.12 µmol/mol, u(y_N2) = 4.7 µmol/mol (GUM)
 - y_O2 = 1.066 µmol/mol, u(y_O2) = 0.52 µmol/mol (GUM)
-- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3.94; rectangle k_q = 2.73
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.73 (the outputs are dependent: no hyper-ellipsoid)
 
 **Notes:**
 
@@ -1410,7 +1410,7 @@ H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), defined by co
 
 x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: three outputs from two inputs, with the covariance matrix Σ_y = JΣ_xJᵀ (Formula 3).
 
-**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
 
 **Steps:**
 
@@ -1422,7 +1422,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - x28 = 0.92338729 mol/mol, u(x28) = 3.6 × 10⁻⁶ mol/mol (GUM)
 - x29 = 0.04623003 mol/mol, u(x29) = 2.2 × 10⁻⁶ mol/mol (GUM)
 - x30 = 0.03038267 mol/mol, u(x30) = 3.0 × 10⁻⁶ mol/mol (GUM)
-- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.39 (the outputs are dependent: no hyper-ellipsoid)
 
 **Run:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang en`
 
@@ -1587,7 +1587,7 @@ w_ij = ω + β_j + ε_ij with bottle effects β_j ~ N(0, τ²) and errors ε_ij 
 
 Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²⁰⁸Pb/²⁰⁷Pb in the high-purity lead HIPB-1. The amount fractions follow from the ratios and the closure Σx = 1; A_r(Pb) is their weighted average of the isotopic masses.
 
-**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
 
 **Steps:**
 
@@ -1602,7 +1602,7 @@ Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²�
 - x207 = 0.2035126 mol/mol, u(x207) = 1.9 × 10⁻⁵ mol/mol (GUM)
 - x208 = 0.5127094 mol/mol, u(x208) = 4.5 × 10⁻⁵ mol/mol (GUM)
 - ArPb = 207.1791483 1, u(ArPb) = 8.4 × 10⁻⁵ 1 (GUM)
-- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 3.33; rectangle k_q = 2.58
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.58 (the outputs are dependent: no hyper-ellipsoid)
 
 **Notes:**
 
@@ -3889,7 +3889,7 @@ JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated av
 - R = 127.7322 Ω, u(R) = 0.058 Ω (GUM)
 - X = 219.847 Ω, u(X) = 0.24 Ω (GUM)
 - Z = 254.260 Ω, u(Z) = 0.19 Ω (GUM)
-- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.39 (the outputs are dependent: no hyper-ellipsoid)
 
 **Notes:**
 
@@ -3918,7 +3918,7 @@ JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated av
 - R = 127.732 Ω, u(R) = 0.13 Ω (GUM)
 - X = 219.847 Ω, u(X) = 0.54 Ω (GUM)
 - Z = 254.260 Ω, u(Z) = 0.43 Ω (GUM)
-- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.39 (the outputs are dependent: no hyper-ellipsoid)
 
 **Notes:**
 

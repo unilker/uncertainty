@@ -703,14 +703,12 @@ fn summarize(values: &[f64], m: usize, p: f64) -> Result<Summary, UncError> {
     }
     let (u, r) = correlations_of(&cov);
     let lambda = symmetric_eigenvalues(&r).last().copied().unwrap_or(1.0);
-    let l = cholesky(&cov).ok_or_else(|| invalid("the Monte Carlo covariance matrix is not positive semi-definite"))?;
-    if (0..m).any(|j| !(l[j][j] > 0.0)) {
-        return Err(UncError::Unsupported(
-            "the covariance matrix of the outputs is singular (dependent outputs); a hyper-ellipsoidal coverage region is \
-             not defined (JCGM 102 9.4.2.3 note 2)"
-                .into(),
-        ));
-    }
+    // A singular covariance matrix (dependent outputs, e.g. amount fractions
+    // that sum to 1) has no hyper-ellipsoidal coverage region (JCGM 102
+    // 9.4.2.3 note 2): k_p is then undefined (NaN) while the hyper-rectangle
+    // and the other summaries remain. The pivot test is relative, because the
+    // covariance of the draws is singular only up to rounding.
+    let l = cholesky(&cov).filter(|l| (0..m).all(|j| l[j][j] > 1e-7 * cov[j][j].sqrt()));
     let q = coverage_count(n, p).clamp(1, n);
     let mut d2 = Vec::with_capacity(n);
     let mut dmax = Vec::with_capacity(n);
@@ -720,12 +718,14 @@ fn summarize(values: &[f64], m: usize, p: f64) -> Result<Summary, UncError> {
         let mut s2 = 0.0;
         let mut mx: f64 = 0.0;
         for a in 0..m {
-            let mut v = t[a] - y[a];
-            for b in 0..a {
-                v -= l[a][b] * w[b];
+            if let Some(l) = &l {
+                let mut v = t[a] - y[a];
+                for b in 0..a {
+                    v -= l[a][b] * w[b];
+                }
+                w[a] = v / l[a][a];
+                s2 += w[a] * w[a];
             }
-            w[a] = v / l[a][a];
-            s2 += w[a] * w[a];
             mx = mx.max(((t[a] - y[a]) / u[a]).abs());
         }
         d2.push(s2);
@@ -733,7 +733,8 @@ fn summarize(values: &[f64], m: usize, p: f64) -> Result<Summary, UncError> {
     }
     d2.sort_unstable_by(f64::total_cmp);
     dmax.sort_unstable_by(f64::total_cmp);
-    Ok(Summary { y, cov, u, r, lambda, kp: d2[q - 1].sqrt(), kq: dmax[q - 1] })
+    let kp = if l.is_some() { d2[q - 1].sqrt() } else { f64::NAN };
+    Ok(Summary { y, cov, u, r, lambda, kp, kq: dmax[q - 1] })
 }
 
 fn sd_of_average(v: &[f64]) -> f64 {
@@ -869,7 +870,8 @@ pub fn mcm(
                         2.0 * sd(&|s| s.y[j]) <= d && 2.0 * sd(&|s| s.u[j]) <= d
                     });
                     ok &= 2.0 * sd(&|s| s.lambda) <= tol(all.lambda);
-                    ok &= 2.0 * sd(&|s| s.kp) <= tol(all.kp);
+                    // k_p is undefined for a singular covariance matrix.
+                    ok &= all.kp.is_nan() || 2.0 * sd(&|s| s.kp) <= tol(all.kp);
                     ok &= 2.0 * sd(&|s| s.kq) <= tol(all.kq);
                     if ok {
                         converged = true;
@@ -888,7 +890,8 @@ pub fn mcm(
     let smallest_region_area = (m == 2 && options.mesh > 0).then(|| smallest_region_area(&values, p, options.mesh));
     let (mut gum_ellipsoid_coverage, mut gum_rectangle_coverage) = (None, None);
     if let Some(g) = gum {
-        if let Some(l) = cholesky(&g.covariance).filter(|l| (0..m).all(|j| l[j][j] > 0.0)) {
+        if let Some(l) = cholesky(&g.covariance).filter(|l| (0..m).all(|j| l[j][j] > 1e-7 * g.covariance[j][j].sqrt()))
+        {
             let (mut inside_e, mut inside_r) = (0usize, 0usize);
             let mut w = vec![0.0; m];
             let ke2 = g.k_ellipsoid * g.k_ellipsoid;
@@ -1307,5 +1310,34 @@ mod tests {
         assert!(close(mc.smallest_region_area.unwrap(), 9.4, 0.3), "{:?}", mc.smallest_region_area);
         // The GUM ellipse (k_p = 2.45) contains more than 95 % of the draws (968 of 1 000 in the text).
         assert!(mc.gum_ellipsoid_coverage.unwrap() > 0.96);
+    }
+
+    #[test]
+    fn dependent_outputs_have_no_ellipsoid_but_a_rectangle() {
+        // Amount fractions from two ratios sum to 1: the output covariance is
+        // singular (JCGM 102 9.4.2.3 note 2). The Monte Carlo evaluation
+        // still gives the moments and the hyper-rectangle.
+        let model = MultivariateModel::builder()
+            .quantity("R1", Distribution::Normal { mean: 0.05, sd: 2.5e-6 })
+            .quantity("R2", Distribution::Normal { mean: 0.033, sd: 3.4e-6 })
+            .output("x0", None, "1/(1 + R1 + R2)", None)
+            .output("x1", None, "R1/(1 + R1 + R2)", None)
+            .output("x2", None, "R2/(1 + R1 + R2)", None)
+            .build()
+            .unwrap();
+        let opts = MultiMcmOptions {
+            trials: MultiTrials::Fixed(50_000),
+            coverage_probability: 0.95,
+            seed: 1,
+            mesh: 0,
+            keep_values: false,
+        };
+        let g = gum(&model, 0.95).unwrap();
+        let mc = mcm(&model, &opts, Some(&g)).unwrap();
+        assert!(validate(&g, &mc, 2).d_kp.is_nan());
+        assert!(mc.k_ellipsoid.is_nan());
+        assert!(mc.k_rectangle > 1.5 && mc.k_rectangle < 3.0, "{}", mc.k_rectangle);
+        let s: f64 = mc.estimate.iter().sum();
+        assert!((s - 1.0).abs() < 1e-12);
     }
 }
