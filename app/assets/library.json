@@ -15786,6 +15786,236 @@
   }
  },
  {
+  "path": "library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "nicob-pcb28-sediment-degrees-of-freedom",
+    "field": "chemistry",
+    "title": {
+     "en": "PCB 28 in sediment from six laboratories with degrees of freedom: DerSimonian–Laird, Linear Pool and leave-one-out degrees of equivalence (NIST Consensus Builder §4.2)",
+     "tr": "Serbestlik dereceli altı laboratuvardan sedimentte PCB 28: DerSimonian–Laird, Linear Pool ve birini dışarıda bırakan eşdeğerlik dereceleri (NIST Consensus Builder §4.2)"
+    },
+    "description": {
+     "en": "Mass fraction of PCB 28 (2,4,4'-trichlorobiphenyl) in a sediment, measured by six laboratories that state the degrees of freedom of their standard uncertainties (Exhibit 6). One ν is 2: its Student t distribution has no finite variance, and NICOB rescales it with an approximation (DoEUnilateralDerSimonianLaird.R, linearOP.R), which the program follows.",
+     "tr": "Bir sedimentte PCB 28 (2,4,4'-triklorobifenil) kütle kesri; altı laboratuvar standart belirsizliklerinin serbestlik derecelerini bildirir (Örnek 6). Bir ν değeri 2'dir: Student t dağılımının sonlu varyansı yoktur ve NICOB onu bir yaklaşımla yeniden ölçekler (DoEUnilateralDerSimonianLaird.R, linearOP.R); program bunu izler."
+    },
+    "explanation": [
+     {
+      "en": "The bootstrap draws u_j,k = u_j √(ν_j/χ²_νj) for each result (NICOB §A.2 step c); the Linear Pool mixes rescaled t distributions with means x_j and standard deviations u_j.",
+      "tr": "Bootstrap her sonuç için u_j,k = u_j √(ν_j/χ²_νj) çeker (NICOB §A.2 adım c); Linear Pool ortalamaları x_j, standart sapmaları u_j olan yeniden ölçeklenmiş t dağılımlarını karıştırır."
+     },
+     {
+      "en": "Leave-one-out degrees of equivalence with t-distributed deviations e for the results with finite ν; 1 of the 15 bilateral pairs differ significantly from zero.",
+      "tr": "Sonlu ν'li sonuçlar için t dağılımlı sapmalarla birini dışarıda bırakan eşdeğerlik dereceleri; 15 iki taraflı çiftten 1'i sıfırdan anlamlı biçimde farklıdır."
+     }
+    ],
+    "tags": [
+     "nicob",
+     "consensus",
+     "degrees-of-equivalence",
+     "leave-one-out",
+     "bilateral",
+     "degrees-of-freedom",
+     "linear-pool"
+    ],
+    "notes": [
+     {
+      "en": "Participants are coded Lab 1 to Lab 6 in the order of Exhibit 6.",
+      "tr": "Katılımcılar 6. örnekteki sırayla Lab 1 – Lab 6 olarak kodlanmıştır."
+     },
+     {
+      "en": "The printed bootstrap u, 0.77 ng/g, is a Monte Carlo estimate: an independent numpy evaluation with 10⁶ replicates gives 0.752 ng/g (the program 0.751), and subsamples of 10⁴ replicates spread from 0.739 to 0.767 ng/g; the tolerance includes this dispersion. With ν = 2 the Linear Pool has heavy tails and its sample standard deviation is unstable (printed 1.55, program 1.51 ng/g).",
+      "tr": "Basılı bootstrap u, 0,77 ng/g, bir Monte Carlo tahminidir: 10⁶ tekrarlı bağımsız numpy hesabı 0,752 ng/g (program 0,751) verir ve 10⁴ tekrarlı alt örnekler 0,739 ile 0,767 ng/g arasında dağılır; tolerans bu saçılımı içerir. ν = 2 ile Linear Pool'un kuyrukları kalındır ve örnek standart sapması kararsızdır (basılı 1,55, program 1,51 ng/g)."
+     },
+     {
+      "en": "The hierarchical Bayesian row of Exhibit 7 (33.6, 0.79 ng/g) uses priors for the σ_j with the stated ν_j, which the program does not implement (research log D68).",
+      "tr": "Örnek 7'deki hiyerarşik Bayes satırı (33,6, 0,79 ng/g) belirtilen ν_j ile σ_j için önseller kullanır; program bunu uygulamaz (araştırma günlüğü D68)."
+     }
+    ],
+    "sources": [
+     {
+      "document": "NIST Consensus Builder user manual (Koepke, Lafarge, Possolo & Toman, 2020 Nov 12)",
+      "section": "§4.2, Exhibits 6 and 7; §A.2, §A.4, §A.5.1",
+      "url": "https://consensus.nist.gov"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "w(PCB 28)",
+    "unit": "ng/g",
+    "results": [
+     {
+      "name": "Lab 1",
+      "value": 34.3,
+      "u": 1.03,
+      "dof": 60
+     },
+     {
+      "name": "Lab 2",
+      "value": 32.9,
+      "u": 0.69,
+      "dof": 4
+     },
+     {
+      "name": "Lab 3",
+      "value": 34.53,
+      "u": 0.83,
+      "dof": 18
+     },
+     {
+      "name": "Lab 4",
+      "value": 32.42,
+      "u": 0.29,
+      "dof": 2
+     },
+     {
+      "name": "Lab 5",
+      "value": 31.9,
+      "u": 0.4,
+      "dof": 13
+     },
+     {
+      "name": "Lab 6",
+      "value": 35.8,
+      "u": 0.38,
+      "dof": 60
+     }
+    ],
+    "linear_pool": true,
+    "leave_one_out": true,
+    "bilateral": true,
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "mean": {
+      "value": 33.6,
+      "tolerance": 0.05
+     },
+     "bootstrap_u": {
+      "value": 0.77,
+      "tolerance": 0.03
+     },
+     "interval_lower": {
+      "value": 32.0,
+      "tolerance": 0.1
+     },
+     "interval_upper": {
+      "value": 35.2,
+      "tolerance": 0.1
+     },
+     "linear_pool_mean": {
+      "value": 33.6,
+      "tolerance": 0.1
+     },
+     "linear_pool_u": {
+      "value": 1.55,
+      "tolerance": 0.1
+     },
+     "linear_pool_lower": {
+      "value": 31.4,
+      "tolerance": 0.1
+     },
+     "linear_pool_upper": {
+      "value": 36.3,
+      "tolerance": 0.1
+     },
+     "leave_one_out": {
+      "Lab 1": {
+       "d": {
+        "value": 0.811553765,
+        "tolerance": 0.000001
+       },
+       "expanded": {
+        "value": 4.430996,
+        "tolerance": 0.13293
+       }
+      },
+      "Lab 2": {
+       "d": {
+        "value": -0.842659061,
+        "tolerance": 0.000001
+       },
+       "expanded": {
+        "value": 4.232114,
+        "tolerance": 0.126963
+       }
+      },
+      "Lab 3": {
+       "d": {
+        "value": 1.096448262,
+        "tolerance": 0.0000010964482617635765
+       },
+       "expanded": {
+        "value": 4.323394,
+        "tolerance": 0.129702
+       }
+      },
+      "Lab 4": {
+       "d": {
+        "value": -1.450911815,
+        "tolerance": 0.0000014509118149053533
+       },
+       "expanded": {
+        "value": 4.61989,
+        "tolerance": 0.138597
+       }
+      },
+      "Lab 5": {
+       "d": {
+        "value": -2.074388969,
+        "tolerance": 0.000002074388969421477
+       },
+       "expanded": {
+        "value": 4.215336,
+        "tolerance": 0.12646
+       }
+      },
+      "Lab 6": {
+       "d": {
+        "value": 2.900904108,
+        "tolerance": 0.0000029009041083056244
+       },
+       "expanded": {
+        "value": 1.983316,
+        "tolerance": 0.059499
+       }
+      }
+     },
+     "bilateral": {
+      "Lab 5|Lab 6": {
+       "d": {
+        "value": -4.975293078,
+        "tolerance": 0.000004975293077727101
+       },
+       "expanded": {
+        "value": 4.591341,
+        "tolerance": 0.13774
+       }
+      },
+      "Lab 1|Lab 2": {
+       "d": {
+        "value": 1.654212826,
+        "tolerance": 0.0000016542128256559252
+       },
+       "expanded": {
+        "value": 6.066654,
+        "tolerance": 0.182
+       }
+      }
+     }
+    },
+    "reference": {
+     "en": "NICOB manual Exhibit 7: DerSimonian–Laird 33.6 ng/g, u 0.77, (32.0, 35.2); Linear Pool 33.6, 1.55, (31.4, 36.3) ng/g (tolerances: printed digit and Monte Carlo dispersion, see the notes). Degrees of equivalence: numpy port of the NICOB source, 10⁶ draws; tolerance 3 % of U95 %.",
+     "tr": "NICOB kılavuzu Örnek 7: DerSimonian–Laird 33,6 ng/g, u 0,77, (32,0, 35,2); Linear Pool 33,6, 1,55, (31,4, 36,3) ng/g (toleranslar: basılı basamak ve Monte Carlo saçılımı, notlara bakınız). Eşdeğerlik dereceleri: NICOB kaynağının numpy aktarımı, 10⁶ çekiliş; tolerans U95 %'in %3'ü."
+    }
+   }
+  }
+ },
+ {
   "path": "library/chemistry/nist-tn1900-e8-molecular-weight-co2.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -47889,6 +48119,321 @@
     "reference": {
      "en": "Merkatas et al. (2019), Table 4, rows DL, ML, BG and LOP. ML u from the paper's table; BG and LOP from MCMC and Monte Carlo (tolerances: half a unit plus the sampling error of MCMC, about 3 × 10⁻⁶ for the mean and 10⁻⁵ for the limits; exact grid 6.673 896, 0.000 271, (6.673 342, 6.674 415), median τ 0.000 936).",
      "tr": "Merkatas vd. (2019), Tablo 4, DL, ML, BG ve LOP satırları. BG ve LOP MCMC ve Monte Carlo'dan (toleranslar: yarım birim artı MCMC örnekleme hatası, ortalama için yaklaşık 3 × 10⁻⁶, sınırlar için 10⁻⁵; kesin ızgara 6,673 896, 0,000 271, (6,673 342, 6,674 415), τ ortancası 0,000 936)."
+    }
+   }
+  }
+ },
+ {
+  "path": "library/physical/nicob-co60-activity-leave-one-out-bilateral.json",
+  "project": {
+   "format": "uncertainty-calculations/project",
+   "version": 1,
+   "metadata": {
+    "id": "nicob-co60-activity-leave-one-out-bilateral",
+    "field": "physical",
+    "title": {
+     "en": "Activity of ⁶⁰Co in 19 laboratories: consensus value with leave-one-out and bilateral degrees of equivalence (NIST Consensus Builder §4.4)",
+     "tr": "19 laboratuvarda ⁶⁰Co aktivitesi: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleriyle uzlaşı değeri (NIST Consensus Builder §4.4)"
+    },
+    "description": {
+     "en": "SIR equivalent activities of ⁶⁰Co from the ongoing key comparison BIPM.RI(II)-K1.Co-60, as listed in the NICOB manual (Exhibit 19). Cochran's Q = 36.9 with 18 degrees of freedom (p = 0.005): the results are more dispersed than their uncertainties, and the dark uncertainty is τ̂ = 11.9 kBq.",
+     "tr": "Süren anahtar karşılaştırma BIPM.RI(II)-K1.Co-60'tan, NICOB kılavuzunda (Örnek 19) listelenen ⁶⁰Co SIR eşdeğer aktiviteleri. Cochran Q = 36,9, 18 serbestlik derecesi (p = 0,005): sonuçlar belirsizliklerinden daha dağınıktır; karanlık belirsizlik τ̂ = 11,9 kBq'dir."
+    },
+    "explanation": [
+     {
+      "en": "The degrees of equivalence are computed in the leave-one-out version D*_j = x_j − μ̂₋ⱼ (NICOB §3.2.8): μ̂₋ⱼ is the DerSimonian–Laird value of the other 18 results, so a result does not pull the reference value towards itself. U95 %(D*) comes from draws x_j + e − μ₋ⱼ with μ₋ⱼ from the modified Knapp–Hartung t approximation and e ~ N(0, τ²₋ⱼ + u_j²).",
+      "tr": "Eşdeğerlik dereceleri birini dışarıda bırakan biçimde hesaplanır, D*_j = x_j − μ̂₋ⱼ (NICOB §3.2.8): μ̂₋ⱼ diğer 18 sonucun DerSimonian–Laird değeridir; böylece bir sonuç referans değeri kendine doğru çekmez. U95 %(D*), μ₋ⱼ değiştirilmiş Knapp–Hartung t yaklaşımından ve e ~ N(0, τ²₋ⱼ + u_j²) olmak üzere x_j + e − μ₋ⱼ çekilişlerinden gelir."
+     },
+     {
+      "en": "Bilateral degrees of equivalence B_ij = D*_i − D*_j use the same draws; 9 of the 171 pairs differ significantly from zero (|B| > U95 %), against 4 in the MRA version D_j = x_j − μ̂.",
+      "tr": "İki taraflı eşdeğerlik dereceleri B_ij = D*_i − D*_j aynı çekilişleri kullanır; 171 çiftten 9'u sıfırdan anlamlı biçimde farklıdır (|B| > U95 %); MRA biçiminde (D_j = x_j − μ̂) bu sayı 4'tür."
+     }
+    ],
+    "tags": [
+     "nicob",
+     "consensus",
+     "key-comparison",
+     "degrees-of-equivalence",
+     "leave-one-out",
+     "bilateral",
+     "radionuclide"
+    ],
+    "notes": [
+     {
+      "en": "Participants are coded Lab 1 to Lab 19 in the order of Exhibit 19 of the manual. The official reference value and degrees of equivalence of BIPM.RI(II)-K1.Co-60 are those of the KCDB; the degrees of equivalence here illustrate the procedures on the same data.",
+      "tr": "Katılımcılar kılavuzun 19. örneğindeki sırayla Lab 1 – Lab 19 olarak kodlanmıştır. BIPM.RI(II)-K1.Co-60'ın resmî referans değeri ve eşdeğerlik dereceleri KCDB'dekilerdir; buradaki eşdeğerlik dereceleri yöntemleri aynı veri üzerinde gösterir."
+     },
+     {
+      "en": "The degrees of equivalence are shown only in a figure in the manual (Exhibit 22); their reference values here come from a numpy port of the NICOB R source with 10⁶ draws (research log D86). The program, with 10⁵ draws, agrees within 1 % in U.",
+      "tr": "Kılavuzda eşdeğerlik dereceleri yalnızca bir şekilde (Örnek 22) gösterilir; buradaki referans değerleri NICOB R kaynağının 10⁶ çekilişli numpy aktarımından gelir (araştırma günlüğü D86). 10⁵ çekilişli program U'da %1 içinde uyuşur."
+     }
+    ],
+    "sources": [
+     {
+      "document": "NIST Consensus Builder user manual (Koepke, Lafarge, Possolo & Toman, 2020 Nov 12)",
+      "section": "§4.4, Exhibits 19, 21 and 22; §A.5.1",
+      "url": "https://consensus.nist.gov"
+     }
+    ]
+   },
+   "consensus": {
+    "measurand": "A (SIR equivalent activity)",
+    "unit": "kBq",
+    "results": [
+     {
+      "name": "Lab 1",
+      "value": 7077,
+      "u": 8
+     },
+     {
+      "name": "Lab 2",
+      "value": 7065,
+      "u": 26
+     },
+     {
+      "name": "Lab 3",
+      "value": 7056,
+      "u": 10
+     },
+     {
+      "name": "Lab 4",
+      "value": 7047,
+      "u": 22
+     },
+     {
+      "name": "Lab 5",
+      "value": 7051,
+      "u": 18
+     },
+     {
+      "name": "Lab 6",
+      "value": 7060,
+      "u": 4
+     },
+     {
+      "name": "Lab 7",
+      "value": 7090,
+      "u": 11
+     },
+     {
+      "name": "Lab 8",
+      "value": 7053,
+      "u": 21
+     },
+     {
+      "name": "Lab 9",
+      "value": 7037,
+      "u": 8
+     },
+     {
+      "name": "Lab 10",
+      "value": 7099,
+      "u": 46
+     },
+     {
+      "name": "Lab 11",
+      "value": 7057,
+      "u": 16
+     },
+     {
+      "name": "Lab 12",
+      "value": 7098,
+      "u": 16
+     },
+     {
+      "name": "Lab 13",
+      "value": 7050,
+      "u": 15
+     },
+     {
+      "name": "Lab 14",
+      "value": 7040,
+      "u": 40
+     },
+     {
+      "name": "Lab 15",
+      "value": 7050,
+      "u": 8
+     },
+     {
+      "name": "Lab 16",
+      "value": 7039,
+      "u": 17
+     },
+     {
+      "name": "Lab 17",
+      "value": 7101,
+      "u": 24
+     },
+     {
+      "name": "Lab 18",
+      "value": 7083,
+      "u": 14
+     },
+     {
+      "name": "Lab 19",
+      "value": 7057,
+      "u": 17
+     }
+    ],
+    "linear_pool": true,
+    "leave_one_out": true,
+    "bilateral": true,
+    "trials": 100000,
+    "seed": 1
+   },
+   "expected": {
+    "consensus": {
+     "mean": {
+      "value": 7062,
+      "tolerance": 0.5
+     },
+     "bootstrap_u": {
+      "value": 4,
+      "tolerance": 0.6
+     },
+     "interval_lower": {
+      "value": 7053,
+      "tolerance": 0.6
+     },
+     "interval_upper": {
+      "value": 7071,
+      "tolerance": 0.6
+     },
+     "linear_pool_mean": {
+      "value": 7064,
+      "tolerance": 1.0
+     },
+     "linear_pool_u": {
+      "value": 29,
+      "tolerance": 0.7
+     },
+     "linear_pool_lower": {
+      "value": 7012,
+      "tolerance": 1.5
+     },
+     "linear_pool_upper": {
+      "value": 7127,
+      "tolerance": 1.5
+     },
+     "leave_one_out": {
+      "Lab 1": {
+       "d": {
+        "value": 16.506111654,
+        "tolerance": 0.00001650611165394457
+       },
+       "expanded": {
+        "value": 29.636424,
+        "tolerance": 0.889093
+       }
+      },
+      "Lab 6": {
+       "d": {
+        "value": -2.542078959,
+        "tolerance": 0.000002542078959493665
+       },
+       "expanded": {
+        "value": 33.049935,
+        "tolerance": 0.991498
+       }
+      },
+      "Lab 7": {
+       "d": {
+        "value": 30.299218886,
+        "tolerance": 0.000030299218885996197
+       },
+       "expanded": {
+        "value": 30.825541,
+        "tolerance": 0.924766
+       }
+      },
+      "Lab 9": {
+       "d": {
+        "value": -27.482567421,
+        "tolerance": 0.00002748256742076319
+       },
+       "expanded": {
+        "value": 26.403728,
+        "tolerance": 0.792112
+       }
+      },
+      "Lab 12": {
+       "d": {
+        "value": 37.782496804,
+        "tolerance": 0.00003778249680414683
+       },
+       "expanded": {
+        "value": 38.759897,
+        "tolerance": 1.162797
+       }
+      },
+      "Lab 17": {
+       "d": {
+        "value": 40.003514136,
+        "tolerance": 0.00004000351413550288
+       },
+       "expanded": {
+        "value": 52.855525,
+        "tolerance": 1.585666
+       }
+      }
+     },
+     "bilateral": {
+      "Lab 1|Lab 9": {
+       "d": {
+        "value": 43.988679075,
+        "tolerance": 0.00004398867907470776
+       },
+       "expanded": {
+        "value": 39.181111,
+        "tolerance": 1.175433
+       }
+      },
+      "Lab 7|Lab 9": {
+       "d": {
+        "value": 57.781786307,
+        "tolerance": 0.00005778178630675938
+       },
+       "expanded": {
+        "value": 40.248327,
+        "tolerance": 1.20745
+       }
+      },
+      "Lab 7|Lab 15": {
+       "d": {
+        "value": 43.601404912,
+        "tolerance": 0.000043601404911628374
+       },
+       "expanded": {
+        "value": 43.598492,
+        "tolerance": 1.307955
+       }
+      },
+      "Lab 7|Lab 16": {
+       "d": {
+        "value": 54.405604456,
+        "tolerance": 0.00005440560445644132
+       },
+       "expanded": {
+        "value": 51.709294,
+        "tolerance": 1.551279
+       }
+      },
+      "Lab 1|Lab 2": {
+       "d": {
+        "value": 13.530824164,
+        "tolerance": 0.000013530824163843135
+       },
+       "expanded": {
+        "value": 64.128396,
+        "tolerance": 1.923852
+       }
+      }
+     }
+    },
+    "reference": {
+     "en": "NICOB manual Exhibit 21: DerSimonian–Laird 7062 kBq, u 4 kBq, (7053, 7071) kBq; Linear Pool 7064, 29, (7012, 7127) kBq (tolerances: the printed digit and the Monte Carlo dispersion). Degrees of equivalence: numpy port of the NICOB source, 10⁶ draws; tolerance 3 % of U95 % (5σ of the program's 10⁵ draws).",
+     "tr": "NICOB kılavuzu Örnek 21: DerSimonian–Laird 7062 kBq, u 4 kBq, (7053, 7071) kBq; Linear Pool 7064, 29, (7012, 7127) kBq (toleranslar: basılı basamak ve Monte Carlo saçılımı). Eşdeğerlik dereceleri: NICOB kaynağının numpy aktarımı, 10⁶ çekiliş; tolerans U95 %'in %3'ü (programın 10⁵ çekilişinin 5σ'sı)."
     }
    }
   }

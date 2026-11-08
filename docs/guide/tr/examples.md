@@ -2,13 +2,13 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (143)
+- Kimya (144)
 - Elektrik ve RF (36)
 - Akış ve hacim (7)
 - Genel (yöntem doğrulama) (24)
 - Uzunluk (12)
 - Kütle (31)
-- Fiziksel özellikler (15)
+- Fiziksel özellikler (16)
 - Basınç (6)
 - Sıcaklık (10)
 
@@ -1512,6 +1512,33 @@ Kütle kesri hakkındaki bilgi durumu α = 88 873,7 ve β = 7,11 olan bir beta d
 - w_BA = (0,999920 ± 0,000059) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang tr`
+
+### Serbestlik dereceli altı laboratuvardan sedimentte PCB 28: DerSimonian–Laird, Linear Pool ve birini dışarıda bırakan eşdeğerlik dereceleri (NIST Consensus Builder §4.2)
+
+`nicob-pcb28-sediment-degrees-of-freedom` — NIST Consensus Builder user manual (Koepke, §4.2, Exhibits 6 and 7; §A.2, §A.4, §A.5.1
+
+Bir sedimentte PCB 28 (2,4,4'-triklorobifenil) kütle kesri; altı laboratuvar standart belirsizliklerinin serbestlik derecelerini bildirir (Örnek 6). Bir ν değeri 2'dir: Student t dağılımının sonlu varyansı yoktur ve NICOB onu bir yaklaşımla yeniden ölçekler (DoEUnilateralDerSimonianLaird.R, linearOP.R); program bunu izler.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. Bootstrap her sonuç için u_j,k = u_j √(ν_j/χ²_νj) çeker (NICOB §A.2 adım c); Linear Pool ortalamaları x_j, standart sapmaları u_j olan yeniden ölçeklenmiş t dağılımlarını karıştırır.
+2. Sonlu ν'li sonuçlar için t dağılımlı sapmalarla birini dışarıda bırakan eşdeğerlik dereceleri; 15 iki taraflı çiftten 1'i sıfırdan anlamlı biçimde farklıdır.
+
+**Sonuç:**
+
+- w(PCB 28): uzlaşı değeri 33,6004 ng/g, standart belirsizlik 0,75 ng/g, %95 kapsam aralığı [32,0559, 35,1496] ng/g (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 1,7 ng/g; Cochran Q = 68,22, serbestlik derecesi 5
+- w(PCB 28): 33,6427 ng/g, standart belirsizlik 1,5 ng/g, %95 kapsam aralığı [31,4381, 36,2815] ng/g (doğrusal havuz)
+
+**Notlar:**
+
+- Katılımcılar 6. örnekteki sırayla Lab 1 – Lab 6 olarak kodlanmıştır.
+- Basılı bootstrap u, 0,77 ng/g, bir Monte Carlo tahminidir: 10⁶ tekrarlı bağımsız numpy hesabı 0,752 ng/g (program 0,751) verir ve 10⁴ tekrarlı alt örnekler 0,739 ile 0,767 ng/g arasında dağılır; tolerans bu saçılımı içerir. ν = 2 ile Linear Pool'un kuyrukları kalındır ve örnek standart sapması kararsızdır (basılı 1,55, program 1,51 ng/g).
+- Örnek 7'deki hiyerarşik Bayes satırı (33,6, 0,79 ng/g) belirtilen ν_j ile σ_j için önseller kullanır; program bunu uygulamaz (araştırma günlüğü D68).
+
+**Çalıştırma:** `uncertainty run library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json --lang tr`
 
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 
@@ -6162,6 +6189,32 @@ Koepke vd. (2017) verileri; JILA-10 düzeltilmiş (6,672 60 ± 0,000 25) ve 2018
 - Uygulanmayanlar: Birge çarpımsal modelleri (BRE, BRM, BRQ), CODATA genişletmesi (MTE), Mandel–Paule, REML, Student-t etkileri, makalenin Laplace modeli (Laplace etkileri ve hataları) ve Bayesçi karışım modeli (BMM).
 
 **Çalıştırma:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang tr`
+
+### 19 laboratuvarda ⁶⁰Co aktivitesi: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleriyle uzlaşı değeri (NIST Consensus Builder §4.4)
+
+`nicob-co60-activity-leave-one-out-bilateral` — NIST Consensus Builder user manual (Koepke, §4.4, Exhibits 19, 21 and 22; §A.5.1
+
+Süren anahtar karşılaştırma BIPM.RI(II)-K1.Co-60'tan, NICOB kılavuzunda (Örnek 19) listelenen ⁶⁰Co SIR eşdeğer aktiviteleri. Cochran Q = 36,9, 18 serbestlik derecesi (p = 0,005): sonuçlar belirsizliklerinden daha dağınıktır; karanlık belirsizlik τ̂ = 11,9 kBq'dir.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. Eşdeğerlik dereceleri birini dışarıda bırakan biçimde hesaplanır, D*_j = x_j − μ̂₋ⱼ (NICOB §3.2.8): μ̂₋ⱼ diğer 18 sonucun DerSimonian–Laird değeridir; böylece bir sonuç referans değeri kendine doğru çekmez. U95 %(D*), μ₋ⱼ değiştirilmiş Knapp–Hartung t yaklaşımından ve e ~ N(0, τ²₋ⱼ + u_j²) olmak üzere x_j + e − μ₋ⱼ çekilişlerinden gelir.
+2. İki taraflı eşdeğerlik dereceleri B_ij = D*_i − D*_j aynı çekilişleri kullanır; 171 çiftten 9'u sıfırdan anlamlı biçimde farklıdır (|B| > U95 %); MRA biçiminde (D_j = x_j − μ̂) bu sayı 4'tür.
+
+**Sonuç:**
+
+- A (SIR equivalent activity): uzlaşı değeri 7062,06 kBq, standart belirsizlik 4,3 kBq, %95 kapsam aralığı [7053,39, 7070,70] kBq (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 12 kBq; Cochran Q = 36,89, serbestlik derecesi 18
+- A (SIR equivalent activity): 7063,81 kBq, standart belirsizlik 29 kBq, %95 kapsam aralığı [7012,61, 7127,20] kBq (doğrusal havuz)
+
+**Notlar:**
+
+- Katılımcılar kılavuzun 19. örneğindeki sırayla Lab 1 – Lab 19 olarak kodlanmıştır. BIPM.RI(II)-K1.Co-60'ın resmî referans değeri ve eşdeğerlik dereceleri KCDB'dekilerdir; buradaki eşdeğerlik dereceleri yöntemleri aynı veri üzerinde gösterir.
+- Kılavuzda eşdeğerlik dereceleri yalnızca bir şekilde (Örnek 22) gösterilir; buradaki referans değerleri NICOB R kaynağının 10⁶ çekilişli numpy aktarımından gelir (araştırma günlüğü D86). 10⁵ çekilişli program U'da %1 içinde uyuşur.
+
+**Çalıştırma:** `uncertainty run library/physical/nicob-co60-activity-leave-one-out-bilateral.json --lang tr`
 
 ### Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13)
 

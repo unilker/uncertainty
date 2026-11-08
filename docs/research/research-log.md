@@ -3404,3 +3404,35 @@ with a t distribution, the validation of the GUM result (JCGM 101 8) is followed
 s/√n with ν = n − 1, the MCM samples t_ν(x̄, s²/n) (6.4.9.2; certificates 6.4.9.7) with standard deviation
 √(ν/(ν − 2))·s/√n (not defined for ν ≤ 2), so a failed validation at small ν need not mean an error; TN 1900 and
 the NUM rescale. An option for the TN 1900 convention is open (F31, F35).
+
+## 2026-11-08 (session 22, continued) — Leave-one-out and bilateral degrees of equivalence
+
+**D86. Leave-one-out and bilateral DoE of the DerSimonian–Laird procedure, as in the NICOB source (review item
+20).** `consensus.leave_one_out` and `consensus.bilateral`; core `dl_degrees_of_equivalence`. Followed line by line
+from DoEUnilateralDerSimonianLaird.R and DoEBilateralDerSimonianLaird.R (Koepke & Possolo, 2020-05-01):
+
+- MRA: the bootstrap columns D_j,k = x_j,k − μ_k, centred on D_j (NICOB "sweep"); bilateral draws D_i,k − D_j,k,
+  whose μ_k cancels.
+- Leave-one-out: D*_j = x_j − μ̂_−j (DL of the others). Draws x_j + e_j,k − μ_−j,k with μ_−j,k = μ̂_−j +
+  u*·t_{n−2}/φ(n − 2), u* = √(q*/Σw), q* = max(1, Σw(x − μ̂_−j)²/(n − 2)) (modified Knapp–Hartung, Röver, Knapp &
+  Friede 2015), e ~ N(0, τ²_−j,k + u_j²) or σ·t_νj/φ(ν_j), τ²_−j,k drawn from the gamma approximation of the other
+  results. U95 % about D*_j.
+- φ(ν) = √(ν/(ν − 2)), and for ν ≤ 2 NICOB's approximation 1.5(1 − ¾(a − 4b(ν^−¾ − 1)/3))^−4/3, a = 0.4668994,
+  b = −0.3998882. The Linear Pool now uses the same factor instead of refusing ν ≤ 2 (linearOP.R does so).
+- NICOB notes in its own code: the manual says the same τ² sample serves all j, the code draws one per j (the
+  program follows the code); the treatment of excluded participants is marked "AP CHECK" in the source (not
+  implemented here: all results enter the consensus).
+
+Independent check: `tools/research/consensus/nicob_doe.py`, a numpy port of the R code (10⁶ draws), on the two
+datasets shipped with NICOB. The program (10⁵ draws) reproduces every D and B exactly and every U95 % within
+0.7 % (⁶⁰Co) and 1.7 % (PCB 28, with ν = 2 for one result); the significant bilateral pairs agree: 4 (MRA) and 9
+(leave-one-out) of 171 for ⁶⁰Co, 0 and 1 of 15 for PCB 28. Library: `nicob-co60-activity-leave-one-out-bilateral`
+(manual §4.4, Exhibit 21: DL 7062 kBq, u 4, (7053, 7071); LP 7064, 29, (7012, 7127), all reproduced) and
+`nicob-pcb28-sediment-degrees-of-freedom` (§4.2, Exhibit 7: DL 33.6 ng/g, (32.0, 35.2); LP 33.6, (31.4, 36.3)).
+Participants coded as in D81.
+
+**F99. NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).** Printed u = 0.77 ng/g;
+the program gives 0.751 and an independent numpy evaluation with 10⁶ replicates 0.752. Subsamples of 10⁴
+replicates spread from 0.739 to 0.767, so the printed value is a Monte Carlo estimate with few replicates (as
+F95, F96). The printed Linear Pool u, 1.55 against 1.51, is the sample standard deviation of a mixture with a
+t₂ component, which has heavy tails; the interval (31.4, 36.3) is reproduced.

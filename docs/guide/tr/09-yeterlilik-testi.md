@@ -144,7 +144,19 @@ sonucun olabilirliği bir Laplace ve bir normal yoğunluğun kapalı biçimli ev
 sabitinin 22 kestirimine Stan ile uydurur; program aynı 71,69(66) (km/s)/Mpc değerini verir.
 
 Kütüphane: Koepke vd. 2017 (G, ¹³⁷Cs ve ⁹⁰Sr yarı ömürleri), IUPAC 2024 Örnek 3E/4M/4N (iridyum) ve 4F
-(CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître sabiti). Henüz uygulanmayanlar: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
+(CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître sabiti).
+
+**Birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri** (NICOB §3.2.8, §A.5.1; DerSimonian–Laird). MRA
+biçiminde (D_j = x_j − μ̂) j katılımcısının sonucu μ̂'nün içindedir; bu yüzden |D_j| küçük çıkma eğilimindedir.
+`"leave_one_out": true` ile program D*_j = x_j − μ̂₋ⱼ'yi verir; μ̂₋ⱼ diğer sonuçların DerSimonian–Laird değeridir.
+U95 %(D*_j), x_j + e − μ₋ⱼ çekilişlerinden gelir: μ₋ⱼ değiştirilmiş Knapp–Hartung t yaklaşımından (Röver, Knapp ve
+Friede 2015), e ise N(0, τ²₋ⱼ + u_j²)'den ya da ν_j verilmişse yeniden ölçeklenmiş t dağılımından çekilir.
+`"bilateral": true` her çift için aynı çekilişlerden U95 %(B_ij) ile B_ij = D_i − D_j'yi ekler; rapor
+|B| > U95 %(B) olan çiftleri işaretler ve on katılımcıya kadar matrisin tamamını yazar. Algoritma NICOB R kaynağını
+satır satır izler; bağımsız bir numpy aktarımı Monte Carlo saçılımı içinde uyuşur (kütüphane projeleri `nicob-co60-*`,
+19 laboratuvar, ve serbestlik dereceli `nicob-pcb28-*`). t dağılımının sonlu varyansı olmayan ν_j ≤ 2 durumunda
+program, doğrusal havuzda da NICOB'un ölçek çarpanı yaklaşımını kullanır. Uygulanmayanlar: Bayesçi ve doğrusal havuz
+yöntemlerinin eşdeğerlik dereceleri ve sonlu ν_j ile σ_j önselleri (D68).
 
 *Uygulamada* *Yeni uzlaşı değeri* bir şablonla başlar. *Veriler* sekmesinde katılımcı sonuçları her satıra bir
 tane yapıştırılır (ad, değer, standart belirsizlik ve isteğe bağlı serbestlik derecesi) ve yöntemler açılıp

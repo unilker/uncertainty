@@ -31,6 +31,11 @@ pub(super) struct CsLabels {
     pub method_ml: &'static str,
     pub statement_ml: &'static str,
     pub doe_note: &'static str,
+    pub doe_note_loo: &'static str,
+    pub bilateral: &'static str,
+    pub bilateral_note: &'static str,
+    pub bilateral_none: &'static str,
+    pub bilateral_pairs: &'static str,
     pub method_dl: &'static str,
     pub method_lp: &'static str,
     pub chart: &'static str,
@@ -68,6 +73,11 @@ const CS_EN: CsLabels = CsLabels {
     method_ml: "Gaussian random-effects model with known u_j; the likelihood is maximised over τ with μ̂(τ) the weighted mean; the standard uncertainties come from the inverse Hessian of the negative log-likelihood (IUPAC 2024, Example 4F). With few participants they tend to be too small; the bootstrap and Bayesian procedures are preferable.",
     statement_ml: "{m}: {x}{unit}, standard uncertainty {u}{unit}; τ = {t}{unit} (maximum likelihood)",
     doe_note: "D = x − μ̂ is the unilateral degree of equivalence of the DerSimonian–Laird procedure; U95 %(D) is the half-length of the shortest interval centred at the mean of the bootstrap values of D that contains 95 % of them (NICOB §A.5.1).",
+    doe_note_loo: "D* = x − μ̂₋ⱼ is the leave-one-out degree of equivalence: μ̂₋ⱼ is the DerSimonian–Laird value of the other results, so the result does not pull the reference value towards itself; U95 %(D*) is the half-length of the shortest interval centred at D* that contains 95 % of the draws x + e − μ₋ⱼ, with μ₋ⱼ from the modified Knapp–Hartung t approximation and e from N(0, τ₋ⱼ² + u²) (NICOB §3.2.8, §A.5.1).",
+    bilateral: "Bilateral degrees of equivalence",
+    bilateral_note: "B = Dᵢ − Dⱼ with U95 %(B) from the same draws as the unilateral degrees of equivalence (NICOB §A.5.1); a pair is marked * when |B| > U95 %(B).",
+    bilateral_none: "No pair differs significantly from zero.",
+    bilateral_pairs: "Pairs with |B| > U95 %(B): {n} of {m}.",
     method_dl: "Random-effects model x_j = μ + λ_j + ε_j; τ by the method of moments; the bootstrap draws τ from the gamma approximation of the distribution of Q (Biggerstaff and Tweedie 1997), x_j from N(μ̂, τ² + u_j²) and, when ν_j is given, u_j √(ν_j/χ²); {n} replicates (NICOB §A.2).",
     method_lp: "Linear Pool: {n} draws from the mixture of Gaussian (or rescaled Student t) distributions with means x_j and standard deviations u_j (NICOB §A.4).",
     chart: "Unilateral degrees of equivalence D with U95 %(D)",
@@ -105,6 +115,11 @@ const CS_TR: CsLabels = CsLabels {
     method_ml: "u_j'leri bilinen normal rastgele etkiler modeli; olabilirlik τ üzerinden, μ̂(τ) ağırlıklı ortalama olmak üzere en büyüklenir; standart belirsizlikler negatif log-olabilirliğin Hessian matrisinin tersinden gelir (IUPAC 2024, Örnek 4F). Katılımcı sayısı az olduğunda bunlar küçük kalma eğilimindedir; bootstrap ve Bayesçi yöntemler tercih edilir.",
     statement_ml: "{m}: {x}{unit}, standart belirsizlik {u}{unit}; τ = {t}{unit} (en çok olabilirlik)",
     doe_note: "D = x − μ̂, DerSimonian–Laird yönteminin tek taraflı eşdeğerlik derecesidir; U95 %(D), D'nin bootstrap değerlerinin ortalamasında ortalanan ve bunların %95'ini içeren en kısa aralığın yarı uzunluğudur (NICOB §A.5.1).",
+    doe_note_loo: "D* = x − μ̂₋ⱼ birini dışarıda bırakan eşdeğerlik derecesidir: μ̂₋ⱼ diğer sonuçların DerSimonian–Laird değeridir, böylece sonuç referans değeri kendine doğru çekmez; U95 %(D*), D* çevresinde ortalanan ve x + e − μ₋ⱼ çekilişlerinin %95'ini içeren en kısa aralığın yarı uzunluğudur; μ₋ⱼ değiştirilmiş Knapp–Hartung t yaklaşımından, e N(0, τ₋ⱼ² + u²)'den çekilir (NICOB §3.2.8, §A.5.1).",
+    bilateral: "İki taraflı eşdeğerlik dereceleri",
+    bilateral_note: "B = Dᵢ − Dⱼ; U95 %(B) tek taraflı eşdeğerlik dereceleriyle aynı çekilişlerden hesaplanır (NICOB §A.5.1); |B| > U95 %(B) olan çiftler * ile işaretlidir.",
+    bilateral_none: "Sıfırdan anlamlı biçimde farklı çift yoktur.",
+    bilateral_pairs: "|B| > U95 %(B) olan çiftler: {m} çiftten {n}.",
     method_dl: "Rastgele etkiler modeli x_j = μ + λ_j + ε_j; τ momentler yöntemiyle; bootstrap τ'yu Q'nun dağılımının gama yaklaşımından (Biggerstaff ve Tweedie 1997), x_j'yi N(μ̂, τ² + u_j²) dağılımından ve ν_j verilmişse u_j'yi u_j √(ν_j/χ²) olarak çeker; {n} tekrar (NICOB §A.2).",
     method_lp: "Doğrusal havuz: ortalamaları x_j, standart sapmaları u_j olan normal (ya da ölçeklenmiş Student t) dağılımların karışımından {n} çekiliş (NICOB §A.4).",
     chart: "Tek taraflı eşdeğerlik dereceleri D ve U95 %(D)",
@@ -214,11 +229,17 @@ pub(super) fn markdown(
         let _ = writeln!(s, "{}\n", x.get(lang));
     }
     let _ = writeln!(s, "## {}\n", d.inputs);
-    let doe = a.bootstrap.as_ref().map(|b| &b.degrees_of_equivalence);
+    let (doe, loo) = unilateral(a);
     let _ = writeln!(
         s,
         "| {} | {}{unit} | {}{unit} | {} | {} | {}{unit} | {}{unit} |\n|---|---:|---:|---:|---:|---:|---:|",
-        d.cols[0], d.cols[1], d.cols[2], d.cols[3], d.cols[4], d.cols[5], d.cols[6]
+        d.cols[0],
+        d.cols[1],
+        d.cols[2],
+        d.cols[3],
+        d.cols[4],
+        if loo { "D*" } else { d.cols[5] },
+        if loo { "U95 %(D*)" } else { d.cols[6] }
     );
     for j in 0..n {
         let nu = a.dof.get(j).filter(|v| v.is_finite()).map_or("∞".to_string(), |v| fmt_num(*v, 3, lang));
@@ -235,8 +256,9 @@ pub(super) fn markdown(
     }
     let _ = writeln!(s);
     if doe.is_some() {
-        let _ = writeln!(s, "{}\n", d.doe_note);
+        let _ = writeln!(s, "{}\n", if loo { d.doe_note_loo } else { d.doe_note });
     }
+    bilateral_section(&mut s, a, lang);
     let _ = writeln!(s, "## {}\n", d.dl);
     let df = (n - 1).to_string();
     let verdict = if a.dl.q_p_value < 0.05 { d.heterogeneous } else { d.homogeneous };
@@ -336,9 +358,71 @@ pub(super) fn markdown(
     s
 }
 
+/// The unilateral degrees of equivalence to report: the leave-one-out
+/// version when requested, otherwise the MRA version of the bootstrap.
+fn unilateral(a: &ConsensusAnalysis) -> (Option<&[uncertainty_core::consensus::DegreeOfEquivalence]>, bool) {
+    match &a.doe {
+        Some(d) if d.leave_one_out => (Some(&d.unilateral), true),
+        _ => (a.bootstrap.as_ref().map(|b| b.degrees_of_equivalence.as_slice()), false),
+    }
+}
+
+/// The bilateral degrees of equivalence: the count of significant pairs, the
+/// significant pairs and, for up to ten results, the full matrix.
+fn bilateral_section(s: &mut String, a: &ConsensusAnalysis, lang: Lang) {
+    let Some(doe) = a.doe.as_ref().filter(|d| !d.bilateral.is_empty()) else { return };
+    let d = cs_labels(lang);
+    let unit = unit_of(a);
+    let n = a.x.len();
+    let sig: Vec<_> = doe.bilateral.iter().filter(|b| b.b.abs() > b.expanded).collect();
+    let _ = writeln!(s, "## {}\n", d.bilateral);
+    let _ = writeln!(s, "{}\n", d.bilateral_note);
+    let m = doe.bilateral.len();
+    let _ =
+        writeln!(s, "{}\n", d.bilateral_pairs.replace("{n}", &sig.len().to_string()).replace("{m}", &m.to_string()));
+    if n <= 10 {
+        let _ = write!(s, "| B (U95 %){unit} |");
+        for name in &a.names {
+            let _ = write!(s, " {name} |");
+        }
+        let _ = writeln!(s, "\n|---|{}", "---:|".repeat(n));
+        for i in 0..n {
+            let _ = write!(s, "| {} |", a.names[i]);
+            for j in 0..n {
+                let cell = if i == j {
+                    "—".to_string()
+                } else {
+                    let (lo, hi, sign) = if i < j { (i, j, 1.0) } else { (j, i, -1.0) };
+                    let b = doe.bilateral.iter().find(|b| b.i == lo && b.j == hi).expect("pair");
+                    let star = if b.b.abs() > b.expanded { " *" } else { "" };
+                    format!("{} ({}){star}", fmt_num(sign * b.b, 3, lang), fmt_num(b.expanded, 3, lang))
+                };
+                let _ = write!(s, " {cell} |");
+            }
+            let _ = writeln!(s);
+        }
+        let _ = writeln!(s);
+    } else if sig.is_empty() {
+        let _ = writeln!(s, "{}\n", d.bilateral_none);
+    } else {
+        let _ = writeln!(s, "| A | B | B_AB{unit} | U95 %{unit} |\n|---|---|---:|---:|");
+        for b in sig {
+            let _ = writeln!(
+                s,
+                "| {} | {} | {} | {} |",
+                a.names[b.i],
+                a.names[b.j],
+                fmt_num(b.b, 3, lang),
+                fmt_num(b.expanded, 3, lang)
+            );
+        }
+        let _ = writeln!(s);
+    }
+}
+
 /// Dot-and-bar chart of the unilateral degrees of equivalence (SVG).
 pub(super) fn chart_svg(a: &ConsensusAnalysis, lang: Lang) -> Option<String> {
-    let doe = &a.bootstrap.as_ref()?.degrees_of_equivalence;
+    let doe = unilateral(a).0?;
     let (w, row_h, left) = (640.0, 20.0, 110.0);
     let h = row_h * doe.len() as f64 + 30.0;
     let lim = doe.iter().map(|d| d.d.abs() + d.expanded).fold(0.0_f64, f64::max) * 1.05;

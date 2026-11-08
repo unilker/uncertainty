@@ -165,7 +165,8 @@ with intervals. CCQM-K145 as a metrology example, participants anonymised and th
 - Machine-readable worked examples as a recommendation to guideline authors: the project format as a proposal.
 - Limitations: methods not implemented, in the order of their importance for an NMI (review item 20): bounded
   outputs (a purity near 1 g/g, e.g. ISRD-06 T6 999.8 +0.2/−1.5 mg/g; truncated MCM output or a Bayesian output
-  with the bound), bilateral and leave-one-out degrees of equivalence and NICOB σ_j priors with finite ν (D68), PDF
+  with the bound), NICOB σ_j priors with finite ν (D68) and the Bayesian and Linear Pool degrees of equivalence (the
+  DerSimonian–Laird leave-one-out and bilateral ones are implemented, D86), PDF
   output and signed packages (7.11.3); then ARMA, counting data, Easterling's methods and model averaging (D70);
   licensed standards (data only, `sources-provenance.md`).
 

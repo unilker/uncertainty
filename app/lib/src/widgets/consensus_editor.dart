@@ -106,6 +106,8 @@ class _ConsensusEditorState extends State<ConsensusEditor> {
           runSpacing: 0,
           children: [
             sw('cs-dl', s['cs_dl_on'], _cs['dersimonian_laird'] != false, (v) => _toggle('dersimonian_laird', v, defaultOn: true)),
+            sw('cs-loo', s['cs_loo_on'], _cs['leave_one_out'] == true, (v) => _toggle('leave_one_out', v)),
+            sw('cs-bilateral', s['cs_bilateral_on'], _cs['bilateral'] == true, (v) => _toggle('bilateral', v)),
             sw('cs-lp', s['cs_lp'], _cs['linear_pool'] == true, (v) => _toggle('linear_pool', v)),
             sw('cs-ml', s['cs_ml'], _cs['maximum_likelihood'] == true, (v) => _toggle('maximum_likelihood', v)),
             sw('cs-bayes', s['cs_bayes_on'], bayes != null, (v) {

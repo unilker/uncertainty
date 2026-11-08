@@ -172,7 +172,12 @@ class ResultsView extends StatelessWidget {
       return '[${n(i[0])}, ${n(i[1])}]$unit (${fmtPct(_d(m['coverage']), 3, s.lang)})';
     }
 
-    final doe = (b?['degrees_of_equivalence'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+    final set = r['degrees_of_equivalence'] as Map<String, dynamic>?;
+    final loo = set?['version'] == 'leave_one_out';
+    final doe = ((loo ? set!['unilateral'] : b?['degrees_of_equivalence']) as List?)?.cast<Map<String, dynamic>>() ?? const [];
+    final bil = (set?['bilateral'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+    final sig = bil.where((x) => x['significant'] == true).toList();
+    final dl0 = loo ? 'D*' : 'D';
     final results = (r['results'] as List).cast<Map<String, dynamic>>();
     return [
       Section(s['cs_title']),
@@ -196,14 +201,25 @@ class ResultsView extends StatelessWidget {
           if (ml != null) [s['cs_tau'], '${n(ml['tau'], 3)}$unit, u = ${n(ml['u_tau'], 3)}$unit'],
         ],
       ),
-      if (doe.isNotEmpty) Section(s['cs_doe']),
+      if (doe.isNotEmpty) Section(loo ? s['cs_doe_loo'] : s['cs_doe']),
       if (doe.isNotEmpty)
         _table(
           context,
-          [s['cs_participant'], s['cs_weight'], 'D', 'U95 %(D)'],
+          [s['cs_participant'], s['cs_weight'], dl0, 'U95 %($dl0)'],
           [
             for (var j = 0; j < doe.length; j++)
               [doe[j]['name'].toString(), fmtPct(_d(results[j]['weight']), 3, s.lang), n(doe[j]['d'], 3), n(doe[j]['expanded'], 3)],
+          ],
+        ),
+      if (bil.isNotEmpty) Section(s['cs_bilateral']),
+      if (bil.isNotEmpty)
+        Text('${s['cs_bilateral_sig']} ${sig.length} / ${bil.length}', key: const Key('cs-bilateral-count')),
+      if (sig.isNotEmpty)
+        _table(
+          context,
+          ['A', 'B', 'B_AB$unit', 'U95 %$unit'],
+          [
+            for (final x in sig) [x['a'].toString(), x['b'].toString(), n(x['d'], 3), n(x['expanded'], 3)],
           ],
         ),
     ];
