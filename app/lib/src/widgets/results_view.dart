@@ -261,7 +261,28 @@ class ResultsView extends StatelessWidget {
     final h = m['histogram'] as Map<String, dynamic>?;
     final pdf = (results['gum_pdf'] as List?)?.map((p) => (p as List).map((e) => _d(e)!).toList()).toList();
     final pct = fmtPct(_d(m['coverage_probability']), 4, s.lang);
+    final bd = results['bounded'] as Map<String, dynamic>?;
+    final bm = bd?['mcm'] as Map<String, dynamic>?;
+    final gi = (bd?['gum_interval'] as List?)?.map((e) => _d(e)!).toList();
     return [
+      if (bd != null && bd['gum_truncated'] == true && gi != null) ...[
+        Section(s['bounded']),
+        Text('${s['bounded_gum']}: [${fmtNum(gi[0], 6, s.lang)}; ${fmtNum(gi[1], 6, s.lang)}]', key: const Key('bounded-gum')),
+      ],
+      if (bm != null)
+        _table(
+          context,
+          [s['bounded_mcm'], ''],
+          [
+            [s['bounded_fraction'], fmtPct(_d(bm['fraction']), 4, s.lang)],
+            [s['estimate'], fmtEstimate(_d(bm['estimate']), _d(bm['standard_uncertainty']), s.lang)],
+            [s['std_unc'], fmtNum(_d(bm['standard_uncertainty']), 3, s.lang)],
+            [
+              '${s['shortest']} ($pct)',
+              '[${fmtNum(_d((bm['shortest_interval'] as List)[0]), 6, s.lang)}; ${fmtNum(_d((bm['shortest_interval'] as List)[1]), 6, s.lang)}]',
+            ],
+          ],
+        ),
       Section(s['mcm']),
       _table(
         context,

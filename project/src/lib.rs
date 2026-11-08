@@ -300,6 +300,96 @@ pub struct Analysis {
     pub kragten: Option<Kragten>,
     /// Conformity assessment of the result (JCGM 106), if requested.
     pub conformity: Option<conformity::ConformityAnalysis>,
+    /// The result with the physical bounds of the measurand, if given.
+    pub bounded: Option<Bounded>,
+}
+
+/// The result of a model with bounds on the measurand (`lower_bound`,
+/// `upper_bound` of the output).
+#[derive(Clone, Debug, PartialEq)]
+pub struct Bounded {
+    pub lower: Option<f64>,
+    pub upper: Option<f64>,
+    /// y ± U truncated at the bounds (U after the CMC rule), and whether a
+    /// bound was crossed.
+    pub gum_interval: Option<(f64, f64)>,
+    pub gum_truncated: bool,
+    /// The estimate lies outside the bounds.
+    pub estimate_outside: bool,
+    pub mcm: Option<BoundedMcm>,
+}
+
+/// The Monte Carlo draws inside the bounds: the posterior for a rectangular
+/// prior on the measurand over the bounds (Toman et al. 2016, 3).
+#[derive(Clone, Debug, PartialEq)]
+pub struct BoundedMcm {
+    pub fraction: f64,
+    pub estimate: f64,
+    pub standard_uncertainty: f64,
+    pub symmetric_interval: (f64, f64),
+    pub shortest_interval: (f64, f64),
+}
+
+impl BoundedMcm {
+    pub fn interval(&self, kind: IntervalKind) -> (f64, f64) {
+        match kind {
+            IntervalKind::Symmetric => self.symmetric_interval,
+            IntervalKind::Shortest => self.shortest_interval,
+        }
+    }
+}
+
+fn bounded_result(
+    p: &Project,
+    gum: Option<&GumResult>,
+    mcm: Option<&McmResult>,
+) -> Result<Option<Bounded>, ProjectError> {
+    let Some(out) = p.model.as_ref().map(|m| &m.output) else { return Ok(None) };
+    let (lower, upper) = (out.lower_bound, out.upper_bound);
+    if lower.is_none() && upper.is_none() {
+        return Ok(None);
+    }
+    if let (Some(l), Some(h)) = (lower, upper) {
+        if l.partial_cmp(&h) != Some(std::cmp::Ordering::Less) {
+            return Err(input_err("model.output.lower_bound", "must be smaller than upper_bound"));
+        }
+    }
+    let inside = |v: f64| !lower.is_some_and(|l| v < l) && !upper.is_some_and(|h| v > h);
+    let (mut gum_interval, mut gum_truncated, mut estimate_outside) = (None, false, false);
+    if let Some(g) = gum {
+        let (u, _) = reported_expanded(p, g.estimate, g.expanded_uncertainty);
+        let (a, b) = (g.estimate - u, g.estimate + u);
+        let lo = lower.map_or(a, |l| a.max(l));
+        let hi = upper.map_or(b, |h| b.min(h));
+        gum_truncated = lo != a || hi != b;
+        estimate_outside = !inside(g.estimate);
+        gum_interval = Some((lo, hi));
+    }
+    let mcm = match mcm.and_then(|m| m.values.as_ref().map(|v| (m, v))) {
+        Some((m, values)) => {
+            let mut kept: Vec<f64> = values.iter().copied().filter(|v| inside(*v)).collect();
+            if kept.len() < 100 {
+                return Err(input_err(
+                    "model.output.lower_bound",
+                    "fewer than 100 Monte Carlo values lie within the bounds",
+                ));
+            }
+            kept.sort_by(f64::total_cmp);
+            let n = kept.len() as f64;
+            let mean = kept.iter().sum::<f64>() / n;
+            let sd = (kept.iter().map(|v| (v - mean).powi(2)).sum::<f64>() / (n - 1.0)).sqrt();
+            let (sym, short) = mcm::coverage_intervals(&kept, m.coverage_probability);
+            Some(BoundedMcm {
+                fraction: n / values.len() as f64,
+                estimate: mean,
+                standard_uncertainty: sd,
+                symmetric_interval: sym,
+                shortest_interval: short,
+            })
+        }
+        None => None,
+    };
+    Ok(Some(Bounded { lower, upper, gum_interval, gum_truncated, estimate_outside, mcm }))
 }
 
 pub fn gum_options(spec: &GumSpec) -> GumOptions {
@@ -472,7 +562,10 @@ pub fn run_model(p: &Project, overrides: &Overrides) -> Result<Analysis, Project
                 seed: overrides.seed.unwrap_or(spec.seed),
                 interval: interval_kind,
                 histogram_bins: 60,
-                keep_values: p.conformity.is_some(),
+                keep_values: p.conformity.is_some()
+                    || p.model
+                        .as_ref()
+                        .is_some_and(|m| m.output.lower_bound.is_some() || m.output.upper_bound.is_some()),
             };
             let r = mcm::evaluate(&model, &opts)?;
             if let Some(g) = &gum {
@@ -507,11 +600,13 @@ pub fn run_model(p: &Project, overrides: &Overrides) -> Result<Analysis, Project
         }
         _ => None,
     };
-    // The Monte Carlo values were kept only for the conformity assessment.
+    let bounded = bounded_result(p, gum.as_ref(), mcm.as_ref())?;
+    // The Monte Carlo values were kept only for the conformity assessment
+    // and the bounds.
     if let Some(m) = mcm.as_mut() {
         m.values = None;
     }
-    Ok(Analysis { model, gum, mcm, validation, interval_kind, sensitivities, kragten, conformity })
+    Ok(Analysis { model, gum, mcm, validation, interval_kind, sensitivities, kragten, conformity, bounded })
 }
 
 /// Result of comparing one computed value with an expected reference value.
@@ -641,6 +736,9 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
             a.kragten.as_ref().map(|k| k.combined_standard_uncertainty),
             &e.kragten_uncertainty,
         );
+        let bi = a.bounded.as_ref().and_then(|b| b.gum_interval);
+        push("gum.bounded_low", bi.map(|i| i.0), &e.bounded_low);
+        push("gum.bounded_high", bi.map(|i| i.1), &e.bounded_high);
     }
     // Monte Carlo reference values are not compared when the Monte Carlo
     // method was not run (`--no-mcm`).
@@ -651,6 +749,13 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
         push("mcm.standard_uncertainty", m.map(|m| m.standard_uncertainty), &e.standard_uncertainty);
         push("mcm.interval_low", iv.map(|i| i.0), &e.interval_low);
         push("mcm.interval_high", iv.map(|i| i.1), &e.interval_high);
+        let bm = a.bounded.as_ref().and_then(|b| b.mcm.as_ref());
+        let bi = bm.map(|b| b.interval(a.interval_kind));
+        push("mcm.bounded_fraction", bm.map(|b| b.fraction), &e.bounded_fraction);
+        push("mcm.bounded_estimate", bm.map(|b| b.estimate), &e.bounded_estimate);
+        push("mcm.bounded_standard_uncertainty", bm.map(|b| b.standard_uncertainty), &e.bounded_standard_uncertainty);
+        push("mcm.bounded_low", bi.map(|i| i.0), &e.bounded_low);
+        push("mcm.bounded_high", bi.map(|i| i.1), &e.bounded_high);
         if let Some(v) = e.gum_validated {
             let got = a.validation.as_ref().map(|x| x.validated);
             out.push(CheckOutcome {
@@ -885,6 +990,16 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
             "u_minus": lo, "u_plus": hi,
         })),
         "mcm": mcm,
+        "bounded": a.bounded.as_ref().map(|b| json!({
+            "lower": b.lower, "upper": b.upper,
+            "gum_interval": b.gum_interval.map(|i| [i.0, i.1]), "gum_truncated": b.gum_truncated,
+            "estimate_outside": b.estimate_outside,
+            "mcm": b.mcm.as_ref().map(|m| json!({
+                "fraction": m.fraction, "estimate": m.estimate, "standard_uncertainty": m.standard_uncertainty,
+                "symmetric_interval": [m.symmetric_interval.0, m.symmetric_interval.1],
+                "shortest_interval": [m.shortest_interval.0, m.shortest_interval.1],
+            })),
+        })),
         "validation": validation,
         "gum_pdf": gum_pdf,
         "checks": checks,
@@ -924,6 +1039,35 @@ mod tests {
         assert!(a.validation.is_some());
         let j = results_json(&p, &e);
         assert_eq!(j["gum"]["budget"].as_array().unwrap().len(), 3);
+    }
+
+    #[test]
+    fn bounded_output_truncates_the_gum_interval_and_restricts_the_mcm() {
+        // y = x, x ~ N(0.5, 0.3²), 0 ≤ y ≤ 1: y ± 2u = [−0.1, 1.1] → [0, 1]; the
+        // draws inside the bounds are a truncated normal, symmetric about 0.5,
+        // with mass Φ(5/3) − Φ(−5/3) = 0.904 419 and standard deviation
+        // 0.3·√(1 − 2·(5/3)·φ(5/3)/0.904 419) = 0.238 75.
+        let json = r#"{
+          "format": "uncertainty-calculations/project", "version": 1,
+          "metadata": { "title": { "en": "b", "tr": "b" } },
+          "model": { "output": { "name": "y", "expression": "x", "lower_bound": 0, "upper_bound": 1 },
+                     "inputs": [ { "name": "x", "distribution": { "type": "normal", "mean": 0.5, "sd": 0.3 } } ] },
+          "analysis": { "gum": { "coverage_factor": 2 }, "mcm": { "trials": 400000, "seed": 3 } }
+        }"#;
+        let p = parse(json).unwrap();
+        let e = run(&p, &Overrides::default()).unwrap();
+        let b = e.model().unwrap().bounded.clone().unwrap();
+        assert!(b.gum_truncated && !b.estimate_outside);
+        assert_eq!(b.gum_interval, Some((0.0, 1.0)));
+        let m = b.mcm.unwrap();
+        assert!((m.fraction - 0.904_419).abs() < 0.003, "{m:?}");
+        assert!((m.estimate - 0.5).abs() < 0.002 && (m.standard_uncertainty - 0.238_75).abs() < 0.002, "{m:?}");
+        assert!(m.shortest_interval.0 >= 0.0 && m.shortest_interval.1 <= 1.0);
+        let text = report::markdown(&p, &e, Lang::En, None);
+        assert!(text.contains("(0.50 +0.50/−0.50)") && text.contains("restricted to the bounds"), "{text}");
+        // Bounds in the wrong order are refused.
+        let bad = json.replace(r#""lower_bound": 0, "upper_bound": 1"#, r#""lower_bound": 1, "upper_bound": 0"#);
+        assert!(run(&parse(&bad).unwrap(), &Overrides::default()).is_err());
     }
 
     #[test]

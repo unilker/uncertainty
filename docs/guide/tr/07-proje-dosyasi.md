@@ -44,6 +44,10 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 }
 ```
 
+Çıktının `lower_bound` ve `upper_bound` alanları (isteğe bağlı) ölçülen büyüklüğün fiziksel sınırlarıdır (6.3b).
+Beklenen değerler bu durumda ayrıca: `gum.bounded_low`, `gum.bounded_high` (kesilmiş aralık) ve `mcm.bounded_fraction`,
+`mcm.bounded_estimate`, `mcm.bounded_standard_uncertainty`, `mcm.bounded_low`, `mcm.bounded_high`.
+
 Bir girdinin `dof` alanı GUM yaklaşımındaki serbestlik derecesidir (varsayılan ∞; A tipi dağılımlar bunu
 kendileri belirler).
 

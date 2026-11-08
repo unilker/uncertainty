@@ -3436,3 +3436,29 @@ the program gives 0.751 and an independent numpy evaluation with 10⁶ replicate
 replicates spread from 0.739 to 0.767, so the printed value is a Monte Carlo estimate with few replicates (as
 F95, F96). The printed Linear Pool u, 1.55 against 1.51, is the sample standard deviation of a mixture with a
 t₂ component, which has heavy tails; the interval (31.4, 36.3) is reproduced.
+
+## 2026-11-08 (session 22, continued) — Results near a physical bound
+
+**D87. Bounded outputs (review item 20, first NMI gap).** `model.output.lower_bound` / `upper_bound`. Sources:
+Westwood et al. 2023 (IUPAC Technical Report, *Pure Appl. Chem.*, methods for the SI-traceable value assignment of
+purity), 4.1.1: "a w ± U95 % symmetric interval can be treated as specifying the asymmetric interval
+w − U95 % ≤ w ≤ 1 g/g", and 4.2.5, which lists as options a Monte Carlo evaluation "that enables constraining the
+estimate to be between limits" (its refs. Toman et al. 2016 and Elster 2014) or truncating the reported interval;
+Toman, Nelson & Lippa 2016 (*Metrologia* 53, 1193), §3, constrain a purity with a rectangular prior R(0, 1).
+Implemented:
+
+- GUM: y ± U (after the CMC rule) truncated at the bound it crosses; the statement reads y +U_U/−U_L at the
+  decimal place of the rounded U, with a sentence on the truncation; a warning when y itself is outside.
+- MCM: the draws outside the bounds are discarded (the posterior for a rectangular prior over the bounds, when
+  the MCM PDF is taken as the likelihood-based state of knowledge); fraction inside, mean, standard deviation,
+  symmetric and shortest intervals; at least 100 draws must remain.
+- Report section, JSON `bounded`, expected values `gum.bounded_low/high`, `mcm.bounded_*`; app fields and results.
+
+Library: `bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od` now has `upper_bound` 1 g/g. The statement reproduces the printed
+999.8 +0.2/−1.5 mg/g (as (0.9998 +0.0002/−0.0015) g/g). The restricted Monte Carlo result (independent numpy, 10⁷
+draws, `tools/research/qnmr/isrd06_bounded.py`): 62.0 % of the draws inside, mean 0.999 320 g/g, u 0.000 488 g/g,
+shortest 95 % interval [0.998 394, 1]; the program (10⁶ draws, five seeds) agrees within 1 × 10⁻⁶ in the mean and
+3 × 10⁻⁶ in the lower end. The two evaluations answer different questions: the truncated GUM interval keeps the
+estimate 0.999 77 and only cuts the interval, the restricted MCM moves the estimate to 0.999 32 and narrows the
+interval to 1.6 mg/g; for a purity this close to 1 the choice should be stated. Unit test: a normal input with
+bounds [0, 1] against the truncated normal (mass 0.904 419, s.d. 0.238 75).

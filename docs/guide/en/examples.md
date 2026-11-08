@@ -112,7 +112,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
 
-**Approach:** GUM uncertainty framework (JCGM 100)
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
 
 **Steps:**
 
@@ -121,12 +121,13 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9998 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+- w_A = (0.9998 +0.0002/−0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. The measurand cannot lie outside its physical bounds, so the interval y ± U is truncated at the bound it crosses: [0.998295, 1.00000] g/g (Westwood et al. 2023, 4.1.1). U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
 - Printed uncertainty components c·u: 1.95e-04, 6.00e-05, 1.67e-05, 4.46e-05, 5.54e-05, 1.92e-04, 5.59e-04, 4.00e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 - The ISRD reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at the physical limit of 1000 mg/g. The program reports the symmetric GUM interval; the bound is not part of the model.
+- Bounded result (research log D87): with upper_bound = 1 g/g the GUM interval y ± U is truncated at the bound, which gives the printed 999.8 +0.2/−1.5 mg/g (Westwood et al. 2023, 4.1.1). The Monte Carlo result restricted to w ≤ 1 g/g (a rectangular prior, Toman et al. 2016) keeps 62 % of the draws: mean 0.999 32 g/g, u = 0.000 49 g/g, shortest 95 % interval [0.998 39, 1] g/g; it is narrower than the truncated GUM interval and its estimate lies below the unconstrained one (reference: independent numpy evaluation with 10⁷ draws, tools/research/qnmr/isrd06_bounded.py).
 
 **Run:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang en`
 

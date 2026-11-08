@@ -44,6 +44,10 @@ as `{ "en": "…", "tr": "…" }`.
 }
 ```
 
+`lower_bound` and `upper_bound` of the output (optional) are physical bounds of the measurand (6.3b). Expected
+values then also: `gum.bounded_low`, `gum.bounded_high` (the truncated interval) and `mcm.bounded_fraction`,
+`mcm.bounded_estimate`, `mcm.bounded_standard_uncertainty`, `mcm.bounded_low`, `mcm.bounded_high`.
+
 `dof` of an input is its degrees of freedom for the GUM framework (default ∞; Type A distributions set it
 themselves).
 

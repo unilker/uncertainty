@@ -70,6 +70,8 @@ class _ModelEditorState extends State<ModelEditor> {
                 onChanged: widget.onChanged,
               ),
               StringField(map: _model['output'] as Map<String, dynamic>, field: 'unit', label: s['unit'], width: 120, onChanged: widget.onChanged),
+              NumberField(map: _model['output'] as Map<String, dynamic>, field: 'lower_bound', label: s['lower_bound'], width: 140, onChanged: widget.onChanged),
+              NumberField(map: _model['output'] as Map<String, dynamic>, field: 'upper_bound', label: s['upper_bound'], width: 140, onChanged: widget.onChanged),
             ],
           ),
           const SizedBox(height: 8),

@@ -112,7 +112,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
 
-**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
 
 **Adımlar:**
 
@@ -121,12 +121,13 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 **Sonuç:**
 
-- w_A = (0,9998 ± 0,0015) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+- w_A = (0,9998 +0,0002/−0,0015) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. Ölçülen büyüklük fiziksel sınırlarının dışında olamaz; bu nedenle y ± U aralığı aştığı sınırda kesilmiştir: [0,998295, 1,00000] g/g (Westwood ve ark. 2023, 4.1.1). U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
 - Basılı belirsizlik bileşenleri c·u: 1.95e-04, 6.00e-05, 1.67e-05, 4.46e-05, 5.54e-05, 1.92e-04, 5.59e-04, 4.00e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 - ISRD 999,8 +0,2/−1,5 mg/g bildirir: aralık 1000 mg/g fiziksel sınırında kesilmiştir. Program simetrik GUM aralığını verir; sınır modelin parçası değildir.
+- Sınırlı sonuç (araştırma günlüğü D87): upper_bound = 1 g/g ile GUM aralığı y ± U sınırda kesilir ve basılı 999,8 +0,2/−1,5 mg/g elde edilir (Westwood ve ark. 2023, 4.1.1). w ≤ 1 g/g ile kısıtlanmış Monte Carlo sonucu (dikdörtgen önsel, Toman ve ark. 2016) çekilişlerin %62'sini tutar: ortalama 0,999 32 g/g, u = 0,000 49 g/g, en kısa %95 aralık [0,998 39, 1] g/g; kesilmiş GUM aralığından dardır ve tahmini kısıtsız tahminin altındadır (referans: 10⁷ çekilişli bağımsız numpy hesabı, tools/research/qnmr/isrd06_bounded.py).
 
 **Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang tr`
 
