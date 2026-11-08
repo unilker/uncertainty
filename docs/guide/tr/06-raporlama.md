@@ -66,6 +66,22 @@ her zaman %95'ten fazla kapsar. Şekil 2'deki aralık genişlikleri de yeniden �
 belirsizliğiyle birlikte bir düzeltme yine tercih edilen yoldur (GUM 6.3.1; araştırma günlüğü F43, Tablo 3'teki
 bir işaret hatasını kaydeder).
 
+## 6.3b Fiziksel bir sınıra yakın sonuçlar
+
+Bir kütle kesri 1 g/g'yi aşamaz, bir derişim negatif olamaz. y ± U böyle bir sınırı aşıyorsa modelin `"output"`
+bölümünde `"lower_bound"` ve/veya `"upper_bound"` ile belirtilir. Program bu durumda
+
+- GUM aralığını sınırda keser ve sonucu asimetrik olarak yazar, örneğin w = (0,9998 +0,0002/−0,0015) g/g: simetrik
+  w ± U95 % aralığı, w − U95 % ≤ w ≤ 1 g/g asimetrik aralığı belirtiyor kabul edilebilir (Westwood ve ark. 2023,
+  SI izlenebilir saflık üzerine IUPAC teknik raporu, 4.1.1; BIPM ISRD raporları böyle yapar);
+- Monte Carlo yöntemi çalışıyorsa sınırlarla kısıtlanmış sonucu da verir: dışarıda kalan çekilişler atılır; bu,
+  ölçülen büyüklük için sınırlar üzerinde dikdörtgen bir önsele karşılık gelir (Toman ve ark. 2016; Westwood ve ark.
+  2023, 4.2.5). İçerideki çekiliş oranı, ortalama, standart sapma ve kapsam aralığı verilir; tahmin sınırdan
+  uzaklaşır ve aralık genellikle kesilmiş GUM aralığından dardır.
+
+Tahminin kendisi sınırların dışındaysa sonuç ifadesi bunu belirtir; bu durumda kısıtlanmış Monte Carlo sonucu
+raporlanmalıdır. Kütüphane projesi: `bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od` (basılı gibi 999,8 +0,2/−1,5 mg/g).
+
 ## 6.4 Raporun içeriği
 
 Rapor, değerlendirmenin yeniden üretilebilir ve gözden geçirilebilir olmasını amaçlar (ISO/IEC 17025:2017,

@@ -148,7 +148,20 @@ evaluated on a two-dimensional grid (about a second for 20 results). Possolo & M
 estimates of the Hubble–Lemaître constant with Stan; the program gives the same 71.69(66) (km/s)/Mpc.
 
 Library: Koepke et al. 2017 (G, half-lives of ¹³⁷Cs and ⁹⁰Sr), IUPAC 2024 Examples 3E/4M/4N (iridium) and 4F
-(CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître constant). Not yet implemented: leave-one-out and bilateral degrees of equivalence.
+(CCQM-K145), Possolo & Meija 2022 (Hubble–Lemaître constant).
+
+**Leave-one-out and bilateral degrees of equivalence** (NICOB §3.2.8, §A.5.1; DerSimonian–Laird). In the MRA
+version D_j = x_j − μ̂ the result of participant j is part of μ̂, so |D_j| tends to be too small. With
+`"leave_one_out": true` the program reports D*_j = x_j − μ̂₋ⱼ, μ̂₋ⱼ the DerSimonian–Laird value of the other results;
+U95 %(D*_j) comes from draws x_j + e − μ₋ⱼ, with μ₋ⱼ from the modified Knapp–Hartung t approximation (Röver, Knapp &
+Friede 2015) and e from N(0, τ²₋ⱼ + u_j²), or a rescaled t when ν_j is given. `"bilateral": true` adds
+B_ij = D_i − D_j for every pair with U95 %(B_ij) from the same draws; the report marks the pairs with
+|B| > U95 %(B) and, for up to ten participants, prints the whole matrix. The algorithm follows the NICOB R source
+line by line; an independent numpy port agrees within the Monte Carlo dispersion (library projects
+`nicob-co60-*`, 19 laboratories, and `nicob-pcb28-*`, with degrees of freedom). For ν_j ≤ 2, where the t
+distribution has no finite variance, the program uses NICOB's approximation of the scale factor, also in the
+Linear Pool. Not implemented: the degrees of equivalence of the Bayesian and Linear Pool procedures and the
+σ_j priors with finite ν_j (D68).
 
 *In the application*, *New consensus value* starts from a template. On the *Data* tab the participants' results
 are pasted one per line (name, value, standard uncertainty and, optionally, degrees of freedom) and the procedures

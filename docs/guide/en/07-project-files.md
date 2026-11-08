@@ -44,6 +44,10 @@ as `{ "en": "…", "tr": "…" }`.
 }
 ```
 
+`lower_bound` and `upper_bound` of the output (optional) are physical bounds of the measurand (6.3b). Expected
+values then also: `gum.bounded_low`, `gum.bounded_high` (the truncated interval) and `mcm.bounded_fraction`,
+`mcm.bounded_estimate`, `mcm.bounded_standard_uncertainty`, `mcm.bounded_low`, `mcm.bounded_high`.
+
 `dof` of an input is its degrees of freedom for the GUM framework (default ∞; Type A distributions set it
 themselves).
 
@@ -389,9 +393,10 @@ Expected values: `results` (per name: `risk`, `accepted`), `global_consumer_risk
 ```json
 "consensus": {
   "measurand": "w(Ni)", "unit": "mg/kg",
-  "results": [ { "name": "JSI", "value": 1.930, "u": 0.110 }, { "name": "UME", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
+  "results": [ { "name": "Lab 1", "value": 1.930, "u": 0.110 }, { "name": "Lab 2", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
   "coverage": 0.95,
   "dersimonian_laird": true, "linear_pool": false, "maximum_likelihood": true,
+  "leave_one_out": true, "bilateral": true,
   "trials": 100000, "seed": 1
 }
 ```
@@ -400,7 +405,9 @@ Expected values: `results` (per name: `risk`, `accepted`), `global_consumer_risk
 the Linear Pool. Expected values: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`, `interval_lower`,
 `interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`, `ml_mean`, `ml_u`,
 `ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`, `bayes_tau_median` and
-`degrees_of_equivalence` (per name: `d`, `expanded`). See 9.7.
+`degrees_of_equivalence` (per name: `d`, `expanded`). `leave_one_out` gives the degrees of equivalence in the
+leave-one-out version D*_j = x_j − μ̂₋ⱼ, `bilateral` adds B_ij = D_i − D_j; their expected values are `leave_one_out`
+(per name) and `bilateral` (per pair `"A|B"`, B_AB = D_A − D_B), each with `d` and `expanded`. See 9.7.
 
 `"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (all optional; `"bayes": {}` uses the
 NICOB defaults) adds the Bayesian random-effects model; `"effects": "laplace"` gives the laboratory effects a Laplace

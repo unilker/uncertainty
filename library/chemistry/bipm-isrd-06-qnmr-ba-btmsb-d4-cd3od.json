@@ -38,6 +38,10 @@
       {
         "en": "The ISRD reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at the physical limit of 1000 mg/g. The program reports the symmetric GUM interval; the bound is not part of the model.",
         "tr": "ISRD 999,8 +0,2/−1,5 mg/g bildirir: aralık 1000 mg/g fiziksel sınırında kesilmiştir. Program simetrik GUM aralığını verir; sınır modelin parçası değildir."
+      },
+      {
+        "en": "Bounded result (research log D87): with upper_bound = 1 g/g the GUM interval y ± U is truncated at the bound, which gives the printed 999.8 +0.2/−1.5 mg/g (Westwood et al. 2023, 4.1.1). The Monte Carlo result restricted to w ≤ 1 g/g (a rectangular prior, Toman et al. 2016) keeps 62 % of the draws: mean 0.999 32 g/g, u = 0.000 49 g/g, shortest 95 % interval [0.998 39, 1] g/g; it is narrower than the truncated GUM interval and its estimate lies below the unconstrained one (reference: independent numpy evaluation with 10⁷ draws, tools/research/qnmr/isrd06_bounded.py).",
+        "tr": "Sınırlı sonuç (araştırma günlüğü D87): upper_bound = 1 g/g ile GUM aralığı y ± U sınırda kesilir ve basılı 999,8 +0,2/−1,5 mg/g elde edilir (Westwood ve ark. 2023, 4.1.1). w ≤ 1 g/g ile kısıtlanmış Monte Carlo sonucu (dikdörtgen önsel, Toman ve ark. 2016) çekilişlerin %62'sini tutar: ortalama 0,999 32 g/g, u = 0,000 49 g/g, en kısa %95 aralık [0,998 39, 1] g/g; kesilmiş GUM aralığından dardır ve tahmini kısıtsız tahminin altındadır (referans: 10⁷ çekilişli bağımsız numpy hesabı, tools/research/qnmr/isrd06_bounded.py)."
       }
     ],
     "sources": [
@@ -56,7 +60,8 @@
       "description": {
         "en": "Mass fraction (purity) of benzoic acid",
         "tr": "benzoik asit kütle kesri (saflık)"
-      }
+      },
+      "upper_bound": 1.0
     },
     "inputs": [
       {
@@ -169,7 +174,11 @@
     "gum": {
       "coverage_factor": 2
     },
-    "mcm": null
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1,
+      "coverage_probability": 0.95
+    }
   },
   "expected": {
     "gum": {
@@ -180,11 +189,41 @@
       "standard_uncertainty": {
         "value": 0.000744,
         "tolerance": 1.49e-05
+      },
+      "bounded_low": {
+        "value": 0.9983,
+        "tolerance": 5e-05
+      },
+      "bounded_high": {
+        "value": 1.0,
+        "tolerance": 1e-12
       }
     },
     "reference": {
       "en": "BIPM ISRD-06, Table 6: assigned value 0.9998 g/g; the integral ratio is printed as 1.5 (two significant digits), which allows ±0.033 g/g, so the estimate is checked against the value recomputed from the printed inputs (independent Python, 0.999774014 g/g) instead; combined standard uncertainty 7.440e-04 g/g (k = 2 for the expanded uncertainty). Tolerance of u: 1 % or the difference to the value recomputed from the printed inputs, 0.6 % (F97).",
       "tr": "BIPM ISRD-06, Tablo 6: atanan değer 0,9998 g/g; integral oranı 1,5 olarak (iki anlamlı basamak) basıldığından ±0,033 g/g'lık bir tolerans gerekir, bu nedenle tahmin basılı girdilerden yeniden hesaplanan değerle (bağımsız Python, 0,999774014 g/g) karşılaştırılır; birleşik standart belirsizlik 7,440e-04 g/g (genişletilmiş belirsizlik için k = 2). u toleransı: %1 ya da basılı girdilerden yeniden hesaplanan değerle fark, %0,6 (F97)."
+    },
+    "mcm": {
+      "bounded_fraction": {
+        "value": 0.620093,
+        "tolerance": 0.0025
+      },
+      "bounded_estimate": {
+        "value": 0.999319944,
+        "tolerance": 4e-06
+      },
+      "bounded_standard_uncertainty": {
+        "value": 0.000487717,
+        "tolerance": 3e-06
+      },
+      "bounded_low": {
+        "value": 0.998394053,
+        "tolerance": 1.2e-05
+      },
+      "bounded_high": {
+        "value": 1.0,
+        "tolerance": 1e-07
+      }
     }
   }
 }

@@ -2,13 +2,13 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (143)
+- Chemistry (144)
 - Electrical and RF (36)
 - Flow and volume (7)
 - General (method validation) (24)
 - Length (12)
 - Mass (31)
-- Physical properties (15)
+- Physical properties (16)
 - Pressure (6)
 - Temperature (10)
 
@@ -112,7 +112,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
 
-**Approach:** GUM uncertainty framework (JCGM 100)
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
 
 **Steps:**
 
@@ -121,12 +121,13 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 **Result:**
 
-- w_A = (0.9998 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+- w_A = (0.9998 +0.0002/−0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. The measurand cannot lie outside its physical bounds, so the interval y ± U is truncated at the bound it crosses: [0.998295, 1.00000] g/g (Westwood et al. 2023, 4.1.1). U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
 - Printed uncertainty components c·u: 1.95e-04, 6.00e-05, 1.67e-05, 4.46e-05, 5.54e-05, 1.92e-04, 5.59e-04, 4.00e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 - The ISRD reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at the physical limit of 1000 mg/g. The program reports the symmetric GUM interval; the bound is not part of the model.
+- Bounded result (research log D87): with upper_bound = 1 g/g the GUM interval y ± U is truncated at the bound, which gives the printed 999.8 +0.2/−1.5 mg/g (Westwood et al. 2023, 4.1.1). The Monte Carlo result restricted to w ≤ 1 g/g (a rectangular prior, Toman et al. 2016) keeps 62 % of the draws: mean 0.999 32 g/g, u = 0.000 49 g/g, shortest 95 % interval [0.998 39, 1] g/g; it is narrower than the truncated GUM interval and its estimate lies below the unconstrained one (reference: independent numpy evaluation with 10⁷ draws, tools/research/qnmr/isrd06_bounded.py).
 
 **Run:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang en`
 
@@ -1512,6 +1513,33 @@ The state of knowledge about the mass fraction is a beta distribution with α = 
 - w_BA = (0.999920 ± 0.000059) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang en`
+
+### PCB 28 in sediment from six laboratories with degrees of freedom: DerSimonian–Laird, Linear Pool and leave-one-out degrees of equivalence (NIST Consensus Builder §4.2)
+
+`nicob-pcb28-sediment-degrees-of-freedom` — NIST Consensus Builder user manual (Koepke, §4.2, Exhibits 6 and 7; §A.2, §A.4, §A.5.1
+
+Mass fraction of PCB 28 (2,4,4'-trichlorobiphenyl) in a sediment, measured by six laboratories that state the degrees of freedom of their standard uncertainties (Exhibit 6). One ν is 2: its Student t distribution has no finite variance, and NICOB rescales it with an approximation (DoEUnilateralDerSimonianLaird.R, linearOP.R), which the program follows.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. The bootstrap draws u_j,k = u_j √(ν_j/χ²_νj) for each result (NICOB §A.2 step c); the Linear Pool mixes rescaled t distributions with means x_j and standard deviations u_j.
+2. Leave-one-out degrees of equivalence with t-distributed deviations e for the results with finite ν; 1 of the 15 bilateral pairs differ significantly from zero.
+
+**Result:**
+
+- w(PCB 28): consensus value 33.6004 ng/g, standard uncertainty 0.75 ng/g, 95 % coverage interval [32.0559, 35.1496] ng/g (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 1.7 ng/g; Cochran's Q = 68.22 with 5 degrees of freedom
+- w(PCB 28): 33.6427 ng/g, standard uncertainty 1.5 ng/g, 95 % coverage interval [31.4381, 36.2815] ng/g (Linear Pool)
+
+**Notes:**
+
+- Participants are coded Lab 1 to Lab 6 in the order of Exhibit 6.
+- The printed bootstrap u, 0.77 ng/g, is a Monte Carlo estimate: an independent numpy evaluation with 10⁶ replicates gives 0.752 ng/g (the program 0.751), and subsamples of 10⁴ replicates spread from 0.739 to 0.767 ng/g; the tolerance includes this dispersion. With ν = 2 the Linear Pool has heavy tails and its sample standard deviation is unstable (printed 1.55, program 1.51 ng/g).
+- The hierarchical Bayesian row of Exhibit 7 (33.6, 0.79 ng/g) uses priors for the σ_j with the stated ν_j, which the program does not implement (research log D68).
+
+**Run:** `uncertainty run library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json --lang en`
 
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
@@ -6162,6 +6190,32 @@ The data of Koepke et al. (2017) with JILA-10 corrected (6.672 60 ± 0.000 25) a
 - Not implemented: Birge's multiplicative models (BRE, BRM, BRQ), the CODATA expansion (MTE), Mandel–Paule, REML, Student-t effects, the Laplace model of the paper (Laplace effects and errors), and the Bayesian mixture model (BMM).
 
 **Run:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang en`
+
+### Activity of ⁶⁰Co in 19 laboratories: consensus value with leave-one-out and bilateral degrees of equivalence (NIST Consensus Builder §4.4)
+
+`nicob-co60-activity-leave-one-out-bilateral` — NIST Consensus Builder user manual (Koepke, §4.4, Exhibits 19, 21 and 22; §A.5.1
+
+SIR equivalent activities of ⁶⁰Co from the ongoing key comparison BIPM.RI(II)-K1.Co-60, as listed in the NICOB manual (Exhibit 19). Cochran's Q = 36.9 with 18 degrees of freedom (p = 0.005): the results are more dispersed than their uncertainties, and the dark uncertainty is τ̂ = 11.9 kBq.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. The degrees of equivalence are computed in the leave-one-out version D*_j = x_j − μ̂₋ⱼ (NICOB §3.2.8): μ̂₋ⱼ is the DerSimonian–Laird value of the other 18 results, so a result does not pull the reference value towards itself. U95 %(D*) comes from draws x_j + e − μ₋ⱼ with μ₋ⱼ from the modified Knapp–Hartung t approximation and e ~ N(0, τ²₋ⱼ + u_j²).
+2. Bilateral degrees of equivalence B_ij = D*_i − D*_j use the same draws; 9 of the 171 pairs differ significantly from zero (|B| > U95 %), against 4 in the MRA version D_j = x_j − μ̂.
+
+**Result:**
+
+- A (SIR equivalent activity): consensus value 7062.06 kBq, standard uncertainty 4.3 kBq, 95 % coverage interval [7053.39, 7070.70] kBq (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 12 kBq; Cochran's Q = 36.89 with 18 degrees of freedom
+- A (SIR equivalent activity): 7063.81 kBq, standard uncertainty 29 kBq, 95 % coverage interval [7012.61, 7127.20] kBq (Linear Pool)
+
+**Notes:**
+
+- Participants are coded Lab 1 to Lab 19 in the order of Exhibit 19 of the manual. The official reference value and degrees of equivalence of BIPM.RI(II)-K1.Co-60 are those of the KCDB; the degrees of equivalence here illustrate the procedures on the same data.
+- The degrees of equivalence are shown only in a figure in the manual (Exhibit 22); their reference values here come from a numpy port of the NICOB R source with 10⁶ draws (research log D86). The program, with 10⁵ draws, agrees within 1 % in U.
+
+**Run:** `uncertainty run library/physical/nicob-co60-activity-leave-one-out-bilateral.json --lang en`
 
 ### Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13)
 

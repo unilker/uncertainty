@@ -35,7 +35,7 @@ FAMILIES = [("GUM-5", "JCGM GUM-5:2026"), ("JCGM 101", "JCGM 101"), ("JCGM 102",
             ("ISO 5725", "ISO 5725"), ("ISO 6143", "ISO 6143"), ("M3003", "UKAS M3003"), ("cg-18", "EURAMET cg-18"),
             ("cg-19", "EURAMET cg-19"), ("UfS", "Eurachem UfS"), ("RANOVA", "Eurachem UfS"), ("Bettencourt", "Bettencourt da Silva 2026"),
             ("Magnusson", "Magnusson & Ellison 2008"), ("Mateos", "Mateos et al. 2020"), ("Delker", "Delker 2021"),
-            ("EMUE", "EMPIR EMUE"), ("IUPAC", "IUPAC 2024"), ("Koepke", "Koepke et al. 2017"),
+            ("EMUE", "EMPIR EMUE"), ("IUPAC", "IUPAC 2024"), ("Koepke", "Koepke et al. 2017"), ("NICOB", "NIST Consensus Builder"),
             ("Possolo & Meija", "Possolo & Meija 2022"), ("BIPM ISRD", "BIPM ISRD"), ("compliance guide", "Eurachem/CITAC compliance 2021"),
             ("Second-order", "methodological"), ("Shortest", "methodological"), ("Two conventions", "methodological"),
             ("Bimodal", "ISO 13528"), ("Guidance documents", "summary"), ("Overall picture", "summary")]

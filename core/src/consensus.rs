@@ -204,6 +204,37 @@ pub fn dl_bootstrap(
     trials: usize,
     seed: u64,
 ) -> Result<ConsensusSample, UncError> {
+    dl_bootstrap_samples(x, u, dof, p, trials, seed).map(|(s, _)| s)
+}
+
+/// The draws of τ² from the NICOB approximation (sampleFromTau2Dist.R) for
+/// the results x, u: the gamma at the untruncated τ²_M, then max(0, ·).
+fn tau2_sampler(x: &[f64], u: &[f64]) -> impl Fn(&mut Rng) -> f64 {
+    let n = x.len();
+    let (q, _) = q_and_tau2(x, u);
+    let (mut s1, mut s2) = (0.0, 0.0);
+    for ui in u {
+        let w = 1.0 / (ui * ui);
+        s1 += w;
+        s2 += w * w;
+    }
+    let c = s1 - s2 / s1;
+    let gamma = if c > 0.0 { q_gamma_approximation_nicob(u, (q - (n - 1) as f64) / c) } else { None };
+    move |rng: &mut Rng| match gamma {
+        Some((shape, scale)) => ((scale * rng.gamma(shape) - (n - 1) as f64) / c).max(0.0),
+        None => 0.0,
+    }
+}
+
+/// The bootstrap and its columns D_j,k = x_j,k − μ_k (for the bilateral DoE).
+fn dl_bootstrap_samples(
+    x: &[f64],
+    u: &[f64],
+    dof: &[f64],
+    p: f64,
+    trials: usize,
+    seed: u64,
+) -> Result<(ConsensusSample, Vec<Vec<f64>>), UncError> {
     validate(x, u, dof)?;
     check_trials(trials, p)?;
     let n = x.len();
@@ -254,12 +285,139 @@ pub fn dl_bootstrap(
             DegreeOfEquivalence { d: x[j] - dl.mean, expanded: half_width_about(&ds[j], c, p) }
         })
         .collect();
-    Ok(ConsensusSample { mean: dl.mean, u: sd, interval: sym, coverage: p, trials, degrees_of_equivalence })
+    Ok((ConsensusSample { mean: dl.mean, u: sd, interval: sym, coverage: p, trials, degrees_of_equivalence }, ds))
+}
+
+/// A bilateral degree of equivalence B_ij = D_i − D_j with U95 %(B_ij),
+/// for i < j.
+#[derive(Clone, Debug, PartialEq)]
+pub struct BilateralDoE {
+    pub i: usize,
+    pub j: usize,
+    pub b: f64,
+    pub expanded: f64,
+}
+
+/// Unilateral and bilateral degrees of equivalence of the DerSimonian–Laird
+/// procedure.
+#[derive(Clone, Debug, PartialEq)]
+pub struct DegreesOfEquivalence {
+    /// True for the leave-one-out version D*_j = x_j − μ̂_−j.
+    pub leave_one_out: bool,
+    pub unilateral: Vec<DegreeOfEquivalence>,
+    pub bilateral: Vec<BilateralDoE>,
+}
+
+/// NICOB's factor that turns a Student t draw into one with unit standard
+/// deviation; for ν ≤ 2, where the variance is infinite, an approximation
+/// coded in DoEUnilateralDerSimonianLaird.R (a = 0.4668994, b = −0.3998882).
+fn t_scale(nu: f64) -> f64 {
+    if nu <= 2.0 {
+        let (a, b) = (0.466_899_4, -0.399_888_2);
+        1.5 * (1.0 - 0.75 * (a - 4.0 * b * (nu.powf(-0.75) - 1.0) / 3.0)).powf(-4.0 / 3.0)
+    } else {
+        (nu / (nu - 2.0)).sqrt()
+    }
+}
+
+/// Degrees of equivalence of the DerSimonian–Laird procedure as the NIST
+/// Consensus Builder computes them (manual §3.2.8 and §A.5.1; source
+/// DoEUnilateralDerSimonianLaird.R and DoEBilateralDerSimonianLaird.R,
+/// Koepke & Possolo 2020):
+///
+/// * MRA version: D_j = x_j − μ̂ from the parametric bootstrap of
+///   [`dl_bootstrap`] (the same draws for the same seed);
+/// * leave-one-out version: D*_j = x_j − μ̂_−j, with μ̂_−j the
+///   DerSimonian–Laird value of the other results. Its draws are
+///   x_j + e_j,k − μ_−j,k, with μ_−j,k from the modified Knapp–Hartung t
+///   approximation (Röver, Knapp & Friede 2015; q* = max(1, Q_w/(n − 2)),
+///   ν = n − 2) and e_j,k from N(0, τ²_−j,k + u_j²), or a rescaled t_νj when
+///   ν_j is given, τ²_−j,k drawn as in the bootstrap from the other results;
+/// * bilateral: B_ij = D_i − D_j with the draws D_i,k − D_j,k.
+///
+/// U95 % is the half-width of the shortest interval symmetric about the
+/// estimate (MRA: the mean of the draws) that holds the fraction p.
+pub fn dl_degrees_of_equivalence(
+    x: &[f64],
+    u: &[f64],
+    dof: &[f64],
+    p: f64,
+    trials: usize,
+    seed: u64,
+    leave_one_out: bool,
+) -> Result<DegreesOfEquivalence, UncError> {
+    let n = x.len();
+    let (unilateral, ds) = if !leave_one_out {
+        let (s, ds) = dl_bootstrap_samples(x, u, dof, p, trials, seed)?;
+        // Centre the columns on D_j, as NICOB does before the bilateral DoE.
+        let ds: Vec<Vec<f64>> = ds
+            .into_iter()
+            .zip(&s.degrees_of_equivalence)
+            .map(|(col, d)| {
+                let (m, _) = mean_sd(&col);
+                col.into_iter().map(|v| v - m + d.d).collect()
+            })
+            .collect();
+        (s.degrees_of_equivalence, ds)
+    } else {
+        validate(x, u, dof)?;
+        check_trials(trials, p)?;
+        if n < 3 {
+            return Err(invalid("leave-one-out degrees of equivalence need at least three results"));
+        }
+        let mut rng = Rng::new(seed);
+        let mut uni = Vec::with_capacity(n);
+        let mut ds = Vec::with_capacity(n);
+        for j in 0..n {
+            let xo: Vec<f64> = (0..n).filter(|&i| i != j).map(|i| x[i]).collect();
+            let uo: Vec<f64> = (0..n).filter(|&i| i != j).map(|i| u[i]).collect();
+            let draw_tau2 = tau2_sampler(&xo, &uo);
+            let tau2s: Vec<f64> = (0..trials).map(|_| draw_tau2(&mut rng)).collect();
+            // Modified Knapp–Hartung for μ̂_−j.
+            let (_, t2) = q_and_tau2(&xo, &uo);
+            let w: Vec<f64> = uo.iter().map(|a| 1.0 / (a * a + t2)).collect();
+            let sw: f64 = w.iter().sum();
+            let mu = w.iter().zip(&xo).map(|(a, b)| a * b).sum::<f64>() / sw;
+            let nj = xo.len() as f64;
+            let qstar = (w.iter().zip(&xo).map(|(a, b)| a * (b - mu).powi(2)).sum::<f64>() / (nj - 1.0)).max(1.0);
+            let (mu_u, mu_df) = ((qstar / sw).sqrt(), nj - 1.0);
+            let mu_phi = t_scale(mu_df);
+            let nu_j = dof.get(j).copied().unwrap_or(f64::INFINITY);
+            let col: Vec<f64> = tau2s
+                .iter()
+                .map(|t2k| {
+                    let mujk = mu + mu_u * rng.student_t(mu_df) / mu_phi;
+                    let sj = (t2k + u[j] * u[j]).sqrt();
+                    let e = if nu_j.is_finite() { sj * rng.student_t(nu_j) / t_scale(nu_j) } else { sj * rng.normal() };
+                    x[j] + e - mujk
+                })
+                .collect();
+            let d = x[j] - mu;
+            uni.push(DegreeOfEquivalence { d, expanded: half_width_about(&col, d, p) });
+            ds.push(col);
+        }
+        (uni, ds)
+    };
+    let mut bilateral = Vec::with_capacity(n * (n - 1) / 2);
+    for i in 0..n {
+        for j in i + 1..n {
+            let bk: Vec<f64> = ds[i].iter().zip(&ds[j]).map(|(a, b)| a - b).collect();
+            let (m, _) = mean_sd(&bk);
+            bilateral.push(BilateralDoE {
+                i,
+                j,
+                b: unilateral[i].d - unilateral[j].d,
+                expanded: half_width_about(&bk, m, p),
+            });
+        }
+    }
+    Ok(DegreesOfEquivalence { leave_one_out, unilateral, bilateral })
 }
 
 /// The Linear Pool (NICOB §A.4): a sample from the mixture Σ w_j φ_j of
 /// Gaussian (ν_j = ∞ or unspecified) or rescaled Student t distributions
-/// with means x_j and standard deviations u_j. `weights` is empty for equal
+/// with means x_j and standard deviations u_j (for ν_j ≤ 2, where the t
+/// variance is infinite, scaled by NICOB's approximation, linearOP.R). `weights` is empty for equal
 /// weights; it is normalised to sum to 1.
 pub fn linear_pool(
     x: &[f64],
@@ -273,9 +431,6 @@ pub fn linear_pool(
     validate(x, u, dof)?;
     check_trials(trials, p)?;
     let n = x.len();
-    if dof.iter().any(|nu| nu.is_finite() && !(*nu > 2.0)) {
-        return Err(invalid("a Student t distribution with standard deviation u_j needs ν_j > 2"));
-    }
     let w: Vec<f64> = if weights.is_empty() { vec![1.0; n] } else { weights.to_vec() };
     if w.len() != n || w.iter().any(|a| !(*a >= 0.0) || !a.is_finite()) || w.iter().sum::<f64>() <= 0.0 {
         return Err(invalid("give one non-negative weight per measured value"));
@@ -289,7 +444,8 @@ pub fn linear_pool(
     }
     let scale: Vec<f64> = (0..n)
         .map(|j| match dof.get(j) {
-            Some(&nu) if nu.is_finite() => u[j] * ((nu - 2.0) / nu).sqrt(),
+            // u_j/√(ν/(ν − 2)); for ν ≤ 2 NICOB's approximation (linearOP.R).
+            Some(&nu) if nu.is_finite() => u[j] / t_scale(nu),
             _ => u[j],
         })
         .collect();
@@ -312,7 +468,7 @@ pub fn linear_pool(
     let degrees_of_equivalence = (0..n)
         .map(|j| {
             let k = match dof.get(j) {
-                Some(&nu) if nu.is_finite() => student_t_quantile(0.5 * (1.0 + p), nu) * ((nu - 2.0) / nu).sqrt(),
+                Some(&nu) if nu.is_finite() => student_t_quantile(0.5 * (1.0 + p), nu) / t_scale(nu),
                 _ => crate::special::normal_quantile(0.5 * (1.0 + p)),
             };
             DegreeOfEquivalence { d: x[j] - mean, expanded: k * u[j] }
@@ -941,6 +1097,34 @@ mod tests {
     }
 
     #[test]
+    fn leave_one_out_and_bilateral_degrees_of_equivalence() {
+        // D*_j = x_j − μ̂_DL(others) exactly; B_ij = D_i − D_j; the reference
+        // U95 % values (numpy port of the NICOB source, 10⁶ draws) are checked
+        // in the library projects nicob-co60-* and nicob-pcb28-*.
+        let x = [10.0, 10.4, 9.7, 10.1, 11.0];
+        let u = [0.2, 0.3, 0.25, 0.1, 0.3];
+        let r = dl_degrees_of_equivalence(&x, &u, &[], 0.95, 20_000, 3, true).unwrap();
+        for j in 0..5 {
+            let xo: Vec<f64> = (0..5).filter(|&i| i != j).map(|i| x[i]).collect();
+            let uo: Vec<f64> = (0..5).filter(|&i| i != j).map(|i| u[i]).collect();
+            let m = dersimonian_laird(&xo, &uo).unwrap().mean;
+            assert!((r.unilateral[j].d - (x[j] - m)).abs() < 1e-12);
+            assert!(r.unilateral[j].expanded > 1.96 * u[j]);
+        }
+        assert_eq!(r.bilateral.len(), 10);
+        let b = &r.bilateral[3];
+        assert_eq!((b.i, b.j), (0, 4));
+        assert!((b.b - (r.unilateral[0].d - r.unilateral[4].d)).abs() < 1e-12);
+        // MRA version: the same unilateral DoE as the bootstrap for the same seed.
+        let m = dl_degrees_of_equivalence(&x, &u, &[], 0.95, 20_000, 3, false).unwrap();
+        let s = dl_bootstrap(&x, &u, &[], 0.95, 20_000, 3).unwrap();
+        assert_eq!(m.unilateral, s.degrees_of_equivalence);
+        assert!(dl_degrees_of_equivalence(&x[..2], &u[..2], &[], 0.95, 20_000, 3, true).is_err());
+        // NICOB's scale for ν ≤ 2 joins √(ν/(ν − 2)) only above 2; at ν = 2 it is finite.
+        assert!(t_scale(2.0).is_finite() && t_scale(2.0) > 1.0 && (t_scale(10.0) - 1.25f64.sqrt()).abs() < 1e-12);
+    }
+
+    #[test]
     fn gamma_approximation_has_the_chi_squared_limit() {
         // For τ = 0 the mean and variance of Q are n − 1 and 2(n − 1): the
         // gamma is χ²_{n−1} (shape (n−1)/2, scale 2).
@@ -957,6 +1141,8 @@ mod tests {
             assert!(a.expanded > 0.0 && b.expanded > 0.0);
         }
         assert!(dl_bootstrap(&G, &UG, &[0.0; 14], 0.95, 20_000, 3).is_err());
-        assert!(linear_pool(&G, &UG, &[2.0; 14], &[], 0.95, 20_000, 3).is_err());
+        // ν = 2 (infinite t variance): rescaled with NICOB's approximation (linearOP.R).
+        let lp = linear_pool(&G, &UG, &[2.0; 14], &[], 0.95, 20_000, 3).unwrap();
+        assert!(lp.u.is_finite() && lp.degrees_of_equivalence.iter().all(|d| d.expanded.is_finite()));
     }
 }

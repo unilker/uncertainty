@@ -192,6 +192,15 @@ pub struct OutputSpec {
     pub expression: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<Text>,
+    /// Physical bounds of the measurand (e.g. a mass fraction ≤ 1 g/g). The
+    /// GUM interval y ± U is truncated at a bound it crosses and reported as
+    /// asymmetric (Westwood et al. 2023, 4.1.1, 4.2.5); the Monte Carlo
+    /// evaluation is also given restricted to the bounds, which corresponds
+    /// to a rectangular prior on the measurand (Toman et al. 2016).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub lower_bound: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub upper_bound: Option<f64>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -668,6 +677,11 @@ pub struct ExpectedGum {
     /// Expanded uncertainty as reported, after the CMC rule (ILAC P14 5.5).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reported_expanded_uncertainty: Option<Check>,
+    /// Ends of the GUM interval y ± U truncated at the output bounds.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bounded_low: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bounded_high: Option<Check>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -683,4 +697,17 @@ pub struct ExpectedMcm {
     pub interval_high: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub gum_validated: Option<bool>,
+    /// The Monte Carlo evaluation restricted to the output bounds: fraction
+    /// of the draws inside, mean, standard deviation and the coverage
+    /// interval of the kind chosen (shortest by default).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bounded_fraction: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bounded_estimate: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bounded_standard_uncertainty: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bounded_low: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bounded_high: Option<Check>,
 }

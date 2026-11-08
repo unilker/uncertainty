@@ -66,6 +66,23 @@ always cover more than 95 %. The interval widths of their Fig. 2 are reproduced 
 its uncertainty, when it can be justified, remains the preferred treatment (GUM 6.3.1; research log F43
 records a sign error in their Table 3).
 
+## 6.3b Results near a physical bound
+
+A mass fraction cannot exceed 1 g/g, a concentration cannot be negative. When y ± U crosses such a bound,
+`"lower_bound"` and/or `"upper_bound"` in the `"output"` of the model state it. The program then
+
+- truncates the GUM interval at the bound and states the result asymmetrically, e.g. w = (0.9998 +0.0002/−0.0015)
+  g/g: "a w ± U95 % symmetric interval can be treated as specifying the asymmetric interval w − U95 % ≤ w ≤ 1 g/g"
+  (Westwood et al. 2023, IUPAC Technical Report on SI-traceable purity, 4.1.1; the BIPM ISRD reports do so);
+- if the Monte Carlo method runs, also reports the result restricted to the bounds: the draws outside are
+  discarded, which corresponds to a rectangular prior on the measurand over the bounds (Toman et al. 2016;
+  Westwood et al. 2023, 4.2.5). It gives the fraction of draws inside, their mean and standard deviation and the
+  coverage interval; the estimate moves away from the bound and the interval is usually narrower than the
+  truncated GUM interval.
+
+If the estimate itself lies outside the bounds, the statement says so and the restricted Monte Carlo result
+should be reported. Library project: `bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od` (999.8 +0.2/−1.5 mg/g, as printed).
+
 ## 6.4 Contents of a report
 
 A report is meant to make the evaluation reproducible and reviewable (ISO/IEC 17025:2017, 7.6 and 7.8; GUM 7.2):

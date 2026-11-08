@@ -468,18 +468,59 @@ fn statement(p: &Project, a: &Analysis, lang: Lang) -> Option<String> {
     let pct = fmt_pct_approximate(g.coverage_probability, lang);
     let (_, raised) = crate::reported_expanded(p, g.estimate, g.expanded_uncertainty);
     let evaluated = fmt_num(g.expanded_uncertainty, 2, lang);
+    // A bound crossed by y ± U: report y +U_U/−U_L (Westwood et al. 2023, 4.1.1).
+    let bounded = a.bounded.as_ref().filter(|b| b.gum_truncated);
+    let pm = match bounded {
+        Some(b) => {
+            let num = |t: &str| t.replace(',', ".").parse::<f64>().unwrap_or(f64::NAN);
+            let (yr, ur) = (num(&v), num(&u));
+            let decimals = u.rsplit_once(['.', ',']).map_or(0, |(_, d)| d.len());
+            let f = |x: f64| {
+                let t = format!("{:.*}", decimals, x.max(0.0));
+                if lang == Lang::Tr {
+                    t.replace('.', ",")
+                } else {
+                    t
+                }
+            };
+            let up = b.upper.map_or(ur, |h| ur.min(h - yr));
+            let down = b.lower.map_or(ur, |l| ur.min(yr - l));
+            format!("{v} +{}/−{}", f(up), f(down))
+        }
+        None => format!("{v} ± {u}"),
+    };
     let mut text = match lang {
         Lang::En => format!(
-            "{} = ({v} ± {u}){unit}, where the expanded uncertainty is the combined standard uncertainty \
+            "{} = ({pm}){unit}, where the expanded uncertainty is the combined standard uncertainty \
              multiplied by the coverage factor k = {k}, corresponding to a coverage probability of approximately {pct}.",
             a.model.output_name
         ),
         Lang::Tr => format!(
-            "{} = ({v} ± {u}){unit}; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = {k} kapsam \
+            "{} = ({pm}){unit}; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = {k} kapsam \
              faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık {pct} kapsam olasılığına karşılık gelir.",
             a.model.output_name
         ),
     };
+    if let Some(b) = bounded {
+        let (lo, hi) = b.gum_interval.unwrap_or((f64::NAN, f64::NAN));
+        let n = |x: f64| fmt_num(x, 6, lang);
+        text += &match lang {
+            Lang::En => format!(
+                " The measurand cannot lie outside its physical bounds, so the interval y ± U is truncated at the bound it \
+                 crosses: [{}, {}]{unit} (Westwood et al. 2023, 4.1.1)."
+            , n(lo), n(hi)),
+            Lang::Tr => format!(
+                " Ölçülen büyüklük fiziksel sınırlarının dışında olamaz; bu nedenle y ± U aralığı aştığı sınırda kesilmiştir: \
+                 [{}, {}]{unit} (Westwood ve ark. 2023, 4.1.1)."
+            , n(lo), n(hi)),
+        };
+    }
+    if a.bounded.as_ref().is_some_and(|b| b.estimate_outside) {
+        text += match lang {
+            Lang::En => " The estimate itself lies outside the bounds; the Monte Carlo result restricted to the bounds should be reported instead.",
+            Lang::Tr => " Tahminin kendisi sınırların dışındadır; bunun yerine sınırlarla kısıtlanmış Monte Carlo sonucu raporlanmalıdır.",
+        };
+    }
     if raised {
         text += &match lang {
             Lang::En => format!(
@@ -786,6 +827,26 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
             }
         } else {
             let _ = writeln!(s);
+        }
+        if let Some(bm) = a.bounded.as_ref().and_then(|b| b.mcm.as_ref()) {
+            let (lo, hi) = bm.interval(a.interval_kind);
+            let kind = match a.interval_kind {
+                IntervalKind::Shortest => l.shortest,
+                IntervalKind::Symmetric => l.symmetric,
+            };
+            let (title, text) = match lang {
+                Lang::En => ("Monte Carlo result restricted to the bounds", "Draws outside the physical bounds of the measurand are discarded, which corresponds to a rectangular prior on the measurand over the bounds (Toman et al. 2016; Westwood et al. 2023, 4.2.5)."),
+                Lang::Tr => ("Sınırlarla kısıtlanmış Monte Carlo sonucu", "Ölçülen büyüklüğün fiziksel sınırları dışındaki çekilişler atılır; bu, ölçülen büyüklük için sınırlar üzerinde dikdörtgen bir önsele karşılık gelir (Toman ve ark. 2016; Westwood ve ark. 2023, 4.2.5)."),
+            };
+            let fr = match lang {
+                Lang::En => "fraction of the draws inside the bounds",
+                Lang::Tr => "sınırlar içindeki çekiliş oranı",
+            };
+            let _ = writeln!(s, "**{title}.** {text}\n");
+            let _ = writeln!(s, "- {fr}: {}", fmt_pct(bm.fraction, 4, lang, true));
+            let _ = writeln!(s, "- {}: {}{unit}", l.estimate, n(bm.estimate));
+            let _ = writeln!(s, "- {}: {}{unit}", l.std_unc, n3(bm.standard_uncertainty));
+            let _ = writeln!(s, "- {kind}: [{}; {}]{unit}\n", n(lo), n(hi));
         }
     }
     let warnings: Vec<String> = a.gum.iter().flat_map(|g| g.warnings.iter()).map(|w| warning_text(w, lang)).collect();

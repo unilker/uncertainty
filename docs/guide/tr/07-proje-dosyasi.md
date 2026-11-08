@@ -44,6 +44,10 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 }
 ```
 
+Çıktının `lower_bound` ve `upper_bound` alanları (isteğe bağlı) ölçülen büyüklüğün fiziksel sınırlarıdır (6.3b).
+Beklenen değerler bu durumda ayrıca: `gum.bounded_low`, `gum.bounded_high` (kesilmiş aralık) ve `mcm.bounded_fraction`,
+`mcm.bounded_estimate`, `mcm.bounded_standard_uncertainty`, `mcm.bounded_low`, `mcm.bounded_high`.
+
 Bir girdinin `dof` alanı GUM yaklaşımındaki serbestlik derecesidir (varsayılan ∞; A tipi dağılımlar bunu
 kendileri belirler).
 
@@ -389,9 +393,10 @@ Beklenen değerler: `results` (ad başına `risk`, `accepted`), `global_consumer
 ```json
 "consensus": {
   "measurand": "w(Ni)", "unit": "mg/kg",
-  "results": [ { "name": "JSI", "value": 1.930, "u": 0.110 }, { "name": "UME", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
+  "results": [ { "name": "Lab 1", "value": 1.930, "u": 0.110 }, { "name": "Lab 2", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
   "coverage": 0.95,
   "dersimonian_laird": true, "linear_pool": false, "maximum_likelihood": true,
+  "leave_one_out": true, "bilateral": true,
   "trials": 100000, "seed": 1
 }
 ```
@@ -400,7 +405,10 @@ Beklenen değerler: `results` (ad başına `risk`, `accepted`), `global_consumer
 havuzdaki ağırlığıdır. Beklenen değerler: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`,
 `interval_lower`, `interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`,
 `ml_mean`, `ml_u`, `ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`,
-`bayes_tau_median` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). Bkz. 9.7.
+`bayes_tau_median` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). `leave_one_out` eşdeğerlik derecelerini
+birini dışarıda bırakan biçimde (D*_j = x_j − μ̂₋ⱼ) verir, `bilateral` B_ij = D_i − D_j'yi ekler; beklenen değerleri
+`leave_one_out` (ad başına) ve `bilateral` (çift başına `"A|B"`, B_AB = D_A − D_B), her biri `d` ve `expanded` ile.
+Bkz. 9.7.
 
 `"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (hepsi isteğe bağlı; `"bayes": {}` NICOB
 varsayılanlarını kullanır) Bayesçi rastgele etkiler modelini ekler; `"effects": "laplace"` laboratuvar etkilerine Laplace
