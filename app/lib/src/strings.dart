@@ -408,6 +408,7 @@ class S {
     'running': ['Calculating…', 'Hesaplanıyor…'],
     'save': ['Save', 'Kaydet'],
     'save_as': ['Save as…', 'Farklı kaydet…'],
+    'export_pdf': ['Export report (PDF)', 'Raporu dışa aktar (PDF)'],
     'export_html': ['Export report (HTML)', 'Raporu dışa aktar (HTML)'],
     'export_md': ['Export report (Markdown)', 'Raporu dışa aktar (Markdown)'],
     'saved': ['Saved', 'Kaydedildi'],

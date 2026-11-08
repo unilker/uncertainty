@@ -29,7 +29,7 @@ Options of `run`:
 | Option | Meaning |
 |---|---|
 | `--lang en` / `--lang tr` | report language (English is the default) |
-| `--format md`, `html`, `json` | Markdown, self-contained HTML with charts, or machine-readable results; by default taken from the extension of `--output`, otherwise Markdown |
+| `--format md`, `html`, `json`, `pdf` | Markdown, self-contained HTML with charts, machine-readable results, or a PDF document (A4, without the charts); by default taken from the extension of `--output`, otherwise Markdown |
 | `--output FILE` (`-o`) | write the report to a file |
 | `--no-mcm` | skip the Monte Carlo evaluation |
 | `--trials N` | fixed number of Monte Carlo trials (overrides the project) |
@@ -41,7 +41,7 @@ Options of `check`:
 |---|---|
 | `--no-mcm` | skip the Monte Carlo evaluations and their reference values |
 | `--lab PATH` | the laboratory's own projects (file or directory), reported in a section of their own |
-| `--report FILE` | write a software validation report, as HTML if FILE ends in `.html`, otherwise Markdown |
+| `--report FILE` | write a software validation report: PDF if FILE ends in `.pdf`, HTML for `.html`, otherwise Markdown |
 | `--lang en` / `--lang tr` | language of the validation report |
 
 The validation report is the record that ISO/IEC 17025:2017 7.11.2 asks for when software is validated before

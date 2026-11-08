@@ -20,14 +20,14 @@ weighing instruments (EURAMET cg-18, Appendix C).
 
 USAGE:
     uncertainty run <project.json> [options]
-    uncertainty check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
+    uncertainty check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html|FILE.pdf] [--lang en|tr]
     uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
 RUN OPTIONS:
     --lang en|tr          report language (default en)
-    --format md|html|json report format (default md, or from the --output extension)
+    --format md|html|json|pdf  report format (default md, or from the --output extension)
     --output FILE         write the report to FILE instead of standard output
     --no-mcm              skip the Monte Carlo evaluation
     --trials N            fixed number of Monte Carlo trials (overrides the project)
@@ -314,6 +314,7 @@ enum Format {
     Markdown,
     Html,
     Json,
+    Pdf,
 }
 
 fn main() -> ExitCode {
@@ -411,7 +412,8 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
                     "md" | "markdown" => Format::Markdown,
                     "html" => Format::Html,
                     "json" => Format::Json,
-                    other => return Err(format!("unknown format '{other}' (use md, html or json)")),
+                    "pdf" => Format::Pdf,
+                    other => return Err(format!("unknown format '{other}' (use md, html, json or pdf)")),
                 })
             }
             "--output" | "-o" => output = Some(value(args, &mut i, "--output")?.into()),
@@ -435,20 +437,27 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
         match output.as_ref().and_then(|o| o.extension()).and_then(|e| e.to_str()).map(str::to_ascii_lowercase) {
             Some(e) if e == "html" || e == "htm" => Format::Html,
             Some(e) if e == "json" => Format::Json,
+            Some(e) if e == "pdf" => Format::Pdf,
             _ => Format::Markdown,
         }
     });
     let p = load(&file)?;
     let a = project::run(&p, &ov).map_err(|e| format!("{}: {e}", file.display()))?;
     let generated = today();
-    let text = match format {
-        Format::Markdown => report::markdown(&p, &a, lang, Some(&generated)),
-        Format::Html => report::html(&p, &a, lang, Some(&generated)),
-        Format::Json => serde_json::to_string_pretty(&project::results_json(&p, &a)).map_err(|e| e.to_string())? + "\n",
+    let bytes: Vec<u8> = match format {
+        Format::Markdown => report::markdown(&p, &a, lang, Some(&generated)).into_bytes(),
+        Format::Html => report::html(&p, &a, lang, Some(&generated)).into_bytes(),
+        Format::Json => (serde_json::to_string_pretty(&project::results_json(&p, &a)).map_err(|e| e.to_string())?
+            + "\n")
+            .into_bytes(),
+        Format::Pdf => report::pdf_report(&p, &a, lang, Some(&generated)),
     };
     match output {
-        Some(path) => std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?,
-        None => print!("{text}"),
+        Some(path) => std::fs::write(&path, bytes).map_err(|e| format!("{}: {e}", path.display()))?,
+        None => {
+            use std::io::Write as _;
+            std::io::stdout().write_all(&bytes).map_err(|e| e.to_string())?;
+        }
     }
     Ok(true)
 }
@@ -531,14 +540,14 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
     }
     println!("\n{passed} passed, {failed} failed, {without} without reference values ({n_files} files)");
     if let Some(path) = report_path {
-        let html = path.extension().is_some_and(|e| e.eq_ignore_ascii_case("html") || e.eq_ignore_ascii_case("htm"));
+        let ext = path.extension().and_then(|e| e.to_str()).map(str::to_ascii_lowercase).unwrap_or_default();
         let date = today();
-        let text = if html {
-            report::validation_html(&items, !ov.skip_mcm, lang, &date)
-        } else {
-            report::validation_markdown(&items, !ov.skip_mcm, lang, &date)
+        let bytes = match ext.as_str() {
+            "html" | "htm" => report::validation_html(&items, !ov.skip_mcm, lang, &date).into_bytes(),
+            "pdf" => report::validation_pdf(&items, !ov.skip_mcm, lang, &date),
+            _ => report::validation_markdown(&items, !ov.skip_mcm, lang, &date).into_bytes(),
         };
-        std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+        std::fs::write(&path, bytes).map_err(|e| format!("{}: {e}", path.display()))?;
         println!("validation report written to {}", path.display());
     }
     Ok(failed == 0)

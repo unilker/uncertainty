@@ -19,13 +19,14 @@ mod consensus;
 mod interlab;
 mod multiconformity;
 mod multivariate;
+pub mod pdf;
 mod proficiency;
 mod qc;
 mod sampling;
 mod validation;
 mod weighing;
 
-pub use validation::{validation_html, validation_markdown, ValidationItem};
+pub use validation::{validation_html, validation_markdown, validation_pdf, ValidationItem};
 
 struct Labels {
     report: &'static str,
@@ -1967,6 +1968,17 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0 1em}@media print{figur
 "#;
 
 /// Self-contained HTML report with charts.
+/// The report as a PDF document (A4; charts are in the HTML report only).
+pub fn pdf_report(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) -> Vec<u8> {
+    let title = p.metadata.title.get(lang).to_string();
+    pdf::from_markdown(
+        &markdown(p, e, lang, generated),
+        &title,
+        &format!("{SOFTWARE_NAME} {}", crate::software_identity()),
+        lang,
+    )
+}
+
 pub fn html(p: &Project, e: &Evaluation, lang: Lang, generated: Option<&str>) -> String {
     let l = labels(lang);
     let body = md_to_html(&markdown(p, e, lang, generated));

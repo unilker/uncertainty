@@ -95,6 +95,8 @@ A report is meant to make the evaluation reproducible and reviewable (ISO/IEC 17
 * explanations, notes on the sources, and the references;
 * the software version and the citation.
 
-Reports are available as Markdown, self-contained HTML (charts as SVG; light and dark themes; printable) and
-JSON (all values in full precision, for further processing). Turkish reports use the decimal comma and the
+Reports are available as Markdown, self-contained HTML (charts as SVG; light and dark themes; printable), PDF
+(A4, the same text and tables without the charts, fonts embedded, page numbers; the same project gives the same
+bytes, so the SHA-256 of a filed PDF can be checked) and JSON (all values in full precision, for further
+processing). Turkish reports use the decimal comma and the
 prefixed per-cent sign (%95).

@@ -33,3 +33,12 @@ Future<void> shareText(String name, String text) async {
   await file.writeAsString(text);
   await SharePlus.instance.share(ShareParams(files: [XFile(file.path)], title: name));
 }
+
+/// Writes [bytes] to a temporary file named [name] and opens the share sheet
+/// (mobile only).
+Future<void> shareBytes(String name, List<int> bytes) async {
+  final dir = await getTemporaryDirectory();
+  final file = File(p.join(dir.path, name));
+  await file.writeAsBytes(bytes);
+  await SharePlus.instance.share(ShareParams(files: [XFile(file.path)], title: name));
+}

@@ -3492,3 +3492,19 @@ the MRA version subtracts the pool draws z_k instead of μ̂ (so U also contains
 DoEBilateralLinearPool.R always uses leave-one-out pools, draws e_j by resampling the centred pool of the other
 results (the participant's own u_j does not enter) and sets B_ij = x_i − x_j. The program implements the manual.
 Also noted in the code: "AP CHECK" comments on the treatment of excluded participants (D86).
+
+## 2026-11-08 (session 22, continued) — PDF reports
+
+**D89. PDF reports (review item 20, third NMI gap).** `uncertainty run … --format pdf` (or `-o report.pdf`),
+`check --report validation.pdf`, the FFI option `pdf` (base64) and *Export report (PDF)* in the app. The Markdown
+report of every project type is laid out on A4 by `project/src/report/pdf.rs`: headings, paragraphs with bold
+runs, bullet and numbered lists, tables with the column alignment of the Markdown (column widths from the content,
+cells wrapped, the header row repeated after a page break), rules, and a footer with the title and "page n of N".
+Charts stay in the HTML report. Text is set in DejaVu Sans and DejaVu Sans Bold 2.37 (Bitstream Vera licence,
+`project/fonts/LICENSE`), embedded whole and compressed (Type 0/CIDFontType2, Identity-H, with a ToUnicode map
+so that the text can be searched and copied); about 0.75 MB per report. The fonts are not subset, because the
+subsetting crate needs Rust 1.85 and the workspace declares 1.75. Dependencies: pdf-writer 0.12, ttf-parser 0.25,
+miniz_oxide 0.8 (MIT/Apache/Zlib, pure Rust). The output is deterministic (no creation date; the generation date
+is in the text), so the SHA-256 of a filed PDF can be recomputed. A library test checks that the font has a glyph
+for every character of every library report in both languages. Signed packages (7.11.3) remain open: the PDF and
+the project digest give integrity checks, not signatures.
