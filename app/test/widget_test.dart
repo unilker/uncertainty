@@ -381,6 +381,24 @@ void main() {
     expect(find.text('65.474 µg/L'), findsWidgets); // upper warning limit
   });
 
+  testWidgets('degrees of equivalence of the 60Co comparison by procedure', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+    await pumpUntilFound(tester, find.textContaining('Example library ('));
+    await tester.enterText(find.byKey(const Key('search')), 'nicob-co60');
+    await tester.pumpAndSettle();
+    await tester.tap(find.textContaining('in 19 laboratories'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('run')));
+    await pumpUntilFound(tester, find.text('Consensus value (DerSimonian–Laird)'), attempts: 1200);
+    final list = find.descendant(of: find.byKey(const Key('results-list')), matching: find.byType(Scrollable)).first;
+    await tester.scrollUntilVisible(find.byKey(const Key('cs-bilateral-by-procedure')), 400, scrollable: list);
+    final text = tester.widget<Text>(find.byKey(const Key('cs-bilateral-by-procedure'))).data!;
+    expect(text, contains('DerSimonian–Laird 9/171'));
+    expect(text, contains('Linear Pool 0/171'));
+    expect(find.text('Degrees of equivalence by procedure'), findsOneWidget);
+  });
+
   testWidgets('lead in soil by the duplicate method of Eurachem UfS Example A2', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));

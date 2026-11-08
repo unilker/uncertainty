@@ -159,6 +159,7 @@ class S {
     'cs_bilateral_sig': ['Pairs with |B| > U95 %:', '|B| > U95 % olan çiftler:'],
     'cs_loo_on': ['Leave-one-out degrees of equivalence', 'Birini dışarıda bırakan eşdeğerlik dereceleri'],
     'cs_bilateral_on': ['Bilateral degrees of equivalence', 'İki taraflı eşdeğerlik dereceleri'],
+    'cs_by_procedure': ['Degrees of equivalence by procedure', 'Yöntemlere göre eşdeğerlik dereceleri'],
     'cs_participant': ['Participant', 'Katılımcı'],
     'cs_weight': ['DL weight', 'DL ağırlığı'],
     'mc_title': ['Multicomponent item: total risks', 'Çok bileşenli ürün: toplam riskler'],

@@ -84,8 +84,8 @@ record ties a result to its inputs and to a validated build (ISO/IEC 17025 7.5, 
 
 **Figure 1** (`figures/fig1_architecture.pdf`). Architecture: sources, generators, project files, engine, interfaces and tests.
 
-**Table 1.** Evaluation types and the clauses they implement (to be checked against `docs/research/iso17025-mapping.md`
-and the module documentation).
+**Table 1.** Evaluation types and the methods they implement (checked against the module documentation and
+`docs/research/iso17025-mapping.md`).
 
 | Project type | Methods | Main references |
 |---|---|---|
@@ -97,7 +97,7 @@ and the module documentation).
 | calibration | generalised least squares with uncertainty in both variables | [18] |
 | precision experiment | repeatability and reproducibility with outlier tests | [16, 17] |
 | control chart | X- and R-charts, limits, rules, long-term review | [11] |
-| sampling | duplicate method, robust ANOVA, fundamental sampling error | [30] |
+| sampling | duplicate method (classical ANOVA; range and log-transformed variants), fundamental sampling error; the robust ANOVA of the guide is not reproducible from its text (F63) | [30] |
 | error function | weighing instruments, error approximation and uncertainty in use | [14] |
 | consensus | DerSimonian–Laird with parametric bootstrap, Linear Pool, maximum likelihood, Bayesian random effects (Gaussian or Laplace); degrees of equivalence (MRA, leave-one-out, bilateral) | [23, 31, 32] |
 
@@ -381,7 +381,7 @@ policy.]
 
 [5] JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment. BIPM.
 
-[6] JCGM 100:2008/Amd.1:2026, Amendment 1 to the GUM (nonlinear measurement models). BIPM. [verify title]
+[6] JCGM 100:2008/Amd.1:2026, Evaluation of measurement data — Guide to the expression of uncertainty in measurement. Amendment 1: Nonlinearity in measurement models. BIPM, 2026.
 
 [7] JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples. BIPM. https://doi.org/10.59161/YNLY8209
 
@@ -409,17 +409,17 @@ policy.]
 
 [19] T. Lafarge, A. Possolo, The NIST Uncertainty Machine, NCSLI Measure 10(3) (2015) 20–27. https://doi.org/10.1080/19315775.2015.11721732
 
-[20] D. Delker, Sandia Uncertainty Calculator (Suncal), NCSLI Measure 13(3) (2021); SAND2021-8022J. [verify title and pages]
+[20] C. J. Delker, A comprehensive open-source software for statistical metrology calculations: from uncertainty evaluation to risk analysis, NCSLI Measure 13(3) (2021); Sandia report SAND2021-8022J, OSTI 1830511. [verify pages]
 
-[21] B. D. Hall, The GUM Tree Calculator: a Python package for measurement modelling and data processing with automatic evaluation of uncertainty, Metrology 2 (2022) 128–149. [verify title]
+[21] B. D. Hall, J. S. Borbely, The GUM Tree Calculator: a Python package for measurement modelling and data processing with automatic evaluation of uncertainty, Metrology 2 (2022) 128–149. https://doi.org/10.3390/metrology2010009
 
-[22] M. Zeier, J. Hoffmann, M. Wollensack, Metas.UncLib — a measurement uncertainty calculator for advanced problems, Metrologia 49 (2012) 809–815. [verify pages]
+[22] M. Zeier, J. Hoffmann, M. Wollensack, Metas.UncLib — a measurement uncertainty calculator for advanced problems, Metrologia 49 (2012) 809–815. https://doi.org/10.1088/0026-1394/49/6/809
 
 [23] A. Koepke, T. Lafarge, A. Possolo, B. Toman, NIST Consensus Builder — User's Manual, NIST, 2020. https://consensus.nist.gov
 
 [24] R. J. N. Bettencourt da Silva, User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty, Talanta (2026) 130826. https://doi.org/10.1016/j.talanta.2026.130826
 
-[25] F. Pennecchi, P. Harris, Measurement uncertainty software and training: a survey by the European Metrology Network Mathmet, Acta IMEKO 12(2) (2023) 1–6. [verify title]
+[25] F. R. Pennecchi, P. M. Harris, Mathmet Measurement Uncertainty Training activity — overview of courses, software, and classroom examples, Acta IMEKO 12(2) (2023) 1–6.
 
 [26] G. Mana, F. Pennecchi, Uncertainty propagation in non-linear measurement equations, Metrologia 44 (2007) 246–251. https://doi.org/10.1088/0026-1394/44/3/012
 
@@ -435,11 +435,11 @@ policy.]
 
 [32] A. Koepke, T. Lafarge, A. Possolo, B. Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62. https://doi.org/10.1088/1681-7575/aa6c0e
 
-[33] R. Willink, A generalization of the Welch–Satterthwaite formula for use with correlated uncertainty components, Metrologia 44 (2007) 340–349.
+[33] R. Willink, A generalization of the Welch–Satterthwaite formula for use with correlated uncertainty components, Metrologia 44 (2007) 340–349. https://doi.org/10.1088/0026-1394/44/5/010
 
 [34] ILAC P14:09/2020, ILAC Policy for Measurement Uncertainty in Calibration.
 
-[35] B. A. Wichmann, I. D. Hill, Generating good pseudo-random numbers, Comput. Stat. Data Anal. 51 (2006) 1614–1622. [verify]
+[35] B. A. Wichmann, I. D. Hill, Generating good pseudo-random numbers, Comput. Stat. Data Anal. 51 (2006) 1614–1622.
 
 [36] G. Marsaglia, W. W. Tsang, A simple method for generating gamma variables, ACM Trans. Math. Softw. 26 (2000) 363–372.
 
@@ -449,9 +449,9 @@ policy.]
 
 [39] B. J. Biggerstaff, R. L. Tweedie, Incorporating variability in estimates of heterogeneity in the random effects model in meta-analysis, Stat. Med. 16 (1997) 753–768.
 
-[40] S. Westwood et al., Methods for the SI-traceable value assignment of the purity of organic compounds (IUPAC Technical Report), Pure Appl. Chem. (2023). https://doi.org/10.1515/pac-2020-0804 [verify volume and pages]
+[40] S. Westwood et al., Methods for the SI-traceable value assignment of the purity of organic compounds (IUPAC Technical Report), Pure Appl. Chem. (published online 2022). https://doi.org/10.1515/pac-2020-0804 [verify volume and pages of the issue]
 
-[41] B. Toman, M. A. Nelson, K. A. Lippa, Chemical purity using quantitative ¹H-nuclear magnetic resonance: a hierarchical Bayesian approach for traceable calibrations, Metrologia 53 (2016) 1193–1203. [verify title and pages]
+[41] B. Toman, M. A. Nelson, K. A. Lippa, Chemical purity using quantitative ¹H-nuclear magnetic resonance: a hierarchical Bayesian approach for traceable calibrations, Metrologia 53 (2016) 1193–1203. https://doi.org/10.1088/0026-1394/53/5/1193
 
 [42] A. Possolo, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results, NIST Technical Note 1900, 2015. https://doi.org/10.6028/NIST.TN.1900
 

@@ -96,7 +96,7 @@ class ResultsView extends StatelessWidget {
         ),
       );
     }
-    return ListView(padding: const EdgeInsets.fromLTRB(16, 8, 16, 96), children: children);
+    return ListView(key: const Key('results-list'), padding: const EdgeInsets.fromLTRB(16, 8, 16, 96), children: children);
   }
 
   List<Widget> _gum(BuildContext context, Map<String, dynamic> results, String unit, List<String> warnings) {
@@ -222,6 +222,51 @@ class ResultsView extends StatelessWidget {
             for (final x in sig) [x['a'].toString(), x['b'].toString(), n(x['d'], 3), n(x['expanded'], 3)],
           ],
         ),
+      ..._doeByProcedure(context, r, unit, dl0),
+    ];
+  }
+
+  /// D (U95 %) of DerSimonian–Laird, the Linear Pool and Bayes side by side,
+  /// when the Linear Pool or Bayes degrees of equivalence were computed.
+  List<Widget> _doeByProcedure(BuildContext context, Map<String, dynamic> r, String unit, String dl0) {
+    final s = strings;
+    String n(dynamic x) => fmtNum(_d(x), 3, s.lang);
+    List<Map<String, dynamic>>? uni(String key) =>
+        ((r[key] as Map<String, dynamic>?)?['unilateral'] as List?)?.cast<Map<String, dynamic>>();
+    final dlSet = r['degrees_of_equivalence'] as Map<String, dynamic>?;
+    final dl = uni('degrees_of_equivalence') ??
+        ((r['dersimonian_laird'] as Map<String, dynamic>)['bootstrap'] as Map<String, dynamic>?)?['degrees_of_equivalence']
+            ?.cast<Map<String, dynamic>>();
+    final lp = uni('linear_pool_degrees_of_equivalence');
+    final by = uni('bayes_degrees_of_equivalence');
+    if (lp == null && by == null) return const [];
+    final cols = <(String, List<Map<String, dynamic>>)>[
+      if (dl != null) ('DerSimonian–Laird', dl),
+      if (lp != null) (s['cs_lp'], lp),
+      if (by != null) ('Bayes', by),
+    ];
+    final names = cols.first.$2.map((e) => e['name'].toString()).toList();
+    String sigText(String key, String label) {
+      final b = ((r[key] as Map<String, dynamic>?)?['bilateral'] as List?)?.cast<Map<String, dynamic>>();
+      if (b == null || b.isEmpty) return '';
+      return '$label ${b.where((x) => x['significant'] == true).length}/${b.length}';
+    }
+    final counts = [
+      if (dlSet != null) sigText('degrees_of_equivalence', 'DerSimonian–Laird'),
+      sigText('linear_pool_degrees_of_equivalence', s['cs_lp']),
+      sigText('bayes_degrees_of_equivalence', 'Bayes'),
+    ].where((t) => t.isNotEmpty).join('; ');
+    return [
+      Section(s['cs_by_procedure']),
+      _table(
+        context,
+        [s['cs_participant'], for (final c in cols) '${c.$1}: $dl0 (U95 %)$unit'],
+        [
+          for (var j = 0; j < names.length; j++)
+            [names[j], for (final c in cols) '${n(c.$2[j]['d'])} (${n(c.$2[j]['expanded'])})'],
+        ],
+      ),
+      if (counts.isNotEmpty) Text('${s['cs_bilateral_sig']} $counts', key: const Key('cs-bilateral-by-procedure')),
     ];
   }
 
