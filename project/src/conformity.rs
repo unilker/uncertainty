@@ -68,13 +68,40 @@ pub struct ConformitySpec {
     /// PDF of the property over the production process, for global risks.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub process: Option<ProcessSpec>,
+    /// Conformance probabilities of the measured results from the posterior
+    /// PDF, with the process PDF as prior (JCGM 106 6.2, Annex A); needs a
+    /// process and a project without a model.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub posterior: bool,
     /// Required global consumer's risk: the guard-band multiplier r is found.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target_consumer_risk: Option<f64>,
-    /// Model projects: PDF for the result, `normal` (default) or `t` with the
-    /// effective degrees of freedom.
+    /// Guard band from the test uncertainty ratio: `rss`, `dobbert`, `rp10`
+    /// or `test95` (two-sided tolerance, fixed u; TUR = (T_U − T_L)/2 / U₉₅).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tur_method: Option<TurMethodSpec>,
+    /// U₉₅ in the TUR: `k95` (default) k₉₅·u with k₉₅ the 97.5 % t quantile
+    /// for the degrees of freedom (ν_eff of the model, `dof`, or ∞: 1.960),
+    /// the expanded uncertainty for 95 % that ANSI/NCSL Z540.3 means; or
+    /// `two_u`, U₉₅ = 2u as in Sandia's Suncal.
+    #[serde(default, skip_serializing_if = "is_default")]
+    pub tur_u95: TurU95Spec,
+    /// Keep a guard-band factor above 1 (Dobbert's M < 0 for TUR > 4.59:
+    /// acceptance limits outside the tolerance, a guarded rejection). By
+    /// default the factor is limited to 1 (simple acceptance) and the report
+    /// says so; allow it only under a decision rule agreed with the customer
+    /// (ISO/IEC 17025:2017 7.1.3, ILAC G8).
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub tur_allow_factor_above_one: bool,
+    /// PDF for the measurand: `normal` (default), `t` with the effective
+    /// degrees of freedom (model projects; give `dof` otherwise) or
+    /// `lognormal` with median y and s_G = u/|y| (Eurachem/CITAC 2021,
+    /// Annex A, Case 4, Equation 2).
     #[serde(default)]
     pub distribution: KnowledgeSpec,
+    /// Lognormal: s_G = √ln(1 + (u/y)²) instead of the approximation u/|y|.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub exact_sdlog: bool,
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
@@ -86,12 +113,60 @@ pub enum RuleSpec {
     GuardedRejection,
 }
 
+fn is_default<T: Default + PartialEq>(x: &T) -> bool {
+    *x == T::default()
+}
+
+/// The expanded uncertainty U₉₅ in the test uncertainty ratio.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TurU95Spec {
+    #[default]
+    K95,
+    TwoU,
+}
+
+/// The test uncertainty ratio and guard-band factor used.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct TurUsed {
+    pub method: TurMethodSpec,
+    pub u95: TurU95Spec,
+    /// The factor k in U₉₅ = k·u.
+    pub k: f64,
+    pub tur: f64,
+    /// The guard-band factor applied.
+    pub factor: f64,
+    /// The method's factor when it exceeded 1 and was limited to 1.
+    pub limited_from: Option<f64>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TurMethodSpec {
+    Rss,
+    Dobbert,
+    Rp10,
+    Test95,
+}
+
+impl TurMethodSpec {
+    pub fn method(self) -> cf::TurMethod {
+        match self {
+            TurMethodSpec::Rss => cf::TurMethod::Rss,
+            TurMethodSpec::Dobbert => cf::TurMethod::Dobbert,
+            TurMethodSpec::Rp10 => cf::TurMethod::Rp10,
+            TurMethodSpec::Test95 => cf::TurMethod::Test95,
+        }
+    }
+}
+
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum KnowledgeSpec {
     #[default]
     Normal,
     T,
+    Lognormal,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -108,8 +183,37 @@ pub struct MeasuredSpec {
 #[serde(deny_unknown_fields)]
 pub struct ProcessSpec {
     pub distribution: ProcessKind,
-    pub mean: f64,
-    pub sd: f64,
+    /// Mean and standard deviation (normal, gamma).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mean: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sd: Option<f64>,
+    /// Mean and standard deviation of ln Y (lognormal).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub meanlog: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sdlog: Option<f64>,
+}
+
+impl ProcessSpec {
+    fn process(&self) -> Result<Process, ProjectError> {
+        let (a, b, names) = match self.distribution {
+            ProcessKind::Lognormal => (self.meanlog, self.sdlog, ["meanlog", "sdlog"]),
+            _ => (self.mean, self.sd, ["mean", "sd"]),
+        };
+        let other = match self.distribution {
+            ProcessKind::Lognormal => self.mean.is_some() || self.sd.is_some(),
+            _ => self.meanlog.is_some() || self.sdlog.is_some(),
+        };
+        match (a, b) {
+            (Some(a), Some(b)) if !other => Ok(match self.distribution {
+                ProcessKind::Normal => Process::Normal { mean: a, sd: b },
+                ProcessKind::Gamma => Process::Gamma { mean: a, sd: b },
+                ProcessKind::Lognormal => Process::Lognormal { meanlog: a, sdlog: b },
+            }),
+            _ => Err(err("process", format!("this distribution takes {} and {} only", names[0], names[1]))),
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -117,6 +221,7 @@ pub struct ProcessSpec {
 pub enum ProcessKind {
     Normal,
     Gamma,
+    Lognormal,
 }
 
 // ---------------------------------------------------------------------------
@@ -134,6 +239,10 @@ pub struct ExpectedConformity {
     pub acceptance_upper: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub capability_index: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tur: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub guard_band_factor: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -165,7 +274,8 @@ pub struct AssessedResult {
     pub value: f64,
     pub u: f64,
     pub dof: Option<f64>,
-    /// p_c from the normal or t PDF.
+    /// p_c from the normal or t PDF, or from the posterior with the process
+    /// PDF as prior.
     pub conformance_probability: f64,
     /// p_c from the Monte Carlo values (model projects).
     pub conformance_probability_mcm: Option<f64>,
@@ -188,15 +298,26 @@ pub struct ConformityAnalysis {
     pub acceptance: Acceptance,
     /// C_m = T/(4u) for a two-sided tolerance and a fixed u.
     pub capability_index: Option<f64>,
+    /// TUR and guard-band factor when the acceptance limits come from a TUR method.
+    pub tur: Option<TurUsed>,
     pub results: Vec<AssessedResult>,
     pub process: Option<ProcessSpec>,
+    /// The conformance probabilities are posterior ones.
+    pub posterior: bool,
+    /// Lognormal PDF for the measurand, with the exact s_G if true.
+    pub lognormal: Option<bool>,
     pub global: Option<GlobalRisks>,
     /// Standard uncertainty (or scale) and degrees of freedom of the measuring
     /// system at the acceptance limits, for charts of design studies.
     pub limit_knowledge: Vec<(f64, f64, Option<f64>)>,
 }
 
-fn knowledge(y: f64, u: f64, dof: Option<f64>) -> Knowledge {
+fn knowledge(y: f64, u: f64, dof: Option<f64>, lognormal: Option<bool>) -> Knowledge {
+    if let Some(exact) = lognormal {
+        let rel = u / y.abs();
+        let sdlog = if exact { (rel * rel).ln_1p().sqrt() } else { rel };
+        return Knowledge::Lognormal { y, sdlog };
+    }
     match dof {
         Some(nu) if nu.is_finite() => Knowledge::StudentT { y, u, nu },
         _ => Knowledge::Normal { y, u },
@@ -242,8 +363,15 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
                 "quantity, unit, u, u_relative, dof and results belong to a conformity project without a model",
             ));
         }
-    } else if spec.distribution != KnowledgeSpec::Normal {
-        return Err(err("distribution", "applies to model projects; give dof for a t distribution"));
+    } else if spec.distribution == KnowledgeSpec::T {
+        return Err(err("distribution", "t applies to model projects; give dof for a t distribution"));
+    }
+    let lognormal = (spec.distribution == KnowledgeSpec::Lognormal).then_some(spec.exact_sdlog);
+    if lognormal.is_some() && (spec.dof.is_some() || spec.posterior) {
+        return Err(err("distribution", "a lognormal PDF takes neither dof nor posterior"));
+    }
+    if spec.exact_sdlog && lognormal.is_none() {
+        return Err(err("exact_sdlog", "applies to a lognormal PDF"));
     }
     if spec.u.is_some() && spec.u_relative.is_some() {
         return Err(err("u", "give either u or u_relative"));
@@ -277,11 +405,12 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         spec.probability.is_some(),
         explicit,
         spec.target_consumer_risk.is_some(),
+        spec.tur_method.is_some(),
     ];
     if ways.iter().filter(|&&b| b).count() > 1 {
         return Err(err(
             "r",
-            "give only one of r, guard_band, probability, acceptance limits and target_consumer_risk",
+            "give only one of r, guard_band, probability, acceptance limits, target_consumer_risk and tur_method",
         ));
     }
     if spec.rule == RuleSpec::SimpleAcceptance
@@ -298,12 +427,13 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         let at = tolerance.upper.or(tolerance.lower).unwrap_or(0.0);
         system_u(at).ok_or_else(|| need_u(what))
     };
-    let process = spec.process.as_ref().map(|p| match p.distribution {
-        ProcessKind::Normal => Process::Normal { mean: p.mean, sd: p.sd },
-        ProcessKind::Gamma => Process::Gamma { mean: p.mean, sd: p.sd },
-    });
+    let process = spec.process.as_ref().map(ProcessSpec::process).transpose()?;
+    if spec.posterior && (process.is_none() || model) {
+        return Err(err("posterior", "needs a process PDF in a conformity project without a model"));
+    }
     let mut r_used = None;
     let mut rule_used = spec.rule;
+    let mut tur_used = None;
     let (acceptance, guard_band) = if explicit {
         let a = Acceptance { lower: spec.acceptance_lower, upper: spec.acceptance_upper };
         if a.lower.is_some() != tolerance.lower.is_some() || a.upper.is_some() != tolerance.upper.is_some() {
@@ -337,15 +467,54 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         (a, w)
     } else if let Some(p) = spec.probability {
         let a = cf::acceptance_from_probability(&tolerance, rule(spec.rule), p, |y| {
-            knowledge(y, system_u(y).unwrap_or(f64::NAN), dof)
+            knowledge(y, system_u(y).unwrap_or(f64::NAN), dof, lognormal)
         })
         .map_err(|e| err("probability", e.to_string()))?;
         if system_u(tolerance.upper.or(tolerance.lower).unwrap_or(0.0)).is_none() {
             return Err(need_u("probability"));
         }
         (a, None)
+    } else if let Some(m) = spec.tur_method {
+        let (Some(tl), Some(tu)) = (tolerance.lower, tolerance.upper) else {
+            return Err(err("tur_method", "needs a two-sided tolerance"));
+        };
+        if spec.u_relative.is_some() {
+            return Err(err("tur_method", "needs a fixed u of the measuring system"));
+        }
+        let half = 0.5 * (tu - tl);
+        let k = match spec.tur_u95 {
+            TurU95Spec::TwoU => 2.0,
+            TurU95Spec::K95 => {
+                let nu = match &subject {
+                    Some(s) => s.dof,
+                    None => spec.dof,
+                };
+                match nu {
+                    Some(nu) if nu.is_finite() => uncertainty_core::special::student_t_quantile(0.975, nu),
+                    _ => uncertainty_core::special::normal_quantile(0.975),
+                }
+            }
+        };
+        let tur = half / (k * band_u("tur_method")?);
+        let raw = cf::tur_guard_band_factor(m.method(), tur).map_err(|e| err("tur_method", e.to_string()))?;
+        let limited = raw > 1.0 && !spec.tur_allow_factor_above_one;
+        let gbf = if limited { 1.0 } else { raw };
+        let w = (1.0 - gbf) * half;
+        rule_used = if w > 0.0 {
+            RuleSpec::GuardedAcceptance
+        } else if w < 0.0 {
+            RuleSpec::GuardedRejection
+        } else {
+            RuleSpec::SimpleAcceptance
+        };
+        tur_used =
+            Some(TurUsed { method: m, u95: spec.tur_u95, k, tur, factor: gbf, limited_from: limited.then_some(raw) });
+        (cf::acceptance_from_guard_band(&tolerance, w), (w != 0.0).then_some(w))
     } else if let Some(target) = spec.target_consumer_risk {
         let proc_ = process.as_ref().ok_or_else(|| err("target_consumer_risk", "needs a process PDF"))?;
+        if spec.u_relative.is_some() {
+            return Err(err("target_consumer_risk", "needs a fixed u of the measuring system"));
+        }
         let um = band_u("target_consumer_risk")?;
         let r = cf::guard_band_for_consumer_risk(proc_, um, &tolerance, target)
             .map_err(|e| err("target_consumer_risk", e.to_string()))?;
@@ -377,8 +546,16 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
     // Results.
     let mut results = Vec::new();
     let mut assess = |name: String, value: f64, u: f64, values: Option<&[f64]>| -> Result<(), ProjectError> {
-        let k = knowledge(value, u, dof);
-        let pc = cf::conformance_probability(&k, &tolerance).map_err(|e| err("results", e.to_string()))?;
+        let pc = match (&process, spec.posterior) {
+            (Some(p), true) => {
+                if dof.is_some() {
+                    return Err(err("posterior", "uses a normal likelihood; remove dof"));
+                }
+                cf::posterior_conformance_probability(p, value, u, &tolerance)
+            }
+            _ => cf::conformance_probability(&knowledge(value, u, dof, lognormal), &tolerance),
+        }
+        .map_err(|e| err("results", e.to_string()))?;
         let accepted = acceptance.contains(value);
         results.push(AssessedResult {
             name,
@@ -410,11 +587,11 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
     let global = match &process {
         None => None,
         Some(p) => {
-            let um = band_u("process")?;
-            if spec.u_relative.is_some() {
-                return Err(err("process", "global risks need a fixed u of the measuring system"));
-            }
-            Some(cf::global_risks(p, um, &tolerance, &acceptance).map_err(|e| err("process", e.to_string()))?)
+            let g = match (subject.as_ref(), spec.u_relative) {
+                (None, Some(ur)) => cf::global_risks_relative(p, ur, &tolerance, &acceptance),
+                _ => cf::global_risks(p, band_u("process")?, &tolerance, &acceptance),
+            };
+            Some(g.map_err(|e| err("process", e.to_string()))?)
         }
     };
     if spec.results.is_empty()
@@ -442,8 +619,11 @@ pub fn evaluate(spec: &ConformitySpec, subject: Option<Subject>) -> Result<Confo
         probability: spec.probability,
         acceptance,
         capability_index: fixed_u.and_then(|u| cf::capability_index(&tolerance, u)),
+        tur: tur_used,
         results,
         process: spec.process.clone(),
+        posterior: spec.posterior,
+        lognormal,
         global,
     })
 }
@@ -465,6 +645,8 @@ pub fn check(e: &ExpectedConformity, a: &ConformityAnalysis, out: &mut Vec<crate
     push("conformity.acceptance_lower".into(), a.acceptance.lower, &e.acceptance_lower);
     push("conformity.acceptance_upper".into(), a.acceptance.upper, &e.acceptance_upper);
     push("conformity.capability_index".into(), a.capability_index, &e.capability_index);
+    push("conformity.tur".into(), a.tur.map(|t| t.tur), &e.tur);
+    push("conformity.guard_band_factor".into(), a.tur.map(|t| t.factor), &e.guard_band_factor);
     push("conformity.r".into(), a.r, &e.r);
     let g = a.global.as_ref();
     push("conformity.conforming".into(), g.map(|g| g.conforming), &e.conforming);
@@ -510,6 +692,9 @@ pub fn results_json(a: &ConformityAnalysis) -> serde_json::Value {
         "probability": a.probability,
         "acceptance": { "lower": a.acceptance.lower, "upper": a.acceptance.upper },
         "capability_index": a.capability_index,
+        "tur": a.tur.map(|t| json!({"method": t.method, "u95": t.u95, "k": t.k, "tur": t.tur,
+            "guard_band_factor": t.factor, "limited_from": t.limited_from})),
+        "posterior": a.posterior,
         "results": a.results.iter().map(|r| json!({
             "name": r.name, "value": r.value, "u": r.u, "dof": r.dof,
             "conformance_probability": r.conformance_probability,
@@ -517,12 +702,58 @@ pub fn results_json(a: &ConformityAnalysis) -> serde_json::Value {
             "accepted": r.accepted, "specific_risk": r.specific_risk,
         })).collect::<Vec<_>>(),
         "process": a.process.as_ref().map(|p| json!({
-            "distribution": match p.distribution { ProcessKind::Normal => "normal", ProcessKind::Gamma => "gamma" },
-            "mean": p.mean, "sd": p.sd,
+            "distribution": match p.distribution {
+                ProcessKind::Normal => "normal",
+                ProcessKind::Gamma => "gamma",
+                ProcessKind::Lognormal => "lognormal",
+            },
+            "mean": p.mean, "sd": p.sd, "meanlog": p.meanlog, "sdlog": p.sdlog,
         })),
         "global": a.global.map(|g| json!({
             "conforming": g.conforming, "accepted": g.accepted,
             "consumer_risk": g.consumer, "producer_risk": g.producer,
         })),
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn spec(json: &str) -> ConformitySpec {
+        serde_json::from_str(json).unwrap()
+    }
+
+    #[test]
+    fn tur_with_k95_and_with_2u() {
+        // u = 0.1, T = ±1: TUR = 1/(1.96·0.1) = 5.102 by default, 5 with 2u.
+        let a = evaluate(&spec(r#"{"lower": -1, "upper": 1, "u": 0.1, "tur_method": "rss"}"#), None).unwrap();
+        let t = a.tur.unwrap();
+        assert!((t.k - 1.959_964).abs() < 1e-6 && (t.tur - 1.0 / (t.k * 0.1)).abs() < 1e-12);
+        let a =
+            evaluate(&spec(r#"{"lower": -1, "upper": 1, "u": 0.1, "tur_method": "rss", "tur_u95": "two_u"}"#), None)
+                .unwrap();
+        assert_eq!(a.tur.unwrap().tur, 5.0);
+        // With ν = 4 degrees of freedom k₉₅ = 2.776: TUR = 3.602.
+        let a = evaluate(&spec(r#"{"lower": -1, "upper": 1, "u": 0.1, "dof": 4, "tur_method": "rss"}"#), None).unwrap();
+        assert!((a.tur.unwrap().k - 2.776_445).abs() < 1e-5);
+    }
+
+    #[test]
+    fn dobbert_factor_above_one_is_limited_unless_allowed() {
+        // TUR = 6 (2u): M = 1.04 − exp(0.38 ln 6 − 0.54) < 0, GBF = 1.0185.
+        let json = r#"{"lower": -1, "upper": 1, "u": 0.08333333333333333, "tur_u95": "two_u", "tur_method": "dobbert",
+            "results": [{"name": "r", "value": 0.5}]}"#;
+        let a = evaluate(&spec(json), None).unwrap();
+        let t = a.tur.unwrap();
+        assert_eq!(t.factor, 1.0);
+        let raw = t.limited_from.unwrap();
+        assert!((raw - 1.018_545_56).abs() < 1e-8, "{raw}");
+        assert_eq!(a.rule, RuleSpec::SimpleAcceptance);
+        assert_eq!(a.acceptance.upper, Some(1.0));
+        let allowed = json.replace("\"dobbert\"", "\"dobbert\", \"tur_allow_factor_above_one\": true");
+        let a = evaluate(&spec(&allowed), None).unwrap();
+        assert!(a.tur.unwrap().limited_from.is_none() && a.acceptance.upper.unwrap() > 1.0);
+        assert_eq!(a.rule, RuleSpec::GuardedRejection);
+    }
 }

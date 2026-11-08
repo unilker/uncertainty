@@ -1,0 +1,92 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "emue-e6.5-ephedrine-wada-decision-limit",
+    "field": "chemistry",
+    "title": {
+      "en": "Ephedrine in urine: WADA decision limit as a guarded-rejection rule (EMUE E6.5, JCGM 106)",
+      "tr": "İdrarda efedrin: korumalı ret kuralı olarak WADA karar sınırı (EMUE E6.5, JCGM 106)"
+    },
+    "description": {
+      "en": "Threshold T = 10 µg/mL; an adverse analytical finding requires the concentration to exceed T with at least 95 % confidence, using the target uncertainty u_c,max = 0.5 µg/mL: DL = T + 1.645 u_c,max.",
+      "tr": "Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle aşmasını gerektirir; hedef belirsizlik u_c,max = 0,5 µg/mL ile: DL = T + 1,645 u_c,max."
+    },
+    "explanation": [
+      {
+        "en": "Guarded rejection with probability 0.95 and the fixed u = 0.5 µg/mL gives the decision limit DL = 10.822 µg/mL; WADA sets DL = 11 µg/mL (TD DL), i.e. rounded upwards.",
+        "tr": "0,95 olasılıklı korumalı ret ve sabit u = 0,5 µg/mL, karar sınırını DL = 10,822 µg/mL verir; WADA DL = 11 µg/mL belirler (TD DL), yani yukarı yuvarlar."
+      },
+      {
+        "en": "The means of the laboratory's triplicates in three EQAS rounds (spiked at 10.6 and 11.7 µg/mL) are 11.83, 11.67 and 11.47 µg/mL; all exceed DL and would be reported as adverse findings, the samples being spiked above T.",
+        "tr": "Laboratuvarın üç EQAS turundaki üçlü ölçüm ortalamaları (10,6 ve 11,7 µg/mL'de zenginleştirilmiş) 11,83, 11,67 ve 11,47 µg/mL'dir; hepsi DL'yi aşar ve olumsuz bulgu olarak raporlanır; numuneler T'nin üstünde zenginleştirilmiştir."
+      }
+    ],
+    "sources": [
+      {
+        "document": "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)",
+        "section": "Example E6.5, E6.5.2–E6.5.3, Table E6.5.2",
+        "url": "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
+      }
+    ],
+    "tags": [
+      "emue",
+      "anti-doping",
+      "decision-limit",
+      "guarded-rejection",
+      "conformity-assessment",
+      "jcgm106"
+    ],
+    "notes": [
+      {
+        "en": "Table E6.5.2 prints the mean of round 2 (11.5, 11.9, 11.6) as 11.6 (it is 11.67) and the standard deviation of round 3 (11.5, 11.4, 11.5) as 0.45 µg/mL (it is 0.058, 0.5 %). Its z-scores 0.27, 0.71 and 0.47 follow from none of the stated standard deviations: with σ = u_c,max = 0.5 µg/mL they are −0.93, −1.27 and 0.73 (research log F91).",
+        "tr": "Tablo E6.5.2, 2. turun ortalamasını (11,5, 11,9, 11,6) 11,6 (doğrusu 11,67) ve 3. turun standart sapmasını (11,5, 11,4, 11,5) 0,45 µg/mL (doğrusu 0,058, %0,5) olarak basar. z puanları 0,27, 0,71 ve 0,47, belirtilen standart sapmaların hiçbirinden çıkmaz: σ = u_c,max = 0,5 µg/mL ile −0,93, −1,27 ve 0,73'tür (araştırma günlüğü F91)."
+      }
+    ]
+  },
+  "conformity": {
+    "quantity": "γ(ephedrine)",
+    "unit": "µg/mL",
+    "upper": 10.0,
+    "rule": "guarded_rejection",
+    "probability": 0.95,
+    "u": 0.5,
+    "results": [
+      {
+        "name": "EQAS 1",
+        "value": 11.8333
+      },
+      {
+        "name": "EQAS 2",
+        "value": 11.6667
+      },
+      {
+        "name": "EQAS 3",
+        "value": 11.4667
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "acceptance_upper": {
+        "value": 10.8224,
+        "tolerance": 0.0001
+      },
+      "results": {
+        "EQAS 1": {
+          "accepted": false
+        },
+        "EQAS 2": {
+          "accepted": false
+        },
+        "EQAS 3": {
+          "accepted": false
+        }
+      }
+    },
+    "reference": {
+      "en": "EMUE E6.5: DL = T + 1.645 u_c,max, set at 11 µg/mL for T = 10 µg/mL and u_c,max = 0.5 µg/mL.",
+      "tr": "EMUE E6.5: DL = T + 1,645 u_c,max; T = 10 µg/mL ve u_c,max = 0,5 µg/mL için 11 µg/mL olarak belirlenmiştir."
+    }
+  }
+}

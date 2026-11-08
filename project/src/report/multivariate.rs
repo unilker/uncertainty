@@ -31,6 +31,8 @@ pub(super) struct MvLabels {
     pub tolerance: &'static str,
     pub validated: &'static str,
     pub not_validated: &'static str,
+    pub singular: &'static str,
+    pub rectangle_statement: &'static str,
     pub region_statement: &'static str,
     pub seed: &'static str,
     pub chart: &'static str,
@@ -65,6 +67,8 @@ const MV_EN: MvLabels = MvLabels {
     tolerance: "Tolerance",
     validated: "validated",
     not_validated: "not validated",
+    singular: "not defined: the covariance matrix of the outputs is singular (dependent outputs, JCGM 102 9.4.2.3 note 2)",
+    rectangle_statement: "{p} coverage region ({m}): hyper-rectangle y_j ± k_q u(y_j), k_q = {kq} (the outputs are dependent: no hyper-ellipsoid)",
     region_statement: "{p} coverage region ({m}): {region}, k_p = {kp}; rectangle k_q = {kq}",
     seed: "seed",
     chart: "Monte Carlo draws with the coverage ellipses (GUM dotted, Monte Carlo solid) and the GUM rectangle (dashed)",
@@ -99,6 +103,8 @@ const MV_TR: MvLabels = MvLabels {
     tolerance: "Tolerans",
     validated: "doğrulandı",
     not_validated: "doğrulanmadı",
+    singular: "tanımsız: çıktıların kovaryans matrisi tekildir (bağımlı çıktılar, JCGM 102 9.4.2.3 not 2)",
+    rectangle_statement: "{p} kapsam bölgesi ({m}): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = {kq} (çıktılar bağımlıdır: hiper-elipsoit yok)",
     region_statement: "{p} kapsam bölgesi ({m}): {region}, k_p = {kp}; dikdörtgen k_q = {kq}",
     seed: "tohum",
     chart: "Kapsam elipsleri (GUM noktalı, Monte Carlo düz) ve GUM dikdörtgeni (kesikli) ile Monte Carlo çekilişleri",
@@ -186,7 +192,16 @@ pub(super) fn statements(a: &MultivariateAnalysis, lang: Lang) -> Vec<String> {
             )
         })
         .collect();
-    if a.model.n_outputs() > 1 {
+    let dependent = a.mcm.as_ref().is_some_and(|m| m.k_ellipsoid.is_nan())
+        || a.gum.as_ref().is_some_and(|g| is_singular(&g.covariance));
+    if a.model.n_outputs() > 1 && dependent {
+        out.push(
+            d.rectangle_statement
+                .replace("{p}", &fmt_pct(p, 3, lang, true))
+                .replace("{m}", method)
+                .replace("{kq}", &fmt_num(kq, 3, lang)),
+        );
+    } else if a.model.n_outputs() > 1 {
         out.push(
             d.region_statement
                 .replace("{p}", &fmt_pct(p, 3, lang, true))
@@ -197,6 +212,13 @@ pub(super) fn statements(a: &MultivariateAnalysis, lang: Lang) -> Vec<String> {
         );
     }
     out
+}
+
+/// True when the covariance matrix has no Cholesky factor with pivots above
+/// 10⁻⁷ of the standard deviations (dependent outputs).
+fn is_singular(cov: &[Vec<f64>]) -> bool {
+    let m = cov.len();
+    !uncertainty_core::mcm::cholesky(cov).is_some_and(|l| (0..m).all(|j| l[j][j] > 1e-7 * cov[j][j].sqrt()))
 }
 
 fn matrix_table(s: &mut String, names: &[String], m: &[Vec<f64>], lang: Lang) {
@@ -243,9 +265,14 @@ fn results_block(
         let _ = writeln!(s, "{}:\n", d.correlation);
         matrix_table(s, &names, r, lang);
         let _ = writeln!(s, "{} ({}):\n", d.regions, fmt_pct(p, 3, lang, true));
-        let mut e = format!("- {}: k_p = {}", d.ellipsoid, fmt_num(kp, 3, lang));
+        let singular = kp.is_nan() || is_singular(cov);
+        let mut e = if singular {
+            format!("- {}: {}", d.ellipsoid, d.singular)
+        } else {
+            format!("- {}: k_p = {}", d.ellipsoid, fmt_num(kp, 3, lang))
+        };
         let mut q = format!("- {}: k_q = {}", d.rectangle, fmt_num(kq, 3, lang));
-        if names.len() == 2 {
+        if names.len() == 2 && !singular {
             e += &format!(
                 " ({} {})",
                 d.area,
@@ -451,13 +478,17 @@ pub(super) fn markdown(
                 fmt_num(v.rho, 1, lang),
                 ok(v.d_lambda <= v.rho)
             );
-            let _ = writeln!(
-                s,
-                "| k_p | {} | {} | {} |",
-                fmt_num(v.d_kp, 2, lang),
-                fmt_num(v.kappa_p, 1, lang),
-                ok(v.d_kp <= v.kappa_p)
-            );
+            if v.d_kp.is_nan() {
+                let _ = writeln!(s, "| k_p | — | — | — |");
+            } else {
+                let _ = writeln!(
+                    s,
+                    "| k_p | {} | {} | {} |",
+                    fmt_num(v.d_kp, 2, lang),
+                    fmt_num(v.kappa_p, 1, lang),
+                    ok(v.d_kp <= v.kappa_p)
+                );
+            }
             let _ = writeln!(
                 s,
                 "| k_q | {} | {} | {} |",
@@ -468,7 +499,11 @@ pub(super) fn markdown(
         }
         let _ = writeln!(s);
         let word = |x: bool| if x { d.validated } else { d.not_validated };
-        let _ = writeln!(s, "- {}: {}", d.ellipsoid, word(v.ellipsoid_validated));
+        if v.kappa_p.is_nan() || v.d_kp.is_nan() {
+            let _ = writeln!(s, "- {}: {}", d.ellipsoid, d.singular);
+        } else {
+            let _ = writeln!(s, "- {}: {}", d.ellipsoid, word(v.ellipsoid_validated));
+        }
         let _ = writeln!(s, "- {}: {}\n", d.rectangle, word(v.rectangle_validated));
     }
     for st in statements(a, lang) {

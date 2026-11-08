@@ -32,8 +32,10 @@ These are kept by the author (folder "Belirsizlik Yazılım Belgeler" and the Go
   Zeier et al. 2012 (Metrologia); Wichmann & Hill 2006; Marsaglia & Tsang 2000; Phillips et al. 1997;
   Kallner 2002.
 
-Google Drive folder of 2026-10-27 ("Yazılım araçları ve doğrulamaları"),
-https://drive.google.com/drive/folders/150RN1lDB5MiD-_po4IEVsRupPnNSXcSA:
+**Document folder of the author (since 2026-11-07):**
+https://drive.google.com/drive/folders/1mgbbHJlYKsij_6twWugM8m19LktEnjk7. It holds all papers and reference
+documents, 92 files; see `drive-inventory-2026-11.md`. It replaces the folder of 2026-10-27
+(150RN1lDB5MiD-_po4IEVsRupPnNSXcSA, no longer shared), whose files it contains:
 
 - Bettencourt da Silva 2026, Talanta 130826 (journal pre-proof), with Supplementary Materials 01–09.
   Supplements 03 and 04 were truncated in both uploads.

@@ -9,7 +9,7 @@
     },
     "description": {
       "en": "ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs each carry reproducibility-based uncertainties (Clause 12), written as a measurement model with relative error terms.",
-      "tr": "ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."
+      "tr": "ISO 21748:2017 C.2: girdilerinin her biri tekrar üretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır."
     },
     "explanation": [
       {
@@ -121,7 +121,7 @@
         "name": "e_fat",
         "description": {
           "en": "Relative reproducibility of the fat result, s_R = 0.02",
-          "tr": "Yağ sonucunun bağıl tekrarüretilebilirliği, s_R = 0,02"
+          "tr": "Yağ sonucunun bağıl tekrar üretilebilirliği, s_R = 0,02"
         },
         "distribution": {
           "type": "normal",

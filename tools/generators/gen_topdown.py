@@ -108,9 +108,9 @@ project("nordtest-3-ammonium-pt",
 
 project("nordtest-5.3-ammonium-duplicates",
         ("Ammonium: within-laboratory reproducibility from control samples and duplicates",
-         "Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik"),
+         "Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrar üretilebilirlik"),
         ("Nordtest TR 537 §5.3 and Appendix 5: NH₄-N duplicates of natural samples in two ranges (raw data), combined with the control-sample reproducibility.",
-         "Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrarüretilebilirliğiyle birleştirilmiştir."),
+         "Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrar üretilebilirliğiyle birleştirilmiştir."),
         [("The control sample does not cover sample-to-sample variation, so the repeatability from duplicates of real "
           "samples is added: u(Rw) = √(u(Rw, control)² + s_r(duplicates)²).",
           "Kontrol numunesi numuneden numuneye değişimi kapsamadığından gerçek numunelerin mükerrer ölçümlerinden gelen "
@@ -142,13 +142,13 @@ project("nordtest-5.3-ammonium-duplicates",
         tags=["nordtest", "duplicates", "ranges"])
 
 project("nordtest-5.3-oxygen-duplicates",
-        ("Dissolved oxygen: reproducibility from duplicates", "Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik"),
+        ("Dissolved oxygen: reproducibility from duplicates", "Çözünmüş oksijen: mükerrer ölçümlerden tekrar üretilebilirlik"),
         ("Nordtest TR 537 §5.3 and Appendix 6: dissolved oxygen in sea water, 51 duplicate pairs (raw data) and a control-sample component.",
          "Nordtest TR 537 §5.3 ve Ek 6: deniz suyunda çözünmüş oksijen, 51 mükerrer çift (ham veri) ve kontrol numunesi bileşeni."),
         [("s_r = √(Σd²/2N) = 0.0252 mg/L at a mean of 7.50 mg/L, i.e. 0.34 %.",
           "s_r = √(Σd²/2N) = 0,0252 mg/L, ortalama 7,50 mg/L'de, yani %0,34."),
          ("With the control-sample reproducibility (0.5 %) u(Rw) = √(0.34² + 0.5²) = 0.60 %.",
-          "Kontrol numunesi tekrarüretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60.")],
+          "Kontrol numunesi tekrar üretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60.")],
         [src(NT, "§5.3 and Appendix 6")],
         {"quantity": "c(O₂)", "unit": "mg/L",
          "precision": [
@@ -605,10 +605,10 @@ project("quam-a4-pesticides-topdown",
 project("quam-a6-crude-fibre",
         ("Crude fibre in animal feed (empirical method)", "Hayvan yeminde ham lif (ampirik yöntem)"),
         ("EURACHEM QUAM Example A6: reproducibility s_R from a collaborative trial at three levels plus a drying allowance.",
-         "EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrarüretilebilirlik s_R ve kurutma payı."),
+         "EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrar üretilebilirlik s_R ve kurutma payı."),
         [("For an empirical method the collaborative-trial reproducibility s_R (Table A6.4) is the main component; values "
           "are in % m/m (absolute), so the fields have no _percent suffix.",
-          "Ampirik yöntemde ortak çalışma tekrarüretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) "
+          "Ampirik yöntemde ortak çalışma tekrar üretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) "
           "biriminde olduğundan alanlarda _percent soneki yoktur."),
          ("Drying to constant weight: ±2 mg on a 1 g sample = ±0.2 % m/m, rectangular, u = 0.115 % m/m; it is included only "
           "where it exceeds s_R/3, i.e. at the 2.5 % level.",

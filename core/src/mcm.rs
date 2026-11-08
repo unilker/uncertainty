@@ -79,6 +79,10 @@ pub struct McmResult {
     pub coverage_probability: f64,
     pub symmetric_interval: (f64, f64),
     pub shortest_interval: (f64, f64),
+    /// Half-width U of the coverage interval symmetric about the estimate,
+    /// Pr(|Y − ỹ| ≤ U) = p: the expanded uncertainty in the definition
+    /// proposed by JCGM-WG1/WG2 (JCGM-WG1 News, December 2025).
+    pub expanded_about_estimate: f64,
     pub median: f64,
     pub skewness: f64,
     pub excess_kurtosis: f64,
@@ -245,7 +249,7 @@ impl Sampler {
 /// Lower-triangular Cholesky factor L with V = L Lᵀ, or None if V is not
 /// positive semi-definite (within rounding). A zero pivot is accepted when the
 /// corresponding row is fully determined by earlier rows (|r| = 1).
-pub(crate) fn cholesky(v: &[Vec<f64>]) -> Option<Vec<Vec<f64>>> {
+pub fn cholesky(v: &[Vec<f64>]) -> Option<Vec<Vec<f64>>> {
     let n = v.len();
     let mut l = vec![vec![0.0; n]; n];
     for i in 0..n {
@@ -328,6 +332,17 @@ pub fn coverage_intervals(sorted: &[f64], p: f64) -> ((f64, f64), (f64, f64)) {
     }
     let shortest = (sorted[best_r - 1], sorted[best_r + q - 1]);
     (symmetric, shortest)
+}
+
+/// Smallest half-width U with at least the fraction p of the values in
+/// [c − U, c + U] (the q-th smallest |y_r − c|, q as for the coverage
+/// intervals [JCGM 101 7.7.1]).
+pub fn half_width_about(values: &[f64], c: f64, p: f64) -> f64 {
+    let m = values.len();
+    let q = coverage_count(m, p).clamp(1, m);
+    let mut d: Vec<f64> = values.iter().map(|v| (v - c).abs()).collect();
+    let (_, kth, _) = d.select_nth_unstable_by(q - 1, f64::total_cmp);
+    *kth
 }
 
 /// Numerical tolerance δ associated with a value z expressed to `ndig`
@@ -466,6 +481,7 @@ pub fn evaluate(model: &Model, options: &McmOptions) -> Result<McmResult, UncErr
         if pop_var > 0.0 { (m3 / n / pop_var.powf(1.5), m4 / n / (pop_var * pop_var) - 3.0) } else { (0.0, 0.0) };
     values.sort_unstable_by(f64::total_cmp);
     let (symmetric_interval, shortest_interval) = coverage_intervals(&values, p);
+    let expanded_about_estimate = half_width_about(&values, mean, p);
     let median = if trials % 2 == 1 { values[trials / 2] } else { 0.5 * (values[trials / 2 - 1] + values[trials / 2]) };
     let histogram = histogram(&values, options.histogram_bins.max(1));
 
@@ -475,6 +491,7 @@ pub fn evaluate(model: &Model, options: &McmOptions) -> Result<McmResult, UncErr
         coverage_probability: p,
         symmetric_interval,
         shortest_interval,
+        expanded_about_estimate,
         median,
         skewness,
         excess_kurtosis,

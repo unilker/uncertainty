@@ -1,0 +1,183 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "koepke2017-half-life-sr90",
+    "field": "physical",
+    "title": {
+      "en": "Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)",
+      "tr": "⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)"
+    },
+    "description": {
+      "en": "The 11 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 400 with 10 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.",
+      "tr": "MacMahon vd. (2004) tarafından derlenen 11 yayımlanmış yarı ömür heterojendir (Q = 400, serbestlik derecesi 10). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir."
+    },
+    "explanation": [
+      {
+        "en": "DerSimonian–Laird: μ̂ = 10493.8 d = 28.730 a, u_DL = 40.2 d = 0.110 a, τ̂ = 104.7 d.",
+        "tr": "DerSimonian–Laird: μ̂ = 10493,8 gün = 28,730 a, u_DL = 40,2 gün = 0,110 a, τ̂ = 104,7 gün."
+      },
+      {
+        "en": "The Linear Pool gives 28.68 a with standard uncertainty 0.77 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.",
+        "tr": "Doğrusal havuz 28,68 a ve 0,77 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir."
+      },
+      {
+        "en": "The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).",
+        "tr": "Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4)."
+      }
+    ],
+    "tags": [
+      "koepke-2017",
+      "nicob",
+      "consensus",
+      "dark-uncertainty",
+      "dersimonian-laird",
+      "linear-pool",
+      "half-life",
+      "radionuclide"
+    ],
+    "notes": [
+      {
+        "en": "Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.",
+        "tr": "Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır."
+      }
+    ],
+    "sources": [
+      {
+        "document": "Koepke, Lafarge, Possolo & Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62",
+        "section": "§7.2, Tables 3 and 4",
+        "url": "https://doi.org/10.1088/1681-7575/aa6c0e"
+      },
+      {
+        "document": "NIST Consensus Builder user manual (2020 Nov 12), Appendix A",
+        "section": "§A.2, §A.4, §A.5",
+        "url": "https://consensus.nist.gov"
+      }
+    ]
+  },
+  "consensus": {
+    "measurand": "T½(⁹⁰Sr)",
+    "unit": "d",
+    "results": [
+      {
+        "name": "WT55",
+        "value": 10120,
+        "u": 150
+      },
+      {
+        "name": "An58",
+        "value": 10700,
+        "u": 580
+      },
+      {
+        "name": "Fl65a",
+        "value": 10230,
+        "u": 150
+      },
+      {
+        "name": "Fl65b",
+        "value": 10410,
+        "u": 330
+      },
+      {
+        "name": "Ho77",
+        "value": 10636,
+        "u": 88
+      },
+      {
+        "name": "La78",
+        "value": 10282,
+        "u": 12
+      },
+      {
+        "name": "Ra83",
+        "value": 10588,
+        "u": 91
+      },
+      {
+        "name": "Ko89",
+        "value": 10665,
+        "u": 37
+      },
+      {
+        "name": "Ma94",
+        "value": 10561,
+        "u": 14
+      },
+      {
+        "name": "WL96",
+        "value": 10495,
+        "u": 4
+      },
+      {
+        "name": "Sc04",
+        "value": 10557,
+        "u": 11
+      }
+    ],
+    "linear_pool": true,
+    "bayes": {},
+    "trials": 100000,
+    "seed": 1
+  },
+  "expected": {
+    "consensus": {
+      "mean": {
+        "value": 10493.63,
+        "tolerance": 1.83
+      },
+      "u": {
+        "value": 40.18,
+        "tolerance": 1.83
+      },
+      "tau": {
+        "value": 104.67,
+        "tolerance": 0.01
+      },
+      "q": {
+        "value": 400.3,
+        "tolerance": 0.01
+      },
+      "bootstrap_u": {
+        "value": 40.2,
+        "tolerance": 0.4
+      },
+      "interval_lower": {
+        "value": 10410.0,
+        "tolerance": 1.5
+      },
+      "interval_upper": {
+        "value": 10577.4,
+        "tolerance": 1.5
+      },
+      "linear_pool_mean": {
+        "value": 10475.37,
+        "tolerance": 4.5
+      },
+      "linear_pool_u": {
+        "value": 281.24,
+        "tolerance": 3.7
+      },
+      "linear_pool_lower": {
+        "value": 9923.1,
+        "tolerance": 20.0
+      },
+      "linear_pool_upper": {
+        "value": 11082.1,
+        "tolerance": 20.0
+      },
+      "bayes_mean": {
+        "value": 10486.33,
+        "tolerance": 1.83
+      },
+      "bayes_u": {
+        "value": 58.44,
+        "tolerance": 3.65
+      }
+    },
+    "reference": {
+      "en": "Koepke et al. (2017) Table 4: DerSimonian–Laird 28.73 a, u 0.11 a; Linear Pool 28.68 a, u 0.77 a; hierarchical Bayesian 28.71 a, u 0.16 a (× 365.25 d, tolerance half a unit in the last printed digit, plus the Monte Carlo error of 10⁵ draws for the Linear Pool). τ, Q, the bootstrap u and percentiles and the Linear Pool percentiles: independent numpy computation.",
+      "tr": "Koepke vd. (2017) Tablo 4: DerSimonian–Laird 28,73 a, u 0,11 a; doğrusal havuz 28,68 a, u 0,77 a; hiyerarşik Bayes 28,71 a, u 0,16 a (× 365,25 gün, tolerans son basamağın yarım birimi; doğrusal havuzda buna 10⁵ çekilişin Monte Carlo hatası eklenir). τ, Q, bootstrap u ve yüzdelikleri ile doğrusal havuz yüzdelikleri: bağımsız numpy hesabı."
+    }
+  }
+}

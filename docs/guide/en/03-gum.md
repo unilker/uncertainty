@@ -121,6 +121,29 @@ the share of the variance the first-order evaluation misses (12 % in GUM H.1). E
 `"gum": { "higher_order": true }`; the program then warns that the note assumes Gaussian inputs. In such cases the
 Monte Carlo method (chapter 4) is the reliable check.
 
+**The estimate.** Amendment 1 of the GUM (JCGM 100:2008/Amd.1:2026) adds note 1 to 4.1.4: when the nonlinearity is
+significant, the second-order term of the Taylor series must also be added to the estimate,
+
+$$y = f(x_1, \dots, x_N) + \tfrac12\sum_i\sum_j \frac{\partial^2 f}{\partial x_i\,\partial x_j}\,u(x_i, x_j),$$
+
+which is GUM Equation (H.10); for independent inputs only the terms ∂²f/∂xᵢ² u²(xᵢ) remain. The program always
+evaluates this term (`second_order_estimate_term` in the JSON results). With `"higher_order": true` it adds the term
+to y and centres the interval on the corrected estimate. Without it, the report warns when the term exceeds a tenth
+of u_c(y). For the comparison loss δY = X₁² + X₂² of JCGM 101 9.4 the corrected estimate equals the analytic mean
+(50·10⁻⁶ at x₁ = 0), where the first-order estimate 0 is invalid (JCGM 101 9.4.2.2.8). In GUM H.1 the term is zero,
+as Amd.1 states.
+
+**Correlated inputs.** The GUM gives the higher-order variance terms for independent inputs only, and GUM-5
+Example 16 therefore does not apply them to correlated reflection coefficients. For normally distributed inputs with
+covariance matrix Σ the same Taylor expansion gives
+
+$$u_c^2(y) = \mathbf c^\top\Sigma\,\mathbf c + \tfrac12\,\mathrm{tr}\big((H\Sigma)^2\big) + \sum_{i,j,k,l} c_l\,f_{ijk}\,\Sigma_{li}\,\Sigma_{jk}$$
+
+(Mana & Pennecchi, *Metrologia* 44 (2007) 246), with H the matrix of second derivatives and f_ijk the third
+derivatives. The program uses it whenever `"higher_order": true`; for independent inputs it reduces to the 5.1.2
+note. For the comparison loss with r = 0.9 it gives u = 67, 121 and 505·10⁻⁶ at x₁ = 0, 0.010 and 0.050, the
+analytic values of GUM-5 Table 16.2.
+
 ## 3.6 Degrees of freedom and the Welch–Satterthwaite formula
 
 The **effective degrees of freedom** of the combined standard uncertainty (GUM G.4.1, Eq. G.2b):
@@ -130,6 +153,16 @@ $$\nu_\text{eff} = \frac{u_c^4(y)}{\sum_i u_i^4(y)/\nu_i}.$$
 Inputs with ν = ∞ (most Type B evaluations) contribute nothing to the denominator. By default the program
 truncates ν_eff to the next lower integer before looking up the t-distribution, as the GUM recommends (G.4.1
 note); `"dof_rounding": "exact"` uses the fractional value.
+
+**Correlated inputs.** Eq. G.2b assumes independent inputs. If two inputs with finite ν are correlated, the
+program applies it anyway and warns. One case is handled exactly: inputs evaluated from the **same set of
+data**, such as the means of paired indications of an analyte and its internal standard, form an *ensemble*
+with a common ν. Declared in the model as `"ensembles": [["AE", "AISE"]]`, the ensemble counts as one
+component of the denominator. Its variance is Σ_{i,j∈E} c_i c_j u(x_i, x_j), the covariances included, and its
+degrees of freedom is the common ν (Willink, *Metrologia* 44 (2007) 340, §4.1.1). A single ensemble therefore
+gives exactly its own ν, whatever the correlation. Correlations inside an ensemble, or between two inputs of
+infinite ν, raise no warning. The library projects `gum5-e2-benzo-a-pyrene` and
+`gum5-e2-benzo-a-pyrene-ensemble` show the difference: ν_eff = 5.2 against 2.1, k = 2.5 against 4.1.
 
 ## 3.7 Coverage factor and expanded uncertainty
 

@@ -1,0 +1,179 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "emue-e2.1-multicomponent-medication",
+    "field": "chemistry",
+    "title": {
+      "en": "Total risks of false decisions for a medication with four correlated active components (EMUE E2.1)",
+      "tr": "Dört ilişkili etken maddeli bir ilaç için toplam yanlış karar riskleri (EMUE E2.1)"
+    },
+    "description": {
+      "en": "NyQuil tablets: APAP, DEX, DOX and PE, tolerance 95–105 % of the labelled amount, u_rel = 2.8 %; total specific consumer's risks for three sets of test results and the total global consumer's risk.",
+      "tr": "NyQuil tabletleri: APAP, DEX, DOX ve PE; tolerans etiket miktarının %95–105'i, u_bağıl = %2,8; üç deney sonucu takımı için toplam özgül tüketici riskleri ve toplam küresel tüketici riski."
+    },
+    "explanation": [
+      {
+        "en": "Each component may conform while the item as a whole does not: the total specific consumer's risk is the probability that at least one true content lies outside 95–105 % although all test results lie inside (IUPAC project; EMUE E2.1.6.2).",
+        "tr": "Her bileşen tek başına uygun olabilir, ürün bütünüyle uygun olmayabilir: toplam özgül tüketici riski, tüm deney sonuçları içerideyken en az bir gerçek içeriğin %95–105 dışında olma olasılığıdır (IUPAC projesi; EMUE E2.1.6.2)."
+      },
+      {
+        "en": "Prior: multivariate normal from 105 production lots (means 99.18, 97.70, 99.33, 98.94 %; s.d. 1.37, 1.02, 1.05, 1.22 %) with the Pearson correlations of Table E2.1.1. Likelihood: multivariate normal with u_i = 0.028·c_mi and the same correlations. The posterior is normal, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2).",
+        "tr": "Önsel: 105 üretim partisinden çok değişkenli normal (ortalamalar %99,18, 97,70, 99,33, 98,94; s.s. %1,37, 1,02, 1,05, 1,22), Tablo E2.1.1'in Pearson korelasyonlarıyla. Olabilirlik: u_i = 0,028·c_mi ve aynı korelasyonlarla çok değişkenli normal. Sonsal dağılım normaldir, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2)."
+      },
+      {
+        "en": "Total specific consumer's risks: 0.29 % when the results equal the prior means, 1.17 % at the lower limits and 0.02 % at the upper limits; the prior shifts the posterior towards its means, which lie below 100 %. Total global consumer's risk 0.18 %: 18 of 10 000 tablets accepted without conforming.",
+        "tr": "Toplam özgül tüketici riskleri: sonuçlar önsel ortalamalara eşitken %0,29, alt sınırlarda %1,17, üst sınırlarda %0,02; önsel, sonsal dağılımı %100'ün altındaki ortalamalarına doğru kaydırır. Toplam küresel tüketici riski %0,18: 10 000 tabletten 18'i uygun olmadan kabul edilir."
+      }
+    ],
+    "sources": [
+      {
+        "document": "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)",
+        "section": "Example E2.1, Tables E2.1.1–E2.1.2, E2.1.6",
+        "url": "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
+      }
+    ],
+    "tags": [
+      "emue",
+      "conformity-assessment",
+      "multicomponent",
+      "total-risk",
+      "pharmaceutical",
+      "correlation",
+      "bayesian"
+    ],
+    "notes": [
+      {
+        "en": "The program integrates the 4-dimensional posterior over the tolerance box by the method of Genz (separation of variables, 200 000 antithetic draws, standard error about 10⁻⁶) instead of R's pmvnorm, and the global risk by Monte Carlo with u_i proportional to the true value.",
+        "tr": "Program 4 boyutlu sonsal dağılımı tolerans kutusu üzerinde R'nin pmvnorm işlevi yerine Genz yöntemiyle (değişkenlere ayırma, 200 000 karşıt çekiliş, standart hata yaklaşık 10⁻⁶) integre eder; küresel riski u_i gerçek değerle orantılı alınarak Monte Carlo ile hesaplar."
+      }
+    ]
+  },
+  "multicomponent_conformity": {
+    "unit": "% of label",
+    "components": [
+      {
+        "name": "APAP",
+        "prior_mean": 99.18,
+        "prior_sd": 1.37,
+        "lower": 95.0,
+        "upper": 105.0
+      },
+      {
+        "name": "DEX",
+        "prior_mean": 97.7,
+        "prior_sd": 1.02,
+        "lower": 95.0,
+        "upper": 105.0
+      },
+      {
+        "name": "DOX",
+        "prior_mean": 99.33,
+        "prior_sd": 1.05,
+        "lower": 95.0,
+        "upper": 105.0
+      },
+      {
+        "name": "PE",
+        "prior_mean": 98.94,
+        "prior_sd": 1.22,
+        "lower": 95.0,
+        "upper": 105.0
+      }
+    ],
+    "correlation": [
+      [
+        1,
+        0.107,
+        0.125,
+        0.177
+      ],
+      [
+        0.107,
+        1,
+        0.311,
+        0.404
+      ],
+      [
+        0.125,
+        0.311,
+        1,
+        0.539
+      ],
+      [
+        0.177,
+        0.404,
+        0.539,
+        1
+      ]
+    ],
+    "u_relative": 0.028,
+    "results": [
+      {
+        "name": "c_m = m",
+        "values": [
+          99.18,
+          97.7,
+          99.33,
+          98.94
+        ]
+      },
+      {
+        "name": "c_m = T_L",
+        "values": [
+          95.0,
+          95.0,
+          95.0,
+          95.0
+        ]
+      },
+      {
+        "name": "c_m = T_U",
+        "values": [
+          105.0,
+          105.0,
+          105.0,
+          105.0
+        ]
+      }
+    ],
+    "global_trials": 2000000,
+    "samples": 200000,
+    "seed": 1
+  },
+  "expected": {
+    "multicomponent_conformity": {
+      "results": {
+        "c_m = m": {
+          "risk": {
+            "value": 0.0029,
+            "tolerance": 5e-05
+          },
+          "accepted": true
+        },
+        "c_m = T_L": {
+          "risk": {
+            "value": 0.0117,
+            "tolerance": 5e-05
+          },
+          "accepted": true
+        },
+        "c_m = T_U": {
+          "risk": {
+            "value": 0.0002,
+            "tolerance": 5e-05
+          },
+          "accepted": true
+        }
+      },
+      "global_consumer_risk": {
+        "value": 0.0018,
+        "tolerance": 0.0001
+      }
+    },
+    "reference": {
+      "en": "EMUE E2.1.6.2–E2.1.6.3: R*_tot = 0.0029, 0.0117, 0.0002; R_tot = 0.0018 (10⁷ trials; 0.0019 in the original paper).",
+      "tr": "EMUE E2.1.6.2–E2.1.6.3: R*_tot = 0,0029, 0,0117, 0,0002; R_tot = 0,0018 (10⁷ deneme; özgün makalede 0,0019)."
+    }
+  }
+}

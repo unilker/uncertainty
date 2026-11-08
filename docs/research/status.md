@@ -1,6 +1,6 @@
 # Durum ve sonraki adımlar / Status and next steps
 
-Son güncelleme: **2026-10-27**. Bu dosya çalışmaya ara verildiğinde nerede
+Son güncelleme: **2026-11-08**. Bu dosya çalışmaya ara verildiğinde nerede
 kalındığını ve sırada ne olduğunu kaydeder.
 
 - Ayrıntılı gerekçeler araştırma günlüğündedir: kararlar D…, bulgular F….
@@ -10,11 +10,43 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **209** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **182** Rust testi (bunlardan biri 209 projenin tamamını çalıştırır), **21** Flutter testi |
+| Kütüphane | **284** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
+| Testler | **210** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
-| Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–20 (+ ek), kararlar D1–D55, bulgular F1–F76 (dizin: `findings-index.md`) |
+| Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
+| Araştırma günlüğü | oturum 1–22, kararlar D1–D85, bulgular F1–F98 (dizin: `findings-index.md`) |
+
+## 2. Oturum 22 (2026-11-08): ön inceleme ve düzeltmeler
+
+İnceleme dosyasına gelen 22 gözlem ve yanıtları `review-2026-11-08.md`'de (yapay zekâ destekli ön inceleme;
+bağımsız insan incelemesinin yerini tutmaz). Kodda: EA-4/02 6.3 yuvarlama varsayılanı ve "yaklaşık %95" (D79),
+raporlarda commit ve SHA-256, `check --lab` (D79), TUR'da k₉₅·u ve Dobbert sınırlaması (D80), CCQM-K145
+anonimleştirme (D81), NICOB kaynak koduna uygun DL bootstrap (D82), Bayes ızgarası yakınsama testi (D83), t kuralı
+notu (D85). Belgelerde: c bulgularının etkiye göre sınıflandırılması (c1 12 doğrulanmış, c2 7, m 5, e 1, açık 4;
+D84), tolerans dayanakları ve sayım zinciri (`numbers.md`). Yazarın kararı beklenen: bulguların yayıncılara
+bildirilmesi, F97 için BIPM'e soru, bağımsız insan yeniden hesabı.
+
+## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
+
+1. **JCGM 100:2008/Amd.1:2026.** Tahminin ikinci mertebe terimi δ = ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ,xⱼ) her zaman
+   hesaplanır. `higher_order` ile tahmine eklenir, aksi hâlde |δ| > 0,1 u_c olduğunda uyarı verilir (D56).
+   İlişkili normal girdiler için yüksek mertebe varyansı Mana & Pennecchi 2007'ye göre hesaplanır (D57).
+2. **GUM-5:2026 örnekleri kütüphanede** (`tools/generators/gum5.py`):
+   - Örnek 1 (pH), 3 (glikoz), 14 (²⁰⁷Bi), 15 (çelik halat): F77, F78.
+   - Örnek 2 (benzo[a]piren): **topluluk (ensemble) Welch–Satterthwaite** (Willink 2007, D58). GUM-5
+     ν_eff = 4,8 veriyor; aynı enjeksiyonlardan gelen alanlar bir topluluk olunca ν_eff = 2,1 (F79).
+   - Örnek 10 (TSPM uygunluk): **lognormal süreç dağılımı, bağıl u ile küresel risk, önselli sonsal p_c**
+     (D59). GUM-5'in ortak dağılımı sd = 0,07·ρ̂ kullanıyor (F80).
+   - Örnek 12 (şişeler arası homojenlik): **u*_bb ve Bayesçi hiyerarşik τ**, ızgarada, MCMC'siz (D60).
+     τ'nun modu 0; basılı 0,3 µmol/mol `getmode` kodundan (F81).
+   - Örnek 4 (gravimetrik gaz karışımı, 8 çıktı, `multivariate`): Tablo 4.2 Tablo 4.1'den çıkmıyor; u(CO₂)
+     3,96 (basılı 5), H₂O 0,389 (basılı 0,379) (F82).
+   - Örnek 9 (tork, EKK/AEKK ve Bayesçi eğim): model projeleri; Bayesçi sonuçlar betikle (F83 küçük).
+   - Örnek 5 (sera gazı envanteri): bağımsız ve paylaşılan faaliyet verisi; u = 835,16 kt (F84 küçük).
+   - Örnek 11 (tümör kesit alanı, Fourier): veriler şekilden okundu, yalnız betik; bilgi ölçütleri ve
+     bildirilen sonuç tutarsız (F85).
+   - Örnek 6, 7, 8, 13, 16 zaten kütüphanedeydi (JCGM 101/102); GUM-5 kaynak olarak eklendi.
+3. **Kanıt betikleri:** `tools/research/gum5/` (ex2_mcm.py, ex10_risks.py, ex12_posterior.py).
 
 ## 2. Bu dönemde yapılanlar (oturum 16–20, 2026-10-26/27)
 
@@ -53,7 +85,13 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 ## 3. Nerede kaldık / bekleyenler
 
-**Kullanıcıdan beklenen makaleler.** Bunlar açık erişimli olsa da buradan
+**Belge klasörü (2026-11-07'den beri):**
+https://drive.google.com/drive/folders/1mgbbHJlYKsij_6twWugM8m19LktEnjk7
+
+Klasörde 92 dosya var; envanter ve kullanım sırası `drive-inventory-2026-11.md`'de. Eski klasör paylaşımdan
+kaldırıldı.
+
+**Kullanıcıdan beklenen makaleler.** Aşağıdakilerden yalnızca IUPAC 2024 geldi; diğerleri hâlâ eksik. Bunlar açık erişimli olsa da buradan
 indirilemedi; Drive klasörüne konacak:
 
 1. Possolo et al. 2024, IUPAC kısa rehberi — 10.1515/pac-2022-1203 (kütüphaneye kimya örnekleri)
@@ -79,17 +117,34 @@ indirilemedi; Drive klasörüne konacak:
 
 ## 4. Sıradaki işler (öncelik sırasıyla)
 
-1. **TUR'a dayalı koruma bantları (konformite modülü).**
-   - Yöntemler: RSS, w = U·√(1 − 1/TUR²); Dobbert'in "Method 6" (managed
-     guard band), GBF = 1,04 − exp(0,38·ln TUR − 0,54) (formül Dobbert
-     2008'den doğrulanmalı).
-   - TUR ile tolerans içi olasılığa göre global PFA/PFR.
-   - Kaynaklar: Delker & Peguero 2022 (OSTI 2004392), Suncal belgeleri,
-     ANSI/NCSL Z540.3.
-   - Doğrulama vakaları bulunmalı.
-2. **cg-18 H3.4/A ve H3.4/B** (30 t köprü kantar): tartım sonucunun
-   belirsizliği ve minimum tartım. Veriler `cg18.txt` 5600–6110
-   satırlarında; aynı `in_use` bloğu kullanılır.
+0. **Drive belgeleri, `drive-inventory-2026-11.md` sırası.**
+   - Tamamlananlar:
+     - GUM-5 (16 örnek; F77–F85);
+     - WG1 tanımları (D61), Eurachem/CITAC uygunluk 2021 (D62, F86);
+     - EMUE E1.1, E2.1 (D63), E2.2, E3.3, E3.4, E3.8, E5.1, E6.5 (F78 eki, F85 eki, F87–F91);
+     - IUPAC 2024 3A/4A/4B/4I (F92), ILAC P14 (D64), Nordtest TR 537 TR (D65);
+     - Mari 2025 ve Pradella 2026 (sözlükte "Tartışma");
+     - uzlaşı değeri modülü (D66, F93): DerSimonian–Laird, Knapp–Hartung, NICOB parametrik bootstrap,
+       eşdeğerlik dereceleri, doğrusal havuz, en çok olabilirlik; Koepke 2017 (G, ¹³⁷Cs, ⁹⁰Sr) ve IUPAC 4F
+       (CCQM-K145); Bayesçi rastgele etkiler modeli MCMC'siz ızgarada (D67; IUPAC 3E/4M/4N iridyum, F94, F95).
+   - Possolo & Meija 2022: Hubble (Laplace etkili Bayes, D68), anyon açığı, tank, Wheatstone, kurşun (F96).
+   - BIPM ISRD qNMR saflık bütçeleri: 9 proje (D69), tablolar arası tutarsızlıklar (F97).
+   - Bayesçi öğreticiler, Toman 2016, Degenhardt 2025 okundu (D70); Possolo & Bodnar 2018 krom örneği kütüphanede.
+   - UME prosedür taslağı: iki örnek kütüphanede, yazara notlar (D71).
+   - Makale iskeleti yazıldı: `docs/article/outline.md` (D72).
+   - D12 sınıf denetimi tamam (D73): `finding-classes.tsv`; 29 bulguda c bileşeni.
+   - Suncal karşılaştırması (D74): 107 projede birinci mertebe u 6×10⁻¹² içinde aynı; 48 projede MCM örnekleme hatası içinde.
+   - Sıradakiler: makale iskeletindeki §9 kontrol listesi (c sınıfı bulguları güncel baskılarla kontrol, bağımsız inceleme);
+     QAC 2026, A2LA G104, eğitim örnekleri (Kirkup, White 2008, Leito, Kessel).
+   - Açık kalan küçük işler:
+     - skaler modelde ortak t dağılımı (GUM-5 Örnek 2 MCM'si);
+     - F79'u Willink 2007 metniyle, F92'yi Meija vd. ile doğrulamak;
+     - uzlaşıda sonlu ν_j için σ_j önselleri (NICOB §A.3), birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleri.
+     - (tamam) uygulamada `consensus` formu ve şablonu (D76); homojenlikte Bayes model anahtarı ve önsel ölçekleri.
+1. **TUR'a dayalı koruma bantları — tamam (D77).** `tur_method`: RSS, Dobbert (M = 1,04 − exp(0,38 ln TUR − 0,54),
+   GBF = 1 − M/TUR), RP-10, U₉₅; Suncal ile doğrulandı. Kalan: Dobbert 2008 ve Z540.3 el kitabını birincil kaynak
+   olarak okumak; en az maliyet/minimaks yöntemleri.
+2. **cg-18 H3.4/A ve H3.4/B — tamam** (iki proje; F98: u(a₁) basılı değerden %0,3–1,6 farklı).
 3. **Uygulamada `in_use` formu.** Şu anda yalnızca JSON sekmesinden
    düzenlenebiliyor.
 4. Makaleler geldikçe:
@@ -105,7 +160,7 @@ indirilemedi; Drive klasörüne konacak:
    - parametrik olmayan UfS (Lourenço & Oliveira 2024);
    - Mateos 2020'deki ν'ye bağlı ağırlıklar (F46);
    - Shirono 2022 ekonomik kabul aralığı;
-   - GTC'deki ilişkili girdiler için Willink ν'si.
+   - ~~GTC'deki ilişkili girdiler için Willink ν'si~~ (D58 ile yapıldı).
 7. **Faz 7.**
    - NIST UM ve Suncal ile karşılaştırmalı ölçümler;
    - Scopus/WoS taraması kurumsal ağdan; bunun için Claude Desktop'ta yerel
@@ -118,16 +173,17 @@ indirilemedi; Drive klasörüne konacak:
 | Dosya | İçerik |
 |---|---|
 | `research-log.md` | tüm kararlar ve bulgular, tam metin (değiştirilmez, yalnızca eklenir) |
-| `findings-index.md` | 76 bulgu ve 55 kararın dizini (`tools/research/findings_index.py` ile üretilir) |
+| `findings-index.md` | 97 bulgu ve 71 kararın dizini (`tools/research/findings_index.py` ile üretilir) |
 | `validation-matrix.md` | her örnek için basılı ve hesaplanan değerler |
 | `literature-review.md`, `literature-search-2026-10.md`, `search-2026-10/` | literatür incelemesi, tarama raporu ve ham tarama verileri |
 | `sources-provenance.md` | okunan her belgenin kaynağı ve nasıl edinildiği |
-| `publication-plan.md` | hedef dergiler, katkı iddiaları, makale taslağı |
+| `publication-plan.md` | hedef dergiler, katkı iddiaları, ilk taslak |
+| `../article/outline.md`, `../article/numbers.md` | makale iskeleti (bölümler, kanıtlar, şekiller, kontrol listesi) ve üretilen sayılar (`tools/research/article_stats.py`) |
 | `tools/generators/`, `tools/research/` | kütüphaneyi üreten betikler; bulguların arkasındaki analiz betikleri |
 
 Gönderimden önce yapılacaklar:
 
-- Bulgu sınıflarını D12'ye göre denetlemek (oturum 20 eki). F72, F75 ve F76
+- Bulgu sınıfları denetlendi (D73, `finding-classes.tsv`). F72, F75 ve F76
   c olarak düzeltildi.
 - Güncel baskıları ve errataları kontrol etmek.
 

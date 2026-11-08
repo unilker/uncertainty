@@ -9,12 +9,12 @@
     },
     "description": {
       "en": "EURACHEM QUAM Example A6: reproducibility s_R from a collaborative trial at three levels plus a drying allowance.",
-      "tr": "EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrarüretilebilirlik s_R ve kurutma payı."
+      "tr": "EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrar üretilebilirlik s_R ve kurutma payı."
     },
     "explanation": [
       {
         "en": "For an empirical method the collaborative-trial reproducibility s_R (Table A6.4) is the main component; values are in % m/m (absolute), so the fields have no _percent suffix.",
-        "tr": "Ampirik yöntemde ortak çalışma tekrarüretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur."
+        "tr": "Ampirik yöntemde ortak çalışma tekrar üretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur."
       },
       {
         "en": "Drying to constant weight: ±2 mg on a 1 g sample = ±0.2 % m/m, rectangular, u = 0.115 % m/m; it is included only where it exceeds s_R/3, i.e. at the 2.5 % level.",

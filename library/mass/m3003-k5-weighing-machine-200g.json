@@ -48,8 +48,8 @@
     ],
     "notes": [
       {
-        "en": "Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.",
-        "tr": "Araştırma günlüğü F56: K.5.9'un u_i sütunundaki katkılar (0,05, 0,058, 0,029, 0,029, 0,115, 0,05 mg) 0,150 mg değil 0,153 mg verir; basılı değer, sürüklenme sınırı √3 yerine 2'ye bölünseydi elde edilirdi. K.5.1 modeline göre ΔI_X = I_X − W_S = 199,9999 g − 200 g = −0,10 mg iken raporlanan gösterge hatası +0,10 mg'dir."
+        "en": "Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, and only if the mass of the standard W_S is taken as exactly 200.0000 g (K.5 gives no certificate value), ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.",
+        "tr": "Araştırma günlüğü F56: K.5.9'un u_i sütunundaki katkılar (0,05, 0,058, 0,029, 0,029, 0,115, 0,05 mg) 0,150 mg değil 0,153 mg verir; basılı değer, sürüklenme sınırı √3 yerine 2'ye bölünseydi elde edilirdi. K.5.1 modeline göre ve yalnızca standardın kütlesi W_S tam 200,0000 g alınırsa (K.5 sertifika değeri vermez) ΔI_X = I_X − W_S = 199,9999 g − 200 g = −0,10 mg iken raporlanan gösterge hatası +0,10 mg'dir."
       }
     ]
   },

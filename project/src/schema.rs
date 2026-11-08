@@ -23,7 +23,9 @@
 
 use crate::calibration::{CalibrationSpec, ExpectedCalibration};
 use crate::conformity::{ConformitySpec, ExpectedConformity};
+use crate::consensus::{ConsensusSpec, ExpectedConsensus};
 use crate::interlab::{ExpectedInterlab, InterlabSpec};
+use crate::multiconformity::{ExpectedMulticomponent, MulticomponentSpec};
 use crate::multivariate::{ExpectedMultivariate, MultivariateSpec};
 use crate::proficiency::{ExpectedProficiency, ProficiencySpec};
 use crate::qc::{ControlChartSpec, ExpectedControlChart};
@@ -112,6 +114,14 @@ pub struct Project {
     /// Appendix C).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub error_function: Option<ErrorFunctionSpec>,
+    /// Conformity assessment of an item with several correlated properties:
+    /// total specific and global risks (EMUE E2.1).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub multicomponent_conformity: Option<MulticomponentSpec>,
+    /// Consensus value and degrees of equivalence of an interlaboratory
+    /// study or key comparison (NIST Consensus Builder).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub consensus: Option<ConsensusSpec>,
     /// Conformity assessment (JCGM 106): of the result of a model project, or
     /// a project of its own.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -167,6 +177,10 @@ pub struct ModelSpec {
     pub inputs: Vec<InputSpec>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub correlations: Vec<CorrelationSpec>,
+    /// Groups of inputs evaluated from the same data with a common ν, each
+    /// counted as one Welch–Satterthwaite component (Willink 2007).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ensembles: Vec<Vec<String>>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -293,6 +307,22 @@ pub enum DistributionSpec {
     Gamma {
         shape: f64,
         scale: f64,
+    },
+    /// Beta distribution on [lower, upper] (default [0, 1]) from its shapes,
+    /// or from its mean and standard deviation (method of moments).
+    Beta {
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        alpha: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        beta: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        mean: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        sd: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        lower: Option<f64>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        upper: Option<f64>,
     },
     /// Type A evaluation of a series of indications (GUM 4.2): GUM uses
     /// x̄, s/√n, ν = n − 1; MCM samples t_{n−1}(x̄, s²/n) (JCGM 101 6.4.9).
@@ -467,6 +497,31 @@ pub struct ReportingSpec {
     /// Ellison 2008): adds an interval that accounts for it.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub uncorrected_bias: Option<UncorrectedBiasSpec>,
+    /// Calibration and measurement capability of the laboratory as an
+    /// expanded uncertainty (absolute, or relative to the result): a smaller
+    /// evaluated U is not reported (ILAC P14:09/2020, 5.5).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub cmc: Option<CmcSpec>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct CmcSpec {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub expanded: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub relative_percent: Option<f64>,
+}
+
+impl CmcSpec {
+    /// The CMC as an absolute expanded uncertainty at the result y.
+    pub fn at(&self, y: f64) -> Option<f64> {
+        match (self.expanded, self.relative_percent) {
+            (Some(u), None) => Some(u),
+            (None, Some(r)) => Some(r / 100.0 * y.abs()),
+            _ => None,
+        }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -530,6 +585,7 @@ impl Default for ReportingSpec {
             rounding: RoundingSpec::default(),
             decimal_places: None,
             uncorrected_bias: None,
+            cmc: None,
         }
     }
 }
@@ -537,8 +593,14 @@ impl Default for ReportingSpec {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum RoundingSpec {
-    /// MUPR §12 rule (discarded 5 to even, later digits ignored).
+    /// EA-4/02 M:2022 §6.3: ordinary rounding of U unless it lowers U by
+    /// more than 5 %, then U is rounded up. The default, because it never
+    /// understates U by more than 5 % (independent review, 2026-11-08).
     #[default]
+    #[serde(rename = "ea4_02")]
+    Ea402,
+    /// MUPR §12 rule (discarded 5 to even, later digits ignored); can lower U
+    /// by up to about 5.7 % (0.10599 → 0.10).
     HalfEven,
     HalfUp,
     /// Round the uncertainty up (GUM 7.2.6).
@@ -578,6 +640,10 @@ pub struct Expected {
     pub sampling: Option<ExpectedSampling>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub error_function: Option<ExpectedErrorFunction>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub multicomponent_conformity: Option<ExpectedMulticomponent>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub consensus: Option<ExpectedConsensus>,
     /// Where the expected values come from (document and table).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reference: Option<Text>,
@@ -599,6 +665,9 @@ pub struct ExpectedGum {
     /// Combined standard uncertainty by Kragten's spreadsheet method.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub kragten_uncertainty: Option<Check>,
+    /// Expanded uncertainty as reported, after the CMC rule (ILAC P14 5.5).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reported_expanded_uncertainty: Option<Check>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

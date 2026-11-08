@@ -1,0 +1,186 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "bipm-isrd-02-qnmr-ma-dmso2-d2o",
+    "field": "chemistry",
+    "title": {
+      "en": "Purity of maleic acid by ¹H qNMR with dimethyl sulfone as internal standard in D2O (BIPM ISRD-02, Table 4)",
+      "tr": "İç standart olarak dimetil sülfon ile D2O içinde ¹H qNMR ile maleik asit saflığı (BIPM ISRD-02, Tablo 4)"
+    },
+    "description": {
+      "en": "Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.",
+      "tr": "İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir."
+    },
+    "explanation": [
+      {
+        "en": "Purity from the printed values: w_A = 0.99976 g/g (printed 0.9997); combined standard uncertainty 7.880e-04 g/g (printed 7.910e-04).",
+        "tr": "Basılı değerlerden saflık: w_A = 0,99976 g/g (basılı 0,9997); birleşik standart belirsizlik 7,880e-04 g/g (basılı 7,910e-04)."
+      },
+      {
+        "en": "The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).",
+        "tr": "Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir)."
+      }
+    ],
+    "tags": [
+      "bipm",
+      "isrd",
+      "qnmr",
+      "purity",
+      "organic-reference-material",
+      "internal-standard"
+    ],
+    "notes": [
+      {
+        "en": "Printed uncertainty components c·u: 1.75e-04, 1.50e-04, 5.00e-05, 3.44e-05, 6.61e-05, 5.28e-04, 3.54e-04, 4.01e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).",
+        "tr": "Basılı belirsizlik bileşenleri c·u: 1.75e-04, 1.50e-04, 5.00e-05, 3.44e-05, 6.61e-05, 5.28e-04, 3.54e-04, 4.01e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97)."
+      }
+    ],
+    "sources": [
+      {
+        "document": "BIPM, Internal Standard Reference Data for qNMR: Dimethyl Sulfone, ISRD-02, Rapport BIPM-2018/04",
+        "section": "Table 4",
+        "url": "https://www.bipm.org/en/publications/rapports-bipm"
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "w_A",
+      "unit": "g/g",
+      "expression": "R * (N_S/N_A) * (M_A/M_S) * (m_S/m_A) * w_S",
+      "description": {
+        "en": "Mass fraction (purity) of maleic acid",
+        "tr": "maleik asit kütle kesri (saflık)"
+      }
+    },
+    "inputs": [
+      {
+        "name": "R",
+        "unit": "1",
+        "description": {
+          "en": "Integral ratio I_A/I_S (mean of replicates)",
+          "tr": "İntegral oranı I_A/I_S (tekrarların ortalaması)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.1821,
+          "sd": 3e-05
+        }
+      },
+      {
+        "name": "N_A",
+        "unit": "1",
+        "description": {
+          "en": "Number of ¹H nuclei of the quantified signal of maleic acid",
+          "tr": "maleik asit nicel sinyalinin ¹H çekirdek sayısı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 1.9996,
+          "sd": 0.0003
+        }
+      },
+      {
+        "name": "N_S",
+        "unit": "1",
+        "description": {
+          "en": "Number of ¹H nuclei of the quantified signal of dimethyl sulfone",
+          "tr": "dimetil sülfon nicel sinyalinin ¹H çekirdek sayısı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 5.9988,
+          "sd": 0.0003
+        }
+      },
+      {
+        "name": "M_A",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of maleic acid",
+          "tr": "maleik asit mol kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 116.08,
+          "sd": 0.004
+        }
+      },
+      {
+        "name": "M_S",
+        "unit": "g/mol",
+        "description": {
+          "en": "Molar mass of dimethyl sulfone",
+          "tr": "dimetil sülfon mol kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 94.1284,
+          "sd": 0.0062
+        }
+      },
+      {
+        "name": "m_A",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of maleic acid weighed",
+          "tr": "Tartılan maleik asit kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 2.3545,
+          "sd": 0.00124
+        }
+      },
+      {
+        "name": "m_S",
+        "unit": "mg",
+        "description": {
+          "en": "Mass of dimethyl sulfone weighed",
+          "tr": "Tartılan dimetil sülfon kütlesi"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 3.5063,
+          "sd": 0.00124
+        }
+      },
+      {
+        "name": "w_S",
+        "unit": "g/g",
+        "description": {
+          "en": "Purity of the internal standard dimethyl sulfone",
+          "tr": "İç standart dimetil sülfon saflığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.9965,
+          "sd": 0.0004
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": null
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.9997,
+        "tolerance": 0.0003245
+      },
+      "standard_uncertainty": {
+        "value": 0.000791,
+        "tolerance": 7.9e-06
+      }
+    },
+    "reference": {
+      "en": "BIPM ISRD-02, Table 4: assigned value 0.9997 g/g, combined standard uncertainty 7.910e-04 g/g (k = 2 for the expanded uncertainty). Tolerance of u: 1 % or the difference to the value recomputed from the printed inputs, 0.4 % (F97).",
+      "tr": "BIPM ISRD-02, Tablo 4: atanan değer 0,9997 g/g, birleşik standart belirsizlik 7,910e-04 g/g (genişletilmiş belirsizlik için k = 2). u toleransı: %1 ya da basılı girdilerden yeniden hesaplanan değerle fark, %0,4 (F97)."
+    }
+  }
+}

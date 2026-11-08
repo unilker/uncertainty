@@ -741,7 +741,7 @@ ea("ea402-s2-weight-10kg", "mass", ("Calibration of a 10 kg weight", "10 kg'lık
      "bir değerlendirmeden birleştirilmiş standart sapma s_p = 25 mg ile hesaplanır: u(δm) = 25/√3 = 14,4 mg."),
     ("Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.",
      "Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır."),
-    ("m_X = 10 000.025 kg ± 58 mg (k = 2).", "m_X = 10 000,025 kg ± 58 mg (k = 2).")],
+    ("m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).", "m_X = 10 000,025 g ± 58 mg (k = 2), EA-4/02'de basıldığı gibi; yuvarlanmamış U = 58,5 mg, EA-4/02 6.3 yuvarlama kuralıyla 59 mg olarak raporlanır (nota bakınız).")],
    "S2", out("m_X", "m_S + dm_D + dm + dm_C + dB", "mg", ("Deviation of the weight from 10 kg", "Ağırlığın 10 kg'dan sapması")),
    [inp("m_S", NU(5.0, 45.0, 2), "mg", ("Standard (certificate: +5 mg, U = 45 mg, k = 2)", "Standart (sertifika: +5 mg, U = 45 mg, k = 2)")),
     inp("dm_D", R(0.0, 15.0), "mg", ("Drift of the standard since its last calibration", "Standardın son kalibrasyondan beri sürüklenmesi")),

@@ -64,6 +64,12 @@ class ResultsView extends StatelessWidget {
     if (results['control_chart'] != null) {
       children.addAll(_controlChart(context, results['control_chart'] as Map<String, dynamic>, unit));
     }
+    if (results['multicomponent_conformity'] != null) {
+      children.addAll(_multicomponent(context, results['multicomponent_conformity'] as Map<String, dynamic>));
+    }
+    if (results['consensus'] != null) {
+      children.addAll(_consensus(context, results['consensus'] as Map<String, dynamic>, unit));
+    }
     if (results['error_function'] != null) {
       children.addAll(_errorFunction(context, results['error_function'] as Map<String, dynamic>));
     }
@@ -152,6 +158,83 @@ class ResultsView extends StatelessWidget {
     ];
   }
 
+  List<Widget> _consensus(BuildContext context, Map<String, dynamic> r, String rawUnit) {
+    final s = strings;
+    final unit = rawUnit.isEmpty ? '' : ' $rawUnit';
+    final dl = r['dersimonian_laird'] as Map<String, dynamic>;
+    final b = dl['bootstrap'] as Map<String, dynamic>?;
+    final lp = r['linear_pool'] as Map<String, dynamic>?;
+    final ml = r['maximum_likelihood'] as Map<String, dynamic>?;
+    final by = r['bayes'] as Map<String, dynamic>?;
+    String n(dynamic x, [int sig = 7]) => fmtNum(_d(x), sig, s.lang);
+    String interval(Map<String, dynamic> m) {
+      final i = (m['interval'] as List).map((e) => _d(e)).toList();
+      return '[${n(i[0])}, ${n(i[1])}]$unit (${fmtPct(_d(m['coverage']), 3, s.lang)})';
+    }
+
+    final doe = (b?['degrees_of_equivalence'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+    final results = (r['results'] as List).cast<Map<String, dynamic>>();
+    return [
+      Section(s['cs_title']),
+      _table(
+        context,
+        ['', ''],
+        [
+          [s['cs_consensus'], '${n(dl['mean'])}$unit'],
+          [s['cs_u_dl'], '${n(dl['standard_uncertainty'], 3)}$unit'],
+          [s['cs_tau'], '${n(dl['tau'], 3)}$unit'],
+          ['Cochran Q', '${n(dl['q'], 4)} (p = ${n(dl['q_p_value'], 2)})'],
+          [s['cs_kh'], '${n(dl['u_knapp_hartung'], 3)}$unit'],
+          if (b != null) [s['cs_boot_u'], '${n(b['standard_uncertainty'], 3)}$unit'],
+          if (b != null) [s['cs_interval'], interval(b)],
+          if (lp != null) [s['cs_lp'], '${n(lp['mean'])}$unit, u = ${n(lp['standard_uncertainty'], 3)}$unit'],
+          if (lp != null) [s['cs_interval'], interval(lp)],
+          if (by != null) [s['cs_bayes'], '${n(by['mean'])}$unit, u = ${n(by['standard_uncertainty'], 3)}$unit'],
+          if (by != null) [s['cs_interval'], interval(by)],
+          if (by != null) [s['cs_tau_median'], '${n(by['tau_median'], 3)}$unit'],
+          if (ml != null) [s['cs_ml'], '${n(ml['mean'])}$unit, u = ${n(ml['standard_uncertainty'], 3)}$unit'],
+          if (ml != null) [s['cs_tau'], '${n(ml['tau'], 3)}$unit, u = ${n(ml['u_tau'], 3)}$unit'],
+        ],
+      ),
+      if (doe.isNotEmpty) Section(s['cs_doe']),
+      if (doe.isNotEmpty)
+        _table(
+          context,
+          [s['cs_participant'], s['cs_weight'], 'D', 'U95 %(D)'],
+          [
+            for (var j = 0; j < doe.length; j++)
+              [doe[j]['name'].toString(), fmtPct(_d(results[j]['weight']), 3, s.lang), n(doe[j]['d'], 3), n(doe[j]['expanded'], 3)],
+          ],
+        ),
+    ];
+  }
+
+  List<Widget> _multicomponent(BuildContext context, Map<String, dynamic> r) {
+    final s = strings;
+    final names = (r['components'] as List).join(', ');
+    final rows = <List<String>>[
+      for (final x in (r['results'] as List).cast<Map<String, dynamic>>())
+        [
+          x['name'].toString(),
+          '${x['accepted'] == true ? s['cf_accepted'] : s['cf_rejected']}; '
+              '${x['accepted'] == true ? s['mc_consumer'] : s['mc_producer']} ${fmtPct(_d(x['risk']), 3, s.lang)}',
+        ],
+    ];
+    final g = r['global'] as Map<String, dynamic>?;
+    return [
+      Section('${s['mc_title']} ($names)'),
+      _table(
+        context,
+        ['', ''],
+        [
+          ...rows,
+          if (g != null) [s['mc_global_consumer'], fmtPct(_d(g['consumer_risk']), 3, s.lang)],
+          if (g != null) [s['mc_global_producer'], fmtPct(_d(g['producer_risk']), 3, s.lang)],
+        ],
+      ),
+    ];
+  }
+
   List<Widget> _mcm(BuildContext context, Map<String, dynamic> results) {
     final s = strings;
     final m = results['mcm'] as Map<String, dynamic>;
@@ -173,6 +256,7 @@ class ResultsView extends StatelessWidget {
           [s['std_unc'], fmtNum(_d(m['standard_uncertainty']), 3, s.lang)],
           ['${s['shortest']} ($pct)', '[${fmtNum(shortest[0], 6, s.lang)}; ${fmtNum(shortest[1], 6, s.lang)}]'],
           ['${s['symmetric']} ($pct)', '[${fmtNum(symmetric[0], 6, s.lang)}; ${fmtNum(symmetric[1], 6, s.lang)}]'],
+          if (m['expanded_about_estimate'] != null) ['${s['about_estimate']} ($pct)', 'U = ${fmtNum(_d(m['expanded_about_estimate']), 3, s.lang)}'],
           if (v != null)
             [
               s['validation'],
@@ -385,10 +469,33 @@ class ResultsView extends StatelessWidget {
             ['s_x', '${n(h['s_x'], 3)}$u'],
             ['s_w', '${n(h['s_w'], 3)}$u'],
             ['s_s', '${n(h['s_s'], 3)}$u'],
-            [s['pt_criterion'], '${n(h['criterion'], 3)}$u — ${h['sufficient'] == true ? s['pt_sufficient'] : s['pt_not_sufficient']}'],
+            if (h['u_bb_star'] != null) ['u*_bb', '${n(h['u_bb_star'], 3)}$u'],
+            if (h['criterion'] != null)
+              [s['pt_criterion'], '${n(h['criterion'], 3)}$u — ${h['sufficient'] == true ? s['pt_sufficient'] : s['pt_not_sufficient']}'],
           ],
         ),
       ]);
+      final b = r['between_unit'] as Map<String, dynamic>?;
+      if (b != null) {
+        String row(Map<String, dynamic> p) {
+          final hpd = p['hpd'] as List;
+          return '${n(p['mean'], 3)}$u (${s['pt_median']} ${n(p['median'], 3)}, ${s['pt_mode']} ${n(p['mode'], 3)}); '
+              '95 %: [${n(hpd[0], 3)}, ${n(hpd[1], 3)}]$u';
+        }
+
+        out.addAll([
+          Section(s['pt_bayes']),
+          _table(
+            context,
+            ['', ''],
+            [
+              ['τ', row(b['tau'] as Map<String, dynamic>)],
+              ['σ', row(b['sigma'] as Map<String, dynamic>)],
+              ['µ', '${n(b['mu_mean'], 6)}$u ± ${n(b['mu_sd'], 3)}$u'],
+            ],
+          ),
+        ]);
+      }
     }
     final st = r['stability'] as Map<String, dynamic>?;
     if (st != null) {

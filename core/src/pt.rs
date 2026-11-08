@@ -212,19 +212,27 @@ pub struct Homogeneity {
     pub s_w: f64,
     /// Between-sample standard deviation s_s (B.10, zero if negative).
     pub s_s: f64,
-    /// Criterion 0.3 σ_pt (B.1).
-    pub criterion: f64,
-    pub sufficient: bool,
+    /// Mean squares between and within items of the one-way ANOVA
+    /// (MS_between = m·s_x², MS_within = s_w²).
+    pub ms_between: f64,
+    pub ms_within: f64,
+    /// Upper bound of the between-unit standard deviation that the
+    /// repeatability can hide, u*_bb = √(MS_within/m)·(2/ν_within)^¼
+    /// (Linsinger et al., Accred. Qual. Assur. 6 (2001) 20; ISO Guide 35).
+    pub u_bb_star: f64,
+    /// Criterion 0.3 σ_pt (B.1), when σ_pt is given.
+    pub criterion: Option<f64>,
+    pub sufficient: Option<bool>,
     /// Factors F₁ and F_m and the expanded criterion √c of B.2.3.
     pub f1: f64,
     pub fm: f64,
-    pub expanded_criterion: f64,
-    pub sufficient_expanded: bool,
+    pub expanded_criterion: Option<f64>,
+    pub sufficient_expanded: Option<bool>,
 }
 
 /// Homogeneity check from g items measured m times each (equal m),
-/// against σ_pt [ISO 13528:2022 B.2.2, B.2.3, B.3].
-pub fn homogeneity(items: &[Vec<f64>], sigma_pt: f64) -> Result<Homogeneity, UncError> {
+/// against σ_pt if given [ISO 13528:2022 B.2.2, B.2.3, B.3].
+pub fn homogeneity(items: &[Vec<f64>], sigma_pt: Option<f64>) -> Result<Homogeneity, UncError> {
     let g = items.len();
     if g < 2 {
         return Err(UncError::InvalidOption("homogeneity check: at least two items are needed".into()));
@@ -235,7 +243,7 @@ pub fn homogeneity(items: &[Vec<f64>], sigma_pt: f64) -> Result<Homogeneity, Unc
             "homogeneity check: every item needs the same number (≥ 2) of replicates".into(),
         ));
     }
-    if items.iter().flatten().any(|v| !v.is_finite()) || !(sigma_pt > 0.0) {
+    if items.iter().flatten().any(|v| !v.is_finite()) || sigma_pt.is_some_and(|s| !(s > 0.0)) {
         return Err(UncError::InvalidOption("homogeneity check: finite data and σ_pt > 0 required".into()));
     }
     let means: Vec<f64> = items.iter().map(|t| t.iter().sum::<f64>() / m as f64).collect();
@@ -248,10 +256,11 @@ pub fn homogeneity(items: &[Vec<f64>], sigma_pt: f64) -> Result<Homogeneity, Unc
     let s_x2 = means.iter().map(|v| (v - mean).powi(2)).sum::<f64>() / (g as f64 - 1.0);
     let s_w2 = var_t.iter().sum::<f64>() / g as f64;
     let s_s = (s_x2 - s_w2 / m as f64).max(0.0).sqrt();
-    let criterion = 0.3 * sigma_pt;
+    let criterion = sigma_pt.map(|s| 0.3 * s);
     let f1 = chi_squared_quantile(0.95, g as f64 - 1.0) / (g as f64 - 1.0);
     let fm = (f_quantile(0.95, g as f64 - 1.0, (g * (m - 1)) as f64) - 1.0) / m as f64;
-    let expanded_criterion = (f1 * criterion * criterion + fm * s_w2).sqrt();
+    let expanded_criterion = criterion.map(|c| (f1 * c * c + fm * s_w2).sqrt());
+    let nu_w = (g * (m - 1)) as f64;
     Ok(Homogeneity {
         items: g,
         replicates: m,
@@ -259,12 +268,194 @@ pub fn homogeneity(items: &[Vec<f64>], sigma_pt: f64) -> Result<Homogeneity, Unc
         s_x: s_x2.sqrt(),
         s_w: s_w2.sqrt(),
         s_s,
+        ms_between: m as f64 * s_x2,
+        ms_within: s_w2,
+        u_bb_star: (s_w2 / m as f64).sqrt() * (2.0 / nu_w).powf(0.25),
         criterion,
-        sufficient: s_s <= criterion,
+        sufficient: criterion.map(|c| s_s <= c),
         f1,
         fm,
         expanded_criterion,
-        sufficient_expanded: s_s <= expanded_criterion,
+        sufficient_expanded: expanded_criterion.map(|c| s_s <= c),
+    })
+}
+
+/// Priors of the Bayesian between-unit model y_ij = µ + B_i + ε_ij with
+/// B_i ~ N(0, τ²), ε_ij ~ N(0, σ²): half-Cauchy priors with scales τ₀ and
+/// σ₀, and a normal prior for µ (flat if not given) [JCGM GUM-5:2026
+/// Example 12, (12.2)–(12.4); van der Veen 2017].
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct BetweenUnitPrior {
+    pub tau_scale: f64,
+    pub sigma_scale: f64,
+    pub mu: Option<(f64, f64)>,
+}
+
+/// Summary of a marginal posterior PDF.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct PosteriorSummary {
+    pub mean: f64,
+    pub sd: f64,
+    pub median: f64,
+    pub mode: f64,
+    /// Probabilistically symmetric 95 % interval.
+    pub q025: f64,
+    pub q975: f64,
+    /// Shortest 95 % interval (highest posterior density).
+    pub hpd: (f64, f64),
+}
+
+/// Posterior of the Bayesian between-unit model.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct BetweenUnitPosterior {
+    /// Between-unit standard deviation τ.
+    pub tau: PosteriorSummary,
+    /// Within-unit (repeatability) standard deviation σ.
+    pub sigma: PosteriorSummary,
+    /// Posterior mean and standard deviation of µ.
+    pub mu_mean: f64,
+    pub mu_sd: f64,
+}
+
+/// Summary of a PDF tabulated at increasing points x with trapezoidal weights.
+fn summarize(x: &[f64], p: &[f64]) -> PosteriorSummary {
+    let n = x.len();
+    let mut w = vec![0.0; n];
+    for i in 0..n - 1 {
+        let h = 0.5 * (x[i + 1] - x[i]);
+        w[i] += h;
+        w[i + 1] += h;
+    }
+    let mass: Vec<f64> = (0..n).map(|i| p[i] * w[i]).collect();
+    let total: f64 = mass.iter().sum();
+    let mean = (0..n).map(|i| x[i] * mass[i]).sum::<f64>() / total;
+    let sd = ((0..n).map(|i| (x[i] - mean).powi(2) * mass[i]).sum::<f64>() / total).sqrt();
+    // Cumulative distribution by the trapezoidal rule, then linear interpolation.
+    let mut cdf = vec![0.0; n];
+    for i in 1..n {
+        cdf[i] = cdf[i - 1] + 0.5 * (p[i - 1] + p[i]) * (x[i] - x[i - 1]) / total;
+    }
+    let quantile = |q: f64| {
+        let i = cdf.partition_point(|&c| c < q).clamp(1, n - 1);
+        let (c0, c1) = (cdf[i - 1], cdf[i]);
+        if c1 > c0 {
+            x[i - 1] + (q - c0) / (c1 - c0) * (x[i] - x[i - 1])
+        } else {
+            x[i]
+        }
+    };
+    let imax = (0..n).max_by(|&a, &b| p[a].total_cmp(&p[b])).unwrap_or(0);
+    // Highest density region: the points of highest density holding 95 %.
+    let mut order: Vec<usize> = (0..n).collect();
+    order.sort_by(|&a, &b| p[b].total_cmp(&p[a]));
+    let (mut acc, mut lo, mut hi) = (0.0, x[imax], x[imax]);
+    for &i in &order {
+        if acc >= 0.95 * total {
+            break;
+        }
+        acc += mass[i];
+        lo = lo.min(x[i]);
+        hi = hi.max(x[i]);
+    }
+    PosteriorSummary {
+        mean,
+        sd,
+        median: quantile(0.5),
+        mode: x[imax],
+        q025: quantile(0.025),
+        q975: quantile(0.975),
+        hpd: (lo, hi),
+    }
+}
+
+/// Bayesian estimate of the between-unit standard deviation from g units
+/// measured m times each. The unit effects and µ are integrated out
+/// analytically; the joint posterior of (τ, σ) is evaluated on a grid, so
+/// the result is deterministic (no MCMC). It exists also when
+/// MS_between < MS_within, where the ANOVA estimate does not.
+pub fn between_unit_posterior(items: &[Vec<f64>], prior: &BetweenUnitPrior) -> Result<BetweenUnitPosterior, UncError> {
+    let h = homogeneity(items, None)?;
+    let invalid = |m: &str| Err(UncError::InvalidOption(format!("between-unit posterior: {m}")));
+    if !(prior.tau_scale > 0.0 && prior.sigma_scale > 0.0) {
+        return invalid("the scales of the half-Cauchy priors must be positive");
+    }
+    if prior.mu.is_some_and(|(_, s)| !(s > 0.0)) {
+        return invalid("the prior standard deviation of µ must be positive");
+    }
+    let (g, m) = (h.items as f64, h.replicates as f64);
+    let means: Vec<f64> = items.iter().map(|t| t.iter().sum::<f64>() / m).collect();
+    let s1: f64 = means.iter().sum();
+    let s2: f64 = means.iter().map(|v| v * v).sum();
+    let ssw = h.ms_within * g * (m - 1.0);
+    let nu_w = g * (m - 1.0);
+    // log posterior of (τ, σ) and the conditional mean and variance of µ.
+    let point = |tau: f64, sig: f64| -> (f64, f64, f64) {
+        let v = tau * tau + sig * sig / m;
+        let (p0, m0) = prior.mu.map_or((0.0, 0.0), |(mu0, s0)| (1.0 / (s0 * s0), mu0));
+        let prec = g / v + p0;
+        let mean_mu = (s1 / v + p0 * m0) / prec;
+        let quad = s2 / v + p0 * m0 * m0 - prec * mean_mu * mean_mu;
+        let lp = -0.5 * g * v.ln()
+            - 0.5 * quad
+            - 0.5 * prec.ln()
+            - nu_w * sig.ln()
+            - ssw / (2.0 * sig * sig)
+            - (1.0 + (tau / prior.tau_scale).powi(2)).ln()
+            - (1.0 + (sig / prior.sigma_scale).powi(2)).ln();
+        (lp, mean_mu, 1.0 / prec)
+    };
+    let sw = h.ms_within.sqrt().max(1e-300);
+    let (nt, ns) = (3001, 1001);
+    let tau_max = 12.0 * ((h.ms_between.max(h.ms_within)) / m).sqrt() + 6.0 * prior.tau_scale.min(sw);
+    // Quadratic spacing: fine near τ = 0, where the density of τ is often largest.
+    let taus: Vec<f64> = (0..nt).map(|i| tau_max * (i as f64 / (nt - 1) as f64).powi(2)).collect();
+    let (ls0, ls1) = ((sw / 6.0).ln(), (sw * 6.0).ln());
+    let sigs: Vec<f64> = (0..ns).map(|j| (ls0 + (ls1 - ls0) * j as f64 / (ns - 1) as f64).exp()).collect();
+    let mut lp = vec![0.0; nt * ns];
+    let mut mu_c = vec![(0.0, 0.0); nt * ns];
+    for (i, &t) in taus.iter().enumerate() {
+        for (j, &sg) in sigs.iter().enumerate() {
+            let (l, a, b) = point(t, sg);
+            lp[i * ns + j] = l;
+            mu_c[i * ns + j] = (a, b);
+        }
+    }
+    let lmax = lp.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+    if !lmax.is_finite() {
+        return invalid("the posterior could not be evaluated");
+    }
+    // Trapezoidal weights in σ.
+    let mut ws = vec![0.0; ns];
+    for j in 0..ns - 1 {
+        let d = 0.5 * (sigs[j + 1] - sigs[j]);
+        ws[j] += d;
+        ws[j + 1] += d;
+    }
+    let mut wt = vec![0.0; nt];
+    for i in 0..nt - 1 {
+        let d = 0.5 * (taus[i + 1] - taus[i]);
+        wt[i] += d;
+        wt[i + 1] += d;
+    }
+    let dens: Vec<f64> = lp.iter().map(|l| (l - lmax).exp()).collect();
+    let p_tau: Vec<f64> = (0..nt).map(|i| (0..ns).map(|j| dens[i * ns + j] * ws[j]).sum()).collect();
+    let p_sig: Vec<f64> = (0..ns).map(|j| (0..nt).map(|i| dens[i * ns + j] * wt[i]).sum()).collect();
+    let (mut z, mut e1, mut e2) = (0.0, 0.0, 0.0);
+    for i in 0..nt {
+        for j in 0..ns {
+            let w = dens[i * ns + j] * wt[i] * ws[j];
+            let (a, b) = mu_c[i * ns + j];
+            z += w;
+            e1 += w * a;
+            e2 += w * (b + a * a);
+        }
+    }
+    let mu_mean = e1 / z;
+    Ok(BetweenUnitPosterior {
+        tau: summarize(&taus, &p_tau),
+        sigma: summarize(&sigs, &p_sig),
+        mu_mean,
+        mu_sd: (e2 / z - mu_mean * mu_mean).max(0.0).sqrt(),
     })
 }
 
@@ -424,10 +615,10 @@ mod tests {
         ];
         let items: Vec<Vec<f64>> = d.iter().map(|r| r.to_vec()).collect();
         let mean = items.iter().map(|t| t.iter().sum::<f64>() / 2.0).sum::<f64>() / 10.0;
-        let h = homogeneity(&items, 0.15 * mean).unwrap();
+        let h = homogeneity(&items, Some(0.15 * mean)).unwrap();
         assert!((h.mean - 0.18715).abs() < 5e-6);
         assert!((h.s_x - 0.00398).abs() < 5e-6 && (h.s_w - 0.00556).abs() < 5e-6 && (h.s_s - 0.00060).abs() < 5e-6);
-        assert!((h.criterion - 0.00842).abs() < 5e-6 && h.sufficient);
+        assert!((h.criterion.unwrap() - 0.00842).abs() < 5e-6 && h.sufficient == Some(true));
         // Table B.1 for g = 10: F₁ = 1.88, F₂ = 1.01.
         assert!((h.f1 - 1.88).abs() < 0.005 && (h.fm - 1.01).abs() < 0.005);
         // Stability, Table E.3.
@@ -488,5 +679,53 @@ mod tests {
         let rms = (w.iter().map(|v| v * v).sum::<f64>() / 8.0).sqrt();
         assert!(ws < 0.75 && rms > 1.7, "w* = {ws}");
         assert!(algorithm_s(&w, 11).is_err());
+    }
+
+    /// JCGM GUM-5:2026 Example 12, Table 12.1 (amount fraction of N₂ in 10
+    /// gas mixtures, cmol/mol). ANOVA of Table 12.2 and the Stan output of
+    /// 12.4.5: τ mean 0.00014, sd 0.00011, [0.00001, 0.00040]; σ mean 0.00069,
+    /// sd 0.00007, [0.00056, 0.00085]; µ 0.42514; Table 12.3 HPD of τ/µ
+    /// [0, 0.0008], of σ/µ [0.0013, 0.0020]; 12.4.8 median of τ 1.1 µmol/mol.
+    #[test]
+    fn gum5_example12_between_bottle_bayes() {
+        let y = [
+            [0.424577, 0.425167, 0.425379, 0.424522, 0.424805],
+            [0.425572, 0.425411, 0.423638, 0.425301, 0.424527],
+            [0.424152, 0.425517, 0.425638, 0.424207, 0.425135],
+            [0.426320, 0.424672, 0.425211, 0.425533, 0.425864],
+            [0.424855, 0.425079, 0.425413, 0.424729, 0.424725],
+            [0.425104, 0.424773, 0.426424, 0.424266, 0.424632],
+            [0.425750, 0.424917, 0.424779, 0.425086, 0.425318],
+            [0.425547, 0.426483, 0.424631, 0.425968, 0.424620],
+            [0.426326, 0.424646, 0.425205, 0.426302, 0.425020],
+            [0.425968, 0.424069, 0.425988, 0.425489, 0.423936],
+        ];
+        let items: Vec<Vec<f64>> = y.iter().map(|r| r.to_vec()).collect();
+        let h = homogeneity(&items, None).unwrap();
+        assert!((h.ms_between - 3.25e-7).abs() < 0.005e-7 && (h.ms_within - 4.90e-7).abs() < 0.005e-7);
+        assert_eq!(h.s_s, 0.0);
+        assert!(h.criterion.is_none());
+        assert!((h.u_bb_star - 1.481e-4).abs() < 0.001e-4, "{}", h.u_bb_star);
+        let mu0 = 0.4250;
+        let prior =
+            BetweenUnitPrior { tau_scale: 0.0015 * mu0, sigma_scale: 0.0020 * mu0, mu: Some((mu0, 0.025 * mu0)) };
+        let p = between_unit_posterior(&items, &prior).unwrap();
+        let c = |a: f64, b: f64, t: f64| assert!((a - b).abs() <= t, "{a} vs {b}");
+        c(p.tau.mean, 0.0001356, 1e-6);
+        c(p.tau.sd, 0.000107, 2e-6);
+        c(p.tau.median, 0.0001126, 1e-6);
+        c(p.tau.q975, 0.000397, 1e-6);
+        c(p.tau.q025, 0.0000052, 0.2e-6);
+        c(p.tau.mode, 0.0, 1e-12);
+        c(p.tau.hpd.0, 0.0, 1e-12);
+        c(p.tau.hpd.1 / 0.42514, 0.0008, 0.00005);
+        c(p.sigma.mean, 0.000688, 2e-6);
+        c(p.sigma.sd, 0.0000722, 2e-6);
+        c(p.sigma.q025, 0.000564, 2e-6);
+        c(p.sigma.q975, 0.000846, 2e-6);
+        c(p.sigma.hpd.0 / 0.42514, 0.0013, 0.00005);
+        c(p.sigma.hpd.1 / 0.42514, 0.0020, 0.00005);
+        c(p.mu_mean, 0.42514, 5e-6);
+        c(p.mu_sd, 0.00011, 0.000005);
     }
 }

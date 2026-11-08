@@ -1,0 +1,181 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "ilac-p14-cmc-floor-weight-10kg",
+    "title": {
+      "en": "Reporting rule of ILAC P14 5.5: the CMC as the smallest reportable uncertainty (EA-4/02 S2 weight, illustrative CMC)",
+      "tr": "ILAC P14 5.5 raporlama kuralı: raporlanabilecek en küçük belirsizlik olarak CMC (EA-4/02 S2 kütle, örnek CMC)"
+    },
+    "description": {
+      "en": "The 10 kg weight of EA-4/02 S2 (U = 58 mg) reported by a laboratory whose accredited CMC is taken, for illustration, as 80 mg: the reported U is the CMC, not the evaluated 58 mg.",
+      "tr": "EA-4/02 S2'deki 10 kg kütle (U = 58 mg); akredite CMC'si örnek olarak 80 mg alınan bir laboratuvar tarafından raporlanır: raporlanan U, değerlendirilen 58 mg değil CMC'dir."
+    },
+    "explanation": [
+      {
+        "en": "m_X = m_S + δm_D + δm + δm_C + δB (deviations from 10 kg, in mg).",
+        "tr": "m_X = m_S + δm_D + δm + δm_C + δB (10 kg'dan sapmalar, mg)."
+      },
+      {
+        "en": "The observed difference is the mean of three ABBA comparisons (+10, +30, +20 mg); its standard uncertainty uses the pooled standard deviation s_p = 25 mg from an earlier evaluation: u(δm) = 25/√3 = 14.4 mg.",
+        "tr": "Gözlenen fark üç ABBA karşılaştırmasının ortalamasıdır (+10, +30, +20 mg); standart belirsizliği daha önceki bir değerlendirmeden birleştirilmiş standart sapma s_p = 25 mg ile hesaplanır: u(δm) = 25/√3 = 14,4 mg."
+      },
+      {
+        "en": "Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.",
+        "tr": "Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır."
+      },
+      {
+        "en": "m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).",
+        "tr": "m_X = 10 000,025 g ± 58 mg (k = 2), EA-4/02'de basıldığı gibi; yuvarlanmamış U = 58,5 mg, EA-4/02 6.3 yuvarlama kuralıyla 59 mg olarak raporlanır (nota bakınız)."
+      },
+      {
+        "en": "ILAC P14:09/2020, 5.5: an accredited calibration laboratory shall not report a smaller measurement uncertainty than the uncertainty described by its CMC. With reporting.cmc the program reports max(U, CMC) and says so in the result statement; 5.3 limits U to at most two significant digits.",
+        "tr": "ILAC P14:09/2020, 5.5: akredite bir kalibrasyon laboratuvarı CMC'sinin tanımladığından küçük bir ölçüm belirsizliği raporlayamaz. reporting.cmc ile program max(U, CMC) raporlar ve bunu sonuç ifadesinde belirtir; 5.3, U'yu en çok iki anlamlı basamakla sınırlar."
+      }
+    ],
+    "field": "mass",
+    "sources": [
+      {
+        "document": "EA-4/02 M:2022, Evaluation of the Uncertainty of Measurement in Calibration",
+        "section": "S2",
+        "url": "https://european-accreditation.org/wp-content/uploads/2018/10/EA-4-02.pdf"
+      },
+      {
+        "document": "ILAC P14:09/2020, ILAC Policy for Measurement Uncertainty in Calibration",
+        "section": "5.3, 5.5",
+        "url": "https://ilac.org/publications-and-resources/ilac-policy-series/"
+      }
+    ],
+    "tags": [
+      "calibration",
+      "cmc",
+      "ea-4/02",
+      "ilac-p14",
+      "reporting",
+      "validation"
+    ],
+    "notes": [
+      {
+        "en": "The CMC of 80 mg is a hypothetical value chosen to exceed the evaluated U; it is not taken from a scope of accreditation.",
+        "tr": "80 mg'lık CMC, değerlendirilen U'yu aşacak biçimde seçilmiş varsayımsal bir değerdir; bir akreditasyon kapsamından alınmamıştır."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "m_X",
+      "unit": "mg",
+      "expression": "m_S + dm_D + dm + dm_C + dB",
+      "description": {
+        "en": "Deviation of the weight from 10 kg",
+        "tr": "Ağırlığın 10 kg'dan sapması"
+      }
+    },
+    "inputs": [
+      {
+        "name": "m_S",
+        "unit": "mg",
+        "description": {
+          "en": "Standard (certificate: +5 mg, U = 45 mg, k = 2)",
+          "tr": "Standart (sertifika: +5 mg, U = 45 mg, k = 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 5.0,
+          "expanded": 45.0,
+          "k": 2
+        }
+      },
+      {
+        "name": "dm_D",
+        "unit": "mg",
+        "description": {
+          "en": "Drift of the standard since its last calibration",
+          "tr": "Standardın son kalibrasyondan beri sürüklenmesi"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 15.0
+        }
+      },
+      {
+        "name": "dm",
+        "unit": "mg",
+        "description": {
+          "en": "Observed difference (mean of 3, s_p = 25 mg)",
+          "tr": "Gözlenen fark (3 ölçüm ortalaması, s_p = 25 mg)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 20.0,
+          "sd": 14.433756729740645
+        }
+      },
+      {
+        "name": "dm_C",
+        "unit": "mg",
+        "description": {
+          "en": "Comparator eccentricity and magnetic effects",
+          "tr": "Komparatör eksantrikliği ve manyetik etkiler"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 10.0
+        }
+      },
+      {
+        "name": "dB",
+        "unit": "mg",
+        "description": {
+          "en": "Air buoyancy",
+          "tr": "Hava kaldırma kuvveti"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 0.0,
+          "half_width": 10.0
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 25.0,
+        "tolerance": 1e-09
+      },
+      "standard_uncertainty": {
+        "value": 29.2,
+        "tolerance": 0.1
+      },
+      "expanded_uncertainty": {
+        "value": 58.0,
+        "tolerance": 0.6
+      },
+      "reported_expanded_uncertainty": {
+        "value": 80.0,
+        "tolerance": 1e-09
+      }
+    },
+    "reference": {
+      "en": "EA-4/02 M:2022 S2 (U = 58 mg) and ILAC P14:09/2020 5.5; the CMC is illustrative.",
+      "tr": "EA-4/02 M:2022 S2 (U = 58 mg) ve ILAC P14:09/2020 5.5; CMC örnek amaçlıdır."
+    }
+  },
+  "reporting": {
+    "cmc": {
+      "expanded": 80.0
+    }
+  }
+}

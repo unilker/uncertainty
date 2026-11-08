@@ -11,15 +11,17 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 | `format` | evet | `"uncertainty-calculations/project"` |
 | `version` | evet | `1` |
 | `metadata` | evet | başlık ve belgeleme (7.2) |
-| `model` | dokuzundan biri | ölçüm modeli (7.3) |
-| `topdown` | dokuzundan biri | top-down değerlendirme (7.6) |
-| `proficiency` | dokuzundan biri | yeterlilik testi turu, ISO 13528 (7.7) |
-| `calibration` | dokuzundan biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
-| `precision_experiment` | dokuzundan biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
-| `multivariate` | dokuzundan biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
-| `control_chart` | dokuzundan biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
-| `sampling` | dokuzundan biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
-| `error_function` | dokuzundan biri | tartı aletinin hata yaklaşım fonksiyonu, EURAMET cg-18 (7.14) |
+| `model` | on birinden biri | ölçüm modeli (7.3) |
+| `topdown` | on birinden biri | top-down değerlendirme (7.6) |
+| `proficiency` | on birinden biri | yeterlilik testi turu, ISO 13528 (7.7) |
+| `calibration` | on birinden biri | her iki değişkende belirsizlikli kalibrasyon, ISO 6143 (7.8) |
+| `precision_experiment` | on birinden biri | laboratuvarlar arası kesinlik deneyi, ISO 5725-2 (7.10) |
+| `multivariate` | on birinden biri | birden çok çıktı büyüklüklü model, JCGM 102 (7.11) |
+| `control_chart` | on birinden biri | iç kalite kontrolü için kontrol grafiği, Nordtest TR 569 (7.12) |
+| `sampling` | on birinden biri | numune almadan kaynaklanan belirsizlik, Eurachem UfS:2019 (7.13) |
+| `error_function` | on birinden biri | tartı aletinin hata yaklaşım fonksiyonu, EURAMET cg-18 (7.14) |
+| `multicomponent_conformity` | on birinden biri | birden çok ilişkili özelliği olan ürün için toplam riskler, EMUE E2.1 (11.5) |
+| `consensus` | on birinden biri | laboratuvarlar arası karşılaştırmanın uzlaşı değeri ve eşdeğerlik dereceleri, NIST Consensus Builder (7.14b, 9.7) |
 | `conformity` | `model` ile veya tek başına | uygunluk değerlendirmesi, JCGM 106 (7.9) |
 | `analysis` | hayır | GUM ve Monte Carlo seçenekleri (7.4); model ve çok çıktılı projelerde |
 | `reporting` | hayır | raporlanan sonucun yuvarlanması (7.5) |
@@ -45,6 +47,10 @@ kalmaz. Metin alanları (başlıklar, tanımlar, açıklamalar, notlar, referans
 Bir girdinin `dof` alanı GUM yaklaşımındaki serbestlik derecesidir (varsayılan ∞; A tipi dağılımlar bunu
 kendileri belirler).
 
+`ensembles` (isteğe bağlı) aynı veriden değerlendirilen girdi gruplarını listeler, ör. `[["AE", "AISE"]]`. Bir
+grubun üyelerinin `dof` değeri aynı ve sonlu olmalıdır. Her grup Welch–Satterthwaite formülünde tek bileşendir
+(§3.6).
+
 ### Dağılımlar (`"type"`)
 
 | `type` | Alanlar |
@@ -57,6 +63,7 @@ kendileri belirler).
 | `curvilinear_trapezoid` | yukarıdaki gibi sınırlar ve `d` (sınırların belirsizliği) |
 | `exponential` | `mean` |
 | `gamma` | `shape`, `scale` |
+| `beta` | `alpha` ve `beta` ya da `mean` ve `sd` (momentler yöntemi); `lower`, `upper` (varsayılan 0 ve 1). Saflık gibi sınırlı büyüklükler için (1 g/g yakınında) |
 | `type_a` | `observations` (liste) |
 | `type_a_pooled` | `mean`, `pooled_sd`, `pooled_dof`, `n` |
 
@@ -77,8 +84,8 @@ birini atlamak için `"gum": null` veya `"mcm": null` yazınız.
 
 ## 7.5 `reporting`
 
-`significant_digits` (varsayılan 2), `decimal_places` (anlamlı basamak yerine), `rounding` (`half_even`,
-`half_up`, `up`), `uncorrected_bias` (model projeleri: `bias`, `u_bias`, `strategy` `ue` | `rssu` | `rssu_k` |
+`significant_digits` (varsayılan 2), `decimal_places` (anlamlı basamak yerine), `rounding` (`ea4_02` varsayılan, `half_even`,
+`half_up`, `up`), `cmc` (`expanded` veya `relative_percent`: raporlanabilecek en küçük U, ILAC P14 5.5), `uncorrected_bias` (model projeleri: `bias`, `u_bias`, `strategy` `ue` | `rssu` | `rssu_k` |
 `sumu` | `sumu_max`; bölüm 6.3).
 
 ## 7.6 `topdown`
@@ -173,7 +180,7 @@ s(R) dahil edilmişse N − 1'dir.
 | `delta_e`, `delta_e_percent` | PA skorları için ölçüm hatası izni δ_E (varsayılan 3σ_pt) |
 | `coverage_factor` | E_n için U(x_pt)'nin k değeri (varsayılan 2; referans değerin verilmiş genişletilmiş belirsizliği olduğu gibi kullanılır) |
 | `uncertainty_screening` | `u_min`, `u_max`: sayı ya da `"u_assigned"`, `"1.5_robust_sd"`, `"1.5_sd_pt"` (ISO 13528 9.8) |
-| `homogeneity` | `items` (her numune için tekrar sonuçları listesi, sayıları eşit), `sd_pt` veya `sd_pt_percent_of_mean` (varsayılan: turun σ_pt'si) |
+| `homogeneity` | `items` (her numune için tekrar sonuçları listesi, sayıları eşit), `sd_pt` veya `sd_pt_percent_of_mean` (varsayılan: turun σ_pt'si; σ_pt yoksa ölçütler değerlendirilmez), `bayes` (`tau_scale`, `sigma_scale`, isteğe bağlı `mu_mean`, `mu_sd`) |
 | `stability` | `values`; `reference` (varsayılan: homojenlik ortalaması); Formül (B.18) için `u_reference` ve `u_values` |
 | `algorithm_a` | `"third_significant_figure"` (C.3.1'in durma kuralı, varsayılan) veya `"converged"` |
 
@@ -215,7 +222,12 @@ Turdan önceki bir homojenlik ve kararlılık çalışması için `results` boş
 | `acceptance_lower`, `acceptance_upper` | doğrudan verilen kabul sınırları (kural bunlardan çıkarılır) |
 | `distribution` | model projeleri: `normal` (varsayılan) veya `t` (etkin serbestlik derecesi) |
 | `quantity`, `unit`, `u` veya `u_relative`, `dof`, `results` | kendi başına projeler: özellik, ölçüm sistemi, ölçülen değerler (`name`, `value`, isteğe bağlı `u`) |
-| `process`, `target_consumer_risk` | küresel riskler: `distribution` `normal` veya `gamma`, `mean`, `sd`; istenen R_C (r'yi bulur) |
+| `tur_method` | `rss`, `dobbert`, `rp10` veya `test95`: test belirsizlik oranından kabul sınırları (11.2) |
+| `tur_u95` | TUR'daki U₉₅: `k95` (varsayılan, serbestlik derecesinden k₉₅·u) veya `two_u` (Suncal'daki gibi 2u) |
+| `tur_allow_factor_above_one` | 1'den büyük koruma bandı çarpanını korur (Dobbert, TUR > 4,59); varsayılan olarak 1 ile sınırlanır |
+| `process`, `target_consumer_risk` | küresel riskler: `distribution` `mean`, `sd` ile `normal` veya `gamma`, ya da `meanlog`, `sdlog` ile `lognormal`; istenen R_C (r'yi bulur) |
+| `posterior` | `true`: sonuçların p_c değeri, süreç dağılımı önsel alınarak sonsal dağılımdan (kendi başına projeler) |
+| `distribution`, `exact_sdlog` | ölçülen büyüklüğün dağılımı: `normal`, `t` (model projeleri) veya `lognormal` (s_G = u/\|y\|, `exact_sdlog` ile kesin) |
 
 ## 7.10 `precision_experiment`
 
@@ -357,10 +369,47 @@ Bir tartı aletinin hata yaklaşım fonksiyonu (EURAMET cg-18 Ek C2.2; bölüm 1
 | `requirement`, `safety_factor` | minimum tartım için bağıl tartım toleransı Req (0,01 = %1) ve SF (varsayılan 1) (G-7, G-9) |
 | `readings` | U(W) ve U_gl(W)'nin raporlandığı okumalar |
 
+## 7.14a `multicomponent_conformity`
+
+```json
+"multicomponent_conformity": {
+  "unit": "% of label",
+  "components": [ { "name": "APAP", "prior_mean": 99.18, "prior_sd": 1.37, "lower": 95, "upper": 105 }, … ],
+  "correlation": [ [1, 0.107, …], … ],
+  "u_relative": 0.028,
+  "results": [ { "name": "parti 17", "values": [99.2, 97.7, 99.3, 98.9] } ],
+  "global_trials": 2000000, "samples": 200000, "seed": 1
+}
+```
+
+Beklenen değerler: `results` (ad başına `risk`, `accepted`), `global_consumer_risk`, `global_producer_risk`.
+
+## 7.14b `consensus`
+
+```json
+"consensus": {
+  "measurand": "w(Ni)", "unit": "mg/kg",
+  "results": [ { "name": "JSI", "value": 1.930, "u": 0.110 }, { "name": "UME", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
+  "coverage": 0.95,
+  "dersimonian_laird": true, "linear_pool": false, "maximum_likelihood": true,
+  "trials": 100000, "seed": 1
+}
+```
+
+`dof` (isteğe bağlı) bootstrap ve doğrusal havuzda kullanılır; `weight` (isteğe bağlı) bir sonucun doğrusal
+havuzdaki ağırlığıdır. Beklenen değerler: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`,
+`interval_lower`, `interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`,
+`ml_mean`, `ml_u`, `ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`,
+`bayes_tau_median` ve `degrees_of_equivalence` (ad başına `d`, `expanded`). Bkz. 9.7.
+
+`"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (hepsi isteğe bağlı; `"bayes": {}` NICOB
+varsayılanlarını kullanır) Bayesçi rastgele etkiler modelini ekler; `"effects": "laplace"` laboratuvar etkilerine Laplace
+dağılımı verir (NIST Decision Tree).
+
 ## 7.15 Hatalar
 
 Program, alanı adıyla belirten bir iletiyle şunları reddeder: bilinmeyen alanlar; `model`, `topdown`,
-`proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling` ve `error_function` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
+`proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity` ve `consensus` bölümlerinden birden fazlasını içeren veya hiçbirini içermeyen proje; tutarsız seçenekler (örneğin `sd` ile birlikte `expanded`); `levels`
 verilmemiş mutlak top-down bileşenleri; hiçbir bileşenin geçerli olmadığı bir düzey; Monte Carlo yönteminde
 korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 
@@ -381,7 +430,9 @@ Kendini denetleyen projeler için referans değerler; her değer `{ "value": …
     "relative_standard_percent", "relative_expanded_percent" }` listesi
 * `proficiency`: `assigned_value`, `u_assigned`, `sd_pt`, `median`, `made`, `niqr`, `robust_mean`, `robust_sd`,
   `iterations`, `mean`, `sd`; `scores`: `{ "<laboratuvar>": { "d", "d_percent", "pa", "z", "z_prime", "zeta", "en" } }`;
-  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
+  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`, `ms_between`, `ms_within`, `u_bb_star`,
+  `tau_mean`, `tau_sd`, `tau_median`, `tau_mode`, `tau_q975`, `tau_hpd_upper`, `sigma_mean`, `sigma_hpd_lower`,
+  `sigma_hpd_upper`, `mu_mean`; `stability`: `difference`, `sufficient`
 * `calibration`: `params`, `u_params` ve `cov_params` (listeler; kovaryanslar (0,1), (0,2), …, (1,2), … sırasıyla),
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<ad>": { "x", "u" } }`, `drift_passed`
 * `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,

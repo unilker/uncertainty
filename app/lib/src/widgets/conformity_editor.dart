@@ -53,6 +53,7 @@ class _ConformityFieldsState extends State<ConformityFields> {
     final m = widget.map;
     final rule = m['rule'] as String? ?? 'simple_acceptance';
     final byProbability = m.containsKey('probability');
+    final tur = m['tur_method'] as String?;
     return Wrap(
       spacing: 12,
       runSpacing: 8,
@@ -87,7 +88,59 @@ class _ConformityFieldsState extends State<ConformityFields> {
             },
           ),
         ),
-        if (rule != 'simple_acceptance') ...[
+        SizedBox(
+          width: 220,
+          child: DropdownButtonFormField<String>(
+            key: const Key('cf-tur'),
+            isExpanded: true,
+            initialValue: tur ?? 'none',
+            decoration: InputDecoration(labelText: s['cf_tur'], isDense: true),
+            items: [
+              for (final t in const ['none', 'rss', 'dobbert', 'rp10', 'test95']) DropdownMenuItem(value: t, child: Text(s['cf_tur_$t'])),
+            ],
+            onChanged: (v) {
+              setState(() {
+                if (v == null || v == 'none') {
+                  m.remove('tur_method');
+                  m.remove('tur_u95');
+                  m.remove('tur_allow_factor_above_one');
+                } else {
+                  m['tur_method'] = v;
+                  m['rule'] = 'simple_acceptance';
+                  m.remove('r');
+                  m.remove('probability');
+                  m.remove('guard_band');
+                  m.remove('target_consumer_risk');
+                }
+              });
+              widget.onChanged();
+            },
+          ),
+        ),
+        if (tur != null)
+          SizedBox(
+            width: 220,
+            child: DropdownButtonFormField<String>(
+              key: const Key('cf-tur-u95'),
+              isExpanded: true,
+              initialValue: m['tur_u95'] as String? ?? 'k95',
+              decoration: InputDecoration(labelText: s['cf_tur_u95'], isDense: true),
+              items: [
+                for (final t in const ['k95', 'two_u']) DropdownMenuItem(value: t, child: Text(s['cf_tur_u95_$t'])),
+              ],
+              onChanged: (v) {
+                setState(() {
+                  if (v == null || v == 'k95') {
+                    m.remove('tur_u95');
+                  } else {
+                    m['tur_u95'] = v;
+                  }
+                });
+                widget.onChanged();
+              },
+            ),
+          ),
+        if (rule != 'simple_acceptance' && tur == null) ...[
           SegmentedButton<bool>(
             segments: [
               ButtonSegment(value: false, label: Text(s['cf_by_r'])),
@@ -196,16 +249,29 @@ class _ConformityEditorState extends State<ConformityEditor> {
                 isExpanded: true,
                 initialValue: process?['distribution'] as String? ?? 'none',
                 items: [
-                  for (final d in ['none', 'normal', 'gamma']) DropdownMenuItem(value: d, child: Text(s['cf_process_$d'])),
+                  for (final d in ['none', 'normal', 'gamma', 'lognormal']) DropdownMenuItem(value: d, child: Text(s['cf_process_$d'])),
                 ],
                 onChanged: (v) {
                   setState(() {
                     if (v == 'none') {
                       _cf.remove('process');
                       _cf.remove('target_consumer_risk');
+                      _cf.remove('posterior');
                     } else {
-                      final p = (_cf['process'] ??= <String, dynamic>{'mean': 1.0, 'sd': 0.1}) as Map<String, dynamic>;
+                      final p = (_cf['process'] ??= <String, dynamic>{}) as Map<String, dynamic>;
                       p['distribution'] = v;
+                      // A lognormal PDF is given by the mean and standard deviation of ln Y.
+                      if (v == 'lognormal') {
+                        p.remove('mean');
+                        p.remove('sd');
+                        p.putIfAbsent('meanlog', () => 0.0);
+                        p.putIfAbsent('sdlog', () => 0.1);
+                      } else {
+                        p.remove('meanlog');
+                        p.remove('sdlog');
+                        p.putIfAbsent('mean', () => 1.0);
+                        p.putIfAbsent('sd', () => 0.1);
+                      }
                     }
                   });
                   widget.onChanged();
@@ -213,8 +279,26 @@ class _ConformityEditorState extends State<ConformityEditor> {
               ),
             ),
             if (process != null) ...[
-              NumberField(key: const ValueKey('cf-pm'), map: process, field: 'mean', label: s['pt_mean'], width: 140, onChanged: widget.onChanged),
-              NumberField(key: const ValueKey('cf-ps'), map: process, field: 'sd', label: s['sd'], width: 140, onChanged: widget.onChanged),
+              if (process['distribution'] == 'lognormal') ...[
+                NumberField(key: const ValueKey('cf-pml'), map: process, field: 'meanlog', label: s['cf_meanlog'], width: 140, onChanged: widget.onChanged),
+                NumberField(key: const ValueKey('cf-psl'), map: process, field: 'sdlog', label: s['cf_sdlog'], width: 140, onChanged: widget.onChanged),
+              ] else ...[
+                NumberField(key: const ValueKey('cf-pm'), map: process, field: 'mean', label: s['pt_mean'], width: 140, onChanged: widget.onChanged),
+                NumberField(key: const ValueKey('cf-ps'), map: process, field: 'sd', label: s['sd'], width: 140, onChanged: widget.onChanged),
+              ],
+              SizedBox(
+                width: 320,
+                child: SwitchListTile(
+                  key: const Key('cf-posterior'),
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(s['cf_posterior']),
+                  value: _cf['posterior'] == true,
+                  onChanged: (v) {
+                    setState(() => v ? _cf['posterior'] = true : _cf.remove('posterior'));
+                    widget.onChanged();
+                  },
+                ),
+              ),
               NumberField(
                 map: _cf,
                 field: 'target_consumer_risk',

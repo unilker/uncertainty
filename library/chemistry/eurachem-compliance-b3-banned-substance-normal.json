@@ -1,0 +1,87 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "eurachem-compliance-b3-banned-substance-normal",
+    "title": {
+      "en": "Banned substance at a 2 ng/g limit with u_rel = 35 %: normal PDF with u = u_rel·L = 0.7 ng/g (Eurachem/CITAC compliance guide, Example B3)",
+      "tr": "2 ng/g sınırında yasaklı madde, u_bağıl = %35: u = u_bağıl·L = 0,7 ng/g ile normal dağılım (Eurachem/CITAC uygunluk rehberi, Örnek B3)"
+    },
+    "description": {
+      "en": "Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the probability above the limit is at least 95 %; measured 3.3 ng/g.",
+      "tr": "Üst sınır 2 ng/g, bağıl standart belirsizlik %35; sınırın üstünde olma olasılığı en az %95 ise uygun değil; ölçülen 3,3 ng/g."
+    },
+    "explanation": [
+      {
+        "en": "Case 4 of Annex A: for positive quantities from products and ratios a lognormal PDF is appropriate. The acceptance limit for correct rejection is L·U_F with the uncertainty factor U_F = exp(k·s_G), k = 1.645 (Equations 1–3).",
+        "tr": "Ek A Durum 4: çarpım ve oranlardan gelen pozitif büyüklükler için lognormal dağılım uygundur. Doğru ret için kabul sınırı L·U_F'dir; belirsizlik çarpanı U_F = exp(k·s_G), k = 1,645 (Eşitlik 1–3)."
+      },
+      {
+        "en": "Acceptance limit 3.151 ng/g; at 3.3 ng/g the probability of exceeding 2 ng/g is 96.8 % and the sample is non-compliant. Normal PDF: 3.151 ng/g; lognormal with s_G = u_rel: 3.557; with exact s_G = √ln(1 + u_rel²) = 0.3398: 3.498 ng/g.",
+        "tr": "Kabul sınırı 3,151 ng/g; 3,3 ng/g'da 2 ng/g'ı aşma olasılığı %96,8 olup numune uygun değildir. Normal dağılım: 3,151 ng/g; s_G = u_bağıl ile lognormal: 3,557; kesin s_G = √ln(1 + u_bağıl²) = 0,3398 ile: 3,498 ng/g."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, 2nd ed. (2021)",
+        "section": "Annex B, Example 3; Annex A, Case 4 and Table 1",
+        "url": "https://www.eurachem.org/index.php/publications/guides/uncertcompliance"
+      }
+    ],
+    "tags": [
+      "eurachem-compliance",
+      "conformity-assessment",
+      "guarded-rejection",
+      "lognormal",
+      "upper-limit",
+      "residues"
+    ],
+    "notes": [
+      {
+        "en": "L(1 + k·u_rel) takes u at the limit, u = 0.35 × 2 = 0.7 ng/g, which is what this project enters. With the relative uncertainty applied at the measured value, as for the lognormal PDF, a normal PDF needs the acceptance limit L/(1 − k·u_rel) = 4.714 ng/g: at 3.151 ng/g, u = 1.10 ng/g and the probability above 2 ng/g is only 85 %. The lognormal limit L·exp(k·s_G) is exact for a constant s_G (research log F86).",
+        "tr": "L(1 + k·u_bağıl), u'yu sınırda alır: u = 0,35 × 2 = 0,7 ng/g; bu proje bunu girer. Bağıl belirsizlik lognormal dağılımdaki gibi ölçülen değerde uygulanırsa normal dağılım L/(1 − k·u_bağıl) = 4,714 ng/g kabul sınırını gerektirir: 3,151 ng/g'da u = 1,10 ng/g ve 2 ng/g'ın üstünde olma olasılığı yalnızca %85'tir. Lognormal sınır L·exp(k·s_G), sabit s_G için kesindir (araştırma günlüğü F86)."
+      },
+      {
+        "en": "Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.",
+        "tr": "Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez."
+      }
+    ]
+  },
+  "conformity": {
+    "quantity": "w",
+    "unit": "ng/g",
+    "upper": 2.0,
+    "rule": "guarded_rejection",
+    "probability": 0.95,
+    "u": 0.7,
+    "distribution": "normal",
+    "results": [
+      {
+        "name": "sample",
+        "value": 3.3
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "acceptance_upper": {
+        "value": 3.1514,
+        "tolerance": 0.0001
+      },
+      "results": {
+        "sample": {
+          "accepted": false,
+          "conformance_probability": {
+            "value": 0.0316,
+            "tolerance": 0.0001
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "Eurachem/CITAC 2021, Example B3: U_F = 1.78, g = 1.6 ng/g, acceptance limit 3.6 ng/g (lognormal), 3.2 ng/g (normal); 3.3 ng/g compliant with the lognormal PDF only.",
+      "tr": "Eurachem/CITAC 2021, Örnek B3: U_F = 1,78, g = 1,6 ng/g, kabul sınırı 3,6 ng/g (lognormal), 3,2 ng/g (normal); 3,3 ng/g yalnız lognormal dağılımla uygun."
+    }
+  }
+}

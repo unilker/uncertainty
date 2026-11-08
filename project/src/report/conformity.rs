@@ -12,6 +12,11 @@ pub(super) struct CfLabels {
     pub acceptance: &'static str,
     pub probability_rule: [&'static str; 2],
     pub capability: &'static str,
+    pub tur: &'static str,
+    pub tur_k95: &'static str,
+    pub tur_two_u: &'static str,
+    pub tur_limited: &'static str,
+    pub tur_above_one: &'static str,
     pub results: &'static str,
     pub name: &'static str,
     pub value: &'static str,
@@ -27,6 +32,7 @@ pub(super) struct CfLabels {
     pub process: &'static str,
     pub normal: &'static str,
     pub gamma: &'static str,
+    pub lognormal: &'static str,
     pub conforming: &'static str,
     pub accepted_share: &'static str,
     pub consumer_risk: &'static str,
@@ -36,6 +42,9 @@ pub(super) struct CfLabels {
     pub chart: &'static str,
     pub limits_chart: &'static str,
     pub t_note: &'static str,
+    pub lognormal_note: &'static str,
+    pub lognormal_exact: &'static str,
+    pub lognormal_approx: &'static str,
     pub target_note: &'static str,
 }
 
@@ -48,6 +57,11 @@ const CF_EN: CfLabels = CfLabels {
     acceptance: "Acceptance interval",
     probability_rule: ["acceptance limits set so that the probability of conformity at a limit is", "acceptance limits set so that the probability of non-conformity at a limit is"],
     capability: "Measurement capability index C_m = T/(4u)",
+    tur: "Test uncertainty ratio TUR = (T_U − T_L)/2 / U₉₅ = {t} with U₉₅ = {k}·u ({u95}); guard-band factor ({m}) {g}: acceptance limits at ± GBF·(T_U − T_L)/2 about the centre",
+    tur_k95: "k₉₅ from the degrees of freedom",
+    tur_two_u: "2u, as in Sandia Suncal",
+    tur_limited: "The method gives a guard-band factor of {g} (> 1: acceptance limits outside the tolerance, a guarded rejection); it has been limited to 1, simple acceptance. A factor above 1 needs a decision rule agreed with the customer (ISO/IEC 17025:2017 7.1.3, ILAC G8; option tur_allow_factor_above_one).",
+    tur_above_one: "The guard-band factor exceeds 1: the acceptance limits lie outside the tolerance (guarded rejection), applied under a decision rule agreed with the customer (ISO/IEC 17025:2017 7.1.3, ILAC G8).",
     results: "Assessed results",
     name: "Result",
     value: "Measured value",
@@ -63,6 +77,7 @@ const CF_EN: CfLabels = CfLabels {
     process: "Process PDF",
     normal: "normal",
     gamma: "gamma",
+    lognormal: "lognormal",
     conforming: "Items that conform",
     accepted_share: "Items accepted",
     consumer_risk: "Global consumer's risk R_C (accepted, not conforming)",
@@ -72,6 +87,9 @@ const CF_EN: CfLabels = CfLabels {
     chart: "Measured values with ± U (k = 2), tolerance limits (solid) and acceptance limits (dashed)",
     limits_chart: "PDF for a measured value at the acceptance limit, with the tolerance limit (solid) and the acceptance limit (dashed)",
     t_note: "The PDF for the measurand is a scaled and shifted t distribution with ν = {nu} (JCGM 101 6.4.9).",
+    lognormal_note: "The PDF for the measurand is lognormal with median equal to the measured value and standard deviation of ln Y {s} (Eurachem/CITAC, compliance assessment 2021, Annex A, Case 4).",
+    lognormal_exact: "s_G = √ln(1 + u_rel²)",
+    lognormal_approx: "s_G ≈ u_rel, Equation 2",
     target_note: "The guard-band multiplier r was found for the required global consumer's risk {t}.",
 };
 
@@ -84,6 +102,11 @@ const CF_TR: CfLabels = CfLabels {
     acceptance: "Kabul aralığı",
     probability_rule: ["kabul sınırları, bir sınırdaki uygunluk olasılığı şu değer olacak şekilde belirlendi:", "kabul sınırları, bir sınırdaki uygunsuzluk olasılığı şu değer olacak şekilde belirlendi:"],
     capability: "Ölçüm yeterlilik indeksi C_m = T/(4u)",
+    tur: "Test belirsizlik oranı TUR = (T_U − T_L)/2 / U₉₅ = {t}, U₉₅ = {k}·u ({u95}); koruma bandı çarpanı ({m}) {g}: kabul sınırları merkezin ± GBF·(T_U − T_L)/2 uzağında",
+    tur_k95: "serbestlik derecesinden k₉₅",
+    tur_two_u: "Sandia Suncal'daki gibi 2u",
+    tur_limited: "Yöntem {g} koruma bandı çarpanı verir (> 1: kabul sınırları toleransın dışında, korumalı ret); çarpan 1 ile sınırlanmış, basit kabul uygulanmıştır. 1'den büyük çarpan müşteriyle kararlaştırılmış bir karar kuralı gerektirir (ISO/IEC 17025:2017 7.1.3, ILAC G8; tur_allow_factor_above_one seçeneği).",
+    tur_above_one: "Koruma bandı çarpanı 1'den büyüktür: kabul sınırları toleransın dışındadır (korumalı ret); müşteriyle kararlaştırılmış bir karar kuralıyla uygulanmıştır (ISO/IEC 17025:2017 7.1.3, ILAC G8).",
     results: "Değerlendirilen sonuçlar",
     name: "Sonuç",
     value: "Ölçülen değer",
@@ -99,6 +122,7 @@ const CF_TR: CfLabels = CfLabels {
     process: "Süreç olasılık yoğunluğu",
     normal: "normal",
     gamma: "gama",
+    lognormal: "lognormal",
     conforming: "Uygun ürünler",
     accepted_share: "Kabul edilen ürünler",
     consumer_risk: "Küresel tüketici riski R_C (kabul edilen, uygun olmayan)",
@@ -108,6 +132,9 @@ const CF_TR: CfLabels = CfLabels {
     chart: "± U (k = 2) ile ölçülen değerler, tolerans sınırları (düz) ve kabul sınırları (kesikli)",
     limits_chart: "Kabul sınırındaki bir ölçülen değer için olasılık yoğunluğu, tolerans sınırı (düz) ve kabul sınırı (kesikli)",
     t_note: "Ölçülen büyüklüğün olasılık yoğunluğu ν = {nu} serbestlik dereceli ölçeklenmiş ve kaydırılmış t dağılımıdır (JCGM 101 6.4.9).",
+    lognormal_note: "Ölçülen büyüklüğün olasılık yoğunluğu, medyanı ölçülen değere eşit ve ln Y'nin standart sapması {s} olan lognormal dağılımdır (Eurachem/CITAC, uygunluk değerlendirmesi 2021, Ek A, Durum 4).",
+    lognormal_exact: "s_G = √ln(1 + u_bağıl²)",
+    lognormal_approx: "s_G ≈ u_bağıl, Eşitlik 2",
     target_note: "Koruma bandı çarpanı r, istenen küresel tüketici riski {t} için bulunmuştur.",
 };
 
@@ -209,10 +236,59 @@ pub(super) fn section(s: &mut String, a: &ConformityAnalysis, lang: Lang) {
     if let Some(c) = a.capability_index {
         let _ = writeln!(s, "- {}: {}", d.capability, fmt_num(c, 3, lang));
     }
+    if let Some(t) = a.tur {
+        let name = match t.method {
+            crate::conformity::TurMethodSpec::Rss => "RSS",
+            crate::conformity::TurMethodSpec::Dobbert => "Dobbert",
+            crate::conformity::TurMethodSpec::Rp10 => "NCSLI RP-10",
+            crate::conformity::TurMethodSpec::Test95 => "U₉₅",
+        };
+        let u95 = match t.u95 {
+            crate::conformity::TurU95Spec::K95 => d.tur_k95,
+            crate::conformity::TurU95Spec::TwoU => d.tur_two_u,
+        };
+        let _ = writeln!(
+            s,
+            "- {}",
+            d.tur
+                .replace("{t}", &fmt_num(t.tur, 3, lang))
+                .replace("{k}", &fmt_num(t.k, 3, lang))
+                .replace("{u95}", u95)
+                .replace("{m}", name)
+                .replace("{g}", &fmt_num(t.factor, 4, lang))
+        );
+        if let Some(raw) = t.limited_from {
+            let _ = writeln!(s, "- {}", d.tur_limited.replace("{g}", &fmt_num(raw, 4, lang)));
+        } else if t.factor > 1.0 {
+            let _ = writeln!(s, "- {}", d.tur_above_one);
+        }
+    }
     if let Some(nu) = a.results.first().and_then(|r| r.dof).filter(|nu| nu.is_finite()) {
         let _ = writeln!(s, "\n{}", d.t_note.replace("{nu}", &fmt_num(nu, 3, lang)));
     }
+    if let Some(exact) = a.lognormal {
+        let _ = writeln!(
+            s,
+            "\n{}",
+            d.lognormal_note.replace("{s}", if exact { d.lognormal_exact } else { d.lognormal_approx })
+        );
+    }
     let _ = writeln!(s);
+    if a.posterior {
+        if let Some(p) = &a.process {
+            let note = match lang {
+                Lang::En => format!(
+                    "Conformance probabilities from the posterior PDF g(η | η_m) ∝ g₀(η)·h(η_m | η), with the process PDF ({}) as prior g₀ and a normal likelihood of standard deviation u (JCGM 106 6.2, Annex A).",
+                    process_text(p, &unit, lang)
+                ),
+                Lang::Tr => format!(
+                    "Uygunluk olasılıkları, süreç dağılımı ({}) önsel g₀ ve standart sapması u olan normal olabilirlik ile sonsal dağılımdan, g(η | η_m) ∝ g₀(η)·h(η_m | η), hesaplanmıştır (JCGM 106 6.2, Ek A).",
+                    process_text(p, &unit, lang)
+                ),
+            };
+            let _ = writeln!(s, "{note}\n");
+        }
+    }
     if !a.results.is_empty() {
         let mcm = a.results.iter().any(|r| r.conformance_probability_mcm.is_some());
         let _ = writeln!(s, "### {}\n", d.results);
@@ -247,18 +323,7 @@ pub(super) fn section(s: &mut String, a: &ConformityAnalysis, lang: Lang) {
     }
     if let (Some(g), Some(p)) = (&a.global, &a.process) {
         let _ = writeln!(s, "### {}\n", d.global);
-        let kind = match p.distribution {
-            ProcessKind::Normal => d.normal,
-            ProcessKind::Gamma => d.gamma,
-        };
-        let _ = writeln!(
-            s,
-            "- {}: {kind}, {} {}{unit}, s {}{unit}",
-            d.process,
-            if lang == Lang::Tr { "ortalama" } else { "mean" },
-            fmt_given(p.mean, lang),
-            fmt_given(p.sd, lang)
-        );
+        let _ = writeln!(s, "- {}: {}", d.process, process_text(p, &unit, lang));
         let _ = writeln!(s, "- {}: {}", d.conforming, pct(g.conforming, lang));
         let _ = writeln!(s, "- {}: {}", d.accepted_share, pct(g.accepted, lang));
         let _ = writeln!(s, "- {}: {}", d.consumer_risk, pct(g.consumer, lang));
@@ -405,4 +470,20 @@ fn limits_svg(a: &ConformityAnalysis, lang: Lang) -> Option<String> {
     }
     s.push_str("</svg>");
     Some(s)
+}
+
+/// The process PDF and its parameters, for the report.
+fn process_text(p: &crate::conformity::ProcessSpec, unit: &str, lang: Lang) -> String {
+    let d = cf_labels(lang);
+    let g = |x: Option<f64>| x.map(|v| fmt_given(v, lang)).unwrap_or_default();
+    match p.distribution {
+        ProcessKind::Lognormal => format!("{}, µ = {}, σ = {} (ln Y)", d.lognormal, g(p.meanlog), g(p.sdlog)),
+        kind => format!(
+            "{}, {} {}{unit}, s {}{unit}",
+            if kind == ProcessKind::Gamma { d.gamma } else { d.normal },
+            if lang == Lang::Tr { "ortalama" } else { "mean" },
+            g(p.mean),
+            g(p.sd)
+        ),
+    }
 }

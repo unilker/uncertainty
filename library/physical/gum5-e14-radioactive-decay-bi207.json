@@ -1,0 +1,134 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e14-radioactive-decay-bi207",
+    "title": {
+      "en": "Activity of a ²⁰⁷Bi source corrected for decay (JCGM GUM-5 Example 14)",
+      "tr": "Bozunma için düzeltilmiş ²⁰⁷Bi kaynağının aktivitesi (JCGM GUM-5 Örnek 14)"
+    },
+    "description": {
+      "en": "A₁ = A₀ exp(−Δt ln2/T½) with the certified activity, the half-life from the literature and Δt = 2.73 a; check of the linearization.",
+      "tr": "Sertifikalı aktivite, literatürden yarı ömür ve Δt = 2,73 a ile A₁ = A₀ exp(−Δt ln2/T½); doğrusallaştırmanın denetimi."
+    },
+    "explanation": [
+      {
+        "en": "A₀ = 11.450 kBq, u = 0.050 kBq (certificate); T½ = 32.9 a, u = 1.4 a (literature, 4 %); Δt = t₁ − t₀ = 2.73 a without uncertainty.",
+        "tr": "A₀ = 11,450 kBq, u = 0,050 kBq (sertifika); T½ = 32,9 a, u = 1,4 a (literatür, %4); Δt = t₁ − t₀ = 2,73 a, belirsizliksiz."
+      },
+      {
+        "en": "E = exp(−Δt ln2/T½) = 0.94411, A₁ = 10.810 kBq. c(A₀) = E, c(T½) = A₁Δt ln2/T½² = 0.018898 kBq/a: the contributions are 0.0472 kBq and 0.0265 kBq, u(A₁) = 0.054 kBq.",
+        "tr": "E = exp(−Δt ln2/T½) = 0,94411, A₁ = 10,810 kBq. c(A₀) = E, c(T½) = A₁Δt ln2/T½² = 0,018898 kBq/a: katkılar 0,0472 kBq ve 0,0265 kBq, u(A₁) = 0,054 kBq."
+      },
+      {
+        "en": "The model is nonlinear in T½. Between T½ ± 3u(T½) the linearized and exact models differ by at most 0.011 kBq, much less than u(A₁), so the law of propagation is adequate (Table 14.1). The Monte Carlo result confirms it.",
+        "tr": "Model T½'ye göre doğrusal değildir. T½ ± 3u(T½) arasında doğrusallaştırılmış ve kesin modeller en çok 0,011 kBq farklıdır; bu u(A₁)'den çok küçüktür, dolayısıyla yayılım yasası yeterlidir (Tablo 14.1). Monte Carlo sonucu bunu doğrular."
+      },
+      {
+        "en": "A practical measure of the nonlinearity is u(E)/E = ln2·(u(T½)/T½)·(Δt/T½); when it reaches about 1 % the linearization should be checked (GUM-5 14.4.2). Here it is 0.25 %.",
+        "tr": "Doğrusal olmamanın pratik ölçüsü u(E)/E = ln2·(u(T½)/T½)·(Δt/T½)'dir; yaklaşık %1'e ulaştığında doğrusallaştırma denetlenmelidir (GUM-5 14.4.2). Burada %0,25'tir."
+      }
+    ],
+    "field": "physical",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 14, 14.3 and Table 14.1",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "radioactivity",
+      "decay",
+      "non-linear",
+      "linearity-check"
+    ],
+    "notes": []
+  },
+  "model": {
+    "output": {
+      "name": "A_1",
+      "unit": "kBq",
+      "expression": "A_0*exp(-dt*ln(2)/T_half)",
+      "description": {
+        "en": "Activity at the time of use",
+        "tr": "Kullanım anındaki aktivite"
+      }
+    },
+    "inputs": [
+      {
+        "name": "A_0",
+        "unit": "kBq",
+        "description": {
+          "en": "Activity at the reference date (certificate)",
+          "tr": "Referans tarihindeki aktivite (sertifika)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 11.45,
+          "sd": 0.05
+        }
+      },
+      {
+        "name": "T_half",
+        "unit": "a",
+        "description": {
+          "en": "Half-life of ²⁰⁷Bi",
+          "tr": "²⁰⁷Bi'nin yarı ömrü"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 32.9,
+          "sd": 1.4
+        }
+      },
+      {
+        "name": "dt",
+        "unit": "a",
+        "description": {
+          "en": "Decay time t₁ − t₀",
+          "tr": "Bozunma süresi t₁ − t₀"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 2.73
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 10.81,
+        "tolerance": 0.0005
+      },
+      "standard_uncertainty": {
+        "value": 0.054,
+        "tolerance": 0.0005
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 10.81,
+        "tolerance": 0.001
+      },
+      "standard_uncertainty": {
+        "value": 0.054,
+        "tolerance": 0.001
+      }
+    },
+    "reference": {
+      "en": "JCGM GUM-5:2026, 14.3.2: A₁ = 10.810 kBq, u(A₁) = 0.054 kBq (contributions 0.0472 and 0.0265 kBq).",
+      "tr": "JCGM GUM-5:2026, 14.3.2: A₁ = 10,810 kBq, u(A₁) = 0,054 kBq (katkılar 0,0472 ve 0,0265 kBq)."
+    }
+  }
+}

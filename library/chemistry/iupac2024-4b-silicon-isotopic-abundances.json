@@ -1,0 +1,152 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iupac2024-4b-silicon-isotopic-abundances",
+    "field": "chemistry",
+    "title": {
+      "en": "Isotopic abundances of silicon from two measured isotope amount ratios (IUPAC 2024, Example 4B)",
+      "tr": "Ölçülen iki izotop miktar oranından silisyumun izotop bollukları (IUPAC 2024, Örnek 4B)"
+    },
+    "description": {
+      "en": "x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: three outputs from two inputs, with the covariance matrix Σ_y = JΣ_xJᵀ (Formula 3).",
+      "tr": "x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: iki girdiden üç çıktı; kovaryans matrisi Σ_y = JΣ_xJᵀ (Formül 3)."
+    },
+    "explanation": [
+      {
+        "en": "Valkiers et al., Mixture III: R₂₉/₂₈ = 0.050 0657(25), R₃₀/₂₈ = 0.032 9035(34) mol/mol, taken as uncorrelated. The Jacobian is x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]].",
+        "tr": "Valkiers vd., Karışım III: R₂₉/₂₈ = 0,050 0657(25), R₃₀/₂₈ = 0,032 9035(34) mol/mol, ilişkisiz alınmıştır. Jakobiyen x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]]'dir."
+      },
+      {
+        "en": "x₂₈ = 0.9233873(36), x₂₉ = 0.0462300(22), x₃₀ = 0.0303827(30) mol/mol. The abundances sum to 1, so their covariance matrix is singular; r(x₂₈, x₂₉) = -0.54, r(x₂₈, x₃₀) = -0.79.",
+        "tr": "x₂₈ = 0,9233873(36), x₂₉ = 0,0462300(22), x₃₀ = 0,0303827(30) mol/mol. Bolluklar toplamı 1 olduğundan kovaryans matrisi tekildir; r(x₂₈, x₂₉) = -0,54, r(x₂₈, x₃₀) = -0,79."
+      }
+    ],
+    "tags": [
+      "iupac-2024",
+      "isotope-ratio",
+      "silicon",
+      "multivariate",
+      "jcgm102",
+      "atomic-weight"
+    ],
+    "notes": [],
+    "sources": [
+      {
+        "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+        "section": "Example 4B",
+        "url": "https://doi.org/10.1515/pac-2022-1203"
+      }
+    ]
+  },
+  "multivariate": {
+    "outputs": [
+      {
+        "name": "x28",
+        "unit": "mol/mol",
+        "expression": "1/(1 + R29 + R30)"
+      },
+      {
+        "name": "x29",
+        "unit": "mol/mol",
+        "expression": "R29/(1 + R29 + R30)"
+      },
+      {
+        "name": "x30",
+        "unit": "mol/mol",
+        "expression": "R30/(1 + R29 + R30)"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "R29",
+        "unit": "mol/mol",
+        "description": {
+          "en": "Amount ratio n(²⁹Si)/n(²⁸Si), Mixture III",
+          "tr": "Miktar oranı n(²⁹Si)/n(²⁸Si), Karışım III"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0500657,
+          "sd": 2.5e-06
+        }
+      },
+      {
+        "name": "R30",
+        "unit": "mol/mol",
+        "description": {
+          "en": "Amount ratio n(³⁰Si)/n(²⁸Si), Mixture III",
+          "tr": "Miktar oranı n(³⁰Si)/n(²⁸Si), Karışım III"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.0329035,
+          "sd": 3.4e-06
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 200000,
+      "seed": 1
+    }
+  },
+  "expected": {
+    "multivariate": {
+      "gum": {
+        "estimate": {
+          "x28": {
+            "value": 0.9233873,
+            "tolerance": 5e-08
+          },
+          "x29": {
+            "value": 0.04623,
+            "tolerance": 5e-08
+          },
+          "x30": {
+            "value": 0.0303827,
+            "tolerance": 5e-08
+          }
+        },
+        "standard_uncertainty": {
+          "x28": {
+            "value": 3.6e-06,
+            "tolerance": 5e-08
+          },
+          "x29": {
+            "value": 2.2e-06,
+            "tolerance": 5e-08
+          },
+          "x30": {
+            "value": 3e-06,
+            "tolerance": 5e-08
+          }
+        },
+        "correlations": [
+          {
+            "between": [
+              "x28",
+              "x29"
+            ],
+            "value": -0.538,
+            "tolerance": 0.001
+          },
+          {
+            "between": [
+              "x28",
+              "x30"
+            ],
+            "value": -0.792,
+            "tolerance": 0.001
+          }
+        ]
+      }
+    },
+    "reference": {
+      "en": "IUPAC 2024, Example 4B: x₂₈ = 0.923 3873(36), x₂₉ = 0.046 2300(22), x₃₀ = 0.030 3827(30) mol/mol.",
+      "tr": "IUPAC 2024, Örnek 4B: x₂₈ = 0,923 3873(36), x₂₉ = 0,046 2300(22), x₃₀ = 0,030 3827(30) mol/mol."
+    }
+  }
+}

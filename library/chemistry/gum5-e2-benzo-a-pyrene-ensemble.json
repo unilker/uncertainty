@@ -1,0 +1,176 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e2-benzo-a-pyrene-ensemble",
+    "title": {
+      "en": "Benzo[a]pyrene: peak areas of the same injections as an ensemble in ν_eff (JCGM GUM-5 Example 2, Willink 2007)",
+      "tr": "Benzo[a]piren: aynı enjeksiyonların pik alanları ν_eff'te topluluk olarak (JCGM GUM-5 Örnek 2, Willink 2007)"
+    },
+    "description": {
+      "en": "The same budget with A_E and A_ISE declared an ensemble: their joint variance is one Welch–Satterthwaite component with ν = 2, giving ν_eff ≈ 2.1 instead of 5.2 or 4.8.",
+      "tr": "Aynı bütçe, A_E ve A_ISE topluluk olarak tanımlanmış: ortak varyansları ν = 2 olan tek Welch–Satterthwaite bileşenidir; ν_eff 5,2 veya 4,8 yerine ≈ 2,1 olur."
+    },
+    "explanation": [
+      {
+        "en": "Internal-standard model (EN 15549): m_E = f·A_E/A_ISE·m_ISE, the mass of benzo[a]pyrene in 1 µL of the second extract of a glass-fibre filter spiked with NIST SRM 2260a.",
+        "tr": "İç standart modeli (EN 15549): m_E = f·A_E/A_ISE·m_ISE; NIST SRM 2260a ile zenginleştirilmiş cam elyaf filtrenin ikinci ekstraktının 1 µL'sindeki benzo[a]piren kütlesi."
+      },
+      {
+        "en": "The same internal standard is used in calibration and analysis, so r(f, m_ISE) = −3.3·10⁻⁵/(0.017 × 0.0036) = -0.54; the peak areas of the same injections give r(A_E, A_ISE) = −2.03·10⁸/(9564 × 44 492) = -0.48.",
+        "tr": "Kalibrasyonda ve analizde aynı iç standart kullanıldığından r(f, m_ISE) = −3,3·10⁻⁵/(0,017 × 0,0036) = -0,54; aynı enjeksiyonların pik alanları r(A_E, A_ISE) = −2,03·10⁸/(9564 × 44 492) = -0,48 verir."
+      },
+      {
+        "en": "u²(m_E) = 4.077e-06 ng² with the covariance terms and 3.140e-06 ng² without them; the A_E–A_ISE term adds 1.02e-06 ng² because the correlation is negative while the sensitivities have opposite signs.",
+        "tr": "Kovaryans terimleriyle u²(m_E) = 4,077e-06 ng², onlarsız 3,140e-06 ng²; korelasyon negatif, duyarlılıklar zıt işaretli olduğundan A_E–A_ISE terimi 1,02e-06 ng² ekler."
+      },
+      {
+        "en": "A_E and A_ISE are means of the same three paired injections; their estimated covariance matrix has a Wishart distribution with ν = 2, so the estimate of the variance of any combination c_E·A_E + c_I·A_ISE has exactly ν = 2 (Willink 2007, §4.1.1; GTC real_ensemble). Their component is (c_E u_E)² + (c_I u_I)² + 2c_E c_I u(A_E, A_ISE) = 3.971e-06 ng², 97 % of u².",
+        "tr": "A_E ve A_ISE aynı üç eşli enjeksiyonun ortalamalarıdır; tahmin edilen kovaryans matrisleri ν = 2 olan Wishart dağılımına uyar; bu nedenle her c_E·A_E + c_I·A_ISE bileşiminin varyans tahmini tam ν = 2'ye sahiptir (Willink 2007, §4.1.1; GTC real_ensemble). Bileşenleri (c_E u_E)² + (c_I u_I)² + 2c_E c_I u(A_E, A_ISE) = 3,971e-06 ng², u²'nin %97'idir."
+      },
+      {
+        "en": "ν_eff = u⁴/[(c_f u_f)⁴/9 + 3.971e-06²/2] = 2.11; k(95 %) = 4.1 and U = 0.0083 ng, closer to the width of the MCM interval [≈ 0, 0.032] ng than the U = 0.0052 ng printed. GUM-5 eq. (2.3) treats the two areas as separate components and gives a ν_eff above 2 although the dominant component has ν = 2 (research log F79). The f–m_ISE correlation (ν = 9 and ∞) is not an ensemble, so the warning remains.",
+        "tr": "ν_eff = u⁴/[(c_f u_f)⁴/9 + 3,971e-06²/2] = 2,11; k(%95) = 4,1 ve U = 0,0083 ng; basılı U = 0,0052 ng'den çok MCM aralığının [≈ 0; 0,032] ng genişliğine yakındır. GUM-5 denklem (2.3) iki alanı ayrı bileşenler olarak ele alır ve baskın bileşenin ν'si 2 olduğu hâlde 2'nin üstünde ν_eff verir (araştırma günlüğü F79). f–m_ISE korelasyonu (ν = 9 ve ∞) topluluk değildir; bu nedenle uyarı kalır."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 2, Tables 2.1–2.3; Willink, Metrologia 44 (2007) 340, §4.1.1",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "internal-standard",
+      "gc-ms",
+      "pah",
+      "correlation",
+      "welch-satterthwaite",
+      "ratio",
+      "ensemble"
+    ],
+    "notes": [
+      {
+        "en": "GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).",
+        "tr": "GUM-5 (2.4.2) MCM'yi de uygular: (f, m_ISE) için iki değişkenli normal, (A_E, A_ISE) için ν = n − N = 1 olan iki değişkenli t ve negatif çekilişlerin reddi; medyan 0,014 ng, en kısa %95 aralık [≈ 0; 0,032] ng. Proje biçiminde skaler model için ortak t-dağılımı olmadığından MCM burada çalıştırılmaz; tools/research/gum5/ex2_mcm.py basılı aralığı yeniden üretir (10⁷ çekilişin 9,3·10⁶'sı tutuldu, [1·10⁻⁷; 0,0321] ng)."
+      },
+      {
+        "en": "The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).",
+        "tr": "Belirsizlik yalnız temiz, zenginleştirilmiş filtre için geçerlidir; matris etkileri ve geri kazanım bilerek dışarıda bırakılmıştır (GUM-5 2.2.2, not)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "mE",
+      "unit": "ng",
+      "expression": "f*AE/AISE*mISE",
+      "description": {
+        "en": "Mass of benzo[a]pyrene in 1 µL of extract",
+        "tr": "1 µL ekstrakttaki benzo[a]piren kütlesi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "f",
+        "description": {
+          "en": "GC-MS calibration factor (mean of three factors, ν = 9)",
+          "tr": "GC-MS kalibrasyon faktörü (üç faktörün ortalaması, ν = 9)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.616,
+          "sd": 0.017
+        },
+        "dof": 9
+      },
+      {
+        "name": "mISE",
+        "unit": "ng",
+        "description": {
+          "en": "Mass of internal standard BaP-d12 in 1 µL of extract (certificate)",
+          "tr": "1 µL ekstrakttaki iç standart BaP-d12 kütlesi (sertifika)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.2455,
+          "sd": 0.0036
+        }
+      },
+      {
+        "name": "AE",
+        "unit": "a.u.",
+        "description": {
+          "en": "Mean BaP peak area of three injections",
+          "tr": "Üç enjeksiyonun ortalama BaP pik alanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 85114,
+          "sd": 9564
+        },
+        "dof": 2
+      },
+      {
+        "name": "AISE",
+        "unit": "a.u.",
+        "description": {
+          "en": "Mean BaP-d12 peak area of the same three injections",
+          "tr": "Aynı üç enjeksiyonun ortalama BaP-d12 pik alanı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 917546,
+          "sd": 44492
+        },
+        "dof": 2
+      }
+    ],
+    "correlations": [
+      {
+        "a": "f",
+        "b": "mISE",
+        "r": -0.5392
+      },
+      {
+        "a": "AE",
+        "b": "AISE",
+        "r": -0.4771
+      }
+    ],
+    "ensembles": [
+      [
+        "AE",
+        "AISE"
+      ]
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "dof_rounding": "exact"
+    },
+    "mcm": null
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.014,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.00202,
+        "tolerance": 1.5e-05
+      },
+      "effective_dof": {
+        "value": 2.11,
+        "tolerance": 0.01
+      }
+    },
+    "reference": {
+      "en": "Budget of JCGM GUM-5:2026 Example 2 (u = 0.002 ng); ν_eff = 2.11 recomputed with the ensemble rule of Willink (2007), not printed in GUM-5.",
+      "tr": "JCGM GUM-5:2026 Örnek 2 bütçesi (u = 0,002 ng); ν_eff = 2,11 Willink (2007) topluluk kuralıyla yeniden hesaplandı, GUM-5'te basılı değildir."
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "possolo-meija-2022-storage-tank-volume",
+    "field": "length",
+    "title": {
+      "en": "Volume of a cylindrical storage tank: product of powers, Gauss's formula and Monte Carlo (Possolo & Meija 2022)",
+      "tr": "Silindirik depolama tankının hacmi: kuvvetler çarpımı, Gauss formülü ve Monte Carlo (Possolo & Meija 2022)"
+    },
+    "description": {
+      "en": "V = πR²H with R = 8.40(3) m and H = 32.50(7) m.",
+      "tr": "V = πR²H; R = 8,40(3) m ve H = 32,50(7) m."
+    },
+    "explanation": [
+      {
+        "en": "For a product of powers the relative variances add with the squares of the exponents: (u(V)/V)² = (2 × 0.03/8.40)² + (0.07/32.50)², so u(V) = 53.7 m³ ≈ 54 m³ with V = 7204 m³.",
+        "tr": "Kuvvetler çarpımında bağıl varyanslar üslerin kareleriyle toplanır: (u(V)/V)² = (2 × 0,03/8,40)² + (0,07/32,50)²; V = 7204 m³ ile u(V) = 53,7 m³ ≈ 54 m³."
+      },
+      {
+        "en": "The Monte Carlo method with 10⁶ draws gives 7204 m³ give or take 54 m³ and a distribution indistinguishable from a Gaussian one.",
+        "tr": "10⁶ çekilişli Monte Carlo yöntemi 7204 m³ ± 54 m³ ve normalden ayırt edilemeyen bir dağılım verir."
+      }
+    ],
+    "tags": [
+      "possolo-meija-2022",
+      "volume",
+      "product-of-powers",
+      "monte-carlo"
+    ],
+    "notes": [],
+    "sources": [
+      {
+        "document": "Possolo & Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo (2022)",
+        "section": "Sums, Products, and Ratios: Storage Tank, pp. 18–24",
+        "url": "https://doi.org/10.4224/1tqz-b038"
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "V",
+      "unit": "m³",
+      "expression": "pi * R^2 * H",
+      "description": {
+        "en": "Internal volume of a cylindrical storage tank",
+        "tr": "Silindirik depolama tankının iç hacmi"
+      }
+    },
+    "inputs": [
+      {
+        "name": "R",
+        "unit": "m",
+        "description": {
+          "en": "Radius, from the diameter of the roof measured with a tape",
+          "tr": "Yarıçap, çatının şeritle ölçülen çapından"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 8.4,
+          "sd": 0.03
+        }
+      },
+      {
+        "name": "H",
+        "unit": "m",
+        "description": {
+          "en": "Height, with a plumb line from the edge of the roof",
+          "tr": "Yükseklik, çatı kenarından çekül ile"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 32.5,
+          "sd": 0.07
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 7204,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 54,
+        "tolerance": 0.5
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 7204,
+        "tolerance": 0.5
+      },
+      "standard_uncertainty": {
+        "value": 54,
+        "tolerance": 0.5
+      }
+    },
+    "reference": {
+      "en": "Possolo & Meija (2022), pp. 21–24: V = 7204 m³, give or take 54 m³ (Gauss's formula and Monte Carlo, K = 10⁶).",
+      "tr": "Possolo & Meija (2022), s. 21–24: V = 7204 m³ ± 54 m³ (Gauss formülü ve Monte Carlo, K = 10⁶)."
+    }
+  }
+}

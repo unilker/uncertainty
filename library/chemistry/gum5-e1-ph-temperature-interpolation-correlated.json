@@ -1,0 +1,252 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e1-ph-temperature-interpolation-correlated",
+    "title": {
+      "en": "pH at 23.7 °C by three linear interpolations, certified values of each standard correlated across temperatures (JCGM GUM-5 Example 1)",
+      "tr": "Üç doğrusal interpolasyonla 23,7 °C'de pH, her standardın sertifikalı değerleri sıcaklıklar arasında ilişkili (JCGM GUM-5 Örnek 1)"
+    },
+    "description": {
+      "en": "As the independent case, but the pH values of each standard at 20 °C and 25 °C are fully correlated, as the shared Bates–Guggenheim convention suggests (GUM-5 1.10.3.3).",
+      "tr": "Bağımsız durum gibi, ancak her standardın 20 °C ve 25 °C'deki pH değerleri, ortak Bates–Guggenheim kuralının gösterdiği gibi tam ilişkilidir (GUM-5 1.10.3.3)."
+    },
+    "explanation": [
+      {
+        "en": "The algorithm of GUM-5 1.6 is the measurement model: pH_X,T1 and pH_X,T2 are interpolated in potential with the certified values at T₁ = 25 °C and T₂ = 20 °C, and pH_X at T_X = 23.7 °C is interpolated between them; T₁ and T₂ are exact certificate temperatures.",
+        "tr": "GUM-5 1.6'nın algoritması ölçüm modelidir: pH_X,T1 ve pH_X,T2, T₁ = 25 °C ve T₂ = 20 °C'deki sertifikalı değerlerle potansiyelde interpolasyonla bulunur ve T_X = 23,7 °C'deki pH_X bunların arasında interpolasyonla elde edilir; T₁ ve T₂ kesin sertifika sıcaklıklarıdır."
+      },
+      {
+        "en": "pH_X,T1 = 7.0002, pH_X,T2 = 7.0161, pH_X = 0.74·pH_X,T1 + 0.26·pH_X,T2 = 7.0043; cubic interpolation in temperature changes the pH of S1 by only 0.0004 (GUM-5 1.10.1.1).",
+        "tr": "pH_X,T1 = 7,0002, pH_X,T2 = 7,0161, pH_X = 0,74·pH_X,T1 + 0,26·pH_X,T2 = 7,0043; sıcaklıkta kübik interpolasyon S1'in pH değerini yalnızca 0,0004 değiştirir (GUM-5 1.10.1.1)."
+      },
+      {
+        "en": "With r = 1 between the values of the same standard the interpolation in temperature no longer averages them: u(pH_X) = 0.0041, the value GUM-5 prints.",
+        "tr": "Aynı standardın değerleri arasında r = 1 iken sıcaklıktaki interpolasyon artık bunların ortalamasını almaz: u(pH_X) = 0,0041; GUM-5'in bastığı değer budur."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 1, 1.6, 1.9 and 1.10.3",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "ph",
+      "interpolation",
+      "temperature",
+      "electrochemistry",
+      "intermediate-quantities",
+      "correlation"
+    ],
+    "notes": [
+      {
+        "en": "GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here (7.0043), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives 0.0032; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated (0.0041) (research log F78).",
+        "tr": "GUM-5 1.9.1, üçüncü interpolasyonla pH_X = 7,0043 bulur (burada yeniden hesaplanan: 7,0043), ardından yöntemin pH_X = 7,0109 verdiğini söyler; 7,0109 verilerden çıkmaz. 1.7.1 tüm girdileri bağımsız varsaydığı hâlde u = 0,0041 basar; bağımsızlıkla u = 0,0032 çıkar. 0,0041, her standardın 20 °C ve 25 °C'deki sertifikalı değerleri tam ilişkili alındığında elde edilir (0,0041) (araştırma günlüğü F78)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "pH_X",
+      "expression": "pH_T1 + (pH_T2 - pH_T1)*(T_X - T1)/(T2 - T1)",
+      "description": {
+        "en": "pH of the test solution at T_X",
+        "tr": "Deney çözeltisinin T_X'teki pH değeri"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "pH_T1",
+        "expression": "pH_S1_T1 + (pH_S2_T1 - pH_S1_T1)*(E_X - E_S1)/(E_S2 - E_S1)",
+        "description": {
+          "en": "pH of X interpolated at 25 °C",
+          "tr": "X'in 25 °C'de interpolasyonla pH değeri"
+        }
+      },
+      {
+        "name": "pH_T2",
+        "expression": "pH_S1_T2 + (pH_S2_T2 - pH_S1_T2)*(E_X - E_S1)/(E_S2 - E_S1)",
+        "description": {
+          "en": "pH of X interpolated at 20 °C",
+          "tr": "X'in 20 °C'de interpolasyonla pH değeri"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "name": "T_X",
+        "unit": "°C",
+        "description": {
+          "en": "Temperature of the test solution",
+          "tr": "Deney çözeltisinin sıcaklığı"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 23.7,
+          "sd": 0.0058
+        }
+      },
+      {
+        "name": "E_X",
+        "unit": "mV",
+        "description": {
+          "en": "Potential in the test solution",
+          "tr": "Deney çözeltisindeki potansiyel"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -1.875,
+          "sd": 0.025
+        }
+      },
+      {
+        "name": "E_S1",
+        "unit": "mV",
+        "description": {
+          "en": "Potential in standard S1",
+          "tr": "S1 standardındaki potansiyel"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 6.15,
+          "sd": 0.029
+        }
+      },
+      {
+        "name": "E_S2",
+        "unit": "mV",
+        "description": {
+          "en": "Potential in standard S2",
+          "tr": "S2 standardındaki potansiyel"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -26.35,
+          "sd": 0.029
+        }
+      },
+      {
+        "name": "pH_S1_T1",
+        "description": {
+          "en": "pH of S1 at 25 °C",
+          "tr": "S1'in 25 °C'deki pH değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 6.864,
+          "sd": 0.0051
+        }
+      },
+      {
+        "name": "pH_S2_T1",
+        "description": {
+          "en": "pH of S2 at 25 °C",
+          "tr": "S2'nin 25 °C'deki pH değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 7.4157,
+          "sd": 0.0051
+        }
+      },
+      {
+        "name": "pH_S1_T2",
+        "description": {
+          "en": "pH of S1 at 20 °C",
+          "tr": "S1'in 20 °C'deki pH değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 6.8796,
+          "sd": 0.0051
+        }
+      },
+      {
+        "name": "pH_S2_T2",
+        "description": {
+          "en": "pH of S2 at 20 °C",
+          "tr": "S2'nin 20 °C'deki pH değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 7.4323,
+          "sd": 0.0051
+        }
+      },
+      {
+        "name": "T1",
+        "unit": "°C",
+        "description": {
+          "en": "Certificate temperature T₁",
+          "tr": "Sertifika sıcaklığı T₁"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 25.0
+        }
+      },
+      {
+        "name": "T2",
+        "unit": "°C",
+        "description": {
+          "en": "Certificate temperature T₂",
+          "tr": "Sertifika sıcaklığı T₂"
+        },
+        "distribution": {
+          "type": "constant",
+          "value": 20.0
+        }
+      }
+    ],
+    "correlations": [
+      {
+        "a": "pH_S1_T1",
+        "b": "pH_S1_T2",
+        "r": 1.0
+      },
+      {
+        "a": "pH_S2_T1",
+        "b": "pH_S2_T2",
+        "r": 1.0
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 7.0043,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0041,
+        "tolerance": 5e-05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 7.0043,
+        "tolerance": 0.0001
+      },
+      "standard_uncertainty": {
+        "value": 0.0041,
+        "tolerance": 0.0001
+      }
+    },
+    "reference": {
+      "en": "JCGM GUM-5:2026, 1.9.1: pH_X = 7.0043 (see note), u = 0.0041.",
+      "tr": "JCGM GUM-5:2026, 1.9.1: pH_X = 7,0043 (nota bakınız), u = 0,0041."
+    }
+  }
+}

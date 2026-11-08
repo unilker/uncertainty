@@ -13,13 +13,16 @@
 
 pub mod calibration;
 pub mod conformity;
+pub mod consensus;
 pub mod interlab;
+pub mod multiconformity;
 pub mod multivariate;
 pub mod proficiency;
 pub mod qc;
 pub mod report;
 pub mod sampling;
 pub mod schema;
+pub mod sha256;
 pub mod topdown;
 pub mod weighing;
 
@@ -34,6 +37,30 @@ use uncertainty_core::{Distribution, InputQuantity, Model, UncError};
 /// ADDITIONAL-TERMS.md).
 pub const SOFTWARE_NAME: &str = "Uncertainty Calculations (Belirsizlik Hesaplamaları)";
 pub const SOFTWARE_VERSION: &str = env!("CARGO_PKG_VERSION");
+/// The git commit the software was built from ("…-modified" with
+/// uncommitted changes, "unknown" outside a checkout); see build.rs.
+pub const SOFTWARE_COMMIT: &str = env!("UC_GIT_COMMIT");
+/// Date of that commit (YYYY-MM-DD).
+pub const SOFTWARE_COMMIT_DATE: &str = env!("UC_COMMIT_DATE");
+/// The compiler that built the software.
+pub const SOFTWARE_COMPILER: &str = env!("UC_RUSTC");
+
+/// "0.1.0 (commit 809ebcf1a2b3, 2026-11-07)": the version with the commit
+/// that identifies the build in reports.
+pub fn software_identity() -> String {
+    if SOFTWARE_COMMIT == "unknown" {
+        SOFTWARE_VERSION.to_string()
+    } else {
+        format!("{SOFTWARE_VERSION} (commit {SOFTWARE_COMMIT}, {SOFTWARE_COMMIT_DATE})")
+    }
+}
+
+/// SHA-256 of the project as evaluated, serialised as compact JSON: it
+/// identifies the inputs and settings of a calculation in its report
+/// (ISO/IEC 17025:2017 7.5 technical records).
+pub fn project_digest(p: &Project) -> String {
+    sha256::sha256_hex(serde_json::to_string(p).unwrap_or_default().as_bytes())
+}
 pub const CITATION: &str = "Ün, İ. Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement uncertainty \
 evaluation software. TÜBİTAK UME. https://github.com/unilker/uncertainty";
 
@@ -105,6 +132,8 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
         p.control_chart.is_some(),
         p.sampling.is_some(),
         p.error_function.is_some(),
+        p.multicomponent_conformity.is_some(),
+        p.consensus.is_some(),
     ]
     .iter()
     .filter(|&&b| b)
@@ -112,7 +141,7 @@ pub fn parse(json: &str) -> Result<Project, ProjectError> {
     if primary > 1 || (primary == 0 && p.conformity.is_none()) {
         return Err(ProjectError::Format(
             "a project contains exactly one of the sections \"model\", \"topdown\", \"proficiency\", \"calibration\", \
-             \"precision_experiment\", \"multivariate\", \"control_chart\", \"sampling\", \"error_function\" and \"conformity\" (which may also accompany \"model\")"
+             \"precision_experiment\", \"multivariate\", \"control_chart\", \"sampling\", \"error_function\", \"multicomponent_conformity\", \"consensus\" and \"conformity\" (which may also accompany \"model\")"
                 .into(),
         ));
     }
@@ -180,6 +209,26 @@ pub fn to_distribution(name: &str, d: &DistributionSpec) -> Result<Distribution,
         }
         DistributionSpec::Exponential { mean } => Distribution::Exponential { mean },
         DistributionSpec::Gamma { shape, scale } => Distribution::Gamma { shape, scale },
+        DistributionSpec::Beta { alpha, beta, mean, sd, lower, upper } => {
+            let (a, b) = (lower.unwrap_or(0.0), upper.unwrap_or(1.0));
+            let (alpha, beta) = match (alpha, beta, mean, sd) {
+                (Some(al), Some(be), None, None) => (al, be),
+                (None, None, Some(m), Some(s)) => {
+                    // Method of moments on the unit interval.
+                    let (mu, v) = ((m - a) / (b - a), (s / (b - a)).powi(2));
+                    let c = mu * (1.0 - mu) / v - 1.0;
+                    if !(mu > 0.0 && mu < 1.0 && c > 0.0) {
+                        return Err(input_err(
+                            name,
+                            "beta: the mean must lie inside the limits and sd² < (m − a)(b − m)",
+                        ));
+                    }
+                    (mu * c, (1.0 - mu) * c)
+                }
+                _ => return Err(input_err(name, "beta: give alpha and beta, or mean and sd")),
+            };
+            Distribution::Beta { alpha, beta, lower: a, upper: b }
+        }
         DistributionSpec::TypeA { ref observations } => TypeA::from_observations(observations)?.distribution(),
         DistributionSpec::TypeAPooled { mean, pooled_sd, pooled_dof, n } => {
             if n == 0 {
@@ -210,11 +259,23 @@ pub fn build_model(p: &Project) -> Result<Model, ProjectError> {
     for c in &spec.correlations {
         b = b.correlation(&c.a, &c.b, c.r);
     }
+    for e in &spec.ensembles {
+        b = b.ensemble(&e.iter().map(String::as_str).collect::<Vec<_>>());
+    }
     b = b.output(&spec.output.name, &spec.output.expression);
     if let Some(u) = &spec.output.unit {
         b = b.output_unit(u);
     }
     Ok(b.build()?)
+}
+
+/// The expanded uncertainty to report: the evaluated U, or the CMC of the
+/// laboratory if U is smaller (ILAC P14:09/2020, 5.5); true if raised.
+pub fn reported_expanded(p: &Project, y: f64, u: f64) -> (f64, bool) {
+    match p.reporting.cmc.as_ref().and_then(|c| c.at(y)) {
+        Some(cmc) if cmc > u => (cmc, true),
+        _ => (u, false),
+    }
 }
 
 /// Options that may override the project file (e.g. from the command line).
@@ -280,6 +341,10 @@ pub enum Evaluation {
     Sampling(Box<sampling::SamplingAnalysis>),
     /// Error approximation function of a weighing instrument (EURAMET cg-18).
     ErrorFunction(Box<weighing::ErrorFunctionAnalysis>),
+    /// Total risks for an item with several correlated properties (EMUE E2.1).
+    Multicomponent(Box<multiconformity::MulticomponentAnalysis>),
+    /// Consensus value and degrees of equivalence (NIST Consensus Builder).
+    Consensus(Box<consensus::ConsensusAnalysis>),
 }
 
 impl Evaluation {
@@ -358,6 +423,12 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     }
     if let Some(spec) = &p.sampling {
         return Ok(Evaluation::Sampling(Box::new(sampling::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.consensus {
+        return Ok(Evaluation::Consensus(Box::new(consensus::evaluate(spec)?)));
+    }
+    if let Some(spec) = &p.multicomponent_conformity {
+        return Ok(Evaluation::Multicomponent(Box::new(multiconformity::evaluate(spec)?)));
     }
     if let Some(spec) = &p.error_function {
         return Ok(Evaluation::ErrorFunction(Box::new(weighing::evaluate(spec)?)));
@@ -521,6 +592,20 @@ pub fn check(p: &Project, e: &Evaluation) -> Vec<CheckOutcome> {
             }
             out
         }
+        Evaluation::Multicomponent(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.multicomponent_conformity.as_ref()) {
+                multiconformity::check(exp, a, &mut out);
+            }
+            out
+        }
+        Evaluation::Consensus(a) => {
+            let mut out = Vec::new();
+            if let Some(exp) = p.expected.as_ref().and_then(|x| x.consensus.as_ref()) {
+                consensus::check(exp, a, &mut out);
+            }
+            out
+        }
     }
 }
 
@@ -544,6 +629,11 @@ fn check_model(p: &Project, a: &Analysis) -> Vec<CheckOutcome> {
         push("gum.estimate", g.map(|g| g.estimate), &e.estimate);
         push("gum.standard_uncertainty", g.map(|g| g.combined_standard_uncertainty), &e.standard_uncertainty);
         push("gum.expanded_uncertainty", g.map(|g| g.expanded_uncertainty), &e.expanded_uncertainty);
+        push(
+            "gum.reported_expanded_uncertainty",
+            g.map(|g| reported_expanded(p, g.estimate, g.expanded_uncertainty).0),
+            &e.reported_expanded_uncertainty,
+        );
         push("gum.coverage_factor", g.map(|g| g.coverage_factor), &e.coverage_factor);
         push("gum.effective_dof", g.map(|g| g.effective_dof), &e.effective_dof);
         push(
@@ -584,6 +674,7 @@ pub fn warning_code(w: &gum::GumWarning) -> &'static str {
         gum::GumWarning::HigherOrderNonGaussian => "higher_order_non_gaussian",
         gum::GumWarning::WelchSatterthwaiteCorrelated => "welch_satterthwaite_correlated",
         gum::GumWarning::ZeroSensitivity { .. } => "zero_sensitivity",
+        gum::GumWarning::NonlinearEstimate { .. } => "nonlinear_estimate",
     }
 }
 
@@ -594,8 +685,9 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
         .into_iter()
         .map(|c| json!({"what": c.what, "computed": c.computed, "expected": c.expected, "tolerance": c.tolerance, "passed": c.passed}))
         .collect();
-    let software = json!({ "name": SOFTWARE_NAME, "version": SOFTWARE_VERSION, "citation": CITATION });
-    let project = json!({ "id": p.metadata.id, "title": p.metadata.title.en });
+    let software = json!({ "name": SOFTWARE_NAME, "version": SOFTWARE_VERSION, "commit": SOFTWARE_COMMIT,
+        "commit_date": SOFTWARE_COMMIT_DATE, "compiler": SOFTWARE_COMPILER, "citation": CITATION });
+    let project = json!({ "id": p.metadata.id, "title": p.metadata.title.en, "sha256": project_digest(p) });
     let a = match e {
         Evaluation::Model(a) => a,
         Evaluation::TopDown(t) => {
@@ -682,6 +774,24 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
                 "checks": checks,
             });
         }
+        Evaluation::Multicomponent(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.names.join(", "), "unit": a.unit },
+                "multicomponent_conformity": multiconformity::results_json(a),
+                "checks": checks,
+            });
+        }
+        Evaluation::Consensus(a) => {
+            return json!({
+                "software": software,
+                "project": project,
+                "output": { "name": a.measurand, "unit": a.unit },
+                "consensus": consensus::results_json(a),
+                "checks": checks,
+            });
+        }
     };
     let gum = a.gum.as_ref().map(|g| {
         json!({
@@ -689,6 +799,7 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
             "standard_uncertainty": g.combined_standard_uncertainty,
             "first_order_uncertainty": g.first_order_uncertainty,
             "higher_order_variance": g.higher_order_variance,
+            "second_order_estimate_term": g.second_order_estimate_term,
             "correlation_variance": g.correlation_variance,
             "effective_dof": if g.effective_dof.is_finite() { json!(g.effective_dof) } else { json!("inf") },
             "coverage_factor": g.coverage_factor,
@@ -725,6 +836,7 @@ pub fn results_json(p: &Project, e: &Evaluation) -> serde_json::Value {
             "coverage_probability": m.coverage_probability,
             "symmetric_interval": [m.symmetric_interval.0, m.symmetric_interval.1],
             "shortest_interval": [m.shortest_interval.0, m.shortest_interval.1],
+            "expanded_about_estimate": m.expanded_about_estimate,
             "median": m.median,
             "skewness": m.skewness,
             "excess_kurtosis": m.excess_kurtosis,

@@ -43,6 +43,8 @@ def evaluate(ex):
     pts = sorted((p[0], p[1]) for p in ex["points"])
     q = [(b[1] - a[1]) / (b[0] - a[0]) for a, b in zip(pts, pts[1:])]
     terms["tare"] = (max(q) - min(q)) / R12
+    if ex.get("adj") is not None:
+        terms["adj"] = ex["adj"] / (ex["intervals"][-1][0] * R3)
     beta2 = sum(v * v for v in terms.values())
     d0 = ex["intervals"][0][1]
     out = {"a1": a1, "ua1": ua1, "terms": terms, "beta2": beta2, "alpha2": [], "lower": [], "U_lower": [], "slope": [], "gl_lower": [], "gl_slope": []}
@@ -108,6 +110,40 @@ EX = {
                     "gl_lower": [2.733, 10.190, 20.311], "gl_slope": [4.291e-4, 5.151e-4, 5.641e-4], "mw": 598.0},
         "budget": "7.1.2-5d (no information on the air density)",
     },
+    "h3-a": {
+        "title": T("Weighbridge 30 t / 10 kg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/A)",
+                   "Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/A)"),
+        "section": "Appendix H3.1/A to H3.4/A; 7.4, 7.5; Appendix G",
+        "instrument": "Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads)",
+        "unit": "kg",
+        # indication, error, u(m_ref) ⊕ u(L_sub) (H3.3/A), u(I) in kg
+        "points": [(0.0, 0.0, 0.0, 6.75), (5002.0, 2.0, 0.22, 7.08), (10010.0, 10.0, 0.44, 7.97),
+                   (15015.0, 15.0, math.hypot(0.22, 11.28), 9.27), (20018.0, 18.0, math.hypot(0.44, 11.28), 10.82),
+                   (25035.0, 25.0, math.hypot(0.22, 19.02), 12.54), (30040.0, 30.0, math.hypot(0.44, 19.02), 14.38)],
+        "intervals": [(30000.0, 10.0, [10405, 10414, 10418, 10412, 10418, 10425])],
+        "kt": 2e-6, "dt": 40.0, "buoy_dt": None, "ecc": (15.0, 10420.0), "adj": 30.0, "req": 0.01, "sf": 1.0,
+        "tol": {"slope": 5e-6, "gl_slope": 5e-6},  # printed to three significant digits
+        "printed": {"a1": 9.379e-4, "ua1": 3.627e-4, "temp": 2.309e-5, "adj": 5.774e-4, "tare": 3.457e-4, "ecc": 8.311e-4,
+                    "alpha2": [62.133], "beta2": 1.276e-6, "U_lower": [2 * math.sqrt(62.133)], "slope": [1.79e-3],
+                    "gl_lower": [2 * math.sqrt(62.133)], "gl_slope": [2.73e-3], "mw": 2169.0},
+        "budget": "H3.3/A (substitution loads, 7.1.2-5d, creep and hysteresis 7.4.4-7)",
+    },
+    "h3-b": {
+        "title": T("Weighbridge 30 t / 10 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/B)",
+                   "Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/B)"),
+        "section": "Appendix H3.1/B to H3.4/B; 7.4, 7.5; Appendix G",
+        "instrument": "Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads)",
+        "unit": "kg",
+        "points": [(0.0, 0.0, 0.0, 2.96), (5002.0, 2.0, 0.21, 3.08), (10005.0, 5.0, 0.42, 3.37),
+                   (15007.0, 7.0, math.hypot(0.21, 4.78), 3.81), (20008.0, 8.0, math.hypot(0.42, 4.78), 4.34),
+                   (25020.0, 10.0, math.hypot(0.21, 7.80), 4.95), (30022.0, 12.0, math.hypot(0.42, 7.80), 5.61)],
+        "intervals": [(30000.0, 10.0, [10415, 10418, 10422, 10416, 10422, 10419])],
+        "kt": 2e-6, "dt": 40.0, "buoy_dt": None, "ecc": (5.0, 10420.0), "adj": 15.0, "req": 0.01, "sf": 1.0,
+        "printed": {"a1": 4.280e-4, "ua1": 1.485e-4, "temp": 2.309e-5, "adj": 2.887e-4, "tare": 1.154e-4, "ecc": 2.770e-4,
+                    "alpha2": [25.333], "beta2": 1.960e-7, "U_lower": [10.067], "slope": [6.113e-4],
+                    "gl_lower": [10.067], "gl_slope": [1.04e-3], "mw": 1123.0},
+        "budget": "H3.3/B (substitution loads, adjusted before calibration)",
+    },
     "h2-b": {
         "title": T("Multi-interval scale 12/30/60 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H2.4/B)",
                    "Çok aralıklı tartı aleti 12/30/60 kg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H2.4/B)"),
@@ -151,7 +187,7 @@ for key, ex in EX.items():
 
     compare("a1", abs(r["a1"]), abs(pr["a1"]), 1.5e-3 * max(abs(pr["a1"]), 1e-9))
     compare("u(a1)", r["ua1"], pr["ua1"], max(tol(pr["ua1"]), 1e-3 * pr["ua1"]))
-    for t in ("temp", "buoy", "tare", "ecc"):
+    for t in ("temp", "buoy", "tare", "ecc", "adj"):
         if t in pr:
             compare(t, r["terms"].get(t, 0.0), pr[t], max(tol(pr[t]), 1.2e-3 * pr[t]) if pr[t] else 1e-12)
     for i, v in enumerate(pr["alpha2"]):
@@ -159,9 +195,10 @@ for key, ex in EX.items():
     compare("beta2", r["beta2"], pr["beta2"], 2e-3 * pr["beta2"])
     for name in ("U_lower", "slope", "gl_lower", "gl_slope"):
         for i, v in enumerate(pr.get(name, [])):
-            compare(f"{name}[{i}]", r[name][i], v, 2e-3 * v)
+            compare(f"{name}[{i}]", r[name][i], v, max(2e-3 * v, ex.get("tol", {}).get(name, 0.0)))
     compare("minimum weight", r["mw"], pr["mw"], 1e-3 * pr["mw"] + (5e-5 if pr["mw"] < 1 else 0.5))
-    known = {"h1-a": set(), "h1-b": {"tare", "beta2", "slope[0]", "gl_slope[0]"}, "h2-a": {"U_lower[1]", "U_lower[2]"}, "h2-b": set()}[key]
+    known = {"h1-a": set(), "h1-b": {"tare", "beta2", "slope[0]", "gl_slope[0]"}, "h2-a": {"U_lower[1]", "U_lower[2]"}, "h2-b": set(),
+             "h3-a": {"u(a1)"}, "h3-b": {"u(a1)", "beta2", "slope[0]"}}[key]
     got_dev = {d[0] for d in deviations}
     assert got_dev == known, (key, deviations)
 
@@ -169,13 +206,13 @@ for key, ex in EX.items():
     n = len(ex["intervals"])
     expected = {
         "coefficients": [chk(r["a1"], 1.5e-3 * max(abs(pr["a1"]), 1e-9) if pr["a1"] else 1e-12)],
-        "u_coefficients": [chk(pr["ua1"], max(tol(pr["ua1"]), 1e-3 * pr["ua1"]))],
+        "u_coefficients": [chk(pr["ua1"], max(tol(pr["ua1"]), 1e-3 * pr["ua1"])) if "u(a1)" not in known else chk(r["ua1"], 1e-4 * r["ua1"])],
         "in_use": {
             "alpha_squared": [chk(pr["alpha2"][i], 2e-3 * pr["alpha2"][i]) for i in range(n)],
             "beta_squared": chk(pr["beta2"], 2e-3 * pr["beta2"]) if "beta2" not in known else chk(r["beta2"], 1e-4 * r["beta2"]),
             "expanded_at_lower": [chk(pr["U_lower"][i], 2e-3 * pr["U_lower"][i]) if f"U_lower[{i}]" not in known else chk(r["U_lower"][i], 1e-4 * r["U_lower"][i]) for i in range(n)],
-            "slope": [chk(pr["slope"][i], 2e-3 * pr["slope"][i]) if f"slope[{i}]" not in known else chk(r["slope"][i], 1e-4 * r["slope"][i]) for i in range(n)],
-            "global_slope": [chk(pr["gl_slope"][i], 2e-3 * pr["gl_slope"][i]) if f"gl_slope[{i}]" not in known else chk(r["gl_slope"][i], 1e-4 * r["gl_slope"][i]) for i in range(n)],
+            "slope": [chk(pr["slope"][i], max(2e-3 * pr["slope"][i], ex.get("tol", {}).get("slope", 0.0))) if f"slope[{i}]" not in known else chk(r["slope"][i], 1e-4 * r["slope"][i]) for i in range(n)],
+            "global_slope": [chk(pr["gl_slope"][i], max(2e-3 * pr["gl_slope"][i], ex.get("tol", {}).get("gl_slope", 0.0))) if f"gl_slope[{i}]" not in known else chk(r["gl_slope"][i], 1e-4 * r["gl_slope"][i]) for i in range(n)],
             "minimum_weight": chk(pr["mw"], 1e-3 * pr["mw"] + (5e-5 if pr["mw"] < 1 else 0.5)) if key != "h1-b" else chk(round(r["mw"], 6), 5e-6),
         },
     }
@@ -183,7 +220,7 @@ for key, ex in EX.items():
         expected["in_use"]["global_at_lower"] = [chk(pr["gl_lower"][i], 2e-3 * pr["gl_lower"][i]) for i in range(n)]
 
     multi = n > 1
-    unit = "g"
+    unit = ex.get("unit", "g")
     intervals = [{"max": mx, "d": d, "repeatability": reps} for mx, d, reps in ex["intervals"]]
     s_vals = [st.stdev(reps) for _, _, reps in ex["intervals"]]
     in_use = {"intervals": intervals, "eccentricity": {"deviation": ex["ecc"][0], "load": ex["ecc"][1]},
@@ -192,25 +229,29 @@ for key, ex in EX.items():
               "readings": [mx for mx, _, _ in ex["intervals"]]}
     if ex["buoy_dt"] is not None:
         in_use["buoyancy"] = {"delta_t": ex["buoy_dt"]}
+    if ex.get("adj") is not None:
+        in_use["adjustment"] = {"delta_e_max": ex["adj"]}
 
-    terms_en = (f"Relative terms (in use): u(a₁) = {g(r['ua1'])} from the fit (C2.2-16d), temperature K_T·ΔT/√12 = {g(r['terms']['temp'])} (K_T = {g(ex['kt'], 2)}/K, ΔT = {ex['dt']:g} K: the built-in adjustment acts at 3 K, 7.4.3-1)"
+    terms_en = (f"Relative terms (in use): u(a₁) = {g(r['ua1'])} from the fit (C2.2-16d), temperature K_T·ΔT/√12 = {g(r['terms']['temp'])} (K_T = {g(ex['kt'], 2)}/K, ΔT = {ex['dt']:g} K{': the built-in adjustment acts at 3 K' if ex['dt'] == 3.0 else ''}, 7.4.3-1)"
                 + (f", buoyancy √(1.07·10⁻⁴ + 1.33·10⁻⁶·ΔT²)·ρ₀/ρ_c = {g(r['terms']['buoy'])} (7.4.3-4)" if "buoy" in r["terms"] else ", buoyancy not relevant")
+                + (f", change in adjustment due to drift ΔE(Max)/(Max√3) = {g(r['terms']['adj'])} (7.4.3-6)" if "adj" in r["terms"] else "")
                 + f", tare (q_E,max − q_E,min)/√12 = {g(r['terms']['tare'])} from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = {g(r['terms']['ecc'])} (7.4.4-10); β_W² = {g(r['beta2'])}.")
-    terms_tr = (f"Bağıl terimler (kullanımda): uyumdan u(a₁) = {c(g(r['ua1']))} (C2.2-16d), sıcaklık K_T·ΔT/√12 = {c(g(r['terms']['temp']))} (K_T = {c(g(ex['kt'], 2))}/K, ΔT = {c(f'{ex[chr(100)+chr(116)]:g}')} K: yerleşik ayar 3 K'de devreye girer, 7.4.3-1)"
+    terms_tr = (f"Bağıl terimler (kullanımda): uyumdan u(a₁) = {c(g(r['ua1']))} (C2.2-16d), sıcaklık K_T·ΔT/√12 = {c(g(r['terms']['temp']))} (K_T = {c(g(ex['kt'], 2))}/K, ΔT = {c(f'{ex[chr(100)+chr(116)]:g}')} K{": yerleşik ayar 3 K'de devreye girer" if ex['dt'] == 3.0 else ''}, 7.4.3-1)"
                 + (f", kaldırma kuvveti √(1,07·10⁻⁴ + 1,33·10⁻⁶·ΔT²)·ρ₀/ρ_c = {c(g(r['terms']['buoy']))} (7.4.3-4)" if "buoy" in r["terms"] else ", kaldırma kuvveti ilgili değil")
+                + (f", sürüklenmeden ayar değişimi ΔE(Max)/(Max√3) = {c(g(r['terms']['adj']))} (7.4.3-6)" if "adj" in r["terms"] else "")
                 + f", dara deney noktalarından (q_E,maks − q_E,min)/√12 = {c(g(r['terms']['tare']))} (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = {c(g(r['terms']['ecc']))} (7.4.4-10); β_W² = {c(g(r['beta2']))}.")
-    alpha_en = ", ".join(f"{g(a)} g²" for a in r["alpha2"])
-    alpha_tr = ", ".join(f"{c(g(a))} g²" for a in r["alpha2"])
+    alpha_en = ", ".join(f"{g(a)} {unit}²" for a in r["alpha2"])
+    alpha_tr = ", ".join(f"{c(g(a))} {unit}²" for a in r["alpha2"])
     expl = [
         T(f"{ex['instrument']}. Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget {ex['budget']} (C2.2-18b, uncorrelated reference masses): a₁ = {g(r['a1'])}, u(a₁) = {g(r['ua1'])}.",
           f"{ex['instrument']}. Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), {ex['budget']} bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = {c(g(r['a1']))}, u(a₁) = {c(g(r['ua1']))}."),
-        T(f"Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = {alpha_en} (7.4.1-6), with s from the repeatability test{'s' if multi else ''} ({', '.join(g(s, 4) for s in s_vals)} g) and d₀ = d₁.",
-          f"Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = {alpha_tr} (7.4.1-6); s tekrarlanabilirlik deney{'lerin' if multi else 'in'}den ({', '.join(c(g(s, 4)) for s in s_vals)} g), d₀ = d₁."),
+        T(f"Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = {alpha_en} (7.4.1-6), with s from the repeatability test{'s' if multi else ''} ({', '.join(g(s, 4) for s in s_vals)} {unit}) and d₀ = d₁.",
+          f"Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = {alpha_tr} (7.4.1-6); s tekrarlanabilirlik deney{'lerin' if multi else 'in'}den ({', '.join(c(g(s, 4)) for s in s_vals)} {unit}), d₀ = d₁."),
         T(terms_en, terms_tr),
-        T("U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d" + (", -3f per interval" if multi else "") + f"), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = {g(r['gl_lower'][0])} g + {g(r['gl_slope'][0])}·R in the first interval (7.5.2-3e).",
-          "U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d" + (", aralık başına -3f" if multi else "") + f"); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = {c(g(r['gl_lower'][0]))} g + {c(g(r['gl_slope'][0]))}·R (7.5.2-3e)."),
-        T(f"Minimum weight for Req = {ex['req'] * 100:g} % and the safety factor SF = {ex['sf']:g}: R_min,SF = α_gl·SF/(Req − β_gl·SF) = {g(r['mw'], 4)} g (G-9).",
-          f"Req = %{c(f'{ex[chr(114)+chr(101)+chr(113)] * 100:g}')} ve güvenlik faktörü SF = {c(f'{ex[chr(115)+chr(102)]:g}')} için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = {c(g(r['mw'], 4))} g (G-9)."),
+        T("U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d" + (", -3f per interval" if multi else "") + f"), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = {g(r['gl_lower'][0])} {unit} + {g(r['gl_slope'][0])}·R in the first interval (7.5.2-3e).",
+          "U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d" + (", aralık başına -3f" if multi else "") + f"); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = {c(g(r['gl_lower'][0]))} {unit} + {c(g(r['gl_slope'][0]))}·R (7.5.2-3e)."),
+        T(f"Minimum weight for Req = {ex['req'] * 100:g} % and the safety factor SF = {ex['sf']:g}: R_min,SF = α_gl·SF/(Req − β_gl·SF) = {g(r['mw'], 4)} {unit} (G-9).",
+          f"Req = %{c(f'{ex[chr(114)+chr(101)+chr(113)] * 100:g}')} ve güvenlik faktörü SF = {c(f'{ex[chr(115)+chr(102)]:g}')} için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = {c(g(r['mw'], 4))} {unit} (G-9)."),
     ]
     notes = [T("The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).",
                "Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).")]
@@ -224,6 +265,13 @@ for key, ex in EX.items():
                        f"Kılavuz ikinci ve üçüncü aralığın birinci mertebe U(W)'sini 10,190 g + 3,434·10⁻⁴(R − 12 000 g) ve 20,311 g + 3,923·10⁻⁴(R − 30 000 g) olarak basar. 10,190 g ve 20,311 g, 12 000 g ve 30 000 g'daki genel belirsizliklerdir, U(W) + |a₁|R; U(W)'nin kendisi orada {c(g(r['U_lower'][1]))} g ve {c(g(r['U_lower'][2]))} g'dır. Eğimler ve genel belirsizlik doğruları doğrudur (araştırma günlüğü F75)."))
         notes.append(T("The guide prints a₁ = 1.717·10⁻⁴ without its sign; the errors are negative (−5 g at 20 kg, −10 g at 40 and 60 kg).",
                        "Kılavuz a₁ = 1,717·10⁻⁴ değerini işaretsiz basar; hatalar negatiftir (20 kg'da −5 g, 40 ve 60 kg'da −10 g)."))
+    if key in ("h3-a", "h3-b"):
+        notes.append(T(f"The guide prints u(a₁) = {g(pr['ua1'])}; the weighted fit (C2.2-18b) with the u(E_j) of the calibration budget gives {g(r['ua1'])}, also with the printed u(E_j) or the nominal loads (research log F98). The project uses the recomputed value; β_W², the first-order lines and the minimum weight change by less than the printed digits"
+                       + (", except β_W², 1.967·10⁻⁷ instead of 1.960·10⁻⁷, and the first-order slope, 6.128·10⁻⁴ instead of 6.113·10⁻⁴." if key == "h3-b" else "."),
+                       f"Kılavuz u(a₁) = {c(g(pr['ua1']))} basar; kalibrasyon bütçesinin u(E_j) değerleriyle ağırlıklı uyum (C2.2-18b), basılı u(E_j) ya da nominal yüklerle de, {c(g(r['ua1']))} verir (araştırma günlüğü F98). Proje yeniden hesaplanan değeri kullanır; β_W², birinci mertebe doğrular ve minimum tartım basılı basamaklardan daha az değişir"
+                       + (", β_W² (1,960·10⁻⁷ yerine 1,967·10⁻⁷) ve birinci mertebe eğim (6,113·10⁻⁴ yerine 6,128·10⁻⁴) dışında." if key == "h3-b" else ".")))
+        notes.append(T("The change in adjustment due to drift, ΔE(Max)/(Max·√3) (7.4.3-6), takes the error at Max (30 kg) in H3.4/A and the mpe at initial verification (15 kg) in H3.4/B. Creep and hysteresis are not relevant for the short loading times in use; the minimum weight with SF = 2 is 6 950 kg (A) and 2 542 kg (B).",
+                       "Sürüklenmeden kaynaklanan ayar değişimi ΔE(Max)/(Max·√3) (7.4.3-6), H3.4/A'da Max'taki hatayı (30 kg), H3.4/B'de ilk muayenedeki mpe'yi (15 kg) alır. Kullanımdaki kısa yükleme sürelerinde sünme ve histerezis ilgili değildir; SF = 2 ile minimum tartım 6 950 kg (A) ve 2 542 kg'dır (B)."))
     if key in ("h1-a", "h2-a"):
         notes.append(T("H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.",
                        "H1/A hataları 7.1.2-5e bütçesiyle (oda sıcaklığı değişimi), H2/A ise en tutucu 7.1.2-5d bütçesiyle uydurur; basılı a₁ ve u(a₁) yalnızca bu seçimlerle yeniden elde edilir."))

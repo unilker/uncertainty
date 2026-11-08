@@ -40,20 +40,27 @@ Options of `check`:
 | Option | Meaning |
 |---|---|
 | `--no-mcm` | skip the Monte Carlo evaluations and their reference values |
+| `--lab PATH` | the laboratory's own projects (file or directory), reported in a section of their own |
 | `--report FILE` | write a software validation report, as HTML if FILE ends in `.html`, otherwise Markdown |
 | `--lang en` / `--lang tr` | language of the validation report |
 
 The validation report is the record that ISO/IEC 17025:2017 7.11.2 asks for when software is validated before
-use and after changes. It names the program version, platform, date and options; summarizes the outcome by
-method; lists every project with its source, the number of values compared and the largest ratio of
-difference to tolerance; and lists any value outside its tolerance. It ends with a line for the signature of
+use and after changes. It identifies the software by version, git commit and commit date ("-modified" if the build
+had uncommitted changes), compiler and platform, gives the date and options and the SHA-256 digest of the whole set of
+checked files; summarizes the outcome by method; lists every project with its source, the number of values compared,
+the largest ratio of difference to tolerance and the SHA-256 of the file (which holds its inputs, reference values and
+settings such as seeds, numbers of trials and rounding); and lists any value outside its tolerance. The laboratory's
+own projects, given with `--lab`, are listed in a section of their own. It ends with a line for the signature of
 the person who checked it. A laboratory would typically run
 
 ```sh
-uncertainty check library --report validation-2026-10.html
+uncertainty check library --lab my-projects --report validation-2026-10.html
 ```
 
-after installing a new version, and file the report with its own projects checked the same way.
+after installing a new version, and file the report. Every calculation report also ends with the software identity
+and the SHA-256 of the project as evaluated, so that the technical record (7.5) ties a result to its inputs and to the
+validated build. The library examples verify the implementation against published values; the laboratory's own
+projects, with reference values it has set, validate the software for its scope.
 
 ## 2.3 A first evaluation
 

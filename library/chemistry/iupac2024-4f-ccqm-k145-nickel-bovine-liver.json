@@ -1,0 +1,173 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iupac2024-4f-ccqm-k145-nickel-bovine-liver",
+    "field": "chemistry",
+    "title": {
+      "en": "Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F)",
+      "tr": "CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F)"
+    },
+    "description": {
+      "en": "17 national metrology institutes measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ (the variability between laboratories that the stated uncertainties do not explain).",
+      "tr": "17 ulusal metroloji enstitüsü sığır karaciğerindeki nikel kütle kesrini ölçtü. Sonuçlar beyan edilen belirsizliklerin öngördüğünden daha fazla dağılır; x_j = μ + λ_j + ε_j, λ_j ~ N(0, τ²) laboratuvar etkileri modeli karanlık belirsizliği (dark uncertainty: laboratuvarlar arasında beyan edilen belirsizliklerle açıklanamayan fazla değişkenlik, τ) tanır."
+    },
+    "explanation": [
+      {
+        "en": "The likelihood is a product of 17 Gaussian densities with mean μ and variances τ² + u_j²; for given τ it is maximised by the weighted mean with weights 1/(τ² + u_j²), so only the profile likelihood in τ needs a numerical search.",
+        "tr": "Olabilirlik, ortalaması μ ve varyansları τ² + u_j² olan 17 normal yoğunluğun çarpımıdır; verilen τ için en büyük değerini 1/(τ² + u_j²) ağırlıklı ortalamada alır, bu nedenle yalnızca τ'daki profil olabilirlik sayısal olarak aranır."
+      },
+      {
+        "en": "μ̂ = 2.0429 mg/kg and τ̂ = 0.0435 mg/kg; their standard uncertainties come from the inverse Hessian of −ln L: 2.043(15) mg/kg and 0.044(14) mg/kg, as printed.",
+        "tr": "μ̂ = 2,0429 mg/kg ve τ̂ = 0,0435 mg/kg; standart belirsizlikleri −ln L'nin Hessian matrisinin tersinden gelir: basılı değerlerle aynı, 2,043(15) mg/kg ve 0,044(14) mg/kg."
+      },
+      {
+        "en": "The guide warns that maximum likelihood tends to bias the estimates and that the Hessian underestimates the variance with fewer than about 15 results; restricted maximum likelihood, the NIST Consensus Builder or Bayesian procedures are preferable. The DerSimonian–Laird estimate with the parametric bootstrap and the degrees of equivalence are shown for comparison.",
+        "tr": "Rehber, en çok olabilirliğin kestirimleri yanlılaştırma eğiliminde olduğunu ve yaklaşık 15'ten az sonuçta Hessian'ın varyansı küçük kestirdiğini belirtir; kısıtlı en çok olabilirlik, NIST Consensus Builder ya da Bayesçi yöntemler tercih edilir. Karşılaştırma için DerSimonian–Laird kestirimi, parametrik bootstrap ve eşdeğerlik dereceleri de verilmiştir."
+      }
+    ],
+    "tags": [
+      "iupac-2024",
+      "key-comparison",
+      "ccqm",
+      "consensus",
+      "dark-uncertainty",
+      "maximum-likelihood"
+    ],
+    "notes": [
+      {
+        "en": "The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for the first result.",
+        "tr": "Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. ilk sonuç için 1,930(110) mg/kg."
+      },
+      {
+        "en": "Participants are coded Lab 1 to Lab 17 in the order of the guide's table. The official key comparison reference value and degrees of equivalence are those of the CCQM-K145 final report in the BIPM KCDB; the degrees of equivalence computed here illustrate the procedures on the same data and are not results of the comparison.",
+        "tr": "Katılımcılar rehberin tablosundaki sırayla Lab 1 – Lab 17 olarak kodlanmıştır. Resmî anahtar karşılaştırma referans değeri ve eşdeğerlik dereceleri BIPM KCDB'deki CCQM-K145 nihai raporundakilerdir; burada hesaplanan eşdeğerlik dereceleri yöntemleri aynı veri üzerinde gösterir, karşılaştırmanın sonucu değildir."
+      }
+    ],
+    "sources": [
+      {
+        "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+        "section": "Example 4F",
+        "url": "https://doi.org/10.1515/pac-2022-1203"
+      }
+    ]
+  },
+  "consensus": {
+    "measurand": "w(Ni)",
+    "unit": "mg/kg",
+    "results": [
+      {
+        "name": "Lab 1",
+        "value": 1.93,
+        "u": 0.11
+      },
+      {
+        "name": "Lab 2",
+        "value": 1.94,
+        "u": 0.064
+      },
+      {
+        "name": "Lab 3",
+        "value": 1.942,
+        "u": 0.092
+      },
+      {
+        "name": "Lab 4",
+        "value": 1.958,
+        "u": 0.075
+      },
+      {
+        "name": "Lab 5",
+        "value": 1.984,
+        "u": 0.02
+      },
+      {
+        "name": "Lab 6",
+        "value": 1.993,
+        "u": 0.033
+      },
+      {
+        "name": "Lab 7",
+        "value": 2.01,
+        "u": 0.06
+      },
+      {
+        "name": "Lab 8",
+        "value": 2.02,
+        "u": 0.05
+      },
+      {
+        "name": "Lab 9",
+        "value": 2.022,
+        "u": 0.023
+      },
+      {
+        "name": "Lab 10",
+        "value": 2.05,
+        "u": 0.02
+      },
+      {
+        "name": "Lab 11",
+        "value": 2.055,
+        "u": 0.052
+      },
+      {
+        "name": "Lab 12",
+        "value": 2.07,
+        "u": 0.05
+      },
+      {
+        "name": "Lab 13",
+        "value": 2.077,
+        "u": 0.035
+      },
+      {
+        "name": "Lab 14",
+        "value": 2.08,
+        "u": 0.059
+      },
+      {
+        "name": "Lab 15",
+        "value": 2.131,
+        "u": 0.042
+      },
+      {
+        "name": "Lab 16",
+        "value": 2.15,
+        "u": 0.03
+      },
+      {
+        "name": "Lab 17",
+        "value": 2.18,
+        "u": 0.08
+      }
+    ],
+    "maximum_likelihood": true,
+    "trials": 100000,
+    "seed": 1
+  },
+  "expected": {
+    "consensus": {
+      "ml_mean": {
+        "value": 2.043,
+        "tolerance": 0.0005
+      },
+      "ml_u": {
+        "value": 0.015,
+        "tolerance": 0.0005
+      },
+      "ml_tau": {
+        "value": 0.044,
+        "tolerance": 0.0005
+      },
+      "ml_u_tau": {
+        "value": 0.014,
+        "tolerance": 0.0005
+      }
+    },
+    "reference": {
+      "en": "IUPAC 2024, Example 4F: μ̂ = 2.043(15) mg/kg and τ̂ = 0.044(14) mg/kg (scipy: 2.042939, 0.015442; 0.043541, 0.014239).",
+      "tr": "IUPAC 2024, Örnek 4F: μ̂ = 2,043(15) mg/kg ve τ̂ = 0,044(14) mg/kg (scipy: 2,042939, 0,015442; 0,043541, 0,014239)."
+    }
+  }
+}

@@ -123,6 +123,28 @@ const TEMPLATE_MULTIVARIATE: &str = r#"{
   "analysis": { "mcm": { "trials": 200000 } }
 }"#;
 
+const TEMPLATE_CONSENSUS: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Consensus value of an interlaboratory comparison", "tr": "Laboratuvarlar arası karşılaştırmanın uzlaşı değeri" },
+    "field": "chemistry"
+  },
+  "consensus": {
+    "measurand": "w(Ni)",
+    "unit": "mg/kg",
+    "results": [
+      { "name": "Lab A", "value": 1.930, "u": 0.110 }, { "name": "Lab B", "value": 1.984, "u": 0.020 },
+      { "name": "Lab C", "value": 2.022, "u": 0.023 }, { "name": "Lab D", "value": 2.050, "u": 0.020 },
+      { "name": "Lab E", "value": 2.077, "u": 0.035 }, { "name": "Lab F", "value": 2.150, "u": 0.030 }
+    ],
+    "linear_pool": true,
+    "bayes": {},
+    "trials": 100000
+  }
+}
+"#;
+
 const TEMPLATE_SAMPLING: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -243,7 +265,7 @@ pub extern "C" fn uc_version() -> *mut c_char {
 }
 
 /// A starting project: `kind` is `"model"` (default), `"topdown"`,
-/// `"proficiency"`, `"calibration"`, `"conformity"`, `"precision"`, `"multivariate"`, `"control_chart"`, `"sampling"` or `"error_function"`.
+/// `"proficiency"`, `"calibration"`, `"conformity"`, `"precision"`, `"multivariate"`, `"control_chart"`, `"sampling"`, `"error_function"` or `"consensus"`.
 ///
 /// # Safety
 /// `kind` must be null or a valid NUL-terminated string.
@@ -260,6 +282,7 @@ pub unsafe extern "C" fn uc_template(kind: *const c_char) -> *mut c_char {
         Ok("control_chart") => json!({ "ok": true, "project": TEMPLATE_CONTROL_CHART }),
         Ok("sampling") => json!({ "ok": true, "project": TEMPLATE_SAMPLING }),
         Ok("error_function") => json!({ "ok": true, "project": TEMPLATE_ERROR_FUNCTION }),
+        Ok("consensus") => json!({ "ok": true, "project": TEMPLATE_CONSENSUS }),
         Ok("" | "model") => json!({ "ok": true, "project": TEMPLATE_MODEL }),
         Ok(other) => error(format!("unknown template '{other}'")),
         Err(e) => error(e.clone()),
@@ -385,6 +408,7 @@ mod tests {
             "control_chart",
             "sampling",
             "error_function",
+            "consensus",
         ] {
             let k = CString::new(kind).unwrap();
             let t = call(unsafe { uc_template(k.as_ptr()) });

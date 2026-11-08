@@ -298,6 +298,11 @@ uncertainty components 0.042 and 0.146 dm² combine to 0.152 dm², but
 0.19 dm² is printed and used (u_c 0.00147 vs 0.00144 mg/dm²; reported
 result unchanged). The area formula shows d = 2.77 dm for the measured
 2.70 dm, and Table A5.4 cells C2/C3 show 10.01 and 0.27 for a_V.
+*Update 2026-11-08 (review item 6):* all of F14 is corrected in QUAM_ERRATA_v2 (Eurachem, 21 January 2019, pp.
+72–80, amended Table A5.1): u(a_V) 0.15 dm², d = 2.70 dm, Table A5.4 column E. It is a known erratum, class e,
+not a finding of this work. Likewise the first part of F10 (u(m_KHP) 0.12 mg, errata p. 46) and the extra term in
+u(V_HCl) of F12 (errata p. 55, "the rounded result of the calculation is unaffected"); their remaining parts
+(Table A2.4; Table A3.1 mixing single-run inputs with the triplicate u_c) are not in the errata.
 
 **F15. EURACHEM A6.** Table A6.5 prints U = 0.12 % m/m at 10 % fibre; it is
 1.2 % m/m (the 12 % column is right).
@@ -1409,7 +1414,8 @@ combines to 0.153 mg, not the printed 0.150 mg. The printed value would
 follow if the drift limit 0.1 mg were divided by 2 instead of √3. U is
 therefore 0.31 mg, not 0.30 mg. By the model of K.5.1, the error of
 indication is I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while K.5.10
-reports +0.10 mg.
+reports +0.10 mg. *Qualified 2026-11-08 (review item 16, which recomputed 0.153 and 0.150 mg independently):*
+the sign part holds only if W_S is taken as exactly 200.0000 g; K.5 gives no certificate value of the standard.
 
 **F57. M3003 K.3 — mismatch term (class c).** K.3.6 gives the coefficients
 for formula E5 of E.9.5 (Γ_G = Γ_L = 0.03, s11a = s11b = 0.05, s22a = 0.05,
@@ -1983,3 +1989,1418 @@ lost with the temporary working area:
 
 Licensed documents and their text extracts remain outside the repository.
 
+## 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026
+
+The author moved all papers and reference documents to a new Google Drive
+folder (92 files, `sources-provenance.md`). The previous folder is no longer
+shared. The inventory and the order of use are in `drive-inventory-2026-11.md`.
+
+**D56. Second-order term of the estimate (JCGM 100:2008/Amd.1:2026).**
+
+- Amendment 1 of the GUM adds note 1 to 4.1.4: when the nonlinearity of f is
+  significant, a Monte Carlo method can be applied, or higher-order Taylor
+  terms "must be included in the expression for y". For independent normal
+  inputs the next term is ½Σ ∂²f/∂xᵢ² u²(xᵢ). Equation (H.10) generalizes it
+  to ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ).
+- The amendment also rewrites H.1.7: the term is zero for the gauge block, so
+  only the variance terms of the 5.1.2 note matter there.
+- The program now always evaluates the term (`second_order_estimate_term`).
+  With `higher_order` it is added to y and the interval is centred on the
+  corrected estimate. Otherwise a warning `nonlinear_estimate` is given when
+  the term exceeds u_c(y)/10.
+- The threshold of a tenth of u_c is the program's choice: such a shift
+  changes the second significant digit of a result reported with u to two
+  digits.
+- The variance terms of the 5.1.2 note stay restricted to independent inputs.
+  The estimate term uses the correlations (H.10).
+
+Effect on the library:
+
+- In JCGM 101 9.4 (comparison loss δY = X₁² + X₂², higher-order terms on)
+  the GUM estimate becomes 50, 150 and 2550·10⁻⁶ for x₁ = 0, 0.010 and 0.050.
+  These are the analytic means, which MCM reproduces. Table 8 of JCGM 101:2008
+  prints 0, 100 and 2500·10⁻⁶, which 9.4.2.2.8 itself calls invalid. The
+  three projects now check the analytic estimates.
+- GUM H.1: the term is 0 (core test), as Amd.1 H.1.7 states.
+- EA-4/02 S4 and S13: the term is 0 (products of independent inputs).
+- Without higher-order terms the warning now appears for:
+  - NUM §3 ratio a/b·c (term 0.30 u_c);
+  - TN 1900 E3, the falling-ball viscometer (0.125 u_c);
+  - the correlated JCGM 101 9.4 cases (0.5 and 0.1 u_c).
+
+  Their printed results are first-order, so the expected values do not
+  change.
+
+**D57. Higher-order terms for correlated inputs.**
+
+- JCGM 100:2008 gives the variance terms of the 5.1.2 note for independent
+  inputs only. The program refused `higher_order` with correlations, and
+  GUM-5 Example 16 (16.4.1.1) does not apply GUF2 to the correlated
+  reflection coefficients for the same reason, while noting that the
+  calculation is possible [85].
+- For normal inputs with covariance matrix Σ the expansion to third order
+  gives u² = cᵀΣc + ½tr((HΣ)²) + Σ c_l f_ijk Σ_li Σ_jk (Mana & Pennecchi,
+  *Metrologia* 44 (2007) 246). For independent inputs this is the 5.1.2
+  note.
+- The program now uses it. For the comparison loss with r = 0.9 it gives
+  u = 67.27, 120.52 and 504.50·10⁻⁶. These are exactly the analytic values
+  of column A of GUM-5 Table 16.2 (67, 121, 505) and agree with MCM (67, 121,
+  504). Three new projects
+  `jcgm101-9.4-comparison-loss-x0n0-correlated-higher-order` check them.
+
+**GUM-5:2026, Examples 7 and 16** reproduce here without change:
+
+- **Example 7**, mass calibration, Table 7.2: GUF1 1.2340, 0.0539,
+  [1.1285, 1.3395] mg; GUF2 0.0750, [1.0870, 1.3810] mg; MCM 0.0755 mg; the
+  estimate term is 0.
+- **Example 16**, Table 16.1: GUF2 estimates 50/150/2550·10⁻⁶, as with D56,
+  and the GUF2 intervals [−48, 148], [−70, 370], [1566, 3534]. The program
+  gives [−48, 148], [−69, 369], [1565, 3535]; the guide rounds u to
+  112·10⁻⁶ and 502·10⁻⁶ before multiplying by 1.96.
+- GUM-5 calls the use of the first-order estimate with the 5.1.2 variance
+  terms "inconsistent working" (7.3.2). It states that the effect of
+  higher-order terms on the estimate "is not taken into account in
+  JCGM 100:2008" (16.3.1.5), which Amd.1 corrects.
+
+GUM-5 is added as a source of the JCGM 101 9.3 and 9.4 projects. The library
+has 212 projects.
+
+**GUM-5:2026, new library projects.** `tools/generators/gum5.py` writes the
+examples not yet in the library. It recomputes each printed value and asserts
+the agreement:
+
+- Example 3 (molar mass of glucose): M_r = 180.1557, u = 0.0038.
+- Example 14 (²⁰⁷Bi decay): A₁ = 10.810 kBq, u = 0.054 kBq, and Table 14.1
+  of the linearization check to ±0.0006 kBq.
+- Example 15 (wire rope): F₀ = 10 005.7 kN, u = 9.9 kN, U = 19.4 kN.
+- Example 1 (pH):
+  - two-point interpolation at 25 °C: 7.0002, u = 0.0041;
+  - fully correlated standards: u = 0.0051;
+  - temperature interpolation: two variants, see F78.
+
+Examples 6, 8 and 13 equal JCGM 101 9.2 and 9.5 and JCGM 102 9.5, which are
+in the library; GUM-5 is added as their source. The three projects
+`jcgm101-9.4-comparison-loss-x0n0-correlated` said that second-order terms
+are not available for correlated inputs; the sentence now refers to D57.
+
+**F77. GUM-5 Example 15 — Monte Carlo standard deviation (class c).**
+
+- 15.3.1 assigns to F a t-distribution with mean 10 005.7 kN, scale
+  u(F̄) = s/√6 = 0.7 kN and ν = 5. For this model the MCM standard deviation
+  is then √(u_c² − u²(F̄) + u²(F̄)·ν/(ν − 2)) = 9.93 kN. The program's MCM
+  gives 9.93 kN (10⁶ trials).
+- 15.5.2 prints 10.1 kN and the interval [9986.0, 10 025.3] kN, half-width
+  19.6 kN.
+- 10.14 kN results if the scale is the standard deviation of one test,
+  s = 1.75 kN, instead of that of the mean.
+- The conclusion (GUF valid) is unaffected. The difference 9.9 against
+  10.1 kN that 15.6.1 attributes to the shape of the PDF is, however, this
+  input inconsistency.
+
+**F78. GUM-5 Example 1 — pH values and uncertainties (class c).**
+
+- 1.9.1 obtains pH_X,T1 = 7.0002, pH_X,T2 = 7.0161 and pH_X = 7.0043 by the
+  third interpolation, which the program reproduces. It then gives
+  "pH_X = 7.0109, u(pH_X) = 0.0041"; 7.0109 does not follow from the data.
+  1.10.3.5 repeats 7.0109 for the result of the 25 °C data of 1.8, which
+  give 7.0002.
+- For the temperature case 1.7.1 assumes all inputs independent. That gives
+  u = 0.0032: the interpolation in temperature averages the independent
+  certified values at 20 and 25 °C. The printed 0.0041 results when the
+  values of each standard at the two temperatures are fully correlated
+  (0.0041). Both variants are library projects.
+- 1.10.2.2 states that with the uncertainties of the pH standards set to
+  zero u(pH_X) becomes 0.0040, and that repeating the potential measurements
+  would reduce u. The reverse holds. Without the standards' uncertainties
+  u = 0.0006, and without the potentials' uncertainties u = 0.0040. The
+  standards contribute 0.0038 and 0.0013 of the 0.0041 (1.10.3.5 lists
+  these contributions itself).
+
+
+## 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff
+
+**GUM-5:2026 Example 2 (benzo[a]pyrene, internal standard).** The budget of
+Table 2.2 reproduces: m_E = 0.014 03 ng, u² = 4.08·10⁻⁶ ng² with covariances
+and 3.14·10⁻⁶ ng² without, r(f, m_ISE) = −0.54, r(A_E, A_ISE) = −0.48 and
+ν_eff = 5.20 by G.2b. GUM-5 eq. (2.3) as printed,
+Σ_i Σ_j r_ij² c_i² c_j² u_i² u_j²/ν_i, gives 4.81. The MCM of 2.4.2 also
+reproduces (`tools/research/gum5/ex2_mcm.py`): 9.32·10⁶ of 10⁷ draws kept,
+median 0.0142 ng, shortest 95 % interval [1·10⁻⁷, 0.0321] ng against the
+printed [≈ 0, 0.032] ng.
+
+**D58. Ensembles in the Welch–Satterthwaite formula.**
+
+- A model may declare `ensembles`: groups of inputs evaluated from the same
+  data with a common finite ν. Each ensemble is one component of the G.2b
+  denominator, with variance Σ_{i,j∈E} c_i c_j u(x_i, x_j) and that ν
+  (Willink, *Metrologia* 44 (2007) 340, §4.1.1, "Result 2"; GTC 1.5.1
+  `real_ensemble` and `welch_satterthwaite`, read in the PyPI package).
+- For a single ensemble the result is exactly ν whatever the correlation, as
+  it must be: the sample covariance matrix of paired means has a Wishart
+  distribution, so cᵀSc ~ cᵀΣc·χ²_ν/ν. A core test checks this for
+  r = −0.9 … 0.95.
+- The warning that G.2b is not valid for correlated inputs is now raised per
+  pair: only for a correlation between inputs that are not both of infinite
+  ν and not in a common ensemble (GTC does the same). Before, any correlation
+  in a model with a finite ν raised it.
+- The members of an ensemble must have the same finite ν; the model is
+  rejected otherwise. The report lists each ensemble below ν_eff.
+
+**F79. GUM-5 Example 2 — ν_eff for correlated inputs (class c).**
+
+- 2.4.1.3 uses eq. (2.3), attributed to Willink (2007), and obtains
+  ν_eff,r = 4.8, k = 2.6, U = 0.0052 ng. The program reproduces 4.81 with
+  that formula.
+- A_E and A_ISE are the means of the same three paired injections (2.3.4)
+  and their covariance is estimated from the same data, so they form an
+  ensemble with ν = 2 in Willink's sense. Their joint component is
+  3.97·10⁻⁶ ng², 97 % of u². ν_eff is then 2.11, k = 4.10 and
+  U = 0.0083 ng.
+- Eq. (2.3) cannot be general for such inputs. For one ensemble of two
+  components with equal shares and r = 0.5 it gives 3.6ν, although the
+  exact value is ν. The asymmetric form, with ν_i but not ν_j, also
+  matters: with independent variance estimates and known r, the delta
+  method gives Σ_i (c_i u_i Σ_j r_ij c_j u_j)²/ν_i, which here is 3.35.
+- The printed interval [0.009, 0.019] ng is 3.2 times narrower than the
+  MCM interval. GUM-5 attributes the difference to the t-distribution with
+  ν = 1 and the truncation (2.6.2). With the ensemble ν the GUF interval
+  becomes [0.0057, 0.0223] ng. Part of the gap is the ν_eff, not only the
+  shape.
+- To check before submission: the text of Willink (2007), §§3–4. GTC is
+  the only reading here, and the paper may state eq. (2.3) for another
+  case, e.g. independent variance estimates.
+- *Coverage (2026-11-08, review item 1; `tools/research/review/f79_coverage.py`, 4 × 10⁵ simulated data sets
+  of three paired injections with the printed means, standard deviations and r).* With ν fixed at the values of
+  the printed budget, the GUF interval covers 89.3 % with ν = 4.81 (eq. 2.3) and 96.0 % with ν = 2.11 (ensemble),
+  as the reviewer found. When ν is recomputed from each data set, as a laboratory would, the coverage is 94.2 %
+  with eq. (2.3) (median ν 4.5, quartiles 2.6–6.6), 93.4 % with the ensemble rule (median 2.15) and 93.6 % with
+  G.2b; the linearised model gives the same, so the shortfall is that of the Welch–Satterthwaite approximation
+  with one dominant component of two degrees of freedom, not of the nonlinearity. The case for the ensemble
+  rule is its derivation (the block c^T S c has exactly ν = 2), not a better coverage. F79 is therefore
+  reclassified as a method difference (m, open until Willink 2007 is read), not as a class-c inconsistency.
+  The per-injection cross-check the reviewer proposed (m_E for each injection, s/√3) needs the three pairs of
+  areas, which GUM-5 does not print.
+- Wording: "a strong linear relationship was observed between the areas"
+  (2.3.4) refers to r = −0.48 from three pairs. A negative correlation
+  between analyte and internal-standard areas of the same injection is
+  unusual, since the internal standard is meant to cancel injection
+  variation. This is not an error, only noted.
+
+Library projects:
+
+- `gum5-e2-benzo-a-pyrene`: G.2b as printed, ν_eff = 5.2, k = 2.5.
+- `gum5-e2-benzo-a-pyrene-ensemble`: ν_eff = 2.11.
+- Both have no MCM, since there is no joint t-distribution for a scalar
+  model. That is a candidate extension (see status.md).
+
+The library has 221 projects.
+
+**GUM-5:2026 Example 10 (conformity of suspended particulate matter, lognormal prior).**
+
+The prior is lognormal with µ = −2.325 and σ = 0.434 for ln ρ. Its quantiles
+0.042 and 0.229 mg/m³ match Figure 10.1. T_U = 0.2 mg/m³ and the relative
+uncertainty is 7 %.
+
+**D59. Lognormal process PDF, relative uncertainty in global risks, posterior p_c.**
+
+- `process.distribution = "lognormal"` with `meanlog` and `sdlog`.
+- With `u_relative`, global risks use a measuring-system PDF h(η_m | η)
+  that is normal with standard deviation u_rel·|η|, proportional to the true
+  value. That is a PDF of η_m for every η, as JCGM 106 9.5.1 requires.
+  Before, the program refused global risks with `u_relative`. A required
+  consumer's risk (`target_consumer_risk`) still needs a fixed u.
+- `posterior: true` (conformity project with a process) computes p_c from
+  the posterior g(η | η_m) ∝ g₀(η)·h(η_m | η), with the process PDF as
+  prior and a normal likelihood of standard deviation u. That u is
+  u_rel·η_m, the value at the result (GUM-5 10.6.4.3; JCGM 106 6.2,
+  Annex A).
+- A test checks that a flat prior gives the normal p_c back.
+- The app offers the lognormal PDF and the posterior switch.
+
+**F80. GUM-5 Example 10 — joint PDF and statements on specific risks
+(modelling; class to be decided in the D12 audit).**
+
+1. **Joint PDF.** The R code of 10.6.3.1 writes the joint PDF as
+   g₀(ρ)·N(ρ̂; ρ, (0.07ρ̂)²): the standard deviation depends on the measured
+   value, not on the true value. That is not a conditional PDF of ρ̂ given
+   ρ, and its integral is 1.005, hence the constant C.
+   - This form (`tools/research/gum5/ex10_risks.py`, mode `hat`) reproduces
+     every printed global risk. A_U = T_U: 0.498 % and 0.909 % (printed
+     0.5 % and 0.9 %). A_U = 0.17: 0.0020 % and 5.78 % (0.002 %, 5.8 %).
+     A_U = 0.22: 1.69 % and 0.115 % (1.7 %, "smaller than 0.1 %").
+   - With the conditional PDF, standard deviation 0.07ρ, the risks are
+     0.579 % and 0.739 %; 0.0103 % and 5.37 %; 1.80 % and 0.055 %. The
+     library projects use these and quote the printed ones.
+   - The two forms differ by up to a factor 5 for the small consumer's risk
+     at A_U = 0.17. The statement "A_U ≤ 0.17 mg/m³ for a consumer's risk of
+     0.002 %" therefore depends on this choice.
+2. **"At least 0.22 for a producer's risk smaller than 0.1 %"** (10.6.3.4).
+   With the printed form R_P(0.22) = 0.115 %; 0.1 % needs A_U ≈ 0.223. This
+   is rounding of A_U (class a).
+3. **Specific risks.** The likelihood with u = 0.07·ρ̂ is the usual one and
+   the program reproduces it: producer's risk 11.33 % at ρ̂ = 0.225 (printed
+   "about 11 %") and consumer's risk 14.26 % at 0.190.
+   - 10.6.4 adds that the posterior is "essentially determined by the
+     likelihood", so that frequentist risks "would be very close". Near T_U
+     the normal PDF alone gives 22.6 % and 5.6 %. The limit lies in the
+     upper tail of the prior, where it falls by a factor of about 3 over
+     0.19–0.23 mg/m³.
+   - The sentence holds for the body of the distribution, not for the
+     results the figure is about.
+
+Library projects:
+
+- `gum5-e10-tspm-global-risks-shared-risk`, `-acceptance-0.17` and
+  `-acceptance-0.22`;
+- `gum5-e10-tspm-specific-risks` (posterior).
+
+The library has 225 projects.
+
+**GUM-5:2026 Example 12 (between-bottle homogeneity, Bayesian hierarchical model).**
+Table 12.2 reproduces: SS 2.92·10⁻⁶ and 1.96·10⁻⁵, MS 3.25·10⁻⁷ and
+4.90·10⁻⁷ (cmol/mol)². MS_between < MS_within.
+
+**D60. Homogeneity without σ_pt; u*_bb; Bayesian between-unit standard deviation.**
+
+- The homogeneity section no longer needs σ_pt. Without it the ISO 13528
+  criteria are not evaluated, as for a reference material study.
+- MS_between, MS_within and u*_bb = √(MS_within/m)·(2/ν_within)^¼
+  (Linsinger et al. 2001; ISO Guide 35) are always given. Here
+  u*_bb = 1.481·10⁻⁴ cmol/mol (0.035 %).
+- `homogeneity.bayes` evaluates the model of GUM-5 (12.1)–(12.4), with
+  half-Cauchy priors for τ and σ and a normal prior for µ. B_i and µ are
+  integrated analytically: the group means are N(µ, τ² + σ²/m), the
+  within-group sum of squares is σ²χ²_{g(m−1)}, and µ is normal-conjugate.
+  The posterior of (τ, σ) is then tabulated on a 3001 × 1001 grid, with
+  quadratic spacing in τ and logarithmic spacing in σ, so no MCMC is needed.
+- Comparison with Stan (12.4.5):
+
+  | | program | Stan |
+  |---|---|---|
+  | τ mean | 1.356·10⁻⁴ | 0.00014 |
+  | τ s.d. | 1.07·10⁻⁴ | 0.00011 |
+  | τ 2.5 % | 5.2·10⁻⁶ | 0.00001 |
+  | τ 97.5 % | 3.97·10⁻⁴ | 0.00040 |
+  | σ mean | 6.885·10⁻⁴ | 0.00069 |
+  | σ s.d. | 7.2·10⁻⁵ | 0.00007 |
+  | σ 95 % interval | [5.64, 8.46]·10⁻⁴ | [0.00056, 0.00085] |
+  | µ | 0.425144 | 0.42514 |
+
+- Table 12.3 HPD: τ/µ [0, 0.0008], σ/µ [0.0013, 0.0020]. The median of τ is
+  1.13 µmol/mol (printed 1.1). An independent numpy grid gives the same
+  values (`tools/research/gum5/ex12_posterior.py`).
+
+**F81. GUM-5 Example 12 — mode of τ and likelihood (12.5) (classes c and b).**
+
+1. **Mode of τ (class c).** 12.4.8 prints "the mode of the posterior of τ
+   is 0.3 µmol mol⁻¹". The marginal posterior density of τ is largest at
+   τ = 0. MS_between < MS_within, so the likelihood decreases in τ, and the
+   half-Cauchy prior is largest at 0. The function `getmode` of 12.5.2
+   returns the most frequent exact value of the draws. For continuous MCMC
+   output all draws are distinct, so it returns the first draw, and
+   0.3 µmol/mol is an arbitrary draw. 12.5.2's remark that "even using τ = 0
+   could be justified" agrees with mode 0. Mean and median are not affected.
+2. **Likelihood (class b).** (12.5) writes y_ij | µ, τ, σ ~ N(µ, τ² + σ²),
+   as if the 50 values were independent. The replicates of a bottle share
+   B_i and are correlated: Cov(y_ij, y_ik) = τ². The Stan code (12.4.2) is
+   hierarchical and correct, so the results are not affected.
+3. **Note for the article.** The Bayesian mean τ = 1.36 µmol/mol is close to
+   the classical u*_bb = 1.48 µmol/mol, which GUM-5 does not mention. Where
+   "the classical analysis does not provide a solution" (12.1.3), the
+   standard RM practice does give one.
+
+Library project: `gum5-e12-between-bottle-homogeneity-bayes`. The library
+has 226 projects.
+
+**GUM-5:2026 Example 4 (gravimetric CO₂ in N₂ mixture, ISO 6142-1, multivariate LPU).**
+
+- The library project `gum5-e4-gravimetric-gas-mixture` is a `multivariate`
+  model with 25 inputs: 3 weighings, 5 atomic weights and 12 impurity
+  fractions. Its 15 intermediates are the molar masses, the major
+  components 1 − Σ impurities, MP₁, MP₂, m₁, m₂ and n_tot, and its outputs
+  are the 8 amount fractions.
+- The correlations of 4.3.1 (masses through r₁, molar masses through
+  shared elements, mass balance of the parent gases) follow from the
+  shared inputs and are not entered.
+- The correlation matrix of the molar masses (4.3.4.6) reproduces exactly
+  (0.825, 0.707, 0.960, …).
+- A numpy check with central differences agrees
+  (`tools/research/gum5/ex4_composition.py`).
+
+**F82. GUM-5 Example 4 — Tables 4.2 and 4.6 (classes c and b).**
+
+1. **Table 4.2 does not follow from Table 4.1.**
+   - The averages of the seven differences are −152.0247, 93.4951 and
+     717.2743 g; printed r̂ are −152.0243, 93.4951 and 717.2740 g.
+   - The standard deviations of the means are 0.18, 0.40 and 0.42 mg;
+     printed u_rpt are 0.4, 0.7 and 0.6 mg, which are not s either (0.49,
+     1.07, 1.11 mg).
+   - u(r̂) = √(u_rpt² + u_res²) is consistent within Table 4.2. Perhaps
+     Table 4.1 is a rounded excerpt of other data.
+   - Effect: with Table 4.1, m₁ is 0.5 mg larger. Table 4.2 is used, as in
+     the guide.
+2. **u(y_CO₂) (class c).** Recomputed 3.96 µmol/mol, which rounds to 4;
+   printed 5 µmol/mol and u_rel 0.003 % (recomputed 0.0020 %).
+   - The budget is dominated by the atomic weights of N (2.81), C (2.10) and
+     O (1.56), then r₁ (0.73) and O₂ in the CO₂ gas (0.41).
+   - u(y_N₂) = 4.72, printed 5, agrees with rounding.
+   - Treating the major components as independent inputs does not change
+     u(y_CO₂), because y is invariant to the normalization.
+3. **y_H₂O (class b).** 0.2003 × 1.9 + 0.7996 × 0.010 = 0.389 µmol/mol;
+   printed 0.379. u = 0.021 agrees, and u_rel 5 % holds for both values.
+   This is likely a transcription slip.
+4. **Correlations.** r(CO₂, N₂) is −0.854 (printed −0.86) and r(Ar, N₂)
+   −0.552 (printed −0.50); also r(Ar, CO₂) 0.051 (0.04) and r(CO₂, O₂)
+   −0.103 (−0.08).
+   - The larger printed u(y_CO₂) cannot explain these; the source of the
+     differences is not found.
+   - The other five components, all estimates except H₂O, and the
+     molar-mass correlations agree.
+
+The library has 227 projects.
+
+**GUM-5:2026 Example 9 (torque sensor, OLS, WLS and Bayesian slope).**
+
+- Table 9.3 reproduces: OLS 1.01065 ± 0.00152 with ν_eff = 2.72 and
+  [1.0055, 1.0158]; WLS 1.00849 ± 0.00077 and [1.0069, 1.0101].
+- The Bayesian posterior (9.17) was evaluated by quadrature:
+  - NI-Bayes 1.00921 ± 0.00106, [1.00701, 1.01121];
+  - Inf-Bayes 1.00909 ± 0.00087, [1.00731, 1.01076].
+  - Script: `tools/research/gum5/ex9_bayes.py`.
+- Both estimators are linear in the means Y_i, so the library projects
+  `gum5-e9-torque-slope-ols` and `-wls` are ordinary model projects.
+  Their coefficients are written into the expression, with ν_i = n_i − 1
+  on the inputs.
+- The Bayesian slope (a product of scaled t-densities and a normal prior)
+  is not a program feature. It is a candidate for a "calibration with
+  unknown per-level variances" option.
+
+**F83. GUM-5 Example 9 — ν_eff of WLS (class a).** 9.5.1.4 gives
+ν_eff = 14 for WLS. G.2b gives 13.31 with the unrounded u(y_i), and 13.17
+with those of Table 9.2. The interval at four decimals is the same.
+
+The library has 229 projects.
+
+**GUM-5:2026 Example 5 (GHG inventory, mobile machinery in agriculture).**
+
+- The relative expanded uncertainties (95 %) of Table 5.1 are converted with
+  k = 1.96. That reproduces Table 5.3 to four decimals (833.1844, 2.0329,
+  57.3860, 1.2198, 0.0334, 0.0074 kt) and u = 835.16 kt.
+- With shared activity data the increase of u² by (5.9) is 0.0345 kt², so
+  u_cor = 835.161 71 against 835.161 69 kt.
+- Library projects: `gum5-e5-ghg-inventory-agriculture` and
+  `-shared-activity` (A₂ = A₃, A₅ = A₆ as one input). Both include an MCM
+  check.
+
+**F84. GUM-5 Example 5 — estimate, notation and data (classes a and b).**
+
+1. **Estimate (class a).** Table 5.2 sums rounded contributions to
+   4282.0409 kt. From Table 5.1 the model gives 4282.144 kt, because
+   F₁ = 2.0438·10⁻² is rounded: E₁ = 1150.9806 kt corresponds to
+   F₁ = 2.043 75·10⁻². u is unaffected at the printed digits.
+2. **Notation (class b).** 5.4.14 defines "u_rel(A) = u_F/A"; it should be
+   u_A/A.
+3. **Data (noted, not an error).**
+   - Table 5.1 also gives A₁ the same value as A₂ and A₃ (56 317.0920 TJ of
+     gas oil), but with U_rel = 38.6 % instead of 1.6 %.
+   - If the three lines share one activity, the CO₂ line carries an extra
+     uncertainty that is not the activity's. The guide discusses only
+     A₂ = A₃.
+   - 5.4.5 quotes the inventory's U = 1635 kt; 1.96 × 835.16 = 1637 kt.
+
+The library has 231 projects.
+
+**GUM-5:2026 Example 11 (tumour section area from boundary pixels).**
+
+- **Data.** The pixel coordinates are not tabulated in the guide. The 38
+  boundary pixels were read from the grey cells of Figure 11.1 (left),
+  rendered at 200 dpi. They match the text: 38 boundary pixels and 47
+  interior pixels give the extreme areas 47 and 85 of 11.5.1, and the
+  crude u = (85 − 47)/√12 = 10.97 ≈ 11.
+- **Areas.** The parametric Fourier series fitted with t = cumulative chord
+  length, normalized with the closing chord included, reproduce the areas
+  of Table 11.1 to ±0.1 for n = 1–8: 65.12, 63.99, 64.15, 65.72, 65.72,
+  65.27, 65.23, 65.38. Normalizing by t_m as written in 11.3.8 maps the
+  last and the first point to the same t and is slightly worse.
+- **MCM (10⁵ trials).** The 11.5.4 Monte Carlo for n = 6 gives 65.45 ± 1.55
+  (printed 65.4 ± 1.6).
+- Script: `tools/research/gum5/ex11_fourier_area.py`. No library project:
+  the model is a least-squares fit inside the Monte Carlo loop, which the
+  project format cannot express.
+
+**F85. GUM-5 Example 11 — results, information criteria and text
+(classes c and b; the numerical points rest on data read from the figure).**
+
+1. **Reported result (class c).** 11.6.1 reports â = 65.0, u = 1.6 for the
+   degree-6 MCM. 11.5.5 gives 65.4, and the recomputation gives 65.45.
+2. **Neighbouring degrees (11.6.2).** Printed: n = 5 gives 65.3 ± 1.5 and
+   n = 7 gives 65.0 ± 1.5. Recomputed: 65.93 ± 1.51 and 65.40 ± 1.57.
+   - The MCM means lie 0.17–0.21 above the point estimates of Table 11.1
+     for every degree.
+   - A mean of 65.3 for n = 5 (point estimate 65.7) would be a shift of the
+     opposite sign.
+3. **Information criteria (class c).**
+   - The printed AIC column equals exactly half of AIC = χ² + 2(4n + 2)
+     when χ² is taken from the printed RMSR by (11.5), χ² = RMSR²(2m − 4n −
+     2): 38.3, 23.1, 25.2, 23.4, 27.0, 29.8, 33.7, 37.2 against 38, 23, 25,
+     23, 27, 30, 33, 37. The printed RMSR are about √2 times
+     √(Σres²/(2m − 4n − 2)), i.e. they use half the degrees of freedom.
+   - The printed BIC and AICc follow from neither form.
+   - With the formulas as stated and the figure data, AIC is minimal at
+     n = 6 and AICc and BIC at n = 4, not n = 2.
+   - 11.4.4 ("curiously, the three information criteria all exhibit minimum
+     values for n = 2") and the conclusion of 11.7.3 that RMSR saturation
+     is better than the information criteria therefore rest on the
+     computation, not on the data. Even with the printed numbers, AIC at
+     n = 2 and n = 4 differs by 0.3.
+   - To confirm with the original coordinates (compendium EMUE [1]).
+4. **Text (class b).**
+   - 11.3.2 gives 224 and 1840 pixels; the caption of Figure 11.1 gives 85
+     and 585.
+   - 11.3.8 takes the 38 midpoints from "figure 11.1 (right panel)",
+     whereas 11.4.1 uses the left panel.
+   - 11.6.1 refers to "figure 11.1 (centre)"; there is no centre panel.
+   - 11.7.4 calls the 113 fine pixels "of dimension 0.35 × 0.35" while
+     "taking each pixel as unit size".
+
+All 16 GUM-5 examples have now been worked through: 13 as library
+projects, Example 11 by script.
+
+## 2026-11-07 (session 21, continued) — JCGM-WG1 News, December 2025: proposed definitions
+
+The WG1–WG2 joint meetings discussed definitions for the next VIM:
+measurement uncertainty, standard uncertainty, coverage interval, coverage
+probability, expanded uncertainty, coverage factor, and relative standard
+and relative expanded uncertainty. The July 2025 webinar had about 900
+attendees; two thirds of 450 respondents were in favour.
+
+- **Measurement uncertainty.** "Doubt about the value of the measurand that
+  remains after making a measurement." The Possolo (2025) text said "true
+  value". Note 1 now says "can be described" by a probability distribution.
+- **Expanded uncertainty.** "Half width of a coverage interval symmetric
+  about the measured value". VIM 2.35 defines it as k·u; k·u becomes a way
+  to obtain it.
+
+**D61. Monte Carlo: half-width of the interval symmetric about the
+estimate.**
+
+- `McmResult.expanded_about_estimate` is the q-th smallest |y_r − ỹ|, with
+  q as for the coverage intervals, so that Pr(|Y − ỹ| ≤ U) = p. It is
+  reported, with U/u, next to the probabilistically symmetric and the
+  shortest interval, and is also given in JSON and in the app.
+- Tests:
+  - symmetric output: equals the half-width of the probabilistically
+    symmetric interval (17.0 for JCGM 101 9.2.4);
+  - Y = X², X ~ N(1, 0.5²): U = 2.0712 against the exact value by
+    quadrature, and differs from the half-width of the probabilistically
+    symmetric interval.
+- For a skewed output the three intervals differ, and under the proposed
+  definition only the new one is "the" expanded uncertainty. Worth a
+  sentence in the article. GUM-5 Examples 2 and 10 report U = k·u next to
+  asymmetric MCM intervals.
+- Glossary (EN/TR) extended with the table of proposed definitions and
+  their Turkish wording.
+
+## 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021)
+
+**D62. Lognormal PDF for the measurand in conformity assessment.**
+
+- `conformity.distribution = "lognormal"`: median equal to the measured
+  value, s_G = u/|y| (Equation 2 of Annex A, Case 4), or
+  s_G = √ln(1 + (u/y)²) with `exact_sdlog`.
+- It is allowed in conformity projects of their own and in model projects,
+  but not together with `dof` or `posterior`. The report states the PDF.
+- A core test reproduces Annex A Table 1, with lognormal limits 61/164 and
+  44/227 for u_rel = 0.3 and 0.5, and the Example B3 limit of 3.557 ng/g.
+
+Library (`tools/generators/eurachem_compliance.py`, 5 projects):
+
+- B1, nickel in steel: acceptance zone 16.164–17.836 % Ni; the batch at
+  16.1 % is non-compliant, p_c = 84.1 %.
+- B2, upper limit with the t-distribution, ν = 8: acceptance limit 204.09
+  ng/g; the batch at 203.7 ng/g is compliant, exceedance probability
+  93.4 %.
+- B3, banned substance, u_rel = 35 %, in three variants:
+  - lognormal, 3.557 ng/g;
+  - lognormal with the exact s_G, 3.498 ng/g;
+  - normal with u = u_rel·L = 0.7 ng/g, 3.151 ng/g.
+  - The sample at 3.3 ng/g is compliant only under the lognormal PDF.
+
+**F86. Eurachem/CITAC compliance guide 2021 — rounding and the normal
+limits for a relative uncertainty (classes a, b and noted).**
+
+1. **Rounding (class a).**
+   - Example B1 gives the guard band as "1.64u ≈ 0.17 %"; 0.164 rounds to
+     0.16.
+   - Example B3 rounds 3.55 up to 3.6 and 3.148 up to 3.2; 3.148 rounds to
+     3.1.
+   - Table 1 uses k = 1.64: with k = 1.6449 the lognormal limit for
+     u_rel = 0.5 is 227.6, i.e. 228, not 227.
+   - The rounded B1 zone (16.2–17.8) holds 97.7 %, not 95 %.
+   - No decision changes.
+2. **Wording (class b).** The table of Example B2 states that the
+   distribution "is assumed to be Normal", but the guard band uses the
+   t-distribution with ν = 8.
+3. **Normal limits for a relative uncertainty (noted, for the article).**
+   - Table 1 and Example B3 give the normal acceptance limits as
+     L(1 ± k·u_rel), with u taken at the limit (u = u_rel·L), whereas the
+     lognormal limits L·exp(±k·s_G) apply the relative uncertainty at the
+     measured value.
+   - If u = u_rel·y at the measured value, a normal PDF needs
+     L/(1 ∓ k·u_rel): 4.71 ng/g in B3. At 3.151 ng/g, u = 1.10 ng/g and the
+     probability above 2 ng/g is 85 %, not 95 %.
+   - The comparison "normal against lognormal" in Table 1 and Figure 5 thus
+     mixes two uncertainty models. Part of the difference the guide
+     attributes to the shape of the distribution comes from where u is
+     evaluated.
+   - The program applies `u_relative` at the measured value (JCGM 106 8.3.3,
+     speed-limit example); the library's normal B3 variant enters
+     u = 0.7 ng/g to reproduce the guide.
+
+The library has 236 projects.
+
+**F85, addendum — source data and the cause of the "curious" n = 2
+(EMUE compendium 2021, Example E5.1).**
+
+- **Data confirmed.** EMUE E5.1.5 lists the boundary pixels as (4, 2),
+  (5, 2), (6, 2), (7, 2), (7, 3), (8, 3), (8, 4), …, (3, 3), (4, 3), with
+  the origin at the centre of the bottom-left pixel. The 38 pixels read
+  from GUM-5 Figure 11.1, shifted by (−1, −1) and traversed
+  counter-clockwise from (4, 2), give exactly that sequence.
+- **Areas.** Recomputed for n = 1–8: 65.12, 63.99, 64.15, 65.72, 65.72,
+  65.27, 65.23, 65.38. EMUE Table E5.1.1 gives 65.11, 63.88, 64.21, 65.73,
+  65.67, 65.25, 65.21, 65.38.
+- **MCM.** EMUE gives 65.5 ± 1.6; the recomputation 65.45 ± 1.55. GUM-5
+  11.5.5 gives 65.4 and 11.6.1 gives 65.0.
+- **EMUE computes everything per coordinate and unweighted.**
+  RMSR = √(S/(m − k)) and AIC = S + 2k, with S the residual sum of squares
+  in pixel² units, m = 38 and k = 2n + 1. Recomputed per-coordinate values
+  agree, e.g. n = 6: RMSR 0.26/0.27 (EMUE 0.26/0.29) and AIC 28/28 (EMUE
+  28/28). The per-coordinate AIC minimum is at n = 2, as in EMUE.
+- **GUM-5 merged the two coordinates inconsistently.**
+  - Its RMSR is √(RMSR_x² + RMSR_y²): 0.96 = √(0.64² + 0.72²), 0.39 =
+    √(0.26² + 0.29²).
+  - Its AIC is S_x + S_y + 2(2n + 1): 38.5 for n = 1, 29.8 for n = 6. That
+    is the total misfit with the parameter penalty of one coordinate.
+  - Neither matches its own text (χ² weighted by 1/u₀², 2m data, 4n + 2
+    parameters).
+  - EMUE also gives the extreme areas as 48 and 86 (mean 67, u = 11.0);
+    GUM-5 gives 47 and 85 (mean 66). The figure has 47 interior pixels.
+- **Cause of n = 2.**
+  - An information criterion needs −2 ln L. For a known standard deviation
+    u₀ that is χ² = S/u₀² = 12 S. Using the unweighted S understates the
+    misfit term by a factor of 12, so the parameter penalty dominates.
+  - With χ² the criteria select n = 6 (AIC) and n = 4 (AICc, BIC). n = 6 is
+    the RMSR choice of both documents.
+  - The conclusion of GUM-5 11.7.3 and EMUE that RMSR saturation is better
+    than the information criteria for small data sets is therefore not
+    supported: the criteria were misapplied.
+  - Class c for the article; it applies to both documents. The RMSR values
+    of 0.26–0.29 at n = 6 are consistent with u₀ = 0.29, as EMUE notes.
+
+## 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1
+
+**EMUE E3.4 (aqua regia extractable metals in soil, ISO 21748 budget).**
+
+- Tables E3.4.1 and E3.4.2 follow from their formulas to the printed
+  rounding:
+  - s_I = √(s_w² + s_b²);
+  - s_δ̂ = √((s_I² − (1 − 1/n)s_r²)/p) with p = 11 and n = 2;
+  - u(δ̂) = √(s_δ̂² + u_ref²).
+  - Median RSD 3.2 % and root-mean-square RSD 3.6 % (zinc in C279a
+    excluded); u′(Pb)² = 0.002 526 (E3.4.18).
+  - Script: `tools/research/emue/e34_soil_tables.py`.
+- Library: `emue-e3.4-soil-lead-iso21748`, a product model of relative
+  terms that gives U = 2.79 mg/kg as printed, and the `-rms-bias` variant.
+
+**F87. EMUE E3.4 — summary of the bias uncertainty (class c, small).**
+
+- The text gives "the root mean square relative standard uncertainty, 3.3 %;
+  for comparison the median and mean are 2.9 % and 3.3 %".
+  - The root mean square of the u(δ̂)/x_ref column of Table E3.4.2 is
+    3.50 %; 3.3 % is the mean.
+  - With 3.5 %, u′(Pb) = 0.0516 and the reported (27.8 ± 2.8) mg/kg becomes
+    (27.8 ± 2.9) mg/kg.
+- The reported result 27.8 mg/kg for Pb in C279a is not the mean of Table
+  E3.4.1 (27.29 mg/kg); it may be a single result, which the text does not
+  say.
+- The time coefficient 9·10⁻⁴ min⁻¹ is called "reasonably conservative",
+  but it is below the largest unsigned value of Table E3.4.3
+  (1.6·10⁻³ min⁻¹, Cu in C282a). The temperature coefficient 0.004 °C⁻¹
+  does cover its maximum (0.0041).
+
+**D63. Multicomponent conformity: total risks (EMUE E2.1).**
+
+- New core module `multiconformity`:
+  - `mvn_box_probability`: the Genz (1992) separation-of-variables
+    integral of a multivariate normal over a box, with antithetic uniform
+    draws and a standard error. A test checks it against an exact product
+    for independent components.
+  - `Multicomponent::specific`: normal posterior (E2.1.1)–(E2.1.2) and the
+    total specific consumer's or producer's risk.
+  - `Multicomponent::global`: total global risks by Monte Carlo, with u_i
+    proportional to the true value.
+- New project section `multicomponent_conformity` with report (EN/TR), JSON,
+  checks and an app results view.
+- EMUE E2.1 reproduces exactly. By scipy and numpy:
+  R*_tot = 0.002 881, 0.011 716 and 0.000 212 (printed 0.0029, 0.0117,
+  0.0002), R_tot = 0.001 82 (printed 0.0018).
+- The program gives 0.288 %, 1.17 %, 0.0213 % and 0.180 %.
+- Library: `emue-e2.1-multicomponent-medication`. Script:
+  `tools/research/emue/e21_total_risks.py`.
+- Relevance: pharmaceutical release testing and reference materials
+  certified for several properties. Correlated production can make the
+  total risk several times the largest single-component risk.
+
+The library has 239 projects.
+
+**EMUE E2.2 (vacuum gauge, sum, quotient and combined models; three
+scenarios; correlation).** Tables E2.2.2–E2.2.7 reproduce point by point
+(`tools/research/emue/e22_vacuum_tables.py`). The conformance probabilities
+of the 30 tabulated points agree to 0.1 % except two rounding cases: scenario
+1 point 9, 87.4 against 87.3, and scenario 2 point 12, 98.2 against 98.3.
+E2.2.7 reproduces: u(p_std) = 0.894 Pa, u(p_UUC) = 0.500 Pa (printed 0.51),
+u(Δp) = 1.140 and 0.909 Pa, p_c = 0.669 and 0.745. The library has five
+projects:
+
+- `emue-e2.2-vacuum-gauge-correction-applied`,
+  `-correction-in-uncertainty` and `-correction-ignored`: point 8, with
+  p_c = 74.5, 77.8 and 83.8 %.
+- `emue-e2.2-vacuum-gauge-sum-model-correlated` and
+  `-correlation-ignored`: the common temperature error ΔT is entered once
+  in the first and as two independent inputs in the second.
+
+**F88. EMUE E2.2 — table slips and the worked example (class b).**
+
+1. **U(e) in Table E2.2.2.** Points 4–6 are printed as 0.0025, 0.0017 and
+   0.0011, a factor of ten too small; the values are 0.0254, 0.0170 and
+   0.0117. U(f) of point 6 is 0.0117, printed 0.011.
+2. **Column headings.** Tables E2.2.3, E2.2.5 and E2.2.7 head a column
+   "p_UUC/Pa" that holds the p_std values (161.30, 256.40, …).
+3. **Worked example of E2.2.6.1.** It takes "σ = u(f) = 0.002" for point
+   13, the expanded U(f) of the table. It obtains p_c = 97.6 %, whereas the
+   table, with u(f) = 0.001, gives 100.0 %. The example says "say", so it
+   is illustrative, but the label u(f) is wrong.
+4. **For the article.** At point 8 the poor practices give higher
+   conformance probabilities: 77.8 % when the correction is folded into the
+   uncertainty, 83.8 % when it is ignored, against 74.5 % with the
+   correction applied. This illustrates why folding a known bias into the
+   uncertainty (cf. Magnusson & Ellison 2008, our `uncorrected_bias`) is
+   not conservative for decisions.
+
+The library has 244 projects.
+
+**F78, addendum — the source is EMUE E1.1 (compendium 2021).**
+
+- EMUE E1.1.5.4 gives the same results: "pH_X = 7.0109 and
+  u(pH_X) = 0.0041".
+- Its own intermediate values give a different result. The temperature
+  interpolations pH_X1 = 6.8681 (S1) and pH_X2 = 7.4200 (S2) at 23.7 °C,
+  followed by interpolation in potential at E_X = −1.875 mV between
+  (6.15 mV, 6.8681) and (−26.35 mV, 7.4200), give
+  6.8681 + (8.025/32.5) × 0.5519 = 7.0044.
+- The text describes the first two steps as interpolations between
+  potentials ("(E_S1, pH^T1_S1) ≡ (6.15 mV, 6.8640) and
+  (E_S2, pH^T1_S1) ≡ (−26.35 mV, 7.4157)"). The numbers 6.8681 and 7.4200
+  are, however, interpolations in temperature of each standard; GUM-5 1.9
+  corrected the wording.
+- EMUE E1.1.7.1 contains the same reversed statement: with the standards'
+  uncertainties set to zero u becomes 0.0040, "implying that the further
+  repeated observations of the three potentials would do much to reduce
+  u(pH_X)".
+- The value 0.0041 for independent inputs and the fully correlated 0.0051
+  (E1.1.7.2) also come from EMUE.
+- GUM-5 Example 1 therefore inherited the inconsistencies of F78 from its
+  source; the article should cite both documents.
+
+**EMUE E3.8 (NH₃ in N₂ by permeation, ISO 6145-10).**
+
+- y(NH₃) = 70.796 µmol/mol with u = 0.598 µmol/mol reproduces Table E3.8.5
+  (7.08·10⁻⁵, 5.99·10⁻⁷), using the OLS u(ṁ) = 0.108 µg/min.
+- With the errors-in-variables u = 0.088 µg/min it would be 0.50 µmol/mol;
+  the guide argues that OLS is adequate but its OLS u is the larger one.
+- Library project: `emue-e3.8-ammonia-permeation`, a model with
+  intermediates for the molar masses of both parent gases. Script:
+  `tools/research/emue/e38_permeation.py`.
+
+**F89. EMUE E3.8 — Arrhenius parameters and notation (classes c and b; no
+effect on the result).**
+
+1. **Arrhenius parameters.** From the two rates stated in E3.8.5.2,
+   7.4921 µg/min at 52.45 °C and 13.599 µg/min at 62.00 °C,
+   E_A = R ln(ṁ₂/ṁ₁)/(1/T₁ − 1/T₂) = 56.64 kJ/mol and
+   k₀ = ṁ₁ exp(E_A/RT₁) = 9.1·10⁹ µg/min.
+   - The guide prints 59.164 kJ/mol and k₀ = 43.069 µg/min; k₀ below the
+     rates is impossible for ṁ = k₀ exp(−E_A/RT).
+   - The sensitivity coefficient at 62 °C is ṁE_A/(RT²) = 0.82 µg min⁻¹
+     K⁻¹; the guide prints 4.81·10⁻⁷ µg min⁻¹ K⁻¹.
+   - The stated contribution of 0.0022 µg/min matches 0.82 with
+     u(T) = 0.0027 K, so the printed coefficient and k₀ are slips.
+   - The contribution is negligible against u(ṁ) = 0.108 µg/min.
+2. **Notation (class b).** "M̄₁ = 17.040 63 g mol⁻¹ for ammonia and
+   M̄₁ = 28.013 77 g mol⁻¹ for nitrogen": the second is M̄₂.
+
+The library has 245 projects.
+
+**EMUE E3.3 (NO₂ analyser calibrated with mixtures from dynamic dilution).**
+
+- The amount fractions 708.1, 974.1 and 1290.1 nmol/mol reproduce from
+  x₁q₁/(q₁ + q₂). The flows of Table E3.3.2 follow from the MFC curves to
+  0.03 % (curve parameters rounded).
+- The program's ISO 6143 calibration with covariances of the contents gives
+  V_AB = (285.247, −1.30008, 0.0063648), exactly the printed (E3.3.18),
+  with A = 89.208 and B = 4.18480. The validation sample gives
+  981.95 ± 4.519 nmol/mol, and 4.350 without covariances.
+- Library projects: `emue-e3.3-no2-analyser-dynamic-dilution` and
+  `-covariances-ignored`. Scripts: `tools/research/emue/e33_dilution.py`
+  and `e33_wtls.py`.
+
+**F90. EMUE E3.3 — covariance matrix of the reference values and the
+validation uncertainty (class c).**
+
+1. **Diagonal of (E3.3.17).** The covariance matrix is computed "according
+   to (E3.3.14) and (E3.3.16)" from u(x₁) = 16 nmol/mol and the flow
+   uncertainties of Tables E3.3.2–E3.3.3.
+   - Those inputs give the diagonal 1.34, 2.53 and 4.48 nmol²/mol², i.e.
+     u = 1.16, 1.59, 2.12 nmol/mol.
+   - The printed diagonal is 39.5, 37.0 and 41.2, i.e. u = 6.3, 6.1 and
+     6.4 (Table E3.3.4).
+   - The off-diagonal terms do follow: 1.76, 2.32 and 3.19 against 1.7,
+     2.2 and 3.0.
+   - A contribution of about 38 nmol²/mol² per mixture is therefore
+     included but not described, and it is uncorrelated between the
+     mixtures. Its source (e.g. the impurity of the diluent, which the text
+     takes as zero) cannot be identified from the example.
+2. **Validation uncertainty.** Eq. (E3.3.19) with the printed A = 88.94,
+   B = 4.19, V_AB, w = 213.33 and u(w) = 0.11 gives y = 982.8 and
+   u = 4.47 nmol/mol; printed 982.0 and 4.7.
+   - With unrounded parameters u = 4.52 (both the program and a full WTLS).
+   - Without covariances u = 4.35, so the covariances raise u by 3.9 %;
+     printed "up to 3.4 %" with 4.5 against 4.7.
+3. **Two procedures mixed (noted).** A full WTLS with the covariances in the
+   weights reproduces the printed A = 88.94 but gives V_AB = (288.5,
+   −1.318, 0.00646). The printed V_AB equals the ISO 6143 estimate with
+   diagonal weights and propagated covariances, whose A is 89.21. The
+   printed A and V_AB appear to come from different procedures. The
+   difference in A (0.27 nmol/mol) is far below u(A) = 16.9.
+
+The library has 247 projects.
+
+**EMUE E6.5 (ephedrine in urine, WADA).**
+
+- Library projects:
+  - `emue-e6.5-ephedrine-wada-topdown` (Nordtest one-CRM bias):
+    u_prec = 2.425 %, u_bias = 3.036 %, u_c = 3.89 %.
+  - `emue-e6.5-ephedrine-wada-decision-limit` (guarded rejection, p = 0.95,
+    u = 0.5 µg/mL): DL = 10.822 µg/mL, which WADA sets at 11; all three
+    EQAS means are rejected.
+- Steps 8–9 of Table E6.5.2 reproduce: |Δ| = 0.47, 0.63, 0.37 and
+  U(Δ) = 2√(u²(x) + u²(X)) with u(X) = 1.25 s*/√p = 0.93, 0.92, 0.89.
+
+**F91. EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b).**
+
+1. **u_c (class a).** Table E6.5.1 gives u_c = 3.8 % from the rounded
+   2.4 % and 3.0 %; unrounded √(2.425² + 3.036²) = 3.89 %. The table then
+   uses u_c(x) = 0.038x. The conclusion u_c < u_c,max is unaffected.
+2. **Table E6.5.2 (class b).**
+   - The mean of round 2, (11.5, 11.9, 11.6), is printed 11.6; it is
+     11.67.
+   - The standard deviation of round 3, (11.5, 11.4, 11.5), is printed
+     0.45 µg/mL; it is 0.058 µg/mL, 0.50 %, whereas the relative value
+     printed is 0.4 %.
+3. **z-scores (class c).** The printed 0.27, 0.71 and 0.47 follow from none
+   of the stated scales.
+   - With σ = u_c,max = 0.5 µg/mL ("the target standard uncertainty as the
+     standard deviation for performance rating") they are −0.93, −1.27 and
+     0.73.
+   - With the robust s_R they are −0.88, −1.19 and 1.05.
+   - All |z| < 2, so the conclusion "satisfactory" holds.
+4. **For the article.** u_bias includes Δ² (the 3 % bias against the CRM is
+   not corrected but entered as an uncertainty, Nordtest style). It
+   dominates u_c, the same practice that E2.2 (scenario 2) calls poor when
+   a known correction exists.
+
+The library has 249 projects.
+
+## 2026-11-07 (session 21, continued) — IUPAC brief guide 2024 (Possolo et al., PAC 96, 113)
+
+**Text extraction.** The PDF encodes every glyph separately, so pdftotext
+returns "T h e" for "The". `tools/research/joinwords.py` rejoins the
+fragments from `pdftotext -bbox` by their horizontal gaps.
+
+**Library (`tools/generators/iupac2024.py`, 4 projects).**
+
+- `iupac2024-4a-water-hardness`: H = 96.65 mg/L, u = 3.18 mg/L (printed
+  ≈ 3).
+- `iupac2024-4b-silicon-isotopic-abundances` (multivariate): x₂₈, x₂₉, x₃₀
+  as printed, 0.923 3873(36), 0.046 2300(22) and 0.030 3827(30), with their
+  correlations. The MCM is off because the program refuses the coverage
+  region of a singular output covariance (abundances summing to 1). A
+  candidate extension is to report the MCM covariance without the region.
+- `iupac2024-4i-argentometric-titration`: c = 10.000 mmol/L,
+  u = 0.0255 mmol/L (0.26 %); GUM and MCM.
+- `iupac2024-3a-argentometric-titration-ksp`: an implicit model with the
+  solubility products, c = 9.9760 mmol/L.
+
+Not in the library:
+
+- 4H (QUAM A1 cadmium) needs a beta distribution, which the program does
+  not have; QUAM A1 itself is in the library.
+- 4F, 4M–4P (maximum likelihood, Bayes, MCMC, consensus) belong to the
+  planned consensus/Bayes module.
+
+**F92. IUPAC 2024 Example 4I — sign of the endpoint correction (class c;
+to check against Meija et al. [14]).**
+
+- The guide writes Meija et al.'s equation as [Ag⁺] − [Cl⁻] =
+  (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V(NaCl) + V_E). Here [Ag⁺] =
+  √(K_sp2(V + V_E)/(c(K₂CrO₄)V)) and [Cl⁻] = K_sp1/[Ag⁺].
+- At the endpoint [Ag⁺] = 28.1 µmol/L and [Cl⁻] = 6.3 µmol/L, so the left
+  side is positive (21.8 µmol/L). Solved as printed, the equation gives
+  c(NaCl) = 10.024 mmol/L, 0.24 % above the conventional value.
+- The mass balance (silver added − chloride present = [Ag⁺] − [Cl⁻] in
+  solution) has the opposite right side and gives 9.976 mmol/L. That is
+  0.24 % below, as expected because the chromate endpoint follows the
+  equivalence point.
+- The guide reports only "the relative difference … is 0.24 %", which holds
+  for either sign. The library project uses the mass balance.
+
+The library has 253 projects.
+
+## 2026-11-07 (session 21, continued) — ILAC P14:09/2020
+
+The reporting already meets 5.2: y ± U with k, coverage probability and the
+explanatory sentence. 5.3 (at most two significant digits) is the default.
+
+**D64. CMC as a floor and the 5.3 note.**
+
+- `reporting.cmc` (`expanded` or `relative_percent`): the reported expanded
+  uncertainty is max(U, CMC) (5.5: no smaller uncertainty than the CMC).
+  The statement names the evaluated U and cites the clause.
+- `expected.gum.reported_expanded_uncertainty` checks it.
+- With `significant_digits` > 2 the statement adds a note on 5.3.
+- Library: `ilac-p14-cmc-floor-weight-10kg`, the EA-4/02 S2 weight with an
+  illustrative CMC of 80 mg, marked as hypothetical in the project.
+- The 5.2 note on asymmetric (Monte Carlo) results is covered by the
+  coverage intervals and, since D61, the half-width about the estimate.
+
+The library has 254 projects.
+
+## 2026-11-07 (session 21, continued) — Turkish edition of Nordtest TR 537
+
+**D65. Turkish spelling of reproducibility.** The Turkish Nordtest TR 537
+writes *tekrar üretilebilirlik* as two words (32 times; *laboratuvar içi
+tekrar üretilebilirlik* for u(R_w)), as do TÜRKAK documents. The program had
+*tekrarüretilebilirlik*.
+
+- All 129 occurrences were changed in 35 tracked files: reports, app
+  strings, generators, library projects and the guide.
+- The glossary notes the other wording of the Turkish edition: *kontrol
+  kartı* beside *kontrol grafiği*, and *iki tekrarlı analiz* for
+  duplicates. *SRM* for CRM and *kontrol numunesi* were already used.
+
+**Mari et al. 2025 and Pradella 2026 (definition of measurement
+uncertainty).**
+
+- Mari et al. (Metrologia 62, 062101) object to three changes made by
+  GUM-1:2023 §3.4 and proposed for VIM 4:
+  - a psychological instead of a mathematical entity;
+  - doubt about a true value instead of dispersion of attributed values;
+  - only single-valued measurands, excluding definitional uncertainty.
+  They propose generalizing the GUM definition ("mathematical entity
+  conveying information concerning the doubt about the validity of the
+  measured value").
+- Pradella (2026) supports the change for medical and testing laboratories
+  with nominal and ordinal results (ISO 15189, ISO 20914, ISO 22692).
+- WG1–WG2 kept "doubt" but dropped "true" (D61). Note 2 accepts summaries
+  such as the standard uncertainty, interval or quantiles. That answers
+  part of the second objection.
+- For the article: the program's design (the distribution as the complete
+  result; standard uncertainty, intervals and, since D61, the symmetric
+  half-width as summaries) is neutral in this debate. Nominal properties
+  (Ellisor 2025, Bilson 2025) are an outlook.
+- Glossary EN/TR: paragraph "The debate".
+
+## 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F
+
+**D66. Consensus-value module (`consensus`).** Core `consensus.rs`, project section `consensus`, reports EN/TR
+with a chart of the degrees of equivalence, JSON and an app view.
+
+- DerSimonian–Laird after NICOB §A.2: Cochran's Q about the 1/u² weighted mean, the method-of-moments τ̂,
+  weights 1/(τ̂² + u_j²), the naive u_DL = 1/√Σw, the p-value of Q, the Knapp–Hartung u and its t_{n−1}
+  expansion.
+- The NICOB parametric bootstrap (§A.2 (a)–(d)): τ_k from the gamma approximation of Q with the exact mean and
+  variance of Biggerstaff & Tweedie (1997), E Q = (n − 1) + τ²(S₁ − S₂/S₁),
+  Var Q = 2(n − 1) + 4τ²(S₁ − 2S₂/S₁ + S₃/S₁²) + 2τ⁴(S₂ − 2S₃/S₁ + S₂²/S₁²) with S_r = Σu_j^{−2r}, evaluated at
+  τ̂ (the manual does not say at which τ; τ̂ is the plug-in choice); τ_k² = max{0, (Q_k − n + 1)/(S₁ − S₂/S₁)};
+  x_jk ~ N(μ̂, τ_k² + u_j²); u_jk = u_j√(ν_j/χ²_ν_j) when ν_j is given. u is the s.d. of the μ_k, the interval the
+  probabilistically symmetric one (2.5 % and 97.5 % percentiles).
+- Unilateral degrees of equivalence (§A.5.1 (e)): D_j = x_j − μ̂; U95 %(D_j) is the half-length of the shortest
+  interval centred at the mean of the D_jk = x_jk − μ_k that holds 95 % of them (`mcm::half_width_about`).
+- Linear Pool (§A.4): mixture of Gaussian or rescaled Student t (s.d. u_j, so ν_j > 2) components with
+  optional weights; mean, s.d. and percentiles of the sample. DoE of the Linear Pool: D_j = x_j − μ̂ with
+  U95 % = k·u_j (§A.5.3: the D_jk = x_j + e_jk − μ̂ are symmetric about D_j).
+- Maximum likelihood (IUPAC 2024 Example 4F; Koepke Table 2): profile likelihood in τ (grid of 4000 points on
+  [0, 10 max(s, u_max)] and golden-section refinement), μ̂(τ) the weighted mean, u from the inverse Hessian of
+  −ln L in (μ, τ).
+- Not implemented: the hierarchical Bayesian procedure (§A.3; half-Cauchy priors on τ and on the σ_j, MCMC),
+  the leave-one-out DoE and the bilateral DoE B_ij. Recorded as open items.
+- Library (258 projects at D66): `koepke2017-newtonian-constant-g` (DL, bootstrap, Linear Pool, ML),
+  `koepke2017-half-life-cs137`, `koepke2017-half-life-sr90` (in days, as Table 3; duplicate labels Fl65 split
+  into Fl65a/b/c), `iupac2024-4f-ccqm-k145-nickel-bovine-liver`. Evidence: `tools/research/consensus/
+  koepke2017.py` (numpy, independent implementation of DL, bootstrap and Linear Pool).
+
+Results against the printed values:
+
+| Case | Printed | Program |
+|---|---|---|
+| G, DL | 6.673 80, u 0.000 28, (6.673 20, 6.674 40) | 6.673 790, u_DL 0.000 279, bootstrap u 0.000 280, (6.673 226, 6.674 352); τ 0.000 946, Q 319.1 |
+| G, Linear Pool | 6.673 67, 0.001 24, (6.671 18, 6.675 79) | 6.673 667, 0.001 243, (6.671 166, 6.675 791) (10⁵ draws) |
+| G, ML | 6.673 78, 0.000 30 | 6.673 778, 0.000 300 |
+| ¹³⁷Cs, DL / LP | 30.04 (0.04) a; 29.94 (0.93) a | 30.037 (0.045) a; 29.94 (0.93) a |
+| ⁹⁰Sr, DL / LP | 28.73 (0.11) a; 28.68 (0.77) a | 28.730 (0.110) a; 28.69 (0.77) a |
+| K145 Ni, ML | μ 2.043(15), τ 0.044(14) mg/kg | 2.042 94 (0.015 44), 0.043 54 (0.014 24) |
+
+For the article:
+
+- With heterogeneous results the bootstrap u of the DL estimate hardly differs from u_DL in these three data
+  sets (0.000 279 vs 0.000 280 for G; 0.0446 vs 0.0449 a for ¹³⁷Cs), while the Knapp–Hartung u is larger
+  (0.000 307; 0.106 a for ¹³⁷Cs, 2.4 × u_DL). The choice among DL-based evaluations matters more than the
+  bootstrap itself; the Linear Pool is 4.4 (G), 7.0 (⁹⁰Sr) and 21 (¹³⁷Cs) times wider. This is the "procedure-choice" spread the
+  article can show with the program on the same data.
+- CCQM-K145: with the DL bootstrap, one participant has a marginal |D| > U95 % (0.107 vs 0.106 mg/kg) and the
+  others are within. Following the independent review (2026-11-08, item 19) the participants are coded Lab 1–17 in
+  the project and no degree of equivalence is attributed to a named institute: the official KCRV and degrees of
+  equivalence are those of the final report in the KCDB, which may rest on another reference value and procedure.
+  The computation illustrates the procedures on the same data, not a statement on the comparison.
+
+**F93. Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding).** From the 14
+values of Table 1 the DerSimonian–Laird estimate is 6.673 790 (numpy and the program agree to 10⁻⁹), which
+rounds to 6.673 79, not the printed 6.673 80. The printed interval (6.673 20, 6.674 40) is consistent both with
+the bootstrap percentiles (6.673 22, 6.674 35) and with the t_{13} interval (6.673 19, 6.674 39) rounded to 10⁻⁴,
+so it cannot tell which was used. The ML row (6.673 78) and the Linear Pool row (6.673 67) reproduce exactly.
+Likely cause: rounding of an intermediate value, or digits of Table 1 not printed (CODATA 2014 Table XXVII
+carries the same digits). Impact: one unit in the fifth decimal, 0.04 u.
+
+## 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N
+
+**D67. Bayesian random-effects model without MCMC (`consensus.bayes`).**
+
+- Model: x_j ~ N(μ, τ² + σ_j²) with σ_j = u_j, τ half-Cauchy with median s, μ Gaussian (m₀, s₀) or flat.
+  This is NICOB's hierarchical Bayesian procedure (§A.3) when no ν_j are given (the manual: "when they are
+  based on infinitely many degrees of freedom … σ_j = u_j") and IUPAC 2024 Example 4M.
+- For fixed τ the posterior of μ is Gaussian with precision P(τ) = Σ1/v_j (+ 1/s₀²), v_j = τ² + u_j²; the
+  marginal likelihood of τ is ∏v_j^{−1/2} P^{−1/2} exp{−½(Σx_j²/v_j (+ m₀²/s₀²) − P μ̂_τ²)}.
+- The grid τ = s·tan(πθ/2), θ uniform on (0, 1) (10⁵ midpoints), makes the half-Cauchy prior density constant,
+  so the posterior weights are the marginal likelihoods. The tails of the prior are covered without a cut-off.
+- μ: posterior mean and s.d. of the Gaussian mixture; quantiles by Newton's method on the mixture CDF with a
+  bisection safeguard. τ: posterior median and quantiles from the cumulative weights.
+- Default prior on τ (`"bayes": {}`): median of |x_j − median(x)|, as NICOB; μ flat (NICOB: N(0, 10⁵)).
+- Results are deterministic (no seed) and exact up to the grid. Not implemented: NICOB's half-Cauchy priors on
+  the σ_j when ν_j are given (needs n + 2 dimensions; MCMC or nested quadrature).
+
+| Case | Printed (MCMC) | Program (grid) |
+|---|---|---|
+| IUPAC 4M/4N, iridium | M = 192.2171(4) g/mol; median τ 0.0005 g/mol | 192.217 119 (0.000 440); median τ 0.000 506; 95 % (192.216 16, 192.217 95) |
+| Koepke Table 2, G | 6.673 77, 0.000 33, (6.673 10, 6.674 42) | 6.673 773, 0.000 329, (6.673 105, 6.674 409) |
+| Koepke Table 4, ¹³⁷Cs | 29.94 (0.19) a | 29.944 (0.185) a |
+| Koepke Table 4, ⁹⁰Sr | 28.71 (0.16) a | 28.708 (0.160) a |
+
+For the article: the grid reproduces the MCMC results of NICOB and of the IUPAC guide to their printed digits
+(one exception, F95) in a fraction of a second, without convergence diagnostics or a seed. For the two-parameter
+random-effects model the MCMC of the guide (5 × 10⁵ Metropolis steps) is not needed.
+
+Library: `iupac2024-3e-4m-iridium-molar-mass-bayes`; the three Koepke projects now include the Bayesian row.
+
+**F94. IUPAC 2024 Example 3E — rounding of s and of the p-value of Q (class a).** The three molar masses have
+s = 0.000 545 01 g/mol, printed 0.000 54 (rounds to 0.000 55); the naive τ = √(s² − ū_g²) is 0.000 4245 with the
+unrounded s (printed 0.000 42, which also follows from the rounded inputs). Cochran's Q about the weighted mean is
+9.562, p = 0.008 39 with 2 degrees of freedom; printed p = 0.0082 (Q = 9.61 would give it). Impact: none on the
+conclusions.
+
+**F95. Koepke et al. 2017 Table 4 — Bayesian u for ¹³⁷Cs (class a, Monte Carlo).** The exact posterior s.d. of
+the hierarchical model with the NICOB defaults is 0.185 a; printed 0.19 a. The posterior mean (29.944 a) and the
+⁹⁰Sr row (28.708, 0.160 a) and the G row agree. The difference, 3 %, is of the size of the Monte Carlo error of a
+standard deviation from a few thousand effectively independent MCMC draws; the printed value is the rounding of
+an MCMC estimate, not of the exact posterior. To note in the article as an example of the reproducibility of
+MCMC-based reference values.
+
+## 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.)
+
+The book is CC BY-SA 4.0. Five examples fit the program; the others need methods it does not have (below).
+
+**D68. Laplace laboratory effects in the Bayesian consensus (`"effects": "laplace"`).**
+
+- The NIST Decision Tree (Possolo et al. 2021) recommends Laplace effects when the effects are symmetric but
+  heavier-tailed than Gaussian. The book fits it with Stan (theta ~ double_exponential(H0, tau/√2), so τ is the
+  standard deviation of the effects).
+- The likelihood of one result is the normal–Laplace convolution
+  f(d) = (1/4b)[e^{r²/2 − d/b} erfc((r − d/s)/√2) + e^{r²/2 + d/b} erfc((r + d/s)/√2)], b = τ/√2, r = s/b.
+  For z ≥ 5 the program uses a − z² = −d²/(2s²) with the asymptotic series of erfcx, which avoids the
+  cancellation of two large terms when b → 0 (tested: unit integral, Gaussian limit b → 0, Laplace limit s → 0).
+- μ cannot be integrated analytically: (θ, μ) grid of 300 × 300, τ = s·tan(πθ/2), with a second pass on μ over
+  ±12 posterior s.d. Quantiles by interpolation within the cells. About 1.5 s for 22 results.
+- Possolo & Meija, Hubble–Lemaître constant (22 estimates, Planck excluded; τ prior median = R's mad(x),
+  1.4826 × median|x − median|; H₀ ~ N(67.4, 100²)): Stan 71.69, 0.66, median τ 2.03 (km/s)/Mpc; program
+  71.6915, 0.6603, 2.0336 (numpy grid 2000 × 1500 agrees to 10⁻⁴).
+
+Model examples (GUM and Monte Carlo, existing sections): plasma anion gap (25, u 1.85 mmol/L), storage tank
+(7204 ± 54 m³ by Gauss and by MCM), Wheatstone bridge (957 ± 7 Ω; contributions E 52 %, F 48 %, G 0.6 %,
+H 0.004 % reproduced), atomic weight of lead in HIPB-1 (multivariate: four amount fractions and A_r(Pb) =
+207.17915, u 0.000 084, U95 0.000 17, printed 0.0002). The three isotope ratios and the closure determine the
+fractions exactly, so the book's constrained MLE (R solnp) and its 5 × 10⁴ Monte Carlo refits reduce to explicit
+expressions and the analytic Jacobian.
+
+Not taken into the library (methods not in the program), recorded for the outlook of the article:
+
+- Arsenic in kudzu (NIST SRM 3268): Laplace effects and half-Cauchy priors on the σ_j with ν_j = 2 (n + 2
+  parameters; MCMC, or a 1-D table per laboratory and a convolution, too costly for the test suite). Result
+  0.895(29) mg/kg, median τ 0.167 mg/kg, 95 % (0.839, 0.951).
+- Thermal bath (ARMA model of autocorrelated readings), counting examples (Poisson, negative binomial),
+  ranking, categorical data, model averaging (Machu Picchu, influenza), model uncertainty (Pluto, Everest).
+
+**F96. Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte
+Carlo).** Linearised (and Monte Carlo with 10⁶ draws): r(²⁰⁴Pb, ²⁰⁶Pb) = −0.011, r(²⁰⁴Pb, ²⁰⁸Pb) = −0.179;
+printed −0.02 and −0.17 from 5 × 10⁴ draws, whose standard error for a correlation near 0 is about 0.0045. The
+other four correlations and the four u(x) agree. Impact: none on A_r(Pb).
+
+## 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets
+
+**D69. qNMR purity budgets in the library.** The BIPM Internal Standard Reference Data documents (ISRD-01, -02,
+-03, -06, -07, -08, -09) give worked uncertainty budgets for the purity of an analyte by ¹H (or ¹⁹F) qNMR with an
+internal standard: w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S (Eq. 1). Nine of the eleven ¹H tables are in the
+library (`tools/generators/bipm_isrd.py`) as model projects with the printed values and standard uncertainties
+as inputs and the printed purity and u_c as checks. The budgets of ISRD-02 and -03 are images in the PDFs and were
+read from rendered pages. Excluded: ISRD-03 Table 4 (normalised ratio: the product of the printed values gives
+0.999 66, printed 0.9995) and ISRD-08 Table 4 (product 1.1078, printed 0.9974); ISRD-09 (¹⁹F) gives rounded inputs
+and relative sensitivities only. Evidence: `tools/research/qnmr/isrd_budgets.py`.
+
+For TÜBİTAK UME the projects are templates for its own qNMR purity assignments: the same equation, with the
+masses, the purity of the internal standard and the integral ratio as the main components.
+
+**F97. BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article,
+not to be reported).**
+
+1. *Component of the integral ratio.* In 7 of 11 tables the printed component c·u of the ratio exceeds the
+   product of the printed sensitivity coefficient and standard uncertainty by 3–17 %: ISRD-01 T4 1.95 vs 1.74,
+   ISRD-02 T4 1.75 vs 1.65, ISRD-03 T4 1.80 vs 1.66, ISRD-06 T4 1.49 vs 1.34, T6 1.95 vs 1.73, ISRD-07 T4 1.47 vs
+   1.26, T6 1.99 vs 1.77 (× 10⁻⁴). The combined uncertainties follow the components in most tables and the printed
+   u in ISRD-01 T4 (7.32 × 10⁻⁴ in the row "Assigned value", 7.30 × 10⁻⁴ as "Combined Uncertainty").
+2. *Combined uncertainty against its own components.* ISRD-01 T6: the components give 4.12 × 10⁻⁴, the printed
+   u_c is 3.96 × 10⁻⁴ (the printed inputs give 4.10 × 10⁻⁴).
+3. *Degrees of freedom.* The printed ν_eff (ISRD-01 T4 784, T6 131; ISRD-02 T4 1655, T6 967; ISRD-03 394) are
+   reproduced with ν(R) = 4 in all five tables, whereas the text describes the ratio as the mean of four, five or
+   six replicates (ν = 3, 4 or 5 by GUM 4.2.6) or of sixteen normalised values. k = 2 is used throughout, so the
+   effect on U is nil.
+4. *Misprints.* ISRD-08 Table 2 labels the ratio "IS/IA" although its value 1.4313 is I_A/I_S (only that gives
+   998.8 mg/g), and its m_S component is printed 3.28 × 10⁻⁵ for c·u = 3.84 × 10⁻⁵. ISRD-08 Table 4 prints the two
+   ¹H-nuclei components as 1.50 × 10⁻⁵; the combined 4.2 × 10⁻⁴ needs 1.50 × 10⁻⁴; and its printed values do not
+   reproduce the purity (above). ISRD-06 Table 4 gives the IS purity 0.9991 the unit "mg.g-1" (g/g).
+5. *Same molecule, different constants.* ISRD-02 Table 4 re-evaluates the measurement of ISRD-01 Table 4 with the
+   roles exchanged (same integrals 17834/97943 and masses 2.3545/3.5063 mg), but with N(¹H, MA) 1.9996 vs 1.9994,
+   N(¹H, DMSO₂) 5.9988 vs 5.9934, M(MA) 116.080 vs 116.0724 g/mol (116.072 in ISRD-03, -07, -08) and M(DMSO₂)
+   94.1284 vs 94.136 g/mol (94.128 in ISRD-06, -07).
+6. *A bounded result.* ISRD-06 Table 6 reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at 1000 mg/g.
+   This is the situation that GUM Supplement 1 and a Bayesian treatment with a bounded prior handle consistently;
+   the program does not yet model the bound (outlook).
+
+None changes a certified value materially (all within 0.2 u_c, except the excluded tables). The pattern —
+spreadsheet budgets whose displayed numbers do not reproduce one another — is the article's argument for
+budgets recomputed from their inputs by validated software.
+
+## 2026-11-07 (session 21, continued) — Bayesian tutorials, Toman 2016, Degenhardt 2025
+
+**D70. What was taken from the Bayesian and "alternative to MCM" documents.**
+
+- *Possolo & Bodnar 2018* (approximate Bayesian evaluations), §4.4 chromium in soil (ISO Guide 35 Example C.1,
+  20 bottles × 3, reprinted in their Table 3): taken into the library as a homogeneity project
+  (`possolo-bodnar-2018-chromium-soil-homogeneity-bayes`). The model and priors (τ, σ half-Cauchy with medians
+  the s.d. of the bottle averages and the median within-bottle s.d.; ω flat) are those of D60, so the existing
+  grid evaluation applies: ω = 121.624, u = 0.9986 mg/kg (paper: MCMC 121.62 (1), Laplace 0.98, REML 0.95);
+  ANOVA s_bb = 3.93, s_r = 2.87 mg/kg (= Guide 35). New expected field `homogeneity.mu_sd`.
+  Not taken: the cryptosporidiosis odds ratio (binomial data), the manometer (non-identifiable tilt angle with a
+  beta prior; Lira & Grientschnig 2010), and GUM H.5 by NICOB with σ_j priors on 4 degrees of freedom (needs the
+  σ_j priors of NICOB §A.3, not implemented; D67).
+- *Toman, Nelson & Lippa 2016* (qNMR, hierarchical Bayes): two-level model (samples within internal standards,
+  internal standards about the purity) fitted by OpenBUGS with vague priors whose parameters are not given
+  ("e and f set as large numbers"); the per-sample results are "essentially identical to the usual uncertainty
+  analysis obtained with the GUM procedure". Not reproducible exactly; recorded for the article as the
+  hierarchical alternative to the single-sample budgets of D69. The beta prior on a purity bounded by 1 g/g
+  (their eq. (8)) is the same point as F97 item 6.
+- *Klauenberg et al. 2015* (Bayesian normal linear regression, sonic nozzle): conjugate normal–inverse-gamma
+  posterior, analytic and therefore a candidate for the calibration module, but the data are in online
+  supplement B, which is not in the folder (added to `documents-needed.md`).
+- *Degenhardt et al. 2025* (SSPRC): systematic samples per input, propagated one at a time, reconstructed and
+  combined by convolution. It assumes additive, independent effects (their §4); the examples (AFM indentation)
+  are not reproducible from the paper. Not implemented: the program's models are cheap to evaluate, and the
+  second-order check of JCGM 100 Amd.1 (D56) already flags non-additivity. For the article's related work.
+- *Possolo 2019* (asymmetric uncertainties): symmetrisation of asymmetric results (Audi et al.) and the ozone
+  cross-section; outlook, together with bounded results (F97 item 6).
+
+## 2026-11-07 (session 21, continued) — Merkatas et al. 2019; Possolo 2023; Thompson & Ellison 2011; Toman & Elster 2013
+
+- *Merkatas et al. 2019* (shades of dark uncertainty, G): Table 1 (16 values: Koepke's 14 with JILA-10 corrected
+  to 6.672 60(25), and HUST-TOS-18, HUST-AAF-18) and four rows of Table 4 reproduced in the library project
+  `merkatas2019-newtonian-constant-g-shades`: DL with Knapp–Hartung 6.673 99, u 0.000 25, τ 0.000 56; ML 6.673 90,
+  u 0.000 25, τ 0.000 91; BG (NICOB Bayes) 6.673 89, u 0.000 27, (6.673 33, 6.674 42), median τ 0.000 95 (grid
+  6.673 896, 0.000 271, (6.673 342, 6.674 415), 0.000 936); LOP 6.673 77, 0.001 17, (6.671 27, 6.675 77).
+  The other ten procedures of the table (Birge, CODATA expansion, Mandel–Paule, REML, Student t, Laplace effects
+  and errors, mixture model) are not in the program. For the article: on the same data the consensus values of
+  the fourteen procedures span 6.673 77–6.674 29 and their uncertainties 0.000 11–0.001 17, a factor of ten; the
+  procedure is part of the measurement model (Merkatas et al.; Koepke et al.).
+- *Possolo 2023* (reproducibility challenge): SiO₂ in granite G-1, 34 results without uncertainties (Fairbairn
+  1951), consensus by Rukhin's weights; the program needs u_j. Outlook.
+- *Thompson & Ellison 2011* (dark uncertainty, Accred. Qual. Assur.): the concept and its size in proficiency
+  tests; no data set. Glossary and article introduction.
+- *Toman & Elster 2013* (key comparison analysis): Bayesian treatment of key comparisons with a
+  reference-value prior; no reproducible data set in the text. Outlook.
+
+## 2026-11-07 (session 21, continued) — The author's UME procedure (draft, November 2026)
+
+**D71. The two worked examples of the procedure in the library; notes for the author.**
+
+- `ume-procedure-19-1-dmm-10v-calibration` (additive model, Welch–Satterthwaite with ν = 11 for the readings) and
+  `ume-procedure-19-2-qnmr-purity-internal-standard` (multiplicative model, relative uncertainties; illustrative
+  values). All printed numbers are reproduced: 19.1 u_c = 35.1 µV, ν_eff ≈ 4000 (3965), U = 70.2 µV, the
+  dominant-component check u_N/u_R = 1.14; 19.2 P_a = 995.0 mg/g, relative u_c 1575 × 10⁻⁶, ν_eff = 121,
+  U = 3.13 → 3.1 mg/g, variance shares 18/54/23/4/2 %.
+- Notes for the author (own document; not findings):
+  1. The model equations of Sections 19.1 and 19.2 are embedded equation objects; in the text extraction the
+     numbers of ¹H nuclei of 19.2 are missing. Only N_std/N_a = 2/3 reproduces 995.0 mg/g (maleic acid, 2 H, and
+     an analyte of 194.19 g/mol with a methyl singlet, e.g. caffeine). Stating N_a and N_std in the table would
+     make the example self-contained.
+  2. The scope includes CCQM/EURAMET comparisons and reference-material value assignment, but the procedure has no
+     section on consensus values, dark uncertainty and degrees of equivalence; the program now covers them (D66–D68)
+     and could be cited there.
+  3. A purity close to 1000 mg/g with U reaching the bound (BIPM ISRD-06 reports +0.2/−1.5 mg/g, F97 item 6)
+     deserves a sentence on asymmetric intervals at a physical limit.
+  4. Terminology agrees with the guide: *ölçülen büyüklük*, *duyarlılık katsayısı*, *birleşik standart
+     belirsizlik*, *etkin serbestlik derecesi*, *kapsam aralığı/olasılığı/faktörü*, *koruma bandı*, *özgül risk*.
+     The procedure says *tolerans aralığı* and *kabul aralığı* where the guide mostly says *tolerans sınırı* and
+     *kabul sınırı* (both are used correctly: the interval is bounded by the limits).
+
+## 2026-11-07 (session 21, continued) — Article skeleton
+
+**D72. One main paper; skeleton in `docs/article/outline.md`.** Software, validation and the audit of the worked
+examples go into one Q1 paper (first choice *Measurement*; *Metrologia* or *Talanta* as alternatives, quartiles
+to be verified at submission). The numbers of the paper are generated (`tools/research/article_stats.py` →
+`docs/article/numbers.md`): 277 projects, 36 source documents, 222 validated rows (23 with a finding), F1–F97.
+The skeleton maps every section to its evidence (F, D, validation rows), lists Figures 1–3 and Tables 1–4, and
+keeps the pre-submission checklist; the D12 class audit is now its first item (25 findings carry no class in
+their heading).
+
+## 2026-11-07 (session 21, continued) — D12 audit of the finding classes
+
+**D73. Classes for the findings without a class in their heading; class n.** D12 defines (a) intermediate
+rounding, (b) misprint or transcription without effect on the result, (c) inconsistency that changes a printed
+result. Some early entries are not discrepancies at all (methodological notes, summaries, a full reproduction):
+they get the new label **n**. The classes of all findings are kept in `docs/research/finding-classes.tsv`
+(heading classes, overridden by this audit); `tools/research/article_stats.py` reads it.
+
+| F | Class | Reason |
+|---|---|---|
+| F1 | a | GUM H.1 values follow from unrounded u; printed rounded values reproduce with them |
+| F2 | n | Monte Carlo dispersion of printed MCM values (inherent) |
+| F3 | n | methodological: location of shortest intervals |
+| F4 | n | methodological: GUF slightly conservative |
+| F5 | c | arithmetic slip changes u(bias) 4.1 → 4.2 % |
+| F6 | b | 2.7 % printed, 2.6 % used; result consistent |
+| F7 | b | n = 47 stated, 46 pairs listed; result reproduced |
+| F8 | a, b | BOD from rounded biases; PCB summary table differs from the example |
+| F9 | a | rounded R̄; the 3.69 factor stays "to verify" |
+| F10 | a, c | rounded linearity term; Table A2.4 not reproducible |
+| F11 | n | summary of F1, F5–F10 |
+| F12 | c, b | summary u_c inconsistent with its inputs; typos |
+| F13 | b | derived columns and t value misprinted; statistic reproduced |
+| F14 | c | 0.19 dm² printed and used for 0.152 dm² |
+| F15 | b | 0.12 for 1.2 % m/m |
+| F16 | n | fully reproduced |
+| F17 | a, b | rounded intermediates; χ² about the unweighted mean; Eq. (B6.8) factor omitted (same conclusions) |
+| F18 | a, b | rounded contributions and misprints (S13 is F21) |
+| F19 | n | methodological: second-order terms |
+| F20 | n | summary |
+| F23 | n | methodological: verdict near the threshold |
+| F31, F35 | n | methodological: conventions for t inputs |
+| F37 | n | methodological: Algorithm A with bimodal data |
+| F80 | c | printed global risks follow from a joint PDF whose s.d. depends on the measured value; the conditional form gives other values |
+
+## 2026-11-07 (session 21, continued) — Benchmark against Suncal
+
+**D74. Library-wide comparison with Sandia's Suncal 1.7.1** (`tools/research/benchmarks/suncal_compare.py`,
+table in `docs/research/benchmark-suncal.md`). The script translates every model project that Suncal can express
+(scalar output; no correlations, intermediates or ensembles; normal, rectangular, triangular, arcsine, constant,
+t, type_a, type_a_pooled inputs; no log10) into a Suncal model, computes Suncal's first-order GUM and, where all
+inputs are normal/rectangular/triangular/arcsine/constant, its Monte Carlo with 10⁶ draws, and compares them with
+the program's JSON output.
+
+- 107 projects compared, 30 model projects skipped.
+- First-order standard uncertainty: max relative difference 6.4 × 10⁻¹² (rounding only).
+- Estimates: identical except the two JCGM 101 comparison-loss projects that request the second-order estimate
+  term of JCGM 100 Amd.1 (Δy = 0.5u and 0.1u by design; Suncal is first order).
+- Monte Carlo standard deviation (48 projects): max relative difference 3.0 × 10⁻³; divided by the sampling
+  standard error √((κ + 2)/(4N₁) + (κ + 2)/(4N₂)) the largest |z| is 3.0 (GUM-5 Ex. 1, pH), of the size expected
+  for the largest of 48 comparisons. The program's 5 × 10⁶-trial runs with two other seeds give 0.004 0803 and
+  0.004 0820 (GUM 0.004 083), so the deviation is on Suncal's single run.
+- Suncal draws from the global NumPy generator (seeded) and needs PYTHONHASHSEED=0 for a reproducible table.
+- The NIST Uncertainty Machine is a web service; its manual examples were reproduced earlier (task 22, F29, F33,
+  F35). A scripted NUM benchmark is not possible offline; the article states the NUM comparison as the manual's
+  examples.
+
+## 2026-11-07 (session 21, continued) — Beta distribution; IUPAC 2024 Examples 4H and 5C
+
+**D75. Beta input distribution.** `{"type": "beta", "alpha", "beta"}` or `{"mean", "sd"}` (method of moments) on
+[lower, upper] (default [0, 1]). GUM: the mean and standard deviation of the distribution; MCM: G₁/(G₁ + G₂) with
+gamma draws, the complement taken from G₂ when α > β so that values near the upper bound keep their digits.
+Core test: the sample moments of beta(88 873.7, 7.11) and of a skewed beta on [2, 5].
+
+- IUPAC 2024 4H (QUAM A1 cadmium standard, purity beta, volume triangular): GUM u 0.000 864 mg/mL, MCM mean 1.0027,
+  s.d. 0.000 864, 95 % interval 1.001 03–1.004 37 mg/mL, half-width 0.001 67 (printed 0.0009 and 0.0017).
+- IUPAC 2024 5C (NIST PS1 benzoic acid, beta(88 873.7, 7.11)): 0.999 920 ± 0.000 030 g/g; 95 % interval
+  0.999 851–0.999 968 g/g, 0.069 mg/g below and 0.048 mg/g above the mean. This is the library's example of a
+  bounded, asymmetric result (F97 item 6; the qNMR budgets of D69).
+
+## 2026-11-07 (session 21, continued) — Consensus in the application
+
+**D76. Consensus template and editor.** `uncertainty template --consensus` and the FFI template `consensus`
+(six illustrative results with the K145 values); the app has a *New consensus value* card and a *Data* tab where the
+results are pasted one per line (name, value, u, optional ν; tab, semicolon or space; decimal comma) and the
+procedures are switched on (DL with bootstrap by default; Linear Pool, ML, Bayes with Gaussian or Laplace effects).
+Linear Pool weights of participants that remain are kept when the list is pasted again. The library list labels
+consensus projects "NICOB" and multicomponent projects "JCGM 106" (both were shown as "GUM + MCM"). Flutter test
+for the parser (22 tests).
+
+## 2026-11-07 (session 21, continued) — Guard bands from the test uncertainty ratio
+
+**D77. `conformity.tur_method`: RSS, Dobbert, NCSLI RP-10, U₉₅.** TUR = (T_U − T_L)/2 / U₉₅ with U₉₅ = 2u; the
+acceptance limits are ± GBF·(T_U − T_L)/2 about the centre; the rule (guarded acceptance or rejection) follows
+from the sign of the guard band. Formulas as implemented in Suncal (`suncal.risk.guardband_tur`): RSS √(1 − 1/TUR²);
+Dobbert 1 − M/TUR, M = 1.04 − exp(0.38 ln TUR − 0.54) (the status note had written M as the guard-band factor;
+corrected); RP-10 1.25 − 1/TUR and U₉₅ 1 − 1/TUR, both 1 above TUR = 4. Dobbert's factor exceeds 1 above TUR ≈ 4.6
+(limits outside the tolerance); Suncal does not cap it and neither does the program. The PFA-target and
+4:1-equivalent methods are covered by `target_consumer_risk` (D27). The min-cost and minimax methods (Easterling
+1991) are not implemented.
+
+- Core test: the four factors at TUR = 1.5, 2, 3, 4, 6 against Suncal to 10⁻⁹.
+- Library (`tools/generators/tur_guard_bands.py`): Dobbert at TUR 2.5, RSS at 1.5, RP-10 at 2.0, with a normal
+  process of 95 % in-tolerance probability; TUR, GBF, acceptance limits and the global PFA and PFR agree with
+  Suncal's PFA_norm/PFR_norm to 2 × 10⁻⁶ (an independent implementation of the global risks). Dobbert at TUR 2.5:
+  PFA 0.69 % (1.18 % without a guard band), and at most 1.93 % over all in-tolerance probabilities, consistent
+  with the method's 2 % design.
+- Primary sources still to read for the article: Dobbert (2008) and the Z540.3 handbook; Delker & Peguero (2022)
+  is cited as the Sandia reference.
+
+## 2026-11-07 (session 21, continued) — EURAMET cg-18 H3.4/A and H3.4/B (30 t weighbridge in use)
+
+The two weighbridge examples are now in the library (`cg18-h3-a-weighing-result`, `cg18-h3-b-weighing-result`,
+`tools/generators/cg18inuse.py`), with the calibration points of H3.3 (substitution loads: u(m_ref) ⊕ u(L_sub) as
+the reference term), the repeatability at 10 420 kg (s = 6.74 and 2.94 kg), the eccentricity test at 10 420 kg
+(15 and 5 kg), ΔT = 40 K, the change in adjustment due to drift ΔE(Max)/(Max√3) with 30 kg (A) and 15 kg (B, mpe
+at initial verification), tare from the test points, no buoyancy and no creep in use. Reproduced: α_W² = 62.133
+and 25.333 kg², the temperature, drift, tare and eccentricity terms, β_W² (A), U(W) and U_gl(W) lines, minimum
+weights 2169 kg and 1124 kg (printed 1123; SF = 1).
+
+**F98. EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small).** The guide prints
+u(a₁) = 3.627 × 10⁻⁴ (A) and 1.485 × 10⁻⁴ (B). The weighted fit through zero (C2.2-18b) with p_j = 1/u²(E_j) from
+the H3.3 budgets gives 3.637 × 10⁻⁴ and 1.508 × 10⁻⁴, and the same with the printed u(E_j) or with the nominal
+loads instead of the indications. a₁ itself agrees (9.377 vs 9.379 × 10⁻⁴; 4.286 vs 4.280 × 10⁻⁴). Not resolved:
+possibly unrounded u(E_j) of the authors' spreadsheet. Effect: β_W² of B 1.967 vs 1.960 × 10⁻⁷ and its first-order
+slope 6.128 vs 6.113 × 10⁻⁴; the minimum weights agree.
+
+## 2026-11-07 (session 21, continued) — Monte Carlo with dependent outputs
+
+**D78. Multivariate MCM with a singular output covariance.** Outputs that are exactly dependent (amount fractions
+that sum to 1) made the Monte Carlo evaluation of JCGM 102 stop with an error, so IUPAC 2024 4B and the lead
+project of Possolo & Meija had MCM switched off. Now the hyper-ellipsoid is reported as not defined (JCGM 102
+9.4.2.3 note 2; k_p = NaN, JSON null, "not defined" in the reports and in the validation), while the estimates,
+covariance, correlations, λ_max and the hyper-rectangle k_q are given as usual; the adaptive procedure skips the
+k_p criterion. Singularity is detected by Cholesky pivots below 10⁻⁷ of the standard deviations, because the
+covariance of the draws is singular only up to rounding. The reported region is then the hyper-rectangle.
+Core test with three abundances; MCM enabled in `iupac2024-4b-silicon-isotopic-abundances` (u(x) 3.59, 2.20,
+3.04 × 10⁻⁶, k_q 2.32) and `possolo-meija-2022-atomic-weight-lead-hipb1` (k_q 2.44).
+
+## 2026-11-08 (session 22) — Pre-review of the review package and the first fixes
+
+The review package of 2026-11-07 (Claude Doc "Bağımsız İnceleme Dosyası") came back with 22 observations. The
+reviewer's own closing note says the pre-review was made with an AI assistant (Claude), like the development, so
+it does **not** replace the independent review by a metrologist outside the project (outline §9); its item 14 asks
+for at least ten class-c findings to be recomputed by a person who has not seen the code. The observations and the
+response to each are in `docs/research/review-2026-11-08.md`.
+
+**D79. Reporting defaults for accredited calibration (review items 9, 10, 21).** (1) Rounding of U: the default is
+now `ea4_02` (EA-4/02 M:2022 6.3: ordinary rounding unless it lowers U by more than 5 %, then upwards) instead of
+the MUPR rule, which looks only at the first discarded digit and can lower U by up to 5.7 % (0.10599 → 0.10;
+EA-4/02 S2 58.52 mg → 58 mg, now 59 mg). Library reports that change: EA-4/02 S2 (59 mg), S4 (69 nm, as printed),
+M3003 K.5 (0.31 mg, as in the project's note), Nordtest nitrate (8.5, 7.1 mg/L), cg-18 H3 (19 kg), the Possolo &
+Meija tank (110 m³) and three others; no reference value changes, only the rounded statement. (2) The statement
+gives "approximately 95 %" (whole per cent, 0.1 % above 99.5 %) instead of "95.45 %" and names the rounding rule.
+(3) Software identity: `build.rs` records the git commit ("-modified" with uncommitted changes), its date and the
+compiler; every report ends with them and with the SHA-256 of the project as evaluated (compact JSON; FIPS 180-4,
+own implementation tested against the FIPS examples); the JSON results carry the same. The validation report
+(TR title now "Yazılım validasyon raporu") gives the commit, compiler, the SHA-256 of every file and of the set,
+and a separate section for the laboratory's own projects (`check --lab`). The version number stays 0.1.0 until
+the first tagged release; the commit identifies the build. (4) EA-4/02 S2 text: 10 000.025 g, not kg.
+
+**D80. TUR with k₉₅·u and Dobbert above TUR 4.59 (review item 5).** U₉₅ in the TUR is now k₉₅·u with k₉₅ the
+97.5 % t quantile for ν_eff (model) or `dof` (1.960 for ν = ∞), the expanded uncertainty for 95 % of Z540.3;
+`"tur_u95": "two_u"` keeps Suncal's 2u (the three library projects that reproduce Suncal set it). Dobbert's
+M = 1.04 − exp(0.38 ln TUR − 0.54) is negative above TUR = 4.59 and the factor exceeds 1 (acceptance outside
+the tolerance); it is now limited to 1 with a statement in the report unless `tur_allow_factor_above_one` is set
+under an agreed decision rule (ISO/IEC 17025 7.1.3, ILAC G8). Tests: TUR 5.102 vs 5 at u = 0.1, k₉₅ = 2.776 for
+ν = 4; Dobbert at TUR 6: 1.018 546 limited to 1. The primary sources (Dobbert 2008, the Z540.3 handbook) remain
+to be read (documents-needed).
+
+**D81. CCQM-K145 anonymised (review item 19).** The participants of `iupac2024-4f-ccqm-k145-nickel-bovine-liver`
+are coded Lab 1–17 in the order of the guide's table; the project notes that the official KCRV and degrees of
+equivalence are those of the final report in the KCDB. No degree of equivalence is attributed to a named
+institute in the library, the guide or the article.
+
+**D82. DL bootstrap as in the NICOB source (review item 4).** The NIST Consensus Builder is public (GitHub
+usnistgov/NIST-Consensus-Builder, R; read in the scratchpad, not copied). `sampleFromTau2Dist.R` (Koepke &
+Possolo, 2016-03-31) differs from the reading of the manual in two ways: (1) the gamma approximation of Q is set
+at the untruncated τ²_M = (Q − (K − 1))/(S1 − S2/S1), which is negative when Q < K − 1, so that E Q equals the
+observed Q, not at τ̂²_DL = max(0, τ²_M); (2) its variance is Var Q = 2(K − 1) + 4(S1 − S2/S1)τ² + 2(S2 − 2S3/S1 +
+S2²/S1²)τ⁴, whose linear term is not that of Biggerstaff & Tweedie (1997) eq. (7), 4(S1 − 2S2/S1 + S3/S1²)τ².
+`tools/research/review/nicob_tau2_sampler.py`: on Koepke's G the four combinations agree within 0.1 % (u 0.000 2790
+vs 0.000 2787); on a homogeneous set (Q = 0.377 < 3) u is 0.0766 with the gamma at 0 and 0.0665 with NICOB's choice
+(the fixed-effects u is 0.0647), a 13 % difference. The program now follows the NICOB source
+(`q_gamma_approximation_nicob`; τ_k = 0 when the moments give no valid gamma, where NICOB would fail); the paper's
+form is kept as `q_gamma_approximation`. The difference in the linear term of Var Q is a discrepancy between the
+NICOB code and its cited source (noted for the article; it hardly matters when τ̂ > 0). The library values (G,
+¹³⁷Cs, ⁹⁰Sr, IUPAC 4F) are unchanged within their tolerances. Test `bootstrap_with_q_below_n_minus_one`.
+
+**D83. Convergence and prior sensitivity of the Bayesian grids (review item 3).** The θ grid τ = s·tan(πθ/2)
+covers all τ ∈ [0, ∞), so no posterior mass lies outside it; with flat μ the likelihood falls as τ^−(n−1), so the
+last cell carries a negligible mass for n ≥ 2. Test `bayes_grids_have_converged`: doubling the grid (10⁵ → 2 × 10⁵
+points; Laplace 300² → 600²) changes the mean, s.d. and quantiles by less than 10⁻³ (Gaussian) and 10⁻² (Laplace) of
+the posterior s.d. for iridium and G. Prior sensitivity (`tools/research/review/bayes_prior_sensitivity.py`), the
+prior median multiplied by 1/4 … 4: iridium (3 results) u(M) 0.000 360 – 0.000 573 g/mol, median τ 0.000 33 –
+0.000 75 (the published 0.000 44 at the stated prior); G (14 results) u 0.000 320 – 0.000 348, mean within
+0.000 011. With three results the posterior of τ is driven by the prior, as the reviewer said; this is a property
+of the model, and the article will show the table. The grid becomes impractical when the σ_j are also unknown
+(dimension grows with the number of laboratories); that case (NICOB with finite ν_j) stays unimplemented (D68).
+
+**D84. Findings by effect; errata; tolerance basis (review items 6, 7, 12, 13).** `docs/research/class-c-impact.tsv`
+classifies the 29 findings with a class-c component by effect: c1 (a final printed y, U or outcome is not
+reproduced at its printed digits), c2 (only intermediate values), m (difference of method or interpretation), e
+(published erratum); with the status confirmed / independently checked (the reviewer's recomputations of F56, F79,
+F81, F82) / partly erratum / open, the printed and recomputed values and |Δy|/U, |ΔU|/U. Result: 12 confirmed c1,
+7 c2 (two of them partly corrected by errata), 5 m (F63, F69, F73, F79, F80), 1 e (F14), and 4 c1 open (F28, F29,
+F85, F92), which the article will not count. Errata checked: QUAM_ERRATA_v2 (2019, downloaded from eurachem.org,
+not committed); UfS:2019 errata 1.1, 1.4a were already used (F64, F65). Still to check for errata: M3003 ed. 6,
+ISO 5725-3:2023, ISO 6143:2025, EA-4/02 M:2022, EMUE, TN 1900, GUM-5:2026. `tools/research/article_stats.py`
+now writes the impact table, the tolerance basis of all 1754 compared values (931 at half a unit of the last
+digit, 239 up to one unit, 238 Monte Carlo, 346 wider with a reason in the project; 112 projects have at least
+one wider tolerance), the distribution of |Δ|/tolerance (median 0.26, 99 % 0.98; the values near 1 are reference
+values at half a unit, e.g. 93.155 printed 93.16) and the counting chain sources → projects → matrix rows →
+compared values → findings. The basis is inferred from the decimal form of the reference value; a per-value
+label in the project files would be better and is left open. ISRD-06 T6 (F97): the integral ratio is printed as
+1.5, which allows ±0.033 g/g on the purity; the estimate is now checked against the independent recomputation
+(0.999 774 014 g/g ± 5 × 10⁻⁹) instead. The 5σ tolerance of Monte Carlo values (D15) is stated in the
+validation report; a family-wise false-alarm rate is open (with 238 values at 5σ the chance of one false failure
+is about 1.4 × 10⁻⁴ for normal errors).
+
+**D85. The t convention in the report (review item 2).** When a model has inputs from repeated observations or
+with a t distribution, the validation of the GUM result (JCGM 101 8) is followed by a note: the GUM framework uses
+s/√n with ν = n − 1, the MCM samples t_ν(x̄, s²/n) (6.4.9.2; certificates 6.4.9.7) with standard deviation
+√(ν/(ν − 2))·s/√n (not defined for ν ≤ 2), so a failed validation at small ν need not mean an error; TN 1900 and
+the NUM rescale. An option for the TN 1900 convention is open (F31, F35).

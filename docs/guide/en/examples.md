@@ -2,17 +2,875 @@
 
 This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (94)
-- Electrical and RF (31)
+- Chemistry (143)
+- Electrical and RF (36)
 - Flow and volume (7)
-- General (method validation) (19)
-- Length (11)
-- Mass (28)
-- Physical properties (8)
-- Pressure (1)
+- General (method validation) (24)
+- Length (12)
+- Mass (31)
+- Physical properties (15)
+- Pressure (6)
 - Temperature (10)
 
 ## Chemistry
+
+### Purity of dimethyl sulfone by ¹H qNMR with maleic acid as internal standard in D2O (BIPM ISRD-01, Table 4)
+
+`bipm-isrd-01-qnmr-dmso2-ma-d2o` — BIPM, Table 4
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99726 g/g (printed 0.9973); combined standard uncertainty 7.321e-04 g/g (printed 7.300e-04).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.9972 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.95e-04, 4.99e-05, 9.98e-05, 5.22e-05, 2.15e-05, 3.53e-04, 5.26e-04, 2.99e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmso2-ma-d2o.json --lang en`
+
+### Purity of dimethyl terephthalate by ¹H qNMR with maleic acid as internal standard in DMSO-d6 (BIPM ISRD-01, Table 6)
+
+`bipm-isrd-01-qnmr-dmtp-ma-dmso-d6` — BIPM, Table 6
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99943 g/g (printed 0.9995); combined standard uncertainty 4.096e-04 g/g (printed 3.960e-04).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.99943 ± 0.00082) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.65e-04, 5.00e-05, 1.00e-04, 3.09e-05, 2.15e-05, 1.66e-04, 1.04e-04, 3.00e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmtp-ma-dmso-d6.json --lang en`
+
+### Purity of dimethyl terephthalate by ¹H qNMR with dimethyl sulfone as internal standard in CDCl3 (BIPM ISRD-02, Table 6)
+
+`bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3` — BIPM, Table 6
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99906 g/g (printed 0.999); combined standard uncertainty 5.038e-04 g/g (printed 5.050e-04).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.9991 ± 0.0010) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.28e-04, 5.00e-05, 5.00e-05, 4.37e-05, 6.61e-05, 1.45e-04, 2.13e-04, 4.01e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3.json --lang en`
+
+### Purity of maleic acid by ¹H qNMR with dimethyl sulfone as internal standard in D2O (BIPM ISRD-02, Table 4)
+
+`bipm-isrd-02-qnmr-ma-dmso2-d2o` — BIPM, Table 4
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99976 g/g (printed 0.9997); combined standard uncertainty 7.880e-04 g/g (printed 7.910e-04).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.9998 ± 0.0016) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.75e-04, 1.50e-04, 5.00e-05, 3.44e-05, 6.61e-05, 5.28e-04, 3.54e-04, 4.01e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-ma-dmso2-d2o.json --lang en`
+
+### Purity of benzoic acid by ¹H qNMR with BTMSB-d4 as internal standard in CD3OD (BIPM ISRD-06, Table 6)
+
+`bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od` — BIPM, Table 6
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99977 g/g (printed 0.9998); combined standard uncertainty 7.397e-04 g/g (printed 7.440e-04).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.9998 ± 0.0015) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.95e-04, 6.00e-05, 1.67e-05, 4.46e-05, 5.54e-05, 1.92e-04, 5.59e-04, 4.00e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+- The ISRD reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at the physical limit of 1000 mg/g. The program reports the symmetric GUM interval; the bound is not part of the model.
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang en`
+
+### Purity of dimethyl sulfone by ¹H qNMR with BTMSB-d4 as internal standard in DMSO-d6 (BIPM ISRD-06, Table 4)
+
+`bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6` — BIPM, Table 4
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99672 g/g (printed 0.9967); combined standard uncertainty 7.951e-04 g/g (printed 7.970e-04).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.9967 ± 0.0016) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.49e-04, 4.98e-05, 1.66e-05, 7.34e-05, 5.52e-05, 4.67e-04, 4.77e-04, 3.99e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6.json --lang en`
+
+### Purity of dimethyl sulfone by ¹H qNMR with DSS-d6 as internal standard in D2O (BIPM ISRD-07, Table 4)
+
+`bipm-isrd-07-qnmr-dmso2-dss-d6-d2o` — BIPM, Table 4
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99625 g/g (printed 0.9962); combined standard uncertainty 1.186e-03 g/g (printed 1.190e-03).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.9962 ± 0.0024) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.47e-04, 4.98e-05, 3.32e-05, 7.33e-05, 3.62e-05, 3.81e-04, 1.00e-03, 4.86e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-dmso2-dss-d6-d2o.json --lang en`
+
+### Purity of maleic acid by ¹H qNMR with DSS-d6 as internal standard in D2O (BIPM ISRD-07, Table 6)
+
+`bipm-isrd-07-qnmr-ma-dss-d6-d2o` — BIPM, Table 6
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99869 g/g (printed 0.9987); combined standard uncertainty 1.085e-03 g/g (printed 1.080e-03).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.9987 ± 0.0022) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 1.99e-04, 1.50e-04, 3.33e-05, 3.44e-05, 3.63e-05, 2.41e-04, 9.10e-04, 4.87e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-ma-dss-d6-d2o.json --lang en`
+
+### Purity of BTMSB-d4 by ¹H qNMR with benzoic acid as internal standard in CD3OD (BIPM ISRD-08, Table 2)
+
+`bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od` — BIPM, Table 2
+
+Mass fraction of the analyte A by quantitative NMR with an internal standard S (measurement equation 1 of the ISRD): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. The integral ratio is a Type A evaluation (standard deviation of the mean); the other components are Type B.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Purity from the printed values: w_A = 0.99882 g/g (printed 0.9988); combined standard uncertainty 3.119e-04 g/g (printed 3.100e-04).
+2. The masses and the purity of the internal standard dominate; the number of ¹H nuclei is given to four decimals (it is corrected for the natural abundance of deuterium and ¹³C).
+
+**Result:**
+
+- w_A = (0.99882 ± 0.00062) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Printed uncertainty components c·u: 2.24e-04, 1.67e-05, 1.50e-04, 5.73e-05, 4.91e-05, 1.29e-04, 3.28e-05, 2.50e-05. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
+
+**Run:** `uncertainty run library/chemistry/bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od.json --lang en`
+
+### Total risks of false decisions for a medication with four correlated active components (EMUE E2.1)
+
+`emue-e2.1-multicomponent-medication` — EMPIR 17NRM05 EMUE, Example E2.1, Tables E2.1.1–E2.1.2, E2.1.6
+
+NyQuil tablets: APAP, DEX, DOX and PE, tolerance 95–105 % of the labelled amount, u_rel = 2.8 %; total specific consumer's risks for three sets of test results and the total global consumer's risk.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Each component may conform while the item as a whole does not: the total specific consumer's risk is the probability that at least one true content lies outside 95–105 % although all test results lie inside (IUPAC project; EMUE E2.1.6.2).
+2. Prior: multivariate normal from 105 production lots (means 99.18, 97.70, 99.33, 98.94 %; s.d. 1.37, 1.02, 1.05, 1.22 %) with the Pearson correlations of Table E2.1.1. Likelihood: multivariate normal with u_i = 0.028·c_mi and the same correlations. The posterior is normal, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2).
+3. Total specific consumer's risks: 0.29 % when the results equal the prior means, 1.17 % at the lower limits and 0.02 % at the upper limits; the prior shifts the posterior towards its means, which lie below 100 %. Total global consumer's risk 0.18 %: 18 of 10 000 tablets accepted without conforming.
+
+**Result:**
+
+- c_m = m: accepted, total specific consumer's risk 0.288 %
+- c_m = T_L: accepted, total specific consumer's risk 1.17 %
+- c_m = T_U: accepted, total specific consumer's risk 0.0213 %
+- Total global consumer's risk 0.180 %, producer's risk 38.9 % (2000000 Monte Carlo trials)
+
+**Notes:**
+
+- The program integrates the 4-dimensional posterior over the tolerance box by the method of Genz (separation of variables, 200 000 antithetic draws, standard error about 10⁻⁶) instead of R's pmvnorm, and the global risk by Monte Carlo with u_i proportional to the true value.
+
+**Run:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang en`
+
+### NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture diluted with two calibrated MFCs; straight-line analysis function x = A + B·w fitted with uncertainties in both variables; validation with an independent mixture of 975.5 nmol/mol.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7) with the same parent mixture (10.252 ± 0.016 µmol/mol) and the same MFC calibration curves for all three mixtures, so the reference values are correlated (matrix E3.3.17). ISO 6143 handles such contents with their covariances.
+2. The program fits the line by generalized least squares (ISO 6143 Annex A) and propagates the covariances of the contents into the parameter covariance. That gives exactly the printed V_AB = (285, −1.30, 6.36·10⁻³), with A = 89.21 and B = 4.1848.
+3. Validation: w = 213.33 ± 0.11 a.u. gives x = 981.95 nmol/mol with u = 4.52 nmol/mol against the reference 975.5 ± 1.5 nmol/mol: E_n = 6.5/(2·√(u² + 1.5²)) ≈ 0.68, consistent.
+
+**Result:**
+
+- x(validation) = (982.0 ± 9.0) nmol/mol (k = 2.00)
+
+**Notes:**
+
+- The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).
+
+**Run:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang en`
+
+### NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values, covariances ignored (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture diluted with two calibrated MFCs; straight-line analysis function x = A + B·w fitted with uncertainties in both variables; validation with an independent mixture of 975.5 nmol/mol.
+
+**Approach:** calibration with uncertainties in both variables (ISO 6143)
+
+**Steps:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7) with the same parent mixture (10.252 ± 0.016 µmol/mol) and the same MFC calibration curves for all three mixtures, so the reference values are correlated (matrix E3.3.17). ISO 6143 handles such contents with their covariances.
+2. The program fits the line by generalized least squares (ISO 6143 Annex A) and propagates the covariances of the contents into the parameter covariance. That gives exactly the printed V_AB = (285, −1.30, 6.36·10⁻³), with A = 89.21 and B = 4.1848.
+3. Validation: w = 213.33 ± 0.11 a.u. gives x = 981.95 nmol/mol with u = 4.35 nmol/mol against the reference 975.5 ± 1.5 nmol/mol: E_n = 6.5/(2·√(u² + 1.5²)) ≈ 0.68, consistent. Ignoring the covariances lowers u by 3.7 %.
+
+**Result:**
+
+- x(validation) = (982.0 ± 8.7) nmol/mol (k = 2.00)
+
+**Notes:**
+
+- The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).
+
+**Run:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang en`
+
+### Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)² with relative summary values from precision, trueness and ruggedness studies; u(δ̂)/w = 0.033.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ISO 21748 model y = µ + δ + B + Σc_i x′_i + e (E3.4.2): an 11 × 2 nested design on four materials gives the intermediate precision; its median RSD is 3.2 % and the more conservative root-mean-square RSD 3.6 % (zinc in C279a excluded).
+2. Bias against two CRMs and two PT materials, u²(δ̂) = s²_δ̂ + u²_ref with s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). The procedure shows a consistent low bias near 10 %, within the permitted limits, so it is not corrected.
+3. Extraction temperature and time are not represented in the precision study; their relative sensitivity coefficients 0.004 °C⁻¹ and 9·10⁻⁴ min⁻¹ come from a 2 × 2 factorial experiment (Table E3.4.3), with rectangular uncertainties ±5 °C and ±5 min. The stock solution of Pb (984.74 ± 0.985 mg/kg) enters as a proportional effect.
+4. u_rel = 0.0503; for a result of 27.8 mg/kg, U = 2.79 mg/kg (k = 2).
+
+**Result:**
+
+- w = (27.8 ± 2.8) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).
+- The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.
+
+**Run:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang en`
+
+### Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data, root-mean-square bias uncertainty (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748-rms-bias` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)² with relative summary values from precision, trueness and ruggedness studies; u(δ̂)/w = 0.035.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. ISO 21748 model y = µ + δ + B + Σc_i x′_i + e (E3.4.2): an 11 × 2 nested design on four materials gives the intermediate precision; its median RSD is 3.2 % and the more conservative root-mean-square RSD 3.6 % (zinc in C279a excluded).
+2. Bias against two CRMs and two PT materials, u²(δ̂) = s²_δ̂ + u²_ref with s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). The procedure shows a consistent low bias near 10 %, within the permitted limits, so it is not corrected.
+3. Extraction temperature and time are not represented in the precision study; their relative sensitivity coefficients 0.004 °C⁻¹ and 9·10⁻⁴ min⁻¹ come from a 2 × 2 factorial experiment (Table E3.4.3), with rectangular uncertainties ±5 °C and ±5 min. The stock solution of Pb (984.74 ± 0.985 mg/kg) enters as a proportional effect.
+4. u_rel = 0.0516; for a result of 27.8 mg/kg, U = 2.87 mg/kg (k = 2). The guide's u(δ̂)/w = 0.033 is called the root mean square of Table E3.4.2 but is its mean; the root mean square is 0.035, which gives U = 2.9 mg/kg.
+
+**Result:**
+
+- w = (27.8 ± 2.9) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).
+- The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.
+
+**Run:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang en`
+
+### Calibration gas mixture of NH₃ in N₂ by permeation: amount fraction of ammonia (EMUE E3.8)
+
+`emue-e3.8-ammonia-permeation` — EMPIR 17NRM05 EMUE, Example E3.8, (E3.8.1)–(E3.8.4), Tables E3.8.3–E3.8.5
+
+y = ṅ₁x₁/(ṅ₁ + ṅ₂) with ṅ_j = q_mj/M̄_j (E3.8.1): permeation rate from a magnetic suspension balance, carrier flow from a thermal mass flow controller, purities of both parent gases and molar masses from standard atomic weights.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The NH₃ tube loses 13.599 µg/min at 62 °C (OLS; errors-in-variables gives the same slope with u = 0.088 µg/min, the guide keeps OLS with 0.108 µg/min). The nitrogen flow is 0.3126 g/min with u_rel = 0.2 %.
+2. Molar masses of the parent gases M̄_j = Σx_ij M_i with M_i from the IUPAC intervals; they are correlated through the shared atomic weights (r(M̄₁, M̄₂) = 0.12), and x(NH₃) = 1 − x(H₂O) is correlated with M̄₁. The program obtains these correlations from the shared inputs.
+3. y(NH₃) = 70.80 µmol/mol, u = 0.60 µmol/mol (0.84 %), of which the permeation rate gives 88 % of the variance, the water in the ammonia 6 % and the carrier flow 5 %; (70.8 ± 1.2) µmol/mol with k = 2.
+
+**Result:**
+
+- y_NH3 = (70.8 ± 1.2) µmol/mol, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- E3.8.5.2 gives E_A = 59.164 kJ/mol, k₀ = 43.069 µg/min and a temperature sensitivity of 4.81·10⁻⁷ µg min⁻¹ K⁻¹. From the two stated rates (7.4921 µg/min at 52.45 °C, 13.599 µg/min at 62.00 °C) E_A = 56.64 kJ/mol and k₀ = 9.1·10⁹ µg/min (k₀ must exceed the rate); dṁ/dT at 62 °C is 0.82 µg min⁻¹ K⁻¹, and the stated contribution of 0.0022 µg/min corresponds to this value with u(T) = 0.0027 K. The contribution is negligible here (research log F89).
+
+**Run:** `uncertainty run library/chemistry/emue-e3.8-ammonia-permeation.json --lang en`
+
+### Ephedrine in urine: WADA decision limit as a guarded-rejection rule (EMUE E6.5, JCGM 106)
+
+`emue-e6.5-ephedrine-wada-decision-limit` — EMPIR 17NRM05 EMUE, Example E6.5, E6.5.2–E6.5.3, Table E6.5.2
+
+Threshold T = 10 µg/mL; an adverse analytical finding requires the concentration to exceed T with at least 95 % confidence, using the target uncertainty u_c,max = 0.5 µg/mL: DL = T + 1.645 u_c,max.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guarded rejection with probability 0.95 and the fixed u = 0.5 µg/mL gives the decision limit DL = 10.822 µg/mL; WADA sets DL = 11 µg/mL (TD DL), i.e. rounded upwards.
+2. The means of the laboratory's triplicates in three EQAS rounds (spiked at 10.6 and 11.7 µg/mL) are 11.83, 11.67 and 11.47 µg/mL; all exceed DL and would be reported as adverse findings, the samples being spiked above T.
+
+**Result:**
+
+- Probability that EQAS 1 conforms to γ(ephedrine) ≤ 10 µg/mL: p_c = 0.012 %; rejected under guarded rejection.
+- Probability that EQAS 2 conforms to γ(ephedrine) ≤ 10 µg/mL: p_c = 0.043 %; rejected under guarded rejection.
+- Probability that EQAS 3 conforms to γ(ephedrine) ≤ 10 µg/mL: p_c = 0.17 %; rejected under guarded rejection.
+
+**Notes:**
+
+- Table E6.5.2 prints the mean of round 2 (11.5, 11.9, 11.6) as 11.6 (it is 11.67) and the standard deviation of round 3 (11.5, 11.4, 11.5) as 0.45 µg/mL (it is 0.058, 0.5 %). Its z-scores 0.27, 0.71 and 0.47 follow from none of the stated standard deviations: with σ = u_c,max = 0.5 µg/mL they are −0.93, −1.27 and 0.73 (research log F91).
+
+**Run:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang en`
+
+### Nickel in stainless steel: guarded acceptance with a two-sided specification (Eurachem/CITAC compliance guide, Example B1)
+
+`eurachem-compliance-b1-nickel-steel` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 1; Annex A, Case 1b
+
+Specification 16.0–18.0 % Ni, U = 0.2 % (k = 2); acceptance zone where conformity is at least 95 % probable; measured 16.1 % Ni.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 1b of Annex A: the expanded uncertainty is divided by its k = 2, u = 0.1 % Ni, and each guard band is k·u with the one-sided 95 % normal quantile k = 1.645.
+2. Acceptance zone 16.164–17.836 % Ni (printed 16.2–17.8 after rounding). 16.1 % Ni lies in the rejection zone: p_c = 84 %, the batch is non-compliant; with simple acceptance it would be compliant.
+
+**Result:**
+
+- Probability that batch conforms to 16 % ≤ w(Ni) ≤ 18 %: p_c = 84 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- The guide gives the guard band as 1.64u ≈ 0.17 %; 1.64 × 0.1 = 0.164 rounds to 0.16 % (research log F86). The rounded acceptance limits 16.2 and 17.8 % correspond to a probability of 97.7 %, not 95 %.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang en`
+
+### Analyte below an upper limit, t distribution with ν = 8: guarded rejection (Eurachem/CITAC compliance guide, Example B2)
+
+`eurachem-compliance-b2-upper-limit-t` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 2; Annex A, Case 2
+
+Upper limit 200 ng/g, u = 2.2 ng/g with 8 degrees of freedom; non-compliant only if the probability above the limit exceeds 95 %; measured 203.7 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 2 of Annex A: the guard band is t₀.₉₅(8)·u = 1.860 × 2.2 = 4.09 ng/g, so the acceptance limit is 204.09 ng/g.
+2. 203.7 ng/g lies below the acceptance limit: the probability of exceeding 200 ng/g is 93.4 %, below 95 %, and the batch is compliant. Simple acceptance would declare it non-compliant.
+
+**Result:**
+
+- Probability that batch conforms to w ≤ 200 ng/g: p_c = 6.6 %; accepted under guarded rejection.
+
+**Notes:**
+
+- The table of the example states 'the distribution … is assumed to be Normal' but the guard band uses the t distribution with 8 degrees of freedom (research log F86).
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang en`
+
+### Banned substance at a 2 ng/g limit with u_rel = 35 %: lognormal PDF, s_G ≈ u_rel (Eurachem/CITAC compliance guide, Example B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the probability above the limit is at least 95 %; measured 3.3 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 4 of Annex A: for positive quantities from products and ratios a lognormal PDF is appropriate. The acceptance limit for correct rejection is L·U_F with the uncertainty factor U_F = exp(k·s_G), k = 1.645 (Equations 1–3).
+2. Acceptance limit 3.557 ng/g; at 3.3 ng/g the probability of exceeding 2 ng/g is 92.4 % and the sample is compliant. Normal PDF: 3.151 ng/g; lognormal with s_G = u_rel: 3.557; with exact s_G = √ln(1 + u_rel²) = 0.3398: 3.498 ng/g.
+
+**Result:**
+
+- Probability that sample conforms to w ≤ 2 ng/g: p_c = 7.6 %; accepted under guarded rejection.
+
+**Notes:**
+
+- Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang en`
+
+### Banned substance at a 2 ng/g limit with u_rel = 35 %: lognormal PDF, exact s_G (Eurachem/CITAC compliance guide, Example B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal-exact` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the probability above the limit is at least 95 %; measured 3.3 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 4 of Annex A: for positive quantities from products and ratios a lognormal PDF is appropriate. The acceptance limit for correct rejection is L·U_F with the uncertainty factor U_F = exp(k·s_G), k = 1.645 (Equations 1–3).
+2. Acceptance limit 3.498 ng/g; at 3.3 ng/g the probability of exceeding 2 ng/g is 93.0 % and the sample is compliant. Normal PDF: 3.151 ng/g; lognormal with s_G = u_rel: 3.557; with exact s_G = √ln(1 + u_rel²) = 0.3398: 3.498 ng/g.
+
+**Result:**
+
+- Probability that sample conforms to w ≤ 2 ng/g: p_c = 7 %; accepted under guarded rejection.
+
+**Notes:**
+
+- Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang en`
+
+### Banned substance at a 2 ng/g limit with u_rel = 35 %: normal PDF with u = u_rel·L = 0.7 ng/g (Eurachem/CITAC compliance guide, Example B3)
+
+`eurachem-compliance-b3-banned-substance-normal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the probability above the limit is at least 95 %; measured 3.3 ng/g.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Case 4 of Annex A: for positive quantities from products and ratios a lognormal PDF is appropriate. The acceptance limit for correct rejection is L·U_F with the uncertainty factor U_F = exp(k·s_G), k = 1.645 (Equations 1–3).
+2. Acceptance limit 3.151 ng/g; at 3.3 ng/g the probability of exceeding 2 ng/g is 96.8 % and the sample is non-compliant. Normal PDF: 3.151 ng/g; lognormal with s_G = u_rel: 3.557; with exact s_G = √ln(1 + u_rel²) = 0.3398: 3.498 ng/g.
+
+**Result:**
+
+- Probability that sample conforms to w ≤ 2 ng/g: p_c = 3.2 %; rejected under guarded rejection.
+
+**Notes:**
+
+- L(1 + k·u_rel) takes u at the limit, u = 0.35 × 2 = 0.7 ng/g, which is what this project enters. With the relative uncertainty applied at the measured value, as for the lognormal PDF, a normal PDF needs the acceptance limit L/(1 − k·u_rel) = 4.714 ng/g: at 3.151 ng/g, u = 1.10 ng/g and the probability above 2 ng/g is only 85 %. The lognormal limit L·exp(k·s_G) is exact for a constant s_G (research log F86).
+- Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
+
+**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang en`
+
+### pH at 23.7 °C by three linear interpolations, independent certified values (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-temperature-interpolation` — JCGM GUM-5:2026, Example 1, 1.6, 1.9 and 1.10.3
+
+The test solution is at 23.7 °C, between the certificate temperatures 20 °C and 25 °C: interpolation in potential at each temperature, then in temperature; all inputs independent (GUM-5 1.7.1).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The algorithm of GUM-5 1.6 is the measurement model: pH_X,T1 and pH_X,T2 are interpolated in potential with the certified values at T₁ = 25 °C and T₂ = 20 °C, and pH_X at T_X = 23.7 °C is interpolated between them; T₁ and T₂ are exact certificate temperatures.
+2. pH_X,T1 = 7.0002, pH_X,T2 = 7.0161, pH_X = 0.74·pH_X,T1 + 0.26·pH_X,T2 = 7.0043; cubic interpolation in temperature changes the pH of S1 by only 0.0004 (GUM-5 1.10.1.1).
+3. With independent certified values the interpolation in temperature averages the uncertainties of the values at 20 °C and 25 °C: u(pH_X) = 0.0032.
+
+**Result:**
+
+- pH_X = (7.0043 ± 0.0063), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here (7.0043), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives 0.0032; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated (0.0041) (research log F78).
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation.json --lang en`
+
+### pH at 23.7 °C by three linear interpolations, certified values of each standard correlated across temperatures (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-temperature-interpolation-correlated` — JCGM GUM-5:2026, Example 1, 1.6, 1.9 and 1.10.3
+
+As the independent case, but the pH values of each standard at 20 °C and 25 °C are fully correlated, as the shared Bates–Guggenheim convention suggests (GUM-5 1.10.3.3).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The algorithm of GUM-5 1.6 is the measurement model: pH_X,T1 and pH_X,T2 are interpolated in potential with the certified values at T₁ = 25 °C and T₂ = 20 °C, and pH_X at T_X = 23.7 °C is interpolated between them; T₁ and T₂ are exact certificate temperatures.
+2. pH_X,T1 = 7.0002, pH_X,T2 = 7.0161, pH_X = 0.74·pH_X,T1 + 0.26·pH_X,T2 = 7.0043; cubic interpolation in temperature changes the pH of S1 by only 0.0004 (GUM-5 1.10.1.1).
+3. With r = 1 between the values of the same standard the interpolation in temperature no longer averages them: u(pH_X) = 0.0041, the value GUM-5 prints.
+
+**Result:**
+
+- pH_X = (7.0043 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here (7.0043), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives 0.0032; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated (0.0041) (research log F78).
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation-correlated.json --lang en`
+
+### pH of a test solution by two-point interpolation at 25 °C (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-two-point-25c` — JCGM GUM-5:2026, Example 1, 1.8
+
+Bracketing between two NIST phosphate pH standards measured with the same cell; inputs independent, as in IUPAC practice.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Two-point calibration by bracketing (GUM-5 1.4.2, 1.5): the pH of the test solution is interpolated linearly between the points (E_S1, pH_S1) and (E_S2, pH_S2) of two NIST phosphate standards: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).
+2. With q = (E_X − E_S1)/(E_S2 − E_S1) = 0.2469 and slope b = -0.016975 mV⁻¹, u²(pH_X) = b²(1 − q)²u²(E_S1) + (1 − q)²u²(pH_S1) + b²q²u²(E_S2) + q²u²(pH_S2) + b²u²(E_X) (Formula 1.17); the contributions are 0.0038 (pH_S1), 0.0013 (pH_S2), 0.0004, 0.0004 and 0.0001.
+3. pH_X = 7.0002, u(pH_X) = 0.0041: the certified pH values dominate. A common calibration error δE_cal of the three potentials cancels (GUM-5 1.8.2).
+
+**Result:**
+
+- pH_X = (7.0002 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c.json --lang en`
+
+### pH by two-point interpolation with fully correlated pH standards (JCGM GUM-5 Example 1)
+
+`gum5-e1-ph-two-point-25c-correlated-standards` — JCGM GUM-5:2026, Example 1, 1.10.3.4 and 1.10.3.5
+
+As the 25 °C case, but with correlation 1 between the certified pH values, which share the Bates–Guggenheim convention.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Two-point calibration by bracketing (GUM-5 1.4.2, 1.5): the pH of the test solution is interpolated linearly between the points (E_S1, pH_S1) and (E_S2, pH_S2) of two NIST phosphate standards: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).
+2. The certificates give an SI-traceable uncertainty and a much smaller one without the Bates–Guggenheim convention; the convention term is common to both standards, so the correlation of the two pH values is close to 1 (GUM-5 1.10.3.3). Here r = 1.
+3. With r = 1 the terms (1 − q)²u²(pH_S1) + 2q(1 − q)u(pH_S1, pH_S2) + q²u²(pH_S2) combine to u²(pH_S1) (Formula 1.24): u(pH_X) = 0.0051, against 0.0041 when the correlation is ignored. Perfectly correlated contributions add linearly: 0.0038 + 0.0013 = 0.0051.
+
+**Result:**
+
+- pH_X = (7.000 ± 0.010), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- 1.10.3.5 attributes u = 0.0051 to pH_X = 7.0109 and 'the data in subclause 1.7'; the calculation uses the 25 °C data of 1.8, for which pH_X = 7.0002 (research log F78).
+
+**Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang en`
+
+### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.17 mg/m³ (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.17` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance limit moved to 0.17 mg/m³.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).
+3. R_C = 0.0103 % and R_P = 5.370 %. GUM-5 prints 0.002 % and 5.8 %; its joint PDF gives 0.0020 % and 5.781 %.
+
+**Notes:**
+
+- GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang en`
+
+### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.22 mg/m³ (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.22` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance limit moved to 0.22 mg/m³.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).
+3. R_C = 1.8010 % and R_P = 0.055 %. GUM-5 prints 1.7 % and < 0.1 %; its joint PDF gives 1.6862 % and 0.115 %.
+
+**Notes:**
+
+- GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang en`
+
+### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.2 mg/m³ (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-global-risks-shared-risk` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; shared-risk rule A_U = T_U.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. The relative standard uncertainty of every result is 7 %, dominated by the sampled air volume. The measuring-system PDF h(ρ̂ | ρ) is normal with standard deviation 0.07·ρ, proportional to the true value, so that it is a PDF of ρ̂ for every ρ (JCGM 106 9.5.1); global risks follow from JCGM 106 Formulae (19) and (20).
+3. R_C = 0.5790 % and R_P = 0.739 %. GUM-5 prints 0.5 % and 0.9 %; its joint PDF gives 0.4984 % and 0.909 %.
+
+**Notes:**
+
+- GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang en`
+
+### Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10)
+
+`gum5-e10-tspm-specific-risks` — JCGM GUM-5:2026, Example 10, 10.6.4 and 10.7.2
+
+Conformance probabilities of single results from the posterior g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal prior, u = 0.07·ρ̂, A_U = T_U = 0.2 mg/m³.
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Upper tolerance limit T_U = 0.2 mg/m³ (Israeli 24 h limit for total suspended particulate matter). The prior PDF of the population is lognormal, fitted to 220 results near a stone quarry: µ = −2.325 and σ = 0.434 for ln ρ (Formula 10.1); 95.0 % of the population conforms.
+2. For a given result the likelihood is normal with standard deviation u = 0.07·ρ̂ (10.6.4.3). The posterior has no closed form and is integrated numerically; p_c = Pr(ρ ≤ T_U | ρ̂).
+3. ρ̂ = 0.190 mg/m³ is accepted with a specific consumer's risk 1 − p_c = 14.3 %; ρ̂ = 0.225 mg/m³ is rejected with a specific producer's risk p_c = 11.3 %: an 11 % probability that the true concentration conforms (10.7.2). Without the prior the risks are 22.6 % and 5.6 %; the prior is wide but not negligible near the limit, which lies in its upper tail.
+
+**Result:**
+
+- Probability that ρ̂ = 0.190 conforms to ρ ≤ 0.2 mg/m³: p_c = 86 %; accepted under simple acceptance.
+- Probability that ρ̂ = 0.225 conforms to ρ ≤ 0.2 mg/m³: p_c = 11 %; rejected under simple acceptance.
+
+**Notes:**
+
+- 10.6.4 states that the posterior is essentially determined by the likelihood, so frequentist specific risks would be very close. Near T_U this does not hold: the normal PDF alone gives 1 − p_c = 22.6 % at 0.190 and p_c = 5.6 % at 0.225 mg/m³ (research log F80).
+
+**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-specific-risks.json --lang en`
+
+### Between-bottle homogeneity of nitrogen in natural gas mixtures: ANOVA, u*_bb and a Bayesian hierarchical model (JCGM GUM-5 Example 12)
+
+`gum5-e12-between-bottle-homogeneity-bayes` — JCGM GUM-5:2026, Example 12, Tables 12.1–12.3, 12.4.5 and 12.4.8
+
+Ten gas mixtures measured five times each; MS_between < MS_within, so the ANOVA gives no between-bottle standard deviation. The Bayesian model with half-Cauchy priors gives a posterior for τ.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. One-way ANOVA (Table 12.2): SS_between = 2.924e-06, ν = 9, MS_between = 3.249e-07; SS_within = 1.962e-05, ν = 40, MS_within = 4.904e-07 (cmol/mol)². s_bb = √((MS_between − MS_within)/n) does not exist, and ISO 13528 sets s_s = 0.
+2. The classical answer for this case is the between-unit standard deviation that the repeatability can hide, u*_bb = √(MS_within/n)·(2/ν_within)^¼ = 1.481e-04 cmol/mol, 0.035 % (Linsinger et al. 2001; ISO Guide 35). GUM-5 does not give it.
+3. Bayesian model y_ij = µ + B_i + ε_ij with µ ~ N(0.4250, (0.025 × 0.4250)²), τ ~ half-Cauchy(0, 0.0015 µ₀) and σ ~ half-Cauchy(0, 0.0020 µ₀), from the specification of the preparation (0.30 % at k = 2) and the known repeatability (0.20 %). The program integrates B_i and µ analytically and evaluates the posterior of (τ, σ) on a grid, where GUM-5 uses Stan (MCMC, 4 × 20 000 draws).
+4. Posterior of τ: mean 0.000136, s.d. 0.000107, median 0.000113, 97.5 % quantile 0.000397 cmol/mol (Stan: 0.00014, 0.00011, —, 0.00040); shortest 95 % interval of τ/µ [0, 0.0008] and of σ/µ [0.0013, 0.0020] as in Table 12.3. The posterior mean of τ (1.36 µmol/mol) is close to u*_bb (1.48 µmol/mol).
+
+**Notes:**
+
+- 12.4.8 gives the mode of the posterior of τ as 0.3 µmol/mol. The marginal posterior density of τ is largest at τ = 0 here, because MS_between < MS_within and the half-Cauchy prior is largest at 0. The R function getmode of 12.5.2 tabulates exact repeats of the draws, which for continuous MCMC output are all distinct, so it returns the first draw rather than a mode (research log F81).
+- Equation (12.5) writes the likelihood as y_ij | µ, τ, σ ~ N(µ, τ² + σ²), as if the observations were independent; the replicates of one bottle share B_i and are correlated. The Stan code of 12.4.2 uses the hierarchical model, which the program also uses.
+
+**Run:** `uncertainty run library/chemistry/gum5-e12-between-bottle-homogeneity-bayes.json --lang en`
+
+### Benzo[a]pyrene by GC-MS with an internal standard, correlated inputs (JCGM GUM-5 Example 2)
+
+`gum5-e2-benzo-a-pyrene` — JCGM GUM-5:2026, Example 2, Tables 2.1–2.3
+
+Internal-standard model with two correlated pairs of inputs; LPU with covariances and the Welch–Satterthwaite ν_eff as printed.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Internal-standard model (EN 15549): m_E = f·A_E/A_ISE·m_ISE, the mass of benzo[a]pyrene in 1 µL of the second extract of a glass-fibre filter spiked with NIST SRM 2260a.
+2. The same internal standard is used in calibration and analysis, so r(f, m_ISE) = −3.3·10⁻⁵/(0.017 × 0.0036) = -0.54; the peak areas of the same injections give r(A_E, A_ISE) = −2.03·10⁸/(9564 × 44 492) = -0.48.
+3. u²(m_E) = 4.077e-06 ng² with the covariance terms and 3.140e-06 ng² without them; the A_E–A_ISE term adds 1.02e-06 ng² because the correlation is negative while the sensitivities have opposite signs.
+4. Welch–Satterthwaite (G.2b), correlations ignored in the denominator: ν_eff = 5.20, k(95 %) = 2.5; the program warns that G.2b is not valid for correlated inputs. GUM-5 eq. (2.3) gives 4.81 and k = 2.6, U = 0.0052 ng; the ensemble treatment of the companion project gives 2.11.
+
+**Result:**
+
+- mE = (0.0140 ± 0.0051) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.54, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).
+- The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).
+
+**Run:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene.json --lang en`
+
+### Benzo[a]pyrene: peak areas of the same injections as an ensemble in ν_eff (JCGM GUM-5 Example 2, Willink 2007)
+
+`gum5-e2-benzo-a-pyrene-ensemble` — JCGM GUM-5:2026, Example 2, Tables 2.1–2.3; Willink, Metrologia 44 (2007) 340, §4.1.1
+
+The same budget with A_E and A_ISE declared an ensemble: their joint variance is one Welch–Satterthwaite component with ν = 2, giving ν_eff ≈ 2.1 instead of 5.2 or 4.8.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Internal-standard model (EN 15549): m_E = f·A_E/A_ISE·m_ISE, the mass of benzo[a]pyrene in 1 µL of the second extract of a glass-fibre filter spiked with NIST SRM 2260a.
+2. The same internal standard is used in calibration and analysis, so r(f, m_ISE) = −3.3·10⁻⁵/(0.017 × 0.0036) = -0.54; the peak areas of the same injections give r(A_E, A_ISE) = −2.03·10⁸/(9564 × 44 492) = -0.48.
+3. u²(m_E) = 4.077e-06 ng² with the covariance terms and 3.140e-06 ng² without them; the A_E–A_ISE term adds 1.02e-06 ng² because the correlation is negative while the sensitivities have opposite signs.
+4. A_E and A_ISE are means of the same three paired injections; their estimated covariance matrix has a Wishart distribution with ν = 2, so the estimate of the variance of any combination c_E·A_E + c_I·A_ISE has exactly ν = 2 (Willink 2007, §4.1.1; GTC real_ensemble). Their component is (c_E u_E)² + (c_I u_I)² + 2c_E c_I u(A_E, A_ISE) = 3.971e-06 ng², 97 % of u².
+5. ν_eff = u⁴/[(c_f u_f)⁴/9 + 3.971e-06²/2] = 2.11; k(95 %) = 4.1 and U = 0.0083 ng, closer to the width of the MCM interval [≈ 0, 0.032] ng than the U = 0.0052 ng printed. GUM-5 eq. (2.3) treats the two areas as separate components and gives a ν_eff above 2 although the dominant component has ν = 2 (research log F79). The f–m_ISE correlation (ν = 9 and ∞) is not an ensemble, so the warning remains.
+
+**Result:**
+
+- mE = (0.0140 ± 0.0083) ng, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 4.10, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).
+- The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).
+
+**Run:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json --lang en`
+
+### Relative molecular mass of glucose from standard atomic weight intervals (JCGM GUM-5 Example 3)
+
+`gum5-e3-molar-mass-glucose` — JCGM GUM-5:2026, Example 3, Tables 3.1 and 3.2
+
+M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O with rectangular distributions over the IUPAC 2021 intervals of the standard atomic weights.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The isotopic composition of the glucose is unknown; for a normal material the standard atomic weights lie in the intervals [1.007 84, 1.008 11] (H), [12.0096, 12.0116] (C) and [15.999 03, 15.999 77] (O), to which rectangular distributions are assigned (GUM 4.3.7).
+2. The model is linear with exact coefficients: u(M_r) = √Σν_i²u²(A_i); the contributions are 0.00094 (H), 0.00346 (C) and 0.00128 (O), so carbon dominates.
+3. M_r = 180.1557, u(M_r) = 0.0038. The rectangular distributions express the lack of knowledge of the isotopic composition, not the actual composition (GUM-5 3.4.2).
+
+**Result:**
+
+- M_r = (180.1557 ± 0.0075), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- The same calculation for CO₂ is NIST TN 1900 Example E8 in the library.
+
+**Run:** `uncertainty run library/chemistry/gum5-e3-molar-mass-glucose.json --lang en`
+
+### Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4)
+
+`gum5-e4-gravimetric-gas-mixture` — JCGM GUM-5:2026, Example 4, Tables 4.1–4.6 and 4.3.6.9
+
+ISO 6142-1 model y_k = n_k/n_tot from three weighings, the purity tables of two parent gases and IUPAC atomic-weight intervals; multivariate LPU (JCGM 102).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. Masses of the parent gases m₁ = r₁ − r₀ = 245.5194 g (CO₂) and m₂ = r₂ − r₁ = 623.7789 g (N₂) from the substitution weighings of Table 4.1. Both depend on r₁, so they are correlated (4.3.1); u(r̂_j) combines the standard deviation of the mean of seven differences with the resolution 1 mg/√12 (Table 4.2).
+2. Molar masses M_i = Σ ν_ie A_e from rectangular distributions over the IUPAC intervals; CO and CO₂ share C and O, giving r = 0.960 (4.3.4.6). The major component of each parent gas is 1 − Σ impurities (4.3), which makes its covariance with each impurity −u²(x_i) (4.5); the program obtains these correlations from the shared inputs, without entering them.
+3. u(y_CO₂) = 3.96 µmol/mol is dominated by the atomic weights of N (2.8), C (2.1) and O (1.6); u(y_N₂) = 4.72 µmol/mol adds the argon impurity of the nitrogen (2.6). r(CO₂, N₂) = −0.85 and r(Ar, N₂) = −0.55.
+
+**Result:**
+
+- y_Ar = 4.00 µmol/mol, u(y_Ar) = 2.4 µmol/mol (GUM)
+- y_CH4 = 0.0264 µmol/mol, u(y_CH4) = 0.013 µmol/mol (GUM)
+- y_CO = 0.1122 µmol/mol, u(y_CO) = 0.061 µmol/mol (GUM)
+- y_CO2 = 200345.27 µmol/mol, u(y_CO2) = 4.0 µmol/mol (GUM)
+- y_H2 = 0.0200 µmol/mol, u(y_H2) = 0.012 µmol/mol (GUM)
+- y_H2O = 0.3887 µmol/mol, u(y_H2O) = 0.021 µmol/mol (GUM)
+- y_N2 = 799649.12 µmol/mol, u(y_N2) = 4.7 µmol/mol (GUM)
+- y_O2 = 1.066 µmol/mol, u(y_O2) = 0.52 µmol/mol (GUM)
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.73 (the outputs are dependent: no hyper-ellipsoid)
+
+**Notes:**
+
+- Table 4.2 does not follow from Table 4.1: the averages of the differences are −152.0247 g and 717.2743 g (printed −152.0243 and 717.2740 g), and the standard deviations of the means are 0.18, 0.40 and 0.42 mg (printed u_rpt 0.4, 0.7 and 0.6 mg). The project uses Table 4.2, as the guide does; with the averages of Table 4.1, m₁ is 0.5 mg larger (research log F82).
+- Printed Table 4.6 differs in three places (research log F82): u(y_CO₂) = 5 µmol/mol and u_rel 0.003 % against 3.96 µmol/mol and 0.0020 % recomputed; y_H₂O = 0.379 against 0.389 µmol/mol (0.2003 × 1.9 + 0.7996 × 0.010); r(Ar, N₂) = −0.50 and r(CO₂, O₂) = −0.08 against −0.55 and −0.10. The other values agree.
+
+**Run:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang en`
+
+### Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): independent inputs (JCGM GUM-5 Example 5)
+
+`gum5-e5-ghg-inventory-agriculture` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their standard uncertainty by the LPU for independent inputs (5.5).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E(CO₂e) = Σ s_i A_i F_i over two fuels and three gases, with the global warming potentials s = 11/3 (CO₂ as C), 25 (CH₄) and 298 (N₂O) taken as exact (5.4.3–5.4.4). The reported relative expanded uncertainties (95 %) are converted with k = 1.96, which reproduces the budget of Table 5.3.
+2. The CO₂ from gas oil dominates: its contribution is 833.18 of the 835.16 kt, because the activity data for that line carry U_rel = 38.6 %. N₂O follows with 57.39 kt (emission factor U_rel = 216 %).
+
+**Result:**
+
+- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).
+- The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.
+
+**Run:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang en`
+
+### Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): activity data shared by CH₄ and N₂O (JCGM GUM-5 Example 5)
+
+`gum5-e5-ghg-inventory-agriculture-shared-activity` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their standard uncertainty by the LPU, with A₂ = A₃ and A₅ = A₆ as one quantity each (5.4.9).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. E(CO₂e) = Σ s_i A_i F_i over two fuels and three gases, with the global warming potentials s = 11/3 (CO₂ as C), 25 (CH₄) and 298 (N₂O) taken as exact (5.4.3–5.4.4). The reported relative expanded uncertainties (95 %) are converted with k = 1.96, which reproduces the budget of Table 5.3.
+2. The CO₂ from gas oil dominates: its contribution is 833.18 of the 835.16 kt, because the activity data for that line carry U_rel = 38.6 %. N₂O follows with 57.39 kt (emission factor U_rel = 216 %).
+3. The CH₄ and N₂O lines of each fuel use numerically identical activity data with identical uncertainties, taken as one quantity (5.4.8–5.4.9). u² increases by 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = 0.0345 kt², so u = 835.16171 against 835.16169 kt: invisible here because the gas-oil CO₂ dominates (5.4.10). In the idealized case of six equal contributions the ratio u²_cor/u²_ind lies between 1 and 3 (5.4.14).
+
+**Result:**
+
+- E = (4300 ± 1600) kt, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).
+- The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.
+
+**Run:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang en`
 
 ### Censored results in a PT round: censored results deleted (ISO 13528 E.1)
 
@@ -191,7 +1049,7 @@ ISO 13528:2022 E.5 (7.5): the proficiency test item and a similar CRM are tested
 
 **Result:**
 
-- x_pt = (23.35 ± 0.71) LA units, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- x_pt = (23.35 ± 0.71) LA units, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -215,7 +1073,7 @@ ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs 
 
 **Result:**
 
-- w_meat = (95.6 ± 4.0) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w_meat = (95.6 ± 4.0) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -476,6 +1334,185 @@ ISO 6143:2025 B.2.4: a non-linear NDIR calibration with twelve points; the power
 
 **Run:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang en`
 
+### Argentometric titration (Mohr) with the endpoint chemistry: implicit model with the solubility products of AgCl and Ag₂CrO₄ (IUPAC 2024, Examples 3A and 4I)
+
+`iupac2024-3a-argentometric-titration-ksp` — Possolo et al., Examples 3A and 4I; Meija et al., Eq. (19)
+
+At the endpoint [Ag⁺] = √(K_sp2/[CrO₄²⁻]) and [Cl⁻] = K_sp1/[Ag⁺]; the mass balance of silver and chloride gives an equation for c(NaCl) that is solved numerically.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102)
+
+**Steps:**
+
+1. With c(K₂CrO₄) = 1.75 mmol/L diluted to 110 mL, [Ag⁺] = 28.13 µmol/L and [Cl⁻] = 6.32 µmol/L at the endpoint: the excess silver 21.8 µmol/L × 110 mL must be subtracted from the titrant.
+2. (c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻] gives c(NaCl) = 9.9760 mmol/L, 0.24 % below the conventional 10.000 mmol/L; the uncertainty from the volumes is unchanged (0.026 mmol/L).
+
+**Result:**
+
+- c_NaCl = 9.9760 mmol/L, u(c_NaCl) = 0.026 mmol/L (GUM)
+
+**Notes:**
+
+- The equation printed in Example 4I has the right-hand side (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E) with a positive left-hand side [Ag⁺] − [Cl⁻]; solved as printed it gives 10.024 mmol/L, 0.24 % above the conventional value. Since the indicator responds only after the equivalence point, the endpoint volume overestimates the chloride and the mass balance gives 9.976 mmol/L; the guide states the magnitude, 0.24 %, but not its sign (research log F92).
+
+**Run:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang en`
+
+### Molar mass of iridium from three mutually inconsistent determinations: laboratory effects and a Bayesian random-effects model (IUPAC 2024, Examples 3E, 4M and 4N)
+
+`iupac2024-3e-4m-iridium-molar-mass-bayes` — Possolo et al., Examples 3E, 4M, 4N
+
+Three isotope-ratio determinations behind the 2021 standard atomic weight of iridium (Prohaska et al.) give M = 192.216 77(81), 192.216 62(29) and 192.217 63(17) g/mol. Their standard deviation is 1.6 times the geometric mean of the uncertainties; Cochran's Q test confirms the inconsistency. Laboratory effects with standard deviation τ reconcile them.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. 3E: the naive τ = √(s² − ū_g²) = √(0.000 54² − 0.000 34²) = 0.000 42 g/mol, from the standard deviation s = 0.000545 g/mol and the geometric mean ū_g = 0.000342 g/mol of the uncertainties. With three values its reliability is questionable.
+2. 4M: the prior for M is Gaussian with the 1993 standard atomic weight, 192.217 ± 0.0015 g/mol; the prior for τ is half-Cauchy with median 0.000 42 g/mol (the naive value of 3E). The posterior is q(M, τ) ∝ p_M(M) p_τ(τ) L(M, τ).
+3. 4N samples the posterior by random-walk Metropolis (10⁴ draws after burn-in and thinning). The program integrates M out analytically (for fixed τ the posterior of M is Gaussian) and evaluates the posterior of τ on a grid, which gives the same answer without Monte Carlo error: M = 192.2171(4) g/mol and a posterior median of τ of 0.0005 g/mol, as printed.
+4. The posterior of τ is markedly skewed to the right, so its median, not its mean, is reported. The DerSimonian–Laird estimate and the degrees of equivalence are shown for comparison.
+
+**Result:**
+
+- M(Ir): consensus value 192.21709 g/mol, standard uncertainty 0.00042 g/mol, 95 % coverage interval [192.21619, 192.21800] g/mol (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.00061 g/mol; Cochran's Q = 9.562 with 2 degrees of freedom
+- M(Ir): 192.21712 g/mol, standard uncertainty 0.00044 g/mol, 95 % credible interval [192.21616, 192.21795] g/mol; posterior median of τ 0.00051 g/mol (Bayes)
+
+**Notes:**
+
+- The guide gives p = 0.0082 for Cochran's Q test; the three values give Q = 9.56 and p = 0.0084. Their standard deviation is 0.000 545 g/mol, printed as 0.000 54 (research log F94).
+- The labels Ir-1 to Ir-3 follow the order of the guide; Prohaska et al. (2022) §8.4 name the sources.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang en`
+
+### Total hardness of water from Ca²⁺ and Mg²⁺: a conventional measurement model (IUPAC 2024, Examples 3C and 4A)
+
+`iupac2024-4a-water-hardness` — Possolo et al., Examples 3C and 4A
+
+H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), defined by convention; Gauss's formula with independent inputs.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Sensitivity coefficients M(CaCO₃)/M(Ca) = 2.4973 and M(CaCO₃)/M(Mg) = 4.1180 (the guide rounds to 2.5 and 4.1); H = 96.65 mg/L, u(H) = 3.18 mg/L ≈ 3 mg/L. The molar masses are taken as exact.
+2. The definition of the measurand fixes the measurement function (a conventional model, 3C); Ca and Mg determined separately by AAS justify independence (4A).
+
+**Result:**
+
+- H = (96.6 ± 6.2) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4a-water-hardness.json --lang en`
+
+### Isotopic abundances of silicon from two measured isotope amount ratios (IUPAC 2024, Example 4B)
+
+`iupac2024-4b-silicon-isotopic-abundances` — Possolo et al., Example 4B
+
+x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: three outputs from two inputs, with the covariance matrix Σ_y = JΣ_xJᵀ (Formula 3).
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Valkiers et al., Mixture III: R₂₉/₂₈ = 0.050 0657(25), R₃₀/₂₈ = 0.032 9035(34) mol/mol, taken as uncorrelated. The Jacobian is x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]].
+2. x₂₈ = 0.9233873(36), x₂₉ = 0.0462300(22), x₃₀ = 0.0303827(30) mol/mol. The abundances sum to 1, so their covariance matrix is singular; r(x₂₈, x₂₉) = -0.54, r(x₂₈, x₃₀) = -0.79.
+
+**Result:**
+
+- x28 = 0.92338729 mol/mol, u(x28) = 3.6 × 10⁻⁶ mol/mol (GUM)
+- x29 = 0.04623003 mol/mol, u(x29) = 2.2 × 10⁻⁶ mol/mol (GUM)
+- x30 = 0.03038267 mol/mol, u(x30) = 3.0 × 10⁻⁶ mol/mol (GUM)
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.39 (the outputs are dependent: no hyper-ellipsoid)
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang en`
+
+### Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F)
+
+`iupac2024-4f-ccqm-k145-nickel-bovine-liver` — Possolo et al., Example 4F
+
+17 national metrology institutes measured the mass fraction of nickel in bovine liver. The results are more dispersed than their stated uncertainties suggest; the laboratory-effects model x_j = μ + λ_j + ε_j with λ_j ~ N(0, τ²) recognises the dark uncertainty τ (the variability between laboratories that the stated uncertainties do not explain).
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. The likelihood is a product of 17 Gaussian densities with mean μ and variances τ² + u_j²; for given τ it is maximised by the weighted mean with weights 1/(τ² + u_j²), so only the profile likelihood in τ needs a numerical search.
+2. μ̂ = 2.0429 mg/kg and τ̂ = 0.0435 mg/kg; their standard uncertainties come from the inverse Hessian of −ln L: 2.043(15) mg/kg and 0.044(14) mg/kg, as printed.
+3. The guide warns that maximum likelihood tends to bias the estimates and that the Hessian underestimates the variance with fewer than about 15 results; restricted maximum likelihood, the NIST Consensus Builder or Bayesian procedures are preferable. The DerSimonian–Laird estimate with the parametric bootstrap and the degrees of equivalence are shown for comparison.
+
+**Result:**
+
+- w(Ni): consensus value 2.04282 mg/kg, standard uncertainty 0.016 mg/kg, 95 % coverage interval [2.01109, 2.07459] mg/kg (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.046 mg/kg; Cochran's Q = 40.12 with 16 degrees of freedom
+- w(Ni): 2.04294 mg/kg, standard uncertainty 0.015 mg/kg; τ = 0.044 ± 0.014 mg/kg (maximum likelihood)
+
+**Notes:**
+
+- The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for the first result.
+- Participants are coded Lab 1 to Lab 17 in the order of the guide's table. The official key comparison reference value and degrees of equivalence are those of the CCQM-K145 final report in the BIPM KCDB; the degrees of equivalence computed here illustrate the procedures on the same data and are not results of the comparison.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang en`
+
+### Cadmium calibration standard by Monte Carlo with a beta distribution for the purity (IUPAC 2024, Example 4H; QUAM A1)
+
+`iupac2024-4h-cadmium-standard-beta-mcm` — Possolo et al., Example 4H
+
+γ_Cd = w_Cd m_Cd/V with m_Cd = 100.28(5) mg, w_Cd = 0.999 900(58) g/g and V = 100.00(7) mL. The purity, bounded by 1 g/g, is modelled by a beta distribution, the volume by a triangular one.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The beta parameters follow from the mean and s.d. by the method of moments: α ≈ 29 720, β ≈ 2.97.
+2. Gauss's formula: u(γ_Cd) = 0.00086 mg/mL ≈ 0.0009 mg/mL. Monte Carlo: mean 1.0027 mg/mL, s.d. 0.0009 mg/mL; the distribution is unimodal, nearly symmetric but not Gaussian, so U95 is half the distance between the 2.5th and 97.5th percentiles, 0.0017 mg/mL.
+
+**Result:**
+
+- gamma_Cd = (1.0027 ± 0.0017) mg/mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang en`
+
+### Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I)
+
+`iupac2024-4i-argentometric-titration` — Possolo et al., Examples 3A and 4I
+
+c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); only the volumetric and endpoint uncertainties are considered.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Pipette: triangular, s.d. 0.08/√6 = 0.0327 mL; burette: triangular ±0.01 mL, s.d. 0.00408 mL; endpoint: normal, s.d. 0.025 mL, which dominates. c(NaCl) = 10.000 mmol/L, u = 0.0255 mmol/L (0.26 %).
+
+**Result:**
+
+- c_NaCl = (10.000 ± 0.050) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- The endpoint (first permanent Ag₂CrO₄) lies after the equivalence point; the companion project iupac2024-3a-argentometric-titration-ksp models this chemistry instead of treating it as an uncertainty.
+
+**Run:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang en`
+
+### Purity of benzoic acid (NIST PS1) expressed as a beta distribution: an asymmetric interval below 1 g/g (IUPAC 2024, Example 5C)
+
+`iupac2024-5c-benzoic-acid-purity-beta` — Possolo et al., Example 5C
+
+The state of knowledge about the mass fraction is a beta distribution with α = 88 873.7 and β = 7.11; its standard deviation is the standard uncertainty, and credible intervals follow from its quantiles.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Mean α/(α + β) = 0.999920 g/g; s.d. = 30.0 × 10⁻⁶ g/g.
+2. The 95 % interval from the 2.5 % and 97.5 % quantiles, 0.999 851 to 0.999 968 g/g, extends 0.069 mg/g below and 0.048 mg/g above the mean: a result near a physical bound is asymmetric, which a symmetric y ± U cannot show (compare the BIPM ISRD-06 value 999.8 +0.2/−1.5 mg/g).
+
+**Result:**
+
+- w_BA = (0.999920 ± 0.000059) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang en`
+
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
 `nist-tn1900-e8-molecular-weight-co2` — NIST Technical Note 1900, Example E8, Exhibit 12
@@ -492,7 +1529,7 @@ TN 1900 E8: M_r(CO₂) = A_r(C) + 2A_r(O) from the IUPAC interval atomic weights
 
 **Result:**
 
-- M_r = (44.0094 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- M_r = (44.0094 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -516,7 +1553,7 @@ TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the 
 
 **Result:**
 
-- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -524,6 +1561,75 @@ TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the 
 - The project 'quam-a1-cadmium-standard' builds the uncertainties of m, P and V from their components as in QUAM A1.
 
 **Run:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang en`
+
+### Chromium in a soil reference material, 20 bottles in triplicate: ANOVA and a hierarchical Bayesian model (Possolo & Bodnar 2018; ISO Guide 35 C.1 data)
+
+`possolo-bodnar-2018-chromium-soil-homogeneity-bayes` — Possolo & Bodnar, §4.4, Tables 3 and 4
+
+w_ij = ω + β_j + ε_ij with bottle effects β_j ~ N(0, τ²) and errors ε_ij ~ N(0, σ²). The value assigned to the material is the estimate of ω; its uncertainty includes the between-bottle and the within-bottle variability.
+
+**Approach:** statistics for proficiency testing (ISO 13528)
+
+**Steps:**
+
+1. One-way ANOVA: s_bb = 3.93 mg/kg and s_r = 2.87 mg/kg, the values of ISO Guide 35 and of REML (R lme); ω = 121.62 mg/kg with u = s_x/√20 = 0.95 mg/kg.
+2. Bayesian model as in the paper: ω flat (N(0, 10⁵)); τ half-Cauchy with median the standard deviation of the bottle averages, 4.2656 mg/kg; σ half-Cauchy with median the median of the within-bottle standard deviations, 2.4389 mg/kg.
+3. The paper samples the posterior by MCMC (R2jags): ω = 121.62 mg/kg, u = 1 mg/kg; its Laplace approximation gives 0.98 mg/kg. The program integrates ω and the bottle effects out exactly and evaluates (τ, σ) on a grid.
+
+**Notes:**
+
+- No σ_pt is given: the ISO 13528 criteria are not evaluated (a reference-material homogeneity study).
+
+**Run:** `uncertainty run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang en`
+
+### Atomic weight and isotopic composition of lead in NRC HIPB-1 from three isotope ratios (Possolo & Meija 2022)
+
+`possolo-meija-2022-atomic-weight-lead-hipb1` — Possolo & Meija, Sums, Products, and Ratios: Atomic Weight of Lead, pp. 26–29
+
+Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²⁰⁸Pb/²⁰⁷Pb in the high-purity lead HIPB-1. The amount fractions follow from the ratios and the closure Σx = 1; A_r(Pb) is their weighted average of the isotopic masses.
+
+**Approach:** GUM uncertainty framework for several output quantities (JCGM 102) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Three ratios and the closure determine the four amount fractions exactly, x(²⁰⁴Pb) = R₄/(1 + R₄ + R₆ + R₈) and so on, so the constrained maximum-likelihood fit of the book (R solnp) returns these explicit expressions; the analytic Jacobian replaces the 5 × 10⁴ refits of its Monte Carlo.
+2. The closure induces correlations between the amount fractions (Chayes 1971), strongly negative between ²⁰⁶Pb and ²⁰⁸Pb (−0.90).
+3. A_r(Pb) = 207.17915 with u = 0.000 084 and U95 % = 0.000 17 (printed 0.0002); the uncertainties of the isotopic masses contribute almost nothing.
+
+**Result:**
+
+- x204 = 0.01282130 mol/mol, u(x204) = 6.1 × 10⁻⁶ mol/mol (GUM)
+- x206 = 0.2709567 mol/mol, u(x206) = 3.7 × 10⁻⁵ mol/mol (GUM)
+- x207 = 0.2035126 mol/mol, u(x207) = 1.9 × 10⁻⁵ mol/mol (GUM)
+- x208 = 0.5127094 mol/mol, u(x208) = 4.5 × 10⁻⁵ mol/mol (GUM)
+- ArPb = 207.1791483 1, u(ArPb) = 8.4 × 10⁻⁵ 1 (GUM)
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.58 (the outputs are dependent: no hyper-ellipsoid)
+
+**Notes:**
+
+- The book's correlations come from 5 × 10⁴ Monte Carlo refits; two of them (²⁰⁴Pb–²⁰⁶Pb −0.02 and ²⁰⁴Pb–²⁰⁸Pb −0.17) differ from the linearised values (−0.011, −0.179) by about two Monte Carlo standard errors (research log F96).
+- Users of HIPB-1 should rely on the certificate (Meija et al. 2020); the book's data reduction differs slightly from it.
+
+**Run:** `uncertainty run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang en`
+
+### Plasma anion gap: a linear combination of four ion concentrations (Possolo & Meija 2022)
+
+`possolo-meija-2022-plasma-anion-gap` — Possolo & Meija, Sums, Products, and Ratios: Plasma Anion Gap, pp. 16–18
+
+Δc_AG = c(Na⁺) + c(K⁺) − c(Cl⁻) − c(HCO₃⁻) for one patient (White 2008); the uncertainties are reported as standard deviations.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. For a linear combination of uncorrelated inputs the variances add, whatever the signs: u²(Δc_AG) = 1.48² + 0.04² + 0.72² + 0.84² = (1.85 mmol/L)².
+2. Δc_AG = 25 mmol/L; with Gaussian inputs the true value lies within 25 ± 1.85 mmol/L with about 68 % probability.
+
+**Result:**
+
+- AG = (25.0 ± 3.6) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang en`
 
 ### Preparation of a cadmium calibration standard
 
@@ -542,7 +1648,7 @@ EURACHEM/CITAC QUAM Example A1: 1000 mg/L Cd standard from high-purity metal (su
 
 **Result:**
 
-- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -569,7 +1675,7 @@ QUAM Example A1 with the volume of the flask modelled from its three components.
 
 **Result:**
 
-- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_Cd = (1002.7 ± 1.7) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -593,7 +1699,7 @@ QUAM Example A2: NaOH standardised against potassium hydrogen phthalate (KHP); s
 
 **Result:**
 
-- c_NaOH = (0.10214 ± 0.00020) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_NaOH = (0.10214 ± 0.00020) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -618,7 +1724,7 @@ QUAM Example A2 with mass, molar mass and volume built from their components.
 
 **Result:**
 
-- c_NaOH = (0.1021 ± 0.0002) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_NaOH = (0.1021 ± 0.0002) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -642,7 +1748,7 @@ QUAM Example A3: HCl titrated with NaOH that was itself standardised against KHP
 
 **Result:**
 
-- c_HCl = (0.1014 ± 0.0004) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_HCl = (0.1014 ± 0.0004) mol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -667,7 +1773,7 @@ QUAM Example A4: the relative uncertainty from in-house validation data (precisi
 
 **Result:**
 
-- P_op = (1.11 ± 0.74), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- P_op = (1.11 ± 0.74), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -692,7 +1798,7 @@ QUAM Example A5: empirical method (BS 6748); amount of Cd leached per unit area.
 
 **Result:**
 
-- r = (0.015 ± 0.003) mg/dm², where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- r = (0.015 ± 0.003) mg/dm², where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -717,7 +1823,7 @@ QUAM Example A7, Eq. (8): amount content of the primary lead assay standard prep
 
 **Result:**
 
-- c_z = (0.092605 ± 0.000056) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_z = (0.092605 ± 0.000056) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/chemistry/quam-a7-assay-standard.json --lang en`
 
@@ -737,7 +1843,7 @@ QUAM Example A7, Eq. (5): double IDMS with mass-bias-corrected isotope ratios (r
 
 **Result:**
 
-- c_x = (0.05374 ± 0.00036) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- c_x = (0.05374 ± 0.00036) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1379,7 +2485,7 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 
 **Result:**
 
-- x_site = (0.319 ± 0.059) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- x_site = (0.319 ± 0.059) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1405,7 +2511,7 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 
 **Result:**
 
-- x_site = (116 ± 26) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- x_site = (116 ± 26) mg/kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -1413,6 +2519,30 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 - The mean of the RSDs of Table A6.3 is 3.16 %, not the printed 3.3 %; the project uses 3.16 %. The combined uncertainty (11.3 %) and U = 26 mg/kg are unchanged.
 
 **Run:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang en`
+
+### Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2)
+
+`ume-procedure-19-2-qnmr-purity-internal-standard` — TÜBİTAK UME, Section 19.2
+
+Multiplicative model with relative uncertainties; the values are illustrative, not from a real measurement. The integration is a separate Type B component (±0.2 %, rectangular) beside the repeatability of the ratio.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Relative standard uncertainties (10⁻⁶): repeatability 671, integration 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; combined 1575; ν_eff = 121.
+2. P_a = 995.0 mg/g, u_c = 1.567 mg/g, U = 2u_c = 3.13 → 3.1 mg/g: P_a = (995.0 ± 3.1) mg/g (k = 2).
+3. More than half of the variance comes from the integration and about a quarter from the purity of the internal standard (54 % and 23 %).
+
+**Result:**
+
+- P_a = (995.0 ± 3.1) mg/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- The numbers of ¹H nuclei are not legible in the procedure (the model is an embedded equation object); N_std/N_a = 2/3 is the only ratio that reproduces the printed 995.0 mg/g, consistent with maleic acid (M = 116.072 g/mol, 2 H) as internal standard and an analyte of M = 194.19 g/mol with a methyl singlet (e.g. caffeine).
+
+**Run:** `uncertainty run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang en`
 
 ### Fluoranthene in river sediments, arithmetic mean recovery (MUPR Eq. 8–12) (Bettencourt da Silva 2026)
 
@@ -1473,6 +2603,26 @@ Top-down uncertainty of fluoranthene in river sediments from the in-house valida
 - The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the arithmetic mean of MUPR Eq. (8)–(12).
 
 **Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang en`
+
+### Ephedrine in urine for anti-doping testing: top-down uncertainty from intermediate precision and a CRM (EMUE E6.5)
+
+`emue-e6.5-ephedrine-wada-topdown` — EMPIR 17NRM05 EMUE, Example E6.5, Table E6.5.1
+
+u_c(x) = √(s_w²/n + u_bias²) for the mean of triplicate results, with u_bias² = s_ref²/n′ + Δ² + u²(x_ref) from 30 analyses of a CRM (Table E6.5.1); WADA requires u_c ≤ 0.5 µg/mL (5 %) near the threshold of 10 µg/mL.
+
+**Approach:** top-down (validation and quality-control data)
+
+**Steps:**
+
+1. Intermediate precision of a single result s_w = 4.2 % from a urine QC sample; the reported result is the mean of three determinations (WADA ISL), so the precision contribution is 4.2 %/√3 = 2.42 %.
+2. CRM 10.00 ± 0.06 µg/mL (k = 2), mean of 30 repeatability results 10.3 µg/mL with RSD 1.97 %: Δ = 3.0 %, s/√n = 0.36 %, u(x_ref) = 0.3 %; u_bias = 3.04 %, dominated by the uncorrected bias that is entered as an uncertainty (Nordtest TR 537, one CRM).
+3. u_c = √(2.42² + 3.04²) = 3.89 %, i.e. 0.39 µg/mL at the threshold, below u_c,max = 0.5 µg/mL; the guide gives 3.8 % from the rounded 2.4 % and 3.0 %.
+
+**Result:**
+
+- γ(ephedrine) = (10.00 ± 0.78) µg/mL (k = 2.00)
+
+**Run:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang en`
 
 ### Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)
 
@@ -1590,7 +2740,7 @@ MUPR Example B2: precision pooled from several materials (raw data for two of th
 
 **Result:**
 
-- c(NO₃⁻) = (50.0 ± 8.4) mg/L (k = 2.00)
+- c(NO₃⁻) = (50.0 ± 8.5) mg/L (k = 2.00)
 
 **Notes:**
 
@@ -1613,7 +2763,7 @@ MUPR Example B2, Eq. (B2.9): precision of a mean of n results on each of p days 
 
 **Result:**
 
-- c(NO₃⁻) = (57.5 ± 7.0) mg/L (k = 2.00)
+- c(NO₃⁻) = (57.5 ± 7.1) mg/L (k = 2.00)
 
 **Run:** `uncertainty run library/chemistry/mupr-b2-replicates-on-two-days.json --lang en`
 
@@ -1871,7 +3021,7 @@ Nordtest TR 537 §6.2: u(bias) from six proficiency tests.
 
 **Result:**
 
-- U = 10 % (k = 2.00), relative to the measured value
+- U = 11 % (k = 2.00), relative to the measured value
 
 **Notes:**
 
@@ -2174,7 +3324,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Zn
 **Result:**
 
 - w(Zn) = (2.00 ± 0.73) mg/kg (k = 2.00)
-- w(Zn) = (20.0 ± 3.6) mg/kg (k = 2.00)
+- w(Zn) = (20.0 ± 3.7) mg/kg (k = 2.00)
 
 **Notes:**
 
@@ -2252,7 +3402,7 @@ EA-4/02 S3: four-terminal resistor calibrated by substitution against a standard
 
 **Result:**
 
-- R_X = (10000178 ± 17) mΩ, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- R_X = (10000178 ± 17) mΩ, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/ea402-s3-resistor-10kohm.json --lang en`
 
@@ -2273,7 +3423,7 @@ EA-4/02 S6: calibration factor of a thermistor power sensor against a standard s
 
 **Result:**
 
-- K_X = (0.933 ± 0.032), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- K_X = (0.933 ± 0.032), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2298,7 +3448,7 @@ EA-4/02 S7: 30 dB step of a coaxial attenuator at 10 GHz, with mismatch from S-p
 
 **Result:**
 
-- L_X = (30.043 ± 0.044) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- L_X = (30.043 ± 0.044) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2322,7 +3472,7 @@ EA-4/02 S9: error of indication of a 3½-digit DMM; the resolution term dominate
 
 **Result:**
 
-- E_X = (0.10 ± 0.06) V, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E_X = (0.10 ± 0.06) V, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/ea402-s9-dmm-100v.json --lang en`
 
@@ -2342,7 +3492,7 @@ GUM H.2: the impedance magnitude Z = V/I from correlated simultaneous measuremen
 
 **Result:**
 
-- Z = (254.26 ± 0.46) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Z = (254.26 ± 0.46) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/gum-h2-impedance.json --lang en`
 
@@ -2362,7 +3512,7 @@ GUM H.2: the reactance X = (V/I) sin φ from correlated simultaneous measurement
 
 **Result:**
 
-- X = (219.85 ± 0.58) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- X = (219.85 ± 0.58) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2386,7 +3536,7 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 **Result:**
 
-- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2396,7 +3546,7 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 ### Comparison loss, x₁ = 0.0
 
-`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2408,16 +3558,17 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
 4. The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.
+5. With the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; note 1 to 4.1.4 added by JCGM 100:2008/Amd.1:2026), the GUM estimate becomes 50·10⁻⁶, the analytic value. Table 8 of JCGM 101:2008 prints 0·10⁻⁶ for the GUM framework, which 9.4.2.2.8 calls invalid.
 
 **Result:**
 
-- dY = (0 ± 640) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
+- dY = (50 ± 640) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang en`
 
 ### Comparison loss, x₁ = 0.0, r = 0.9
 
-`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2428,17 +3579,39 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
-4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; second-order terms are not available for correlated inputs (GUM 5.1.2 note), so only the MCM captures it.
+4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; the GUM 5.1.2 note gives second-order terms for independent inputs only. Of the GUM-framework results, only the higher-order terms for correlated inputs (project …-correlated-higher-order, D57) capture it; the MCM does.
 
 **Result:**
 
-- dY = (0.0 ± 0.0) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %.
+- dY = (0.0 ± 0.0) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang en`
 
+### Comparison loss, x₁ = 0, r = 0.9, higher-order GUM terms for correlated inputs
+
+`jcgm101-9.4-comparison-loss-x000-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
+2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
+3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
+4. GUM-5 Example 16 applies only first-order terms here, as JCGM 100:2008 gives the higher-order terms for independent inputs only. For bivariate normal inputs the Taylor expansion gives u²(δy) = cᵀΣc + ½tr((HΣ)²) with H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), i.e. u(δy) = 67.3·10⁻⁶ (Mana & Pennecchi 2007).
+5. The estimate with the second-order term of JCGM 100:2008/Amd.1:2026 is x₁² + 2u² = 50·10⁻⁶. Both agree with the analytic column A of GUM-5 Table 16.2 and with the Monte Carlo result.
+
+**Result:**
+
+- dY = (50 ± 850) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang en`
+
 ### Comparison loss, x₁ = 0.01
 
-`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2450,16 +3623,17 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
 4. The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.
+5. With the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; note 1 to 4.1.4 added by JCGM 100:2008/Amd.1:2026), the GUM estimate becomes 150·10⁻⁶, the analytic value. Table 8 of JCGM 101:2008 prints 100·10⁻⁶ for the GUM framework, which 9.4.2.2.8 calls invalid.
 
 **Result:**
 
-- dY = (100 ± 220) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (150 ± 220) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang en`
 
 ### Comparison loss, x₁ = 0.01, r = 0.9
 
-`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2470,17 +3644,39 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
-4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; second-order terms are not available for correlated inputs (GUM 5.1.2 note), so only the MCM captures it.
+4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; the GUM 5.1.2 note gives second-order terms for independent inputs only. Of the GUM-framework results, only the higher-order terms for correlated inputs (project …-correlated-higher-order, D57) capture it; the MCM does.
 
 **Result:**
 
-- dY = (100 ± 200) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (100 ± 200) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang en`
 
+### Comparison loss, x₁ = 0.01, r = 0.9, higher-order GUM terms for correlated inputs
+
+`jcgm101-9.4-comparison-loss-x010-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
+2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
+3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
+4. GUM-5 Example 16 applies only first-order terms here, as JCGM 100:2008 gives the higher-order terms for independent inputs only. For bivariate normal inputs the Taylor expansion gives u²(δy) = cᵀΣc + ½tr((HΣ)²) with H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), i.e. u(δy) = 120.5·10⁻⁶ (Mana & Pennecchi 2007).
+5. The estimate with the second-order term of JCGM 100:2008/Amd.1:2026 is x₁² + 2u² = 150·10⁻⁶. Both agree with the analytic column A of GUM-5 Table 16.2 and with the Monte Carlo result.
+
+**Result:**
+
+- dY = (150 ± 240) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang en`
+
 ### Comparison loss, x₁ = 0.05
 
-`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2492,16 +3688,17 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
 4. The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.
+5. With the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; note 1 to 4.1.4 added by JCGM 100:2008/Amd.1:2026), the GUM estimate becomes 2550·10⁻⁶, the analytic value. Table 8 of JCGM 101:2008 prints 2500·10⁻⁶ for the GUM framework, which 9.4.2.2.8 calls invalid.
 
 **Result:**
 
-- dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (2550 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang en`
 
 ### Comparison loss, x₁ = 0.05, r = 0.9
 
-`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
 
@@ -2512,13 +3709,35 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
 2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
 3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
-4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; second-order terms are not available for correlated inputs (GUM 5.1.2 note), so only the MCM captures it.
+4. With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; the GUM 5.1.2 note gives second-order terms for independent inputs only. Of the GUM-framework results, only the higher-order terms for correlated inputs (project …-correlated-higher-order, D57) capture it; the MCM does.
 
 **Result:**
 
-- dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang en`
+
+### Comparison loss, x₁ = 0.05, r = 0.9, higher-order GUM terms for correlated inputs
+
+`jcgm101-9.4-comparison-loss-x050-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (values in units of 10⁻⁶).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. The comparison loss in microwave power meter calibration is δY = X₁² + X₂², where X₁ and X₂ are the real and imaginary parts of the voltage reflection coefficient, each with u = 0.005.
+2. Because ∂δY/∂X₂ = 2x₂ = 0 (and ∂δY/∂X₁ = 0 when x₁ = 0), the first-order GUM result understates or even misses the uncertainty; the output PDF is a (scaled) non-central χ² distribution, strongly asymmetric.
+3. Because the PDF is asymmetric and bounded below by zero, the shortest 95 % coverage interval is reported.
+4. GUM-5 Example 16 applies only first-order terms here, as JCGM 100:2008 gives the higher-order terms for independent inputs only. For bivariate normal inputs the Taylor expansion gives u²(δy) = cᵀΣc + ½tr((HΣ)²) with H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), i.e. u(δy) = 504.5·10⁻⁶ (Mana & Pennecchi 2007).
+5. The estimate with the second-order term of JCGM 100:2008/Amd.1:2026 is x₁² + 2u² = 2550·10⁻⁶. Both agree with the analytic column A of GUM-5 Table 16.2 and with the Monte Carlo result.
+
+**Result:**
+
+- dY = (2550 ± 990) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.001 (JCGM 102 9.3)
 
@@ -2671,7 +3890,7 @@ JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated av
 - R = 127.7322 Ω, u(R) = 0.058 Ω (GUM)
 - X = 219.847 Ω, u(X) = 0.24 Ω (GUM)
 - Z = 254.260 Ω, u(Z) = 0.19 Ω (GUM)
-- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.39 (the outputs are dependent: no hyper-ellipsoid)
 
 **Notes:**
 
@@ -2700,7 +3919,7 @@ JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated av
 - R = 127.732 Ω, u(R) = 0.13 Ω (GUM)
 - X = 219.847 Ω, u(X) = 0.54 Ω (GUM)
 - Z = 254.260 Ω, u(Z) = 0.43 Ω (GUM)
-- 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.80; rectangle k_q = 2.39
+- 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.39 (the outputs are dependent: no hyper-ellipsoid)
 
 **Notes:**
 
@@ -2725,7 +3944,7 @@ A DVM reading 1.001 V for an applied 1.000 00 V; the rounding of the 1 mV digit 
 
 **Result:**
 
-- dV = (1.00 ± 0.54) mV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.77, corresponding to a coverage probability of approximately 95.45 %.
+- dV = (1.00 ± 0.54) mV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.77, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2751,7 +3970,7 @@ The voltages across a standard and an unknown 10 kΩ resistor in series are comp
 
 **Result:**
 
-- R_X = (10000.1050 ± 0.0089) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- R_X = (10000.1050 ± 0.0089) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-k1-resistor-10kohm.json --lang en`
 
@@ -2773,7 +3992,7 @@ Calibration factor of an unknown power sensor by substitution against a standard
 
 **Result:**
 
-- K_X = (93.2 ± 3.4) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- K_X = (93.2 ± 3.4) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-k2-power-sensor-18ghz.json --lang en`
 
@@ -2794,7 +4013,7 @@ Calibration of a coaxial step attenuator by IF substitution; the mismatch term d
 
 **Result:**
 
-- A_X = (30.050 ± 0.049) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- A_X = (30.050 ± 0.049) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2820,7 +4039,7 @@ The budget of K.3 with the mismatch standard deviation recomputed from the coeff
 
 **Result:**
 
-- A_X = (30.050 ± 0.040) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- A_X = (30.050 ± 0.040) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang en`
 
@@ -2841,7 +4060,7 @@ Error of a 6½-digit DMM on its 1 V range at 0.95 V, calibrated with a multifunc
 
 **Result:**
 
-- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2865,7 +4084,7 @@ Error of a 6½-digit DMM on its 1 V range at 1.0 V, calibrated with a multifunct
 
 **Result:**
 
-- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.90, corresponding to a coverage probability of approximately 95.45 %.
+- dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.90, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang en`
 
@@ -2886,7 +4105,7 @@ Error of a 6½-digit DMM on its 1 V range at 0.5 V, calibrated with a multifunct
 
 **Result:**
 
-- dI = (0.0 ± 6.2) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dI = (0.0 ± 6.2) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang en`
 
@@ -2926,9 +4145,52 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 **Result:**
 
-- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/electrical/num-10-resistance.json --lang en`
+
+### Wheatstone bridge: a measurement model that is not a product of powers (Possolo & Meija 2022)
+
+`possolo-meija-2022-wheatstone-bridge` — Possolo & Meija, Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26
+
+At balance R_U/R_G = R_F/R_EH, with R_EH = 1/(R_E⁻¹ + R_H⁻¹) the joint resistance of E and H in parallel, so R_U = R_G R_F (R_E⁻¹ + R_H⁻¹).
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. Gauss's formula with the partial derivatives −R_G R_F/R_E², R_U/R_F, R_U/R_G and −R_G R_F/R_H² gives R_U = 957.0 Ω and u(R_U) = 6.96 Ω ≈ 7 Ω.
+2. Contributions to u²(R_U): E 52 %, F 48 %, G 0.6 %, H 0.003 %, as in the NIST Uncertainty Machine output quoted by the book (E 52 %, F 48 %, G 0.6 %, H 0.004 %).
+
+**Result:**
+
+- R_U = (957 ± 14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- The book notes that a lognormal model, which respects the positivity of resistance, gives practically the same results at these relative uncertainties (below 5 %).
+
+**Run:** `uncertainty run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang en`
+
+### 10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1)
+
+`ume-procedure-19-1-dmm-10v-calibration` — TÜBİTAK UME, Section 19.1
+
+Additive model with absolute uncertainties: the error of indication E = V_DMM − V_ref with corrections for the calibrator certificate, its drift and the resolution.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. u_c = √(8.1² + 25.0² + 23.1² + 2.9²) = 35.1 µV; ν_eff = 3965 (Welch–Satterthwaite with ν = 11 for the readings); U = 2u_c = 70.2 µV.
+2. Dominant-component check of the procedure: the largest rectangular contribution u_R = 23.1 µV against the others u_N = 26.4 µV; u_N/u_R = 1.14 > 0.70, so k = 2 holds.
+3. Result: E = (0.21 ± 0.07) mV, or U = 7 µV/V relative to 10 V (k = 2, p ≈ 95 %).
+
+**Result:**
+
+- E = (212 ± 70) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang en`
 
 ## Flow and volume
 
@@ -2951,7 +4213,7 @@ A 1000 mL glass flask filled to the mark and weighed ten times; water at 19.11 �
 
 **Result:**
 
-- V_20 = (999.622 ± 0.036) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.14, corresponding to a coverage probability of approximately 95.45 %.
+- V_20 = (999.622 ± 0.036) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.14, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -2978,7 +4240,7 @@ A 100 mL pycnometer weighed ten times; water at 18.94 °C, air 0.23 °C warmer; 
 
 **Result:**
 
-- V_20 = (100.0142 ± 0.0020) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.23, corresponding to a coverage probability of approximately 95.45 %.
+- V_20 = (100.0142 ± 0.0020) mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.23, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3001,7 +4263,7 @@ EA-4/02 S12 (second budget): relative error of indication of the meter for a sin
 
 **Result:**
 
-- e_X = (0.0003 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- e_X = (0.0003 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-error.json --lang en`
 
@@ -3020,7 +4282,7 @@ EA-4/02 S12 (third budget): mean relative error of three runs, with the Welch–
 
 **Result:**
 
-- e_Xav = (0.001 ± 0.002), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.28, corresponding to a coverage probability of approximately 95.45 %.
+- e_Xav = (0.001 ± 0.002), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.28, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-mean-error.json --lang en`
 
@@ -3040,7 +4302,7 @@ EA-4/02 S12 (first budget): volume passed through a household water meter, measu
 
 **Result:**
 
-- V_X = (199.93 ± 0.22) L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- V_X = (199.93 ± 0.22) L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang en`
 
@@ -3061,7 +4323,7 @@ Flowrate from a 4–20 mA flowmeter at 1018 hPa and 295.1 K, expressed at 1013.2
 
 **Result:**
 
-- Q_s = (12.52 ± 0.55) L/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- Q_s = (12.52 ± 0.55) L/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3085,7 +4347,7 @@ TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pr
 
 **Result:**
 
-- v = (57.48 ± 0.68) m/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- v = (57.48 ± 0.68) m/s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3095,9 +4357,57 @@ TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pr
 
 ## General (method validation)
 
+### Torque sensor calibration, straight line through the origin, ordinary least squares with the GUF (JCGM GUM-5 Example 9)
+
+`gum5-e9-torque-slope-ols` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Slope β of Y = βX from eight torque levels; the OLS estimator (9.4) is linear in the means Y_i, so the LPU and Welch–Satterthwaite apply directly.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. The reference torques x_i are taken as exact (9.3); each mean Y_i has u(y_i) = s_i/√n_i with ν_i = n_i − 1 (Table 9.2). The standard deviations differ by an order of magnitude between levels.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i² with W_i = 1, i.e. weights n_i; the coefficients of Y_i are written into the expression. β = 1.01065, u(β) = 0.00152, ν_eff = 2.72.
+3. Bayesian analysis of the same data with unknown variances σ_i² (9.5.2): NI-Bayes 1.0092 ± 0.0011, Inf-Bayes 1.0091 ± 0.0009 (Table 9.3, reproduced by quadrature of (9.17)). OLS gives the data with ten times larger scatter the same weight (9.7.2).
+
+**Result:**
+
+- beta = (1.0106 ± 0.0051), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 3.38, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).
+
+**Run:** `uncertainty run library/general/gum5-e9-torque-slope-ols.json --lang en`
+
+### Torque sensor calibration, straight line through the origin, weighted least squares with the GUF (JCGM GUM-5 Example 9)
+
+`gum5-e9-torque-slope-wls` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Slope β of Y = βX from eight torque levels; the WLS estimator (9.4) is linear in the means Y_i, so the LPU and Welch–Satterthwaite apply directly.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. The reference torques x_i are taken as exact (9.3); each mean Y_i has u(y_i) = s_i/√n_i with ν_i = n_i − 1 (Table 9.2). The standard deviations differ by an order of magnitude between levels.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i² with n_iW_i = 1/u²(y_i); the coefficients of Y_i are written into the expression. β = 1.00849, u(β) = 0.00077, ν_eff = 13.31.
+3. Bayesian analysis of the same data with unknown variances σ_i² (9.5.2): NI-Bayes 1.0092 ± 0.0011, Inf-Bayes 1.0091 ± 0.0009 (Table 9.3, reproduced by quadrature of (9.17)). WLS gives a smaller u than both, because it treats the weights 1/u²(y_i) from three to six readings as exact (9.7.3).
+
+**Result:**
+
+- beta = (1.0085 ± 0.0016), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.16, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).
+
+**Run:** `uncertainty run library/general/gum5-e9-torque-slope-wls.json --lang en`
+
 ### Additive model with Gaussian inputs
 
-`jcgm101-9.2.2-additive-gaussian` — JCGM 101:2008, 9.2.2
+`jcgm101-9.2.2-additive-gaussian` — JCGM 101:2008, 9.2.2; JCGM GUM-5:2026, Example 6, Table 6.1
 
 JCGM 101 9.2.2: four independent inputs, each N(0, 1).
 
@@ -3110,13 +4420,13 @@ JCGM 101 9.2.2: four independent inputs, each N(0, 1).
 
 **Result:**
 
-- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/general/jcgm101-9.2.2-additive-gaussian.json --lang en`
 
 ### Additive model with rectangular inputs
 
-`jcgm101-9.2.3-additive-rectangular` — JCGM 101:2008, 9.2.3
+`jcgm101-9.2.3-additive-rectangular` — JCGM 101:2008, 9.2.3; JCGM GUM-5:2026, Example 6, Table 6.2
 
 JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviation 1.
 
@@ -3130,7 +4440,7 @@ JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviatio
 
 **Result:**
 
-- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3140,7 +4450,7 @@ JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviatio
 
 ### Additive model with a dominant rectangular input
 
-`jcgm101-9.2.4-additive-dominant-rectangular` — JCGM 101:2008, 9.2.4
+`jcgm101-9.2.4-additive-dominant-rectangular` — JCGM 101:2008, 9.2.4; JCGM GUM-5:2026, Example 6, Table 6.3
 
 JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.
 
@@ -3154,7 +4464,7 @@ JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.
 
 **Result:**
 
-- Y = (0 ± 20), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- Y = (0 ± 20), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang en`
 
@@ -3373,7 +4683,7 @@ NUM manual §3: Gaussian a, rectangular b and a triangular divisor c with a 30 %
 
 **Result:**
 
-- y = (29 ± 17), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- y = (29 ± 17), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3398,6 +4708,79 @@ A fixed 1 mL micropipette tested ten times (Nordtest TR 626); the mean volume is
 - X-chart: central line 1.0000 mL; action limits 0.99000 1.0100 mL (action limits at the tolerance)
 
 **Run:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang en`
+
+### Acceptance limits from the test uncertainty ratio: Dobbert's managed guard band (method 6), TUR = 2.5, global risks for a 95 % in-tolerance process
+
+`tur-guard-band-dobbert-tur2-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerance ±1 (normalised), U₉₅ = 2u = 0.4, so TUR = 1/U₉₅ = 2.5. GBF = 1 − M/TUR, M = 1.04 − exp(0.38 ln TUR − 0.54). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guard-band factor GBF = 0.914186: the acceptance limits are ±0.914186, a guard band of 0.085814 inside each tolerance limit.
+2. Global consumer's risk (probability of false acceptance) 0.688 % instead of 1.177 % with simple acceptance; producer's risk 5.22 %.
+3. Dobbert's method keeps the global PFA at or below about 2 % whatever the in-tolerance probability: for TUR = 2.5 its maximum over ITP is 1.93 % (Suncal).
+
+**Result:**
+
+- Probability that reading 0.70 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 93 %; accepted under guarded acceptance.
+- Probability that reading 0.95 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 60 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
+
+**Run:** `uncertainty run library/general/tur-guard-band-dobbert-tur2-5.json --lang en`
+
+### Acceptance limits from the test uncertainty ratio: NCSLI RP-10 guard band, TUR = 2.0, global risks for a 95 % in-tolerance process
+
+`tur-guard-band-rp10-tur2-0` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerance ±1 (normalised), U₉₅ = 2u = 0.5, so TUR = 1/U₉₅ = 2.0. GBF = 1.25 − 1/TUR (TUR ≤ 4). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guard-band factor GBF = 0.750000: the acceptance limits are ±0.750000, a guard band of 0.250000 inside each tolerance limit.
+2. Global consumer's risk (probability of false acceptance) 0.321 % instead of 1.337 % with simple acceptance; producer's risk 14.00 %.
+
+**Result:**
+
+- Probability that reading 0.70 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 88 %; accepted under guarded acceptance.
+- Probability that reading 0.95 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 58 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
+
+**Run:** `uncertainty run library/general/tur-guard-band-rp10-tur2-0.json --lang en`
+
+### Acceptance limits from the test uncertainty ratio: root-sum-square guard band, TUR = 1.5, global risks for a 95 % in-tolerance process
+
+`tur-guard-band-rss-tur1-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerance ±1 (normalised), U₉₅ = 2u = 0.6667, so TUR = 1/U₉₅ = 1.5. GBF = √(1 − 1/TUR²). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
+
+**Approach:** conformity assessment (JCGM 106)
+
+**Steps:**
+
+1. Guard-band factor GBF = 0.745356: the acceptance limits are ±0.745356, a guard band of 0.254644 inside each tolerance limit.
+2. Global consumer's risk (probability of false acceptance) 0.568 % instead of 1.541 % with simple acceptance; producer's risk 17.70 %.
+
+**Result:**
+
+- Probability that reading 0.70 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 82 %; accepted under guarded acceptance.
+- Probability that reading 0.95 conforms to -1 ≤ Normalised deviation from nominal ≤ 1: p_c = 56 %; rejected under guarded acceptance.
+
+**Notes:**
+
+- TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
+
+**Run:** `uncertainty run library/general/tur-guard-band-rss-tur1-5.json --lang en`
 
 ### Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)
 
@@ -3439,7 +4822,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, flour): relative uncertainty of log10(count) fr
 
 **Result:**
 
-- U = 12 % (k = 2.00), relative to the measured value
+- U = 13 % (k = 2.00), relative to the measured value
 
 **Notes:**
 
@@ -3504,7 +4887,7 @@ EA-4/02 S10: error of a vernier calliper measured with a gauge block; two rectan
 
 **Result:**
 
-- E_X = (100 ± 65) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E_X = (100 ± 65) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/ea402-s10-vernier-calliper.json --lang en`
 
@@ -3524,7 +4907,7 @@ EA-4/02 S13: diameter of a ring gauge compared with a 40 mm setting ring on a on
 
 **Result:**
 
-- d_X = (0.2 ± 0.9) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- d_X = (0.2 ± 0.9) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: upwards (GUM 7.2.6).
 
 **Notes:**
 
@@ -3548,7 +4931,7 @@ EA-4/02 S13: temperature sub-budget of the ring-gauge comparison; products of ze
 
 **Result:**
 
-- dl_T = (0.00 ± 0.30) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dl_T = (0.00 ± 0.30) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/ea402-s13-ring-gauge-temperature.json --lang en`
 
@@ -3568,7 +4951,7 @@ EA-4/02 S4: grade 0 steel gauge block compared with a calibrated standard; a pro
 
 **Result:**
 
-- l_X = (49999926 ± 68) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- l_X = (49999926 ± 69) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/ea402-s4-gauge-block-50mm.json --lang en`
 
@@ -3589,7 +4972,7 @@ JCGM 100 Annex H.1: calibration of a 50 mm end gauge; Welch–Satterthwaite effe
 
 **Result:**
 
-- l = (50000838 ± 92) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %.
+- l = (50000838 ± 92) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3600,7 +4983,7 @@ JCGM 100 Annex H.1: calibration of a 50 mm end gauge; Welch–Satterthwaite effe
 
 ### Gauge block calibration, approximate model
 
-`jcgm101-9.5-gauge-block-approximate` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1
+`jcgm101-9.5-gauge-block-approximate` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1; JCGM GUM-5:2026, Example 8, Table 8.2
 
 JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (t, arc sine, curvilinear trapezoid); 99 % coverage.
 
@@ -3615,13 +4998,13 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 **Result:**
 
-- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %.
+- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/jcgm101-9.5-gauge-block-approximate.json --lang en`
 
 ### Gauge block calibration, non-linear model
 
-`jcgm101-9.5-gauge-block-nonlinear` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1
+`jcgm101-9.5-gauge-block-nonlinear` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1; JCGM GUM-5:2026, Example 8
 
 JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (t, arc sine, curvilinear trapezoid); 99 % coverage.
 
@@ -3636,7 +5019,7 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 **Result:**
 
-- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %.
+- dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang en`
 
@@ -3657,7 +5040,7 @@ Mean of five thickness readings at the centre of a sample, measured in an uncont
 
 **Result:**
 
-- w = (1.514 ± 0.019) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- w = (1.514 ± 0.019) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3682,7 +5065,7 @@ Comparison with a standard gauge block; the budget as printed, with the two temp
 
 **Result:**
 
-- L_X = (9.999940 ± 0.000081) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- L_X = (9.999940 ± 0.000081) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3707,7 +5090,7 @@ The budget of K.6 with −L(α·Δt + Δα·ΔT) evaluated as the model states, 
 
 **Result:**
 
-- L_X = (9.999940 ± 0.000082) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- L_X = (9.999940 ± 0.000082) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang en`
 
@@ -3727,13 +5110,32 @@ NUM manual §8: GUM H.1 with the six inputs of the GUM's first-order budget, all
 
 **Result:**
 
-- l = (50000838 ± 82) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %.
+- l = (50000838 ± 82) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
 - The project 'gum-h1-end-gauge' reproduces the GUM's own evaluation (θ split into its mean and cyclic part, Welch–Satterthwaite, k = 2.92).
 
 **Run:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang en`
+
+### Volume of a cylindrical storage tank: product of powers, Gauss's formula and Monte Carlo (Possolo & Meija 2022)
+
+`possolo-meija-2022-storage-tank-volume` — Possolo & Meija, Sums, Products, and Ratios: Storage Tank, pp. 18–24
+
+V = πR²H with R = 8.40(3) m and H = 32.50(7) m.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. For a product of powers the relative variances add with the squares of the exponents: (u(V)/V)² = (2 × 0.03/8.40)² + (0.07/32.50)², so u(V) = 53.7 m³ ≈ 54 m³ with V = 7204 m³.
+2. The Monte Carlo method with 10⁶ draws gives 7204 m³ give or take 54 m³ and a distribution indistinguishable from a Gaussian one.
+
+**Result:**
+
+- V = (7200 ± 110) m³, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/length/possolo-meija-2022-storage-tank-volume.json --lang en`
 
 ## Mass
 
@@ -3756,7 +5158,7 @@ The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m
 
 **Result:**
 
-- E = (0.00070 ± 0.00033) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.25, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00070 ± 0.00033) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.25, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-100g-option2.json --lang en`
 
@@ -3779,7 +5181,7 @@ Not adjusted before calibration and no air density known: the buoyancy term is t
 
 **Result:**
 
-- E = (0.0013 ± 0.0039) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.0013 ± 0.0039) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1.json --lang en`
 
@@ -3802,7 +5204,7 @@ As option 1, but the buoyancy uncertainty follows from the estimated temperature
 
 **Result:**
 
-- E = (0.00130 ± 0.00098) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00130 ± 0.00098) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang en`
 
@@ -3825,7 +5227,7 @@ The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m
 
 **Result:**
 
-- E = (0.00130 ± 0.00046) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.04, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00130 ± 0.00046) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.04, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-max-option2.json --lang en`
 
@@ -3847,7 +5249,7 @@ At zero load only the rounding at zero and the repeatability contribute; the rep
 
 **Result:**
 
-- E = (0.00000 ± 0.00034) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.87, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.00000 ± 0.00034) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.87, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang en`
 
@@ -3931,7 +5333,7 @@ First load point, in the 2 g interval; no air density known and not adjusted bef
 
 **Result:**
 
-- E = (0.0 ± 3.4) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.17, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.0 ± 3.4) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.17, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h2-60kg-10kg-option1.json --lang en`
 
@@ -3954,7 +5356,7 @@ Second situation: the instrument is adjusted with its built-in weights immediate
 
 **Result:**
 
-- E = (0 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.01, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.01, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -3982,7 +5384,7 @@ Error at 60 kg in the 10 g interval, the largest U of the certificate.
 
 **Result:**
 
-- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4010,7 +5412,7 @@ As option 1, with the buoyancy uncertainty from the expected temperature variati
 
 **Result:**
 
-- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4039,7 +5441,7 @@ The air density during calibration is computed from the CIPM formula and the buo
 
 **Result:**
 
-- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95.45 %.
+- E = (-10 ± 12) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.03, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4066,7 +5468,7 @@ A 60 kg multi-interval balance (2 g / 5 g / 10 g) calibrated as found, not adjus
 
 **Result:**
 
-- E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang en`
 
@@ -4148,7 +5550,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 
 **Result:**
 
-- E = (10 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.32, corresponding to a coverage probability of approximately 95.45 %.
+- E = (10 ± 19) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.32, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h3-30t-10t-weights.json --lang en`
 
@@ -4171,7 +5573,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 
 **Result:**
 
-- E = (15 ± 30) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.07, corresponding to a coverage probability of approximately 95.45 %.
+- E = (15 ± 30) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.07, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4200,7 +5602,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 
 **Result:**
 
-- E = (30 ± 48) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.02, corresponding to a coverage probability of approximately 95.45 %.
+- E = (30 ± 48) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.02, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4226,9 +5628,71 @@ A road-vehicle weighbridge 30 000 kg / 10 kg, outdoors, calibrated as found.
 
 **Result:**
 
-- E = (0 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.65, corresponding to a coverage probability of approximately 95.45 %.
+- E = (0 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.65, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang en`
+
+### Weighbridge 30 t / 10 kg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/A)
+
+`cg18-h3-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/A to H3.4/A; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget H3.3/A (substitution loads, 7.1.2-5d, creep and hysteresis 7.4.4-7) (C2.2-18b, uncorrelated reference masses): a₁ = 0.0009377, u(a₁) = 0.0003637.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 62.13 kg² (7.4.1-6), with s from the repeatability test (6.743 kg) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 0.0003637 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 2.309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), buoyancy not relevant, change in adjustment due to drift ΔE(Max)/(Max√3) = 0.0005774 (7.4.3-6), tare (q_E,max − q_E,min)/√12 = 0.0003457 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.0008311 (7.4.4-10); β_W² = 1.276e-06.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 15.76 kg + 0.002732·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 1: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 2169 kg (G-9).
+
+**Result:**
+
+- E_appr(I) = 0.0009377·I; χ²_obs = 0.167, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0.000364
+- U_gl(W) = 15.76 kg + 0.002732·R
+- R_min,SF = 2169 kg (Req = 1 %, SF = 1)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints u(a₁) = 0.0003627; the weighted fit (C2.2-18b) with the u(E_j) of the calibration budget gives 0.0003637, also with the printed u(E_j) or the nominal loads (research log F98). The project uses the recomputed value; β_W², the first-order lines and the minimum weight change by less than the printed digits.
+- The change in adjustment due to drift, ΔE(Max)/(Max·√3) (7.4.3-6), takes the error at Max (30 kg) in H3.4/A and the mpe at initial verification (15 kg) in H3.4/B. Creep and hysteresis are not relevant for the short loading times in use; the minimum weight with SF = 2 is 6 950 kg (A) and 2 542 kg (B).
+
+**Run:** `uncertainty run library/mass/cg18-h3-a-weighing-result.json --lang en`
+
+### Weighbridge 30 t / 10 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/B)
+
+`cg18-h3-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/B to H3.4/B; 7.4, 7.5; Appendix G
+
+Uncertainty of a weighing result in use, global uncertainty without correction of the readings and minimum weight from the calibration results and the assumed conditions of use.
+
+**Approach:** approximation of the errors of a weighing instrument (EURAMET cg-18, Appendix C)
+
+**Steps:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Error function E_appr = a₁R through zero (C2.2-16), fitted with the weights p_j = 1/u²(E_j) of the budget H3.3/B (substitution loads, adjusted before calibration) (C2.2-18b, uncorrelated reference masses): a₁ = 0.0004286, u(a₁) = 0.0001508.
+2. Absolute terms per interval: α_W² = d₀²/12 + d²/12 + s² = 25.33 kg² (7.4.1-6), with s from the repeatability test (2.944 kg) and d₀ = d₁.
+3. Relative terms (in use): u(a₁) = 0.0001508 from the fit (C2.2-16d), temperature K_T·ΔT/√12 = 2.309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), buoyancy not relevant, change in adjustment due to drift ΔE(Max)/(Max√3) = 0.0002887 (7.4.3-6), tare (q_E,max − q_E,min)/√12 = 0.0001154 from the test points (7.4.4-5), eccentricity ΔI_ecc,max/(L_ecc√3) = 0.000277 (7.4.4-10); β_W² = 1.967e-07.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b) is replaced by straight lines through U(W) at the interval limits (7.5.2-3d), and the global uncertainty without correction of the readings adds |a₁|R: U_gl(W) = 10.07 kg + 0.001041·R in the first interval (7.5.2-3e).
+5. Minimum weight for Req = 1 % and the safety factor SF = 1: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 1124 kg (G-9).
+
+**Result:**
+
+- E_appr(I) = 0.0004286·I; χ²_obs = 0.0769, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0.000151
+- U_gl(W) = 10.07 kg + 0.001041·R
+- R_min,SF = 1124 kg (Req = 1 %, SF = 1)
+
+**Notes:**
+
+- The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
+- The guide prints u(a₁) = 0.0001485; the weighted fit (C2.2-18b) with the u(E_j) of the calibration budget gives 0.0001508, also with the printed u(E_j) or the nominal loads (research log F98). The project uses the recomputed value; β_W², the first-order lines and the minimum weight change by less than the printed digits, except β_W², 1.967·10⁻⁷ instead of 1.960·10⁻⁷, and the first-order slope, 6.128·10⁻⁴ instead of 6.113·10⁻⁴.
+- The change in adjustment due to drift, ΔE(Max)/(Max·√3) (7.4.3-6), takes the error at Max (30 kg) in H3.4/A and the mpe at initial verification (15 kg) in H3.4/B. Creep and hysteresis are not relevant for the short loading times in use; the minimum weight with SF = 2 is 6 950 kg (A) and 2 542 kg (B).
+
+**Run:** `uncertainty run library/mass/cg18-h3-b-weighing-result.json --lang en`
 
 ### Balance 400 g / 0.1 mg: error approximation function E = a₁I, first fit (EURAMET cg-18 H4)
 
@@ -4331,11 +5795,11 @@ EA-4/02 S2: OIML class M1 weight calibrated against an F2 standard with a mass c
 1. m_X = m_S + δm_D + δm + δm_C + δB (deviations from 10 kg, in mg).
 2. The observed difference is the mean of three ABBA comparisons (+10, +30, +20 mg); its standard uncertainty uses the pooled standard deviation s_p = 25 mg from an earlier evaluation: u(δm) = 25/√3 = 14.4 mg.
 3. Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.
-4. m_X = 10 000.025 kg ± 58 mg (k = 2).
+4. m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).
 
 **Result:**
 
-- m_X = (25 ± 58) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- m_X = (25 ± 59) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4343,9 +5807,35 @@ EA-4/02 S2: OIML class M1 weight calibrated against an F2 standard with a mass c
 
 **Run:** `uncertainty run library/mass/ea402-s2-weight-10kg.json --lang en`
 
+### Reporting rule of ILAC P14 5.5: the CMC as the smallest reportable uncertainty (EA-4/02 S2 weight, illustrative CMC)
+
+`ilac-p14-cmc-floor-weight-10kg` — EA-4/02 M:2022, S2; ILAC P14:09/2020, 5.3, 5.5
+
+The 10 kg weight of EA-4/02 S2 (U = 58 mg) reported by a laboratory whose accredited CMC is taken, for illustration, as 80 mg: the reported U is the CMC, not the evaluated 58 mg.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. m_X = m_S + δm_D + δm + δm_C + δB (deviations from 10 kg, in mg).
+2. The observed difference is the mean of three ABBA comparisons (+10, +30, +20 mg); its standard uncertainty uses the pooled standard deviation s_p = 25 mg from an earlier evaluation: u(δm) = 25/√3 = 14.4 mg.
+3. Drift ±15 mg, comparator ±10 mg and air buoyancy ±10 mg (1 × 10⁻⁶ of the nominal value) are rectangular.
+4. m_X = 10 000.025 g ± 58 mg (k = 2) as printed in EA-4/02; the unrounded U = 58.5 mg is reported as 59 mg by the rounding rule of EA-4/02 6.3 (see the note).
+5. ILAC P14:09/2020, 5.5: an accredited calibration laboratory shall not report a smaller measurement uncertainty than the uncertainty described by its CMC. With reporting.cmc the program reports max(U, CMC) and says so in the result statement; 5.3 limits U to at most two significant digits.
+
+**Result:**
+
+- m_X = (25 ± 80) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. The evaluated expanded uncertainty, 59 mg, is smaller than the laboratory's calibration and measurement capability, so the CMC is reported (ILAC P14:09/2020, 5.5). U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- The CMC of 80 mg is a hypothetical value chosen to exceed the evaluated U; it is not taken from a scope of accreditation.
+
+**Run:** `uncertainty run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang en`
+
 ### Mass calibration (first-order GUM)
 
-`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7
+`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weight; first-order GUM vs MCM.
 
@@ -4360,7 +5850,7 @@ JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weigh
 
 **Result:**
 
-- dm = (1.23 ± 0.10) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dm = (1.23 ± 0.11) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4370,7 +5860,7 @@ JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weigh
 
 ### Mass calibration (GUM with second-order terms)
 
-`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2
+`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.
 
@@ -4385,7 +5875,7 @@ JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.
 
 **Result:**
 
-- dm = (1.23 ± 0.15) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- dm = (1.23 ± 0.15) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang en`
 
@@ -4406,7 +5896,7 @@ Comparison with a class F2 standard on a mass comparator, three bracketed compar
 
 **Result:**
 
-- W_X = (10000.025 ± 0.049) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- W_X = (10000.025 ± 0.049) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4431,11 +5921,11 @@ Error of indication of an electronic balance with a 0.1 mg digit, loaded with a 
 
 **Result:**
 
-- dI_X = (-0.10 ± 0.30) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dI_X = (-0.10 ± 0.31) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
-- Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.
+- Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, and only if the mass of the standard W_S is taken as exactly 200.0000 g (K.5 gives no certificate value), ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.
 
 **Run:** `uncertainty run library/mass/m3003-k5-weighing-machine-200g.json --lang en`
 
@@ -4455,11 +5945,56 @@ TN 1900 E1: mass of a powder from three weighings with a single-pan balance; lin
 
 **Result:**
 
-- m_P = (50.284 ± 0.014) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- m_P = (50.284 ± 0.014) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang en`
 
 ## Physical properties
+
+### Activity of a ²⁰⁷Bi source corrected for decay (JCGM GUM-5 Example 14)
+
+`gum5-e14-radioactive-decay-bi207` — JCGM GUM-5:2026, Example 14, 14.3 and Table 14.1
+
+A₁ = A₀ exp(−Δt ln2/T½) with the certified activity, the half-life from the literature and Δt = 2.73 a; check of the linearization.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. A₀ = 11.450 kBq, u = 0.050 kBq (certificate); T½ = 32.9 a, u = 1.4 a (literature, 4 %); Δt = t₁ − t₀ = 2.73 a without uncertainty.
+2. E = exp(−Δt ln2/T½) = 0.94411, A₁ = 10.810 kBq. c(A₀) = E, c(T½) = A₁Δt ln2/T½² = 0.018898 kBq/a: the contributions are 0.0472 kBq and 0.0265 kBq, u(A₁) = 0.054 kBq.
+3. The model is nonlinear in T½. Between T½ ± 3u(T½) the linearized and exact models differ by at most 0.011 kBq, much less than u(A₁), so the law of propagation is adequate (Table 14.1). The Monte Carlo result confirms it.
+4. A practical measure of the nonlinearity is u(E)/E = ln2·(u(T½)/T½)·(Δt/T½); when it reaches about 1 % the linearization should be checked (GUM-5 14.4.2). Here it is 0.25 %.
+
+**Result:**
+
+- A_1 = (10.81 ± 0.11) kBq, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Run:** `uncertainty run library/physical/gum5-e14-radioactive-decay-bi207.json --lang en`
+
+### Breaking force of steel wire rope from six destructive tests (JCGM GUM-5 Example 15)
+
+`gum5-e15-wire-rope-breaking-force` — JCGM GUM-5:2026, Example 15, 15.3, 15.4 and 15.5
+
+F₀ = F̄ − B − B_ref − e_res − e_T: mean of six tests on pieces of one coil, with rectangular corrections for the load cells, resolution and temperature.
+
+**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
+
+**Steps:**
+
+1. A breaking test cannot be repeated on the same sample; six pieces of the same coil are tested and their variability (rope inhomogeneity) is embedded in the results (observation equations of GUM-6).
+2. F̄ = 10005.7 kN, s = 1.75 kN, u(F̄) = s/√6 = 0.71 kN with ν = 5; corrections B, B_ref, e_res, e_T rectangular with half-widths 6.8, 8.2, 8.7 and 10.2 kN.
+3. u(F₀) = 9.9 kN, ν_eff = 5·(u(F₀)/u(F̄))⁴ ≈ 1.8e+05, k = 1.96, U = 19.4 kN. The test results contribute only 0.2 % to u(F₀); the corrections dominate.
+
+**Result:**
+
+- F_0 = (10006 ± 19) kN, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+
+**Notes:**
+
+- GUM-5 15.5.2 prints an MCM standard deviation of 10.1 kN and the interval [9986.0, 10 025.3] kN. With the stated t-distribution for F (scale u(F̄) = 0.7 kN, ν = 5) the MCM standard deviation is √(u_c² − u²(F̄) + u²(F̄)·5/3) = 9.93 kN, practically the GUF value 9.9 kN. 10.1 kN follows if the scale is the standard deviation of a single test, s = 1.8 kN: 10.14 kN (research log F77).
+
+**Run:** `uncertainty run library/physical/gum5-e15-wire-rope-breaking-force.json --lang en`
 
 ### Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2)
 
@@ -4515,6 +6050,119 @@ ISO 5725-2:2019 C.2.9: the data of Example C.2 evaluated by restricted maximum l
 
 **Run:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang en`
 
+### Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
+
+`koepke2017-half-life-cs137` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+The 19 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 336 with 18 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. DerSimonian–Laird: μ̂ = 10971.1 d = 30.037 a, u_DL = 16.4 d = 0.045 a, τ̂ = 52.2 d.
+2. The Linear Pool gives 29.94 a with standard uncertainty 0.93 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.
+3. The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).
+
+**Result:**
+
+- T½(¹³⁷Cs): consensus value 10971.1 d, standard uncertainty 16 d, 95 % coverage interval [10937.5, 11004.6] d (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 52 d; Cochran's Q = 335.6 with 18 degrees of freedom
+- T½(¹³⁷Cs): 10936.4 d, standard uncertainty 339 d, 95 % coverage interval [9707.80, 11406.0] d (Linear Pool)
+- T½(¹³⁷Cs): 10937.2 d, standard uncertainty 67 d, 95 % credible interval [10802.2, 11070.3] d; posterior median of τ 262 d (Bayes)
+
+**Notes:**
+
+- Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.
+
+**Run:** `uncertainty run library/physical/koepke2017-half-life-cs137.json --lang en`
+
+### Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
+
+`koepke2017-half-life-sr90` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+The 11 published half-lives compiled by MacMahon et al. (2004) are heterogeneous (Q = 400 with 10 degrees of freedom). The consensus value is computed in days, as the data are given; Koepke et al. report it in years of 365.25 d.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. DerSimonian–Laird: μ̂ = 10493.8 d = 28.730 a, u_DL = 40.2 d = 0.110 a, τ̂ = 104.7 d.
+2. The Linear Pool gives 28.68 a with standard uncertainty 0.77 a: the mixture of the discrepant results is much wider than the random-effects estimate, which down-weights the results with large stated uncertainties less than the plain weighted mean would.
+3. The degrees of equivalence D_j = x_j − μ̂ with U95 %(D_j) from the bootstrap show which results lie beyond the range allowed by the model (NICOB §A.5.1; Koepke et al., Figure 4).
+
+**Result:**
+
+- T½(⁹⁰Sr): consensus value 10493.8 d, standard uncertainty 40 d, 95 % coverage interval [10410.2, 10577.0] d (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 105 d; Cochran's Q = 400.3 with 10 degrees of freedom
+- T½(⁹⁰Sr): 10478.1 d, standard uncertainty 282 d, 95 % coverage interval [9923.10, 11091.7] d (Linear Pool)
+- T½(⁹⁰Sr): 10485.7 d, standard uncertainty 58 d, 95 % credible interval [10364.6, 10597.8] d; posterior median of τ 147 d (Bayes)
+
+**Notes:**
+
+- Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.
+
+**Run:** `uncertainty run library/physical/koepke2017-half-life-sr90.json --lang en`
+
+### Newtonian constant of gravitation: consensus value of 14 measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
+
+`koepke2017-newtonian-constant-g` — Koepke, §7.1, Tables 1 and 2; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+The 14 measurements of G used in the CODATA 2014 adjustment are mutually inconsistent (Cochran's Q = 319 with 13 degrees of freedom): the measured values are about four times more dispersed than the typical stated uncertainty. The random-effects model recognises this dark uncertainty τ.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. Cochran's Q about the weighted mean with weights 1/u_j² is 319.1; τ̂² = (Q − 13)/(Σu⁻² − Σu⁻⁴/Σu⁻²) gives τ̂ = 9.45841 × 10⁻¹⁵ m³ kg⁻¹ s⁻², more than three times the median stated uncertainty 0.00027.
+2. With weights 1/(τ̂² + u_j²) the consensus value is 6.673790 and u_DL = 1/√Σw = 0.000279 (× 10⁻¹¹ m³ kg⁻¹ s⁻²). The weights are far more even than those of the conventional weighted mean, where UWash-00 alone would carry most of the weight.
+3. The parametric bootstrap (NICOB §A.2) recognises that τ̂ rests on few degrees of freedom: τ is drawn from the gamma approximation of the distribution of Q, new values are drawn from N(μ̂, τ² + u_j²), and the DerSimonian–Laird estimate is recomputed; the standard deviation and the 2.5 % and 97.5 % percentiles of the replicates give u and the 95 % coverage interval.
+4. The Linear Pool mixes the 14 Gaussian distributions with equal weights: its mean is the arithmetic mean 6.67367 and its standard deviation √(mean u² + mean (x − x̄)²) = 0.00124, more than four times u_DL; the mixture is multimodal (Koepke et al., Figure 2).
+
+**Result:**
+
+- G: consensus value 6.673790 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00028 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.673226, 6.674352] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.00095 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran's Q = 319.1 with 13 degrees of freedom
+- G: 6.673667 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.0012 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.671166, 6.675791] 10⁻¹¹ m³ kg⁻¹ s⁻² (Linear Pool)
+- G: 6.673773 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00033 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % credible interval [6.673105, 6.674409] 10⁻¹¹ m³ kg⁻¹ s⁻²; posterior median of τ 0.0011 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
+- G: 6.673778 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00030 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0.0010 ± 0.00022 10⁻¹¹ m³ kg⁻¹ s⁻² (maximum likelihood)
+
+**Notes:**
+
+- The printed DerSimonian–Laird value 6.673 80 is one unit in the last digit above the value recomputed from Table 1, 6.673 790 (research log F93). The printed interval (6.673 20, 6.674 40) agrees with the bootstrap percentiles rounded to 10⁻⁴.
+- The correlations between NIST-82 and LANL-97 (0.351) and between HUST-05 and HUST-09 (0.134) are ignored, as in the DerSimonian–Laird row of Table 2.
+
+**Run:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang en`
+
+### Newtonian constant of gravitation from 16 measurements: DerSimonian–Laird with Knapp–Hartung, maximum likelihood, hierarchical Bayes and Linear Pool (Merkatas et al. 2019)
+
+`merkatas2019-newtonian-constant-g-shades` — Merkatas, Tables 1 and 4
+
+The data of Koepke et al. (2017) with JILA-10 corrected (6.672 60 ± 0.000 25) and the two HUST results of 2018 (time-of-swing and angular-acceleration-feedback). Merkatas et al. compare fourteen procedures; four of them are implemented in the program.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. DL (Table 4): DerSimonian–Laird with the Knapp–Hartung standard uncertainty and t₁₅ interval: 6.673 99, u 0.000 25, (6.673 46, 6.674 53), τ 0.000 56.
+2. ML: Gaussian maximum likelihood, 6.673 90, u 0.000 25, τ 0.000 91; the moment estimate of DL gives a markedly smaller τ.
+3. BG: the NICOB hierarchical model (MCMC in the paper, exact grid here): 6.673 89, u 0.000 27, (6.673 33, 6.674 42), posterior median of τ 0.000 95.
+4. LOP: Linear Pool, 6.673 77, u 0.001 17, (6.671 27, 6.675 77). The spread of the four consensus values (0.000 22) is comparable to their standard uncertainties: the choice of procedure is itself a source of uncertainty.
+
+**Result:**
+
+- G: consensus value 6.673993 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00016 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.673664, 6.674323] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 0.00056 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran's Q = 197.7 with 15 degrees of freedom
+- G: 6.673773 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.0012 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.671276, 6.675763] 10⁻¹¹ m³ kg⁻¹ s⁻² (Linear Pool)
+- G: 6.673896 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00027 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % credible interval [6.673342, 6.674415] 10⁻¹¹ m³ kg⁻¹ s⁻²; posterior median of τ 0.00094 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
+- G: 6.673900 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00025 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0.00091 ± 0.00020 10⁻¹¹ m³ kg⁻¹ s⁻² (maximum likelihood)
+
+**Notes:**
+
+- Not implemented: Birge's multiplicative models (BRE, BRM, BRQ), the CODATA expansion (MTE), Mandel–Paule, REML, Student-t effects, the Laplace model of the paper (Laplace effects and errors), and the Bayesian mixture model (BMM).
+
+**Run:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang en`
+
 ### Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13)
 
 `nist-tn1900-e13-thermal-expansion-gaussian-95` — NIST Technical Note 1900, Example E13, Exhibit 20
@@ -4531,7 +6179,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 
 **Result:**
 
-- alpha = (17.3 ± 3.4) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- alpha = (17.3 ± 3.4) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4555,7 +6203,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 
 **Result:**
 
-- alpha = (17.3 ± 4.5) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %.
+- alpha = (17.3 ± 4.5) 10⁻⁶ K⁻¹, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.58, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4622,7 +6270,7 @@ TN 1900 E3: dynamic viscosity of a NaOH solution by comparison with a calibratio
 
 **Result:**
 
-- mu_M = (5.7 ± 2.0) mPa s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- mu_M = (5.7 ± 2.0) mPa s, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4645,7 +6293,7 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 
 **Result:**
 
-- sigma = (5.6703725 ± 0.0000401) 10⁻⁸ W m⁻² K⁻⁴, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %.
+- sigma = (5.6703725 ± 0.0000401) 10⁻⁸ W m⁻² K⁻⁴, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 3 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3). Note: ILAC P14:09/2020, 5.3, allows at most two significant digits for the expanded uncertainty on calibration certificates.
 
 **Notes:**
 
@@ -4653,7 +6301,139 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 
 **Run:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang en`
 
+### Hubble–Lemaître constant from 22 mutually inconsistent estimates: Bayesian consensus with Laplace effects (Possolo & Meija 2022)
+
+`possolo-meija-2022-hubble-lemaitre-constant-laplace` — Possolo & Meija, Consensus Building, Hubble-Lemaître Constant, pp. 146–151
+
+Recent estimates of H₀ (Planck's excluded) are more dispersed than their uncertainties suggest. The model H₀,j = H₀ + λ_j + ε_j with Laplace experiment effects λ_j (standard deviation τ), as the NIST Decision Tree recommends, and Gaussian errors with the reported u_j blends them into a consensus value.
+
+**Approach:** consensus value of an interlaboratory comparison (NIST Consensus Builder)
+
+**Steps:**
+
+1. The standard deviation of the 22 estimates is 2.76 and the median of their uncertainties 1.95 (km/s)/Mpc, so a preliminary τ is √(2.76² − 1.95²) = 1.95 (km/s)/Mpc.
+2. Priors as in the Stan code of the book: H₀ ~ N(67.4, 100²); τ half-Cauchy with median mad(x) = 1.4826 × median|x − median(x)| = 2.89107 (km/s)/Mpc. The Laplace effects have scale τ/√2, so that τ is their standard deviation.
+3. The likelihood of each estimate is the convolution of a Laplace and a Gaussian density, which has a closed form in erfc; the posterior of (H₀, τ) is evaluated on a two-dimensional grid instead of by MCMC (the book: Stan, 4 chains of 10⁶ iterations).
+4. Posterior: H₀ = 71.69 (km/s)/Mpc, u = 0.66 (km/s)/Mpc, median τ = 2.03 (km/s)/Mpc, as printed. Compared with Planck's 67.36(54), z = (71.69 − 67.36)/√(0.66² + 0.54²) = 5.1: the Hubble tension.
+
+**Result:**
+
+- H₀: consensus value 71.5428 (km/s)/Mpc, standard uncertainty 0.63 (km/s)/Mpc, 95 % coverage interval [70.2766, 72.7883] (km/s)/Mpc (DerSimonian–Laird with parametric bootstrap)
+- Dark uncertainty τ = 2.0 (km/s)/Mpc; Cochran's Q = 46.66 with 21 degrees of freedom
+- H₀: 71.6915 (km/s)/Mpc, standard uncertainty 0.66 (km/s)/Mpc, 95 % credible interval [70.4037, 73.0082] (km/s)/Mpc; posterior median of τ 2.0 (km/s)/Mpc (Bayes)
+
+**Notes:**
+
+- Labels follow the book; the two studies labelled hst are distinguished by their first authors (Riess 2019, Freedman 2019). Mildly asymmetric uncertainties were replaced in the book by the geometric mean of the left and right uncertainties.
+- The DerSimonian–Laird estimate (Gaussian effects) is shown for comparison.
+
+**Run:** `uncertainty run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang en`
+
 ## Pressure
+
+### Vacuum gauge calibration, correction factor and conformance probability, scenario 1 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-applied` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.3
+
+Scenario 1: the reference correction Δp_m = 0.05 % p_std is applied, u(Δp_m) = 0.5 Pa. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).
+2. f = 1.0025, U(f) = 0.0071 (k = 2), p_c = 74.5 %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.
+
+**Result:**
+
+- f = (1.0024 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+- Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 75 %; accepted under simple acceptance.
+
+**Notes:**
+
+- Table E2.2.2 prints U(e) for points 4–6 as 0.0025, 0.0017 and 0.0011; they are 0.025, 0.017 and 0.012 (U(f) is printed correctly). Tables E2.2.3, E2.2.5 and E2.2.7 head the column of p_std values 'p_UUC'. The worked example of E2.2.6.1 uses σ = 0.002 for point 13, the expanded uncertainty U(f) of Table E2.2.2; with u(f) = 0.001 p_c is 100 %, as the table gives (research log F88).
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang en`
+
+### Vacuum gauge calibration, correction factor and conformance probability, scenario 3 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.7
+
+Scenario 3: the correction and its uncertainty are ignored. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).
+2. f = 1.0020, U(f) = 0.0059 (k = 2), p_c = 83.8 %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.
+
+**Result:**
+
+- f = (1.0020 ± 0.0059), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+- Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 84 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang en`
+
+### Vacuum gauge calibration, correction factor and conformance probability, scenario 2 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-in-uncertainty` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.5
+
+Scenario 2: the correction is not applied but folded into its uncertainty, u² = 0.5² + (0.05 % p_std)²/3. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).
+2. f = 1.0020, U(f) = 0.0071 (k = 2), p_c = 77.8 %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.
+
+**Result:**
+
+- f = (1.0020 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+- Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 78 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang en`
+
+### Vacuum gauge, pressure difference with a common temperature error: correlation included (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlated` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m) with p = p′(1 + αΔT) for both gauges (E2.2.8); point 8, specification ±0.5 % of the reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Both pressures depend on the same temperature error ΔT (estimate 0, u = 0.57 K) through α = 1/300 K⁻¹, which correlates them: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). Entering ΔT once as an input makes the program carry the correlation; entering two independent ΔT's ignores it.
+2. u(Δp) = 0.91 Pa and p_c = 0.75 for |Δp| ≤ 0.5 % of 255.9 Pa; ignoring the correlation would give 1.14 Pa and p_c = 0.67. u(α) does not contribute at first order, since ΔT = 0.
+
+**Result:**
+
+- dp = (-0.6 ± 1.8) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+- Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 75 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang en`
+
+### Vacuum gauge, pressure difference with a common temperature error: correlation ignored (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlation-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m) with p = p′(1 + αΔT) for both gauges (E2.2.8); point 8, specification ±0.5 % of the reading.
+
+**Approach:** GUM uncertainty framework (JCGM 100)
+
+**Steps:**
+
+1. Both pressures depend on the same temperature error ΔT (estimate 0, u = 0.57 K) through α = 1/300 K⁻¹, which correlates them: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). Entering ΔT once as an input makes the program carry the correlation; entering two independent ΔT's ignores it.
+2. u(Δp) = 1.14 Pa and p_c = 0.67 for |Δp| ≤ 0.5 % of 255.9 Pa; with the correlation u(Δp) = 0.91 Pa and p_c = 0.75. u(α) does not contribute at first order, since ΔT = 0.
+
+**Result:**
+
+- dp = (-0.6 ± 2.3) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
+- Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 67 %; accepted under simple acceptance.
+
+**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang en`
 
 ### Digital pressure indicator at 2 MPa against a dead weight tester (UKAS M3003 K.8)
 
@@ -4672,7 +6452,7 @@ Error of a DPI at 2 MPa; the budget is in relative terms (ppm), as is the conven
 
 **Result:**
 
-- e = (17 ± 86) ppm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- e = (17 ± 86) ppm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4697,7 +6477,7 @@ EA-4/02 S11: temperature of the block measured with a calibrated platinum resist
 
 **Result:**
 
-- t_X = (180100 ± 330) mK, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- t_X = (180100 ± 330) mK, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4720,7 +6500,7 @@ EA-4/02 S5 (second budget): emf of the type N thermocouple under calibration at 
 
 **Result:**
 
-- V_X = (36229 ± 50) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- V_X = (36229 ± 50) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4743,13 +6523,13 @@ EA-4/02 S5 (first budget): temperature of a furnace at 1000 °C measured with a 
 
 **Result:**
 
-- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang en`
 
 ### Celsius temperature from a resistance thermometer, implicit model (JCGM 102 9.5.2)
 
-`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13)
+`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13); JCGM GUM-5:2026, Example 13, 13.2
 
 JCGM 102:2011 9.5.2: one temperature from a measured resistance ratio, with the correlated calibration constants of the thermometer.
 
@@ -4768,7 +6548,7 @@ JCGM 102:2011 9.5.2: one temperature from a measured resistance ratio, with the 
 
 ### Ten Celsius temperatures with one resistance thermometer, implicit model (JCGM 102 9.5.3)
 
-`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16)
+`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16); JCGM GUM-5:2026, Example 13, 13.3, Tables 13.4 and 13.5
 
 JCGM 102:2011 9.5.3: ten temperatures measured with the same calibrated thermometer are correlated through its calibration constants (Tables 15 and 16).
 
@@ -4817,7 +6597,7 @@ The probe L is attached to the outside of the vessel; its correction comes from 
 
 **Result:**
 
-- T_g = (22.97 ± 0.17) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- T_g = (22.97 ± 0.17) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/m3003-k11-gas-temperature.json --lang en`
 
@@ -4838,7 +6618,7 @@ Error of the laboratory probe L at 20.4 °C against the reference probe S, whose
 
 **Result:**
 
-- dT_L = (0.432 ± 0.084) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- dT_L = (0.432 ± 0.084) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/m3003-k11-probe-calibration.json --lang en`
 
@@ -4860,7 +6640,7 @@ Both budgets of K.7 in one model: the furnace temperature enters the EMF of the 
 
 **Result:**
 
-- V_X = (36229 ± 52) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- V_X = (36229 ± 52) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 
@@ -4884,7 +6664,7 @@ First part of K.7: the temperature at the hot junctions from the two reference t
 
 **Result:**
 
-- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95.45 %.
+- t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Run:** `uncertainty run library/temperature/m3003-k7-thermocouple-furnace.json --lang en`
 
@@ -4904,7 +6684,7 @@ TN 1900 E2: an observation equation t_i = τ + E_i for 22 daily readings; Type A
 
 **Result:**
 
-- tau = (25.6 ± 1.8) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.08, corresponding to a coverage probability of approximately 95 %.
+- tau = (25.6 ± 1.8) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.08, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
 **Notes:**
 

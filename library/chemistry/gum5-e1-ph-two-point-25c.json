@@ -1,0 +1,154 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "gum5-e1-ph-two-point-25c",
+    "title": {
+      "en": "pH of a test solution by two-point interpolation at 25 °C (JCGM GUM-5 Example 1)",
+      "tr": "25 °C'de iki noktalı interpolasyonla bir deney çözeltisinin pH değeri (JCGM GUM-5 Örnek 1)"
+    },
+    "description": {
+      "en": "Bracketing between two NIST phosphate pH standards measured with the same cell; inputs independent, as in IUPAC practice.",
+      "tr": "Aynı hücreyle ölçülen iki NIST fosfat pH standardı arasında parantez yöntemi; IUPAC uygulamasındaki gibi girdiler bağımsız."
+    },
+    "explanation": [
+      {
+        "en": "Two-point calibration by bracketing (GUM-5 1.4.2, 1.5): the pH of the test solution is interpolated linearly between the points (E_S1, pH_S1) and (E_S2, pH_S2) of two NIST phosphate standards: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).",
+        "tr": "Parantez yöntemiyle iki noktalı kalibrasyon (GUM-5 1.4.2, 1.5): deney çözeltisinin pH değeri, iki NIST fosfat standardının (E_S1, pH_S1) ve (E_S2, pH_S2) noktaları arasında doğrusal interpolasyonla bulunur: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1)."
+      },
+      {
+        "en": "With q = (E_X − E_S1)/(E_S2 − E_S1) = 0.2469 and slope b = -0.016975 mV⁻¹, u²(pH_X) = b²(1 − q)²u²(E_S1) + (1 − q)²u²(pH_S1) + b²q²u²(E_S2) + q²u²(pH_S2) + b²u²(E_X) (Formula 1.17); the contributions are 0.0038 (pH_S1), 0.0013 (pH_S2), 0.0004, 0.0004 and 0.0001.",
+        "tr": "q = (E_X − E_S1)/(E_S2 − E_S1) = 0,2469 ve eğim b = -0,016975 mV⁻¹ ile u²(pH_X) = b²(1 − q)²u²(E_S1) + (1 − q)²u²(pH_S1) + b²q²u²(E_S2) + q²u²(pH_S2) + b²u²(E_X) (Formül 1.17); katkılar 0,0038 (pH_S1), 0,0013 (pH_S2), 0,0004, 0,0004 ve 0,0001'dir."
+      },
+      {
+        "en": "pH_X = 7.0002, u(pH_X) = 0.0041: the certified pH values dominate. A common calibration error δE_cal of the three potentials cancels (GUM-5 1.8.2).",
+        "tr": "pH_X = 7,0002, u(pH_X) = 0,0041: sertifikalı pH değerleri baskındır. Üç potansiyelin ortak kalibrasyon hatası δE_cal birbirini götürür (GUM-5 1.8.2)."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 1, 1.8",
+        "url": "https://doi.org/10.59161/YNLY8209"
+      }
+    ],
+    "tags": [
+      "gum-5",
+      "ph",
+      "interpolation",
+      "calibration",
+      "electrochemistry"
+    ],
+    "notes": []
+  },
+  "model": {
+    "output": {
+      "name": "pH_X",
+      "expression": "pH_S1 + (pH_S2 - pH_S1)*(E_X - E_S1)/(E_S2 - E_S1)",
+      "description": {
+        "en": "pH of the test solution",
+        "tr": "Deney çözeltisinin pH değeri"
+      }
+    },
+    "inputs": [
+      {
+        "name": "E_X",
+        "unit": "mV",
+        "description": {
+          "en": "Potential in the test solution (mean of 4)",
+          "tr": "Deney çözeltisindeki potansiyel (4 ölçümün ortalaması)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -1.875,
+          "sd": 0.025
+        }
+      },
+      {
+        "name": "E_S1",
+        "unit": "mV",
+        "description": {
+          "en": "Potential in standard S1 (SRM 186-I-g)",
+          "tr": "S1 standardındaki potansiyel (SRM 186-I-g)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 6.15,
+          "sd": 0.0289
+        }
+      },
+      {
+        "name": "E_S2",
+        "unit": "mV",
+        "description": {
+          "en": "Potential in standard S2 (SRM 186-II-g)",
+          "tr": "S2 standardındaki potansiyel (SRM 186-II-g)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": -26.35,
+          "sd": 0.0289
+        }
+      },
+      {
+        "name": "pH_S1",
+        "description": {
+          "en": "Certified pH of S1 at 25 °C",
+          "tr": "S1'in 25 °C'deki sertifikalı pH değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 6.864,
+          "sd": 0.0051
+        }
+      },
+      {
+        "name": "pH_S2",
+        "description": {
+          "en": "Certified pH of S2 at 25 °C",
+          "tr": "S2'nin 25 °C'deki sertifikalı pH değeri"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 7.4157,
+          "sd": 0.0051
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 7.0002,
+        "tolerance": 5e-05
+      },
+      "standard_uncertainty": {
+        "value": 0.0041,
+        "tolerance": 5e-05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 7.0002,
+        "tolerance": 0.0001
+      },
+      "standard_uncertainty": {
+        "value": 0.0041,
+        "tolerance": 0.0001
+      }
+    },
+    "reference": {
+      "en": "JCGM GUM-5:2026, 1.8.1: pH_X = 7.0002, u = 0.0041.",
+      "tr": "JCGM GUM-5:2026, 1.8.1: pH_X = 7,0002, u = 0,0041."
+    }
+  }
+}

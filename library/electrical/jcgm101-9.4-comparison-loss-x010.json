@@ -27,6 +27,10 @@
       {
         "en": "The GUM result here includes the second-order terms (higher_order), which for this quadratic model give the exact variance; the 95 % interval based on a symmetric distribution is still inappropriate.",
         "tr": "Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir."
+      },
+      {
+        "en": "With the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; note 1 to 4.1.4 added by JCGM 100:2008/Amd.1:2026), the GUM estimate becomes 150·10⁻⁶, the analytic value. Table 8 of JCGM 101:2008 prints 100·10⁻⁶ for the GUM framework, which 9.4.2.2.8 calls invalid.",
+        "tr": "Kestirimin ikinci mertebe terimiyle, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; JCGM 100:2008/Amd.1:2026 ile 4.1.4'e eklenen not 1), GUM kestirimi analitik değer olan 150·10⁻⁶ olur. JCGM 101:2008 Tablo 8 GUM çerçevesi için 100·10⁻⁶ basar; 9.4.2.2.8 bunu geçersiz sayar."
       }
     ],
     "field": "electrical",
@@ -35,6 +39,11 @@
         "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
         "section": "9.4, Table 8",
         "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      },
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 16, Table 16.1",
+        "url": "https://doi.org/10.59161/YNLY8209"
       }
     ],
     "tags": [
@@ -93,6 +102,10 @@
   },
   "expected": {
     "gum": {
+      "estimate": {
+        "value": 150.0,
+        "tolerance": 1e-09
+      },
       "standard_uncertainty": {
         "value": 112.0,
         "tolerance": 0.5
@@ -117,8 +130,8 @@
       }
     },
     "reference": {
-      "en": "JCGM 101:2008 Table 8 and the analytic non-central χ² solution (Annex F); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶.",
-      "tr": "JCGM 101:2008 Tablo 8 ve analitik merkezî olmayan χ² çözümü (Ek F); toleranslar M = 2 × 10⁶'da motor saçılımının ≈ 5 katı."
+      "en": "JCGM 101:2008 Table 8 and the analytic non-central χ² solution (Annex F); tolerances ≈ 5 × engine dispersion at M = 2 × 10⁶. The GUM estimate is the analytic one, which the second-order term of JCGM 100:2008/Amd.1:2026 reproduces.",
+      "tr": "JCGM 101:2008 Tablo 8 ve analitik merkezî olmayan χ² çözümü (Ek F); toleranslar M = 2 × 10⁶'da motor saçılımının ≈ 5 katı. GUM kestirimi analitik değerdir; JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimi bunu verir."
     }
   }
 }

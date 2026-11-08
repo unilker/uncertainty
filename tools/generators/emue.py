@@ -1,0 +1,358 @@
+"""Writes the library projects of the EMPIR EMUE compendium, "Good practice in evaluating measurement
+uncertainty — Compendium of examples" (van der Veen & Cox, eds., 2021), for examples not already in the
+library through JCGM GUM-5 (run from the repository root). Printed values are recomputed and asserted.
+"""
+import json
+import math
+import statistics as st
+from pathlib import Path
+from statistics import NormalDist
+
+DOC = "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)"
+URL = "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
+R3 = math.sqrt(3)
+
+
+def T(en, tr):
+    return {"en": en, "tr": tr}
+
+
+def chk(v, t):
+    return {"value": v, "tolerance": t}
+
+
+def c(x):
+    return str(x).replace(".", ",")
+
+
+def inp(name, dist, unit=None, en=None, tr=None):
+    q = {"name": name}
+    if unit:
+        q["unit"] = unit
+    if en:
+        q["description"] = T(en, tr)
+    q["distribution"] = dist
+    return q
+
+
+def write(field, pid, title, desc, expl, section, tags, model, expected, ref, notes=(), analysis=None):
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": pid, "title": title, "description": desc, "explanation": expl, "field": field,
+                      "sources": [{"document": DOC, "section": section, "url": URL}], "tags": ["emue"] + tags, "notes": list(notes)},
+         "model": model,
+         "analysis": analysis or {"gum": {"coverage_factor": 2}, "mcm": {"trials": 1000000, "seed": 5, "interval": "symmetric"}},
+         "expected": {**expected, "reference": ref}}
+    Path(f"library/{field}/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", pid)
+
+
+# --- E3.4: aqua regia extractable metals in soil (ISO 21748 budget) -----------------------------------
+# Table E3.4.2, column u(δ̂)/x_ref (%): the text calls 3.3 % the root mean square; it is the mean (F87).
+RELU = [1.7, 2.4, 2.8, 2.8, 3.7, 4.4, 3.4, 5.7, 6.2, 2.5, 2.0, 3.0, 3.3, 2.6, 2.4, 5.7, 2.6, 2.5, 2.9, 3.0]
+rms_u = math.sqrt(sum(v * v for v in RELU) / len(RELU))
+assert round(st.mean(RELU), 1) == 3.3 and abs(st.median(RELU) - 2.9) < 0.06 and round(rms_u, 1) == 3.5  # median 2.885 from unrounded data
+# Table E3.4.1 RSD (%) excluding Zn in C279a: median 3.2 %, root mean square 3.6 %.
+RSD = [3.8, 4.6, 2.1, 1.7, 3.2, 3.6, 3.1, 5.8, 3.1, 2.9, 4.1, 7.1, 2.3, 3.7, 3.9, 3.3, 1.9, 1.5, 2.1]
+assert round(st.median(RSD), 1) == 3.2 and round(math.sqrt(sum(v * v for v in RSD) / len(RSD)), 1) == 3.6
+W = 27.8
+for variant, ud in (("printed", 0.033), ("rms-bias-uncertainty", round(rms_u / 100, 4))):
+    u2 = ud ** 2 + 0.036 ** 2 + (0.004 * 5 / R3) ** 2 + (0.0009 * 5 / R3) ** 2 + (0.985 / 984.74) ** 2
+    urel = math.sqrt(u2)
+    if variant == "printed":
+        assert abs(u2 - 0.002526) < 5e-7 and round(2 * urel * W, 1) == 2.8
+    U = 2 * urel * W
+    pid = "emue-e3.4-soil-lead-iso21748" + ("" if variant == "printed" else "-rms-bias")
+    write("chemistry", pid,
+          T("Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data" + ("" if variant == "printed" else ", root-mean-square bias uncertainty") + " (EMUE E3.4)",
+            "Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi" + ("" if variant == "printed" else ", kareler ortalamasının kökü sapma belirsizliği") + " (EMUE E3.4)"),
+          T(f"u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)² with relative summary values from precision, trueness and ruggedness studies; u(δ̂)/w = {ud}.",
+            f"u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)²; kesinlik, gerçeklik ve sağlamlık çalışmalarından bağıl özet değerlerle; u(δ̂)/w = {c(ud)}."),
+          [T("ISO 21748 model y = µ + δ + B + Σc_i x′_i + e (E3.4.2): an 11 × 2 nested design on four materials gives the intermediate precision; its median RSD is 3.2 % and the more conservative root-mean-square RSD 3.6 % (zinc in C279a excluded).",
+             "ISO 21748 modeli y = µ + δ + B + Σc_i x′_i + e (E3.4.2): dört malzemede 11 × 2 iç içe tasarım ara kesinliği verir; ortanca RSD %3,2, daha temkinli kareler ortalamasının kökü RSD %3,6'dır (C279a'daki çinko hariç)."),
+           T("Bias against two CRMs and two PT materials, u²(δ̂) = s²_δ̂ + u²_ref with s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). The procedure shows a consistent low bias near 10 %, within the permitted limits, so it is not corrected.",
+             "İki SRM ve iki YT malzemesine karşı sapma, u²(δ̂) = s²_δ̂ + u²_ref, s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). Yöntem izin verilen sınırlar içinde yaklaşık %10'luk tutarlı bir düşük sapma gösterir; bu nedenle düzeltilmez."),
+           T("Extraction temperature and time are not represented in the precision study; their relative sensitivity coefficients 0.004 °C⁻¹ and 9·10⁻⁴ min⁻¹ come from a 2 × 2 factorial experiment (Table E3.4.3), with rectangular uncertainties ±5 °C and ±5 min. The stock solution of Pb (984.74 ± 0.985 mg/kg) enters as a proportional effect.",
+             "Ekstraksiyon sıcaklığı ve süresi kesinlik çalışmasında temsil edilmez; bağıl duyarlılık katsayıları 0,004 °C⁻¹ ve 9·10⁻⁴ min⁻¹, 2 × 2 faktöriyel deneyden gelir (Tablo E3.4.3); belirsizlikler ±5 °C ve ±5 min dikdörtgen. Pb stok çözeltisi (984,74 ± 0,985 mg/kg) orantılı etki olarak girer."),
+           T(f"u_rel = {urel:.4f}; for a result of {W} mg/kg, U = {U:.2f} mg/kg (k = 2)." + (" The guide's u(δ̂)/w = 0.033 is called the root mean square of Table E3.4.2 but is its mean; the root mean square is 0.035, which gives U = 2.9 mg/kg." if variant != "printed" else ""),
+             f"u_bağıl = {c(f'{urel:.4f}')}; {c(W)} mg/kg'lık bir sonuç için U = {c(f'{U:.2f}')} mg/kg (k = 2)." + (" Rehberin u(δ̂)/w = 0,033 değeri Tablo E3.4.2'nin kareler ortalamasının kökü olarak verilir, ancak ortalamasıdır; kareler ortalamasının kökü 0,035'tir ve U = 2,9 mg/kg verir." if variant != "printed" else ""))],
+          "E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)", ["iso-21748", "top-down", "soil", "metals", "icp-oes", "ruggedness", "uncorrected-bias"],
+          {"output": {"name": "w", "unit": "mg/kg", "expression": "w_obs*(1 + d_bias)*(1 + e_I)*(1 + 0.004*dT)*(1 + 0.0009*dt)*(g0/984.74)",
+                      "description": T("Aqua regia extractable Pb in soil", "Toprakta kral suyunda çözünür Pb")},
+           "inputs": [inp("w_obs", {"type": "constant", "value": W}, "mg/kg", "Measured mass fraction (result for Pb in C279a, E3.4.7)", "Ölçülen kütle kesri (C279a'da Pb sonucu, E3.4.7)"),
+                      inp("d_bias", {"type": "normal", "mean": 0.0, "sd": ud}, None, "Relative bias term; its estimate (≈ −10 %) is not applied, its uncertainty is", "Bağıl sapma terimi; tahmini (≈ −%10) uygulanmaz, belirsizliği uygulanır"),
+                      inp("e_I", {"type": "normal", "mean": 0.0, "sd": 0.036}, None, "Relative intermediate precision (root-mean-square RSD)", "Bağıl ara kesinlik (kareler ortalamasının kökü RSD)"),
+                      inp("dT", {"type": "rectangular", "value": 0.0, "half_width": 5.0}, "°C", "Deviation of the extraction temperature from 65 °C", "Ekstraksiyon sıcaklığının 65 °C'den sapması"),
+                      inp("dt", {"type": "rectangular", "value": 0.0, "half_width": 5.0}, "min", "Deviation of the extraction time from 120 min", "Ekstraksiyon süresinin 120 min'den sapması"),
+                      inp("g0", {"type": "normal", "mean": 984.74, "sd": 0.985}, "mg/kg", "Pb stock solution (certificate)", "Pb stok çözeltisi (sertifika)")]},
+          {"gum": {"estimate": chk(W, 1e-9), "standard_uncertainty": chk(round(urel * W, 4), 2e-4), "expanded_uncertainty": chk(round(U, 3), 0.001)}},
+          T("EMUE E3.4, (E3.4.18) and E3.4.7: u′(Pb)² = 0.002 526, u′ ≈ 5 %, result (27.8 ± 2.8) mg/kg (k = 2)" + ("" if variant == "printed" else "; this variant recomputes u(δ̂)/w as the root mean square (F87)") + ".",
+            "EMUE E3.4, (E3.4.18) ve E3.4.7: u′(Pb)² = 0,002 526, u′ ≈ %5, sonuç (27,8 ± 2,8) mg/kg (k = 2)" + ("" if variant == "printed" else "; bu varyant u(δ̂)/w'yi kareler ortalamasının kökü olarak yeniden hesaplar (F87)") + "."),
+          notes=[T("The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).",
+                   "Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008)."),
+                 T("The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.",
+                   "E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.")])
+
+# --- E2.1: conformity of an influenza medication with four correlated active components -------------
+R21 = [[1, 0.107, 0.125, 0.177], [0.107, 1, 0.311, 0.404], [0.125, 0.311, 1, 0.539], [0.177, 0.404, 0.539, 1]]
+COMP21 = [("APAP", 99.18, 1.37), ("DEX", 97.70, 1.02), ("DOX", 99.33, 1.05), ("PE", 98.94, 1.22)]
+# Recomputed (tools/research/emue/e21_total_risks.py, scipy and numpy): 0.002 881, 0.011 716, 0.000 212; global 0.001 82.
+p21 = {"format": "uncertainty-calculations/project", "version": 1,
+       "metadata": {"id": "emue-e2.1-multicomponent-medication", "field": "chemistry",
+                    "title": T("Total risks of false decisions for a medication with four correlated active components (EMUE E2.1)",
+                               "Dört ilişkili etken maddeli bir ilaç için toplam yanlış karar riskleri (EMUE E2.1)"),
+                    "description": T("NyQuil tablets: APAP, DEX, DOX and PE, tolerance 95–105 % of the labelled amount, u_rel = 2.8 %; total specific consumer's risks for three sets of test results and the total global consumer's risk.",
+                                     "NyQuil tabletleri: APAP, DEX, DOX ve PE; tolerans etiket miktarının %95–105'i, u_bağıl = %2,8; üç deney sonucu takımı için toplam özgül tüketici riskleri ve toplam küresel tüketici riski."),
+                    "explanation": [
+                        T("Each component may conform while the item as a whole does not: the total specific consumer's risk is the probability that at least one true content lies outside 95–105 % although all test results lie inside (IUPAC project; EMUE E2.1.6.2).",
+                          "Her bileşen tek başına uygun olabilir, ürün bütünüyle uygun olmayabilir: toplam özgül tüketici riski, tüm deney sonuçları içerideyken en az bir gerçek içeriğin %95–105 dışında olma olasılığıdır (IUPAC projesi; EMUE E2.1.6.2)."),
+                        T("Prior: multivariate normal from 105 production lots (means 99.18, 97.70, 99.33, 98.94 %; s.d. 1.37, 1.02, 1.05, 1.22 %) with the Pearson correlations of Table E2.1.1. Likelihood: multivariate normal with u_i = 0.028·c_mi and the same correlations. The posterior is normal, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2).",
+                          "Önsel: 105 üretim partisinden çok değişkenli normal (ortalamalar %99,18, 97,70, 99,33, 98,94; s.s. %1,37, 1,02, 1,05, 1,22), Tablo E2.1.1'in Pearson korelasyonlarıyla. Olabilirlik: u_i = 0,028·c_mi ve aynı korelasyonlarla çok değişkenli normal. Sonsal dağılım normaldir, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2)."),
+                        T("Total specific consumer's risks: 0.29 % when the results equal the prior means, 1.17 % at the lower limits and 0.02 % at the upper limits; the prior shifts the posterior towards its means, which lie below 100 %. Total global consumer's risk 0.18 %: 18 of 10 000 tablets accepted without conforming.",
+                          "Toplam özgül tüketici riskleri: sonuçlar önsel ortalamalara eşitken %0,29, alt sınırlarda %1,17, üst sınırlarda %0,02; önsel, sonsal dağılımı %100'ün altındaki ortalamalarına doğru kaydırır. Toplam küresel tüketici riski %0,18: 10 000 tabletten 18'i uygun olmadan kabul edilir.")],
+                    "sources": [{"document": DOC, "section": "Example E2.1, Tables E2.1.1–E2.1.2, E2.1.6", "url": URL}],
+                    "tags": ["emue", "conformity-assessment", "multicomponent", "total-risk", "pharmaceutical", "correlation", "bayesian"],
+                    "notes": [T("The program integrates the 4-dimensional posterior over the tolerance box by the method of Genz (separation of variables, 200 000 antithetic draws, standard error about 10⁻⁶) instead of R's pmvnorm, and the global risk by Monte Carlo with u_i proportional to the true value.",
+                                "Program 4 boyutlu sonsal dağılımı tolerans kutusu üzerinde R'nin pmvnorm işlevi yerine Genz yöntemiyle (değişkenlere ayırma, 200 000 karşıt çekiliş, standart hata yaklaşık 10⁻⁶) integre eder; küresel riski u_i gerçek değerle orantılı alınarak Monte Carlo ile hesaplar.")]},
+       "multicomponent_conformity": {"unit": "% of label",
+                                     "components": [{"name": n_, "prior_mean": m_, "prior_sd": s_, "lower": 95.0, "upper": 105.0} for n_, m_, s_ in COMP21],
+                                     "correlation": R21, "u_relative": 0.028,
+                                     "results": [{"name": "c_m = m", "values": [m_ for _, m_, _ in COMP21]},
+                                                 {"name": "c_m = T_L", "values": [95.0] * 4}, {"name": "c_m = T_U", "values": [105.0] * 4}],
+                                     "global_trials": 2000000, "samples": 200000, "seed": 1},
+       "expected": {"multicomponent_conformity": {
+           "results": {"c_m = m": {"risk": chk(0.0029, 5e-5), "accepted": True}, "c_m = T_L": {"risk": chk(0.0117, 5e-5), "accepted": True},
+                       "c_m = T_U": {"risk": chk(0.0002, 5e-5), "accepted": True}},
+           "global_consumer_risk": chk(0.0018, 1e-4)},
+           "reference": T("EMUE E2.1.6.2–E2.1.6.3: R*_tot = 0.0029, 0.0117, 0.0002; R_tot = 0.0018 (10⁷ trials; 0.0019 in the original paper).",
+                          "EMUE E2.1.6.2–E2.1.6.3: R*_tot = 0,0029, 0,0117, 0,0002; R_tot = 0,0018 (10⁷ deneme; özgün makalede 0,0019).")}}
+Path("library/chemistry/emue-e2.1-multicomponent-medication.json").write_text(json.dumps(p21, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote emue-e2.1-multicomponent-medication")
+
+# --- E2.2: vacuum gauge, correction factor and conformance probability; sum model with correlation ------
+# Point 8 of Table E2.2.1: p_std = 256.4 Pa (U = 1.5), p_UUC = 255.9 Pa (U = 0.23); Δp_m = 0.05 % p_std, U = 1 Pa.
+PS, US, PU, UU = 256.4, 1.5, 255.9, 0.23
+NDc = NormalDist()
+SC = {1: ("correction-applied", 0.0005 * PS, 0.5, 74.5, "Scenario 1: the reference correction Δp_m = 0.05 % p_std is applied, u(Δp_m) = 0.5 Pa", "Senaryo 1: referans düzeltmesi Δp_m = %0,05 p_std uygulanır, u(Δp_m) = 0,5 Pa"),
+      2: ("correction-in-uncertainty", 0.0, math.sqrt(0.25 + (0.0005 * PS) ** 2 / 3), 77.8, "Scenario 2: the correction is not applied but folded into its uncertainty, u² = 0.5² + (0.05 % p_std)²/3", "Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05 p_std)²/3"),
+      3: ("correction-ignored", 0.0, 0.0, 83.8, "Scenario 3: the correction and its uncertainty are ignored", "Senaryo 3: düzeltme ve belirsizliği yok sayılır")}
+for sc, (slug, dm, udm, pc_pr, en, tr) in SC.items():
+    ref = PS + dm
+    f = ref / PU
+    uf = f * math.sqrt((UU / 2 / PU) ** 2 + ((US / 2) ** 2 + udm ** 2) / ref ** 2)
+    pc = NDc.cdf((1.005 - f) / uf) - NDc.cdf((0.995 - f) / uf)
+    assert round(100 * pc, 1) == pc_pr
+    inputs = [inp("p_std", {"type": "normal", "mean": PS, "expanded": US, "k": 2}, "Pa", "Reference pressure (indication of the reference gauge)", "Referans basınç (referans ölçerin göstergesi)"),
+              inp("p_UUC", {"type": "normal", "mean": PU, "expanded": UU, "k": 2}, "Pa", "Indication of the gauge under calibration", "Kalibre edilen ölçerin göstergesi")]
+    if udm > 0:
+        inputs.append(inp("dp_m", {"type": "normal", "mean": round(dm, 6), "sd": round(udm, 6)}, "Pa", en.split(": ")[1], tr.split(": ")[1]))
+    expr = "(p_std + dp_m)/p_UUC" if udm > 0 else "p_std/p_UUC"
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": f"emue-e2.2-vacuum-gauge-{slug}", "field": "pressure",
+                      "title": T(f"Vacuum gauge calibration, correction factor and conformance probability, scenario {sc} (EMUE E2.2)",
+                                 f"Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo {sc} (EMUE E2.2)"),
+                      "description": T(f"{en}. Point 8 of the calibration (256 Pa); specification: error of reading within ±0.5 %, i.e. 0.995 ≤ f ≤ 1.005.",
+                                       f"{tr}. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005."),
+                      "explanation": [
+                          T("Correction factor f = (p_std + Δp_m)/p_UUC (E2.2.2) of a capacitance diaphragm gauge (11 kPa full scale) against a reference gauge; the conformance probability is the normal probability of 0.995 ≤ f ≤ 1.005 (JCGM 106).",
+                            "Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106)."),
+                          T(f"f = {f:.4f}, U(f) = {2 * uf:.4f} (k = 2), p_c = {100 * pc:.1f} %. Across the three scenarios p_c at this point is 74.5, 77.8 and 83.8 %: folding the known correction into the uncertainty (2) or ignoring it (3) moves f towards 1 and here raises p_c, so the decision looks safer than it is.",
+                            f"f = {c(f'{f:.4f}')}, U(f) = {c(f'{2 * uf:.4f}')} (k = 2), p_c = %{c(f'{100 * pc:.1f}')}. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.")],
+                      "sources": [{"document": DOC, "section": f"Example E2.2, Tables E2.2.1–E2.2.{2 * sc + 1 if sc > 1 else 3}", "url": URL}],
+                      "tags": ["emue", "vacuum", "pressure", "correction", "conformity-assessment", f"scenario-{sc}"], "notes": []},
+         "model": {"output": {"name": "f", "expression": expr, "description": T("Correction factor of the gauge", "Ölçerin düzeltme çarpanı")}, "inputs": inputs},
+         "analysis": {"gum": {"coverage_factor": 2}, "mcm": None},
+         "conformity": {"lower": 0.995, "upper": 1.005},
+         "expected": {"gum": {"estimate": chk(round(f, 4), 5e-5), "expanded_uncertainty": chk(round(2 * uf, 4), 5e-5)},
+                      "conformity": {"results": {"f": {"conformance_probability": chk(pc_pr / 100, 5e-4), "accepted": True}}},
+                      "reference": T(f"EMUE E2.2, point 8: f = {f:.4f}, U(f) = {2 * uf:.4f}, p_c = {pc_pr} % (Tables E2.2.{[2, 4, 6][sc - 1]} and E2.2.{[3, 5, 7][sc - 1]}).",
+                                     f"EMUE E2.2, 8. nokta: f = {c(f'{f:.4f}')}, U(f) = {c(f'{2 * uf:.4f}')}, p_c = %{c(pc_pr)} (Tablo E2.2.{[2, 4, 6][sc - 1]} ve E2.2.{[3, 5, 7][sc - 1]}).")}}
+    if sc == 1:
+        p["metadata"]["notes"].append(T("Table E2.2.2 prints U(e) for points 4–6 as 0.0025, 0.0017 and 0.0011; they are 0.025, 0.017 and 0.012 (U(f) is printed correctly). Tables E2.2.3, E2.2.5 and E2.2.7 head the column of p_std values 'p_UUC'. The worked example of E2.2.6.1 uses σ = 0.002 for point 13, the expanded uncertainty U(f) of Table E2.2.2; with u(f) = 0.001 p_c is 100 %, as the table gives (research log F88).",
+                                        "Tablo E2.2.2, 4–6. noktalar için U(e)'yi 0,0025, 0,0017 ve 0,0011 olarak basar; doğrusu 0,025, 0,017 ve 0,012'dir (U(f) doğru basılmıştır). Tablo E2.2.3, E2.2.5 ve E2.2.7, p_std değerlerinin sütununa 'p_UUC' başlığını verir. E2.2.6.1'deki çalışılmış örnek 13. nokta için σ = 0,002 kullanır; bu, Tablo E2.2.2'deki genişletilmiş U(f)'dir; u(f) = 0,001 ile p_c, tablodaki gibi %100'dür (araştırma günlüğü F88)."))
+    Path(f"library/pressure/emue-e2.2-vacuum-gauge-{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", f"emue-e2.2-vacuum-gauge-{slug}")
+
+# E2.2.7: p_std and p_UUC both depend on a temperature error ΔT (u = 0.57 K, α = 1/300 K⁻¹, u(α) = 1/3000 K⁻¹).
+a_ = 1 / 300
+var_s = (US / 2) ** 2 + (PS * a_ * 0.57) ** 2
+var_u = (UU / 2) ** 2 + (PU * a_ * 0.57) ** 2
+cov = (PS * a_) * (PU * a_) * 0.57 ** 2
+dp = PU - PS * 1.0005
+lim = 0.005 * PU
+for corr in (True, False):
+    u_dp = math.sqrt(var_s + var_u + 0.25 - (2 * cov if corr else 0.0))
+    pc = NDc.cdf((lim - dp) / u_dp) - NDc.cdf((-lim - dp) / u_dp)
+    assert abs(u_dp - (0.91 if corr else 1.14)) < 0.005 and round(pc, 2) == (0.75 if corr else 0.67)
+    dT = ["dT"] * 2 if corr else ["dT_std", "dT_UUC"]
+    ins = [inp("p_std_obs", {"type": "normal", "mean": PS, "expanded": US, "k": 2}, "Pa", "Observed reference pressure", "Gözlenen referans basınç"),
+           inp("p_UUC_obs", {"type": "normal", "mean": PU, "expanded": UU, "k": 2}, "Pa", "Observed indication of the gauge under calibration", "Kalibre edilen ölçerin gözlenen göstergesi"),
+           inp("a_std", {"type": "normal", "mean": a_, "sd": 1 / 3000}, "1/K", "Temperature coefficient, reference", "Sıcaklık katsayısı, referans"),
+           inp("a_UUC", {"type": "normal", "mean": a_, "sd": 1 / 3000}, "1/K", "Temperature coefficient, gauge under calibration", "Sıcaklık katsayısı, kalibre edilen ölçer")]
+    for name in dict.fromkeys(dT):
+        ins.append(inp(name, {"type": "normal", "mean": 0.0, "sd": 0.57}, "K", "Systematic error of the gas temperature" + ("" if corr else " (treated, wrongly, as separate for each gauge)"),
+                       "Gaz sıcaklığının sistematik hatası" + ("" if corr else " (yanlış olarak her ölçer için ayrı alınmış)")))
+    ins.append(inp("dp_m", {"type": "normal", "mean": round(0.0005 * PS, 6), "sd": 0.5}, "Pa", "Reference pressure correction 0.05 % p_std", "Referans basınç düzeltmesi %0,05 p_std"))
+    slug = "correlated" if corr else "correlation-ignored"
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": f"emue-e2.2-vacuum-gauge-sum-model-{slug}", "field": "pressure",
+                      "title": T("Vacuum gauge, pressure difference with a common temperature error: " + ("correlation included" if corr else "correlation ignored") + " (EMUE E2.2.7)",
+                                 "Vakum ölçer, ortak sıcaklık hatalı basınç farkı: " + ("korelasyon dahil" if corr else "korelasyon yok sayılmış") + " (EMUE E2.2.7)"),
+                      "description": T("Δp = p_UUC − (p_std + Δp_m) with p = p′(1 + αΔT) for both gauges (E2.2.8); point 8, specification ±0.5 % of the reading.",
+                                       "Δp = p_UUC − (p_std + Δp_m), iki ölçer için p = p′(1 + αΔT) (E2.2.8); 8. nokta, şartname okumanın ±%0,5'i."),
+                      "explanation": [
+                          T("Both pressures depend on the same temperature error ΔT (estimate 0, u = 0.57 K) through α = 1/300 K⁻¹, which correlates them: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). Entering ΔT once as an input makes the program carry the correlation; entering two independent ΔT's ignores it.",
+                            "İki basınç da α = 1/300 K⁻¹ üzerinden aynı sıcaklık hatası ΔT'ye bağlıdır (tahmin 0, u = 0,57 K); bu onları ilişkilendirir: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). ΔT'yi tek girdi olarak girmek programın korelasyonu taşımasını sağlar; iki bağımsız ΔT girmek onu yok sayar."),
+                          T(f"u(Δp) = {u_dp:.2f} Pa and p_c = {pc:.2f} for |Δp| ≤ 0.5 % of 255.9 Pa; " + ("ignoring the correlation would give 1.14 Pa and p_c = 0.67." if corr else "with the correlation u(Δp) = 0.91 Pa and p_c = 0.75.") + " u(α) does not contribute at first order, since ΔT = 0.",
+                            f"|Δp| ≤ 255,9 Pa'nın %0,5'i için u(Δp) = {c(f'{u_dp:.2f}')} Pa ve p_c = {c(f'{pc:.2f}')}; " + ("korelasyonu yok saymak 1,14 Pa ve p_c = 0,67 verirdi." if corr else "korelasyonla u(Δp) = 0,91 Pa ve p_c = 0,75.") + " ΔT = 0 olduğundan u(α) birinci mertebede katkı vermez.")],
+                      "sources": [{"document": DOC, "section": "Example E2.2, E2.2.7", "url": URL}],
+                      "tags": ["emue", "vacuum", "pressure", "correlation", "common-effect", "conformity-assessment"], "notes": []},
+         "model": {"output": {"name": "dp", "unit": "Pa", "expression": f"p_UUC_obs*(1 + a_UUC*{dT[1]}) - (p_std_obs*(1 + a_std*{dT[0]}) + dp_m)",
+                              "description": T("Pressure difference (error of the gauge)", "Basınç farkı (ölçerin hatası)")}, "inputs": ins},
+         "analysis": {"gum": {"coverage_factor": 2}, "mcm": None},
+         "conformity": {"lower": round(-lim, 6), "upper": round(lim, 6)},
+         "expected": {"gum": {"estimate": chk(round(dp, 4), 5e-4), "standard_uncertainty": chk(round(u_dp, 3), 0.005)},
+                      "conformity": {"results": {"dp": {"conformance_probability": chk(round(pc, 3), 0.005), "accepted": True}}},
+                      "reference": T("EMUE E2.2.7: u(p_std) = 0.90 Pa, u(p_UUC) = 0.51 Pa; u(Δp) = 1.14 Pa without and 0.91 Pa with the correlation; p_c = 0.67 and 0.75.",
+                                     "EMUE E2.2.7: u(p_std) = 0,90 Pa, u(p_UUC) = 0,51 Pa; u(Δp) korelasyonsuz 1,14 Pa, korelasyonla 0,91 Pa; p_c = 0,67 ve 0,75.")}}
+    Path(f"library/pressure/emue-e2.2-vacuum-gauge-sum-model-{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", f"emue-e2.2-vacuum-gauge-sum-model-{slug}")
+
+# --- E3.8: NH₃ in N₂ by permeation (ISO 6145-10), amount fraction of ammonia ---------------------------
+AW38 = {"H": (1.00784, 1.00811), "C": (12.0096, 12.0116), "N": (14.00643, 14.00728), "O": (15.99903, 15.99977)}
+IMP38 = [("Ar", 5e-6, 3e-6), ("CH4", 8e-9, 5e-9), ("CO", 1.5e-8, 9e-9), ("CO2", 1e-8, 6e-9), ("H2", 2.5e-8, 1.5e-8), ("H2O", 1e-8, 6e-9), ("O2", 5e-9, 3e-9)]
+F38 = {"NH3": "A_N + 3*A_H", "H2O": "A_H*2 + A_O", "Ar": "A_Ar", "CH4": "A_C + 4*A_H", "CO": "A_C + A_O", "CO2": "A_C + 2*A_O", "H2": "2*A_H", "O2": "2*A_O", "N2": "2*A_N"}
+ins38 = [inp("q_m1", {"type": "normal", "mean": 13.599, "sd": 0.108}, "µg/min", "Permeation rate of the NH₃ tube at 62 °C (OLS slope of mass against time)", "62 °C'de NH₃ tüpünün permeasyon hızı (kütle–zaman doğrusunun EKK eğimi)"),
+         inp("q_m2", {"type": "normal", "mean": 0.3126, "sd": 0.0006}, "g/min", "Mass flow of the nitrogen carrier gas (thermal MFC, 250 mL/min)", "Azot taşıyıcı gazın kütle akışı (termal MFC, 250 mL/min)"),
+         inp("x_w1", {"type": "normal", "mean": 0.010, "sd": 0.002}, "mol/mol", "Water in the ammonia (parent 1); x(NH₃) = 1 − x_w1", "Amonyaktaki su (ana gaz 1); x(NH₃) = 1 − x_w1")]
+ins38 += [inp(f"A_{e}", {"type": "rectangular", "lower": a, "upper": b}, None, f"Standard atomic weight of {e}", f"{e} standart atom ağırlığı") for e, (a, b) in AW38.items()]
+ins38 += [inp("A_Ar", {"type": "rectangular", "value": 39.948, "half_width": 0.001}, None, "Standard atomic weight of Ar (IUPAC 2013, 39.948 ± 0.001, as in Table E3.8.4)", "Ar standart atom ağırlığı (IUPAC 2013, 39,948 ± 0,001, Tablo E3.8.4'teki gibi)")]
+ins38 += [inp(f"x2_{k}", {"type": "normal", "mean": v * 1e6, "sd": s * 1e6}, "µmol/mol", f"{k} in the nitrogen (parent 2)", f"Azottaki {k} (ana gaz 2)") for k, v, s in IMP38]
+inter38 = [{"name": "M_NH3", "expression": F38["NH3"]}, {"name": "M_H2O", "expression": F38["H2O"]},
+           {"name": "M1", "expression": "(1 - x_w1)*M_NH3 + x_w1*M_H2O"},
+           {"name": "M2", "expression": "(1 - 1e-6*(" + " + ".join(f"x2_{k}" for k, _, _ in IMP38) + "))*(" + F38["N2"] + ") + 1e-6*(" + " + ".join(f"x2_{k}*({F38[k]})" for k, _, _ in IMP38) + ")"},
+           {"name": "n1", "expression": "1e-6*q_m1/M1"}, {"name": "n2", "expression": "q_m2/M2"}]
+p38 = {"format": "uncertainty-calculations/project", "version": 1,
+       "metadata": {"id": "emue-e3.8-ammonia-permeation", "field": "chemistry",
+                    "title": T("Calibration gas mixture of NH₃ in N₂ by permeation: amount fraction of ammonia (EMUE E3.8)",
+                               "Permeasyonla N₂ içinde NH₃ kalibrasyon gazı karışımı: amonyağın madde miktarı kesri (EMUE E3.8)"),
+                    "description": T("y = ṅ₁x₁/(ṅ₁ + ṅ₂) with ṅ_j = q_mj/M̄_j (E3.8.1): permeation rate from a magnetic suspension balance, carrier flow from a thermal mass flow controller, purities of both parent gases and molar masses from standard atomic weights.",
+                                     "y = ṅ₁x₁/(ṅ₁ + ṅ₂), ṅ_j = q_mj/M̄_j (E3.8.1): permeasyon hızı manyetik askılı teraziden, taşıyıcı akış termal kütle akış kontrolöründen, iki ana gazın saflıkları ve standart atom ağırlıklarından mol kütleleri."),
+                    "explanation": [
+                        T("The NH₃ tube loses 13.599 µg/min at 62 °C (OLS; errors-in-variables gives the same slope with u = 0.088 µg/min, the guide keeps OLS with 0.108 µg/min). The nitrogen flow is 0.3126 g/min with u_rel = 0.2 %.",
+                          "NH₃ tüpü 62 °C'de 13,599 µg/min kaybeder (EKK; değişkenlerde hata regresyonu aynı eğimi u = 0,088 µg/min ile verir, rehber EKK'yı 0,108 µg/min ile tutar). Azot akışı u_bağıl = %0,2 ile 0,3126 g/min'dir."),
+                        T("Molar masses of the parent gases M̄_j = Σx_ij M_i with M_i from the IUPAC intervals; they are correlated through the shared atomic weights (r(M̄₁, M̄₂) = 0.12), and x(NH₃) = 1 − x(H₂O) is correlated with M̄₁. The program obtains these correlations from the shared inputs.",
+                          "Ana gazların mol kütleleri M̄_j = Σx_ij M_i; M_i IUPAC aralıklarından; ortak atom ağırlıkları üzerinden ilişkilidirler (r(M̄₁, M̄₂) = 0,12); x(NH₃) = 1 − x(H₂O) de M̄₁ ile ilişkilidir. Program bu korelasyonları ortak girdilerden elde eder."),
+                        T("y(NH₃) = 70.80 µmol/mol, u = 0.60 µmol/mol (0.84 %), of which the permeation rate gives 88 % of the variance, the water in the ammonia 6 % and the carrier flow 5 %; (70.8 ± 1.2) µmol/mol with k = 2.",
+                          "y(NH₃) = 70,80 µmol/mol, u = 0,60 µmol/mol (%0,84); varyansın %88'i permeasyon hızından, %6'sı amonyaktaki sudan, %5'i taşıyıcı akıştan gelir; k = 2 ile (70,8 ± 1,2) µmol/mol.")],
+                    "sources": [{"document": DOC, "section": "Example E3.8, (E3.8.1)–(E3.8.4), Tables E3.8.3–E3.8.5", "url": URL}],
+                    "tags": ["emue", "gas-mixture", "permeation", "iso-6145", "molar-mass", "correlation", "intermediate-quantities"],
+                    "notes": [T("E3.8.5.2 gives E_A = 59.164 kJ/mol, k₀ = 43.069 µg/min and a temperature sensitivity of 4.81·10⁻⁷ µg min⁻¹ K⁻¹. From the two stated rates (7.4921 µg/min at 52.45 °C, 13.599 µg/min at 62.00 °C) E_A = 56.64 kJ/mol and k₀ = 9.1·10⁹ µg/min (k₀ must exceed the rate); dṁ/dT at 62 °C is 0.82 µg min⁻¹ K⁻¹, and the stated contribution of 0.0022 µg/min corresponds to this value with u(T) = 0.0027 K. The contribution is negligible here (research log F89).",
+                                "E3.8.5.2, E_A = 59,164 kJ/mol, k₀ = 43,069 µg/min ve 4,81·10⁻⁷ µg min⁻¹ K⁻¹ sıcaklık duyarlılığı verir. Belirtilen iki hızdan (52,45 °C'de 7,4921 µg/min, 62,00 °C'de 13,599 µg/min) E_A = 56,64 kJ/mol ve k₀ = 9,1·10⁹ µg/min çıkar (k₀ hızdan büyük olmalıdır); 62 °C'de dṁ/dT = 0,82 µg min⁻¹ K⁻¹'dir ve belirtilen 0,0022 µg/min katkısı bu değere u(T) = 0,0027 K ile karşılık gelir. Katkı burada ihmal edilebilir (araştırma günlüğü F89).")]},
+       "model": {"output": {"name": "y_NH3", "unit": "µmol/mol", "expression": "1e6*n1*(1 - x_w1)/(n1 + n2)", "description": T("Amount fraction of NH₃ in the mixture", "Karışımdaki NH₃ madde miktarı kesri")},
+                 "intermediates": inter38, "inputs": ins38},
+       "analysis": {"gum": {"coverage_factor": 2}, "mcm": {"trials": 1000000, "seed": 5, "interval": "symmetric"}},
+       "expected": {"gum": {"estimate": chk(70.796, 0.001), "standard_uncertainty": chk(0.598, 0.0015), "expanded_uncertainty": chk(1.2, 0.05)},
+                    "mcm": {"estimate": chk(70.796, 0.003), "standard_uncertainty": chk(0.598, 0.003)},
+                    "reference": T("EMUE E3.8.6 and Table E3.8.5: y(NH₃) = 7.08·10⁻⁵ mol/mol, u = 5.99·10⁻⁷ mol/mol; (70.8 ± 1.2) µmol/mol (k = 2).",
+                                   "EMUE E3.8.6 ve Tablo E3.8.5: y(NH₃) = 7,08·10⁻⁵ mol/mol, u = 5,99·10⁻⁷ mol/mol; (70,8 ± 1,2) µmol/mol (k = 2).")}}
+Path("library/chemistry/emue-e3.8-ammonia-permeation.json").write_text(json.dumps(p38, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote emue-e3.8-ammonia-permeation")
+
+# --- E3.3: NO₂ analyser calibrated with mixtures from dynamic dilution (correlated reference values) ----
+# Program (ISO 6143 GLS, covariances of the contents propagated): A = 89.208, B = 4.18480, V_AB = (285.247,
+# −1.30008, 0.0063648) — equal to the printed (E3.3.18); validation 981.95 ± 4.519 nmol/mol.
+# Full WTLS with the covariances in the weights (tools/research/emue/e33_wtls.py): A = 88.942 (printed 88.94).
+VX = [[39.5, 1.7, 2.2], [1.7, 37.0, 3.0], [2.2, 3.0, 41.2]]
+PTS = [("a", 708.1, 146.6, 0.75), ("b", 974.1, 213.7, 0.67), ("c", 1290.1, 285.0, 1.53)]
+for corr in (True, False):
+    slug = "" if corr else "-covariances-ignored"
+    cal = {"analyte": "NO₂ in synthetic air", "unit": "nmol/mol", "response_unit": "a.u.",
+           "points": [{"name": n_, "x": x_, "u_x": round(math.sqrt(VX[i][i]), 6), "y": y_, "u_y": uy_} for i, (n_, x_, y_, uy_) in enumerate(PTS)],
+           "function": "linear", "samples": [{"name": "validation", "y": 213.33, "u_y": 0.11}]}
+    if corr:
+        cal["covariances"] = [{"between": ["a", "b"], "value": 1.7}, {"between": ["a", "c"], "value": 2.2}, {"between": ["b", "c"], "value": 3.0}]
+    exp = {"params": [chk(89.208, 0.001), chk(4.18480, 1e-5)],
+           "samples": {"validation": {"x": chk(981.95, 0.01), "u": chk(4.519 if corr else 4.350, 0.002)}}}
+    if corr:
+        exp["u_params"] = [chk(round(math.sqrt(285.247), 3), 0.002), chk(round(math.sqrt(0.0063648), 6), 2e-6)]
+        exp["cov_params"] = [chk(-1.3001, 1e-4)]
+    p = {"format": "uncertainty-calculations/project", "version": 1,
+         "metadata": {"id": "emue-e3.3-no2-analyser-dynamic-dilution" + slug, "field": "chemistry",
+                      "title": T("NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values" + ("" if corr else ", covariances ignored") + " (EMUE E3.3)",
+                                 "Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu" + ("" if corr else ", kovaryanslar yok sayılmış") + " (EMUE E3.3)"),
+                      "description": T("Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture diluted with two calibrated MFCs; straight-line analysis function x = A + B·w fitted with uncertainties in both variables; validation with an independent mixture of 975.5 nmol/mol.",
+                                       "Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava karışımı (708, 974, 1290 nmol/mol); her iki değişkende belirsizlikle uydurulan doğrusal analiz fonksiyonu x = A + B·w; 975,5 nmol/mol'lük bağımsız bir karışımla doğrulama."),
+                      "explanation": [
+                          T("x = x₁q₁/(q₁ + q₂) (E3.3.7) with the same parent mixture (10.252 ± 0.016 µmol/mol) and the same MFC calibration curves for all three mixtures, so the reference values are correlated (matrix E3.3.17). ISO 6143 handles such contents with their covariances.",
+                            "x = x₁q₁/(q₁ + q₂) (E3.3.7); üç karışım için de aynı ana karışım (10,252 ± 0,016 µmol/mol) ve aynı MFC kalibrasyon eğrileri kullanıldığından referans değerler ilişkilidir (matris E3.3.17). ISO 6143 bu içerikleri kovaryanslarıyla ele alır."),
+                          T("The program fits the line by generalized least squares (ISO 6143 Annex A) and propagates the covariances of the contents into the parameter covariance. That gives exactly the printed V_AB = (285, −1.30, 6.36·10⁻³), with A = 89.21 and B = 4.1848.",
+                            "Program doğruyu genelleştirilmiş en küçük karelerle uydurur (ISO 6143 Ek A) ve içeriklerin kovaryanslarını parametre kovaryansına yayar. Bu, A = 89,21 ve B = 4,1848 ile basılı V_AB = (285; −1,30; 6,36·10⁻³) değerini tam olarak verir."),
+                          T(f"Validation: w = 213.33 ± 0.11 a.u. gives x = 981.95 nmol/mol with u = {'4.52' if corr else '4.35'} nmol/mol against the reference 975.5 ± 1.5 nmol/mol: E_n = 6.5/(2·√(u² + 1.5²)) ≈ 0.68, consistent." + ("" if corr else " Ignoring the covariances lowers u by 3.7 %."),
+                            f"Doğrulama: w = 213,33 ± 0,11 a.u., x = 981,95 nmol/mol ve u = {'4,52' if corr else '4,35'} nmol/mol verir; referans 975,5 ± 1,5 nmol/mol: E_n = 6,5/(2·√(u² + 1,5²)) ≈ 0,68, tutarlı." + ("" if corr else " Kovaryansları yok saymak u'yu %3,7 düşürür."))],
+                      "sources": [{"document": DOC, "section": "Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)", "url": URL}],
+                      "tags": ["emue", "gas-analysis", "dynamic-dilution", "mfc", "iso-6143", "correlation", "errors-in-variables"],
+                      "notes": [T("The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).",
+                                  "(E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).")]},
+         "calibration": cal,
+         "expected": {"calibration": exp,
+                      "reference": T("EMUE E3.3.6: A = 88.94 nmol/mol, B = 4.19 nmol/(mol·a.u.), V_AB (E3.3.18); validation y = 982.0 nmol/mol, u = 4.7 (4.5 without covariances). Expected values recomputed (F90).",
+                                     "EMUE E3.3.6: A = 88,94 nmol/mol, B = 4,19 nmol/(mol·a.u.), V_AB (E3.3.18); doğrulama y = 982,0 nmol/mol, u = 4,7 (kovaryanssız 4,5). Beklenen değerler yeniden hesaplandı (F90).")}}
+    Path(f"library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution{slug}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("wrote", "emue-e3.3-no2-analyser-dynamic-dilution" + slug)
+
+# --- E6.5: ephedrine in urine (WADA): top-down budget and decision limit --------------------------------
+up = 4.2 / math.sqrt(3)
+ub = math.sqrt((1.97 / math.sqrt(30)) ** 2 + 3.0 ** 2 + 0.3 ** 2)
+uc65 = math.hypot(up, ub)
+assert round(up, 1) == 2.4 and round(ub, 1) == 3.0 and round(uc65, 2) == 3.89 and round(math.hypot(2.4, 3.0), 1) == 3.8
+td65 = {"format": "uncertainty-calculations/project", "version": 1,
+        "metadata": {"id": "emue-e6.5-ephedrine-wada-topdown", "field": "chemistry",
+                     "title": T("Ephedrine in urine for anti-doping testing: top-down uncertainty from intermediate precision and a CRM (EMUE E6.5)",
+                                "Doping kontrolünde idrarda efedrin: ara kesinlik ve bir SRM'den top-down belirsizlik (EMUE E6.5)"),
+                     "description": T("u_c(x) = √(s_w²/n + u_bias²) for the mean of triplicate results, with u_bias² = s_ref²/n′ + Δ² + u²(x_ref) from 30 analyses of a CRM (Table E6.5.1); WADA requires u_c ≤ 0.5 µg/mL (5 %) near the threshold of 10 µg/mL.",
+                                      "Üçlü sonuçların ortalaması için u_c(x) = √(s_w²/n + u_bias²); u_bias² = s_ref²/n′ + Δ² + u²(x_ref), bir SRM'nin 30 analizinden (Tablo E6.5.1); WADA, 10 µg/mL eşiği yakınında u_c ≤ 0,5 µg/mL (%5) ister."),
+                     "explanation": [
+                         T("Intermediate precision of a single result s_w = 4.2 % from a urine QC sample; the reported result is the mean of three determinations (WADA ISL), so the precision contribution is 4.2 %/√3 = 2.42 %.",
+                           "Tek sonucun ara kesinliği s_w = %4,2, bir idrar KK numunesinden; raporlanan sonuç üç tayinin ortalamasıdır (WADA ISL); kesinlik katkısı %4,2/√3 = %2,42'dir."),
+                         T("CRM 10.00 ± 0.06 µg/mL (k = 2), mean of 30 repeatability results 10.3 µg/mL with RSD 1.97 %: Δ = 3.0 %, s/√n = 0.36 %, u(x_ref) = 0.3 %; u_bias = 3.04 %, dominated by the uncorrected bias that is entered as an uncertainty (Nordtest TR 537, one CRM).",
+                           "SRM 10,00 ± 0,06 µg/mL (k = 2), 30 tekrarlanabilirlik sonucunun ortalaması 10,3 µg/mL, RSD %1,97: Δ = %3,0, s/√n = %0,36, u(x_ref) = %0,3; u_bias = %3,04; belirsizlik olarak girilen düzeltilmemiş sapma baskındır (Nordtest TR 537, tek SRM)."),
+                         T(f"u_c = √(2.42² + 3.04²) = {uc65:.2f} %, i.e. 0.39 µg/mL at the threshold, below u_c,max = 0.5 µg/mL; the guide gives 3.8 % from the rounded 2.4 % and 3.0 %.",
+                           f"u_c = √(2,42² + 3,04²) = %{c(f'{uc65:.2f}')}, yani eşikte 0,39 µg/mL; u_c,max = 0,5 µg/mL'nin altındadır; rehber yuvarlanmış %2,4 ve %3,0'dan %3,8 verir.")],
+                     "sources": [{"document": DOC, "section": "Example E6.5, Table E6.5.1", "url": URL}],
+                     "tags": ["emue", "anti-doping", "top-down", "nordtest", "crm", "bias"], "notes": []},
+        "topdown": {"quantity": "γ(ephedrine)", "unit": "µg/mL", "levels": [10.0],
+                    "precision": [{"name": "u(Rw), mean of 3", "description": T("s_w = 4.2 % of a single result, divided by √3 for the mean of triplicates", "Tek sonucun s_w = %4,2'si, üçlü ortalama için √3'e bölünmüş"),
+                                   "data": {"type": "given", "sd_percent": round(up, 6)}}],
+                    "bias": [{"name": "u(bias)", "kind": "crm", "references": [{"label": "ephedrine urine CRM", "reference": 10.00, "expanded": 0.06, "k": 2, "mean": 10.3, "sd_percent": 1.97, "n": 30}]}]},
+        "expected": {"topdown": {"components": {"u(Rw), mean of 3": chk(round(up, 3), 0.001), "u(bias)": chk(round(ub, 3), 0.002)},
+                                 "levels": [{"level": 10.0, "relative_standard_percent": chk(round(uc65, 2), 0.01)}]},
+                     "reference": T("EMUE E6.5, Table E6.5.1: u_prec = 2.4 %, u_bias = 3.0 %, u_c = 3.8 % (recomputed 3.89 % without rounding, F91).",
+                                    "EMUE E6.5, Tablo E6.5.1: u_prec = %2,4, u_bias = %3,0, u_c = %3,8 (yuvarlamasız yeniden hesaplanan %3,89, F91).")}}
+Path("library/chemistry/emue-e6.5-ephedrine-wada-topdown.json").write_text(json.dumps(td65, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote emue-e6.5-ephedrine-wada-topdown")
+DL = 10 + NDc.inv_cdf(0.95) * 0.5
+assert round(DL, 2) == 10.82
+means = [sum(v) / 3 for v in ((11.8, 12.1, 11.6), (11.5, 11.9, 11.6), (11.5, 11.4, 11.5))]
+cf65 = {"format": "uncertainty-calculations/project", "version": 1,
+        "metadata": {"id": "emue-e6.5-ephedrine-wada-decision-limit", "field": "chemistry",
+                     "title": T("Ephedrine in urine: WADA decision limit as a guarded-rejection rule (EMUE E6.5, JCGM 106)",
+                                "İdrarda efedrin: korumalı ret kuralı olarak WADA karar sınırı (EMUE E6.5, JCGM 106)"),
+                     "description": T("Threshold T = 10 µg/mL; an adverse analytical finding requires the concentration to exceed T with at least 95 % confidence, using the target uncertainty u_c,max = 0.5 µg/mL: DL = T + 1.645 u_c,max.",
+                                      "Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle aşmasını gerektirir; hedef belirsizlik u_c,max = 0,5 µg/mL ile: DL = T + 1,645 u_c,max."),
+                     "explanation": [
+                         T(f"Guarded rejection with probability 0.95 and the fixed u = 0.5 µg/mL gives the decision limit DL = {DL:.3f} µg/mL; WADA sets DL = 11 µg/mL (TD DL), i.e. rounded upwards.",
+                           f"0,95 olasılıklı korumalı ret ve sabit u = 0,5 µg/mL, karar sınırını DL = {c(f'{DL:.3f}')} µg/mL verir; WADA DL = 11 µg/mL belirler (TD DL), yani yukarı yuvarlar."),
+                         T("The means of the laboratory's triplicates in three EQAS rounds (spiked at 10.6 and 11.7 µg/mL) are 11.83, 11.67 and 11.47 µg/mL; all exceed DL and would be reported as adverse findings, the samples being spiked above T.",
+                           "Laboratuvarın üç EQAS turundaki üçlü ölçüm ortalamaları (10,6 ve 11,7 µg/mL'de zenginleştirilmiş) 11,83, 11,67 ve 11,47 µg/mL'dir; hepsi DL'yi aşar ve olumsuz bulgu olarak raporlanır; numuneler T'nin üstünde zenginleştirilmiştir.")],
+                     "sources": [{"document": DOC, "section": "Example E6.5, E6.5.2–E6.5.3, Table E6.5.2", "url": URL}],
+                     "tags": ["emue", "anti-doping", "decision-limit", "guarded-rejection", "conformity-assessment", "jcgm106"],
+                     "notes": [T("Table E6.5.2 prints the mean of round 2 (11.5, 11.9, 11.6) as 11.6 (it is 11.67) and the standard deviation of round 3 (11.5, 11.4, 11.5) as 0.45 µg/mL (it is 0.058, 0.5 %). Its z-scores 0.27, 0.71 and 0.47 follow from none of the stated standard deviations: with σ = u_c,max = 0.5 µg/mL they are −0.93, −1.27 and 0.73 (research log F91).",
+                                 "Tablo E6.5.2, 2. turun ortalamasını (11,5, 11,9, 11,6) 11,6 (doğrusu 11,67) ve 3. turun standart sapmasını (11,5, 11,4, 11,5) 0,45 µg/mL (doğrusu 0,058, %0,5) olarak basar. z puanları 0,27, 0,71 ve 0,47, belirtilen standart sapmaların hiçbirinden çıkmaz: σ = u_c,max = 0,5 µg/mL ile −0,93, −1,27 ve 0,73'tür (araştırma günlüğü F91).")]},
+        "conformity": {"quantity": "γ(ephedrine)", "unit": "µg/mL", "upper": 10.0, "rule": "guarded_rejection", "probability": 0.95, "u": 0.5,
+                       "results": [{"name": f"EQAS {i + 1}", "value": round(m, 4)} for i, m in enumerate(means)]},
+        "expected": {"conformity": {"acceptance_upper": chk(round(DL, 4), 1e-4),
+                                    "results": {f"EQAS {i + 1}": {"accepted": False} for i in range(3)}},
+                     "reference": T("EMUE E6.5: DL = T + 1.645 u_c,max, set at 11 µg/mL for T = 10 µg/mL and u_c,max = 0.5 µg/mL.",
+                                    "EMUE E6.5: DL = T + 1,645 u_c,max; T = 10 µg/mL ve u_c,max = 0,5 µg/mL için 11 µg/mL olarak belirlenmiştir.")}}
+Path("library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json").write_text(json.dumps(cf65, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+print("wrote emue-e6.5-ephedrine-wada-decision-limit")

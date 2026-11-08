@@ -11,15 +11,17 @@ as `{ "en": "…", "tr": "…" }`.
 | `format` | yes | `"uncertainty-calculations/project"` |
 | `version` | yes | `1` |
 | `metadata` | yes | title and documentation (7.2) |
-| `model` | one of the nine | measurement model (7.3) |
-| `topdown` | one of the nine | top-down evaluation (7.6) |
-| `proficiency` | one of the nine | proficiency test round, ISO 13528 (7.7) |
-| `calibration` | one of the nine | calibration with uncertainties in both variables, ISO 6143 (7.8) |
-| `precision_experiment` | one of the nine | interlaboratory precision experiment, ISO 5725-2 (7.10) |
-| `multivariate` | one of the nine | model with several output quantities, JCGM 102 (7.11) |
-| `control_chart` | one of the nine | control chart for internal quality control, Nordtest TR 569 (7.12) |
-| `sampling` | one of the nine | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
-| `error_function` | one of the nine | error approximation function of a weighing instrument, EURAMET cg-18 (7.14) |
+| `model` | one of the eleven | measurement model (7.3) |
+| `topdown` | one of the eleven | top-down evaluation (7.6) |
+| `proficiency` | one of the eleven | proficiency test round, ISO 13528 (7.7) |
+| `calibration` | one of the eleven | calibration with uncertainties in both variables, ISO 6143 (7.8) |
+| `precision_experiment` | one of the eleven | interlaboratory precision experiment, ISO 5725-2 (7.10) |
+| `multivariate` | one of the eleven | model with several output quantities, JCGM 102 (7.11) |
+| `control_chart` | one of the eleven | control chart for internal quality control, Nordtest TR 569 (7.12) |
+| `sampling` | one of the eleven | uncertainty arising from sampling, Eurachem UfS:2019 (7.13) |
+| `error_function` | one of the eleven | error approximation function of a weighing instrument, EURAMET cg-18 (7.14) |
+| `multicomponent_conformity` | one of the eleven | total risks for an item with several correlated properties, EMUE E2.1 (11.5) |
+| `consensus` | one of the eleven | consensus value and degrees of equivalence of an interlaboratory comparison, NIST Consensus Builder (7.14b, 9.7) |
 | `conformity` | with `model`, or alone | conformity assessment, JCGM 106 (7.9) |
 | `analysis` | no | GUM and Monte Carlo options (7.4); for model and multivariate projects |
 | `reporting` | no | rounding of the reported result (7.5) |
@@ -45,6 +47,10 @@ as `{ "en": "…", "tr": "…" }`.
 `dof` of an input is its degrees of freedom for the GUM framework (default ∞; Type A distributions set it
 themselves).
 
+`ensembles` (optional) lists groups of inputs evaluated from the same data, e.g. `[["AE", "AISE"]]`. The
+members of a group must have the same finite `dof`. Each group is one component in the Welch–Satterthwaite
+formula (§3.6).
+
 ### Distributions (`"type"`)
 
 | `type` | Fields |
@@ -57,6 +63,7 @@ themselves).
 | `curvilinear_trapezoid` | limits as above and `d` (uncertainty of the limits) |
 | `exponential` | `mean` |
 | `gamma` | `shape`, `scale` |
+| `beta` | `alpha` and `beta`, or `mean` and `sd` (method of moments); `lower`, `upper` (default 0 and 1). For bounded quantities such as a purity near 1 g/g |
 | `type_a` | `observations` (list) |
 | `type_a_pooled` | `mean`, `pooled_sd`, `pooled_dof`, `n` |
 
@@ -78,7 +85,7 @@ or `"mcm": null` to skip one of the methods.
 ## 7.5 `reporting`
 
 `significant_digits` (default 2), `decimal_places` (instead of significant digits), `rounding`
-(`half_even`, `half_up`, `up`), `uncorrected_bias` (model projects: `bias`, `u_bias`, `strategy` `ue` | `rssu` |
+(`ea4_02` default, `half_even`, `half_up`, `up`; 6.1), `cmc` (`expanded` or `relative_percent`: the smallest reportable U, ILAC P14 5.5), `uncorrected_bias` (model projects: `bias`, `u_bias`, `strategy` `ue` | `rssu` |
 `rssu_k` | `sumu` | `sumu_max`; section 6.3).
 
 ## 7.6 `topdown`
@@ -173,7 +180,7 @@ zero or s(R) is included.
 | `delta_e`, `delta_e_percent` | allowance for measurement error δ_E for PA scores (default 3σ_pt) |
 | `coverage_factor` | k of U(x_pt) for E_n (default 2; a stated expanded uncertainty of a reference value is used as given) |
 | `uncertainty_screening` | `u_min`, `u_max`: numbers, or `"u_assigned"`, `"1.5_robust_sd"`, `"1.5_sd_pt"` (ISO 13528 9.8) |
-| `homogeneity` | `items` (one list of replicates per item, equal numbers), `sd_pt` or `sd_pt_percent_of_mean` (default: the σ_pt of the round) |
+| `homogeneity` | `items` (one list of replicates per item, equal numbers), `sd_pt` or `sd_pt_percent_of_mean` (default: the σ_pt of the round; without σ_pt the criteria are not evaluated), `bayes` (`tau_scale`, `sigma_scale`, optional `mu_mean`, `mu_sd`) |
 | `stability` | `values`; `reference` (default: the homogeneity average); `u_reference` and `u_values` for Formula (B.18) |
 | `algorithm_a` | `"third_significant_figure"` (stopping rule of C.3.1, default) or `"converged"` |
 
@@ -215,7 +222,12 @@ Next to `model` (the result is assessed) or as the only section of a project (JC
 | `acceptance_lower`, `acceptance_upper` | acceptance limits given directly (the rule follows from them) |
 | `distribution` | model projects: `normal` (default) or `t` (effective degrees of freedom) |
 | `quantity`, `unit`, `u` or `u_relative`, `dof`, `results` | projects of their own: property, measuring system, measured values (`name`, `value`, optional `u`) |
-| `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma`, `mean`, `sd`; required R_C (finds r) |
+| `tur_method` | `rss`, `dobbert`, `rp10` or `test95`: acceptance limits from the test uncertainty ratio (11.2) |
+| `tur_u95` | U₉₅ in the TUR: `k95` (default, k₉₅·u from the degrees of freedom) or `two_u` (2u, as in Suncal) |
+| `tur_allow_factor_above_one` | keep a guard-band factor above 1 (Dobbert, TUR > 4.59); by default it is limited to 1 |
+| `process`, `target_consumer_risk` | global risks: `distribution` `normal` or `gamma` with `mean`, `sd`, or `lognormal` with `meanlog`, `sdlog`; required R_C (finds r) |
+| `posterior` | `true`: p_c of the results from the posterior with the process PDF as prior (projects of their own) |
+| `distribution`, `exact_sdlog` | PDF for the measurand: `normal`, `t` (model projects) or `lognormal` (s_G = u/\|y\|, or exact with `exact_sdlog`) |
 
 ## 7.10 `precision_experiment`
 
@@ -357,10 +369,47 @@ The error approximation function of a weighing instrument (EURAMET cg-18 Appendi
 | `requirement`, `safety_factor` | relative weighing tolerance Req (0.01 = 1 %) and SF (default 1) for the minimum weight (G-7, G-9) |
 | `readings` | readings at which U(W) and U_gl(W) are reported |
 
+## 7.14a `multicomponent_conformity`
+
+```json
+"multicomponent_conformity": {
+  "unit": "% of label",
+  "components": [ { "name": "APAP", "prior_mean": 99.18, "prior_sd": 1.37, "lower": 95, "upper": 105 }, … ],
+  "correlation": [ [1, 0.107, …], … ],
+  "u_relative": 0.028,
+  "results": [ { "name": "lot 17", "values": [99.2, 97.7, 99.3, 98.9] } ],
+  "global_trials": 2000000, "samples": 200000, "seed": 1
+}
+```
+
+Expected values: `results` (per name: `risk`, `accepted`), `global_consumer_risk`, `global_producer_risk`.
+
+## 7.14b `consensus`
+
+```json
+"consensus": {
+  "measurand": "w(Ni)", "unit": "mg/kg",
+  "results": [ { "name": "JSI", "value": 1.930, "u": 0.110 }, { "name": "UME", "value": 2.150, "u": 0.030, "dof": 12 }, … ],
+  "coverage": 0.95,
+  "dersimonian_laird": true, "linear_pool": false, "maximum_likelihood": true,
+  "trials": 100000, "seed": 1
+}
+```
+
+`dof` (optional) is used by the bootstrap and the Linear Pool; `weight` (optional) is the weight of a result in
+the Linear Pool. Expected values: `mean`, `u`, `tau`, `q`, `u_knapp_hartung`, `bootstrap_u`, `interval_lower`,
+`interval_upper`, `linear_pool_mean`, `linear_pool_u`, `linear_pool_lower`, `linear_pool_upper`, `ml_mean`, `ml_u`,
+`ml_tau`, `ml_u_tau`, `q_p_value`, `bayes_mean`, `bayes_u`, `bayes_lower`, `bayes_upper`, `bayes_tau_median` and
+`degrees_of_equivalence` (per name: `d`, `expanded`). See 9.7.
+
+`"bayes": { "tau_median": 0.00042, "mu_mean": 192.217, "mu_sd": 0.0015 }` (all optional; `"bayes": {}` uses the
+NICOB defaults) adds the Bayesian random-effects model; `"effects": "laplace"` gives the laboratory effects a Laplace
+distribution (NIST Decision Tree).
+
 ## 7.15 Errors
 
 The program refuses, with a message naming the field: unknown fields; a project with more or fewer than one
-of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling` and `error_function`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
+of `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity` and `consensus`; inconsistent alternatives (e.g. `sd` together with `expanded`); absolute top-down
 components without `levels`; a level where no component applies; correlated non-Gaussian inputs in the Monte
 Carlo method; non-finite data.
 
@@ -381,7 +430,9 @@ Reference values for self-checking projects; every value is `{ "value": …, "to
     "relative_standard_percent", "relative_expanded_percent" }`
 * `proficiency`: `assigned_value`, `u_assigned`, `sd_pt`, `median`, `made`, `niqr`, `robust_mean`, `robust_sd`,
   `iterations`, `mean`, `sd`; `scores`: `{ "<lab>": { "d", "d_percent", "pa", "z", "z_prime", "zeta", "en" } }`;
-  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`; `stability`: `difference`, `sufficient`
+  `homogeneity`: `mean`, `s_x`, `s_w`, `s_s`, `criterion`, `sufficient`, `ms_between`, `ms_within`, `u_bb_star`,
+  `tau_mean`, `tau_sd`, `tau_median`, `tau_mode`, `tau_q975`, `tau_hpd_upper`, `sigma_mean`, `sigma_hpd_lower`,
+  `sigma_hpd_upper`, `mu_mean`; `stability`: `difference`, `sufficient`
 * `calibration`: `params`, `u_params` and `cov_params` (lists; covariances in the order (0,1), (0,2), …, (1,2), …),
   `s_res`, `gamma`, `admissible` (true/false), `samples`: `{ "<name>": { "x", "u" } }`, `drift_passed`
 * `conformity`: `acceptance_lower`, `acceptance_upper`, `capability_index`, `r`, `conforming`, `accepted`,

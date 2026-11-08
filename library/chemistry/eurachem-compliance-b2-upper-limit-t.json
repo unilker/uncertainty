@@ -1,0 +1,82 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "eurachem-compliance-b2-upper-limit-t",
+    "title": {
+      "en": "Analyte below an upper limit, t distribution with ν = 8: guarded rejection (Eurachem/CITAC compliance guide, Example B2)",
+      "tr": "Üst sınırın altındaki analit, ν = 8 t dağılımı: korumalı ret (Eurachem/CITAC uygunluk rehberi, Örnek B2)"
+    },
+    "description": {
+      "en": "Upper limit 200 ng/g, u = 2.2 ng/g with 8 degrees of freedom; non-compliant only if the probability above the limit exceeds 95 %; measured 203.7 ng/g.",
+      "tr": "Üst sınır 200 ng/g, u = 8 serbestlik dereceli 2,2 ng/g; yalnızca sınırın üstünde olma olasılığı %95'i aşarsa uygun değil; ölçülen 203,7 ng/g."
+    },
+    "explanation": [
+      {
+        "en": "Case 2 of Annex A: the guard band is t₀.₉₅(8)·u = 1.860 × 2.2 = 4.09 ng/g, so the acceptance limit is 204.09 ng/g.",
+        "tr": "Ek A Durum 2: koruma bandı t₀,₉₅(8)·u = 1,860 × 2,2 = 4,09 ng/g; kabul sınırı 204,09 ng/g'dır."
+      },
+      {
+        "en": "203.7 ng/g lies below the acceptance limit: the probability of exceeding 200 ng/g is 93.4 %, below 95 %, and the batch is compliant. Simple acceptance would declare it non-compliant.",
+        "tr": "203,7 ng/g kabul sınırının altındadır: 200 ng/g'ı aşma olasılığı %93,4, %95'in altındadır; parti uygundur. Basit kabul onu uygun değil sayardı."
+      }
+    ],
+    "field": "chemistry",
+    "sources": [
+      {
+        "document": "Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, 2nd ed. (2021)",
+        "section": "Annex B, Example 2; Annex A, Case 2",
+        "url": "https://www.eurachem.org/index.php/publications/guides/uncertcompliance"
+      }
+    ],
+    "tags": [
+      "eurachem-compliance",
+      "conformity-assessment",
+      "guarded-rejection",
+      "t-distribution",
+      "upper-limit"
+    ],
+    "notes": [
+      {
+        "en": "The table of the example states 'the distribution … is assumed to be Normal' but the guard band uses the t distribution with 8 degrees of freedom (research log F86).",
+        "tr": "Örneğin tablosu 'dağılımın normal olduğu varsayılır' der, ancak koruma bandı 8 serbestlik dereceli t dağılımını kullanır (araştırma günlüğü F86)."
+      }
+    ]
+  },
+  "conformity": {
+    "quantity": "w",
+    "unit": "ng/g",
+    "upper": 200.0,
+    "rule": "guarded_rejection",
+    "probability": 0.95,
+    "u": 2.2,
+    "dof": 8,
+    "results": [
+      {
+        "name": "batch",
+        "value": 203.7
+      }
+    ]
+  },
+  "expected": {
+    "conformity": {
+      "acceptance_upper": {
+        "value": 204.09,
+        "tolerance": 0.005
+      },
+      "results": {
+        "batch": {
+          "accepted": true,
+          "conformance_probability": {
+            "value": 0.06555,
+            "tolerance": 5e-05
+          }
+        }
+      }
+    },
+    "reference": {
+      "en": "Eurachem/CITAC 2021, Example B2: k = 1.86, g = 4.1 ng/g, acceptance limit 204.1 ng/g; 203.7 ng/g compliant.",
+      "tr": "Eurachem/CITAC 2021, Örnek B2: k = 1,86, g = 4,1 ng/g, kabul sınırı 204,1 ng/g; 203,7 ng/g uygun."
+    }
+  }
+}

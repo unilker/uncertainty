@@ -202,6 +202,22 @@ pub struct HomogeneitySpec {
     pub sd_pt: Option<f64>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub sd_pt_percent_of_mean: Option<f64>,
+    /// Bayesian estimate of the between-unit standard deviation (JCGM GUM-5
+    /// Example 12): scales of the half-Cauchy priors of τ and σ and an
+    /// optional normal prior for the mean.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bayes: Option<BayesHomogeneitySpec>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct BayesHomogeneitySpec {
+    pub tau_scale: f64,
+    pub sigma_scale: f64,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mu_mean: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mu_sd: Option<f64>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -290,6 +306,35 @@ pub struct ExpectedHomogeneity {
     pub criterion: Option<Check>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub sufficient: Option<bool>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ms_between: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ms_within: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub u_bb_star: Option<Check>,
+    /// Posterior of τ and σ (Bayesian model).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tau_mean: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tau_sd: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tau_median: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tau_mode: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tau_q975: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tau_hpd_upper: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sigma_mean: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sigma_hpd_lower: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sigma_hpd_upper: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mu_mean: Option<Check>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mu_sd: Option<Check>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -382,6 +427,8 @@ pub struct ProficiencyAnalysis {
     pub u_max: Option<f64>,
     pub participants: Vec<ParticipantResult>,
     pub homogeneity: Option<Homogeneity>,
+    /// Bayesian between-unit posterior, if requested.
+    pub between_unit: Option<pt::BetweenUnitPosterior>,
     pub stability: Option<Stability>,
 }
 
@@ -614,13 +661,23 @@ pub fn evaluate(spec: &ProficiencySpec) -> Result<ProficiencyAnalysis, ProjectEr
             let mean_h = h.items.iter().flatten().sum::<f64>() / n.max(1) as f64;
             let s = match (h.sd_pt, h.sd_pt_percent_of_mean) {
                 (Some(_), Some(_)) => return Err(err("homogeneity", "give either sd_pt or sd_pt_percent_of_mean")),
-                (Some(v), None) => v,
-                (None, Some(pc)) => pc / 100.0 * mean_h.abs(),
-                (None, None) => {
-                    sigma_pt.ok_or_else(|| err("homogeneity", "needs σ_pt: give sd_pt here or in the round"))?
-                }
+                (Some(v), None) => Some(v),
+                (None, Some(pc)) => Some(pc / 100.0 * mean_h.abs()),
+                (None, None) => sigma_pt,
             };
             Some(pt::homogeneity(&h.items, s)?)
+        }
+    };
+    let between_unit = match spec.homogeneity.as_ref().and_then(|h| h.bayes.as_ref().map(|b| (h, b))) {
+        None => None,
+        Some((h, b)) => {
+            let mu = match (b.mu_mean, b.mu_sd) {
+                (Some(m), Some(sd)) => Some((m, sd)),
+                (None, None) => None,
+                _ => return Err(err("homogeneity", "give both mu_mean and mu_sd, or neither")),
+            };
+            let prior = pt::BetweenUnitPrior { tau_scale: b.tau_scale, sigma_scale: b.sigma_scale, mu };
+            Some(pt::between_unit_posterior(&h.items, &prior)?)
         }
     };
     let stability = match &spec.stability {
@@ -636,7 +693,7 @@ pub fn evaluate(spec: &ProficiencySpec) -> Result<ProficiencyAnalysis, ProjectEr
                 .ok_or_else(|| err("stability", "give reference or a homogeneity check"))?;
             let s = homogeneity
                 .as_ref()
-                .map(|h| h.criterion / 0.3)
+                .and_then(|h| h.criterion.map(|c| c / 0.3))
                 .or(sigma_pt)
                 .ok_or_else(|| err("stability", "needs σ_pt"))?;
             let u = match (st.u_reference, st.u_values) {
@@ -660,6 +717,7 @@ pub fn evaluate(spec: &ProficiencySpec) -> Result<ProficiencyAnalysis, ProjectEr
         u_max,
         participants: parts,
         homogeneity,
+        between_unit,
         stability,
     })
 }
@@ -725,9 +783,24 @@ pub fn check(e: &ExpectedProficiency, a: &ProficiencyAnalysis, out: &mut Vec<cra
         push("proficiency.homogeneity.s_x".into(), h.map(|h| h.s_x), eh.s_x.as_ref());
         push("proficiency.homogeneity.s_w".into(), h.map(|h| h.s_w), eh.s_w.as_ref());
         push("proficiency.homogeneity.s_s".into(), h.map(|h| h.s_s), eh.s_s.as_ref());
-        push("proficiency.homogeneity.criterion".into(), h.map(|h| h.criterion), eh.criterion.as_ref());
+        push("proficiency.homogeneity.criterion".into(), h.and_then(|h| h.criterion), eh.criterion.as_ref());
+        push("proficiency.homogeneity.ms_between".into(), h.map(|h| h.ms_between), eh.ms_between.as_ref());
+        push("proficiency.homogeneity.ms_within".into(), h.map(|h| h.ms_within), eh.ms_within.as_ref());
+        push("proficiency.homogeneity.u_bb_star".into(), h.map(|h| h.u_bb_star), eh.u_bb_star.as_ref());
+        let b = a.between_unit.as_ref();
+        push("proficiency.homogeneity.tau_mean".into(), b.map(|b| b.tau.mean), eh.tau_mean.as_ref());
+        push("proficiency.homogeneity.tau_sd".into(), b.map(|b| b.tau.sd), eh.tau_sd.as_ref());
+        push("proficiency.homogeneity.tau_median".into(), b.map(|b| b.tau.median), eh.tau_median.as_ref());
+        push("proficiency.homogeneity.tau_mode".into(), b.map(|b| b.tau.mode), eh.tau_mode.as_ref());
+        push("proficiency.homogeneity.tau_q975".into(), b.map(|b| b.tau.q975), eh.tau_q975.as_ref());
+        push("proficiency.homogeneity.tau_hpd_upper".into(), b.map(|b| b.tau.hpd.1), eh.tau_hpd_upper.as_ref());
+        push("proficiency.homogeneity.sigma_mean".into(), b.map(|b| b.sigma.mean), eh.sigma_mean.as_ref());
+        push("proficiency.homogeneity.sigma_hpd_lower".into(), b.map(|b| b.sigma.hpd.0), eh.sigma_hpd_lower.as_ref());
+        push("proficiency.homogeneity.sigma_hpd_upper".into(), b.map(|b| b.sigma.hpd.1), eh.sigma_hpd_upper.as_ref());
+        push("proficiency.homogeneity.mu_mean".into(), b.map(|b| b.mu_mean), eh.mu_mean.as_ref());
+        push("proficiency.homogeneity.mu_sd".into(), b.map(|b| b.mu_sd), eh.mu_sd.as_ref());
         if let Some(v) = eh.sufficient {
-            verdicts.push(("proficiency.homogeneity.sufficient", h.map(|h| h.sufficient), v));
+            verdicts.push(("proficiency.homogeneity.sufficient", h.and_then(|h| h.sufficient), v));
         }
     }
     if let Some(es) = &e.stability {
@@ -795,7 +868,13 @@ pub fn results_json(a: &ProficiencyAnalysis) -> serde_json::Value {
         "participants": participants,
         "homogeneity": a.homogeneity.as_ref().map(|h| json!({"items": h.items, "replicates": h.replicates, "mean": h.mean,
             "s_x": h.s_x, "s_w": h.s_w, "s_s": h.s_s, "criterion": h.criterion, "sufficient": h.sufficient,
-            "f1": h.f1, "fm": h.fm, "expanded_criterion": h.expanded_criterion, "sufficient_expanded": h.sufficient_expanded})),
+            "f1": h.f1, "fm": h.fm, "expanded_criterion": h.expanded_criterion, "sufficient_expanded": h.sufficient_expanded,
+            "ms_between": h.ms_between, "ms_within": h.ms_within, "u_bb_star": h.u_bb_star})),
+        "between_unit": a.between_unit.as_ref().map(|b| {
+            let m = |p: &pt::PosteriorSummary| json!({"mean": p.mean, "sd": p.sd, "median": p.median, "mode": p.mode,
+                "q025": p.q025, "q975": p.q975, "hpd": [p.hpd.0, p.hpd.1]});
+            json!({"tau": m(&b.tau), "sigma": m(&b.sigma), "mu_mean": b.mu_mean, "mu_sd": b.mu_sd})
+        }),
         "stability": a.stability.as_ref().map(|s| json!({"difference": s.difference, "criterion": s.criterion, "sufficient": s.sufficient})),
     })
 }

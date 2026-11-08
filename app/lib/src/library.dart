@@ -20,6 +20,8 @@ class LibraryEntry {
   bool get isControlChart => project.containsKey('control_chart');
   bool get isSampling => project.containsKey('sampling');
   bool get isErrorFunction => project.containsKey('error_function');
+  bool get isConsensus => project.containsKey('consensus');
+  bool get isMulticomponent => project.containsKey('multicomponent_conformity');
 
   /// Short description of the method for the library list.
   String get methodLabel => isTopDown
@@ -40,6 +42,10 @@ class LibraryEntry {
       ? 'UfS'
       : isErrorFunction
       ? 'cg-18 C'
+      : isConsensus
+      ? 'NICOB'
+      : isMulticomponent
+      ? 'JCGM 106'
       : 'GUM + MCM';
 
   /// Title, description and id in both languages, for searching.

@@ -73,6 +73,12 @@ pub struct Model {
     pub intermediates: Vec<(String, String)>,
     /// Correlation matrix r(x_i, x_j) (identity if no correlations given).
     pub correlation: Vec<Vec<f64>>,
+    /// Ensembles: groups of inputs evaluated from the same set of data, with a
+    /// common number of degrees of freedom (e.g. means of paired indications).
+    /// Each ensemble counts as one component in the Welch–Satterthwaite
+    /// formula, so correlations inside it do not invalidate ν_eff
+    /// [Willink, Metrologia 44 (2007) 340, §4.1.1].
+    pub ensembles: Vec<Vec<usize>>,
 }
 
 impl Model {
@@ -111,6 +117,7 @@ pub struct ModelBuilder {
     output: Option<(String, String)>,
     output_unit: Option<String>,
     correlations: Vec<Correlation>,
+    ensembles: Vec<Vec<String>>,
 }
 
 impl ModelBuilder {
@@ -148,6 +155,13 @@ impl ModelBuilder {
     /// Declares a correlation coefficient between two input quantities.
     pub fn correlation(mut self, a: &str, b: &str, r: f64) -> Self {
         self.correlations.push(Correlation { a: a.to_string(), b: b.to_string(), r });
+        self
+    }
+
+    /// Declares inputs evaluated from the same set of data (an ensemble);
+    /// they must have the same finite degrees of freedom.
+    pub fn ensemble(mut self, names: &[&str]) -> Self {
+        self.ensembles.push(names.iter().map(|s| s.to_string()).collect());
         self
     }
 
@@ -212,6 +226,29 @@ impl ModelBuilder {
             correlation[j][i] = c.r;
         }
 
+        let mut ensembles: Vec<Vec<usize>> = Vec::new();
+        for names in &self.ensembles {
+            if names.len() < 2 {
+                return Err(UncError::InvalidOption("an ensemble needs at least two inputs".into()));
+            }
+            let mut members = Vec::new();
+            for name in names {
+                let i = *index.get(name).ok_or_else(|| UncError::UnknownSymbol(name.clone()))?;
+                if members.contains(&i) || ensembles.iter().any(|e| e.contains(&i)) {
+                    return Err(UncError::InvalidOption(format!("{name} appears in more than one ensemble")));
+                }
+                members.push(i);
+            }
+            let nu = self.inputs[members[0]].gum_dof();
+            if !nu.is_finite() || members.iter().any(|&i| self.inputs[i].gum_dof() != nu) {
+                return Err(UncError::InvalidOption(format!(
+                    "the inputs of an ensemble ({}) must have the same finite degrees of freedom",
+                    names.join(", ")
+                )));
+            }
+            ensembles.push(members);
+        }
+
         let model = Model {
             output_name,
             output_unit: self.output_unit,
@@ -220,6 +257,7 @@ impl ModelBuilder {
             output_source,
             intermediates: self.intermediates,
             correlation,
+            ensembles,
         };
         let y = model.evaluate(&model.estimates());
         if !y.is_finite() {

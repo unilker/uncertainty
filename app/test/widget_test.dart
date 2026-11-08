@@ -13,6 +13,7 @@ import 'package:uncertainty_app/src/format.dart';
 import 'package:uncertainty_app/src/widgets/charts.dart';
 import 'package:uncertainty_app/src/widgets/calibration_editor.dart';
 import 'package:uncertainty_app/src/widgets/conformity_editor.dart';
+import 'package:uncertainty_app/src/widgets/consensus_editor.dart';
 import 'package:uncertainty_app/src/widgets/control_chart_editor.dart';
 import 'package:uncertainty_app/src/widgets/error_function_editor.dart';
 import 'package:uncertainty_app/src/widgets/precision_editor.dart';
@@ -78,6 +79,17 @@ void main() {
       };
       expect(pointsUseReference(ef), isFalse);
       expect(testPointsToText(ef, 'tr'), '1,5\t0,2\t0,01\t0,02');
+    });
+
+    test('consensus results: name, value, u and optional dof', () {
+      final (r, bad) = parseConsensusResults('UME\t2,150\t0,030\nNIST; 1.984; 0.020; 12\n');
+      expect(bad, isNull);
+      expect(r!.length, 2);
+      expect(r[0], {'name': 'UME', 'value': 2.15, 'u': 0.03});
+      expect(r[1]['dof'], 12);
+      expect(parseConsensusResults('A 1 0\nB 2 0.1').$2, 1);
+      expect(parseConsensusResults('A 1 0.1\nB 2').$2, 2);
+      expect(consensusResultsToText({'results': r}, 'tr'), 'UME\t2,15\t0,03\nNIST\t1,984\t0,02\t12');
     });
 
     test('duplicate samples need four values per target', () {

@@ -2,17 +2,875 @@
 
 Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
-- Kimya (94)
-- Elektrik ve RF (31)
+- Kimya (143)
+- Elektrik ve RF (36)
 - Akış ve hacim (7)
-- Genel (yöntem doğrulama) (19)
-- Uzunluk (11)
-- Kütle (28)
-- Fiziksel özellikler (8)
-- Basınç (1)
+- Genel (yöntem doğrulama) (24)
+- Uzunluk (12)
+- Kütle (31)
+- Fiziksel özellikler (15)
+- Basınç (6)
 - Sıcaklık (10)
 
 ## Kimya
+
+### İç standart olarak maleik asit ile D2O içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-01, Tablo 4)
+
+`bipm-isrd-01-qnmr-dmso2-ma-d2o` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99726 g/g (basılı 0,9973); birleşik standart belirsizlik 7,321e-04 g/g (basılı 7,300e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9972 ± 0,0015) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.95e-04, 4.99e-05, 9.98e-05, 5.22e-05, 2.15e-05, 3.53e-04, 5.26e-04, 2.99e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmso2-ma-d2o.json --lang tr`
+
+### İç standart olarak maleik asit ile DMSO-d6 içinde ¹H qNMR ile dimetil tereftalat saflığı (BIPM ISRD-01, Tablo 6)
+
+`bipm-isrd-01-qnmr-dmtp-ma-dmso-d6` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99943 g/g (basılı 0,9995); birleşik standart belirsizlik 4,096e-04 g/g (basılı 3,960e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,99943 ± 0,00082) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.65e-04, 5.00e-05, 1.00e-04, 3.09e-05, 2.15e-05, 1.66e-04, 1.04e-04, 3.00e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmtp-ma-dmso-d6.json --lang tr`
+
+### İç standart olarak dimetil sülfon ile CDCl3 içinde ¹H qNMR ile dimetil tereftalat saflığı (BIPM ISRD-02, Tablo 6)
+
+`bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99906 g/g (basılı 0,999); birleşik standart belirsizlik 5,038e-04 g/g (basılı 5,050e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9991 ± 0,0010) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.28e-04, 5.00e-05, 5.00e-05, 4.37e-05, 6.61e-05, 1.45e-04, 2.13e-04, 4.01e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3.json --lang tr`
+
+### İç standart olarak dimetil sülfon ile D2O içinde ¹H qNMR ile maleik asit saflığı (BIPM ISRD-02, Tablo 4)
+
+`bipm-isrd-02-qnmr-ma-dmso2-d2o` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99976 g/g (basılı 0,9997); birleşik standart belirsizlik 7,880e-04 g/g (basılı 7,910e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9998 ± 0,0016) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.75e-04, 1.50e-04, 5.00e-05, 3.44e-05, 6.61e-05, 5.28e-04, 3.54e-04, 4.01e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-ma-dmso2-d2o.json --lang tr`
+
+### İç standart olarak BTMSB-d4 ile CD3OD içinde ¹H qNMR ile benzoik asit saflığı (BIPM ISRD-06, Tablo 6)
+
+`bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99977 g/g (basılı 0,9998); birleşik standart belirsizlik 7,397e-04 g/g (basılı 7,440e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9998 ± 0,0015) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.95e-04, 6.00e-05, 1.67e-05, 4.46e-05, 5.54e-05, 1.92e-04, 5.59e-04, 4.00e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+- ISRD 999,8 +0,2/−1,5 mg/g bildirir: aralık 1000 mg/g fiziksel sınırında kesilmiştir. Program simetrik GUM aralığını verir; sınır modelin parçası değildir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang tr`
+
+### İç standart olarak BTMSB-d4 ile DMSO-d6 içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-06, Tablo 4)
+
+`bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99672 g/g (basılı 0,9967); birleşik standart belirsizlik 7,951e-04 g/g (basılı 7,970e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9967 ± 0,0016) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.49e-04, 4.98e-05, 1.66e-05, 7.34e-05, 5.52e-05, 4.67e-04, 4.77e-04, 3.99e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6.json --lang tr`
+
+### İç standart olarak DSS-d6 ile D2O içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-07, Tablo 4)
+
+`bipm-isrd-07-qnmr-dmso2-dss-d6-d2o` — BIPM, Table 4
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99625 g/g (basılı 0,9962); birleşik standart belirsizlik 1,186e-03 g/g (basılı 1,190e-03).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9962 ± 0,0024) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.47e-04, 4.98e-05, 3.32e-05, 7.33e-05, 3.62e-05, 3.81e-04, 1.00e-03, 4.86e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-dmso2-dss-d6-d2o.json --lang tr`
+
+### İç standart olarak DSS-d6 ile D2O içinde ¹H qNMR ile maleik asit saflığı (BIPM ISRD-07, Tablo 6)
+
+`bipm-isrd-07-qnmr-ma-dss-d6-d2o` — BIPM, Table 6
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99869 g/g (basılı 0,9987); birleşik standart belirsizlik 1,085e-03 g/g (basılı 1,080e-03).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,9987 ± 0,0022) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 1.99e-04, 1.50e-04, 3.33e-05, 3.44e-05, 3.63e-05, 2.41e-04, 9.10e-04, 4.87e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-ma-dss-d6-d2o.json --lang tr`
+
+### İç standart olarak benzoik asit ile CD3OD içinde ¹H qNMR ile BTMSB-d4 saflığı (BIPM ISRD-08, Tablo 2)
+
+`bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od` — BIPM, Table 2
+
+İç standart S ile kantitatif NMR'de analit A'nın kütle kesri (ISRD ölçüm eşitliği 1): w_A = (I_A/I_S)(N_S/N_A)(M_A/M_S)(m_S/m_A) w_S. İntegral oranı A tipi değerlendirmedir (ortalamanın standart sapması); diğer bileşenler B tipidir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Basılı değerlerden saflık: w_A = 0,99882 g/g (basılı 0,9988); birleşik standart belirsizlik 3,119e-04 g/g (basılı 3,100e-04).
+2. Kütleler ve iç standardın saflığı baskındır; ¹H çekirdek sayısı dört ondalıkla verilmiştir (döteryum ve ¹³C doğal bolluğu için düzeltilmiştir).
+
+**Sonuç:**
+
+- w_A = (0,99882 ± 0,00062) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Basılı belirsizlik bileşenleri c·u: 2.24e-04, 1.67e-05, 1.50e-04, 5.73e-05, 4.91e-05, 1.29e-04, 3.28e-05, 2.50e-05. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
+
+**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od.json --lang tr`
+
+### Dört ilişkili etken maddeli bir ilaç için toplam yanlış karar riskleri (EMUE E2.1)
+
+`emue-e2.1-multicomponent-medication` — EMPIR 17NRM05 EMUE, Example E2.1, Tables E2.1.1–E2.1.2, E2.1.6
+
+NyQuil tabletleri: APAP, DEX, DOX ve PE; tolerans etiket miktarının %95–105'i, u_bağıl = %2,8; üç deney sonucu takımı için toplam özgül tüketici riskleri ve toplam küresel tüketici riski.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Her bileşen tek başına uygun olabilir, ürün bütünüyle uygun olmayabilir: toplam özgül tüketici riski, tüm deney sonuçları içerideyken en az bir gerçek içeriğin %95–105 dışında olma olasılığıdır (IUPAC projesi; EMUE E2.1.6.2).
+2. Önsel: 105 üretim partisinden çok değişkenli normal (ortalamalar %99,18, 97,70, 99,33, 98,94; s.s. %1,37, 1,02, 1,05, 1,22), Tablo E2.1.1'in Pearson korelasyonlarıyla. Olabilirlik: u_i = 0,028·c_mi ve aynı korelasyonlarla çok değişkenli normal. Sonsal dağılım normaldir, S_post = (S_c⁻¹ + S_cm⁻¹)⁻¹ (E2.1.1–E2.1.2).
+3. Toplam özgül tüketici riskleri: sonuçlar önsel ortalamalara eşitken %0,29, alt sınırlarda %1,17, üst sınırlarda %0,02; önsel, sonsal dağılımı %100'ün altındaki ortalamalarına doğru kaydırır. Toplam küresel tüketici riski %0,18: 10 000 tabletten 18'i uygun olmadan kabul edilir.
+
+**Sonuç:**
+
+- c_m = m: kabul, toplam özgül tüketici riski %0,288
+- c_m = T_L: kabul, toplam özgül tüketici riski %1,17
+- c_m = T_U: kabul, toplam özgül tüketici riski %0,0213
+- Toplam küresel tüketici riski %0,180, üretici riski %38,9 (2000000 Monte Carlo denemesi)
+
+**Notlar:**
+
+- Program 4 boyutlu sonsal dağılımı tolerans kutusu üzerinde R'nin pmvnorm işlevi yerine Genz yöntemiyle (değişkenlere ayırma, 200 000 karşıt çekiliş, standart hata yaklaşık 10⁻⁶) integre eder; küresel riski u_i gerçek değerle orantılı alınarak Monte Carlo ile hesaplar.
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang tr`
+
+### Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava karışımı (708, 974, 1290 nmol/mol); her iki değişkende belirsizlikle uydurulan doğrusal analiz fonksiyonu x = A + B·w; 975,5 nmol/mol'lük bağımsız bir karışımla doğrulama.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7); üç karışım için de aynı ana karışım (10,252 ± 0,016 µmol/mol) ve aynı MFC kalibrasyon eğrileri kullanıldığından referans değerler ilişkilidir (matris E3.3.17). ISO 6143 bu içerikleri kovaryanslarıyla ele alır.
+2. Program doğruyu genelleştirilmiş en küçük karelerle uydurur (ISO 6143 Ek A) ve içeriklerin kovaryanslarını parametre kovaryansına yayar. Bu, A = 89,21 ve B = 4,1848 ile basılı V_AB = (285; −1,30; 6,36·10⁻³) değerini tam olarak verir.
+3. Doğrulama: w = 213,33 ± 0,11 a.u., x = 981,95 nmol/mol ve u = 4,52 nmol/mol verir; referans 975,5 ± 1,5 nmol/mol: E_n = 6,5/(2·√(u² + 1,5²)) ≈ 0,68, tutarlı.
+
+**Sonuç:**
+
+- x(validation) = (982,0 ± 9,0) nmol/mol (k = 2,00)
+
+**Notlar:**
+
+- (E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang tr`
+
+### Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu, kovaryanslar yok sayılmış (EMUE E3.3)
+
+`emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored` — EMPIR 17NRM05 EMUE, Example E3.3, Tables E3.3.2–E3.3.5, (E3.3.17)–(E3.3.19)
+
+Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava karışımı (708, 974, 1290 nmol/mol); her iki değişkende belirsizlikle uydurulan doğrusal analiz fonksiyonu x = A + B·w; 975,5 nmol/mol'lük bağımsız bir karışımla doğrulama.
+
+**Yaklaşım:** her iki değişkende belirsizlikli kalibrasyon (ISO 6143)
+
+**Adımlar:**
+
+1. x = x₁q₁/(q₁ + q₂) (E3.3.7); üç karışım için de aynı ana karışım (10,252 ± 0,016 µmol/mol) ve aynı MFC kalibrasyon eğrileri kullanıldığından referans değerler ilişkilidir (matris E3.3.17). ISO 6143 bu içerikleri kovaryanslarıyla ele alır.
+2. Program doğruyu genelleştirilmiş en küçük karelerle uydurur (ISO 6143 Ek A) ve içeriklerin kovaryanslarını parametre kovaryansına yayar. Bu, A = 89,21 ve B = 4,1848 ile basılı V_AB = (285; −1,30; 6,36·10⁻³) değerini tam olarak verir.
+3. Doğrulama: w = 213,33 ± 0,11 a.u., x = 981,95 nmol/mol ve u = 4,35 nmol/mol verir; referans 975,5 ± 1,5 nmol/mol: E_n = 6,5/(2·√(u² + 1,5²)) ≈ 0,68, tutarlı. Kovaryansları yok saymak u'yu %3,7 düşürür.
+
+**Sonuç:**
+
+- x(validation) = (982,0 ± 8,7) nmol/mol (k = 2,00)
+
+**Notlar:**
+
+- (E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang tr`
+
+### Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)²; kesinlik, gerçeklik ve sağlamlık çalışmalarından bağıl özet değerlerle; u(δ̂)/w = 0,033.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ISO 21748 modeli y = µ + δ + B + Σc_i x′_i + e (E3.4.2): dört malzemede 11 × 2 iç içe tasarım ara kesinliği verir; ortanca RSD %3,2, daha temkinli kareler ortalamasının kökü RSD %3,6'dır (C279a'daki çinko hariç).
+2. İki SRM ve iki YT malzemesine karşı sapma, u²(δ̂) = s²_δ̂ + u²_ref, s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). Yöntem izin verilen sınırlar içinde yaklaşık %10'luk tutarlı bir düşük sapma gösterir; bu nedenle düzeltilmez.
+3. Ekstraksiyon sıcaklığı ve süresi kesinlik çalışmasında temsil edilmez; bağıl duyarlılık katsayıları 0,004 °C⁻¹ ve 9·10⁻⁴ min⁻¹, 2 × 2 faktöriyel deneyden gelir (Tablo E3.4.3); belirsizlikler ±5 °C ve ±5 min dikdörtgen. Pb stok çözeltisi (984,74 ± 0,985 mg/kg) orantılı etki olarak girer.
+4. u_bağıl = 0,0503; 27,8 mg/kg'lık bir sonuç için U = 2,79 mg/kg (k = 2).
+
+**Sonuç:**
+
+- w = (27,8 ± 2,8) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008).
+- E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang tr`
+
+### Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi, kareler ortalamasının kökü sapma belirsizliği (EMUE E3.4)
+
+`emue-e3.4-soil-lead-iso21748-rms-bias` — EMPIR 17NRM05 EMUE, E3.4.6–E3.4.7, Tables E3.4.1–E3.4.7, equation (E3.4.18)
+
+u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/γ₀)²; kesinlik, gerçeklik ve sağlamlık çalışmalarından bağıl özet değerlerle; u(δ̂)/w = 0,035.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. ISO 21748 modeli y = µ + δ + B + Σc_i x′_i + e (E3.4.2): dört malzemede 11 × 2 iç içe tasarım ara kesinliği verir; ortanca RSD %3,2, daha temkinli kareler ortalamasının kökü RSD %3,6'dır (C279a'daki çinko hariç).
+2. İki SRM ve iki YT malzemesine karşı sapma, u²(δ̂) = s²_δ̂ + u²_ref, s²_δ̂ = (s_I² − (1 − 1/n)s_r²)/p (E3.4.4–5). Yöntem izin verilen sınırlar içinde yaklaşık %10'luk tutarlı bir düşük sapma gösterir; bu nedenle düzeltilmez.
+3. Ekstraksiyon sıcaklığı ve süresi kesinlik çalışmasında temsil edilmez; bağıl duyarlılık katsayıları 0,004 °C⁻¹ ve 9·10⁻⁴ min⁻¹, 2 × 2 faktöriyel deneyden gelir (Tablo E3.4.3); belirsizlikler ±5 °C ve ±5 min dikdörtgen. Pb stok çözeltisi (984,74 ± 0,985 mg/kg) orantılı etki olarak girer.
+4. u_bağıl = 0,0516; 27,8 mg/kg'lık bir sonuç için U = 2,87 mg/kg (k = 2). Rehberin u(δ̂)/w = 0,033 değeri Tablo E3.4.2'nin kareler ortalamasının kökü olarak verilir, ancak ortalamasıdır; kareler ortalamasının kökü 0,035'tir ve U = 2,9 mg/kg verir.
+
+**Sonuç:**
+
+- w = (27,8 ± 2,9) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008).
+- E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang tr`
+
+### Permeasyonla N₂ içinde NH₃ kalibrasyon gazı karışımı: amonyağın madde miktarı kesri (EMUE E3.8)
+
+`emue-e3.8-ammonia-permeation` — EMPIR 17NRM05 EMUE, Example E3.8, (E3.8.1)–(E3.8.4), Tables E3.8.3–E3.8.5
+
+y = ṅ₁x₁/(ṅ₁ + ṅ₂), ṅ_j = q_mj/M̄_j (E3.8.1): permeasyon hızı manyetik askılı teraziden, taşıyıcı akış termal kütle akış kontrolöründen, iki ana gazın saflıkları ve standart atom ağırlıklarından mol kütleleri.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. NH₃ tüpü 62 °C'de 13,599 µg/min kaybeder (EKK; değişkenlerde hata regresyonu aynı eğimi u = 0,088 µg/min ile verir, rehber EKK'yı 0,108 µg/min ile tutar). Azot akışı u_bağıl = %0,2 ile 0,3126 g/min'dir.
+2. Ana gazların mol kütleleri M̄_j = Σx_ij M_i; M_i IUPAC aralıklarından; ortak atom ağırlıkları üzerinden ilişkilidirler (r(M̄₁, M̄₂) = 0,12); x(NH₃) = 1 − x(H₂O) de M̄₁ ile ilişkilidir. Program bu korelasyonları ortak girdilerden elde eder.
+3. y(NH₃) = 70,80 µmol/mol, u = 0,60 µmol/mol (%0,84); varyansın %88'i permeasyon hızından, %6'sı amonyaktaki sudan, %5'i taşıyıcı akıştan gelir; k = 2 ile (70,8 ± 1,2) µmol/mol.
+
+**Sonuç:**
+
+- y_NH3 = (70,8 ± 1,2) µmol/mol; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- E3.8.5.2, E_A = 59,164 kJ/mol, k₀ = 43,069 µg/min ve 4,81·10⁻⁷ µg min⁻¹ K⁻¹ sıcaklık duyarlılığı verir. Belirtilen iki hızdan (52,45 °C'de 7,4921 µg/min, 62,00 °C'de 13,599 µg/min) E_A = 56,64 kJ/mol ve k₀ = 9,1·10⁹ µg/min çıkar (k₀ hızdan büyük olmalıdır); 62 °C'de dṁ/dT = 0,82 µg min⁻¹ K⁻¹'dir ve belirtilen 0,0022 µg/min katkısı bu değere u(T) = 0,0027 K ile karşılık gelir. Katkı burada ihmal edilebilir (araştırma günlüğü F89).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.8-ammonia-permeation.json --lang tr`
+
+### İdrarda efedrin: korumalı ret kuralı olarak WADA karar sınırı (EMUE E6.5, JCGM 106)
+
+`emue-e6.5-ephedrine-wada-decision-limit` — EMPIR 17NRM05 EMUE, Example E6.5, E6.5.2–E6.5.3, Table E6.5.2
+
+Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle aşmasını gerektirir; hedef belirsizlik u_c,max = 0,5 µg/mL ile: DL = T + 1,645 u_c,max.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. 0,95 olasılıklı korumalı ret ve sabit u = 0,5 µg/mL, karar sınırını DL = 10,822 µg/mL verir; WADA DL = 11 µg/mL belirler (TD DL), yani yukarı yuvarlar.
+2. Laboratuvarın üç EQAS turundaki üçlü ölçüm ortalamaları (10,6 ve 11,7 µg/mL'de zenginleştirilmiş) 11,83, 11,67 ve 11,47 µg/mL'dir; hepsi DL'yi aşar ve olumsuz bulgu olarak raporlanır; numuneler T'nin üstünde zenginleştirilmiştir.
+
+**Sonuç:**
+
+- EQAS 1 için γ(ephedrine) ≤ 10 µg/mL şartına uygunluk olasılığı: p_c = %0,012; korumalı ret kuralına göre ret.
+- EQAS 2 için γ(ephedrine) ≤ 10 µg/mL şartına uygunluk olasılığı: p_c = %0,043; korumalı ret kuralına göre ret.
+- EQAS 3 için γ(ephedrine) ≤ 10 µg/mL şartına uygunluk olasılığı: p_c = %0,17; korumalı ret kuralına göre ret.
+
+**Notlar:**
+
+- Tablo E6.5.2, 2. turun ortalamasını (11,5, 11,9, 11,6) 11,6 (doğrusu 11,67) ve 3. turun standart sapmasını (11,5, 11,4, 11,5) 0,45 µg/mL (doğrusu 0,058, %0,5) olarak basar. z puanları 0,27, 0,71 ve 0,47, belirtilen standart sapmaların hiçbirinden çıkmaz: σ = u_c,max = 0,5 µg/mL ile −0,93, −1,27 ve 0,73'tür (araştırma günlüğü F91).
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang tr`
+
+### Paslanmaz çelikte nikel: iki taraflı şartnamede korumalı kabul (Eurachem/CITAC uygunluk rehberi, Örnek B1)
+
+`eurachem-compliance-b1-nickel-steel` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 1; Annex A, Case 1b
+
+Şartname %16,0–18,0 Ni, U = %0,2 (k = 2); uygunluğun en az %95 olası olduğu kabul bölgesi; ölçülen %16,1 Ni.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 1b: genişletilmiş belirsizlik k = 2'ye bölünür, u = %0,1 Ni; her koruma bandı, tek taraflı %95 normal kantili k = 1,645 ile k·u'dur.
+2. Kabul bölgesi %16,164–17,836 Ni (yuvarlamadan sonra basılı 16,2–17,8). %16,1 Ni ret bölgesindedir: p_c = %84, parti uygun değildir; basit kabulde uygun olurdu.
+
+**Sonuç:**
+
+- batch için 16 % ≤ w(Ni) ≤ 18 % şartına uygunluk olasılığı: p_c = %84; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- Rehber koruma bandını 1,64u ≈ %0,17 olarak verir; 1,64 × 0,1 = 0,164, %0,16'ya yuvarlanır (araştırma günlüğü F86). Yuvarlanmış 16,2 ve %17,8 kabul sınırları %95'e değil %97,7 olasılığa karşılık gelir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang tr`
+
+### Üst sınırın altındaki analit, ν = 8 t dağılımı: korumalı ret (Eurachem/CITAC uygunluk rehberi, Örnek B2)
+
+`eurachem-compliance-b2-upper-limit-t` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 2; Annex A, Case 2
+
+Üst sınır 200 ng/g, u = 8 serbestlik dereceli 2,2 ng/g; yalnızca sınırın üstünde olma olasılığı %95'i aşarsa uygun değil; ölçülen 203,7 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 2: koruma bandı t₀,₉₅(8)·u = 1,860 × 2,2 = 4,09 ng/g; kabul sınırı 204,09 ng/g'dır.
+2. 203,7 ng/g kabul sınırının altındadır: 200 ng/g'ı aşma olasılığı %93,4, %95'in altındadır; parti uygundur. Basit kabul onu uygun değil sayardı.
+
+**Sonuç:**
+
+- batch için w ≤ 200 ng/g şartına uygunluk olasılığı: p_c = %6,6; korumalı ret kuralına göre kabul.
+
+**Notlar:**
+
+- Örneğin tablosu 'dağılımın normal olduğu varsayılır' der, ancak koruma bandı 8 serbestlik dereceli t dağılımını kullanır (araştırma günlüğü F86).
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang tr`
+
+### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: lognormal dağılım, s_G ≈ u_bağıl (Eurachem/CITAC uygunluk rehberi, Örnek B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Üst sınır 2 ng/g, bağıl standart belirsizlik %35; sınırın üstünde olma olasılığı en az %95 ise uygun değil; ölçülen 3,3 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 4: çarpım ve oranlardan gelen pozitif büyüklükler için lognormal dağılım uygundur. Doğru ret için kabul sınırı L·U_F'dir; belirsizlik çarpanı U_F = exp(k·s_G), k = 1,645 (Eşitlik 1–3).
+2. Kabul sınırı 3,557 ng/g; 3,3 ng/g'da 2 ng/g'ı aşma olasılığı %92,4 olup numune uygundur. Normal dağılım: 3,151 ng/g; s_G = u_bağıl ile lognormal: 3,557; kesin s_G = √ln(1 + u_bağıl²) = 0,3398 ile: 3,498 ng/g.
+
+**Sonuç:**
+
+- sample için w ≤ 2 ng/g şartına uygunluk olasılığı: p_c = %7,6; korumalı ret kuralına göre kabul.
+
+**Notlar:**
+
+- Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang tr`
+
+### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: lognormal dağılım, kesin s_G (Eurachem/CITAC uygunluk rehberi, Örnek B3)
+
+`eurachem-compliance-b3-banned-substance-lognormal-exact` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Üst sınır 2 ng/g, bağıl standart belirsizlik %35; sınırın üstünde olma olasılığı en az %95 ise uygun değil; ölçülen 3,3 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 4: çarpım ve oranlardan gelen pozitif büyüklükler için lognormal dağılım uygundur. Doğru ret için kabul sınırı L·U_F'dir; belirsizlik çarpanı U_F = exp(k·s_G), k = 1,645 (Eşitlik 1–3).
+2. Kabul sınırı 3,498 ng/g; 3,3 ng/g'da 2 ng/g'ı aşma olasılığı %93,0 olup numune uygundur. Normal dağılım: 3,151 ng/g; s_G = u_bağıl ile lognormal: 3,557; kesin s_G = √ln(1 + u_bağıl²) = 0,3398 ile: 3,498 ng/g.
+
+**Sonuç:**
+
+- sample için w ≤ 2 ng/g şartına uygunluk olasılığı: p_c = %7; korumalı ret kuralına göre kabul.
+
+**Notlar:**
+
+- Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang tr`
+
+### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: u = u_bağıl·L = 0,7 ng/g ile normal dağılım (Eurachem/CITAC uygunluk rehberi, Örnek B3)
+
+`eurachem-compliance-b3-banned-substance-normal` — Eurachem/CITAC Guide: Use of uncertainty information in compliance assessment, Annex B, Example 3; Annex A, Case 4 and Table 1
+
+Üst sınır 2 ng/g, bağıl standart belirsizlik %35; sınırın üstünde olma olasılığı en az %95 ise uygun değil; ölçülen 3,3 ng/g.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Ek A Durum 4: çarpım ve oranlardan gelen pozitif büyüklükler için lognormal dağılım uygundur. Doğru ret için kabul sınırı L·U_F'dir; belirsizlik çarpanı U_F = exp(k·s_G), k = 1,645 (Eşitlik 1–3).
+2. Kabul sınırı 3,151 ng/g; 3,3 ng/g'da 2 ng/g'ı aşma olasılığı %96,8 olup numune uygun değildir. Normal dağılım: 3,151 ng/g; s_G = u_bağıl ile lognormal: 3,557; kesin s_G = √ln(1 + u_bağıl²) = 0,3398 ile: 3,498 ng/g.
+
+**Sonuç:**
+
+- sample için w ≤ 2 ng/g şartına uygunluk olasılığı: p_c = %3,2; korumalı ret kuralına göre ret.
+
+**Notlar:**
+
+- L(1 + k·u_bağıl), u'yu sınırda alır: u = 0,35 × 2 = 0,7 ng/g; bu proje bunu girer. Bağıl belirsizlik lognormal dağılımdaki gibi ölçülen değerde uygulanırsa normal dağılım L/(1 − k·u_bağıl) = 4,714 ng/g kabul sınırını gerektirir: 3,151 ng/g'da u = 1,10 ng/g ve 2 ng/g'ın üstünde olma olasılığı yalnızca %85'tir. Lognormal sınır L·exp(k·s_G), sabit s_G için kesindir (araştırma günlüğü F86).
+- Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
+
+**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang tr`
+
+### Potansiyel ve sıcaklıkta üç doğrusal interpolasyonla 23,7 °C'de pH, bağımsız sertifikalı değerler (JCGM GUM-5 Örnek 1)
+
+`gum5-e1-ph-temperature-interpolation` — JCGM GUM-5:2026, Example 1, 1.6, 1.9 and 1.10.3
+
+Deney çözeltisi 23,7 °C'dedir, sertifika sıcaklıkları 20 °C ile 25 °C arasında: her sıcaklıkta potansiyelde, sonra sıcaklıkta interpolasyon; tüm girdiler bağımsız (GUM-5 1.7.1).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. GUM-5 1.6'nın algoritması ölçüm modelidir: pH_X,T1 ve pH_X,T2, T₁ = 25 °C ve T₂ = 20 °C'deki sertifikalı değerlerle potansiyelde interpolasyonla bulunur ve T_X = 23,7 °C'deki pH_X bunların arasında interpolasyonla elde edilir; T₁ ve T₂ kesin sertifika sıcaklıklarıdır.
+2. pH_X,T1 = 7,0002, pH_X,T2 = 7,0161, pH_X = 0,74·pH_X,T1 + 0,26·pH_X,T2 = 7,0043; sıcaklıkta kübik interpolasyon S1'in pH değerini yalnızca 0,0004 değiştirir (GUM-5 1.10.1.1).
+3. Sertifikalı değerler bağımsızken sıcaklıktaki interpolasyon 20 °C ve 25 °C'deki değerlerin belirsizliklerinin ortalamasını alır: u(pH_X) = 0,0032.
+
+**Sonuç:**
+
+- pH_X = (7,0043 ± 0,0063); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- GUM-5 1.9.1, üçüncü interpolasyonla pH_X = 7,0043 bulur (burada yeniden hesaplanan: 7,0043), ardından yöntemin pH_X = 7,0109 verdiğini söyler; 7,0109 verilerden çıkmaz. 1.7.1 tüm girdileri bağımsız varsaydığı hâlde u = 0,0041 basar; bağımsızlıkla u = 0,0032 çıkar. 0,0041, her standardın 20 °C ve 25 °C'deki sertifikalı değerleri tam ilişkili alındığında elde edilir (0,0041) (araştırma günlüğü F78).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation.json --lang tr`
+
+### Üç doğrusal interpolasyonla 23,7 °C'de pH, her standardın sertifikalı değerleri sıcaklıklar arasında ilişkili (JCGM GUM-5 Örnek 1)
+
+`gum5-e1-ph-temperature-interpolation-correlated` — JCGM GUM-5:2026, Example 1, 1.6, 1.9 and 1.10.3
+
+Bağımsız durum gibi, ancak her standardın 20 °C ve 25 °C'deki pH değerleri, ortak Bates–Guggenheim kuralının gösterdiği gibi tam ilişkilidir (GUM-5 1.10.3.3).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. GUM-5 1.6'nın algoritması ölçüm modelidir: pH_X,T1 ve pH_X,T2, T₁ = 25 °C ve T₂ = 20 °C'deki sertifikalı değerlerle potansiyelde interpolasyonla bulunur ve T_X = 23,7 °C'deki pH_X bunların arasında interpolasyonla elde edilir; T₁ ve T₂ kesin sertifika sıcaklıklarıdır.
+2. pH_X,T1 = 7,0002, pH_X,T2 = 7,0161, pH_X = 0,74·pH_X,T1 + 0,26·pH_X,T2 = 7,0043; sıcaklıkta kübik interpolasyon S1'in pH değerini yalnızca 0,0004 değiştirir (GUM-5 1.10.1.1).
+3. Aynı standardın değerleri arasında r = 1 iken sıcaklıktaki interpolasyon artık bunların ortalamasını almaz: u(pH_X) = 0,0041; GUM-5'in bastığı değer budur.
+
+**Sonuç:**
+
+- pH_X = (7,0043 ± 0,0080); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- GUM-5 1.9.1, üçüncü interpolasyonla pH_X = 7,0043 bulur (burada yeniden hesaplanan: 7,0043), ardından yöntemin pH_X = 7,0109 verdiğini söyler; 7,0109 verilerden çıkmaz. 1.7.1 tüm girdileri bağımsız varsaydığı hâlde u = 0,0041 basar; bağımsızlıkla u = 0,0032 çıkar. 0,0041, her standardın 20 °C ve 25 °C'deki sertifikalı değerleri tam ilişkili alındığında elde edilir (0,0041) (araştırma günlüğü F78).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation-correlated.json --lang tr`
+
+### 25 °C'de iki noktalı interpolasyonla bir deney çözeltisinin pH değeri (JCGM GUM-5 Örnek 1)
+
+`gum5-e1-ph-two-point-25c` — JCGM GUM-5:2026, Example 1, 1.8
+
+Aynı hücreyle ölçülen iki NIST fosfat pH standardı arasında parantez yöntemi; IUPAC uygulamasındaki gibi girdiler bağımsız.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Parantez yöntemiyle iki noktalı kalibrasyon (GUM-5 1.4.2, 1.5): deney çözeltisinin pH değeri, iki NIST fosfat standardının (E_S1, pH_S1) ve (E_S2, pH_S2) noktaları arasında doğrusal interpolasyonla bulunur: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).
+2. q = (E_X − E_S1)/(E_S2 − E_S1) = 0,2469 ve eğim b = -0,016975 mV⁻¹ ile u²(pH_X) = b²(1 − q)²u²(E_S1) + (1 − q)²u²(pH_S1) + b²q²u²(E_S2) + q²u²(pH_S2) + b²u²(E_X) (Formül 1.17); katkılar 0,0038 (pH_S1), 0,0013 (pH_S2), 0,0004, 0,0004 ve 0,0001'dir.
+3. pH_X = 7,0002, u(pH_X) = 0,0041: sertifikalı pH değerleri baskındır. Üç potansiyelin ortak kalibrasyon hatası δE_cal birbirini götürür (GUM-5 1.8.2).
+
+**Sonuç:**
+
+- pH_X = (7,0002 ± 0,0080); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c.json --lang tr`
+
+### Tam ilişkili pH standartlarıyla iki noktalı interpolasyon (JCGM GUM-5 Örnek 1)
+
+`gum5-e1-ph-two-point-25c-correlated-standards` — JCGM GUM-5:2026, Example 1, 1.10.3.4 and 1.10.3.5
+
+25 °C durumu gibi, ancak Bates–Guggenheim kuralını paylaşan sertifikalı pH değerleri arasında korelasyon 1.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Parantez yöntemiyle iki noktalı kalibrasyon (GUM-5 1.4.2, 1.5): deney çözeltisinin pH değeri, iki NIST fosfat standardının (E_S1, pH_S1) ve (E_S2, pH_S2) noktaları arasında doğrusal interpolasyonla bulunur: pH_X = pH_S1 + (pH_S2 − pH_S1)(E_X − E_S1)/(E_S2 − E_S1).
+2. Sertifikalar SI'ya izlenebilir bir belirsizlik ve Bates–Guggenheim kuralı olmadan çok daha küçük bir belirsizlik verir; kural terimi iki standart için ortaktır, bu nedenle iki pH değerinin korelasyonu 1'e yakındır (GUM-5 1.10.3.3). Burada r = 1.
+3. r = 1 iken (1 − q)²u²(pH_S1) + 2q(1 − q)u(pH_S1, pH_S2) + q²u²(pH_S2) terimleri u²(pH_S1)'e indirgenir (Formül 1.24): u(pH_X) = 0,0051; korelasyon yok sayılırsa 0,0041. Tam ilişkili katkılar doğrusal toplanır: 0,0038 + 0,0013 = 0,0051.
+
+**Sonuç:**
+
+- pH_X = (7,000 ± 0,010); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- 1.10.3.5, u = 0,0051 değerini pH_X = 7,0109'a ve '1.7 alt maddesindeki verilere' bağlar; hesap 1.8'in 25 °C verilerini kullanır ve bu veriler için pH_X = 7,0002'dir (araştırma günlüğü F78).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,17 mg/m³ (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.17` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; kabul sınırı 0,17 mg/m³ değerine kaydırıldı.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur.
+3. R_C = %0,0103 ve R_P = %5,370. GUM-5 0,002 % ve 5,8 % basar; ortak dağılımı %0,0020 ve %5,781 verir.
+
+**Notlar:**
+
+- GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,22 mg/m³ (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-global-risks-acceptance-0.22` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; kabul sınırı 0,22 mg/m³ değerine kaydırıldı.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur.
+3. R_C = %1,8010 ve R_P = %0,055. GUM-5 1,7 % ve < 0,1 % basar; ortak dağılımı %1,6862 ve %0,115 verir.
+
+**Notlar:**
+
+- GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,2 mg/m³ (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-global-risks-shared-risk` — JCGM GUM-5:2026, Example 10, 10.6.3
+
+T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; paylaşılan risk kuralı A_U = T_U.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Her sonucun bağıl standart belirsizliği %7'dir; baskın kaynak örneklenen hava hacmidir. Ölçüm sistemi dağılımı h(ρ̂ | ρ), gerçek değerle orantılı 0,07·ρ standart sapmalı normaldir; böylece her ρ için ρ̂'nin bir dağılımıdır (JCGM 106 9.5.1); küresel riskler JCGM 106 Formül (19) ve (20)'den bulunur.
+3. R_C = %0,5790 ve R_P = %0,739. GUM-5 0,5 % ve 0,9 % basar; ortak dağılımı %0,4984 ve %0,909 verir.
+
+**Notlar:**
+
+- GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang tr`
+
+### Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10)
+
+`gum5-e10-tspm-specific-risks` — JCGM GUM-5:2026, Example 10, 10.6.4 and 10.7.2
+
+Tek sonuçların uygunluk olasılıkları, sonsal g(ρ | ρ̂) ∝ g₀(ρ)·h(ρ̂ | ρ), lognormal önsel, u = 0,07·ρ̂, A_U = T_U = 0,2 mg/m³.
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Üst tolerans sınırı T_U = 0,2 mg/m³ (toplam askıda partikül madde için İsrail 24 saatlik sınırı). Popülasyonun önsel dağılımı, bir taş ocağı yakınındaki 220 sonuca uydurulmuş lognormaldir: ln ρ için µ = −2,325 ve σ = 0,434 (Formül 10.1); popülasyonun %95,0'ı uygundur.
+2. Verilen bir sonuç için olabilirlik, u = 0,07·ρ̂ standart sapmalı normaldir (10.6.4.3). Sonsal dağılımın kapalı biçimi yoktur ve sayısal olarak integre edilir; p_c = Pr(ρ ≤ T_U | ρ̂).
+3. ρ̂ = 0,190 mg/m³ %14,3 özgül tüketici riskiyle (1 − p_c) kabul edilir; ρ̂ = 0,225 mg/m³ %11,3 özgül üretici riskiyle (p_c) reddedilir: gerçek derişimin uygun olma olasılığı %11'dir (10.7.2). Önsel olmadan riskler %22,6 ve %5,6'dir; önsel geniştir, ancak üst kuyruğunda kalan sınırın yakınında ihmal edilemez.
+
+**Sonuç:**
+
+- ρ̂ = 0.190 için ρ ≤ 0,2 mg/m³ şartına uygunluk olasılığı: p_c = %86; basit kabul kuralına göre kabul.
+- ρ̂ = 0.225 için ρ ≤ 0,2 mg/m³ şartına uygunluk olasılığı: p_c = %11; basit kabul kuralına göre ret.
+
+**Notlar:**
+
+- 10.6.4 sonsal dağılımın esasen olabilirlikle belirlendiğini, bu nedenle frekansçı özgül risklerin çok yakın olacağını belirtir. T_U yakınında bu geçerli değildir: yalnız normal dağılım 0,190'da 1 − p_c = %22,6, 0,225 mg/m³'te p_c = %5,6 verir (araştırma günlüğü F80).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-specific-risks.json --lang tr`
+
+### Doğal gaz karışımlarında azotun şişeler arası homojenliği: ANOVA, u*_bb ve Bayesçi hiyerarşik model (JCGM GUM-5 Örnek 12)
+
+`gum5-e12-between-bottle-homogeneity-bayes` — JCGM GUM-5:2026, Example 12, Tables 12.1–12.3, 12.4.5 and 12.4.8
+
+Her biri beş kez ölçülen on gaz karışımı; MS_arası < MS_içi olduğundan ANOVA şişeler arası standart sapma vermez. Yarı-Cauchy önselli Bayesçi model τ için bir sonsal dağılım verir.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. Tek yönlü ANOVA (Tablo 12.2): SS_arası = 2,924e-06, ν = 9, MS_arası = 3,249e-07; SS_içi = 1,962e-05, ν = 40, MS_içi = 4,904e-07 (cmol/mol)². s_bb = √((MS_arası − MS_içi)/n) mevcut değildir; ISO 13528 s_s = 0 alır.
+2. Bu durumda klasik yanıt, tekrarlanabilirliğin gizleyebileceği birimler arası standart sapmadır: u*_bb = √(MS_içi/n)·(2/ν_içi)^¼ = 1,481e-04 cmol/mol, %0,035 (Linsinger vd. 2001; ISO Guide 35). GUM-5 bunu vermez.
+3. Bayesçi model y_ij = µ + B_i + ε_ij; µ ~ N(0,4250; (0,025 × 0,4250)²), τ ~ yarı-Cauchy(0; 0,0015 µ₀) ve σ ~ yarı-Cauchy(0; 0,0020 µ₀); ölçekler hazırlama şartnamesinden (k = 2'de %0,30) ve bilinen tekrarlanabilirlikten (%0,20) gelir. Program B_i ve µ'yü analitik olarak integre eder ve (τ, σ) sonsal dağılımını bir ızgarada hesaplar; GUM-5 ise Stan (MCMC, 4 × 20 000 çekiliş) kullanır.
+4. τ'nun sonsal dağılımı: ortalama 0,000136, s.s. 0,000107, medyan 0,000113, %97,5 kantili 0,000397 cmol/mol (Stan: 0,00014; 0,00011; —; 0,00040); τ/µ için en kısa %95 aralık [0; 0,0008], σ/µ için [0,0013; 0,0020], Tablo 12.3'teki gibi. τ'nun sonsal ortalaması (1,36 µmol/mol) u*_bb'ye (1,48 µmol/mol) yakındır.
+
+**Notlar:**
+
+- 12.4.8, τ'nun sonsal dağılımının modunu 0,3 µmol/mol olarak verir. Burada τ'nun marjinal sonsal yoğunluğu τ = 0'da en büyüktür, çünkü MS_arası < MS_içi'dir ve yarı-Cauchy önsel 0'da en büyüktür. 12.5.2'deki R işlevi getmode çekilişlerin tam tekrarlarını sayar; sürekli MCMC çıktısında hepsi farklı olduğundan mod yerine ilk çekilişi döndürür (araştırma günlüğü F81).
+- Denklem (12.5) olabilirliği gözlemler bağımsızmış gibi y_ij | µ, τ, σ ~ N(µ, τ² + σ²) olarak yazar; bir şişenin tekrarları B_i'yi paylaşır ve ilişkilidir. 12.4.2'deki Stan kodu hiyerarşik modeli kullanır; program da onu kullanır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e12-between-bottle-homogeneity-bayes.json --lang tr`
+
+### İç standartla GC-MS'te benzo[a]piren, ilişkili girdiler (JCGM GUM-5 Örnek 2)
+
+`gum5-e2-benzo-a-pyrene` — JCGM GUM-5:2026, Example 2, Tables 2.1–2.3
+
+İki ilişkili girdi çiftli iç standart modeli; kovaryanslı LPU ve basıldığı gibi Welch–Satterthwaite ν_eff.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. İç standart modeli (EN 15549): m_E = f·A_E/A_ISE·m_ISE; NIST SRM 2260a ile zenginleştirilmiş cam elyaf filtrenin ikinci ekstraktının 1 µL'sindeki benzo[a]piren kütlesi.
+2. Kalibrasyonda ve analizde aynı iç standart kullanıldığından r(f, m_ISE) = −3,3·10⁻⁵/(0,017 × 0,0036) = -0,54; aynı enjeksiyonların pik alanları r(A_E, A_ISE) = −2,03·10⁸/(9564 × 44 492) = -0,48 verir.
+3. Kovaryans terimleriyle u²(m_E) = 4,077e-06 ng², onlarsız 3,140e-06 ng²; korelasyon negatif, duyarlılıklar zıt işaretli olduğundan A_E–A_ISE terimi 1,02e-06 ng² ekler.
+4. Welch–Satterthwaite (G.2b), payda korelasyonsuz: ν_eff = 5,20, k(%95) = 2,5; program G.2b'nin ilişkili girdiler için geçerli olmadığını uyarır. GUM-5 denklem (2.3) 4,81 ve k = 2,6, U = 0,0052 ng verir; eşlik eden projedeki topluluk yaklaşımı 2,11 verir.
+
+**Sonuç:**
+
+- mE = (0,0140 ± 0,0051) ng; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,54 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- GUM-5 (2.4.2) MCM'yi de uygular: (f, m_ISE) için iki değişkenli normal, (A_E, A_ISE) için ν = n − N = 1 olan iki değişkenli t ve negatif çekilişlerin reddi; medyan 0,014 ng, en kısa %95 aralık [≈ 0; 0,032] ng. Proje biçiminde skaler model için ortak t-dağılımı olmadığından MCM burada çalıştırılmaz; tools/research/gum5/ex2_mcm.py basılı aralığı yeniden üretir (10⁷ çekilişin 9,3·10⁶'sı tutuldu, [1·10⁻⁷; 0,0321] ng).
+- Belirsizlik yalnız temiz, zenginleştirilmiş filtre için geçerlidir; matris etkileri ve geri kazanım bilerek dışarıda bırakılmıştır (GUM-5 2.2.2, not).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene.json --lang tr`
+
+### Benzo[a]piren: aynı enjeksiyonların pik alanları ν_eff'te topluluk olarak (JCGM GUM-5 Örnek 2, Willink 2007)
+
+`gum5-e2-benzo-a-pyrene-ensemble` — JCGM GUM-5:2026, Example 2, Tables 2.1–2.3; Willink, Metrologia 44 (2007) 340, §4.1.1
+
+Aynı bütçe, A_E ve A_ISE topluluk olarak tanımlanmış: ortak varyansları ν = 2 olan tek Welch–Satterthwaite bileşenidir; ν_eff 5,2 veya 4,8 yerine ≈ 2,1 olur.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. İç standart modeli (EN 15549): m_E = f·A_E/A_ISE·m_ISE; NIST SRM 2260a ile zenginleştirilmiş cam elyaf filtrenin ikinci ekstraktının 1 µL'sindeki benzo[a]piren kütlesi.
+2. Kalibrasyonda ve analizde aynı iç standart kullanıldığından r(f, m_ISE) = −3,3·10⁻⁵/(0,017 × 0,0036) = -0,54; aynı enjeksiyonların pik alanları r(A_E, A_ISE) = −2,03·10⁸/(9564 × 44 492) = -0,48 verir.
+3. Kovaryans terimleriyle u²(m_E) = 4,077e-06 ng², onlarsız 3,140e-06 ng²; korelasyon negatif, duyarlılıklar zıt işaretli olduğundan A_E–A_ISE terimi 1,02e-06 ng² ekler.
+4. A_E ve A_ISE aynı üç eşli enjeksiyonun ortalamalarıdır; tahmin edilen kovaryans matrisleri ν = 2 olan Wishart dağılımına uyar; bu nedenle her c_E·A_E + c_I·A_ISE bileşiminin varyans tahmini tam ν = 2'ye sahiptir (Willink 2007, §4.1.1; GTC real_ensemble). Bileşenleri (c_E u_E)² + (c_I u_I)² + 2c_E c_I u(A_E, A_ISE) = 3,971e-06 ng², u²'nin %97'idir.
+5. ν_eff = u⁴/[(c_f u_f)⁴/9 + 3,971e-06²/2] = 2,11; k(%95) = 4,1 ve U = 0,0083 ng; basılı U = 0,0052 ng'den çok MCM aralığının [≈ 0; 0,032] ng genişliğine yakındır. GUM-5 denklem (2.3) iki alanı ayrı bileşenler olarak ele alır ve baskın bileşenin ν'si 2 olduğu hâlde 2'nin üstünde ν_eff verir (araştırma günlüğü F79). f–m_ISE korelasyonu (ν = 9 ve ∞) topluluk değildir; bu nedenle uyarı kalır.
+
+**Sonuç:**
+
+- mE = (0,0140 ± 0,0083) ng; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 4,10 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- GUM-5 (2.4.2) MCM'yi de uygular: (f, m_ISE) için iki değişkenli normal, (A_E, A_ISE) için ν = n − N = 1 olan iki değişkenli t ve negatif çekilişlerin reddi; medyan 0,014 ng, en kısa %95 aralık [≈ 0; 0,032] ng. Proje biçiminde skaler model için ortak t-dağılımı olmadığından MCM burada çalıştırılmaz; tools/research/gum5/ex2_mcm.py basılı aralığı yeniden üretir (10⁷ çekilişin 9,3·10⁶'sı tutuldu, [1·10⁻⁷; 0,0321] ng).
+- Belirsizlik yalnız temiz, zenginleştirilmiş filtre için geçerlidir; matris etkileri ve geri kazanım bilerek dışarıda bırakılmıştır (GUM-5 2.2.2, not).
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json --lang tr`
+
+### Standart atom ağırlığı aralıklarından glikozun bağıl molekül kütlesi (JCGM GUM-5 Örnek 3)
+
+`gum5-e3-molar-mass-glucose` — JCGM GUM-5:2026, Example 3, Tables 3.1 and 3.2
+
+IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağılımlarla M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Glikozun izotop bileşimi bilinmemektedir; normal bir malzeme için standart atom ağırlıkları [1,007 84; 1,008 11] (H), [12,0096; 12,0116] (C) ve [15,999 03; 15,999 77] (O) aralıklarındadır; bunlara dikdörtgen dağılım atanır (GUM 4.3.7).
+2. Model kesin katsayılarla doğrusaldır: u(M_r) = √Σν_i²u²(A_i); katkılar 0,00094 (H), 0,00346 (C) ve 0,00128 (O) olup karbon baskındır.
+3. M_r = 180,1557, u(M_r) = 0,0038. Dikdörtgen dağılımlar gerçek bileşimi değil, izotop bileşimi hakkındaki bilgi eksikliğini ifade eder (GUM-5 3.4.2).
+
+**Sonuç:**
+
+- M_r = (180,1557 ± 0,0075); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- CO₂ için aynı hesap kütüphanedeki NIST TN 1900 Örnek E8'dir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e3-molar-mass-glucose.json --lang tr`
+
+### N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4)
+
+`gum5-e4-gravimetric-gas-mixture` — JCGM GUM-5:2026, Example 4, Tables 4.1–4.6 and 4.3.6.9
+
+Üç tartım, iki ana gazın saflık tabloları ve IUPAC atom ağırlığı aralıklarından ISO 6142-1 modeli y_k = n_k/n_tot; çok değişkenli LPU (JCGM 102).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. Ana gaz kütleleri m₁ = r₁ − r₀ = 245,5194 g (CO₂) ve m₂ = r₂ − r₁ = 623,7789 g (N₂), Tablo 4.1'in yerine koyma tartımlarından. İkisi de r₁'e bağlı olduğundan ilişkilidir (4.3.1); u(r̂_j), yedi farkın ortalamasının standart sapmasını 1 mg/√12 çözünürlükle birleştirir (Tablo 4.2).
+2. Mol kütleleri M_i = Σ ν_ie A_e, IUPAC aralıkları üzerinde dikdörtgen dağılımlarla; CO ve CO₂ C ve O'yu paylaşır, r = 0,960 (4.3.4.6). Her ana gazın baskın bileşeni 1 − Σ safsızlıklardır (4.3); bu, her safsızlıkla kovaryansını −u²(x_i) yapar (4.5); program bu korelasyonları girilmeden ortak girdilerden elde eder.
+3. u(y_CO₂) = 3,96 µmol/mol'de atom ağırlıkları N (2,8), C (2,1) ve O (1,6) baskındır; u(y_N₂) = 4,72 µmol/mol'e azottaki argon safsızlığı (2,6) eklenir. r(CO₂, N₂) = −0,85 ve r(Ar, N₂) = −0,55.
+
+**Sonuç:**
+
+- y_Ar = 4,00 µmol/mol, u(y_Ar) = 2,4 µmol/mol (GUM)
+- y_CH4 = 0,0264 µmol/mol, u(y_CH4) = 0,013 µmol/mol (GUM)
+- y_CO = 0,1122 µmol/mol, u(y_CO) = 0,061 µmol/mol (GUM)
+- y_CO2 = 200345,27 µmol/mol, u(y_CO2) = 4,0 µmol/mol (GUM)
+- y_H2 = 0,0200 µmol/mol, u(y_H2) = 0,012 µmol/mol (GUM)
+- y_H2O = 0,3887 µmol/mol, u(y_H2O) = 0,021 µmol/mol (GUM)
+- y_N2 = 799649,12 µmol/mol, u(y_N2) = 4,7 µmol/mol (GUM)
+- y_O2 = 1,066 µmol/mol, u(y_O2) = 0,52 µmol/mol (GUM)
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,73 (çıktılar bağımlıdır: hiper-elipsoit yok)
+
+**Notlar:**
+
+- Tablo 4.2, Tablo 4.1'den çıkmaz: farkların ortalamaları −152,0247 g ve 717,2743 g'dır (basılı −152,0243 ve 717,2740 g), ortalamaların standart sapmaları 0,18, 0,40 ve 0,42 mg'dır (basılı u_rpt 0,4, 0,7 ve 0,6 mg). Proje, rehberin yaptığı gibi Tablo 4.2'yi kullanır; Tablo 4.1 ortalamalarıyla m₁ 0,5 mg daha büyüktür (araştırma günlüğü F82).
+- Basılı Tablo 4.6 üç yerde farklıdır (araştırma günlüğü F82): u(y_CO₂) = 5 µmol/mol ve u_rel %0,003, yeniden hesaplanan 3,96 µmol/mol ve %0,0020'ye karşı; y_H₂O = 0,379, 0,389 µmol/mol'e karşı (0,2003 × 1,9 + 0,7996 × 0,010); r(Ar, N₂) = −0,50 ve r(CO₂, O₂) = −0,08, −0,55 ve −0,10'a karşı. Diğer değerler uyumludur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang tr`
+
+### Sera gazı envanteri, tarımda hareketli makineler (BK 2018): bağımsız girdiler (JCGM GUM-5 Örnek 5)
+
+`gum5-e5-ghg-inventory-agriculture` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standart belirsizlikleri LPU ile, bağımsız girdiler için (5.5).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E(CO₂e) = Σ s_i A_i F_i, iki yakıt ve üç gaz üzerinden; küresel ısınma potansiyelleri s = 11/3 (C olarak CO₂), 25 (CH₄) ve 298 (N₂O) kesin alınır (5.4.3–5.4.4). Raporlanan bağıl genişletilmiş belirsizlikler (%95) k = 1,96 ile dönüştürülür; bu, Tablo 5.3 bütçesini yeniden üretir.
+2. Gaz yağından CO₂ baskındır: 835,16 kt'nin 833,18'i ondandır, çünkü o satırın faaliyet verisi U_rel = %38,6 taşır. Ardından 57,39 kt ile N₂O gelir (emisyon faktörü U_rel = %216).
+
+**Sonuç:**
+
+- E = (4300 ± 1600) kt; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84).
+- N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang tr`
+
+### Sera gazı envanteri, tarımda hareketli makineler (BK 2018): CH₄ ve N₂O'nun paylaştığı faaliyet verisi (JCGM GUM-5 Örnek 5)
+
+`gum5-e5-ghg-inventory-agriculture-shared-activity` — JCGM GUM-5:2026, Example 5, Tables 5.1–5.3 and 5.4.9
+
+CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standart belirsizlikleri LPU ile, A₂ = A₃ ve A₅ = A₆ her biri tek büyüklük olarak (5.4.9).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. E(CO₂e) = Σ s_i A_i F_i, iki yakıt ve üç gaz üzerinden; küresel ısınma potansiyelleri s = 11/3 (C olarak CO₂), 25 (CH₄) ve 298 (N₂O) kesin alınır (5.4.3–5.4.4). Raporlanan bağıl genişletilmiş belirsizlikler (%95) k = 1,96 ile dönüştürülür; bu, Tablo 5.3 bütçesini yeniden üretir.
+2. Gaz yağından CO₂ baskındır: 835,16 kt'nin 833,18'i ondandır, çünkü o satırın faaliyet verisi U_rel = %38,6 taşır. Ardından 57,39 kt ile N₂O gelir (emisyon faktörü U_rel = %216).
+3. Her yakıtın CH₄ ve N₂O satırları sayısal olarak aynı faaliyet verisini aynı belirsizlikle kullanır; bunlar tek büyüklük alınır (5.4.8–5.4.9). u², 2s₂F₂s₃F₃u²(A₂) + 2s₅F₅s₆F₆u²(A₅) = 0,0345 kt² artar; u = 835,16171, 835,16169 kt'ye karşı: gaz yağı CO₂ baskın olduğundan burada görünmez (5.4.10). Altı eşit katkılı idealleştirilmiş durumda u²_ilişkili/u²_bağımsız oranı 1 ile 3 arasındadır (5.4.14).
+
+**Sonuç:**
+
+- E = (4300 ± 1600) kt; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84).
+- N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang tr`
 
 ### Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1)
 
@@ -191,7 +1049,7 @@ ISO 13528:2022 E.5 (7.5): yeterlilik testi numunesi ve benzer bir CRM 20 numuned
 
 **Sonuç:**
 
-- x_pt = (23,35 ± 0,71) LA units; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- x_pt = (23,35 ± 0,71) LA units; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -203,7 +1061,7 @@ ISO 13528:2022 E.5 (7.5): yeterlilik testi numunesi ve benzer bir CRM 20 numuned
 
 `iso21748-c2-meat-content` — ISO 21748:2017, Annex C.2, Table C.1
 
-ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır.
+ISO 21748:2017 C.2: girdilerinin her biri tekrar üretilebilirlik tabanlı belirsizlik taşıyan birleşik bir sonuç, w_meat = 100 w_N/f_N + w_fat; bağıl hata terimleri olan bir ölçüm modeli olarak yazılmıştır.
 
 **Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
 
@@ -215,7 +1073,7 @@ ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirs
 
 **Sonuç:**
 
-- w_meat = (95,6 ± 4,0) %; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- w_meat = (95,6 ± 4,0) %; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -223,13 +1081,13 @@ ISO 21748:2017 C.2: girdilerinin her biri tekrarüretilebilirlik tabanlı belirs
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang tr`
 
-### Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.1)
+### Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.1)
 
 `iso5725-2-c1-sulfur-in-coal` — ISO 5725-2:2019, Annex C.1 (Tables C.1–C.5, Formulae C.1–C.24)
 
 ISO 5725-2:2019 C.1: dört düzeyde (%0,69 – %3,25) sekiz laboratuvarlı, eksik veya aykırı veri içermeyen, hücre başına sonuç sayıları eşit olmayan tek düzeyli bir deney.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -260,7 +1118,7 @@ ISO 5725-2:2019 C.1: dört düzeyde (%0,69 – %3,25) sekiz laboratuvarlı, eksi
 
 ISO 5725-2:2019 C.1.9: Örnek C.1 verilerinin Formül (23)–(31) yerine kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -283,7 +1141,7 @@ ISO 5725-2:2019 C.1.9: Örnek C.1 verilerinin Formül (23)–(31) yerine kısıt
 
 ISO 5725-2:2019 C.3 ve 8.5: beş düzeyde (%4 – %20) dokuz laboratuvar, aykırı bir laboratuvar, reddedilmiş bir hücre ve kesinlik ile düzey arasındaki I–IV fonksiyonel ilişkileri (Tablo 1–4).
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -316,7 +1174,7 @@ ISO 5725-2:2019 C.3 ve 8.5: beş düzeyde (%4 – %20) dokuz laboratuvar, aykır
 
 ISO 5725-2:2019 C.3.8: Örnek C.3'ün tutulan verilerinin kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -476,6 +1334,185 @@ ISO 6143:2025 B.2.4: on iki noktalı doğrusal olmayan bir NDIR kalibrasyonu; x 
 
 **Çalıştırma:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang tr`
 
+### Dönüm noktası kimyasıyla arjantometrik titrasyon (Mohr): AgCl ve Ag₂CrO₄ çözünürlük çarpımlı örtük model (IUPAC 2024, Örnek 3A ve 4I)
+
+`iupac2024-3a-argentometric-titration-ksp` — Possolo et al., Examples 3A and 4I; Meija et al., Eq. (19)
+
+Dönüm noktasında [Ag⁺] = √(K_sp2/[CrO₄²⁻]) ve [Cl⁻] = K_sp1/[Ag⁺]; gümüş ve klorürün kütle dengesi c(NaCl) için sayısal olarak çözülen bir denklem verir.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102)
+
+**Adımlar:**
+
+1. c(K₂CrO₄) = 1,75 mmol/L, 110 mL'ye seyreltilmiş; dönüm noktasında [Ag⁺] = 28,13 µmol/L ve [Cl⁻] = 6,32 µmol/L: fazla gümüş, 21,8 µmol/L × 110 mL, titranttan düşülmelidir.
+2. (c(AgNO₃)·V_E − c(NaCl)·V)/(V + V_E) = [Ag⁺] − [Cl⁻], c(NaCl) = 9,9760 mmol/L verir; klasik 10,000 mmol/L'nin %0,24 altında; hacimlerden gelen belirsizlik değişmez (0,026 mmol/L).
+
+**Sonuç:**
+
+- c_NaCl = 9,9760 mmol/L, u(c_NaCl) = 0,026 mmol/L (GUM)
+
+**Notlar:**
+
+- Örnek 4I'da basılan denklemin sağ tarafı (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E), sol tarafı ise pozitif [Ag⁺] − [Cl⁻]'dir; basıldığı gibi çözülünce klasik değerin %0,24 üstünde 10,024 mmol/L verir. İndikatör ancak eşdeğerlik noktasından sonra tepki verdiğinden dönüm noktası hacmi klorürü fazla gösterir ve kütle dengesi 9,976 mmol/L verir; rehber büyüklüğü (%0,24) verir, işaretini vermez (araştırma günlüğü F92).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang tr`
+
+### Birbiriyle tutarsız üç tayinden iridyumun mol kütlesi: laboratuvar etkileri ve Bayesçi rastgele etkiler modeli (IUPAC 2024, Örnek 3E, 4M ve 4N)
+
+`iupac2024-3e-4m-iridium-molar-mass-bayes` — Possolo et al., Examples 3E, 4M, 4N
+
+İridyumun 2021 standart atom ağırlığının (Prohaska vd.) dayandığı üç izotop oranı tayini M = 192,216 77(81), 192,216 62(29) ve 192,217 63(17) g/mol verir. Standart sapmaları belirsizliklerin geometrik ortalamasının 1,6 katıdır; Cochran Q testi tutarsızlığı doğrular. Standart sapması τ olan laboratuvar etkileri bunları uzlaştırır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. 3E: saf τ = √(s² − ū_g²) = √(0,000 54² − 0,000 34²) = 0,000 42 g/mol; s = 0,000545 g/mol standart sapma, ū_g = 0,000342 g/mol belirsizliklerin geometrik ortalamasıdır. Üç değerle güvenilirliği sorgulanabilir.
+2. 4M: M'nin önseli 1993 standart atom ağırlığıyla normaldir, 192,217 ± 0,0015 g/mol; τ'nun önseli ortancası 0,000 42 g/mol (3E'deki saf değer) olan yarım Cauchy'dir. Sonsal q(M, τ) ∝ p_M(M) p_τ(τ) L(M, τ).
+3. 4N sonsalı rastgele yürüyüşlü Metropolis ile örnekler (ısınma ve seyreltmeden sonra 10⁴ çekiliş). Program M'yi analitik olarak integre eder (sabit τ için M'nin sonsalı normaldir) ve τ'nun sonsalını bir ızgarada hesaplar; bu, Monte Carlo hatası olmadan aynı sonucu verir: basılı değerlerle aynı, M = 192,2171(4) g/mol ve τ'nun sonsal ortancası 0,0005 g/mol.
+4. τ'nun sonsalı belirgin biçimde sağa çarpıktır; bu nedenle ortalaması değil ortancası verilir. Karşılaştırma için DerSimonian–Laird kestirimi ve eşdeğerlik dereceleri de gösterilmiştir.
+
+**Sonuç:**
+
+- M(Ir): uzlaşı değeri 192,21709 g/mol, standart belirsizlik 0,00042 g/mol, %95 kapsam aralığı [192,21619, 192,21800] g/mol (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,00061 g/mol; Cochran Q = 9,562, serbestlik derecesi 2
+- M(Ir): 192,21712 g/mol, standart belirsizlik 0,00044 g/mol, %95 inanılırlık aralığı [192,21616, 192,21795] g/mol; τ'nun sonsal ortancası 0,00051 g/mol (Bayes)
+
+**Notlar:**
+
+- Rehber Cochran Q testi için p = 0,0082 verir; üç değer Q = 9,56 ve p = 0,0084 verir. Standart sapmaları 0,000 545 g/mol'dür, 0,000 54 olarak basılmıştır (araştırma günlüğü F94).
+- Ir-1 – Ir-3 etiketleri rehberdeki sırayı izler; kaynakların adları Prohaska vd. (2022) §8.4'tedir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang tr`
+
+### Ca²⁺ ve Mg²⁺'dan suyun toplam sertliği: geleneksel bir ölçüm modeli (IUPAC 2024, Örnek 3C ve 4A)
+
+`iupac2024-4a-water-hardness` — Possolo et al., Examples 3C and 4A
+
+H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), uzlaşımla tanımlı; bağımsız girdilerle Gauss formülü.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Duyarlılık katsayıları M(CaCO₃)/M(Ca) = 2,4973 ve M(CaCO₃)/M(Mg) = 4,1180 (rehber 2,5 ve 4,1'e yuvarlar); H = 96,65 mg/L, u(H) = 3,18 mg/L ≈ 3 mg/L. Mol kütleleri kesin alınır.
+2. Ölçülenin tanımı ölçüm fonksiyonunu belirler (geleneksel model, 3C); Ca ve Mg'nin AAS ile ayrı tayini bağımsızlığı gerekçelendirir (4A).
+
+**Sonuç:**
+
+- H = (96,6 ± 6,2) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4a-water-hardness.json --lang tr`
+
+### Ölçülen iki izotop miktar oranından silisyumun izotop bollukları (IUPAC 2024, Örnek 4B)
+
+`iupac2024-4b-silicon-isotopic-abundances` — Possolo et al., Example 4B
+
+x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x₂₈, x₃₀ = R₃₀/₂₈·x₂₈: iki girdiden üç çıktı; kovaryans matrisi Σ_y = JΣ_xJᵀ (Formül 3).
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Valkiers vd., Karışım III: R₂₉/₂₈ = 0,050 0657(25), R₃₀/₂₈ = 0,032 9035(34) mol/mol, ilişkisiz alınmıştır. Jakobiyen x₂₈²·[[−1, −1], [1 + R₃₀/₂₈, −R₂₉/₂₈], [−R₃₀/₂₈, 1 + R₂₉/₂₈]]'dir.
+2. x₂₈ = 0,9233873(36), x₂₉ = 0,0462300(22), x₃₀ = 0,0303827(30) mol/mol. Bolluklar toplamı 1 olduğundan kovaryans matrisi tekildir; r(x₂₈, x₂₉) = -0,54, r(x₂₈, x₃₀) = -0,79.
+
+**Sonuç:**
+
+- x28 = 0,92338729 mol/mol, u(x28) = 3,6 × 10⁻⁶ mol/mol (GUM)
+- x29 = 0,04623003 mol/mol, u(x29) = 2,2 × 10⁻⁶ mol/mol (GUM)
+- x30 = 0,03038267 mol/mol, u(x30) = 3,0 × 10⁻⁶ mol/mol (GUM)
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,39 (çıktılar bağımlıdır: hiper-elipsoit yok)
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang tr`
+
+### CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F)
+
+`iupac2024-4f-ccqm-k145-nickel-bovine-liver` — Possolo et al., Example 4F
+
+17 ulusal metroloji enstitüsü sığır karaciğerindeki nikel kütle kesrini ölçtü. Sonuçlar beyan edilen belirsizliklerin öngördüğünden daha fazla dağılır; x_j = μ + λ_j + ε_j, λ_j ~ N(0, τ²) laboratuvar etkileri modeli karanlık belirsizliği (dark uncertainty: laboratuvarlar arasında beyan edilen belirsizliklerle açıklanamayan fazla değişkenlik, τ) tanır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. Olabilirlik, ortalaması μ ve varyansları τ² + u_j² olan 17 normal yoğunluğun çarpımıdır; verilen τ için en büyük değerini 1/(τ² + u_j²) ağırlıklı ortalamada alır, bu nedenle yalnızca τ'daki profil olabilirlik sayısal olarak aranır.
+2. μ̂ = 2,0429 mg/kg ve τ̂ = 0,0435 mg/kg; standart belirsizlikleri −ln L'nin Hessian matrisinin tersinden gelir: basılı değerlerle aynı, 2,043(15) mg/kg ve 0,044(14) mg/kg.
+3. Rehber, en çok olabilirliğin kestirimleri yanlılaştırma eğiliminde olduğunu ve yaklaşık 15'ten az sonuçta Hessian'ın varyansı küçük kestirdiğini belirtir; kısıtlı en çok olabilirlik, NIST Consensus Builder ya da Bayesçi yöntemler tercih edilir. Karşılaştırma için DerSimonian–Laird kestirimi, parametrik bootstrap ve eşdeğerlik dereceleri de verilmiştir.
+
+**Sonuç:**
+
+- w(Ni): uzlaşı değeri 2,04282 mg/kg, standart belirsizlik 0,016 mg/kg, %95 kapsam aralığı [2,01109, 2,07459] mg/kg (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,046 mg/kg; Cochran Q = 40,12, serbestlik derecesi 16
+- w(Ni): 2,04294 mg/kg, standart belirsizlik 0,015 mg/kg; τ = 0,044 ± 0,014 mg/kg (en çok olabilirlik)
+
+**Notlar:**
+
+- Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. ilk sonuç için 1,930(110) mg/kg.
+- Katılımcılar rehberin tablosundaki sırayla Lab 1 – Lab 17 olarak kodlanmıştır. Resmî anahtar karşılaştırma referans değeri ve eşdeğerlik dereceleri BIPM KCDB'deki CCQM-K145 nihai raporundakilerdir; burada hesaplanan eşdeğerlik dereceleri yöntemleri aynı veri üzerinde gösterir, karşılaştırmanın sonucu değildir.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang tr`
+
+### Saflık için beta dağılımıyla Monte Carlo ile kadmiyum kalibrasyon standardı (IUPAC 2024, Örnek 4H; QUAM A1)
+
+`iupac2024-4h-cadmium-standard-beta-mcm` — Possolo et al., Example 4H
+
+γ_Cd = w_Cd m_Cd/V; m_Cd = 100,28(5) mg, w_Cd = 0,999 900(58) g/g ve V = 100,00(7) mL. 1 g/g ile sınırlı saflık beta dağılımıyla, hacim üçgen dağılımla modellenir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Beta parametreleri ortalama ve s.s.'den momentler yöntemiyle çıkar: α ≈ 29 720, β ≈ 2,97.
+2. Gauss formülü: u(γ_Cd) = 0,00086 mg/mL ≈ 0,0009 mg/mL. Monte Carlo: ortalama 1,0027 mg/mL, s.s. 0,0009 mg/mL; dağılım tek tepeli, neredeyse simetrik ama normal değildir; bu nedenle U95, %2,5 ve %97,5 yüzdelikleri arasındaki uzaklığın yarısıdır: 0,0017 mg/mL.
+
+**Sonuç:**
+
+- gamma_Cd = (1,0027 ± 0,0017) mg/mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang tr`
+
+### Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I)
+
+`iupac2024-4i-argentometric-titration` — Possolo et al., Examples 3A and 4I
+
+c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); yalnızca hacim ve dönüm noktası belirsizlikleri dikkate alınır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Pipet: üçgen, s.s. 0,08/√6 = 0,0327 mL; büret: üçgen ±0,01 mL, s.s. 0,00408 mL; dönüm noktası: normal, s.s. 0,025 mL, baskın. c(NaCl) = 10,000 mmol/L, u = 0,0255 mmol/L (%0,26).
+
+**Sonuç:**
+
+- c_NaCl = (10,000 ± 0,050) mmol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Dönüm noktası (ilk kalıcı Ag₂CrO₄) eşdeğerlik noktasından sonradır; eşlik eden iupac2024-3a-argentometric-titration-ksp projesi bu kimyayı belirsizlik olarak ele almak yerine modeller.
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang tr`
+
+### Beta dağılımı olarak ifade edilen benzoik asit saflığı (NIST PS1): 1 g/g'nin altında asimetrik bir aralık (IUPAC 2024, Örnek 5C)
+
+`iupac2024-5c-benzoic-acid-purity-beta` — Possolo et al., Example 5C
+
+Kütle kesri hakkındaki bilgi durumu α = 88 873,7 ve β = 7,11 olan bir beta dağılımıdır; standart sapması standart belirsizliktir, inanılırlık aralıkları kantillerinden çıkar.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Ortalama α/(α + β) = 0,999920 g/g; s.s. = 30,0 × 10⁻⁶ g/g.
+2. %2,5 ve %97,5 kantillerinden %95 aralığı, 0,999 851 – 0,999 968 g/g, ortalamanın 0,069 mg/g altına ve 0,048 mg/g üstüne uzanır: fiziksel bir sınıra yakın bir sonuç asimetriktir; simetrik y ± U bunu gösteremez (BIPM ISRD-06'daki 999,8 +0,2/−1,5 mg/g değeriyle karşılaştırın).
+
+**Sonuç:**
+
+- w_BA = (0,999920 ± 0,000059) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang tr`
+
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 
 `nist-tn1900-e8-molecular-weight-co2` — NIST Technical Note 1900, Example E8, Exhibit 12
@@ -492,7 +1529,7 @@ TN 1900 E8: IUPAC aralık atom ağırlıklarından M_r(CO₂) = A_r(C) + 2A_r(O)
 
 **Sonuç:**
 
-- M_r = (44,0094 ± 0,0014); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- M_r = (44,0094 ± 0,0014); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -516,7 +1553,7 @@ TN 1900 E9: QUAM A1 kadmiyum standardı, c = 1000 m P / V, dikdörtgen saflık v
 
 **Sonuç:**
 
-- c_Cd = (1002,7 ± 1,7) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- c_Cd = (1002,7 ± 1,7) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -524,6 +1561,75 @@ TN 1900 E9: QUAM A1 kadmiyum standardı, c = 1000 m P / V, dikdörtgen saflık v
 - 'quam-a1-cadmium-standard' projesi m, P ve V'nin belirsizliklerini QUAM A1'deki gibi bileşenlerinden oluşturur.
 
 **Çalıştırma:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang tr`
+
+### Bir toprak referans malzemesinde krom, üçer tekrarlı 20 şişe: ANOVA ve hiyerarşik Bayes modeli (Possolo & Bodnar 2018; ISO Guide 35 C.1 verileri)
+
+`possolo-bodnar-2018-chromium-soil-homogeneity-bayes` — Possolo & Bodnar, §4.4, Tables 3 and 4
+
+w_ij = ω + β_j + ε_ij; şişe etkileri β_j ~ N(0, τ²), hatalar ε_ij ~ N(0, σ²). Malzemeye atanan değer ω'nın kestirimidir; belirsizliği şişeler arası ve şişe içi değişkenliği içerir.
+
+**Yaklaşım:** yeterlilik testi istatistikleri (ISO 13528)
+
+**Adımlar:**
+
+1. Tek yönlü ANOVA: s_bb = 3,93 mg/kg ve s_r = 2,87 mg/kg, ISO Guide 35 ve REML (R lme) değerleri; ω = 121,62 mg/kg, u = s_x/√20 = 0,95 mg/kg.
+2. Makaledeki Bayes modeli: ω düz (N(0, 10⁵)); τ ortancası şişe ortalamalarının standart sapması olan yarım Cauchy, 4,2656 mg/kg; σ ortancası şişe içi standart sapmaların ortancası olan yarım Cauchy, 2,4389 mg/kg.
+3. Makale sonsalı MCMC ile örnekler (R2jags): ω = 121,62 mg/kg, u = 1 mg/kg; Laplace yaklaşımı 0,98 mg/kg verir. Program ω'yı ve şişe etkilerini kesin olarak integre eder, (τ, σ)'yı ızgarada hesaplar.
+
+**Notlar:**
+
+- σ_pt verilmemiştir: ISO 13528 ölçütleri değerlendirilmez (referans malzeme homojenlik çalışması).
+
+**Çalıştırma:** `uncertainty run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang tr`
+
+### Üç izotop oranından NRC HIPB-1'deki kurşunun atom ağırlığı ve izotop bileşimi (Possolo & Meija 2022)
+
+`possolo-meija-2022-atomic-weight-lead-hipb1` — Possolo & Meija, Sums, Products, and Ratios: Atomic Weight of Lead, pp. 26–29
+
+Tong vd. (2019) yüksek saflıktaki kurşun HIPB-1'de ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb ve ²⁰⁸Pb/²⁰⁷Pb oranlarını ölçtü. Miktar kesirleri oranlardan ve Σx = 1 kapanışından çıkar; A_r(Pb) izotop kütlelerinin bu kesirlerle ağırlıklı ortalamasıdır.
+
+**Yaklaşım:** birden çok çıktı büyüklüğü için GUM belirsizlik yaklaşımı (JCGM 102) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Üç oran ve kapanış dört miktar kesrini tam olarak belirler, x(²⁰⁴Pb) = R₄/(1 + R₄ + R₆ + R₈) vb.; bu nedenle kitabın kısıtlı en çok olabilirlik uyumu (R solnp) bu açık ifadeleri verir; analitik Jakobiyen, kitaptaki Monte Carlo'nun 5 × 10⁴ yeniden uyumunun yerini alır.
+2. Kapanış miktar kesirleri arasında korelasyon doğurur (Chayes 1971); ²⁰⁶Pb ile ²⁰⁸Pb arasında güçlü biçimde negatiftir (−0,90).
+3. A_r(Pb) = 207,17915, u = 0,000 084 ve U95 % = 0,000 17 (basılı 0,0002); izotop kütlelerinin belirsizlikleri neredeyse hiç katkı vermez.
+
+**Sonuç:**
+
+- x204 = 0,01282130 mol/mol, u(x204) = 6,1 × 10⁻⁶ mol/mol (GUM)
+- x206 = 0,2709567 mol/mol, u(x206) = 3,7 × 10⁻⁵ mol/mol (GUM)
+- x207 = 0,2035126 mol/mol, u(x207) = 1,9 × 10⁻⁵ mol/mol (GUM)
+- x208 = 0,5127094 mol/mol, u(x208) = 4,5 × 10⁻⁵ mol/mol (GUM)
+- ArPb = 207,1791483 1, u(ArPb) = 8,4 × 10⁻⁵ 1 (GUM)
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,58 (çıktılar bağımlıdır: hiper-elipsoit yok)
+
+**Notlar:**
+
+- Kitaptaki korelasyonlar 5 × 10⁴ Monte Carlo yeniden uyumundan gelir; ikisi (²⁰⁴Pb–²⁰⁶Pb −0,02 ve ²⁰⁴Pb–²⁰⁸Pb −0,17) doğrusallaştırılmış değerlerden (−0,011, −0,179) yaklaşık iki Monte Carlo standart hatası kadar farklıdır (araştırma günlüğü F96).
+- HIPB-1 kullanıcıları sertifikaya (Meija vd. 2020) dayanmalıdır; kitabın veri indirgemesi ondan biraz farklıdır.
+
+**Çalıştırma:** `uncertainty run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang tr`
+
+### Plazma anyon açığı: dört iyon derişiminin doğrusal birleşimi (Possolo & Meija 2022)
+
+`possolo-meija-2022-plasma-anion-gap` — Possolo & Meija, Sums, Products, and Ratios: Plasma Anion Gap, pp. 16–18
+
+Bir hasta için Δc_AG = c(Na⁺) + c(K⁺) − c(Cl⁻) − c(HCO₃⁻) (White 2008); belirsizlikler standart sapma olarak bildirilmiştir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. İlişkisiz girdilerin doğrusal birleşiminde varyanslar, işaretler ne olursa olsun toplanır: u²(Δc_AG) = 1,48² + 0,04² + 0,72² + 0,84² = (1,85 mmol/L)².
+2. Δc_AG = 25 mmol/L; normal girdilerle gerçek değer yaklaşık %68 olasılıkla 25 ± 1,85 mmol/L içindedir.
+
+**Sonuç:**
+
+- AG = (25,0 ± 3,6) mmol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang tr`
 
 ### Kadmiyum kalibrasyon standardının hazırlanması
 
@@ -542,7 +1648,7 @@ EURACHEM/CITAC QUAM Örnek A1: yüksek saflıkta metalden 1000 mg/L Cd standard�
 
 **Sonuç:**
 
-- c_Cd = (1002,7 ± 1,7) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- c_Cd = (1002,7 ± 1,7) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -569,7 +1675,7 @@ Balon hacmi üç bileşeninden modellenmiş QUAM Örnek A1.
 
 **Sonuç:**
 
-- c_Cd = (1002,7 ± 1,7) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- c_Cd = (1002,7 ± 1,7) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -593,7 +1699,7 @@ QUAM Örnek A2: NaOH çözeltisinin potasyum hidrojen ftalata (KHP) karşı ayar
 
 **Sonuç:**
 
-- c_NaOH = (0,10214 ± 0,00020) mol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- c_NaOH = (0,10214 ± 0,00020) mol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -618,7 +1724,7 @@ Kütle, molar kütle ve hacmin bileşenlerinden oluşturulduğu QUAM Örnek A2.
 
 **Sonuç:**
 
-- c_NaOH = (0,1021 ± 0,0002) mol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- c_NaOH = (0,1021 ± 0,0002) mol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -642,7 +1748,7 @@ QUAM Örnek A3: KHP'ye karşı ayarlanmış NaOH ile HCl titrasyonu.
 
 **Sonuç:**
 
-- c_HCl = (0,1014 ± 0,0004) mol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- c_HCl = (0,1014 ± 0,0004) mol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -667,7 +1773,7 @@ QUAM Örnek A4: laboratuvar içi validasyon verilerinden (kesinlik, geri kazanı
 
 **Sonuç:**
 
-- P_op = (1,11 ± 0,74); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- P_op = (1,11 ± 0,74); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -692,7 +1798,7 @@ QUAM Örnek A5: ampirik yöntem (BS 6748); birim alan başına çözünen Cd mik
 
 **Sonuç:**
 
-- r = (0,015 ± 0,003) mg/dm²; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- r = (0,015 ± 0,003) mg/dm²; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -717,7 +1823,7 @@ QUAM Örnek A7, Eş. (8): gravimetrik olarak hazırlanmış birincil kurşun tay
 
 **Sonuç:**
 
-- c_z = (0,092605 ± 0,000056) µmol/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- c_z = (0,092605 ± 0,000056) µmol/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/chemistry/quam-a7-assay-standard.json --lang tr`
 
@@ -737,7 +1843,7 @@ QUAM Örnek A7, Eş. (5): kütle ayrımı düzeltilmiş izotop oranlarıyla çif
 
 **Sonuç:**
 
-- c_x = (0,05374 ± 0,00036) µmol/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- c_x = (0,05374 ± 0,00036) µmol/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -865,11 +1971,11 @@ Bir çelik numunenin X-grafiği; bir yıllık ortalama ağırlıkça %4,58, s = 
 
 **Çalıştırma:** `uncertainty run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang tr`
 
-### ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrarüretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)
+### ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrar üretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)
 
 `tr569-ex10-boron-toys-target` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 10
 
-Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart kaymayı izler; s_hedef = %10, EN 71-3'ün %15 tekrarüretilebilirliğinin üçte ikisi.
+Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart kaymayı izler; s_hedef = %10, EN 71-3'ün %15 tekrar üretilebilirliğinin üçte ikisi.
 
 **Yaklaşım:** iç kalite kontrolü için kontrol grafiği (Nordtest TR 569)
 
@@ -884,7 +1990,7 @@ Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart k
 
 **Çalıştırma:** `uncertainty run library/chemistry/tr569-ex10-boron-toys-target.json --lang tr`
 
-### Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrarüretilebilirlik (Nordtest TR 569 Örnek 12)
+### Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrar üretilebilirlik (Nordtest TR 569 Örnek 12)
 
 `tr569-ex12-pooling-sr-srw` — Nordtest TR 569 ed. 6 (2026), Chapter 14, Example 12 and footnote 24
 
@@ -1379,7 +2485,7 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 
 **Sonuç:**
 
-- x_site = (0,319 ± 0,059) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- x_site = (0,319 ± 0,059) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -1405,7 +2511,7 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 
 **Sonuç:**
 
-- x_site = (116 ± 26) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- x_site = (116 ± 26) mg/kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -1413,6 +2519,30 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 - Tablo A6.3'teki RSD'lerin ortalaması basılı %3,3 değil %3,16'dır; proje %3,16 kullanır. Birleşik belirsizlik (%11,3) ve U = 26 mg/kg değişmez.
 
 **Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang tr`
+
+### İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2)
+
+`ume-procedure-19-2-qnmr-purity-internal-standard` — TÜBİTAK UME, Section 19.2
+
+Bağıl belirsizlikli çarpımsal model; değerler örnektir, gerçek bir ölçüme ait değildir. Entegrasyon, oranın tekrarlanabilirliğinin yanında ayrı bir B tipi bileşendir (±%0,2, dikdörtgen).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bağıl standart belirsizlikler (10⁻⁶): tekrarlanabilirlik 671, entegrasyon 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; birleşik 1575; ν_eff = 121.
+2. P_a = 995,0 mg/g, u_c = 1,567 mg/g, U = 2u_c = 3,13 → 3,1 mg/g: P_a = (995,0 ± 3,1) mg/g (k = 2).
+3. Varyansın yarısından fazlası entegrasyondan, yaklaşık dörtte biri iç standardın saflığından gelir (%54 ve %23).
+
+**Sonuç:**
+
+- P_a = (995,0 ± 3,1) mg/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- ¹H çekirdek sayıları prosedürde okunamıyor (model gömülü bir denklem nesnesidir); basılı 995,0 mg/g değerini veren tek oran N_std/N_a = 2/3'tür; iç standart maleik asit (M = 116,072 g/mol, 2 H) ve bir metil singleti olan M = 194,19 g/mol'lük bir analit (ör. kafein) ile uyumludur.
+
+**Çalıştırma:** `uncertainty run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang tr`
 
 ### Nehir sedimentlerinde fluoranten, aritmetik ortalama geri kazanım (MUPR Eş. 8–12) (Bettencourt da Silva 2026)
 
@@ -1474,11 +2604,31 @@ MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedime
 
 **Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang tr`
 
-### Hayvan yeminde ham lif, tekrarüretilebilirlik verilerinden (ISO 21748 C.4)
+### Doping kontrolünde idrarda efedrin: ara kesinlik ve bir SRM'den top-down belirsizlik (EMUE E6.5)
+
+`emue-e6.5-ephedrine-wada-topdown` — EMPIR 17NRM05 EMUE, Example E6.5, Table E6.5.1
+
+Üçlü sonuçların ortalaması için u_c(x) = √(s_w²/n + u_bias²); u_bias² = s_ref²/n′ + Δ² + u²(x_ref), bir SRM'nin 30 analizinden (Tablo E6.5.1); WADA, 10 µg/mL eşiği yakınında u_c ≤ 0,5 µg/mL (%5) ister.
+
+**Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
+
+**Adımlar:**
+
+1. Tek sonucun ara kesinliği s_w = %4,2, bir idrar KK numunesinden; raporlanan sonuç üç tayinin ortalamasıdır (WADA ISL); kesinlik katkısı %4,2/√3 = %2,42'dir.
+2. SRM 10,00 ± 0,06 µg/mL (k = 2), 30 tekrarlanabilirlik sonucunun ortalaması 10,3 µg/mL, RSD %1,97: Δ = %3,0, s/√n = %0,36, u(x_ref) = %0,3; u_bias = %3,04; belirsizlik olarak girilen düzeltilmemiş sapma baskındır (Nordtest TR 537, tek SRM).
+3. u_c = √(2,42² + 3,04²) = %3,89, yani eşikte 0,39 µg/mL; u_c,max = 0,5 µg/mL'nin altındadır; rehber yuvarlanmış %2,4 ve %3,0'dan %3,8 verir.
+
+**Sonuç:**
+
+- γ(ephedrine) = (10,00 ± 0,78) µg/mL (k = 2,00)
+
+**Çalıştırma:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang tr`
+
+### Hayvan yeminde ham lif, tekrar üretilebilirlik verilerinden (ISO 21748 C.4)
 
 `iso21748-c4-crude-fibre` — ISO 21748:2017, Annex C.4, Tables C.6–C.9
 
-ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrarüretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır.
+ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrar üretilebilirlik ve sabit kütleye kurutmanın belirsizliği; QUAM A6 ile aynı örnek, kurutma terimi farklı ele alınmıştır.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
@@ -1590,7 +2740,7 @@ MUPR Örnek B2: birden fazla malzemeden birleştirilmiş kesinlik (ikisi için h
 
 **Sonuç:**
 
-- c(NO₃⁻) = (50,0 ± 8,4) mg/L (k = 2,00)
+- c(NO₃⁻) = (50,0 ± 8,5) mg/L (k = 2,00)
 
 **Notlar:**
 
@@ -1613,7 +2763,7 @@ MUPR Örnek B2, Eş. (B2.9): p günün her birinde n sonucun ortalamasının kes
 
 **Sonuç:**
 
-- c(NO₃⁻) = (57,5 ± 7,0) mg/L (k = 2,00)
+- c(NO₃⁻) = (57,5 ± 7,1) mg/L (k = 2,00)
 
 **Çalıştırma:** `uncertainty run library/chemistry/mupr-b2-replicates-on-two-days.json --lang tr`
 
@@ -1769,11 +2919,11 @@ Nordtest TR 537 §3.2 ve Ek 4: NH₄-N; u(Rw) kontrol grafiğinden, u(bias) alt�
 
 **Çalıştırma:** `uncertainty run library/chemistry/nordtest-3-ammonium-pt.json --lang tr`
 
-### Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrarüretilebilirlik
+### Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrar üretilebilirlik
 
 `nordtest-5.3-ammonium-duplicates` — Nordtest TR 537 ed. 4 (2017), §5.3 and Appendix 5
 
-Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrarüretilebilirliğiyle birleştirilmiştir.
+Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N mükerrer ölçümleri (ham veri), kontrol numunesi tekrar üretilebilirliğiyle birleştirilmiştir.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
@@ -1795,7 +2945,7 @@ Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N müker
 
 **Çalıştırma:** `uncertainty run library/chemistry/nordtest-5.3-ammonium-duplicates.json --lang tr`
 
-### Çözünmüş oksijen: mükerrer ölçümlerden tekrarüretilebilirlik
+### Çözünmüş oksijen: mükerrer ölçümlerden tekrar üretilebilirlik
 
 `nordtest-5.3-oxygen-duplicates` — Nordtest TR 537 ed. 4 (2017), §5.3 and Appendix 6
 
@@ -1806,7 +2956,7 @@ Nordtest TR 537 §5.3 ve Ek 6: deniz suyunda çözünmüş oksijen, 51 mükerrer
 **Adımlar:**
 
 1. s_r = √(Σd²/2N) = 0,0252 mg/L, ortalama 7,50 mg/L'de, yani %0,34.
-2. Kontrol numunesi tekrarüretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60.
+2. Kontrol numunesi tekrar üretilebilirliği (%0,5) ile u(Rw) = √(0,34² + 0,5²) = %0,60.
 
 **Sonuç:**
 
@@ -1871,7 +3021,7 @@ Nordtest TR 537 §6.2: altı yeterlilik testinden u(bias).
 
 **Sonuç:**
 
-- U = %10 (k = 2,00), ölçülen değere göre bağıl
+- U = %11 (k = 2,00), ölçülen değere göre bağıl
 
 **Notlar:**
 
@@ -2174,7 +3324,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 **Sonuç:**
 
 - w(Zn) = (2,00 ± 0,73) mg/kg (k = 2,00)
-- w(Zn) = (20,0 ± 3,6) mg/kg (k = 2,00)
+- w(Zn) = (20,0 ± 3,7) mg/kg (k = 2,00)
 
 **Notlar:**
 
@@ -2211,13 +3361,13 @@ EURACHEM QUAM Örnek A4, top-down değerlendirme olarak: 15 mükerrer ölçümde
 
 `quam-a6-crude-fibre` — EURACHEM/CITAC Guide CG 4, Example A6, Tables A6.4–A6.5
 
-EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrarüretilebilirlik s_R ve kurutma payı.
+EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrar üretilebilirlik s_R ve kurutma payı.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
 **Adımlar:**
 
-1. Ampirik yöntemde ortak çalışma tekrarüretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur.
+1. Ampirik yöntemde ortak çalışma tekrar üretilebilirliği s_R (Tablo A6.4) ana bileşendir; değerler % m/m (mutlak) biriminde olduğundan alanlarda _percent soneki yoktur.
 2. Sabit tartıma kurutma: 1 g numunede ±2 mg = ±0,2 % m/m, dikdörtgen, u = 0,115 % m/m; yalnızca s_R/3'ü aştığı yerde, yani %2,5 düzeyinde dahil edilir.
 3. U = 2u_c: 2,5, 5 ve 10 % m/m'de 0,62, 0,8 ve 1,2 % m/m.
 
@@ -2252,7 +3402,7 @@ EA-4/02 S3: dört uçlu direncin, oran cihazı olarak sayısal multimetre kullan
 
 **Sonuç:**
 
-- R_X = (10000178 ± 17) mΩ; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- R_X = (10000178 ± 17) mΩ; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/ea402-s3-resistor-10kohm.json --lang tr`
 
@@ -2273,7 +3423,7 @@ EA-4/02 S6: bir termistör güç sensörünün kalibrasyon faktörünün standar
 
 **Sonuç:**
 
-- K_X = (0,933 ± 0,032); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- K_X = (0,933 ± 0,032); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2298,7 +3448,7 @@ EA-4/02 S7: koaksiyel zayıflatıcının 10 GHz'de 30 dB kademesi; uyumsuzluk S 
 
 **Sonuç:**
 
-- L_X = (30,043 ± 0,044) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- L_X = (30,043 ± 0,044) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2322,7 +3472,7 @@ EA-4/02 S9: 3½ basamaklı multimetrenin gösterge hatası; çözünürlük teri
 
 **Sonuç:**
 
-- E_X = (0,10 ± 0,06) V; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E_X = (0,10 ± 0,06) V; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/ea402-s9-dmm-100v.json --lang tr`
 
@@ -2342,7 +3492,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 **Sonuç:**
 
-- Z = (254,26 ± 0,46) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- Z = (254,26 ± 0,46) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/gum-h2-impedance.json --lang tr`
 
@@ -2362,7 +3512,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 **Sonuç:**
 
-- X = (219,85 ± 0,58) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- X = (219,85 ± 0,58) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2386,7 +3536,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 **Sonuç:**
 
-- R = (127,73 ± 0,14) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- R = (127,73 ± 0,14) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2396,7 +3546,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 ### Karşılaştırma kaybı, x₁ = 0,0
 
-`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x000` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2408,16 +3558,17 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
 4. Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir.
+5. Kestirimin ikinci mertebe terimiyle, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; JCGM 100:2008/Amd.1:2026 ile 4.1.4'e eklenen not 1), GUM kestirimi analitik değer olan 50·10⁻⁶ olur. JCGM 101:2008 Tablo 8 GUM çerçevesi için 0·10⁻⁶ basar; 9.4.2.2.8 bunu geçersiz sayar.
 
 **Sonuç:**
 
-- dY = (0 ± 640) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (50 ± 640) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,0, r = 0,9
 
-`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x000-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2428,17 +3579,39 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
-4. r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; korelasyonlu girdiler için ikinci mertebe terimler tanımlı değildir (GUM 5.1.2 notu), bu nedenle etkiyi yalnızca MCM yakalar.
+4. r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; GUM 5.1.2 notu ikinci mertebe terimleri yalnızca bağımsız girdiler için verir. GUM çerçevesi sonuçlarından etkiyi yalnızca ilişkili girdiler için yüksek mertebe terimleri yakalar (…-correlated-higher-order projesi, D57); MCM de yakalar.
 
 **Sonuç:**
 
-- dY = (0,0 ± 0,0) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (0,0 ± 0,0) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang tr`
 
+### Karşılaştırma kaybı, x₁ = 0, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
+
+`jcgm101-9.4-comparison-loss-x000-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
+2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
+3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
+4. GUM-5 Örnek 16 burada yalnızca birinci mertebe terimleri uygular, çünkü JCGM 100:2008 yüksek mertebe terimleri yalnızca bağımsız girdiler için verir. İki değişkenli normal girdiler için Taylor açılımı u²(δy) = cᵀΣc + ½tr((HΣ)²) verir; H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), yani u(δy) = 67,3·10⁻⁶ (Mana ve Pennecchi 2007).
+5. JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimiyle kestirim x₁² + 2u² = 50·10⁻⁶ olur. İkisi de GUM-5 Tablo 16.2'nin analitik A sütunuyla ve Monte Carlo sonucuyla uyuşur.
+
+**Sonuç:**
+
+- dY = (50 ± 850) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang tr`
+
 ### Karşılaştırma kaybı, x₁ = 0,01
 
-`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x010` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2450,16 +3623,17 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
 4. Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir.
+5. Kestirimin ikinci mertebe terimiyle, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; JCGM 100:2008/Amd.1:2026 ile 4.1.4'e eklenen not 1), GUM kestirimi analitik değer olan 150·10⁻⁶ olur. JCGM 101:2008 Tablo 8 GUM çerçevesi için 100·10⁻⁶ basar; 9.4.2.2.8 bunu geçersiz sayar.
 
 **Sonuç:**
 
-- dY = (100 ± 220) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (150 ± 220) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,01, r = 0,9
 
-`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x010-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2470,17 +3644,39 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
-4. r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; korelasyonlu girdiler için ikinci mertebe terimler tanımlı değildir (GUM 5.1.2 notu), bu nedenle etkiyi yalnızca MCM yakalar.
+4. r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; GUM 5.1.2 notu ikinci mertebe terimleri yalnızca bağımsız girdiler için verir. GUM çerçevesi sonuçlarından etkiyi yalnızca ilişkili girdiler için yüksek mertebe terimleri yakalar (…-correlated-higher-order projesi, D57); MCM de yakalar.
 
 **Sonuç:**
 
-- dY = (100 ± 200) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (100 ± 200) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang tr`
 
+### Karşılaştırma kaybı, x₁ = 0,01, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
+
+`jcgm101-9.4-comparison-loss-x010-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
+2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
+3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
+4. GUM-5 Örnek 16 burada yalnızca birinci mertebe terimleri uygular, çünkü JCGM 100:2008 yüksek mertebe terimleri yalnızca bağımsız girdiler için verir. İki değişkenli normal girdiler için Taylor açılımı u²(δy) = cᵀΣc + ½tr((HΣ)²) verir; H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), yani u(δy) = 120,5·10⁻⁶ (Mana ve Pennecchi 2007).
+5. JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimiyle kestirim x₁² + 2u² = 150·10⁻⁶ olur. İkisi de GUM-5 Tablo 16.2'nin analitik A sütunuyla ve Monte Carlo sonucuyla uyuşur.
+
+**Sonuç:**
+
+- dY = (150 ± 240) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang tr`
+
 ### Karşılaştırma kaybı, x₁ = 0,05
 
-`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8
+`jcgm101-9.4-comparison-loss-x050` — JCGM 101:2008, 9.4, Table 8; JCGM GUM-5:2026, Example 16, Table 16.1
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2492,16 +3688,17 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
 4. Buradaki GUM sonucu ikinci mertebe terimleri içerir; bu kuadratik model için varyansı tam olarak verir, ancak simetrik dağılım varsayımına dayalı %95 aralığı yine de uygun değildir.
+5. Kestirimin ikinci mertebe terimiyle, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = u²(x₁) + u²(x₂) = 50·10⁻⁶ (GUM H.10; JCGM 100:2008/Amd.1:2026 ile 4.1.4'e eklenen not 1), GUM kestirimi analitik değer olan 2550·10⁻⁶ olur. JCGM 101:2008 Tablo 8 GUM çerçevesi için 2500·10⁻⁶ basar; 9.4.2.2.8 bunu geçersiz sayar.
 
 **Sonuç:**
 
-- dY = (2500 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (2550 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,05, r = 0,9
 
-`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9
+`jcgm101-9.4-comparison-loss-x050-correlated` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2
 
 JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
 
@@ -2512,13 +3709,35 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
 2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
 3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
-4. r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; korelasyonlu girdiler için ikinci mertebe terimler tanımlı değildir (GUM 5.1.2 notu), bu nedenle etkiyi yalnızca MCM yakalar.
+4. r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; GUM 5.1.2 notu ikinci mertebe terimleri yalnızca bağımsız girdiler için verir. GUM çerçevesi sonuçlarından etkiyi yalnızca ilişkili girdiler için yüksek mertebe terimleri yakalar (…-correlated-higher-order projesi, D57); MCM de yakalar.
 
 **Sonuç:**
 
-- dY = (2500 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dY = (2500 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang tr`
+
+### Karşılaştırma kaybı, x₁ = 0,05, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
+
+`jcgm101-9.4-comparison-loss-x050-correlated-higher-order` — JCGM 101:2008, 9.4, Table 9; JCGM GUM-5:2026, Example 16, Table 16.2; G. Mana, higher-order terms for correlated inputs
+
+JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı (değerler 10⁻⁶ biriminde).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Mikrodalga güç ölçer kalibrasyonundaki karşılaştırma kaybı δY = X₁² + X₂²'dir; X₁ ve X₂ gerilim yansıma katsayısının gerçel ve sanal kısımlarıdır ve her birinin u değeri 0,005'tir.
+2. ∂δY/∂X₂ = 2x₂ = 0 (ve x₁ = 0 iken ∂δY/∂X₁ = 0) olduğundan birinci mertebe GUM sonucu belirsizliği olduğundan küçük verir, hatta tamamen kaçırır; çıktı dağılımı ölçekli merkezî olmayan χ² dağılımıdır ve belirgin biçimde asimetriktir.
+3. Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır.
+4. GUM-5 Örnek 16 burada yalnızca birinci mertebe terimleri uygular, çünkü JCGM 100:2008 yüksek mertebe terimleri yalnızca bağımsız girdiler için verir. İki değişkenli normal girdiler için Taylor açılımı u²(δy) = cᵀΣc + ½tr((HΣ)²) verir; H = diag(2, 2): 4x₁²u² + 4u⁴(1 + r²), yani u(δy) = 504,5·10⁻⁶ (Mana ve Pennecchi 2007).
+5. JCGM 100:2008/Amd.1:2026'nın ikinci mertebe terimiyle kestirim x₁² + 2u² = 2550·10⁻⁶ olur. İkisi de GUM-5 Tablo 16.2'nin analitik A sütunuyla ve Monte Carlo sonucuyla uyuşur.
+
+**Sonuç:**
+
+- dY = (2550 ± 990) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001 (JCGM 102 9.3)
 
@@ -2671,7 +3890,7 @@ JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan ü�
 - R = 127,7322 Ω, u(R) = 0,058 Ω (GUM)
 - X = 219,847 Ω, u(X) = 0,24 Ω (GUM)
 - Z = 254,260 Ω, u(Z) = 0,19 Ω (GUM)
-- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,39 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
 **Notlar:**
 
@@ -2700,7 +3919,7 @@ JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan ü�
 - R = 127,732 Ω, u(R) = 0,13 Ω (GUM)
 - X = 219,847 Ω, u(X) = 0,54 Ω (GUM)
 - Z = 254,260 Ω, u(Z) = 0,43 Ω (GUM)
-- %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,80; dikdörtgen k_q = 2,39
+- %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,39 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
 **Notlar:**
 
@@ -2725,7 +3944,7 @@ Uygulanan 1,000 00 V için 1,001 V okuyan bir DVM; 1 mV basamağının yuvarlanm
 
 **Sonuç:**
 
-- dV = (1,00 ± 0,54) mV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,77 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dV = (1,00 ± 0,54) mV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,77 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2751,7 +3970,7 @@ Seri bağlı standart ve bilinmeyen 10 kΩ dirençler üzerindeki gerilimler tek
 
 **Sonuç:**
 
-- R_X = (10000,1050 ± 0,0089) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- R_X = (10000,1050 ± 0,0089) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/m3003-k1-resistor-10kohm.json --lang tr`
 
@@ -2773,7 +3992,7 @@ Bilinmeyen bir güç sensörünün kalibrasyon faktörü, izlenen bir kaynakta s
 
 **Sonuç:**
 
-- K_X = (93,2 ± 3,4) %; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- K_X = (93,2 ± 3,4) %; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/m3003-k2-power-sensor-18ghz.json --lang tr`
 
@@ -2794,7 +4013,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 **Sonuç:**
 
-- A_X = (30,050 ± 0,049) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- A_X = (30,050 ± 0,049) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2820,7 +4039,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 **Sonuç:**
 
-- A_X = (30,050 ± 0,040) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- A_X = (30,050 ± 0,040) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang tr`
 
@@ -2841,7 +4060,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 **Sonuç:**
 
-- dI = (0 ± 11) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dI = (0 ± 11) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2865,7 +4084,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 **Sonuç:**
 
-- dI = (0 ± 11) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,90 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dI = (0 ± 11) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,90 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang tr`
 
@@ -2886,7 +4105,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 **Sonuç:**
 
-- dI = (0,0 ± 6,2) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dI = (0,0 ± 6,2) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang tr`
 
@@ -2926,9 +4145,52 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 **Sonuç:**
 
-- R = (127,73 ± 0,14) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- R = (127,73 ± 0,14) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/electrical/num-10-resistance.json --lang tr`
+
+### Wheatstone köprüsü: kuvvetler çarpımı olmayan bir ölçüm modeli (Possolo & Meija 2022)
+
+`possolo-meija-2022-wheatstone-bridge` — Possolo & Meija, Sums, Products, and Ratios: Wheatstone Bridge, pp. 24–26
+
+Dengede R_U/R_G = R_F/R_EH; R_EH = 1/(R_E⁻¹ + R_H⁻¹), paralel E ve H'nin ortak direnci; dolayısıyla R_U = R_G R_F (R_E⁻¹ + R_H⁻¹).
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. −R_G R_F/R_E², R_U/R_F, R_U/R_G ve −R_G R_F/R_H² kısmi türevleriyle Gauss formülü R_U = 957,0 Ω ve u(R_U) = 6,96 Ω ≈ 7 Ω verir.
+2. u²(R_U)'ya katkılar: E %52, F %48, G %0,6, H %0,003; kitabın aktardığı NIST Uncertainty Machine çıktısıyla aynı (E %52, F %48, G %0,6, H %0,004).
+
+**Sonuç:**
+
+- R_U = (957 ± 14) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Kitap, direncin pozitifliğine uyan lognormal modelin bu bağıl belirsizliklerde (%5'in altında) pratikte aynı sonucu verdiğini belirtir.
+
+**Çalıştırma:** `uncertainty run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang tr`
+
+### Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1)
+
+`ume-procedure-19-1-dmm-10v-calibration` — TÜBİTAK UME, Section 19.1
+
+Mutlak belirsizlikli toplamsal model: kalibratör sertifikası, kayması ve çözünürlük düzeltmeleriyle gösterge hatası E = V_DMM − V_ref.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. u_c = √(8,1² + 25,0² + 23,1² + 2,9²) = 35,1 µV; ν_eff = 3965 (okumalar için ν = 11 ile Welch–Satterthwaite); U = 2u_c = 70,2 µV.
+2. Prosedürün baskın bileşen kontrolü: en büyük dikdörtgen katkı u_R = 23,1 µV, diğerleri u_N = 26,4 µV; u_N/u_R = 1,14 > 0,70 olduğundan k = 2 uygundur.
+3. Sonuç: E = (0,21 ± 0,07) mV; 10 V'a göre bağıl U = 7 µV/V (k = 2, p ≈ %95).
+
+**Sonuç:**
+
+- E = (212 ± 70) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang tr`
 
 ## Akış ve hacim
 
@@ -2951,7 +4213,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 **Sonuç:**
 
-- V_20 = (999,622 ± 0,036) mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,14 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- V_20 = (999,622 ± 0,036) mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,14 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -2978,7 +4240,7 @@ On kez tartılan 100 mL'lik piknometre; su 18,94 °C, hava 0,23 °C daha sıcak;
 
 **Sonuç:**
 
-- V_20 = (100,0142 ± 0,0020) mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,23 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- V_20 = (100,0142 ± 0,0020) mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,23 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3001,7 +4263,7 @@ EA-4/02 S12 (ikinci bütçe): tek bir çalışma için sayacın bağıl gösterg
 
 **Sonuç:**
 
-- e_X = (0,0003 ± 0,0014); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- e_X = (0,0003 ± 0,0014); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-error.json --lang tr`
 
@@ -3020,7 +4282,7 @@ EA-4/02 S12 (üçüncü bütçe): üç çalışmanın ortalama bağıl hatası; 
 
 **Sonuç:**
 
-- e_Xav = (0,001 ± 0,002); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,28 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- e_Xav = (0,001 ± 0,002); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,28 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-mean-error.json --lang tr`
 
@@ -3040,7 +4302,7 @@ EA-4/02 S12 (birinci bütçe): 2500 L/h'te bir konut tipi su sayacından geçen 
 
 **Sonuç:**
 
-- V_X = (199,93 ± 0,22) L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- V_X = (199,93 ± 0,22) L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang tr`
 
@@ -3061,7 +4323,7 @@ EA-4/02 S12 (birinci bütçe): 2500 L/h'te bir konut tipi su sayacından geçen 
 
 **Sonuç:**
 
-- Q_s = (12,52 ± 0,55) L/s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- Q_s = (12,52 ± 0,55) L/s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3085,7 +4347,7 @@ TN 1900 E4 (Kline ve McClintock, 1953'ten): fark basıncı, hava basıncı ve s�
 
 **Sonuç:**
 
-- v = (57,48 ± 0,68) m/s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- v = (57,48 ± 0,68) m/s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3095,9 +4357,57 @@ TN 1900 E4 (Kline ve McClintock, 1953'ten): fark basıncı, hava basıncı ve s�
 
 ## Genel (yöntem doğrulama)
 
+### Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile sıradan en küçük kareler (JCGM GUM-5 Örnek 9)
+
+`gum5-e9-torque-slope-ols` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Sekiz tork seviyesinden Y = βX'in eğimi β; SEKK kestiricisi (9.4) Y_i ortalamalarında doğrusaldır, bu nedenle LPU ve Welch–Satterthwaite doğrudan uygulanır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Referans torklar x_i kesin kabul edilir (9.3); her Y_i ortalamasının u(y_i) = s_i/√n_i ve ν_i = n_i − 1'dir (Tablo 9.2). Standart sapmalar seviyeler arasında bir büyüklük mertebesi farklıdır.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i², W_i = 1, yani ağırlıklar n_i; Y_i katsayıları ifadeye yazılmıştır. β = 1,01065, u(β) = 0,00152, ν_eff = 2,72.
+3. Aynı verilerin bilinmeyen σ_i² varyanslarıyla Bayesçi analizi (9.5.2): NI-Bayes 1,0092 ± 0,0011, Inf-Bayes 1,0091 ± 0,0009 (Tablo 9.3, (9.17)'nin sayısal integrasyonuyla yeniden üretildi). SEKK on kat büyük saçılımlı verilere aynı ağırlığı verir (9.7.2).
+
+**Sonuç:**
+
+- beta = (1,0106 ± 0,0051); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 3,38 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).
+
+**Çalıştırma:** `uncertainty run library/general/gum5-e9-torque-slope-ols.json --lang tr`
+
+### Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile ağırlıklı en küçük kareler (JCGM GUM-5 Örnek 9)
+
+`gum5-e9-torque-slope-wls` — JCGM GUM-5:2026, Example 9, Tables 9.1–9.3
+
+Sekiz tork seviyesinden Y = βX'in eğimi β; AEKK kestiricisi (9.4) Y_i ortalamalarında doğrusaldır, bu nedenle LPU ve Welch–Satterthwaite doğrudan uygulanır.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Referans torklar x_i kesin kabul edilir (9.3); her Y_i ortalamasının u(y_i) = s_i/√n_i ve ν_i = n_i − 1'dir (Tablo 9.2). Standart sapmalar seviyeler arasında bir büyüklük mertebesi farklıdır.
+2. β = Σ n_iW_i x_i Y_i / Σ n_iW_i x_i², n_iW_i = 1/u²(y_i); Y_i katsayıları ifadeye yazılmıştır. β = 1,00849, u(β) = 0,00077, ν_eff = 13,31.
+3. Aynı verilerin bilinmeyen σ_i² varyanslarıyla Bayesçi analizi (9.5.2): NI-Bayes 1,0092 ± 0,0011, Inf-Bayes 1,0091 ± 0,0009 (Tablo 9.3, (9.17)'nin sayısal integrasyonuyla yeniden üretildi). AEKK ikisinden de küçük u verir, çünkü üç ila altı okumadan gelen 1/u²(y_i) ağırlıklarını kesin sayar (9.7.3).
+
+**Sonuç:**
+
+- beta = (1,0085 ± 0,0016); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,16 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).
+
+**Çalıştırma:** `uncertainty run library/general/gum5-e9-torque-slope-wls.json --lang tr`
+
 ### Normal dağılımlı girdilerle toplamsal model
 
-`jcgm101-9.2.2-additive-gaussian` — JCGM 101:2008, 9.2.2
+`jcgm101-9.2.2-additive-gaussian` — JCGM 101:2008, 9.2.2; JCGM GUM-5:2026, Example 6, Table 6.1
 
 JCGM 101 9.2.2: her biri N(0, 1) olan dört bağımsız girdi.
 
@@ -3110,13 +4420,13 @@ JCGM 101 9.2.2: her biri N(0, 1) olan dört bağımsız girdi.
 
 **Sonuç:**
 
-- Y = (0,0 ± 3,9); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- Y = (0,0 ± 3,9); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/general/jcgm101-9.2.2-additive-gaussian.json --lang tr`
 
 ### Dikdörtgen dağılımlı girdilerle toplamsal model
 
-`jcgm101-9.2.3-additive-rectangular` — JCGM 101:2008, 9.2.3
+`jcgm101-9.2.3-additive-rectangular` — JCGM 101:2008, 9.2.3; JCGM GUM-5:2026, Example 6, Table 6.2
 
 JCGM 101 9.2.3: her biri standart sapması 1 olan dikdörtgen dağılımlı dört bağımsız girdi.
 
@@ -3130,7 +4440,7 @@ JCGM 101 9.2.3: her biri standart sapması 1 olan dikdörtgen dağılımlı dör
 
 **Sonuç:**
 
-- Y = (0,0 ± 3,9); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- Y = (0,0 ± 3,9); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3140,7 +4450,7 @@ JCGM 101 9.2.3: her biri standart sapması 1 olan dikdörtgen dağılımlı dör
 
 ### Baskın dikdörtgen girdili toplamsal model
 
-`jcgm101-9.2.4-additive-dominant-rectangular` — JCGM 101:2008, 9.2.4
+`jcgm101-9.2.4-additive-dominant-rectangular` — JCGM 101:2008, 9.2.4; JCGM GUM-5:2026, Example 6, Table 6.3
 
 JCGM 101 9.2.4: 9.2.3 ile aynı, ancak X4'ün standart sapması 10'dur.
 
@@ -3154,7 +4464,7 @@ JCGM 101 9.2.4: 9.2.3 ile aynı, ancak X4'ün standart sapması 10'dur.
 
 **Sonuç:**
 
-- Y = (0 ± 20); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- Y = (0 ± 20); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang tr`
 
@@ -3286,7 +4596,7 @@ JCGM 106:2012 7.4 Örnek: 100 °C'de SAE 40 yağ, 12,5 mm²/s ≤ Y ≤ 16,3 mm�
 
 `jcgm106-8.3-nandrolone` — JCGM 106:2012, 8.3.3, Example 2
 
-JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrarüretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı.
+JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrar üretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı.
 
 **Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
 
@@ -3373,7 +4683,7 @@ NUM kılavuzu §3: normal a, dikdörtgen b ve bağıl belirsizliği %30 olan ü�
 
 **Sonuç:**
 
-- y = (29 ± 17); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- y = (29 ± 17); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3399,11 +4709,84 @@ Sabit hacimli 1 mL mikropipet on kez test edilir (Nordtest TR 626); ortalama hac
 
 **Çalıştırma:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang tr`
 
-### Taşıt emisyonlarında karbon monoksit, tekrarüretilebilirlik verilerinden (ISO 21748 C.1)
+### Test belirsizlik oranından kabul sınırları: Dobbert'in yönetilen koruma bandı (yöntem 6), TUR = 2,5, %95 tolerans içi süreç için küresel riskler
+
+`tur-guard-band-dobbert-tur2-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerans ±1 (normalize), U₉₅ = 2u = 0,4, dolayısıyla TUR = 1/U₉₅ = 2,5. GBF = 1 − M/TUR, M = 1,04 − exp(0,38 ln TUR − 0,54). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Koruma bandı çarpanı GBF = 0,914186: kabul sınırları ±0,914186; her tolerans sınırının 0,085814 içinde bir koruma bandı.
+2. Küresel tüketici riski (yanlış kabul olasılığı) basit kabuldeki %1,177 yerine %0,688; üretici riski %5,22.
+3. Dobbert yöntemi, tolerans içi olasılık ne olursa olsun küresel PFA'yı yaklaşık %2'nin altında tutar: TUR = 2,5 için ITP üzerindeki en büyük değeri %1,93'tür (Suncal).
+
+**Sonuç:**
+
+- reading 0.70 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %93; korumalı kabul kuralına göre kabul.
+- reading 0.95 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %60; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
+
+**Çalıştırma:** `uncertainty run library/general/tur-guard-band-dobbert-tur2-5.json --lang tr`
+
+### Test belirsizlik oranından kabul sınırları: NCSLI RP-10 koruma bandı, TUR = 2,0, %95 tolerans içi süreç için küresel riskler
+
+`tur-guard-band-rp10-tur2-0` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerans ±1 (normalize), U₉₅ = 2u = 0,5, dolayısıyla TUR = 1/U₉₅ = 2,0. GBF = 1,25 − 1/TUR (TUR ≤ 4). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Koruma bandı çarpanı GBF = 0,750000: kabul sınırları ±0,750000; her tolerans sınırının 0,250000 içinde bir koruma bandı.
+2. Küresel tüketici riski (yanlış kabul olasılığı) basit kabuldeki %1,337 yerine %0,321; üretici riski %14,00.
+
+**Sonuç:**
+
+- reading 0.70 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %88; korumalı kabul kuralına göre kabul.
+- reading 0.95 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %58; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
+
+**Çalıştırma:** `uncertainty run library/general/tur-guard-band-rp10-tur2-0.json --lang tr`
+
+### Test belirsizlik oranından kabul sınırları: karelerin toplamının kökü koruma bandı, TUR = 1,5, %95 tolerans içi süreç için küresel riskler
+
+`tur-guard-band-rss-tur1-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+
+Tolerans ±1 (normalize), U₉₅ = 2u = 0,6667, dolayısıyla TUR = 1/U₉₅ = 1,5. GBF = √(1 − 1/TUR²). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
+
+**Yaklaşım:** uygunluk değerlendirmesi (JCGM 106)
+
+**Adımlar:**
+
+1. Koruma bandı çarpanı GBF = 0,745356: kabul sınırları ±0,745356; her tolerans sınırının 0,254644 içinde bir koruma bandı.
+2. Küresel tüketici riski (yanlış kabul olasılığı) basit kabuldeki %1,541 yerine %0,568; üretici riski %17,70.
+
+**Sonuç:**
+
+- reading 0.70 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %82; korumalı kabul kuralına göre kabul.
+- reading 0.95 için -1 ≤ Normalised deviation from nominal ≤ 1 şartına uygunluk olasılığı: p_c = %56; korumalı kabul kuralına göre ret.
+
+**Notlar:**
+
+- TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
+
+**Çalıştırma:** `uncertainty run library/general/tur-guard-band-rss-tur1-5.json --lang tr`
+
+### Taşıt emisyonlarında karbon monoksit, tekrar üretilebilirlik verilerinden (ISO 21748 C.1)
 
 `iso21748-c1-co-emissions` — ISO 21748:2017, Annex C.1
 
-ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrarüretilebilirlik standart sapması standart belirsizliktir.
+ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol altındayken ortak çalışmanın tekrar üretilebilirlik standart sapması standart belirsizliktir.
 
 **Yaklaşım:** top-down (validasyon ve kalite kontrol verileri)
 
@@ -3423,7 +4806,7 @@ ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol alt
 
 **Çalıştırma:** `uncertainty run library/general/iso21748-c1-co-emissions.json --lang tr`
 
-### Aerobik koloni sayımı, un: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+### Aerobik koloni sayımı, un: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
 `iso21748-c3-aerobic-plate-count-flour` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
 
@@ -3439,7 +4822,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, un): ortak çalışmanın s_R ve s_r değerleri
 
 **Sonuç:**
 
-- U = %12 (k = 2,00), ölçülen değere göre bağıl
+- U = %13 (k = 2,00), ölçülen değere göre bağıl
 
 **Notlar:**
 
@@ -3447,7 +4830,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, un): ortak çalışmanın s_R ve s_r değerleri
 
 **Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang tr`
 
-### Aerobik koloni sayımı, karides: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+### Aerobik koloni sayımı, karides: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
 `iso21748-c3-aerobic-plate-count-shrimp` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
 
@@ -3467,7 +4850,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, karides): ortak çalışmanın s_R ve s_r değe
 
 **Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang tr`
 
-### Aerobik koloni sayımı, sebze: düzeltilmiş tekrarüretilebilirlik (ISO 21748 C.3)
+### Aerobik koloni sayımı, sebze: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
 `iso21748-c3-aerobic-plate-count-vegetables` — ISO 21748:2017, Annex C.3, Tables C.2–C.4
 
@@ -3504,7 +4887,7 @@ EA-4/02 S10: kumpas hatasının mastar bloğuyla ölçülmesi; iki dikdörtgen t
 
 **Sonuç:**
 
-- E_X = (100 ± 65) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E_X = (100 ± 65) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/length/ea402-s10-vernier-calliper.json --lang tr`
 
@@ -3524,7 +4907,7 @@ EA-4/02 S13: halka mastar çapının tek koordinatlı ölçüm makinesinde 40 mm
 
 **Sonuç:**
 
-- d_X = (0,2 ± 0,9) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- d_X = (0,2 ± 0,9) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: yukarı (GUM 7.2.6).
 
 **Notlar:**
 
@@ -3548,7 +4931,7 @@ EA-4/02 S13: halka mastar karşılaştırmasının sıcaklık alt bütçesi; sı
 
 **Sonuç:**
 
-- dl_T = (0,00 ± 0,30) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dl_T = (0,00 ± 0,30) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/length/ea402-s13-ring-gauge-temperature.json --lang tr`
 
@@ -3568,7 +4951,7 @@ EA-4/02 S4: 0 sınıfı çelik mastar bloğunun kalibre edilmiş standartla kar�
 
 **Sonuç:**
 
-- l_X = (49999926 ± 68) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- l_X = (49999926 ± 69) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/length/ea402-s4-gauge-block-50mm.json --lang tr`
 
@@ -3589,7 +4972,7 @@ JCGM 100 Ek H.1: 50 mm'lik bir uç mastarının kalibrasyonu; Welch–Satterthwa
 
 **Sonuç:**
 
-- l = (50000838 ± 92) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir.
+- l = (50000838 ± 92) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3600,7 +4983,7 @@ JCGM 100 Ek H.1: 50 mm'lik bir uç mastarının kalibrasyonu; Welch–Satterthwa
 
 ### Mastar kalibrasyonu, yaklaşık model
 
-`jcgm101-9.5-gauge-block-approximate` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1
+`jcgm101-9.5-gauge-block-approximate` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1; JCGM GUM-5:2026, Example 8, Table 8.2
 
 JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, eğrisel yamuk) GUM H.1 mastarı; %99 kapsam.
 
@@ -3615,13 +4998,13 @@ JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, e
 
 **Sonuç:**
 
-- dL = (838 ± 94) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir.
+- dL = (838 ± 94) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/length/jcgm101-9.5-gauge-block-approximate.json --lang tr`
 
 ### Mastar kalibrasyonu, doğrusal olmayan model
 
-`jcgm101-9.5-gauge-block-nonlinear` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1
+`jcgm101-9.5-gauge-block-nonlinear` — JCGM 101:2008, 9.5, Tables 10 and 11; JCGM 100:2008, H.1; JCGM GUM-5:2026, Example 8
 
 JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, eğrisel yamuk) GUM H.1 mastarı; %99 kapsam.
 
@@ -3636,7 +5019,7 @@ JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, e
 
 **Sonuç:**
 
-- dL = (838 ± 94) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir.
+- dL = (838 ± 94) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang tr`
 
@@ -3657,7 +5040,7 @@ Bir numunenin merkezinde beş kalınlık okumasının ortalaması, kontrolsüz b
 
 **Sonuç:**
 
-- w = (1,514 ± 0,019) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- w = (1,514 ± 0,019) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3682,7 +5065,7 @@ Standart mastar blokla karşılaştırma; iki sıcaklık etkisinin doğrusal top
 
 **Sonuç:**
 
-- L_X = (9,999940 ± 0,000081) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- L_X = (9,999940 ± 0,000081) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3707,7 +5090,7 @@ Standart mastar blokla karşılaştırma; iki sıcaklık etkisinin doğrusal top
 
 **Sonuç:**
 
-- L_X = (9,999940 ± 0,000082) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- L_X = (9,999940 ± 0,000082) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang tr`
 
@@ -3727,13 +5110,32 @@ NUM kılavuzu §8: GUM H.1'in birinci mertebe bütçesindeki altı girdiyle, hep
 
 **Sonuç:**
 
-- l = (50000838 ± 82) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,58 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir.
+- l = (50000838 ± 82) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,58 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
 - 'gum-h1-end-gauge' projesi GUM'un kendi değerlendirmesini yeniden üretir (θ ortalama ve çevrimsel kısmına ayrılır, Welch–Satterthwaite, k = 2,92).
 
 **Çalıştırma:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang tr`
+
+### Silindirik depolama tankının hacmi: kuvvetler çarpımı, Gauss formülü ve Monte Carlo (Possolo & Meija 2022)
+
+`possolo-meija-2022-storage-tank-volume` — Possolo & Meija, Sums, Products, and Ratios: Storage Tank, pp. 18–24
+
+V = πR²H; R = 8,40(3) m ve H = 32,50(7) m.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Kuvvetler çarpımında bağıl varyanslar üslerin kareleriyle toplanır: (u(V)/V)² = (2 × 0,03/8,40)² + (0,07/32,50)²; V = 7204 m³ ile u(V) = 53,7 m³ ≈ 54 m³.
+2. 10⁶ çekilişli Monte Carlo yöntemi 7204 m³ ± 54 m³ ve normalden ayırt edilemeyen bir dağılım verir.
+
+**Sonuç:**
+
+- V = (7200 ± 110) m³; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/length/possolo-meija-2022-storage-tank-volume.json --lang tr`
 
 ## Kütle
 
@@ -3756,7 +5158,7 @@ Kalibrasyon sırasında hava yoğunluğu bilinir (990 hPa, %50 bağıl nem, 21 �
 
 **Sonuç:**
 
-- E = (0,00070 ± 0,00033) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,25 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0,00070 ± 0,00033) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,25 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h1-100g-option2.json --lang tr`
 
@@ -3779,7 +5181,7 @@ Kalibrasyondan önce ayarlanmamış ve hava yoğunluğu bilinmiyor: kaldırma ku
 
 **Sonuç:**
 
-- E = (0,0013 ± 0,0039) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0,0013 ± 0,0039) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option1.json --lang tr`
 
@@ -3802,7 +5204,7 @@ Seçenek 1 gibi, ancak kaldırma kuvveti belirsizliği en kötü durum yerine od
 
 **Sonuç:**
 
-- E = (0,00130 ± 0,00098) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0,00130 ± 0,00098) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang tr`
 
@@ -3825,7 +5227,7 @@ Kalibrasyon sırasında hava yoğunluğu bilinir (990 hPa, %50 bağıl nem, 21 �
 
 **Sonuç:**
 
-- E = (0,00130 ± 0,00046) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,04 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0,00130 ± 0,00046) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,04 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option2.json --lang tr`
 
@@ -3847,7 +5249,7 @@ Sıfır yükte yalnızca sıfırda yuvarlama ve tekrarlanabilirlik katkı verir;
 
 **Sonuç:**
 
-- E = (0,00000 ± 0,00034) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,87 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0,00000 ± 0,00034) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,87 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang tr`
 
@@ -3931,7 +5333,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 
 **Sonuç:**
 
-- E = (0,0 ± 3,4) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,17 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0,0 ± 3,4) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,17 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-10kg-option1.json --lang tr`
 
@@ -3954,7 +5356,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 
 **Sonuç:**
 
-- E = (0 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,01 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,01 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -3982,7 +5384,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 
 **Sonuç:**
 
-- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4010,7 +5412,7 @@ Seçenek 1 gibi; kaldırma kuvveti belirsizliği odanın beklenen sıcaklık de�
 
 **Sonuç:**
 
-- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4039,7 +5441,7 @@ Kalibrasyon sırasındaki hava yoğunluğu CIPM formülünden hesaplanır ve kal
 
 **Sonuç:**
 
-- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (-10 ± 12) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,03 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4066,7 +5468,7 @@ Bulunduğu hâliyle, kalibrasyondan önce ayarlanmadan kalibre edilen 60 kg'lık
 
 **Sonuç:**
 
-- E = (0,0 ± 3,1) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,52 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0,0 ± 3,1) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,52 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang tr`
 
@@ -4148,7 +5550,7 @@ Yük alıcısında 10 × 1000 kg standart ağırlık; bu yük m_ref, ikame yükl
 
 **Sonuç:**
 
-- E = (10 ± 18) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,32 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (10 ± 19) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,32 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-10t-weights.json --lang tr`
 
@@ -4171,7 +5573,7 @@ Yük alıcısında 10 × 1000 kg standart ağırlık; bu yük m_ref, ikame yükl
 
 **Sonuç:**
 
-- E = (15 ± 30) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,07 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (15 ± 30) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,07 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4200,7 +5602,7 @@ Yük alıcısında 10 × 1000 kg standart ağırlık; bu yük m_ref, ikame yükl
 
 **Sonuç:**
 
-- E = (30 ± 48) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,02 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (30 ± 48) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,02 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4226,9 +5628,71 @@ Açık havada, bulunduğu hâliyle kalibre edilen 30 000 kg / 10 kg'lık karayol
 
 **Sonuç:**
 
-- E = (0 ± 18) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,65 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- E = (0 ± 18) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,65 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang tr`
+
+### Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/A)
+
+`cg18-h3-a-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/A to H3.4/A; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), H3.3/A (substitution loads, 7.1.2-5d, creep and hysteresis 7.4.4-7) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = 0,0009377, u(a₁) = 0,0003637.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 62,13 kg² (7.4.1-6); s tekrarlanabilirlik deneyinden (6,743 kg), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 0,0003637 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 2,309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), kaldırma kuvveti ilgili değil, sürüklenmeden ayar değişimi ΔE(Max)/(Max√3) = 0,0005774 (7.4.3-6), dara deney noktalarından (q_E,maks − q_E,min)/√12 = 0,0003457 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 0,0008311 (7.4.4-10); β_W² = 1,276e-06.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 15,76 kg + 0,002732·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 1 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 2169 kg (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = 0,0009377·I; χ²_göz = 0,167, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0,000364
+- U_gl(W) = 15,76 kg + 0,002732·R
+- R_min,SF = 2169 kg (Req = %1, SF = 1)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+- Kılavuz u(a₁) = 0,0003627 basar; kalibrasyon bütçesinin u(E_j) değerleriyle ağırlıklı uyum (C2.2-18b), basılı u(E_j) ya da nominal yüklerle de, 0,0003637 verir (araştırma günlüğü F98). Proje yeniden hesaplanan değeri kullanır; β_W², birinci mertebe doğrular ve minimum tartım basılı basamaklardan daha az değişir.
+- Sürüklenmeden kaynaklanan ayar değişimi ΔE(Max)/(Max·√3) (7.4.3-6), H3.4/A'da Max'taki hatayı (30 kg), H3.4/B'de ilk muayenedeki mpe'yi (15 kg) alır. Kullanımdaki kısa yükleme sürelerinde sünme ve histerezis ilgili değildir; SF = 2 ile minimum tartım 6 950 kg (A) ve 2 542 kg'dır (B).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-a-weighing-result.json --lang tr`
+
+### Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/B)
+
+`cg18-h3-b-weighing-result` — EURAMET Calibration Guide No. 18 v4.0 (2015), Appendix H3.1/B to H3.4/B; 7.4, 7.5; Appendix G
+
+Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda tartım sonucunun belirsizliği, okumalar düzeltilmeden genel belirsizlik ve minimum tartım.
+
+**Yaklaşım:** tartı aletinin hatalarına yaklaşım fonksiyonu (EURAMET cg-18, Ek C)
+
+**Adımlar:**
+
+1. Electronic weighbridge, Max 30 000 kg, d = 10 kg (calibrated with d_T = 1 kg and substitution loads). Sıfırdan geçen hata fonksiyonu E_yakl = a₁R (C2.2-16), H3.3/B (substitution loads, adjusted before calibration) bütçesinin p_j = 1/u²(E_j) ağırlıklarıyla uydurulmuştur (C2.2-18b, korelasyonsuz referans kütleler): a₁ = 0,0004286, u(a₁) = 0,0001508.
+2. Aralık başına mutlak terimler: α_W² = d₀²/12 + d²/12 + s² = 25,33 kg² (7.4.1-6); s tekrarlanabilirlik deneyinden (2,944 kg), d₀ = d₁.
+3. Bağıl terimler (kullanımda): uyumdan u(a₁) = 0,0001508 (C2.2-16d), sıcaklık K_T·ΔT/√12 = 2,309e-05 (K_T = 2e-06/K, ΔT = 40 K, 7.4.3-1), kaldırma kuvveti ilgili değil, sürüklenmeden ayar değişimi ΔE(Max)/(Max√3) = 0,0002887 (7.4.3-6), dara deney noktalarından (q_E,maks − q_E,min)/√12 = 0,0001154 (7.4.4-5), eksantriklik ΔI_ecc,maks/(L_ecc√3) = 0,000277 (7.4.4-10); β_W² = 1,967e-07.
+4. U(W) = 2√(α_W² + β_W²R²) (7.4.5-2, 7.5.1-2b), aralık sınırlarındaki U(W) değerlerinden geçen doğrularla değiştirilir (7.5.2-3d); okumalar düzeltilmeden genel belirsizlik |a₁|R'yi ekler: ilk aralıkta U_gl(W) = 10,07 kg + 0,001041·R (7.5.2-3e).
+5. Req = %1 ve güvenlik faktörü SF = 1 için minimum tartım: R_min,SF = α_gl·SF/(Req − β_gl·SF) = 1124 kg (G-9).
+
+**Sonuç:**
+
+- E_yakl(I) = 0,0004286·I; χ²_göz = 0,0769, ν = 6 (C2.2-2a ✓); s_m = 0 kg
+- u(a1) = 0,000151
+- U_gl(W) = 10,07 kg + 0,001041·R
+- R_min,SF = 1124 kg (Req = %1, SF = 1)
+
+**Notlar:**
+
+- Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
+- Kılavuz u(a₁) = 0,0001485 basar; kalibrasyon bütçesinin u(E_j) değerleriyle ağırlıklı uyum (C2.2-18b), basılı u(E_j) ya da nominal yüklerle de, 0,0001508 verir (araştırma günlüğü F98). Proje yeniden hesaplanan değeri kullanır; β_W², birinci mertebe doğrular ve minimum tartım basılı basamaklardan daha az değişir, β_W² (1,960·10⁻⁷ yerine 1,967·10⁻⁷) ve birinci mertebe eğim (6,113·10⁻⁴ yerine 6,128·10⁻⁴) dışında.
+- Sürüklenmeden kaynaklanan ayar değişimi ΔE(Max)/(Max·√3) (7.4.3-6), H3.4/A'da Max'taki hatayı (30 kg), H3.4/B'de ilk muayenedeki mpe'yi (15 kg) alır. Kullanımdaki kısa yükleme sürelerinde sünme ve histerezis ilgili değildir; SF = 2 ile minimum tartım 6 950 kg (A) ve 2 542 kg'dır (B).
+
+**Çalıştırma:** `uncertainty run library/mass/cg18-h3-b-weighing-result.json --lang tr`
 
 ### Terazi 400 g / 0,1 mg: hata yaklaşım fonksiyonu E = a₁I, ilk uyum (EURAMET cg-18 H4)
 
@@ -4331,11 +5795,11 @@ EA-4/02 S2: OIML M1 sınıfı ağırlığın F2 standarda karşı kütle kompara
 1. m_X = m_S + δm_D + δm + δm_C + δB (10 kg'dan sapmalar, mg).
 2. Gözlenen fark üç ABBA karşılaştırmasının ortalamasıdır (+10, +30, +20 mg); standart belirsizliği daha önceki bir değerlendirmeden birleştirilmiş standart sapma s_p = 25 mg ile hesaplanır: u(δm) = 25/√3 = 14,4 mg.
 3. Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır.
-4. m_X = 10 000,025 kg ± 58 mg (k = 2).
+4. m_X = 10 000,025 g ± 58 mg (k = 2), EA-4/02'de basıldığı gibi; yuvarlanmamış U = 58,5 mg, EA-4/02 6.3 yuvarlama kuralıyla 59 mg olarak raporlanır (nota bakınız).
 
 **Sonuç:**
 
-- m_X = (25 ± 58) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- m_X = (25 ± 59) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4343,9 +5807,35 @@ EA-4/02 S2: OIML M1 sınıfı ağırlığın F2 standarda karşı kütle kompara
 
 **Çalıştırma:** `uncertainty run library/mass/ea402-s2-weight-10kg.json --lang tr`
 
+### ILAC P14 5.5 raporlama kuralı: raporlanabilecek en küçük belirsizlik olarak CMC (EA-4/02 S2 kütle, örnek CMC)
+
+`ilac-p14-cmc-floor-weight-10kg` — EA-4/02 M:2022, S2; ILAC P14:09/2020, 5.3, 5.5
+
+EA-4/02 S2'deki 10 kg kütle (U = 58 mg); akredite CMC'si örnek olarak 80 mg alınan bir laboratuvar tarafından raporlanır: raporlanan U, değerlendirilen 58 mg değil CMC'dir.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. m_X = m_S + δm_D + δm + δm_C + δB (10 kg'dan sapmalar, mg).
+2. Gözlenen fark üç ABBA karşılaştırmasının ortalamasıdır (+10, +30, +20 mg); standart belirsizliği daha önceki bir değerlendirmeden birleştirilmiş standart sapma s_p = 25 mg ile hesaplanır: u(δm) = 25/√3 = 14,4 mg.
+3. Sürüklenme ±15 mg, komparatör ±10 mg ve hava kaldırma kuvveti ±10 mg (anma değerinin 1 × 10⁻⁶'sı) dikdörtgen dağılımlıdır.
+4. m_X = 10 000,025 g ± 58 mg (k = 2), EA-4/02'de basıldığı gibi; yuvarlanmamış U = 58,5 mg, EA-4/02 6.3 yuvarlama kuralıyla 59 mg olarak raporlanır (nota bakınız).
+5. ILAC P14:09/2020, 5.5: akredite bir kalibrasyon laboratuvarı CMC'sinin tanımladığından küçük bir ölçüm belirsizliği raporlayamaz. reporting.cmc ile program max(U, CMC) raporlar ve bunu sonuç ifadesinde belirtir; 5.3, U'yu en çok iki anlamlı basamakla sınırlar.
+
+**Sonuç:**
+
+- m_X = (25 ± 80) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. Değerlendirilen genişletilmiş belirsizlik, 59 mg, laboratuvarın kalibrasyon ve ölçüm yeteneğinden (CMC) küçük olduğundan CMC raporlanmıştır (ILAC P14:09/2020, 5.5). U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- 80 mg'lık CMC, değerlendirilen U'yu aşacak biçimde seçilmiş varsayımsal bir değerdir; bir akreditasyon kapsamından alınmamıştır.
+
+**Çalıştırma:** `uncertainty run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang tr`
+
 ### Kütle kalibrasyonu (birinci mertebe GUM)
 
-`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7
+`jcgm101-9.3-mass-calibration` — JCGM 101:2008, 9.3, Tables 6 and 7; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: 100 g'lık bir ağırlığın referans ağırlıkla karşılaştırılarak kalibrasyonu; birinci mertebe GUM ile MCM karşılaştırması.
 
@@ -4360,7 +5850,7 @@ JCGM 101 9.3: 100 g'lık bir ağırlığın referans ağırlıkla karşılaştı
 
 **Sonuç:**
 
-- dm = (1,23 ± 0,10) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dm = (1,23 ± 0,11) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4370,7 +5860,7 @@ JCGM 101 9.3: 100 g'lık bir ağırlığın referans ağırlıkla karşılaştı
 
 ### Kütle kalibrasyonu (ikinci mertebe terimli GUM)
 
-`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2
+`jcgm101-9.3-mass-calibration-higher-order` — JCGM 101:2008, 9.3, Table 6; JCGM 100:2008, 5.1.2; JCGM GUM-5:2026, Example 7, Table 7.2
 
 JCGM 101 9.3: aynı model, GUM 5.1.2'nin yüksek mertebe terimleriyle değerlendirilmiştir.
 
@@ -4385,7 +5875,7 @@ JCGM 101 9.3: aynı model, GUM 5.1.2'nin yüksek mertebe terimleriyle değerlend
 
 **Sonuç:**
 
-- dm = (1,23 ± 0,15) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- dm = (1,23 ± 0,15) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang tr`
 
@@ -4406,7 +5896,7 @@ Kütle karşılaştırıcısında F2 sınıfı bir standartla üç ara-okumalı 
 
 **Sonuç:**
 
-- W_X = (10000,025 ± 0,049) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- W_X = (10000,025 ± 0,049) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4431,11 +5921,11 @@ Kütle karşılaştırıcısında F2 sınıfı bir standartla üç ara-okumalı 
 
 **Sonuç:**
 
-- dI_X = (-0,10 ± 0,30) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dI_X = (-0,10 ± 0,31) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
-- Araştırma günlüğü F56: K.5.9'un u_i sütunundaki katkılar (0,05, 0,058, 0,029, 0,029, 0,115, 0,05 mg) 0,150 mg değil 0,153 mg verir; basılı değer, sürüklenme sınırı √3 yerine 2'ye bölünseydi elde edilirdi. K.5.1 modeline göre ΔI_X = I_X − W_S = 199,9999 g − 200 g = −0,10 mg iken raporlanan gösterge hatası +0,10 mg'dir.
+- Araştırma günlüğü F56: K.5.9'un u_i sütunundaki katkılar (0,05, 0,058, 0,029, 0,029, 0,115, 0,05 mg) 0,150 mg değil 0,153 mg verir; basılı değer, sürüklenme sınırı √3 yerine 2'ye bölünseydi elde edilirdi. K.5.1 modeline göre ve yalnızca standardın kütlesi W_S tam 200,0000 g alınırsa (K.5 sertifika değeri vermez) ΔI_X = I_X − W_S = 199,9999 g − 200 g = −0,10 mg iken raporlanan gösterge hatası +0,10 mg'dir.
 
 **Çalıştırma:** `uncertainty run library/mass/m3003-k5-weighing-machine-200g.json --lang tr`
 
@@ -4455,19 +5945,64 @@ TN 1900 E1: tek kefeli terazide üç tartımdan toz kütlesi; doğrusal model, G
 
 **Sonuç:**
 
-- m_P = (50,284 ± 0,014) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- m_P = (50,284 ± 0,014) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang tr`
 
 ## Fiziksel özellikler
 
-### Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2 Örnek C.2)
+### Bozunma için düzeltilmiş ²⁰⁷Bi kaynağının aktivitesi (JCGM GUM-5 Örnek 14)
+
+`gum5-e14-radioactive-decay-bi207` — JCGM GUM-5:2026, Example 14, 14.3 and Table 14.1
+
+Sertifikalı aktivite, literatürden yarı ömür ve Δt = 2,73 a ile A₁ = A₀ exp(−Δt ln2/T½); doğrusallaştırmanın denetimi.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. A₀ = 11,450 kBq, u = 0,050 kBq (sertifika); T½ = 32,9 a, u = 1,4 a (literatür, %4); Δt = t₁ − t₀ = 2,73 a, belirsizliksiz.
+2. E = exp(−Δt ln2/T½) = 0,94411, A₁ = 10,810 kBq. c(A₀) = E, c(T½) = A₁Δt ln2/T½² = 0,018898 kBq/a: katkılar 0,0472 kBq ve 0,0265 kBq, u(A₁) = 0,054 kBq.
+3. Model T½'ye göre doğrusal değildir. T½ ± 3u(T½) arasında doğrusallaştırılmış ve kesin modeller en çok 0,011 kBq farklıdır; bu u(A₁)'den çok küçüktür, dolayısıyla yayılım yasası yeterlidir (Tablo 14.1). Monte Carlo sonucu bunu doğrular.
+4. Doğrusal olmamanın pratik ölçüsü u(E)/E = ln2·(u(T½)/T½)·(Δt/T½)'dir; yaklaşık %1'e ulaştığında doğrusallaştırma denetlenmelidir (GUM-5 14.4.2). Burada %0,25'tir.
+
+**Sonuç:**
+
+- A_1 = (10,81 ± 0,11) kBq; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Çalıştırma:** `uncertainty run library/physical/gum5-e14-radioactive-decay-bi207.json --lang tr`
+
+### Altı tahribatlı deneyden çelik halatın kopma kuvveti (JCGM GUM-5 Örnek 15)
+
+`gum5-e15-wire-rope-breaking-force` — JCGM GUM-5:2026, Example 15, 15.3, 15.4 and 15.5
+
+F₀ = F̄ − B − B_ref − e_res − e_T: bir makaradan kesilen altı parça üzerindeki deneylerin ortalaması; yük hücreleri, çözünürlük ve sıcaklık için dikdörtgen düzeltmeler.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100) ve Monte Carlo yöntemi (JCGM 101)
+
+**Adımlar:**
+
+1. Kopma deneyi aynı numunede tekrarlanamaz; aynı makaradan altı parça denenir ve bunların değişkenliği (halatın homojen olmaması) sonuçlara gömülür (GUM-6 gözlem denklemleri).
+2. F̄ = 10005,7 kN, s = 1,75 kN, u(F̄) = s/√6 = 0,71 kN, ν = 5; B, B_ref, e_res, e_T düzeltmeleri yarı genişlikleri 6,8, 8,2, 8,7 ve 10,2 kN olan dikdörtgen dağılımlar.
+3. u(F₀) = 9,9 kN, ν_eff = 5·(u(F₀)/u(F̄))⁴ ≈ 1,8e+05, k = 1,96, U = 19,4 kN. Deney sonuçları u(F₀)'a yalnızca %0,2 katkı yapar; düzeltmeler baskındır.
+
+**Sonuç:**
+
+- F_0 = (10006 ± 19) kN; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+
+**Notlar:**
+
+- GUM-5 15.5.2, 10,1 kN MCM standart sapması ve [9986,0; 10 025,3] kN aralığı basar. F için belirtilen t dağılımıyla (ölçek u(F̄) = 0,7 kN, ν = 5) MCM standart sapması √(u_c² − u²(F̄) + u²(F̄)·5/3) = 9,93 kN'dur; pratikte GUF değeri 9,9 kN'dur. 10,1 kN, ölçek olarak tek deneyin standart sapması s = 1,8 kN alınırsa çıkar: 10,14 kN (araştırma günlüğü F77).
+
+**Çalıştırma:** `uncertainty run library/physical/gum5-e15-wire-rope-breaking-force.json --lang tr`
+
+### Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.2)
 
 `iso5725-2-c2-softening-point-pitch` — ISO 5725-2:2019, Annex C.2 (Tables C.7–C.12, Formulae C.25–C.33)
 
 ISO 5725-2:2019 C.2: halka-bilye yöntemiyle ziftin yumuşama noktası; dört düzeyde (88 °C – 102 °C), ikili sonuçlu ve iki eksik hücreli on altı laboratuvar.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -4495,7 +6030,7 @@ ISO 5725-2:2019 C.2: halka-bilye yöntemiyle ziftin yumuşama noktası; dört d�
 
 ISO 5725-2:2019 C.2.9: Örnek C.2 verilerinin kısıtlı en çok olabilirlikle (Ek B.2) değerlendirilmesi.
 
-**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrarüretilebilirlik (ISO 5725-2)
+**Yaklaşım:** laboratuvarlar arası deneyden tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2)
 
 **Adımlar:**
 
@@ -4515,6 +6050,119 @@ ISO 5725-2:2019 C.2.9: Örnek C.2 verilerinin kısıtlı en çok olabilirlikle (
 
 **Çalıştırma:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang tr`
 
+### ¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
+
+`koepke2017-half-life-cs137` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+MacMahon vd. (2004) tarafından derlenen 19 yayımlanmış yarı ömür heterojendir (Q = 336, serbestlik derecesi 18). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. DerSimonian–Laird: μ̂ = 10971,1 gün = 30,037 a, u_DL = 16,4 gün = 0,045 a, τ̂ = 52,2 gün.
+2. Doğrusal havuz 29,94 a ve 0,93 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir.
+3. Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4).
+
+**Sonuç:**
+
+- T½(¹³⁷Cs): uzlaşı değeri 10971,1 d, standart belirsizlik 16 d, %95 kapsam aralığı [10937,5, 11004,6] d (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 52 d; Cochran Q = 335,6, serbestlik derecesi 18
+- T½(¹³⁷Cs): 10936,4 d, standart belirsizlik 339 d, %95 kapsam aralığı [9707,80, 11406,0] d (doğrusal havuz)
+- T½(¹³⁷Cs): 10937,2 d, standart belirsizlik 67 d, %95 inanılırlık aralığı [10802,2, 11070,3] d; τ'nun sonsal ortancası 262 d (Bayes)
+
+**Notlar:**
+
+- Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır.
+
+**Çalıştırma:** `uncertainty run library/physical/koepke2017-half-life-cs137.json --lang tr`
+
+### ⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
+
+`koepke2017-half-life-sr90` — Koepke, §7.2, Tables 3 and 4; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+MacMahon vd. (2004) tarafından derlenen 11 yayımlanmış yarı ömür heterojendir (Q = 400, serbestlik derecesi 10). Uzlaşı değeri, veriler verildiği gibi gün biriminde hesaplanır; Koepke vd. bunu 365,25 günlük yıl cinsinden bildirir.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. DerSimonian–Laird: μ̂ = 10493,8 gün = 28,730 a, u_DL = 40,2 gün = 0,110 a, τ̂ = 104,7 gün.
+2. Doğrusal havuz 28,68 a ve 0,77 a standart belirsizlik verir: tutarsız sonuçların karışımı rastgele etkiler kestiriminden çok daha geniştir.
+3. Bootstrap'tan U95 %(D_j) ile eşdeğerlik dereceleri D_j = x_j − μ̂, hangi sonuçların modelin izin verdiği aralığın dışında kaldığını gösterir (NICOB §A.5.1; Koepke vd., Şekil 4).
+
+**Sonuç:**
+
+- T½(⁹⁰Sr): uzlaşı değeri 10493,8 d, standart belirsizlik 40 d, %95 kapsam aralığı [10410,2, 10577,0] d (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 105 d; Cochran Q = 400,3, serbestlik derecesi 10
+- T½(⁹⁰Sr): 10478,1 d, standart belirsizlik 282 d, %95 kapsam aralığı [9923,10, 11091,7] d (doğrusal havuz)
+- T½(⁹⁰Sr): 10485,7 d, standart belirsizlik 58 d, %95 inanılırlık aralığı [10364,6, 10597,8] d; τ'nun sonsal ortancası 147 d (Bayes)
+
+**Notlar:**
+
+- Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır.
+
+**Çalıştırma:** `uncertainty run library/physical/koepke2017-half-life-sr90.json --lang tr`
+
+### Newton çekim sabiti: 14 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
+
+`koepke2017-newtonian-constant-g` — Koepke, §7.1, Tables 1 and 2; NIST Consensus Builder user manual (2020 Nov 12), §A.2, §A.4, §A.5
+
+CODATA 2014 düzeltmesinde kullanılan 14 G ölçümü birbiriyle tutarsızdır (Cochran Q = 319, serbestlik derecesi 13): ölçülen değerler tipik beyan edilen belirsizliğin yaklaşık dört katı dağılır. Rastgele etkiler modeli bu karanlık belirsizliği (τ) tanır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. Ağırlıkları 1/u_j² olan ağırlıklı ortalama etrafında Cochran Q = 319,1; τ̂² = (Q − 13)/(Σu⁻² − Σu⁻⁴/Σu⁻²) bağıntısı τ̂ = 9,45841 × 10⁻¹⁵ m³ kg⁻¹ s⁻² verir; bu, beyan edilen belirsizliklerin ortancası 0,00027'nin üç katından fazladır.
+2. 1/(τ̂² + u_j²) ağırlıklarıyla uzlaşı değeri 6,673790, u_DL = 1/√Σw = 0,000279 (× 10⁻¹¹ m³ kg⁻¹ s⁻²). Ağırlıklar, UWash-00'ün tek başına ağırlığın çoğunu taşıyacağı alışılmış ağırlıklı ortalamaya göre çok daha dengelidir.
+3. Parametrik bootstrap (NICOB §A.2), τ̂'nun az serbestlik derecesine dayandığını hesaba katar: τ, Q'nun dağılımının gama yaklaşımından çekilir, yeni değerler N(μ̂, τ² + u_j²) dağılımından çekilir ve DerSimonian–Laird kestirimi yeniden hesaplanır; tekrarların standart sapması ile %2,5 ve %97,5 yüzdelikleri u'yu ve %95 kapsam aralığını verir.
+4. Doğrusal havuz 14 normal dağılımı eşit ağırlıkla karıştırır: ortalaması aritmetik ortalama 6,67367, standart sapması √(ort. u² + ort. (x − x̄)²) = 0,00124 olup u_DL'nin dört katından büyüktür; karışım çok tepelidir (Koepke vd., Şekil 2).
+
+**Sonuç:**
+
+- G: uzlaşı değeri 6,673790 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00028 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,673226, 6,674352] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,00095 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran Q = 319,1, serbestlik derecesi 13
+- G: 6,673667 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,0012 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,671166, 6,675791] 10⁻¹¹ m³ kg⁻¹ s⁻² (doğrusal havuz)
+- G: 6,673773 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00033 10⁻¹¹ m³ kg⁻¹ s⁻², %95 inanılırlık aralığı [6,673105, 6,674409] 10⁻¹¹ m³ kg⁻¹ s⁻²; τ'nun sonsal ortancası 0,0011 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
+- G: 6,673778 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00030 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0,0010 ± 0,00022 10⁻¹¹ m³ kg⁻¹ s⁻² (en çok olabilirlik)
+
+**Notlar:**
+
+- Basılı DerSimonian–Laird değeri 6,673 80, Tablo 1'den yeniden hesaplanan 6,673 790 değerinin son basamağında bir birim yukarıdadır (araştırma günlüğü F93). Basılı aralık (6,673 20, 6,674 40), 10⁻⁴'e yuvarlanmış bootstrap yüzdelikleriyle uyuşur.
+- NIST-82 ile LANL-97 (0,351) ve HUST-05 ile HUST-09 (0,134) arasındaki korelasyonlar, Tablo 2'nin DerSimonian–Laird satırında olduğu gibi göz ardı edilir.
+
+**Çalıştırma:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang tr`
+
+### 16 ölçümden Newton çekim sabiti: Knapp–Hartung düzeltmeli DerSimonian–Laird, en çok olabilirlik, hiyerarşik Bayes ve doğrusal havuz (Merkatas vd. 2019)
+
+`merkatas2019-newtonian-constant-g-shades` — Merkatas, Tables 1 and 4
+
+Koepke vd. (2017) verileri; JILA-10 düzeltilmiş (6,672 60 ± 0,000 25) ve 2018'deki iki HUST sonucu (salınım süresi ve açısal ivme geri beslemesi) eklenmiştir. Merkatas vd. on dört yöntemi karşılaştırır; bunların dördü programda vardır.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. DL (Tablo 4): Knapp–Hartung standart belirsizliği ve t₁₅ aralığıyla DerSimonian–Laird: 6,673 99, u 0,000 25, (6,673 46, 6,674 53), τ 0,000 56.
+2. ML: normal en çok olabilirlik, 6,673 90, u 0,000 25, τ 0,000 91; DL'nin moment kestirimi belirgin biçimde daha küçük bir τ verir.
+3. BG: NICOB hiyerarşik modeli (makalede MCMC, burada kesin ızgara): 6,673 89, u 0,000 27, (6,673 33, 6,674 42), τ'nun sonsal ortancası 0,000 95.
+4. LOP: doğrusal havuz, 6,673 77, u 0,001 17, (6,671 27, 6,675 77). Dört uzlaşı değerinin yayılımı (0,000 22) standart belirsizlikleriyle karşılaştırılabilir: yöntem seçimi kendisi bir belirsizlik kaynağıdır.
+
+**Sonuç:**
+
+- G: uzlaşı değeri 6,673993 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00016 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,673664, 6,674323] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 0,00056 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran Q = 197,7, serbestlik derecesi 15
+- G: 6,673773 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,0012 10⁻¹¹ m³ kg⁻¹ s⁻², %95 kapsam aralığı [6,671276, 6,675763] 10⁻¹¹ m³ kg⁻¹ s⁻² (doğrusal havuz)
+- G: 6,673896 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00027 10⁻¹¹ m³ kg⁻¹ s⁻², %95 inanılırlık aralığı [6,673342, 6,674415] 10⁻¹¹ m³ kg⁻¹ s⁻²; τ'nun sonsal ortancası 0,00094 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
+- G: 6,673900 10⁻¹¹ m³ kg⁻¹ s⁻², standart belirsizlik 0,00025 10⁻¹¹ m³ kg⁻¹ s⁻²; τ = 0,00091 ± 0,00020 10⁻¹¹ m³ kg⁻¹ s⁻² (en çok olabilirlik)
+
+**Notlar:**
+
+- Uygulanmayanlar: Birge çarpımsal modelleri (BRE, BRM, BRQ), CODATA genişletmesi (MTE), Mandel–Paule, REML, Student-t etkileri, makalenin Laplace modeli (Laplace etkileri ve hataları) ve Bayesçi karışım modeli (BMM).
+
+**Çalıştırma:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang tr`
+
 ### Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13)
 
 `nist-tn1900-e13-thermal-expansion-gaussian-95` — NIST Technical Note 1900, Example E13, Exhibit 20
@@ -4531,7 +6179,7 @@ TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki s�
 
 **Sonuç:**
 
-- alpha = (17,3 ± 3,4) 10⁻⁶ K⁻¹; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- alpha = (17,3 ± 3,4) 10⁻⁶ K⁻¹; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4555,7 +6203,7 @@ TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki s�
 
 **Sonuç:**
 
-- alpha = (17,3 ± 4,5) 10⁻⁶ K⁻¹; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,58 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir.
+- alpha = (17,3 ± 4,5) 10⁻⁶ K⁻¹; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,58 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4622,7 +6270,7 @@ TN 1900 E3: bir NaOH çözeltisinin dinamik viskozitesi kalibrasyon sıvısıyla
 
 **Sonuç:**
 
-- mu_M = (5,7 ± 2,0) mPa s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- mu_M = (5,7 ± 2,0) mPa s; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4645,7 +6293,7 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 
 **Sonuç:**
 
-- sigma = (5,6703725 ± 0,0000401) 10⁻⁸ W m⁻² K⁻⁴; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- sigma = (5,6703725 ± 0,0000401) 10⁻⁸ W m⁻² K⁻⁴; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 3 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3). Not: ILAC P14:09/2020, 5.3, kalibrasyon sertifikalarında genişletilmiş belirsizlik için en çok iki anlamlı basamağa izin verir.
 
 **Notlar:**
 
@@ -4653,7 +6301,139 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 
 **Çalıştırma:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang tr`
 
+### Birbiriyle tutarsız 22 kestirimden Hubble–Lemaître sabiti: Laplace etkili Bayesçi uzlaşı (Possolo & Meija 2022)
+
+`possolo-meija-2022-hubble-lemaitre-constant-laplace` — Possolo & Meija, Consensus Building, Hubble-Lemaître Constant, pp. 146–151
+
+H₀'ın son kestirimleri (Planck hariç) belirsizliklerinin öngördüğünden daha fazla dağılır. NIST Decision Tree'nin önerdiği gibi Laplace deney etkileri λ_j (standart sapma τ) ve bildirilen u_j'li normal hatalarla H₀,j = H₀ + λ_j + ε_j modeli bunları bir uzlaşı değerinde birleştirir.
+
+**Yaklaşım:** laboratuvarlar arası karşılaştırmanın uzlaşı değeri (NIST Consensus Builder)
+
+**Adımlar:**
+
+1. 22 kestirimin standart sapması 2,76, belirsizliklerinin ortancası 1,95 (km/s)/Mpc'dir; ön kestirim τ = √(2,76² − 1,95²) = 1,95 (km/s)/Mpc.
+2. Önseller kitabın Stan kodundaki gibidir: H₀ ~ N(67,4, 100²); τ ortancası mad(x) = 1,4826 × ortanca|x − ortanca(x)| = 2,89107 (km/s)/Mpc olan yarım Cauchy. Laplace etkilerinin ölçeği τ/√2'dir, böylece τ bunların standart sapmasıdır.
+3. Her kestirimin olabilirliği bir Laplace ve bir normal yoğunluğun evrişimidir ve erfc ile kapalı bir biçimi vardır; (H₀, τ) sonsalı MCMC yerine iki boyutlu bir ızgarada hesaplanır (kitap: Stan, 10⁶ yinelemeli 4 zincir).
+4. Sonsal: basılı değerlerle aynı, H₀ = 71,69 (km/s)/Mpc, u = 0,66 (km/s)/Mpc, τ ortancası 2,03 (km/s)/Mpc. Planck'ın 67,36(54) değeriyle karşılaştırma: z = (71,69 − 67,36)/√(0,66² + 0,54²) = 5,1; Hubble gerilimi.
+
+**Sonuç:**
+
+- H₀: uzlaşı değeri 71,5428 (km/s)/Mpc, standart belirsizlik 0,63 (km/s)/Mpc, %95 kapsam aralığı [70,2766, 72,7883] (km/s)/Mpc (DerSimonian–Laird, parametrik bootstrap)
+- Karanlık belirsizlik τ = 2,0 (km/s)/Mpc; Cochran Q = 46,66, serbestlik derecesi 21
+- H₀: 71,6915 (km/s)/Mpc, standart belirsizlik 0,66 (km/s)/Mpc, %95 inanılırlık aralığı [70,4037, 73,0082] (km/s)/Mpc; τ'nun sonsal ortancası 2,0 (km/s)/Mpc (Bayes)
+
+**Notlar:**
+
+- Etiketler kitabı izler; hst etiketli iki çalışma ilk yazarlarıyla ayrılmıştır (Riess 2019, Freedman 2019). Kitapta hafif asimetrik belirsizlikler sol ve sağ belirsizliklerin geometrik ortalamasıyla değiştirilmiştir.
+- Karşılaştırma için DerSimonian–Laird kestirimi (normal etkiler) de gösterilmiştir.
+
+**Çalıştırma:** `uncertainty run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang tr`
+
 ## Basınç
+
+### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 1 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-applied` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.3
+
+Senaryo 1: referans düzeltmesi Δp_m = %0,05 p_std uygulanır, u(Δp_m) = 0,5 Pa. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106).
+2. f = 1,0025, U(f) = 0,0071 (k = 2), p_c = %74,5. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.
+
+**Sonuç:**
+
+- f = (1,0024 ± 0,0071); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+- f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %75; basit kabul kuralına göre kabul.
+
+**Notlar:**
+
+- Tablo E2.2.2, 4–6. noktalar için U(e)'yi 0,0025, 0,0017 ve 0,0011 olarak basar; doğrusu 0,025, 0,017 ve 0,012'dir (U(f) doğru basılmıştır). Tablo E2.2.3, E2.2.5 ve E2.2.7, p_std değerlerinin sütununa 'p_UUC' başlığını verir. E2.2.6.1'deki çalışılmış örnek 13. nokta için σ = 0,002 kullanır; bu, Tablo E2.2.2'deki genişletilmiş U(f)'dir; u(f) = 0,001 ile p_c, tablodaki gibi %100'dür (araştırma günlüğü F88).
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang tr`
+
+### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 3 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.7
+
+Senaryo 3: düzeltme ve belirsizliği yok sayılır. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106).
+2. f = 1,0020, U(f) = 0,0059 (k = 2), p_c = %83,8. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.
+
+**Sonuç:**
+
+- f = (1,0020 ± 0,0059); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+- f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %84; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang tr`
+
+### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 2 (EMUE E2.2)
+
+`emue-e2.2-vacuum-gauge-correction-in-uncertainty` — EMPIR 17NRM05 EMUE, Example E2.2, Tables E2.2.1–E2.2.5
+
+Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05 p_std)²/3. Kalibrasyonun 8. noktası (256 Pa); şartname: okuma hatası ±%0,5 içinde, yani 0,995 ≤ f ≤ 1,005.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. Bir kapasitif diyafram ölçerin (11 kPa tam skala) referans ölçere karşı düzeltme çarpanı f = (p_std + Δp_m)/p_UUC (E2.2.2); uygunluk olasılığı 0,995 ≤ f ≤ 1,005 için normal olasılıktır (JCGM 106).
+2. f = 1,0020, U(f) = 0,0071 (k = 2), p_c = %77,8. Üç senaryoda bu noktadaki p_c %74,5, 77,8 ve 83,8'dir: bilinen düzeltmeyi belirsizliğe katmak (2) ya da yok saymak (3) f'yi 1'e yaklaştırır ve burada p_c'yi artırır; karar olduğundan güvenli görünür.
+
+**Sonuç:**
+
+- f = (1,0020 ± 0,0071); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+- f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %78; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang tr`
+
+### Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon dahil (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlated` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m), iki ölçer için p = p′(1 + αΔT) (E2.2.8); 8. nokta, şartname okumanın ±%0,5'i.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. İki basınç da α = 1/300 K⁻¹ üzerinden aynı sıcaklık hatası ΔT'ye bağlıdır (tahmin 0, u = 0,57 K); bu onları ilişkilendirir: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). ΔT'yi tek girdi olarak girmek programın korelasyonu taşımasını sağlar; iki bağımsız ΔT girmek onu yok sayar.
+2. |Δp| ≤ 255,9 Pa'nın %0,5'i için u(Δp) = 0,91 Pa ve p_c = 0,75; korelasyonu yok saymak 1,14 Pa ve p_c = 0,67 verirdi. ΔT = 0 olduğundan u(α) birinci mertebede katkı vermez.
+
+**Sonuç:**
+
+- dp = (-0,6 ± 1,8) Pa; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+- dp için -1,2795 Pa ≤ dp ≤ 1,2795 Pa şartına uygunluk olasılığı: p_c = %75; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang tr`
+
+### Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon yok sayılmış (EMUE E2.2.7)
+
+`emue-e2.2-vacuum-gauge-sum-model-correlation-ignored` — EMPIR 17NRM05 EMUE, Example E2.2, E2.2.7
+
+Δp = p_UUC − (p_std + Δp_m), iki ölçer için p = p′(1 + αΔT) (E2.2.8); 8. nokta, şartname okumanın ±%0,5'i.
+
+**Yaklaşım:** GUM belirsizlik yaklaşımı (JCGM 100)
+
+**Adımlar:**
+
+1. İki basınç da α = 1/300 K⁻¹ üzerinden aynı sıcaklık hatası ΔT'ye bağlıdır (tahmin 0, u = 0,57 K); bu onları ilişkilendirir: u(p_std, p_UUC) = (p′_std α)(p′_UUC α)u²(ΔT). ΔT'yi tek girdi olarak girmek programın korelasyonu taşımasını sağlar; iki bağımsız ΔT girmek onu yok sayar.
+2. |Δp| ≤ 255,9 Pa'nın %0,5'i için u(Δp) = 1,14 Pa ve p_c = 0,67; korelasyonla u(Δp) = 0,91 Pa ve p_c = 0,75. ΔT = 0 olduğundan u(α) birinci mertebede katkı vermez.
+
+**Sonuç:**
+
+- dp = (-0,6 ± 2,3) Pa; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
+- dp için -1,2795 Pa ≤ dp ≤ 1,2795 Pa şartına uygunluk olasılığı: p_c = %67; basit kabul kuralına göre kabul.
+
+**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang tr`
 
 ### Ölü ağırlık test cihazına karşı 2 MPa'da dijital basınç göstergesi (UKAS M3003 K.8)
 
@@ -4672,7 +6452,7 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 
 **Sonuç:**
 
-- e = (17 ± 86) ppm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- e = (17 ± 86) ppm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4697,7 +6477,7 @@ EA-4/02 S11: bloğun sıcaklığının kalibre edilmiş platin direnç termometr
 
 **Sonuç:**
 
-- t_X = (180100 ± 330) mK; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- t_X = (180100 ± 330) mK; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4720,7 +6500,7 @@ EA-4/02 S5 (ikinci bütçe): kalibre edilen N tipi termokuplun 1000 °C'deki emk
 
 **Sonuç:**
 
-- V_X = (36229 ± 50) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- V_X = (36229 ± 50) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4743,13 +6523,13 @@ EA-4/02 S5 (birinci bütçe): 1000 °C'deki fırının sıcaklığının N tipi 
 
 **Sonuç:**
 
-- t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang tr`
 
 ### Direnç termometresiyle Celsius sıcaklığı, örtük model (JCGM 102 9.5.2)
 
-`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13)
+`jcgm102-9.5.2-resistance-thermometer` — JCGM 102:2011, 9.5.2 (Tables 12, 13); JCGM GUM-5:2026, Example 13, 13.2
 
 JCGM 102:2011 9.5.2: termometrenin korelasyonlu kalibrasyon sabitleriyle ölçülen bir direnç oranından tek bir sıcaklık.
 
@@ -4768,7 +6548,7 @@ JCGM 102:2011 9.5.2: termometrenin korelasyonlu kalibrasyon sabitleriyle ölçü
 
 ### Tek direnç termometresiyle on Celsius sıcaklığı, örtük model (JCGM 102 9.5.3)
 
-`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16)
+`jcgm102-9.5.3-ten-temperatures` — JCGM 102:2011, 9.5.3 (Tables 14–16); JCGM GUM-5:2026, Example 13, 13.3, Tables 13.4 and 13.5
 
 JCGM 102:2011 9.5.3: aynı kalibre termometreyle ölçülen on sıcaklık, kalibrasyon sabitleri üzerinden koreledir (Tablo 15 ve 16).
 
@@ -4817,7 +6597,7 @@ L probu kabın dışına bağlanır; düzeltmesi ΔT_u = 0,000 55·I_u + 0,419 �
 
 **Sonuç:**
 
-- T_g = (22,97 ± 0,17) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- T_g = (22,97 ± 0,17) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/temperature/m3003-k11-gas-temperature.json --lang tr`
 
@@ -4838,7 +6618,7 @@ Laboratuvar probu L'nin 20,4 °C'de, kalibrasyon fonksiyonu ΔT_S = 0,000 01·I_
 
 **Sonuç:**
 
-- dT_L = (0,432 ± 0,084) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- dT_L = (0,432 ± 0,084) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/temperature/m3003-k11-probe-calibration.json --lang tr`
 
@@ -4860,7 +6640,7 @@ K.7'nin iki bütçesi tek modelde: fırın sıcaklığı bilinmeyen termoçiftin
 
 **Sonuç:**
 
-- V_X = (36229 ± 52) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- V_X = (36229 ± 52) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 
@@ -4884,7 +6664,7 @@ K.7'nin birinci kısmı: iki referans termoçiftten sıcak bağlantılardaki sı
 
 **Sonuç:**
 
-- t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95,45 kapsam olasılığına karşılık gelir.
+- t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Çalıştırma:** `uncertainty run library/temperature/m3003-k7-thermocouple-furnace.json --lang tr`
 
@@ -4904,7 +6684,7 @@ TN 1900 E2: 22 günlük okuma için t_i = τ + E_i gözlem denklemi; 21 serbestl
 
 **Sonuç:**
 
-- tau = (25,6 ± 1,8) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,08 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir.
+- tau = (25,6 ± 1,8) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,08 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
 **Notlar:**
 

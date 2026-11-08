@@ -9,7 +9,7 @@
     },
     "description": {
       "en": "JCGM 106:2012 8.3.3 Example 2: threshold 2.00 µg/L; a result is suspect if the probability that the threshold is exceeded is at least 95 %; reproducibility s = 0.20 µg/L from ten spiked blanks, t distribution with ν = 9.",
-      "tr": "JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrarüretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı."
+      "tr": "JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olasılığı en az %95 ise sonuç şüphelidir; on katkılı kör numuneden tekrar üretilebilirlik s = 0,20 µg/L, ν = 9 ile t dağılımı."
     },
     "explanation": [
       {

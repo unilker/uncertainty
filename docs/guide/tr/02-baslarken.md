@@ -40,20 +40,26 @@ cargo build --release
 | Seçenek | Anlamı |
 |---|---|
 | `--no-mcm` | Monte Carlo hesaplarını ve bunların referans değerlerini atlar |
-| `--report DOSYA` | yazılım doğrulama raporu yazar; DOSYA `.html` ile bitiyorsa HTML, aksi halde Markdown |
-| `--lang en` / `--lang tr` | doğrulama raporunun dili |
+| `--lab YOL` | laboratuvarın kendi projeleri (dosya veya klasör); raporda ayrı bir bölümde verilir |
+| `--report DOSYA` | yazılım validasyon raporu yazar; DOSYA `.html` ile bitiyorsa HTML, aksi halde Markdown |
+| `--lang en` / `--lang tr` | validasyon raporunun dili |
 
-Doğrulama raporu, ISO/IEC 17025:2017 7.11.2'nin yazılımın kullanımdan önce ve değişikliklerden sonra
-doğrulanması için istediği kayıttır. Raporda program sürümü, platform, tarih ve seçenekler yer alır. Sonuçlar
-yönteme göre özetlenir. Her proje kaynağı, karşılaştırılan değer sayısı ve farkın toleransa en büyük oranıyla
-listelenir. Toleransı dışında kalan değerler ayrıca sıralanır. Rapor, kontrol eden kişinin imzası için bir
+Validasyon raporu, ISO/IEC 17025:2017 7.11.2'nin yazılımın kullanımdan önce ve değişikliklerden sonra
+validasyonu için istediği kayıttır. Rapor yazılımı sürüm, git commit'i ve tarihi (derleme kaydedilmemiş değişiklik
+içeriyorsa "-modified"), derleyici ve platformla tanımlar; tarih, seçenekler ve denetlenen dosya kümesinin SHA-256
+özeti de yer alır. Sonuçlar yönteme göre özetlenir. Her proje kaynağı, karşılaştırılan değer sayısı, farkın
+toleransa en büyük oranı ve dosyanın SHA-256 özetiyle listelenir (dosya girdileri, referans değerleri ve tohum,
+deneme sayısı, yuvarlama gibi ayarları içerir). Laboratuvarın `--lab` ile verilen kendi projeleri ayrı bir bölümdedir. Toleransı dışında kalan değerler ayrıca sıralanır. Rapor, kontrol eden kişinin imzası için bir
 satırla biter. Bir laboratuvar genellikle yeni bir sürümü kurduktan sonra
 
 ```sh
-uncertainty check library --report dogrulama-2026-10.html --lang tr
+uncertainty check library --lab projelerim --report validasyon-2026-10.html --lang tr
 ```
 
-komutunu çalıştırır ve raporu, aynı biçimde denetlediği kendi projeleriyle birlikte dosyalar.
+komutunu çalıştırır ve raporu dosyalar. Her hesap raporu da yazılım kimliği ve değerlendirilen projenin SHA-256
+özetiyle biter; böylece teknik kayıt (7.5) bir sonucu girdilerine ve validasyonu yapılmış derlemeye bağlar.
+Kütüphane örnekleri uygulamayı yayımlanmış değerlere karşı doğrular (verification); laboratuvarın kendi belirlediği
+referans değerli projeleri ise yazılımın kendi kapsamı için validasyonunu sağlar (validation; VIM 2.44–2.45).
 
 ## 2.3 İlk hesaplama
 

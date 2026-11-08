@@ -33,16 +33,41 @@ The guard band is set in one of these ways:
   of non-conformity (guarded rejection) reaches the given value. With `u_relative` the uncertainty may depend
   on the measured value, as in the speed-limit example (8.3.3, Example 1).
 
+For a positive measurand with a large relative uncertainty (above about 20 %), `"distribution": "lognormal"`
+uses a lognormal PDF with median equal to the measured value and s_G = u/|y| (Eurachem/CITAC compliance guide
+2021, Annex A, Case 4, Equation 2), or s_G = √ln(1 + (u/y)²) with `"exact_sdlog": true`. With a constant
+relative uncertainty the acceptance limits are then exactly L·exp(±k·s_G). The guide's normal limits L(1 ± k·u_rel)
+take u at the limit, i.e. a fixed `u` = u_rel·L. With `u_relative` and a normal PDF the program applies the
+relative uncertainty at the measured value, which gives L/(1 ∓ k·u_rel).
+
 Acceptance limits can also be given directly with `acceptance_lower` and `acceptance_upper`; the rule is then
 inferred from them.
+
+**Guard bands from the test uncertainty ratio.** Calibration practice (ANSI/NCSL Z540.3 and its handbook) sets
+the acceptance limits from TUR = (T_U − T_L)/2 / U₉₅. U₉₅ is the expanded uncertainty for a coverage probability of
+95 % (Z540.3): by default k₉₅·u with k₉₅ the 97.5 % quantile of the t distribution for the effective degrees of
+freedom (1.960 for ν = ∞); `"tur_u95": "two_u"` uses U₉₅ = 2u as Sandia's Suncal does (then TUR equals C_m of
+JCGM 106). With 2u the TUR is about 2 % lower for large ν and higher for small ν (k₉₅ > 2). With `tur_method`
+the limits are ± GBF·(T_U − T_L)/2 about the centre: `rss` GBF = √(1 − 1/TUR²); `dobbert` (managed guard band,
+"method 6") GBF = 1 − M/TUR with M = 1.04 − exp(0.38 ln TUR − 0.54), which keeps the global PFA at or below about 2 %
+for any in-tolerance probability; `rp10` (NCSLI RP-10)
+GBF = 1.25 − 1/TUR; `test95` GBF = 1 − 1/TUR (both 1 above TUR = 4). A two-sided tolerance and a fixed u are
+needed. The factors and the global risks agree with Sandia's Suncal (library projects `tur-guard-band-*`, with
+`"tur_u95": "two_u"`). Above TUR = 4.59 Dobbert's M is negative and GBF exceeds 1: the acceptance limits would lie
+outside the tolerance (a guarded rejection). The program then limits GBF to 1 (simple acceptance) and says so in the
+report; `"tur_allow_factor_above_one": true` keeps the factor, which should be done only under a decision rule
+agreed with the customer (ISO/IEC 17025:2017 7.1.3, ILAC G8). The primary sources (Dobbert 2008, the Z540.3
+handbook) have not yet been read; the formulas are those implemented in Suncal. A guard band for a required global
+PFA is `target_consumer_risk` (11.3).
 
 For each result the report gives p_c, the decision and the specific risk. If the item is accepted, this is
 the consumer's risk 1 − p_c; if it is rejected, it is the producer's risk p_c (9.3.2).
 
 ## 11.3 Global risks of a production process (clause 9)
 
-With a `process` (a `normal` or `gamma` PDF with `mean` and `sd`) and a fixed `u` of the measuring system, the
-program integrates Formulae (17)–(20) numerically. It reports:
+With a `process` (a `normal` or `gamma` PDF with `mean` and `sd`, or a `lognormal` PDF with `meanlog` and
+`sdlog` of ln Y) and the `u` of the measuring system, the program integrates Formulae (17)–(20) numerically.
+With `u_relative` the standard deviation of the measuring-system PDF is u_rel·η, proportional to the true value. It reports:
 - the fraction of conforming items;
 - the fraction of accepted items;
 - the global consumer's risk R_C (accepted although non-conforming);
@@ -51,7 +76,14 @@ program integrates Formulae (17)–(20) numerically. It reports:
 
 With `target_consumer_risk` it finds the guard-band multiplier r that gives the required R_C (9.5.4). A gamma
 PDF suits properties that cannot be negative, such as the radial error motion of the ball-bearing example
-(Annex B).
+(Annex B). A lognormal PDF suits environmental concentrations (JCGM GUM-5 Example 10). A required R_C needs a
+fixed `u`.
+
+**Specific risks with a prior.** In a project of its own with a `process`, `"posterior": true` computes the
+conformance probability of each result from the posterior PDF g(η | η_m) ∝ g₀(η)·h(η_m | η). The prior g₀ is
+the process PDF; the likelihood is normal with the u of the result (u_rel·η_m with `u_relative`; JCGM 106 6.2,
+Annex A). Near a limit in the tail of the prior this matters: in GUM-5 Example 10, at 0.225 mg/m³, the specific
+producer's risk is 11.3 % with the lognormal prior and 5.6 % without it.
 
 ## 11.4 Two ways to use it
 
@@ -65,3 +97,23 @@ PDF suits properties that cannot be negative, such as the radial error motion of
 The ball-bearing example of JCGM 106 is inconsistent. The text states the acceptance interval as
 0 ≤ Y_m ≤ A and the formula for R_C uses it, but the printed R_P (7.5 %) only follows if the lower limit is
 left out; with it, R_P is 8.9 % (research log F45).
+
+## 11.5 Items with several correlated properties (total risks)
+
+A medicine with four active components, or a reference material certified for several elements, conforms only if
+*all* its properties conform. Even when every component is assessed with small risks, the probability that at least
+one true value is out of tolerance can be appreciable, and correlations between the components change it. The
+section `multicomponent_conformity` (EMUE compendium 2021, Example E2.1; IUPAC project on total risks) uses:
+
+- a multivariate normal prior of the true values, from production data: means, standard deviations, correlation
+  matrix;
+- a multivariate normal measuring-system PDF with u_i = u_rel·c_mi and the same correlations;
+- simple acceptance: an item is accepted when every test result lies within its tolerance interval.
+
+For each vector of test results the posterior is normal. The **total specific consumer's risk** of an accepted
+item is the probability that at least one true value lies outside its interval. It is computed by integrating the
+posterior over the tolerance box with the method of Genz, which gives a standard error of about 10⁻⁶. For a
+rejected item the total specific producer's risk is given. The **total global risks** come from a Monte Carlo
+simulation of production and measurement. The EMUE example (NyQuil tablets) reproduces with 0.29 %, 1.17 % and
+0.02 % specific and 0.18 % global consumer's risk.
+

@@ -153,10 +153,10 @@ class _SettingsEditorState extends State<SettingsEditor> {
             width: 260,
             child: DropdownButtonFormField<String>(
               isExpanded: true,
-              initialValue: (_reporting['rounding'] as String?) ?? 'half_even',
+              initialValue: (_reporting['rounding'] as String?) ?? 'ea4_02',
               decoration: InputDecoration(labelText: s['rounding'], isDense: true),
               items: [
-                for (final r in ['half_even', 'half_up', 'up']) DropdownMenuItem(value: r, child: Text(s[r])),
+                for (final r in ['ea4_02', 'half_even', 'half_up', 'up']) DropdownMenuItem(value: r, child: Text(s[r])),
               ],
               onChanged: (v) => _edit(() => _reporting['rounding'] = v),
             ),

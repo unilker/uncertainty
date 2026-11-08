@@ -1,0 +1,101 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "iupac2024-5c-benzoic-acid-purity-beta",
+    "field": "chemistry",
+    "title": {
+      "en": "Purity of benzoic acid (NIST PS1) expressed as a beta distribution: an asymmetric interval below 1 g/g (IUPAC 2024, Example 5C)",
+      "tr": "Beta dağılımı olarak ifade edilen benzoik asit saflığı (NIST PS1): 1 g/g'nin altında asimetrik bir aralık (IUPAC 2024, Örnek 5C)"
+    },
+    "description": {
+      "en": "The state of knowledge about the mass fraction is a beta distribution with α = 88 873.7 and β = 7.11; its standard deviation is the standard uncertainty, and credible intervals follow from its quantiles.",
+      "tr": "Kütle kesri hakkındaki bilgi durumu α = 88 873,7 ve β = 7,11 olan bir beta dağılımıdır; standart sapması standart belirsizliktir, inanılırlık aralıkları kantillerinden çıkar."
+    },
+    "explanation": [
+      {
+        "en": "Mean α/(α + β) = 0.999920 g/g; s.d. = 30.0 × 10⁻⁶ g/g.",
+        "tr": "Ortalama α/(α + β) = 0,999920 g/g; s.s. = 30,0 × 10⁻⁶ g/g."
+      },
+      {
+        "en": "The 95 % interval from the 2.5 % and 97.5 % quantiles, 0.999 851 to 0.999 968 g/g, extends 0.069 mg/g below and 0.048 mg/g above the mean: a result near a physical bound is asymmetric, which a symmetric y ± U cannot show (compare the BIPM ISRD-06 value 999.8 +0.2/−1.5 mg/g).",
+        "tr": "%2,5 ve %97,5 kantillerinden %95 aralığı, 0,999 851 – 0,999 968 g/g, ortalamanın 0,069 mg/g altına ve 0,048 mg/g üstüne uzanır: fiziksel bir sınıra yakın bir sonuç asimetriktir; simetrik y ± U bunu gösteremez (BIPM ISRD-06'daki 999,8 +0,2/−1,5 mg/g değeriyle karşılaştırın)."
+      }
+    ],
+    "tags": [
+      "iupac-2024",
+      "beta-distribution",
+      "purity",
+      "asymmetric",
+      "bounded"
+    ],
+    "notes": [],
+    "sources": [
+      {
+        "document": "Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134",
+        "section": "Example 5C",
+        "url": "https://doi.org/10.1515/pac-2022-1203"
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "w_BA",
+      "unit": "g/g",
+      "expression": "w",
+      "description": {
+        "en": "Mass fraction of benzoic acid in NIST PS1",
+        "tr": "NIST PS1'de benzoik asidin kütle kesri"
+      }
+    },
+    "inputs": [
+      {
+        "name": "w",
+        "unit": "g/g",
+        "description": {
+          "en": "Beta distribution that approximates the Bayesian posterior of the purity",
+          "tr": "Saflığın Bayesçi sonsalına yaklaşan beta dağılımı"
+        },
+        "distribution": {
+          "type": "beta",
+          "alpha": 88873.7,
+          "beta": 7.11
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {},
+    "mcm": {
+      "trials": 1000000,
+      "seed": 1,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 0.99992,
+        "tolerance": 5e-06
+      },
+      "standard_uncertainty": {
+        "value": 3e-05,
+        "tolerance": 5e-07
+      }
+    },
+    "mcm": {
+      "interval_low": {
+        "value": 0.999851,
+        "tolerance": 2e-06
+      },
+      "interval_high": {
+        "value": 0.999968,
+        "tolerance": 1e-06
+      }
+    },
+    "reference": {
+      "en": "IUPAC 2024, Example 5C: beta distribution with α = 88 873.7 and β = 7.11; mean and s.d. 0.999 920 and 0.000 030 g/g; quantiles 0.999 851 and 0.999 968 g/g (scipy).",
+      "tr": "IUPAC 2024, Örnek 5C: α = 88 873,7 ve β = 7,11 olan beta dağılımı; ortalama ve s.s. 0,999 920 ve 0,000 030 g/g; kantiller 0,999 851 ve 0,999 968 g/g (scipy)."
+    }
+  }
+}

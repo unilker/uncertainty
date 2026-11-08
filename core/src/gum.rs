@@ -2,8 +2,11 @@
 //!
 //! * Law of propagation of uncertainty, first order, with correlations
 //!   [GUM 5.1.2, 5.2.2, equations (10) and (13)].
-//! * Optional higher-order terms of the GUM 5.1.2 note (independent,
-//!   normally distributed inputs).
+//! * Optional higher-order terms of the GUM 5.1.2 note for normally
+//!   distributed inputs, extended to correlated inputs [Mana & Pennecchi,
+//!   Metrologia 44 (2007) 246], and the second-order term of the estimate,
+//!   ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) [GUM H.10; JCGM 100:2008/Amd.1:2026, note 1 to
+//!   4.1.4].
 //! * Effective degrees of freedom by the Welch–Satterthwaite formula
 //!   [GUM G.4.1, equation (G.2b)] and coverage factor from the
 //!   t-distribution [GUM G.3, G.6.4].
@@ -42,7 +45,8 @@ pub enum CoverageSpec {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GumOptions {
     pub coverage: CoverageSpec,
-    /// Include the second-order terms of the GUM 5.1.2 note.
+    /// Include the second-order terms of the GUM 5.1.2 note in u_c(y) and the
+    /// second-order term of note 1 to 4.1.4 (Amd.1:2026) in y.
     pub higher_order: bool,
     pub dof_rounding: DofRounding,
 }
@@ -72,8 +76,13 @@ pub struct BudgetRow {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GumResult {
-    /// Output estimate y = f(x₁, …, x_N) [GUM 4.1.4].
+    /// Output estimate y = f(x₁, …, x_N) [GUM 4.1.4], plus the second-order
+    /// term when higher-order terms are requested.
     pub estimate: f64,
+    /// Second-order term of the estimate, δ = ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ)
+    /// [GUM H.10; Amd.1:2026, note 1 to 4.1.4]; always evaluated, added to
+    /// `estimate` only with higher-order terms.
+    pub second_order_estimate_term: f64,
     pub combined_standard_uncertainty: f64,
     /// u_c(y) from first-order terms only.
     pub first_order_uncertainty: f64,
@@ -105,6 +114,9 @@ pub enum GumWarning {
     /// first-order evaluation misses; `missing_share` is the estimated share
     /// of the variance missed (GUM 5.1.2 note).
     ZeroSensitivity { inputs: Vec<String>, missing_share: f64 },
+    /// The second-order term of the estimate (Amd.1:2026, note 1 to 4.1.4)
+    /// exceeds a tenth of u_c(y) and higher-order terms were not requested.
+    NonlinearEstimate { term: f64, ratio: f64 },
 }
 
 impl std::fmt::Display for GumWarning {
@@ -127,6 +139,13 @@ impl std::fmt::Display for GumWarning {
                  note) — enable the higher-order terms or use the Monte Carlo method",
                 inputs.join(", "),
                 100.0 * missing_share
+            ),
+            GumWarning::NonlinearEstimate { term, ratio } => write!(
+                f,
+                "the model is nonlinear: the second-order term of the estimate, ½ΣΣ ∂²f/∂xᵢ∂xⱼ u(xᵢ, xⱼ) = {term:.3e}, \
+                 is {:.2} u_c(y) (JCGM 100:2008/Amd.1:2026, note 1 to 4.1.4) — enable the higher-order terms or use \
+                 the Monte Carlo method",
+                ratio
             ),
         }
     }
@@ -203,32 +222,77 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         }
     }
 
+    // Second-order term of the estimate [GUM H.10; Amd.1:2026, note 1 to
+    // 4.1.4]: ½ Σ_i Σ_j ∂²f/∂x_i∂x_j u(x_i, x_j).
+    let mut second_order_term = 0.0;
+    for i in 0..n {
+        if u[i] == 0.0 {
+            continue;
+        }
+        for j in 0..n {
+            let r = if i == j { 1.0 } else { model.correlation[i][j] };
+            if u[j] == 0.0 || r == 0.0 {
+                continue;
+            }
+            let fij = first[i].diff(j).eval(&x);
+            if fij.is_finite() {
+                second_order_term += 0.5 * fij * r * u[i] * u[j];
+            }
+        }
+    }
+
     let mut higher_order_var = 0.0;
     if options.higher_order {
-        if model.has_correlations() {
-            return Err(UncError::Unsupported(
-                "the higher-order terms of GUM 5.1.2 note apply to independent inputs only; \
-                 use the Monte Carlo method for correlated inputs"
-                    .into(),
-            ));
-        }
         if model.inputs.iter().any(|q| !q.distribution.is_gaussian() && u_nonzero(q)) {
             warnings.push(GumWarning::HigherOrderNonGaussian);
         }
-        // Σ_i Σ_j [ ½ (∂²f/∂x_i∂x_j)² + ∂f/∂x_i ∂³f/∂x_i∂x_j² ] u²(x_i) u²(x_j)
-        for i in 0..n {
-            if u[i] == 0.0 {
+        // Second- and third-order Taylor terms for (multivariate) normal inputs
+        // with covariance matrix Σ [Mana & Pennecchi, Metrologia 44 (2007) 246]:
+        //   ½ Σ_ijkl f_ij f_kl Σ_jk Σ_li  +  Σ_ijkl c_l f_ijk Σ_li Σ_jk,
+        // which for independent inputs is the expression of the GUM 5.1.2 note,
+        // Σ_i Σ_j [½ f_ij² + c_i f_ijj] u²(x_i) u²(x_j).
+        let active: Vec<usize> = (0..n).filter(|&i| u[i] > 0.0).collect();
+        let cov = |i: usize, j: usize| -> f64 {
+            if i == j {
+                u[i] * u[i]
+            } else {
+                model.correlation[i][j] * u[i] * u[j]
+            }
+        };
+        let m = active.len();
+        let sigma: Vec<Vec<f64>> = active.iter().map(|&i| active.iter().map(|&j| cov(i, j)).collect()).collect();
+        let second_exprs: Vec<Vec<Expr>> =
+            active.iter().map(|&i| active.iter().map(|&j| first[i].diff(j)).collect()).collect();
+        let h: Vec<Vec<f64>> = second_exprs.iter().map(|row| row.iter().map(|e| e.eval(&x)).collect()).collect();
+        // ½ tr((HΣ)²)
+        let hs: Vec<Vec<f64>> =
+            (0..m).map(|a| (0..m).map(|b| (0..m).map(|k| h[a][k] * sigma[k][b]).sum()).collect()).collect();
+        let mut v2 = 0.0;
+        for a in 0..m {
+            for b in 0..m {
+                v2 += 0.5 * hs[a][b] * hs[b][a];
+            }
+        }
+        // Σ_l Σ_ijk c_l f_ijk Σ_li Σ_jk
+        let mut v3 = 0.0;
+        for i in 0..m {
+            let csig: f64 = (0..m).map(|l| c[active[l]] * sigma[l][i]).sum();
+            if csig == 0.0 {
                 continue;
             }
-            for j in 0..n {
-                if u[j] == 0.0 {
-                    continue;
+            for j in 0..m {
+                for k in 0..m {
+                    if sigma[j][k] == 0.0 {
+                        continue;
+                    }
+                    let fijk = second_exprs[i][j].diff(active[k]).eval(&x);
+                    v3 += csig * fijk * sigma[j][k];
                 }
-                let dij = first[i].diff(j);
-                let second = dij.eval(&x);
-                let third = dij.diff(j).eval(&x);
-                higher_order_var += (0.5 * second * second + c[i] * third) * u[i].powi(2) * u[j].powi(2);
             }
+        }
+        higher_order_var = v2 + v3;
+        if !higher_order_var.is_finite() {
+            return Err(UncError::ModelNotDefined("higher-order terms are not finite at the estimates".into()));
         }
     }
 
@@ -276,21 +340,41 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         ));
     }
     let uc = combined_var.sqrt();
+    let estimate = if options.higher_order { y + second_order_term } else { y };
+    if !options.higher_order && uc > 0.0 && second_order_term.abs() > 0.1 * uc {
+        warnings.push(GumWarning::NonlinearEstimate { term: second_order_term, ratio: second_order_term.abs() / uc });
+    }
 
     // Welch–Satterthwaite [GUM G.2b]. Higher-order variance is treated as
-    // having infinite degrees of freedom (documented assumption).
-    if model.has_correlations() && nu.iter().any(|v| v.is_finite()) {
+    // having infinite degrees of freedom (documented assumption). Inputs of
+    // an ensemble (same data, same ν) form one component whose variance
+    // includes their covariances [Willink 2007, §4.1.1; GTC]. A correlation
+    // between inputs with finite ν outside a common ensemble invalidates the
+    // formula [GUM G.4.1]; it is applied anyway, with a warning.
+    let ensemble_of = |i: usize| model.ensembles.iter().position(|e| e.contains(&i));
+    let unsupported_correlation = (0..n).any(|i| {
+        (i + 1..n).any(|j| {
+            model.correlation[i][j] != 0.0
+                && (nu[i].is_finite() || nu[j].is_finite())
+                && !(ensemble_of(i).is_some() && ensemble_of(i) == ensemble_of(j))
+        })
+    });
+    if unsupported_correlation {
         warnings.push(GumWarning::WelchSatterthwaiteCorrelated);
     }
-    let mut denom = 0.0;
-    for i in 0..n {
-        if nu[i].is_finite() && ui_y[i] != 0.0 {
-            denom += ui_y[i].powi(4) / nu[i];
+    let mut components: Vec<(f64, f64)> =
+        (0..n).filter(|&i| ensemble_of(i).is_none() && ui_y[i] != 0.0).map(|i| (ui_y[i] * ui_y[i], nu[i])).collect();
+    for e in &model.ensembles {
+        let v: f64 =
+            e.iter().map(|&i| e.iter().map(|&j| ui_y[i] * ui_y[j] * model.correlation[i][j]).sum::<f64>()).sum();
+        if v != 0.0 {
+            components.push((v, nu[e[0]]));
         }
     }
+    let denom: f64 = components.iter().filter(|c| c.1.is_finite()).map(|&(v, nu_i)| v * v / nu_i).sum();
     let nu_eff = if denom > 0.0 { (uc.powi(4) / denom).min(f64::MAX) } else { f64::INFINITY };
-    // G.2c: ν_eff ≤ Σ ν_i.
-    let nu_sum: f64 = (0..n).filter(|&i| ui_y[i] != 0.0).map(|i| nu[i]).sum();
+    // G.2c: ν_eff ≤ Σ ν_i (an ensemble counts once).
+    let nu_sum: f64 = components.iter().map(|c| c.1).sum();
     let nu_eff = nu_eff.min(nu_sum);
 
     let (k, p) = match options.coverage {
@@ -341,7 +425,8 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         .collect();
 
     Ok(GumResult {
-        estimate: y,
+        estimate,
+        second_order_estimate_term: second_order_term,
         combined_standard_uncertainty: uc,
         first_order_uncertainty: (first_order_var + correlation_var).max(0.0).sqrt(),
         correlation_variance: correlation_var,
@@ -350,7 +435,7 @@ pub fn evaluate(model: &Model, options: &GumOptions) -> Result<GumResult, UncErr
         coverage_factor: k,
         coverage_probability: p,
         expanded_uncertainty: expanded,
-        interval: (y - expanded, y + expanded),
+        interval: (estimate - expanded, estimate + expanded),
         budget,
         warnings,
         dominant_rectangular,

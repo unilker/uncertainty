@@ -25,8 +25,8 @@
         "tr": "Dağılım asimetrik olup alttan sıfırla sınırlı olduğundan en kısa %95 kapsam aralığı raporlanır."
       },
       {
-        "en": "With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; second-order terms are not available for correlated inputs (GUM 5.1.2 note), so only the MCM captures it.",
-        "tr": "r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; korelasyonlu girdiler için ikinci mertebe terimler tanımlı değildir (GUM 5.1.2 notu), bu nedenle etkiyi yalnızca MCM yakalar."
+        "en": "With r(X₁, X₂) = 0.9 the inputs are drawn from a bivariate Gaussian (Cholesky factor). The first-order GUM result is unaffected by the correlation because c₂ = 0; the GUM 5.1.2 note gives second-order terms for independent inputs only. Of the GUM-framework results, only the higher-order terms for correlated inputs (project …-correlated-higher-order, D57) capture it; the MCM does.",
+        "tr": "r(X₁, X₂) = 0,9 iken girdiler iki değişkenli normal dağılımdan (Cholesky çarpanı) üretilir. c₂ = 0 olduğundan birinci mertebe GUM sonucu korelasyondan etkilenmez; GUM 5.1.2 notu ikinci mertebe terimleri yalnızca bağımsız girdiler için verir. GUM çerçevesi sonuçlarından etkiyi yalnızca ilişkili girdiler için yüksek mertebe terimleri yakalar (…-correlated-higher-order projesi, D57); MCM de yakalar."
       }
     ],
     "field": "electrical",
@@ -35,6 +35,11 @@
         "document": "JCGM 101:2008, Evaluation of measurement data — Supplement 1 to the GUM — Propagation of distributions using a Monte Carlo method",
         "section": "9.4, Table 9",
         "url": "https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf"
+      },
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 16, Table 16.2",
+        "url": "https://doi.org/10.59161/YNLY8209"
       }
     ],
     "tags": [

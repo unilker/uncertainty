@@ -11,7 +11,7 @@ Classes of findings (D12):
 
 Corrections to a class are recorded in later log entries; the latest one applies.
 
-## Findings (76)
+## Findings (98)
 
 | F | Finding | Session |
 |---|---|---|
@@ -91,8 +91,30 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | F74 | Delker (2021), airspeed example — inputs exchanged (class b). | 2026-10-27 (session 19) — Open-access papers: Suncal, the new definition, cg-18, conformity |
 | F75 | cg-18 H2.4/A — first-order U(W) of intervals 2 and 3 (class b). | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
 | F76 | cg-18 H1.4/B — tare term (class b). | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
+| F77 | GUM-5 Example 15 — Monte Carlo standard deviation (class c). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
+| F78 | GUM-5 Example 1 — pH values and uncertainties (class c). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
+| F79 | GUM-5 Example 2 — ν_eff for correlated inputs (class c). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F80 | GUM-5 Example 10 — joint PDF and statements on specific risks (modelling; class to be decided in the D12 audit). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F81 | GUM-5 Example 12 — mode of τ and likelihood (12.5) (classes c and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F82 | GUM-5 Example 4 — Tables 4.2 and 4.6 (classes c and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F83 | GUM-5 Example 9 — ν_eff of WLS (class a). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F84 | GUM-5 Example 5 — estimate, notation and data (classes a and b). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F85 | GUM-5 Example 11 — results, information criteria and text (classes c and b; the numerical points rest on data read from the figure). | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| F86 | Eurachem/CITAC compliance guide 2021 — rounding and the normal limits for a relative uncertainty (classes a, b and noted). | 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021) |
+| F87 | EMUE E3.4 — summary of the bias uncertainty (class c, small). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| F88 | EMUE E2.2 — table slips and the worked example (class b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| F89 | EMUE E3.8 — Arrhenius parameters and notation (classes c and b; no effect on the result). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| F90 | EMUE E3.3 — covariance matrix of the reference values and the validation uncertainty (class c). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| F91 | EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| F92 | IUPAC 2024 Example 4I — sign of the endpoint correction (class c; to check against Meija et al. [14]). | 2026-11-07 (session 21, continued) — IUPAC brief guide 2024 (Possolo et al., PAC 96, 113) |
+| F93 | Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |
+| F94 | IUPAC 2024 Example 3E — rounding of s and of the p-value of Q (class a). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
+| F95 | Koepke et al. 2017 Table 4 — Bayesian u for ¹³⁷Cs (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
+| F96 | Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte Carlo). | 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.) |
+| F97 | BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article, not to be reported). | 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets |
+| F98 | EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small). | 2026-11-07 (session 21, continued) — EURAMET cg-18 H3.4/A and H3.4/B (30 t weighbridge in use) |
 
-## Decisions (55)
+## Decisions (78)
 
 | D | Decision | Session |
 |---|---|---|
@@ -151,3 +173,26 @@ Corrections to a class are recorded in later log entries; the latest one applies
 | D53 | Recomputation of Supplementary Material 06 | 2026-10-27 (session 18) — Software tools: full texts and the MUPR spreadsheet |
 | D54 | Weighted mean recovery and given recoveries. | 2026-10-27 (session 18) — Software tools: full texts and the MUPR spreadsheet |
 | D55 | `error_function.in_use`. | 2026-10-27 (session 20) — Uncertainty of a weighing result in use and minimum weight (cg-18 7.4, 7.5, G) |
+| D56 | Second-order term of the estimate (JCGM 100:2008/Amd.1:2026). | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
+| D57 | Higher-order terms for correlated inputs. | 2026-11-07 (session 21) — New document folder; JCGM 100:2008/Amd.1:2026 |
+| D58 | Ensembles in the Welch–Satterthwaite formula. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| D59 | Lognormal process PDF, relative uncertainty in global risks, posterior p_c. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| D60 | Homogeneity without σ_pt; u*_bb; Bayesian between-unit standard deviation. | 2026-11-07 (session 21, continued) — GUM-5 Example 2; ensembles in ν_eff |
+| D61 | Monte Carlo: half-width of the interval symmetric about the estimate. | 2026-11-07 (session 21, continued) — JCGM-WG1 News, December 2025: proposed definitions |
+| D62 | Lognormal PDF for the measurand in conformity assessment. | 2026-11-07 (session 21, continued) — Eurachem/CITAC compliance assessment guide (2021) |
+| D63 | Multicomponent conformity: total risks (EMUE E2.1). | 2026-11-07 (session 21, continued) — EMUE compendium: E3.4 and E2.1 |
+| D64 | CMC as a floor and the 5.3 note. | 2026-11-07 (session 21, continued) — ILAC P14:09/2020 |
+| D65 | Turkish spelling of reproducibility. | 2026-11-07 (session 21, continued) — Turkish edition of Nordtest TR 537 |
+| D66 | Consensus-value module (`consensus`). | 2026-11-07 (session 21, continued) — Consensus values: NIST Consensus Builder, Koepke et al. 2017, IUPAC 2024 4F |
+| D67 | Bayesian random-effects model without MCMC (`consensus.bayes`). | 2026-11-07 (session 21, continued) — Bayesian consensus; IUPAC 2024 Examples 3E, 4M, 4N |
+| D68 | Laplace laboratory effects in the Bayesian consensus (`"effects": "laplace"`). | 2026-11-07 (session 21, continued) — Possolo & Meija 2022 (Measurement Uncertainty: A Reintroduction, 2nd ed.) |
+| D69 | qNMR purity budgets in the library. | 2026-11-07 (session 21, continued) — BIPM ISRD qNMR purity budgets |
+| D70 | What was taken from the Bayesian and "alternative to MCM" documents. | 2026-11-07 (session 21, continued) — Bayesian tutorials, Toman 2016, Degenhardt 2025 |
+| D71 | The two worked examples of the procedure in the library; notes for the author. | 2026-11-07 (session 21, continued) — The author's UME procedure (draft, November 2026) |
+| D72 | One main paper; skeleton in `docs/article/outline.md`. | 2026-11-07 (session 21, continued) — Article skeleton |
+| D73 | Classes for the findings without a class in their heading; class n. | 2026-11-07 (session 21, continued) — D12 audit of the finding classes |
+| D74 | Library-wide comparison with Sandia's Suncal 1.7.1 | 2026-11-07 (session 21, continued) — Benchmark against Suncal |
+| D75 | Beta input distribution. | 2026-11-07 (session 21, continued) — Beta distribution; IUPAC 2024 Examples 4H and 5C |
+| D76 | Consensus template and editor. | 2026-11-07 (session 21, continued) — Consensus in the application |
+| D77 | `conformity.tur_method`: RSS, Dobbert, NCSLI RP-10, U₉₅. | 2026-11-07 (session 21, continued) — Guard bands from the test uncertainty ratio |
+| D78 | Multivariate MCM with a singular output covariance. | 2026-11-07 (session 21, continued) — Monte Carlo with dependent outputs |

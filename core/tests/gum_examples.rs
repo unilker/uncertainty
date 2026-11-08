@@ -103,6 +103,10 @@ fn h1_end_gauge() {
     close(t1, 11.7, 0.05, "l_s u(δα) u(θ)");
     close(t2, 1.7, 0.05, "l_s u(α_s) u(δθ)");
     close(g2.higher_order_variance, t1 * t1 + t2 * t2, 1e-6, "second-order variance");
+    // JCGM 100:2008/Amd.1:2026, H.1.7: "the first expression given in note 1 to
+    // 4.1.4 is equal to zero, so that the estimate l is unaffected".
+    close(g2.second_order_estimate_term, 0.0, 1e-12, "second-order term of the estimate (H.1)");
+    close(g2.estimate, g.estimate, 1e-9, "estimate unchanged by Amd.1");
     // Non-Gaussian inputs: the engine warns that the 5.1.2 note assumes normality.
     assert_eq!(g2.warnings, vec![gum::GumWarning::HigherOrderNonGaussian]);
 
@@ -198,4 +202,110 @@ fn zero_sensitivity_warning_only_when_second_order_matters() {
     );
     let g2 = gum::evaluate(&model, &GumOptions { higher_order: true, ..Default::default() }).unwrap();
     assert!(g2.warnings.is_empty());
+}
+
+#[test]
+fn second_order_term_of_the_estimate_amd1_2026() {
+    // Note 1 to 4.1.4 (Amd.1:2026): y = f(x) + ½Σ ∂²f/∂xᵢ² u²(xᵢ) for
+    // independent normal inputs. Comparison loss δY = X₁² + X₂² at x = 0,
+    // u = 0.005 (JCGM 101 9.4): the term is u₁² + u₂² = 5·10⁻⁵, the analytic mean.
+    let model = Model::builder()
+        .input(q("x1", 0.0, 0.005, None))
+        .input(q("x2", 0.0, 0.005, None))
+        .output("dY", "x1^2 + x2^2")
+        .build()
+        .unwrap();
+    let g1 = gum::evaluate(&model, &GumOptions::default()).unwrap();
+    close(g1.estimate, 0.0, 1e-15, "first order: f(x)");
+    close(g1.second_order_estimate_term, 5e-5, 1e-15, "term evaluated without higher order");
+    let g2 = gum::evaluate(&model, &GumOptions { higher_order: true, ..Default::default() }).unwrap();
+    close(g2.estimate, 5e-5, 1e-15, "estimate with the second-order term");
+    close(g2.combined_standard_uncertainty, 5e-5, 1e-15, "u_c with the 5.1.2 note");
+    assert!((g2.interval.0 + g2.interval.1) / 2.0 - 5e-5 < 1e-15, "interval centred on the corrected estimate");
+
+    // Correlated inputs (GUM H.10): y = a·b with r(a, b) = 0.5 gives
+    // ½(∂²f/∂a∂b + ∂²f/∂b∂a) r u(a) u(b) = r u(a) u(b); the warning appears
+    // when the term exceeds u_c/10 and higher-order terms are off.
+    let model = Model::builder()
+        .input(q("a", 0.0, 1.0, None))
+        .input(q("b", 0.0, 1.0, None))
+        .output("y", "a*b + 0.1*a")
+        .correlation("a", "b", 0.5)
+        .build()
+        .unwrap();
+    let g = gum::evaluate(&model, &GumOptions::default()).unwrap();
+    close(g.second_order_estimate_term, 0.5, 1e-12, "r u(a) u(b)");
+    close(g.estimate, 0.0, 1e-15, "f(x) without higher-order terms");
+    assert!(
+        g.warnings
+            .iter()
+            .any(|w| matches!(w, gum::GumWarning::NonlinearEstimate { ratio, .. } if (ratio - 5.0).abs() < 1e-9)),
+        "{:?}",
+        g.warnings
+    );
+}
+
+/// JCGM GUM-5:2026 Example 2 (benzo[a]pyrene, internal standard):
+/// m_E = f·A_E/A_ISE·m_ISE with r(f, m_ISE) = −0.54 and r(A_E, A_ISE) = −0.48
+/// (Table 2.1). GUM-5 prints u = 0.002 ng, u² = 4.1·10⁻⁶ ng² and
+/// ν_eff = 5.2 (G.2b, correlations ignored). A_E and A_ISE are means of the
+/// same three paired injections, so they form an ensemble with ν = 2
+/// [Willink 2007, §4.1.1]: their joint variance counts as one component and
+/// ν_eff ≈ 2.1, not the 4.8 that GUM-5 obtains from its eq. (2.3).
+#[test]
+fn gum5_example2_benzo_a_pyrene_ensemble() {
+    let build = |ensemble: bool| {
+        let mut b = Model::builder()
+            .input(q("f", 0.616, 0.017, Some(9.0)))
+            .input(q("mISE", 0.2455, 0.0036, None))
+            .input(q("AE", 85114.0, 9564.0, Some(2.0)))
+            .input(q("AISE", 917546.0, 44492.0, Some(2.0)))
+            .correlation("f", "mISE", -3.3e-5 / (0.017 * 0.0036))
+            .correlation("AE", "AISE", -2.03e8 / (9564.0 * 44492.0))
+            .output("mE", "f*AE/AISE*mISE");
+        if ensemble {
+            b = b.ensemble(&["AE", "AISE"]);
+        }
+        b.build().unwrap()
+    };
+    let opts = GumOptions { dof_rounding: gum::DofRounding::Exact, ..GumOptions::default() };
+    let plain = gum::evaluate(&build(false), &opts).unwrap();
+    close(plain.estimate, 0.014028, 5e-6, "m_E");
+    close(plain.combined_standard_uncertainty.powi(2), 4.08e-6, 0.01e-6, "u²(m_E)");
+    close(plain.effective_dof, 5.20, 0.01, "ν_eff (G.2b)");
+    assert!(plain.warnings.iter().any(|w| matches!(w, gum::GumWarning::WelchSatterthwaiteCorrelated)));
+
+    let ens = gum::evaluate(&build(true), &opts).unwrap();
+    assert_eq!(ens.combined_standard_uncertainty, plain.combined_standard_uncertainty);
+    // Ensemble component: (c_E u_E)² + (c_I u_I)² + 2 c_E c_I u(A_E, A_ISE) = 3.97e-6 ng², ν = 2.
+    close(ens.effective_dof, 2.10, 0.01, "ν_eff (ensemble)");
+    // f–m_ISE (ν = 9 and ∞) is still a correlation outside an ensemble.
+    assert!(ens.warnings.iter().any(|w| matches!(w, gum::GumWarning::WelchSatterthwaiteCorrelated)));
+}
+
+/// A single ensemble gives exactly its own ν whatever the correlation, as
+/// the Wishart distribution of the sample covariance matrix requires
+/// (cᵀSc ~ cᵀΣc·χ²_ν/ν), and no warning is raised.
+#[test]
+fn ensemble_of_paired_means_keeps_its_dof() {
+    for r in [-0.9, -0.3, 0.0, 0.5, 0.95] {
+        let model = Model::builder()
+            .input(q("a", 10.0, 0.4, Some(4.0)))
+            .input(q("b", 5.0, 0.3, Some(4.0)))
+            .correlation("a", "b", r)
+            .ensemble(&["a", "b"])
+            .output("y", "a/b")
+            .build()
+            .unwrap();
+        let g = gum::evaluate(&model, &GumOptions::default()).unwrap();
+        close(g.effective_dof, 4.0, 1e-9, "ν_eff");
+        assert!(g.warnings.is_empty(), "r = {r}: {:?}", g.warnings);
+    }
+    let err = Model::builder()
+        .input(q("a", 10.0, 0.4, Some(4.0)))
+        .input(q("b", 5.0, 0.3, Some(5.0)))
+        .ensemble(&["a", "b"])
+        .output("y", "a/b")
+        .build();
+    assert!(err.is_err());
 }

@@ -18,6 +18,8 @@ Turkish reports.
 | coverage factor | kapsam faktörü | VIM 2.38 |
 | coverage probability | kapsam olasılığı | VIM 2.37 |
 | coverage interval | kapsam aralığı | VIM 2.36 |
+| verification / validation | doğrulama / validasyon (geçerli kılma) | VIM 2.44, 2.45; ISO/IEC 17025 7.2, 7.11.2: checking the software against published examples is verification; showing it fits the laboratory's scope is validation |
+| dark uncertainty | karanlık belirsizlik | Thompson & Ellison 2011: variability between laboratories not explained by their stated uncertainties (τ); not an established Turkish term |
 | shortest / probabilistically symmetric coverage interval | en kısa / olasılıksal simetrik kapsam aralığı | JCGM 101 |
 | Type A / Type B evaluation | A tipi / B tipi değerlendirme | VIM 2.28, 2.29 |
 | uncertainty budget | belirsizlik bütçesi | VIM 2.33 |
@@ -39,21 +41,21 @@ Turkish reports.
 | bias | sapma (bias) | VIM 2.18 |
 | repeatability | tekrarlanabilirlik | VIM 2.21 |
 | intermediate precision | ara kesinlik | VIM 2.22 |
-| within-laboratory reproducibility | laboratuvar içi tekrarüretilebilirlik | Nordtest |
-| reproducibility | tekrarüretilebilirlik | VIM 2.25 |
+| within-laboratory reproducibility | laboratuvar içi tekrar üretilebilirlik | Nordtest |
+| reproducibility | tekrar üretilebilirlik | VIM 2.25 |
 | recovery | geri kazanım | |
 | spike / spiked sample | katkı / katkılı numune | |
 | certified reference material (CRM) | sertifikalı referans malzeme (SRM) | VIM 5.14 |
 | proficiency test (PT) | yeterlilik testi (YT) | |
 | assigned value | atanan değer | |
-| control chart / control sample | kontrol grafiği / kontrol numunesi | |
+| control chart / control sample | kontrol grafiği (kontrol kartı) / kontrol numunesi | Nordtest TR 537 TR |
 | central line | merkez çizgisi | Nordtest TR 569 |
 | warning limit / action limit | uyarı sınırı / eylem sınırı | Nordtest TR 569 |
 | statistical / target control limits | istatistiksel / hedef kontrol sınırları | Nordtest TR 569 |
 | X-chart / range chart (R-chart, r%-chart) | X-grafiği / açıklık grafiği (R-grafiği, r%-grafiği) | Nordtest TR 569, ISO 8258 |
 | in control / out of control / out of statistical control | kontrol altında / kontrol dışı / istatistiksel kontrol dışı | Nordtest TR 569 |
 | run (analytical run, batch) | seri (analiz serisi) | Nordtest TR 569 |
-| duplicate | mükerrer (ölçüm) | |
+| duplicate | mükerrer (ölçüm); iki tekrarlı analiz | Nordtest TR 537 TR |
 | pooled standard deviation | birleştirilmiş standart sapma | |
 | calibration | kalibrasyon | VIM 2.39 |
 | metrological traceability | metrolojik izlenebilirlik | VIM 2.41 |
@@ -111,6 +113,11 @@ Turkish reports.
 | global uncertainty | genel belirsizlik | cg-18 7.5.2 |
 | minimum weight / safety factor | minimum tartım / güvenlik faktörü | cg-18 Appendix G |
 
+**Turkish wording.** The Turkish terms follow the Turkish edition of Nordtest TR 537 (ed. 4) where it has one:
+*tekrar üretilebilirlik* (written as two words), *laboratuvar içi tekrar üretilebilirlik* for u(R_w),
+*sertifikalı referans malzeme (SRM)*, *kontrol numunesi*; it also uses *kontrol kartı* beside *kontrol grafiği*
+and *iki tekrarlı analiz* for duplicates.
+
 **Definition of measurement uncertainty.** VIM 2.26 defines measurement uncertainty as a "non-negative parameter
 characterizing the dispersion of the quantity values being attributed to a measurand". In July 2025 the JCGM
 presented a replacement for public discussion (Possolo, *Metrologia* 62 (2025) 042101). It reads: "Measurement
@@ -119,3 +126,36 @@ Measurement uncertainty is described fully and quantitatively by a probability d
 the measurand." The program follows that view: the standard and expanded uncertainties and the coverage interval
 it reports are summaries of the distribution, which the Monte Carlo method gives in full. The Turkish term
 *ölçüm belirsizliği* covers both definitions.
+
+**Definitions agreed by JCGM-WG1 and WG2 (JCGM-WG1 News, December 2025).** After the webinar of July 2025 (about
+900 participants; two thirds of 450 respondents in favour) the working groups discussed these wordings, to be
+offered to WG2 for the next VIM:
+
+| Term | Proposed definition | Türkçe |
+|---|---|---|
+| measurement uncertainty | doubt about the value of the measurand that remains after making a measurement. Note 1: it can be described fully and quantitatively by a probability distribution on the set of possible values of the measurand. Note 2: for scalar measurands it can be summarised by the standard uncertainty, a coverage interval or selected quantiles; for multivariate measurands by the covariance matrix or a coverage region | bir ölçüm yapıldıktan sonra ölçülenin değeri hakkında kalan şüphe |
+| standard uncertainty | measurement uncertainty expressed by a standard deviation | standart sapmayla ifade edilen ölçüm belirsizliği |
+| coverage interval | interval believed to contain the value of the measurand with stated probability (generally not unique) | ölçülenin değerini belirtilen olasılıkla içerdiğine inanılan aralık |
+| coverage probability | probability chosen in constructing a coverage interval or region | kapsam aralığı ya da bölgesi oluşturulurken seçilen olasılık |
+| expanded uncertainty | half width of a coverage interval symmetric about the measured value; it can be obtained as standard uncertainty × coverage factor | ölçülen değer etrafında simetrik bir kapsam aralığının yarı genişliği |
+| coverage factor | numerical factor used to multiply the standard uncertainty to obtain an expanded uncertainty; k = 2 gives about 95 % for a normal distribution | |
+| relative standard / expanded uncertainty | absolute value of the quotient of the standard (expanded) uncertainty and the measured value; not defined if the measured value is zero | |
+
+Compared with the Possolo (2025) text, the agreed wording drops "true" and says "can be described". Two changes
+matter for the program:
+
+- **Expanded uncertainty.** U is defined as the half-width of an interval symmetric about the measured value,
+  not as k·u. For a GUM result the two are the same. For a Monte Carlo result the program now also reports the
+  half-width U with Pr(|Y − ỹ| ≤ U) = p, besides the probabilistically symmetric and the shortest intervals. For
+  a skewed output the three differ.
+- **Relative uncertainty.** It is the *absolute* value of the quotient and is not defined for a measured value
+  of zero. The program uses the absolute value (top-down budgets, `u_relative` in conformity assessment) and
+  gives no finite relative value at zero.
+
+**The debate.** Mari et al. (*Metrologia* 62 (2025) 062101) argue against the change. In their reading, the new
+definition makes uncertainty a psychological rather than a mathematical entity, ties it to a theoretical true value
+rather than to the dispersion of measured values, and excludes measurands with definitional uncertainty. They
+propose to generalize the GUM definition instead. Pradella (2026) defends the change from the side of medical and
+testing laboratories (ISO 15189, ISO/IEC 17025). For them nominal and ordinal properties need an uncertainty that
+is not a parameter of a distribution of quantity values. The program evaluates quantitative measurands and is
+compatible with both readings, because it reports the distribution and its summaries.

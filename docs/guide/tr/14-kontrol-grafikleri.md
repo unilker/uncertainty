@@ -7,7 +7,7 @@ grafiğidir: her seride bir kontrol numunesi analiz edilir ve kontrol değeri s�
 izler. Bölüm, el kitabının Tablo 1'i, Bölüm 7'deki durumlar ve Örnek 1–12 ile doğrulanmıştır (`tr569-*`
 kütüphane projeleri).
 
-Kontrol grafiği verileri, top-down değerlendirmenin laboratuvar içi tekrarüretilebilirlik bileşeni u(R_w)'yi
+Kontrol grafiği verileri, top-down değerlendirmenin laboratuvar içi tekrar üretilebilirlik bileşeni u(R_w)'yi
 de verir (5. bölüm). Bu durumda veriler bir `topdown` projesine girilir.
 
 ## 14.1 Grafik türleri (Bölüm 5)

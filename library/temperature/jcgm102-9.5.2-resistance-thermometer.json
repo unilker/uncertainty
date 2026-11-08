@@ -27,6 +27,11 @@
         "document": "JCGM 102:2011, Evaluation of measurement data — Supplement 2 to the “Guide to the expression of uncertainty in measurement” — Extension to any number of output quantities",
         "section": "9.5.2 (Tables 12, 13)",
         "url": "https://www.bipm.org/documents/20126/2071204/JCGM_102_2011_E.pdf"
+      },
+      {
+        "document": "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples",
+        "section": "Example 13, 13.2",
+        "url": "https://doi.org/10.59161/YNLY8209"
       }
     ],
     "tags": [

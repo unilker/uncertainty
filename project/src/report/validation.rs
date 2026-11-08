@@ -11,6 +11,12 @@ pub struct ValidationItem {
     /// The comparisons with the reference values, or the error that stopped
     /// the evaluation.
     pub result: Result<Vec<CheckOutcome>, String>,
+    /// SHA-256 of the file as read (inputs, reference values and settings
+    /// such as seeds, numbers of trials and rounding).
+    pub sha256: Option<String>,
+    /// A project of the laboratory's own scope (`check --lab`), reported in
+    /// its own section, rather than a reference example of the library.
+    pub laboratory: bool,
 }
 
 impl ValidationItem {
@@ -28,6 +34,9 @@ struct VLabels {
     purpose: &'static str,
     software: &'static str,
     version: &'static str,
+    compiler: &'static str,
+    digest: &'static str,
+    digest_text: &'static str,
     platform: &'static str,
     date: &'static str,
     options: &'static str,
@@ -42,6 +51,9 @@ struct VLabels {
     projects: &'static str,
     values: &'static str,
     results: &'static str,
+    lab_results: &'static str,
+    lab_text: &'static str,
+    file_digest: &'static str,
     project: &'static str,
     source: &'static str,
     worst: &'static str,
@@ -60,6 +72,9 @@ const V_EN: VLabels = VLabels {
     purpose: "Record of the validation of the data-processing software before use and after changes (ISO/IEC 17025:2017 7.11.2). Every reference example is recomputed from its inputs and compared with the published values within a documented tolerance.",
     software: "Software",
     version: "Version",
+    compiler: "Compiler",
+    digest: "Digest of the checked files",
+    digest_text: "SHA-256 of the sorted list \"SHA-256  file\" of all checked files; each file holds its inputs, reference values and settings (seeds, numbers of trials, rounding)",
     platform: "Platform",
     date: "Date",
     options: "Options",
@@ -73,7 +88,10 @@ const V_EN: VLabels = VLabels {
     method: "Method",
     projects: "Projects",
     values: "Values",
-    results: "Results by project",
+    results: "Results by project: reference examples",
+    lab_results: "Results by project: the laboratory's own projects",
+    lab_text: "Projects of the laboratory's scope with reference values set by the laboratory (for example from an earlier validated evaluation or an independent spreadsheet).",
+    file_digest: "SHA-256",
     project: "Project",
     source: "Source",
     worst: "max ∣Δ∣/tol",
@@ -88,10 +106,13 @@ const V_EN: VLabels = VLabels {
 };
 
 const V_TR: VLabels = VLabels {
-    title: "Yazılım doğrulama raporu",
-    purpose: "Veri işleme yazılımının kullanımdan önce ve değişikliklerden sonra doğrulanmasının kaydı (ISO/IEC 17025:2017 7.11.2). Her referans örnek girdilerinden yeniden hesaplanır ve yayımlanmış değerlerle belgelenmiş bir tolerans içinde karşılaştırılır.",
+    title: "Yazılım validasyon raporu",
+    purpose: "Veri işleme yazılımının kullanımdan önce ve değişikliklerden sonra validasyonunun kaydı (ISO/IEC 17025:2017 7.11.2). Her referans örnek girdilerinden yeniden hesaplanır ve yayımlanmış değerlerle belgelenmiş bir tolerans içinde karşılaştırılır.",
     software: "Yazılım",
     version: "Sürüm",
+    compiler: "Derleyici",
+    digest: "Denetlenen dosyaların özeti",
+    digest_text: "Denetlenen tüm dosyaların sıralı \"SHA-256  dosya\" listesinin SHA-256 özeti; her dosya girdilerini, referans değerlerini ve ayarlarını (tohum, deneme sayısı, yuvarlama) içerir",
     platform: "Platform",
     date: "Tarih",
     options: "Seçenekler",
@@ -105,7 +126,10 @@ const V_TR: VLabels = VLabels {
     method: "Yöntem",
     projects: "Proje",
     values: "Değer",
-    results: "Projelere göre sonuçlar",
+    results: "Projelere göre sonuçlar: referans örnekler",
+    lab_results: "Projelere göre sonuçlar: laboratuvarın kendi projeleri",
+    lab_text: "Laboratuvarın kapsamındaki, referans değerleri laboratuvarca belirlenmiş projeler (örneğin daha önce validasyonu yapılmış bir değerlendirmeden ya da bağımsız bir hesap tablosundan).",
+    file_digest: "SHA-256",
     project: "Proje",
     source: "Kaynak",
     worst: "maks ∣Δ∣/tol",
@@ -159,10 +183,12 @@ pub fn validation_markdown(items: &[ValidationItem], mcm: bool, lang: Lang, gene
     let _ = writeln!(s, "{}\n", d.purpose);
     let _ = writeln!(s, "| | |\n|---|---|");
     let _ = writeln!(s, "| {} | {SOFTWARE_NAME} |", d.software);
-    let _ = writeln!(s, "| {} | {SOFTWARE_VERSION} |", d.version);
+    let _ = writeln!(s, "| {} | {} |", d.version, crate::software_identity());
+    let _ = writeln!(s, "| {} | {} |", d.compiler, crate::SOFTWARE_COMPILER);
     let _ = writeln!(s, "| {} | {} {} |", d.platform, std::env::consts::OS, std::env::consts::ARCH);
     let _ = writeln!(s, "| {} | {generated} |", d.date);
-    let _ = writeln!(s, "| {} | {} |\n", d.options, if mcm { d.mcm_on } else { d.mcm_off });
+    let _ = writeln!(s, "| {} | {} |", d.options, if mcm { d.mcm_on } else { d.mcm_off });
+    let _ = writeln!(s, "| {} | `{}` ({}) |\n", d.digest, files_digest(items), d.digest_text);
 
     let n = items.len();
     let values: usize = items.iter().map(|i| i.result.as_ref().map_or(0, Vec::len)).sum();
@@ -210,11 +236,49 @@ pub fn validation_markdown(items: &[ValidationItem], mcm: bool, lang: Lang, gene
     }
     let _ = writeln!(s);
 
-    let _ = writeln!(s, "## {}\n", d.results);
+    for laboratory in [false, true] {
+        let group: Vec<&ValidationItem> = items.iter().filter(|i| i.laboratory == laboratory).collect();
+        if group.is_empty() {
+            continue;
+        }
+        let _ = writeln!(s, "## {}\n", if laboratory { d.lab_results } else { d.results });
+        if laboratory {
+            let _ = writeln!(s, "{}\n", d.lab_text);
+        }
+        results_table(&mut s, &group, d, lang);
+    }
+    let _ = writeln!(s, "\n{}\n", d.note);
+
+    let failures: Vec<(&ValidationItem, &CheckOutcome)> =
+        items.iter().flat_map(|i| i.result.iter().flatten().filter(|c| !c.passed).map(move |c| (i, c))).collect();
+    if !failures.is_empty() {
+        let l = labels(lang);
+        let _ = writeln!(s, "## {}\n", d.failures);
+        let _ = writeln!(s, "| {} | | {} | {} | ± |\n|---|---|---:|---:|---:|", d.project, l.computed, l.expected);
+        for (i, c) in failures {
+            let id = i.project.as_ref().and_then(|p| p.metadata.id.clone()).unwrap_or_else(|| i.file.clone());
+            let _ = writeln!(
+                s,
+                "| `{id}` | {} | {} | {} | {} |",
+                c.what,
+                fmt_num(c.computed, 6, lang),
+                fmt_num(c.expected, 6, lang),
+                fmt_num(c.tolerance, 3, lang)
+            );
+        }
+        let _ = writeln!(s);
+    }
+    let _ = writeln!(s, "---\n");
+    let _ = writeln!(s, "{}\n", d.signature);
+    let _ = writeln!(s, "{} {SOFTWARE_NAME} {}, {generated}.", labels(lang).generated_by, crate::software_identity());
+    s
+}
+
+fn results_table(s: &mut String, items: &[&ValidationItem], d: &VLabels, lang: Lang) {
     let _ = writeln!(
         s,
-        "| {} | {} | {} | {} | {} |\n|---|---|---:|---:|---|",
-        d.project, d.source, d.values, d.worst, d.outcome
+        "| {} | {} | {} | {} | {} | {} |\n|---|---|---:|---:|---|---|",
+        d.project, d.source, d.values, d.worst, d.outcome, d.file_digest
     );
     for i in items {
         let id = i.project.as_ref().and_then(|p| p.metadata.id.clone()).unwrap_or_else(|| i.file.clone());
@@ -250,33 +314,17 @@ pub fn validation_markdown(items: &[ValidationItem], mcm: bool, lang: Lang, gene
                 (c.len(), fmt_num(r, 2, lang), if c.iter().all(|x| x.passed) { d.passed } else { d.failed }.to_string())
             }
         };
-        let _ = writeln!(s, "| `{id}` | {src} | {count} | {worst} | {outcome} |");
+        let digest = i.sha256.as_deref().map(|h| format!("`{}`", &h[..h.len().min(12)])).unwrap_or_else(|| "—".into());
+        let _ = writeln!(s, "| `{id}` | {src} | {count} | {worst} | {outcome} | {digest} |");
     }
-    let _ = writeln!(s, "\n{}\n", d.note);
+}
 
-    let failures: Vec<(&ValidationItem, &CheckOutcome)> =
-        items.iter().flat_map(|i| i.result.iter().flatten().filter(|c| !c.passed).map(move |c| (i, c))).collect();
-    if !failures.is_empty() {
-        let l = labels(lang);
-        let _ = writeln!(s, "## {}\n", d.failures);
-        let _ = writeln!(s, "| {} | | {} | {} | ± |\n|---|---|---:|---:|---:|", d.project, l.computed, l.expected);
-        for (i, c) in failures {
-            let id = i.project.as_ref().and_then(|p| p.metadata.id.clone()).unwrap_or_else(|| i.file.clone());
-            let _ = writeln!(
-                s,
-                "| `{id}` | {} | {} | {} | {} |",
-                c.what,
-                fmt_num(c.computed, 6, lang),
-                fmt_num(c.expected, 6, lang),
-                fmt_num(c.tolerance, 3, lang)
-            );
-        }
-        let _ = writeln!(s);
-    }
-    let _ = writeln!(s, "---\n");
-    let _ = writeln!(s, "{}\n", d.signature);
-    let _ = writeln!(s, "{} {SOFTWARE_NAME} {SOFTWARE_VERSION}, {generated}.", labels(lang).generated_by);
-    s
+/// SHA-256 of the sorted lines "SHA-256  file" of the checked files.
+pub fn files_digest(items: &[ValidationItem]) -> String {
+    let mut lines: Vec<String> =
+        items.iter().map(|i| format!("{}  {}", i.sha256.as_deref().unwrap_or("-"), i.file)).collect();
+    lines.sort();
+    crate::sha256::sha256_hex(lines.join("\n").as_bytes())
 }
 
 /// The validation report as a self-contained HTML page.
@@ -310,6 +358,8 @@ mod tests {
                 file: "a.json".into(),
                 project: None,
                 result: Ok(vec![outcome("gum.estimate", 1.0, 1.0, 0.01)]),
+                sha256: Some("0123456789abcdef".into()),
+                laboratory: false,
             },
             ValidationItem {
                 file: "b.json".into(),
@@ -318,22 +368,42 @@ mod tests {
                     outcome("gum.estimate", 2.0, 2.0, 0.01),
                     outcome("gum.standard_uncertainty", 0.5, 0.4, 0.05),
                 ]),
+                sha256: None,
+                laboratory: false,
             },
-            ValidationItem { file: "c.json".into(), project: None, result: Ok(vec![]) },
-            ValidationItem { file: "d.json".into(), project: None, result: Err("x | y".into()) },
+            ValidationItem {
+                file: "c.json".into(),
+                project: None,
+                result: Ok(vec![]),
+                sha256: None,
+                laboratory: false,
+            },
+            ValidationItem {
+                file: "d.json".into(),
+                project: None,
+                result: Err("x | y".into()),
+                sha256: None,
+                laboratory: true,
+            },
         ];
         let md = validation_markdown(&items, false, Lang::En, "2026-10-26");
         assert!(
             md.contains("4 project files and 3 compared values. Passed: 1; failed: 2; without reference values: 1.")
         );
         assert!(md.contains("NOT reproduced"));
-        assert!(md.contains("| `b.json` |  | 2 | 2.0 | FAILED |"));
-        assert!(md.contains("| `a.json` |  | 1 | 0 | passed |"));
+        assert!(md.contains("| `b.json` |  | 2 | 2.0 | FAILED | — |"));
+        assert!(md.contains("| `a.json` |  | 1 | 0 | passed | `0123456789ab` |"));
+        // The laboratory's own projects come in their own section, after the
+        // reference examples.
+        let lab = md.find("the laboratory's own projects").unwrap();
+        assert!(md.find("`d.json`").unwrap() > lab && md.find("`a.json`").unwrap() < lab);
+        assert!(md.contains("Digest of the checked files"));
         assert!(md.contains("error: x / y"));
         assert!(md.contains("| `b.json` | gum.standard_uncertainty | 0.500000 | 0.400000 | 0.0500 |"));
         assert!(md.contains("--no-mcm"));
         let tr = validation_markdown(&items[..1], true, Lang::Tr, "2026-10-26");
         assert!(tr.contains("Tüm referans değerler") && !tr.contains("Toleransı dışında"));
+        assert!(tr.contains("# Yazılım validasyon raporu") && !tr.contains("kendi projeleri"));
         assert!(validation_html(&items, true, Lang::En, "2026-10-26").contains("<h1>Software validation report</h1>"));
     }
 }

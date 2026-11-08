@@ -4,7 +4,7 @@
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::time::{SystemTime, UNIX_EPOCH};
-use uncertainty_project::{self as project, report, Lang, Overrides, CITATION, SOFTWARE_NAME, SOFTWARE_VERSION};
+use uncertainty_project::{self as project, report, Lang, Overrides, CITATION, SOFTWARE_NAME};
 
 const HELP: &str = "\
 Uncertainty Calculations (Belirsizlik Hesaplamaları) — measurement uncertainty
@@ -20,8 +20,8 @@ weighing instruments (EURAMET cg-18, Appendix C).
 
 USAGE:
     uncertainty run <project.json> [options]
-    uncertainty check <file-or-directory>... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function]
+    uncertainty check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html] [--lang en|tr]
+    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
     uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     uncertainty --version | --help
 
@@ -38,7 +38,10 @@ CHECK:
     and compares the results with the reference values stored in the file.
     The exit status is 1 if any comparison fails. With --report, writes a
     software validation report (ISO/IEC 17025 7.11.2) for the laboratory's
-    records.
+    records: software version and commit, compiler, the SHA-256 of every
+    file and of the whole set. Files given after --lab are the laboratory's
+    own projects (its scope, its reference values) and are reported in a
+    section of their own.
 
 CATALOGUE:
     Writes the worked-examples chapter of the user guide (Markdown) from the
@@ -54,8 +57,10 @@ TEMPLATE:
     model with several output quantities (JCGM 102), with --control-chart a
     control chart for internal quality control (Nordtest TR 569), or with
     --sampling the duplicate method for the uncertainty from sampling
-    (Eurachem UfS:2019), or with --error-function the error approximation
-    function of a weighing instrument (EURAMET cg-18, Appendix C).
+    (Eurachem UfS:2019), with --error-function the error approximation
+    function of a weighing instrument (EURAMET cg-18, Appendix C), or with
+    --consensus the consensus value of an interlaboratory comparison (NIST
+    Consensus Builder procedures).
 ";
 
 const TEMPLATE: &str = r#"{
@@ -216,6 +221,28 @@ const TEMPLATE_CONFORMITY: &str = r#"{
 }
 "#;
 
+const TEMPLATE_CONSENSUS: &str = r#"{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "title": { "en": "Consensus value of an interlaboratory comparison", "tr": "Laboratuvarlar arası karşılaştırmanın uzlaşı değeri" },
+    "field": "chemistry"
+  },
+  "consensus": {
+    "measurand": "w(Ni)",
+    "unit": "mg/kg",
+    "results": [
+      { "name": "Lab A", "value": 1.930, "u": 0.110 }, { "name": "Lab B", "value": 1.984, "u": 0.020 },
+      { "name": "Lab C", "value": 2.022, "u": 0.023 }, { "name": "Lab D", "value": 2.050, "u": 0.020 },
+      { "name": "Lab E", "value": 2.077, "u": 0.035 }, { "name": "Lab F", "value": 2.150, "u": 0.030 }
+    ],
+    "linear_pool": true,
+    "bayes": {},
+    "trials": 100000
+  }
+}
+"#;
+
 const TEMPLATE_SAMPLING: &str = r#"{
   "format": "uncertainty-calculations/project",
   "version": 1,
@@ -297,7 +324,7 @@ fn main() -> ExitCode {
             Ok(true)
         }
         Some("-V" | "--version" | "version") => {
-            println!("{SOFTWARE_NAME} {SOFTWARE_VERSION}\n{CITATION}");
+            println!("{SOFTWARE_NAME} {}\n{}\n{CITATION}", project::software_identity(), project::SOFTWARE_COMPILER);
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--topdown") => {
@@ -326,6 +353,10 @@ fn main() -> ExitCode {
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--error-function") => {
             print!("{TEMPLATE_ERROR_FUNCTION}");
+            Ok(true)
+        }
+        Some("template") if args.get(1).is_some_and(|a| a == "--consensus") => {
+            print!("{TEMPLATE_CONSENSUS}");
             Ok(true)
         }
         Some("template") if args.get(1).is_some_and(|a| a == "--sampling") => {
@@ -443,12 +474,14 @@ fn collect(path: &Path, out: &mut Vec<PathBuf>) -> Result<(), String> {
 fn cmd_check(args: &[String]) -> Result<bool, String> {
     let mut ov = Overrides::default();
     let mut files = Vec::new();
+    let mut lab_files = Vec::new();
     let mut report_path: Option<PathBuf> = None;
     let mut lang = Lang::En;
     let mut i = 0;
     while i < args.len() {
         match args[i].as_str() {
             "--no-mcm" => ov.skip_mcm = true,
+            "--lab" => collect(Path::new(value(args, &mut i, "--lab")?), &mut lab_files)?,
             "--report" => report_path = Some(value(args, &mut i, "--report")?.into()),
             "--lang" => lang = value(args, &mut i, "--lang")?.parse()?,
             o if o.starts_with('-') => return Err(format!("unknown option '{o}'")),
@@ -456,12 +489,15 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
         }
         i += 1;
     }
-    if files.is_empty() {
+    if files.is_empty() && lab_files.is_empty() {
         return Err("check needs at least one file or directory".into());
     }
     let (mut passed, mut failed, mut without) = (0, 0, 0);
     let mut items = Vec::new();
-    for f in &files {
+    let n_files = files.len() + lab_files.len();
+    let tagged = files.iter().map(|f| (f, false)).chain(lab_files.iter().map(|f| (f, true)));
+    for (f, laboratory) in tagged {
+        let sha256 = std::fs::read(f).ok().map(|b| project::sha256::sha256_hex(&b));
         let loaded = load(f);
         let outcome = loaded.clone().and_then(|p| project::run(&p, &ov).map(|a| (p, a)).map_err(|e| e.to_string()));
         let file = f.display().to_string().replace('\\', "/");
@@ -469,7 +505,7 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
             Err(e) => {
                 failed += 1;
                 println!("ERROR {}: {e}", f.display());
-                items.push(report::ValidationItem { file, project: loaded.ok(), result: Err(e) });
+                items.push(report::ValidationItem { file, project: loaded.ok(), result: Err(e), sha256, laboratory });
             }
             Ok((p, a)) => {
                 let checks = project::check(&p, &a);
@@ -489,11 +525,11 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
                         );
                     }
                 }
-                items.push(report::ValidationItem { file, project: Some(p), result: Ok(checks) });
+                items.push(report::ValidationItem { file, project: Some(p), result: Ok(checks), sha256, laboratory });
             }
         }
     }
-    println!("\n{passed} passed, {failed} failed, {without} without reference values ({} files)", files.len());
+    println!("\n{passed} passed, {failed} failed, {without} without reference values ({n_files} files)");
     if let Some(path) = report_path {
         let html = path.extension().is_some_and(|e| e.eq_ignore_ascii_case("html") || e.eq_ignore_ascii_case("htm"));
         let date = today();

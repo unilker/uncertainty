@@ -1,0 +1,321 @@
+{
+  "format": "uncertainty-calculations/project",
+  "version": 1,
+  "metadata": {
+    "id": "emue-e3.8-ammonia-permeation",
+    "field": "chemistry",
+    "title": {
+      "en": "Calibration gas mixture of NH₃ in N₂ by permeation: amount fraction of ammonia (EMUE E3.8)",
+      "tr": "Permeasyonla N₂ içinde NH₃ kalibrasyon gazı karışımı: amonyağın madde miktarı kesri (EMUE E3.8)"
+    },
+    "description": {
+      "en": "y = ṅ₁x₁/(ṅ₁ + ṅ₂) with ṅ_j = q_mj/M̄_j (E3.8.1): permeation rate from a magnetic suspension balance, carrier flow from a thermal mass flow controller, purities of both parent gases and molar masses from standard atomic weights.",
+      "tr": "y = ṅ₁x₁/(ṅ₁ + ṅ₂), ṅ_j = q_mj/M̄_j (E3.8.1): permeasyon hızı manyetik askılı teraziden, taşıyıcı akış termal kütle akış kontrolöründen, iki ana gazın saflıkları ve standart atom ağırlıklarından mol kütleleri."
+    },
+    "explanation": [
+      {
+        "en": "The NH₃ tube loses 13.599 µg/min at 62 °C (OLS; errors-in-variables gives the same slope with u = 0.088 µg/min, the guide keeps OLS with 0.108 µg/min). The nitrogen flow is 0.3126 g/min with u_rel = 0.2 %.",
+        "tr": "NH₃ tüpü 62 °C'de 13,599 µg/min kaybeder (EKK; değişkenlerde hata regresyonu aynı eğimi u = 0,088 µg/min ile verir, rehber EKK'yı 0,108 µg/min ile tutar). Azot akışı u_bağıl = %0,2 ile 0,3126 g/min'dir."
+      },
+      {
+        "en": "Molar masses of the parent gases M̄_j = Σx_ij M_i with M_i from the IUPAC intervals; they are correlated through the shared atomic weights (r(M̄₁, M̄₂) = 0.12), and x(NH₃) = 1 − x(H₂O) is correlated with M̄₁. The program obtains these correlations from the shared inputs.",
+        "tr": "Ana gazların mol kütleleri M̄_j = Σx_ij M_i; M_i IUPAC aralıklarından; ortak atom ağırlıkları üzerinden ilişkilidirler (r(M̄₁, M̄₂) = 0,12); x(NH₃) = 1 − x(H₂O) de M̄₁ ile ilişkilidir. Program bu korelasyonları ortak girdilerden elde eder."
+      },
+      {
+        "en": "y(NH₃) = 70.80 µmol/mol, u = 0.60 µmol/mol (0.84 %), of which the permeation rate gives 88 % of the variance, the water in the ammonia 6 % and the carrier flow 5 %; (70.8 ± 1.2) µmol/mol with k = 2.",
+        "tr": "y(NH₃) = 70,80 µmol/mol, u = 0,60 µmol/mol (%0,84); varyansın %88'i permeasyon hızından, %6'sı amonyaktaki sudan, %5'i taşıyıcı akıştan gelir; k = 2 ile (70,8 ± 1,2) µmol/mol."
+      }
+    ],
+    "sources": [
+      {
+        "document": "EMPIR 17NRM05 EMUE, Good practice in evaluating measurement uncertainty — Compendium of examples (2021)",
+        "section": "Example E3.8, (E3.8.1)–(E3.8.4), Tables E3.8.3–E3.8.5",
+        "url": "http://empir.npl.co.uk/emue/wp-content/uploads/sites/49/2021/07/Compendium_M36.pdf"
+      }
+    ],
+    "tags": [
+      "emue",
+      "gas-mixture",
+      "permeation",
+      "iso-6145",
+      "molar-mass",
+      "correlation",
+      "intermediate-quantities"
+    ],
+    "notes": [
+      {
+        "en": "E3.8.5.2 gives E_A = 59.164 kJ/mol, k₀ = 43.069 µg/min and a temperature sensitivity of 4.81·10⁻⁷ µg min⁻¹ K⁻¹. From the two stated rates (7.4921 µg/min at 52.45 °C, 13.599 µg/min at 62.00 °C) E_A = 56.64 kJ/mol and k₀ = 9.1·10⁹ µg/min (k₀ must exceed the rate); dṁ/dT at 62 °C is 0.82 µg min⁻¹ K⁻¹, and the stated contribution of 0.0022 µg/min corresponds to this value with u(T) = 0.0027 K. The contribution is negligible here (research log F89).",
+        "tr": "E3.8.5.2, E_A = 59,164 kJ/mol, k₀ = 43,069 µg/min ve 4,81·10⁻⁷ µg min⁻¹ K⁻¹ sıcaklık duyarlılığı verir. Belirtilen iki hızdan (52,45 °C'de 7,4921 µg/min, 62,00 °C'de 13,599 µg/min) E_A = 56,64 kJ/mol ve k₀ = 9,1·10⁹ µg/min çıkar (k₀ hızdan büyük olmalıdır); 62 °C'de dṁ/dT = 0,82 µg min⁻¹ K⁻¹'dir ve belirtilen 0,0022 µg/min katkısı bu değere u(T) = 0,0027 K ile karşılık gelir. Katkı burada ihmal edilebilir (araştırma günlüğü F89)."
+      }
+    ]
+  },
+  "model": {
+    "output": {
+      "name": "y_NH3",
+      "unit": "µmol/mol",
+      "expression": "1e6*n1*(1 - x_w1)/(n1 + n2)",
+      "description": {
+        "en": "Amount fraction of NH₃ in the mixture",
+        "tr": "Karışımdaki NH₃ madde miktarı kesri"
+      }
+    },
+    "intermediates": [
+      {
+        "name": "M_NH3",
+        "expression": "A_N + 3*A_H"
+      },
+      {
+        "name": "M_H2O",
+        "expression": "A_H*2 + A_O"
+      },
+      {
+        "name": "M1",
+        "expression": "(1 - x_w1)*M_NH3 + x_w1*M_H2O"
+      },
+      {
+        "name": "M2",
+        "expression": "(1 - 1e-6*(x2_Ar + x2_CH4 + x2_CO + x2_CO2 + x2_H2 + x2_H2O + x2_O2))*(2*A_N) + 1e-6*(x2_Ar*(A_Ar) + x2_CH4*(A_C + 4*A_H) + x2_CO*(A_C + A_O) + x2_CO2*(A_C + 2*A_O) + x2_H2*(2*A_H) + x2_H2O*(A_H*2 + A_O) + x2_O2*(2*A_O))"
+      },
+      {
+        "name": "n1",
+        "expression": "1e-6*q_m1/M1"
+      },
+      {
+        "name": "n2",
+        "expression": "q_m2/M2"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "q_m1",
+        "unit": "µg/min",
+        "description": {
+          "en": "Permeation rate of the NH₃ tube at 62 °C (OLS slope of mass against time)",
+          "tr": "62 °C'de NH₃ tüpünün permeasyon hızı (kütle–zaman doğrusunun EKK eğimi)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 13.599,
+          "sd": 0.108
+        }
+      },
+      {
+        "name": "q_m2",
+        "unit": "g/min",
+        "description": {
+          "en": "Mass flow of the nitrogen carrier gas (thermal MFC, 250 mL/min)",
+          "tr": "Azot taşıyıcı gazın kütle akışı (termal MFC, 250 mL/min)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.3126,
+          "sd": 0.0006
+        }
+      },
+      {
+        "name": "x_w1",
+        "unit": "mol/mol",
+        "description": {
+          "en": "Water in the ammonia (parent 1); x(NH₃) = 1 − x_w1",
+          "tr": "Amonyaktaki su (ana gaz 1); x(NH₃) = 1 − x_w1"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.01,
+          "sd": 0.002
+        }
+      },
+      {
+        "name": "A_H",
+        "description": {
+          "en": "Standard atomic weight of H",
+          "tr": "H standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 1.00784,
+          "upper": 1.00811
+        }
+      },
+      {
+        "name": "A_C",
+        "description": {
+          "en": "Standard atomic weight of C",
+          "tr": "C standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 12.0096,
+          "upper": 12.0116
+        }
+      },
+      {
+        "name": "A_N",
+        "description": {
+          "en": "Standard atomic weight of N",
+          "tr": "N standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 14.00643,
+          "upper": 14.00728
+        }
+      },
+      {
+        "name": "A_O",
+        "description": {
+          "en": "Standard atomic weight of O",
+          "tr": "O standart atom ağırlığı"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "lower": 15.99903,
+          "upper": 15.99977
+        }
+      },
+      {
+        "name": "A_Ar",
+        "description": {
+          "en": "Standard atomic weight of Ar (IUPAC 2013, 39.948 ± 0.001, as in Table E3.8.4)",
+          "tr": "Ar standart atom ağırlığı (IUPAC 2013, 39,948 ± 0,001, Tablo E3.8.4'teki gibi)"
+        },
+        "distribution": {
+          "type": "rectangular",
+          "value": 39.948,
+          "half_width": 0.001
+        }
+      },
+      {
+        "name": "x2_Ar",
+        "unit": "µmol/mol",
+        "description": {
+          "en": "Ar in the nitrogen (parent 2)",
+          "tr": "Azottaki Ar (ana gaz 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 5.0,
+          "sd": 3.0
+        }
+      },
+      {
+        "name": "x2_CH4",
+        "unit": "µmol/mol",
+        "description": {
+          "en": "CH4 in the nitrogen (parent 2)",
+          "tr": "Azottaki CH4 (ana gaz 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.008,
+          "sd": 0.005
+        }
+      },
+      {
+        "name": "x2_CO",
+        "unit": "µmol/mol",
+        "description": {
+          "en": "CO in the nitrogen (parent 2)",
+          "tr": "Azottaki CO (ana gaz 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.015,
+          "sd": 0.009
+        }
+      },
+      {
+        "name": "x2_CO2",
+        "unit": "µmol/mol",
+        "description": {
+          "en": "CO2 in the nitrogen (parent 2)",
+          "tr": "Azottaki CO2 (ana gaz 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.01,
+          "sd": 0.006
+        }
+      },
+      {
+        "name": "x2_H2",
+        "unit": "µmol/mol",
+        "description": {
+          "en": "H2 in the nitrogen (parent 2)",
+          "tr": "Azottaki H2 (ana gaz 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.024999999999999998,
+          "sd": 0.015
+        }
+      },
+      {
+        "name": "x2_H2O",
+        "unit": "µmol/mol",
+        "description": {
+          "en": "H2O in the nitrogen (parent 2)",
+          "tr": "Azottaki H2O (ana gaz 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.01,
+          "sd": 0.006
+        }
+      },
+      {
+        "name": "x2_O2",
+        "unit": "µmol/mol",
+        "description": {
+          "en": "O2 in the nitrogen (parent 2)",
+          "tr": "Azottaki O2 (ana gaz 2)"
+        },
+        "distribution": {
+          "type": "normal",
+          "mean": 0.005,
+          "sd": 0.003
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "gum": {
+      "coverage_factor": 2
+    },
+    "mcm": {
+      "trials": 1000000,
+      "seed": 5,
+      "interval": "symmetric"
+    }
+  },
+  "expected": {
+    "gum": {
+      "estimate": {
+        "value": 70.796,
+        "tolerance": 0.001
+      },
+      "standard_uncertainty": {
+        "value": 0.598,
+        "tolerance": 0.0015
+      },
+      "expanded_uncertainty": {
+        "value": 1.2,
+        "tolerance": 0.05
+      }
+    },
+    "mcm": {
+      "estimate": {
+        "value": 70.796,
+        "tolerance": 0.003
+      },
+      "standard_uncertainty": {
+        "value": 0.598,
+        "tolerance": 0.003
+      }
+    },
+    "reference": {
+      "en": "EMUE E3.8.6 and Table E3.8.5: y(NH₃) = 7.08·10⁻⁵ mol/mol, u = 5.99·10⁻⁷ mol/mol; (70.8 ± 1.2) µmol/mol (k = 2).",
+      "tr": "EMUE E3.8.6 ve Tablo E3.8.5: y(NH₃) = 7,08·10⁻⁵ mol/mol, u = 5,99·10⁻⁷ mol/mol; (70,8 ± 1,2) µmol/mol (k = 2)."
+    }
+  }
+}

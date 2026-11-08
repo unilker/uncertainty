@@ -16,6 +16,7 @@ const distributionParameters = <String, List<String>>{
   'curvilinear_trapezoid': ['value', 'half_width', 'lower', 'upper', 'd'],
   'exponential': ['mean'],
   'gamma': ['shape', 'scale'],
+  'beta': ['alpha', 'beta', 'mean', 'sd', 'lower', 'upper'],
   'type_a': [],
   'type_a_pooled': ['mean', 'pooled_sd', 'pooled_dof', 'n'],
   'constant': ['value'],

@@ -29,6 +29,18 @@ recomputed.
 | `jcgm106.py`, `j106.py` | JCGM 106 conformity (projects and cross-check) |
 | `jcgm102.py` | JCGM 102 multivariate |
 | `palma2019.py`, `bettencourt2026.py` | Palma et al. 2019; Bettencourt da Silva 2026 |
+| `gum5.py` | JCGM GUM-5:2026, Examples 1–5, 9, 10, 12, 14, 15 |
+| `emue.py` | EMUE compendium 2021: E3.4, E2.1, E2.2, E3.8, E3.3, E6.5 |
+| `iupac2024.py` | IUPAC brief guide 2024, Examples 3A, 3E/4M/4N, 4A, 4B, 4F, 4H, 4I, 5C |
+| `possolo_meija2022.py` | Possolo & Meija 2022: Hubble–Lemaître constant, anion gap, storage tank, Wheatstone bridge, atomic weight of lead |
+| `bipm_isrd.py` | BIPM ISRD-01, -02, -06, -07, -08: qNMR purity budgets (inputs from `tools/research/qnmr/isrd_budgets.py`) |
+| `possolo_bodnar2018.py` | Possolo & Bodnar 2018 §4.4: chromium in soil, homogeneity with a hierarchical Bayesian model |
+| `merkatas2019.py` | Merkatas et al. 2019: G from 16 results, four procedures of Table 4 |
+| `ume_procedure.py` | TÜBİTAK UME draft uncertainty procedure, Examples 19.1 and 19.2 |
+| `../research/article_stats.py` | (not a generator) summary numbers for the article → `docs/article/numbers.md` |
+| `tur_guard_bands.py` | TUR-based guard bands (RSS, Dobbert, RP-10) checked against Suncal |
+| `koepke2017.py` | Koepke et al. 2017 (NIST Consensus Builder): G, half-lives of ¹³⁷Cs and ⁹⁰Sr |
+| `eurachem_compliance.py` | Eurachem/CITAC compliance assessment guide 2021, Annex B Examples 1–3 |
 | `tr569.py` | Nordtest TR 569 control charts |
 | `m3003.py` | UKAS M3003 ed. 6 |
 | `ufs.py` | Eurachem UfS:2019 |

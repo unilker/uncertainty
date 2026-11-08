@@ -117,6 +117,28 @@ mertebe terimlerle katkıda bulunuyorsa rapor uyarır ve birinci mertebe değerl
 belirtir (GUM H.1'de %12). Terimleri `"gum": { "higher_order": true }` ile etkinleştiriniz; program bu durumda
 notun normal dağılımlı girdiler varsaydığı konusunda uyarır. Bu durumlarda güvenilir denetim Monte Carlo yöntemidir (4. bölüm).
 
+**Kestirim.** GUM'un 1. düzeltmesi (JCGM 100:2008/Amd.1:2026) 4.1.4'e not 1'i ekler: doğrusal olmama belirginse
+Taylor serisinin ikinci mertebe terimi kestirime de eklenmelidir:
+
+$$y = f(x_1, \dots, x_N) + \tfrac12\sum_i\sum_j \frac{\partial^2 f}{\partial x_i\,\partial x_j}\,u(x_i, x_j).$$
+
+Bu, GUM Denklem (H.10)'dur; bağımsız girdilerde yalnızca ∂²f/∂xᵢ² u²(xᵢ) terimleri kalır. Program bu terimi her zaman
+hesaplar (JSON sonuçlarında `second_order_estimate_term`). `"higher_order": true` ile terimi y'ye ekler ve aralığı
+düzeltilmiş kestirime ortalar. Seçenek kapalıyken terim u_c(y)'nin onda birini aşarsa rapor uyarır. JCGM 101 9.4'ün
+karşılaştırma kaybı δY = X₁² + X₂² için düzeltilmiş kestirim analitik ortalamaya eşittir (x₁ = 0'da 50·10⁻⁶); birinci
+mertebe kestirim 0 ise geçersizdir (JCGM 101 9.4.2.2.8). GUM H.1'de terim, Amd.1'in belirttiği gibi sıfırdır.
+
+**İlişkili girdiler.** GUM yüksek mertebe varyans terimlerini yalnızca bağımsız girdiler için verir; bu nedenle GUM-5
+Örnek 16 ilişkili yansıma katsayılarına bunları uygulamaz. Kovaryans matrisi Σ olan normal dağılımlı girdiler için
+aynı Taylor açılımı şunu verir:
+
+$$u_c^2(y) = \mathbf c^\top\Sigma\,\mathbf c + \tfrac12\,\mathrm{tr}\big((H\Sigma)^2\big) + \sum_{i,j,k,l} c_l\,f_{ijk}\,\Sigma_{li}\,\Sigma_{jk}$$
+
+(Mana ve Pennecchi, *Metrologia* 44 (2007) 246). Burada H ikinci türevler matrisi, f_ijk ise üçüncü türevlerdir.
+Program bunu `"higher_order": true` olduğunda her zaman kullanır; bağımsız girdilerde 5.1.2 notuna indirgenir.
+r = 0,9 olan karşılaştırma kaybı için x₁ = 0, 0,010 ve 0,050'de u = 67, 121 ve 505·10⁻⁶ verir; bunlar GUM-5
+Tablo 16.2'nin analitik değerleridir.
+
 ## 3.6 Serbestlik dereceleri ve Welch–Satterthwaite formülü
 
 Birleşik standart belirsizliğin **etkin serbestlik derecesi** (GUM G.4.1, Eş. G.2b):
@@ -126,6 +148,16 @@ $$\nu_\text{eff} = \frac{u_c^4(y)}{\sum_i u_i^4(y)/\nu_i}.$$
 ν = ∞ olan girdiler (B tipi değerlendirmelerin çoğu) paydaya katkıda bulunmaz. Program, GUM'un önerdiği gibi
 (G.4.1 notu) t dağılımına bakmadan önce varsayılan olarak ν_eff'i bir alt tam sayıya keser;
 `"dof_rounding": "exact"` kesirli değeri kullanır.
+
+**İlişkili girdiler.** G.2b eşitliği girdilerin bağımsız olduğunu varsayar. Sonlu ν'li iki girdi ilişkiliyse
+program eşitliği yine uygular ve uyarır. Bir durum ise tam olarak ele alınır: bir analitin ve iç standardının
+eşli okumalarının ortalamaları gibi **aynı veri kümesinden** değerlendirilen girdiler, ortak ν'li bir
+*topluluk* (ensemble) oluşturur. Modelde `"ensembles": [["AE", "AISE"]]` olarak tanımlanan topluluk, paydada
+tek bileşen sayılır. Bu bileşenin varyansı kovaryanslar dahil Σ_{i,j∈E} c_i c_j u(x_i, x_j), serbestlik
+derecesi ise ortak ν'dir (Willink, *Metrologia* 44 (2007) 340, §4.1.1). Bu nedenle tek bir topluluk, korelasyon
+ne olursa olsun tam olarak kendi ν'sini verir. Topluluk içindeki ya da ν'si sonsuz iki girdi arasındaki
+korelasyonlar uyarı vermez. Kütüphanedeki `gum5-e2-benzo-a-pyrene` ve `gum5-e2-benzo-a-pyrene-ensemble`
+projeleri farkı gösterir: ν_eff = 5,2'ye karşı 2,1; k = 2,5'e karşı 4,1.
 
 ## 3.7 Kapsam faktörü ve genişletilmiş belirsizlik
 
