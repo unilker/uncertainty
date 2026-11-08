@@ -86,6 +86,11 @@ for key, (R, NA, NS, MA, MS, mA, mS, wS, contrib, w_p, uc_p, _nu) in TABLES.item
                       "reference": T(f"BIPM {doc}, {table.replace('T', 'Table ')}: assigned value {w_p} g/g, combined standard uncertainty {uc_p:.3e} g/g (k = 2 for the expanded uncertainty). Tolerance of u: 1 % or the difference to the value recomputed from the printed inputs, {100 * d:.1f} % (F97).",
                                      f"BIPM {doc}, Tablo {table[1:]}: atanan değer {c(w_p)} g/g, birleşik standart belirsizlik {c(f'{uc_p:.3e}')} g/g (genişletilmiş belirsizlik için k = 2). u toleransı: %1 ya da basılı girdilerden yeniden hesaplanan değerle fark, %{c(f'{100 * d:.1f}')} (F97).")}}
     if key == "ISRD-06 T6 BA/BTMSB-d4 CD3OD":
+        # R is printed with two significant digits (1.5): the printed purity allows ±0.033 g/g and the check would
+        # say nothing; check the recomputation from the printed inputs instead (review 2026-11-08, item 8).
+        p["expected"]["gum"]["estimate"] = {"value": round(w, 9), "tolerance": 5e-9}
+        p["expected"]["reference"] = T(p["expected"]["reference"]["en"].replace(f"Table 6: assigned value {w_p} g/g,", f"Table 6: assigned value {w_p} g/g; the integral ratio is printed as 1.5 (two significant digits), which allows ±0.033 g/g, so the estimate is checked against the value recomputed from the printed inputs (independent Python, {w:.9f} g/g) instead;"),
+                                       p["expected"]["reference"]["tr"].replace(f"Tablo 6: atanan değer {c(w_p)} g/g,", f"Tablo 6: atanan değer {c(w_p)} g/g; integral oranı 1,5 olarak (iki anlamlı basamak) basıldığından ±0,033 g/g'lık bir tolerans gerekir, bu nedenle tahmin basılı girdilerden yeniden hesaplanan değerle (bağımsız Python, {c(f'{w:.9f}')} g/g) karşılaştırılır;"))
         p["metadata"]["notes"].append(T("The ISRD reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at the physical limit of 1000 mg/g. The program reports the symmetric GUM interval; the bound is not part of the model.",
                                         "ISRD 999,8 +0,2/−1,5 mg/g bildirir: aralık 1000 mg/g fiziksel sınırında kesilmiştir. Program simetrik GUM aralığını verir; sınır modelin parçası değildir."))
     Path(f"library/chemistry/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

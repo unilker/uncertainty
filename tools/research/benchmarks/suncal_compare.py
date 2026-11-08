@@ -121,6 +121,12 @@ def main():
     print(f"\nmax |u/u_Suncal − 1| = {max(du):.1e}; max |Δy|/u = {max(abs(r['dy']) for r in rows):.1e}; "
           f"MC compared: {len(mcs)}, max |Δs.d.|/s.d. = {max(mcs) if mcs else float('nan'):.1e}, "
           f"max |z| = {max(abs(r['z']) for r in rows if r.get('z') is not None):.1f}")
+    # Probability of a max |z| at least this large among m independent standard normal z (review 2026-11-08,
+    # item 15): 1 − (1 − 2Φ(−|z|max))^m.
+    zs = [abs(r["z"]) for r in rows if r.get("z") is not None]
+    if zs:
+        phi = 0.5 * math.erfc(max(zs) / math.sqrt(2))
+        print(f"P(max |z| ≥ {max(zs):.1f} among {len(zs)} independent N(0, 1)) = {1 - (1 - 2 * phi) ** len(zs):.2f}")
 
 
 if __name__ == "__main__":

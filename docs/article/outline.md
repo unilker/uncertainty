@@ -5,9 +5,9 @@ target-journal table and the checklist). Every number below comes from `docs/art
 (`tools/research/article_stats.py`), the validation matrix or the research log; nothing is to be typed in by hand.
 
 **Türkçe özet.** Tek bir ana Q1 makale önerilir: yazılım, doğrulama ve yayımlanmış örneklerin denetimi bir arada.
-Ana iddia: 36 kılavuz ve makaleden 277 çözümlü örnek, girdilerinden program tarafından yeniden hesaplanır ve her
-çalıştırmada test edilir; bu süreçte 97 bulgu (yuvarlama, dizgi hatası ve sonucu etkileyen tutarsızlıklar)
-belgelenmiştir. İkinci, kısa bir yöntem notu (uzlaşı değerinde yöntem seçiminin etkisi ve MCMC'siz kesin ızgara)
+Ana iddia: 38 kılavuz ve makaleden 284 proje (çözümlü örnekler ve varyantları), girdilerinden program tarafından
+yeniden hesaplanır ve her çalıştırmada test edilir; bu süreçte 98 bulgu belgelenmiştir; bunların 12'si nihai basılı
+sonucu değiştiren doğrulanmış tutarsızlıktır (c1; D84). İkinci, kısa bir yöntem notu (uzlaşı değerinde yöntem seçiminin etkisi ve MCMC'siz kesin ızgara)
 isteğe bağlıdır. Gönderimden önce: NUM/Suncal karşılaştırması, bağımsız inceleme, bulgu sınıflarının denetimi.
 
 ## 1. Paper and journal
@@ -41,9 +41,9 @@ Working title options:
 > 569), uncertainty from sampling, weighing instruments (EURAMET cg-18) and consensus values with degrees of
 > equivalence. Each algorithm cites the clause it implements. The program is validated on [277] worked examples
 > from [36] guidance documents and papers, stored as project files that the test suite recomputes from their
-> inputs at every change. Reproducing the examples produced [97] findings: intermediate rounding, misprints,
-> and [29] inconsistencies that change a printed result, among them [examples: GUM-5 effective degrees of freedom
-> for correlated inputs, ...]. Bayesian random-effects consensus values that the literature obtains by MCMC are
+> inputs at every change. Reproducing the examples produced [98] findings: intermediate rounding, misprints,
+> and [12] confirmed inconsistencies that change a final printed result (c1), besides inconsistencies in
+> intermediate values, differences of method and published errata, which are counted separately. Bayesian random-effects consensus values that the literature obtains by MCMC are
 > reproduced exactly on a deterministic grid. We argue that worked examples should be published with machine-
 > readable inputs and checked by independent recomputation, and we make the library available for that purpose.
 
@@ -76,7 +76,13 @@ Messages and sources:
 - 4.4 Deterministic Bayesian evaluations on grids instead of MCMC: half-Cauchy priors via τ = s·tan(πθ/2), μ
   integrated analytically, Laplace effects by the closed-form normal–Laplace convolution (D60, D67, D68).
 - 4.5 Architecture and reproducibility: project files (JSON), reports TR/EN (Markdown, HTML with SVG, JSON),
-  self-checking expected values, generators that rebuild every project from cited data, CI.
+  self-checking expected values, generators that rebuild every project from cited data, CI; every report carries
+  the commit and the SHA-256 of the project (D79).
+- 4.6 Use of AI tools (required by most journals; state it per the journal's policy): the code, the generators,
+  the recomputations and a pre-review were produced with an AI coding assistant under the author's direction; the
+  expected values come from the published documents, and the independent checks are Suncal, the NUM manual and
+  the independent recomputation by a metrologist (§9). Common-mode errors (a standard read the same wrong way by
+  the engine and by the Python checks written in the same environment) are a stated limitation (review item 14).
 
 Figure 1: architecture (engine, project format, CLI, app, library, generators, tests).
 Table 1: features × standard clauses (generate from `iso17025-mapping.md` and the module docs).
@@ -98,11 +104,16 @@ Table 1: features × standard clauses (generate from `iso17025-mapping.md` and t
 ### 6.1 What recomputation reveals (the audit)
 
 Classification (D12, D73): (a) intermediate rounding; (b) misprint or transcription without effect; (c)
-inconsistency that changes a printed result; (n) no discrepancy (methodological note, summary, full
-reproduction). Counts: a 26, b 25, c 23, mixed 12, n 11; 29 findings with a class c component. Figure 2:
-findings per document by class (table "Findings by document and class" in `numbers.md`).
+inconsistency; (n) no discrepancy (methodological note, summary, full reproduction). The class-c findings are
+split by effect (D84, review 2026-11-08 item 7; `class-c-impact.tsv`): c1 a final printed y, U or outcome is not
+reproduced at its printed digits (12 confirmed); c2 only intermediate values (7); m a difference of method or
+interpretation, not an inconsistency (5); e corrected by a published erratum (1, QUAM A5); 4 open findings are
+not counted. Each row gives printed → recomputed and |Δy|/U, |ΔU|/U. Figure 2: findings per document by class
+(table "Findings by document and class" in `numbers.md`). Table "From sources to findings" in `numbers.md` is
+the counting chain (sources → projects → matrix rows → compared values → findings), with each step defined.
 
-Selected class-c findings for Table 4 (check each against the current edition before submission):
+Selected c1 findings for Table 4 (check each against the current edition and errata before submission; F14 is a
+known erratum and F79 a method difference, D84):
 
 | F | Document | Finding |
 |---|---|---|
@@ -113,8 +124,7 @@ Selected class-c findings for Table 4 (check each against the current edition be
 | F41, F42 | ISO 6143:2025 | critical value of the drift test; exponential example |
 | F56–F58 | UKAS M3003 K.3, K.5, K.6 | mismatch term, sign, temperature terms |
 | F63 | Eurachem UfS:2019 | robust ANOVA not reproducible from the Guide |
-| F79 | JCGM GUM-5 Ex. 2 | ν_eff 4.8 for correlated inputs; ensemble W–S gives 2.1 |
-| F81, F82, F85 | GUM-5 Ex. 12, 4, 11 | posterior mode of τ; tables of Ex. 4; information criteria |
+| F82, F85 | GUM-5 Ex. 4, 11 | u(y_CO₂) of Ex. 4; reported result of Ex. 11 (F85 open: data read from the figure) |
 | F90 | EMUE E3.3 | covariance of the reference values |
 | F92 | IUPAC 2024 4I | sign of the endpoint correction |
 
@@ -126,8 +136,12 @@ Patterns worth a paragraph each:
   purity not reproduced by its own inputs); recomputation from inputs catches this immediately.
 - Monte Carlo and MCMC results in documents are estimates with sampling error (F2, F77, F95, F96); a deterministic
   evaluation removes the ambiguity (D67, D68).
-- Methodological points: two conventions for t-distributed inputs (F31, F35); W–S with correlated inputs (F79,
-  D58); shortest intervals by MCM (F3); second-order terms (F19, D56).
+- Methodological points: two conventions for t-distributed inputs (F31, F35, D85); W–S with correlated inputs
+  (F79, D58: both readings cover 93–94 % when ν is recomputed per data set; coverage note in the F79 entry); shortest
+  intervals by MCM (F3); second-order terms (F19, D56). F81 (getmode returns the first MCMC draw) and F82 (Table
+  4.2 vs 4.1) go to a short appendix with the code and the computation (review item 17).
+- Tolerances: the basis of every tolerance (half a unit, one unit, Monte Carlo 5σ, wider with a reason) and the
+  distribution of |Δ|/tolerance from `numbers.md`, instead of pass/fail alone (review item 13).
 
 ### 6.2 Case studies (short)
 
@@ -149,24 +163,35 @@ with intervals. CCQM-K145 as a metrology example, participants anonymised and th
 - When the GUM framework suffices (GUF validation results), interval choice (D61), asymmetric/bounded results
   (F97 item 6; outlook).
 - Machine-readable worked examples as a recommendation to guideline authors: the project format as a proposal.
-- Limitations: methods not implemented (NICOB σ_j priors with finite ν, ARMA, Poisson counting, model averaging,
-  leave-one-out DoE; D68, D70), licensed standards (data only, `sources-provenance.md`).
+- Limitations: methods not implemented, in the order of their importance for an NMI (review item 20): bounded
+  outputs (a purity near 1 g/g, e.g. ISRD-06 T6 999.8 +0.2/−1.5 mg/g; truncated MCM output or a Bayesian output
+  with the bound), bilateral and leave-one-out degrees of equivalence and NICOB σ_j priors with finite ν (D68), PDF
+  output and signed packages (7.11.3); then ARMA, counting data, Easterling's methods and model averaging (D70);
+  licensed standards (data only, `sources-provenance.md`).
 
 ## 8. Availability
 
 Repository, licence (GPL-3.0), tagged release with Zenodo DOI, `CITATION.cff`, the library and generators,
-`cargo test` reproducing every number; app builds for Windows, Linux, macOS, Android, iOS.
+`cargo test` reproducing every number; app builds for Windows, Linux, macOS, Android, iOS. State the commit that
+was reviewed and the commit of the release (the pre-review used 809ebcf; review item 22).
 
 ## 9. Before submission (open)
 
 - [x] D12 audit of the finding classes (D73): every finding has a class in `finding-classes.tsv`.
 - [ ] Recheck the class-c findings against current editions and errata (F40, resolved in D41, is the model).
 - [x] Benchmark against Suncal (D74). NUM: manual examples only (web service).
-- [ ] Independent review by a metrologist outside the project (NMI or accredited laboratory).
+- [ ] Independent review by a metrologist outside the project (NMI or accredited laboratory). The pre-review of
+      2026-11-08 (`docs/research/review-2026-11-08.md`) was made with an AI assistant and does not count; at least
+      ten c1 findings to be recomputed by a person who has not seen the code (review item 14).
 - [ ] Systematic literature search finished (task 41; `literature-search-2026-10.md`) and audits of worked
       examples by others cited.
 - [ ] Permissions: data-only use of licensed documents confirmed (`sources-provenance.md`); figures redrawn.
-- [ ] F79 against Willink 2007; F92 against Meija et al.; F29 still "to be confirmed".
+- [ ] F79 against Willink 2007; F92 against Meija et al.; F29 still "to be confirmed"; F28 against Kline &
+      McClintock (1953); Dobbert 2008 and the Z540.3 handbook for the TUR guard bands (D80).
 - [ ] Figures 1–3 and Tables 1–4 generated by scripts in `tools/research/`.
-- [ ] Decide whether findings are reported to the issuing bodies after publication (current rule: recorded for the
-      article only).
+- [ ] Decide whether findings are reported to the issuing bodies (current rule: recorded for the article only). The
+      pre-review recommends sending the c1 findings to JCGM-WG1, NIST, UKAS, Eurachem and the ISO committees as
+      technical notes before or with submission, and the F97 question to the BIPM qNMR team, and citing their
+      replies (review items 8, 18). Decision of the author.
+- [ ] Errata of M3003 ed. 6, ISO 5725-3:2023, ISO 6143:2025, EA-4/02 M:2022, EMUE, TN 1900 and GUM-5:2026 checked
+      for every c1 finding, with the edition and date in the project note (review item 6; QUAM and UfS done).

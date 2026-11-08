@@ -131,6 +131,30 @@ pub fn q_gamma_approximation(u: &[f64], tau2: f64) -> (f64, f64) {
     (mean * mean / var, var / mean)
 }
 
+/// Shape and scale of the gamma approximation of Q as the NIST Consensus
+/// Builder computes them (sampleFromTau2Dist.R, Koepke & Possolo 2016): at
+/// τ²_M, which may be negative (then E Q equals the observed Q), and with
+/// Var Q = 2(n − 1) + 4(S1 − S2/S1)τ² + 2(S2 − 2S3/S1 + S2²/S1²)τ⁴, whose
+/// linear term differs from Biggerstaff & Tweedie (1997) eq. (7) (see
+/// [`q_gamma_approximation`]). With τ² > 0 the two differ by about 0.1 % in u
+/// for Koepke's G; with Q < n − 1 the choice of τ²_M instead of 0 lowers u by
+/// about 13 % in a four-result example (research log D82). None when the mean
+/// or variance is not positive (NICOB would fail there); τ_k is then 0.
+pub fn q_gamma_approximation_nicob(u: &[f64], tau2_m: f64) -> Option<(f64, f64)> {
+    let n = u.len() as f64;
+    let (mut s1, mut s2, mut s3) = (0.0, 0.0, 0.0);
+    for ui in u {
+        let w = 1.0 / (ui * ui);
+        s1 += w;
+        s2 += w * w;
+        s3 += w * w * w;
+    }
+    let c = s1 - s2 / s1;
+    let mean = (n - 1.0) + c * tau2_m;
+    let var = 2.0 * (n - 1.0) + 4.0 * c * tau2_m + 2.0 * (s2 - 2.0 * s3 / s1 + s2 * s2 / (s1 * s1)) * tau2_m * tau2_m;
+    (mean > 0.0 && var > 0.0 && c > 0.0).then(|| (mean * mean / var, var / mean))
+}
+
 /// A unilateral degree of equivalence (D_j, U95 %(D_j)).
 #[derive(Clone, Debug, PartialEq)]
 pub struct DegreeOfEquivalence {
@@ -184,22 +208,28 @@ pub fn dl_bootstrap(
     check_trials(trials, p)?;
     let n = x.len();
     let dl = dersimonian_laird(x, u)?;
-    let (shape, scale) = q_gamma_approximation(u, dl.tau * dl.tau);
     let (mut s1, mut s2) = (0.0, 0.0);
     for ui in u {
         let w = 1.0 / (ui * ui);
         s1 += w;
         s2 += w * w;
     }
+    // As in NICOB (sampleFromTau2Dist.R): the gamma is set at the untruncated
+    // τ²_M = (Q − (n − 1))/(S1 − S2/S1), negative when Q < n − 1.
+    let tau2_m = (dl.q - (n - 1) as f64) / (s1 - s2 / s1);
+    let gamma = q_gamma_approximation_nicob(u, tau2_m);
     let mut rng = Rng::new(seed);
     let mut mus = Vec::with_capacity(trials);
     let mut ds: Vec<Vec<f64>> = vec![Vec::with_capacity(trials); n];
     let mut xk = vec![0.0; n];
     let mut uk = vec![0.0; n];
     for _ in 0..trials {
-        // (a) τ_k from the approximate distribution of τ̂_DL.
-        let qk = scale * rng.gamma(shape);
-        let tau2 = ((qk - (n - 1) as f64) / (s1 - s2 / s1)).max(0.0);
+        // (a) τ_k from the approximate distribution of τ̂_DL (τ_k = 0 when
+        // the moments give no valid gamma, see q_gamma_approximation_nicob).
+        let tau2 = match gamma {
+            Some((shape, scale)) => ((scale * rng.gamma(shape) - (n - 1) as f64) / (s1 - s2 / s1)).max(0.0),
+            None => 0.0,
+        };
         for j in 0..n {
             // (b) x_jk ~ N(μ̂, τ_k² + u_j²); (c) u_jk.
             xk[j] = dl.mean + rng.normal() * (tau2 + u[j] * u[j]).sqrt();
@@ -426,6 +456,20 @@ pub fn bayes_known_u(
     mu_prior: Option<(f64, f64)>,
     p: f64,
 ) -> Result<BayesConsensus, UncError> {
+    bayes_known_u_grid(x, u, tau_median, mu_prior, p, 100_000)
+}
+
+/// [`bayes_known_u`] with `m` grid points in θ ∈ (0, 1) (midpoints). The
+/// grid covers the whole range of τ, so no posterior mass lies outside it;
+/// the convergence test doubles `m`.
+pub fn bayes_known_u_grid(
+    x: &[f64],
+    u: &[f64],
+    tau_median: f64,
+    mu_prior: Option<(f64, f64)>,
+    p: f64,
+    m: usize,
+) -> Result<BayesConsensus, UncError> {
     validate(x, u, &[])?;
     if !(tau_median > 0.0) || !tau_median.is_finite() {
         return Err(invalid("the median of the half-Cauchy prior on τ must be positive"));
@@ -442,7 +486,6 @@ pub fn bayes_known_u(
     let c = x.iter().sum::<f64>() / x.len() as f64;
     let xc: Vec<f64> = x.iter().map(|v| v - c).collect();
     let prior = mu_prior.map(|(m0, s0)| (m0 - c, s0));
-    let m = 100_000;
     let mut taus = Vec::with_capacity(m);
     let mut ll = Vec::with_capacity(m);
     let mut mt = Vec::with_capacity(m);
@@ -583,6 +626,21 @@ pub fn bayes_laplace_known_u(
     mu_prior: Option<(f64, f64)>,
     p: f64,
 ) -> Result<BayesConsensus, UncError> {
+    bayes_laplace_known_u_grid(x, u, tau_median, mu_prior, p, 300, 300)
+}
+
+/// [`bayes_laplace_known_u`] with `nt` points in θ and `nm` in μ. The θ grid
+/// covers all τ; the second μ pass spans ±12 posterior standard deviations
+/// about the mean of the first pass, which leaves a negligible mass outside.
+pub fn bayes_laplace_known_u_grid(
+    x: &[f64],
+    u: &[f64],
+    tau_median: f64,
+    mu_prior: Option<(f64, f64)>,
+    p: f64,
+    nt: usize,
+    nm: usize,
+) -> Result<BayesConsensus, UncError> {
     validate(x, u, &[])?;
     if !(tau_median > 0.0) || !tau_median.is_finite() {
         return Err(invalid("the median of the half-Cauchy prior on τ must be positive"));
@@ -590,7 +648,6 @@ pub fn bayes_laplace_known_u(
     if !(p > 0.0 && p < 1.0) {
         return Err(invalid("the coverage probability must lie strictly between 0 and 1"));
     }
-    let (nt, nm) = (300, 300);
     let taus: Vec<f64> =
         (0..nt).map(|i| tau_median * (0.5 * std::f64::consts::PI * (i as f64 + 0.5) / nt as f64).tan()).collect();
     let xmin = x.iter().copied().fold(f64::INFINITY, f64::min);
@@ -803,6 +860,44 @@ mod tests {
     }
 
     #[test]
+    fn bayes_grids_have_converged() {
+        // Independent review 2026-11-08, item 3: doubling the grid changes
+        // the mean, the standard deviation and the quantiles of μ and τ by
+        // less than 10⁻³ of the posterior standard deviation.
+        let close = |a: &BayesConsensus, b: &BayesConsensus, what: &str| {
+            let s = a.sd;
+            for (x, y) in [
+                (a.mean, b.mean),
+                (a.sd, b.sd),
+                (a.interval.0, b.interval.0),
+                (a.interval.1, b.interval.1),
+                (a.tau_median, b.tau_median),
+                (a.tau_interval.1, b.tau_interval.1),
+            ] {
+                assert!((x - y).abs() < 1e-3 * s, "{what}: {x} vs {y} (sd {s})");
+            }
+        };
+        let x = [192.21677, 192.21662, 192.21763];
+        let u = [0.00081, 0.00029, 0.00017];
+        let prior = Some((192.217, 0.0015));
+        let a = bayes_known_u_grid(&x, &u, 0.00042, prior, 0.95, 100_000).unwrap();
+        let b = bayes_known_u_grid(&x, &u, 0.00042, prior, 0.95, 200_000).unwrap();
+        close(&a, &b, "iridium");
+        let mad = median_absolute_deviation(&G);
+        let a = bayes_known_u_grid(&G, &UG, mad, None, 0.95, 100_000).unwrap();
+        let b = bayes_known_u_grid(&G, &UG, mad, None, 0.95, 200_000).unwrap();
+        close(&a, &b, "G");
+        // Laplace effects (G, a smaller set than Hubble's for speed).
+        let a = bayes_laplace_known_u_grid(&G, &UG, mad, None, 0.95, 300, 300).unwrap();
+        let b = bayes_laplace_known_u_grid(&G, &UG, mad, None, 0.95, 600, 600).unwrap();
+        let s = a.sd;
+        for (x, y) in [(a.mean, b.mean), (a.sd, b.sd), (a.interval.0, b.interval.0), (a.interval.1, b.interval.1)] {
+            assert!((x - y).abs() < 1e-2 * s, "Laplace: {x} vs {y} (sd {s})");
+        }
+        assert!((a.tau_median - b.tau_median).abs() < 1e-2 * a.tau_median, "{a:?} {b:?}");
+    }
+
+    #[test]
     fn homogeneous_data_reduce_to_the_weighted_mean() {
         // τ̂ = 0 when Q ≤ n − 1 (Procedure A of Cox 2002).
         let x = [10.0, 10.1, 9.95];
@@ -814,6 +909,35 @@ mod tests {
         let m = w.iter().zip(&x).map(|(a, b)| a * b).sum::<f64>() / sw;
         assert!((r.mean - m).abs() < 1e-12);
         assert!((r.u - 1.0 / sw.sqrt()).abs() < 1e-12);
+    }
+
+    #[test]
+    fn bootstrap_with_q_below_n_minus_one() {
+        // Q = 0.377 < n − 1 = 3: τ̂_DL = 0, τ²_M = −0.0158. As in NICOB the
+        // gamma is set at τ²_M (E Q = Q), so most τ_k are 0 and u lies close
+        // to the fixed-effects value 0.0647; numpy with 2 × 10⁵ draws gives
+        // 0.06645 (0.0766 with the gamma at τ² = 0).
+        let x = [10.0, 10.1, 9.95, 10.02];
+        let u = [0.1, 0.2, 0.15, 0.12];
+        let d = dersimonian_laird(&x, &u).unwrap();
+        assert_eq!(d.tau, 0.0);
+        let (shape, scale) = q_gamma_approximation_nicob(
+            &u,
+            (d.q - 3.0) / {
+                let w: Vec<f64> = u.iter().map(|a| 1.0 / (a * a)).collect();
+                let s1: f64 = w.iter().sum();
+                s1 - w.iter().map(|a| a * a).sum::<f64>() / s1
+            },
+        )
+        .unwrap();
+        assert!((shape * scale - d.q).abs() < 1e-12, "E Q = Q");
+        let b = dl_bootstrap(&x, &u, &[], 0.95, 200_000, 1).unwrap();
+        assert!((b.u - 0.066_45).abs() < 0.0006, "{}", b.u);
+        // With τ² > 0 the NICOB variance differs little from eq. (7).
+        let t2 = dersimonian_laird(&G, &UG).unwrap().tau.powi(2);
+        let (a1, s1) = q_gamma_approximation(&UG, t2);
+        let (a2, s2) = q_gamma_approximation_nicob(&UG, t2).unwrap();
+        assert!((a1 * s1 - a2 * s2).abs() < 1e-9 && ((a1 * s1 * s1) / (a2 * s2 * s2) - 1.0).abs() < 0.01);
     }
 
     #[test]

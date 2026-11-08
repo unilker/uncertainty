@@ -378,6 +378,26 @@ fn dist_info(d: &DistributionSpec, lang: Lang) -> String {
     }
 }
 
+/// The convention for t-distributed inputs, stated with the validation of
+/// the GUM result when the model has such inputs (independent review,
+/// 2026-11-08, item 2): the two evaluations use different input variances
+/// for small ν, so a failed validation need not indicate an error in either.
+fn t_rule_note(p: &Project, lang: Lang) -> Option<String> {
+    let has_t = p.model.as_ref()?.inputs.iter().any(|i| {
+        matches!(
+            i.distribution,
+            DistributionSpec::TypeA { .. } | DistributionSpec::TypeAPooled { .. } | DistributionSpec::T { .. }
+        )
+    });
+    has_t.then(|| {
+        match lang {
+            Lang::En => "Inputs from repeated observations or with a t distribution follow JCGM 101 6.4.9: the GUM framework uses                  u = s/√n with ν = n − 1, the Monte Carlo method samples the scaled and shifted t_ν(x̄, s²/n)                  (6.4.9.2; for a certificate value t_ν(x, (U/k)²), 6.4.9.7), whose standard deviation is                  √(ν/(ν − 2))·s/√n and is not defined for ν ≤ 2. For small ν the validation can therefore fail                  because the two evaluations use different input variances, not because of an error in either.                  NIST TN 1900 and the NIST Uncertainty Machine scale the t distribution so that its standard deviation is s/√n.",
+            Lang::Tr => "Tekrarlı gözlemlerden gelen veya t dağılımlı girdiler JCGM 101 6.4.9'u izler: GUM çerçevesi u = s/√n ve                  ν = n − 1 kullanır, Monte Carlo yöntemi ölçekli ve kaydırılmış t_ν(x̄, s²/n) dağılımından örnekler                  (6.4.9.2; sertifika değeri için t_ν(x, (U/k)²), 6.4.9.7); bu dağılımın standart sapması                  √(ν/(ν − 2))·s/√n'dir ve ν ≤ 2 için tanımsızdır. Bu nedenle küçük ν'de doğrulama, iki değerlendirme                  farklı girdi varyansları kullandığı için başarısız olabilir; bu, ikisinden birindeki bir hatayı göstermez.                  NIST TN 1900 ve NIST Uncertainty Machine t dağılımını standart sapması s/√n olacak biçimde ölçekler.",
+        }
+        .to_string()
+    })
+}
+
 /// One sentence naming the rounding rule applied to U (independent review,
 /// 2026-11-08, item 9).
 pub fn rounding_sentence(spec: &ReportingSpec, lang: Lang) -> String {
@@ -761,6 +781,9 @@ fn model_markdown(p: &Project, a: &Analysis, checks: &[CheckOutcome], lang: Lang
                 n3(v.d_low),
                 n3(v.d_high)
             );
+            if let Some(note) = t_rule_note(p, lang) {
+                let _ = writeln!(s, "{note}\n");
+            }
         } else {
             let _ = writeln!(s);
         }

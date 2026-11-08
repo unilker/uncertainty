@@ -116,3 +116,16 @@ ISO 6143 (F41, F42), ISO 5725-3 (F40, çözüldü), ISO 5725-2 (F47–F49), ISO 
 Magnusson ve Ellison (F43) eklendi.
 
 12. **Klauenberg et al. (2015)**, *Metrologia* 52:878 — çevrimiçi Ek B (ses hızı lülesi kalibrasyon verileri, Tablo B2): Bayesçi normal doğrusal regresyon örneğini yeniden üretmek için (D70).
+
+**2026-11-08 güncellemesi (ön inceleme):**
+
+13. **Dobbert (2008)**, "A guard-band strategy for managing false-accept risk", NCSL International Workshop &
+    Symposium; **ANSI/NCSL Z540.3 Handbook** — TUR koruma bantlarının birincil kaynakları (D80; formüller şimdilik
+    Suncal uygulamasından).
+14. **Willink (2007)**, "A generalization of the Welch–Satterthwaite formula for use with correlated uncertainty
+    components", *Metrologia* 44:340–349 — F79 (GUM-5 eş. 2.3'ün hangi duruma ait olduğu).
+15. **Kline ve McClintock (1953)**, *Mech. Eng.* 75:3–8 — F28 (TN 1900 E4'te Δ'nın tanımı).
+16. **Meija ve ark.** (IUPAC 2024 Örnek 4I'nın kaynağı [14]) — F92.
+17. Yayımlanmış düzeltme listeleri (errata): UKAS M3003 6. baskı, ISO 5725-3:2023, ISO 6143:2025, EA-4/02 M:2022,
+    EMPIR EMUE, NIST TN 1900, JCGM GUM-5:2026 — her c1 bulgusu için kontrol edilecek (D84). QUAM 2012 (QUAM_ERRATA_v2,
+    2019) ve UfS:2019 errata'ları kontrol edildi.

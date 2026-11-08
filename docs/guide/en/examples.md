@@ -1374,7 +1374,7 @@ Three isotope-ratio determinations behind the 2021 standard atomic weight of iri
 
 **Result:**
 
-- M(Ir): consensus value 192.21709 g/mol, standard uncertainty 0.00042 g/mol, 95 % coverage interval [192.21619, 192.21799] g/mol (DerSimonian–Laird with parametric bootstrap)
+- M(Ir): consensus value 192.21709 g/mol, standard uncertainty 0.00042 g/mol, 95 % coverage interval [192.21619, 192.21800] g/mol (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 0.00061 g/mol; Cochran's Q = 9.562 with 2 degrees of freedom
 - M(Ir): 192.21712 g/mol, standard uncertainty 0.00044 g/mol, 95 % credible interval [192.21616, 192.21795] g/mol; posterior median of τ 0.00051 g/mol (Bayes)
 
@@ -1442,7 +1442,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 **Result:**
 
-- w(Ni): consensus value 2.04282 mg/kg, standard uncertainty 0.016 mg/kg, 95 % coverage interval [2.01082, 2.07470] mg/kg (DerSimonian–Laird with parametric bootstrap)
+- w(Ni): consensus value 2.04282 mg/kg, standard uncertainty 0.016 mg/kg, 95 % coverage interval [2.01109, 2.07459] mg/kg (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 0.046 mg/kg; Cochran's Q = 40.12 with 16 degrees of freedom
 - w(Ni): 2.04294 mg/kg, standard uncertainty 0.015 mg/kg; τ = 0.044 ± 0.014 mg/kg (maximum likelihood)
 
@@ -5925,7 +5925,7 @@ Error of indication of an electronic balance with a 0.1 mg digit, loaded with a 
 
 **Notes:**
 
-- Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.
+- Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, and only if the mass of the standard W_S is taken as exactly 200.0000 g (K.5 gives no certificate value), ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.
 
 **Run:** `uncertainty run library/mass/m3003-k5-weighing-machine-200g.json --lang en`
 
@@ -6066,7 +6066,7 @@ The 19 published half-lives compiled by MacMahon et al. (2004) are heterogeneous
 
 **Result:**
 
-- T½(¹³⁷Cs): consensus value 10971.1 d, standard uncertainty 16 d, 95 % coverage interval [10937.5, 11004.8] d (DerSimonian–Laird with parametric bootstrap)
+- T½(¹³⁷Cs): consensus value 10971.1 d, standard uncertainty 16 d, 95 % coverage interval [10937.5, 11004.6] d (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 52 d; Cochran's Q = 335.6 with 18 degrees of freedom
 - T½(¹³⁷Cs): 10936.4 d, standard uncertainty 339 d, 95 % coverage interval [9707.80, 11406.0] d (Linear Pool)
 - T½(¹³⁷Cs): 10937.2 d, standard uncertainty 67 d, 95 % credible interval [10802.2, 11070.3] d; posterior median of τ 262 d (Bayes)
@@ -6093,7 +6093,7 @@ The 11 published half-lives compiled by MacMahon et al. (2004) are heterogeneous
 
 **Result:**
 
-- T½(⁹⁰Sr): consensus value 10493.8 d, standard uncertainty 40 d, 95 % coverage interval [10409.9, 10577.3] d (DerSimonian–Laird with parametric bootstrap)
+- T½(⁹⁰Sr): consensus value 10493.8 d, standard uncertainty 40 d, 95 % coverage interval [10410.2, 10577.0] d (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 105 d; Cochran's Q = 400.3 with 10 degrees of freedom
 - T½(⁹⁰Sr): 10478.1 d, standard uncertainty 282 d, 95 % coverage interval [9923.10, 11091.7] d (Linear Pool)
 - T½(⁹⁰Sr): 10485.7 d, standard uncertainty 58 d, 95 % credible interval [10364.6, 10597.8] d; posterior median of τ 147 d (Bayes)
@@ -6151,7 +6151,7 @@ The data of Koepke et al. (2017) with JILA-10 corrected (6.672 60 ± 0.000 25) a
 
 **Result:**
 
-- G: consensus value 6.673993 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00016 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.673664, 6.674324] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird with parametric bootstrap)
+- G: consensus value 6.673993 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00016 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.673664, 6.674323] 10⁻¹¹ m³ kg⁻¹ s⁻² (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 0.00056 10⁻¹¹ m³ kg⁻¹ s⁻²; Cochran's Q = 197.7 with 15 degrees of freedom
 - G: 6.673773 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.0012 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % coverage interval [6.671276, 6.675763] 10⁻¹¹ m³ kg⁻¹ s⁻² (Linear Pool)
 - G: 6.673896 10⁻¹¹ m³ kg⁻¹ s⁻², standard uncertainty 0.00027 10⁻¹¹ m³ kg⁻¹ s⁻², 95 % credible interval [6.673342, 6.674415] 10⁻¹¹ m³ kg⁻¹ s⁻²; posterior median of τ 0.00094 10⁻¹¹ m³ kg⁻¹ s⁻² (Bayes)
@@ -6318,7 +6318,7 @@ Recent estimates of H₀ (Planck's excluded) are more dispersed than their uncer
 
 **Result:**
 
-- H₀: consensus value 71.5428 (km/s)/Mpc, standard uncertainty 0.63 (km/s)/Mpc, 95 % coverage interval [70.2770, 72.7960] (km/s)/Mpc (DerSimonian–Laird with parametric bootstrap)
+- H₀: consensus value 71.5428 (km/s)/Mpc, standard uncertainty 0.63 (km/s)/Mpc, 95 % coverage interval [70.2766, 72.7883] (km/s)/Mpc (DerSimonian–Laird with parametric bootstrap)
 - Dark uncertainty τ = 2.0 (km/s)/Mpc; Cochran's Q = 46.66 with 21 degrees of freedom
 - H₀: 71.6915 (km/s)/Mpc, standard uncertainty 0.66 (km/s)/Mpc, 95 % credible interval [70.4037, 73.0082] (km/s)/Mpc; posterior median of τ 2.0 (km/s)/Mpc (Bayes)
 

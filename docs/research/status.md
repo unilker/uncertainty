@@ -1,6 +1,6 @@
 # Durum ve sonraki adımlar / Status and next steps
 
-Son güncelleme: **2026-11-07**. Bu dosya çalışmaya ara verildiğinde nerede
+Son güncelleme: **2026-11-08**. Bu dosya çalışmaya ara verildiğinde nerede
 kalındığını ve sırada ne olduğunu kaydeder.
 
 - Ayrıntılı gerekçeler araştırma günlüğündedir: kararlar D…, bulgular F….
@@ -11,10 +11,20 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | | |
 |---|---|
 | Kütüphane | **284** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **204** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
+| Testler | **210** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
 | Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
 | Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–21, kararlar D1–D78, bulgular F1–F98 (dizin: `findings-index.md`) |
+| Araştırma günlüğü | oturum 1–22, kararlar D1–D85, bulgular F1–F98 (dizin: `findings-index.md`) |
+
+## 2. Oturum 22 (2026-11-08): ön inceleme ve düzeltmeler
+
+İnceleme dosyasına gelen 22 gözlem ve yanıtları `review-2026-11-08.md`'de (yapay zekâ destekli ön inceleme;
+bağımsız insan incelemesinin yerini tutmaz). Kodda: EA-4/02 6.3 yuvarlama varsayılanı ve "yaklaşık %95" (D79),
+raporlarda commit ve SHA-256, `check --lab` (D79), TUR'da k₉₅·u ve Dobbert sınırlaması (D80), CCQM-K145
+anonimleştirme (D81), NICOB kaynak koduna uygun DL bootstrap (D82), Bayes ızgarası yakınsama testi (D83), t kuralı
+notu (D85). Belgelerde: c bulgularının etkiye göre sınıflandırılması (c1 12 doğrulanmış, c2 7, m 5, e 1, açık 4;
+D84), tolerans dayanakları ve sayım zinciri (`numbers.md`). Yazarın kararı beklenen: bulguların yayıncılara
+bildirilmesi, F97 için BIPM'e soru, bağımsız insan yeniden hesabı.
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 

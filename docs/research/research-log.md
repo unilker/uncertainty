@@ -298,6 +298,11 @@ uncertainty components 0.042 and 0.146 dm² combine to 0.152 dm², but
 0.19 dm² is printed and used (u_c 0.00147 vs 0.00144 mg/dm²; reported
 result unchanged). The area formula shows d = 2.77 dm for the measured
 2.70 dm, and Table A5.4 cells C2/C3 show 10.01 and 0.27 for a_V.
+*Update 2026-11-08 (review item 6):* all of F14 is corrected in QUAM_ERRATA_v2 (Eurachem, 21 January 2019, pp.
+72–80, amended Table A5.1): u(a_V) 0.15 dm², d = 2.70 dm, Table A5.4 column E. It is a known erratum, class e,
+not a finding of this work. Likewise the first part of F10 (u(m_KHP) 0.12 mg, errata p. 46) and the extra term in
+u(V_HCl) of F12 (errata p. 55, "the rounded result of the calculation is unaffected"); their remaining parts
+(Table A2.4; Table A3.1 mixing single-run inputs with the triplicate u_c) are not in the errata.
 
 **F15. EURACHEM A6.** Table A6.5 prints U = 0.12 % m/m at 10 % fibre; it is
 1.2 % m/m (the 12 % column is right).
@@ -1409,7 +1414,8 @@ combines to 0.153 mg, not the printed 0.150 mg. The printed value would
 follow if the drift limit 0.1 mg were divided by 2 instead of √3. U is
 therefore 0.31 mg, not 0.30 mg. By the model of K.5.1, the error of
 indication is I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while K.5.10
-reports +0.10 mg.
+reports +0.10 mg. *Qualified 2026-11-08 (review item 16, which recomputed 0.153 and 0.150 mg independently):*
+the sign part holds only if W_S is taken as exactly 200.0000 g; K.5 gives no certificate value of the standard.
 
 **F57. M3003 K.3 — mismatch term (class c).** K.3.6 gives the coefficients
 for formula E5 of E.9.5 (Γ_G = Γ_L = 0.03, s11a = s11b = 0.05, s22a = 0.05,
@@ -2163,6 +2169,17 @@ printed [≈ 0, 0.032] ng.
 - To check before submission: the text of Willink (2007), §§3–4. GTC is
   the only reading here, and the paper may state eq. (2.3) for another
   case, e.g. independent variance estimates.
+- *Coverage (2026-11-08, review item 1; `tools/research/review/f79_coverage.py`, 4 × 10⁵ simulated data sets
+  of three paired injections with the printed means, standard deviations and r).* With ν fixed at the values of
+  the printed budget, the GUF interval covers 89.3 % with ν = 4.81 (eq. 2.3) and 96.0 % with ν = 2.11 (ensemble),
+  as the reviewer found. When ν is recomputed from each data set, as a laboratory would, the coverage is 94.2 %
+  with eq. (2.3) (median ν 4.5, quartiles 2.6–6.6), 93.4 % with the ensemble rule (median 2.15) and 93.6 % with
+  G.2b; the linearised model gives the same, so the shortfall is that of the Welch–Satterthwaite approximation
+  with one dominant component of two degrees of freedom, not of the nonlinearity. The case for the ensemble
+  rule is its derivation (the block c^T S c has exactly ν = 2), not a better coverage. F79 is therefore
+  reclassified as a method difference (m, open until Willink 2007 is read), not as a class-c inconsistency.
+  The per-injection cross-check the reviewer proposed (m_E for each injection, s/√3) needs the three pairs of
+  areas, which GUM-5 does not print.
 - Wording: "a strong linear relationship was observed between the areas"
   (2.3.4) refers to r = −0.48 from three pairs. A negative correlation
   between analyte and internal-standard areas of the same injection is
@@ -3336,3 +3353,54 @@ to be read (documents-needed).
 are coded Lab 1–17 in the order of the guide's table; the project notes that the official KCRV and degrees of
 equivalence are those of the final report in the KCDB. No degree of equivalence is attributed to a named
 institute in the library, the guide or the article.
+
+**D82. DL bootstrap as in the NICOB source (review item 4).** The NIST Consensus Builder is public (GitHub
+usnistgov/NIST-Consensus-Builder, R; read in the scratchpad, not copied). `sampleFromTau2Dist.R` (Koepke &
+Possolo, 2016-03-31) differs from the reading of the manual in two ways: (1) the gamma approximation of Q is set
+at the untruncated τ²_M = (Q − (K − 1))/(S1 − S2/S1), which is negative when Q < K − 1, so that E Q equals the
+observed Q, not at τ̂²_DL = max(0, τ²_M); (2) its variance is Var Q = 2(K − 1) + 4(S1 − S2/S1)τ² + 2(S2 − 2S3/S1 +
+S2²/S1²)τ⁴, whose linear term is not that of Biggerstaff & Tweedie (1997) eq. (7), 4(S1 − 2S2/S1 + S3/S1²)τ².
+`tools/research/review/nicob_tau2_sampler.py`: on Koepke's G the four combinations agree within 0.1 % (u 0.000 2790
+vs 0.000 2787); on a homogeneous set (Q = 0.377 < 3) u is 0.0766 with the gamma at 0 and 0.0665 with NICOB's choice
+(the fixed-effects u is 0.0647), a 13 % difference. The program now follows the NICOB source
+(`q_gamma_approximation_nicob`; τ_k = 0 when the moments give no valid gamma, where NICOB would fail); the paper's
+form is kept as `q_gamma_approximation`. The difference in the linear term of Var Q is a discrepancy between the
+NICOB code and its cited source (noted for the article; it hardly matters when τ̂ > 0). The library values (G,
+¹³⁷Cs, ⁹⁰Sr, IUPAC 4F) are unchanged within their tolerances. Test `bootstrap_with_q_below_n_minus_one`.
+
+**D83. Convergence and prior sensitivity of the Bayesian grids (review item 3).** The θ grid τ = s·tan(πθ/2)
+covers all τ ∈ [0, ∞), so no posterior mass lies outside it; with flat μ the likelihood falls as τ^−(n−1), so the
+last cell carries a negligible mass for n ≥ 2. Test `bayes_grids_have_converged`: doubling the grid (10⁵ → 2 × 10⁵
+points; Laplace 300² → 600²) changes the mean, s.d. and quantiles by less than 10⁻³ (Gaussian) and 10⁻² (Laplace) of
+the posterior s.d. for iridium and G. Prior sensitivity (`tools/research/review/bayes_prior_sensitivity.py`), the
+prior median multiplied by 1/4 … 4: iridium (3 results) u(M) 0.000 360 – 0.000 573 g/mol, median τ 0.000 33 –
+0.000 75 (the published 0.000 44 at the stated prior); G (14 results) u 0.000 320 – 0.000 348, mean within
+0.000 011. With three results the posterior of τ is driven by the prior, as the reviewer said; this is a property
+of the model, and the article will show the table. The grid becomes impractical when the σ_j are also unknown
+(dimension grows with the number of laboratories); that case (NICOB with finite ν_j) stays unimplemented (D68).
+
+**D84. Findings by effect; errata; tolerance basis (review items 6, 7, 12, 13).** `docs/research/class-c-impact.tsv`
+classifies the 29 findings with a class-c component by effect: c1 (a final printed y, U or outcome is not
+reproduced at its printed digits), c2 (only intermediate values), m (difference of method or interpretation), e
+(published erratum); with the status confirmed / independently checked (the reviewer's recomputations of F56, F79,
+F81, F82) / partly erratum / open, the printed and recomputed values and |Δy|/U, |ΔU|/U. Result: 12 confirmed c1,
+7 c2 (two of them partly corrected by errata), 5 m (F63, F69, F73, F79, F80), 1 e (F14), and 4 c1 open (F28, F29,
+F85, F92), which the article will not count. Errata checked: QUAM_ERRATA_v2 (2019, downloaded from eurachem.org,
+not committed); UfS:2019 errata 1.1, 1.4a were already used (F64, F65). Still to check for errata: M3003 ed. 6,
+ISO 5725-3:2023, ISO 6143:2025, EA-4/02 M:2022, EMUE, TN 1900, GUM-5:2026. `tools/research/article_stats.py`
+now writes the impact table, the tolerance basis of all 1754 compared values (931 at half a unit of the last
+digit, 239 up to one unit, 238 Monte Carlo, 346 wider with a reason in the project; 112 projects have at least
+one wider tolerance), the distribution of |Δ|/tolerance (median 0.26, 99 % 0.98; the values near 1 are reference
+values at half a unit, e.g. 93.155 printed 93.16) and the counting chain sources → projects → matrix rows →
+compared values → findings. The basis is inferred from the decimal form of the reference value; a per-value
+label in the project files would be better and is left open. ISRD-06 T6 (F97): the integral ratio is printed as
+1.5, which allows ±0.033 g/g on the purity; the estimate is now checked against the independent recomputation
+(0.999 774 014 g/g ± 5 × 10⁻⁹) instead. The 5σ tolerance of Monte Carlo values (D15) is stated in the
+validation report; a family-wise false-alarm rate is open (with 238 values at 5σ the chance of one false failure
+is about 1.4 × 10⁻⁴ for normal errors).
+
+**D85. The t convention in the report (review item 2).** When a model has inputs from repeated observations or
+with a t distribution, the validation of the GUM result (JCGM 101 8) is followed by a note: the GUM framework uses
+s/√n with ν = n − 1, the MCM samples t_ν(x̄, s²/n) (6.4.9.2; certificates 6.4.9.7) with standard deviation
+√(ν/(ν − 2))·s/√n (not defined for ν ≤ 2), so a failed validation at small ν need not mean an error; TN 1900 and
+the NUM rescale. An option for the TN 1900 convention is open (F31, F35).

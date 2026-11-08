@@ -174,8 +174,8 @@
   "expected": {
     "gum": {
       "estimate": {
-        "value": 0.9998,
-        "tolerance": 0.0333758
+        "value": 0.999774014,
+        "tolerance": 5e-09
       },
       "standard_uncertainty": {
         "value": 0.000744,
@@ -183,8 +183,8 @@
       }
     },
     "reference": {
-      "en": "BIPM ISRD-06, Table 6: assigned value 0.9998 g/g, combined standard uncertainty 7.440e-04 g/g (k = 2 for the expanded uncertainty). Tolerance of u: 1 % or the difference to the value recomputed from the printed inputs, 0.6 % (F97).",
-      "tr": "BIPM ISRD-06, Tablo 6: atanan değer 0,9998 g/g, birleşik standart belirsizlik 7,440e-04 g/g (genişletilmiş belirsizlik için k = 2). u toleransı: %1 ya da basılı girdilerden yeniden hesaplanan değerle fark, %0,6 (F97)."
+      "en": "BIPM ISRD-06, Table 6: assigned value 0.9998 g/g; the integral ratio is printed as 1.5 (two significant digits), which allows ±0.033 g/g, so the estimate is checked against the value recomputed from the printed inputs (independent Python, 0.999774014 g/g) instead; combined standard uncertainty 7.440e-04 g/g (k = 2 for the expanded uncertainty). Tolerance of u: 1 % or the difference to the value recomputed from the printed inputs, 0.6 % (F97).",
+      "tr": "BIPM ISRD-06, Tablo 6: atanan değer 0,9998 g/g; integral oranı 1,5 olarak (iki anlamlı basamak) basıldığından ±0,033 g/g'lık bir tolerans gerekir, bu nedenle tahmin basılı girdilerden yeniden hesaplanan değerle (bağımsız Python, 0,999774014 g/g) karşılaştırılır; birleşik standart belirsizlik 7,440e-04 g/g (genişletilmiş belirsizlik için k = 2). u toleransı: %1 ya da basılı girdilerden yeniden hesaplanan değerle fark, %0,6 (F97)."
     }
   }
 }

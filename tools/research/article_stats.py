@@ -1,9 +1,12 @@
 """Summary numbers for the article: library projects by section, field and source document; findings by class;
-validation-matrix rows. Run from the repository root; writes docs/article/numbers.md."""
+the class-c findings by impact and status; validation-matrix rows; the compared values and their tolerances.
+Run from the repository root after `cargo build -p uncertainty-cli`; writes docs/article/numbers.md."""
 import collections
 import glob
 import json
 import re
+import subprocess
+from decimal import Decimal
 from pathlib import Path
 
 SECTIONS = ("model", "topdown", "proficiency", "calibration", "precision_experiment", "multivariate", "control_chart",
@@ -60,6 +63,73 @@ out += [f"| {k} | {v} |" for k, v in field.most_common()]
 out += ["", "## Findings by document and class (a finding with two classes counts in both)", "",
         "| Document | a | b | c | n |", "|---|---:|---:|---:|---:|"]
 out += [f"| {d} | {c['a']} | {c['b']} | {c['c']} | {c['n']} |" for d, c in sorted(by_doc.items(), key=lambda x: -sum(x[1].values()))]
+
+# Class-c findings by impact and status (review 2026-11-08, item 7; docs/research/class-c-impact.tsv).
+imp_rows = [l.split("\t") for l in Path("docs/research/class-c-impact.tsv").read_text(encoding="utf-8").splitlines()[1:]]
+status = lambda st: "open" if st == "open" else ("erratum" if "erratum" in st else "confirmed")
+imp = collections.Counter((r[2], status(r[3])) for r in imp_rows)
+out += ["", "## Class-c findings by impact and status (`class-c-impact.tsv`)", "",
+        "c1: a final printed result (y, U or the stated outcome) is not reproduced at its printed digits; c2: only an "
+        "intermediate value is; m: a difference of method or interpretation, not an inconsistency; e: corrected by a "
+        "published erratum. Open findings await a check against another source and are not counted as findings.", "",
+        "| Impact | confirmed | partly erratum / erratum | open |", "|---|---:|---:|---:|"]
+for k in ["c1", "c2", "m", "e"]:
+    out.append(f"| {k} | {imp[(k, 'confirmed')]} | {imp[(k, 'erratum')]} | {imp[(k, 'open')]} |")
+n_c1 = imp[("c1", "confirmed")]
+out += ["", f"Confirmed inconsistencies that change a final printed result (c1): **{n_c1}**; in intermediate values only "
+        f"(c2, including the parts outside the errata): {imp[('c2', 'confirmed')] + imp[('c2', 'erratum')]}; "
+        f"method differences: {imp[('m', 'confirmed')] + imp[('m', 'open')]}; known errata: {imp[('e', 'erratum')]}; "
+        f"open: {sum(v for (k, st), v in imp.items() if st == 'open')}."]
+
+# Compared values and tolerances (review items 12, 13): every check of every project, from the JSON results.
+exe = Path("target/debug/uncertainty")
+checks = []
+if exe.exists():
+    for f in sorted(glob.glob("library/*/*.json")):
+        r = subprocess.run([str(exe), "run", f, "--format", "json"], capture_output=True, text=True)
+        if r.returncode != 0:
+            continue
+        for c in json.loads(r.stdout).get("checks", []):
+            checks.append((f, c))
+
+
+def half_unit(v):
+    """Half a unit in the last digit of the shortest decimal form of v."""
+    d = Decimal(repr(float(v))).normalize()
+    return 0.5 * 10.0 ** d.as_tuple().exponent if d != 0 else 0.0
+
+
+if checks:
+    def basis(what, c):
+        if what.startswith("mcm.") or ".mcm" in what or "bootstrap" in what or "linear_pool" in what:
+            return "Monte Carlo dispersion"
+        h = half_unit(c["expected"])
+        if c["tolerance"] <= 1.0001 * h:
+            return "half a unit in the last digit"
+        if c["tolerance"] <= 2.0001 * h:
+            return "up to one unit in the last digit"
+        return "wider (justified in the project's reference or notes)"
+    by_basis = collections.Counter(basis(c["what"], c) for _, c in checks)
+    ratios = sorted(abs(c["computed"] - c["expected"]) / c["tolerance"] for _, c in checks if c["tolerance"] > 0)
+    q = lambda p: ratios[min(len(ratios) - 1, int(p * len(ratios)))]
+    files_wide = len({f for f, c in checks if basis(c["what"], c).startswith("wider")})
+    out += ["", "## Compared values and their tolerances", "",
+            f"{len(checks)} values compared in {len({f for f, _ in checks})} projects (all reference values of the library, "
+            "Monte Carlo included). Tolerance basis, inferred from the decimal form of the reference value:", "",
+            "| Basis of the tolerance | Values |", "|---|---:|"]
+    out += [f"| {k} | {v} |" for k, v in by_basis.most_common()]
+    out += ["", f"Projects with at least one wider tolerance: {files_wide}. Distribution of |Δ|/tolerance: median "
+            f"{q(0.5):.3f}, 90 % {q(0.9):.3f}, 99 % {q(0.99):.3f}, maximum {ratios[-1]:.3f}."]
+
+# The counting chain (review item 12).
+n_find = max(int(x) for x in re.findall(r'^\*\*F(\d+)\.', log, re.M))
+out += ["", "## From sources to findings", "", "| Step | Count | Definition |", "|---|---:|---|",
+        f"| Source documents | {len(docs)} | documents cited as the source of at least one project |",
+        f"| Projects | {sum(sec.values())} | project files in `library/`; one worked example may give several (variants) |",
+        f"| Validation-matrix rows ✅ | {len(rows)} | worked examples or variants reproduced; {len(exc)} carry a finding |",
+        f"| Compared values | {len(checks) if checks else '—'} | reference values checked at every test run |",
+        f"| Findings | {n_find} | F1–F{n_find} of the research log (a, b, c, n; a finding may cover several examples) |",
+        f"| Class-c findings | {len(imp_rows)} | of which c1 confirmed {n_c1} (table above) |"]
 out += ["", f"## Source documents ({len(docs)})", "", "| Document (first part of the citation) | Projects |", "|---|---:|"]
 out += [f"| {k} | {v} |" for k, v in docs.most_common()]
 Path("docs/article").mkdir(exist_ok=True)
