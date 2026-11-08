@@ -31,7 +31,9 @@ bildirilmesi, F97 için BIPM'e soru, bağımsız insan yeniden hesabı.
 NICOB R kaynağına göre DerSimonian–Laird için `leave_one_out` ve `bilateral` (D86); doğrusal havuzda ν ≤ 2.
 Bağımsız numpy aktarımıyla doğrulandı; NICOB kılavuzundan iki yeni proje (⁶⁰Co, PCB 28). Sınırlı çıktılar (D87):
 `lower_bound`/`upper_bound` ile kesilmiş GUM aralığı ve sınırla kısıtlanmış MCM; ISRD-06 T6 basılı sonucu yeniden
-üretiyor. Bayes ve doğrusal havuz eşdeğerlik dereceleri (D88; F100: NICOB kodu kılavuzundan farklı). PDF raporları (D89). Sırada: makale metni.
+üretiyor. Bayes ve doğrusal havuz eşdeğerlik dereceleri (D88; F100: NICOB kodu kılavuzundan farklı). PDF raporları (D89). Makalenin ilk taslak metni: `docs/article/manuscript.md` (İngilizce, ~5500 sözcük;
+şekiller ve bazı kaynak künyeleri [verify] ile işaretli). Sırada: şekiller ve tablolar için betikler, kaynakların
+doğrulanması, bağımsız inceleme.
 
 ## 2a. Oturum 21 (2026-11-07): yeni Drive klasörü, JCGM 100 Amd.1:2026, GUM-5:2026
 

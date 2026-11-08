@@ -82,12 +82,12 @@ c1: a final printed result (y, U or the stated outcome) is not reproduced at its
 
 | Impact | confirmed | partly erratum / erratum | open |
 |---|---:|---:|---:|
-| c1 | 12 | 0 | 4 |
+| c1 | 13 | 0 | 3 |
 | c2 | 5 | 2 | 0 |
 | m | 3 | 0 | 2 |
 | e | 0 | 1 | 0 |
 
-Confirmed inconsistencies that change a final printed result (c1): **12**; in intermediate values only (c2, including the parts outside the errata): 7; method differences: 5; known errata: 1; open: 6.
+Confirmed inconsistencies that change a final printed result (c1): **13**; in intermediate values only (c2, including the parts outside the errata): 7; method differences: 5; known errata: 1; open: 5.
 
 ## Compared values and their tolerances
 
@@ -111,7 +111,7 @@ Projects with at least one wider tolerance: 114. Distribution of |Δ|/tolerance:
 | Validation-matrix rows ✅ | 228 | worked examples or variants reproduced; 25 carry a finding |
 | Compared values | 1865 | reference values checked at every test run |
 | Findings | 100 | F1–F100 of the research log (a, b, c, n; a finding may cover several examples) |
-| Class-c findings | 29 | of which c1 confirmed 12 (table above) |
+| Class-c findings | 29 | of which c1 confirmed 13 (table above) |
 
 ## Source documents (38)
 
