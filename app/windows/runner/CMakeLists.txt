@@ -27,6 +27,14 @@ target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_MINOR=${FLUTT
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_PATCH=${FLUTTER_VERSION_PATCH}")
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_BUILD=${FLUTTER_VERSION_BUILD}")
 
+# Reproducible build (/Brepro): the same sources give a byte-identical
+# executable, without a build time stamp. The Dart code of the application is
+# in data/app.so, so uncertainty_app.exe keeps the same SHA-256 digest across
+# releases, and an antivirus exception or reputation for that digest stays
+# valid (docs/windows-code-signing.md).
+target_compile_options(${BINARY_NAME} PRIVATE /Brepro)
+target_link_options(${BINARY_NAME} PRIVATE /Brepro)
+
 # Disable Windows macros that collide with C++ standard library functions.
 target_compile_definitions(${BINARY_NAME} PRIVATE "NOMINMAX")
 
