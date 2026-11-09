@@ -178,18 +178,15 @@ Bu program, kullanıcı ya da programı kuran veya çalıştıran kişi özellik
 sistemlerine aktarmaz. Tüm hesaplar kullanıcının bilgisayarında yapılır; projeler ve raporlar yalnızca kullanıcının
 kaydettiği ya da paylaştığı yere yazılır.
 
-## Code signing policy / Kod imzalama politikası
+## Windows packages and antivirus / Windows paketleri ve antivirüs
 
-Windows packages are built from this repository by GitHub Actions ([package.yml](.github/workflows/package.yml)).
-Every release is approved manually before it is signed. Code signing by the SignPath Foundation has been applied
-for; when it is granted: *Free code signing provided by [SignPath.io](https://signpath.io), certificate by
-[SignPath Foundation](https://signpath.org).*
+Windows packages are built from this repository by GitHub Actions ([package.yml](.github/workflows/package.yml))
+and are not yet code-signed, so endpoint protection may quarantine them as unknown files. See
+[docs/windows-code-signing.md](docs/windows-code-signing.md) for an exception and for signing.
 
-- Committers and reviewers / Geliştirici ve gözden geçiren: [İlker Ün](https://github.com/unilker)
-- Approvers / İmza onaylayıcı: [İlker Ün](https://github.com/unilker)
-
-Windows paketleri bu depodan GitHub Actions ile derlenir; her sürüm imzalanmadan önce elle onaylanır. Ayrıntılar ve
-antivirüs uyarıları için: [docs/windows-code-signing.md](docs/windows-code-signing.md).
+Windows paketleri bu depodan GitHub Actions ile derlenir ve henüz kod imzalı değildir; bu yüzden antivirüs
+programları onları bilinmeyen dosya olarak karantinaya alabilir. İstisna ve imzalama için:
+[docs/windows-code-signing.md](docs/windows-code-signing.md).
 
 ## Licence and citation / Lisans ve atıf
 
