@@ -93,7 +93,7 @@ ThemeData _common(ColorScheme c, Color background) {
     cardTheme: CardThemeData(
       color: c.surface,
       elevation: 0,
-      margin: EdgeInsets.zero,
+      margin: const EdgeInsets.symmetric(vertical: 5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: c.outlineVariant),

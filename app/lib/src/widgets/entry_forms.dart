@@ -162,12 +162,13 @@ class _BiasCardState extends State<BiasCard> {
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           StringField(map: e, field: 'name', label: s['name'], width: 160, onChanged: widget.onChanged),
-          SizedBox(
+          Labeled(
+            label: s['type'],
             width: 260,
             child: DropdownButtonFormField<String>(
               initialValue: biasReferenceFields.containsKey(kind) ? kind : null,
               isExpanded: true,
-              decoration: InputDecoration(labelText: s['type'], isDense: true),
+              decoration: fieldDecoration(s['type']),
               items: [for (final k in biasReferenceFields.keys) DropdownMenuItem(value: k, child: Text(s['bias_$k']))],
               onChanged: (k) => _edit(() => e['kind'] = k),
             ),
@@ -262,24 +263,26 @@ class _RecoveryCardState extends State<RecoveryCard> {
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           StringField(map: e, field: 'name', label: s['name'], width: 160, onChanged: widget.onChanged),
-          SizedBox(
+          Labeled(
+            label: s['correction'],
             width: 300,
             child: DropdownButtonFormField<String>(
               initialValue: (e['correction'] as String?) ?? 'if_significant',
               isExpanded: true,
-              decoration: InputDecoration(labelText: s['correction'], isDense: true),
+              decoration: fieldDecoration(s['correction']),
               items: [
                 for (final c in ['if_significant', 'always', 'never']) DropdownMenuItem(value: c, child: Text(s['corr_$c'])),
               ],
               onChanged: (c) => _edit(() => c == 'if_significant' ? e.remove('correction') : e['correction'] = c),
             ),
           ),
-          SizedBox(
+          Labeled(
+            label: s['mean_recovery'],
             width: 300,
             child: DropdownButtonFormField<String>(
               initialValue: (e['mean'] as String?) ?? 'arithmetic',
               isExpanded: true,
-              decoration: InputDecoration(labelText: s['mean_recovery'], isDense: true),
+              decoration: fieldDecoration(s['mean_recovery']),
               items: [
                 for (final m in ['arithmetic', 'weighted']) DropdownMenuItem(value: m, child: Text(s['mean_$m'])),
               ],
@@ -332,12 +335,13 @@ class _RecoveryCardState extends State<RecoveryCard> {
               runSpacing: 8,
               children: [
                 StringField(map: t, field: 'label', label: s['label'], width: 120, onChanged: widget.onChanged),
-                SizedBox(
+                Labeled(
+                  label: s['type'],
                   width: 320,
                   child: DropdownButtonFormField<String>(
                     initialValue: recoveryTestFields.containsKey(type) ? type : null,
                     isExpanded: true,
-                    decoration: InputDecoration(labelText: s['type'], isDense: true),
+                    decoration: fieldDecoration(s['type']),
                     items: [for (final k in recoveryTestFields.keys) DropdownMenuItem(value: k, child: Text(s['test_$k']))],
                     onChanged: (k) => _edit(() {
                       final label = t['label'];
@@ -401,11 +405,12 @@ class _ComponentCardState extends State<ComponentCard> {
             runSpacing: 8,
             children: [
               _numbers(e, const ['u', 'u_percent', 'half_width', 'half_width_percent', 'multiplicity'], s, widget.onChanged),
-              SizedBox(
+              Labeled(
+                label: s['distribution'],
                 width: 200,
                 child: DropdownButtonFormField<String>(
                   initialValue: (e['distribution'] as String?) ?? 'rectangular',
-                  decoration: InputDecoration(labelText: s['distribution'], isDense: true),
+                  decoration: fieldDecoration(s['distribution']),
                   items: [
                     for (final d in ['rectangular', 'triangular']) DropdownMenuItem(value: d, child: Text(s.distribution(d))),
                   ],

@@ -128,13 +128,14 @@ class _PrecisionEditorState extends State<PrecisionEditor> {
           children: [
             StringField(map: _pe, field: 'quantity', label: s['quantity_name'], width: 240, onChanged: widget.onChanged),
             StringField(map: _pe, field: 'unit', label: s['unit'], width: 120, onChanged: widget.onChanged),
-            SizedBox(
+            Labeled(
+              label: s['pe_method'],
               width: 280,
               child: DropdownButtonFormField<String>(
                 key: const Key('pe-method'),
                 isExpanded: true,
                 initialValue: _pe['method'] as String? ?? 'anova',
-                decoration: InputDecoration(labelText: s['pe_method'], isDense: true),
+                decoration: fieldDecoration(s['pe_method']),
                 items: [
                   for (final m in ['anova', 'reml'])
                     DropdownMenuItem(

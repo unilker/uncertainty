@@ -88,13 +88,14 @@ class _SamplingEditorState extends State<SamplingEditor> {
             runSpacing: 8,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              SizedBox(
+              Labeled(
+                label: s['sp_method'],
                 width: 300,
                 child: DropdownButtonFormField<String>(
                   key: const Key('sp-method'),
                   isExpanded: true,
                   initialValue: method,
-                  decoration: InputDecoration(labelText: s['sp_method'], isDense: true),
+                  decoration: fieldDecoration(s['sp_method']),
                   items: [for (final o in samplingMethods) DropdownMenuItem(value: o, child: Text(s['sp_$o']))],
                   onChanged: (v) {
                     if (v == null) return;

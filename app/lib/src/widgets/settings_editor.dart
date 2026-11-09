@@ -124,12 +124,13 @@ class _SettingsEditorState extends State<SettingsEditor> {
               if (adaptive)
                 NumberField(map: mcm['adaptive'] as Map<String, dynamic>, field: 'ndig', label: 'n_dig', integer: true, onChanged: widget.onChanged),
               NumberField(map: mcm, field: 'seed', label: s['seed'], integer: true, onChanged: widget.onChanged),
-              SizedBox(
+              Labeled(
+                label: s['interval'],
                 width: 260,
                 child: DropdownButtonFormField<String>(
                   isExpanded: true,
                   initialValue: (mcm['interval'] as String?) ?? 'shortest',
-                  decoration: InputDecoration(labelText: s['interval'], isDense: true),
+                  decoration: fieldDecoration(s['interval']),
                   items: [
                     DropdownMenuItem(value: 'shortest', child: Text(s['shortest'])),
                     DropdownMenuItem(value: 'symmetric', child: Text(s['symmetric'])),
@@ -149,12 +150,13 @@ class _SettingsEditorState extends State<SettingsEditor> {
         runSpacing: 8,
         children: [
           NumberField(map: _reporting, field: 'significant_digits', label: s['sig_digits'], integer: true, onChanged: widget.onChanged),
-          SizedBox(
+          Labeled(
+            label: s['rounding'],
             width: 260,
             child: DropdownButtonFormField<String>(
               isExpanded: true,
               initialValue: (_reporting['rounding'] as String?) ?? 'ea4_02',
-              decoration: InputDecoration(labelText: s['rounding'], isDense: true),
+              decoration: fieldDecoration(s['rounding']),
               items: [
                 for (final r in ['ea4_02', 'half_even', 'half_up', 'up']) DropdownMenuItem(value: r, child: Text(s[r])),
               ],
@@ -184,12 +186,13 @@ class _SettingsEditorState extends State<SettingsEditor> {
         if (cf != null) ...[
           ConformityFields(map: cf, onChanged: widget.onChanged),
           const SizedBox(height: 8),
-          SizedBox(
+          Labeled(
+            label: s['cf_distribution'],
             width: 320,
             child: DropdownButtonFormField<String>(
               isExpanded: true,
               initialValue: (cf['distribution'] as String?) ?? 'normal',
-              decoration: InputDecoration(labelText: s['cf_distribution'], isDense: true),
+              decoration: fieldDecoration(s['cf_distribution']),
               items: [
                 for (final d in ['normal', 't']) DropdownMenuItem(value: d, child: Text(s['cf_dist_$d'])),
               ],

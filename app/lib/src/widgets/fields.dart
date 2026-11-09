@@ -4,6 +4,63 @@ import '../app_state.dart';
 import '../format.dart';
 import '../theme.dart';
 
+/// The decoration of a form field. In the earlier design the label is shown
+/// inside the box; in the TÜBİTAK design [Labeled] shows it above the box.
+InputDecoration fieldDecoration(String? label, {String? helperText, String? errorText, bool isDense = true, bool alignLabelWithHint = false}) =>
+    InputDecoration(
+      labelText: tubitakDesign ? null : label,
+      helperText: helperText,
+      helperMaxLines: 3,
+      errorText: errorText,
+      isDense: isDense,
+      alignLabelWithHint: alignLabelWithHint,
+    );
+
+/// A form field with its label above the box (TÜBİTAK design). The width
+/// grows to the length of the label, so that no label is cut. In the earlier
+/// design the label is inside the box ([fieldDecoration]) and this only sets
+/// the width.
+class Labeled extends StatelessWidget {
+  const Labeled({super.key, required this.label, required this.child, this.width});
+  final String? label;
+  final Widget child;
+  final double? width;
+
+  static TextStyle? labelStyle(BuildContext context) {
+    final t = Theme.of(context);
+    return t.textTheme.labelLarge?.copyWith(color: t.colorScheme.primary, fontWeight: FontWeight.w600);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final text = label;
+    if (!tubitakDesign || text == null || text.isEmpty) return width == null ? child : SizedBox(width: width, child: child);
+    final style = labelStyle(context);
+    var w = width;
+    if (w != null) {
+      final painter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        textDirection: TextDirection.ltr,
+        textScaler: MediaQuery.textScalerOf(context),
+        maxLines: 1,
+      )..layout();
+      if (painter.width + 4 > w) w = painter.width + 4;
+    }
+    final column = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 2, bottom: 6),
+          child: Text(text, style: style),
+        ),
+        child,
+      ],
+    );
+    return w == null ? column : SizedBox(width: w, child: column);
+  }
+}
+
 /// A text field bound to a key of a JSON object: numbers are parsed (decimal
 /// comma accepted), an empty field removes the key.
 class NumberField extends StatelessWidget {
@@ -19,11 +76,12 @@ class NumberField extends StatelessWidget {
   Widget build(BuildContext context) {
     final v = map[field];
     final lang = AppScope.of(context).lang;
-    return SizedBox(
+    return Labeled(
+      label: label,
       width: width,
       child: TextFormField(
         initialValue: v is num ? fmtGivenIn(v, lang) : '',
-        decoration: InputDecoration(labelText: label, isDense: true),
+        decoration: fieldDecoration(label),
         keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
         onChanged: (t) {
           final x = parseNum(t);
@@ -67,7 +125,7 @@ class StringField extends StatelessWidget {
       initialValue: (map[field] ?? '').toString(),
       maxLines: maxLines,
       style: monospace ? const TextStyle(fontFamily: 'monospace') : null,
-      decoration: InputDecoration(labelText: label, isDense: true),
+      decoration: fieldDecoration(label),
       onChanged: (t) {
         if (t.isEmpty && !keepEmpty) {
           map.remove(field);
@@ -77,7 +135,7 @@ class StringField extends StatelessWidget {
         onChanged();
       },
     );
-    return width == null ? f : SizedBox(width: width, child: f);
+    return Labeled(label: label, width: width, child: f);
   }
 }
 
@@ -93,21 +151,24 @@ class ListField extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = AppScope.of(context).lang;
     final v = (map[field] as List?)?.map((e) => fmtGivenIn(e as num, lang)).join('\n') ?? '';
-    return TextFormField(
-      initialValue: v,
-      minLines: 3,
-      maxLines: 10,
-      style: const TextStyle(fontFamily: 'monospace'),
-      decoration: InputDecoration(labelText: label, alignLabelWithHint: true),
-      onChanged: (t) {
-        final list = parseList(t);
-        if (list == null || list.isEmpty) {
-          map.remove(field);
-        } else {
-          map[field] = list;
-        }
-        onChanged();
-      },
+    return Labeled(
+      label: label,
+      child: TextFormField(
+        initialValue: v,
+        minLines: 3,
+        maxLines: 10,
+        style: const TextStyle(fontFamily: 'monospace'),
+        decoration: fieldDecoration(label, isDense: false, alignLabelWithHint: true),
+        onChanged: (t) {
+          final list = parseList(t);
+          if (list == null || list.isEmpty) {
+            map.remove(field);
+          } else {
+            map[field] = list;
+          }
+          onChanged();
+        },
+      ),
     );
   }
 }
@@ -124,21 +185,24 @@ class PairsField extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = AppScope.of(context).lang;
     final v = (map[field] as List?)?.map((p) => (p as List).map((e) => fmtGivenIn(e as num, lang)).join('\t')).join('\n') ?? '';
-    return TextFormField(
-      initialValue: v,
-      minLines: 3,
-      maxLines: 12,
-      style: const TextStyle(fontFamily: 'monospace'),
-      decoration: InputDecoration(labelText: label, alignLabelWithHint: true),
-      onChanged: (t) {
-        final pairs = parsePairs(t);
-        if (pairs == null || pairs.isEmpty) {
-          map.remove(field);
-        } else {
-          map[field] = pairs;
-        }
-        onChanged();
-      },
+    return Labeled(
+      label: label,
+      child: TextFormField(
+        initialValue: v,
+        minLines: 3,
+        maxLines: 12,
+        style: const TextStyle(fontFamily: 'monospace'),
+        decoration: fieldDecoration(label, isDense: false, alignLabelWithHint: true),
+        onChanged: (t) {
+          final pairs = parsePairs(t);
+          if (pairs == null || pairs.isEmpty) {
+            map.remove(field);
+          } else {
+            map[field] = pairs;
+          }
+          onChanged();
+        },
+      ),
     );
   }
 }
@@ -156,24 +220,27 @@ class RowsField extends StatelessWidget {
   Widget build(BuildContext context) {
     final lang = AppScope.of(context).lang;
     final v = (map[field] as List?)?.map((p) => (p as List).map((e) => fmtGivenIn(e as num, lang)).join('\t')).join('\n') ?? '';
-    return TextFormField(
-      initialValue: v,
-      minLines: 3,
-      maxLines: 14,
-      style: const TextStyle(fontFamily: 'monospace'),
-      decoration: InputDecoration(labelText: label, alignLabelWithHint: true),
-      onChanged: (t) {
-        final rows = parseRows(t, min: columns);
-        if (rows == null || rows.isEmpty || rows.first.length != columns) {
-          if (t.trim().isEmpty) {
-            map.remove(field);
-            onChanged();
+    return Labeled(
+      label: label,
+      child: TextFormField(
+        initialValue: v,
+        minLines: 3,
+        maxLines: 14,
+        style: const TextStyle(fontFamily: 'monospace'),
+        decoration: fieldDecoration(label, isDense: false, alignLabelWithHint: true),
+        onChanged: (t) {
+          final rows = parseRows(t, min: columns);
+          if (rows == null || rows.isEmpty || rows.first.length != columns) {
+            if (t.trim().isEmpty) {
+              map.remove(field);
+              onChanged();
+            }
+            return;
           }
-          return;
-        }
-        map[field] = rows;
-        onChanged();
-      },
+          map[field] = rows;
+          onChanged();
+        },
+      ),
     );
   }
 }
