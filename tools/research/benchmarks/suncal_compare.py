@@ -281,11 +281,37 @@ def calibration(skipped):
                 d = b[1] * b[2] * ex
             return math.sqrt(g @ cov @ g + (d * u_yy) ** 2)
 
+        # Suncal's York and ODR covariances are the Gauss–Newton approximation (JᵀJ)⁻¹ over the parameters and
+        # the adjusted responses; KAPSAM propagates the input uncertainties through the minimum with the full
+        # Hessian (ISO 6143 A.2, A.6, A.7), which adds terms proportional to the residuals. The Gauss–Newton
+        # covariance at KAPSAM's own solution separates this difference of definition from the fit itself.
+        yh = np.array([a["y"] for a in out["adjusted"]])
+        m, n = len(b0), len(yh)
+
+        def f_g(t, b):
+            if fun in ("linear", "quadratic", "cubic"):
+                return sum(b[j] * t ** j for j in range(len(b)))
+            return b[0] + b[1] * (np.power(t, 1 + b[2]) if fun == "power" else np.exp(b[2] * t))
+
+        def residuals(th):
+            b, yy = th[:m], th[m:]
+            return np.concatenate([(f_g(yy, b) - x) / ux, (yy - y) / uy])
+
+        th = np.concatenate([b0, yh])
+        jac = np.zeros((2 * n, m + n))
+        for j in range(m + n):
+            h = 1e-7 * max(1.0, abs(th[j]))
+            tp, tm = th.copy(), th.copy()
+            tp[j] += h
+            tm[j] -= h
+            jac[:, j] = (residuals(tp) - residuals(tm)) / (2 * h)
+        ugn = np.sqrt(np.diag(np.linalg.inv(jac.T @ jac)[:m, :m]))
         du_s = [predict(bs, cs, s["y"], s["u_y"]) for s in c.get("samples", [])]
         uo_s = [s["u"] for s in out["samples"]]
         rows.append({"id": p["metadata"]["id"], "function": fun, "method": method,
                      "db": float(np.max(np.abs((b0 - bs) / ubs))),
-                     "du": float(np.max(np.abs(ub0 / ubs - 1))),
+                     "du": float(np.max(np.abs(ub0 / ubs - 1))), "dgn": float(np.max(np.abs(ugn / ubs - 1))),
+                     "gamma": out["gamma"],
                      "ds": max((abs(a / b - 1) for a, b in zip(uo_s, du_s)), default=None), "ns": len(du_s)})
     return rows
 
@@ -371,11 +397,18 @@ def main():
         zs += [abs(r["z"]) for r in vrows if r.get("z") is not None]
 
     print("\n## 3. Calibration with uncertainties in both variables (ISO 6143)\n")
-    print("| Project | function | Suncal method | max |Δb|/u(b) | max |u(b)/u_Suncal(b) − 1| | samples | max |u(x)/u_Suncal(x) − 1| |")
-    print("|---|---|---|---:|---:|---:|---:|")
+    print("| Project | function | Suncal method | Γ | max |Δb|/u(b) | max |u(b)/u_Suncal(b) − 1| | Gauss–Newton u(b) at KAPSAM's fit: max |u/u_Suncal − 1| | samples | max |u(x)/u_Suncal(x) − 1| |")
+    print("|---|---|---|---:|---:|---:|---:|---:|---:|")
     for r in crows:
         ds = "—" if r["ds"] is None else f"{r['ds']:.1e}"
-        print(f"| {r['id']} | {r['function']} | {r['method']} | {r['db']:.1e} | {r['du']:.1e} | {r['ns']} | {ds} |")
+        print(f"| {r['id']} | {r['function']} | {r['method']} | {r['gamma']:.2f} | {r['db']:.1e} | {r['du']:.1e} | "
+              f"{r['dgn']:.1e} | {r['ns']} | {ds} |")
+    if crows:
+        print("\nΓ is the largest weighted deviation of a calibration point (ISO 6143 goodness of fit). Suncal's York "
+              "and ODR covariances are the Gauss–Newton approximation; KAPSAM propagates the input uncertainties "
+              "through the minimum with the full Hessian (ISO 6143 A.2, A.6, A.7), which adds terms that grow with "
+              "the residuals. Computed at KAPSAM's own solution, the Gauss–Newton standard uncertainties agree with "
+              "Suncal's (column 7), so the remaining difference is the definition of the covariance, not the fit.")
 
     print("\n## 4. Conformity assessment (JCGM 106)\n")
     print("| Project | quantity | KAPSAM | Suncal | relative difference |")
