@@ -1,6 +1,6 @@
 # Worked examples
 
-This chapter is generated from the example library by `uncertainty catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
+This chapter is generated from the example library by `kapsam catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
 - Chemistry (144)
 - Electrical and RF (36)
@@ -35,7 +35,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 1.95e-04, 4.99e-05, 9.98e-05, 5.22e-05, 2.15e-05, 3.53e-04, 5.26e-04, 2.99e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmso2-ma-d2o.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-01-qnmr-dmso2-ma-d2o.json --lang en`
 
 ### Purity of dimethyl terephthalate by ¹H qNMR with maleic acid as internal standard in DMSO-d6 (BIPM ISRD-01, Table 6)
 
@@ -58,7 +58,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 1.65e-04, 5.00e-05, 1.00e-04, 3.09e-05, 2.15e-05, 1.66e-04, 1.04e-04, 3.00e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmtp-ma-dmso-d6.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-01-qnmr-dmtp-ma-dmso-d6.json --lang en`
 
 ### Purity of dimethyl terephthalate by ¹H qNMR with dimethyl sulfone as internal standard in CDCl3 (BIPM ISRD-02, Table 6)
 
@@ -81,7 +81,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 1.28e-04, 5.00e-05, 5.00e-05, 4.37e-05, 6.61e-05, 1.45e-04, 2.13e-04, 4.01e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3.json --lang en`
 
 ### Purity of maleic acid by ¹H qNMR with dimethyl sulfone as internal standard in D2O (BIPM ISRD-02, Table 4)
 
@@ -104,7 +104,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 1.75e-04, 1.50e-04, 5.00e-05, 3.44e-05, 6.61e-05, 5.28e-04, 3.54e-04, 4.01e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-ma-dmso2-d2o.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-02-qnmr-ma-dmso2-d2o.json --lang en`
 
 ### Purity of benzoic acid by ¹H qNMR with BTMSB-d4 as internal standard in CD3OD (BIPM ISRD-06, Table 6)
 
@@ -129,7 +129,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 - The ISRD reports 999.8 +0.2/−1.5 mg/g: the interval is truncated at the physical limit of 1000 mg/g. The program reports the symmetric GUM interval; the bound is not part of the model.
 - Bounded result (research log D87): with upper_bound = 1 g/g the GUM interval y ± U is truncated at the bound, which gives the printed 999.8 +0.2/−1.5 mg/g (Westwood et al. 2023, 4.1.1). The Monte Carlo result restricted to w ≤ 1 g/g (a rectangular prior, Toman et al. 2016) keeps 62 % of the draws: mean 0.999 32 g/g, u = 0.000 49 g/g, shortest 95 % interval [0.998 39, 1] g/g; it is narrower than the truncated GUM interval and its estimate lies below the unconstrained one (reference: independent numpy evaluation with 10⁷ draws, tools/research/qnmr/isrd06_bounded.py).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang en`
 
 ### Purity of dimethyl sulfone by ¹H qNMR with BTMSB-d4 as internal standard in DMSO-d6 (BIPM ISRD-06, Table 4)
 
@@ -152,7 +152,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 1.49e-04, 4.98e-05, 1.66e-05, 7.34e-05, 5.52e-05, 4.67e-04, 4.77e-04, 3.99e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6.json --lang en`
 
 ### Purity of dimethyl sulfone by ¹H qNMR with DSS-d6 as internal standard in D2O (BIPM ISRD-07, Table 4)
 
@@ -175,7 +175,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 1.47e-04, 4.98e-05, 3.32e-05, 7.33e-05, 3.62e-05, 3.81e-04, 1.00e-03, 4.86e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-dmso2-dss-d6-d2o.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-07-qnmr-dmso2-dss-d6-d2o.json --lang en`
 
 ### Purity of maleic acid by ¹H qNMR with DSS-d6 as internal standard in D2O (BIPM ISRD-07, Table 6)
 
@@ -198,7 +198,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 1.99e-04, 1.50e-04, 3.33e-05, 3.44e-05, 3.63e-05, 2.41e-04, 9.10e-04, 4.87e-04. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-ma-dss-d6-d2o.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-07-qnmr-ma-dss-d6-d2o.json --lang en`
 
 ### Purity of BTMSB-d4 by ¹H qNMR with benzoic acid as internal standard in CD3OD (BIPM ISRD-08, Table 2)
 
@@ -221,7 +221,7 @@ Mass fraction of the analyte A by quantitative NMR with an internal standard S (
 
 - Printed uncertainty components c·u: 2.24e-04, 1.67e-05, 1.50e-04, 5.73e-05, 4.91e-05, 1.29e-04, 3.28e-05, 2.50e-05. In several tables of the ISRD series the component of the integral ratio exceeds the product of the printed sensitivity coefficient and standard uncertainty; the program uses the printed standard uncertainties (research log F97).
 
-**Run:** `uncertainty run library/chemistry/bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od.json --lang en`
+**Run:** `kapsam run library/chemistry/bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od.json --lang en`
 
 ### Total risks of false decisions for a medication with four correlated active components (EMUE E2.1)
 
@@ -248,7 +248,7 @@ NyQuil tablets: APAP, DEX, DOX and PE, tolerance 95–105 % of the labelled amou
 
 - The program integrates the 4-dimensional posterior over the tolerance box by the method of Genz (separation of variables, 200 000 antithetic draws, standard error about 10⁻⁶) instead of R's pmvnorm, and the global risk by Monte Carlo with u_i proportional to the true value.
 
-**Run:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e2.1-multicomponent-medication.json --lang en`
 
 ### NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values (EMUE E3.3)
 
@@ -272,7 +272,7 @@ Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture dilut
 
 - The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).
 
-**Run:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang en`
 
 ### NO₂ analyser calibrated with mixtures from dynamic dilution: analysis function with correlated reference values, covariances ignored (EMUE E3.3)
 
@@ -296,7 +296,7 @@ Three NO₂/air mixtures (708, 974, 1290 nmol/mol) from one parent mixture dilut
 
 - The diagonal of (E3.3.17), 39.5, 37.0 and 41.2 nmol²/mol², does not follow from u(x₁) = 16 nmol/mol and the flow uncertainties of Table E3.3.2, which give 1.34, 2.53 and 4.48; the off-diagonal terms do follow (1.76, 2.32, 3.19). Equation (E3.3.19) with the printed A, B and V_AB gives u = 4.47 nmol/mol, not 4.7; a full WTLS with the covariances in the weights gives A = 88.94 as printed but V_AB = (288.5, −1.318, 6.46·10⁻³) (research log F90).
 
-**Run:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang en`
 
 ### Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data (EMUE E3.4)
 
@@ -322,7 +322,7 @@ u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/�
 - The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).
 - The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.
 
-**Run:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang en`
 
 ### Aqua regia extractable lead in soil by ICP-OES: ISO 21748 budget from validation data, root-mean-square bias uncertainty (EMUE E3.4)
 
@@ -348,7 +348,7 @@ u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/�
 - The bias of about −10 % is reported, not corrected (Eurachem): 'The procedure in use shows apparent recovery of approximately 90 %. Since the recovery is within permitted limits, no correction for recovery has been applied.' The program's reporting.uncorrected_bias offers intervals that include it (Magnusson & Ellison 2008).
 - The result 27.8 mg/kg of E3.4.7 is not the mean 27.29 mg/kg of Table E3.4.1 for Pb in C279a; with 27.29 mg/kg U = 2.7 mg/kg.
 
-**Run:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang en`
 
 ### Calibration gas mixture of NH₃ in N₂ by permeation: amount fraction of ammonia (EMUE E3.8)
 
@@ -372,7 +372,7 @@ y = ṅ₁x₁/(ṅ₁ + ṅ₂) with ṅ_j = q_mj/M̄_j (E3.8.1): permeation ra
 
 - E3.8.5.2 gives E_A = 59.164 kJ/mol, k₀ = 43.069 µg/min and a temperature sensitivity of 4.81·10⁻⁷ µg min⁻¹ K⁻¹. From the two stated rates (7.4921 µg/min at 52.45 °C, 13.599 µg/min at 62.00 °C) E_A = 56.64 kJ/mol and k₀ = 9.1·10⁹ µg/min (k₀ must exceed the rate); dṁ/dT at 62 °C is 0.82 µg min⁻¹ K⁻¹, and the stated contribution of 0.0022 µg/min corresponds to this value with u(T) = 0.0027 K. The contribution is negligible here (research log F89).
 
-**Run:** `uncertainty run library/chemistry/emue-e3.8-ammonia-permeation.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e3.8-ammonia-permeation.json --lang en`
 
 ### Ephedrine in urine: WADA decision limit as a guarded-rejection rule (EMUE E6.5, JCGM 106)
 
@@ -397,7 +397,7 @@ Threshold T = 10 µg/mL; an adverse analytical finding requires the concentratio
 
 - Table E6.5.2 prints the mean of round 2 (11.5, 11.9, 11.6) as 11.6 (it is 11.67) and the standard deviation of round 3 (11.5, 11.4, 11.5) as 0.45 µg/mL (it is 0.058, 0.5 %). Its z-scores 0.27, 0.71 and 0.47 follow from none of the stated standard deviations: with σ = u_c,max = 0.5 µg/mL they are −0.93, −1.27 and 0.73 (research log F91).
 
-**Run:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang en`
 
 ### Nickel in stainless steel: guarded acceptance with a two-sided specification (Eurachem/CITAC compliance guide, Example B1)
 
@@ -420,7 +420,7 @@ Specification 16.0–18.0 % Ni, U = 0.2 % (k = 2); acceptance zone where conform
 
 - The guide gives the guard band as 1.64u ≈ 0.17 %; 1.64 × 0.1 = 0.164 rounds to 0.16 % (research log F86). The rounded acceptance limits 16.2 and 17.8 % correspond to a probability of 97.7 %, not 95 %.
 
-**Run:** `uncertainty run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang en`
+**Run:** `kapsam run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang en`
 
 ### Analyte below an upper limit, t distribution with ν = 8: guarded rejection (Eurachem/CITAC compliance guide, Example B2)
 
@@ -443,7 +443,7 @@ Upper limit 200 ng/g, u = 2.2 ng/g with 8 degrees of freedom; non-compliant only
 
 - The table of the example states 'the distribution … is assumed to be Normal' but the guard band uses the t distribution with 8 degrees of freedom (research log F86).
 
-**Run:** `uncertainty run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang en`
+**Run:** `kapsam run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang en`
 
 ### Banned substance at a 2 ng/g limit with u_rel = 35 %: lognormal PDF, s_G ≈ u_rel (Eurachem/CITAC compliance guide, Example B3)
 
@@ -466,7 +466,7 @@ Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the pro
 
 - Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
 
-**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang en`
+**Run:** `kapsam run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang en`
 
 ### Banned substance at a 2 ng/g limit with u_rel = 35 %: lognormal PDF, exact s_G (Eurachem/CITAC compliance guide, Example B3)
 
@@ -489,7 +489,7 @@ Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the pro
 
 - Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
 
-**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang en`
+**Run:** `kapsam run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang en`
 
 ### Banned substance at a 2 ng/g limit with u_rel = 35 %: normal PDF with u = u_rel·L = 0.7 ng/g (Eurachem/CITAC compliance guide, Example B3)
 
@@ -513,7 +513,7 @@ Upper limit 2 ng/g, relative standard uncertainty 35 %; non-compliant if the pro
 - L(1 + k·u_rel) takes u at the limit, u = 0.35 × 2 = 0.7 ng/g, which is what this project enters. With the relative uncertainty applied at the measured value, as for the lognormal PDF, a normal PDF needs the acceptance limit L/(1 − k·u_rel) = 4.714 ng/g: at 3.151 ng/g, u = 1.10 ng/g and the probability above 2 ng/g is only 85 %. The lognormal limit L·exp(k·s_G) is exact for a constant s_G (research log F86).
 - Printed limits are rounded up: 2 × 1.775 = 3.55 → 3.6 and 2(1 + 1.64 × 0.35) = 3.148 → 3.2, whereas 3.148 rounds to 3.1 (research log F86). The decisions are unaffected.
 
-**Run:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang en`
+**Run:** `kapsam run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang en`
 
 ### pH at 23.7 °C by three linear interpolations, independent certified values (JCGM GUM-5 Example 1)
 
@@ -537,7 +537,7 @@ The test solution is at 23.7 °C, between the certificate temperatures 20 °C an
 
 - GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here (7.0043), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives 0.0032; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated (0.0041) (research log F78).
 
-**Run:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e1-ph-temperature-interpolation.json --lang en`
 
 ### pH at 23.7 °C by three linear interpolations, certified values of each standard correlated across temperatures (JCGM GUM-5 Example 1)
 
@@ -561,7 +561,7 @@ As the independent case, but the pH values of each standard at 20 °C and 25 °C
 
 - GUM-5 1.9.1 obtains pH_X = 7.0043 by the third interpolation, as recomputed here (7.0043), and then states that the method gives pH_X = 7.0109; 7.0109 does not follow from the data. It prints u = 0.0041 although 1.7.1 assumes all inputs independent, which gives 0.0032; 0.0041 results when the certified values of each standard at 20 °C and 25 °C are fully correlated (0.0041) (research log F78).
 
-**Run:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation-correlated.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e1-ph-temperature-interpolation-correlated.json --lang en`
 
 ### pH of a test solution by two-point interpolation at 25 °C (JCGM GUM-5 Example 1)
 
@@ -581,7 +581,7 @@ Bracketing between two NIST phosphate pH standards measured with the same cell; 
 
 - pH_X = (7.0002 ± 0.0080), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e1-ph-two-point-25c.json --lang en`
 
 ### pH by two-point interpolation with fully correlated pH standards (JCGM GUM-5 Example 1)
 
@@ -605,7 +605,7 @@ As the 25 °C case, but with correlation 1 between the certified pH values, whic
 
 - 1.10.3.5 attributes u = 0.0051 to pH_X = 7.0109 and 'the data in subclause 1.7'; the calculation uses the 25 °C data of 1.8, for which pH_X = 7.0002 (research log F78).
 
-**Run:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang en`
 
 ### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.17 mg/m³ (JCGM GUM-5 Example 10)
 
@@ -625,7 +625,7 @@ T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance
 
 - GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
 
-**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang en`
 
 ### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.22 mg/m³ (JCGM GUM-5 Example 10)
 
@@ -645,7 +645,7 @@ T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; acceptance
 
 - GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
 
-**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang en`
 
 ### Suspended particulate matter in air: global risks with a lognormal prior, A_U = 0.2 mg/m³ (JCGM GUM-5 Example 10)
 
@@ -665,7 +665,7 @@ T_U = 0.2 mg/m³, lognormal population PDF, relative uncertainty 7 %; shared-ris
 
 - GUM-5 10.6.3.1 uses the standard deviation 0.07·ρ̂ in the joint PDF and normalizes it by C = 1/1.005; that reproduces the printed risks (research log F80, tools/research/gum5/ex10_risks.py). The consumer's (inhabitants') risk is that of accepting air that exceeds the limit, the producer's (quarry owners') risk that of rejecting air that conforms.
 
-**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang en`
 
 ### Suspended particulate matter in air: specific risks from the posterior with a lognormal prior (JCGM GUM-5 Example 10)
 
@@ -690,7 +690,7 @@ Conformance probabilities of single results from the posterior g(ρ | ρ̂) ∝ 
 
 - 10.6.4 states that the posterior is essentially determined by the likelihood, so frequentist specific risks would be very close. Near T_U this does not hold: the normal PDF alone gives 1 − p_c = 22.6 % at 0.190 and p_c = 5.6 % at 0.225 mg/m³ (research log F80).
 
-**Run:** `uncertainty run library/chemistry/gum5-e10-tspm-specific-risks.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e10-tspm-specific-risks.json --lang en`
 
 ### Between-bottle homogeneity of nitrogen in natural gas mixtures: ANOVA, u*_bb and a Bayesian hierarchical model (JCGM GUM-5 Example 12)
 
@@ -712,7 +712,7 @@ Ten gas mixtures measured five times each; MS_between < MS_within, so the ANOVA 
 - 12.4.8 gives the mode of the posterior of τ as 0.3 µmol/mol. The marginal posterior density of τ is largest at τ = 0 here, because MS_between < MS_within and the half-Cauchy prior is largest at 0. The R function getmode of 12.5.2 tabulates exact repeats of the draws, which for continuous MCMC output are all distinct, so it returns the first draw rather than a mode (research log F81).
 - Equation (12.5) writes the likelihood as y_ij | µ, τ, σ ~ N(µ, τ² + σ²), as if the observations were independent; the replicates of one bottle share B_i and are correlated. The Stan code of 12.4.2 uses the hierarchical model, which the program also uses.
 
-**Run:** `uncertainty run library/chemistry/gum5-e12-between-bottle-homogeneity-bayes.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e12-between-bottle-homogeneity-bayes.json --lang en`
 
 ### Benzo[a]pyrene by GC-MS with an internal standard, correlated inputs (JCGM GUM-5 Example 2)
 
@@ -738,7 +738,7 @@ Internal-standard model with two correlated pairs of inputs; LPU with covariance
 - GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).
 - The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).
 
-**Run:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e2-benzo-a-pyrene.json --lang en`
 
 ### Benzo[a]pyrene: peak areas of the same injections as an ensemble in ν_eff (JCGM GUM-5 Example 2, Willink 2007)
 
@@ -765,7 +765,7 @@ The same budget with A_E and A_ISE declared an ensemble: their joint variance is
 - GUM-5 (2.4.2) also applies the MCM with a bivariate normal for (f, m_ISE), a bivariate t with ν = n − N = 1 for (A_E, A_ISE) and rejection of negative draws: median 0.014 ng, shortest 95 % interval [≈ 0, 0.032] ng. The project format has no joint t-distribution for a scalar model, so the MCM is not run here; tools/research/gum5/ex2_mcm.py reproduces the printed interval (9.3·10⁶ of 10⁷ draws kept, [1·10⁻⁷, 0.0321] ng).
 - The uncertainty applies to a clean spiked filter only; matrix effects and recovery are deliberately excluded (GUM-5 2.2.2, note).
 
-**Run:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json --lang en`
 
 ### Relative molecular mass of glucose from standard atomic weight intervals (JCGM GUM-5 Example 3)
 
@@ -789,7 +789,7 @@ M_r(C₆H₁₂O₆) = 6A_C + 12A_H + 6A_O with rectangular distributions over t
 
 - The same calculation for CO₂ is NIST TN 1900 Example E8 in the library.
 
-**Run:** `uncertainty run library/chemistry/gum5-e3-molar-mass-glucose.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e3-molar-mass-glucose.json --lang en`
 
 ### Gravimetric preparation of a CO₂ in N₂ calibration gas mixture: amount fractions of eight components and their correlations (JCGM GUM-5 Example 4)
 
@@ -822,7 +822,7 @@ ISO 6142-1 model y_k = n_k/n_tot from three weighings, the purity tables of two 
 - Table 4.2 does not follow from Table 4.1: the averages of the differences are −152.0247 g and 717.2743 g (printed −152.0243 and 717.2740 g), and the standard deviations of the means are 0.18, 0.40 and 0.42 mg (printed u_rpt 0.4, 0.7 and 0.6 mg). The project uses Table 4.2, as the guide does; with the averages of Table 4.1, m₁ is 0.5 mg larger (research log F82).
 - Printed Table 4.6 differs in three places (research log F82): u(y_CO₂) = 5 µmol/mol and u_rel 0.003 % against 3.96 µmol/mol and 0.0020 % recomputed; y_H₂O = 0.379 against 0.389 µmol/mol (0.2003 × 1.9 + 0.7996 × 0.010); r(Ar, N₂) = −0.50 and r(CO₂, O₂) = −0.08 against −0.55 and −0.10. The other values agree.
 
-**Run:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang en`
 
 ### Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): independent inputs (JCGM GUM-5 Example 5)
 
@@ -846,7 +846,7 @@ CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their sta
 - Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).
 - The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.
 
-**Run:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang en`
 
 ### Greenhouse gas inventory, mobile machinery in agriculture (UK 2018): activity data shared by CH₄ and N₂O (JCGM GUM-5 Example 5)
 
@@ -871,7 +871,7 @@ CO₂-equivalent emissions E = Σ s_i A_i F_i (IPCC category A4ci) and their sta
 - Table 5.2 adds its rounded contributions to 4282.0409 kt; with the values of Table 5.1 the model gives 4282.14 kt, because F₁ = 2.0438·10⁻² is rounded (E₁ = 1150.9806 kt corresponds to F₁ = 2.043 75·10⁻²). The tolerance of the estimate covers this (research log F84).
 - The emission factors of N₂O (U_rel = 216 %) are positive quantities; a normal PDF with this width gives negative values with probability 18 %. GUM-5 5.5.2 points to lognormal PDFs for such factors; the GUM result does not depend on the PDF, the Monte Carlo result does.
 
-**Run:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang en`
+**Run:** `kapsam run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang en`
 
 ### Censored results in a PT round: censored results deleted (ISO 13528 E.1)
 
@@ -895,7 +895,7 @@ ISO 13528:2022 E.1: 23 results of which five are ‘less than’ values; the rob
 
 - Table E.1 marks with ‘#’ the results outside x* ± 3s*; with the robust values here the z scores of those results exceed 3 in absolute value (Z = 50 when the ‘<’ is ignored, Y = 45 when the censored results are deleted).
 
-**Run:** `uncertainty run library/chemistry/iso13528-e1-censored-deleted.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e1-censored-deleted.json --lang en`
 
 ### Censored results in a PT round: 0.5 × the limit (ISO 13528 E.1)
 
@@ -920,7 +920,7 @@ ISO 13528:2022 E.1: 23 results of which five are ‘less than’ values; the rob
 - Table E.1 marks with ‘#’ the results outside x* ± 3s*; with the robust values here the z scores of those results exceed 3 in absolute value (Z = 50 when the ‘<’ is ignored, Y = 45 when the censored results are deleted).
 - With the stopping rule of C.3.1 (third significant figure) Algorithm A stops after 11 iterations at x* = 23.96, s* = 8.59; iterated to convergence it gives x* = 23.959, s* = 8.600. Table E.1 prints 23.95 and 8.60, i.e. the converged values with x* truncated rather than rounded (research log F44). The project iterates to convergence and checks x* within 0.01.
 
-**Run:** `uncertainty run library/chemistry/iso13528-e1-censored-half.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e1-censored-half.json --lang en`
 
 ### Censored results in a PT round: ‘<’ ignored (ISO 13528 E.1)
 
@@ -944,7 +944,7 @@ ISO 13528:2022 E.1: 23 results of which five are ‘less than’ values; the rob
 
 - Table E.1 marks with ‘#’ the results outside x* ± 3s*; with the robust values here the z scores of those results exceed 3 in absolute value (Z = 50 when the ‘<’ is ignored, Y = 45 when the censored results are deleted).
 
-**Run:** `uncertainty run library/chemistry/iso13528-e1-censored-ignored.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e1-censored-ignored.json --lang en`
 
 ### Arsenic in chocolate: homogeneity and stability of PT items (ISO 13528 E.2)
 
@@ -961,7 +961,7 @@ ISO 13528:2022 E.2: between-sample standard deviation from 10 items measured in 
 3. With the provisional σ_pt = 15 % of the average = 0.02807 mg/kg, s_s is far below 0.3σ_pt = 0.00842 mg/kg: the items are sufficiently homogeneous. The expanded criterion of B.2.3 (F₁ = 1.88, F₂ = 1.01 for g = 10) gives √c = 0.0133 mg/kg.
 4. Stability: two items stored at 60 °C for six weeks give an average of 0.19375 mg/kg; the difference 0.00660 mg/kg from the homogeneity mean is below 0.3σ_pt, so stability is sufficient (B.5.1).
 
-**Run:** `uncertainty run library/chemistry/iso13528-e2-arsenic-homogeneity.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e2-arsenic-homogeneity.json --lang en`
 
 ### Atrazine in drinking water: robust average by Algorithm A (ISO 13528 E.3)
 
@@ -986,7 +986,7 @@ ISO 13528:2022 E.3: assigned value and standard deviation for proficiency assess
 
 - The stopping rule of C.3.1 (no change in the third significant figures) is used; iterating to full convergence gives x* = 0.257011 and s* = 0.039520 mg/L, the same to the printed digits. The nIQR of Table E.5 (0.0402) corresponds to quartiles by linear interpolation between order statistics; other quartile definitions give 0.0379 to 0.0423 (Table E.5, note).
 
-**Run:** `uncertainty run library/chemistry/iso13528-e3-atrazine-algorithm-a.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e3-atrazine-algorithm-a.json --lang en`
 
 ### Atrazine in drinking water: median and nIQR (ISO 13528 E.3)
 
@@ -1006,7 +1006,7 @@ ISO 13528:2022 E.3, first row of Table E.5: the median as assigned value with u(
 
 - x_pt = 0.262 mg/L, U(x_pt) = 0.017 mg/L (k = 2.00)
 
-**Run:** `uncertainty run library/chemistry/iso13528-e3-atrazine-median.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e3-atrazine-median.json --lang en`
 
 ### Mercury in animal feed: z, z′, ζ and E_n scores (ISO 13528 E.4)
 
@@ -1032,7 +1032,7 @@ ISO 13528:2022 E.4 (IMEP 111): scores of 21 laboratories against a reference val
 - Table E.6 flags the reported uncertainties a/b/c 'following criteria discussed in 9.8', but the flags are not reproduced with u_min = u(x_pt) = 0.0041 mg/kg (9.8.3): L05 (u = 0.0035) and L09 (u = 0.0040) are flagged 'a'. The flags imply a lower limit between 0.0018 and 0.0035 mg/kg (possibly the characterisation uncertainty without inhomogeneity) and an upper limit between 0.005 and 0.015 mg/kg (consistent with 1.5σ_pt = 0.0099). The flags are therefore not checked here.
 - ISO 13528 E.7 uses this round to compare the reference value with the consensus: Algorithm A on the 21 numerical results gives x* = 0.03161 and s* = 0.0164 mg/kg (reproduced), u(x*) = 1.25 s*/√21 = 0.0045, u_diff = √(0.0041² + 0.0045²) = 0.0061 mg/kg, and x_ref − x* = 0.012 mg/kg, about twice u_diff (7.8, Formula 7).
 
-**Run:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e4-mercury-feed.json --lang en`
 
 ### Assigned value from a comparison with a CRM: Los Angeles value of aggregates (ISO 13528 E.5)
 
@@ -1056,7 +1056,7 @@ ISO 13528:2022 E.5 (7.5): the proficiency test item and a similar CRM are tested
 
 - The differences are recomputed from the duplicate results of Table E.8 and agree with its last column. The Monte Carlo method uses the scaled and shifted t distribution with 19 degrees of freedom for d (JCGM 101 6.4.9).
 
-**Run:** `uncertainty run library/chemistry/iso13528-e5-los-angeles-reference-value.json --lang en`
+**Run:** `kapsam run library/chemistry/iso13528-e5-los-angeles-reference-value.json --lang en`
 
 ### Meat content from nitrogen and fat (ISO 21748 C.2)
 
@@ -1080,7 +1080,7 @@ ISO 21748:2017 C.2: a combined result w_meat = 100 w_N/f_N + w_fat whose inputs 
 
 - Table C.1 rounds the relative uncertainties (0.017, 0.014, 0.022) before combining and prints u = 1.98 %; with the unrounded terms u = 1.99 %. Both give U = 4.0 %.
 
-**Run:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang en`
+**Run:** `kapsam run library/chemistry/iso21748-c2-meat-content.json --lang en`
 
 ### Sulfur content of coal: repeatability and reproducibility (ISO 5725-2 Example C.1)
 
@@ -1111,7 +1111,7 @@ ISO 5725-2:2019 C.1: a uniform-level experiment with eight laboratories at four 
 - Formulae (C.2)–(C.4) print two different sums of squares in each line (e.g. 0.006 36 and 0.006 390); the test values follow from the second.
 - C.1.8 quotes s_r = 0.022 % and s_R = 0.045 % for the whole range: the arithmetic means of the four levels.
 
-**Run:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal.json --lang en`
+**Run:** `kapsam run library/chemistry/iso5725-2-c1-sulfur-in-coal.json --lang en`
 
 ### Sulfur content of coal: REML estimates (ISO 5725-2 Example C.1)
 
@@ -1134,7 +1134,7 @@ ISO 5725-2:2019 C.1.9: the data of Example C.1 evaluated by restricted maximum l
 - Level 3: m̂ = 1.6680 %, s_r = 0.01709 %, s_R = 0.03559 % (p = 8)
 - Level 4: m̂ = 3.2527 %, s_r = 0.02610 %, s_R = 0.05983 % (p = 8)
 
-**Run:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal-reml.json --lang en`
+**Run:** `kapsam run library/chemistry/iso5725-2-c1-sulfur-in-coal-reml.json --lang en`
 
 ### Thermometric titration of creosote oil: outlying laboratory and precision relationships (ISO 5725-2 Example C.3)
 
@@ -1167,7 +1167,7 @@ ISO 5725-2:2019 C.3 with 8.5: nine laboratories at five levels (4 % to 20 %), an
 - The printed slope of relationship IV in Table 4, d = 0.772, is not consistent with the fitted values in the same table (0.089, 0.158, 0.239, 0.257, 0.316), which follow from the regression of the tabulated logarithms, d = 0.769 (research log F49). The same values are in ISO 5725-2:1994.
 - Table 2 rounds the slope of the second fit to 0.0154; from the tabulated m and s it is 0.01554. The program fits the unrounded s_r of Table C.18.
 
-**Run:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil.json --lang en`
+**Run:** `kapsam run library/chemistry/iso5725-2-c3-creosote-oil.json --lang en`
 
 ### Thermometric titration of creosote oil: REML estimates (ISO 5725-2 Example C.3)
 
@@ -1194,7 +1194,7 @@ ISO 5725-2:2019 C.3.8: the retained data of Example C.3 evaluated by restricted 
 - Level 4: m̂ = 15.588 %, s_r = 0.3368 %, s_R = 0.5786 % (p = 8)
 - Level 5: m̂ = 20.412 %, s_r = 0.3935 %, s_R = 0.6370 % (p = 7)
 
-**Run:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil-reml.json --lang en`
+**Run:** `kapsam run library/chemistry/iso5725-2-c3-creosote-oil-reml.json --lang en`
 
 ### NO in N₂ by UV absorption: straight-line analysis function (ISO 6143 Example 1)
 
@@ -1221,7 +1221,7 @@ ISO 6143:2025 B.2.2: three reference gas mixtures (5 µmol/mol to 50 µmol/mol) 
 
 - The covariances of the three results printed in B.2.2 (1.16 × 10⁻², 1.48 × 10⁻², 1.37 × 10⁻¹ (µmol/mol)²) are reproduced; the report gives them as correlation coefficients.
 
-**Run:** `uncertainty run library/chemistry/iso6143-b1-no-uv-linear.json --lang en`
+**Run:** `kapsam run library/chemistry/iso6143-b1-no-uv-linear.json --lang en`
 
 ### N₂ in natural gas by GC-TCD: correlated reference mixtures (ISO 6143 Example 2)
 
@@ -1242,7 +1242,7 @@ ISO 6143:2025 B.2.3: the straight line again, now with the covariances of refere
 - x(S1) = (1.7004 ± 0.0042) % (k = 2.00)
 - x(S2) = (8.986 ± 0.021) % (k = 2.00)
 
-**Run:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-covariances.json --lang en`
+**Run:** `kapsam run library/chemistry/iso6143-b2-n2-natural-gas-covariances.json --lang en`
 
 ### N₂ in natural gas by GC-TCD: straight line (ISO 6143 Example 2)
 
@@ -1263,7 +1263,7 @@ ISO 6143:2025 B.2.3: generalized least-squares straight line through eight calib
 - x(S1) = (1.7004 ± 0.0040) % (k = 2.00)
 - x(S2) = (8.986 ± 0.020) % (k = 2.00)
 
-**Run:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-linear.json --lang en`
+**Run:** `kapsam run library/chemistry/iso6143-b2-n2-natural-gas-linear.json --lang en`
 
 ### N₂ in natural gas by GC-TCD: second-order polynomial (ISO 6143 Example 2)
 
@@ -1284,7 +1284,7 @@ ISO 6143:2025 B.2.3: the same calibration data with a second-order polynomial an
 - x(S1) = (1.7059 ± 0.0066) % (k = 2.00)
 - x(S2) = (8.972 ± 0.024) % (k = 2.00)
 
-**Run:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-quadratic.json --lang en`
+**Run:** `kapsam run library/chemistry/iso6143-b2-n2-natural-gas-quadratic.json --lang en`
 
 ### NO in N₂ by NDIR: exponential function (ISO 6143 Example 3)
 
@@ -1309,7 +1309,7 @@ ISO 6143:2025 B.2.4: the same NDIR calibration with the exponential analysis fun
 - ISO 6143 B.1 and B.2.4 state that B_LEAST gives incorrect parameter uncertainties for the exponential function (found at METAS). The printed u(b) = 8.14 × 10⁻², 7.40 × 10⁻², 3.71 × 10⁻¹¹ are about 39 times too small; this program gives 3.18, 3.17 and 1.27 × 10⁻⁶, in agreement with ODRPACK (scipy.odr) and a Monte Carlo simulation of the calibration (3.13, 3.12, 1.24 × 10⁻⁶).
 - Table B.12 gives u(x) = 0.01328 µmol/mol for the exponential function; first-order propagation with the correct covariances gives 0.01425 and the Monte Carlo simulation 0.01406 µmol/mol: the printed value is 6 % to 7 % too low, more than the 'about 3 %' the standard allows for iteration settings (research log F42). The project checks the parameters and x against the standard and u(x) against the independent calculations.
 
-**Run:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-exponential.json --lang en`
+**Run:** `kapsam run library/chemistry/iso6143-b3-no-ndir-exponential.json --lang en`
 
 ### NO in N₂ by NDIR: power function (ISO 6143 Example 3)
 
@@ -1333,7 +1333,7 @@ ISO 6143:2025 B.2.4: a non-linear NDIR calibration with twelve points; the power
 
 - For this non-linear function the parameter covariances are computed by implicit differentiation of the minimum condition, the exact form of the numerical differentiation of A.2; they agree with B_LEAST within 0.3 %. A Monte Carlo simulation of the whole calibration (4000 refits, research log F42) gives u(x) = 0.0142 µmol/mol as well.
 
-**Run:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang en`
+**Run:** `kapsam run library/chemistry/iso6143-b3-no-ndir-power.json --lang en`
 
 ### Argentometric titration (Mohr) with the endpoint chemistry: implicit model with the solubility products of AgCl and Ag₂CrO₄ (IUPAC 2024, Examples 3A and 4I)
 
@@ -1356,7 +1356,7 @@ At the endpoint [Ag⁺] = √(K_sp2/[CrO₄²⁻]) and [Cl⁻] = K_sp1/[Ag⁺]; 
 
 - The equation printed in Example 4I has the right-hand side (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E) with a positive left-hand side [Ag⁺] − [Cl⁻]; solved as printed it gives 10.024 mmol/L, 0.24 % above the conventional value. Since the indicator responds only after the equivalence point, the endpoint volume overestimates the chloride and the mass balance gives 9.976 mmol/L; the guide states the magnitude, 0.24 %, but not its sign (research log F92).
 
-**Run:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang en`
 
 ### Molar mass of iridium from three mutually inconsistent determinations: laboratory effects and a Bayesian random-effects model (IUPAC 2024, Examples 3E, 4M and 4N)
 
@@ -1384,7 +1384,7 @@ Three isotope-ratio determinations behind the 2021 standard atomic weight of iri
 - The guide gives p = 0.0082 for Cochran's Q test; the three values give Q = 9.56 and p = 0.0084. Their standard deviation is 0.000 545 g/mol, printed as 0.000 54 (research log F94).
 - The labels Ir-1 to Ir-3 follow the order of the guide; Prohaska et al. (2022) §8.4 name the sources.
 
-**Run:** `uncertainty run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang en`
 
 ### Total hardness of water from Ca²⁺ and Mg²⁺: a conventional measurement model (IUPAC 2024, Examples 3C and 4A)
 
@@ -1403,7 +1403,7 @@ H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), defined by co
 
 - H = (96.6 ± 6.2) mg/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/chemistry/iupac2024-4a-water-hardness.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-4a-water-hardness.json --lang en`
 
 ### Isotopic abundances of silicon from two measured isotope amount ratios (IUPAC 2024, Example 4B)
 
@@ -1425,7 +1425,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - x30 = 0.03038267 mol/mol, u(x30) = 3.0 × 10⁻⁶ mol/mol (GUM)
 - 95 % coverage region (GUM): hyper-rectangle y_j ± k_q u(y_j), k_q = 2.39 (the outputs are dependent: no hyper-ellipsoid)
 
-**Run:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang en`
 
 ### Key comparison CCQM-K145, nickel in bovine liver: consensus value with dark uncertainty by maximum likelihood (IUPAC 2024, Example 4F)
 
@@ -1452,7 +1452,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - The table of the guide gives the values with their standard uncertainties in parenthetic notation, e.g. 1.930(110) mg/kg for the first result.
 - Participants are coded Lab 1 to Lab 17 in the order of the guide's table. The official key comparison reference value and degrees of equivalence are those of the CCQM-K145 final report in the BIPM KCDB; the degrees of equivalence computed here illustrate the procedures on the same data and are not results of the comparison.
 
-**Run:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang en`
 
 ### Cadmium calibration standard by Monte Carlo with a beta distribution for the purity (IUPAC 2024, Example 4H; QUAM A1)
 
@@ -1471,7 +1471,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 - gamma_Cd = (1.0027 ± 0.0017) mg/mL, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang en`
 
 ### Amount concentration of NaCl by argentometric titration (Mohr): conventional model (IUPAC 2024, Example 4I)
 
@@ -1493,7 +1493,7 @@ c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); only the v
 
 - The endpoint (first permanent Ag₂CrO₄) lies after the equivalence point; the companion project iupac2024-3a-argentometric-titration-ksp models this chemistry instead of treating it as an uncertainty.
 
-**Run:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-4i-argentometric-titration.json --lang en`
 
 ### Purity of benzoic acid (NIST PS1) expressed as a beta distribution: an asymmetric interval below 1 g/g (IUPAC 2024, Example 5C)
 
@@ -1512,7 +1512,7 @@ The state of knowledge about the mass fraction is a beta distribution with α = 
 
 - w_BA = (0.999920 ± 0.000059) g/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang en`
+**Run:** `kapsam run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang en`
 
 ### PCB 28 in sediment from six laboratories with degrees of freedom: DerSimonian–Laird, Linear Pool and leave-one-out degrees of equivalence (NIST Consensus Builder §4.2)
 
@@ -1539,7 +1539,7 @@ Mass fraction of PCB 28 (2,4,4'-trichlorobiphenyl) in a sediment, measured by si
 - The printed bootstrap u, 0.77 ng/g, is a Monte Carlo estimate: an independent numpy evaluation with 10⁶ replicates gives 0.752 ng/g (the program 0.751), and subsamples of 10⁴ replicates spread from 0.739 to 0.767 ng/g; the tolerance includes this dispersion. With ν = 2 the Linear Pool has heavy tails and its sample standard deviation is unstable (printed 1.55, program 1.51 ng/g).
 - The hierarchical Bayesian row of Exhibit 7 (33.6, 0.79 ng/g) uses priors for the σ_j with the stated ν_j, which the program does not implement (research log D68).
 
-**Run:** `uncertainty run library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json --lang en`
+**Run:** `kapsam run library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json --lang en`
 
 ### Molecular weight of carbon dioxide (NIST TN 1900 E8)
 
@@ -1563,7 +1563,7 @@ TN 1900 E8: M_r(CO₂) = A_r(C) + 2A_r(O) from the IUPAC interval atomic weights
 
 - TN 1900 prints u = 0.000721 from the rounded components 0.0006 and 0.0002; the unrounded components 0.000577 and 0.000214 give 0.000718. The exact interval end points follow from the trapezoid: 44.0094 ± (0.00174 − √(0.2 × 0.001 × 0.00074)) = [44.008045, 44.010755].
 
-**Run:** `uncertainty run library/chemistry/nist-tn1900-e8-molecular-weight-co2.json --lang en`
+**Run:** `kapsam run library/chemistry/nist-tn1900-e8-molecular-weight-co2.json --lang en`
 
 ### Cadmium calibration standard, Monte Carlo (NIST TN 1900 E9)
 
@@ -1588,7 +1588,7 @@ TN 1900 E9: the QUAM A1 cadmium standard c = 1000 m P / V re-evaluated with the 
 - TN 1900 describes V as a symmetric triangular distribution 'with mean 100 mL and standard deviation 0.7 mL'; only 0.07 mL, the value used in the same example and in QUAM A1, is consistent with the printed interval. The triangular half-width is 0.07 × √6 = 0.1715 mL.
 - The project 'quam-a1-cadmium-standard' builds the uncertainties of m, P and V from their components as in QUAM A1.
 
-**Run:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang en`
+**Run:** `kapsam run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang en`
 
 ### Chromium in a soil reference material, 20 bottles in triplicate: ANOVA and a hierarchical Bayesian model (Possolo & Bodnar 2018; ISO Guide 35 C.1 data)
 
@@ -1608,7 +1608,7 @@ w_ij = ω + β_j + ε_ij with bottle effects β_j ~ N(0, τ²) and errors ε_ij 
 
 - No σ_pt is given: the ISO 13528 criteria are not evaluated (a reference-material homogeneity study).
 
-**Run:** `uncertainty run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang en`
+**Run:** `kapsam run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang en`
 
 ### Atomic weight and isotopic composition of lead in NRC HIPB-1 from three isotope ratios (Possolo & Meija 2022)
 
@@ -1638,7 +1638,7 @@ Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²�
 - The book's correlations come from 5 × 10⁴ Monte Carlo refits; two of them (²⁰⁴Pb–²⁰⁶Pb −0.02 and ²⁰⁴Pb–²⁰⁸Pb −0.17) differ from the linearised values (−0.011, −0.179) by about two Monte Carlo standard errors (research log F96).
 - Users of HIPB-1 should rely on the certificate (Meija et al. 2020); the book's data reduction differs slightly from it.
 
-**Run:** `uncertainty run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang en`
+**Run:** `kapsam run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang en`
 
 ### Plasma anion gap: a linear combination of four ion concentrations (Possolo & Meija 2022)
 
@@ -1657,7 +1657,7 @@ Tong et al. (2019) measured ²⁰⁴Pb/²⁰⁷Pb, ²⁰⁶Pb/²⁰⁷Pb and ²�
 
 - AG = (25.0 ± 3.6) mmol/L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang en`
+**Run:** `kapsam run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang en`
 
 ### Preparation of a cadmium calibration standard
 
@@ -1684,7 +1684,7 @@ EURACHEM/CITAC QUAM Example A1: 1000 mg/L Cd standard from high-purity metal (su
 - Doubling the rounded u_c (0.9 → U = 1.8 mg/L) is more conservative than 2 × 0.86 = 1.7 mg/L; the program rounds U itself to two significant digits.
 - The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.8633 mg/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
-**Run:** `uncertainty run library/chemistry/quam-a1-cadmium-standard.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a1-cadmium-standard.json --lang en`
 
 ### Cadmium standard with the volume sub-model
 
@@ -1709,7 +1709,7 @@ QUAM Example A1 with the volume of the flask modelled from its three components.
 
 - The guide rounds u(V) = 0.066 mL to 0.07 mL and u_c to 0.9 mg/L before multiplying by k; with unrounded values u_c = 0.835 mg/L and U = 1.7 mg/L, against the printed (1002.7 ± 1.8) mg/L.
 
-**Run:** `uncertainty run library/chemistry/quam-a1-cadmium-standard-volume.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a1-cadmium-standard-volume.json --lang en`
 
 ### Standardising a sodium hydroxide solution
 
@@ -1733,7 +1733,7 @@ QUAM Example A2: NaOH standardised against potassium hydrogen phthalate (KHP); s
 
 - The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.000099 mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
-**Run:** `uncertainty run library/chemistry/quam-a2-naoh-standardisation.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a2-naoh-standardisation.json --lang en`
 
 ### NaOH standardisation with sub-models
 
@@ -1758,7 +1758,7 @@ QUAM Example A2 with mass, molar mass and volume built from their components.
 
 - Finding: the guide rounds 0.15/√3 = 0.087 mg to 0.09 mg, giving u(m) = 0.13 mg; unrounded u(m) = 0.12 mg. Likewise u(V_T) = 0.0137 mL (guide 0.013). The unrounded combined uncertainty is 0.000101 mol/L (guide 0.000099); the reported result is unchanged.
 
-**Run:** `uncertainty run library/chemistry/quam-a2-naoh-standardisation-submodels.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a2-naoh-standardisation-submodels.json --lang en`
 
 ### Acid–base titration of hydrochloric acid
 
@@ -1783,7 +1783,7 @@ QUAM Example A3: HCl titrated with NaOH that was itself standardised against KHP
 - Finding: summary Table A3.1 states u_c = 0.00016 mol/L, but its own inputs give 0.00019 mol/L; 0.00016 is the result of the triple determination (Table A3.4).
 - The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value √3.34 × 10⁻⁸ mol/L to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
-**Run:** `uncertainty run library/chemistry/quam-a3-hcl-titration.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a3-hcl-titration.json --lang en`
 
 ### Organophosphorus pesticides in bread: combination
 
@@ -1808,7 +1808,7 @@ QUAM Example A4: the relative uncertainty from in-house validation data (precisi
 - Finding: Table A4.2 contains typographical errors in derived columns (mean 0.75 for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); the guide quotes t_crit = 2.021, i.e. t(40), for 41 degrees of freedom (t(41) = 2.0195). Neither changes the conclusion.
 - The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.377 to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
-**Run:** `uncertainty run library/chemistry/quam-a4-pesticides-combination.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a4-pesticides-combination.json --lang en`
 
 ### Cadmium released from ceramic ware
 
@@ -1834,7 +1834,7 @@ QUAM Example A5: empirical method (BS 6748); amount of Cd leached per unit area.
 - The exact first-order u_c is 0.001470 mg/dm²; the spreadsheet value 0.001465 differs because of the 1/a_V non-linearity in the finite differences.
 - The Kragten spreadsheet view (QUAM Appendix E.2), enabled in this project, reproduces the guide's printed spreadsheet value 0.001465 mg/dm² to all printed digits; the exact first-order value differs only through the finite-difference approximation.
 
-**Run:** `uncertainty run library/chemistry/quam-a5-cadmium-release.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a5-cadmium-release.json --lang en`
 
 ### Lead assay standard for IDMS
 
@@ -1853,7 +1853,7 @@ QUAM Example A7, Eq. (8): amount content of the primary lead assay standard prep
 
 - c_z = (0.092605 ± 0.000056) µmol/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/chemistry/quam-a7-assay-standard.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a7-assay-standard.json --lang en`
 
 ### Lead in water by double isotope dilution
 
@@ -1877,7 +1877,7 @@ QUAM Example A7, Eq. (5): double IDMS with mass-bias-corrected isotope ratios (r
 
 - The reported (0.05370 ± 0.00036) µmol/g uses the mean of four replicates; without the division by √8 the experimental u_c would be 0.00041 µmol/g.
 
-**Run:** `uncertainty run library/chemistry/quam-a7-lead-double-idms.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a7-lead-double-idms.json --lang en`
 
 ### Setting the limits of an X-chart, case 1 (Nordtest TR 569 Chapter 7)
 
@@ -1896,7 +1896,7 @@ Case 1: statistical limits and a mean central line, s_Rw = 4 % of 59.2 µg/L.
 
 - X-chart: central line 59.20 µg/L; warning limits 54.46 63.94 µg/L; action limits 52.10 66.30 µg/L (s = 2.37 µg/L, statistical control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ch7-case1-statistical.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ch7-case1-statistical.json --lang en`
 
 ### Setting the limits of an X-chart, case 2 (Nordtest TR 569 Chapter 7)
 
@@ -1915,7 +1915,7 @@ Case 2: target limits from a required s_Rw of 5 %, mean central line 59.2 µg/L.
 
 - X-chart: central line 59.20 µg/L; warning limits 53.28 65.12 µg/L; action limits 50.32 68.08 µg/L (s = 2.96 µg/L, target control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ch7-case2-target-mean.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ch7-case2-target-mean.json --lang en`
 
 ### Setting the limits of an X-chart, case 3 (Nordtest TR 569 Chapter 7)
 
@@ -1934,7 +1934,7 @@ Case 3: target limits of 5 % around the reference value 60.0 µg/L.
 
 - X-chart: central line 60.00 µg/L; warning limits 54.00 66.00 µg/L; action limits 51.00 69.00 µg/L (s = 3.00 µg/L, target control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ch7-case3-target-reference.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ch7-case3-target-reference.json --lang en`
 
 ### Statistical limits of an r%-chart for duplicates (Nordtest TR 569 Chapter 7)
 
@@ -1957,7 +1957,7 @@ Case 1 for range charts: pooled relative standard deviation 0.356 % from duplica
 
 - Research log F52: in Chapter 7, case 1 for range charts, the warning limit is printed as 3·0.356 = 1.0 %; 3·0.356 = 1.07, the factor of Table 4 is 2.83 and 2.83·0.356 = 1.01.
 
-**Run:** `uncertainty run library/chemistry/tr569-ch7-range-case1-statistical.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ch7-range-case1-statistical.json --lang en`
 
 ### Target limits of an r%-chart from a repeatability limit (Nordtest TR 569 Chapter 7)
 
@@ -1977,7 +1977,7 @@ Case 2 for range charts: the standard method gives a repeatability limit r = 1 %
 
 - r%-chart (relative range): central line 0.403 %; warning limits 1.01 %; action limits 1.32 % (s = 0.357 %, target control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ch7-range-case2-target.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ch7-range-case2-target.json --lang en`
 
 ### Nickel in low-alloy steel by XRF: target limits from the required uncertainty (Nordtest TR 569 Example 1)
 
@@ -1997,7 +1997,7 @@ X-chart of a steel test sample, mean over one year 4.58 weight-% with s = 0.026 
 
 - X-chart: central line 4.5800 weight-%; warning limits 4.4884 4.6716 weight-%; action limits 4.4426 4.7174 weight-% (s = 0.0458 weight-%, target control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang en`
 
 ### Boron migrating from toys by ICP-OES: target limits from the reproducibility of EN 71-3 (Nordtest TR 569 Example 10)
 
@@ -2016,7 +2016,7 @@ No material for the whole procedure: an in-house synthetic standard of 5.0 µg/L
 
 - X-chart: central line 5.000 µg/L; warning limits 4.000 6.000 µg/L; action limits 3.500 6.500 µg/L (s = 0.500 µg/L, target control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex10-boron-toys-target.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex10-boron-toys-target.json --lang en`
 
 ### Repeatability and within-laboratory reproducibility from replicate control results (Nordtest TR 569 Example 12)
 
@@ -2043,7 +2043,7 @@ Three replicates of a QC sample on each of eight days. The standard deviation of
 
 - Research log F53: footnote 24 gives s_Rw = √(0.01541² + 0.02246²) = 0.0272; the values are s_r = 0.1541, s_I = 0.2246 and s_Rw = 0.272 as in the text.
 
-**Run:** `uncertainty run library/chemistry/tr569-ex12-pooling-sr-srw.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex12-pooling-sr-srw.json --lang en`
 
 ### Cobalt in low-alloy steel by XRF: target limits from the limit of quantification (Nordtest TR 569 Example 2)
 
@@ -2062,7 +2062,7 @@ X-chart at low concentration, mean 0.0768 weight-% with s = 0.00063 weight-%; th
 
 - X-chart: central line 0.07680 weight-%; warning limits 0.07480 0.07880 weight-%; action limits 0.07380 0.07980 weight-% (s = 0.00100 weight-%, target control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex2-cobalt-steel-xrf.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex2-cobalt-steel-xrf.json --lang en`
 
 ### Ammonium nitrogen in water: R-chart of duplicate test samples (Nordtest TR 569 Example 3)
 
@@ -2081,7 +2081,7 @@ One test sample below 100 µg/L analysed in duplicate in each run; the range of 
 
 - R-chart (range): central line 0.559 µg/L; warning limits 1.40 µg/L; action limits 1.83 µg/L (s = 0.495 µg/L, statistical control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex3-ammonium-r.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex3-ammonium-r.json --lang en`
 
 ### Ammonium nitrogen in water: X-chart of a standard solution (Nordtest TR 569 Example 3)
 
@@ -2100,7 +2100,7 @@ Indophenol blue method, 20 µg/L control solution prepared from (NH₄)₂SO₄,
 
 - X-chart: central line 19.99 µg/L; warning limits 18.95 21.03 µg/L; action limits 18.43 21.55 µg/L (s = 0.521 µg/L, statistical control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex3-ammonium-x.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex3-ammonium-x.json --lang en`
 
 ### Lead in water by ICP-MS: X-chart of an in-house lake water (Nordtest TR 569 Example 4)
 
@@ -2119,7 +2119,7 @@ Low lead concentration (0.29 µg/L) in a preserved lake water, analysed once in 
 
 - X-chart: central line 0.2940 µg/L; warning limits 0.2780 0.3100 µg/L; action limits 0.2700 0.3180 µg/L (s = 0.00800 µg/L, statistical control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex4-lead-water-icpms.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex4-lead-water-icpms.json --lang en`
 
 ### Arsenic in a fish CRM by ICP-MS: chart with action limits only at ± 15 % (Nordtest TR 569 Example 5)
 
@@ -2138,7 +2138,7 @@ CRM NRC DORM-2 (dogfish muscle), 18.0 µg/g arsenic, analysed once in each run; 
 
 - X-chart: central line 18.00 µg/g; action limits 15.30 20.70 µg/g (action limits at the tolerance)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex5-arsenic-crm-tolerance.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex5-arsenic-crm-tolerance.json --lang en`
 
 ### Total phosphorus in water: r%-chart of duplicates (Nordtest TR 569 Example 6)
 
@@ -2157,7 +2157,7 @@ Test samples above 10 µg/L analysed in duplicate; the absolute difference as pe
 
 - r%-chart (relative range): central line 1.88 %; warning limits 4.73 %; action limits 6.16 % (s = 1.67 %, statistical control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex6-phosphorus-relative-range.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex6-phosphorus-relative-range.json --lang en`
 
 ### β-HCH in cod liver oil by GC-ECD: target limits around the reference value (Nordtest TR 569 Example 7)
 
@@ -2176,7 +2176,7 @@ CRM BCR 598, 16 µg/kg β-hexachlorocyclohexane, analysed once in each run; targ
 
 - X-chart: central line 16.0 µg/kg; warning limits 11.2 20.8 µg/kg; action limits 8.80 23.2 µg/kg (s = 2.40 µg/kg, target control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex7-beta-hch-crm-target.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex7-beta-hch-crm-target.json --lang en`
 
 ### Copper in water by ICP-OES: R-chart of duplicates and its review (Nordtest TR 569 Example 8)
 
@@ -2197,7 +2197,7 @@ Duplicates of test samples; preliminary mean range 0.11 mg/L, s_r = 0.0975 mg/L;
 - R-chart (range): central line 0.110 mg/L; warning limits 0.276 mg/L; action limits 0.359 mg/L (s = 0.0975 mg/L, statistical control limits)
 - Long-term review: F = 1.038 (critical 1.67: not significant)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex8-copper-r-review.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex8-copper-r-review.json --lang en`
 
 ### Copper in water by ICP-OES: new X-chart limits from all data (Nordtest TR 569 Example 8)
 
@@ -2216,7 +2216,7 @@ After the review the limits are recalculated from the longer period: x̄ = 1.048
 
 - X-chart: central line 1.048 mg/L; warning limits 0.8836 1.212 mg/L; action limits 0.8014 1.295 mg/L (s = 0.0822 mg/L, statistical control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex8-copper-x-new-limits.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex8-copper-x-new-limits.json --lang en`
 
 ### Copper in water by ICP-OES: review of preliminary X-chart limits (Nordtest TR 569 Example 8)
 
@@ -2238,7 +2238,7 @@ Synthetic standard (1.00 ± 0.02 mg/L) measured in duplicate; preliminary limits
 - X-chart: central line 1.055 mg/L; warning limits 0.9216 1.188 mg/L; action limits 0.8549 1.255 mg/L (s = 0.0667 mg/L, statistical control limits)
 - Long-term review: F = 1.563 (critical 1.68: not significant); t = 1.012 (critical 1.98: not significant)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex8-copper-x-review.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex8-copper-x-review.json --lang en`
 
 ### Zinc in hydrogen peroxide: X-chart of a procedural blank (Nordtest TR 569 Example 9)
 
@@ -2257,7 +2257,7 @@ Ultrapure water taken through the whole procedure (evaporation of 50 mL, HCl, di
 
 - X-chart: central line 0.0390 mg/L; warning limits -0.0510 0.129 mg/L; action limits -0.0960 0.174 mg/L (s = 0.0450 mg/L, statistical control limits)
 
-**Run:** `uncertainty run library/chemistry/tr569-ex9-zinc-procedural-blank.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-ex9-zinc-procedural-blank.json --lang en`
 
 ### Zinc in water: X-chart from 60 control values (Nordtest TR 569 Table 1)
 
@@ -2279,7 +2279,7 @@ Sixty control values of a 60.0 µg/L zinc solution (Table 1), plotted in Figure 
 - X-chart: central line 60.28 µg/L; warning limits 55.08 65.47 µg/L; action limits 52.48 68.07 µg/L (s = 2.60 µg/L, statistical control limits)
 - 60 control values: 0 out of control, 3 between warning and action limits
 
-**Run:** `uncertainty run library/chemistry/tr569-table1-zinc.json --lang en`
+**Run:** `kapsam run library/chemistry/tr569-table1-zinc.json --lang en`
 
 ### Nitrate in glasshouse lettuce: duplicate method, classical ANOVA (Eurachem UfS Example A1)
 
@@ -2306,7 +2306,7 @@ Eight bays of lettuce, each sampled twice (10-head composite samples, W pattern)
 - The Guide reports robust ANOVA estimates (programs RANOVA and RANOVA2) as its main result. Their algorithm is not given in the Guide and the robust values could not be reproduced (research log F63), so this project evaluates the classical ANOVA, whose results the Guide prints alongside and which are reproduced exactly.
 - The robust estimates (Figure A1.2): mean 4408.3237, s_T 565.39868, s_samp 319.04834, s_anal 167.94308 mg/kg. Huber's H15 applied to the eight target means reproduces the robust mean (4408.319), but no published variant reproduces the robust standard deviations.
 
-**Run:** `uncertainty run library/chemistry/ufs-a1-nitrate-lettuce.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a1-nitrate-lettuce.json --lang en`
 
 ### Lead in contaminated top soil: classical ANOVA and uncertainty factor (Eurachem UfS Example A2)
 
@@ -2336,7 +2336,7 @@ Ten of 100 grid targets (30 m × 30 m, 0–150 mm) sampled in duplicate 3 m apar
 - Figure A2.2 prints F_U = 2.6032 for sampling and 2.6207 for the measurement on the line of the classical ANOVA; the text gives 2.6034 = exp(2·0.4784) from the rounded s_G.
 - Section 6.4 adds the analytical bias (−3.41 % ± 1.34 %) to the random analytical component: 5.24 % standard, U′_meas = 83.95 % with the robust sampling term; a model project can include such terms.
 
-**Run:** `uncertainty run library/chemistry/ufs-a2-lead-soil-uncertainty-factor.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a2-lead-soil-uncertainty-factor.json --lang en`
 
 ### Dissolved iron in groundwater: classical ANOVA (Eurachem UfS Example A3)
 
@@ -2360,7 +2360,7 @@ Six monitoring wells of a groundwater body, each sampled twice (on-line filtered
 
 - Table A3.5 also gives RANOVA estimates (ROBAN 1.0.1): 1.8 %, 9.9 % and 72 %; the robust algorithm is not implemented (F63).
 
-**Run:** `uncertainty run library/chemistry/ufs-a3-iron-groundwater-anova.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a3-iron-groundwater-anova.json --lang en`
 
 ### Dissolved iron in groundwater: range method (Eurachem UfS Example A3, corrected)
 
@@ -2388,7 +2388,7 @@ Six monitoring wells of a groundwater body, each sampled twice (on-line filtered
 - The summary table gives 1.9 % for the analytical uncertainty of the validation, Table A3.4 1.8 %; the range calculation gives 2·0.89 % = 1.8 %.
 - The Guide uses d₂ = 1.128; the program uses 2/√π = 1.12838 (ISO 8258), a difference below the printed digits.
 
-**Run:** `uncertainty run library/chemistry/ufs-a3-iron-groundwater-range.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a3-iron-groundwater-range.json --lang en`
 
 ### Vitamin A in baby porridge, 40 g test samples: duplicate method (Eurachem UfS Example A4)
 
@@ -2415,7 +2415,7 @@ Two samples (packages) from each of ten production batches of an oat porridge wi
 - Table A4.7 rounds U′ to 17 % (analysis) and 20 % (measurement); the summary gives 16.6 % and 19.4 %, i.e. twice the rounded u of 8.3 % and 9.7 %. Unrounded, U′_meas = 2·9.648 % = 19.3 %.
 - The laboratory's own analytical uncertainty (7 %) is lower than the 8.28 % found here; the Guide uses the larger value.
 
-**Run:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-porridge-40g.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a4-vitamin-a-porridge-40g.json --lang en`
 
 ### Vitamin A in baby porridge, 4 g test samples: negative sampling variance (Eurachem UfS Example A4)
 
@@ -2441,7 +2441,7 @@ Two samples (packages) from each of ten production batches of an oat porridge wi
 - With a robust ANOVA the Guide finds u_samp = 6.9 % and u_anal = 30 %; it is not implemented (F63).
 - The measurement uncertainty of this project (73.4 %) contains the analytical term only, since the sampling variance of this data set is zero; Table A4.10 combines it with 5 % from the 40 g study.
 
-**Run:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-porridge-4g.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a4-vitamin-a-porridge-4g.json --lang en`
 
 ### Vitamin A in baby porridge: control chart of duplicate samples (Eurachem UfS Example A4)
 
@@ -2467,7 +2467,7 @@ Quality control of sampling: two samples from one batch of each of eight porridg
 - Section 7.3 writes the warning-limit factor as 2.38 in the formula but computes with 2.83 (= D_WL for duplicates, Nordtest TR 569 Table 4).
 - The central line is the expected range d₂·u for the validated uncertainty, not the mean of the 16 values (12.1 %).
 
-**Run:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-qc-chart.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a4-vitamin-a-qc-chart.json --lang en`
 
 ### Enzyme in chicken feed: fundamental sampling error by Gy's theory (Eurachem UfS Example A5)
 
@@ -2493,7 +2493,7 @@ A 500 g primary sample from a 25 kg bag (0.05 % m/m enzyme), ground to < 0.5 mm,
 - The text of Example A5 calls the constitution factor 'Equation 7'; in Section 10.2.8 it is Equation 8 (and the number 6 is used twice).
 - Fundamental sampling error only: incorrect sampling errors and analytical bias are assumed negligible.
 
-**Run:** `uncertainty run library/chemistry/ufs-a5-enzyme-feed-gy.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a5-enzyme-feed-gy.json --lang en`
 
 ### Cadmium in agricultural top soil: modelling approach (Eurachem UfS Example A6)
 
@@ -2519,7 +2519,7 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 
 - The depth term from Table A6.2 is 3.6 % (x₋ = 0.339, x₊ = 0.299 mg/kg); Table A6.6 gives 3.5 %. With it the combined uncertainty is 9.2 % instead of 9.1 %, and U = 18.4 % instead of 18.2 %; the rounded result 0.32 ± 0.06 mg/kg is the same.
 
-**Run:** `uncertainty run library/chemistry/ufs-a6-cadmium-soil.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a6-cadmium-soil.json --lang en`
 
 ### Phosphorus in agricultural top soil: modelling approach (Eurachem UfS Example A6)
 
@@ -2546,7 +2546,7 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 - Table A6.1 prints s_sqr = 8.0 mg/kg; the five values give 7.43 mg/kg (6.4 %), and u_b-loc = 2.9 % as printed follows from 7.43/√5.
 - The mean of the RSDs of Table A6.3 is 3.16 %, not the printed 3.3 %; the project uses 3.16 %. The combined uncertainty (11.3 %) and U = 26 mg/kg are unchanged.
 
-**Run:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang en`
+**Run:** `kapsam run library/chemistry/ufs-a6-phosphorus-soil.json --lang en`
 
 ### Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2)
 
@@ -2570,7 +2570,7 @@ Multiplicative model with relative uncertainties; the values are illustrative, n
 
 - The numbers of ¹H nuclei are not legible in the procedure (the model is an embedded equation object); N_std/N_a = 2/3 is the only ratio that reproduces the printed 995.0 mg/g, consistent with maleic acid (M = 116.072 g/mol, 2 H) as internal standard and an analyte of M = 194.19 g/mol with a methyl singlet (e.g. caffeine).
 
-**Run:** `uncertainty run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang en`
+**Run:** `kapsam run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang en`
 
 ### Fluoranthene in river sediments, arithmetic mean recovery (MUPR Eq. 8–12) (Bettencourt da Silva 2026)
 
@@ -2600,7 +2600,7 @@ Top-down uncertainty of fluoranthene in river sediments from the in-house valida
 - The spreadsheet reports (13.35 ± 3.86) mg/kg at 10 mg/kg and (0.134 ± 0.161) mg/kg at 0.1 mg/kg. It uses the weighted mean R̿ = 74.887 % with the uncertainty of the arithmetic mean, √Σu²/N = 4.008 % (research log F73), and does not divide the absolute precision of interval I by R̿ (F72). The text of the paper prints k = 2.01; the spreadsheet uses 2.093 (F71).
 - The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the weighted mean of MUPR Eq. (16.1) with its own uncertainty.
 
-**Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang en`
+**Run:** `kapsam run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang en`
 
 ### Fluoranthene in river sediments, weighted mean recovery (MUPR Eq. 16.1) (Bettencourt da Silva 2026)
 
@@ -2630,7 +2630,7 @@ Top-down uncertainty of fluoranthene in river sediments from the in-house valida
 - The spreadsheet reports (13.35 ± 3.86) mg/kg at 10 mg/kg and (0.134 ± 0.161) mg/kg at 0.1 mg/kg. It uses the weighted mean R̿ = 74.887 % with the uncertainty of the arithmetic mean, √Σu²/N = 4.008 % (research log F73), and does not divide the absolute precision of interval I by R̿ (F72). The text of the paper prints k = 2.01; the spreadsheet uses 2.093 (F71).
 - The program divides absolute components of a recovery-corrected result by the recovery (y = x/R). The other variant of this example uses the arithmetic mean of MUPR Eq. (8)–(12).
 
-**Run:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang en`
+**Run:** `kapsam run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang en`
 
 ### Ephedrine in urine for anti-doping testing: top-down uncertainty from intermediate precision and a CRM (EMUE E6.5)
 
@@ -2650,7 +2650,7 @@ u_c(x) = √(s_w²/n + u_bias²) for the mean of triplicate results, with u_bias
 
 - γ(ephedrine) = (10.00 ± 0.78) µg/mL (k = 2.00)
 
-**Run:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang en`
+**Run:** `kapsam run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang en`
 
 ### Crude fibre in animal feed from reproducibility data (ISO 21748 C.4)
 
@@ -2677,7 +2677,7 @@ ISO 21748:2017 C.4: level-dependent reproducibility from a collaborative study p
 - ISO 21748 C.4.7 says that the uncertainty of 0.115 % was obtained by 'dividing this maximum estimated deviation by 3'; 0.002 g/3 would give 0.067 %. The printed value corresponds to division by √3 (rectangular distribution), which the project uses.
 - QUAM A6 (project 'quam-a6-crude-fibre') uses the rounded s_R 0.29, 0.40, 0.60 and includes the drying term only at the lowest level.
 
-**Run:** `uncertainty run library/chemistry/iso21748-c4-crude-fibre.json --lang en`
+**Run:** `kapsam run library/chemistry/iso21748-c4-crude-fibre.json --lang en`
 
 ### Carbon in steel: [time + operator]-different intermediate precision (ISO 5725-3 J.1)
 
@@ -2701,7 +2701,7 @@ ISO 5725-3:2023 J.1: one routine sample a day re-analysed the next day by anothe
 
 - The 27 retained pairs are stored; the two removed pairs are given in the explanation. The Cochran statistics quoted are computed by the program's authors from Table J.1 (ISO 5725-3 gives only the conclusion).
 
-**Run:** `uncertainty run library/chemistry/iso5725-3-j1-carbon-steel.json --lang en`
+**Run:** `kapsam run library/chemistry/iso5725-3-j1-carbon-steel.json --lang en`
 
 ### Vanadium in steel: staggered-nested design, level 1 (ISO 5725-3 J.2)
 
@@ -2725,7 +2725,7 @@ ISO 5725-3:2023 J.2: 20 laboratories, two results on one day and one on the next
 
 - Table J.2 of ISO 5725-3:2023 differs from Table D.2 of ISO 5725-3:1994 in 15 entries (14 at level 3, where the second day-1 result of laboratories 7–20 repeats the first, and one each at levels 4 and 5); level 1, used here, is the same in both. The 1994 data reproduce Table J.5 exactly at levels 1–5 (core test staggered_nested_iso_5725_3_1994_levels_3_to_6). At level 6, s₍₁₎² is negative: s_I(T) = s_r is printed, but the printed s_R = 15.962 × 10⁻³ % keeps the negative s₍₁₎²; with s₍₁₎² = 0 throughout, s_R = 16.331 × 10⁻³ % (research log F40). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.
 
-**Run:** `uncertainty run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang en`
+**Run:** `kapsam run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang en`
 
 ### Nitrate in drinking water: two precision intervals
 
@@ -2750,7 +2750,7 @@ MUPR Example B1: absolute precision below 0.4 mg/L, relative above; recovery fro
 
 - Finding: the guide prints |1 − R̄|/u = 0.982 using R̄ rounded to 0.972; with R̄ = 0.9725 the statistic is 0.963. The conclusion is the same.
 
-**Run:** `uncertainty run library/chemistry/mupr-b1-nitrate.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-b1-nitrate.json --lang en`
 
 ### Nitrate: pooled precision and two recovery levels
 
@@ -2774,7 +2774,7 @@ MUPR Example B2: precision pooled from several materials (raw data for two of th
 
 - The guide divides the rounded s_I(2) = 0.0250 by 0.3033 (8.24 %); unrounded 8.25 %. Group 2 enters the absolute pool, so the budget is unaffected.
 
-**Run:** `uncertainty run library/chemistry/mupr-b2-pooled-precision.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-b2-pooled-precision.json --lang en`
 
 ### Nitrate: result as the mean of 3 replicates on 2 days
 
@@ -2793,7 +2793,7 @@ MUPR Example B2, Eq. (B2.9): precision of a mean of n results on each of p days 
 
 - c(NO₃⁻) = (57.5 ± 7.1) mg/L (k = 2.00)
 
-**Run:** `uncertainty run library/chemistry/mupr-b2-replicates-on-two-days.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-b2-replicates-on-two-days.json --lang en`
 
 ### Nitrate: precision as a linear function of concentration
 
@@ -2817,7 +2817,7 @@ MUPR Example B3: the intermediate precision of four materials is modelled as s_I
 
 - Finding: least squares gives the intercept 0.02324 (printed 0.0233); slope 0.0128 and r = 0.7266 agree.
 
-**Run:** `uncertainty run library/chemistry/mupr-b3-linear-precision.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-b3-linear-precision.json --lang en`
 
 ### Arsenic in sediment: one CRM
 
@@ -2837,7 +2837,7 @@ MUPR Example B4: pooled relative precision and the recovery of one CRM.
 
 - w(As) = (16.0 ± 1.9) mg/kg (k = 2.00)
 
-**Run:** `uncertainty run library/chemistry/mupr-b4-arsenic-one-crm.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-b4-arsenic-one-crm.json --lang en`
 
 ### Arsenic: CRM and spiked samples with matrix-dependent recovery
 
@@ -2856,7 +2856,7 @@ MUPR Example B5: recoveries vary with the matrix, so their standard deviation is
 
 - w(As) = (16.0 ± 6.3) mg/kg (k = 4.30)
 
-**Run:** `uncertainty run library/chemistry/mupr-b5-crm-and-spiked-samples.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-b5-crm-and-spiked-samples.json --lang en`
 
 ### Trace element in sediment: heterogeneity and 22 proficiency tests
 
@@ -2884,7 +2884,7 @@ MUPR Example B6: precision from a homogeneous material plus the heterogeneity of
 - Finding: Eq. (B6.8) as printed omits 1/R̿ on the precision term of the corrected result; for absolute components the program uses u(w/R̿)² = (s_I/R̿)² + (w u_R̿/R̿²)². In interval II (all relative) both agree.
 - The standard deviation of each single PT result is taken from the homogeneous-material model (7.34 % above 7.5 mg/kg, 7.5 × 7.34 % below), as in Table B6.3.
 
-**Run:** `uncertainty run library/chemistry/mupr-b6-sediment-22-pt.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-b6-sediment-22-pt.json --lang en`
 
 ### Recovery from two CRMs and a proficiency-test sample
 
@@ -2904,7 +2904,7 @@ MUPR Example 2: ortho-phosphate; mean recovery and its uncertainty from three re
 
 - U = 7.4 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/mupr-ex2-reference-materials.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-ex2-reference-materials.json --lang en`
 
 ### Recovery from spiked river waters
 
@@ -2924,7 +2924,7 @@ MUPR Example 3: two spiked samples with native analyte (Eq. 10–11).
 
 - U = 20 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/mupr-ex3-spiked-samples.json --lang en`
+**Run:** `kapsam run library/chemistry/mupr-ex3-spiked-samples.json --lang en`
 
 ### Ammonium in water from control limits and proficiency tests
 
@@ -2945,7 +2945,7 @@ Nordtest TR 537 §3.2 and Appendix 4: NH₄-N, u(Rw) from the control chart and 
 
 - U = 7 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/nordtest-3-ammonium-pt.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-3-ammonium-pt.json --lang en`
 
 ### Ammonium: within-laboratory reproducibility from control samples and duplicates
 
@@ -2971,7 +2971,7 @@ Nordtest TR 537 §5.3 and Appendix 5: NH₄-N duplicates of natural samples in t
 
 - Appendix 5 lists 46 pairs below 30 µg/L; §5.3 states n = 47. The statistics are recomputed from the 46 listed pairs.
 
-**Run:** `uncertainty run library/chemistry/nordtest-5.3-ammonium-duplicates.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-5.3-ammonium-duplicates.json --lang en`
 
 ### Dissolved oxygen: reproducibility from duplicates
 
@@ -2990,7 +2990,7 @@ Nordtest TR 537 §5.3 and Appendix 6: dissolved oxygen in sea water, 51 duplicat
 
 - U = 1.2 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/nordtest-5.3-oxygen-duplicates.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-5.3-oxygen-duplicates.json --lang en`
 
 ### Bias from one certified reference material
 
@@ -3013,7 +3013,7 @@ Nordtest TR 537 §6.1: u(bias) from a CRM (11.5 ± 0.5) measured 12 times.
 
 - Finding (F5): the handbook prints u(C_ref) = 0.25/11.5 = 2.16 % but 0.25/11.5 = 2.17 %, and its result u(bias) = 4.1 % follows from 2.16 %; the correct value is 4.15 %.
 
-**Run:** `uncertainty run library/chemistry/nordtest-6.1-one-crm.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-6.1-one-crm.json --lang en`
 
 ### Bias from several certified reference materials
 
@@ -3032,7 +3032,7 @@ Nordtest TR 537 §6.1: u(bias) from three CRMs by the RMS of the biases.
 
 - U = 6.3 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/nordtest-6.1-three-crms.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-6.1-three-crms.json --lang en`
 
 ### Bias from proficiency tests
 
@@ -3055,7 +3055,7 @@ Nordtest TR 537 §6.2: u(bias) from six proficiency tests.
 
 - Finding: the mean of the six u(C_ref,i) is 2.60 %; the handbook prints 2.7 % in the step table and then uses 2.6 %.
 
-**Run:** `uncertainty run library/chemistry/nordtest-6.2-proficiency-tests.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-6.2-proficiency-tests.json --lang en`
 
 ### Bias from recovery experiments
 
@@ -3075,7 +3075,7 @@ Nordtest TR 537 §6.3: u(bias) from six spike recoveries.
 
 - U = 7.1 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/nordtest-6.3-recovery.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-6.3-recovery.json --lang en`
 
 ### BOD in wastewater: control chart and one CRM
 
@@ -3099,7 +3099,7 @@ Nordtest TR 537 §8.2 Example A with the raw control data of Appendix 7.
 
 - The handbook states n = 19 for s_bias; Appendix 7 lists 18 pairs, which are used here. The averages are computed from the pairs (the appendix prints them rounded to 1 mg/L).
 
-**Run:** `uncertainty run library/chemistry/nordtest-8-bod-crm.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-8-bod-crm.json --lang en`
 
 ### BOD in wastewater: control chart and proficiency tests
 
@@ -3119,7 +3119,7 @@ Nordtest TR 537 §8.2 Example B: u(bias) from three proficiency tests (Table 6, 
 
 - U = 10 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/nordtest-8-bod-pt.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-8-bod-pt.json --lang en`
 
 ### PCB in sediment: control sample and one CRM
 
@@ -3142,7 +3142,7 @@ Nordtest TR 537 §8.3 Example C.
 
 - From the stated values b = 5.26 % and u(C_ref) = 4.61 % give u(bias) = 7.20 %; the handbook uses the rounded 5.3 % and 4.6 % (7.22 %). Its summary table prints u(C_ref) = 4.7 % and u(bias) = 7.29 %.
 
-**Run:** `uncertainty run library/chemistry/nordtest-8-pcb-crm.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-8-pcb-crm.json --lang en`
 
 ### PCB in sediment: control sample and proficiency tests
 
@@ -3161,7 +3161,7 @@ Nordtest TR 537 §8.3 Example D.
 
 - U = 23 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/chemistry/nordtest-8-pcb-pt.json --lang en`
+**Run:** `kapsam run library/chemistry/nordtest-8-pcb-pt.json --lang en`
 
 ### Chromium in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
 
@@ -3189,7 +3189,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Cr
 
 - The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.
 
-**Run:** `uncertainty run library/chemistry/palma2019-cr-marine-sediment.json --lang en`
+**Run:** `kapsam run library/chemistry/palma2019-cr-marine-sediment.json --lang en`
 
 ### Copper in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
 
@@ -3217,7 +3217,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Cu
 
 - The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
 
-**Run:** `uncertainty run library/chemistry/palma2019-cu-marine-sediment.json --lang en`
+**Run:** `kapsam run library/chemistry/palma2019-cu-marine-sediment.json --lang en`
 
 ### Lithium in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
 
@@ -3245,7 +3245,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Li
 
 - The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
 
-**Run:** `uncertainty run library/chemistry/palma2019-li-marine-sediment.json --lang en`
+**Run:** `kapsam run library/chemistry/palma2019-li-marine-sediment.json --lang en`
 
 ### Manganese in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
 
@@ -3273,7 +3273,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Mn
 
 - The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
 
-**Run:** `uncertainty run library/chemistry/palma2019-mn-marine-sediment.json --lang en`
+**Run:** `kapsam run library/chemistry/palma2019-mn-marine-sediment.json --lang en`
 
 ### Nickel in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
 
@@ -3301,7 +3301,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of acid-ext
 
 - The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.
 
-**Run:** `uncertainty run library/chemistry/palma2019-ni-marine-sediment.json --lang en`
+**Run:** `kapsam run library/chemistry/palma2019-ni-marine-sediment.json --lang en`
 
 ### Lead in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
 
@@ -3330,7 +3330,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of acid-ext
 - The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is significantly different from 100 % (Formula 10), so results are corrected by 1/R̄_w.
 - For lead the text gives u′_P = 6.38 % and Table 9 6.37 %; √((5.583/1.128)² + 4.02²) = 6.38 %. The text gives u_c = 6.04 mg/kg at 60 mg/kg, whereas 10.08 % × 60 mg/kg = 6.05 mg/kg.
 
-**Run:** `uncertainty run library/chemistry/palma2019-pb-marine-sediment.json --lang en`
+**Run:** `kapsam run library/chemistry/palma2019-pb-marine-sediment.json --lang en`
 
 ### Zinc in marine sediments, matrix effects in a two-interval top-down model (Palma et al. 2019)
 
@@ -3358,7 +3358,7 @@ Palma, Morgado and Bettencourt da Silva (2019), Table 9: uncertainty of total Zn
 
 - The project combines the components summarised in Table 9 of the paper; the raw data (all duplicate pairs and proficiency-test results) are in its electronic supplement. The recovery is compatible with 100 %, so results are not corrected.
 
-**Run:** `uncertainty run library/chemistry/palma2019-zn-marine-sediment.json --lang en`
+**Run:** `kapsam run library/chemistry/palma2019-zn-marine-sediment.json --lang en`
 
 ### Organophosphorus pesticides in bread from validation data
 
@@ -3383,7 +3383,7 @@ EURACHEM QUAM Example A4 as a top-down evaluation: precision from 15 duplicates 
 
 - Finding: Table A4.2 contains typographical errors in derived columns (mean 0.75 for 0.075, difference −0.10 for −0.01, mean 0.10 for 0.01); the statistics are recomputed from D1 and D2. The guide quotes t_crit = 2.021, i.e. t(40), for 41 degrees of freedom (t(41) = 2.0195).
 
-**Run:** `uncertainty run library/chemistry/quam-a4-pesticides-topdown.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a4-pesticides-topdown.json --lang en`
 
 ### Crude fibre in animal feed (empirical method)
 
@@ -3409,7 +3409,7 @@ EURACHEM QUAM Example A6: reproducibility s_R from a collaborative trial at thre
 
 - Finding: Table A6.5 prints U = 0.12 % m/m at 10 % fibre; 2 × 0.6 = 1.2 % m/m (the percentage column, 12 %, is correct).
 
-**Run:** `uncertainty run library/chemistry/quam-a6-crude-fibre.json --lang en`
+**Run:** `kapsam run library/chemistry/quam-a6-crude-fibre.json --lang en`
 
 ## Electrical and RF
 
@@ -3432,7 +3432,7 @@ EA-4/02 S3: four-terminal resistor calibrated by substitution against a standard
 
 - R_X = (10000178 ± 17) mΩ, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/ea402-s3-resistor-10kohm.json --lang en`
+**Run:** `kapsam run library/electrical/ea402-s3-resistor-10kohm.json --lang en`
 
 ### Calibration of a power sensor at 18 GHz
 
@@ -3458,7 +3458,7 @@ EA-4/02 S6: calibration factor of a thermistor power sensor against a standard s
 - The heading of the example says 19 GHz; the text and the result refer to 18 GHz.
 - With three observations the t distribution for p has ν = 2 and no finite variance; the Monte Carlo standard deviation is therefore unstable, while the coverage interval remains well defined (JCGM 101 6.4.9).
 
-**Run:** `uncertainty run library/electrical/ea402-s6-power-sensor-18ghz.json --lang en`
+**Run:** `kapsam run library/electrical/ea402-s6-power-sensor-18ghz.json --lang en`
 
 ### Calibration of a coaxial step attenuator (30 dB)
 
@@ -3482,7 +3482,7 @@ EA-4/02 S7: 30 dB step of a coaxial attenuator at 10 GHz, with mismatch from S-p
 
 - Finding: the budget prints the contribution of δL_ib as 0.0019 dB although its standard uncertainty is 0.0003 dB; the printed total 0.0223 dB includes the 0.0019 value (0.0222 dB without it). The reported result is unchanged.
 
-**Run:** `uncertainty run library/electrical/ea402-s7-step-attenuator-30db.json --lang en`
+**Run:** `kapsam run library/electrical/ea402-s7-step-attenuator-30db.json --lang en`
 
 ### Calibration of a hand-held digital multimeter at 100 V
 
@@ -3502,7 +3502,7 @@ EA-4/02 S9: error of indication of a 3½-digit DMM; the resolution term dominate
 
 - E_X = (0.10 ± 0.06) V, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/ea402-s9-dmm-100v.json --lang en`
+**Run:** `kapsam run library/electrical/ea402-s9-dmm-100v.json --lang en`
 
 ### Impedance magnitude from correlated V and I (GUM H.2)
 
@@ -3522,7 +3522,7 @@ GUM H.2: the impedance magnitude Z = V/I from correlated simultaneous measuremen
 
 - Z = (254.26 ± 0.46) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/gum-h2-impedance.json --lang en`
+**Run:** `kapsam run library/electrical/gum-h2-impedance.json --lang en`
 
 ### Reactance from correlated V, I and φ (GUM H.2)
 
@@ -3546,7 +3546,7 @@ GUM H.2: the reactance X = (V/I) sin φ from correlated simultaneous measurement
 
 - Approach 1 with the unrounded data gives u_c(X) = 0.29558 Ω, approach 2 0.29549 Ω; GUM Table H.3 prints 0.295, so the tolerance is 0.0006 Ω.
 
-**Run:** `uncertainty run library/electrical/gum-h2-reactance.json --lang en`
+**Run:** `kapsam run library/electrical/gum-h2-reactance.json --lang en`
 
 ### Resistance from correlated V, I and φ (GUM H.2)
 
@@ -3570,7 +3570,7 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 - Because the covariance terms cancel most of the variance of R, u_c(R) is sensitive to the rounding of the correlation coefficients: with the two-digit values printed in Table H.2 the law of propagation gives 0.0700 Ω instead of 0.0711 Ω (project 'num-10-resistance', which reproduces the NIST Uncertainty Machine). X and Z change by less than 0.1 %.
 
-**Run:** `uncertainty run library/electrical/gum-h2-resistance.json --lang en`
+**Run:** `kapsam run library/electrical/gum-h2-resistance.json --lang en`
 
 ### Comparison loss, x₁ = 0.0
 
@@ -3592,7 +3592,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (50 ± 640) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang en`
 
 ### Comparison loss, x₁ = 0.0, r = 0.9
 
@@ -3613,7 +3613,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (0.0 ± 0.0) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang en`
 
 ### Comparison loss, x₁ = 0, r = 0.9, higher-order GUM terms for correlated inputs
 
@@ -3635,7 +3635,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (50 ± 850) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 12.7, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang en`
 
 ### Comparison loss, x₁ = 0.01
 
@@ -3657,7 +3657,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (150 ± 220) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang en`
 
 ### Comparison loss, x₁ = 0.01, r = 0.9
 
@@ -3678,7 +3678,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (100 ± 200) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang en`
 
 ### Comparison loss, x₁ = 0.01, r = 0.9, higher-order GUM terms for correlated inputs
 
@@ -3700,7 +3700,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (150 ± 240) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang en`
 
 ### Comparison loss, x₁ = 0.05
 
@@ -3722,7 +3722,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (2550 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang en`
 
 ### Comparison loss, x₁ = 0.05, r = 0.9
 
@@ -3743,7 +3743,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (2500 ± 980) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang en`
 
 ### Comparison loss, x₁ = 0.05, r = 0.9, higher-order GUM terms for correlated inputs
 
@@ -3765,7 +3765,7 @@ JCGM 101 9.4: comparison loss in the calibration of a microwave power meter (val
 
 - dY = (2550 ± 990) 10⁻⁶, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.001 (JCGM 102 9.3)
 
@@ -3787,7 +3787,7 @@ JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ =
 - Theta = 0.0 rad, u(Theta) = 10 rad (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.3-polar-x001.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.001, r = 0.9 (JCGM 102 9.3)
 
@@ -3809,7 +3809,7 @@ JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ =
 - Theta = 0.0 rad, u(Theta) = 10 rad (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001-correlated.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.3-polar-x001-correlated.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.01 (JCGM 102 9.3)
 
@@ -3831,7 +3831,7 @@ JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ =
 - Theta = 0.00 rad, u(Theta) = 1.0 rad (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.3-polar-x010.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.01, r = 0.9 (JCGM 102 9.3)
 
@@ -3853,7 +3853,7 @@ JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ =
 - Theta = 0.00 rad, u(Theta) = 1.0 rad (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010-correlated.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.3-polar-x010-correlated.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.1 (JCGM 102 9.3)
 
@@ -3875,7 +3875,7 @@ JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ =
 - Theta = 0.000 rad, u(Theta) = 0.10 rad (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.3-polar-x100.json --lang en`
 
 ### Cartesian to polar co-ordinates, x₁ = 0.1, r = 0.9 (JCGM 102 9.3)
 
@@ -3897,7 +3897,7 @@ JCGM 102:2011 9.3: magnitude and phase of a complex quantity estimated at x₁ =
 - Theta = 0.000 rad, u(Theta) = 0.10 rad (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100-correlated.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.3-polar-x100-correlated.json --lang en`
 
 ### Resistance, reactance and impedance from simultaneous indication values (JCGM 102 9.4)
 
@@ -3925,7 +3925,7 @@ JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated av
 - With ν = 3 the multivariate t-distribution has no fourth moment, so the Monte Carlo standard deviations converge slowly: with 10⁶ trials, seeds 1 to 6 give u(R) between 0.128 Ω and 0.136 Ω and r(R, X) between −0.580 and −0.600. The tolerances of the Monte Carlo values cover this spread; the printed MCM row is one such realization.
 - Table 8 prints set 6 as φ = 1.0445 rad, the rounded average of sets 1 to 5 (1.04446). With the rounded value the estimate of R is 127.7307 Ω instead of the printed 127.732 Ω; the project uses 1.04446 rad, the value of Table 9 (research log F51).
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.4-resistance-reactance.json --lang en`
 
 ### Resistance, reactance and impedance from simultaneous indication values, t covariance (JCGM 102 9.4)
 
@@ -3954,7 +3954,7 @@ JCGM 102:2011 9.4 (GUM H.2 extended): three output quantities from correlated av
 - With ν = 3 the multivariate t-distribution has no fourth moment, so the Monte Carlo standard deviations converge slowly: with 10⁶ trials, seeds 1 to 6 give u(R) between 0.128 Ω and 0.136 Ω and r(R, X) between −0.580 and −0.600. The tolerances of the Monte Carlo values cover this spread; the printed MCM row is one such realization.
 - Table 8 prints set 6 as φ = 1.0445 rad, the rounded average of sets 1 to 5 (1.04446). With the rounded value the estimate of R is 127.7307 Ω instead of the printed 127.732 Ω; the project uses 1.04446 rad, the value of Table 9 (research log F51).
 
-**Run:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang en`
+**Run:** `kapsam run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang en`
 
 ### Digital voltmeter with a dominant resolution term (UKAS M3003 Appendix C)
 
@@ -3978,7 +3978,7 @@ A DVM reading 1.001 V for an applied 1.000 00 V; the rounding of the 1 mV digit 
 
 - Research log F61: C.5 states the drift and temperature limit as ±50 V; the calculation uses 0.05 mV, i.e. ±50 µV.
 
-**Run:** `uncertainty run library/electrical/m3003-c5-dvm-dominant-rectangular.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-c5-dvm-dominant-rectangular.json --lang en`
 
 ### 10 kΩ resistor by voltage intercomparison (UKAS M3003 K.1)
 
@@ -4000,7 +4000,7 @@ The voltages across a standard and an unknown 10 kΩ resistor in series are comp
 
 - R_X = (10000.1050 ± 0.0089) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/m3003-k1-resistor-10kohm.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-k1-resistor-10kohm.json --lang en`
 
 ### Coaxial power sensor at 18 GHz (UKAS M3003 K.2)
 
@@ -4022,7 +4022,7 @@ Calibration factor of an unknown power sensor by substitution against a standard
 
 - K_X = (93.2 ± 3.4) %, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/m3003-k2-power-sensor-18ghz.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-k2-power-sensor-18ghz.json --lang en`
 
 ### 30 dB coaxial attenuator at 10 GHz (UKAS M3003 K.3)
 
@@ -4047,7 +4047,7 @@ Calibration of a coaxial step attenuator by IF substitution; the mismatch term d
 
 - Research log F57: Formula E5 with the reflection and scattering coefficients of K.3.6 gives a mismatch standard deviation of 0.0170 dB, not the 0.022 dB of the budget; see the project m3003-k3-attenuator-30db-mismatch-e5.
 
-**Run:** `uncertainty run library/electrical/m3003-k3-attenuator-30db.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-k3-attenuator-30db.json --lang en`
 
 ### 30 dB attenuator with the mismatch term from formula E5 (UKAS M3003 K.3, E.9.5)
 
@@ -4069,7 +4069,7 @@ The budget of K.3 with the mismatch standard deviation recomputed from the coeff
 
 - A_X = (30.050 ± 0.040) dB, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang en`
 
 ### DMM on the 1 V range: budget at 0.95 V (UKAS M3003 L.3)
 
@@ -4094,7 +4094,7 @@ Error of a 6½-digit DMM on its 1 V range at 0.95 V, calibrated with a multifunc
 
 - Research log F61: the budget is headed 'evaluated at ΔI_DMM = 0.95 V', meaning I_DMM = 0.95 V; L.3.15 defines Q[a, b] = [a² + ab]^½ for [a² + b²]^½; Appendix Q's note writes u(R) = u(R) × R for u(R) = w(R) × R.
 
-**Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-095v.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-l3-dmm-1v-range-095v.json --lang en`
 
 ### DMM on the 1 V range at full scale: coverage factor for a dominant specification term (UKAS M3003 L.3.20)
 
@@ -4114,7 +4114,7 @@ Error of a 6½-digit DMM on its 1 V range at 1.0 V, calibrated with a multifunct
 
 - dI = (0 ± 11) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.90, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang en`
 
 ### DMM on the 1 V range: uncertainty at 500 mV from the range formula (UKAS M3003 L.3)
 
@@ -4135,7 +4135,7 @@ Error of a 6½-digit DMM on its 1 V range at 0.5 V, calibrated with a multifunct
 
 - dI = (0.0 ± 6.2) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang en`
+**Run:** `kapsam run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang en`
 
 ### Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)
 
@@ -4156,7 +4156,7 @@ TN 1900 E11: EA-4/02 S7 re-evaluated with the Monte Carlo method; the dominant a
 - TN 1900 rescales the t₃ distribution of L_S to standard deviation u = 0.0091 dB (scale 0.0091/√3 dB). JCGM 101 6.4.9 instead uses the scale s/√n = 0.0091 dB, i.e. a standard deviation of 0.0158 dB. Because the GUM uncertainty of a t input is its scale, the GUM evaluation is switched off; the EA-4/02 GUM result is in 'ea402-s7-step-attenuator-30db'.
 - TN 1900 models the leakage δL_K as arcsine on ±0.003 dB (u = 0.0021 dB) and remarks that the 0.0017 dB of EA-4/02 S7.12 corresponds to a rectangular distribution, although EA-4/02 calls the term U-shaped.
 
-**Run:** `uncertainty run library/electrical/nist-tn1900-e11-step-attenuator.json --lang en`
+**Run:** `kapsam run library/electrical/nist-tn1900-e11-step-attenuator.json --lang en`
 
 ### Resistance with the rounded values of GUM Table H.2 (NIST Uncertainty Machine §10)
 
@@ -4175,7 +4175,7 @@ GUM H.2: the resistance R = (V/I) cos φ from correlated simultaneous measuremen
 
 - R = (127.73 ± 0.14) Ω, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/num-10-resistance.json --lang en`
+**Run:** `kapsam run library/electrical/num-10-resistance.json --lang en`
 
 ### Wheatstone bridge: a measurement model that is not a product of powers (Possolo & Meija 2022)
 
@@ -4198,7 +4198,7 @@ At balance R_U/R_G = R_F/R_EH, with R_EH = 1/(R_E⁻¹ + R_H⁻¹) the joint res
 
 - The book notes that a lognormal model, which respects the positivity of resistance, gives practically the same results at these relative uncertainties (below 5 %).
 
-**Run:** `uncertainty run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang en`
+**Run:** `kapsam run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang en`
 
 ### 10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1)
 
@@ -4218,7 +4218,7 @@ Additive model with absolute uncertainties: the error of indication E = V_DMM �
 
 - E = (212 ± 70) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang en`
+**Run:** `kapsam run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang en`
 
 ## Flow and volume
 
@@ -4247,7 +4247,7 @@ A 1000 mL glass flask filled to the mark and weighed ten times; water at 19.11 �
 
 - Research log F62: with the inputs stated in 7.1.1.4 (0.16 °C, 6 Pa — 60 in the formula —, 0.6 %rh and the 2.4·10⁻⁴ formula uncertainty), the air-density formula gives u(ρ_A) = 6.0·10⁻⁷ g/mL, not 1.76·10⁻⁶ g/mL; 7.1.1.5 gives u(ρ_B) = 0.06/2 = 0.03 g/mL while Table 2 uses 0.0346 g/mL (= 0.06/√3); 7.1.1.3 writes u(ρ_W,t) as 1.024·10⁻⁶ g/mL in the text and 1.24·10⁻⁶ g/mL in the formula, and β·ρ_W·u(t_W) = 8.9·10⁻⁷ g/mL; Table 2 gives ν = 50 for the mass without a stated basis. None changes u(V₂₀) at its printed digits.
 
-**Run:** `uncertainty run library/flow/cg19-ex1-flask-1000ml.json --lang en`
+**Run:** `kapsam run library/flow/cg19-ex1-flask-1000ml.json --lang en`
 
 ### Gravimetric calibration of a 100 mL glass pycnometer (EURAMET cg-19 Example 2)
 
@@ -4274,7 +4274,7 @@ A 100 mL pycnometer weighed ten times; water at 18.94 °C, air 0.23 °C warmer; 
 
 - Research log F62: Table 4 gives ν_eff(V₂₀) = 1727, whereas 7.2.5 gives 13, which the Welch–Satterthwaite formula reproduces and which k = 2.21 corresponds to. As in Example 1, u(ρ_A) = 1.74·10⁻⁶ g/mL does not follow from the stated inputs (4.8·10⁻⁷ g/mL).
 
-**Run:** `uncertainty run library/flow/cg19-ex2-pycnometer-100ml.json --lang en`
+**Run:** `kapsam run library/flow/cg19-ex2-pycnometer-100ml.json --lang en`
 
 ### Water meter calibration: relative error of one run
 
@@ -4293,7 +4293,7 @@ EA-4/02 S12 (second budget): relative error of indication of the meter for a sin
 
 - e_X = (0.0003 ± 0.0014), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/flow/ea402-s12-water-meter-error.json --lang en`
+**Run:** `kapsam run library/flow/ea402-s12-water-meter-error.json --lang en`
 
 ### Water meter calibration: mean of three runs
 
@@ -4312,7 +4312,7 @@ EA-4/02 S12 (third budget): mean relative error of three runs, with the Welch–
 
 - e_Xav = (0.001 ± 0.002), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.28, corresponding to a coverage probability of approximately 95 %. U is rounded to 1 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/flow/ea402-s12-water-meter-mean-error.json --lang en`
+**Run:** `kapsam run library/flow/ea402-s12-water-meter-mean-error.json --lang en`
 
 ### Water meter calibration: reference volume
 
@@ -4332,7 +4332,7 @@ EA-4/02 S12 (first budget): volume passed through a household water meter, measu
 
 - V_X = (199.93 ± 0.22) L, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang en`
+**Run:** `kapsam run library/flow/ea402-s12-water-meter-volume.json --lang en`
 
 ### Volume flowrate referred to standard pressure and temperature (UKAS M3003 K.9)
 
@@ -4357,7 +4357,7 @@ Flowrate from a 4–20 mA flowmeter at 1018 hPa and 295.1 K, expressed at 1013.2
 
 - With ν_eff = 130 the coverage factor for 95.45 % is 2.03 (Appendix B table: 2.025 at 100), which would give U = 0.56 L/s; the example uses k = 2.
 
-**Run:** `uncertainty run library/flow/m3003-k9-flowrate-standard-conditions.json --lang en`
+**Run:** `kapsam run library/flow/m3003-k9-flowrate-standard-conditions.json --lang en`
 
 ### Airspeed with a Pitot tube (NIST TN 1900 E4)
 
@@ -4381,7 +4381,7 @@ TN 1900 E4 (after Kline and McClintock, 1953): airspeed from the differential pr
 
 - With the stated equation and inputs, v = 57.48 m/s and u(v) = 0.348 m/s. TN 1900 prints v = 40.64 m/s and u(v) = 0.25 m/s, which are those values divided by √2, i.e. the result of v = √(ΔR_sT/p) without the factor 2. The relative uncertainty, 0.61 %, is the same in both.
 
-**Run:** `uncertainty run library/flow/nist-tn1900-e4-pitot-tube.json --lang en`
+**Run:** `kapsam run library/flow/nist-tn1900-e4-pitot-tube.json --lang en`
 
 ## General (method validation)
 
@@ -4407,7 +4407,7 @@ Slope β of Y = βX from eight torque levels; the OLS estimator (9.4) is linear 
 
 - Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).
 
-**Run:** `uncertainty run library/general/gum5-e9-torque-slope-ols.json --lang en`
+**Run:** `kapsam run library/general/gum5-e9-torque-slope-ols.json --lang en`
 
 ### Torque sensor calibration, straight line through the origin, weighted least squares with the GUF (JCGM GUM-5 Example 9)
 
@@ -4431,7 +4431,7 @@ Slope β of Y = βX from eight torque levels; the WLS estimator (9.4) is linear 
 
 - Y₈ has n = 3, so a t-distribution for it would have ν = 2 and no variance; the Monte Carlo method is therefore not run (JCGM 101 6.4.9.3).
 
-**Run:** `uncertainty run library/general/gum5-e9-torque-slope-wls.json --lang en`
+**Run:** `kapsam run library/general/gum5-e9-torque-slope-wls.json --lang en`
 
 ### Additive model with Gaussian inputs
 
@@ -4450,7 +4450,7 @@ JCGM 101 9.2.2: four independent inputs, each N(0, 1).
 
 - Y = (0.0 ± 3.9), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/general/jcgm101-9.2.2-additive-gaussian.json --lang en`
+**Run:** `kapsam run library/general/jcgm101-9.2.2-additive-gaussian.json --lang en`
 
 ### Additive model with rectangular inputs
 
@@ -4474,7 +4474,7 @@ JCGM 101 9.2.3: four independent inputs, each rectangular with standard deviatio
 
 - JCGM 101 Table 3 reports the GUM interval validated in one of its two adaptive runs and not in the other (9.2.3.4): with d ≈ 0.039 against δ = 0.05, Monte Carlo noise in the endpoints can decide the outcome.
 
-**Run:** `uncertainty run library/general/jcgm101-9.2.3-additive-rectangular.json --lang en`
+**Run:** `kapsam run library/general/jcgm101-9.2.3-additive-rectangular.json --lang en`
 
 ### Additive model with a dominant rectangular input
 
@@ -4494,7 +4494,7 @@ JCGM 101 9.2.4: as 9.2.3 but X4 has standard deviation 10.
 
 - Y = (0 ± 20), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang en`
+**Run:** `kapsam run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang en`
 
 ### Additive bivariate model, Gaussian inputs (JCGM 102 9.2.2)
 
@@ -4516,7 +4516,7 @@ JCGM 102:2011 9.2.2: two outputs sharing a common Gaussian effect; the GUM resul
 - Y2 = 0.00, u(Y2) = 1.4 (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/general/jcgm102-9.2.2-additive-gaussian.json --lang en`
+**Run:** `kapsam run library/general/jcgm102-9.2.2-additive-gaussian.json --lang en`
 
 ### Additive bivariate model, rectangular common effect (JCGM 102 9.2.3)
 
@@ -4539,7 +4539,7 @@ JCGM 102:2011 9.2.3: as 9.2.2 with the common effect X₃ rectangular (standard 
 - Y2 = 0.00, u(Y2) = 1.4 (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/general/jcgm102-9.2.3-additive-rectangular.json --lang en`
+**Run:** `kapsam run library/general/jcgm102-9.2.3-additive-rectangular.json --lang en`
 
 ### Additive bivariate model, dominant rectangular common effect (JCGM 102 9.2.4)
 
@@ -4561,7 +4561,7 @@ JCGM 102:2011 9.2.4: the common rectangular effect has standard deviation 3; r(y
 - Y2 = 0.00, u(Y2) = 3.2 (GUM)
 - 95 % coverage region (GUM): hyper-ellipsoid (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2.45; rectangle k_q = 2.24
 
-**Run:** `uncertainty run library/general/jcgm102-9.2.4-additive-dominant-rectangular.json --lang en`
+**Run:** `kapsam run library/general/jcgm102-9.2.4-additive-dominant-rectangular.json --lang en`
 
 ### Bursting strength of a container: probability of conformity (JCGM 106 7.3)
 
@@ -4580,7 +4580,7 @@ JCGM 106:2012 7.3 Example 2: single lower tolerance limit B ≥ 490 kPa, destruc
 
 - Probability that container conforms to B ≥ 490 kPa: p_c = 99 %; accepted under simple acceptance.
 
-**Run:** `uncertainty run library/general/jcgm106-7.3-bursting-strength.json --lang en`
+**Run:** `kapsam run library/general/jcgm106-7.3-bursting-strength.json --lang en`
 
 ### Breakdown voltage of a Zener diode: probability of conformity (JCGM 106 7.3)
 
@@ -4599,7 +4599,7 @@ JCGM 106:2012 7.3 Example 1: single upper tolerance limit V_b ≤ −5.40 V, mea
 
 - Probability that diode conforms to V_b ≤ -5.4 V: p_c = 92 %; accepted under simple acceptance.
 
-**Run:** `uncertainty run library/general/jcgm106-7.3-zener-diode.json --lang en`
+**Run:** `kapsam run library/general/jcgm106-7.3-zener-diode.json --lang en`
 
 ### Kinematic viscosity of a motor oil: two-sided tolerance (JCGM 106 7.4)
 
@@ -4618,7 +4618,7 @@ JCGM 106:2012 7.4 Example: SAE grade 40 oil at 100 °C, 12.5 mm²/s ≤ Y ≤ 16
 
 - Probability that oil conforms to 12.5 mm²/s ≤ Y ≤ 16.3 mm²/s: p_c = 66 %; accepted under simple acceptance.
 
-**Run:** `uncertainty run library/general/jcgm106-7.4-motor-oil-viscosity.json --lang en`
+**Run:** `kapsam run library/general/jcgm106-7.4-motor-oil-viscosity.json --lang en`
 
 ### Nandrolone in animal products: decision limit for a screening test (JCGM 106 8.3.3)
 
@@ -4633,7 +4633,7 @@ JCGM 106:2012 8.3.3 Example 2: threshold 2.00 µg/L; a result is suspect if the 
 1. The PDF for the concentration is a scaled and shifted t distribution with scale s = 0.20 µg/L and ν = 9 degrees of freedom (JCGM 101 6.4.9).
 2. Guard band g = t₀.₉₅;₉ × s = 1.83 × 0.20 = 0.37 µg/L and decision limit A = T + g = 2.37 µg/L (guarded rejection).
 
-**Run:** `uncertainty run library/general/jcgm106-8.3-nandrolone.json --lang en`
+**Run:** `kapsam run library/general/jcgm106-8.3-nandrolone.json --lang en`
 
 ### Speed limit enforcement: guarded rejection (JCGM 106 8.3.3)
 
@@ -4658,7 +4658,7 @@ JCGM 106:2012 8.3.3 Example 1: speed limit 100 km/h, radar with relative standar
 
 - The program solves the condition exactly with z = Φ⁻¹(0.999) = 3.0902, giving 106.59 km/h; the standard rounds to 107 km/h. The measured speeds 105 and 108 km/h illustrate both sides of the acceptance limit.
 
-**Run:** `uncertainty run library/general/jcgm106-8.3-speed-limit.json --lang en`
+**Run:** `kapsam run library/general/jcgm106-8.3-speed-limit.json --lang en`
 
 ### Ball bearings: acceptance limit for a required consumer's risk (JCGM 106 9.5.4)
 
@@ -4677,7 +4677,7 @@ JCGM 106:2012 9.5.4 Example: radial error motion ≤ 2 µm, gamma process PDF wi
 
 - The text states the acceptance interval 0 ≤ Y_m ≤ A and Formula (23) for R_C includes the lower limit 0, but Formula (24) for R_P omits it. The printed R_P ≈ 7.5 % follows from (24); with the lower acceptance limit 0, R_P would be 8.9 % (research log F45). The project uses the acceptance interval Y_m ≤ A, which reproduces both R_C and R_P (the lower limit has no effect on R_C).
 
-**Run:** `uncertainty run library/general/jcgm106-9.5-ball-bearings.json --lang en`
+**Run:** `kapsam run library/general/jcgm106-9.5-ball-bearings.json --lang en`
 
 ### Precision resistors: global consumer's and producer's risks (JCGM 106 9.5.3)
 
@@ -4693,7 +4693,7 @@ JCGM 106:2012 9.5.3 Example: 1500 Ω ± 0.2 Ω resistors from a process with σ 
 2. Guarded acceptance with symmetric guard bands w = 0.02 Ω = 0.25U.
 3. Formulae (19) and (20) by numerical integration: R_C = 1 % and R_P = 7 %. Of 100 resistors 83 are accepted correctly, 7 rejected falsely, 9 rejected correctly and 1 accepted falsely; of the accepted resistors 99 % conform.
 
-**Run:** `uncertainty run library/general/jcgm106-9.5-precision-resistors.json --lang en`
+**Run:** `kapsam run library/general/jcgm106-9.5-precision-resistors.json --lang en`
 
 ### Product and ratio y = ab/c with a wide triangular divisor (NIST Uncertainty Machine §3)
 
@@ -4717,7 +4717,7 @@ NUM manual §3: Gaussian a, rectangular b and a triangular divisor c with a 30 %
 
 - The text of §3 says that the GUM method gives y = 32.2 and u(y) = 12.5, but the output of the NIST Uncertainty Machine printed in Figure 1 gives y = 28.8 and u(y) = 8.7 for Gauss's formula (32.2 and 13 are the Monte Carlo mean and standard deviation). The program reproduces the values of Figure 1.
 
-**Run:** `uncertainty run library/general/num-3-ratio-abc.json --lang en`
+**Run:** `kapsam run library/general/num-3-ratio-abc.json --lang en`
 
 ### Bias of a 1 mL micropipette: chart with action limits at the tolerance (Nordtest TR 569 Example 11)
 
@@ -4735,7 +4735,7 @@ A fixed 1 mL micropipette tested ten times (Nordtest TR 626); the mean volume is
 
 - X-chart: central line 1.0000 mL; action limits 0.99000 1.0100 mL (action limits at the tolerance)
 
-**Run:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang en`
+**Run:** `kapsam run library/general/tr569-ex11-micropipette-tolerance.json --lang en`
 
 ### Acceptance limits from the test uncertainty ratio: Dobbert's managed guard band (method 6), TUR = 2.5, global risks for a 95 % in-tolerance process
 
@@ -4760,7 +4760,7 @@ Tolerance ±1 (normalised), U₉₅ = 2u = 0.4, so TUR = 1/U₉₅ = 2.5. GBF = 
 
 - TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
 
-**Run:** `uncertainty run library/general/tur-guard-band-dobbert-tur2-5.json --lang en`
+**Run:** `kapsam run library/general/tur-guard-band-dobbert-tur2-5.json --lang en`
 
 ### Acceptance limits from the test uncertainty ratio: NCSLI RP-10 guard band, TUR = 2.0, global risks for a 95 % in-tolerance process
 
@@ -4784,7 +4784,7 @@ Tolerance ±1 (normalised), U₉₅ = 2u = 0.5, so TUR = 1/U₉₅ = 2.0. GBF = 
 
 - TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
 
-**Run:** `uncertainty run library/general/tur-guard-band-rp10-tur2-0.json --lang en`
+**Run:** `kapsam run library/general/tur-guard-band-rp10-tur2-0.json --lang en`
 
 ### Acceptance limits from the test uncertainty ratio: root-sum-square guard band, TUR = 1.5, global risks for a 95 % in-tolerance process
 
@@ -4808,7 +4808,7 @@ Tolerance ±1 (normalised), U₉₅ = 2u = 0.6667, so TUR = 1/U₉₅ = 1.5. GBF
 
 - TUR is defined with the 95 % expanded uncertainty U₉₅ = 2u, as in ANSI/NCSL Z540.3 practice and Suncal; JCGM 106 uses the capability index C_m = T/(4u), equal to TUR here.
 
-**Run:** `uncertainty run library/general/tur-guard-band-rss-tur1-5.json --lang en`
+**Run:** `kapsam run library/general/tur-guard-band-rss-tur1-5.json --lang en`
 
 ### Carbon monoxide in vehicle emissions from reproducibility data (ISO 21748 C.1)
 
@@ -4832,7 +4832,7 @@ ISO 21748:2017 C.1: type-approval test of CO emissions; with bias and precision 
 
 - The laboratory's repeatability is not substituted for s_r here (as in ISO 21748 C.1); with lab_repeatability = 0.20 g/km, 7.3.2 would give s′_R = √(s_L² + s_l²) = 0.26 g/km.
 
-**Run:** `uncertainty run library/general/iso21748-c1-co-emissions.json --lang en`
+**Run:** `kapsam run library/general/iso21748-c1-co-emissions.json --lang en`
 
 ### Aerobic plate count, flour: adjusted reproducibility (ISO 21748 C.3)
 
@@ -4856,7 +4856,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, flour): relative uncertainty of log10(count) fr
 
 - ISO 21748 Table C.4 prints u = 6.4 % and C.3.7 U = 12.8 % for flour, but its own inputs give √(2.4² + 5.0² + 3.0²) = 6.30 % (unrounded s_L: 6.29 %) and U = 12.6 %. The intervals of Table C.5 for flour follow from the printed 12.8 %. The project checks the recomputed values.
 
-**Run:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang en`
+**Run:** `kapsam run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang en`
 
 ### Aerobic plate count, shrimp: adjusted reproducibility (ISO 21748 C.3)
 
@@ -4876,7 +4876,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, shrimp): relative uncertainty of log10(count) f
 
 - U = 16 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang en`
+**Run:** `kapsam run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang en`
 
 ### Aerobic plate count, vegetables: adjusted reproducibility (ISO 21748 C.3)
 
@@ -4896,7 +4896,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, vegetables): relative uncertainty of log10(coun
 
 - U = 18 % (k = 2.00), relative to the measured value
 
-**Run:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-vegetables.json --lang en`
+**Run:** `kapsam run library/general/iso21748-c3-aerobic-plate-count-vegetables.json --lang en`
 
 ## Length
 
@@ -4917,7 +4917,7 @@ EA-4/02 S10: error of a vernier calliper measured with a gauge block; two rectan
 
 - E_X = (100 ± 65) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/length/ea402-s10-vernier-calliper.json --lang en`
+**Run:** `kapsam run library/length/ea402-s10-vernier-calliper.json --lang en`
 
 ### Calibration of a 90 mm ring gauge
 
@@ -4942,7 +4942,7 @@ EA-4/02 S13: diameter of a ring gauge compared with a 40 mm setting ring on a on
 - Finding (affects the reported value): the budget uses Δl = 49.999 55 mm instead of the mean 49.999 536 mm of the observations and δl_P = +0.004 µm instead of −0.0037 µm, and so obtains d_X = 90.000 25 mm, reported as 90.000 3 mm. From the data, d_X = 90.000 232 mm, i.e. (90.000 2 ± 0.000 9) mm. The difference, 0.1 µm, is well inside U.
 - Findings: the mean Δl is 49.999 54 mm but the budget uses 49.999 55; the text quotes s = 0.18 µm for the standard deviation of a single observation (0.33 µm from the data, 0.15 µm for the mean); √(0.15² + 0.25²) = 0.29 µm (printed 0.30); the coaxiality correction is −0.004 µm (budget +0.000 004 mm).
 
-**Run:** `uncertainty run library/length/ea402-s13-ring-gauge-90mm.json --lang en`
+**Run:** `kapsam run library/length/ea402-s13-ring-gauge-90mm.json --lang en`
 
 ### Ring gauge calibration: temperature correction
 
@@ -4961,7 +4961,7 @@ EA-4/02 S13: temperature sub-budget of the ring-gauge comparison; products of ze
 
 - dl_T = (0.00 ± 0.30) µm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/length/ea402-s13-ring-gauge-temperature.json --lang en`
+**Run:** `kapsam run library/length/ea402-s13-ring-gauge-temperature.json --lang en`
 
 ### Calibration of a 50 mm gauge block
 
@@ -4981,7 +4981,7 @@ EA-4/02 S4: grade 0 steel gauge block compared with a calibrated standard; a pro
 
 - l_X = (49999926 ± 69) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/length/ea402-s4-gauge-block-50mm.json --lang en`
+**Run:** `kapsam run library/length/ea402-s4-gauge-block-50mm.json --lang en`
 
 ### End-gauge calibration (GUM H.1)
 
@@ -5007,7 +5007,7 @@ JCGM 100 Annex H.1: calibration of a 50 mm end gauge; Welch–Satterthwaite effe
 - The GUM multiplies the rounded u_c = 32 nm (2.92 × 32 = 93 nm); the unrounded value 31.7 nm gives U = 92.5 nm. Including the second-order terms 11.7 and 1.7 nm (H.1.7) raises u_c to 34 nm.
 - The Monte Carlo result treats d as Gaussian; JCGM 101 9.5 (projects jcgm101-9.5-*) uses t distributions and curvilinear trapezoids for the inputs instead.
 
-**Run:** `uncertainty run library/length/gum-h1-end-gauge.json --lang en`
+**Run:** `kapsam run library/length/gum-h1-end-gauge.json --lang en`
 
 ### Gauge block calibration, approximate model
 
@@ -5028,7 +5028,7 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 - dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/length/jcgm101-9.5-gauge-block-approximate.json --lang en`
+**Run:** `kapsam run library/length/jcgm101-9.5-gauge-block-approximate.json --lang en`
 
 ### Gauge block calibration, non-linear model
 
@@ -5049,7 +5049,7 @@ JCGM 101 9.5: the GUM H.1 gauge block with the input PDFs assigned by JCGM 101 (
 
 - dL = (838 ± 94) nm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.92, corresponding to a coverage probability of approximately 99 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang en`
+**Run:** `kapsam run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang en`
 
 ### Thickness of an aluminium test sample (UKAS M3003 K.10)
 
@@ -5074,7 +5074,7 @@ Mean of five thickness readings at the centre of a sample, measured in an uncont
 
 - With ν_eff = 50 the coverage factor for 95.45 % is 2.05 (Appendix B), which would give U = 0.020 mm; the example uses k = 2.
 
-**Run:** `uncertainty run library/length/m3003-k10-sheet-thickness.json --lang en`
+**Run:** `kapsam run library/length/m3003-k10-sheet-thickness.json --lang en`
 
 ### Grade 2 gauge block of 10 mm (UKAS M3003 K.6)
 
@@ -5099,7 +5099,7 @@ Comparison with a standard gauge block; the budget as printed, with the two temp
 
 - Research log F58: by the model of K.6.1 the temperature difference Δt acts through the mean expansion coefficient α (L·α = 115 nm/°C, ±9.2 nm), not through Δα; the product Δα·ΔT has zero first-order sensitivity. See m3003-k6-gauge-block-10mm-temperature-model.
 
-**Run:** `uncertainty run library/length/m3003-k6-gauge-block-10mm.json --lang en`
+**Run:** `kapsam run library/length/m3003-k6-gauge-block-10mm.json --lang en`
 
 ### Grade 2 gauge block of 10 mm with the temperature terms of its model (UKAS M3003 K.6, EA-4/02 S4)
 
@@ -5120,7 +5120,7 @@ The budget of K.6 with −L(α·Δt + Δα·ΔT) evaluated as the model states, 
 
 - L_X = (9.999940 ± 0.000082) mm, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang en`
+**Run:** `kapsam run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang en`
 
 ### End-gauge calibration with Gaussian inputs (NIST Uncertainty Machine §8)
 
@@ -5144,7 +5144,7 @@ NUM manual §8: GUM H.1 with the six inputs of the GUM's first-order budget, all
 
 - The project 'gum-h1-end-gauge' reproduces the GUM's own evaluation (θ split into its mean and cyclic part, Welch–Satterthwaite, k = 2.92).
 
-**Run:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang en`
+**Run:** `kapsam run library/length/num-8-end-gauge-gaussian.json --lang en`
 
 ### Volume of a cylindrical storage tank: product of powers, Gauss's formula and Monte Carlo (Possolo & Meija 2022)
 
@@ -5163,7 +5163,7 @@ V = πR²H with R = 8.40(3) m and H = 32.50(7) m.
 
 - V = (7200 ± 110) m³, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/length/possolo-meija-2022-storage-tank-volume.json --lang en`
+**Run:** `kapsam run library/length/possolo-meija-2022-storage-tank-volume.json --lang en`
 
 ## Mass
 
@@ -5188,7 +5188,7 @@ The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m
 
 - E = (0.00070 ± 0.00033) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.25, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h1-100g-option2.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h1-100g-option2.json --lang en`
 
 ### Laboratory balance 220 g / 0.1 mg: error at 220 g without buoyancy correction (EURAMET cg-18 H1, option 1)
 
@@ -5211,7 +5211,7 @@ Not adjusted before calibration and no air density known: the buoyancy term is t
 
 - E = (0.0013 ± 0.0039) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h1-220g-max-option1.json --lang en`
 
 ### Laboratory balance 220 g / 0.1 mg: error at 220 g with the buoyancy term for ΔT = 5 K (EURAMET cg-18 H1, option 1, formula 7.1.2-5e)
 
@@ -5234,7 +5234,7 @@ As option 1, but the buoyancy uncertainty follows from the estimated temperature
 
 - E = (0.00130 ± 0.00098) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang en`
 
 ### Laboratory balance 220 g / 0.1 mg: error at 220 g with the buoyancy correction (EURAMET cg-18 H1, option 2)
 
@@ -5257,7 +5257,7 @@ The air density during calibration is known (990 hPa, 50 %RH, 21 °C: 1.173 kg/m
 
 - E = (0.00130 ± 0.00046) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.04, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h1-220g-max-option2.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h1-220g-max-option2.json --lang en`
 
 ### Laboratory balance 220 g / 0.1 mg: error at zero load (EURAMET cg-18 H1)
 
@@ -5279,7 +5279,7 @@ At zero load only the rounding at zero and the repeatability contribute; the rep
 
 - E = (0.00000 ± 0.00034) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.87, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h1-220g-zero.json --lang en`
 
 ### Balance 220 g / 0.1 mg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H1.4/A)
 
@@ -5309,7 +5309,7 @@ Uncertainty of a weighing result in use, global uncertainty without correction o
 - The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
 - H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.
 
-**Run:** `uncertainty run library/mass/cg18-h1-a-weighing-result.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h1-a-weighing-result.json --lang en`
 
 ### Balance 220 g / 0.1 mg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H1.4/B)
 
@@ -5340,7 +5340,7 @@ Uncertainty of a weighing result in use, global uncertainty without correction o
 - The guide prints u_rel(δR_Tare) = 5.774·10⁻⁷. The slopes between the test points are 0, −2·10⁻⁶, +2·10⁻⁶ and −1.43·10⁻⁶, so (q_E,max − q_E,min)/√12 = 4·10⁻⁶/√12 = 1.155e-06 (7.4.4-5); the printed value corresponds to a width of 2·10⁻⁶. The project uses the formula: β_W² = 7.432e-12 instead of 6.433·10⁻¹², U_gl(W) slope 4.851e-06 instead of 4.479·10⁻⁶, minimum weight 0.07277 g instead of 0.0727 g (research log F76).
 - The guide prints a₁ = 3.895·10⁻⁷ without its sign; the errors (−0.1 mg at 100 g and 220 g) give a₁ = −3.895·10⁻⁷. Only |a₁| enters the global uncertainty.
 
-**Run:** `uncertainty run library/mass/cg18-h1-b-weighing-result.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h1-b-weighing-result.json --lang en`
 
 ### Multi-interval balance 60 kg: error at 10 kg without buoyancy correction (EURAMET cg-18 H2, option 1)
 
@@ -5363,7 +5363,7 @@ First load point, in the 2 g interval; no air density known and not adjusted bef
 
 - E = (0.0 ± 3.4) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.17, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h2-60kg-10kg-option1.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-60kg-10kg-option1.json --lang en`
 
 ### Multi-interval balance 60 kg, adjusted before calibration: error at Max (EURAMET cg-18 H2, second situation)
 
@@ -5391,7 +5391,7 @@ Second situation: the instrument is adjusted with its built-in weights immediate
 - With mpe = 0.96 g as in the budget, u(m_ref) = 0.635 g and u(E) = 5.729 g; the table prints 5.739 g, which does not follow from its own entries √(5.694² + 0.635²) (F68).
 - The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
 
-**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-adjusted.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-60kg-max-adjusted.json --lang en`
 
 ### Multi-interval balance 60 kg: error at Max without buoyancy correction (EURAMET cg-18 H2, option 1)
 
@@ -5419,7 +5419,7 @@ Error at 60 kg in the 10 g interval, the largest U of the certificate.
 - The budget uses mpe = 0.96 g for the 60 kg test load (u(m_c) = 0.554 g, u(m_D) = 0.277 g, u(m_B) = 0.658 g), while three 20 kg F2 weights have mpe = 3 × 0.30 g = 0.90 g (OIML R111). The project uses 0.90 g: u(m_ref) = 0.871 g instead of 0.904 g, and u(E) = 5.973 g instead of 5.978 g (research log F68).
 - The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
 
-**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-option1.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-60kg-max-option1.json --lang en`
 
 ### Multi-interval balance 60 kg: error at Max with the buoyancy term for ΔT = 10 K (EURAMET cg-18 H2, option 1, formula 7.1.2-5e)
 
@@ -5448,7 +5448,7 @@ As option 1, with the buoyancy uncertainty from the expected temperature variati
 - The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
 - With mpe = 0.96 g, formula 7.1.2-5e gives 0.278 g at 60 kg and 0.180 g at 40 kg; the table prints 0.276 g and 0.178 g.
 
-**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-option1-delta-t.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-60kg-max-option1-delta-t.json --lang en`
 
 ### Multi-interval balance 60 kg: error at Max with the buoyancy correction (EURAMET cg-18 H2, option 2)
 
@@ -5476,7 +5476,7 @@ The air density during calibration is computed from the CIPM formula and the buo
 - The budget uses mpe = 0.96 g for the 60 kg test load (u(m_c) = 0.554 g, u(m_D) = 0.277 g, u(m_B) = 0.658 g), while three 20 kg F2 weights have mpe = 3 × 0.30 g = 0.90 g (OIML R111). The project uses 0.90 g: u(m_ref) = 0.871 g instead of 0.904 g, and u(E) = 5.973 g instead of 5.978 g (research log F68).
 - The guide reads k from GUM Table G.2 at the next lower tabulated ν (2.05 at ν = 90 from the row for ν = 50; 2.025 at ν = 172); the program uses the exact t-quantile for 95.45 % (2.03 and 2.01).
 
-**Run:** `uncertainty run library/mass/cg18-h2-60kg-max-option2.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-60kg-max-option2.json --lang en`
 
 ### Multi-interval balance 60 kg: error at zero load (EURAMET cg-18 H2)
 
@@ -5498,7 +5498,7 @@ A 60 kg multi-interval balance (2 g / 5 g / 10 g) calibrated as found, not adjus
 
 - E = (0.0 ± 3.1) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.52, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-60kg-zero.json --lang en`
 
 ### Multi-interval scale 12/30/60 kg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H2.4/A)
 
@@ -5530,7 +5530,7 @@ Uncertainty of a weighing result in use, global uncertainty without correction o
 - The guide prints a₁ = 1.717·10⁻⁴ without its sign; the errors are negative (−5 g at 20 kg, −10 g at 40 and 60 kg).
 - H1/A fits the errors with the budget of 7.1.2-5e (room temperature variation), H2/A with the most conservative budget of 7.1.2-5d; the printed a₁ and u(a₁) reproduce only with these choices.
 
-**Run:** `uncertainty run library/mass/cg18-h2-a-weighing-result.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-a-weighing-result.json --lang en`
 
 ### Multi-interval scale 12/30/60 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H2.4/B)
 
@@ -5559,7 +5559,7 @@ Uncertainty of a weighing result in use, global uncertainty without correction o
 
 - The uncertainty of a weighing result is advice for the user under assumed conditions of use; it is not part of the calibration results (7.4).
 
-**Run:** `uncertainty run library/mass/cg18-h2-b-weighing-result.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h2-b-weighing-result.json --lang en`
 
 ### Weighbridge 30 t: error at 10 t of standard weights (EURAMET cg-18 H3)
 
@@ -5580,7 +5580,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 
 - E = (10 ± 19) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.32, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h3-30t-10t-weights.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h3-30t-10t-weights.json --lang en`
 
 ### Weighbridge 30 t: error at 15 t with a substitution load (EURAMET cg-18 H3)
 
@@ -5608,7 +5608,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 - The guide's ν_eff counts only the repeatability of the indication at the load; the repeatability terms of the indications used to adjust the substitution loads (7.1.2-15) are given infinite degrees of freedom. The program gives each of them ν = 5 (research log F69).
 - Counting the three repeatability terms as one estimate of the same s (ν = 5), as Welch–Satterthwaite requires when the same s is used three times, gives ν_eff = 12 and k = 2.23 (U = 32.6 kg).
 
-**Run:** `uncertainty run library/mass/cg18-h3-30t-15t-substitution.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h3-30t-15t-substitution.json --lang en`
 
 ### Weighbridge 30 t: error at Max with two substitution loads (EURAMET cg-18 H3)
 
@@ -5637,7 +5637,7 @@ The 10 × 1000 kg standard weights on the load receptor; this load m_ref is also
 - The guide's ν_eff counts only the repeatability of the indication at the load; the repeatability terms of the indications used to adjust the substitution loads (7.1.2-15) are given infinite degrees of freedom. The program gives each of them ν = 5 (research log F69).
 - The budget uses s = 6.74 kg at every load, although the repeatability test at 24 160 kg gave s = 9.03 kg. With 9.03 kg for the three indications at 20 t and 30 t, u(E) at 30 t would be 26.0 kg instead of 23.9 kg (F69).
 
-**Run:** `uncertainty run library/mass/cg18-h3-30t-max-substitution.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h3-30t-max-substitution.json --lang en`
 
 ### Weighbridge 30 t: error at zero load (EURAMET cg-18 H3)
 
@@ -5658,7 +5658,7 @@ A road-vehicle weighbridge 30 000 kg / 10 kg, outdoors, calibrated as found.
 
 - E = (0 ± 18) kg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.65, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h3-30t-zero.json --lang en`
 
 ### Weighbridge 30 t / 10 kg, not adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/A)
 
@@ -5689,7 +5689,7 @@ Uncertainty of a weighing result in use, global uncertainty without correction o
 - The guide prints u(a₁) = 0.0003627; the weighted fit (C2.2-18b) with the u(E_j) of the calibration budget gives 0.0003637, also with the printed u(E_j) or the nominal loads (research log F98). The project uses the recomputed value; β_W², the first-order lines and the minimum weight change by less than the printed digits.
 - The change in adjustment due to drift, ΔE(Max)/(Max·√3) (7.4.3-6), takes the error at Max (30 kg) in H3.4/A and the mpe at initial verification (15 kg) in H3.4/B. Creep and hysteresis are not relevant for the short loading times in use; the minimum weight with SF = 2 is 6 950 kg (A) and 2 542 kg (B).
 
-**Run:** `uncertainty run library/mass/cg18-h3-a-weighing-result.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h3-a-weighing-result.json --lang en`
 
 ### Weighbridge 30 t / 10 kg, adjusted before calibration: uncertainty of a weighing result and minimum weight (EURAMET cg-18 H3.4/B)
 
@@ -5720,7 +5720,7 @@ Uncertainty of a weighing result in use, global uncertainty without correction o
 - The guide prints u(a₁) = 0.0001485; the weighted fit (C2.2-18b) with the u(E_j) of the calibration budget gives 0.0001508, also with the printed u(E_j) or the nominal loads (research log F98). The project uses the recomputed value; β_W², the first-order lines and the minimum weight change by less than the printed digits, except β_W², 1.967·10⁻⁷ instead of 1.960·10⁻⁷, and the first-order slope, 6.128·10⁻⁴ instead of 6.113·10⁻⁴.
 - The change in adjustment due to drift, ΔE(Max)/(Max·√3) (7.4.3-6), takes the error at Max (30 kg) in H3.4/A and the mpe at initial verification (15 kg) in H3.4/B. Creep and hysteresis are not relevant for the short loading times in use; the minimum weight with SF = 2 is 6 950 kg (A) and 2 542 kg (B).
 
-**Run:** `uncertainty run library/mass/cg18-h3-b-weighing-result.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h3-b-weighing-result.json --lang en`
 
 ### Balance 400 g / 0.1 mg: error approximation function E = a₁I, first fit (EURAMET cg-18 H4)
 
@@ -5749,7 +5749,7 @@ Error approximation function E = a₁I of a 400 g balance from nine test points 
 - Table H4.1 lists e = 0.213, 0.274 and 0.181 mg at 100, 150 and 250 g, and Tables H4.6/H4.8 the indications 100.000 200, 150.000 267 and 250.000 200 g; the budget gives 0.113, 0.240 and 0.081 mg (100.000 100, 150.000 233, 250.000 100 g). The printed a₁, U(â), χ²_obs and residuals follow from the budget values, which the project uses (research log F70).
 - The buoyancy 'variance' of 7.1.2-5b is negative: it removes the part of u(ρ) already contained in the certificate value of the weights, calibrated at ρ_a1. It is a covariance correction, not a variance; u²(m_ref) stays positive.
 
-**Run:** `uncertainty run library/mass/cg18-h4-400g-error-function.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h4-400g-error-function.json --lang en`
 
 ### Balance 400 g / 0.1 mg: error approximation function with s_m = 0.05 mg, χ² test passed (EURAMET cg-18 H4)
 
@@ -5778,7 +5778,7 @@ Error approximation function E = a₁I of a 400 g balance from nine test points 
 - Table H4.1 lists e = 0.213, 0.274 and 0.181 mg at 100, 150 and 250 g, and Tables H4.6/H4.8 the indications 100.000 200, 150.000 267 and 250.000 200 g; the budget gives 0.113, 0.240 and 0.081 mg (100.000 100, 150.000 233, 250.000 100 g). The printed a₁, U(â), χ²_obs and residuals follow from the budget values, which the project uses (research log F70).
 - The buoyancy 'variance' of 7.1.2-5b is negative: it removes the part of u(ρ) already contained in the certificate value of the weights, calibrated at ρ_a1. It is a covariance correction, not a variance; u²(m_ref) stays positive.
 
-**Run:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.05.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h4-400g-error-function-sm-0.05.json --lang en`
 
 ### Balance 400 g / 0.1 mg: error approximation function with s_m = 0.25 mg, residual test passed (EURAMET cg-18 H4)
 
@@ -5808,7 +5808,7 @@ Error approximation function E = a₁I of a 400 g balance from nine test points 
 - The buoyancy 'variance' of 7.1.2-5b is negative: it removes the part of u(ρ) already contained in the certificate value of the weights, calibrated at ρ_a1. It is a covariance correction, not a variance; u²(m_ref) stays positive.
 - Table H4.8 prints the e values of Table H4.1 (0.213, 0.274, 0.181 mg) next to residuals computed from the budget values.
 
-**Run:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.25.json --lang en`
+**Run:** `kapsam run library/mass/cg18-h4-400g-error-function-sm-0.25.json --lang en`
 
 ### Calibration of a 10 kg weight
 
@@ -5833,7 +5833,7 @@ EA-4/02 S2: OIML class M1 weight calibrated against an F2 standard with a mass c
 
 - Finding: the guide combines contributions rounded to three significant figures (14.4 for 14.43 mg), giving 29.2 mg and U = 58 mg; unrounded, u = 29.26 mg and U = 58.5 mg (59 mg when rounded to two digits).
 
-**Run:** `uncertainty run library/mass/ea402-s2-weight-10kg.json --lang en`
+**Run:** `kapsam run library/mass/ea402-s2-weight-10kg.json --lang en`
 
 ### Reporting rule of ILAC P14 5.5: the CMC as the smallest reportable uncertainty (EA-4/02 S2 weight, illustrative CMC)
 
@@ -5859,7 +5859,7 @@ The 10 kg weight of EA-4/02 S2 (U = 58 mg) reported by a laboratory whose accred
 
 - The CMC of 80 mg is a hypothetical value chosen to exceed the evaluated U; it is not taken from a scope of accreditation.
 
-**Run:** `uncertainty run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang en`
+**Run:** `kapsam run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang en`
 
 ### Mass calibration (first-order GUM)
 
@@ -5884,7 +5884,7 @@ JCGM 101 9.3: calibration of a 100 g weight by comparison with a reference weigh
 
 - JCGM 101 Table 6 reports the shortest interval [1.0834, 1.3825] from M = 0.72 × 10⁶; the output PDF is symmetric about 1.2340, so the probabilistically symmetric interval is used here (far less dispersed).
 
-**Run:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration.json --lang en`
+**Run:** `kapsam run library/mass/jcgm101-9.3-mass-calibration.json --lang en`
 
 ### Mass calibration (GUM with second-order terms)
 
@@ -5905,7 +5905,7 @@ JCGM 101 9.3: the same model evaluated with the higher-order terms of GUM 5.1.2.
 
 - dm = (1.23 ± 0.15) mg, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang en`
+**Run:** `kapsam run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang en`
 
 ### 10 kg weight of OIML class M1 (UKAS M3003 K.4)
 
@@ -5930,7 +5930,7 @@ Comparison with a class F2 standard on a mass comparator, three bracketed compar
 
 - Research log F55: K.4.7 states ν = (m − 1) = 10 degrees of freedom for m = 10 comparisons; the budget uses 9, which is m − 1. The note below the budget refers to 10 readings.
 
-**Run:** `uncertainty run library/mass/m3003-k4-weight-10kg.json --lang en`
+**Run:** `kapsam run library/mass/m3003-k4-weight-10kg.json --lang en`
 
 ### Weighing machine of 205 g capacity at 200 g (UKAS M3003 K.5)
 
@@ -5955,7 +5955,7 @@ Error of indication of an electronic balance with a 0.1 mg digit, loaded with a 
 
 - Research log F56: the contributions printed in the u_i column of K.5.9 (0.05, 0.058, 0.029, 0.029, 0.115, 0.05 mg) combine to 0.153 mg, not 0.150 mg; the printed value would follow if the drift limit were divided by 2 instead of √3. By the model of K.5.1, and only if the mass of the standard W_S is taken as exactly 200.0000 g (K.5 gives no certificate value), ΔI_X = I_X − W_S = 199.9999 g − 200 g = −0.10 mg, while the reported error of indication is +0.10 mg.
 
-**Run:** `uncertainty run library/mass/m3003-k5-weighing-machine-200g.json --lang en`
+**Run:** `kapsam run library/mass/m3003-k5-weighing-machine-200g.json --lang en`
 
 ### Mass of a powder by weighing (NIST TN 1900 E1)
 
@@ -5975,7 +5975,7 @@ TN 1900 E1: mass of a powder from three weighings with a single-pan balance; lin
 
 - m_P = (50.284 ± 0.014) g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang en`
+**Run:** `kapsam run library/mass/nist-tn1900-e1-weighing.json --lang en`
 
 ## Physical properties
 
@@ -5998,7 +5998,7 @@ A₁ = A₀ exp(−Δt ln2/T½) with the certified activity, the half-life from 
 
 - A_1 = (10.81 ± 0.11) kBq, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 1.96, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/physical/gum5-e14-radioactive-decay-bi207.json --lang en`
+**Run:** `kapsam run library/physical/gum5-e14-radioactive-decay-bi207.json --lang en`
 
 ### Breaking force of steel wire rope from six destructive tests (JCGM GUM-5 Example 15)
 
@@ -6022,7 +6022,7 @@ F₀ = F̄ − B − B_ref − e_res − e_T: mean of six tests on pieces of one
 
 - GUM-5 15.5.2 prints an MCM standard deviation of 10.1 kN and the interval [9986.0, 10 025.3] kN. With the stated t-distribution for F (scale u(F̄) = 0.7 kN, ν = 5) the MCM standard deviation is √(u_c² − u²(F̄) + u²(F̄)·5/3) = 9.93 kN, practically the GUF value 9.9 kN. 10.1 kN follows if the scale is the standard deviation of a single test, s = 1.8 kN: 10.14 kN (research log F77).
 
-**Run:** `uncertainty run library/physical/gum5-e15-wire-rope-breaking-force.json --lang en`
+**Run:** `kapsam run library/physical/gum5-e15-wire-rope-breaking-force.json --lang en`
 
 ### Softening point of pitch: repeatability and reproducibility with missing data (ISO 5725-2 Example C.2)
 
@@ -6050,7 +6050,7 @@ ISO 5725-2:2019 C.2: ring-and-ball softening point of pitch, sixteen laboratorie
 
 - Table C.12 gives s_R = 1.915 °C at level 4; Formulae (29)–(31) give 1.9175 °C (1.918 °C), the value of the REML Table C.13 (research log F48). ISO 5725-2:1994 prints the same 1.915 °C.
 
-**Run:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch.json --lang en`
+**Run:** `kapsam run library/physical/iso5725-2-c2-softening-point-pitch.json --lang en`
 
 ### Softening point of pitch: REML estimates (ISO 5725-2 Example C.2)
 
@@ -6076,7 +6076,7 @@ ISO 5725-2:2019 C.2.9: the data of Example C.2 evaluated by restricted maximum l
 
 - Table C.13 gives s_R = 1.918 °C at level 4 where Table C.12 gives 1.915 °C; for balanced cells both methods give 1.9175 °C (research log F48).
 
-**Run:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang en`
+**Run:** `kapsam run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang en`
 
 ### Half-life of ¹³⁷Cs: consensus value of 19 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
 
@@ -6103,7 +6103,7 @@ The 19 published half-lives compiled by MacMahon et al. (2004) are heterogeneous
 
 - Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.
 
-**Run:** `uncertainty run library/physical/koepke2017-half-life-cs137.json --lang en`
+**Run:** `kapsam run library/physical/koepke2017-half-life-cs137.json --lang en`
 
 ### Half-life of ⁹⁰Sr: consensus value of 11 discrepant measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
 
@@ -6130,7 +6130,7 @@ The 11 published half-lives compiled by MacMahon et al. (2004) are heterogeneous
 
 - Several sources share a label in Table 3 (Fl65); they are distinguished here as Fl65a, Fl65b in the order of the table.
 
-**Run:** `uncertainty run library/physical/koepke2017-half-life-sr90.json --lang en`
+**Run:** `kapsam run library/physical/koepke2017-half-life-sr90.json --lang en`
 
 ### Newtonian constant of gravitation: consensus value of 14 measurements (DerSimonian–Laird and Linear Pool; Koepke et al. 2017)
 
@@ -6160,7 +6160,7 @@ The 14 measurements of G used in the CODATA 2014 adjustment are mutually inconsi
 - The printed DerSimonian–Laird value 6.673 80 is one unit in the last digit above the value recomputed from Table 1, 6.673 790 (research log F93). The printed interval (6.673 20, 6.674 40) agrees with the bootstrap percentiles rounded to 10⁻⁴.
 - The correlations between NIST-82 and LANL-97 (0.351) and between HUST-05 and HUST-09 (0.134) are ignored, as in the DerSimonian–Laird row of Table 2.
 
-**Run:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang en`
+**Run:** `kapsam run library/physical/koepke2017-newtonian-constant-g.json --lang en`
 
 ### Newtonian constant of gravitation from 16 measurements: DerSimonian–Laird with Knapp–Hartung, maximum likelihood, hierarchical Bayes and Linear Pool (Merkatas et al. 2019)
 
@@ -6189,7 +6189,7 @@ The data of Koepke et al. (2017) with JILA-10 corrected (6.672 60 ± 0.000 25) a
 
 - Not implemented: Birge's multiplicative models (BRE, BRM, BRQ), the CODATA expansion (MTE), Mandel–Paule, REML, Student-t effects, the Laplace model of the paper (Laplace effects and errors), and the Bayesian mixture model (BMM).
 
-**Run:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang en`
+**Run:** `kapsam run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang en`
 
 ### Activity of ⁶⁰Co in 19 laboratories: consensus value with leave-one-out and bilateral degrees of equivalence (NIST Consensus Builder §4.4)
 
@@ -6216,7 +6216,7 @@ SIR equivalent activities of ⁶⁰Co from the ongoing key comparison BIPM.RI(II
 - Participants are coded Lab 1 to Lab 19 in the order of Exhibit 19 of the manual. The official reference value and degrees of equivalence of BIPM.RI(II)-K1.Co-60 are those of the KCDB; the degrees of equivalence here illustrate the procedures on the same data.
 - The degrees of equivalence are shown only in a figure in the manual (Exhibit 22); their reference values here come from a numpy port of the NICOB R source with 10⁶ draws (research log D86). The program, with 10⁵ draws, agrees within 1 % in U.
 
-**Run:** `uncertainty run library/physical/nicob-co60-activity-leave-one-out-bilateral.json --lang en`
+**Run:** `kapsam run library/physical/nicob-co60-activity-leave-one-out-bilateral.json --lang en`
 
 ### Thermal expansion coefficient, Gaussian inputs, 95 % (NIST TN 1900 E13)
 
@@ -6240,7 +6240,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 
 - The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
 
-**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json --lang en`
+**Run:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json --lang en`
 
 ### Thermal expansion coefficient, Gaussian inputs, 99 % (NIST TN 1900 E13)
 
@@ -6264,7 +6264,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 
 - The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
 
-**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json --lang en`
+**Run:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json --lang en`
 
 ### Thermal expansion coefficient, Student t₃ inputs, 95 % (NIST TN 1900 E13)
 
@@ -6285,7 +6285,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 - The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
 - TN 1900 rescales each t₃ distribution to standard deviation u (scale u/√3), whereas JCGM 101 6.4.9 uses the scale s/√n = u. Because the GUM uncertainty of a t input is its scale, the GUM evaluation is switched off here; the Gaussian projects give the GUM result.
 
-**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-95.json --lang en`
+**Run:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-student-95.json --lang en`
 
 ### Thermal expansion coefficient, Student t₃ inputs, 99 % (NIST TN 1900 E13)
 
@@ -6306,7 +6306,7 @@ TN 1900 E13: linear thermal expansion coefficient of a copper bar from two lengt
 - The companion projects nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} compare the two input models at 95 % and 99 %: with t₃ inputs the 95 % interval is shorter and the 99 % interval longer than with Gaussian inputs.
 - TN 1900 rescales each t₃ distribution to standard deviation u (scale u/√3), whereas JCGM 101 6.4.9 uses the scale s/√n = u. Because the GUM uncertainty of a t input is its scale, the GUM evaluation is switched off here; the Gaussian projects give the GUM result.
 
-**Run:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-99.json --lang en`
+**Run:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-student-99.json --lang en`
 
 ### Falling-ball viscometer (NIST TN 1900 E3)
 
@@ -6331,7 +6331,7 @@ TN 1900 E3: dynamic viscosity of a NaOH solution by comparison with a calibratio
 
 - TN 1900 states that the conventional propagation formula, as implemented in the NIST Uncertainty Machine, gives 1.11 mPa s, identical to the Monte Carlo value. The first-order law of propagation (GUM eq. 10) applied to the stated model and inputs gives 1.027 mPa s; with the second-order terms of GUM 5.1.2 it gives about 1.10 mPa s. The NIST Uncertainty Machine manual (v1.4, §9) repeats the statement, but the output it prints in Figure 5 gives u(y) = 1 mPa s for Gauss's formula, consistent with 1.027 mPa s: the 1.11 mPa s of the text is the Monte Carlo value.
 
-**Run:** `uncertainty run library/physical/nist-tn1900-e3-falling-ball-viscometer.json --lang en`
+**Run:** `kapsam run library/physical/nist-tn1900-e3-falling-ball-viscometer.json --lang en`
 
 ### Stefan–Boltzmann constant from CODATA 2010 values (NIST Uncertainty Machine §11)
 
@@ -6354,7 +6354,7 @@ NUM manual §11: σ = 32π⁵hR⁴R∞⁴/(15A_r(e)⁴M_u⁴c⁶α⁸) from the 
 
 - The CODATA adjustment correlates these constants; as noted in the manual, including the correlations does not change u(σ) at the reported digit. Since the 2019 redefinition of the SI, h is exact and σ = 5.670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ has no uncertainty.
 
-**Run:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang en`
+**Run:** `kapsam run library/physical/num-11-stefan-boltzmann.json --lang en`
 
 ### Hubble–Lemaître constant from 22 mutually inconsistent estimates: Bayesian consensus with Laplace effects (Possolo & Meija 2022)
 
@@ -6382,7 +6382,7 @@ Recent estimates of H₀ (Planck's excluded) are more dispersed than their uncer
 - Labels follow the book; the two studies labelled hst are distinguished by their first authors (Riess 2019, Freedman 2019). Mildly asymmetric uncertainties were replaced in the book by the geometric mean of the left and right uncertainties.
 - The DerSimonian–Laird estimate (Gaussian effects) is shown for comparison.
 
-**Run:** `uncertainty run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang en`
+**Run:** `kapsam run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang en`
 
 ## Pressure
 
@@ -6408,7 +6408,7 @@ Scenario 1: the reference correction Δp_m = 0.05 % p_std is applied, u(Δp_m) =
 
 - Table E2.2.2 prints U(e) for points 4–6 as 0.0025, 0.0017 and 0.0011; they are 0.025, 0.017 and 0.012 (U(f) is printed correctly). Tables E2.2.3, E2.2.5 and E2.2.7 head the column of p_std values 'p_UUC'. The worked example of E2.2.6.1 uses σ = 0.002 for point 13, the expanded uncertainty U(f) of Table E2.2.2; with u(f) = 0.001 p_c is 100 %, as the table gives (research log F88).
 
-**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang en`
+**Run:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang en`
 
 ### Vacuum gauge calibration, correction factor and conformance probability, scenario 3 (EMUE E2.2)
 
@@ -6428,7 +6428,7 @@ Scenario 3: the correction and its uncertainty are ignored. Point 8 of the calib
 - f = (1.0020 ± 0.0059), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 84 %; accepted under simple acceptance.
 
-**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang en`
+**Run:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang en`
 
 ### Vacuum gauge calibration, correction factor and conformance probability, scenario 2 (EMUE E2.2)
 
@@ -6448,7 +6448,7 @@ Scenario 2: the correction is not applied but folded into its uncertainty, u² =
 - f = (1.0020 ± 0.0071), where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that f conforms to 0.995 ≤ f ≤ 1.005: p_c = 78 %; accepted under simple acceptance.
 
-**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang en`
+**Run:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang en`
 
 ### Vacuum gauge, pressure difference with a common temperature error: correlation included (EMUE E2.2.7)
 
@@ -6468,7 +6468,7 @@ Scenario 2: the correction is not applied but folded into its uncertainty, u² =
 - dp = (-0.6 ± 1.8) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 75 %; accepted under simple acceptance.
 
-**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang en`
+**Run:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang en`
 
 ### Vacuum gauge, pressure difference with a common temperature error: correlation ignored (EMUE E2.2.7)
 
@@ -6488,7 +6488,7 @@ Scenario 2: the correction is not applied but folded into its uncertainty, u² =
 - dp = (-0.6 ± 2.3) Pa, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 - Probability that dp conforms to -1.2795 Pa ≤ dp ≤ 1.2795 Pa: p_c = 67 %; accepted under simple acceptance.
 
-**Run:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang en`
+**Run:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang en`
 
 ### Digital pressure indicator at 2 MPa against a dead weight tester (UKAS M3003 K.8)
 
@@ -6513,7 +6513,7 @@ Error of a DPI at 2 MPa; the budget is in relative terms (ppm), as is the conven
 
 - Research log F60: K.8.5.1 says the relative mass uncertainty of 7.3 ppm is to be treated as the semi-range of a rectangular distribution, but the budget treats it as an expanded uncertainty with k = 2 (u = 3.65 ppm instead of 4.21 ppm). The effect on u_c is below its last printed digit (43.0 ppm either way).
 
-**Run:** `uncertainty run library/pressure/m3003-k8-pressure-indicator-2mpa.json --lang en`
+**Run:** `kapsam run library/pressure/m3003-k8-pressure-indicator-2mpa.json --lang en`
 
 ## Temperature
 
@@ -6538,7 +6538,7 @@ EA-4/02 S11: temperature of the block measured with a calibrated platinum resist
 
 - Finding: the guide quotes k = 1.81 for β = 0.43; Eq. (S10.9) gives 1.80. The reported (180.1 ± 0.3) °C is unchanged.
 
-**Run:** `uncertainty run library/temperature/ea402-s11-block-calibrator-180c.json --lang en`
+**Run:** `kapsam run library/temperature/ea402-s11-block-calibrator-180c.json --lang en`
 
 ### Thermocouple calibration: emf of the unknown
 
@@ -6561,7 +6561,7 @@ EA-4/02 S5 (second budget): emf of the type N thermocouple under calibration at 
 
 - Finding: the printed contribution of δt (24.5 µV) is inconsistent with 0.641 °C × 38.46 µV/°C = 24.65 µV; the printed total 25.0 µV follows from 24.65. The estimate of Δt is −0.5 °C (printed 0.5 °C), giving V_X = 36 248 − 19.2 = 36 229 µV as stated.
 
-**Run:** `uncertainty run library/temperature/ea402-s5-thermocouple-emf.json --lang en`
+**Run:** `kapsam run library/temperature/ea402-s5-thermocouple-emf.json --lang en`
 
 ### Thermocouple calibration: furnace temperature
 
@@ -6580,7 +6580,7 @@ EA-4/02 S5 (first budget): temperature of a furnace at 1000 °C measured with a 
 
 - t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang en`
+**Run:** `kapsam run library/temperature/ea402-s5-thermocouple-furnace.json --lang en`
 
 ### Celsius temperature from a resistance thermometer, implicit model (JCGM 102 9.5.2)
 
@@ -6599,7 +6599,7 @@ JCGM 102:2011 9.5.2: one temperature from a measured resistance ratio, with the 
 
 - theta = 20.02317 °C, u(theta) = 0.0045 °C (GUM)
 
-**Run:** `uncertainty run library/temperature/jcgm102-9.5.2-resistance-thermometer.json --lang en`
+**Run:** `kapsam run library/temperature/jcgm102-9.5.2-resistance-thermometer.json --lang en`
 
 ### Ten Celsius temperatures with one resistance thermometer, implicit model (JCGM 102 9.5.3)
 
@@ -6633,7 +6633,7 @@ JCGM 102:2011 9.5.3: ten temperatures measured with the same calibrated thermome
 
 - Table 15 labels the seventh column θ6 instead of θ7.
 
-**Run:** `uncertainty run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang en`
+**Run:** `kapsam run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang en`
 
 ### Temperature of gas in a container from a calibrated PT100 probe (UKAS M3003 K.11, second budget)
 
@@ -6654,7 +6654,7 @@ The probe L is attached to the outside of the vessel; its correction comes from 
 
 - T_g = (22.97 ± 0.17) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/temperature/m3003-k11-gas-temperature.json --lang en`
+**Run:** `kapsam run library/temperature/m3003-k11-gas-temperature.json --lang en`
 
 ### Calibration of a PT100 probe in a dry block against a reference probe (UKAS M3003 K.11, first budget)
 
@@ -6675,7 +6675,7 @@ Error of the laboratory probe L at 20.4 °C against the reference probe S, whose
 
 - dT_L = (0.432 ± 0.084) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/temperature/m3003-k11-probe-calibration.json --lang en`
+**Run:** `kapsam run library/temperature/m3003-k11-probe-calibration.json --lang en`
 
 ### N-type thermocouple at 1000 °C: EMF with its full budget (UKAS M3003 K.7)
 
@@ -6701,7 +6701,7 @@ Both budgets of K.7 in one model: the furnace temperature enters the EMF of the 
 
 - Research log F59: the reported EMF 36 230 µV is obtained by scaling, 36 248·1000/1000.5, whereas the uncertainty budget uses the thermocouple sensitivity 38.5 µV/°C, which gives 36 248 − 0.5·38.46 = 36 228.8 µV. The printed u_c = 25.9 µV and U = 51.9 µV follow from rounded sensitivities (38.5 and 26.3); the exact ones give 25.84 µV and 51.7 µV.
 
-**Run:** `uncertainty run library/temperature/m3003-k7-thermocouple-emf.json --lang en`
+**Run:** `kapsam run library/temperature/m3003-k7-thermocouple-emf.json --lang en`
 
 ### Temperature of the furnace in a thermocouple calibration at 1000 °C (UKAS M3003 K.7, first budget)
 
@@ -6721,7 +6721,7 @@ First part of K.7: the temperature at the hot junctions from the two reference t
 
 - t_X = (1000.5 ± 1.3) °C, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
 
-**Run:** `uncertainty run library/temperature/m3003-k7-thermocouple-furnace.json --lang en`
+**Run:** `kapsam run library/temperature/m3003-k7-thermocouple-furnace.json --lang en`
 
 ### Monthly mean of daily maximum temperature (NIST TN 1900 E2)
 
@@ -6746,5 +6746,5 @@ TN 1900 E2: an observation equation t_i = τ + E_i for 22 daily readings; Type A
 - The Monte Carlo standard deviation is s/√m · √(ν/(ν − 2)) = 0.917 °C, larger than u = 0.872 °C, because the t distribution of JCGM 101 6.4.9 has scale s/√m; the coverage intervals coincide.
 - TN 1900 also gives the distribution-free Wilcoxon interval [23.6, 27.6] °C, which is not a GUM or Monte Carlo result and is not reproduced here.
 
-**Run:** `uncertainty run library/temperature/nist-tn1900-e2-surface-temperature.json --lang en`
+**Run:** `kapsam run library/temperature/nist-tn1900-e2-surface-temperature.json --lang en`
 

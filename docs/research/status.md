@@ -205,7 +205,7 @@ Gönderimden önce yapılacaklar:
 - **Kütüphane iş akışı.**
   1. `tools/generators/<betik>.py`
   2. `python3 tools/library_index.py`
-  3. `./target/release/uncertainty catalogue library --lang en|tr -o docs/guide/{en,tr}/examples.md`
+  3. `./target/release/kapsam catalogue library --lang en|tr -o docs/guide/{en,tr}/examples.md`
   4. `cd app && dart run tool/bundle_library.dart`
 - **Kontroller.**
   - Rust: `cargo fmt`, `cargo clippy --workspace --all-targets -- -D warnings`,

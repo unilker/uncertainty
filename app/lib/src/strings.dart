@@ -9,7 +9,8 @@ class S {
 
   static const Map<String, List<String>> _t = {
     // key: [English, Turkish]
-    'app': ['Uncertainty Calculations', 'Belirsizlik Hesaplamaları'],
+    'app': ['KAPSAM', 'KAPSAM'],
+    'app_full': ['KAPSAM — Measurement uncertainty', 'KAPSAM — Ölçüm belirsizliği'],
     'search': ['Search examples', 'Örneklerde ara'],
     'new_model': ['New measurement model', 'Yeni ölçüm modeli'],
     'new_model_sub': ['GUM and Monte Carlo evaluation', 'GUM ve Monte Carlo değerlendirmesi'],

@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: tubitakDesign ? const Padding(padding: EdgeInsets.all(10), child: AppLogo()) : null,
         leadingWidth: tubitakDesign ? 52 : null,
         titleSpacing: tubitakDesign ? 4 : null,
-        title: Text(s['app']),
+        title: Text(s['app_full']),
         actions: [
           TextButton(
             key: const Key('language'),

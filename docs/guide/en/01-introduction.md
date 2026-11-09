@@ -1,6 +1,8 @@
 # 1. Introduction
 
-*Uncertainty Calculations* (Turkish: *Belirsizlik Hesaplamaları*) evaluates measurement uncertainty in three ways:
+**KAPSAM** evaluates measurement uncertainty in three ways. (The name is Turkish for *scope, coverage*, as in the coverage
+factor and the coverage interval, and is read "KAP-sam"; until November 2026 the program was called *Uncertainty
+Calculations*.)
 
 | Approach | Reference documents | Typical use |
 |---|---|---|
@@ -59,5 +61,5 @@ The program is free software (GPL-3.0-or-later) with additional attribution term
 report or software that uses results of the program must cite it.** Every report the program produces ends
 with the citation; see `ADDITIONAL-TERMS.md` and `CITATION.cff`.
 
-> Ün, İ. *Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement uncertainty evaluation software.*
+> Ün, İ. *KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down).*
 > TÜBİTAK UME. https://github.com/unilker/uncertainty

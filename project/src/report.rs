@@ -1692,7 +1692,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
     let (title, intro, approach_l, steps_l, result_l, notes_l, run_l, gum_l, td_l, mcm_l, mcm_only_l, pt_l, cal_l, cf_l, il_l, mv_l, qc_l, sp_l, ef_l, cs_l) = match lang {
         Lang::En => (
             "Worked examples",
-            "This chapter is generated from the example library by `uncertainty catalogue library --lang en`; \
+            "This chapter is generated from the example library by `kapsam catalogue library --lang en`; \
              every result is recomputed by the program from the inputs stored in the project file, and the test suite \
              fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them \
              together with the full budget, charts and the comparison with the published reference values.",
@@ -1717,7 +1717,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
         ),
         Lang::Tr => (
             "Çözümlü örnekler",
-            "Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; \
+            "Bu bölüm örnek kütüphanesinden `kapsam catalogue library --lang tr` komutuyla üretilmiştir; \
              her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel \
              değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve \
              yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.",
@@ -1845,7 +1845,7 @@ pub fn catalogue(items: &[(String, Project, Evaluation)], lang: Lang) -> String 
             Lang::En => "en",
             Lang::Tr => "tr",
         };
-        let _ = writeln!(s, "**{run_l}:** `uncertainty run {path} --lang {code}`\n");
+        let _ = writeln!(s, "**{run_l}:** `kapsam run {path} --lang {code}`\n");
     }
     s
 }

@@ -1,6 +1,6 @@
 # 1. Start here
 
-Welcome. This guide explains measurement uncertainty from the very beginning, in plain words, and shows you how to do every kind of evaluation with this program. You do not need any statistics to start. If you already work with uncertainty budgets, you can jump straight to the chapters that interest you.
+Welcome. This guide explains measurement uncertainty from the very beginning, in plain words, and shows you how to do every kind of evaluation with **KAPSAM**, this program. (*Kapsam* is Turkish for *coverage*: the coverage factor *k* and the coverage interval, which you will meet in [chapter 3](03-key-words#expanded), are *kapsam faktörü* and *kapsam aralığı* in Turkish. Say "KAP-sam".) You do not need any statistics to start. If you already work with uncertainty budgets, you can jump straight to the chapters that interest you.
 
 > **Tip:** Every chapter can be opened from any screen: press the book icon on the home screen, or the **?** icon in a project, which opens the chapter about that kind of project.
 

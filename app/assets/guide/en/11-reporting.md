@@ -55,7 +55,7 @@ The report is written in the language selected at the top right (EN/TR). It cont
 ISO/IEC 17025 (7.11.2) requires that software used for calculations is validated. The program helps in two ways:
 
 - its library of 286 examples, recomputed and compared with the published values, is the validation of the methods;
-- the command-line tool writes a **software validation report** (`uncertainty check library --lab my-projects --report validation.pdf`) that lists every check, the fingerprints of the files, the program version and the compiler, and puts your laboratory's own projects in a separate section.
+- the command-line tool writes a **software validation report** (`kapsam check library --lab my-projects --report validation.pdf`) that lists every check, the fingerprints of the files, the program version and the compiler, and puts your laboratory's own projects in a separate section.
 
 Keep your own typical projects with their expected values: rerunning them after every update of the program is a simple, documented validation.
 

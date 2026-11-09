@@ -4,7 +4,7 @@ message: >-
   below. Citation is also required by the attribution terms in
   ADDITIONAL-TERMS.md for redistributed or modified versions.
 type: software
-title: "Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement uncertainty evaluation software (GUM and Monte Carlo)"
+title: "KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down)"
 version: 0.1.0
 license: GPL-3.0-or-later
 repository-code: "https://github.com/unilker/uncertainty"

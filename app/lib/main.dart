@@ -1,4 +1,4 @@
-// Uncertainty Calculations (Belirsizlik Hesaplamaları) — graphical interface.
+// KAPSAM (measurement uncertainty / ölçüm belirsizliği) — graphical interface.
 //
 // Copyright (C) 2026 İlker Ün, TÜBİTAK UME. GPL-3.0-or-later with additional
 // attribution terms (ADDITIONAL-TERMS.md).
@@ -15,7 +15,7 @@ import 'src/screens/home_screen.dart';
 import 'src/screens/project_screen.dart';
 import 'src/theme.dart';
 
-/// Command line: `uncertainty_app [project.json] [--run] [--lang en|tr]`.
+/// Command line: `kapsam [project.json] [--run] [--lang en|tr]`.
 void main(List<String> args) {
   final system = PlatformDispatcher.instance.locale.languageCode;
   var lang = system == 'tr' ? 'tr' : 'en';
@@ -59,7 +59,7 @@ class UncertaintyApp extends StatelessWidget {
         listenable: state,
         builder: (context, _) {
           return MaterialApp(
-            title: state.s['app'],
+            title: state.s['app_full'],
             debugShowCheckedModeBanner: false,
             locale: Locale(state.lang),
             supportedLocales: const [Locale('en'), Locale('tr')],

@@ -1,4 +1,4 @@
-# Ölçüm belirsizliği kılavuzlarının çözümlü örneklerini yeniden hesaplamak: açık, doğrulanmış bir program ve 286 örneğin ortaya koydukları
+# KAPSAM: uyguladığı kılavuzların çözümlü örnekleriyle doğrulanmış açık kaynak kodlu ölçüm belirsizliği yazılımı
 
 *İkinci taslağın Türkçe çevirisi, 2026-11-09. Asıl metin İngilizce olan `docs/article/manuscript.md` dosyasıdır; bu
 çeviri gözden geçirme içindir ve her değişiklikte İngilizce metinle birlikte güncellenir. Sayılar
@@ -13,8 +13,8 @@ uygulamanın bir ekran görüntüsüdür. Öne çıkanlar `highlights.md`, ek ma
 
 ISO/IEC 17025'e göre akredite laboratuvarlar ölçüm belirsizliğini hesap tablolarıyla ya da GUM ailesinin yalnızca
 bir bölümünü kapsayan programlarla değerlendirir; yöntemlerini kılavuz belgelerin çözümlü örnekleri üzerinde öğrenir
-ve doğrular. Bu çalışmada açık kaynak kodlu bir program sunuyoruz: komut satırı aracı ile masaüstü ve mobil
-uygulaması olan bir Rust motoru. Program, 2026 değişikliği dahil GUM'u, JCGM 101 ve 102'nin Monte Carlo
+ve doğrular. Bu çalışmada açık kaynak kodlu KAPSAM programını sunuyoruz: komut satırı aracı ile masaüstü ve mobil
+uygulaması olan bir Rust motoru. KAPSAM, 2026 değişikliği dahil GUM'u, JCGM 101 ve 102'nin Monte Carlo
 yöntemlerini, uygunluk değerlendirmesini, yukarıdan aşağı değerlendirmeyi, yeterlilik testi istatistiklerini, iki
 değişkende de belirsizlikli kalibrasyonu, laboratuvarlar arası kesinliği, kontrol grafiklerini, numune almadan
 kaynaklanan belirsizliği, tartı aletlerini, uzlaşı değerlerini ve fiziksel bir sınıra yakın sonuçları kapsar;
@@ -60,7 +60,7 @@ hesaplayan bir validasyon yayımlamaz.
 
 Bu makalenin dört katkısı vardır; bunlar makalenin yapısını da belirler.
 
-1. **Program** (Bölüm 2 ve 3): GUM ailesini ve başlıca sektör kılavuzlarını kapsayan, her algoritmanın dayandığı
+1. **Program, KAPSAM** (Bölüm 2 ve 3): GUM ailesini ve başlıca sektör kılavuzlarını kapsayan, her algoritmanın dayandığı
    maddeyi belirten ve her sonucun girdilerine, yöntemine ve yazılımın tam derlemesine kadar izlenebileceği biçimde
    kurulmuş açık bir program.
 2. **Validasyonu** (Bölüm 4 ve 5): 38 belgenin çözümlü örneklerinden oluşturulmuş, kendini denetleyen 286 projelik bir
@@ -148,7 +148,8 @@ dikdörtgen bir önsele karşılık gelir [41]) kestirimi, standart sapması ve 
 
 ### 3.1 Mimari
 
-Program tek bir motor etrafında düzenlenmiştir; böylece her arayüz aynı sayıları verir (Şekil 1). Motor bir Rust
+KAPSAM (adı kapsam faktörü ve kapsam aralığından gelir) tek bir motor etrafında düzenlenmiştir; böylece her
+arayüz aynı sayıları verir (Şekil 1). Motor bir Rust
 kütüphanesidir (`core`, yaklaşık 13 000 satır); proje dosyalarını okuyan, değerlendirmeleri çalıştıran, sonuçları
 referans değerlerle karşılaştıran ve rapor yazan bir proje katmanı vardır (`project`, yaklaşık 19 000 satır). Bir
 komut satırı aracı (`cli`) toplu işler ve otomasyon için, bir C arayüzü (`ffi`) ise motoru uygulamaya bağlamak
@@ -182,7 +183,7 @@ kısaltılmış haliyle:
 
 Şema bilinmeyen alanları reddeder; böylece yanlış yazılmış bir seçenek sessizce yok sayılmaz, hata verir. Sonuçlar
 dosyada hiçbir zaman saklanmaz; girdilerden yeniden hesaplanır. Beklenen değerleriyle bir proje kendi test
-durumudur: `uncertainty check` onu değerlendirir ve her sonucu referansıyla karşılaştırır. Bu biçim, çözümlü
+durumudur: `kapsam check` onu değerlendirir ve her sonucu referansıyla karşılaştırır. Bu biçim, çözümlü
 örneklerin yayımlanması için önerimizdir de (Bölüm 9).
 
 ### 3.3 Sayısal gerçekleştirim
@@ -420,7 +421,7 @@ Aynı program oldukça farklı görevleri olan laboratuvarlara hizmet eder; Tabl
 ### 8.2 Yazılımın validasyonu ve teknik kayıtlar
 
 ISO/IEC 17025 7.11.2, laboratuvarın kullandığı yazılımı kullanımdan önce ve değişikliklerden sonra doğrulamasını
-ister. `uncertainty check library --lab projelerim --report validasyon.pdf` komutu bir yazılım validasyon raporu
+ister. `kapsam check library --lab projelerim --report validasyon.pdf` komutu bir yazılım validasyon raporu
 yazar: program sürümünü, commit'i, derleyiciyi ve platformu, her proje dosyasının ve kümenin SHA-256 özetini ve her
 karşılaştırmayı referans değeri ve toleransıyla listeler; laboratuvarın kendi projeleri ayrı bir bölümde yer alır,
 çünkü yayımlanmış örnekleri yeniden üretmek uygulamayı doğrular ama laboratuvarın yöntemini doğrulamaz (ek malzeme
@@ -485,7 +486,7 @@ için kullanılmıştır.
 
 ## 10. Yazılımın erişilebilirliği ve yapay zekâ araçlarının kullanımı
 
-Program GPL-3.0 lisansıyla https://github.com/unilker/uncertainty adresinde erişilebilir durumdadır; bu makalede
+KAPSAM, GPL-3.0 lisansıyla https://github.com/unilker/uncertainty adresinde erişilebilir durumdadır; bu makalede
 kullanılan sürüm [sürüm etiketi ve Zenodo DOI eklenecek]; ön inceleme 809ebcf commit'ini kullanmıştır. `cargo test`
 Bölüm 5–7'deki her sayıyı yeniden üretir; `tools/research/` içindeki betikler tabloları ve şekilleri yeniden
 oluşturur.

@@ -3529,3 +3529,20 @@ the application; figures renumbered (1 architecture, 2 application, 3 findings b
 Supplementary material S1–S6 is written by `tools/research/article_supplementary.py` (S1: 286 projects, 1865
 compared values, all within tolerance; S5: the validation report of the library, to be regenerated at the release
 commit).
+
+**D92. The program is named KAPSAM (decision of the author, 2026-11-09).** The working name *Uncertainty
+Calculations / Belirsizlik Hesaplamaları* described the program but could not be cited, searched for or remembered
+as a name. *Kapsam* is Turkish for *scope, coverage*: the coverage factor and the coverage interval of the GUM are
+*kapsam faktörü* and *kapsam aralığı* in Turkish, and the program aims to cover the GUM suite and its sector guides.
+It is written in capitals, uses only ASCII letters (no İ/I problem across keyboards and file names) and is read the
+same way in English and the other European languages ("KAP-sam"); *Mihenk* (touchstone) was considered and set
+aside because English readers tend to say "my-henk" and its capital form needs the dotted İ. A web search found no
+software of that name in metrology. User-visible names change: the window and application titles, the Windows
+executable (`kapsam.exe`, file description and product name), the Linux binary, the macOS bundle, the Android
+and iOS labels, the command-line tool (`kapsam run …`, `kapsam check …`), the package names (`kapsam-windows-x64.zip`
+…), the software name and citation in every report, `CITATION.cff`, `NOTICE`, the guides and the article title
+(*KAPSAM: open-source software for measurement uncertainty, validated against the worked examples of the guidance it
+implements*). Internal identifiers stay, so that existing files and builds keep working: the project file format
+`uncertainty-calculations/project`, the Rust crate and Dart package names, the engine library
+`uncertainty_ffi`, the application ids (`org.tubitak.ume…`) and the repository address. Entries above this one keep
+the old name, as recorded at the time.

@@ -25,7 +25,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch  # noqa: E402
 
 OUT = Path("docs/article/figures")
 OUT.mkdir(parents=True, exist_ok=True)
-EXE = "target/debug/uncertainty"
+EXE = "target/debug/kapsam"
 SLOTS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
 INK, INK2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 

@@ -29,7 +29,7 @@ target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_BUILD=${FLUTT
 
 # Reproducible build (/Brepro): the same sources give a byte-identical
 # executable, without a build time stamp. The Dart code of the application is
-# in data/app.so, so uncertainty_app.exe keeps the same SHA-256 digest across
+# in data/app.so, so kapsam.exe keeps the same SHA-256 digest across
 # releases, and an antivirus exception or reputation for that digest stays
 # valid (docs/windows-code-signing.md).
 target_compile_options(${BINARY_NAME} PRIVATE /Brepro)

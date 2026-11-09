@@ -1,5 +1,5 @@
-//! `uncertainty` — command-line front end of Uncertainty Calculations
-//! (Belirsizlik Hesaplamaları).
+//! `kapsam` — command-line front end of KAPSAM (measurement uncertainty
+//! software / ölçüm belirsizliği yazılımı).
 
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
@@ -7,7 +7,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use uncertainty_project::{self as project, report, Lang, Overrides, CITATION, SOFTWARE_NAME};
 
 const HELP: &str = "\
-Uncertainty Calculations (Belirsizlik Hesaplamaları) — measurement uncertainty
+KAPSAM — measurement uncertainty
 evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101), or
 top-down from validation and quality-control data (Nordtest TR 537,
 Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
@@ -19,11 +19,11 @@ arising from sampling (Eurachem UfS:2019); error approximation functions of
 weighing instruments (EURAMET cg-18, Appendix C).
 
 USAGE:
-    uncertainty run <project.json> [options]
-    uncertainty check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html|FILE.pdf] [--lang en|tr]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
-    uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
-    uncertainty --version | --help
+    kapsam run <project.json> [options]
+    kapsam check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html|FILE.pdf] [--lang en|tr]
+    kapsam template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
+    kapsam catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
+    kapsam --version | --help
 
 RUN OPTIONS:
     --lang en|tr          report language (default en)
@@ -375,7 +375,7 @@ fn main() -> ExitCode {
         Some("run") => cmd_run(&args[1..]),
         Some("check") => cmd_check(&args[1..]),
         Some("catalogue" | "catalog") => cmd_catalogue(&args[1..]),
-        Some(other) => Err(format!("unknown command '{other}' (see uncertainty --help)")),
+        Some(other) => Err(format!("unknown command '{other}' (see kapsam --help)")),
     };
     match result {
         Ok(true) => ExitCode::SUCCESS,

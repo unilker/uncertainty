@@ -22,7 +22,7 @@ import suncal
 
 np.random.seed(1)  # Suncal draws from the global NumPy generator
 
-BIN = sys.argv[1] if len(sys.argv) > 1 else "target/release/uncertainty"
+BIN = sys.argv[1] if len(sys.argv) > 1 else "target/release/kapsam"
 FUNCS = {"sqrt", "exp", "ln", "sin", "cos", "tan", "atan", "asin", "acos", "abs", "pi"}
 MC_TYPES = {"normal", "rectangular", "triangular", "arcsine", "constant"}
 

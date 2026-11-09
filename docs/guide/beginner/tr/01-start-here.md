@@ -1,6 +1,6 @@
 # 1. Buradan başlayın
 
-Hoş geldiniz. Bu kılavuz ölçüm belirsizliğini en baştan, sade bir dille anlatır ve her türlü değerlendirmeyi bu programla nasıl yapacağınızı gösterir. Başlamak için istatistik bilmeniz gerekmez. Belirsizlik bütçeleriyle zaten çalışıyorsanız ilginizi çeken bölümlere doğrudan geçebilirsiniz.
+Hoş geldiniz. Bu kılavuz ölçüm belirsizliğini en baştan, sade bir dille anlatır ve her türlü değerlendirmeyi bu programla, **KAPSAM** ile nasıl yapacağınızı gösterir. (Programın adı, [3. bölümde](03-key-words.md#expanded) tanışacağınız *kapsam faktörü* *k* ve *kapsam aralığından* gelir.) Başlamak için istatistik bilmeniz gerekmez. Belirsizlik bütçeleriyle zaten çalışıyorsanız ilginizi çeken bölümlere doğrudan geçebilirsiniz.
 
 > **İpucu:** Her bölüm her ekrandan açılabilir: ana ekrandaki kitap simgesine ya da bir projedeki **?** simgesine basın; ikincisi o proje türünü anlatan bölümü açar.
 

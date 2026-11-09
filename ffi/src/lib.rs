@@ -1,4 +1,4 @@
-//! C interface of *Uncertainty Calculations* for the graphical user
+//! C interface of *KAPSAM* for the graphical user
 //! interface (Flutter, via `dart:ffi`).
 //!
 //! Every function takes and returns UTF-8 JSON strings, so the interface
@@ -305,7 +305,7 @@ pub unsafe extern "C" fn uc_validate(project_json: *const c_char) -> *mut c_char
 /// Evaluates a project. `options` (JSON, may be null):
 /// `{"lang": "en"|"tr", "skip_mcm": bool, "trials": n, "seed": s,
 ///   "markdown": bool, "html": bool, "generated": "date text"}`.
-/// The response holds `results` (as `uncertainty run --format json`,
+/// The response holds `results` (as `kapsam run --format json`,
 /// including the comparison with reference values), `reported` (the result
 /// statements in the requested language), `warnings` (in that language)
 /// and the requested reports.

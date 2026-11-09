@@ -24,7 +24,8 @@ Recommendation: *Measurement*, with the audit as the second main result. Verify 
 quartiles at submission. Optional spin-off (only if it has its own contribution, no salami): a short *Metrologia*
 note on consensus procedures (Section 6.3 below).
 
-Working title options:
+Title (decision D92, 2026-11-09): *KAPSAM: open-source software for measurement uncertainty, validated against the
+worked examples of the guidance it implements* (no example count in the title). Earlier working titles:
 
 1. *Recomputing the worked examples of measurement-uncertainty guidance: an open, validated tool and what 277
    examples reveal*

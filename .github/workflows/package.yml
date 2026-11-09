@@ -59,17 +59,17 @@ jobs:
           [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($env:CERTIFICATE))
           $signtool = (Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\*\x64\signtool.exe' | Sort-Object FullName | Select-Object -Last 1).FullName
           $files = Get-ChildItem app/build/windows/x64/runner/Release -Recurse -Include *.exe,*.dll | ForEach-Object { $_.FullName }
-          & $signtool sign /f $pfx /p $env:CERTIFICATE_PASSWORD /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 /d "Uncertainty Calculations" $files
+          & $signtool sign /f $pfx /p $env:CERTIFICATE_PASSWORD /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 /d "KAPSAM" $files
           $status = $LASTEXITCODE
           Remove-Item $pfx
           if ($status -ne 0) { exit $status }
       - name: Archive
         shell: pwsh
-        run: Compress-Archive -Path app/build/windows/x64/runner/Release/* -DestinationPath uncertainty-calculations-windows-x64.zip
+        run: Compress-Archive -Path app/build/windows/x64/runner/Release/* -DestinationPath kapsam-windows-x64.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: uncertainty-calculations-windows-x64
-          path: uncertainty-calculations-windows-x64.zip
+          name: kapsam-windows-x64
+          path: kapsam-windows-x64.zip
 
   linux:
     runs-on: ubuntu-latest
@@ -83,11 +83,11 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
       - run: flutter build linux --release
         working-directory: app
-      - run: tar -czf uncertainty-calculations-linux-x64.tar.gz -C app/build/linux/x64/release bundle
+      - run: tar -czf kapsam-linux-x64.tar.gz -C app/build/linux/x64/release bundle
       - uses: actions/upload-artifact@v4
         with:
-          name: uncertainty-calculations-linux-x64
-          path: uncertainty-calculations-linux-x64.tar.gz
+          name: kapsam-linux-x64
+          path: kapsam-linux-x64.tar.gz
 
   android:
     runs-on: ubuntu-latest
@@ -108,11 +108,11 @@ jobs:
       # with the NDK (installed by the Android Gradle plugin if missing).
       - run: flutter build apk --release
         working-directory: app
-      - run: cp app/build/app/outputs/flutter-apk/app-release.apk uncertainty-calculations-android.apk
+      - run: cp app/build/app/outputs/flutter-apk/app-release.apk kapsam-android.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: uncertainty-calculations-android
-          path: uncertainty-calculations-android.apk
+          name: kapsam-android
+          path: kapsam-android.apk
 
   macos:
     runs-on: macos-latest
@@ -136,15 +136,15 @@ jobs:
         working-directory: app
       - name: Check that the engine is linked and exported
         run: |
-          app=app/build/macos/Build/Products/Release/uncertainty_app.app
-          lipo -info "$app/Contents/MacOS/uncertainty_app"
-          xcrun objdump --macho --exports-trie "$app/Contents/MacOS/uncertainty_app" | tee exports.txt | grep -E "_uc_(version|template|validate|evaluate|free)$"
+          app=app/build/macos/Build/Products/Release/KAPSAM.app
+          lipo -info "$app/Contents/MacOS/KAPSAM"
+          xcrun objdump --macho --exports-trie "$app/Contents/MacOS/KAPSAM" | tee exports.txt | grep -E "_uc_(version|template|validate|evaluate|free)$"
           test "$(grep -cE '_uc_(version|template|validate|evaluate|free)$' exports.txt)" = 5
-      - run: ditto -c -k --keepParent app/build/macos/Build/Products/Release/uncertainty_app.app uncertainty-calculations-macos.zip
+      - run: ditto -c -k --keepParent app/build/macos/Build/Products/Release/KAPSAM.app kapsam-macos.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: uncertainty-calculations-macos
-          path: uncertainty-calculations-macos.zip
+          name: kapsam-macos
+          path: kapsam-macos.zip
 
   ios:
     runs-on: macos-latest
@@ -168,8 +168,8 @@ jobs:
           bin=app/build/ios/iphoneos/Runner.app/Runner
           xcrun objdump --macho --exports-trie "$bin" | tee exports.txt | grep -E "_uc_(version|template|validate|evaluate|free)$"
           test "$(grep -cE '_uc_(version|template|validate|evaluate|free)$' exports.txt)" = 5
-      - run: ditto -c -k --keepParent app/build/ios/iphoneos/Runner.app uncertainty-calculations-ios-unsigned.zip
+      - run: ditto -c -k --keepParent app/build/ios/iphoneos/Runner.app kapsam-ios-unsigned.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: uncertainty-calculations-ios-unsigned
-          path: uncertainty-calculations-ios-unsigned.zip
+          name: kapsam-ios-unsigned
+          path: kapsam-ios-unsigned.zip

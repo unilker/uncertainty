@@ -4,7 +4,7 @@ project(uncertainty_app LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "uncertainty_app")
+set(BINARY_NAME "kapsam")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
@@ -87,7 +87,7 @@ if(CARGO)
   add_custom_target(uncertainty_ffi ALL
     COMMAND "${CARGO}" build --release -p uncertainty-ffi
     WORKING_DIRECTORY "${UNCERTAINTY_REPO}"
-    COMMENT "Building the Uncertainty Calculations engine (cargo)")
+    COMMENT "Building the KAPSAM engine (cargo)")
   add_dependencies(${BINARY_NAME} uncertainty_ffi)
 elseif(NOT EXISTS "${UNCERTAINTY_FFI}")
   message(FATAL_ERROR "cargo not found: build the engine with `cargo build --release -p uncertainty-ffi`")

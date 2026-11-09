@@ -53,8 +53,8 @@ The worked-examples chapters are generated from the example library and checked 
 (`project/tests/library.rs`). After changing the library, regenerate them with
 
 ```sh
-uncertainty catalogue library --lang en -o docs/guide/en/examples.md
-uncertainty catalogue library --lang tr -o docs/guide/tr/examples.md
+kapsam catalogue library --lang en -o docs/guide/en/examples.md
+kapsam catalogue library --lang tr -o docs/guide/tr/examples.md
 ```
 
 Çözümlü örnekler bölümleri örnek kütüphanesinden üretilir ve test takımı tarafından denetlenir. Kütüphane

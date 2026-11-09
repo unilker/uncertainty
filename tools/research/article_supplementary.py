@@ -7,7 +7,7 @@ S1  library projects with their source, field, evaluation type and number of com
 S2  the findings F1-F100 with class, document, and for class c their effect and status (CSV);
 S3  the validation matrix (copy of docs/research/validation-matrix.md);
 S4  the comparison with Suncal (copy of docs/research/benchmark-suncal.md);
-S5  the software validation report written by `uncertainty check library` (PDF);
+S5  the software validation report written by `kapsam check library` (PDF);
 S6  pointer to the beginner's guide and the step-by-step explanations (docs/guide/beginner).
 """
 import csv
@@ -19,7 +19,7 @@ from pathlib import Path
 
 OUT = Path("docs/article/supplementary")
 OUT.mkdir(parents=True, exist_ok=True)
-EXE = "target/release/uncertainty"
+EXE = "target/release/kapsam"
 SECTIONS = ["model", "multivariate", "topdown", "proficiency", "calibration", "conformity", "precision_experiment",
             "control_chart", "sampling", "error_function", "consensus", "multicomponent_conformity"]
 

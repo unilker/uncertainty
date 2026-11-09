@@ -1,7 +1,8 @@
 //! # uncertainty-project
 //!
-//! Project files (JSON) for *Uncertainty Calculations / Belirsizlik
-//! Hesaplamaları*: reading and validating them ([`schema`]), running the GUM
+//! Project files (JSON) for *KAPSAM* (measurement uncertainty software;
+//! called *Uncertainty Calculations / Belirsizlik Hesaplamaları* before
+//! November 2026): reading and validating them ([`schema`]), running the GUM
 //! and Monte Carlo evaluations, the top-down evaluation ([`topdown`]) or the
 //! statistics of a proficiency test round ([`proficiency`]), a
 //! calibration with uncertainties in both variables ([`calibration`]), a
@@ -35,7 +36,7 @@ use uncertainty_core::{Distribution, InputQuantity, Model, UncError};
 
 /// Software identification printed in every report (attribution terms,
 /// ADDITIONAL-TERMS.md).
-pub const SOFTWARE_NAME: &str = "Uncertainty Calculations (Belirsizlik Hesaplamaları)";
+pub const SOFTWARE_NAME: &str = "KAPSAM";
 pub const SOFTWARE_VERSION: &str = env!("CARGO_PKG_VERSION");
 /// The git commit the software was built from ("…-modified" with
 /// uncommitted changes, "unknown" outside a checkout); see build.rs.
@@ -61,8 +62,8 @@ pub fn software_identity() -> String {
 pub fn project_digest(p: &Project) -> String {
     sha256::sha256_hex(serde_json::to_string(p).unwrap_or_default().as_bytes())
 }
-pub const CITATION: &str = "Ün, İ. Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement uncertainty \
-evaluation software. TÜBİTAK UME. https://github.com/unilker/uncertainty";
+pub const CITATION: &str = "Ün, İ. KAPSAM: open-source software for the evaluation of measurement uncertainty \
+(GUM, Monte Carlo and top-down). TÜBİTAK UME. https://github.com/unilker/uncertainty";
 
 /// Report language.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]

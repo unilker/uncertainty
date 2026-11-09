@@ -69,7 +69,7 @@ Rapor sağ üstte seçili dilde (EN/TR) yazılır. Modeli, girdileri ve kaynakla
 ISO/IEC 17025 (7.11.2), hesaplar için kullanılan yazılımın doğrulanmasını ister. Program iki yolla yardım eder:
 
 - yeniden hesaplanıp yayımlanmış değerlerle karşılaştırılan 286 örnekten oluşan kütüphanesi, yöntemlerin validasyonudur;
-- komut satırı aracı bir **yazılım validasyon raporu** yazar (`uncertainty check library --lab projelerim --report validasyon.pdf`); bu rapor her denetimi, dosyaların parmak izlerini, program sürümünü ve derleyiciyi listeler ve laboratuvarınızın kendi projelerini ayrı bir bölüme koyar.
+- komut satırı aracı bir **yazılım validasyon raporu** yazar (`kapsam check library --lab projelerim --report validasyon.pdf`); bu rapor her denetimi, dosyaların parmak izlerini, program sürümünü ve derleyiciyi listeler ve laboratuvarınızın kendi projelerini ayrı bir bölüme koyar.
 
 Kendi tipik projelerinizi beklenen değerleriyle saklayın: programın her güncellemesinden sonra onları yeniden çalıştırmak basit ve belgelenmiş bir validasyondur.
 

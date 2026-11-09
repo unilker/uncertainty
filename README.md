@@ -1,4 +1,10 @@
-# Uncertainty Calculations · Belirsizlik Hesaplamaları
+# KAPSAM
+
+<img src="app/assets/logo/logo.png" alt="KAPSAM logo" width="96" align="right">
+
+*Measurement uncertainty software · Ölçüm belirsizliği yazılımı.* The name is Turkish for *scope, coverage*,
+as in the coverage factor *k* and the coverage interval (*kapsam faktörü*, *kapsam aralığı*); it is read
+"KAP-sam". Until November 2026 the program was called *Uncertainty Calculations / Belirsizlik Hesaplamaları*.
 
 **EN** — Open software for evaluating measurement uncertainty with the GUM
 uncertainty framework (JCGM 100:2008) and the Monte Carlo method of GUM
@@ -108,7 +114,7 @@ Türkçe ve İngilizce.
 
 ```sh
 cargo build --release
-B=target/release/uncertainty
+B=target/release/kapsam
 $B template > my.json                                   # start a project / proje başlat
 $B template --topdown > td.json                         # top-down project from raw data
 $B template --proficiency > pt.json                     # proficiency test round (ISO 13528)

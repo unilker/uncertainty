@@ -14,7 +14,7 @@ sayılır. Programın her yeni derlemesi yeni bir dosya olduğu için bu uyarı 
 
 Antivirüs korumasını kendiniz kapatmayın; istisnayı bilgi işlem tanımlamalıdır.
 
-**Aynı dosya, aynı özet.** Uygulamanın Dart kodu `data/app.so` dosyasındadır; `uncertainty_app.exe` yalnızca
+**Aynı dosya, aynı özet.** Uygulamanın Dart kodu `data/app.so` dosyasındadır; `kapsam.exe` yalnızca
 pencereyi açan küçük bir başlatıcıdır. Kasım 2026'dan beri .exe ve motor DLL'i tekrar üretilebilir biçimde
 derlenir (MSVC `/Brepro`): aynı kaynaktan her derleme bayt bayt aynı dosyayı verir. Dolayısıyla .exe'nin SHA-256
 özetine tanımlanan bir istisna, başlatıcı değişmediği sürece sonraki sürümlerde de geçerli kalır. Motor DLL'i
@@ -37,7 +37,7 @@ itibar sertifikaya bağlanır ve yeni sürümler uyarı vermez. Yollar:
 Elle imzalamak için (sertifika bilgisayarda ya da belirteçteyse):
 
 ```
-signtool sign /a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 /d "Uncertainty Calculations" uncertainty_app.exe uncertainty_ffi.dll
+signtool sign /a /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 /d "KAPSAM" kapsam.exe uncertainty_ffi.dll
 ```
 
 ## English
@@ -50,7 +50,7 @@ warning can come back with every version.
 from quarantine and add an exception for its SHA-256 digest or for the program folder; the file can also be
 reported as a false positive at <https://symsubmit.symantec.com>. Do not switch the protection off yourself.
 
-**Same file, same digest.** The Dart code is in `data/app.so`; `uncertainty_app.exe` is only the small native
+**Same file, same digest.** The Dart code is in `data/app.so`; `kapsam.exe` is only the small native
 launcher. Since November 2026 the executable and the engine DLL are built reproducibly (MSVC `/Brepro`), so an
 exception for the digest of the executable stays valid as long as the launcher does not change. The engine DLL
 contains the version and commit of the program and changes with every commit.
