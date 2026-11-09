@@ -55,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
+        icon: tubitakDesign ? const AppLogo(size: 96) : null,
         title: Text(s['app']),
         content: SelectableText(
           error ??
@@ -72,6 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final s = app.s;
     return Scaffold(
       appBar: AppBar(
+        leading: tubitakDesign ? const Padding(padding: EdgeInsets.all(10), child: AppLogo()) : null,
+        leadingWidth: tubitakDesign ? 52 : null,
+        titleSpacing: tubitakDesign ? 4 : null,
         title: Text(s['app']),
         actions: [
           TextButton(
@@ -201,6 +205,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
 /// The cards that start a new project. With the TÜBİTAK design all cards have
 /// the same size and fill the width in as many columns as fit.
+/// The logo of the application (assets/logo/logo.svg, rendered to PNG by
+/// tools/logo/render_icons.js).
+class AppLogo extends StatelessWidget {
+  const AppLogo({super.key, this.size});
+  final double? size;
+
+  @override
+  Widget build(BuildContext context) =>
+      Image.asset('assets/logo/logo.png', width: size, height: size, filterQuality: FilterQuality.medium, semanticLabel: 'logo');
+}
+
 class _ActionGrid extends StatelessWidget {
   const _ActionGrid({required this.cards, this.heading});
   final List<_ActionCard> cards;
