@@ -26,6 +26,8 @@ pub mod schema;
 pub mod sha256;
 pub mod topdown;
 pub mod weighing;
+pub mod workbook;
+pub mod xlsx;
 
 use schema::*;
 use std::fmt;

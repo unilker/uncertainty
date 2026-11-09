@@ -27,7 +27,8 @@ USAGE:
 
 RUN OPTIONS:
     --lang en|tr          report language (default en)
-    --format md|html|json|pdf  report format (default md, or from the --output extension)
+    --format md|html|json|pdf|xlsx  report format (default md, or from the --output extension); xlsx writes a
+                          spreadsheet verification workbook that recomputes the GUM result with formulas
     --output FILE         write the report to FILE instead of standard output
     --no-mcm              skip the Monte Carlo evaluation
     --trials N            fixed number of Monte Carlo trials (overrides the project)
@@ -315,6 +316,8 @@ enum Format {
     Html,
     Json,
     Pdf,
+    /// Spreadsheet verification workbook (.xlsx).
+    Xlsx,
 }
 
 fn main() -> ExitCode {
@@ -413,7 +416,8 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
                     "html" => Format::Html,
                     "json" => Format::Json,
                     "pdf" => Format::Pdf,
-                    other => return Err(format!("unknown format '{other}' (use md, html, json or pdf)")),
+                    "xlsx" => Format::Xlsx,
+                    other => return Err(format!("unknown format '{other}' (use md, html, json, pdf or xlsx)")),
                 })
             }
             "--output" | "-o" => output = Some(value(args, &mut i, "--output")?.into()),
@@ -438,6 +442,7 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
             Some(e) if e == "html" || e == "htm" => Format::Html,
             Some(e) if e == "json" => Format::Json,
             Some(e) if e == "pdf" => Format::Pdf,
+            Some(e) if e == "xlsx" => Format::Xlsx,
             _ => Format::Markdown,
         }
     });
@@ -451,6 +456,9 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
             + "\n")
             .into_bytes(),
         Format::Pdf => report::pdf_report(&p, &a, lang, Some(&generated)),
+        Format::Xlsx => {
+            project::workbook::verification_workbook(&p, &a, lang).map_err(|e| format!("{}: {e}", file.display()))?
+        }
     };
     match output {
         Some(path) => std::fs::write(&path, bytes).map_err(|e| format!("{}: {e}", path.display()))?,

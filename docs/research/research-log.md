@@ -3576,3 +3576,25 @@ material S4): 171 projects.
   with an uncertainty relative to the value (GUM-5 Ex. 10, EURACHEM compliance B3). Top-down evaluation,
   proficiency testing, precision experiments, control charts, sampling, consensus values and error functions have
   no counterpart in Suncal; an independent check of these by spreadsheet formulas is planned (next entry).
+
+**D94. Spreadsheet verification workbooks (decision of the author, 2026-11-09).** For an independent check of
+the project types that Suncal cannot express, and for laboratories that validate software against a spreadsheet,
+KAPSAM writes an .xlsx workbook that recomputes a result with ordinary spreadsheet formulas
+(`kapsam run p.json -o p.xlsx`; module `project/src/workbook.rs`, writer `project/src/xlsx.rs`, no new dependency).
+KAPSAM writes the data of the project and the formulas, never a computed value except its own results on the sheet
+Check, which are fixed numbers beside the spreadsheet's with the difference and a tolerance; the workbook asks the
+spreadsheet program to calculate everything on opening. Excel functions introduced after 2007 are avoided (STDEV,
+NORMSINV, BETAINV), so the formulas work in every version and in LibreOffice.
+
+- Measurement models (first stage): inputs with x and u(x) from the distribution parameters (GUM 4.2, 4.3; JCGM
+  101 6.4), the model and its intermediate quantities as formulas in one column at the estimates and two per input
+  (xᵢ ± h, h = 0.001 u(xᵢ)), sensitivity coefficients as central differences (the idea of Kragten's spreadsheet,
+  QUAM:2012 Appendix E, with a step small enough for 10⁻⁶ of u(y) and large enough for the rounding of 15 digits:
+  0.01 u left a truncation error of 9 × 10⁻⁶ in the ratio model of NUM 3), the law of propagation with the
+  correlation matrix, Welch–Satterthwaite and k from the t-distribution through BETAINV (non-integer ν, as KAPSAM's
+  exact rounding; INT(ν) for truncation). ν_eff, k and U are not compared when higher-order terms are requested
+  (KAPSAM's include them) or with correlations (Welch–Satterthwaite does not apply).
+- `tools/research/spreadsheet_check.py` writes the workbook of every library project, recalculates it in
+  LibreOffice Calc (headless, UNO) and reads the sheet Check: 135 model workbooks, 3257 compared values, all within
+  tolerance (`docs/research/spreadsheet-check.md`). Largest ratio of difference to tolerance 0.44 (ν_eff of M3003
+  K1).
