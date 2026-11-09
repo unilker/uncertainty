@@ -82,7 +82,7 @@ byte-identical for the same project) and JSON with all values in full precision.
 version, the git commit it was built from and the SHA-256 digest of the project as evaluated, so that a technical
 record ties a result to its inputs and to a validated build (ISO/IEC 17025 7.5, 7.11).
 
-**Figure 1** (`figures/fig1_architecture.pdf`). Architecture: sources, generators, project files, engine, interfaces and tests.
+<!-- fig1 -->
 
 **Table 1.** Evaluation types and the methods they implement (checked against the module documentation and
 `docs/research/iso17025-mapping.md`).
@@ -173,6 +173,8 @@ physical quantities, 12 in length, 10 in temperature, 7 in flow and 6 in pressur
 measurement models (118 with a Monte Carlo evaluation) and 152 cover the other ten types (Table 2
 from `numbers.md`; `tables.md`).
 
+<!-- table2 -->
+
 ### 3.2 Reference values and tolerances
 
 A reference value is the value printed in the source, with a tolerance of half a unit in its last digit, wherever
@@ -219,8 +221,7 @@ error of the difference — which combines the sampling errors of both programs 
 of the output — the largest |z| is 3.0, which for 48 independent comparisons has a probability of 0.12, so the
 dispersion is consistent with sampling error alone.
 
-**Table 3** (`tables.md`). From sources to findings — 38 documents, 286 projects, 228 matrix rows, 1865 compared
-values, 100 findings, 29 with a class-c component, 13 confirmed c1.
+<!-- table3 -->
 
 The consensus module reproduces the published DerSimonian–Laird, bootstrap, Linear Pool, maximum-likelihood and
 hierarchical Bayesian values of Koepke et al. [32] for the Newtonian constant of gravitation and the half-lives
@@ -241,6 +242,8 @@ values (c2, two of them partly corrected by errata), 5 are differences of method
 known erratum (e), and 5 are open and not counted (Table 4). The findings concern most of the documents
 (**Figure 2**, `figures/fig2_findings_by_document.pdf`): the GUM-5 examples of 2026 carry 13, the Eurachem QUAM 11, UKAS M3003 and the EMUE compendium 7
 each (a finding with two classes counted in both).
+
+<!-- fig2 -->
 
 **Table 4.** Confirmed inconsistencies that change a final printed result (class c1; `class-c-impact.tsv`).
 
@@ -316,6 +319,8 @@ contain only the stated uncertainties of the two participants and not the dark u
 `figures/fig3_procedures.pdf`: (a) G by procedure, (b) leave-one-out degrees of equivalence of ⁶⁰Co). The NICOB code and manual differ in how the Linear Pool degrees of equivalence are computed (F100); the
 program implements the manual. A participant's "significant" degree of equivalence is therefore a statement about
 the procedure as well as about the result, and the procedure should be chosen and stated before the data are seen.
+
+<!-- fig3 -->
 
 ### 6.2 Results near a bound
 
