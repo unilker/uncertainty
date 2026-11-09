@@ -97,9 +97,18 @@ Map<String, dynamic> _checked(Map<String, dynamic> r) {
   return r;
 }
 
+/// True if the engine can write a spreadsheet verification workbook for the
+/// project: measurement models (without ensembles), proficiency tests,
+/// precision experiments and top-down evaluations.
+bool hasVerificationWorkbook(Map<String, dynamic> project) {
+  final model = project['model'];
+  if (model is Map && (model['ensembles'] == null || (model['ensembles'] as List).isEmpty)) return true;
+  return project['proficiency'] != null || project['precision_experiment'] != null || project['topdown'] != null;
+}
+
 /// Options of an evaluation.
 class EvaluateOptions {
-  const EvaluateOptions({this.lang = 'en', this.skipMcm = false, this.trials, this.seed, this.markdown = false, this.html = false, this.pdf = false, this.generated});
+  const EvaluateOptions({this.lang = 'en', this.skipMcm = false, this.trials, this.seed, this.markdown = false, this.html = false, this.pdf = false, this.xlsx = false, this.generated});
   final String lang;
   final bool skipMcm;
   final int? trials;
@@ -107,6 +116,9 @@ class EvaluateOptions {
   final bool markdown;
   final bool html;
   final bool pdf;
+
+  /// Spreadsheet verification workbook (`xlsx_base64` in the reply).
+  final bool xlsx;
   final String? generated;
 
   Map<String, dynamic> toJson() => {
@@ -117,6 +129,7 @@ class EvaluateOptions {
     'markdown': markdown,
     'html': html,
     'pdf': pdf,
+    'xlsx': xlsx,
     if (generated != null) 'generated': generated,
   };
 }

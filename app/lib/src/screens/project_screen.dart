@@ -155,9 +155,22 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
     try {
       final r = await const Engine().evaluate(
         _project,
-        EvaluateOptions(lang: app.lang, html: format == 'html', markdown: format == 'md', pdf: format == 'pdf', generated: _today()),
+        EvaluateOptions(
+          lang: app.lang,
+          html: format == 'html',
+          markdown: format == 'md',
+          pdf: format == 'pdf',
+          xlsx: format == 'xlsx',
+          // The workbook recomputes the GUM and other results, not the Monte Carlo ones.
+          skipMcm: format == 'xlsx',
+          generated: _today(),
+        ),
       );
-      final bytes = format == 'pdf' ? base64Decode(r['pdf_base64'] as String) : utf8.encode(r[format == 'html' ? 'html' : 'markdown'] as String);
+      final bytes = switch (format) {
+        'pdf' => base64Decode(r['pdf_base64'] as String),
+        'xlsx' => base64Decode(r['xlsx_base64'] as String),
+        _ => utf8.encode(r[format == 'html' ? 'html' : 'markdown'] as String),
+      };
       if (isMobile) {
         await shareBytes(_suggestedName(format), bytes);
         return;
@@ -167,7 +180,8 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
       if (path == null) return;
       await File(path).writeAsBytes(bytes);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${s['saved']}: $path')));
+      final note = format == 'xlsx' ? '\n${s['xlsx_saved']}' : '';
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${s['saved']}: $path$note')));
     } on Object catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${s['engine_error']}: $e')));
@@ -205,6 +219,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
               'save_as' => _save(saveAs: true),
               'html' => _export('html'),
               'pdf' => _export('pdf'),
+              'xlsx' => _export('xlsx'),
               _ => _export('md'),
             },
             itemBuilder: (_) => [
@@ -212,6 +227,8 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
               PopupMenuItem(value: 'pdf', child: Text(s['export_pdf'])),
               PopupMenuItem(value: 'html', child: Text(s['export_html'])),
               PopupMenuItem(value: 'md', child: Text(s['export_md'])),
+              if (hasVerificationWorkbook(_project))
+                PopupMenuItem(key: const Key('export-xlsx'), value: 'xlsx', child: Text(s['export_xlsx'])),
             ],
           ),
         ],

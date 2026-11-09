@@ -172,6 +172,12 @@ void main() {
       final a1 = jsonDecode(File('../library/chemistry/quam-a1-cadmium-standard.json').readAsStringSync()) as Map<String, dynamic>;
       final k = e.evaluateSync(a1, const EvaluateOptions(skipMcm: true));
       expect((k['results']['gum']['kragten']['combined_standard_uncertainty'] as num).toDouble(), closeTo(0.8633, 0.00005));
+      // The spreadsheet verification workbook (an .xlsx file is a ZIP archive: "PK").
+      final x = e.evaluateSync(a1, const EvaluateOptions(lang: 'tr', skipMcm: true, xlsx: true));
+      expect(x['xlsx_supported'], isTrue);
+      expect(base64Decode(x['xlsx_base64'] as String).take(2), [0x50, 0x4b]);
+      expect(hasVerificationWorkbook(a1), isTrue);
+      expect(hasVerificationWorkbook(e.template('calibration')), isFalse);
       final bad = e.template('model')..remove('model');
       expect(e.validate(bad), contains('model'));
       expect(() => e.evaluateSync(bad, const EvaluateOptions()), throwsA(isA<EngineException>()));

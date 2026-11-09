@@ -432,6 +432,11 @@ class S {
     'export_pdf': ['Export report (PDF)', 'Raporu dışa aktar (PDF)'],
     'export_html': ['Export report (HTML)', 'Raporu dışa aktar (HTML)'],
     'export_md': ['Export report (Markdown)', 'Raporu dışa aktar (Markdown)'],
+    'export_xlsx': ['Verify in Excel (.xlsx)', "Excel'de doğrula (.xlsx)"],
+    'xlsx_saved': [
+      'Open it in Excel or LibreOffice Calc: the spreadsheet recalculates every result itself and the sheet About shows whether it agrees with KAPSAM.',
+      "Excel'de veya LibreOffice Calc'ta açın: elektronik tablo her sonucu kendisi yeniden hesaplar ve Bilgi sayfası KAPSAM ile uyuşup uyuşmadığını gösterir.",
+    ],
     'saved': ['Saved', 'Kaydedildi'],
     'unsaved': ['Unsaved changes', 'Kaydedilmemiş değişiklikler'],
     'invalid': ['The project is not valid', 'Proje geçerli değil'],
