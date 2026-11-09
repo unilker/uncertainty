@@ -8,3 +8,4 @@ Written by `tools/research/article_supplementary.py`; do not edit by hand.
 - S4 `S4_suncal_benchmark.md`: the comparison with Suncal
 - S5 `S5_validation_report.pdf`: the software validation report of the library
 - S6 `S6_guide.md`: the beginner's guide and the explanation of every example
+- S7 `S7_spreadsheet_check.md`: the recalculation of the spreadsheet verification workbooks, and `S7_workbook_quam_a1.xlsx`, the workbook of QUAM Example A1

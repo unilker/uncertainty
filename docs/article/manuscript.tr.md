@@ -19,8 +19,9 @@ yöntemlerini, uygunluk değerlendirmesini, yukarıdan aşağı değerlendirmeyi
 değişkende de belirsizlikli kalibrasyonu, laboratuvarlar arası kesinliği, kontrol grafiklerini, numune almadan
 kaynaklanan belirsizliği, tartı aletlerini, uzlaşı değerlerini ve fiziksel bir sınıra yakın sonuçları kapsar;
 raporları İngilizce ve Türkçedir. 38 belgenin çözümlü örneklerinden oluşturulan 286 proje üzerinde doğrulanmıştır:
-test takımı her değişiklikte 1865 referans değerinin tamamını yeniden hesaplar ve bağımsız bir program, Suncal,
-bunların 171'inin sonuçlarını yeniden üretir. Örneklerin yeniden hesaplanması 100 bulgu ortaya
+test takımı her değişiklikte 1865 referans değerinin tamamını yeniden hesaplar; bağımsız bir program, Suncal,
+bunların 171'inin, LibreOffice'te yeniden hesaplanan elektronik tablo formülleri ise 189'unun sonuçlarını yeniden
+üretir. Örneklerin yeniden hesaplanması 100 bulgu ortaya
 çıkardı; bunların 13'ü basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır. Uzlaşı yönteminin seçimi
 bir anahtar karşılaştırmanın eşdeğerlik derecelerini, referans değerini değiştirdiği ölçüde değiştirir.
 Laboratuvarlar için program ISO/IEC 17025'e uygun bir yazılım validasyon raporu yazar ve her örneği adım adım
@@ -201,14 +202,15 @@ raporlanan ifadede yuvarlanır.
 - **Testler.** Motorun 218 otomatik testinden biri kütüphanenin 286 projesinin tamamını değerlendirir ve 1865
   sonucunu referans değerleriyle karşılaştırır; uygulamanın 28 testi, editörlerini ve sonuçlarını motorla birlikte
   çalıştırır. Testler kaynak kodun her değişikliğinde (GitHub Actions üzerinde sürekli entegrasyon), bir biçim
-  denetimi ve her uyarıyı hata sayan bir statik analizle birlikte çalışır.
+  denetimi, her uyarıyı hata sayan bir statik analiz ve kütüphanenin elektronik tablo doğrulama dosyalarının
+  LibreOffice Calc'ta yeniden hesaplanmasıyla (Bölüm 4.4) birlikte çalışır.
 - **Paketler.** İkinci bir iş akışı aynı commit'ten beş platformun paketlerini derler ve paketlemeden önce uygulama
   testlerini Windows ve macOS üzerinde motorla birlikte çalıştırır. Windows çalıştırılabilir dosyası tekrar
   üretilebilir biçimde derlenir; aynı kaynak bayt bayt aynı dosyayı verir.
 - **Bir sonucun kimliği.** Her rapor program sürümünü, derlendiği git commit'ini ve tarihini, derleyiciyi ve
   değerlendirilen projenin SHA-256 özetini belirtir. Bir sonuç böylece girdilerine ve doğrulanmış bir derlemeye kadar
   izlenebilir (ISO/IEC 17025 7.5, 7.11).
-- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D90) ve bulgunun (F1–F100) araştırma
+- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D94) ve bulgunun (F1–F100) araştırma
   günlüğünü, her kütüphane projesini kaynağının sayısal verilerinden yazan üreteçleri ve her bağımsız yeniden hesabın
   betiklerini (`tools/research/`) içerir. Lisanslı belgeler yalnızca sayısal verileri için kullanılır ve dağıtılmaz.
 
@@ -265,7 +267,7 @@ düzeltmeyle giderilmiş hata. Bir bulgu, belgenin kendi verilerinden yapılan y
 da bulgu bağımsız olarak yeniden üretildiğinde doğrulanmış sayılır; başka bir kaynakla karşılaştırılmayı bekleyen
 bulgular sayılmaz.
 
-### 4.4 Bağımsız karşılaştırma
+### 4.4 Bağımsız denetimler
 
 Suncal 1.7.1'in ifade edebildiği her proje iki programla da değerlendirildi (D74, D93; ek malzeme S4): 24'ü
 korelasyonlu girdi veya ara büyüklük içeren 135 ölçüm modeli; birden çok çıktılı 12 model (JCGM 102); doğrular için
@@ -273,6 +275,17 @@ Suncal'ın York uydurmasıyla, diğer fonksiyonlar için dik uzaklık regresyonu
 belirsizlikli 6 kalibrasyon; ve her sonucun uygunluk olasılığı ile genel tüketici ve üretici riskleri karşılaştırılan
 18 uygunluk değerlendirmesi. Diğer proje türlerinin (yukarıdan aşağı değerlendirme, yeterlilik testi, kesinlik
 deneyleri, kontrol grafikleri, numune alma, uzlaşı değerleri) Suncal'da karşılığı yoktur.
+
+KAPSAM ayrıca ölçüm modelleri, yeterlilik testleri, kesinlik deneyleri ve yukarıdan aşağı değerlendirmeler için bir
+elektronik tablo doğrulama dosyası (.xlsx; D94) yazar. Dosya, projenin verilerini ve sıradan elektronik tablo
+formüllerini içerir: ölçüm modeli bir formül olarak kestirimlerde ve xᵢ ± 0,001 u(xᵢ) noktalarında hesaplanır,
+böylece duyarlılık katsayıları Kragten tablosu [8, Ek E] anlayışıyla merkezi farklardır; ISO 13528'in Algoritma A'sı her
+yinelemesi bir sütunda ve C.3.1'in durdurma kuralı bir formül olarak; ISO 5725-2'nin varyans analizi; Nordtest TR
+537'nin bileşenleri ve her düzeyde birleştirilmeleri. KAPSAM'ın kendi sonuçları yalnızca elektronik tablonunkilerin
+yanında sabit sayılar olarak, fark ve toleransla birlikte yer alır. Böylece aritmetiği elektronik tablo programı
+yapar ve her formül hücre hücre incelenebilir; ne var ki formüllerin kendisi standartların programla aynı okunuşunu
+izler (Bölüm 9). Kütüphanenin her dosyası, kaynak kodun her değişikliğinde LibreOffice Calc'ta yeniden hesaplanır
+(ek malzeme S7).
 
 ## 5. Validasyon sonuçları
 
@@ -288,7 +301,11 @@ yalnızca örnekleme hatasıyla tutarlıdır. Kalibrasyon parametreleri standart
 uyuşur; standart belirsizlikleri ise uyum zayıfken (en büyük ağırlıklı sapma Γ 1'in üzerindeyken) %0,75'e kadar
 farklıdır, çünkü Suncal'ın kovaryansı Gauss–Newton yaklaşımıdır, KAPSAM ise girdi belirsizliklerini minimum
 noktasından tam Hessian ile yayar (ISO 6143, Ek A); KAPSAM'ın çözümünde hesaplanan Gauss–Newton değerleri Suncal'ınkilerle
-6 × 10⁻⁵ düzeyinde uyuşur. 32 uygunluk olasılığı ve genel risk 1,4 × 10⁻¹⁰ düzeyinde uyuşur.
+6 × 10⁻⁵ düzeyinde uyuşur. 32 uygunluk olasılığı ve genel risk 1,4 × 10⁻¹⁰ düzeyinde uyuşur. Kütüphanenin 189
+doğrulama dosyası (135 ölçüm modeli, 39 yukarıdan aşağı değerlendirme, 9 yeterlilik testi ve 6 kesinlik deneyi),
+LibreOffice Calc'ta yeniden hesaplandığında karşılaştırılan 4678 değerin tamamını toleransları içinde yeniden üretir
+(S7); en büyük fark, merkezi farkların dördüncü kuvvetle girdiği M3003 Örnek K1'in etkin serbestlik derecesinde,
+toleransının 0,44'üdür.
 
 <!-- table3 -->
 
@@ -437,7 +454,11 @@ karşılaştırmayı referans değeri ve toleransıyla listeler; laboratuvarın 
 S5 böyle bir rapordur). Laboratuvar tipik projelerini beklenen değerleriyle saklar ve programın her güncellemesinden
 sonra yeniden çalıştırır. Teknik kayıtlar (7.5) ve veri bütünlüğü (7.11.3) için proje dosyası, rapor ve raporda
 basılı özet birlikte bir değerlendirmeyi belgeler: herkes daha sonra dosyalanmış bir raporun belirli bir proje
-dosyasına ait olduğunu denetleyebilir.
+dosyasına ait olduğunu denetleyebilir. `--workbooks klasor` ile aynı komut, doğrulama dosyası olan her projenin
+dosyasını yazar; rapor bunları özetleriyle ve dosyaları Excel'de açıp sonucu kaydedecek kişi için boş bir sütunla
+listeler. Uygulamada açık projenin dosyası tek bir menü seçeneğidir (*Excel'de doğrula*). Böylece laboratuvar kendi
+projelerini kendi elektronik tablo programıyla denetler; bu, birçok denetçinin yazılım validasyonunun alışılmış
+biçimi saydığı yoldur.
 
 ### 8.3 Raporlarda ve sertifikalarda ifadeler
 
@@ -476,7 +497,10 @@ adaydır) ve yayımdan önce yeniden hesaplamasını öneriyoruz. Bu çalışman
 uygulanmasını doğrular; bir laboratuvarın kendi ölçüm yöntemini geçerli kılmaz. Validasyon raporunun
 laboratuvarın projelerini kendi bölümünde tutmasının nedeni budur (Bölüm 8.2). Yayımlanmış değerlerle uyum, program ve bağımsız
 betikler bir standardı aynı biçimde okuduğunda ortak kaynaklı bir hatayı da gizleyebilir; gerçekten bağımsız
-denetimler Suncal karşılaştırması, NICOB kaynak kodu ve NIST Uncertainty Machine'dir. Bir yapay zekâ asistanıyla iç
+denetimler Suncal karşılaştırması, NICOB kaynak kodu ve NIST Uncertainty Machine'dir. Elektronik tablo dosyaları
+aritmetiği programdan bağımsız kılar ve her formülü görünür yapar, ancak formülleri standartların aynı okunuşuyla
+yazılmıştır; laboratuvarın kendi doğrulanmış elektronik tablosunun aynı verilere uygulanması daha güçlü bir denetim
+olur. Bir yapay zekâ asistanıyla iç
 ön inceleme yapılmıştır (Bölüm 10); göndermeden önce, proje dışındaki metrologlarca bağımsız bir inceleme, c1
 bulgularından en az onunun kodu görmemiş bir kişi tarafından yeniden hesaplanması dahil, planlanmaktadır.
 
@@ -518,6 +542,8 @@ deponun ve arşivlenmiş sürümünün parçasıdır [Zenodo DOI eklenecek].
 - **S4.** Suncal 1.7.1 ile karşılaştırma (171 proje).
 - **S5.** Programın bütün kütüphane için yazdığı bir yazılım validasyon raporu.
 - **S6.** *Sıfırdan belirsizlik* kılavuzu (İngilizce ve Türkçe) ve her örneğin adım adım açıklaması.
+- **S7.** Kütüphanenin 189 elektronik tablo doğrulama dosyasının LibreOffice Calc'ta yeniden hesaplanması ve örnek
+  olarak QUAM Örnek A1'in dosyası.
 
 ## CRediT yazar katkı beyanı
 

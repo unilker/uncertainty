@@ -19,7 +19,8 @@ desktop and mobile platforms, that implements the GUM including its 2026 amendme
 both variables, interlaboratory precision, control charts, uncertainty from sampling, weighing instruments,
 consensus values and results near a physical bound, with reports in English and Turkish. It is validated on 286
 projects built from the worked examples of 38 documents: the test suite recomputes all 1865 reference values at
-every change, and an independent program, Suncal, reproduces the results of 171 of them.
+every change, an independent program, Suncal, reproduces the results of 171 of them, and spreadsheet formulas
+recalculated in LibreOffice those of 189.
 Recomputing the examples produced 100 findings, among them 13 confirmed inconsistencies that change a final printed
 result. The choice of consensus procedure changes the degrees of equivalence of a key comparison as much as its
 reference value. For laboratories, the program writes a software validation report for ISO/IEC 17025 and contains
@@ -200,14 +201,15 @@ only in the reported statement.
 - **Tests.** 218 automated tests of the engine include one that evaluates all 286 library projects and compares
   their 1865 results with the reference values; 28 tests of the application exercise its editors and results with
   the engine. They run at every change of the source code (continuous integration on GitHub Actions), together
-  with a formatting check and a static analysis that treats every warning as an error.
+  with a formatting check, a static analysis that treats every warning as an error, and the recalculation of the
+  spreadsheet verification workbooks of the library in LibreOffice Calc (Section 4.4).
 - **Packages.** A second workflow builds the packages for the five platforms from the same commit and runs the
   application tests against the engine on Windows and macOS before packaging. The Windows executable is built
   reproducibly, so that the same sources give a byte-identical file.
 - **Identity of a result.** Every report states the program version, the git commit and date it was built from,
   the compiler, and the SHA-256 digest of the project as evaluated. A result can therefore be traced to its inputs
   and to a validated build (ISO/IEC 17025 7.5, 7.11).
-- **Traceability of the development.** The repository contains a research log of every design decision (D1–D90)
+- **Traceability of the development.** The repository contains a research log of every design decision (D1–D94)
   and finding (F1–F100), the generators that write each library project from the numerical data of its source, and
   the scripts of every independent recomputation (`tools/research/`). Licensed documents are used only for their
   numerical data and are not distributed.
@@ -265,7 +267,7 @@ erratum. A finding counts as confirmed when the recomputation from the document'
 question, or when it was reproduced independently; findings that await a check against another source are not
 counted.
 
-### 4.4 Independent benchmark
+### 4.4 Independent checks
 
 Every project that Suncal 1.7.1 can express was evaluated by both programs (D74, D93; supplementary material S4):
 135 measurement models, 24 of them with correlated inputs or intermediate quantities; 12 models with several
@@ -274,6 +276,17 @@ straight lines and its orthogonal distance regression for the other functions; a
 compared by the conformance probability of each result and the global consumer and producer risks. The other
 project types (top-down evaluation, proficiency testing, precision experiments, control charts, sampling,
 consensus values) have no counterpart in Suncal.
+
+For measurement models, proficiency tests, precision experiments and top-down evaluations, KAPSAM also writes a
+spreadsheet verification workbook (.xlsx; D94). It holds the data of the project and ordinary spreadsheet formulas:
+the measurement model as a formula, evaluated at the estimates and at xᵢ ± 0.001 u(xᵢ), so that the sensitivity
+coefficients are central differences in the spirit of Kragten's spreadsheet [8, Appendix E]; Algorithm A of ISO 13528 with one
+column per iteration and the stopping rule of C.3.1 as a formula; the analysis of variance of ISO 5725-2; the
+components of Nordtest TR 537 and their combination at each level. KAPSAM's own results appear only as fixed
+numbers beside the spreadsheet's, with the difference and a tolerance. The arithmetic is thus done by the
+spreadsheet program, and every formula can be inspected cell by cell; the formulas themselves, however, follow the
+same reading of the standards as the program (Section 9). Every workbook of the library is recalculated in
+LibreOffice Calc at every change of the source code (supplementary material S7).
 
 ## 5. Validation results
 
@@ -291,7 +304,10 @@ uncertainties; their standard uncertainties differ by up to 0.75 % when the fit 
 Γ above 1), because Suncal's covariance is the Gauss–Newton approximation while KAPSAM propagates the input
 uncertainties through the minimum with the full Hessian (ISO 6143, Annex A); computed at KAPSAM's solution, the
 Gauss–Newton values agree with Suncal's to 6 × 10⁻⁵. The 32 conformance probabilities and global risks agree to
-1.4 × 10⁻¹⁰.
+1.4 × 10⁻¹⁰. The 189 verification workbooks of the library (135 measurement models, 39 top-down evaluations, 9
+proficiency tests and 6 precision experiments), recalculated in LibreOffice Calc, reproduce all 4678 compared values
+within their tolerances (S7); the largest difference is 0.44 of its tolerance, for the effective degrees of freedom
+of M3003 Example K1, in which the central differences enter to the fourth power.
 
 <!-- table3 -->
 
@@ -440,7 +456,12 @@ in a section of their own, because reproducing published examples verifies the i
 laboratory's procedure (supplementary material S5 is such a report). A laboratory keeps its typical projects with
 their expected values and reruns them after every update of the program. For technical records (7.5) and data
 integrity (7.11.3), the project file, the report and the digest printed in the report together document an
-evaluation: anyone can later check that a filed report belongs to a given project file.
+evaluation: anyone can later check that a filed report belongs to a given project file. With `--workbooks folder`
+the same command writes the spreadsheet verification workbook of every project that has one, and the report lists
+them with their digests and an empty column for the person who opens them in Excel to record the outcome; in the
+application the workbook of the open project is one menu entry away (*Verify in Excel*). A laboratory thus checks
+its own projects with its own spreadsheet program, which many assessors regard as the familiar form of software
+validation.
 
 ### 8.3 Statements in reports and certificates
 
@@ -479,7 +500,10 @@ is one candidate — and recompute them before publication. The library of this 
 documented methods; it does not validate a laboratory's own measurement procedure, which is why the validation
 report keeps the laboratory's projects in a section of their own (Section 8.2). Agreement with the published values
 can also hide a common-mode error when the program and the independent scripts read a standard the same way; the
-Suncal benchmark, the NICOB source code and the NIST Uncertainty Machine are the truly independent checks. An
+Suncal benchmark, the NICOB source code and the NIST Uncertainty Machine are the truly independent checks. The
+spreadsheet workbooks make the arithmetic independent of the program and every formula visible, but their formulas
+were written from the same reading of the standards; a laboratory's own validated spreadsheet applied to the same
+data would be a stronger check. An
 internal pre-review was carried out with an AI assistant (Section 10); an independent review by metrologists
 outside the project, including the recomputation of at least ten of the c1 findings by a person who has not seen
 the code, is planned before submission.
@@ -521,6 +545,8 @@ tables and figures are part of the repository and of its archived release [Zenod
 - **S4.** The comparison with Suncal 1.7.1 (171 projects).
 - **S5.** A software validation report written by the program for the whole library.
 - **S6.** The guide *Uncertainty from scratch* (English and Turkish) with the step-by-step explanation of every example.
+- **S7.** The recalculation of the 189 spreadsheet verification workbooks of the library in LibreOffice Calc, and
+  the workbook of QUAM Example A1 as a sample.
 
 ## CRediT authorship contribution statement
 

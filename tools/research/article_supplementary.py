@@ -8,7 +8,9 @@ S2  the findings F1-F100 with class, document, and for class c their effect and 
 S3  the validation matrix (copy of docs/research/validation-matrix.md);
 S4  the comparison with Suncal (copy of docs/research/benchmark-suncal.md);
 S5  the software validation report written by `kapsam check library` (PDF);
-S6  pointer to the beginner's guide and the step-by-step explanations (docs/guide/beginner).
+S6  pointer to the beginner's guide and the step-by-step explanations (docs/guide/beginner);
+S7  the recalculation of the spreadsheet verification workbooks in LibreOffice (copy of
+    docs/research/spreadsheet-check.md) and the workbook of QUAM Example A1.
 """
 import csv
 import glob
@@ -80,9 +82,16 @@ print("S5:", (OUT / "S5_validation_report.pdf").exists())
     "`docs/guide/beginner/en/examples.md` and `docs/guide/beginner/tr/examples.md`.\n\n"
     "They are written by `app/tool/write_learning_docs.dart` from `app/assets/guide/` and the library.\n",
     encoding="utf-8")
+# S7
+shutil.copy("docs/research/spreadsheet-check.md", OUT / "S7_spreadsheet_check.md")
+subprocess.run([EXE, "run", "library/chemistry/quam-a1-cadmium-standard.json", "--no-mcm", "-o",
+                str(OUT / "S7_workbook_quam_a1.xlsx")], check=True, capture_output=True)
+print("S7:", (OUT / "S7_workbook_quam_a1.xlsx").exists())
 (OUT / "README.md").write_text(
     "# Supplementary material\n\nWritten by `tools/research/article_supplementary.py`; do not edit by hand.\n\n"
     "- S1 `S1_library.csv`: the library projects\n- S2 `S2_findings.csv`: the findings\n"
     "- S3 `S3_validation_matrix.md`: the validation matrix\n- S4 `S4_suncal_benchmark.md`: the comparison with Suncal\n"
     "- S5 `S5_validation_report.pdf`: the software validation report of the library\n"
-    "- S6 `S6_guide.md`: the beginner's guide and the explanation of every example\n", encoding="utf-8")
+    "- S6 `S6_guide.md`: the beginner's guide and the explanation of every example\n"
+    "- S7 `S7_spreadsheet_check.md`: the recalculation of the spreadsheet verification workbooks, and "
+    "`S7_workbook_quam_a1.xlsx`, the workbook of QUAM Example A1\n", encoding="utf-8")
