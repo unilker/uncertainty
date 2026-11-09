@@ -10,12 +10,15 @@ import 'dart:math' as math;
 import '../format.dart';
 
 /// Markdown explaining [project] in [lang] ('en' or 'tr').
-String explainProject(Map<String, dynamic> project, String lang) => _Explainer(project, lang).run();
+/// Without [includeDescription] the description of the project is left out
+/// (the overview tab shows it already).
+String explainProject(Map<String, dynamic> project, String lang, {bool includeDescription = true}) => _Explainer(project, lang, includeDescription).run();
 
 class _Explainer {
-  _Explainer(this.p, this.lang);
+  _Explainer(this.p, this.lang, this.includeDescription);
   final Map<String, dynamic> p;
   final String lang;
+  final bool includeDescription;
   final b = StringBuffer();
 
   bool get tr => lang == 'tr';
@@ -58,7 +61,7 @@ class _Explainer {
   String run() {
     final meta = (p['metadata'] as Map?) ?? const {};
     final description = text(meta['description']);
-    if (description.isNotEmpty) {
+    if (includeDescription && description.isNotEmpty) {
       h(t('What is this project about?', 'Bu proje ne hakkında?'));
       para(description);
     }

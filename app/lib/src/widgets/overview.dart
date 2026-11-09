@@ -56,7 +56,7 @@ class OverviewTab extends StatelessWidget {
               title: Text(s['learn_steps'], style: const TextStyle(fontWeight: FontWeight.w700)),
               childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              children: [MarkdownView(explainProject(project, s.lang), compact: true, onLink: onLink)],
+              children: [MarkdownView(explainProject(project, s.lang, includeDescription: description == null), compact: true, onLink: onLink)],
             ),
           ),
         ),
