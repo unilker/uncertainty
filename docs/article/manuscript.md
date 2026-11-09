@@ -263,8 +263,8 @@ each (a finding with two classes counted in both).
 | F87 | EMUE E3.4 | U / (mg/kg) | 2.8 | 2.9 | root mean square of the relative bias uncertainties |
 | F90 | EMUE E3.3 | u / (nmol/mol) | 4.7 | 4.47 | diagonal of the covariance matrix |
 
-*Before submission, each row is to be checked against the current edition and published errata; the reports to
-the issuing bodies are discussed in Section 7.*
+*Before submission, each row is to be checked against the current edition and published errata, and recomputed by
+a person who has not seen the code (Section 7).*
 
 ### 5.2 Intermediate rounding is ubiquitous
 
@@ -355,8 +355,9 @@ internal pre-review was carried out with an AI assistant (Section 8); an indepen
 the project, including the recomputation of at least ten of the c1 findings by a person who has not seen the code,
 is planned before submission.
 
-**Reporting the findings.** The c1 findings of Table 4 are to be sent to the issuing bodies as technical notes
-before or with submission, and their replies cited. [Decision of the author pending.]
+**Reporting the findings.** The findings were not communicated to the issuing bodies before submission. The c1
+findings of Table 4 will be sent to them as technical notes after acceptance, so that the notes can refer to a
+peer-reviewed record, and their replies will be added to the public research log of the program.
 
 **Limitations.** Not implemented are the NICOB priors on σ_j for results with finite degrees of freedom, the
 degrees of equivalence with Laplace effects, time series (ARMA) and counting statistics, model averaging, and

@@ -261,8 +261,8 @@ vardır (iki sınıflı bir bulgu her ikisinde de sayılmıştır).
 | F87 | EMUE E3.4 | U / (mg/kg) | 2,8 | 2,9 | bağıl sapma belirsizliklerinin karesel ortalaması |
 | F90 | EMUE E3.3 | u / (nmol/mol) | 4,7 | 4,47 | kovaryans matrisinin köşegeni |
 
-*Göndermeden önce her satır güncel baskı ve yayımlanmış düzeltmelerle karşılaştırılacaktır; yayımcı kuruluşlara
-bildirim Bölüm 7'de ele alınmıştır.*
+*Göndermeden önce her satır güncel baskı ve yayımlanmış düzeltmelerle karşılaştırılacak ve kodu görmemiş bir kişi
+tarafından yeniden hesaplanacaktır (Bölüm 7).*
 
 ### 5.2 Ara yuvarlama her yerde
 
@@ -352,8 +352,9 @@ denetimler Suncal karşılaştırması, NICOB kaynak kodu ve NIST Uncertainty Ma
 ön inceleme yapılmıştır (Bölüm 8); göndermeden önce, proje dışındaki metrologlarca bağımsız bir inceleme, c1
 bulgularından en az onunun kodu görmemiş bir kişi tarafından yeniden hesaplanması dahil, planlanmaktadır.
 
-**Bulguların bildirilmesi.** Tablo 4'teki c1 bulguları, göndermeden önce veya gönderimle birlikte yayımcı
-kuruluşlara teknik not olarak iletilecek ve yanıtları kaynak gösterilecektir. [Yazarın kararı bekleniyor.]
+**Bulguların bildirilmesi.** Bulgular, gönderimden önce yayımcı kuruluşlara bildirilmemiştir. Tablo 4'teki c1
+bulguları, hakemli bir kayda atıf yapabilmeleri için makale kabul edildikten sonra kuruluşlara teknik not olarak
+iletilecek; yanıtları programın herkese açık araştırma günlüğüne eklenecektir.
 
 **Sınırlamalar.** Sonlu serbestlik dereceli sonuçlar için σ_j üzerindeki NICOB önselleri, Laplace etkileriyle
 eşdeğerlik dereceleri, zaman serileri (ARMA) ve sayım istatistikleri, model ortalaması ve imzalı sonuç paketleri

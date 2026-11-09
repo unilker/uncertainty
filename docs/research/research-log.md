@@ -3508,3 +3508,11 @@ miniz_oxide 0.8 (MIT/Apache/Zlib, pure Rust). The output is deterministic (no cr
 is in the text), so the SHA-256 of a filed PDF can be recomputed. A library test checks that the font has a glyph
 for every character of every library report in both languages. Signed packages (7.11.3) remain open: the PDF and
 the project digest give integrity checks, not signatures.
+
+**D90. Reporting the findings to the issuing bodies (review items 8 and 18; decision of the author, 2026-11-09).**
+The findings are not communicated to the issuing bodies before submission. The c1 findings of the article
+(Table 4) are sent to them as technical notes after acceptance, so that the notes can cite a peer-reviewed record;
+the replies are recorded here. The pre-review had recommended reporting before or with submission, partly so that
+the replies could confirm the findings; that check is taken over by the independent recomputation of the c1
+findings by a person who has not seen the code, which remains required before submission. The article states the
+decision (Section 7 and the note to Table 4). The F97 question to the BIPM qNMR team follows the same rule.
