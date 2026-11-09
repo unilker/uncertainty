@@ -529,10 +529,16 @@ class _Explainer {
       final av = pt['assigned_value'];
       final method = av is Map ? av['method']?.toString() : null;
       final how = switch (method) {
-        'algorithm_a' => t('the robust average of the participants\' results (Algorithm A, which limits the influence of outliers)', 'katılımcı sonuçlarının dayanıklı ortalaması (aykırı değerlerin etkisini sınırlayan Algoritma A)'),
+        'algorithm_a' => t(
+          'the robust average of the participants\' results (Algorithm A, which limits the influence of outliers)',
+          'katılımcı sonuçlarının dayanıklı ortalaması (aykırı değerlerin etkisini sınırlayan Algoritma A)',
+        ),
         'median' => t('the median of the participants\' results', 'katılımcı sonuçlarının medyanı'),
         'mean' => t('the arithmetic mean of the participants\' results', 'katılımcı sonuçlarının aritmetik ortalaması'),
-        'reference' => t('a reference value determined independently (e.g. by a reference laboratory or from a certified reference material)', 'bağımsız olarak belirlenmiş bir referans değer (örneğin bir referans laboratuvarınca ya da sertifikalı referans malzemeden)'),
+        'reference' => t(
+          'a reference value determined independently (e.g. by a reference laboratory or from a certified reference material)',
+          'bağımsız olarak belirlenmiş bir referans değer (örneğin bir referans laboratuvarınca ya da sertifikalı referans malzemeden)',
+        ),
         _ => av is num ? g(av) : (method ?? ''),
       };
       para(

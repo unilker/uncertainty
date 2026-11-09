@@ -20,12 +20,13 @@ def lesson(prefix, level, title_en, title_tr, en, tr):
 # --- Level 1: first steps -----------------------------------------------------------------------------------------
 
 lesson("nist-tn1900-e1", 1, "Weighing a powder", "Bir tozu tartmak",
-       "The simplest possible budget: a mass is the difference of two balance readings. You see how the uncertainty "
-       "of the balance enters twice, once for each reading, and how two equal contributions combine to √2 times one "
-       "of them, not twice.",
-       "Olabilecek en basit bütçe: bir kütle, iki terazi okumasının farkıdır. Terazinin belirsizliğinin her okuma için "
-       "bir kez, yani iki kez girdiğini ve iki eşit katkının ikisinin toplamı değil, birinin √2 katı olarak "
-       "birleştiğini görürsünüz.")
+       "A very simple budget: the mass of a powder is the reading of the filled container minus the reading of the "
+       "empty one, with a small correction for the drift of the balance. The two readings have the same uncertainty; "
+       "together they give √2 times one of them, not twice. GUM and Monte Carlo give the same result, because the "
+       "model is linear.",
+       "Çok basit bir bütçe: tozun kütlesi, dolu kabın okumasından boş kabın okumasının çıkarılmasıyla ve terazinin "
+       "kayması için küçük bir düzeltmeyle bulunur. İki okumanın belirsizliği aynıdır; birlikte birinin iki katını "
+       "değil, √2 katını verirler. Model doğrusal olduğu için GUM ve Monte Carlo aynı sonucu verir.")
 lesson("jcgm101-9.2", 1, "Adding inputs: normal and rectangular", "Girdileri toplamak: normal ve dikdörtgen",
        "Four inputs are simply added. The three variants differ only in the shape of the input distributions. "
        "Compare the GUM result with Monte Carlo: when one rectangular input dominates, the result is not normal any "
@@ -98,10 +99,10 @@ lesson("m3003-k8", 1, "A pressure indicator at 2 MPa", "2 MPa'da bir basınç g�
        "Bir dijital basınç göstergesi bir ölü ağırlık test cihazıyla karşılaştırılır. Tipik bir basınç kalibrasyonu "
        "bütçesi.")
 lesson("m3003-k10", 1, "Thickness of a sheet", "Bir levhanın kalınlığı",
-       "The thickness of an aluminium sample is measured several times with a micrometer. It combines a Type A "
-       "evaluation (the scatter of the readings) with Type B terms (the micrometer's calibration and resolution).",
-       "Bir alüminyum numunenin kalınlığı bir mikrometreyle birkaç kez ölçülür. A tipi bir değerlendirmeyi "
-       "(okumaların dağılımı) B tipi terimlerle (mikrometrenin kalibrasyonu ve çözünürlüğü) birleştirir.")
+       "The thickness of an aluminium sample is the mean of five readings. It combines a Type A evaluation (the "
+       "scatter of the readings) with Type B terms: calibration, resolution, drift and temperature.",
+       "Bir alüminyum numunenin kalınlığı beş okumanın ortalamasıdır. A tipi bir değerlendirmeyi (okumaların "
+       "dağılımı) B tipi terimlerle birleştirir: kalibrasyon, çözünürlük, kayma ve sıcaklık.")
 lesson("cg19", 1, "Calibrating volumetric glassware", "Hacimsel cam malzemenin kalibrasyonu",
        "The volume of a flask or pycnometer is found by weighing the water it holds. You see how the density of "
        "water and air, the temperature and the balance enter the result.",
@@ -202,10 +203,12 @@ lesson("m3003-c5", 2, "When one rectangular term dominates", "Bir dikdörtgen te
        "Çözünürlüğü baskın olan bir voltmetre. Sonuç normalden çok dikdörtgene yakın olduğu için UKAS M3003 bu durum "
        "için özel bir kapsam faktörü verir.")
 lesson("m3003-l3", 2, "A multimeter specification across a range", "Bir aralık boyunca multimetre spesifikasyonu",
-       "The specification of a multimeter is given as \"% of reading + % of range\". The examples show the "
-       "uncertainty at several points of the 1 V range and the coverage factor when the specification dominates.",
-       "Bir multimetrenin spesifikasyonu \"okumanın %'si + aralığın %'si\" olarak verilir. Örnekler 1 V aralığının "
-       "birkaç noktasındaki belirsizliği ve spesifikasyon baskın olduğundaki kapsam faktörünü gösterir.")
+       "A 6½-digit multimeter on its 1 V range: some contributions are relative to the reading (ppm), others are "
+       "absolute (µV). The examples show the uncertainty at several points of the range and the coverage factor when "
+       "the specification dominates.",
+       "1 V aralığında 6½ basamaklı bir multimetre: katkıların bir kısmı okumaya göre bağıldır (ppm), bir kısmı "
+       "mutlaktır (µV). Örnekler aralığın birkaç noktasındaki belirsizliği ve spesifikasyon baskın olduğundaki kapsam "
+       "faktörünü gösterir.")
 lesson("quam-a2", 2, "Standardising a sodium hydroxide solution", "Bir sodyum hidroksit çözeltisinin ayarlanması",
        "Titration against a weighed primary standard. The example uses sub-models (the mass, the volume of the "
        "burette) and shows that repeatability can be put into one combined term.",

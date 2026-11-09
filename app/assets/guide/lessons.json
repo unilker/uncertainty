@@ -6,8 +6,8 @@
    "en": "Weighing a powder",
    "tr": "Bir tozu tartmak"
   },
-  "en": "The simplest possible budget: a mass is the difference of two balance readings. You see how the uncertainty of the balance enters twice, once for each reading, and how two equal contributions combine to √2 times one of them, not twice.",
-  "tr": "Olabilecek en basit bütçe: bir kütle, iki terazi okumasının farkıdır. Terazinin belirsizliğinin her okuma için bir kez, yani iki kez girdiğini ve iki eşit katkının ikisinin toplamı değil, birinin √2 katı olarak birleştiğini görürsünüz."
+  "en": "A very simple budget: the mass of a powder is the reading of the filled container minus the reading of the empty one, with a small correction for the drift of the balance. The two readings have the same uncertainty; together they give √2 times one of them, not twice. GUM and Monte Carlo give the same result, because the model is linear.",
+  "tr": "Çok basit bir bütçe: tozun kütlesi, dolu kabın okumasından boş kabın okumasının çıkarılmasıyla ve terazinin kayması için küçük bir düzeltmeyle bulunur. İki okumanın belirsizliği aynıdır; birlikte birinin iki katını değil, √2 katını verirler. Model doğrusal olduğu için GUM ve Monte Carlo aynı sonucu verir."
  },
  {
   "prefix": "jcgm101-9.2",
@@ -146,8 +146,8 @@
    "en": "Thickness of a sheet",
    "tr": "Bir levhanın kalınlığı"
   },
-  "en": "The thickness of an aluminium sample is measured several times with a micrometer. It combines a Type A evaluation (the scatter of the readings) with Type B terms (the micrometer's calibration and resolution).",
-  "tr": "Bir alüminyum numunenin kalınlığı bir mikrometreyle birkaç kez ölçülür. A tipi bir değerlendirmeyi (okumaların dağılımı) B tipi terimlerle (mikrometrenin kalibrasyonu ve çözünürlüğü) birleştirir."
+  "en": "The thickness of an aluminium sample is the mean of five readings. It combines a Type A evaluation (the scatter of the readings) with Type B terms: calibration, resolution, drift and temperature.",
+  "tr": "Bir alüminyum numunenin kalınlığı beş okumanın ortalamasıdır. A tipi bir değerlendirmeyi (okumaların dağılımı) B tipi terimlerle birleştirir: kalibrasyon, çözünürlük, kayma ve sıcaklık."
  },
  {
   "prefix": "cg19",
@@ -336,8 +336,8 @@
    "en": "A multimeter specification across a range",
    "tr": "Bir aralık boyunca multimetre spesifikasyonu"
   },
-  "en": "The specification of a multimeter is given as \"% of reading + % of range\". The examples show the uncertainty at several points of the 1 V range and the coverage factor when the specification dominates.",
-  "tr": "Bir multimetrenin spesifikasyonu \"okumanın %'si + aralığın %'si\" olarak verilir. Örnekler 1 V aralığının birkaç noktasındaki belirsizliği ve spesifikasyon baskın olduğundaki kapsam faktörünü gösterir."
+  "en": "A 6½-digit multimeter on its 1 V range: some contributions are relative to the reading (ppm), others are absolute (µV). The examples show the uncertainty at several points of the range and the coverage factor when the specification dominates.",
+  "tr": "1 V aralığında 6½ basamaklı bir multimetre: katkıların bir kısmı okumaya göre bağıldır (ppm), bir kısmı mutlaktır (µV). Örnekler aralığın birkaç noktasındaki belirsizliği ve spesifikasyon baskın olduğundaki kapsam faktörünü gösterir."
  },
  {
   "prefix": "quam-a2",

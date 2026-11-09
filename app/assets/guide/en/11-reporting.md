@@ -24,7 +24,7 @@ The program writes this sentence for you, in English or Turkish, under **Reporte
 
 - Give U with **two significant digits** (sometimes one): 0.0012 g, not 0.001 234 5 g. More digits pretend a precision that the uncertainty itself does not have.
 - Give the value with **the same number of decimals** as U: 100.0021 g, not 100.002 or 100.002 13.
-- Never round U down too much: the default rule (EA-4/02 M:2022, 6.3) rounds normally, unless this lowers U by more than 5 %, and then rounds up. Other rules are available in **Settings → Rounding**: always up, half up, half even.
+- Never round U down too much: the default rule (EA-4/02 M:2022, 6.3) rounds normally, unless this lowers U by more than 5 %, and then rounds up. Other rules are available in **Settings → Rounding**: always up, half up, half to even.
 - Keep all digits during the calculation; round only the reported result. The program does this.
 
 ## Relative uncertainty and percentages {#relative}

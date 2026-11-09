@@ -61,7 +61,7 @@ class _GuideScreenState extends State<GuideScreen> {
     final chapters = await loadGuide(lang);
     final lessons = await loadLessons();
     final library = await loadLibrary();
-    chapters.add(GuideChapter(examplesChapter, examplesGuide(lessons, library, lang)));
+    chapters.add(GuideChapter(examplesChapter, examplesGuide(lessons, [for (final e in library) e.project], lang)));
     return _GuideData(chapters, lessons, library);
   }
 
@@ -238,64 +238,4 @@ class _GuideScreenState extends State<GuideScreen> {
       },
     );
   }
-}
-
-/// The generated chapter that lists the examples of the library by level,
-/// with the lesson of each group.
-String examplesGuide(Lessons lessons, List<LibraryEntry> library, String lang) {
-  final tr = lang == 'tr';
-  final b = StringBuffer();
-  b.writeln(tr ? '# 13. Örneklerle öğrenmek' : '# 13. Learning with the examples');
-  b.writeln();
-  b.writeln(
-    tr
-        ? 'Kütüphanedeki ${library.length} örneğin her biri yayımlanmış bir kılavuzdan, standarttan ya da makaleden alınmıştır ve program her değişiklikte onları yeniden hesaplar. Aşağıda örnekler zorluk düzeyine göre gruplanmıştır. Her grubun başında o grubun ne öğrettiği yazar; bir örneğin adına tıklayınca örnek açılır. Açılan örneğin **Genel** sekmesinde, örneğin adım adım açıklaması vardır.'
-        : 'Each of the ${library.length} examples of the library comes from a published guide, standard or paper, and the program recomputes them at every change. Below, the examples are grouped by level. Each group starts with what it teaches; click the name of an example to open it. The **Overview** tab of the opened example explains it step by step.',
-  );
-  b.writeln();
-  b.writeln(
-    tr
-        ? '> **İpucu:** Yeni başlıyorsanız Başlangıç düzeyindeki ilk gruplarla başlayın, her örnekte önce **Hesapla** düğmesine basın, sonra sonuçları açıklamayla karşılaştırın.'
-        : '> **Tip:** If you are new, start with the first groups of the Beginner level; in each example press **Calculate** first, then compare the results with the explanation.',
-  );
-  final byLesson = <Lesson, List<LibraryEntry>>{};
-  final other = <LibraryEntry>[];
-  for (final e in library) {
-    final l = lessons.forId(e.id);
-    if (l == null) {
-      other.add(e);
-    } else {
-      byLesson.putIfAbsent(l, () => []).add(e);
-    }
-  }
-  String title(LibraryEntry e) {
-    final t = e.metadata['title'];
-    return (t is Map ? (t[lang] ?? t['en']) : t).toString();
-  }
-
-  for (final level in [1, 2, 3]) {
-    final group = lessons.items.where((l) => l.level == level && byLesson.containsKey(l)).toList();
-    if (group.isEmpty) continue;
-    b.writeln();
-    b.writeln('## ${tr ? 'Düzey' : 'Level'} $level: ${levelName(level, lang)} {#level-$level}');
-    for (final l in group) {
-      b.writeln();
-      b.writeln('### ${l.titleIn(lang)}');
-      b.writeln();
-      b.writeln(l.inLang(lang));
-      b.writeln();
-      for (final e in byLesson[l]!) {
-        b.writeln('- [${title(e)}](example:${e.id})');
-      }
-    }
-  }
-  if (other.isNotEmpty) {
-    b.writeln();
-    b.writeln(tr ? '## Diğer örnekler' : '## Other examples');
-    b.writeln();
-    for (final e in other) {
-      b.writeln('- [${title(e)}](example:${e.id})');
-    }
-  }
-  return b.toString();
 }

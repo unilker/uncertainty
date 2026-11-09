@@ -136,6 +136,11 @@ yeterlilik testi ve kalibrasyon (ISO 6143) düzenleyicileri, bütçe, grafikler 
 
 ## User guide / Kullanım rehberi
 
+**Beginner's guide / Başlangıç kılavuzu:** *Uncertainty from scratch / Sıfırdan belirsizlik*, built into the
+application and in [docs/guide/beginner](docs/guide/beginner/en/README.md) ([Türkçe](docs/guide/beginner/tr/README.md)):
+twelve chapters from the first idea to reporting, a plain-language step-by-step explanation of every project and a
+lesson with a level (beginner, intermediate, advanced) for every library example.
+
 [docs/guide](docs/guide/README.md) — in English and Turkish: getting started, the GUM uncertainty framework,
 the Monte Carlo method, top-down evaluation, reporting, the project file reference, an English–Turkish
 glossary, proficiency testing, calibration in both variables, conformity assessment, interlaboratory precision
