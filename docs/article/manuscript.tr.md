@@ -19,8 +19,8 @@ yöntemlerini, uygunluk değerlendirmesini, yukarıdan aşağı değerlendirmeyi
 değişkende de belirsizlikli kalibrasyonu, laboratuvarlar arası kesinliği, kontrol grafiklerini, numune almadan
 kaynaklanan belirsizliği, tartı aletlerini, uzlaşı değerlerini ve fiziksel bir sınıra yakın sonuçları kapsar;
 raporları İngilizce ve Türkçedir. 38 belgenin çözümlü örneklerinden oluşturulan 286 proje üzerinde doğrulanmıştır:
-test takımı her değişiklikte 1865 referans değerinin tamamını yeniden hesaplar ve bağımsız bir program birinci
-mertebe standart belirsizlikte 6 × 10⁻¹² düzeyinde uyuşur. Örneklerin yeniden hesaplanması 100 bulgu ortaya
+test takımı her değişiklikte 1865 referans değerinin tamamını yeniden hesaplar ve bağımsız bir program, Suncal,
+bunların 171'inin sonuçlarını yeniden üretir. Örneklerin yeniden hesaplanması 100 bulgu ortaya
 çıkardı; bunların 13'ü basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır. Uzlaşı yönteminin seçimi
 bir anahtar karşılaştırmanın eşdeğerlik derecelerini, referans değerini değiştirdiği ölçüde değiştirir.
 Laboratuvarlar için program ISO/IEC 17025'e uygun bir yazılım validasyon raporu yazar ve her örneği adım adım
@@ -267,19 +267,28 @@ bulgular sayılmaz.
 
 ### 4.4 Bağımsız karşılaştırma
 
-Suncal 1.7.1'in ifade edebildiği her model projesi (skaler çıktılı, korelasyonsuz ve ara büyüklüksüz 107 proje) bir
-Suncal modeline çevrildi ve iki programla değerlendirildi (D74).
+Suncal 1.7.1'in ifade edebildiği her proje iki programla da değerlendirildi (D74, D93; ek malzeme S4): 24'ü
+korelasyonlu girdi veya ara büyüklük içeren 135 ölçüm modeli; birden çok çıktılı 12 model (JCGM 102); doğrular için
+Suncal'ın York uydurmasıyla, diğer fonksiyonlar için dik uzaklık regresyonuyla karşılaştırılan, iki değişkende de
+belirsizlikli 6 kalibrasyon; ve her sonucun uygunluk olasılığı ile genel tüketici ve üretici riskleri karşılaştırılan
+18 uygunluk değerlendirmesi. Diğer proje türlerinin (yukarıdan aşağı değerlendirme, yeterlilik testi, kesinlik
+deneyleri, kontrol grafikleri, numune alma, uzlaşı değerleri) Suncal'da karşılığı yoktur.
 
 ## 5. Validasyon sonuçları
 
 286 projenin 1865 referans değerinin tamamı toleransları içinde yeniden üretilmektedir. Validasyon matrisi (ek malzeme S3) 228
 çözümlü örneği veya türevi yeniden üretilmiş olarak kaydeder; bunların 25'inde bir bulgu vardır. Suncal ile (S4)
-birinci mertebe standart belirsizlikler bağıl 6,4 × 10⁻¹² düzeyinde uyuşur; kestirimler, 2026 değişikliğinin
-ikinci mertebe kestirim terimini isteyen iki proje dışında aynıdır (tasarım gereği Δy = 0,5u ve 0,1u; Suncal birinci
-mertebedir). Girdilerini her iki programın da örnekleyebildiği 48 projede Monte Carlo standart sapmaları en çok
-%0,3 farklıdır; fark, her iki programın örnekleme hatalarını ve çıktının basıklığı için bir düzeltmeyi birleştiren
-farkın standart hatasına bölündüğünde en büyük |z| 3,0'dır; 48 bağımsız karşılaştırma için bunun olasılığı
-0,12'dir, yani dağılım yalnızca örnekleme hatasıyla tutarlıdır.
+135 ölçüm modelinin birinci mertebe standart belirsizlikleri bağıl 6,4 × 10⁻¹² düzeyinde uyuşur; kestirimler, 2026
+değişikliğinin ikinci mertebe kestirim terimini isteyen iki proje dışında aynıdır (tasarım gereği Δy = 0,5u ve
+0,1u; Suncal birinci mertebedir). Birden çok çıktılı modellerde standart belirsizlikler 1,6 × 10⁻¹⁴, korelasyon
+katsayıları 3,1 × 10⁻¹⁴ düzeyinde uyuşur. 79 Monte Carlo karşılaştırmasında standart sapmalar en çok %0,29 farklıdır;
+fark, her iki programın örnekleme hatalarını ve çıktının basıklığı için bir düzeltmeyi birleştiren farkın standart
+hatasına bölündüğünde en büyük |z| 2,4'tür; 79 bağımsız karşılaştırma için bunun olasılığı 0,75'tir, yani dağılım
+yalnızca örnekleme hatasıyla tutarlıdır. Kalibrasyon parametreleri standart belirsizliklerinin 2 × 10⁻⁴'ü içinde
+uyuşur; standart belirsizlikleri ise uyum zayıfken (en büyük ağırlıklı sapma Γ 1'in üzerindeyken) %0,75'e kadar
+farklıdır, çünkü Suncal'ın kovaryansı Gauss–Newton yaklaşımıdır, KAPSAM ise girdi belirsizliklerini minimum
+noktasından tam Hessian ile yayar (ISO 6143, Ek A); KAPSAM'ın çözümünde hesaplanan Gauss–Newton değerleri Suncal'ınkilerle
+6 × 10⁻⁵ düzeyinde uyuşur. 32 uygunluk olasılığı ve genel risk 1,4 × 10⁻¹⁰ düzeyinde uyuşur.
 
 <!-- table3 -->
 
@@ -506,7 +515,7 @@ deponun ve arşivlenmiş sürümünün parçasıdır [Zenodo DOI eklenecek].
 - **S1.** 286 kütüphane projesi: kaynak belge ve bölümü, alan, değerlendirme türü ve karşılaştırılan değer sayısı.
 - **S2.** 100 bulgu; sınıfları, etkileri ve durumlarıyla.
 - **S3.** Validasyon matrisi: her çözümlü örnek ya da türevi ve sonucu.
-- **S4.** Suncal 1.7.1 ile karşılaştırma.
+- **S4.** Suncal 1.7.1 ile karşılaştırma (171 proje).
 - **S5.** Programın bütün kütüphane için yazdığı bir yazılım validasyon raporu.
 - **S6.** *Sıfırdan belirsizlik* kılavuzu (İngilizce ve Türkçe) ve her örneğin adım adım açıklaması.
 

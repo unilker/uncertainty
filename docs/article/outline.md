@@ -95,8 +95,8 @@ Table 1: features × standard clauses (generate from `iso17025-mapping.md` and t
   printed value is a Monte Carlo/MCMC estimate, its sampling error is added (D66–D68, F95, F96); independent
   recomputation (numpy/scipy scripts in `tools/research/`) where nothing is printed.
 - 5.3 Monte Carlo dispersion study (σ over 20 seeds; validation-matrix "Measured MCM dispersion").
-- 5.4 Benchmarks: Suncal 1.7.1 on 107 model projects (D74, `docs/research/benchmark-suncal.md`): first-order u
-  agrees to 6 × 10⁻¹²; Monte Carlo s.d. within sampling error (48 projects, max |z| 3.0). NUM: the manual's
+- 5.4 Benchmarks: Suncal 1.7.1 on 107 model projects, extended to 171 projects in D93 (D74, `docs/research/benchmark-suncal.md`): first-order u
+  agrees to 6 × 10⁻¹²; Monte Carlo s.d. within sampling error (48 projects, max |z| 3.0; D93: 171 projects, 79 Monte Carlo comparisons, max |z| 2.4). NUM: the manual's
   examples (task 22; F29, F33, F35).
 - 5.5 Validation matrix summary: 222 rows ✅, 23 of them with a finding.
 

@@ -142,7 +142,7 @@ indirilemedi; Drive klasörüne konacak:
    - UME prosedür taslağı: iki örnek kütüphanede, yazara notlar (D71).
    - Makale iskeleti yazıldı: `docs/article/outline.md` (D72).
    - D12 sınıf denetimi tamam (D73): `finding-classes.tsv`; 29 bulguda c bileşeni.
-   - Suncal karşılaştırması (D74): 107 projede birinci mertebe u 6×10⁻¹² içinde aynı; 48 projede MCM örnekleme hatası içinde.
+   - Suncal karşılaştırması (D74, D93): 171 proje (135 model, 12 çok çıktılı model, 6 kalibrasyon, 18 uygunluk); birinci mertebe u 6×10⁻¹² içinde aynı; 79 MCM karşılaştırması örnekleme hatası içinde.
    - Sıradakiler: makale iskeletindeki §9 kontrol listesi (c sınıfı bulguları güncel baskılarla kontrol, bağımsız inceleme);
      QAC 2026, A2LA G104, eğitim örnekleri (Kirkup, White 2008, Leito, Kessel).
    - Açık kalan küçük işler:

@@ -19,7 +19,7 @@ desktop and mobile platforms, that implements the GUM including its 2026 amendme
 both variables, interlaboratory precision, control charts, uncertainty from sampling, weighing instruments,
 consensus values and results near a physical bound, with reports in English and Turkish. It is validated on 286
 projects built from the worked examples of 38 documents: the test suite recomputes all 1865 reference values at
-every change, and an independent program agrees to 6 × 10⁻¹² in the first-order standard uncertainty.
+every change, and an independent program, Suncal, reproduces the results of 171 of them.
 Recomputing the examples produced 100 findings, among them 13 confirmed inconsistencies that change a final printed
 result. The choice of consensus procedure changes the degrees of equivalence of a key comparison as much as its
 reference value. For laboratories, the program writes a software validation report for ISO/IEC 17025 and contains
@@ -267,20 +267,31 @@ counted.
 
 ### 4.4 Independent benchmark
 
-Every model project that Suncal 1.7.1 can express — 107 projects with a scalar output, without correlations or
-intermediate quantities — was translated into a Suncal model and evaluated by both programs (D74).
+Every project that Suncal 1.7.1 can express was evaluated by both programs (D74, D93; supplementary material S4):
+135 measurement models, 24 of them with correlated inputs or intermediate quantities; 12 models with several
+outputs (JCGM 102); 6 calibrations with uncertainties in both variables, compared with Suncal's York fit for
+straight lines and its orthogonal distance regression for the other functions; and 18 conformity assessments,
+compared by the conformance probability of each result and the global consumer and producer risks. The other
+project types (top-down evaluation, proficiency testing, precision experiments, control charts, sampling,
+consensus values) have no counterpart in Suncal.
 
 ## 5. Validation results
 
 All 1865 reference values of the 286 projects are reproduced within their tolerances. The validation matrix
 (supplementary material S3) records 228 worked examples or variants as reproduced, 25 of them with a finding.
-Against Suncal (S4), the first-order standard uncertainties agree to a relative 6.4 × 10⁻¹², and the estimates are
-identical except in the two projects that request the second-order estimate term of the 2026 amendment (Δy = 0.5u
-and 0.1u by design; Suncal is first order). For the 48 projects whose inputs both programs can sample, the Monte
-Carlo standard deviations differ by at most 0.3 %; divided by the standard error of the difference — which
-combines the sampling errors of both programs and a correction for the kurtosis of the output — the largest |z| is
-3.0, which for 48 independent comparisons has a probability of 0.12, so the dispersion is consistent with sampling
-error alone.
+Against Suncal (S4), the first-order standard uncertainties of the 135 measurement models agree to a relative
+6.4 × 10⁻¹², and the estimates are identical except in the two projects that request the second-order estimate
+term of the 2026 amendment (Δy = 0.5u and 0.1u by design; Suncal is first order). For the models with several
+outputs the standard uncertainties agree to 1.6 × 10⁻¹⁴ and the correlation coefficients to 3.1 × 10⁻¹⁴. In the
+79 Monte Carlo comparisons the standard deviations differ by at most 0.29 %; divided by the standard error of the
+difference — which combines the sampling errors of both programs and a correction for the kurtosis of the output —
+the largest |z| is 2.4, which for 79 independent comparisons has a probability of 0.75, so the dispersion is
+consistent with sampling error alone. The calibration parameters agree to 2 × 10⁻⁴ of their standard
+uncertainties; their standard uncertainties differ by up to 0.75 % when the fit is poor (largest weighted deviation
+Γ above 1), because Suncal's covariance is the Gauss–Newton approximation while KAPSAM propagates the input
+uncertainties through the minimum with the full Hessian (ISO 6143, Annex A); computed at KAPSAM's solution, the
+Gauss–Newton values agree with Suncal's to 6 × 10⁻⁵. The 32 conformance probabilities and global risks agree to
+1.4 × 10⁻¹⁰.
 
 <!-- table3 -->
 
@@ -507,7 +518,7 @@ tables and figures are part of the repository and of its archived release [Zenod
 - **S1.** The 286 library projects: source document and section, field, evaluation type and number of compared values.
 - **S2.** The 100 findings with their classes, effect and status.
 - **S3.** The validation matrix: every worked example or variant and its result.
-- **S4.** The comparison with Suncal 1.7.1.
+- **S4.** The comparison with Suncal 1.7.1 (171 projects).
 - **S5.** A software validation report written by the program for the whole library.
 - **S6.** The guide *Uncertainty from scratch* (English and Turkish) with the step-by-step explanation of every example.
 

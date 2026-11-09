@@ -3546,3 +3546,33 @@ implements*). Internal identifiers stay, so that existing files and builds keep 
 `uncertainty-calculations/project`, the Rust crate and Dart package names, the engine library
 `uncertainty_ffi`, the application ids (`org.tubitak.ume…`) and the repository address. Entries above this one keep
 the old name, as recorded at the time.
+
+**D93. Suncal benchmark extended to every project Suncal can express (decision of the author, 2026-11-09).** The
+first benchmark (D74) covered 107 measurement models without correlations or intermediate quantities. The script
+now also passes correlated inputs as correlation coefficients (sampled only when the correlated inputs are all
+normal, so that both programs draw from a multivariate normal), substitutes intermediate quantities into the output
+expression, writes log10 as ln(·)/ln(10), passes curvilinear trapezoids exactly and beta inputs (GUM only) by their
+standard deviation, and adds three new sections. Results (`docs/research/benchmark-suncal.md`, supplementary
+material S4): 171 projects.
+
+- 135 measurement models (24 with correlations or intermediates): first-order u to 6.4 × 10⁻¹², estimates
+  identical except the two second-order projects of D74.
+- 12 models with several outputs (JCGM 102): u to 1.6 × 10⁻¹⁴, correlation coefficients to 3.1 × 10⁻¹⁴.
+- Monte Carlo: 79 comparisons (68 single-output, 11 multivariate), largest relative difference of the standard
+  deviations 2.9 × 10⁻³, largest |z| 2.4, probability 0.75 for 79 independent comparisons. (The largest |z| of
+  D74, 3.0 for GUM-5 Ex. 1, is now 0.6: Suncal's global generator is consumed in a different order.)
+- 6 ISO 6143 calibrations (straight lines with York's fit, quadratic, exponential and power functions with
+  orthogonal distance regression): parameters to 1.8 × 10⁻⁴ of their standard uncertainties; standard
+  uncertainties of the parameters differ by up to 7.5 × 10⁻³ (NO₂ analyser, Γ = 1.27; ISO 6143 B.3 power
+  function, Γ = 1.16). The cause is the definition of the covariance: York and ODR give the Gauss–Newton
+  approximation (JᵀJ)⁻¹, KAPSAM propagates the inputs through the minimum with the full Hessian (ISO 6143 A.2,
+  A.6, A.7), which adds terms proportional to the residuals and reproduces the covariances printed in ISO 6143
+  (core tests). The Gauss–Newton covariance computed at KAPSAM's own solution agrees with Suncal's to 6.3 × 10⁻⁵
+  (8 × 10⁻⁹ for the York fits). Not a finding; stated in the article.
+- 18 conformity assessments: 32 conformance probabilities and global consumer and producer risks (normal and gamma
+  processes) to 1.4 × 10⁻¹⁰.
+- Not compared (listed in S4): ensembles and implicit models (6), Monte Carlo-only models (3), calibrations with
+  covariances between points (2), lognormal measurement distributions, posterior specific risks and global risks
+  with an uncertainty relative to the value (GUM-5 Ex. 10, EURACHEM compliance B3). Top-down evaluation,
+  proficiency testing, precision experiments, control charts, sampling, consensus values and error functions have
+  no counterpart in Suncal; an independent check of these by spreadsheet formulas is planned (next entry).
