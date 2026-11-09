@@ -3598,3 +3598,19 @@ NORMSINV, BETAINV), so the formulas work in every version and in LibreOffice.
   LibreOffice Calc (headless, UNO) and reads the sheet Check: 135 model workbooks, 3257 compared values, all within
   tolerance (`docs/research/spreadsheet-check.md`). Largest ratio of difference to tolerance 0.44 (ν_eff of M3003
   K1).
+- Proficiency tests (ISO 13528): median, MADe, nIQR (QUARTILE, the linear interpolation KAPSAM uses), Algorithm A
+  with one column per iteration and the stopping rule of C.3.1 written as a formula (ROUND to three significant
+  figures; the result is the first iteration that meets it, so the iteration count is compared too), the assigned
+  value and u(x_pt) with the components of Formula (3), σ_pt, δ_E, z, z′, ζ and Eₙ; homogeneity (B.3 analysis,
+  F₁ and F_m with CHIINV and FINV, √c) and stability (B.5). The Bayesian between-unit posterior is not covered.
+- Precision experiments (ISO 5725-2): Forms B and C (rounded with ROUND when form_decimals is given), Mandel's h
+  and k, the first Cochran test, Grubbs' single tests, and for the analysis of variance m̂, s_r, s_L and s_R from
+  the retained results. Not covered: REML estimates, repeated Cochran and double Grubbs tests, critical values,
+  relationships (8.5).
+- Top-down (Nordtest, MUPR, ISO 21748): precision from series, groups, duplicates (pooled, normalised, mean range,
+  with the selection by mean), control limits, stated values and level-dependent models, mean of n results on p
+  days, conversions; bias components from their references (single-CRM formula included); further components; the
+  combination at every level with ranges, multiplicities and the recovery correction; k. Recovery, the
+  staggered-nested design and the ISO 21748 reproducibility component enter with KAPSAM's values, marked as such.
+- Library: 189 workbooks (135 models, 9 proficiency, 6 precision, 39 top-down), 4678 compared values, all within
+  tolerance on the first run of each new type.

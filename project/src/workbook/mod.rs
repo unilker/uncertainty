@@ -24,6 +24,7 @@ use uncertainty_core::gum::{CoverageSpec, DofRounding};
 
 mod precision;
 mod proficiency;
+mod topdown;
 
 /// Relative step of the central differences, h = STEP·u(xᵢ).
 const STEP: f64 = 1e-3;
@@ -34,6 +35,7 @@ pub fn supported(p: &Project, e: &Evaluation) -> bool {
         Evaluation::Model(a) => p.model.as_ref().is_some_and(|m| m.ensembles.is_empty()) && a.gum.is_some(),
         Evaluation::Proficiency(_) => p.proficiency.is_some(),
         Evaluation::Interlab(_) => p.precision_experiment.is_some(),
+        Evaluation::TopDown(_) => p.topdown.is_some(),
         _ => false,
     }
 }
@@ -54,6 +56,7 @@ pub fn verification_workbook(p: &Project, e: &Evaluation, lang: Lang) -> Result<
         Evaluation::Model(a) => model_workbook(p, a, lang)?,
         Evaluation::Proficiency(a) => proficiency::workbook(p, a, lang)?,
         Evaluation::Interlab(a) => precision::workbook(p, a, lang)?,
+        Evaluation::TopDown(a) => topdown::workbook(p, a, lang)?,
         _ => unreachable!("checked by supported()"),
     };
     Ok(wb.to_bytes())
