@@ -61,6 +61,9 @@ flutter:
   assets:
     - assets/library.json
     - assets/logo/logo.png
+    - assets/guide/lessons.json
+    - assets/guide/en/
+    - assets/guide/tr/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

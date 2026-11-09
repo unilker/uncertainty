@@ -1,0 +1,1232 @@
+[
+ {
+  "prefix": "nist-tn1900-e1",
+  "level": 1,
+  "title": {
+   "en": "Weighing a powder",
+   "tr": "Bir tozu tartmak"
+  },
+  "en": "The simplest possible budget: a mass is the difference of two balance readings. You see how the uncertainty of the balance enters twice, once for each reading, and how two equal contributions combine to √2 times one of them, not twice.",
+  "tr": "Olabilecek en basit bütçe: bir kütle, iki terazi okumasının farkıdır. Terazinin belirsizliğinin her okuma için bir kez, yani iki kez girdiğini ve iki eşit katkının ikisinin toplamı değil, birinin √2 katı olarak birleştiğini görürsünüz."
+ },
+ {
+  "prefix": "jcgm101-9.2",
+  "level": 1,
+  "title": {
+   "en": "Adding inputs: normal and rectangular",
+   "tr": "Girdileri toplamak: normal ve dikdörtgen"
+  },
+  "en": "Four inputs are simply added. The three variants differ only in the shape of the input distributions. Compare the GUM result with Monte Carlo: when one rectangular input dominates, the result is not normal any more and the 95 % interval is narrower than 2u. This is the classic case where k = 2 is not right.",
+  "tr": "Dört girdi basitçe toplanır. Üç türev yalnızca girdi dağılımlarının biçiminde ayrılır. GUM sonucunu Monte Carlo ile karşılaştırın: tek bir dikdörtgen girdi baskın olduğunda sonuç artık normal değildir ve %95 aralığı 2u'dan dardır. Bu, k = 2'nin doğru olmadığı klasik durumdur."
+ },
+ {
+  "prefix": "ea402-s2",
+  "level": 1,
+  "title": {
+   "en": "Calibrating a weight",
+   "tr": "Bir ağırlığın kalibrasyonu"
+  },
+  "en": "A 10 kg weight is compared with a reference weight. It shows the typical calibration budget: the certificate of the standard (U and k), drift since its last calibration, the comparator, air buoyancy and the repeated comparisons. The certificate of the standard is the largest contribution.",
+  "tr": "Bir 10 kg ağırlık bir referans ağırlıkla karşılaştırılır. Tipik bir kalibrasyon bütçesini gösterir: standardın sertifikası (U ve k), son kalibrasyondan beri sürüklenme, komparatör, hava kaldırma kuvveti ve tekrarlı karşılaştırmalar. En büyük katkı standardın sertifikasıdır."
+ },
+ {
+  "prefix": "m3003-k4",
+  "level": 1,
+  "title": {
+   "en": "A 10 kg weight in UKAS M3003",
+   "tr": "UKAS M3003'te bir 10 kg ağırlık"
+  },
+  "en": "The same kind of weight calibration as in EA-4/02, presented in the British guide. Comparing the two shows that different laboratories make slightly different choices of components and distributions, and that the result is still similar.",
+  "tr": "EA-4/02'dekiyle aynı türden bir ağırlık kalibrasyonu, İngiliz kılavuzundaki biçimiyle. İkisini karşılaştırmak, farklı laboratuvarların bileşenler ve dağılımlar için biraz farklı seçimler yaptığını ve sonucun yine de benzer çıktığını gösterir."
+ },
+ {
+  "prefix": "ea402-s10",
+  "level": 1,
+  "title": {
+   "en": "Calibrating a vernier calliper",
+   "tr": "Bir kumpasın kalibrasyonu"
+  },
+  "en": "A gauge block is measured with a calliper. Most components are rectangular: the resolution of the scale, the temperature difference, the flatness of the jaws. A good example of how a reading on a scale is turned into an uncertainty.",
+  "tr": "Bir mastar blok bir kumpasla ölçülür. Bileşenlerin çoğu dikdörtgendir: skalanın çözünürlüğü, sıcaklık farkı, çenelerin düzlüğü. Bir skaladaki okumanın bir belirsizliğe nasıl dönüştüğünün iyi bir örneği."
+ },
+ {
+  "prefix": "ea402-s3",
+  "level": 1,
+  "title": {
+   "en": "Calibrating a standard resistor",
+   "tr": "Bir standart direncin kalibrasyonu"
+  },
+  "en": "A 10 kΩ resistor is compared with a reference resistor. The model is a product, so the sensitivity coefficients are not 1; look at how the budget converts each relative effect into ohms.",
+  "tr": "Bir 10 kΩ direnç bir referans dirençle karşılaştırılır. Model bir çarpımdır, bu yüzden duyarlılık katsayıları 1 değildir; bütçenin her bağıl etkiyi nasıl ohm'a çevirdiğine bakın."
+ },
+ {
+  "prefix": "ea402-s9",
+  "level": 1,
+  "title": {
+   "en": "Calibrating a digital multimeter",
+   "tr": "Bir dijital multimetrenin kalibrasyonu"
+  },
+  "en": "A hand-held multimeter is checked at 100 V against a calibrator. The resolution of the display is often the largest term: a value shown with one decimal can be anywhere within half a digit.",
+  "tr": "Bir el multimetresi 100 V'ta bir kalibratöre karşı denetlenir. Göstergenin çözünürlüğü çoğu zaman en büyük terimdir: tek ondalıkla gösterilen bir değer yarım basamak içinde herhangi bir yerde olabilir."
+ },
+ {
+  "prefix": "ume-procedure-19-1",
+  "level": 1,
+  "title": {
+   "en": "A multimeter at 10 V (TÜBİTAK UME)",
+   "tr": "10 V'ta bir multimetre (TÜBİTAK UME)"
+  },
+  "en": "An example from the uncertainty procedure of TÜBİTAK UME: calibration of a digital multimeter at 10 V DC. It follows the same steps as the guides and is a good template for an electrical calibration certificate.",
+  "tr": "TÜBİTAK UME belirsizlik prosedüründen bir örnek: bir dijital multimetrenin 10 V DC'de kalibrasyonu. Kılavuzlarla aynı adımları izler ve elektriksel bir kalibrasyon sertifikası için iyi bir şablondur."
+ },
+ {
+  "prefix": "ea402-s4",
+  "level": 1,
+  "title": {
+   "en": "Calibrating a gauge block",
+   "tr": "Bir mastar bloğun kalibrasyonu"
+  },
+  "en": "A 50 mm gauge block is compared with a reference block. Temperature matters: a small difference in temperature or in expansion coefficient changes the length, which is why the budget has thermal terms.",
+  "tr": "Bir 50 mm mastar blok bir referans blokla karşılaştırılır. Sıcaklık önemlidir: sıcaklıktaki ya da genleşme katsayısındaki küçük bir fark boyu değiştirir; bütçede ısıl terimlerin olmasının nedeni budur."
+ },
+ {
+  "prefix": "ea402-s11",
+  "level": 1,
+  "title": {
+   "en": "A temperature block calibrator",
+   "tr": "Bir sıcaklık blok kalibratörü"
+  },
+  "en": "The temperature of a dry block at 180 °C is measured with a reference thermometer. The budget lists the effects of the block itself: axial and radial non-uniformity, stability, loading.",
+  "tr": "180 °C'deki bir kuru bloğun sıcaklığı bir referans termometreyle ölçülür. Bütçe bloğun kendi etkilerini listeler: eksenel ve radyal homojensizlik, kararlılık, yükleme."
+ },
+ {
+  "prefix": "ea402-s12",
+  "level": 1,
+  "title": {
+   "en": "Calibrating a water meter",
+   "tr": "Bir su sayacının kalibrasyonu"
+  },
+  "en": "Three related projects: the reference volume, the relative error of one run and the mean error of three runs. They show how a long calculation can be split into steps, each with its own budget.",
+  "tr": "Üç ilişkili proje: referans hacim, bir koşunun bağıl hatası ve üç koşunun ortalama hatası. Uzun bir hesabın her biri kendi bütçesine sahip adımlara nasıl bölünebileceğini gösterirler."
+ },
+ {
+  "prefix": "m3003-k1",
+  "level": 1,
+  "title": {
+   "en": "A resistor in UKAS M3003",
+   "tr": "UKAS M3003'te bir direnç"
+  },
+  "en": "A 10 kΩ resistor calibrated by comparing voltages. A clear example of a budget table with the sources, their values, the divisors (√3, 2, 1) and the resulting standard uncertainties.",
+  "tr": "Gerilimler karşılaştırılarak kalibre edilen bir 10 kΩ direnç. Kaynakları, değerlerini, bölenleri (√3, 2, 1) ve sonuçtaki standart belirsizlikleri içeren bir bütçe tablosunun açık bir örneği."
+ },
+ {
+  "prefix": "m3003-k5",
+  "level": 1,
+  "title": {
+   "en": "A weighing machine at 200 g",
+   "tr": "200 g'da bir tartı aleti"
+  },
+  "en": "A weighing machine is checked with a 200 g weight. Repeatability, resolution and the weight's certificate are the main terms.",
+  "tr": "Bir tartı aleti 200 g'lık bir ağırlıkla denetlenir. Başlıca terimler tekrarlanabilirlik, çözünürlük ve ağırlığın sertifikasıdır."
+ },
+ {
+  "prefix": "m3003-k8",
+  "level": 1,
+  "title": {
+   "en": "A pressure indicator at 2 MPa",
+   "tr": "2 MPa'da bir basınç göstergesi"
+  },
+  "en": "A digital pressure indicator is compared with a dead-weight tester. A typical pressure calibration budget.",
+  "tr": "Bir dijital basınç göstergesi bir ölü ağırlık test cihazıyla karşılaştırılır. Tipik bir basınç kalibrasyonu bütçesi."
+ },
+ {
+  "prefix": "m3003-k10",
+  "level": 1,
+  "title": {
+   "en": "Thickness of a sheet",
+   "tr": "Bir levhanın kalınlığı"
+  },
+  "en": "The thickness of an aluminium sample is measured several times with a micrometer. It combines a Type A evaluation (the scatter of the readings) with Type B terms (the micrometer's calibration and resolution).",
+  "tr": "Bir alüminyum numunenin kalınlığı bir mikrometreyle birkaç kez ölçülür. A tipi bir değerlendirmeyi (okumaların dağılımı) B tipi terimlerle (mikrometrenin kalibrasyonu ve çözünürlüğü) birleştirir."
+ },
+ {
+  "prefix": "cg19",
+  "level": 1,
+  "title": {
+   "en": "Calibrating volumetric glassware",
+   "tr": "Hacimsel cam malzemenin kalibrasyonu"
+  },
+  "en": "The volume of a flask or pycnometer is found by weighing the water it holds. You see how the density of water and air, the temperature and the balance enter the result.",
+  "tr": "Bir balonjojenin ya da piknometrenin hacmi, aldığı suyun tartılmasıyla bulunur. Suyun ve havanın yoğunluğunun, sıcaklığın ve terazinin sonuca nasıl girdiğini görürsünüz."
+ },
+ {
+  "prefix": "quam-a1",
+  "level": 1,
+  "title": {
+   "en": "Preparing a calibration standard",
+   "tr": "Bir kalibrasyon standardı hazırlamak"
+  },
+  "en": "A cadmium solution is made by dissolving a weighed amount of pure metal in a known volume. The classic first example of the Eurachem guide: purity, mass and volume combine as relative uncertainties because the model is a product and a ratio.",
+  "tr": "Tartılmış bir miktar saf metal bilinen bir hacimde çözülerek bir kadmiyum çözeltisi hazırlanır. Eurachem kılavuzunun klasik ilk örneği: model bir çarpım ve oran olduğu için saflık, kütle ve hacim bağıl belirsizlikler olarak birleşir."
+ },
+ {
+  "prefix": "nordtest-6",
+  "level": 1,
+  "title": {
+   "en": "Bias from a reference material or proficiency tests",
+   "tr": "Referans malzemeden ya da yeterlilik testlerinden sapma"
+  },
+  "en": "The top-down way of finding the systematic part of the uncertainty: measure a certified reference material, or look at your results in proficiency tests, and turn the differences into u(bias). Compare the variants with one CRM, several CRMs, PT results and recovery.",
+  "tr": "Belirsizliğin sistematik kısmını bulmanın yukarıdan aşağı yolu: sertifikalı bir referans malzemeyi ölçün ya da yeterlilik testlerindeki sonuçlarınıza bakın ve farkları u(sapma)'ya dönüştürün. Tek CRM, birkaç CRM, yeterlilik testi ve geri kazanım türevlerini karşılaştırın."
+ },
+ {
+  "prefix": "nordtest-5",
+  "level": 1,
+  "title": {
+   "en": "Precision from duplicates",
+   "tr": "Çift ölçümlerden kesinlik"
+  },
+  "en": "Analysing samples in duplicate gives the repeatability; a control sample measured over months gives the within-laboratory reproducibility. These are the random part of a top-down uncertainty.",
+  "tr": "Numuneleri çift analiz etmek tekrarlanabilirliği verir; aylar boyunca ölçülen bir kontrol numunesi laboratuvar içi tekrar üretilebilirliği verir. Bunlar yukarıdan aşağı belirsizliğin rastgele kısmıdır."
+ },
+ {
+  "prefix": "nordtest-3",
+  "level": 1,
+  "title": {
+   "en": "The whole top-down budget in one example",
+   "tr": "Tek örnekte bütün yukarıdan aşağı bütçe"
+  },
+  "en": "Ammonium in water: precision from the control chart and bias from proficiency tests are combined into the expanded uncertainty. This is the recipe that most testing laboratories use.",
+  "tr": "Sudaki amonyum: kontrol grafiğinden kesinlik ve yeterlilik testlerinden sapma, genişletilmiş belirsizlikte birleştirilir. Çoğu deney laboratuvarının kullandığı tarif budur."
+ },
+ {
+  "prefix": "tr569-table1",
+  "level": 1,
+  "title": {
+   "en": "A first control chart",
+   "tr": "İlk kontrol grafiği"
+  },
+  "en": "Sixty control values of zinc in water are plotted with their warning and action limits. Learn to read a chart: which points are fine, which ones are warnings and which ones demand action.",
+  "tr": "Sudaki çinkonun altmış kontrol değeri uyarı ve eylem sınırlarıyla çizilir. Bir grafiği okumayı öğrenin: hangi noktalar sorunsuz, hangileri uyarı, hangileri eylem gerektiriyor."
+ },
+ {
+  "prefix": "tr569-ch7",
+  "level": 1,
+  "title": {
+   "en": "Setting the limits of a control chart",
+   "tr": "Kontrol grafiği sınırlarını belirlemek"
+  },
+  "en": "The three ways of setting limits: from the data (statistical), from a target, or around a reference value. Compare the variants to see why target limits are often wider and more useful.",
+  "tr": "Sınırları belirlemenin üç yolu: verilerden (istatistiksel), bir hedeften ya da bir referans değer etrafında. Hedef sınırların neden çoğu zaman daha geniş ve daha kullanışlı olduğunu görmek için türevleri karşılaştırın."
+ },
+ {
+  "prefix": "jcgm106-7",
+  "level": 1,
+  "title": {
+   "en": "Probability that an item conforms",
+   "tr": "Bir ürünün uygun olma olasılığı"
+  },
+  "en": "A measured value lies inside the specification, but how sure can we be? These examples calculate the probability of conformity from the measured value and its uncertainty, for one-sided and two-sided limits.",
+  "tr": "Ölçülen değer spesifikasyonun içinde, ama ne kadar emin olabiliriz? Bu örnekler, ölçülen değer ve belirsizliğinden uygunluk olasılığını tek ve iki taraflı sınırlar için hesaplar."
+ },
+ {
+  "prefix": "iso13528-e3",
+  "level": 1,
+  "title": {
+   "en": "The assigned value of a proficiency test",
+   "tr": "Yeterlilik testinin atanan değeri"
+  },
+  "en": "The same results evaluated with two robust estimators: Algorithm A and the median. Robust statistics keep a few outlying laboratories from moving the assigned value.",
+  "tr": "Aynı sonuçlar iki dayanıklı kestiriciyle değerlendirilir: Algoritma A ve medyan. Dayanıklı istatistikler, birkaç aykırı laboratuvarın atanan değeri kaydırmasını önler."
+ },
+ {
+  "prefix": "iso13528-e4",
+  "level": 1,
+  "title": {
+   "en": "Scoring laboratories: z, ζ and E_n",
+   "tr": "Laboratuvarları puanlamak: z, ζ ve E_n"
+  },
+  "en": "Every participant gets a z-score (is the result close enough to the assigned value?) and ζ and E_n scores (is the result consistent with the uncertainty the laboratory claimed?). The table of the standard is reproduced for all 21 numerical results.",
+  "tr": "Her katılımcı bir z puanı (sonuç atanan değere yeterince yakın mı?) ve ζ ile E_n puanları (sonuç laboratuvarın beyan ettiği belirsizlikle tutarlı mı?) alır. Standardın tablosu 21 sayısal sonucun hepsi için yeniden üretilir."
+ },
+ {
+  "prefix": "possolo-meija-2022-plasma-anion-gap",
+  "level": 1,
+  "title": {
+   "en": "A sum of four concentrations",
+   "tr": "Dört derişimin toplamı"
+  },
+  "en": "The plasma anion gap is a linear combination of four ion concentrations. With a linear model GUM and Monte Carlo agree perfectly: a good check that you understand the basics.",
+  "tr": "Plazma anyon açığı dört iyon derişiminin doğrusal bir birleşimidir. Doğrusal bir modelde GUM ve Monte Carlo tam uyuşur: temelleri anladığınızı denetlemek için iyi bir örnek."
+ },
+ {
+  "prefix": "iupac2024-4a",
+  "level": 1,
+  "title": {
+   "en": "Hardness of water",
+   "tr": "Suyun sertliği"
+  },
+  "en": "Total hardness from the calcium and magnesium concentrations: a short, conventional measurement model from the IUPAC guide, ideal for practising the steps of the GUM.",
+  "tr": "Kalsiyum ve magnezyum derişimlerinden toplam sertlik: IUPAC kılavuzundan kısa, alışılmış bir ölçüm modeli; GUM adımlarını alıştırma yapmak için ideal."
+ },
+ {
+  "prefix": "iupac2024-4i",
+  "level": 1,
+  "title": {
+   "en": "A titration",
+   "tr": "Bir titrasyon"
+  },
+  "en": "The concentration of sodium chloride by titration with silver nitrate. Volumes, the concentration of the titrant and the endpoint are the inputs.",
+  "tr": "Sodyum klorür derişimi gümüş nitratla titrasyonla bulunur. Hacimler, titrantın derişimi ve dönüm noktası girdilerdir."
+ },
+ {
+  "prefix": "gum5-e3",
+  "level": 1,
+  "title": {
+   "en": "Molar mass from atomic weights",
+   "tr": "Atom ağırlıklarından molar kütle"
+  },
+  "en": "The relative molecular mass of glucose from the standard atomic weights, which are given as intervals. An interval with no other information becomes a rectangular distribution.",
+  "tr": "Glukozun bağıl molekül kütlesi, aralık olarak verilen standart atom ağırlıklarından bulunur. Başka bilgi olmayan bir aralık dikdörtgen dağılıma dönüşür."
+ },
+ {
+  "prefix": "gum5-e14",
+  "level": 1,
+  "title": {
+   "en": "Radioactive decay",
+   "tr": "Radyoaktif bozunma"
+  },
+  "en": "The activity of a source is corrected for the time since its reference date. The half-life and the time enter through an exponential function.",
+  "tr": "Bir kaynağın aktivitesi referans tarihinden bu yana geçen süre için düzeltilir. Yarı ömür ve süre üstel bir fonksiyon üzerinden girer."
+ },
+ {
+  "prefix": "nist-tn1900-e2",
+  "level": 1,
+  "title": {
+   "en": "Mean of daily temperatures",
+   "tr": "Günlük sıcaklıkların ortalaması"
+  },
+  "en": "The monthly mean of daily maximum temperatures: a pure Type A evaluation. With few days, the t distribution makes the coverage factor clearly larger than 2.",
+  "tr": "Günlük en yüksek sıcaklıkların aylık ortalaması: saf bir A tipi değerlendirme. Gün sayısı azken t dağılımı kapsam faktörünü belirgin biçimde 2'den büyük yapar."
+ },
+ {
+  "prefix": "ilac-p14",
+  "level": 2,
+  "title": {
+   "en": "Reporting with the CMC",
+   "tr": "CMC ile raporlama"
+  },
+  "en": "ILAC P14 says that a calibration certificate must not state an uncertainty smaller than the laboratory's calibration and measurement capability. The program applies this floor when it reports.",
+  "tr": "ILAC P14'e göre bir kalibrasyon sertifikası laboratuvarın kalibrasyon ve ölçüm yeteneğinden (CMC) küçük bir belirsizlik belirtemez. Program raporlarken bu alt sınırı uygular."
+ },
+ {
+  "prefix": "m3003-c5",
+  "level": 2,
+  "title": {
+   "en": "When one rectangular term dominates",
+   "tr": "Bir dikdörtgen terim baskın olduğunda"
+  },
+  "en": "A voltmeter whose resolution dominates. UKAS M3003 gives a special coverage factor for this case, because the result is closer to rectangular than to normal.",
+  "tr": "Çözünürlüğü baskın olan bir voltmetre. Sonuç normalden çok dikdörtgene yakın olduğu için UKAS M3003 bu durum için özel bir kapsam faktörü verir."
+ },
+ {
+  "prefix": "m3003-l3",
+  "level": 2,
+  "title": {
+   "en": "A multimeter specification across a range",
+   "tr": "Bir aralık boyunca multimetre spesifikasyonu"
+  },
+  "en": "The specification of a multimeter is given as \"% of reading + % of range\". The examples show the uncertainty at several points of the 1 V range and the coverage factor when the specification dominates.",
+  "tr": "Bir multimetrenin spesifikasyonu \"okumanın %'si + aralığın %'si\" olarak verilir. Örnekler 1 V aralığının birkaç noktasındaki belirsizliği ve spesifikasyon baskın olduğundaki kapsam faktörünü gösterir."
+ },
+ {
+  "prefix": "quam-a2",
+  "level": 2,
+  "title": {
+   "en": "Standardising a sodium hydroxide solution",
+   "tr": "Bir sodyum hidroksit çözeltisinin ayarlanması"
+  },
+  "en": "Titration against a weighed primary standard. The example uses sub-models (the mass, the volume of the burette) and shows that repeatability can be put into one combined term.",
+  "tr": "Tartılmış bir birincil standarda karşı titrasyon. Örnek alt modeller kullanır (kütle, büret hacmi) ve tekrarlanabilirliğin tek bir birleşik terime konabileceğini gösterir."
+ },
+ {
+  "prefix": "quam-a3",
+  "level": 2,
+  "title": {
+   "en": "Titration of hydrochloric acid",
+   "tr": "Hidroklorik asit titrasyonu"
+  },
+  "en": "The concentration of HCl from a titration with standardised NaOH. The uncertainty of the NaOH from the previous example is carried over: results of one evaluation become inputs of the next.",
+  "tr": "Ayarlı NaOH ile titrasyondan HCl derişimi. Önceki örnekteki NaOH belirsizliği buraya taşınır: bir değerlendirmenin sonuçları bir sonrakinin girdileri olur."
+ },
+ {
+  "prefix": "quam-a4",
+  "level": 2,
+  "title": {
+   "en": "Pesticides in bread",
+   "tr": "Ekmekte pestisitler"
+  },
+  "en": "Two ways to the same answer: a budget built from the steps of the method, and a top-down estimate from validation data (precision and recovery). Compare which components each approach captures.",
+  "tr": "Aynı cevaba iki yol: yöntemin adımlarından kurulan bir bütçe ve validasyon verilerinden (kesinlik ve geri kazanım) yukarıdan aşağı bir tahmin. Her yaklaşımın hangi bileşenleri yakaladığını karşılaştırın."
+ },
+ {
+  "prefix": "quam-a5",
+  "level": 2,
+  "title": {
+   "en": "Cadmium released from ceramics",
+   "tr": "Seramikten salınan kadmiyum"
+  },
+  "en": "An empirical method: the result is defined by the procedure (time, temperature, acid). Effects of these conditions are included as uncertainty terms.",
+  "tr": "Ampirik bir yöntem: sonuç prosedürle tanımlanır (süre, sıcaklık, asit). Bu koşulların etkileri belirsizlik terimleri olarak eklenir."
+ },
+ {
+  "prefix": "quam-a6",
+  "level": 2,
+  "title": {
+   "en": "Crude fibre in animal feed",
+   "tr": "Hayvan yeminde ham lif"
+  },
+  "en": "Another empirical method, evaluated from the precision of an interlaboratory study: the reproducibility of the method is the main part of the uncertainty.",
+  "tr": "Bir başka ampirik yöntem; bir laboratuvarlar arası çalışmanın kesinliğiyle değerlendirilir: yöntemin tekrar üretilebilirliği belirsizliğin ana kısmıdır."
+ },
+ {
+  "prefix": "nordtest-8",
+  "level": 2,
+  "title": {
+   "en": "Top-down for environmental analyses",
+   "tr": "Çevre analizleri için yukarıdan aşağı"
+  },
+  "en": "BOD in wastewater and PCB in sediment, each evaluated twice: once with a CRM and once with proficiency tests for the bias. See how the choice of bias data changes the result.",
+  "tr": "Atık sudaki BOİ ve sedimentteki PCB, her biri iki kez değerlendirilir: sapma için bir kez CRM ile, bir kez yeterlilik testleriyle. Sapma verisinin seçiminin sonucu nasıl değiştirdiğini görün."
+ },
+ {
+  "prefix": "mupr",
+  "level": 2,
+  "title": {
+   "en": "Uncertainty from in-house precision and recovery",
+   "tr": "Laboratuvar içi kesinlik ve geri kazanımdan belirsizlik"
+  },
+  "en": "The 2026 Eurachem/CITAC guide (MUPR) evaluates uncertainty from data every laboratory has: precision at several levels and recovery from reference materials or spiked samples. The examples cover pooled and concentration-dependent precision and different recovery designs.",
+  "tr": "2026 Eurachem/CITAC kılavuzu (MUPR) belirsizliği her laboratuvarın sahip olduğu verilerden değerlendirir: birkaç düzeyde kesinlik ve referans malzemelerden ya da katkılanmış numunelerden geri kazanım. Örnekler birleştirilmiş ve derişime bağlı kesinliği ve farklı geri kazanım tasarımlarını kapsar."
+ },
+ {
+  "prefix": "tr569-ex",
+  "level": 2,
+  "title": {
+   "en": "Control charts in practice",
+   "tr": "Uygulamada kontrol grafikleri"
+  },
+  "en": "The worked examples of the Nordtest handbook: X-charts, R-charts and r%-charts for duplicates, target limits from a required uncertainty, blanks, CRMs and the yearly review of the limits.",
+  "tr": "Nordtest el kitabının çözümlü örnekleri: X grafikleri, çift ölçümler için R ve r% grafikleri, gerekli belirsizlikten hedef sınırlar, körler, CRM'ler ve sınırların yıllık gözden geçirilmesi."
+ },
+ {
+  "prefix": "jcgm106-8",
+  "level": 2,
+  "title": {
+   "en": "Decision limits",
+   "tr": "Karar sınırları"
+  },
+  "en": "When must a speeding ticket be issued, or a food sample be declared non-compliant? A decision limit is placed beyond the legal limit, so that a false accusation is very unlikely (guarded rejection).",
+  "tr": "Ne zaman hız cezası kesilmeli ya da bir gıda numunesi uygunsuz ilan edilmeli? Karar sınırı yasal sınırın ötesine konur; böylece haksız bir suçlama çok olasılık dışı olur (korumalı ret)."
+ },
+ {
+  "prefix": "eurachem-compliance",
+  "level": 2,
+  "title": {
+   "en": "Compliance with a specification",
+   "tr": "Bir spesifikasyona uygunluk"
+  },
+  "en": "The Eurachem/CITAC guide on compliance: guarded acceptance and rejection, a t distribution with few degrees of freedom, and a lognormal distribution for a large relative uncertainty near a limit.",
+  "tr": "Eurachem/CITAC uygunluk kılavuzu: korumalı kabul ve ret, az serbestlik dereceli bir t dağılımı ve bir sınıra yakın büyük bir bağıl belirsizlik için lognormal dağılım."
+ },
+ {
+  "prefix": "tur-guard-band",
+  "level": 2,
+  "title": {
+   "en": "Guard bands from the test uncertainty ratio",
+   "tr": "Test belirsizlik oranından koruma bantları"
+  },
+  "en": "In calibration, acceptance limits are often derived from the ratio of the tolerance to the measurement uncertainty (TUR). Three common guard-band methods are compared together with the risks they lead to.",
+  "tr": "Kalibrasyonda kabul sınırları çoğu zaman toleransın ölçüm belirsizliğine oranından (TUR) türetilir. Üç yaygın koruma bandı yöntemi yol açtıkları risklerle birlikte karşılaştırılır."
+ },
+ {
+  "prefix": "iso13528-e1",
+  "level": 2,
+  "title": {
+   "en": "Censored results (\"less than\")",
+   "tr": "Sansürlü sonuçlar (\"küçüktür\")"
+  },
+  "en": "Some laboratories report \"< 0.015\" instead of a number. Three ways of handling them are compared: delete them, ignore the sign, or use half the limit.",
+  "tr": "Bazı laboratuvarlar bir sayı yerine \"< 0,015\" bildirir. Bunları işlemenin üç yolu karşılaştırılır: silmek, işareti yok saymak ya da sınırın yarısını kullanmak."
+ },
+ {
+  "prefix": "iso13528-e2",
+  "level": 2,
+  "title": {
+   "en": "Homogeneity and stability",
+   "tr": "Homojenlik ve kararlılık"
+  },
+  "en": "Before a proficiency test, the provider must show that all units of the material are the same and stay the same. An analysis of variance on replicate measurements answers this.",
+  "tr": "Bir yeterlilik testinden önce sağlayıcı, malzemenin tüm birimlerinin aynı olduğunu ve öyle kaldığını göstermelidir. Tekrarlı ölçümler üzerinde bir varyans analizi bunu cevaplar."
+ },
+ {
+  "prefix": "iso13528-e5",
+  "level": 2,
+  "title": {
+   "en": "An assigned value from a CRM",
+   "tr": "Bir CRM'den atanan değer"
+  },
+  "en": "The assigned value comes from a comparison with a certified reference material, and its uncertainty is part of the evaluation.",
+  "tr": "Atanan değer sertifikalı bir referans malzemeyle karşılaştırmadan gelir ve onun belirsizliği de değerlendirmenin parçasıdır."
+ },
+ {
+  "prefix": "possolo-meija-2022-storage-tank",
+  "level": 2,
+  "title": {
+   "en": "Volume of a storage tank",
+   "tr": "Bir depolama tankının hacmi"
+  },
+  "en": "A product of powers (π r² h). The relative uncertainties combine simply, and the Monte Carlo method confirms the GUM result.",
+  "tr": "Kuvvetlerin çarpımı (π r² h). Bağıl belirsizlikler basitçe birleşir ve Monte Carlo yöntemi GUM sonucunu doğrular."
+ },
+ {
+  "prefix": "possolo-meija-2022-wheatstone",
+  "level": 2,
+  "title": {
+   "en": "A Wheatstone bridge",
+   "tr": "Bir Wheatstone köprüsü"
+  },
+  "en": "A model that is not a simple product: the sensitivity coefficients must be derived properly. The program does this symbolically.",
+  "tr": "Basit bir çarpım olmayan bir model: duyarlılık katsayılarının doğru türetilmesi gerekir. Program bunu sembolik olarak yapar."
+ },
+ {
+  "prefix": "iupac2024-4b",
+  "level": 2,
+  "title": {
+   "en": "Isotopic abundances",
+   "tr": "İzotop bollukları"
+  },
+  "en": "The abundances of the silicon isotopes from two measured isotope ratios. The results are correlated because they must add up to 1.",
+  "tr": "İki ölçülen izotop oranından silisyum izotoplarının bollukları. Sonuçlar korelasyonludur, çünkü toplamları 1 olmalıdır."
+ },
+ {
+  "prefix": "iupac2024-4h",
+  "level": 2,
+  "title": {
+   "en": "A purity described by a beta distribution",
+   "tr": "Beta dağılımıyla anlatılan bir saflık"
+  },
+  "en": "The cadmium standard again, now with the purity as a beta distribution that cannot exceed 100 %. Monte Carlo handles such a distribution naturally.",
+  "tr": "Yine kadmiyum standardı; bu kez saflık %100'ü aşamayan bir beta dağılımıyla. Monte Carlo böyle bir dağılımı doğal olarak işler."
+ },
+ {
+  "prefix": "iupac2024-5c",
+  "level": 2,
+  "title": {
+   "en": "An asymmetric interval below 1",
+   "tr": "1'in altında asimetrik bir aralık"
+  },
+  "en": "The purity of benzoic acid is close to 1 and cannot exceed it, so its interval is not symmetric. A beta distribution describes it.",
+  "tr": "Benzoik asidin saflığı 1'e yakındır ve onu aşamaz; bu yüzden aralığı simetrik değildir. Onu bir beta dağılımı anlatır."
+ },
+ {
+  "prefix": "gum-h1",
+  "level": 2,
+  "title": {
+   "en": "End-gauge calibration (GUM H.1)",
+   "tr": "Uç mastar kalibrasyonu (GUM H.1)"
+  },
+  "en": "The famous example of the GUM itself. It uses degrees of freedom for Type B terms and the Welch–Satterthwaite formula to choose the coverage factor.",
+  "tr": "GUM'un kendisinin ünlü örneği. B tipi terimler için serbestlik derecelerini ve kapsam faktörünü seçmek için Welch–Satterthwaite formülünü kullanır."
+ },
+ {
+  "prefix": "gum-h2",
+  "level": 2,
+  "title": {
+   "en": "Correlated inputs (GUM H.2)",
+   "tr": "Korelasyonlu girdiler (GUM H.2)"
+  },
+  "en": "Voltage, current and phase are measured simultaneously, so their means are correlated. Resistance, reactance and impedance are calculated with and without the correlation terms.",
+  "tr": "Gerilim, akım ve faz eşzamanlı ölçülür, bu yüzden ortalamaları korelasyonludur. Direnç, reaktans ve empedans korelasyon terimleriyle hesaplanır."
+ },
+ {
+  "prefix": "num",
+  "level": 2,
+  "title": {
+   "en": "Examples of the NIST Uncertainty Machine",
+   "tr": "NIST Uncertainty Machine örnekleri"
+  },
+  "en": "Examples from the manual of the NIST Uncertainty Machine: a ratio with a wide triangular divisor, an end gauge, a resistance and the Stefan–Boltzmann constant. They compare GUM and Monte Carlo results.",
+  "tr": "NIST Uncertainty Machine kılavuzundan örnekler: geniş üçgen bölenli bir oran, bir uç mastar, bir direnç ve Stefan–Boltzmann sabiti. GUM ve Monte Carlo sonuçlarını karşılaştırırlar."
+ },
+ {
+  "prefix": "ea402-s5",
+  "level": 2,
+  "title": {
+   "en": "Calibrating a thermocouple",
+   "tr": "Bir ısıl çiftin kalibrasyonu"
+  },
+  "en": "A thermocouple is compared with a reference thermocouple in a furnace. Two budgets: the temperature of the furnace and the emf of the unknown thermocouple.",
+  "tr": "Bir ısıl çift bir fırında bir referans ısıl çiftle karşılaştırılır. İki bütçe: fırının sıcaklığı ve bilinmeyen ısıl çiftin emk'si."
+ },
+ {
+  "prefix": "ea402-s6",
+  "level": 2,
+  "title": {
+   "en": "A power sensor at 18 GHz",
+   "tr": "18 GHz'de bir güç sensörü"
+  },
+  "en": "A microwave power sensor: mismatch between sensor and source is a U-shaped (arcsine) term.",
+  "tr": "Bir mikrodalga güç sensörü: sensör ile kaynak arasındaki uyumsuzluk U biçimli (arksinüs) bir terimdir."
+ },
+ {
+  "prefix": "ea402-s7",
+  "level": 2,
+  "title": {
+   "en": "A step attenuator",
+   "tr": "Bir adımlı zayıflatıcı"
+  },
+  "en": "A 30 dB attenuator. Uncertainties in dB, mismatch terms and the repeatability of connections.",
+  "tr": "Bir 30 dB zayıflatıcı. dB cinsinden belirsizlikler, uyumsuzluk terimleri ve bağlantıların tekrarlanabilirliği."
+ },
+ {
+  "prefix": "ea402-s13",
+  "level": 2,
+  "title": {
+   "en": "A ring gauge",
+   "tr": "Bir halka mastar"
+  },
+  "en": "The diameter of a 90 mm ring gauge with its temperature correction, in two budgets.",
+  "tr": "Bir 90 mm halka mastarın çapı ve sıcaklık düzeltmesi, iki bütçede."
+ },
+ {
+  "prefix": "m3003-k2",
+  "level": 2,
+  "title": {
+   "en": "A power sensor (UKAS M3003)",
+   "tr": "Bir güç sensörü (UKAS M3003)"
+  },
+  "en": "The British version of the power-sensor budget, with its mismatch term.",
+  "tr": "Güç sensörü bütçesinin İngiliz sürümü, uyumsuzluk terimiyle."
+ },
+ {
+  "prefix": "m3003-k3",
+  "level": 2,
+  "title": {
+   "en": "An attenuator (UKAS M3003)",
+   "tr": "Bir zayıflatıcı (UKAS M3003)"
+  },
+  "en": "A 30 dB attenuator at 10 GHz, with two ways of calculating the mismatch term.",
+  "tr": "10 GHz'de bir 30 dB zayıflatıcı; uyumsuzluk terimini hesaplamanın iki yoluyla."
+ },
+ {
+  "prefix": "m3003-k6",
+  "level": 2,
+  "title": {
+   "en": "A gauge block (UKAS M3003)",
+   "tr": "Bir mastar blok (UKAS M3003)"
+  },
+  "en": "A 10 mm gauge block. One variant writes the temperature effects into the model itself, which shows the difference between a budget table and a measurement model.",
+  "tr": "Bir 10 mm mastar blok. Bir türev sıcaklık etkilerini modelin kendisine yazar; bu, bir bütçe tablosu ile bir ölçüm modeli arasındaki farkı gösterir."
+ },
+ {
+  "prefix": "m3003-k7",
+  "level": 2,
+  "title": {
+   "en": "A thermocouple at 1000 °C",
+   "tr": "1000 °C'de bir ısıl çift"
+  },
+  "en": "An N-type thermocouple: furnace temperature and emf, with many small contributions.",
+  "tr": "N tipi bir ısıl çift: çok sayıda küçük katkıyla fırın sıcaklığı ve emk."
+ },
+ {
+  "prefix": "m3003-k9",
+  "level": 2,
+  "title": {
+   "en": "Flow rate at standard conditions",
+   "tr": "Standart koşullarda debi"
+  },
+  "en": "A volume flow rate converted to standard pressure and temperature: a product and ratio model.",
+  "tr": "Standart basınç ve sıcaklığa dönüştürülen bir hacimsel debi: çarpım ve oran modeli."
+ },
+ {
+  "prefix": "m3003-k11",
+  "level": 2,
+  "title": {
+   "en": "A PT100 probe",
+   "tr": "Bir PT100 sondası"
+  },
+  "en": "First the probe is calibrated in a dry block; then it measures the temperature of a gas. The uncertainty of the calibration becomes an input of the measurement.",
+  "tr": "Önce sonda bir kuru blokta kalibre edilir; sonra bir gazın sıcaklığını ölçer. Kalibrasyonun belirsizliği ölçümün bir girdisi olur."
+ },
+ {
+  "prefix": "cg18-h1",
+  "level": 2,
+  "title": {
+   "en": "Calibrating a laboratory balance",
+   "tr": "Bir laboratuvar terazisinin kalibrasyonu"
+  },
+  "en": "A 220 g balance according to EURAMET cg-18: the error at several loads, with and without the air buoyancy correction, and the uncertainty of a weighing result in daily use.",
+  "tr": "EURAMET cg-18'e göre 220 g'lık bir terazi: hava kaldırma kuvveti düzeltmesiyle ve düzeltmesiz birkaç yükteki hata ve günlük kullanımda bir tartım sonucunun belirsizliği."
+ },
+ {
+  "prefix": "cg18-h2",
+  "level": 2,
+  "title": {
+   "en": "A multi-interval balance",
+   "tr": "Çok aralıklı bir terazi"
+  },
+  "en": "A 60 kg scale with three weighing intervals. Each interval has its own resolution, which changes the budget along the load.",
+  "tr": "Üç tartım aralıklı 60 kg'lık bir terazi. Her aralığın kendi çözünürlüğü vardır; bu da bütçeyi yük boyunca değiştirir."
+ },
+ {
+  "prefix": "cg18-h3",
+  "level": 2,
+  "title": {
+   "en": "A weighbridge",
+   "tr": "Bir kantar"
+  },
+  "en": "A 30 t weighbridge tested with standard weights and substitution loads, as in real calibrations of large scales.",
+  "tr": "Büyük terazilerin gerçek kalibrasyonlarındaki gibi standart ağırlıklar ve ikame yükleriyle denenen 30 t'lik bir kantar."
+ },
+ {
+  "prefix": "nist-tn1900-e3",
+  "level": 2,
+  "title": {
+   "en": "A falling-ball viscometer",
+   "tr": "Düşen bilyeli viskozimetre"
+  },
+  "en": "Viscosity from the fall time of a ball. A model with ratios of densities and times.",
+  "tr": "Bir bilyenin düşme süresinden viskozite. Yoğunluk ve süre oranları içeren bir model."
+ },
+ {
+  "prefix": "nist-tn1900-e4",
+  "level": 2,
+  "title": {
+   "en": "Airspeed with a Pitot tube",
+   "tr": "Pitot tüpüyle hava hızı"
+  },
+  "en": "The speed follows from a pressure difference through a square root. This example also contains a published inconsistency between the equation and the printed result (see the notes).",
+  "tr": "Hız, bir basınç farkından karekök üzerinden bulunur. Bu örnekte denklem ile basılı sonuç arasında yayımlanmış bir tutarsızlık da var (notlara bakın)."
+ },
+ {
+  "prefix": "nist-tn1900-e8",
+  "level": 2,
+  "title": {
+   "en": "Molecular weight of CO₂",
+   "tr": "CO₂'nin molekül ağırlığı"
+  },
+  "en": "From the atomic weights of carbon and oxygen, which are given as intervals.",
+  "tr": "Aralık olarak verilen karbon ve oksijen atom ağırlıklarından."
+ },
+ {
+  "prefix": "nist-tn1900-e9",
+  "level": 2,
+  "title": {
+   "en": "A cadmium standard by Monte Carlo",
+   "tr": "Monte Carlo ile bir kadmiyum standardı"
+  },
+  "en": "NIST's version of the Eurachem cadmium example, evaluated with the Monte Carlo method.",
+  "tr": "Eurachem kadmiyum örneğinin NIST sürümü, Monte Carlo yöntemiyle değerlendirilmiş."
+ },
+ {
+  "prefix": "nist-tn1900-e11",
+  "level": 2,
+  "title": {
+   "en": "U-shaped inputs",
+   "tr": "U biçimli girdiler"
+  },
+  "en": "A microwave step attenuator whose mismatch terms are U-shaped; GUM and Monte Carlo are compared.",
+  "tr": "Uyumsuzluk terimleri U biçimli olan bir mikrodalga adımlı zayıflatıcı; GUM ve Monte Carlo karşılaştırılır."
+ },
+ {
+  "prefix": "nist-tn1900-e13",
+  "level": 2,
+  "title": {
+   "en": "Normal or t inputs, 95 % or 99 %",
+   "tr": "Normal ya da t girdiler, %95 ya da %99"
+  },
+  "en": "The thermal expansion coefficient evaluated four times: with normal or Student t inputs, and for 95 % or 99 % coverage. See how both choices change the interval.",
+  "tr": "Isıl genleşme katsayısı dört kez değerlendirilir: normal ya da Student t girdilerle ve %95 ya da %99 kapsam için. Her iki seçimin aralığı nasıl değiştirdiğini görün."
+ },
+ {
+  "prefix": "jcgm101-9.3",
+  "level": 2,
+  "title": {
+   "en": "Mass calibration: when the first order is not enough",
+   "tr": "Kütle kalibrasyonu: birinci mertebe yetmediğinde"
+  },
+  "en": "The mass calibration of JCGM 101 with the first-order GUM, with second-order terms and with Monte Carlo. A small nonlinearity makes the first-order uncertainty too small.",
+  "tr": "JCGM 101'in kütle kalibrasyonu birinci mertebe GUM, ikinci mertebe terimler ve Monte Carlo ile. Küçük bir doğrusal olmama birinci mertebe belirsizliği fazla küçük yapar."
+ },
+ {
+  "prefix": "jcgm102-9.2",
+  "level": 2,
+  "title": {
+   "en": "Two outputs from the same inputs",
+   "tr": "Aynı girdilerden iki çıktı"
+  },
+  "en": "Two results calculated from shared inputs are correlated. JCGM 102 gives their covariance matrix and a coverage region (an ellipse) instead of two separate intervals.",
+  "tr": "Ortak girdilerden hesaplanan iki sonuç korelasyonludur. JCGM 102 iki ayrı aralık yerine kovaryans matrislerini ve bir kapsam bölgesini (bir elips) verir."
+ },
+ {
+  "prefix": "gum5-e1",
+  "level": 2,
+  "title": {
+   "en": "pH by interpolation",
+   "tr": "İnterpolasyonla pH"
+  },
+  "en": "The pH of a solution from two buffer standards, at 25 °C and at another temperature. The variants show what happens when the certified values of the standards are correlated.",
+  "tr": "Bir çözeltinin pH'ı, 25 °C'de ve başka bir sıcaklıkta iki tampon standarttan. Türevler, standartların sertifikalı değerleri korelasyonlu olduğunda ne olduğunu gösterir."
+ },
+ {
+  "prefix": "gum5-e5",
+  "level": 2,
+  "title": {
+   "en": "A greenhouse gas inventory",
+   "tr": "Bir sera gazı envanteri"
+  },
+  "en": "Emissions from agricultural machinery. When the same activity data are used for several gases, the results are correlated and the total uncertainty changes.",
+  "tr": "Tarım makinelerinden emisyonlar. Aynı faaliyet verisi birkaç gaz için kullanıldığında sonuçlar korelasyonlu olur ve toplam belirsizlik değişir."
+ },
+ {
+  "prefix": "gum5-e15",
+  "level": 2,
+  "title": {
+   "en": "Breaking force from destructive tests",
+   "tr": "Tahribatlı testlerden kopma kuvveti"
+  },
+  "en": "Six wire ropes are pulled until they break. Only six data: a t distribution and a careful look at the Monte Carlo scale.",
+  "tr": "Altı tel halat kopana kadar çekilir. Yalnızca altı veri: bir t dağılımı ve Monte Carlo ölçeğine dikkatli bir bakış."
+ },
+ {
+  "prefix": "emue-e2.2",
+  "level": 2,
+  "title": {
+   "en": "Vacuum gauge: what to do with a known correction",
+   "tr": "Vakum ölçer: bilinen bir düzeltmeyle ne yapmalı"
+  },
+  "en": "A correction factor can be applied, ignored, or put into the uncertainty. The three scenarios and the effect of a common temperature error on a pressure difference are compared.",
+  "tr": "Bir düzeltme faktörü uygulanabilir, yok sayılabilir ya da belirsizliğe katılabilir. Üç senaryo ve ortak bir sıcaklık hatasının bir basınç farkına etkisi karşılaştırılır."
+ },
+ {
+  "prefix": "emue-e3.4",
+  "level": 2,
+  "title": {
+   "en": "Lead in soil from validation data",
+   "tr": "Validasyon verilerinden topraktaki kurşun"
+  },
+  "en": "An ISO 21748 budget built from the validation of an ICP-OES method: precision, trueness and further terms.",
+  "tr": "Bir ICP-OES yönteminin validasyonundan kurulan bir ISO 21748 bütçesi: kesinlik, gerçeklik ve diğer terimler."
+ },
+ {
+  "prefix": "emue-e3.8",
+  "level": 2,
+  "title": {
+   "en": "A gas mixture by permeation",
+   "tr": "Geçirgenlikle bir gaz karışımı"
+  },
+  "en": "The amount fraction of ammonia from a permeation tube: mass loss rate, flow and molar masses.",
+  "tr": "Bir geçirgenlik tüpünden amonyağın miktar kesri: kütle kayıp hızı, akış ve molar kütleler."
+ },
+ {
+  "prefix": "emue-e6.5",
+  "level": 2,
+  "title": {
+   "en": "Anti-doping: ephedrine in urine",
+   "tr": "Doping kontrolü: idrarda efedrin"
+  },
+  "en": "A top-down uncertainty from intermediate precision and bias, and the decision limit used by WADA to declare an adverse finding.",
+  "tr": "Ara kesinlik ve sapmadan yukarıdan aşağı bir belirsizlik ve WADA'nın olumsuz bulgu ilan etmek için kullandığı karar sınırı."
+ },
+ {
+  "prefix": "iso21748",
+  "level": 2,
+  "title": {
+   "en": "Uncertainty from reproducibility data",
+   "tr": "Tekrar üretilebilirlik verisinden belirsizlik"
+  },
+  "en": "When a standard method has been tested in an interlaboratory study, its reproducibility standard deviation is a good first estimate of the uncertainty (ISO 21748). The examples add further terms where needed.",
+  "tr": "Standart bir yöntem bir laboratuvarlar arası çalışmada denenmişse, tekrar üretilebilirlik standart sapması belirsizliğin iyi bir ilk tahminidir (ISO 21748). Örnekler gerektiğinde başka terimler ekler."
+ },
+ {
+  "prefix": "iso5725-2",
+  "level": 2,
+  "title": {
+   "en": "An interlaboratory precision study",
+   "tr": "Laboratuvarlar arası kesinlik çalışması"
+  },
+  "en": "Eight or more laboratories, several levels, replicate results: repeatability and reproducibility of a method, after Cochran's and Grubbs's tests. Each example is evaluated classically and with REML.",
+  "tr": "Sekiz ya da daha fazla laboratuvar, birkaç düzey, tekrarlı sonuçlar: Cochran ve Grubbs testlerinden sonra bir yöntemin tekrarlanabilirliği ve tekrar üretilebilirliği. Her örnek klasik yöntemle ve REML ile değerlendirilir."
+ },
+ {
+  "prefix": "iso6143-b1",
+  "level": 2,
+  "title": {
+   "en": "A straight-line calibration",
+   "tr": "Doğrusal bir kalibrasyon"
+  },
+  "en": "Nitrogen monoxide by UV absorption calibrated with a straight line through reference gas mixtures, with uncertainties on both axes.",
+  "tr": "Referans gaz karışımlarından geçen bir doğruyla kalibre edilen UV soğurmalı azot monoksit; iki eksende de belirsizlik."
+ },
+ {
+  "prefix": "ume-procedure-19-2",
+  "level": 2,
+  "title": {
+   "en": "Purity by qNMR (TÜBİTAK UME)",
+   "tr": "qNMR ile saflık (TÜBİTAK UME)"
+  },
+  "en": "An illustrative budget for quantitative NMR with an internal standard, from the TÜBİTAK UME uncertainty procedure.",
+  "tr": "TÜBİTAK UME belirsizlik prosedüründen, iç standartlı nicel NMR için açıklayıcı bir bütçe."
+ },
+ {
+  "prefix": "ufs-a1",
+  "level": 2,
+  "title": {
+   "en": "Sampling: nitrate in lettuce",
+   "tr": "Numune alma: marulda nitrat"
+  },
+  "en": "The duplicate method: two samples from each of eight lots, each analysed twice. The sampling part of the uncertainty is larger than the analytical part.",
+  "tr": "Çift numune yöntemi: sekiz partinin her birinden iki numune, her biri iki kez analiz edilir. Belirsizliğin numune alma payı analiz payından büyüktür."
+ },
+ {
+  "prefix": "ufs-a2",
+  "level": 2,
+  "title": {
+   "en": "Sampling: lead in soil",
+   "tr": "Numune alma: toprakta kurşun"
+  },
+  "en": "A large relative uncertainty is better expressed as a factor (multiply or divide) on a log scale.",
+  "tr": "Büyük bir bağıl belirsizlik logaritmik ölçekte bir çarpan (çarp ya da böl) olarak daha iyi ifade edilir."
+ },
+ {
+  "prefix": "ufs-a3",
+  "level": 2,
+  "title": {
+   "en": "Sampling: iron in groundwater",
+   "tr": "Numune alma: yeraltı suyunda demir"
+  },
+  "en": "The same data evaluated with the analysis of variance and with the simpler range method.",
+  "tr": "Aynı veriler varyans analiziyle ve daha basit aralık yöntemiyle değerlendirilir."
+ },
+ {
+  "prefix": "ufs-a4",
+  "level": 2,
+  "title": {
+   "en": "Sampling: vitamin A in porridge",
+   "tr": "Numune alma: lapada A vitamini"
+  },
+  "en": "Small test portions make the sampling variance large; with 4 g portions the estimated analytical variance becomes negative, which shows the limits of the method. A control chart of duplicates is included.",
+  "tr": "Küçük test porsiyonları numune alma varyansını büyütür; 4 g'lık porsiyonlarda kestirilen analitik varyans negatif çıkar, bu da yöntemin sınırlarını gösterir. Çift numunelerin bir kontrol grafiği de vardır."
+ },
+ {
+  "prefix": "ufs-a6",
+  "level": 2,
+  "title": {
+   "en": "Sampling uncertainty by modelling",
+   "tr": "Modelleme ile numune alma belirsizliği"
+  },
+  "en": "Instead of duplicates, the sampling steps are modelled one by one, as in a GUM budget.",
+  "tr": "Çift numuneler yerine numune alma adımları bir GUM bütçesindeki gibi tek tek modellenir."
+ },
+ {
+  "prefix": "jcgm106-9",
+  "level": 3,
+  "title": {
+   "en": "Global risks of false decisions",
+   "tr": "Yanlış kararların genel riskleri"
+  },
+  "en": "With knowledge of the production process, the probability that an accepted item is actually bad (consumer's risk) can be calculated for the whole production, and an acceptance limit chosen for a required risk.",
+  "tr": "Üretim süreci bilindiğinde, kabul edilen bir ürünün gerçekte kötü olma olasılığı (müşteri riski) bütün üretim için hesaplanabilir ve gerekli bir risk için bir kabul sınırı seçilebilir."
+ },
+ {
+  "prefix": "emue-e2.1",
+  "level": 3,
+  "title": {
+   "en": "Several components must conform",
+   "tr": "Birkaç bileşen birlikte uymalı"
+  },
+  "en": "A medicine with four correlated active components: the risks of a false decision are calculated jointly by Monte Carlo.",
+  "tr": "Dört korelasyonlu etken maddeli bir ilaç: yanlış karar riskleri Monte Carlo ile birlikte hesaplanır."
+ },
+ {
+  "prefix": "gum5-e10",
+  "level": 3,
+  "title": {
+   "en": "Global and specific risks with a prior",
+   "tr": "Önsel bilgiyle genel ve özgül riskler"
+  },
+  "en": "Particulate matter in air: prior knowledge of typical concentrations (a lognormal distribution) is combined with the measurement to calculate the risks of a decision.",
+  "tr": "Havada partikül madde: tipik derişimler hakkındaki önsel bilgi (lognormal dağılım) bir kararın risklerini hesaplamak için ölçümle birleştirilir."
+ },
+ {
+  "prefix": "jcgm101-9.4",
+  "level": 3,
+  "title": {
+   "en": "A strongly nonlinear model",
+   "tr": "Belirgin biçimde doğrusal olmayan bir model"
+  },
+  "en": "The comparison loss in microwave power: near zero the model is so nonlinear that the first-order GUM fails completely, while Monte Carlo gives the right answer. The variants add correlation and higher-order terms.",
+  "tr": "Mikrodalga gücünde karşılaştırma kaybı: sıfıra yakın model o kadar doğrusal değildir ki birinci mertebe GUM tamamen başarısız olur, Monte Carlo ise doğru cevabı verir. Türevler korelasyon ve yüksek mertebe terimler ekler."
+ },
+ {
+  "prefix": "jcgm101-9.5",
+  "level": 3,
+  "title": {
+   "en": "Gauge block: exact and approximate models",
+   "tr": "Mastar blok: tam ve yaklaşık modeller"
+  },
+  "en": "The full nonlinear gauge-block model of JCGM 101 compared with its linear approximation, by GUM and Monte Carlo.",
+  "tr": "JCGM 101'in tam doğrusal olmayan mastar blok modeli, doğrusal yaklaşımıyla GUM ve Monte Carlo üzerinden karşılaştırılır."
+ },
+ {
+  "prefix": "jcgm102-9.3",
+  "level": 3,
+  "title": {
+   "en": "Cartesian to polar coordinates",
+   "tr": "Kartezyen koordinattan kutupsal koordinata"
+  },
+  "en": "A magnitude and a phase from two coordinates. Near the origin the transformation is strongly nonlinear and the coverage region is not an ellipse.",
+  "tr": "İki koordinattan bir büyüklük ve bir faz. Merkeze yakın dönüşüm belirgin biçimde doğrusal değildir ve kapsam bölgesi bir elips değildir."
+ },
+ {
+  "prefix": "jcgm102-9.4",
+  "level": 3,
+  "title": {
+   "en": "Resistance and reactance from simultaneous data",
+   "tr": "Eşzamanlı verilerden direnç ve reaktans"
+  },
+  "en": "Three outputs from correlated indication values; the alternative uses a multivariate t distribution for the few data.",
+  "tr": "Korelasyonlu gösterge değerlerinden üç çıktı; alternatif sürüm az veri için çok değişkenli bir t dağılımı kullanır."
+ },
+ {
+  "prefix": "jcgm102-9.5",
+  "level": 3,
+  "title": {
+   "en": "Implicit models: a resistance thermometer",
+   "tr": "Kapalı modeller: bir direnç termometresi"
+  },
+  "en": "The temperature cannot be written as a formula of the resistance, so the equation is solved numerically. With ten temperatures from one thermometer, the results are strongly correlated.",
+  "tr": "Sıcaklık direncin bir formülü olarak yazılamaz, bu yüzden denklem sayısal olarak çözülür. Bir termometreden on sıcaklıkla sonuçlar güçlü biçimde korelasyonludur."
+ },
+ {
+  "prefix": "gum5-e2",
+  "level": 3,
+  "title": {
+   "en": "Peak areas from the same injections",
+   "tr": "Aynı enjeksiyonlardan pik alanları"
+  },
+  "en": "Benzo[a]pyrene by GC-MS with an internal standard. Two areas measured in the same injections are correlated; the variant treats them as an ensemble when counting degrees of freedom.",
+  "tr": "İç standartlı GC-MS ile benzo[a]piren. Aynı enjeksiyonlarda ölçülen iki alan korelasyonludur; türev, serbestlik derecesini sayarken onları bir topluluk olarak ele alır."
+ },
+ {
+  "prefix": "gum5-e4",
+  "level": 3,
+  "title": {
+   "en": "A gravimetric gas mixture",
+   "tr": "Gravimetrik bir gaz karışımı"
+  },
+  "en": "Eight amount fractions of a calibration gas mixture prepared by weighing: many inputs, intermediate quantities and correlated outputs.",
+  "tr": "Tartımla hazırlanmış bir kalibrasyon gaz karışımının sekiz miktar kesri: çok sayıda girdi, ara büyüklükler ve korelasyonlu çıktılar."
+ },
+ {
+  "prefix": "gum5-e9",
+  "level": 3,
+  "title": {
+   "en": "Calibrating a torque sensor",
+   "tr": "Bir tork sensörünün kalibrasyonu"
+  },
+  "en": "A straight line through the origin fitted by ordinary and weighted least squares, with the GUM uncertainty of the slope.",
+  "tr": "Sıradan ve ağırlıklı en küçük karelerle uydurulan, orijinden geçen bir doğru ve eğimin GUM belirsizliği."
+ },
+ {
+  "prefix": "gum5-e12",
+  "level": 3,
+  "title": {
+   "en": "Between-bottle homogeneity with Bayes",
+   "tr": "Bayes ile şişeler arası homojenlik"
+  },
+  "en": "When the between-bottle variance is small, the classical estimate can be zero or negative; a hierarchical Bayesian model gives a sensible value.",
+  "tr": "Şişeler arası varyans küçük olduğunda klasik tahmin sıfır ya da negatif çıkabilir; hiyerarşik bir Bayesçi model anlamlı bir değer verir."
+ },
+ {
+  "prefix": "possolo-bodnar-2018",
+  "level": 3,
+  "title": {
+   "en": "Homogeneity of a soil reference material",
+   "tr": "Bir toprak referans malzemesinin homojenliği"
+  },
+  "en": "Twenty bottles measured in triplicate, evaluated by the analysis of variance and by a hierarchical Bayesian model.",
+  "tr": "Üçer kez ölçülen yirmi şişe; varyans analiziyle ve hiyerarşik bir Bayesçi modelle değerlendirilir."
+ },
+ {
+  "prefix": "possolo-meija-2022-atomic-weight",
+  "level": 3,
+  "title": {
+   "en": "Atomic weight from isotope ratios",
+   "tr": "İzotop oranlarından atom ağırlığı"
+  },
+  "en": "The atomic weight and isotopic composition of lead from three measured isotope ratios: correlated outputs from a nonlinear model.",
+  "tr": "Üç ölçülen izotop oranından kurşunun atom ağırlığı ve izotop bileşimi: doğrusal olmayan bir modelden korelasyonlu çıktılar."
+ },
+ {
+  "prefix": "possolo-meija-2022-hubble",
+  "level": 3,
+  "title": {
+   "en": "A consensus value with heavy tails",
+   "tr": "Kalın kuyruklu bir uzlaşı değeri"
+  },
+  "en": "Twenty-two inconsistent estimates of the Hubble–Lemaître constant combined with a Bayesian model whose laboratory effects follow a Laplace distribution, which is less influenced by outliers.",
+  "tr": "Hubble–Lemaître sabitinin yirmi iki tutarsız tahmini, laboratuvar etkileri Laplace dağılımına uyan ve aykırı değerlerden daha az etkilenen bir Bayesçi modelle birleştirilir."
+ },
+ {
+  "prefix": "iupac2024-3a",
+  "level": 3,
+  "title": {
+   "en": "An implicit chemical model",
+   "tr": "Kapalı bir kimyasal model"
+  },
+  "en": "The Mohr titration with its endpoint chemistry: the solubility equilibrium gives an implicit equation that the program solves.",
+  "tr": "Dönüm noktası kimyasıyla Mohr titrasyonu: çözünürlük dengesi programın çözdüğü kapalı bir denklem verir."
+ },
+ {
+  "prefix": "iupac2024-3e",
+  "level": 3,
+  "title": {
+   "en": "Three inconsistent determinations",
+   "tr": "Üç tutarsız belirleme"
+  },
+  "en": "The molar mass of iridium from three determinations that disagree. Laboratory effects are modelled with a hierarchical Bayesian model.",
+  "tr": "Birbiriyle uyuşmayan üç belirlemeden iridyumun molar kütlesi. Laboratuvar etkileri hiyerarşik bir Bayesçi modelle modellenir."
+ },
+ {
+  "prefix": "iupac2024-4f",
+  "level": 3,
+  "title": {
+   "en": "A key comparison",
+   "tr": "Bir anahtar karşılaştırma"
+  },
+  "en": "CCQM-K145, nickel in bovine liver: a consensus value with dark uncertainty by maximum likelihood. Participants are coded.",
+  "tr": "CCQM-K145, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli bir uzlaşı değeri. Katılımcılar kodlanmıştır."
+ },
+ {
+  "prefix": "koepke2017",
+  "level": 3,
+  "title": {
+   "en": "Consensus values of discrepant data",
+   "tr": "Tutarsız verilerin uzlaşı değerleri"
+  },
+  "en": "Half-lives and the gravitational constant: measurements that disagree far more than their uncertainties. DerSimonian–Laird, Linear Pool and hierarchical Bayes give different answers; the choice is part of the evaluation.",
+  "tr": "Yarı ömürler ve kütle çekim sabiti: belirsizliklerinden çok daha fazla birbirinden ayrılan ölçümler. DerSimonian–Laird, Linear Pool ve hiyerarşik Bayes farklı cevaplar verir; seçim değerlendirmenin bir parçasıdır."
+ },
+ {
+  "prefix": "merkatas2019",
+  "level": 3,
+  "title": {
+   "en": "Shades of dark uncertainty",
+   "tr": "Karanlık belirsizliğin tonları"
+  },
+  "en": "Sixteen measurements of the Newtonian constant of gravitation evaluated with several procedures; the consensus value and its uncertainty depend strongly on the procedure.",
+  "tr": "Newton kütle çekim sabitinin on altı ölçümü birkaç yöntemle değerlendirilir; uzlaşı değeri ve belirsizliği yönteme güçlü biçimde bağlıdır."
+ },
+ {
+  "prefix": "nicob",
+  "level": 3,
+  "title": {
+   "en": "Degrees of equivalence in a comparison",
+   "tr": "Bir karşılaştırmada eşdeğerlik dereceleri"
+  },
+  "en": "The examples of the NIST Consensus Builder: a consensus value from laboratories with degrees of freedom, and leave-one-out and bilateral degrees of equivalence of 19 laboratories.",
+  "tr": "NIST Consensus Builder örnekleri: serbestlik dereceli laboratuvarlardan bir uzlaşı değeri ve 19 laboratuvarın birini dışarıda bırakma ve ikili eşdeğerlik dereceleri."
+ },
+ {
+  "prefix": "iso5725-3",
+  "level": 3,
+  "title": {
+   "en": "Intermediate precision and nested designs",
+   "tr": "Ara kesinlik ve iç içe tasarımlar"
+  },
+  "en": "Precision when time and operator change, and the staggered-nested design that separates several factors with few measurements.",
+  "tr": "Zaman ve operatör değiştiğinde kesinlik ve birkaç faktörü az ölçümle ayıran kademeli iç içe tasarım."
+ },
+ {
+  "prefix": "iso6143",
+  "level": 3,
+  "title": {
+   "en": "Calibration functions with uncertainty on both axes",
+   "tr": "İki eksende belirsizlikli kalibrasyon fonksiyonları"
+  },
+  "en": "Gas analysis with straight-line, quadratic, power and exponential functions, and reference mixtures whose contents are correlated. The program tests which function fits.",
+  "tr": "Doğrusal, ikinci dereceden, kuvvet ve üstel fonksiyonlarla gaz analizi ve içerikleri korelasyonlu referans karışımlar. Program hangi fonksiyonun uyduğunu sınar."
+ },
+ {
+  "prefix": "emue-e3.3",
+  "level": 3,
+  "title": {
+   "en": "An analyser calibrated by dynamic dilution",
+   "tr": "Dinamik seyreltmeyle kalibre edilen bir analizör"
+  },
+  "en": "The reference mixtures are made from the same parent gas, so their contents are correlated. Ignoring the covariances changes the result.",
+  "tr": "Referans karışımlar aynı ana gazdan yapılır, bu yüzden içerikleri korelasyonludur. Kovaryansları yok saymak sonucu değiştirir."
+ },
+ {
+  "prefix": "cg18-h4",
+  "level": 3,
+  "title": {
+   "en": "An error approximation function",
+   "tr": "Bir hata yaklaşım fonksiyonu"
+  },
+  "en": "A straight line fitted through the errors of a balance at many loads, with a χ² test and a residual test deciding how large an extra term s_m must be.",
+  "tr": "Bir terazinin birçok yükteki hatalarından geçirilen bir doğru; ek terim s_m'nin ne kadar büyük olması gerektiğine bir χ² testi ve bir artık testi karar verir."
+ },
+ {
+  "prefix": "palma2019",
+  "level": 3,
+  "title": {
+   "en": "Matrix effects in a top-down model",
+   "tr": "Yukarıdan aşağı bir modelde matris etkileri"
+  },
+  "en": "Seven elements in marine sediments: recoveries from reference materials of different matrices, and a model with two concentration intervals.",
+  "tr": "Deniz sedimentlerinde yedi element: farklı matrisli referans malzemelerden geri kazanımlar ve iki derişim aralıklı bir model."
+ },
+ {
+  "prefix": "bettencourt2026",
+  "level": 3,
+  "title": {
+   "en": "Arithmetic or weighted mean recovery",
+   "tr": "Aritmetik ya da ağırlıklı ortalama geri kazanım"
+  },
+  "en": "Fluoranthene in river sediments: the mean recovery calculated in two ways, as in the MUPR guide and its spreadsheet.",
+  "tr": "Nehir sedimentlerinde floranten: ortalama geri kazanım, MUPR kılavuzu ve hesap tablosundaki gibi iki yolla hesaplanır."
+ },
+ {
+  "prefix": "bipm-isrd",
+  "level": 3,
+  "title": {
+   "en": "Purity by quantitative NMR (BIPM)",
+   "tr": "Nicel NMR ile saflık (BIPM)"
+  },
+  "en": "The reference data of the BIPM for internal standards in qNMR. Complete purity budgets; one result lies close to the physical limit of 1 and is reported with an asymmetric interval.",
+  "tr": "BIPM'in qNMR iç standartları için referans verileri. Tam saflık bütçeleri; bir sonuç fiziksel sınır olan 1'e yakındır ve asimetrik bir aralıkla raporlanır."
+ },
+ {
+  "prefix": "quam-a7",
+  "level": 3,
+  "title": {
+   "en": "Isotope dilution (IDMS)",
+   "tr": "İzotop seyreltme (IDMS)"
+  },
+  "en": "Lead in water by double isotope dilution: a long model with isotope ratios, masses and a calibration standard. A reference method with a small uncertainty.",
+  "tr": "Çift izotop seyreltmeyle suda kurşun: izotop oranları, kütleler ve bir kalibrasyon standardı içeren uzun bir model. Küçük belirsizlikli bir referans yöntem."
+ },
+ {
+  "prefix": "ufs-a5",
+  "level": 3,
+  "title": {
+   "en": "Gy's sampling theory",
+   "tr": "Gy'nin numune alma teorisi"
+  },
+  "en": "The fundamental sampling error of an enzyme in chicken feed, estimated from particle size and properties.",
+  "tr": "Tavuk yemindeki bir enzimin temel numune alma hatası, parçacık boyutu ve özelliklerinden kestirilir."
+ }
+]

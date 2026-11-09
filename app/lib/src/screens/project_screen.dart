@@ -22,6 +22,8 @@ import '../widgets/proficiency_editor.dart';
 import '../widgets/results_view.dart';
 import '../widgets/settings_editor.dart';
 import '../widgets/topdown_editor.dart';
+import '../learn/guide.dart';
+import 'guide_screen.dart';
 
 /// Editing, calculating and exporting one project.
 class ProjectScreen extends StatefulWidget {
@@ -172,6 +174,11 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
     }
   }
 
+  void _openGuide(String target) {
+    if (target.startsWith('example:') || target.startsWith('http')) return;
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => GuideScreen(initial: target)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
@@ -185,6 +192,12 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
             style: TextButton.styleFrom(foregroundColor: Theme.of(context).appBarTheme.foregroundColor),
             onPressed: app.toggleLanguage,
             child: Text(app.lang == 'en' ? 'TR' : 'EN'),
+          ),
+          IconButton(
+            key: const Key('project-help'),
+            tooltip: s['help'],
+            onPressed: () => _openGuide(helpChapterFor(_project)),
+            icon: const Icon(Icons.help_outline),
           ),
           IconButton(tooltip: s['save'], onPressed: () => _save(), icon: const Icon(Icons.save_outlined)),
           PopupMenuButton<String>(
@@ -242,7 +255,7 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
             child: TabBarView(
               controller: _tabs,
               children: [
-                OverviewTab(key: ValueKey('o$_revision'), project: _project, onChanged: _changed),
+                OverviewTab(key: ValueKey('o$_revision'), project: _project, onChanged: _changed, onLink: _openGuide),
                 _isTopDown
                     ? TopDownEditor(key: ValueKey('t$_revision'), project: _project, onChanged: _changed)
                     : _isProficiency
