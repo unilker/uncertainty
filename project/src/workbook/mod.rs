@@ -22,6 +22,9 @@ use crate::{Analysis, Evaluation, Lang, ProjectError};
 use uncertainty_core::expr::{self, Expr, Func};
 use uncertainty_core::gum::{CoverageSpec, DofRounding};
 
+mod precision;
+mod proficiency;
+
 /// Relative step of the central differences, h = STEP·u(xᵢ).
 const STEP: f64 = 1e-3;
 
@@ -29,6 +32,8 @@ const STEP: f64 = 1e-3;
 pub fn supported(p: &Project, e: &Evaluation) -> bool {
     match e {
         Evaluation::Model(a) => p.model.as_ref().is_some_and(|m| m.ensembles.is_empty()) && a.gum.is_some(),
+        Evaluation::Proficiency(_) => p.proficiency.is_some(),
+        Evaluation::Interlab(_) => p.precision_experiment.is_some(),
         _ => false,
     }
 }
@@ -39,14 +44,19 @@ pub fn verification_workbook(p: &Project, e: &Evaluation, lang: Lang) -> Result<
         return Err(ProjectError::Format(
             t(
                 lang,
-                "a spreadsheet verification is available for measurement models with a GUM evaluation",
-                "elektronik tablo doğrulaması GUM değerlendirmesi olan ölçüm modelleri için yapılabilir",
+                "no spreadsheet verification is available for this type of project",
+                "bu proje türü için elektronik tablo doğrulaması yoktur",
             )
             .into(),
         ));
     }
-    let Evaluation::Model(a) = e else { unreachable!() };
-    model_workbook(p, a, lang).map(|wb| wb.to_bytes())
+    let wb = match e {
+        Evaluation::Model(a) => model_workbook(p, a, lang)?,
+        Evaluation::Proficiency(a) => proficiency::workbook(p, a, lang)?,
+        Evaluation::Interlab(a) => precision::workbook(p, a, lang)?,
+        _ => unreachable!("checked by supported()"),
+    };
+    Ok(wb.to_bytes())
 }
 
 fn t<'a>(lang: Lang, en: &'a str, tr: &'a str) -> &'a str {
@@ -94,6 +104,7 @@ pub fn excel(e: &Expr, refs: &[String]) -> String {
 
 /// Rows of the sheet *Check*: a quantity, KAPSAM's value, the spreadsheet's
 /// formula, the kind of difference and the tolerance.
+#[derive(Default)]
 struct Checks {
     rows: Vec<(String, f64, String, Diff, f64)>,
 }
@@ -103,6 +114,8 @@ enum Diff {
     Relative,
     /// |S − K| / scale, with the scale a cell reference.
     Scaled(String),
+    /// |S − K|.
+    Absolute,
 }
 
 impl Checks {
@@ -162,6 +175,10 @@ impl Checks {
                 Diff::Scaled(s) => {
                     sh.formula(r, 3, format!("ABS({c}-{b})/({s})"), Style::Number);
                     sh.text(r, 6, t(lang, "relative to u(y)", "u(y)'ye göre"), Style::Note);
+                }
+                Diff::Absolute => {
+                    sh.formula(r, 3, format!("ABS({c}-{b})"), Style::Number);
+                    sh.text(r, 6, t(lang, "absolute", "mutlak"), Style::Note);
                 }
             }
             sh.number(r, 4, *tol, Style::Number);
@@ -835,7 +852,7 @@ mod tests {
 
     #[test]
     fn model_workbook_has_the_checks() {
-        let p = crate::parse(include_str!("../../library/chemistry/quam-a1-cadmium-standard.json")).unwrap();
+        let p = crate::parse(include_str!("../../../library/chemistry/quam-a1-cadmium-standard.json")).unwrap();
         let e = crate::run(&p, &crate::Overrides { skip_mcm: true, ..Default::default() }).unwrap();
         assert!(supported(&p, &e));
         let Evaluation::Model(a) = &e else { panic!() };

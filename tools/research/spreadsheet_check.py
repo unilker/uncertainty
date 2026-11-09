@@ -74,7 +74,7 @@ def read_check(desktop, path):
 def main():
     projects = []
     with tempfile.TemporaryDirectory() as tmp:
-        for f in sorted(glob.glob("library/*/*.json")):
+        for f in sorted(glob.glob(os.environ.get("LIBRARY_GLOB", "library/*/*.json"))):
             pid = json.load(open(f, encoding="utf-8"))["metadata"]["id"]
             x = os.path.join(tmp, pid + ".xlsx")
             r = subprocess.run([BIN, "run", f, "--no-mcm", "-o", x], capture_output=True, text=True)
