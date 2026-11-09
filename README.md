@@ -168,6 +168,29 @@ cargo run --release --example mcm_dispersion   # Monte Carlo dispersion study
 The project is developed as a scientific publication; decisions, findings
 and sources are recorded in [docs/research/](docs/research/).
 
+## Privacy / Gizlilik
+
+This program will not transfer any information to other networked systems unless specifically requested by the
+user or the person installing or operating it. All calculations run on the user's computer; projects and reports
+are written only where the user saves or shares them.
+
+Bu program, kullanıcı ya da programı kuran veya çalıştıran kişi özellikle istemedikçe hiçbir bilgiyi başka ağ
+sistemlerine aktarmaz. Tüm hesaplar kullanıcının bilgisayarında yapılır; projeler ve raporlar yalnızca kullanıcının
+kaydettiği ya da paylaştığı yere yazılır.
+
+## Code signing policy / Kod imzalama politikası
+
+Windows packages are built from this repository by GitHub Actions ([package.yml](.github/workflows/package.yml)).
+Every release is approved manually before it is signed. Code signing by the SignPath Foundation has been applied
+for; when it is granted: *Free code signing provided by [SignPath.io](https://signpath.io), certificate by
+[SignPath Foundation](https://signpath.org).*
+
+- Committers and reviewers / Geliştirici ve gözden geçiren: [İlker Ün](https://github.com/unilker)
+- Approvers / İmza onaylayıcı: [İlker Ün](https://github.com/unilker)
+
+Windows paketleri bu depodan GitHub Actions ile derlenir; her sürüm imzalanmadan önce elle onaylanır. Ayrıntılar ve
+antivirüs uyarıları için: [docs/windows-code-signing.md](docs/windows-code-signing.md).
+
 ## Licence and citation / Lisans ve atıf
 
 GPL-3.0-or-later with additional attribution terms (GPL §7) — see
