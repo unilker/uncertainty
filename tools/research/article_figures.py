@@ -2,10 +2,10 @@
 for the library projects and the tables of docs/article/numbers.md. Run from the repository root after
 `cargo build -p uncertainty-cli` and `python3 tools/research/article_stats.py`; needs matplotlib.
 
-Writes docs/article/figures/fig{1,2,3}.{pdf,png}:
+Writes docs/article/figures/fig{1,3,4}.{pdf,png} (Fig. 2, a screenshot of the application, is taken from the app):
   Fig. 1  architecture of the program;
-  Fig. 2  findings per source document by class (a, b, c, n);
-  Fig. 3  (a) consensus value of G by procedure (Merkatas et al. 2019 data);
+  Fig. 3  findings per source document by class (a, b, c, n);
+  Fig. 4  (a) consensus value of G by procedure (Merkatas et al. 2019 data);
           (b) leave-one-out degrees of equivalence of the 60Co comparison by procedure (NICOB manual data).
 
 Colours: the validated categorical palette of the data-visualisation guidance (slots 1-4, fixed order, checked
@@ -84,7 +84,7 @@ def fig1():
     save(fig, "fig1_architecture")
 
 
-# --- Fig. 2: findings per document by class ----------------------------------------------------------------------
+# --- Fig. 3: findings per document by class ----------------------------------------------------------------------
 def fig2():
     md = Path("docs/article/numbers.md").read_text(encoding="utf-8")
     sec = md.split("## Findings by document and class")[1].split("\n## ")[0]
@@ -115,10 +115,10 @@ def fig2():
     ax.set_axisbelow(True)
     ax.tick_params(axis="y", length=0)
     ax.legend(loc="center right", fontsize=7, handlelength=1.2)
-    save(fig, "fig2_findings_by_document")
+    save(fig, "fig3_findings_by_document")
 
 
-# --- Fig. 3: procedures --------------------------------------------------------------------------------------------
+# --- Fig. 4: procedures --------------------------------------------------------------------------------------------
 def fig3():
     g = run_json("library/physical/merkatas2019-newtonian-constant-g-shades.json")
     dl, ml, by, lp = g["dersimonian_laird"], g["maximum_likelihood"], g["bayes"], g["linear_pool"]
@@ -168,7 +168,7 @@ def fig3():
     ax.tick_params(axis="y", length=0)
     ax.set_title("(b) ⁶⁰Co, 19 laboratories: leave-one-out degrees of equivalence", fontsize=8, loc="left", color=INK)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.11), fontsize=6.8, ncol=1, handlelength=1.0)
-    save(fig, "fig3_procedures")
+    save(fig, "fig4_procedures")
 
 
 def tables():

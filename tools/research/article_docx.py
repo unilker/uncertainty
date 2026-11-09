@@ -3,7 +3,7 @@
     python3 tools/research/article_docx.py OUT_DIR
 
 reads docs/article/manuscript.md (English, the text of record) and docs/article/manuscript.tr.md (its Turkish
-translation), puts Figures 1-3 (docs/article/figures/*.png) and Tables 2-3 (docs/article/tables.md) at the
+translation), puts Figures 1-4 (docs/article/figures/*.png) and Tables 2-3 (docs/article/tables.md) at the
 markers <!-- fig1 --> ... <!-- table3 --> and converts both with pandoc. The Word files have A4 pages, 1.5 line
 spacing, continuous line numbers and page numbers, so that comments can cite a line. Run
 `python3 tools/research/article_figures.py` first if the figures or tables are out of date. Needs pandoc.
@@ -21,11 +21,15 @@ FIG = ART / "figures"
 
 CAPTIONS = {
     "en": {
-        "fig1": "Figure 1. Architecture of the program: sources, generators, project files, engine, interfaces and tests.",
-        "fig2": "Figure 2. Findings per source document by class (a: intermediate rounding, b: misprint without "
+        "fig1": "Figure 1. Architecture of the program: generators write the project files of the library from the numerical "
+                "data of their sources; one engine evaluates them for the command-line tool, the application and the tests.",
+        "fig2": "Figure 2. Results of a measurement model in the application (Eurachem QUAM Example A1, preparation of a "
+                "cadmium calibration standard): reported statement, GUM result, uncertainty budget and contributions to the "
+                "combined variance.",
+        "fig3": "Figure 3. Findings per source document by class (a: intermediate rounding, b: misprint without "
                 "effect, c: inconsistency, n: no discrepancy); documents with fewer than three findings are combined, "
                 "and a finding with two classes counts in both.",
-        "fig3": "Figure 3. (a) Consensus value of the Newtonian constant of gravitation by procedure (16 results, "
+        "fig4": "Figure 4. (a) Consensus value of the Newtonian constant of gravitation by procedure (16 results, "
                 "Merkatas et al. [46]), 95 % intervals. (b) Leave-one-out degrees of equivalence of the ⁶⁰Co activity "
                 "comparison of the NICOB manual [23] by procedure, with the number of significant bilateral pairs.",
         "table2a": "**Table 2a.** Library projects by evaluation type.",
@@ -35,12 +39,16 @@ CAPTIONS = {
                 "numbered for comments.",
     },
     "tr": {
-        "fig1": "Şekil 1. Programın mimarisi: kaynaklar, üreteçler, proje dosyaları, motor, arayüzler ve testler "
-                "(şekildeki metin İngilizcedir).",
-        "fig2": "Şekil 2. Kaynak belge başına bulgular, sınıfa göre (a: ara yuvarlama, b: etkisiz baskı hatası, "
+        "fig1": "Şekil 1. Programın mimarisi: üreteçler kütüphanenin proje dosyalarını kaynaklarının sayısal verilerinden "
+                "yazar; tek bir motor onları komut satırı aracı, uygulama ve testler için değerlendirir (şekildeki metin "
+                "İngilizcedir).",
+        "fig2": "Şekil 2. Uygulamada bir ölçüm modelinin sonuçları (Eurachem QUAM Örnek A1, kadmiyum kalibrasyon "
+                "standardının hazırlanması): raporlanan sonuç, GUM sonucu, belirsizlik bütçesi ve birleşik varyansa "
+                "katkılar (ekran İngilizce arayüzle alınmıştır).",
+        "fig3": "Şekil 3. Kaynak belge başına bulgular, sınıfa göre (a: ara yuvarlama, b: etkisiz baskı hatası, "
                 "c: tutarsızlık, n: tutarsızlık yok); üçten az bulgusu olan belgeler birleştirilmiştir ve iki sınıflı "
                 "bir bulgu her ikisinde de sayılır (şekildeki metin İngilizcedir).",
-        "fig3": "Şekil 3. (a) Newton kütle çekim sabitinin yönteme göre uzlaşı değeri (16 sonuç, Merkatas ve ark. "
+        "fig4": "Şekil 4. (a) Newton kütle çekim sabitinin yönteme göre uzlaşı değeri (16 sonuç, Merkatas ve ark. "
                 "[46]), %95 aralıkları. (b) NICOB kılavuzundaki [23] ⁶⁰Co aktivite karşılaştırmasının yönteme göre "
                 "birini dışarıda bırakma eşdeğerlik dereceleri ve anlamlı ikili çiftlerin sayısı (şekildeki metin "
                 "İngilizcedir).",
@@ -79,6 +87,7 @@ WIDTHS = {
     "| Project type |": [16, 64, 20], "| Proje türü |": [16, 64, 20],
     "| F | Document |": [6, 16, 17, 10, 15, 36], "| F | Belge |": [6, 16, 17, 10, 15, 36],
     "| Step |": [22, 8, 70], "| Adım |": [22, 8, 70],
+    "| Laboratory |": [14, 24, 17, 25, 20], "| Laboratuvar |": [14, 24, 17, 25, 20],
 }
 
 
@@ -112,6 +121,23 @@ def set_widths(md):
     return "\n".join(lines)
 
 
+def loose_lists(md):
+    """Blank lines between list items, so that pandoc sets them in the body style rather than the small style
+    of table cells."""
+    lines = md.split("\n")
+    out = []
+    item = re.compile(r"^(- |\d+\. )")
+    in_code = False
+    for i, line in enumerate(lines):
+        if line.startswith("```"):
+            in_code = not in_code
+        out.append(line)
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        if not in_code and item.match(nxt) and line.strip() and (item.match(line) or line.startswith("   ")):
+            out.append("")
+    return "\n".join(out)
+
+
 def assemble(lang, commit):
     src = ART / ("manuscript.md" if lang == "en" else "manuscript.tr.md")
     md = src.read_text(encoding="utf-8")
@@ -121,7 +147,8 @@ def assemble(lang, commit):
     tabs = tables_md()
     if lang == "tr":
         tabs = {k: translate_table(v) for k, v in tabs.items()}
-    figs = {"fig1": "fig1_architecture", "fig2": "fig2_findings_by_document", "fig3": "fig3_procedures"}
+    figs = {"fig1": "fig1_architecture", "fig2": "fig2_application", "fig3": "fig3_findings_by_document",
+            "fig4": "fig4_procedures"}
     for key, name in figs.items():
         img = (FIG / f"{name}.png").resolve()
         rest = rest.replace(f"<!-- {key} -->", f"![{cap[key]}]({img}){{width=16cm}}")
@@ -129,7 +156,7 @@ def assemble(lang, commit):
     rest = rest.replace("<!-- table3 -->", f"{cap['table3']}\n\n{tabs['table3']}")
     assert "<!--" not in rest, f"unreplaced marker in {src}"
     note = "*" + cap["note"].format(date=date.today().isoformat(), commit=commit) + "*\n\n"
-    return title, note + set_widths(rest)
+    return title, note + loose_lists(set_widths(rest))
 
 
 STYLE_FONT = '<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:eastAsia="Times New Roman" w:cs="Times New Roman" />'
@@ -158,6 +185,8 @@ def reference_docx(path, lang):
                 s = s.replace('<w:sz w:val="24" />\n        <w:szCs w:val="24" />',
                               '<w:sz w:val="22" />\n        <w:szCs w:val="22" />', 1)
                 s = s.replace('w:val="en-US" w:eastAsia', f'w:val="{"tr-TR" if lang == "tr" else "en-GB"}" w:eastAsia', 1)
+                s = s.replace('<w:pPrDefault>\n      <w:pPr>\n        <w:spacing w:after="200" />',
+                              '<w:pPrDefault>\n      <w:pPr>\n        <w:spacing w:after="120" w:line="360" w:lineRule="auto" />', 1)
                 s = s.replace('<w:spacing w:before="180" w:after="180" />',
                               '<w:spacing w:before="0" w:after="120" w:line="360" w:lineRule="auto" />')
                 s = re.sub(r'(<w:style [^>]*w:styleId="Compact">.*?)<w:spacing w:before="36" w:after="36" />'

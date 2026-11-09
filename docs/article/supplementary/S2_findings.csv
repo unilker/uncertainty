@@ -1,0 +1,101 @@
+F,class,title,document (class c),effect,status,quantity,printed,recomputed,note
+F1,a,GUM H.1 uses unrounded uncertainties.,,,,,,,
+F2,n,JCGM 101 MCM table values carry Monte Carlo dispersion.,,,,,,,
+F3,n,Shortest coverage intervals are poorly located by MCM for near-symmetric outputs.,,,,,,,
+F4,n,EURACHEM A1 (Cd calibration standard): GUF slightly conservative.,,,,,,,
+F5,c,Nordtest TR 537 §6.1 (one CRM): arithmetic slip.,Nordtest TR 537 §6.1,c2,confirmed,u(bias) / %,4.1,4.15,component only; final U not printed to this precision
+F6,b,Nordtest §6.2 (PT).,,,,,,,
+F7,b,Nordtest Appendix 5.,,,,,,,
+F8,"a,b",Nordtest §8.,,,,,,,
+F9,a,MUPR Example B1: intermediate rounding.,,,,,,,
+F10,"a,c",EURACHEM CG4 Example A2.,Eurachem QUAM A2,c2,partly erratum,u(m_KHP) / mg; Table A2.4,0.13,0.12,"u(m_KHP) corrected by QUAM_ERRATA_v2 (21.01.2019, p. 46); the u(V) column of Table A2.4 is not in the errata; reported result unchanged"
+F11,n,Guidance documents round at intermediate steps.,,,,,,,
+F12,"b,c",EURACHEM A3.,Eurachem QUAM A3,c2,partly erratum,u_c in Table A3.1 / (mol/L),0.00016,0.00019,the extra term in u(V_HCl) is corrected by QUAM_ERRATA_v2 (p. 55); Table A3.1 lists single-run inputs with the triplicate u_c (not in the errata); reported result unchanged
+F13,b,EURACHEM A4.,,,,,,,
+F14,c,EURACHEM A5.,Eurachem QUAM A5,e,erratum,u(a_V) / dm²; u_c / (mg/dm²),0.19; 0.001465,0.152; 0.00144,"fully corrected by QUAM_ERRATA_v2 (pp. 72–80, amended Table A5.1); reported as a known erratum, not as a finding"
+F15,b,EURACHEM A6.,,,,,,,
+F16,n,EURACHEM A7 (double IDMS).,,,,,,,
+F17,"a,b","MUPR B2–B6, Appendix C.",,,,,,,
+F18,"a,b",EA-4/02 M:2022.,,,,,,,
+F19,n,Second-order GUM terms for products.,,,,,,,
+F20,n,Overall picture (candidate result for the article).,,,,,,,
+F21,c,EA-4/02 S13 — printed diameter not reproducible from the data (class c).,EA-4/02 S13,c1,confirmed,d_X / mm,90.0003,90.0002,Δl and coaxiality correction of the budget differ from the data
+F22,a,EA-4/02 S12 — s rounded before use (class a).,,,,,,,
+F23,n,JCGM 101 9.2.3 — validation on the threshold.,,,,,,,
+F24,a,QUAM A1 with the volume sub-model (class a).,,,,,,,
+F25,b,Nordtest TR 537 §8.2 Example A — n (class b).,,,,,,,
+F26,a,Rounded intermediates in MUPR B1 and B5 (class a).,,,,,,,
+F27,a,"The QUAM spreadsheet values are Kragten values (class a, explanatory).",,,,,,,
+F28,c,TN 1900 E4 (Pitot tube) — results inconsistent with the stated equation by a factor √2 (class c).,NIST TN 1900 E4,c1,independently checked,v / (m/s),40.64,57.48,"printed = stated equation ÷ √2; reported independently by Delker (2021, footnote 1); Kline & McClintock (1953) still to be read"
+F29,c,"TN 1900 E3 (falling-ball viscometer) — ""conventional formula"" value not that of GUM eq. (10) (class c, to be confirmed).",NIST TN 1900 E3,c1,open,u(μ_M) / (mPa s),1.11,1.027,the NUM 'Gauss' value; to be confirmed how the NUM evaluates it
+F30,b,"TN 1900 E9 — ""standard deviation 0.7 mL"" for V (class b).",,,,,,,
+F31,n,"Two conventions for t-distributed inputs (methodological, for the article).",,,,,,,
+F32,a,TN 1900 E8 — u from rounded components (class a).,,,,,,,
+F33,c,NUM manual §3 — text inconsistent with its figure (class c).,NIST Uncertainty Machine manual §3,c2,confirmed,u(y) in the text,12.5,8.7,"the text disagrees with the program output in Figure 1, which is reproduced"
+F34,a,"GUM H.2 — sensitivity of u_c(R) to the rounding of r (class a, methodological).",,,,,,,
+F35,n,NUM convention for t-distributed inputs.,,,,,,,
+F36,b,"ISO 13528 E.4 — uncertainty flags not reproducible from 9.8 (class b, to clarify).",,,,,,,
+F37,n,Bimodal results and Algorithm A.,,,,,,,
+F38,b,"ISO 21748 C.4.7 — ""dividing … by 3"" (class b).",,,,,,,
+F39,c,ISO 21748 C.3 — flour (class c).,ISO 21748 C.3,c1,confirmed,U(flour) / %,12.8,12.6,
+F40,c,"ISO 5725-3 J.2 — Table J.5 not reproducible at levels 3–5 (class c, to verify against the printed standard; resolved in D41: the 2023 Table J.2 has transcription errors, and s_R at level 6 keeps a negative variance).",ISO 5725-3:2023 J.2,c1,confirmed,s_R at level 6,15.962,16.33,cause: transcription errors in Table J.2 of the 2023 edition (D41); levels 3–5 not reproducible
+F41,c,ISO 6143:2025 Formula (12) — critical value of the drift test (class c).,ISO 6143:2025 Formula (12),c2,confirmed,critical value at n = 10,2√3 u,2√2 u,formula inconsistent with the Note to 6.2.4
+F42,c,ISO 6143:2025 Example 3 — exponential function: parameter uncertainties and u(x) (class c; partly acknowledged by the standard).,ISO 6143:2025 Example 3,c1,confirmed,u(x) / (µmol/mol),0.013280,0.014246,the parameter uncertainties are acknowledged as wrong by the standard (B.2.4); u(x) is not
+F43,b,"Magnusson & Ellison (2008), Table 3 — sign of Δ in SUMU (class b).",,,,,,,
+F44,a,"ISO 13528 Table E.1 — x* for ""0.5 × ‘<’ value"" (class a).",,,,,,,
+F45,b,JCGM 106:2012 9.5.4 (ball bearings) — acceptance interval inconsistent between R_C and R_P (class b).,,,,,,,
+F46,b,"Mateos et al. (2020), Tables 2 and 3 — Interval II not reproducible from the listed components (class b, to verify with the supplementary data).",,,,,,,
+F47,a,ISO 5725-2:2019 C.1.5 and C.1.8 — stragglers in Example 1 (class a).,,,,,,,
+F48,a,ISO 5725-2:2019 Table C.12 — s_R at level 4 of Example 2 (class a).,,,,,,,
+F49,a,ISO 5725-2:2019 Table 4 — slope of relationship IV (class a).,,,,,,,
+F50,a,JCGM 102:2011 7.7.2 example — transposed Cholesky factor (class a).,,,,,,,
+F51,a,JCGM 102:2011 Table 8 — set 6 is a rounded average (class a).,,,,,,,
+F52,b,"TR 569 ed. 6 Chapter 7, range charts, case 1 (class b).",,,,,,,
+F53,b,"TR 569 ed. 6 Example 12, footnote 24 (class b).",,,,,,,
+F54,a,TR 569 ed. 6 — rounded intermediates (class a).,,,,,,,
+F55,b,M3003 K.4.7 — degrees of freedom (class b).,,,,,,,
+F56,c,M3003 K.5 — combined uncertainty and sign of the result (class c).,UKAS M3003 K.5,c1,independently checked,U / mg,0.30,0.31,sign of the result (−0.10 vs +0.10 mg) only under the assumption W_S = 200.0000 g (K.5 gives no certificate value)
+F57,c,M3003 K.3 — mismatch term (class c).,UKAS M3003 K.3,c1,confirmed,U / dB,0.049,0.040,mismatch term 0.022 dB vs E5 0.0170 dB
+F58,c,M3003 K.6 — temperature terms of the gauge-block model (class c).,UKAS M3003 K.6,c1,confirmed,U / nm,81.5,82,"Δt through α, not Δα; small here, larger for longer blocks"
+F59,a,M3003 K.7 — EMF estimate and rounding (class a).,,,,,,,
+F60,b,M3003 K.8 — distribution of the mass term (class b).,,,,,,,
+F61,b,M3003 — typographical slips (class b).,,,,,,,
+F62,"a,b",EURAMET cg-19 v4.1 Examples 1 and 2 (classes a and b).,,,,,,,
+F63,c,"The robust ANOVA of RANOVA/RANOVA2 is not reproducible from the Guide (class c, method).","Eurachem UfS:2019 A1, A2",m,open,robust ANOVA,—,—,"algorithm not published in the Guide; not reproducible, not an inconsistency"
+F64,a,UfS Example A3 (class a/b).,,,,,,,
+F65,a,UfS Example A4 (class a/b).,,,,,,,
+F66,b,UfS Example A5 and Section 10.2.8 (class b).,,,,,,,
+F67,a,UfS Example A6 (class a/b).,,,,,,,
+F68,b,cg-18 H2 — mpe of the 60 kg test load (class b).,,,,,,,
+F69,c,"cg-18 H3 — degrees of freedom with substitution and repeatability (class c, method).",EURAMET cg-18 H3,m,confirmed,ν_eff,109,37 (12),method: counting of the repeatability terms (U 29 → 30.3 kg)
+F70,b,cg-18 H4 — tables of the error function (class b).,,,,,,,
+F71,b,"Bettencourt da Silva (2026), text against its supplement (class b).",,,,,,,
+F72,a,Bettencourt da Silva (2026) — absolute precision of a recovery-corrected result (class a).,,,,,,,
+F73,c,"Bettencourt da Silva (2026) — mean recovery and its uncertainty (class c, method).",Bettencourt da Silva (2026),m,confirmed,u(R̄),0.0401,0.0100,method: weighted mean with the arithmetic-mean uncertainty
+F74,b,"Delker (2021), airspeed example — inputs exchanged (class b).",,,,,,,
+F75,b,cg-18 H2.4/A — first-order U(W) of intervals 2 and 3 (class b).,,,,,,,
+F76,b,cg-18 H1.4/B — tare term (class b).,,,,,,,
+F77,c,GUM-5 Example 15 — Monte Carlo standard deviation (class c).,JCGM GUM-5 Example 15,c1,confirmed,MCM s.d. / kN,10.1,9.93,scale of the t input
+F78,c,GUM-5 Example 1 — pH values and uncertainties (class c).,JCGM GUM-5 Example 1,c1,confirmed,pH_X,7.0109,7.0043,u 0.0041 vs 0.0032 depends on the correlation assumed (method)
+F79,c,GUM-5 Example 2 — ν_eff for correlated inputs (class c).,JCGM GUM-5 Example 2,m,open,ν_eff,4.8,2.11,reading of eq. (2.3) vs Willink's ensemble rule; coverage 94 % vs 93 % with ν recomputed per data set (D82); check Willink (2007)
+F80,c,GUM-5 Example 10 — joint PDF and statements on specific risks (modelling; class to be decided in the D12 audit).,JCGM GUM-5 Example 10,m,independently checked,global and specific risks,—,—,the printed joint PDF reproduces every printed risk; modelling note
+F81,"b,c",GUM-5 Example 12 — mode of τ and likelihood (12.5) (classes c and b).,JCGM GUM-5 Example 12,c2,independently checked,mode of τ / (µmol/mol),0.3,0,getmode returns the first draw; mean and median unaffected
+F82,"b,c",GUM-5 Example 4 — Tables 4.2 and 4.6 (classes c and b).,JCGM GUM-5 Example 4,c1,independently checked,u(y_CO₂) / (µmol/mol),5,4,Table 4.2 not from Table 4.1 (intermediate) also checked independently
+F83,a,GUM-5 Example 9 — ν_eff of WLS (class a).,,,,,,,
+F84,"a,b","GUM-5 Example 5 — estimate, notation and data (classes a and b).",,,,,,,
+F85,"b,c","GUM-5 Example 11 — results, information criteria and text (classes c and b; the numerical points rest on data read from the figure).",JCGM GUM-5 Example 11,c1,open,â,65.0,65.45,data read from the figure
+F86,a,"Eurachem/CITAC compliance guide 2021 — rounding and the normal limits for a relative uncertainty (classes a, b and noted).",,,,,,,
+F87,c,"EMUE E3.4 — summary of the bias uncertainty (class c, small).",EMPIR EMUE E3.4,c1,confirmed,U / (mg/kg),2.8,2.9,"root mean square 3.50 %, not 3.3 %"
+F88,b,EMUE E2.2 — table slips and the worked example (class b).,,,,,,,
+F89,"b,c",EMUE E3.8 — Arrhenius parameters and notation (classes c and b; no effect on the result).,EMPIR EMUE E3.8,c2,confirmed,"E_A, k₀, c_T",59.164 kJ/mol,56.64 kJ/mol,no effect on the result
+F90,c,EMUE E3.3 — covariance matrix of the reference values and the validation uncertainty (class c).,EMPIR EMUE E3.3,c1,confirmed,u (validation) / (nmol/mol),4.7,4.47,diagonal of the covariance matrix
+F91,"a,b",EMUE E6.5 — Tables E6.5.1 and E6.5.2 (classes a and b).,,,,,,,
+F92,c,IUPAC 2024 Example 4I — sign of the endpoint correction (class c; to check against Meija et al. [14]).,IUPAC 2024 Example 4I,c1,open,c(NaCl) / (mmol/L),10.024 (as printed),9.976,sign of the endpoint correction; check Meija et al.
+F93,a,"Koepke et al. 2017 Table 2 — DerSimonian–Laird consensus value of G (class a, rounding).",,,,,,,
+F94,a,IUPAC 2024 Example 3E — rounding of s and of the p-value of Q (class a).,,,,,,,
+F95,a,"Koepke et al. 2017 Table 4 — Bayesian u for ¹³⁷Cs (class a, Monte Carlo).",,,,,,,
+F96,a,"Possolo & Meija 2022, Atomic Weight of Lead — correlations of the amount fractions (class a, Monte Carlo).",,,,,,,
+F97,b,"BIPM ISRD qNMR budgets — internal inconsistencies of the spreadsheet tables (class b; for the article, not to be reported).",,,,,,,
+F98,a,"EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small).",,,,,,,
+F99,n,"NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).",,,,,,,
+F100,n,"NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).",,,,,,,

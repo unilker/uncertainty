@@ -3516,3 +3516,16 @@ the replies are recorded here. The pre-review had recommended reporting before o
 the replies could confirm the findings; that check is taken over by the independent recomputation of the c1
 findings by a person who has not seen the code, which remains required before submission. The article states the
 decision (Section 7 and the note to Table 4). The F97 question to the BIPM qNMR team follows the same rule.
+
+**D91. The article as one paper in four parts (decision of the author, 2026-11-09).** The software and its use in
+laboratories are not split into separate papers (AQA, SoftwareX) but added to the article: Sections 2–3 the program
+(methods; software design: architecture, project file, numerical implementation, quality assurance, interface),
+4–5 the validation, 6–7 what the recomputation revealed, 8 the use in laboratories (typical uses with the ISO/IEC
+17025 clauses, Table 5; software validation and technical records; statements; learning with the guide), 9
+discussion, 10 availability. Measurement's guide for authors (as indexed; the ScienceDirect page refuses automated
+access): research papers up to 30 pages, abstract at most 250 words, 3–5 highlights of at most 85 characters. The
+abstract has 222 words; the review copy has 20 pages (A4, 1.5 line spacing, 11 pt). New Figure 2 is a screenshot of
+the application; figures renumbered (1 architecture, 2 application, 3 findings by document, 4 procedures).
+Supplementary material S1–S6 is written by `tools/research/article_supplementary.py` (S1: 286 projects, 1865
+compared values, all within tolerance; S5: the validation report of the library, to be regenerated at the release
+commit).
