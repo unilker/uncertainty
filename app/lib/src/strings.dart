@@ -391,6 +391,7 @@ class S {
     'mv_regions': ['95 % coverage regions', '%95 kapsam bölgeleri'],
     'mv_validated': ['GUM results validated by the Monte Carlo method', 'GUM sonuçları Monte Carlo yöntemiyle doğrulandı'],
     'mv_not_validated': ['GUM coverage region not validated by the Monte Carlo method', 'GUM kapsam bölgesi Monte Carlo yöntemiyle doğrulanmadı'],
+    'start_heading': ['Start a new evaluation', 'Yeni bir değerlendirme başlatın'],
     'open': ['Open project file', 'Proje dosyası aç'],
     'open_sub': ['A .json project file', 'Bir .json proje dosyası'],
     'library': ['Example library', 'Örnek kütüphanesi'],

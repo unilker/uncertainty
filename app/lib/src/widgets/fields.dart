@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app_state.dart';
 import '../format.dart';
+import '../theme.dart';
 
 /// A text field bound to a key of a JSON object: numbers are parsed (decimal
 /// comma accepted), an empty field removes the key.
@@ -189,7 +190,22 @@ class Section extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16, bottom: 8),
       child: Row(
         children: [
-          Expanded(child: Text(title, style: Theme.of(context).textTheme.titleMedium)),
+          if (tubitakDesign) ...[
+            Container(
+              width: 3,
+              height: 18,
+              decoration: BoxDecoration(color: Brand.redBright, borderRadius: BorderRadius.circular(2)),
+            ),
+            const SizedBox(width: 8),
+          ],
+          Expanded(
+            child: Text(
+              title,
+              style: tubitakDesign
+                  ? Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary)
+                  : Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
           ?trailing,
         ],
       ),

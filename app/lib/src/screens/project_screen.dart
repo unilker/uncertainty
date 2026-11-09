@@ -181,7 +181,11 @@ class _ProjectScreenState extends State<ProjectScreen> with SingleTickerProvider
       appBar: AppBar(
         title: Text(title.isEmpty ? s['app'] : title, overflow: TextOverflow.ellipsis),
         actions: [
-          TextButton(onPressed: app.toggleLanguage, child: Text(app.lang == 'en' ? 'TR' : 'EN')),
+          TextButton(
+            style: TextButton.styleFrom(foregroundColor: Theme.of(context).appBarTheme.foregroundColor),
+            onPressed: app.toggleLanguage,
+            child: Text(app.lang == 'en' ? 'TR' : 'EN'),
+          ),
           IconButton(tooltip: s['save'], onPressed: () => _save(), icon: const Icon(Icons.save_outlined)),
           PopupMenuButton<String>(
             onSelected: (v) => switch (v) {

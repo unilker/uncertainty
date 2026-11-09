@@ -13,6 +13,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'src/app_state.dart';
 import 'src/screens/home_screen.dart';
 import 'src/screens/project_screen.dart';
+import 'src/theme.dart';
 
 /// Command line: `uncertainty_app [project.json] [--run] [--lang en|tr]`.
 void main(List<String> args) {
@@ -57,15 +58,14 @@ class UncertaintyApp extends StatelessWidget {
       child: ListenableBuilder(
         listenable: state,
         builder: (context, _) {
-          const seed = Color(0xFF2B6CB0);
           return MaterialApp(
             title: state.s['app'],
             debugShowCheckedModeBanner: false,
             locale: Locale(state.lang),
             supportedLocales: const [Locale('en'), Locale('tr')],
             localizationsDelegates: const [GlobalMaterialLocalizations.delegate, GlobalWidgetsLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
-            theme: ThemeData(colorSchemeSeed: seed, useMaterial3: true),
-            darkTheme: ThemeData(colorSchemeSeed: seed, brightness: Brightness.dark, useMaterial3: true),
+            theme: lightTheme(),
+            darkTheme: darkTheme(),
             home: project == null ? const HomeScreen() : ProjectScreen(project: project!, filePath: projectPath, runOnOpen: runOnOpen),
           );
         },
