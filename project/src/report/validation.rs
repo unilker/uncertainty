@@ -17,6 +17,9 @@ pub struct ValidationItem {
     /// A project of the laboratory's own scope (`check --lab`), reported in
     /// its own section, rather than a reference example of the library.
     pub laboratory: bool,
+    /// The spreadsheet verification workbook written for the project (file
+    /// name and SHA-256), with `check --workbooks`.
+    pub workbook: Option<(String, String)>,
 }
 
 impl ValidationItem {
@@ -248,6 +251,7 @@ pub fn validation_markdown(items: &[ValidationItem], mcm: bool, lang: Lang, gene
         results_table(&mut s, &group, d, lang);
     }
     let _ = writeln!(s, "\n{}\n", d.note);
+    workbooks_section(&mut s, items, lang);
 
     let failures: Vec<(&ValidationItem, &CheckOutcome)> =
         items.iter().flat_map(|i| i.result.iter().flatten().filter(|c| !c.passed).map(move |c| (i, c))).collect();
@@ -272,6 +276,41 @@ pub fn validation_markdown(items: &[ValidationItem], mcm: bool, lang: Lang, gene
     let _ = writeln!(s, "{}\n", d.signature);
     let _ = writeln!(s, "{} {SOFTWARE_NAME} {}, {generated}.", labels(lang).generated_by, crate::software_identity());
     s
+}
+
+/// The section on spreadsheet verification workbooks (`check --workbooks`).
+fn workbooks_section(s: &mut String, items: &[ValidationItem], lang: Lang) {
+    let with: Vec<&ValidationItem> = items.iter().filter(|i| i.workbook.is_some()).collect();
+    if with.is_empty() {
+        return;
+    }
+    let (title, text, head) = match lang {
+        Lang::En => (
+            "Independent recalculation in a spreadsheet",
+            "For the projects below KAPSAM wrote a verification workbook. Each recomputes the results with ordinary \
+             spreadsheet formulas from the data of the project; KAPSAM's own results are written beside them as fixed \
+             numbers. Open each workbook in Excel or LibreOffice Calc: the sheet *About* states whether every result \
+             agrees within its tolerance, and the sheet *Check* lists the comparisons. Record the outcome in the last \
+             column.",
+            "| Project | Workbook | SHA-256 | Agrees in the spreadsheet (initials, date) |",
+        ),
+        Lang::Tr => (
+            "Elektronik tabloda bağımsız yeniden hesaplama",
+            "Aşağıdaki projeler için KAPSAM birer doğrulama çalışma kitabı yazdı. Her biri sonuçları projenin \
+             verilerinden sıradan elektronik tablo formülleriyle yeniden hesaplar; KAPSAM'ın kendi sonuçları yanlarına \
+             sabit sayılar olarak yazılmıştır. Her çalışma kitabını Excel'de veya LibreOffice Calc'ta açınız: *Bilgi* \
+             sayfası bütün sonuçların toleransları içinde uyuşup uyuşmadığını, *Karşılaştırma* sayfası karşılaştırmaları \
+             gösterir. Sonucu son sütuna kaydediniz.",
+            "| Proje | Çalışma kitabı | SHA-256 | Elektronik tabloda uyumlu (paraf, tarih) |",
+        ),
+    };
+    let _ = writeln!(s, "## {title}\n\n{text}\n\n{head}\n|---|---|---|---|");
+    for i in with {
+        let id = i.project.as_ref().and_then(|p| p.metadata.id.clone()).unwrap_or_else(|| i.file.clone());
+        let (file, sha) = i.workbook.as_ref().expect("filtered");
+        let _ = writeln!(s, "| `{id}` | {file} | `{}` | |", &sha[..sha.len().min(12)]);
+    }
+    let _ = writeln!(s);
 }
 
 fn results_table(s: &mut String, items: &[&ValidationItem], d: &VLabels, lang: Lang) {
@@ -374,6 +413,7 @@ mod tests {
                 result: Ok(vec![outcome("gum.estimate", 1.0, 1.0, 0.01)]),
                 sha256: Some("0123456789abcdef".into()),
                 laboratory: false,
+                workbook: None,
             },
             ValidationItem {
                 file: "b.json".into(),
@@ -384,6 +424,7 @@ mod tests {
                 ]),
                 sha256: None,
                 laboratory: false,
+                workbook: None,
             },
             ValidationItem {
                 file: "c.json".into(),
@@ -391,6 +432,7 @@ mod tests {
                 result: Ok(vec![]),
                 sha256: None,
                 laboratory: false,
+                workbook: None,
             },
             ValidationItem {
                 file: "d.json".into(),
@@ -398,6 +440,7 @@ mod tests {
                 result: Err("x | y".into()),
                 sha256: None,
                 laboratory: true,
+                workbook: None,
             },
         ];
         let md = validation_markdown(&items, false, Lang::En, "2026-10-26");

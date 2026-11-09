@@ -20,7 +20,7 @@ weighing instruments (EURAMET cg-18, Appendix C).
 
 USAGE:
     kapsam run <project.json> [options]
-    kapsam check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html|FILE.pdf] [--lang en|tr]
+    kapsam check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html|FILE.pdf] [--workbooks DIR] [--lang en|tr]
     kapsam template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
     kapsam catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
     kapsam --version | --help
@@ -28,7 +28,8 @@ USAGE:
 RUN OPTIONS:
     --lang en|tr          report language (default en)
     --format md|html|json|pdf|xlsx  report format (default md, or from the --output extension); xlsx writes a
-                          spreadsheet verification workbook that recomputes the GUM result with formulas
+                          spreadsheet verification workbook that recomputes the result with spreadsheet
+                          formulas (measurement models, proficiency tests, precision experiments, top-down)
     --output FILE         write the report to FILE instead of standard output
     --no-mcm              skip the Monte Carlo evaluation
     --trials N            fixed number of Monte Carlo trials (overrides the project)
@@ -42,7 +43,9 @@ CHECK:
     records: software version and commit, compiler, the SHA-256 of every
     file and of the whole set. Files given after --lab are the laboratory's
     own projects (its scope, its reference values) and are reported in a
-    section of their own.
+    section of their own. With --workbooks DIR, writes a spreadsheet
+    verification workbook for every project that has one into DIR and lists
+    them in the report, for recalculation in Excel or LibreOffice Calc.
 
 CATALOGUE:
     Writes the worked-examples chapter of the user guide (Markdown) from the
@@ -493,11 +496,13 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
     let mut files = Vec::new();
     let mut lab_files = Vec::new();
     let mut report_path: Option<PathBuf> = None;
+    let mut workbooks: Option<PathBuf> = None;
     let mut lang = Lang::En;
     let mut i = 0;
     while i < args.len() {
         match args[i].as_str() {
             "--no-mcm" => ov.skip_mcm = true,
+            "--workbooks" => workbooks = Some(value(args, &mut i, "--workbooks")?.into()),
             "--lab" => collect(Path::new(value(args, &mut i, "--lab")?), &mut lab_files)?,
             "--report" => report_path = Some(value(args, &mut i, "--report")?.into()),
             "--lang" => lang = value(args, &mut i, "--lang")?.parse()?,
@@ -522,7 +527,14 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
             Err(e) => {
                 failed += 1;
                 println!("ERROR {}: {e}", f.display());
-                items.push(report::ValidationItem { file, project: loaded.ok(), result: Err(e), sha256, laboratory });
+                items.push(report::ValidationItem {
+                    file,
+                    project: loaded.ok(),
+                    result: Err(e),
+                    sha256,
+                    laboratory,
+                    workbook: None,
+                });
             }
             Ok((p, a)) => {
                 let checks = project::check(&p, &a);
@@ -542,7 +554,28 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
                         );
                     }
                 }
-                items.push(report::ValidationItem { file, project: Some(p), result: Ok(checks), sha256, laboratory });
+                let workbook = match &workbooks {
+                    Some(dir) if project::workbook::supported(&p, &a) => {
+                        let bytes =
+                            project::workbook::verification_workbook(&p, &a, lang).map_err(|e| e.to_string())?;
+                        std::fs::create_dir_all(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
+                        let stem =
+                            f.file_stem().map(|s| s.to_string_lossy().into_owned()).unwrap_or_else(|| "project".into());
+                        let name = format!("{stem}.xlsx");
+                        let path = dir.join(&name);
+                        std::fs::write(&path, &bytes).map_err(|e| format!("{}: {e}", path.display()))?;
+                        Some((name, project::sha256::sha256_hex(&bytes)))
+                    }
+                    _ => None,
+                };
+                items.push(report::ValidationItem {
+                    file,
+                    project: Some(p),
+                    result: Ok(checks),
+                    sha256,
+                    laboratory,
+                    workbook,
+                });
             }
         }
     }

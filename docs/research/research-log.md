@@ -3614,3 +3614,8 @@ NORMSINV, BETAINV), so the formulas work in every version and in LibreOffice.
   staggered-nested design and the ISO 21748 reproducibility component enter with KAPSAM's values, marked as such.
 - Library: 189 workbooks (135 models, 9 proficiency, 6 precision, 39 top-down), 4678 compared values, all within
   tolerance on the first run of each new type.
+- Laboratory use: `kapsam check <files> --workbooks DIR [--report FILE]` writes the workbook of every project
+  that has one into DIR, and the validation report gains a section *Independent recalculation in a spreadsheet*
+  listing each workbook with its SHA-256 and an empty column for the person who opens it in Excel to record the
+  outcome (initials, date). CI: a job `spreadsheets` installs LibreOffice Calc and runs
+  `tools/research/spreadsheet_check.py` on the whole library at every push; the table goes to the job summary.
