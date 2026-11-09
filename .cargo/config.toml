@@ -1,0 +1,4 @@
+# Reproducible Windows binaries: without a link time stamp, the same sources
+# give a byte-identical uncertainty_ffi.dll (see docs/windows-code-signing.md).
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "link-arg=/Brepro"]
