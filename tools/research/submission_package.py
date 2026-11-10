@@ -22,6 +22,7 @@ writes into OUT_DIR:
 
 and OUT_DIR.zip. Needs pandoc, python-docx, openpyxl, Pillow, LibreOffice (page count) and Chromium (PDFs).
 """
+import os
 import re
 import shutil
 import subprocess
@@ -41,6 +42,10 @@ import supplementary_pdf as spdf  # noqa: E402
 
 ART = Path("docs/article")
 EXE = "target/release/kapsam"
+# The corresponding author's e-mail is given on the command line or in the environment, so that it is not stored in
+# the repository: python3 tools/research/submission_package.py OUT_DIR --email ADDRESS
+EMAIL = next((sys.argv[i + 1] for i, a in enumerate(sys.argv[:-1]) if a == "--email"),
+             os.environ.get("KAPSAM_AUTHOR_EMAIL", "[e-mail of the corresponding author]"))
 WITHHELD = "[withheld for double-anonymized review]"
 # Identifying strings and their anonymized form, longest first.
 ANON = [
@@ -136,7 +141,7 @@ def title_page(out, title, parts):
     p.add_run("a").font.superscript = True
     p.add_run(" TÜBİTAK National Metrology Institute (TÜBİTAK UME), TÜBİTAK Gebze Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye")
     doc.add_paragraph("* Corresponding author: İlker Ün, TÜBİTAK National Metrology Institute (TÜBİTAK UME), address as above. "
-                      "E-mail: [e-mail of the corresponding author]. ORCID: 0000-0001-5089-4602.")
+                      f"E-mail: {EMAIL}. ORCID: 0000-0001-5089-4602.")
     doc.add_heading("Acknowledgements", level=2)
     doc.add_paragraph("[To be added by the author, or deleted: persons who helped with the research, language or "
                       "proofreading.]")
@@ -254,7 +259,7 @@ def pages(docx):
 
 
 def main():
-    out = Path(sys.argv[1] if len(sys.argv) > 1 else "submission")
+    out = Path(sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("--") else "submission")
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
