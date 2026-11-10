@@ -142,13 +142,9 @@ def title_page(out, title, parts):
     p.add_run(" TÜBİTAK National Metrology Institute (TÜBİTAK UME), TÜBİTAK Gebze Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye")
     doc.add_paragraph("* Corresponding author: İlker Ün, TÜBİTAK National Metrology Institute (TÜBİTAK UME), address as above. "
                       f"E-mail: {EMAIL}. ORCID: 0000-0001-5089-4602.")
-    doc.add_heading("Acknowledgements", level=2)
-    doc.add_paragraph("[To be added by the author, or deleted: persons who helped with the research, language or "
-                      "proofreading.]")
     doc.add_heading("Declaration of competing interest", level=2)
     doc.add_paragraph("The author declares that there are no known competing financial interests or personal "
-                      "relationships that could have appeared to influence the work reported in this paper. [To be "
-                      "confirmed by the author; the declaration is also made with Elsevier's declarations tool.]")
+                      "relationships that could have appeared to influence the work reported in this paper.")
     doc.add_heading("Funding", level=2)
     doc.add_paragraph("This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.")
     doc.add_heading("CRediT authorship contribution statement", level=2)

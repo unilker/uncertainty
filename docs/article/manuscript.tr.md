@@ -634,7 +634,7 @@ düzenleme.
 
 ## Çıkar çatışması beyanı
 
-Yazar herhangi bir çıkar çatışması olmadığını beyan eder. [Doğrulanacak.]
+Yazar, bu makalede bildirilen çalışmayı etkilemiş gibi görünebilecek bilinen hiçbir mali çıkar çatışması veya kişisel ilişkisi olmadığını beyan eder.
 
 ## Finansman
 
