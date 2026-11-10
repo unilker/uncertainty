@@ -235,7 +235,7 @@ raporlanan ifadede yuvarlanır.
   onun üretmediği değerlerle yapılan karşılaştırmalara — 38 belgede basılı sonuçlar, Suncal, NICOB ve NIST
   Uncertainty Machine kılavuzları — ve her uyuşmazlığın kaynak belgeye karşı incelenmesine (Bölüm 4.3) dayanır.
   Tablo 6, her denetimin programla neyi paylaştığını gösterir.
-- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D97) ve bulgunun (F1–F100) araştırma
+- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D100) ve bulgunun (F1–F100) araştırma
   günlüğünü, her kütüphane projesini kaynağının sayısal verilerinden yazan üreteçleri ve her bağımsız yeniden hesabın
   betiklerini (`tools/research/`) içerir. Lisanslı belgeler yalnızca sayısal verileri için kullanılır ve dağıtılmaz.
 
@@ -600,7 +600,7 @@ kullanılmıştır.
 ## 10. Yazılımın erişilebilirliği
 
 KAPSAM, GPL-3.0 lisansıyla https://github.com/unilker/uncertainty adresinde erişilebilir durumdadır; bu makalede
-kullanılan sürüm [sürüm etiketi ve Zenodo DOI eklenecek]. `cargo test`
+kullanılan sürüm v0.1.0'dır ve Zenodo'da arşivlenmiştir [60]. `cargo test`
 Bölüm 5–7'deki her sayıyı yeniden üretir; `tools/research/` içindeki betikler tabloları ve şekilleri yeniden
 oluşturur.
 
@@ -610,7 +610,7 @@ açısından sınırları Bölüm 9'da (Tablo 6) anlatılmıştır.
 ## Veri erişilebilirliği
 
 286 projelik kütüphane, bağımsız yeniden hesaplar, araştırma günlüğü ve tablolarla şekilleri üreten betikler
-deponun ve arşivlenmiş sürümünün parçasıdır [Zenodo DOI eklenecek].
+deponun ve arşivlenmiş v0.1.0 sürümünün [60] parçasıdır, https://doi.org/10.5281/zenodo.24118312.
 
 ## Ek malzeme
 
@@ -763,3 +763,5 @@ Yazar herhangi bir çıkar çatışması olmadığını beyan eder. [Doğrulanac
 [58] L. R. Pendrill, Optimised measurement uncertainty and decision-making when sampling by variables or by attribute, Measurement 39 (2006) 829–840. https://doi.org/10.1016/j.measurement.2006.04.014
 
 [59] A. B. Forbes, Measurement uncertainty and optimized conformance assessment, Measurement 39 (2006) 808–814. https://doi.org/10.1016/j.measurement.2006.04.007
+
+[60] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), version 0.1.0, Zenodo, 2026. https://doi.org/10.5281/zenodo.24118312

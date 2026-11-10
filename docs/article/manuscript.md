@@ -234,7 +234,7 @@ only in the reported statement.
   correctness rests on comparisons with values it did not produce — the results printed in the 38 documents, Suncal,
   the NICOB and NIST Uncertainty Machine manuals — and on the review of every discrepancy against the source
   document (Section 4.3). Table 6 states what each check shares with the program.
-- **Traceability of the development.** The repository contains a research log of every design decision (D1–D97)
+- **Traceability of the development.** The repository contains a research log of every design decision (D1–D100)
   and finding (F1–F100), the generators that write each library project from the numerical data of its source, and
   the scripts of every independent recomputation (`tools/research/`). Licensed documents are used only for their
   numerical data and are not distributed.
@@ -603,7 +603,7 @@ institute is planned. Licensed standards are used only for their numerical data.
 ## 10. Software availability
 
 KAPSAM is available under the GPL-3.0 licence at https://github.com/unilker/uncertainty; the version used for
-this paper is [release tag and Zenodo DOI to be added]. `cargo test`
+this paper is v0.1.0, archived at Zenodo [60]. `cargo test`
 reproduces every number of Sections 5–7, and the scripts in `tools/research/` regenerate the tables and figures.
 
 The use of an AI coding assistant in the development is described in Section 3.4 and its limits for the
@@ -612,7 +612,7 @@ independence of the checks in Section 9 (Table 6).
 ## Data availability
 
 The library of 286 projects, the independent recomputations, the research log and the scripts that produce the
-tables and figures are part of the repository and of its archived release [Zenodo DOI to be added].
+tables and figures are part of the repository and of its archived release v0.1.0 [60], https://doi.org/10.5281/zenodo.24118312.
 
 ## Supplementary material
 
@@ -765,3 +765,5 @@ The author declares no competing interests. [To be confirmed.]
 [58] L. R. Pendrill, Optimised measurement uncertainty and decision-making when sampling by variables or by attribute, Measurement 39 (2006) 829–840. https://doi.org/10.1016/j.measurement.2006.04.014
 
 [59] A. B. Forbes, Measurement uncertainty and optimized conformance assessment, Measurement 39 (2006) 808–814. https://doi.org/10.1016/j.measurement.2006.04.007
+
+[60] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), version 0.1.0, Zenodo, 2026. https://doi.org/10.5281/zenodo.24118312

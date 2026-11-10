@@ -3709,3 +3709,9 @@ Bettencourt da Silva, Talanta 314 (2027) 130826 (issue of April 2027); DOIs adde
 Hartung, Biggerstaff & Tweedie, Wichmann & Hill, Marsaglia & Tsang and Pennecchi & Harris. Possolo & Meija 2022 is a
 DataCite DOI (SIM), record consistent. No [verify] mark remains. Standards and guides without DOIs are cited by
 their edition.
+
+**D100. Release v0.1.0 and its DOI (2026-11-10).** PR #11 merged into `main`; the author published the release
+v0.1.0 on GitHub (the session cannot push tags). Zenodo archived it: version DOI 10.5281/zenodo.24118312, concept
+DOI (all versions) 10.5281/zenodo.24118311, record checked through the Zenodo API (title, version, author). The
+version DOI is cited as reference [60] in Section 10 and in the data availability statement, and is given in the
+cover letter; `CITATION.cff` carries both DOIs and the release date, the README a DOI badge.

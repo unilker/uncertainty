@@ -32,7 +32,7 @@ belgelerin doğruluğuyla ilgilidir; bu nedenle makaleyi bir yazılım dergisine
 ailesinin ve atıf yapılan standartların deterministik ve Monte Carlo yöntemleridir. Kod yazmak ve metni taslak
 olarak hazırlamak için bir yapay zekâ kodlama asistanı kullanılmıştır. Bu, Bölüm 3.4'te ve üretken yapay zekâ
 beyanında belirtilmiştir; Tablo 6 hangi denetimlerin programdan ve asistandan bağımsız olduğunu gösterir. Makaledeki
-her sayı herkese açık depodan ve arşivlenmiş sürümünden [Zenodo DOI eklenecek] yeniden üretilebilir; ek malzeme
+her sayı herkese açık depodan ve arşivlenmiş v0.1.0 sürümünden (https://doi.org/10.5281/zenodo.24118312) yeniden üretilebilir; ek malzeme
 kütüphaneyi, bulguları, validasyon matrisini, Suncal karşılaştırmasını, bir yazılım validasyon raporunu, yazılımın
 kılavuzunu ve elektronik tablo yeniden hesaplamasını içerir.
 

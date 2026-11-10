@@ -31,7 +31,7 @@ The work does not use machine learning or neural networks as a research method; 
 deterministic and Monte Carlo methods of the GUM suite and of the cited standards. An AI coding assistant was used
 to write code and to draft the text. This is stated in Section 3.4 and in the declaration on generative AI, and
 Table 6 states which checks are independent of the program and of the assistant. Every number in the paper can be
-reproduced from the public repository and its archived release [Zenodo DOI to be added]; the supplementary material
+reproduced from the public repository and its archived release v0.1.0 (https://doi.org/10.5281/zenodo.24118312); the supplementary material
 contains the library, the findings, the validation matrix, the comparison with Suncal, a software validation
 report, the guide of the software and the spreadsheet recalculation.
 
