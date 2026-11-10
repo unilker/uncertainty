@@ -6,7 +6,8 @@
 S1  library projects with their source, field, evaluation type and number of compared values (Excel);
 S2  the findings F1-F100 with class, document, and for class c their effect and status (Excel);
 S3  the validation matrix (PDF of docs/research/validation-matrix.md);
-S4  the comparison with Suncal (PDF of docs/research/benchmark-suncal.md);
+S4  the comparison with Suncal and the Monte Carlo propagation through the calibration fit (PDF of
+    docs/research/benchmark-suncal.md and calibration-mc.md);
 S5  the software validation report written by `kapsam check library` (PDF);
 S6  the beginner's guide and the step-by-step explanation of every example (PDF of docs/guide/beginner/en);
 S7  the recalculation of the spreadsheet verification workbooks in LibreOffice (PDF of
@@ -109,8 +110,11 @@ for old in OUT.glob("S[3467]_*.md"):
     old.unlink()
 pdf.md_to_pdf(Path("docs/research/validation-matrix.md").read_text(encoding="utf-8"), OUT / "S3_validation_matrix.pdf",
               "KAPSAM — Supplementary material S3: validation matrix", landscape=True)
-pdf.md_to_pdf(Path("docs/research/benchmark-suncal.md").read_text(encoding="utf-8"), OUT / "S4_suncal_benchmark.pdf",
-              "KAPSAM — Supplementary material S4: comparison with Suncal", landscape=True)
+# S4: the comparison with Suncal and, as its last part, the Monte Carlo propagation through the calibration fit
+mc = Path("docs/research/calibration-mc.md").read_text(encoding="utf-8").replace("\n## ", "\n### ")
+pdf.md_to_pdf(Path("docs/research/benchmark-suncal.md").read_text(encoding="utf-8") + "\n\n#" + mc,
+              OUT / "S4_suncal_benchmark.pdf", "KAPSAM — Supplementary material S4: comparison with Suncal",
+              landscape=True)
 print("S3, S4: PDF")
 
 # S5
@@ -134,7 +138,8 @@ print("S7:", (OUT / "S7_workbook_quam_a1.xlsx").exists())
 (OUT / "README.md").write_text(
     "# Supplementary material\n\nWritten by `tools/research/article_supplementary.py`; do not edit by hand.\n\n"
     "- S1 `S1_library.xlsx`: the library projects\n- S2 `S2_findings.xlsx`: the findings\n"
-    "- S3 `S3_validation_matrix.pdf`: the validation matrix\n- S4 `S4_suncal_benchmark.pdf`: the comparison with Suncal\n"
+    "- S3 `S3_validation_matrix.pdf`: the validation matrix\n- S4 `S4_suncal_benchmark.pdf`: the comparison with Suncal "
+    "and the Monte Carlo propagation through the calibration fit\n"
     "- S5 `S5_validation_report.pdf`: the software validation report of the library\n"
     "- S6 `S6_guide.pdf`: the beginner's guide and the step-by-step explanation of every example (English)\n"
     "- S7 `S7_spreadsheet_check.pdf`: the recalculation of the spreadsheet verification workbooks, and "
