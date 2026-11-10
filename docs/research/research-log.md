@@ -3691,3 +3691,12 @@ stages two and three). Result (`docs/research/calibration-mc.md`, part of S4):
 
 The program keeps the full-Hessian covariance; the paper reports the result in Section 5 and in Table 6. A Monte
 Carlo option for calibrations in the program itself stays a limitation (Section 9).
+
+**D98. UncertCalc cited (decision of the author, 2026-11-10).** B. Yalçınkaya, UncertCalc: a web-based tool for
+measurement uncertainty calculation, J. Chem. Metrol. 19(2) (2025) 128–135 (TÜBİTAK UME; full text supplied by the
+author). A Streamlit application with a top-down module (one-way ANOVA of multi-day QC data: repeatability,
+between-day intermediate precision, an extra relative component, k = 2) and a bottom-up root-sum-of-squares budget,
+for clinical laboratories; verified against Excel and an R script on randomly generated data. Cited in Section 1
+(software landscape: another tool that joins top-down and bottom-up evaluation; the statement that no tool covers
+the evaluation types of KAPSAM together still holds) and in Section 4.4 (spreadsheet and R recalculation as a check
+of software; the KAPSAM workbooks make it on data with published results). References renumbered, now [1]–[59].

@@ -53,13 +53,14 @@ Yazılım ortamı kılavuzların yapısını yansıtır. NIST Uncertainty Machin
 değerlendirir; Sandia'nın Suncal programı [20] kalibrasyon için sembolik LPU, eğri uydurma ve karar riski ekler; GUM
 Tree Calculator [21] ve METAS UncLib [22] "belirsiz sayıları" programlar boyunca yayar; NIST Consensus Builder
 (NICOB) [23] laboratuvarlar arası sonuçları birleştirir; MUPR hesap tablosu [24] kimya için yukarıdan aşağı bir
-değerlendirme uygular. Avrupa Metroloji Ağı Mathmet'in 35 program üzerinde yaptığı bir taramada, programların
-yalnızca %54'ünün bir tür validasyon kanıtı sunduğu ve JCGM 102 desteğinin en büyük eksik olduğu bulunmuştur [25].
+değerlendirme uygular; UncertCalc [25] klinik laboratuvarlar için çok günlü kalite kontrol verilerinin tek
+yönlü varyans analiziyle yukarıdan aşağı değerlendirmesini aşağıdan yukarı bir bütçeyle birleştirir. Avrupa Metroloji Ağı Mathmet'in 35 program üzerinde yaptığı bir taramada, programların
+yalnızca %54'ünün bir tür validasyon kanıtı sunduğu ve JCGM 102 desteğinin en büyük eksik olduğu bulunmuştur [26].
 Bu araçların hiçbiri aşağıdan yukarı ve yukarıdan aşağı değerlendirmeyi, yeterlilik testini, uygunluk
 değerlendirmesini ve uzlaşı değerlerini birlikte kapsamaz; hiçbiri uyguladığı kılavuzun çözümlü örneklerini yeniden
 hesaplayan bir validasyon yayımlamaz. En yakın öncül, PTB'de bir GUM destekli programın validasyonudur; gereksinimleri
 arasında GUM eklerindeki örneklerin yeniden üretilmesi de vardı ve birkaç yüz kara kutu test durumu her çıktıyı
-değeri, anlamlı basamak sayısı ve yuvarlaması bakımından denetledi [26]. Bu yaklaşımı GUM'dan 38 belgeye
+değeri, anlamlı basamak sayısı ve yuvarlaması bakımından denetledi [27]. Bu yaklaşımı GUM'dan 38 belgeye
 genişletiyor ve kodun her değişikliğinde çalışan bir regresyon testine dönüştürüyoruz.
 
 Bu makalenin dört katkısı vardır; bunlar makalenin yapısını da belirler.
@@ -83,41 +84,41 @@ Bir proje, on bir değerlendirme türünden birinin girdi verilerini içerir (Ta
 kaynak gösterilen maddelerini uygular; bir belge bir seçimi açık bıraktığında bu seçim projenin bir seçeneğidir ve
 raporda adı verilir. Türler, Désenfant ve Priel'in ayırdığı belirsizlik yollarını kapsar: GUM'un modelleme
 yaklaşımı (yazarlar bunu referans yöntem sayar) ile tek laboratuvar validasyon verilerinden, laboratuvarlar arası
-kesinlik çalışmalarından ve yeterlilik testlerinden giden yaklaşımlar [27]; bu yaklaşımlar, ölçüm
+kesinlik çalışmalarından ve yeterlilik testlerinden giden yaklaşımlar [28]; bu yaklaşımlar, ölçüm
 modelindeki bazı girdi büyüklüklerinin birleştirildiği bir sadeleştirme olan istatistiksel bir modele dayanır
-[28]. Böylece bir laboratuvar bir yöntemi aynı programla birden fazla yoldan değerlendirebilir; bir
+[29]. Böylece bir laboratuvar bir yöntemi aynı programla birden fazla yoldan değerlendirebilir; bir
 modelden gelen belirsizliğin laboratuvarlar arası karşılaştırmalarda görülen saçılımdan çok küçük olması, eksik bir
-bileşene işaret eder [27].
+bileşene işaret eder [28].
 
 **Tablo 1.** Değerlendirme türleri ve uyguladıkları yöntemler (modül belgeleri ve
 `docs/research/iso17025-mapping.md` ile karşılaştırılmıştır).
 
 | Proje türü | Yöntemler | Başlıca kaynaklar |
 |---|---|---|
-| model | korelasyonlu ve topluluklu birinci ve ikinci mertebe LPU; Welch–Satterthwaite; Kragten hesap tablosu; Monte Carlo (uyarlamalı, en kısa ve simetrik aralıklar, kestirim çevresinde yarı genişlik); GUM sonucunun Monte Carlo ile geçerli kılınması; sınırlı çıktılar | [2, 3, 6, 29] |
+| model | korelasyonlu ve topluluklu birinci ve ikinci mertebe LPU; Welch–Satterthwaite; Kragten hesap tablosu; Monte Carlo (uyarlamalı, en kısa ve simetrik aralıklar, kestirim çevresinde yarı genişlik); GUM sonucunun Monte Carlo ile geçerli kılınması; sınırlı çıktılar | [2, 3, 6, 30] |
 | multivariate | birden çok çıktı için LPU ve Monte Carlo, açık ve kapalı modeller, kapsama bölgeleri | [4] |
-| conformity | özgül ve genel riskler, koruma bantları (JCGM 106; test belirsizlik oranı), lognormal süreçler, çok bileşenli ürünler | [5, 30] |
-| topdown | geçerli kılma ve kalite kontrol verilerinden kesinlik ve geri kazanım (Nordtest, MUPR, ISO 21748) | [9, 10, 31] |
-| proficiency | dayanıklı istatistikler, puanlar, homojenlik ve kararlılık (birimler arası Bayesçi model dahil) | [15, 32] |
+| conformity | özgül ve genel riskler, koruma bantları (JCGM 106; test belirsizlik oranı), lognormal süreçler, çok bileşenli ürünler | [5, 31] |
+| topdown | geçerli kılma ve kalite kontrol verilerinden kesinlik ve geri kazanım (Nordtest, MUPR, ISO 21748) | [9, 10, 32] |
+| proficiency | dayanıklı istatistikler, puanlar, homojenlik ve kararlılık (birimler arası Bayesçi model dahil) | [15, 33] |
 | calibration | iki değişkende de belirsizlik bulunan genelleştirilmiş en küçük kareler | [18] |
 | precision experiment | aykırı değer testleriyle tekrarlanabilirlik ve tekrar üretilebilirlik | [16, 17] |
 | control chart | X ve R grafikleri, sınırlar, kurallar, uzun dönem gözden geçirme | [11] |
-| sampling | çift numune yöntemi (klasik ANOVA; aralık ve logaritmik dönüşümlü türevleri), temel numune alma hatası; kılavuzun dayanıklı ANOVA'sı metninden yeniden üretilemiyor (F63) | [33] |
+| sampling | çift numune yöntemi (klasik ANOVA; aralık ve logaritmik dönüşümlü türevleri), temel numune alma hatası; kılavuzun dayanıklı ANOVA'sı metninden yeniden üretilemiyor (F63) | [34] |
 | error function | tartı aletleri, hata yaklaşım fonksiyonu ve kullanımdaki belirsizlik | [14] |
-| consensus | parametrik bootstrap ile DerSimonian–Laird, Linear Pool, en çok olabilirlik, Bayesçi rastgele etkiler (Gauss veya Laplace); eşdeğerlik dereceleri (MRA, birini dışarıda bırakma, ikili) | [23, 34, 35] |
+| consensus | parametrik bootstrap ile DerSimonian–Laird, Linear Pool, en çok olabilirlik, Bayesçi rastgele etkiler (Gauss veya Laplace); eşdeğerlik dereceleri (MRA, birini dışarıda bırakma, ikili) | [23, 35, 36] |
 
 ### 2.2 Ölçüm modelleri ve GUM
 
 Modeller ifade olarak yazılır; ayrıştırıcı bunların türevini sembolik olarak alır, böylece duyarlılık katsayıları
 kesindir ve yazdırılabilir. Birleşik standart belirsizlik korelasyonları içerir; GUM'un 2026 değişikliğiyle [6]
 getirilen kestirimin ikinci mertebe terimi her zaman hesaplanır ve istenirse kestirime eklenir; korelasyonlu normal
-girdiler için ikinci mertebe varyans terimleri Mana ve Pennecchi'yi [29] izler. Aynı verilerden değerlendirilen
+girdiler için ikinci mertebe varyans terimleri Mana ve Pennecchi'yi [30] izler. Aynı verilerden değerlendirilen
 girdiler bir *topluluk* olarak tanımlanabilir; topluluk, Welch–Satterthwaite formülüne ortak serbestlik derecesiyle
-tek bir bileşen olarak girer (Willink [36]; GUM Tree Calculator aynı kuralı uygular [21]). Genişletilmiş
+tek bir bileşen olarak girer (Willink [37]; GUM Tree Calculator aynı kuralı uygular [21]). Genişletilmiş
 belirsizlikler EA-4/02 kuralına göre (olağan yuvarlama U'yu %5'ten fazla küçültmüyorsa olağan yuvarlama, küçültüyorsa
 yukarı yuvarlama) [12], Eurachem/CITAC MUPR kılavuzunun kuralına göre [9] ya da her zaman yukarı yuvarlanır; sonuç
 ifadesi kullanılan kuralı belirtir. Kalibrasyon raporları, kalibrasyon ve ölçüm yeteneğini raporlanabilecek en
-küçük belirsizlik olarak uygulayabilir (ILAC P14 [37]).
+küçük belirsizlik olarak uygulayabilir (ILAC P14 [38]).
 
 ### 2.3 Monte Carlo yöntemi
 
@@ -132,14 +133,14 @@ serbestlik derecesi için iki değerlendirmenin farklı girdi varyansları kulla
 
 Laboratuvarlar arası sonuçlar iki nedenle birbiriyle tutarsız olabilir: sonuçların çoğunu etkileyen bilinmeyen bir
 etki (örneğin örneklerin kararsızlığı ya da homojen olmaması veya ölçülen büyüklüğün belirsiz tanımı) ya da aykırı
-değerler veya olduğundan küçük belirsizlikler bildiren bir veya birkaç laboratuvar [38]. Birincisi
-laboratuvarlar arası ("karanlık") bir belirsizlik içeren rastgele etkiler modelini [34], ikincisi tutarlı bir alt
+değerler veya olduğundan küçük belirsizlikler bildiren bir veya birkaç laboratuvar [39]. Birincisi
+laboratuvarlar arası ("karanlık") bir belirsizlik içeren rastgele etkiler modelini [35], ikincisi tutarlı bir alt
 küme kullanmayı ya da aykırı değerlerin dışlanmasını gerektirir; iki model türü aynı veriler için farklı referans
-değerleri verir ve Shirono ve ark. rastgele bir etkiyi saptamak için bir yöntem önerir [38].
+değerleri verir ve Shirono ve ark. rastgele bir etkiyi saptamak için bir yöntem önerir [39].
 
-Uzlaşı modülü NIST Consensus Builder'ı [23, 35] izler ve onun herkese açık R kaynak koduyla karşılaştırılmıştır.
-DerSimonian–Laird kestirimi [39], Knapp–Hartung düzeltmesiyle [40] ve NICOB'un parametrik bootstrap'ıyla birlikte
-verilir; bu bootstrap, laboratuvarlar arası varyansı Biggerstaff ve Tweedie'nin [41] Cochran Q istatistiği için
+Uzlaşı modülü NIST Consensus Builder'ı [23, 36] izler ve onun herkese açık R kaynak koduyla karşılaştırılmıştır.
+DerSimonian–Laird kestirimi [40], Knapp–Hartung düzeltmesiyle [41] ve NICOB'un parametrik bootstrap'ıyla birlikte
+verilir; bu bootstrap, laboratuvarlar arası varyansı Biggerstaff ve Tweedie'nin [42] Cochran Q istatistiği için
 verdiği gama yaklaşımından çeker. Kod okunduğunda kılavuzun belirtmediği iki ayrıntı görüldü: gama dağılımı τ²'nin
 kesilmemiş moment kestirimine göre kurulur (bu kestirim Q < n − 1 olduğunda negatiftir) ve varyansı doğrusal terimde
 yayımlanmış formülden farklıdır; τ̂ > 0 olduğunda fark u'da %0,1, Q < n − 1 olduğunda %13'tür (D82). Program kodu
@@ -153,14 +154,14 @@ hesaplanır. Sonuçlar bir tohum değerine bağlı değildir; ızgarayı iki kat
 sapmaları ve yüzdelikleri sonsal standart sapmanın 10⁻³'ünden daha az değiştirir (D83). Eşdeğerlik dereceleri
 DerSimonian–Laird, Linear Pool ve Bayesçi yöntemler için, CIPM MRA sürümünde (D_j = x_j − μ̂) ve birini dışarıda
 bırakma sürümünde (D*_j = x_j − μ̂₋ⱼ; belirsizliği, NICOB'da olduğu gibi Röver ve ark.'nın değiştirilmiş
-Knapp–Hartung düzeltmesini [42] kullanır), tekli ve ikili olarak hesaplanabilir (D86, D88).
+Knapp–Hartung düzeltmesini [43] kullanır), tekli ve ikili olarak hesaplanabilir (D86, D88).
 
 ### 2.5 Fiziksel bir sınıra yakın sonuçlar
 
 Bir kütle kesri 1 g/g'ı aşamaz. y ± U böyle bir sınırı aştığında program aralığı sınırda keser ve sonucu, IUPAC'ın
-saflık belirleme üzerine teknik raporunun izin verdiği gibi [43], y +U_U/−U_L olarak ifade eder; Monte Carlo
+saflık belirleme üzerine teknik raporunun izin verdiği gibi [44], y +U_U/−U_L olarak ifade eder; Monte Carlo
 yönteminde ayrıca sınırla kısıtlanmış sonucu (sınır dışındaki çekilişler atılır; bu, ölçülen büyüklük üzerinde
-dikdörtgen bir önsele karşılık gelir [44]) kestirimi, standart sapması ve kapsama aralığıyla raporlar (D87).
+dikdörtgen bir önsele karşılık gelir [45]) kestirimi, standart sapması ve kapsama aralığıyla raporlar (D87).
 
 ## 3. Yazılım tasarımı ve gerçekleştirimi
 
@@ -208,8 +209,8 @@ durumudur: `kapsam check` onu değerlendirir ve her sonucu referansıyla karşı
 
 İfade dili alışılmış aritmetik işlemleri, üsleri ve temel fonksiyonları sağlar; birinci ve ikinci mertebe türevler
 sembolik olarak oluşturulur ve değerlendirmeden önce sadeleştirilir. Rastgele sayı üreteci, JCGM 101'in önerdiği
-geliştirilmiş Wichmann–Hill üretecidir [3, 45] ve birincil kaynağıyla karşılaştırılmıştır; normal sapmalar
-Box–Muller dönüşümünden, gama sapmaları Marsaglia ve Tsang yönteminden [46] elde edilir. Belirli bir tohumla bir
+geliştirilmiş Wichmann–Hill üretecidir [3, 46] ve birincil kaynağıyla karşılaştırılmıştır; normal sapmalar
+Box–Muller dönüşümünden, gama sapmaları Marsaglia ve Tsang yönteminden [47] elde edilir. Belirli bir tohumla bir
 Monte Carlo değerlendirmesi tam olarak tekrarlanabilir. Bayesçi uzlaşı değerleri deterministik ızgaralar üzerinde
 hesaplanır (Bölüm 2.4); bu yüzden hiç tohum gerektirmez. Tüm hesaplar çift duyarlıkla yapılır; değerler yalnızca
 raporlanan ifadede yuvarlanır.
@@ -254,9 +255,9 @@ hassasiyetle içeren JSON olarak yazılır.
 ### 4.1 Kütüphane
 
 Kütüphane 38 belgeden 286 proje içerir: GUM, ekleri ve GUM-5; Eurachem/CITAC, Nordtest, EA, UKAS ve EURAMET
-kılavuzları; beş ISO standardı; NIST TN 1900 [47] ve Uncertainty Machine kılavuzu; EMPIR EMUE örnek derlemesi [48];
-IUPAC kısa kılavuzu [49]; BIPM qNMR referans veri raporları [50]; Koepke ve ark. [35] ile Merkatas ve ark. [51]
-uzlaşı makaleleri; Possolo ve ortak yazarlarının kitap ve makaleleri [32, 52]. Alanlara göre 144 proje kimya, 36
+kılavuzları; beş ISO standardı; NIST TN 1900 [48] ve Uncertainty Machine kılavuzu; EMPIR EMUE örnek derlemesi [49];
+IUPAC kısa kılavuzu [50]; BIPM qNMR referans veri raporları [51]; Koepke ve ark. [36] ile Merkatas ve ark. [52]
+uzlaşı makaleleri; Possolo ve ortak yazarlarının kitap ve makaleleri [33, 53]. Alanlara göre 144 proje kimya, 36
 elektrik, 31 kütle, 24 genel, 16 fiziksel büyüklükler, 12 uzunluk, 10 sıcaklık, 7 akış ve 6 basınç alanındadır;
 değerlendirme türüne göre 134'ü ölçüm modelidir (118'i Monte Carlo değerlendirmeli), 152'si diğer on türü kapsar
 (Tablo 2; tam liste ek malzeme S1'dedir).
@@ -309,7 +310,9 @@ yinelemesi bir sütunda ve C.3.1'in durdurma kuralı bir formül olarak; ISO 572
 yanında sabit sayılar olarak, fark ve toleransla birlikte yer alır. Böylece aritmetiği elektronik tablo programı
 yapar ve her formül hücre hücre incelenebilir; ne var ki formüllerin kendisi standartların programla aynı okunuşunu
 izler (Bölüm 9). Kütüphanenin her dosyası, kaynak kodun her değişikliğinde LibreOffice Calc'ta yeniden hesaplanır
-(ek malzeme S7).
+(ek malzeme S7). Elektronik tablolar ve bir R betiği, UncertCalc'ı rastgele üretilmiş veriler üzerinde doğrulamak
+için de aynı biçimde kullanılmıştır [25]; kütüphaneden oluşturulan dosyalar bu denetimi, sonuçları
+kılavuzlarda basılı olan veriler üzerinde yapar.
 
 ## 5. Validasyon sonuçları
 
@@ -326,7 +329,7 @@ uyuşur; standart belirsizlikleri ise uyum zayıfken (en büyük ağırlıklı s
 farklıdır, çünkü Suncal'ın kovaryansı Gauss–Newton yaklaşımıdır, KAPSAM ise girdi belirsizliklerini minimum
 noktasından tam Hessian ile yayar (ISO 6143, Ek A); KAPSAM'ın çözümünde hesaplanan Gauss–Newton değerleri
 Suncal'ınkilerle 6 × 10⁻⁵ düzeyinde uyuşur. İki kovaryans da uydurmayı minimum çevresinde doğrusallaştırır.
-Kalibrasyon verilerinin en küçük kareler çözümü boyunca Monte Carlo ile yayılması [53], kütüphanenin sekiz kalibrasyon
+Kalibrasyon verilerinin en küçük kareler çözümü boyunca Monte Carlo ile yayılması [54], kütüphanenin sekiz kalibrasyon
 projesinin her biri için 10⁶ çekilişle (D97, S4), hangi doğrusallaştırmanın geçerli olduğunu gösterir: ikisinin
 ayrıldığı projelerde (EMUE E3.3 ve ISO 6143 B.3'ün üslü fonksiyonu) parametrelerin Monte Carlo standart sapmaları
 KAPSAM'ınkilerden en çok %0,15 (standart hata %0,05–0,06), Gauss–Newton değerlerinden ise %0,8'e kadar farklıdır; 13
@@ -342,8 +345,8 @@ serbestlik derecesinde, toleransının 0,44'üdür.
 
 <!-- table3 -->
 
-Uzlaşı modülü; Koepke ve ark. [35] için Newton kütle çekim sabitinin ve ¹³⁷Cs ile ⁹⁰Sr yarı ömürlerinin, IUPAC 2024
-[49] için sığır karaciğerindeki nikelin ve iridyumun molar kütlesinin, Laplace etkileriyle Possolo ve Meija [52]
+Uzlaşı modülü; Koepke ve ark. [36] için Newton kütle çekim sabitinin ve ¹³⁷Cs ile ⁹⁰Sr yarı ömürlerinin, IUPAC 2024
+[50] için sığır karaciğerindeki nikelin ve iridyumun molar kütlesinin, Laplace etkileriyle Possolo ve Meija [53]
 için Hubble–Lemaître sabitinin (Stan ile 71,69'a karşı 71,69 (km/s)/Mpc) yayımlanmış DerSimonian–Laird, bootstrap,
 Linear Pool, en çok olabilirlik ve hiyerarşik Bayesçi değerlerini ve NICOB kılavuzunun ⁶⁰Co ve PCB 28 uzlaşı
 değerlerini [23] yeniden üretir. Kılavuzun yalnızca şekillerde gösterdiği eşdeğerlik dereceleri için NICOB R
@@ -411,14 +414,14 @@ değerlendirme varsa belirsizliği ortadan kaldırır; yoksa çekiliş sayısı 
 ### 6.5 Yöntem farkları hata değildir
 
 Beş c sınıfı bulgunun yöntem veya yorum farkı olduğu anlaşıldı. GUM-5 Örnek 2'de analitin ve iç standardın iki alanı
-aynı üç enjeksiyondan gelir; ortak varyans bileşenleri Willink'in topluluk kuralına [36] göre iki serbestlik
+aynı üç enjeksiyondan gelir; ortak varyans bileşenleri Willink'in topluluk kuralına [37] göre iki serbestlik
 derecesine sahiptir, örnek ise genelleştirilmiş bir Welch–Satterthwaite formülü uygulayarak ν_eff = 4,8 bulur
 (F79). ν bu iki değerde sabit tutulduğunda GUM aralığı, ölçümün bir benzetiminde %89 ve %96 kapsar; ν, bir
 laboratuvarın yapacağı gibi her benzetilmiş veri kümesinden yeniden hesaplandığında her iki okuma da %93–94 kapsar.
 Seçim tek bir sonucun kapsam faktörü için önemlidir (2,6 ile 4,1), ancak iki okumanın hiçbiri tutarsızlık
 değildir. t dağılımlı girdiler için iki gelenek de (JCGM 101'in ölçeklenmiş ve kaydırılmış t dağılımı ile TN 1900 ve
 NIST Uncertainty Machine'in yeniden ölçeklenmiş t dağılımı) aynı veriler için farklı Monte Carlo sonuçları verir
-(F31, F35). Geleneğin kendisi de tartışmalıdır: Huang [54], standart sapması √((n − 1)/(n − 3))·s/√n olan
+(F31, F35). Geleneğin kendisi de tartışmalıdır: Huang [55], standart sapması √((n − 1)/(n − 3))·s/√n olan
 ölçeklenmiş ve kaydırılmış t dağılımının s/√n'den büyük olduğunu ve dörtten az gözlem için tanımsız kaldığını
 belirterek kullanılmaması gerektiğini savunur ve yerine standart sapması s/(c₄√n) olan bir normal dağılım önerir;
 onun örneğinde t geleneği n = 4 için %51'e kadar büyük bir genişletilmiş belirsizlik verir. Program JCGM 101'i
@@ -429,7 +432,7 @@ programın geleneğini belirtmelidir.
 
 ### 7.1 Uzlaşı yöntemi modelin bir parçasıdır
 
-Merkatas ve ark.'nın [51] incelediği Newton kütle çekim sabitinin 16 değeri için program; Knapp–Hartung
+Merkatas ve ark.'nın [52] incelediği Newton kütle çekim sabitinin 16 değeri için program; Knapp–Hartung
 düzeltmeli DerSimonian–Laird (6,673 99 × 10⁻¹¹ m³ kg⁻¹ s⁻², u = 0,000 25), en çok olabilirlik (6,673 90; 0,000 25),
 NICOB hiyerarşik Bayesçi model (6,673 89; 0,000 27; MCMC yerine kesin ızgara) ve Linear Pool (6,673 77; 0,001 17)
 sonuçlarını yeniden üretir; makalenin on dört yöntemi 0,000 11 ile 0,001 17 arasında standart belirsizliklerle
@@ -437,13 +440,13 @@ sonuçlarını yeniden üretir; makalenin on dört yöntemi 0,000 11 ile 0,001 1
 
 Yöntemler en çok referans değerin belirsizliğini neyin belirlediği konusunda ayrılır: ISO 13528'in sağlam
 istatistikleri onu yalnızca bildirilen değerlerin saçılımından, ağırlıklı ortalama yalnızca belirtilen
-belirsizliklerden, rastgele etkiler yöntemleri ise karanlık belirsizlik yoluyla her ikisinden hesaplar; Carobbi [55],
+belirsizliklerden, rastgele etkiler yöntemleri ise karanlık belirsizlik yoluyla her ikisinden hesaplar; Carobbi [56],
 belirtilen belirsizlikleri de kullanan bir A algoritması önermiştir. CCQM-K25 anahtar karşılaştırmasında sedimentte
-PCB 28 için NICOB kılavuzunun [23] ve Lira'nın [53] incelediği altı sonuç, farkın ne kadar büyük olabileceğini
-gösterir. Bildirilen referans değer, 33,64 ng/g ve u = 0,60 ng/g, sonuçların aritmetik ortalamasına eşittir [53].
+PCB 28 için NICOB kılavuzunun [23] ve Lira'nın [54] incelediği altı sonuç, farkın ne kadar büyük olabileceğini
+gösterir. Bildirilen referans değer, 33,64 ng/g ve u = 0,60 ng/g, sonuçların aritmetik ortalamasına eşittir [54].
 Lira'nın sonuçlara atanan t dağılımlarına en küçük karelerle bir sabit uydurması eşit ağırlıklarla 33,64 ng/g ve u =
 0,35 ng/g, belirtilen belirsizliklerden gelen ağırlıklarla 34,05 ng/g ve u = 0,26 ng/g verir; ikinci durumda iki
-serbestlik dereceli laboratuvarın ağırlığı sıfırdır [53]. Program NICOB bootstrap'lı DerSimonian–Laird ile 33,60 ng/g
+serbestlik dereceli laboratuvarın ağırlığı sıfırdır [54]. Program NICOB bootstrap'lı DerSimonian–Laird ile 33,60 ng/g
 ve u = 0,75 ng/g (τ̂ = 1,7 ng/g), Linear Pool ile 33,64 ng/g ve u = 1,51 ng/g verir. Bu ölçüde tutarsız veriler için
 (Cochran Q = 68, beş serbestlik derecesi) referans değerin standart belirsizliği yönteme göre altı kata yakın değişir.
 Lira'nın artıkları 5. ve 6. laboratuvarları diğerleriyle tutarsız gösterir; DerSimonian–Laird'in birini dışarıda
@@ -458,7 +461,7 @@ belirttiği belirsizlikleri içerir, karanlık belirsizliği içermez (Şekil 4)
 eşdeğerlik derecelerinin nasıl hesaplandığı konusunda farklıdır (F100); program kılavuzu uygular. Dolayısıyla bir
 katılımcının "anlamlı" eşdeğerlik derecesi sonuç kadar yöntem hakkında da bir ifadedir; yöntem, veriler görülmeden
 önce seçilmeli ve belirtilmelidir. Aynısı ölçüt için de geçerlidir: transfer standardından ve tekrarlanabilirlikten
-gelen büyük bir karşılaştırma belirsizliği |E_n| ≤ 1 ölçütünü geçmeyi kolaylaştırır; Frahm ve Wright [56],
+gelen büyük bir karşılaştırma belirsizliği |E_n| ≤ 1 ölçütünü geçmeyi kolaylaştırır; Frahm ve Wright [57],
 karşılaştırmalarda olduğu gibi yeterlilik testlerinde de bu tür sonuçları sonuçsuz (inconclusive) sayan ölçütler
 önerir. Program E_n ve ζ puanlarını verir, bu ölçütleri uygulamaz.
 
@@ -469,7 +472,7 @@ karşılaştırmalarda olduğu gibi yeterlilik testlerinde de bu tür sonuçlar�
 İç standartla belirlenen benzoik asit saflığı için (BIPM ISRD-06, Tablo 6) y = 0,999 77 g/g ve U = 0,0015 g/g'dır.
 y ± U'yu 1 g/g'da kesmek basılı 999,8 +0,2/−1,5 mg/g sonucunu verir. w ≤ 1 g/g ile kısıtlanmış Monte Carlo sonucu
 çekilişlerin %62'sini tutar ve 0,999 32 g/g, u = 0,000 49 g/g ve en kısa %95 aralığı [0,998 39; 1] g/g verir: farklı
-bir kestirim ve daha dar bir aralık. İkisi de IUPAC kılavuzunun [43] savunulabilir okumalarıdır; rapor hangisinin
+bir kestirim ve daha dar bir aralık. İkisi de IUPAC kılavuzunun [44] savunulabilir okumalarıdır; rapor hangisinin
 kullanıldığını belirtmelidir.
 
 ### 7.3 Test belirsizlik oranından koruma bantları
@@ -480,7 +483,7 @@ serbestlik derecelerinde yüksek verir; Dobbert'in yönetilen koruma bandı, sı
 üzerinde tolerans dışında kalan kabul sınırları verir (D80). Program varsayılan olarak k₉₅u kullanır, 2u'yu seçenek
 olarak tutar ve üzerinde anlaşılmış bir karar kuralı daha fazlasına izin vermedikçe faktörü 1 ile sınırlar. Bu tür
 kurallar (izin verilen en büyük hatanın üçte biri kadar bir hedef belirsizlik, paylaşılan risk, koruma bantları)
-birer gelenektir: Pendrill [57] bunları ekonomik açıdan inceler, Forbes [58] ise kabul sınırlarını
+birer gelenektir: Pendrill [58] bunları ekonomik açıdan inceler, Forbes [59] ise kabul sınırlarını
 yanlış kararların maliyetlerinden türetir. Program maliyetleri eniyilemez, ama böyle bir eniyilemenin gerektirdiği
 girdileri, yani seçilen sınırların özgül ve genel tüketici ve üretici risklerini verir.
 
@@ -508,7 +511,7 @@ Aynı program oldukça farklı görevleri olan laboratuvarlara hizmet eder; Tabl
 
 ISO/IEC 17025 7.11.2, laboratuvarın kullandığı yazılımı kullanımdan önce ve değişikliklerden sonra doğrulamasını
 ister. Validasyon, amaçlanan kullanımın gereksinimlerinin karşılandığına dair nesnel kanıt sağlar ve büyük ölçüde bu
-gereksinimlerin test edilebilir biçimde belirtilmesinden oluşur [26].
+gereksinimlerin test edilebilir biçimde belirtilmesinden oluşur [27].
 `kapsam check library --lab projelerim --report validasyon.pdf` komutu bir yazılım validasyon raporu yazar: program
 sürümünü, commit'i, derleyiciyi ve platformu, her proje dosyasının ve kümenin SHA-256 özetini ve her karşılaştırmayı
 referans değeri ve toleransıyla listeler; laboratuvarın kendi projeleri ayrı bir bölümde yer alır, çünkü yayımlanmış
@@ -525,7 +528,7 @@ validasyonunun alışılmış biçimi saydığı yoldur.
 ### 8.3 Raporlarda ve sertifikalarda ifadeler
 
 Raporlanan ifade değeri, U'yu, k'yi ve kapsam olasılığını verir, yuvarlama kuralını adlandırır ve kalibrasyon için
-laboratuvarın CMC'sini raporlanabilecek en küçük belirsizlik olarak uygular (ILAC P14 [37]). Bir uygunluk
+laboratuvarın CMC'sini raporlanabilecek en küçük belirsizlik olarak uygular (ILAC P14 [38]). Bir uygunluk
 değerlendirmesi, 7.8.6'nın istediği gibi karar kuralını, koruma bandını ve her sonucun özgül riskini belirtir; test
 belirsizlik oranından türetilen koruma bantları Bölüm 7.3'teki gibi sınırlanır. Fiziksel bir sınıra yakın sonuçlar
 asimetrik bir aralıkla verilir (Bölüm 2.5).
@@ -533,7 +536,7 @@ asimetrik bir aralıkla verilir (Bölüm 2.5).
 ### 8.4 Programla öğrenmek
 
 Belirsizlik de çözümlü örneklerle öğretilir. Mathmet'in eğitim kursları, yazılımlar ve sınıf örnekleri üzerine
-derlemesi [25] ikisinin ne kadar iç içe olduğunu gösterir; pek çok laboratuvar yeni personelini Eurachem ve EA
+derlemesi [26] ikisinin ne kadar iç içe olduğunu gösterir; pek çok laboratuvar yeni personelini Eurachem ve EA
 kılavuzlarının örnekleriyle yetiştirir. Bu yüzden uygulama İngilizce ve Türkçe bir kılavuz içerir: *Sıfırdan
 belirsizlik*. On iki bölüm belirsizlik fikrinden raporlamaya kadar uzanır: adım adım ilk bir hesap; sertifikaları,
 toleransları, çözünürlükleri ve tekrarlı okumaları standart belirsizliklere dönüştüren bir tablo; sonuçların her
@@ -586,7 +589,7 @@ iletilecek; yanıtları programın herkese açık araştırma günlüğüne ekle
 
 **Sınırlamalar.** Sonlu serbestlik dereceli sonuçlar için σ_j üzerindeki NICOB önselleri, Laplace etkileriyle
 eşdeğerlik dereceleri, zaman serileri (ARMA) ve sayım istatistikleri, model ortalaması, Carobbi'nin değiştirilmiş A
-algoritması [55], kalibrasyon eğrilerinin Monte Carlo ile değerlendirilmesi [53] ve imzalı sonuç paketleri
+algoritması [56], kalibrasyon eğrilerinin Monte Carlo ile değerlendirilmesi [54] ve imzalı sonuç paketleri
 uygulanmamıştır; PDF raporları ve SHA-256 özetleri bütünlük denetimi sağlar ama imza sağlamaz. Windows paketleri henüz
 kod imzalı değildir; bu yüzden antivirüs programları onları bilinmeyen dosya olarak karantinaya alabilir. Arayüz,
 raporlar ve kılavuz İngilizce ve Türkçedir; başka diller eklenebilir, ama ana dili o dil olan metrologlarca gözden
@@ -691,70 +694,72 @@ Yazar herhangi bir çıkar çatışması olmadığını beyan eder. [Doğrulanac
 
 [24] R. J. N. Bettencourt da Silva, User-friendly spreadsheet for implementing international guidance on the evaluation of measurement uncertainty, Talanta (2026) 130826. https://doi.org/10.1016/j.talanta.2026.130826
 
-[25] F. R. Pennecchi, P. M. Harris, Mathmet Measurement Uncertainty Training activity — overview of courses, software, and classroom examples, Acta IMEKO 12(2) (2023) 1–6.
+[25] B. Yalçınkaya, UncertCalc: a web-based tool for measurement uncertainty calculation, J. Chem. Metrol. 19(2) (2025) 128–135. https://doi.org/10.25135/jcm.127.2511.3738
 
-[26] N. Greif, H. Schrepf, D. Richter, Software validation in metrology: a case study for a GUM-supporting software, Measurement 39 (2006) 849–855. https://doi.org/10.1016/j.measurement.2006.04.005
+[26] F. R. Pennecchi, P. M. Harris, Mathmet Measurement Uncertainty Training activity — overview of courses, software, and classroom examples, Acta IMEKO 12(2) (2023) 1–6.
 
-[27] M. Désenfant, M. Priel, Road map for measurement uncertainty evaluation, Measurement 39 (2006) 841–848. https://doi.org/10.1016/j.measurement.2006.04.008
+[27] N. Greif, H. Schrepf, D. Richter, Software validation in metrology: a case study for a GUM-supporting software, Measurement 39 (2006) 849–855. https://doi.org/10.1016/j.measurement.2006.04.005
 
-[28] M. Désenfant, M. Priel, Reference and additional methods for measurement uncertainty evaluation, Measurement 95 (2017) 339–344. https://doi.org/10.1016/j.measurement.2016.10.022
+[28] M. Désenfant, M. Priel, Road map for measurement uncertainty evaluation, Measurement 39 (2006) 841–848. https://doi.org/10.1016/j.measurement.2006.04.008
 
-[29] G. Mana, F. Pennecchi, Uncertainty propagation in non-linear measurement equations, Metrologia 44 (2007) 246–251. https://doi.org/10.1088/0026-1394/44/3/012
+[29] M. Désenfant, M. Priel, Reference and additional methods for measurement uncertainty evaluation, Measurement 95 (2017) 339–344. https://doi.org/10.1016/j.measurement.2016.10.022
 
-[30] Eurachem/CITAC Guide, Use of uncertainty information in compliance assessment, 2nd ed., 2021.
+[30] G. Mana, F. Pennecchi, Uncertainty propagation in non-linear measurement equations, Metrologia 44 (2007) 246–251. https://doi.org/10.1088/0026-1394/44/3/012
 
-[31] ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation.
+[31] Eurachem/CITAC Guide, Use of uncertainty information in compliance assessment, 2nd ed., 2021.
 
-[32] A. Possolo, C. Bodnar, Approximate Bayesian evaluations of measurement uncertainty, Metrologia 55 (2018) 147–157. https://doi.org/10.1088/1681-7575/aaa5be
+[32] ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation.
 
-[33] M. H. Ramsey, S. L. R. Ellison, P. Rostron (eds.), Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide: Measurement uncertainty arising from sampling, 2nd ed., 2019.
+[33] A. Possolo, C. Bodnar, Approximate Bayesian evaluations of measurement uncertainty, Metrologia 55 (2018) 147–157. https://doi.org/10.1088/1681-7575/aaa5be
 
-[34] M. Thompson, S. L. R. Ellison, Dark uncertainty, Accred. Qual. Assur. 16 (2011) 483–487. https://doi.org/10.1007/s00769-011-0803-0
+[34] M. H. Ramsey, S. L. R. Ellison, P. Rostron (eds.), Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide: Measurement uncertainty arising from sampling, 2nd ed., 2019.
 
-[35] A. Koepke, T. Lafarge, A. Possolo, B. Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62. https://doi.org/10.1088/1681-7575/aa6c0e
+[35] M. Thompson, S. L. R. Ellison, Dark uncertainty, Accred. Qual. Assur. 16 (2011) 483–487. https://doi.org/10.1007/s00769-011-0803-0
 
-[36] R. Willink, A generalization of the Welch–Satterthwaite formula for use with correlated uncertainty components, Metrologia 44 (2007) 340–349. https://doi.org/10.1088/0026-1394/44/5/010
+[36] A. Koepke, T. Lafarge, A. Possolo, B. Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62. https://doi.org/10.1088/1681-7575/aa6c0e
 
-[37] ILAC P14:09/2020, ILAC Policy for Measurement Uncertainty in Calibration.
+[37] R. Willink, A generalization of the Welch–Satterthwaite formula for use with correlated uncertainty components, Metrologia 44 (2007) 340–349. https://doi.org/10.1088/0026-1394/44/5/010
 
-[38] K. Shirono, M. Shiro, H. Tanaka, K. Ehara, Proficiency tests with uncertainty information: detection of an unknown random effect, Measurement 83 (2016) 144–152. https://doi.org/10.1016/j.measurement.2016.01.002
+[38] ILAC P14:09/2020, ILAC Policy for Measurement Uncertainty in Calibration.
 
-[39] R. DerSimonian, N. Laird, Meta-analysis in clinical trials, Control. Clin. Trials 7 (1986) 177–188.
+[39] K. Shirono, M. Shiro, H. Tanaka, K. Ehara, Proficiency tests with uncertainty information: detection of an unknown random effect, Measurement 83 (2016) 144–152. https://doi.org/10.1016/j.measurement.2016.01.002
 
-[40] G. Knapp, J. Hartung, Improved tests for a random effects meta-regression with a single covariate, Stat. Med. 22 (2003) 2693–2710.
+[40] R. DerSimonian, N. Laird, Meta-analysis in clinical trials, Control. Clin. Trials 7 (1986) 177–188.
 
-[41] B. J. Biggerstaff, R. L. Tweedie, Incorporating variability in estimates of heterogeneity in the random effects model in meta-analysis, Stat. Med. 16 (1997) 753–768.
+[41] G. Knapp, J. Hartung, Improved tests for a random effects meta-regression with a single covariate, Stat. Med. 22 (2003) 2693–2710.
 
-[42] G. Röver, G. Knapp, T. Friede, Hartung–Knapp–Sidik–Jonkman approach and its modification for random-effects meta-analysis with few studies, BMC Med. Res. Methodol. 15 (2015) 99. https://doi.org/10.1186/s12874-015-0091-1
+[42] B. J. Biggerstaff, R. L. Tweedie, Incorporating variability in estimates of heterogeneity in the random effects model in meta-analysis, Stat. Med. 16 (1997) 753–768.
 
-[43] S. Westwood et al., Methods for the SI-traceable value assignment of the purity of organic compounds (IUPAC Technical Report), Pure Appl. Chem. (published online 2022). https://doi.org/10.1515/pac-2020-0804 [doğrula: sayının cilt ve sayfaları]
+[43] G. Röver, G. Knapp, T. Friede, Hartung–Knapp–Sidik–Jonkman approach and its modification for random-effects meta-analysis with few studies, BMC Med. Res. Methodol. 15 (2015) 99. https://doi.org/10.1186/s12874-015-0091-1
 
-[44] B. Toman, M. A. Nelson, K. A. Lippa, Chemical purity using quantitative ¹H-nuclear magnetic resonance: a hierarchical Bayesian approach for traceable calibrations, Metrologia 53 (2016) 1193–1203. https://doi.org/10.1088/0026-1394/53/5/1193
+[44] S. Westwood et al., Methods for the SI-traceable value assignment of the purity of organic compounds (IUPAC Technical Report), Pure Appl. Chem. (published online 2022). https://doi.org/10.1515/pac-2020-0804 [doğrula: sayının cilt ve sayfaları]
 
-[45] B. A. Wichmann, I. D. Hill, Generating good pseudo-random numbers, Comput. Stat. Data Anal. 51 (2006) 1614–1622.
+[45] B. Toman, M. A. Nelson, K. A. Lippa, Chemical purity using quantitative ¹H-nuclear magnetic resonance: a hierarchical Bayesian approach for traceable calibrations, Metrologia 53 (2016) 1193–1203. https://doi.org/10.1088/0026-1394/53/5/1193
 
-[46] G. Marsaglia, W. W. Tsang, A simple method for generating gamma variables, ACM Trans. Math. Softw. 26 (2000) 363–372.
+[46] B. A. Wichmann, I. D. Hill, Generating good pseudo-random numbers, Comput. Stat. Data Anal. 51 (2006) 1614–1622.
 
-[47] A. Possolo, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results, NIST Technical Note 1900, 2015. https://doi.org/10.6028/NIST.TN.1900
+[47] G. Marsaglia, W. W. Tsang, A simple method for generating gamma variables, ACM Trans. Math. Softw. 26 (2000) 363–372.
 
-[48] A. M. H. van der Veen, M. G. Cox (eds.), Good practice in evaluating measurement uncertainty — Compendium of examples, EMPIR 17NRM05 EMUE, 2021.
+[48] A. Possolo, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results, NIST Technical Note 1900, 2015. https://doi.org/10.6028/NIST.TN.1900
 
-[49] A. Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134. https://doi.org/10.1515/pac-2022-1203
+[49] A. M. H. van der Veen, M. G. Cox (eds.), Good practice in evaluating measurement uncertainty — Compendium of examples, EMPIR 17NRM05 EMUE, 2021.
 
-[50] BIPM, Internal Standard Reference Data for qNMR, ISRD-01 to ISRD-08, Rapports BIPM 2018–2023.
+[50] A. Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134. https://doi.org/10.1515/pac-2022-1203
 
-[51] C. Merkatas, B. Toman, A. Possolo, S. Schlamminger, Shades of dark uncertainty and consensus value for the Newtonian constant of gravitation, Metrologia 56 (2019) 054001. https://doi.org/10.1088/1681-7575/ab3365
+[51] BIPM, Internal Standard Reference Data for qNMR, ISRD-01 to ISRD-08, Rapports BIPM 2018–2023.
 
-[52] A. Possolo, J. Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo, 2022. https://doi.org/10.4224/1tqz-b038
+[52] C. Merkatas, B. Toman, A. Possolo, S. Schlamminger, Shades of dark uncertainty and consensus value for the Newtonian constant of gravitation, Metrologia 56 (2019) 054001. https://doi.org/10.1088/1681-7575/ab3365
 
-[53] I. Lira, Monte Carlo evaluation of the uncertainty associated with the construction and use of a fitted curve, Measurement 44 (2011) 2156–2164. https://doi.org/10.1016/j.measurement.2011.07.021
+[53] A. Possolo, J. Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo, 2022. https://doi.org/10.4224/1tqz-b038
 
-[54] H. Huang, Why the scaled and shifted t-distribution should not be used in the Monte Carlo method for estimating measurement uncertainty?, Measurement 136 (2019) 282–288. https://doi.org/10.1016/j.measurement.2018.12.089
+[54] I. Lira, Monte Carlo evaluation of the uncertainty associated with the construction and use of a fitted curve, Measurement 44 (2011) 2156–2164. https://doi.org/10.1016/j.measurement.2011.07.021
 
-[55] C. F. M. Carobbi, A modified ISO 13528 robust analysis (Algorithm A) that takes measurement uncertainty into account, Measurement 110 (2017) 296–306. https://doi.org/10.1016/j.measurement.2017.07.006
+[55] H. Huang, Why the scaled and shifted t-distribution should not be used in the Monte Carlo method for estimating measurement uncertainty?, Measurement 136 (2019) 282–288. https://doi.org/10.1016/j.measurement.2018.12.089
 
-[56] E. Frahm, J. Wright, Evaluation of inter-laboratory comparison results: representative examples, Measurement 223 (2023) 113723. https://doi.org/10.1016/j.measurement.2023.113723
+[56] C. F. M. Carobbi, A modified ISO 13528 robust analysis (Algorithm A) that takes measurement uncertainty into account, Measurement 110 (2017) 296–306. https://doi.org/10.1016/j.measurement.2017.07.006
 
-[57] L. R. Pendrill, Optimised measurement uncertainty and decision-making when sampling by variables or by attribute, Measurement 39 (2006) 829–840. https://doi.org/10.1016/j.measurement.2006.04.014
+[57] E. Frahm, J. Wright, Evaluation of inter-laboratory comparison results: representative examples, Measurement 223 (2023) 113723. https://doi.org/10.1016/j.measurement.2023.113723
 
-[58] A. B. Forbes, Measurement uncertainty and optimized conformance assessment, Measurement 39 (2006) 808–814. https://doi.org/10.1016/j.measurement.2006.04.007
+[58] L. R. Pendrill, Optimised measurement uncertainty and decision-making when sampling by variables or by attribute, Measurement 39 (2006) 829–840. https://doi.org/10.1016/j.measurement.2006.04.014
+
+[59] A. B. Forbes, Measurement uncertainty and optimized conformance assessment, Measurement 39 (2006) 808–814. https://doi.org/10.1016/j.measurement.2006.04.007
