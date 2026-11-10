@@ -82,7 +82,7 @@ out += ["", f"Confirmed inconsistencies that change a final printed result (c1):
         f"open: {sum(v for (k, st), v in imp.items() if st == 'open')}."]
 
 # Compared values and tolerances (review items 12, 13): every check of every project, from the JSON results.
-exe = Path("target/debug/uncertainty")
+exe = Path("target/debug/kapsam")
 checks = []
 if exe.exists():
     for f in sorted(glob.glob("library/*/*.json")):

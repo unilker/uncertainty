@@ -1,4 +1,4 @@
-//! C interface of *Uncertainty Calculations* for the graphical user
+//! C interface of *KAPSAM* for the graphical user
 //! interface (Flutter, via `dart:ffi`).
 //!
 //! Every function takes and returns UTF-8 JSON strings, so the interface
@@ -304,11 +304,13 @@ pub unsafe extern "C" fn uc_validate(project_json: *const c_char) -> *mut c_char
 
 /// Evaluates a project. `options` (JSON, may be null):
 /// `{"lang": "en"|"tr", "skip_mcm": bool, "trials": n, "seed": s,
-///   "markdown": bool, "html": bool, "generated": "date text"}`.
-/// The response holds `results` (as `uncertainty run --format json`,
+///   "markdown": bool, "html": bool, "pdf": bool, "xlsx": bool,
+///   "generated": "date text"}`.
+/// The response holds `results` (as `kapsam run --format json`,
 /// including the comparison with reference values), `reported` (the result
-/// statements in the requested language), `warnings` (in that language)
-/// and the requested reports.
+/// statements in the requested language), `warnings` (in that language),
+/// `xlsx_supported` (whether a spreadsheet verification workbook exists for
+/// the project) and the requested reports (`pdf_base64`, `xlsx_base64`).
 ///
 /// # Safety
 /// Both arguments must be null or valid NUL-terminated strings.
@@ -371,6 +373,13 @@ fn evaluate(text: Result<String, String>, opts: Result<String, String>) -> Value
     }
     if opts.get("pdf").and_then(Value::as_bool).unwrap_or(false) {
         out["pdf_base64"] = json!(base64(&report::pdf_report(&p, &e, lang, generated)));
+    }
+    out["xlsx_supported"] = json!(project::workbook::supported(&p, &e));
+    if opts.get("xlsx").and_then(Value::as_bool).unwrap_or(false) {
+        match project::workbook::verification_workbook(&p, &e, lang) {
+            Ok(bytes) => out["xlsx_base64"] = json!(base64(&bytes)),
+            Err(err) => return json!({ "ok": false, "error": err.to_string() }),
+        }
     }
     out
 }

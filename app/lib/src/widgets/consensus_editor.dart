@@ -121,13 +121,14 @@ class _ConsensusEditorState extends State<ConsensusEditor> {
               widget.onChanged();
             }),
             if (bayes != null)
-              SizedBox(
+              Labeled(
+                label: s['cs_effects'],
                 width: 300,
                 child: DropdownButtonFormField<String>(
                   key: const Key('cs-effects'),
                   isExpanded: true,
                   initialValue: bayes['effects'] as String? ?? 'gaussian',
-                  decoration: InputDecoration(labelText: s['cs_effects'], isDense: true),
+                  decoration: fieldDecoration(s['cs_effects']),
                   items: [
                     for (final e in const ['gaussian', 'laplace']) DropdownMenuItem(value: e, child: Text(s['cs_effects_$e'])),
                   ],

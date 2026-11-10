@@ -1,6 +1,6 @@
 [package]
 name = "uncertainty-ffi"
-description = "C interface of Uncertainty Calculations for the graphical user interface (JSON in, JSON out)"
+description = "C interface of KAPSAM for the graphical user interface (JSON in, JSON out)"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

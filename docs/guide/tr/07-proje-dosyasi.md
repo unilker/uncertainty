@@ -425,7 +425,7 @@ korelasyonlu normal olmayan girdiler; sonlu olmayan veriler.
 ## 7.16 `expected`
 
 Kendini denetleyen projeler için referans değerler; her değer `{ "value": …, "tolerance": … }` biçimindedir ve
-`uncertainty check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
+`kapsam check` ile denetlenir. `reference`, değerlerin nereden geldiğini belirten metindir.
 
 * `gum`: `estimate`, `standard_uncertainty`, `expanded_uncertainty`, `coverage_factor`, `effective_dof`,
   `kragten_uncertainty`

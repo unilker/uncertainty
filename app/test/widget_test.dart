@@ -10,6 +10,8 @@ import 'package:uncertainty_app/main.dart';
 import 'package:uncertainty_app/src/app_state.dart';
 import 'package:uncertainty_app/src/engine.dart';
 import 'package:uncertainty_app/src/format.dart';
+import 'package:uncertainty_app/src/learn/explain.dart';
+import 'package:uncertainty_app/src/learn/guide.dart';
 import 'package:uncertainty_app/src/widgets/charts.dart';
 import 'package:uncertainty_app/src/widgets/calibration_editor.dart';
 import 'package:uncertainty_app/src/widgets/conformity_editor.dart';
@@ -29,6 +31,20 @@ Future<void> pumpUntilFound(WidgetTester tester, Finder finder, {int attempts = 
     if (finder.evaluate().isNotEmpty) break;
   }
   await tester.pumpAndSettle();
+}
+
+/// Scrolls the home screen down to the library and waits until it is loaded.
+Future<void> showLibrary(WidgetTester tester) async {
+  await tester.pump();
+  await tester.scrollUntilVisible(find.byKey(const Key('search')), 300, scrollable: find.byType(Scrollable).first);
+  await pumpUntilFound(tester, find.textContaining(RegExp(r'Example library \([1-9]|Örnek kütüphanesi \([1-9]')));
+}
+
+/// Types [query] into the search field of the library, which may be below
+/// the cards of the home screen.
+Future<void> searchLibrary(WidgetTester tester, String query) async {
+  await tester.scrollUntilVisible(find.byKey(const Key('search')), 300, scrollable: find.byType(Scrollable).first);
+  await tester.enterText(find.byKey(const Key('search')), query);
 }
 
 void main() {
@@ -156,6 +172,12 @@ void main() {
       final a1 = jsonDecode(File('../library/chemistry/quam-a1-cadmium-standard.json').readAsStringSync()) as Map<String, dynamic>;
       final k = e.evaluateSync(a1, const EvaluateOptions(skipMcm: true));
       expect((k['results']['gum']['kragten']['combined_standard_uncertainty'] as num).toDouble(), closeTo(0.8633, 0.00005));
+      // The spreadsheet verification workbook (an .xlsx file is a ZIP archive: "PK").
+      final x = e.evaluateSync(a1, const EvaluateOptions(lang: 'tr', skipMcm: true, xlsx: true));
+      expect(x['xlsx_supported'], isTrue);
+      expect(base64Decode(x['xlsx_base64'] as String).take(2), [0x50, 0x4b]);
+      expect(hasVerificationWorkbook(a1), isTrue);
+      expect(hasVerificationWorkbook(e.template('calibration')), isFalse);
       final bad = e.template('model')..remove('model');
       expect(e.validate(bad), contains('model'));
       expect(() => e.evaluateSync(bad, const EvaluateOptions()), throwsA(isA<EngineException>()));
@@ -165,10 +187,10 @@ void main() {
   testWidgets('open a library example and calculate it', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1200, 900));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    expect(find.textContaining('Example library ('), findsOneWidget);
+    await showLibrary(tester);
+    expect(find.textContaining('Example library (286'), findsOneWidget);
 
-    await tester.enterText(find.byKey(const Key('search')), 'quam-a1-cadmium-standard-volume');
+    await searchLibrary(tester, 'quam-a1-cadmium-standard-volume');
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Cadmium standard with the volume sub-model'));
     await tester.pumpAndSettle();
@@ -191,8 +213,8 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(1200, 900));
     final state = AppState('en');
     await tester.pumpWidget(UncertaintyApp(state: state));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'nist-tn1900-e11');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'nist-tn1900-e11');
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Microwave step attenuator, U-shaped inputs (NIST TN 1900 E11)'));
     await tester.pumpAndSettle();
@@ -226,8 +248,8 @@ void main() {
   testWidgets('a proficiency test round shows the scores of ISO 13528 E.4', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'iso13528-e4');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'iso13528-e4');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('Mercury in animal feed'));
     await tester.pumpAndSettle();
@@ -257,8 +279,8 @@ void main() {
   testWidgets('a calibration in both variables reproduces ISO 6143 Example 1', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'iso6143-b1');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'iso6143-b1');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('NO in N₂ by UV absorption'));
     await tester.pumpAndSettle();
@@ -291,8 +313,8 @@ void main() {
   testWidgets('global risks of JCGM 106 9.5.3 in the results', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'jcgm106-9.5-precision');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'jcgm106-9.5-precision');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('Precision resistors'));
     await tester.pumpAndSettle();
@@ -328,8 +350,8 @@ void main() {
   testWidgets('the creosote oil experiment of ISO 5725-2 C.3 flags laboratory 1', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'iso5725-2-c3-creosote-oil');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'iso5725-2-c3-creosote-oil');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('outlying laboratory and precision relationships'));
     await tester.pumpAndSettle();
@@ -348,8 +370,8 @@ void main() {
   testWidgets('a model with several outputs (JCGM 102 9.4) shows its correlation matrix', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'jcgm102-9.4-resistance-reactance-alternative');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'jcgm102-9.4-resistance-reactance-alternative');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('t covariance'));
     await tester.pumpAndSettle();
@@ -366,8 +388,8 @@ void main() {
   testWidgets('the zinc control chart of Nordtest TR 569 Table 1', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'tr569-table1-zinc');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'tr569-table1-zinc');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('Zinc in water: X-chart'));
     await tester.pumpAndSettle();
@@ -384,8 +406,8 @@ void main() {
   testWidgets('degrees of equivalence of the 60Co comparison by procedure', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'nicob-co60');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'nicob-co60');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('in 19 laboratories'));
     await tester.pumpAndSettle();
@@ -402,8 +424,8 @@ void main() {
   testWidgets('lead in soil by the duplicate method of Eurachem UfS Example A2', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'ufs-a2');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'ufs-a2');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('Lead in contaminated top soil'));
     await tester.pumpAndSettle();
@@ -420,8 +442,8 @@ void main() {
   testWidgets('the error function of EURAMET cg-18 H4 with s_m = 0.05 mg', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'cg18-h4-400g-error-function-sm-0.05');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'cg18-h4-400g-error-function-sm-0.05');
     await tester.pumpAndSettle();
     await tester.tap(find.textContaining('error approximation function with s_m = 0.05 mg'));
     await tester.pumpAndSettle();
@@ -437,8 +459,8 @@ void main() {
   testWidgets('top-down forms show and edit the raw data', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
-    await pumpUntilFound(tester, find.textContaining('Example library ('));
-    await tester.enterText(find.byKey(const Key('search')), 'nordtest-8-bod-pt');
+    await showLibrary(tester);
+    await searchLibrary(tester, 'nordtest-8-bod-pt');
     await tester.pumpAndSettle();
     await tester.tap(find.text('BOD in wastewater: control chart and proficiency tests'));
     await tester.pumpAndSettle();
@@ -451,5 +473,94 @@ void main() {
     await tester.tap(find.byKey(const Key('run')));
     await pumpUntilFound(tester, find.textContaining('U = 10 % (k = 2.00)'));
     expect(find.textContaining('U = 10 % (k = 2.00)'), findsOneWidget);
+  });
+
+  group('guide', () {
+    List<Map<String, dynamic>> library() => [
+      for (final i in jsonDecode(File('assets/library.json').readAsStringSync()) as List) ((i as Map)['project'] as Map).cast<String, dynamic>(),
+    ];
+    String idOf(Map<String, dynamic> p) => (p['metadata'] as Map)['id'] as String;
+
+    test('every library example has a lesson', () {
+      final lessons = parseLessons(File('assets/guide/lessons.json').readAsStringSync());
+      for (final p in library()) {
+        expect(lessons.forId(idOf(p)), isNotNull, reason: idOf(p));
+      }
+      for (final l in lessons.items) {
+        expect([1, 2, 3], contains(l.level), reason: l.prefix);
+        expect(l.inLang('en'), isNotEmpty);
+        expect(l.inLang('tr'), isNotEmpty);
+      }
+    });
+
+    test('links of the guide point to existing chapters, anchors and examples', () {
+      final ids = {for (final p in library()) idOf(p)};
+      Set<String> anchors(String text) => {for (final m in RegExp(r'\{#([\w-]+)\}').allMatches(text)) m.group(1)!};
+      for (final lang in ['en', 'tr']) {
+        for (final ch in guideChapters) {
+          final text = File('assets/guide/$lang/$ch.md').readAsStringSync();
+          expect(text.startsWith('# '), isTrue, reason: '$lang/$ch');
+          expect(anchors(text), anchors(File('assets/guide/${lang == 'en' ? 'tr' : 'en'}/$ch.md').readAsStringSync()), reason: 'anchors of $ch differ between languages');
+          for (final m in RegExp(r'\]\(([^)\s]+)\)').allMatches(text)) {
+            final target = m.group(1)!;
+            if (target.startsWith('http')) continue;
+            if (target.startsWith('example:')) {
+              expect(ids, contains(target.substring(8)), reason: '$lang/$ch → $target');
+              continue;
+            }
+            final parts = target.split('#');
+            if (parts.first == examplesChapter) continue;
+            expect(guideChapters, contains(parts.first), reason: '$lang/$ch → $target');
+            if (parts.length > 1) {
+              expect(anchors(File('assets/guide/$lang/${parts.first}.md').readAsStringSync()), contains(parts[1]), reason: '$lang/$ch → $target');
+            }
+          }
+        }
+      }
+    });
+
+    test('every project of the library can be explained in both languages', () {
+      for (final p in library()) {
+        for (final lang in ['en', 'tr']) {
+          final md = explainProject(p, lang);
+          expect(md, isNotEmpty, reason: idOf(p));
+          expect(md.replaceAll('null detector', '').contains('null'), isFalse, reason: '${idOf(p)} $lang');
+        }
+      }
+      // The certificate of the 10 kg weight: u = U/k.
+      final weight = library().firstWhere((p) => idOf(p) == 'ea402-s2-weight-10kg');
+      expect(explainProject(weight, 'en'), contains('u = U/k = 45/2 = 22.5 mg'));
+      expect(explainProject(weight, 'tr'), contains('u = U/k = 45/2 = 22,5 mg'));
+    });
+
+    testWidgets('the guide opens from the home screen and moves between chapters', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(1200, 900));
+      await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+      await pumpUntilFound(tester, find.byKey(const Key('open-guide')));
+      await tester.tap(find.byKey(const Key('open-guide')));
+      await pumpUntilFound(tester, find.text('1. Start here'));
+      expect(find.text('1. Start here'), findsWidgets);
+      await tester.ensureVisible(find.byKey(const Key('guide-next')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('guide-next')));
+      await tester.pumpAndSettle();
+      expect(find.text('2. What is measurement uncertainty?'), findsWidgets);
+      await tester.enterText(find.byKey(const Key('guide-search')), 'Welch');
+      await tester.pumpAndSettle();
+      expect(find.widgetWithText(ListTile, '3. The key words in plain language'), findsOneWidget);
+      expect(find.widgetWithText(ListTile, '1. Start here'), findsNothing);
+    });
+
+    testWidgets('a library example explains itself step by step', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(1200, 900));
+      await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
+      await showLibrary(tester);
+      await searchLibrary(tester, 'ea402-s2-weight-10kg');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Calibration of a 10 kg weight'));
+      await pumpUntilFound(tester, find.byKey(const Key('learn-lesson')));
+      expect(find.text('Calibrating a weight'), findsOneWidget);
+      expect(find.textContaining('u = U/k = 45/2 = 22.5 mg'), findsOneWidget);
+    });
   });
 }

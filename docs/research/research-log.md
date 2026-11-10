@@ -3508,3 +3508,204 @@ miniz_oxide 0.8 (MIT/Apache/Zlib, pure Rust). The output is deterministic (no cr
 is in the text), so the SHA-256 of a filed PDF can be recomputed. A library test checks that the font has a glyph
 for every character of every library report in both languages. Signed packages (7.11.3) remain open: the PDF and
 the project digest give integrity checks, not signatures.
+
+**D90. Reporting the findings to the issuing bodies (review items 8 and 18; decision of the author, 2026-11-09).**
+The findings are not communicated to the issuing bodies before submission. The c1 findings of the article
+(Table 4) are sent to them as technical notes after acceptance, so that the notes can cite a peer-reviewed record;
+the replies are recorded here. The pre-review had recommended reporting before or with submission, partly so that
+the replies could confirm the findings; that check is taken over by the independent recomputation of the c1
+findings by a person who has not seen the code, which remains required before submission. The article states the
+decision (Section 7 and the note to Table 4). The F97 question to the BIPM qNMR team follows the same rule.
+
+**D91. The article as one paper in four parts (decision of the author, 2026-11-09).** The software and its use in
+laboratories are not split into separate papers (AQA, SoftwareX) but added to the article: Sections 2–3 the program
+(methods; software design: architecture, project file, numerical implementation, quality assurance, interface),
+4–5 the validation, 6–7 what the recomputation revealed, 8 the use in laboratories (typical uses with the ISO/IEC
+17025 clauses, Table 5; software validation and technical records; statements; learning with the guide), 9
+discussion, 10 availability. Measurement's guide for authors (as indexed; the ScienceDirect page refuses automated
+access): research papers up to 30 pages, abstract at most 250 words, 3–5 highlights of at most 85 characters. The
+abstract has 222 words; the review copy has 20 pages (A4, 1.5 line spacing, 11 pt). New Figure 2 is a screenshot of
+the application; figures renumbered (1 architecture, 2 application, 3 findings by document, 4 procedures).
+Supplementary material S1–S6 is written by `tools/research/article_supplementary.py` (S1: 286 projects, 1865
+compared values, all within tolerance; S5: the validation report of the library, to be regenerated at the release
+commit).
+
+**D92. The program is named KAPSAM (decision of the author, 2026-11-09).** The working name *Uncertainty
+Calculations / Belirsizlik Hesaplamaları* described the program but could not be cited, searched for or remembered
+as a name. *Kapsam* is Turkish for *scope, coverage*: the coverage factor and the coverage interval of the GUM are
+*kapsam faktörü* and *kapsam aralığı* in Turkish, and the program aims to cover the GUM suite and its sector guides.
+It is written in capitals, uses only ASCII letters (no İ/I problem across keyboards and file names) and is read the
+same way in English and the other European languages ("KAP-sam"); *Mihenk* (touchstone) was considered and set
+aside because English readers tend to say "my-henk" and its capital form needs the dotted İ. A web search found no
+software of that name in metrology. User-visible names change: the window and application titles, the Windows
+executable (`kapsam.exe`, file description and product name), the Linux binary, the macOS bundle, the Android
+and iOS labels, the command-line tool (`kapsam run …`, `kapsam check …`), the package names (`kapsam-windows-x64.zip`
+…), the software name and citation in every report, `CITATION.cff`, `NOTICE`, the guides and the article title
+(*KAPSAM: open-source software for measurement uncertainty, validated against the worked examples of the guidance it
+implements*). Internal identifiers stay, so that existing files and builds keep working: the project file format
+`uncertainty-calculations/project`, the Rust crate and Dart package names, the engine library
+`uncertainty_ffi`, the application ids (`org.tubitak.ume…`) and the repository address. Entries above this one keep
+the old name, as recorded at the time.
+
+**D93. Suncal benchmark extended to every project Suncal can express (decision of the author, 2026-11-09).** The
+first benchmark (D74) covered 107 measurement models without correlations or intermediate quantities. The script
+now also passes correlated inputs as correlation coefficients (sampled only when the correlated inputs are all
+normal, so that both programs draw from a multivariate normal), substitutes intermediate quantities into the output
+expression, writes log10 as ln(·)/ln(10), passes curvilinear trapezoids exactly and beta inputs (GUM only) by their
+standard deviation, and adds three new sections. Results (`docs/research/benchmark-suncal.md`, supplementary
+material S4): 171 projects.
+
+- 135 measurement models (24 with correlations or intermediates): first-order u to 6.4 × 10⁻¹², estimates
+  identical except the two second-order projects of D74.
+- 12 models with several outputs (JCGM 102): u to 1.6 × 10⁻¹⁴, correlation coefficients to 3.1 × 10⁻¹⁴.
+- Monte Carlo: 79 comparisons (68 single-output, 11 multivariate), largest relative difference of the standard
+  deviations 2.9 × 10⁻³, largest |z| 2.4, probability 0.75 for 79 independent comparisons. (The largest |z| of
+  D74, 3.0 for GUM-5 Ex. 1, is now 0.6: Suncal's global generator is consumed in a different order.)
+- 6 ISO 6143 calibrations (straight lines with York's fit, quadratic, exponential and power functions with
+  orthogonal distance regression): parameters to 1.8 × 10⁻⁴ of their standard uncertainties; standard
+  uncertainties of the parameters differ by up to 7.5 × 10⁻³ (NO₂ analyser, Γ = 1.27; ISO 6143 B.3 power
+  function, Γ = 1.16). The cause is the definition of the covariance: York and ODR give the Gauss–Newton
+  approximation (JᵀJ)⁻¹, KAPSAM propagates the inputs through the minimum with the full Hessian (ISO 6143 A.2,
+  A.6, A.7), which adds terms proportional to the residuals and reproduces the covariances printed in ISO 6143
+  (core tests). The Gauss–Newton covariance computed at KAPSAM's own solution agrees with Suncal's to 6.3 × 10⁻⁵
+  (8 × 10⁻⁹ for the York fits). Not a finding; stated in the article.
+- 18 conformity assessments: 32 conformance probabilities and global consumer and producer risks (normal and gamma
+  processes) to 1.4 × 10⁻¹⁰.
+- Not compared (listed in S4): ensembles and implicit models (6), Monte Carlo-only models (3), calibrations with
+  covariances between points (2), lognormal measurement distributions, posterior specific risks and global risks
+  with an uncertainty relative to the value (GUM-5 Ex. 10, EURACHEM compliance B3). Top-down evaluation,
+  proficiency testing, precision experiments, control charts, sampling, consensus values and error functions have
+  no counterpart in Suncal; an independent check of these by spreadsheet formulas is planned (next entry).
+
+**D94. Spreadsheet verification workbooks (decision of the author, 2026-11-09).** For an independent check of
+the project types that Suncal cannot express, and for laboratories that validate software against a spreadsheet,
+KAPSAM writes an .xlsx workbook that recomputes a result with ordinary spreadsheet formulas
+(`kapsam run p.json -o p.xlsx`; module `project/src/workbook.rs`, writer `project/src/xlsx.rs`, no new dependency).
+KAPSAM writes the data of the project and the formulas, never a computed value except its own results on the sheet
+Check, which are fixed numbers beside the spreadsheet's with the difference and a tolerance; the workbook asks the
+spreadsheet program to calculate everything on opening. Excel functions introduced after 2007 are avoided (STDEV,
+NORMSINV, BETAINV), so the formulas work in every version and in LibreOffice.
+
+- Measurement models (first stage): inputs with x and u(x) from the distribution parameters (GUM 4.2, 4.3; JCGM
+  101 6.4), the model and its intermediate quantities as formulas in one column at the estimates and two per input
+  (xᵢ ± h, h = 0.001 u(xᵢ)), sensitivity coefficients as central differences (the idea of Kragten's spreadsheet,
+  QUAM:2012 Appendix E, with a step small enough for 10⁻⁶ of u(y) and large enough for the rounding of 15 digits:
+  0.01 u left a truncation error of 9 × 10⁻⁶ in the ratio model of NUM 3), the law of propagation with the
+  correlation matrix, Welch–Satterthwaite and k from the t-distribution through BETAINV (non-integer ν, as KAPSAM's
+  exact rounding; INT(ν) for truncation). ν_eff, k and U are not compared when higher-order terms are requested
+  (KAPSAM's include them) or with correlations (Welch–Satterthwaite does not apply).
+- `tools/research/spreadsheet_check.py` writes the workbook of every library project, recalculates it in
+  LibreOffice Calc (headless, UNO) and reads the sheet Check: 135 model workbooks, 3257 compared values, all within
+  tolerance (`docs/research/spreadsheet-check.md`). Largest ratio of difference to tolerance 0.44 (ν_eff of M3003
+  K1).
+- Proficiency tests (ISO 13528): median, MADe, nIQR (QUARTILE, the linear interpolation KAPSAM uses), Algorithm A
+  with one column per iteration and the stopping rule of C.3.1 written as a formula (ROUND to three significant
+  figures; the result is the first iteration that meets it, so the iteration count is compared too), the assigned
+  value and u(x_pt) with the components of Formula (3), σ_pt, δ_E, z, z′, ζ and Eₙ; homogeneity (B.3 analysis,
+  F₁ and F_m with CHIINV and FINV, √c) and stability (B.5). The Bayesian between-unit posterior is not covered.
+- Precision experiments (ISO 5725-2): Forms B and C (rounded with ROUND when form_decimals is given), Mandel's h
+  and k, the first Cochran test, Grubbs' single tests, and for the analysis of variance m̂, s_r, s_L and s_R from
+  the retained results. Not covered: REML estimates, repeated Cochran and double Grubbs tests, critical values,
+  relationships (8.5).
+- Top-down (Nordtest, MUPR, ISO 21748): precision from series, groups, duplicates (pooled, normalised, mean range,
+  with the selection by mean), control limits, stated values and level-dependent models, mean of n results on p
+  days, conversions; bias components from their references (single-CRM formula included); further components; the
+  combination at every level with ranges, multiplicities and the recovery correction; k. Recovery, the
+  staggered-nested design and the ISO 21748 reproducibility component enter with KAPSAM's values, marked as such.
+- Library: 189 workbooks (135 models, 9 proficiency, 6 precision, 39 top-down), 4678 compared values, all within
+  tolerance on the first run of each new type.
+- Laboratory use: `kapsam check <files> --workbooks DIR [--report FILE]` writes the workbook of every project
+  that has one into DIR, and the validation report gains a section *Independent recalculation in a spreadsheet*
+  listing each workbook with its SHA-256 and an empty column for the person who opens it in Excel to record the
+  outcome (initials, date). CI: a job `spreadsheets` installs LibreOffice Calc and runs
+  `tools/research/spreadsheet_check.py` on the whole library at every push; the table goes to the job summary.
+
+**D95. Use of AI declared for Measurement; independence of the checks (decision of the author, 2026-11-10).**
+*Measurement* desk-rejects papers whose research method is machine learning unless they meet four criteria; the
+paper uses no such method, but its development with an AI coding assistant needs a precise statement. Changes:
+Section 3.4 gains a bullet on development with the assistant (its output treated as unverified; correctness rests on
+values it did not produce and on the review of every discrepancy against the source); Section 9 separates two
+meanings of *independent* (another implementation, another person) and adds Table 6 (each check, who produced it,
+what it shares with the program); the claim of an AI pre-review is removed (Sections 4.3, 9, 10); Section 10 keeps
+only the availability; the Elsevier declaration on generative AI in the manuscript preparation process is added
+before the CRediT statement. A cover letter (`docs/article/cover-letter.md`, Turkish translation
+`cover-letter.tr.md`) states that the work is not a machine-learning study and why it is submitted to *Measurement*.
+The recomputation of at least ten c1 findings by a metrologist who has not seen the code remains required before
+submission; it is the one check that is independent of both the program and the assistant.
+
+**D96. Ten papers from *Measurement* read and cited (decision of the author, 2026-11-10).** The author supplied the
+full texts of the ten candidates of `docs/article/measurement-literature.md` (licensed; used locally, not in the
+repository). Each was read in full and cited only for what it states:
+
+- Greif, Schrepf & Richter 2006 (PTB): validation as objective evidence that refined requirements are fulfilled; the
+  case study of a GUM-supporting program included the reproduction of the GUM appendix examples, with several
+  hundred black-box cases checked for value, significant digits and rounding. Cited in Section 1 as the closest
+  precedent of the library and in 8.2 for validation as the specification of testable requirements.
+- Désenfant & Priel 2006 and 2017 (LNE): the four routes to an uncertainty (modelling, single-laboratory validation,
+  interlaboratory validation, proficiency testing) and the statistical-model approach as a simplification of the
+  measurement model; a model uncertainty much smaller than interlaboratory spread points to a missing component.
+  Section 2.1.
+- Shirono et al. 2016: the two causes of inconsistent interlaboratory data (unknown random effect, unskilled
+  laboratories), different reference values from consistent-subset and random-effects models. Section 2.4.
+- Lira 2011: Monte Carlo propagation through a least-squares fit and the use of the curve (Section 5, Limitations);
+  its first example is CCQM-K25 PCB 28, the same six results as the library project
+  `nicob-pcb28-sediment-degrees-of-freedom` (checked value by value against Lira's Table 1). Section 7.1 now compares
+  the reference values of that comparison: KCRV 33.64 ng/g (u 0.60, the arithmetic mean), Lira 33.64 (0.35, equal
+  weights) and 34.05 (0.26, inverse-variance weights, ν = 2 laboratory without weight), the program's
+  DerSimonian–Laird with bootstrap 33.60 (0.75; τ̂ = 1.71, Q = 68.2 for 5 degrees of freedom) and Linear Pool 33.64
+  (1.51): a factor 5.8 in u. Lira's residuals flag laboratories 5 and 6; the leave-one-out DoE flags Laboratory 6 and
+  the bilateral DoE only the pair 5–6.
+- Huang 2019: argues against the scaled and shifted t of JCGM 101 (s.d. undefined for n < 4; U up to 50.9 % larger at
+  n = 4 in his example) and proposes N(x̄, s/(c₄√n)). Cited in 6.5 as a contested position, not as an endorsement.
+- Carobbi 2017: ISO 13528 assigned values ignore u(x_i), weighted means use only u(x_i); a modified Algorithm A.
+  Sections 7.1 and 9 (not implemented).
+- Frahm & Wright 2023: |E_n| ≤ 1 is easily passed when the comparison uncertainty is large; conclusiveness criteria B
+  and D, also for proficiency testing. Section 7.1 (not implemented).
+- Pendrill 2006 and Forbes 2006: rules of thumb for target uncertainty and guard bands examined in economic terms;
+  acceptance limits from the costs of decisions. Section 7.3 (the program reports the risks, it does not optimise
+  costs).
+
+The references are renumbered in order of first citation (they were not: [35], [36] came after [37]–[41]), now
+[1]–[58] in both languages. Two earlier slips are corrected: Röver, Knapp & Friede 2015 was cited for "the books and
+papers of Possolo" in Section 4.1 instead of Possolo & Bodnar 2018 and Possolo & Meija 2022; it is now cited in Section 2.4 for the modified Knapp–Hartung
+adjustment of the leave-one-out degrees of equivalence (D86), where it belongs.
+
+**D97. Monte Carlo propagation through the calibration fit (decision of the author, 2026-11-10).** The Suncal
+comparison (D93) left open which of two linearisations of the ISO 6143 covariance is closer when the fit is poor:
+KAPSAM's exact derivatives of the solution (full Hessian, A.2, A.6, A.7) or the Gauss–Newton approximation of Suncal's
+York and ODR fits, which differ by up to 0.77 % in u(b). `tools/research/benchmarks/calibration_mc.py` draws the
+calibration data of the eight calibration projects 10⁶ times from normal distributions with their uncertainties and
+covariances, repeats the fit (Formula A.3, the program's weights; vectorised damped Gauss–Newton, a draw counts when
+the step is below 10⁻⁹ u; no draw failed) and propagates the samples' responses (Lira, Measurement 44 (2011) 2156,
+stages two and three). Result (`docs/research/calibration-mc.md`, part of S4):
+
+- Where the linearisations differ (EMUE E3.3, Γ = 1.27; ISO 6143 B.3 power, Γ = 1.16) the Monte Carlo standard
+  deviations of the parameters are within 0.15 % of KAPSAM's (standard error 0.05–0.06 %, from 20 batches), and
+  0.6–0.8 % below the Gauss–Newton values. For the other fits all three agree within 0.12 %.
+- All 13 sample contents: Monte Carlo u(x) within 0.15 % of KAPSAM's.
+- ISO 6143 B.3 exponential function: r(b₀, b₁) = −0.999 997; the Monte Carlo s.d. of b₀ and b₁ are 1.4 % above both
+  linear values and their means shift by 0.06 u: a nonlinearity of the parameterisation that no linearisation
+  captures. The content of the sample, which depends on the well-determined combination, agrees to 0.04 %.
+- Numerical differentiation of the refit (central differences, step 10⁻⁴ u, A.2) reproduces the program's
+  derivatives to 1.2 × 10⁻⁴ (exponential function 3.9 × 10⁻⁴, where the step meets the ill-conditioning).
+
+The program keeps the full-Hessian covariance; the paper reports the result in Section 5 and in Table 6. A Monte
+Carlo option for calibrations in the program itself stays a limitation (Section 9).
+
+**D98. UncertCalc cited (decision of the author, 2026-11-10).** B. Yalçınkaya, UncertCalc: a web-based tool for
+measurement uncertainty calculation, J. Chem. Metrol. 19(2) (2025) 128–135 (TÜBİTAK UME; full text supplied by the
+author). A Streamlit application with a top-down module (one-way ANOVA of multi-day QC data: repeatability,
+between-day intermediate precision, an extra relative component, k = 2) and a bottom-up root-sum-of-squares budget,
+for clinical laboratories; verified against Excel and an R script on randomly generated data. Cited in Section 1
+(software landscape: another tool that joins top-down and bottom-up evaluation; the statement that no tool covers
+the evaluation types of KAPSAM together still holds) and in Section 4.4 (spreadsheet and R recalculation as a check
+of software; the KAPSAM workbooks make it on data with published results). References renumbered, now [1]–[59].
+
+**D99. Bibliographic details checked against Crossref and DataCite (2026-11-10).** Every reference with a DOI was
+compared with its Crossref record (volume, first page, year); the rest were looked up. Changes: [20] Delker, NCSLI
+Measure 13(3) (2021) 45–60, doi 10.51843/measure.13.3.7, title as published ("open-source R software", also in the
+OSTI record 1830511); [44] Westwood et al., Pure Appl. Chem. 95 (2023) 1–77 (the issue; online 2022); [24]
+Bettencourt da Silva, Talanta 314 (2027) 130826 (issue of April 2027); DOIs added to DerSimonian & Laird, Knapp &
+Hartung, Biggerstaff & Tweedie, Wichmann & Hill, Marsaglia & Tsang and Pennecchi & Harris. Possolo & Meija 2022 is a
+DataCite DOI (SIM), record consistent. No [verify] mark remains. Standards and guides without DOIs are cited by
+their edition.

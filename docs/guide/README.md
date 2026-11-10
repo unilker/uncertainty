@@ -1,5 +1,14 @@
 # User guide / Kullanım rehberi
 
+**New to measurement uncertainty? / Ölçüm belirsizliğinde yeni misiniz?** Start with the beginner's guide
+*Uncertainty from scratch*, which is also built into the application (book icon on the home screen) /
+Uygulamanın içinde de bulunan başlangıç kılavuzu *Sıfırdan belirsizlik* ile başlayın (ana ekrandaki kitap simgesi):
+[English](beginner/en/README.md) · [Türkçe](beginner/tr/README.md). It explains every example of the library step by
+step / Kütüphanedeki her örneği adım adım açıklar: [examples](beginner/en/examples.md) · [örnekler](beginner/tr/examples.md).
+
+The reference guide below describes every method in full detail. / Aşağıdaki başvuru kılavuzu her yöntemi tüm
+ayrıntısıyla anlatır.
+
 **English**
 
 1. [Introduction](en/01-introduction.md)
@@ -44,8 +53,8 @@ The worked-examples chapters are generated from the example library and checked 
 (`project/tests/library.rs`). After changing the library, regenerate them with
 
 ```sh
-uncertainty catalogue library --lang en -o docs/guide/en/examples.md
-uncertainty catalogue library --lang tr -o docs/guide/tr/examples.md
+kapsam catalogue library --lang en -o docs/guide/en/examples.md
+kapsam catalogue library --lang tr -o docs/guide/tr/examples.md
 ```
 
 Çözümlü örnekler bölümleri örnek kütüphanesinden üretilir ve test takımı tarafından denetlenir. Kütüphane

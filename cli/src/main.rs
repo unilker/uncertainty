@@ -1,5 +1,5 @@
-//! `uncertainty` — command-line front end of Uncertainty Calculations
-//! (Belirsizlik Hesaplamaları).
+//! `kapsam` — command-line front end of KAPSAM (measurement uncertainty
+//! software / ölçüm belirsizliği yazılımı).
 
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
@@ -7,7 +7,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use uncertainty_project::{self as project, report, Lang, Overrides, CITATION, SOFTWARE_NAME};
 
 const HELP: &str = "\
-Uncertainty Calculations (Belirsizlik Hesaplamaları) — measurement uncertainty
+KAPSAM — measurement uncertainty
 evaluation by the GUM (JCGM 100) and the Monte Carlo method (JCGM 101), or
 top-down from validation and quality-control data (Nordtest TR 537,
 Eurachem/CITAC MUPR); statistics for proficiency testing (ISO 13528);
@@ -19,15 +19,17 @@ arising from sampling (Eurachem UfS:2019); error approximation functions of
 weighing instruments (EURAMET cg-18, Appendix C).
 
 USAGE:
-    uncertainty run <project.json> [options]
-    uncertainty check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html|FILE.pdf] [--lang en|tr]
-    uncertainty template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
-    uncertainty catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
-    uncertainty --version | --help
+    kapsam run <project.json> [options]
+    kapsam check <file-or-directory>... [--lab <file-or-directory>]... [--no-mcm] [--report FILE.md|FILE.html|FILE.pdf] [--workbooks DIR] [--lang en|tr]
+    kapsam template [--topdown | --proficiency | --calibration | --conformity | --precision | --multivariate | --control-chart | --sampling | --error-function | --consensus]
+    kapsam catalogue <file-or-directory>... [--lang en|tr] [--output FILE]
+    kapsam --version | --help
 
 RUN OPTIONS:
     --lang en|tr          report language (default en)
-    --format md|html|json|pdf  report format (default md, or from the --output extension)
+    --format md|html|json|pdf|xlsx  report format (default md, or from the --output extension); xlsx writes a
+                          spreadsheet verification workbook that recomputes the result with spreadsheet
+                          formulas (measurement models, proficiency tests, precision experiments, top-down)
     --output FILE         write the report to FILE instead of standard output
     --no-mcm              skip the Monte Carlo evaluation
     --trials N            fixed number of Monte Carlo trials (overrides the project)
@@ -41,7 +43,9 @@ CHECK:
     records: software version and commit, compiler, the SHA-256 of every
     file and of the whole set. Files given after --lab are the laboratory's
     own projects (its scope, its reference values) and are reported in a
-    section of their own.
+    section of their own. With --workbooks DIR, writes a spreadsheet
+    verification workbook for every project that has one into DIR and lists
+    them in the report, for recalculation in Excel or LibreOffice Calc.
 
 CATALOGUE:
     Writes the worked-examples chapter of the user guide (Markdown) from the
@@ -315,6 +319,8 @@ enum Format {
     Html,
     Json,
     Pdf,
+    /// Spreadsheet verification workbook (.xlsx).
+    Xlsx,
 }
 
 fn main() -> ExitCode {
@@ -375,7 +381,7 @@ fn main() -> ExitCode {
         Some("run") => cmd_run(&args[1..]),
         Some("check") => cmd_check(&args[1..]),
         Some("catalogue" | "catalog") => cmd_catalogue(&args[1..]),
-        Some(other) => Err(format!("unknown command '{other}' (see uncertainty --help)")),
+        Some(other) => Err(format!("unknown command '{other}' (see kapsam --help)")),
     };
     match result {
         Ok(true) => ExitCode::SUCCESS,
@@ -413,7 +419,8 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
                     "html" => Format::Html,
                     "json" => Format::Json,
                     "pdf" => Format::Pdf,
-                    other => return Err(format!("unknown format '{other}' (use md, html, json or pdf)")),
+                    "xlsx" => Format::Xlsx,
+                    other => return Err(format!("unknown format '{other}' (use md, html, json, pdf or xlsx)")),
                 })
             }
             "--output" | "-o" => output = Some(value(args, &mut i, "--output")?.into()),
@@ -438,6 +445,7 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
             Some(e) if e == "html" || e == "htm" => Format::Html,
             Some(e) if e == "json" => Format::Json,
             Some(e) if e == "pdf" => Format::Pdf,
+            Some(e) if e == "xlsx" => Format::Xlsx,
             _ => Format::Markdown,
         }
     });
@@ -451,6 +459,9 @@ fn cmd_run(args: &[String]) -> Result<bool, String> {
             + "\n")
             .into_bytes(),
         Format::Pdf => report::pdf_report(&p, &a, lang, Some(&generated)),
+        Format::Xlsx => {
+            project::workbook::verification_workbook(&p, &a, lang).map_err(|e| format!("{}: {e}", file.display()))?
+        }
     };
     match output {
         Some(path) => std::fs::write(&path, bytes).map_err(|e| format!("{}: {e}", path.display()))?,
@@ -485,11 +496,13 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
     let mut files = Vec::new();
     let mut lab_files = Vec::new();
     let mut report_path: Option<PathBuf> = None;
+    let mut workbooks: Option<PathBuf> = None;
     let mut lang = Lang::En;
     let mut i = 0;
     while i < args.len() {
         match args[i].as_str() {
             "--no-mcm" => ov.skip_mcm = true,
+            "--workbooks" => workbooks = Some(value(args, &mut i, "--workbooks")?.into()),
             "--lab" => collect(Path::new(value(args, &mut i, "--lab")?), &mut lab_files)?,
             "--report" => report_path = Some(value(args, &mut i, "--report")?.into()),
             "--lang" => lang = value(args, &mut i, "--lang")?.parse()?,
@@ -514,7 +527,14 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
             Err(e) => {
                 failed += 1;
                 println!("ERROR {}: {e}", f.display());
-                items.push(report::ValidationItem { file, project: loaded.ok(), result: Err(e), sha256, laboratory });
+                items.push(report::ValidationItem {
+                    file,
+                    project: loaded.ok(),
+                    result: Err(e),
+                    sha256,
+                    laboratory,
+                    workbook: None,
+                });
             }
             Ok((p, a)) => {
                 let checks = project::check(&p, &a);
@@ -534,7 +554,28 @@ fn cmd_check(args: &[String]) -> Result<bool, String> {
                         );
                     }
                 }
-                items.push(report::ValidationItem { file, project: Some(p), result: Ok(checks), sha256, laboratory });
+                let workbook = match &workbooks {
+                    Some(dir) if project::workbook::supported(&p, &a) => {
+                        let bytes =
+                            project::workbook::verification_workbook(&p, &a, lang).map_err(|e| e.to_string())?;
+                        std::fs::create_dir_all(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
+                        let stem =
+                            f.file_stem().map(|s| s.to_string_lossy().into_owned()).unwrap_or_else(|| "project".into());
+                        let name = format!("{stem}.xlsx");
+                        let path = dir.join(&name);
+                        std::fs::write(&path, &bytes).map_err(|e| format!("{}: {e}", path.display()))?;
+                        Some((name, project::sha256::sha256_hex(&bytes)))
+                    }
+                    _ => None,
+                };
+                items.push(report::ValidationItem {
+                    file,
+                    project: Some(p),
+                    result: Ok(checks),
+                    sha256,
+                    laboratory,
+                    workbook,
+                });
             }
         }
     }

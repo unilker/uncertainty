@@ -75,7 +75,7 @@ fn guide_catalogue_is_up_to_date() {
         let committed = std::fs::read_to_string(&path).unwrap_or_default();
         assert!(
             committed == report::catalogue(&items, lang),
-            "{} is out of date: run `uncertainty catalogue library --lang {code} -o docs/guide/{code}/examples.md`",
+            "{} is out of date: run `kapsam catalogue library --lang {code} -o docs/guide/{code}/examples.md`",
             path.display()
         );
     }

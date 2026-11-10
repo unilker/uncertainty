@@ -9,7 +9,7 @@ kaynak koddan derleyiniz (Rust 1.75 veya üzeri):
 git clone https://github.com/unilker/uncertainty
 cd uncertainty
 cargo build --release
-# araç: target/release/uncertainty
+# araç: target/release/kapsam
 ```
 
 `cargo test`, kütüphanedeki her örnek dahil doğrulama takımını çalıştırır.
@@ -18,11 +18,11 @@ cargo build --release
 
 | Komut | Amaç |
 |---|---|
-| `uncertainty run <proje.json>` | bir projeyi hesaplar ve rapor yazar |
-| `uncertainty check <dosyalar veya klasörler>` | projeleri hesaplar ve kayıtlı referans değerleriyle karşılaştırır (başarısızlıkta çıkış kodu 1) |
-| `uncertainty template [--topdown \| --proficiency \| --calibration \| --conformity \| --precision \| --multivariate \| --control-chart]` | başlangıç için en küçük proje dosyasını yazdırır |
-| `uncertainty catalogue <dosyalar veya klasörler>` | bu rehberin çözümlü örnekler bölümünü yazar |
-| `uncertainty --version`, `--help` | sürüm, atıf ve yardım |
+| `kapsam run <proje.json>` | bir projeyi hesaplar ve rapor yazar |
+| `kapsam check <dosyalar veya klasörler>` | projeleri hesaplar ve kayıtlı referans değerleriyle karşılaştırır (başarısızlıkta çıkış kodu 1) |
+| `kapsam template [--topdown \| --proficiency \| --calibration \| --conformity \| --precision \| --multivariate \| --control-chart]` | başlangıç için en küçük proje dosyasını yazdırır |
+| `kapsam catalogue <dosyalar veya klasörler>` | bu rehberin çözümlü örnekler bölümünü yazar |
+| `kapsam --version`, `--help` | sürüm, atıf ve yardım |
 
 `run` seçenekleri:
 
@@ -53,7 +53,7 @@ deneme sayısı, yuvarlama gibi ayarları içerir). Laboratuvarın `--lab` ile v
 satırla biter. Bir laboratuvar genellikle yeni bir sürümü kurduktan sonra
 
 ```sh
-uncertainty check library --lab projelerim --report validasyon-2026-10.html --lang tr
+kapsam check library --lab projelerim --report validasyon-2026-10.html --lang tr
 ```
 
 komutunu çalıştırır ve raporu dosyalar. Her hesap raporu da yazılım kimliği ve değerlendirilen projenin SHA-256
@@ -67,7 +67,7 @@ Kütüphanedeki `library/chemistry/quam-a1-cadmium-standard.json` örneği, EURA
 kadmiyum kalibrasyon standardının hazırlanması.
 
 ```sh
-uncertainty run library/chemistry/quam-a1-cadmium-standard.json --lang tr -o a1.html
+kapsam run library/chemistry/quam-a1-cadmium-standard.json --lang tr -o a1.html
 ```
 
 Rapor sırasıyla şunları içerir:
@@ -90,8 +90,8 @@ Rapor sırasıyla şunları içerir:
 ## 2.4 Kendi projeniz
 
 ```sh
-uncertainty template > projem.json            # ölçüm modeli
-uncertainty template --topdown > topdown.json  # validasyon verilerinden top-down
+kapsam template > projem.json            # ölçüm modeli
+kapsam template --topdown > topdown.json  # validasyon verilerinden top-down
 ```
 
 Dosyayı herhangi bir metin düzenleyiciyle düzenleyip (biçim [7. bölümde](07-proje-dosyasi.md) açıklanmıştır)
@@ -99,4 +99,4 @@ Dosyayı herhangi bir metin düzenleyiciyle düzenleyip (biçim [7. bölümde](0
 `expanded`) sessizce geçilmez, hata olarak bildirilir.
 
 Bir projeyle birlikte referans değerler saklamak için (örneğin bir validasyon çalışmasının sonuçları) `expected`
-bölümü ekleyiniz; `uncertainty check` program veya dosya her değiştiğinde projeyi doğrular.
+bölümü ekleyiniz; `kapsam check` program veya dosya her değiştiğinde projeyi doğrular.

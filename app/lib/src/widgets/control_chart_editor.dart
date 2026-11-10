@@ -111,13 +111,14 @@ class _ControlChartEditorState extends State<ControlChartEditor> {
       String Function(String) text,
       void Function(String) set, {
       double width = 260,
-    }) => SizedBox(
+    }) => Labeled(
+      label: label,
       width: width,
       child: DropdownButtonFormField<String>(
         key: Key(key),
         isExpanded: true,
         initialValue: value,
-        decoration: InputDecoration(labelText: label, isDense: true),
+        decoration: fieldDecoration(label),
         items: [
           for (final o in options)
             DropdownMenuItem(
@@ -326,17 +327,13 @@ class _ControlChartEditorState extends State<ControlChartEditor> {
           crossAxisAlignment: WrapCrossAlignment.end,
           children: [
             NumberField(map: _cc, field: 'establish', label: s['qc_establish'], integer: true, width: 260, onChanged: widget.onChanged),
-            SizedBox(
+            Labeled(
+              label: s['qc_exclude'],
               width: 260,
               child: TextFormField(
                 key: const Key('qc-exclude'),
                 initialValue: ((_cc['exclude'] as List?) ?? const []).join(', '),
-                decoration: InputDecoration(
-                  labelText: s['qc_exclude'],
-                  helperText: s['qc_exclude_help'],
-                  isDense: true,
-                  errorText: _badExclude ? s['pt_results_error'] : null,
-                ),
+                decoration: fieldDecoration(s['qc_exclude'], helperText: s['qc_exclude_help'], errorText: _badExclude ? s['pt_results_error'] : null),
                 onChanged: (t) {
                   final parts = t.split(RegExp(r'[,;\s]+')).where((x) => x.isNotEmpty).toList();
                   final runs = [for (final p in parts) int.tryParse(p)];

@@ -72,18 +72,21 @@ class _TopDownEditorState extends State<TopDownEditor> {
           ],
         ),
         const SizedBox(height: 8),
-        TextFormField(
-          initialValue: levels,
-          decoration: InputDecoration(labelText: s['levels'], helperText: s['levels_help'], isDense: true),
-          onChanged: (t) {
-            final v = parseList(t);
-            if (v == null || v.isEmpty) {
-              _td.remove('levels');
-            } else {
-              _td['levels'] = v;
-            }
-            widget.onChanged();
-          },
+        Labeled(
+          label: s['levels'],
+          child: TextFormField(
+            initialValue: levels,
+            decoration: fieldDecoration(s['levels'], helperText: s['levels_help']),
+            onChanged: (t) {
+              final v = parseList(t);
+              if (v == null || v.isEmpty) {
+                _td.remove('levels');
+              } else {
+                _td['levels'] = v;
+              }
+              widget.onChanged();
+            },
+          ),
         ),
         Section(
           s['precision'],
@@ -227,12 +230,13 @@ class _PrecisionCardState extends State<PrecisionCard> {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       StringField(map: widget.entry, field: 'name', label: s['name'], width: 200, keepEmpty: true, onChanged: widget.onChanged),
-                      SizedBox(
+                      Labeled(
+                        label: s['data_type'],
                         width: 240,
                         child: DropdownButtonFormField<String>(
                           initialValue: precisionFields.containsKey(type) ? type : null,
                           isExpanded: true,
-                          decoration: InputDecoration(labelText: s['data_type'], isDense: true),
+                          decoration: fieldDecoration(s['data_type']),
                           items: [for (final t in precisionFields.keys) DropdownMenuItem(value: t, child: Text(s.precisionType(t)))],
                           onChanged: (t) => t == null ? null : _setType(t),
                         ),
@@ -316,21 +320,24 @@ class _JsonEntryCardState extends State<JsonEntryCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: TextFormField(
-                initialValue: const JsonEncoder.withIndent('  ').convert(widget.value),
-                minLines: 3,
-                maxLines: 16,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
-                decoration: InputDecoration(labelText: widget.strings['entry_json'], errorText: _error, alignLabelWithHint: true),
-                onChanged: (t) {
-                  try {
-                    final v = jsonDecode(t);
-                    setState(() => _error = null);
-                    widget.onChanged(v);
-                  } on FormatException catch (e) {
-                    setState(() => _error = e.message);
-                  }
-                },
+              child: Labeled(
+                label: widget.strings['entry_json'],
+                child: TextFormField(
+                  initialValue: const JsonEncoder.withIndent('  ').convert(widget.value),
+                  minLines: 3,
+                  maxLines: 16,
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+                  decoration: fieldDecoration(widget.strings['entry_json'], errorText: _error, isDense: false, alignLabelWithHint: true),
+                  onChanged: (t) {
+                    try {
+                      final v = jsonDecode(t);
+                      setState(() => _error = null);
+                      widget.onChanged(v);
+                    } on FormatException catch (e) {
+                      setState(() => _error = e.message);
+                    }
+                  },
+                ),
               ),
             ),
             if (widget.onRemove != null) IconButton(tooltip: widget.strings['remove'], icon: const Icon(Icons.delete_outline), onPressed: widget.onRemove),

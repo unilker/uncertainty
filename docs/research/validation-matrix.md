@@ -342,7 +342,7 @@ recomputed by an independent script. The spreadsheet's own uncertainties differ 
 
 The GUM/MCM cases above are also stored as 38 self-checking project files (49 with the eleven NIST TN 1900 projects) in
 `library/` (see `library/README.md`), run by `project/tests/library.rs` and
-`uncertainty check library` through the complete path a user takes (JSON →
+`kapsam check library` through the complete path a user takes (JSON →
 model → GUM/MCM → comparison → TR/EN reports). Reference-value policy: D15
 in the research log. EA-4/02 S13 in the library uses the raw observations
 (estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget.

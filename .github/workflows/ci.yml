@@ -29,3 +29,14 @@ jobs:
         working-directory: app
       - run: flutter test
         working-directory: app
+  spreadsheets:
+    # Every verification workbook of the library is recalculated in LibreOffice Calc and compared with KAPSAM.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libreoffice-calc python3-uno
+      - run: cargo build --release -p uncertainty-cli
+      - run: /usr/bin/python3 tools/research/spreadsheet_check.py target/release/kapsam spreadsheet-check.md
+      - if: always()
+        run: cat spreadsheet-check.md >> "$GITHUB_STEP_SUMMARY"

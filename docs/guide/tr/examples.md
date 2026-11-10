@@ -1,6 +1,6 @@
 # Çözümlü örnekler
 
-Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
+Bu bölüm örnek kütüphanesinden `kapsam catalogue library --lang tr` komutuyla üretilmiştir; her sonuç, proje dosyasında saklanan girdilerden program tarafından yeniden hesaplanır ve bu dosya güncel değilse test takımı başarısız olur. Monte Carlo sonuçları burada listelenmemiştir: tam bütçe, grafikler ve yayımlanmış referans değerlerle karşılaştırma ile birlikte almak için projeyi çalıştırın.
 
 - Kimya (144)
 - Elektrik ve RF (36)
@@ -35,7 +35,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 1.95e-04, 4.99e-05, 9.98e-05, 5.22e-05, 2.15e-05, 3.53e-04, 5.26e-04, 2.99e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmso2-ma-d2o.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-01-qnmr-dmso2-ma-d2o.json --lang tr`
 
 ### İç standart olarak maleik asit ile DMSO-d6 içinde ¹H qNMR ile dimetil tereftalat saflığı (BIPM ISRD-01, Tablo 6)
 
@@ -58,7 +58,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 1.65e-04, 5.00e-05, 1.00e-04, 3.09e-05, 2.15e-05, 1.66e-04, 1.04e-04, 3.00e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-01-qnmr-dmtp-ma-dmso-d6.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-01-qnmr-dmtp-ma-dmso-d6.json --lang tr`
 
 ### İç standart olarak dimetil sülfon ile CDCl3 içinde ¹H qNMR ile dimetil tereftalat saflığı (BIPM ISRD-02, Tablo 6)
 
@@ -81,7 +81,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 1.28e-04, 5.00e-05, 5.00e-05, 4.37e-05, 6.61e-05, 1.45e-04, 2.13e-04, 4.01e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-02-qnmr-dmtp-dmso2-cdcl3.json --lang tr`
 
 ### İç standart olarak dimetil sülfon ile D2O içinde ¹H qNMR ile maleik asit saflığı (BIPM ISRD-02, Tablo 4)
 
@@ -104,7 +104,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 1.75e-04, 1.50e-04, 5.00e-05, 3.44e-05, 6.61e-05, 5.28e-04, 3.54e-04, 4.01e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-02-qnmr-ma-dmso2-d2o.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-02-qnmr-ma-dmso2-d2o.json --lang tr`
 
 ### İç standart olarak BTMSB-d4 ile CD3OD içinde ¹H qNMR ile benzoik asit saflığı (BIPM ISRD-06, Tablo 6)
 
@@ -129,7 +129,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 - ISRD 999,8 +0,2/−1,5 mg/g bildirir: aralık 1000 mg/g fiziksel sınırında kesilmiştir. Program simetrik GUM aralığını verir; sınır modelin parçası değildir.
 - Sınırlı sonuç (araştırma günlüğü D87): upper_bound = 1 g/g ile GUM aralığı y ± U sınırda kesilir ve basılı 999,8 +0,2/−1,5 mg/g elde edilir (Westwood ve ark. 2023, 4.1.1). w ≤ 1 g/g ile kısıtlanmış Monte Carlo sonucu (dikdörtgen önsel, Toman ve ark. 2016) çekilişlerin %62'sini tutar: ortalama 0,999 32 g/g, u = 0,000 49 g/g, en kısa %95 aralık [0,998 39, 1] g/g; kesilmiş GUM aralığından dardır ve tahmini kısıtsız tahminin altındadır (referans: 10⁷ çekilişli bağımsız numpy hesabı, tools/research/qnmr/isrd06_bounded.py).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-06-qnmr-ba-btmsb-d4-cd3od.json --lang tr`
 
 ### İç standart olarak BTMSB-d4 ile DMSO-d6 içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-06, Tablo 4)
 
@@ -152,7 +152,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 1.49e-04, 4.98e-05, 1.66e-05, 7.34e-05, 5.52e-05, 4.67e-04, 4.77e-04, 3.99e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-06-qnmr-dmso2-btmsb-d4-dmso-d6.json --lang tr`
 
 ### İç standart olarak DSS-d6 ile D2O içinde ¹H qNMR ile dimetil sülfon saflığı (BIPM ISRD-07, Tablo 4)
 
@@ -175,7 +175,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 1.47e-04, 4.98e-05, 3.32e-05, 7.33e-05, 3.62e-05, 3.81e-04, 1.00e-03, 4.86e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-dmso2-dss-d6-d2o.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-07-qnmr-dmso2-dss-d6-d2o.json --lang tr`
 
 ### İç standart olarak DSS-d6 ile D2O içinde ¹H qNMR ile maleik asit saflığı (BIPM ISRD-07, Tablo 6)
 
@@ -198,7 +198,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 1.99e-04, 1.50e-04, 3.33e-05, 3.44e-05, 3.63e-05, 2.41e-04, 9.10e-04, 4.87e-04. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-07-qnmr-ma-dss-d6-d2o.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-07-qnmr-ma-dss-d6-d2o.json --lang tr`
 
 ### İç standart olarak benzoik asit ile CD3OD içinde ¹H qNMR ile BTMSB-d4 saflığı (BIPM ISRD-08, Tablo 2)
 
@@ -221,7 +221,7 @@ Bu bölüm örnek kütüphanesinden `uncertainty catalogue library --lang tr` ko
 
 - Basılı belirsizlik bileşenleri c·u: 2.24e-04, 1.67e-05, 1.50e-04, 5.73e-05, 4.91e-05, 1.29e-04, 3.28e-05, 2.50e-05. ISRD serisinin birkaç tablosunda integral oranının bileşeni, basılı duyarlılık katsayısı ile standart belirsizliğin çarpımından büyüktür; program basılı standart belirsizlikleri kullanır (araştırma günlüğü F97).
 
-**Çalıştırma:** `uncertainty run library/chemistry/bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bipm-isrd-08-qnmr-btmsb-d4-ba-cd3od.json --lang tr`
 
 ### Dört ilişkili etken maddeli bir ilaç için toplam yanlış karar riskleri (EMUE E2.1)
 
@@ -248,7 +248,7 @@ NyQuil tabletleri: APAP, DEX, DOX ve PE; tolerans etiket miktarının %95–105'
 
 - Program 4 boyutlu sonsal dağılımı tolerans kutusu üzerinde R'nin pmvnorm işlevi yerine Genz yöntemiyle (değişkenlere ayırma, 200 000 karşıt çekiliş, standart hata yaklaşık 10⁻⁶) integre eder; küresel riski u_i gerçek değerle orantılı alınarak Monte Carlo ile hesaplar.
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e2.1-multicomponent-medication.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e2.1-multicomponent-medication.json --lang tr`
 
 ### Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu (EMUE E3.3)
 
@@ -272,7 +272,7 @@ Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava 
 
 - (E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution.json --lang tr`
 
 ### Dinamik seyreltmeyle hazırlanan karışımlarla kalibre edilen NO₂ analizörü: ilişkili referans değerlerle analiz fonksiyonu, kovaryanslar yok sayılmış (EMUE E3.3)
 
@@ -296,7 +296,7 @@ Tek bir ana karışımın iki kalibre MFC ile seyreltilmesinden üç NO₂/hava 
 
 - (E3.3.17)'nin köşegeni, 39,5, 37,0 ve 41,2 nmol²/mol², u(x₁) = 16 nmol/mol ve Tablo E3.3.2'deki akış belirsizliklerinden çıkmaz; bunlar 1,34, 2,53 ve 4,48 verir; köşegen dışı terimler ise çıkar (1,76, 2,32, 3,19). Basılı A, B ve V_AB ile (E3.3.19) denklemi u = 4,47 nmol/mol verir, 4,7 değil; kovaryansları ağırlıklara katan tam WTLS basılı A = 88,94'ü verir, ancak V_AB = (288,5; −1,318; 6,46·10⁻³) olur (araştırma günlüğü F90).
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e3.3-no2-analyser-dynamic-dilution-covariances-ignored.json --lang tr`
 
 ### Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi (EMUE E3.4)
 
@@ -322,7 +322,7 @@ u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/�
 - Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008).
 - E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e3.4-soil-lead-iso21748.json --lang tr`
 
 ### Topraktaki kral suyunda çözünür kurşun, ICP-OES: doğrulama verilerinden ISO 21748 bütçesi, kareler ortalamasının kökü sapma belirsizliği (EMUE E3.4)
 
@@ -348,7 +348,7 @@ u²(w)/w² = u²(δ̂)/w² + s_I²/w² + (c_T u_T)² + (c_t u_t)² + (u(γ₀)/�
 - Yaklaşık −%10'luk sapma düzeltilmez, raporlanır (Eurachem): 'Kullanılan yöntem yaklaşık %90 görünür geri kazanım gösterir. Geri kazanım izin verilen sınırlar içinde olduğundan düzeltme uygulanmamıştır.' Programın reporting.uncorrected_bias seçeneği onu içeren aralıklar sunar (Magnusson & Ellison 2008).
 - E3.4.7'deki 27,8 mg/kg sonucu, Tablo E3.4.1'deki C279a Pb ortalaması 27,29 mg/kg değildir; 27,29 mg/kg ile U = 2,7 mg/kg olur.
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e3.4-soil-lead-iso21748-rms-bias.json --lang tr`
 
 ### Permeasyonla N₂ içinde NH₃ kalibrasyon gazı karışımı: amonyağın madde miktarı kesri (EMUE E3.8)
 
@@ -372,7 +372,7 @@ y = ṅ₁x₁/(ṅ₁ + ṅ₂), ṅ_j = q_mj/M̄_j (E3.8.1): permeasyon hızı
 
 - E3.8.5.2, E_A = 59,164 kJ/mol, k₀ = 43,069 µg/min ve 4,81·10⁻⁷ µg min⁻¹ K⁻¹ sıcaklık duyarlılığı verir. Belirtilen iki hızdan (52,45 °C'de 7,4921 µg/min, 62,00 °C'de 13,599 µg/min) E_A = 56,64 kJ/mol ve k₀ = 9,1·10⁹ µg/min çıkar (k₀ hızdan büyük olmalıdır); 62 °C'de dṁ/dT = 0,82 µg min⁻¹ K⁻¹'dir ve belirtilen 0,0022 µg/min katkısı bu değere u(T) = 0,0027 K ile karşılık gelir. Katkı burada ihmal edilebilir (araştırma günlüğü F89).
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e3.8-ammonia-permeation.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e3.8-ammonia-permeation.json --lang tr`
 
 ### İdrarda efedrin: korumalı ret kuralı olarak WADA karar sınırı (EMUE E6.5, JCGM 106)
 
@@ -397,7 +397,7 @@ Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle 
 
 - Tablo E6.5.2, 2. turun ortalamasını (11,5, 11,9, 11,6) 11,6 (doğrusu 11,67) ve 3. turun standart sapmasını (11,5, 11,4, 11,5) 0,45 µg/mL (doğrusu 0,058, %0,5) olarak basar. z puanları 0,27, 0,71 ve 0,47, belirtilen standart sapmaların hiçbirinden çıkmaz: σ = u_c,max = 0,5 µg/mL ile −0,93, −1,27 ve 0,73'tür (araştırma günlüğü F91).
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e6.5-ephedrine-wada-decision-limit.json --lang tr`
 
 ### Paslanmaz çelikte nikel: iki taraflı şartnamede korumalı kabul (Eurachem/CITAC uygunluk rehberi, Örnek B1)
 
@@ -420,7 +420,7 @@ Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle 
 
 - Rehber koruma bandını 1,64u ≈ %0,17 olarak verir; 1,64 × 0,1 = 0,164, %0,16'ya yuvarlanır (araştırma günlüğü F86). Yuvarlanmış 16,2 ve %17,8 kabul sınırları %95'e değil %97,7 olasılığa karşılık gelir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/eurachem-compliance-b1-nickel-steel.json --lang tr`
 
 ### Üst sınırın altındaki analit, ν = 8 t dağılımı: korumalı ret (Eurachem/CITAC uygunluk rehberi, Örnek B2)
 
@@ -443,7 +443,7 @@ Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle 
 
 - Örneğin tablosu 'dağılımın normal olduğu varsayılır' der, ancak koruma bandı 8 serbestlik dereceli t dağılımını kullanır (araştırma günlüğü F86).
 
-**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/eurachem-compliance-b2-upper-limit-t.json --lang tr`
 
 ### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: lognormal dağılım, s_G ≈ u_bağıl (Eurachem/CITAC uygunluk rehberi, Örnek B3)
 
@@ -466,7 +466,7 @@ Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle 
 
 - Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal.json --lang tr`
 
 ### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: lognormal dağılım, kesin s_G (Eurachem/CITAC uygunluk rehberi, Örnek B3)
 
@@ -489,7 +489,7 @@ Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle 
 
 - Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/eurachem-compliance-b3-banned-substance-lognormal-exact.json --lang tr`
 
 ### 2 ng/g sınırında yasaklı madde, u_bağıl = %35: u = u_bağıl·L = 0,7 ng/g ile normal dağılım (Eurachem/CITAC uygunluk rehberi, Örnek B3)
 
@@ -513,7 +513,7 @@ Eşik T = 10 µg/mL; olumsuz analitik bulgu, derişimin T'yi en az %95 güvenle 
 - L(1 + k·u_bağıl), u'yu sınırda alır: u = 0,35 × 2 = 0,7 ng/g; bu proje bunu girer. Bağıl belirsizlik lognormal dağılımdaki gibi ölçülen değerde uygulanırsa normal dağılım L/(1 − k·u_bağıl) = 4,714 ng/g kabul sınırını gerektirir: 3,151 ng/g'da u = 1,10 ng/g ve 2 ng/g'ın üstünde olma olasılığı yalnızca %85'tir. Lognormal sınır L·exp(k·s_G), sabit s_G için kesindir (araştırma günlüğü F86).
 - Basılı sınırlar yukarı yuvarlanmıştır: 2 × 1,775 = 3,55 → 3,6 ve 2(1 + 1,64 × 0,35) = 3,148 → 3,2; oysa 3,148, 3,1'e yuvarlanır (araştırma günlüğü F86). Kararlar etkilenmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/eurachem-compliance-b3-banned-substance-normal.json --lang tr`
 
 ### Potansiyel ve sıcaklıkta üç doğrusal interpolasyonla 23,7 °C'de pH, bağımsız sertifikalı değerler (JCGM GUM-5 Örnek 1)
 
@@ -537,7 +537,7 @@ Deney çözeltisi 23,7 °C'dedir, sertifika sıcaklıkları 20 °C ile 25 °C ar
 
 - GUM-5 1.9.1, üçüncü interpolasyonla pH_X = 7,0043 bulur (burada yeniden hesaplanan: 7,0043), ardından yöntemin pH_X = 7,0109 verdiğini söyler; 7,0109 verilerden çıkmaz. 1.7.1 tüm girdileri bağımsız varsaydığı hâlde u = 0,0041 basar; bağımsızlıkla u = 0,0032 çıkar. 0,0041, her standardın 20 °C ve 25 °C'deki sertifikalı değerleri tam ilişkili alındığında elde edilir (0,0041) (araştırma günlüğü F78).
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e1-ph-temperature-interpolation.json --lang tr`
 
 ### Üç doğrusal interpolasyonla 23,7 °C'de pH, her standardın sertifikalı değerleri sıcaklıklar arasında ilişkili (JCGM GUM-5 Örnek 1)
 
@@ -561,7 +561,7 @@ Bağımsız durum gibi, ancak her standardın 20 °C ve 25 °C'deki pH değerler
 
 - GUM-5 1.9.1, üçüncü interpolasyonla pH_X = 7,0043 bulur (burada yeniden hesaplanan: 7,0043), ardından yöntemin pH_X = 7,0109 verdiğini söyler; 7,0109 verilerden çıkmaz. 1.7.1 tüm girdileri bağımsız varsaydığı hâlde u = 0,0041 basar; bağımsızlıkla u = 0,0032 çıkar. 0,0041, her standardın 20 °C ve 25 °C'deki sertifikalı değerleri tam ilişkili alındığında elde edilir (0,0041) (araştırma günlüğü F78).
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-temperature-interpolation-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e1-ph-temperature-interpolation-correlated.json --lang tr`
 
 ### 25 °C'de iki noktalı interpolasyonla bir deney çözeltisinin pH değeri (JCGM GUM-5 Örnek 1)
 
@@ -581,7 +581,7 @@ Aynı hücreyle ölçülen iki NIST fosfat pH standardı arasında parantez yön
 
 - pH_X = (7,0002 ± 0,0080); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e1-ph-two-point-25c.json --lang tr`
 
 ### Tam ilişkili pH standartlarıyla iki noktalı interpolasyon (JCGM GUM-5 Örnek 1)
 
@@ -605,7 +605,7 @@ Aynı hücreyle ölçülen iki NIST fosfat pH standardı arasında parantez yön
 
 - 1.10.3.5, u = 0,0051 değerini pH_X = 7,0109'a ve '1.7 alt maddesindeki verilere' bağlar; hesap 1.8'in 25 °C verilerini kullanır ve bu veriler için pH_X = 7,0002'dir (araştırma günlüğü F78).
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e1-ph-two-point-25c-correlated-standards.json --lang tr`
 
 ### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,17 mg/m³ (JCGM GUM-5 Örnek 10)
 
@@ -625,7 +625,7 @@ T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; ka
 
 - GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.17.json --lang tr`
 
 ### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,22 mg/m³ (JCGM GUM-5 Örnek 10)
 
@@ -645,7 +645,7 @@ T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; ka
 
 - GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e10-tspm-global-risks-acceptance-0.22.json --lang tr`
 
 ### Havada askıda partikül madde: lognormal önselle küresel riskler, A_U = 0,2 mg/m³ (JCGM GUM-5 Örnek 10)
 
@@ -665,7 +665,7 @@ T_U = 0,2 mg/m³, lognormal popülasyon dağılımı, bağıl belirsizlik %7; pa
 
 - GUM-5 10.6.3.1 ortak dağılımda 0,07·ρ̂ standart sapmasını kullanır ve onu C = 1/1,005 ile normalleştirir; bu basılı riskleri yeniden üretir (araştırma günlüğü F80, tools/research/gum5/ex10_risks.py). Tüketici (yöre halkı) riski sınırı aşan havanın kabulü, üretici (ocak sahipleri) riski uygun havanın reddidir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e10-tspm-global-risks-shared-risk.json --lang tr`
 
 ### Havada askıda partikül madde: lognormal önselle sonsal dağılımdan özgül riskler (JCGM GUM-5 Örnek 10)
 
@@ -690,7 +690,7 @@ Tek sonuçların uygunluk olasılıkları, sonsal g(ρ | ρ̂) ∝ g₀(ρ)·h(�
 
 - 10.6.4 sonsal dağılımın esasen olabilirlikle belirlendiğini, bu nedenle frekansçı özgül risklerin çok yakın olacağını belirtir. T_U yakınında bu geçerli değildir: yalnız normal dağılım 0,190'da 1 − p_c = %22,6, 0,225 mg/m³'te p_c = %5,6 verir (araştırma günlüğü F80).
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e10-tspm-specific-risks.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e10-tspm-specific-risks.json --lang tr`
 
 ### Doğal gaz karışımlarında azotun şişeler arası homojenliği: ANOVA, u*_bb ve Bayesçi hiyerarşik model (JCGM GUM-5 Örnek 12)
 
@@ -712,7 +712,7 @@ Her biri beş kez ölçülen on gaz karışımı; MS_arası < MS_içi olduğunda
 - 12.4.8, τ'nun sonsal dağılımının modunu 0,3 µmol/mol olarak verir. Burada τ'nun marjinal sonsal yoğunluğu τ = 0'da en büyüktür, çünkü MS_arası < MS_içi'dir ve yarı-Cauchy önsel 0'da en büyüktür. 12.5.2'deki R işlevi getmode çekilişlerin tam tekrarlarını sayar; sürekli MCMC çıktısında hepsi farklı olduğundan mod yerine ilk çekilişi döndürür (araştırma günlüğü F81).
 - Denklem (12.5) olabilirliği gözlemler bağımsızmış gibi y_ij | µ, τ, σ ~ N(µ, τ² + σ²) olarak yazar; bir şişenin tekrarları B_i'yi paylaşır ve ilişkilidir. 12.4.2'deki Stan kodu hiyerarşik modeli kullanır; program da onu kullanır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e12-between-bottle-homogeneity-bayes.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e12-between-bottle-homogeneity-bayes.json --lang tr`
 
 ### İç standartla GC-MS'te benzo[a]piren, ilişkili girdiler (JCGM GUM-5 Örnek 2)
 
@@ -738,7 +738,7 @@ Her biri beş kez ölçülen on gaz karışımı; MS_arası < MS_içi olduğunda
 - GUM-5 (2.4.2) MCM'yi de uygular: (f, m_ISE) için iki değişkenli normal, (A_E, A_ISE) için ν = n − N = 1 olan iki değişkenli t ve negatif çekilişlerin reddi; medyan 0,014 ng, en kısa %95 aralık [≈ 0; 0,032] ng. Proje biçiminde skaler model için ortak t-dağılımı olmadığından MCM burada çalıştırılmaz; tools/research/gum5/ex2_mcm.py basılı aralığı yeniden üretir (10⁷ çekilişin 9,3·10⁶'sı tutuldu, [1·10⁻⁷; 0,0321] ng).
 - Belirsizlik yalnız temiz, zenginleştirilmiş filtre için geçerlidir; matris etkileri ve geri kazanım bilerek dışarıda bırakılmıştır (GUM-5 2.2.2, not).
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e2-benzo-a-pyrene.json --lang tr`
 
 ### Benzo[a]piren: aynı enjeksiyonların pik alanları ν_eff'te topluluk olarak (JCGM GUM-5 Örnek 2, Willink 2007)
 
@@ -765,7 +765,7 @@ Aynı bütçe, A_E ve A_ISE topluluk olarak tanımlanmış: ortak varyansları �
 - GUM-5 (2.4.2) MCM'yi de uygular: (f, m_ISE) için iki değişkenli normal, (A_E, A_ISE) için ν = n − N = 1 olan iki değişkenli t ve negatif çekilişlerin reddi; medyan 0,014 ng, en kısa %95 aralık [≈ 0; 0,032] ng. Proje biçiminde skaler model için ortak t-dağılımı olmadığından MCM burada çalıştırılmaz; tools/research/gum5/ex2_mcm.py basılı aralığı yeniden üretir (10⁷ çekilişin 9,3·10⁶'sı tutuldu, [1·10⁻⁷; 0,0321] ng).
 - Belirsizlik yalnız temiz, zenginleştirilmiş filtre için geçerlidir; matris etkileri ve geri kazanım bilerek dışarıda bırakılmıştır (GUM-5 2.2.2, not).
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e2-benzo-a-pyrene-ensemble.json --lang tr`
 
 ### Standart atom ağırlığı aralıklarından glikozun bağıl molekül kütlesi (JCGM GUM-5 Örnek 3)
 
@@ -789,7 +789,7 @@ IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağı
 
 - CO₂ için aynı hesap kütüphanedeki NIST TN 1900 Örnek E8'dir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e3-molar-mass-glucose.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e3-molar-mass-glucose.json --lang tr`
 
 ### N₂ içinde CO₂ kalibrasyon gazı karışımının gravimetrik hazırlanması: sekiz bileşenin madde miktarı kesirleri ve korelasyonları (JCGM GUM-5 Örnek 4)
 
@@ -822,7 +822,7 @@ IUPAC 2021 standart atom ağırlığı aralıkları üzerinde dikdörtgen dağı
 - Tablo 4.2, Tablo 4.1'den çıkmaz: farkların ortalamaları −152,0247 g ve 717,2743 g'dır (basılı −152,0243 ve 717,2740 g), ortalamaların standart sapmaları 0,18, 0,40 ve 0,42 mg'dır (basılı u_rpt 0,4, 0,7 ve 0,6 mg). Proje, rehberin yaptığı gibi Tablo 4.2'yi kullanır; Tablo 4.1 ortalamalarıyla m₁ 0,5 mg daha büyüktür (araştırma günlüğü F82).
 - Basılı Tablo 4.6 üç yerde farklıdır (araştırma günlüğü F82): u(y_CO₂) = 5 µmol/mol ve u_rel %0,003, yeniden hesaplanan 3,96 µmol/mol ve %0,0020'ye karşı; y_H₂O = 0,379, 0,389 µmol/mol'e karşı (0,2003 × 1,9 + 0,7996 × 0,010); r(Ar, N₂) = −0,50 ve r(CO₂, O₂) = −0,08, −0,55 ve −0,10'a karşı. Diğer değerler uyumludur.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e4-gravimetric-gas-mixture.json --lang tr`
 
 ### Sera gazı envanteri, tarımda hareketli makineler (BK 2018): bağımsız girdiler (JCGM GUM-5 Örnek 5)
 
@@ -846,7 +846,7 @@ CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standar
 - Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84).
 - N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e5-ghg-inventory-agriculture.json --lang tr`
 
 ### Sera gazı envanteri, tarımda hareketli makineler (BK 2018): CH₄ ve N₂O'nun paylaştığı faaliyet verisi (JCGM GUM-5 Örnek 5)
 
@@ -871,7 +871,7 @@ CO₂ eşdeğeri emisyonlar E = Σ s_i A_i F_i (IPCC kategorisi A4ci) ve standar
 - Tablo 5.2 yuvarlanmış katkılarını toplayarak 4282,0409 kt verir; Tablo 5.1 değerleriyle model 4282,14 kt verir, çünkü F₁ = 2,0438·10⁻² yuvarlanmıştır (E₁ = 1150,9806 kt, F₁ = 2,043 75·10⁻²'ye karşılık gelir). Tahminin toleransı bunu kapsar (araştırma günlüğü F84).
 - N₂O emisyon faktörleri (U_rel = %216) pozitif büyüklüklerdir; bu genişlikte bir normal dağılım %18 olasılıkla negatif değer verir. GUM-5 5.5.2 bu tür faktörler için lognormal dağılımlara işaret eder; GUM sonucu dağılıma bağlı değildir, Monte Carlo sonucu bağlıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/gum5-e5-ghg-inventory-agriculture-shared-activity.json --lang tr`
 
 ### Bir YT turunda sansürlü sonuçlar: sansürlü sonuçlar çıkarılarak (ISO 13528 E.1)
 
@@ -895,7 +895,7 @@ ISO 13528:2022 E.1: beşi ‘küçüktür’ değeri olan 23 sonuç; Algoritma A
 
 - Tablo E.1, x* ± 3s* dışındaki sonuçları ‘#’ ile işaretler; buradaki robust değerlerle bu sonuçların z skorlarının mutlak değeri 3'ü aşar (‘<’ yok sayıldığında Z = 50, sansürlü sonuçlar çıkarıldığında Y = 45).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e1-censored-deleted.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e1-censored-deleted.json --lang tr`
 
 ### Bir YT turunda sansürlü sonuçlar: sınırın 0,5 katı (ISO 13528 E.1)
 
@@ -920,7 +920,7 @@ ISO 13528:2022 E.1: beşi ‘küçüktür’ değeri olan 23 sonuç; Algoritma A
 - Tablo E.1, x* ± 3s* dışındaki sonuçları ‘#’ ile işaretler; buradaki robust değerlerle bu sonuçların z skorlarının mutlak değeri 3'ü aşar (‘<’ yok sayıldığında Z = 50, sansürlü sonuçlar çıkarıldığında Y = 45).
 - C.3.1'in durma kuralıyla (üçüncü anlamlı basamak) Algoritma A 11 iterasyondan sonra x* = 23,96, s* = 8,59'da durur; yakınsamaya kadar sürdürüldüğünde x* = 23,959, s* = 8,600 verir. Tablo E.1 23,95 ve 8,60 basar; yani yakınsamış değerler, x* yuvarlanmak yerine kesilmiş (araştırma günlüğü F44). Proje yakınsamaya kadar iterasyon yapar ve x*'ı 0,01 içinde kontrol eder.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e1-censored-half.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e1-censored-half.json --lang tr`
 
 ### Bir YT turunda sansürlü sonuçlar: ‘<’ işareti yok sayılarak (ISO 13528 E.1)
 
@@ -944,7 +944,7 @@ ISO 13528:2022 E.1: beşi ‘küçüktür’ değeri olan 23 sonuç; Algoritma A
 
 - Tablo E.1, x* ± 3s* dışındaki sonuçları ‘#’ ile işaretler; buradaki robust değerlerle bu sonuçların z skorlarının mutlak değeri 3'ü aşar (‘<’ yok sayıldığında Z = 50, sansürlü sonuçlar çıkarıldığında Y = 45).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e1-censored-ignored.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e1-censored-ignored.json --lang tr`
 
 ### Çikolatada arsenik: YT numunelerinin homojenliği ve kararlılığı (ISO 13528 E.2)
 
@@ -961,7 +961,7 @@ ISO 13528:2022 E.2: ikişer kez ölçülen 10 numuneden numuneler arası standar
 3. Ortalamanın %15'i olan geçici σ_pt = 0,02807 mg/kg ile s_s, 0,3σ_pt = 0,00842 mg/kg'nin çok altındadır: numuneler yeterince homojendir. B.2.3'ün genişletilmiş ölçütü (g = 10 için F₁ = 1,88, F₂ = 1,01) √c = 0,0133 mg/kg verir.
 4. Kararlılık: 60 °C'de altı hafta saklanan iki numune 0,19375 mg/kg ortalama verir; homojenlik ortalamasından 0,00660 mg/kg'lik fark 0,3σ_pt'nin altındadır, dolayısıyla kararlılık yeterlidir (B.5.1).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e2-arsenic-homogeneity.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e2-arsenic-homogeneity.json --lang tr`
 
 ### İçme suyunda atrazin: Algoritma A ile robust ortalama (ISO 13528 E.3)
 
@@ -986,7 +986,7 @@ ISO 13528:2022 E.3: 34 katılımcı sonucundan Algoritma A ile atanan değer ve 
 
 - C.3.1'in durma kuralı (üçüncü anlamlı basamaklarda değişiklik olmaması) kullanılmıştır; tam yakınsamaya kadar iterasyon x* = 0,257011 ve s* = 0,039520 mg/L verir, basılı basamaklara kadar aynıdır. Tablo E.5'teki nIQR (0,0402), sıra istatistikleri arasında doğrusal enterpolasyonla bulunan çeyreklere karşılık gelir; diğer çeyrek tanımları 0,0379 ile 0,0423 arası değerler verir (Tablo E.5, not).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e3-atrazine-algorithm-a.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e3-atrazine-algorithm-a.json --lang tr`
 
 ### İçme suyunda atrazin: medyan ve nIQR (ISO 13528 E.3)
 
@@ -1006,7 +1006,7 @@ ISO 13528:2022 E.3, Tablo E.5'in ilk satırı: atanan değer olarak medyan, u(x_
 
 - x_pt = 0,262 mg/L, U(x_pt) = 0,017 mg/L (k = 2,00)
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e3-atrazine-median.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e3-atrazine-median.json --lang tr`
 
 ### Hayvan yeminde cıva: z, z′, ζ ve E_n skorları (ISO 13528 E.4)
 
@@ -1032,7 +1032,7 @@ ISO 13528:2022 E.4 (IMEP 111): bir referans değere ve amaca uygun σ_pt'ye kar�
 - Tablo E.6, bildirilen belirsizlikleri '9.8'de tartışılan ölçütlere göre' a/b/c olarak işaretler; ancak bayraklar u_min = u(x_pt) = 0,0041 mg/kg (9.8.3) ile yeniden üretilemez: L05 (u = 0,0035) ve L09 (u = 0,0040) 'a' olarak işaretlenmiştir. Bayraklar 0,0018 ile 0,0035 mg/kg arasında bir alt sınıra (belki homojensizlik içermeyen karakterizasyon belirsizliği) ve 0,005 ile 0,015 mg/kg arasında bir üst sınıra (1,5σ_pt = 0,0099 ile tutarlı) işaret eder. Bu nedenle bayraklar burada kontrol edilmemiştir.
 - ISO 13528 E.7 bu turu referans değeri uzlaşma değeriyle karşılaştırmak için kullanır: 21 sayısal sonuca Algoritma A x* = 0,03161 ve s* = 0,0164 mg/kg verir (yeniden üretildi), u(x*) = 1,25 s*/√21 = 0,0045, u_fark = √(0,0041² + 0,0045²) = 0,0061 mg/kg ve x_ref − x* = 0,012 mg/kg, u_fark'ın yaklaşık iki katıdır (7.8, Formül 7).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e4-mercury-feed.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e4-mercury-feed.json --lang tr`
 
 ### CRM ile karşılaştırmadan atanan değer: agregaların Los Angeles değeri (ISO 13528 E.5)
 
@@ -1056,7 +1056,7 @@ ISO 13528:2022 E.5 (7.5): yeterlilik testi numunesi ve benzer bir CRM 20 numuned
 
 - Farklar Tablo E.8'deki ikili sonuçlardan yeniden hesaplanır ve tablonun son sütunuyla uyumludur. Monte Carlo yöntemi d için 19 serbestlik dereceli ölçeklenmiş ve kaydırılmış t dağılımını kullanır (JCGM 101 6.4.9).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso13528-e5-los-angeles-reference-value.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso13528-e5-los-angeles-reference-value.json --lang tr`
 
 ### Azot ve yağdan et içeriği (ISO 21748 C.2)
 
@@ -1080,7 +1080,7 @@ ISO 21748:2017 C.2: girdilerinin her biri tekrar üretilebilirlik tabanlı belir
 
 - Tablo C.1 bağıl belirsizlikleri (0,017; 0,014; 0,022) birleştirmeden önce yuvarlar ve u = %1,98 basar; yuvarlanmamış terimlerle u = %1,99'dur. İkisi de U = %4,0 verir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso21748-c2-meat-content.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso21748-c2-meat-content.json --lang tr`
 
 ### Kömürün kükürt içeriği: tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.1)
 
@@ -1111,7 +1111,7 @@ ISO 5725-2:2019 C.1: dört düzeyde (%0,69 – %3,25) sekiz laboratuvarlı, eksi
 - Formül (C.2)–(C.4) her satırda iki farklı kareler toplamı basar (ör. 0,006 36 ve 0,006 390); test değerleri ikincisinden çıkar.
 - C.1.8 tüm aralık için s_r = %0,022 ve s_R = %0,045 verir: dört düzeyin aritmetik ortalamaları.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso5725-2-c1-sulfur-in-coal.json --lang tr`
 
 ### Kömürün kükürt içeriği: REML tahminleri (ISO 5725-2 Örnek C.1)
 
@@ -1134,7 +1134,7 @@ ISO 5725-2:2019 C.1.9: Örnek C.1 verilerinin Formül (23)–(31) yerine kısıt
 - Düzey 3: m̂ = 1,6680 %, s_r = 0,01709 %, s_R = 0,03559 % (p = 8)
 - Düzey 4: m̂ = 3,2527 %, s_r = 0,02610 %, s_R = 0,05983 % (p = 8)
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c1-sulfur-in-coal-reml.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso5725-2-c1-sulfur-in-coal-reml.json --lang tr`
 
 ### Kreozot yağının termometrik titrasyonu: aykırı laboratuvar ve kesinlik ilişkileri (ISO 5725-2 Örnek C.3)
 
@@ -1167,7 +1167,7 @@ ISO 5725-2:2019 C.3 ve 8.5: beş düzeyde (%4 – %20) dokuz laboratuvar, aykır
 - Tablo 4'te basılı IV. ilişki eğimi d = 0,772, aynı tablodaki uydurulmuş değerlerle (0,089; 0,158; 0,239; 0,257; 0,316) tutarlı değildir; bu değerler tablodaki logaritmaların regresyonundan, d = 0,769'dan çıkar (araştırma günlüğü F49). Aynı değerler ISO 5725-2:1994'te de vardır.
 - Tablo 2 ikinci uydurmanın eğimini 0,0154'e yuvarlar; tablodaki m ve s değerlerinden 0,01554 çıkar. Program Tablo C.18'in yuvarlanmamış s_r değerlerine uydurur.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso5725-2-c3-creosote-oil.json --lang tr`
 
 ### Kreozot yağının termometrik titrasyonu: REML tahminleri (ISO 5725-2 Örnek C.3)
 
@@ -1194,7 +1194,7 @@ ISO 5725-2:2019 C.3.8: Örnek C.3'ün tutulan verilerinin kısıtlı en çok ola
 - Düzey 4: m̂ = 15,588 %, s_r = 0,3368 %, s_R = 0,5786 % (p = 8)
 - Düzey 5: m̂ = 20,412 %, s_r = 0,3935 %, s_R = 0,6370 % (p = 7)
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso5725-2-c3-creosote-oil-reml.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso5725-2-c3-creosote-oil-reml.json --lang tr`
 
 ### N₂ içinde NO, UV absorpsiyonu: doğrusal analiz fonksiyonu (ISO 6143 Örnek 1)
 
@@ -1221,7 +1221,7 @@ ISO 6143:2025 B.2.2: hem içeriklerinde hem de UV yanıtlarında belirsizlik bul
 
 - B.2.2'de basılan üç sonucun kovaryansları (1,16 × 10⁻², 1,48 × 10⁻², 1,37 × 10⁻¹ (µmol/mol)²) yeniden üretilir; rapor bunları korelasyon katsayıları olarak verir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b1-no-uv-linear.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso6143-b1-no-uv-linear.json --lang tr`
 
 ### Doğal gazda N₂, GC-TCD: korelasyonlu referans karışımlar (ISO 6143 Örnek 2)
 
@@ -1242,7 +1242,7 @@ ISO 6143:2025 B.2.3: yine doğru; bu kez geçmişi ortak olan referans karışı
 - x(S1) = (1,7004 ± 0,0042) % (k = 2,00)
 - x(S2) = (8,986 ± 0,021) % (k = 2,00)
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-covariances.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso6143-b2-n2-natural-gas-covariances.json --lang tr`
 
 ### Doğal gazda N₂, GC-TCD: doğrusal fonksiyon (ISO 6143 Örnek 2)
 
@@ -1263,7 +1263,7 @@ ISO 6143:2025 B.2.3: her iki değişkende belirsizlikli sekiz kalibrasyon noktas
 - x(S1) = (1,7004 ± 0,0040) % (k = 2,00)
 - x(S2) = (8,986 ± 0,020) % (k = 2,00)
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-linear.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso6143-b2-n2-natural-gas-linear.json --lang tr`
 
 ### Doğal gazda N₂, GC-TCD: ikinci derece polinom (ISO 6143 Örnek 2)
 
@@ -1284,7 +1284,7 @@ ISO 6143:2025 B.2.3: aynı kalibrasyon verileri, ikinci derece polinom analiz fo
 - x(S1) = (1,7059 ± 0,0066) % (k = 2,00)
 - x(S2) = (8,972 ± 0,024) % (k = 2,00)
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b2-n2-natural-gas-quadratic.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso6143-b2-n2-natural-gas-quadratic.json --lang tr`
 
 ### N₂ içinde NO, NDIR: üstel fonksiyon (ISO 6143 Örnek 3)
 
@@ -1309,7 +1309,7 @@ ISO 6143:2025 B.2.4: aynı NDIR kalibrasyonu, standardın tercih ettiği x = b�
 - ISO 6143 B.1 ve B.2.4, B_LEAST'in üstel fonksiyon için yanlış parametre belirsizlikleri verdiğini belirtir (METAS'ta bulunmuştur). Basılan u(b) = 8,14 × 10⁻², 7,40 × 10⁻², 3,71 × 10⁻¹¹ değerleri yaklaşık 39 kat küçüktür; bu program 3,18, 3,17 ve 1,27 × 10⁻⁶ verir; ODRPACK (scipy.odr) ve kalibrasyonun Monte Carlo benzetimiyle (3,13, 3,12, 1,24 × 10⁻⁶) uyumludur.
 - Tablo B.12 üstel fonksiyon için u(x) = 0,01328 µmol/mol verir; doğru kovaryanslarla birinci mertebe yayılım 0,01425, Monte Carlo benzetimi 0,01406 µmol/mol verir: basılı değer %6–7 küçüktür; bu, standardın iterasyon ayarları için öngördüğü 'yaklaşık %3'ten fazladır (araştırma günlüğü F42). Proje parametreleri ve x'i standarda, u(x)'i bağımsız hesaplara göre kontrol eder.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-exponential.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso6143-b3-no-ndir-exponential.json --lang tr`
 
 ### N₂ içinde NO, NDIR: üslü fonksiyon (ISO 6143 Örnek 3)
 
@@ -1333,7 +1333,7 @@ ISO 6143:2025 B.2.4: on iki noktalı doğrusal olmayan bir NDIR kalibrasyonu; x 
 
 - Bu doğrusal olmayan fonksiyon için parametre kovaryansları, en küçük koşulunun kapalı türevlenmesiyle, yani A.2'deki sayısal türevlemenin tam biçimiyle hesaplanır; B_LEAST ile %0,3 içinde uyumludur. Tüm kalibrasyonun Monte Carlo benzetimi (4000 yeniden uydurma, araştırma günlüğü F42) de u(x) = 0,0142 µmol/mol verir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso6143-b3-no-ndir-power.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso6143-b3-no-ndir-power.json --lang tr`
 
 ### Dönüm noktası kimyasıyla arjantometrik titrasyon (Mohr): AgCl ve Ag₂CrO₄ çözünürlük çarpımlı örtük model (IUPAC 2024, Örnek 3A ve 4I)
 
@@ -1356,7 +1356,7 @@ Dönüm noktasında [Ag⁺] = √(K_sp2/[CrO₄²⁻]) ve [Cl⁻] = K_sp1/[Ag⁺
 
 - Örnek 4I'da basılan denklemin sağ tarafı (c(NaCl)V(NaCl) − c(AgNO₃)V_E)/(V + V_E), sol tarafı ise pozitif [Ag⁺] − [Cl⁻]'dir; basıldığı gibi çözülünce klasik değerin %0,24 üstünde 10,024 mmol/L verir. İndikatör ancak eşdeğerlik noktasından sonra tepki verdiğinden dönüm noktası hacmi klorürü fazla gösterir ve kütle dengesi 9,976 mmol/L verir; rehber büyüklüğü (%0,24) verir, işaretini vermez (araştırma günlüğü F92).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-3a-argentometric-titration-ksp.json --lang tr`
 
 ### Birbiriyle tutarsız üç tayinden iridyumun mol kütlesi: laboratuvar etkileri ve Bayesçi rastgele etkiler modeli (IUPAC 2024, Örnek 3E, 4M ve 4N)
 
@@ -1384,7 +1384,7 @@ Dönüm noktasında [Ag⁺] = √(K_sp2/[CrO₄²⁻]) ve [Cl⁻] = K_sp1/[Ag⁺
 - Rehber Cochran Q testi için p = 0,0082 verir; üç değer Q = 9,56 ve p = 0,0084 verir. Standart sapmaları 0,000 545 g/mol'dür, 0,000 54 olarak basılmıştır (araştırma günlüğü F94).
 - Ir-1 – Ir-3 etiketleri rehberdeki sırayı izler; kaynakların adları Prohaska vd. (2022) §8.4'tedir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-3e-4m-iridium-molar-mass-bayes.json --lang tr`
 
 ### Ca²⁺ ve Mg²⁺'dan suyun toplam sertliği: geleneksel bir ölçüm modeli (IUPAC 2024, Örnek 3C ve 4A)
 
@@ -1403,7 +1403,7 @@ H = γ(Ca²⁺)·M(CaCO₃)/M(Ca) + γ(Mg²⁺)·M(CaCO₃)/M(Mg), uzlaşımla t
 
 - H = (96,6 ± 6,2) mg/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4a-water-hardness.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-4a-water-hardness.json --lang tr`
 
 ### Ölçülen iki izotop miktar oranından silisyumun izotop bollukları (IUPAC 2024, Örnek 4B)
 
@@ -1425,7 +1425,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - x30 = 0,03038267 mol/mol, u(x30) = 3,0 × 10⁻⁶ mol/mol (GUM)
 - %95 kapsam bölgesi (GUM): hiper-dikdörtgen y_j ± k_q u(y_j), k_q = 2,39 (çıktılar bağımlıdır: hiper-elipsoit yok)
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-4b-silicon-isotopic-abundances.json --lang tr`
 
 ### CCQM-K145 anahtar karşılaştırması, sığır karaciğerinde nikel: en çok olabilirlikle karanlık belirsizlikli uzlaşı değeri (IUPAC 2024, Örnek 4F)
 
@@ -1452,7 +1452,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 - Rehberin tablosu değerleri standart belirsizlikleriyle parantez gösteriminde verir, ör. ilk sonuç için 1,930(110) mg/kg.
 - Katılımcılar rehberin tablosundaki sırayla Lab 1 – Lab 17 olarak kodlanmıştır. Resmî anahtar karşılaştırma referans değeri ve eşdeğerlik dereceleri BIPM KCDB'deki CCQM-K145 nihai raporundakilerdir; burada hesaplanan eşdeğerlik dereceleri yöntemleri aynı veri üzerinde gösterir, karşılaştırmanın sonucu değildir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-4f-ccqm-k145-nickel-bovine-liver.json --lang tr`
 
 ### Saflık için beta dağılımıyla Monte Carlo ile kadmiyum kalibrasyon standardı (IUPAC 2024, Örnek 4H; QUAM A1)
 
@@ -1471,7 +1471,7 @@ x₂₈ = 1/(1 + R₂₉/₂₈ + R₃₀/₂₈), x₂₉ = R₂₉/₂₈·x�
 
 - gamma_Cd = (1,0027 ± 0,0017) mg/mL; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-4h-cadmium-standard-beta-mcm.json --lang tr`
 
 ### Arjantometrik titrasyonla (Mohr) NaCl miktar derişimi: klasik model (IUPAC 2024, Örnek 4I)
 
@@ -1493,7 +1493,7 @@ c(NaCl) = c(AgNO₃)·(V(AgNO₃) + ΔV_V + ΔV_E)/(V(NaCl) + ΔV_V); yalnızca 
 
 - Dönüm noktası (ilk kalıcı Ag₂CrO₄) eşdeğerlik noktasından sonradır; eşlik eden iupac2024-3a-argentometric-titration-ksp projesi bu kimyayı belirsizlik olarak ele almak yerine modeller.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-4i-argentometric-titration.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-4i-argentometric-titration.json --lang tr`
 
 ### Beta dağılımı olarak ifade edilen benzoik asit saflığı (NIST PS1): 1 g/g'nin altında asimetrik bir aralık (IUPAC 2024, Örnek 5C)
 
@@ -1512,7 +1512,7 @@ Kütle kesri hakkındaki bilgi durumu α = 88 873,7 ve β = 7,11 olan bir beta d
 
 - w_BA = (0,999920 ± 0,000059) g/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iupac2024-5c-benzoic-acid-purity-beta.json --lang tr`
 
 ### Serbestlik dereceli altı laboratuvardan sedimentte PCB 28: DerSimonian–Laird, Linear Pool ve birini dışarıda bırakan eşdeğerlik dereceleri (NIST Consensus Builder §4.2)
 
@@ -1539,7 +1539,7 @@ Bir sedimentte PCB 28 (2,4,4'-triklorobifenil) kütle kesri; altı laboratuvar s
 - Basılı bootstrap u, 0,77 ng/g, bir Monte Carlo tahminidir: 10⁶ tekrarlı bağımsız numpy hesabı 0,752 ng/g (program 0,751) verir ve 10⁴ tekrarlı alt örnekler 0,739 ile 0,767 ng/g arasında dağılır; tolerans bu saçılımı içerir. ν = 2 ile Linear Pool'un kuyrukları kalındır ve örnek standart sapması kararsızdır (basılı 1,55, program 1,51 ng/g).
 - Örnek 7'deki hiyerarşik Bayes satırı (33,6, 0,79 ng/g) belirtilen ν_j ile σ_j için önseller kullanır; program bunu uygulamaz (araştırma günlüğü D68).
 
-**Çalıştırma:** `uncertainty run library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json --lang tr`
 
 ### Karbondioksitin molekül ağırlığı (NIST TN 1900 E8)
 
@@ -1563,7 +1563,7 @@ TN 1900 E8: IUPAC aralık atom ağırlıklarından M_r(CO₂) = A_r(C) + 2A_r(O)
 
 - TN 1900, yuvarlanmış 0,0006 ve 0,0002 bileşenlerinden u = 0,000721 basar; yuvarlanmamış 0,000577 ve 0,000214 bileşenleri 0,000718 verir. Tam aralığın uç noktaları yamuk dağılımdan çıkar: 44,0094 ± (0,00174 − √(0,2 × 0,001 × 0,00074)) = [44,008045; 44,010755].
 
-**Çalıştırma:** `uncertainty run library/chemistry/nist-tn1900-e8-molecular-weight-co2.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nist-tn1900-e8-molecular-weight-co2.json --lang tr`
 
 ### Kadmiyum kalibrasyon standardı, Monte Carlo (NIST TN 1900 E9)
 
@@ -1588,7 +1588,7 @@ TN 1900 E9: QUAM A1 kadmiyum standardı, c = 1000 m P / V, dikdörtgen saflık v
 - TN 1900, V'yi 'ortalaması 100 mL ve standart sapması 0,7 mL olan' simetrik üçgen dağılım olarak tanımlar; basılı aralıkla yalnızca aynı örnekte ve QUAM A1'de kullanılan 0,07 mL tutarlıdır. Üçgen yarı genişliği 0,07 × √6 = 0,1715 mL'dir.
 - 'quam-a1-cadmium-standard' projesi m, P ve V'nin belirsizliklerini QUAM A1'deki gibi bileşenlerinden oluşturur.
 
-**Çalıştırma:** `uncertainty run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nist-tn1900-e9-cadmium-standard.json --lang tr`
 
 ### Bir toprak referans malzemesinde krom, üçer tekrarlı 20 şişe: ANOVA ve hiyerarşik Bayes modeli (Possolo & Bodnar 2018; ISO Guide 35 C.1 verileri)
 
@@ -1608,7 +1608,7 @@ w_ij = ω + β_j + ε_ij; şişe etkileri β_j ~ N(0, τ²), hatalar ε_ij ~ N(0
 
 - σ_pt verilmemiştir: ISO 13528 ölçütleri değerlendirilmez (referans malzeme homojenlik çalışması).
 
-**Çalıştırma:** `uncertainty run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/possolo-bodnar-2018-chromium-soil-homogeneity-bayes.json --lang tr`
 
 ### Üç izotop oranından NRC HIPB-1'deki kurşunun atom ağırlığı ve izotop bileşimi (Possolo & Meija 2022)
 
@@ -1638,7 +1638,7 @@ Tong vd. (2019) yüksek saflıktaki kurşun HIPB-1'de ²⁰⁴Pb/²⁰⁷Pb, ²�
 - Kitaptaki korelasyonlar 5 × 10⁴ Monte Carlo yeniden uyumundan gelir; ikisi (²⁰⁴Pb–²⁰⁶Pb −0,02 ve ²⁰⁴Pb–²⁰⁸Pb −0,17) doğrusallaştırılmış değerlerden (−0,011, −0,179) yaklaşık iki Monte Carlo standart hatası kadar farklıdır (araştırma günlüğü F96).
 - HIPB-1 kullanıcıları sertifikaya (Meija vd. 2020) dayanmalıdır; kitabın veri indirgemesi ondan biraz farklıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/possolo-meija-2022-atomic-weight-lead-hipb1.json --lang tr`
 
 ### Plazma anyon açığı: dört iyon derişiminin doğrusal birleşimi (Possolo & Meija 2022)
 
@@ -1657,7 +1657,7 @@ Bir hasta için Δc_AG = c(Na⁺) + c(K⁺) − c(Cl⁻) − c(HCO₃⁻) (White
 
 - AG = (25,0 ± 3,6) mmol/L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/possolo-meija-2022-plasma-anion-gap.json --lang tr`
 
 ### Kadmiyum kalibrasyon standardının hazırlanması
 
@@ -1684,7 +1684,7 @@ EURACHEM/CITAC QUAM Örnek A1: yüksek saflıkta metalden 1000 mg/L Cd standard�
 - Yuvarlanmış u_c'nin iki katını almak (0,9 → U = 1,8 mg/L) 2 × 0,86 = 1,7 mg/L'den daha temkinlidir; program U'nun kendisini iki anlamlı basamağa yuvarlar.
 - Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,8633 mg/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a1-cadmium-standard.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a1-cadmium-standard.json --lang tr`
 
 ### Hacim alt modelli kadmiyum standardı
 
@@ -1709,7 +1709,7 @@ Balon hacmi üç bileşeninden modellenmiş QUAM Örnek A1.
 
 - Rehber k ile çarpmadan önce u(V) = 0,066 mL'yi 0,07 mL'ye ve u_c'yi 0,9 mg/L'ye yuvarlar; yuvarlanmamış değerlerle u_c = 0,835 mg/L ve U = 1,7 mg/L bulunur, basılı sonuç ise (1002,7 ± 1,8) mg/L'dir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a1-cadmium-standard-volume.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a1-cadmium-standard-volume.json --lang tr`
 
 ### Sodyum hidroksit çözeltisinin ayarlanması
 
@@ -1733,7 +1733,7 @@ QUAM Örnek A2: NaOH çözeltisinin potasyum hidrojen ftalata (KHP) karşı ayar
 
 - Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,000099 mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a2-naoh-standardisation.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a2-naoh-standardisation.json --lang tr`
 
 ### Alt modellerle NaOH ayarlanması
 
@@ -1758,7 +1758,7 @@ Kütle, molar kütle ve hacmin bileşenlerinden oluşturulduğu QUAM Örnek A2.
 
 - Bulgu: rehber 0,15/√3 = 0,087 mg değerini 0,09 mg'ye yuvarlayarak u(m) = 0,13 mg bulur; yuvarlanmamış u(m) = 0,12 mg'dir. Benzer şekilde u(V_T) = 0,0137 mL'dir (rehber 0,013). Yuvarlanmamış birleşik belirsizlik 0,000101 mol/L'dir (rehber 0,000099); raporlanan sonuç değişmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a2-naoh-standardisation-submodels.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a2-naoh-standardisation-submodels.json --lang tr`
 
 ### Hidroklorik asidin asit–baz titrasyonu
 
@@ -1783,7 +1783,7 @@ QUAM Örnek A3: KHP'ye karşı ayarlanmış NaOH ile HCl titrasyonu.
 - Bulgu: Özet Tablo A3.1 u_c = 0,00016 mol/L verir, ancak kendi girdileri 0,00019 mol/L sonucunu verir; 0,00016 üçlü tayinin sonucudur (Tablo A3.4).
 - Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (√3,34 × 10⁻⁸ mol/L) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a3-hcl-titration.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a3-hcl-titration.json --lang tr`
 
 ### Ekmekte organofosforlu pestisitler: birleştirme
 
@@ -1808,7 +1808,7 @@ QUAM Örnek A4: laboratuvar içi validasyon verilerinden (kesinlik, geri kazanı
 - Bulgu: Tablo A4.2'nin türetilmiş sütunlarında yazım hataları vardır (0,075 yerine ortalama 0,75, −0,01 yerine fark −0,10, 0,01 yerine ortalama 0,10); rehber 41 serbestlik derecesi için t_kritik = 2,021, yani t(40) kullanır (t(41) = 2,0195). Hiçbiri sonucu değiştirmez.
 - Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,377) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a4-pesticides-combination.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a4-pesticides-combination.json --lang tr`
 
 ### Seramik kaplardan salınan kadmiyum
 
@@ -1834,7 +1834,7 @@ QUAM Örnek A5: ampirik yöntem (BS 6748); birim alan başına çözünen Cd mik
 - Kesin birinci mertebe u_c 0,001470 mg/dm²'dir; tablolama değeri 0,001465, sonlu farklardaki 1/a_V doğrusalsızlığı nedeniyle farklıdır.
 - Bu projede etkin olan Kragten tablolama görünümü (QUAM Ek E.2), rehberin basılı tablolama değerini (0,001465 mg/dm²) basılı tüm basamaklarda yeniden üretir; kesin birinci mertebe değer yalnızca sonlu fark yaklaşımı nedeniyle farklıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a5-cadmium-release.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a5-cadmium-release.json --lang tr`
 
 ### IDMS için kurşun tayin standardı
 
@@ -1853,7 +1853,7 @@ QUAM Örnek A7, Eş. (8): gravimetrik olarak hazırlanmış birincil kurşun tay
 
 - c_z = (0,092605 ± 0,000056) µmol/g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a7-assay-standard.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a7-assay-standard.json --lang tr`
 
 ### Suda kurşunun çift izotop seyreltmesiyle tayini
 
@@ -1877,7 +1877,7 @@ QUAM Örnek A7, Eş. (5): kütle ayrımı düzeltilmiş izotop oranlarıyla çif
 
 - Raporlanan (0,05370 ± 0,00036) µmol/g dört tekrarın ortalamasını kullanır; √8'e bölme yapılmasaydı deneysel u_c 0,00041 µmol/g olurdu.
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a7-lead-double-idms.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a7-lead-double-idms.json --lang tr`
 
 ### X-grafiğinin sınırlarının belirlenmesi, durum 1 (Nordtest TR 569 Bölüm 7)
 
@@ -1896,7 +1896,7 @@ Durum 1: istatistiksel sınırlar ve ortalama merkez çizgisi, 59,2 µg/L'nin %4
 
 - X-grafiği: merkez çizgisi 59,20 µg/L; uyarı sınırları 54,46 63,94 µg/L; eylem sınırları 52,10 66,30 µg/L (s = 2,37 µg/L, istatistiksel kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-case1-statistical.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ch7-case1-statistical.json --lang tr`
 
 ### X-grafiğinin sınırlarının belirlenmesi, durum 2 (Nordtest TR 569 Bölüm 7)
 
@@ -1915,7 +1915,7 @@ Durum 2: gerekli %5 s_Rw'den hedef sınırlar, ortalama merkez çizgisi 59,2 µg
 
 - X-grafiği: merkez çizgisi 59,20 µg/L; uyarı sınırları 53,28 65,12 µg/L; eylem sınırları 50,32 68,08 µg/L (s = 2,96 µg/L, hedef kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-case2-target-mean.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ch7-case2-target-mean.json --lang tr`
 
 ### X-grafiğinin sınırlarının belirlenmesi, durum 3 (Nordtest TR 569 Bölüm 7)
 
@@ -1934,7 +1934,7 @@ Durum 3: 60,0 µg/L referans değeri çevresinde %5 hedef sınırlar.
 
 - X-grafiği: merkez çizgisi 60,00 µg/L; uyarı sınırları 54,00 66,00 µg/L; eylem sınırları 51,00 69,00 µg/L (s = 3,00 µg/L, hedef kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-case3-target-reference.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ch7-case3-target-reference.json --lang tr`
 
 ### Paralel tayinler için r%-grafiğinin istatistiksel sınırları (Nordtest TR 569 Bölüm 7)
 
@@ -1957,7 +1957,7 @@ Açıklık grafikleri için durum 1: paralel tayinlerden %0,356 birleştirilmiş
 
 - Araştırma günlüğü F52: Bölüm 7'de açıklık grafikleri için durum 1'de uyarı sınırı 3·0,356 = %1,0 olarak basılmıştır; 3·0,356 = 1,07'dir, Tablo 4'ün katsayısı 2,83'tür ve 2,83·0,356 = 1,01'dir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-range-case1-statistical.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ch7-range-case1-statistical.json --lang tr`
 
 ### Tekrarlanabilirlik sınırından r%-grafiğinin hedef sınırları (Nordtest TR 569 Bölüm 7)
 
@@ -1977,7 +1977,7 @@ Açıklık grafikleri için durum 2: standart yöntem r = %1 tekrarlanabilirlik 
 
 - r%-grafiği (göreli açıklık): merkez çizgisi 0,403 %; uyarı sınırları 1,01 %; eylem sınırları 1,32 % (s = 0,357 %, hedef kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ch7-range-case2-target.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ch7-range-case2-target.json --lang tr`
 
 ### XRF ile düşük alaşımlı çelikte nikel: gerekli belirsizlikten hedef sınırlar (Nordtest TR 569 Örnek 1)
 
@@ -1997,7 +1997,7 @@ Bir çelik numunenin X-grafiği; bir yıllık ortalama ağırlıkça %4,58, s = 
 
 - X-grafiği: merkez çizgisi 4,5800 weight-%; uyarı sınırları 4,4884 4,6716 weight-%; eylem sınırları 4,4426 4,7174 weight-% (s = 0,0458 weight-%, hedef kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex1-nickel-steel-xrf.json --lang tr`
 
 ### ICP-OES ile oyuncaklardan bor göçü: EN 71-3 tekrar üretilebilirliğinden hedef sınırlar (Nordtest TR 569 Örnek 10)
 
@@ -2016,7 +2016,7 @@ Tüm işlem için malzeme yoktur: 5,0 µg/L laboratuvar içi sentetik standart k
 
 - X-grafiği: merkez çizgisi 5,000 µg/L; uyarı sınırları 4,000 6,000 µg/L; eylem sınırları 3,500 6,500 µg/L (s = 0,500 µg/L, hedef kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex10-boron-toys-target.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex10-boron-toys-target.json --lang tr`
 
 ### Tekrarlı kontrol sonuçlarından tekrarlanabilirlik ve laboratuvar içi tekrar üretilebilirlik (Nordtest TR 569 Örnek 12)
 
@@ -2043,7 +2043,7 @@ Sekiz günün her birinde bir kalite kontrol numunesinin üç tekrarı. 24 sonuc
 
 - Araştırma günlüğü F53: dipnot 24 s_Rw = √(0,01541² + 0,02246²) = 0,0272 verir; değerler metindeki gibi s_r = 0,1541, s_I = 0,2246 ve s_Rw = 0,272'dir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex12-pooling-sr-srw.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex12-pooling-sr-srw.json --lang tr`
 
 ### XRF ile düşük alaşımlı çelikte kobalt: tayin sınırından hedef sınırlar (Nordtest TR 569 Örnek 2)
 
@@ -2062,7 +2062,7 @@ Düşük derişimde X-grafiği, ortalama ağırlıkça %0,0768, s = ağırlıkç
 
 - X-grafiği: merkez çizgisi 0,07680 weight-%; uyarı sınırları 0,07480 0,07880 weight-%; eylem sınırları 0,07380 0,07980 weight-% (s = 0,00100 weight-%, hedef kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex2-cobalt-steel-xrf.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex2-cobalt-steel-xrf.json --lang tr`
 
 ### Suda amonyum azotu: paralel numunelerin R-grafiği (Nordtest TR 569 Örnek 3)
 
@@ -2081,7 +2081,7 @@ Her seride 100 µg/L'nin altındaki bir numune paralel analiz edilir; paralel ta
 
 - R-grafiği (açıklık): merkez çizgisi 0,559 µg/L; uyarı sınırları 1,40 µg/L; eylem sınırları 1,83 µg/L (s = 0,495 µg/L, istatistiksel kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex3-ammonium-r.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex3-ammonium-r.json --lang tr`
 
 ### Suda amonyum azotu: standart çözeltinin X-grafiği (Nordtest TR 569 Örnek 3)
 
@@ -2100,7 +2100,7 @@ Her seride 100 µg/L'nin altındaki bir numune paralel analiz edilir; paralel ta
 
 - X-grafiği: merkez çizgisi 19,99 µg/L; uyarı sınırları 18,95 21,03 µg/L; eylem sınırları 18,43 21,55 µg/L (s = 0,521 µg/L, istatistiksel kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex3-ammonium-x.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex3-ammonium-x.json --lang tr`
 
 ### ICP-MS ile suda kurşun: laboratuvar içi göl suyunun X-grafiği (Nordtest TR 569 Örnek 4)
 
@@ -2119,7 +2119,7 @@ Korunmuş göl suyunda düşük kurşun derişimi (0,29 µg/L), her seride bir k
 
 - X-grafiği: merkez çizgisi 0,2940 µg/L; uyarı sınırları 0,2780 0,3100 µg/L; eylem sınırları 0,2700 0,3180 µg/L (s = 0,00800 µg/L, istatistiksel kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex4-lead-water-icpms.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex4-lead-water-icpms.json --lang tr`
 
 ### ICP-MS ile balık CRM'sinde arsenik: yalnızca ± %15 eylem sınırlı grafik (Nordtest TR 569 Örnek 5)
 
@@ -2138,7 +2138,7 @@ CRM NRC DORM-2 (köpek balığı kası), 18,0 µg/g arsenik, her seride bir kez 
 
 - X-grafiği: merkez çizgisi 18,00 µg/g; eylem sınırları 15,30 20,70 µg/g (toleransta eylem sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex5-arsenic-crm-tolerance.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex5-arsenic-crm-tolerance.json --lang tr`
 
 ### Suda toplam fosfor: paralel tayinlerin r%-grafiği (Nordtest TR 569 Örnek 6)
 
@@ -2157,7 +2157,7 @@ CRM NRC DORM-2 (köpek balığı kası), 18,0 µg/g arsenik, her seride bir kez 
 
 - r%-grafiği (göreli açıklık): merkez çizgisi 1,88 %; uyarı sınırları 4,73 %; eylem sınırları 6,16 % (s = 1,67 %, istatistiksel kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex6-phosphorus-relative-range.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex6-phosphorus-relative-range.json --lang tr`
 
 ### GC-ECD ile morina karaciğeri yağında β-HCH: referans değer çevresinde hedef sınırlar (Nordtest TR 569 Örnek 7)
 
@@ -2176,7 +2176,7 @@ CRM BCR 598, 16 µg/kg β-heksaklorosikloheksan, her seride bir kez analiz edili
 
 - X-grafiği: merkez çizgisi 16,0 µg/kg; uyarı sınırları 11,2 20,8 µg/kg; eylem sınırları 8,80 23,2 µg/kg (s = 2,40 µg/kg, hedef kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex7-beta-hch-crm-target.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex7-beta-hch-crm-target.json --lang tr`
 
 ### ICP-OES ile suda bakır: paralel tayinlerin R-grafiği ve gözden geçirilmesi (Nordtest TR 569 Örnek 8)
 
@@ -2197,7 +2197,7 @@ Numunelerin paralel tayinleri; ön ortalama açıklık 0,11 mg/L, s_r = 0,0975 m
 - R-grafiği (açıklık): merkez çizgisi 0,110 mg/L; uyarı sınırları 0,276 mg/L; eylem sınırları 0,359 mg/L (s = 0,0975 mg/L, istatistiksel kontrol sınırları)
 - Uzun dönem değerlendirmesi: F = 1,038 (kritik 1,67: anlamlı değil)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex8-copper-r-review.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex8-copper-r-review.json --lang tr`
 
 ### ICP-OES ile suda bakır: tüm verilerden yeni X-grafiği sınırları (Nordtest TR 569 Örnek 8)
 
@@ -2216,7 +2216,7 @@ Gözden geçirmeden sonra sınırlar daha uzun dönemden yeniden hesaplanır: x�
 
 - X-grafiği: merkez çizgisi 1,048 mg/L; uyarı sınırları 0,8836 1,212 mg/L; eylem sınırları 0,8014 1,295 mg/L (s = 0,0822 mg/L, istatistiksel kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex8-copper-x-new-limits.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex8-copper-x-new-limits.json --lang tr`
 
 ### ICP-OES ile suda bakır: ön X-grafiği sınırlarının gözden geçirilmesi (Nordtest TR 569 Örnek 8)
 
@@ -2238,7 +2238,7 @@ Paralel ölçülen sentetik standart (1,00 ± 0,02 mg/L); ön sınırlar ilk 60 
 - X-grafiği: merkez çizgisi 1,055 mg/L; uyarı sınırları 0,9216 1,188 mg/L; eylem sınırları 0,8549 1,255 mg/L (s = 0,0667 mg/L, istatistiksel kontrol sınırları)
 - Uzun dönem değerlendirmesi: F = 1,563 (kritik 1,68: anlamlı değil); t = 1,012 (kritik 1,98: anlamlı değil)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex8-copper-x-review.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex8-copper-x-review.json --lang tr`
 
 ### Hidrojen peroksitte çinko: yöntem körünün X-grafiği (Nordtest TR 569 Örnek 9)
 
@@ -2257,7 +2257,7 @@ Kirlenmeyi saptamak için tüm işlemden geçirilen ultra saf su (50 mL buharla�
 
 - X-grafiği: merkez çizgisi 0,0390 mg/L; uyarı sınırları -0,0510 0,129 mg/L; eylem sınırları -0,0960 0,174 mg/L (s = 0,0450 mg/L, istatistiksel kontrol sınırları)
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-ex9-zinc-procedural-blank.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-ex9-zinc-procedural-blank.json --lang tr`
 
 ### Sudaki çinko: 60 kontrol değerinden X-grafiği (Nordtest TR 569 Tablo 1)
 
@@ -2279,7 +2279,7 @@ Kirlenmeyi saptamak için tüm işlemden geçirilen ultra saf su (50 mL buharla�
 - X-grafiği: merkez çizgisi 60,28 µg/L; uyarı sınırları 55,08 65,47 µg/L; eylem sınırları 52,48 68,07 µg/L (s = 2,60 µg/L, istatistiksel kontrol sınırları)
 - 60 kontrol değeri: 0 kontrol dışı, 3 uyarı ile eylem sınırları arasında
 
-**Çalıştırma:** `uncertainty run library/chemistry/tr569-table1-zinc.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/tr569-table1-zinc.json --lang tr`
 
 ### Serada yetişen marulda nitrat: çift numune yöntemi, klasik ANOVA (Eurachem UfS Örnek A1)
 
@@ -2306,7 +2306,7 @@ Sekiz marul bölmesi; her birinden iki numune (W düzeninde 10 baştan kompozit 
 - Kılavuz ana sonuç olarak robust ANOVA tahminlerini (RANOVA ve RANOVA2 programları) verir. Bunların algoritması kılavuzda yoktur ve robust değerler yeniden üretilememiştir (araştırma günlüğü F63); bu nedenle proje, kılavuzun yanında yazdırdığı ve birebir yeniden üretilen klasik ANOVA'yı değerlendirir.
 - Robust tahminler (Şekil A1.2): ortalama 4408,3237, s_T 565,39868, s_numune 319,04834, s_analiz 167,94308 mg/kg. Sekiz hedef ortalamasına Huber H15 uygulanması robust ortalamayı (4408,319) verir, ancak yayımlanmış hiçbir değişken robust standart sapmaları yeniden üretmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a1-nitrate-lettuce.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a1-nitrate-lettuce.json --lang tr`
 
 ### Kirlenmiş üst toprakta kurşun: klasik ANOVA ve belirsizlik faktörü (Eurachem UfS Örnek A2)
 
@@ -2336,7 +2336,7 @@ Sekiz marul bölmesi; her birinden iki numune (W düzeninde 10 baştan kompozit 
 - Şekil A2.2 klasik ANOVA satırında numune alma için F_U = 2,6032 ve ölçüm için 2,6207 verir; metin yuvarlanmış s_G'den 2,6034 = exp(2·0,4784) verir.
 - Bölüm 6.4 analitik sapmayı (−%3,41 ± %1,34) rastgele analitik bileşene ekler: standart %5,24, robust numune alma terimiyle U′_ölçüm = %83,95; bu tür terimler bir model projesine eklenebilir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a2-lead-soil-uncertainty-factor.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a2-lead-soil-uncertainty-factor.json --lang tr`
 
 ### Yeraltı suyunda çözünmüş demir: klasik ANOVA (Eurachem UfS Örnek A3)
 
@@ -2360,7 +2360,7 @@ Bir yeraltı suyu kütlesinde altı izleme kuyusu; her birinden iki numune (hat 
 
 - Tablo A3.5 RANOVA tahminlerini de verir (ROBAN 1.0.1): %1,8, %9,9 ve %72; robust algoritma uygulanmamıştır (F63).
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a3-iron-groundwater-anova.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a3-iron-groundwater-anova.json --lang tr`
 
 ### Yeraltı suyunda çözünmüş demir: aralık yöntemi (Eurachem UfS Örnek A3, düzeltilmiş)
 
@@ -2388,7 +2388,7 @@ Bir yeraltı suyu kütlesinde altı izleme kuyusu; her birinden iki numune (hat 
 - Özet tablo validasyonun analitik belirsizliği için %1,9, Tablo A3.4 %1,8 verir; aralık hesabı 2·%0,89 = %1,8 verir.
 - Kılavuz d₂ = 1,128 kullanır; program 2/√π = 1,12838 (ISO 8258) kullanır; fark basılı basamakların altındadır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a3-iron-groundwater-range.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a3-iron-groundwater-range.json --lang tr`
 
 ### Bebek lapasında A vitamini, 40 g deney numunesi: çift numune yöntemi (Eurachem UfS Örnek A4)
 
@@ -2415,7 +2415,7 @@ Muzlu ve kayısılı yulaf lapasının on üretim partisinin her birinden iki nu
 - Tablo A4.7 U′'yu %17 (analiz) ve %20 (ölçüm) olarak yuvarlar; özet %16,6 ve %19,4, yani yuvarlanmış u'nun (%8,3 ve %9,7) iki katını verir. Yuvarlamadan U′_ölçüm = 2·%9,648 = %19,3.
 - Laboratuvarın kendi analitik belirsizliği (%7) burada bulunan %8,28'den küçüktür; kılavuz büyük değeri kullanır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-porridge-40g.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a4-vitamin-a-porridge-40g.json --lang tr`
 
 ### Bebek lapasında A vitamini, 4 g deney numunesi: negatif numune alma varyansı (Eurachem UfS Örnek A4)
 
@@ -2441,7 +2441,7 @@ Muzlu ve kayısılı yulaf lapasının on üretim partisinin her birinden iki nu
 - Kılavuz robust ANOVA ile u_numune = %6,9 ve u_analiz = %30 bulur; uygulanmamıştır (F63).
 - Bu projenin ölçüm belirsizliği (%73,4) yalnızca analitik terimi içerir, çünkü bu veri setinin numune alma varyansı sıfırdır; Tablo A4.10 bunu 40 g çalışmasındaki %5 ile birleştirir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-porridge-4g.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a4-vitamin-a-porridge-4g.json --lang tr`
 
 ### Bebek lapasında A vitamini: çift numunelerin kontrol grafiği (Eurachem UfS Örnek A4)
 
@@ -2467,7 +2467,7 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 - Bölüm 7.3 uyarı sınırı faktörünü formülde 2,38 yazar ancak 2,83 ile hesaplar (= çiftler için D_WL, Nordtest TR 569 Tablo 4).
 - Merkez çizgisi, valide edilmiş belirsizlik için beklenen aralık d₂·u'dur; 16 değerin ortalaması (%12,1) değildir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a4-vitamin-a-qc-chart.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a4-vitamin-a-qc-chart.json --lang tr`
 
 ### Tavuk yeminde enzim: Gy kuramıyla temel numune alma hatası (Eurachem UfS Örnek A5)
 
@@ -2493,7 +2493,7 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 - Örnek A5 metni bileşim faktörüne 'Eşitlik 7' der; Bölüm 10.2.8'de bu Eşitlik 8'dir (ve 6 numarası iki kez kullanılmıştır).
 - Yalnızca temel numune alma hatası: hatalı numune alma hataları ve analitik sapma ihmal edilebilir kabul edilmiştir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a5-enzyme-feed-gy.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a5-enzyme-feed-gy.json --lang tr`
 
 ### Tarım toprağında kadmiyum: modelleme yaklaşımı (Eurachem UfS Örnek A6)
 
@@ -2519,7 +2519,7 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 
 - Tablo A6.2'den derinlik terimi %3,6'dır (x₋ = 0,339, x₊ = 0,299 mg/kg); Tablo A6.6 %3,5 verir. Bununla birleşik belirsizlik %9,1 yerine %9,2, U ise %18,2 yerine %18,4 olur; yuvarlanmış sonuç 0,32 ± 0,06 mg/kg aynıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-cadmium-soil.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a6-cadmium-soil.json --lang tr`
 
 ### Tarım toprağında fosfor: modelleme yaklaşımı (Eurachem UfS Örnek A6)
 
@@ -2546,7 +2546,7 @@ Numune almanın kalite kontrolü: sekiz lapanın her birinin bir partisinden iki
 - Tablo A6.1 s_kare = 8,0 mg/kg yazar; beş değer 7,43 mg/kg (%6,4) verir ve basılı u_b-loc = %2,9 değeri 7,43/√5'ten çıkar.
 - Tablo A6.3'teki RSD'lerin ortalaması basılı %3,3 değil %3,16'dır; proje %3,16 kullanır. Birleşik belirsizlik (%11,3) ve U = 26 mg/kg değişmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ufs-a6-phosphorus-soil.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ufs-a6-phosphorus-soil.json --lang tr`
 
 ### İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2)
 
@@ -2570,7 +2570,7 @@ Bağıl belirsizlikli çarpımsal model; değerler örnektir, gerçek bir ölç�
 
 - ¹H çekirdek sayıları prosedürde okunamıyor (model gömülü bir denklem nesnesidir); basılı 995,0 mg/g değerini veren tek oran N_std/N_a = 2/3'tür; iç standart maleik asit (M = 116,072 g/mol, 2 H) ve bir metil singleti olan M = 194,19 g/mol'lük bir analit (ör. kafein) ile uyumludur.
 
-**Çalıştırma:** `uncertainty run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang tr`
 
 ### Nehir sedimentlerinde fluoranten, aritmetik ortalama geri kazanım (MUPR Eş. 8–12) (Bettencourt da Silva 2026)
 
@@ -2600,7 +2600,7 @@ MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedime
 - Elektronik tablo 10 mg/kg'da (13,35 ± 3,86) mg/kg ve 0,1 mg/kg'da (0,134 ± 0,161) mg/kg verir. Ağırlıklı ortalama R̿ = %74,887 ile aritmetik ortalamanın belirsizliğini, √Σu²/N = %4,008, birlikte kullanır (araştırma günlüğü F73) ve I. aralığın mutlak kesinliğini R̿'ya bölmez (F72). Makale metni k = 2,01 yazar; tablo 2,093 kullanır (F71).
 - Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (16.1)'in ağırlıklı ortalamasını kendi belirsizliğiyle kullanır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bettencourt2026-fluoranthene-arithmetic.json --lang tr`
 
 ### Nehir sedimentlerinde fluoranten, ağırlıklı ortalama geri kazanım (MUPR Eş. 16.1) (Bettencourt da Silva 2026)
 
@@ -2630,7 +2630,7 @@ MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedime
 - Elektronik tablo 10 mg/kg'da (13,35 ± 3,86) mg/kg ve 0,1 mg/kg'da (0,134 ± 0,161) mg/kg verir. Ağırlıklı ortalama R̿ = %74,887 ile aritmetik ortalamanın belirsizliğini, √Σu²/N = %4,008, birlikte kullanır (araştırma günlüğü F73) ve I. aralığın mutlak kesinliğini R̿'ya bölmez (F72). Makale metni k = 2,01 yazar; tablo 2,093 kullanır (F71).
 - Program, geri kazanımla düzeltilmiş sonucun mutlak bileşenlerini geri kazanıma böler (y = x/R). Bu örneğin diğer türü MUPR Eş. (8)–(12)'nin aritmetik ortalamasını kullanır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/bettencourt2026-fluoranthene-weighted.json --lang tr`
 
 ### Doping kontrolünde idrarda efedrin: ara kesinlik ve bir SRM'den top-down belirsizlik (EMUE E6.5)
 
@@ -2650,7 +2650,7 @@ MUPR elektronik tablosunun laboratuvar içi validasyon verilerinden nehir sedime
 
 - γ(ephedrine) = (10,00 ± 0,78) µg/mL (k = 2,00)
 
-**Çalıştırma:** `uncertainty run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/emue-e6.5-ephedrine-wada-topdown.json --lang tr`
 
 ### Hayvan yeminde ham lif, tekrar üretilebilirlik verilerinden (ISO 21748 C.4)
 
@@ -2677,7 +2677,7 @@ ISO 21748:2017 C.4: bir ortak çalışmadan düzeye bağlı tekrar üretilebilir
 - ISO 21748 C.4.7, %0,115 belirsizliğinin 'bu en büyük tahmini sapmanın 3'e bölünmesiyle' bulunduğunu söyler; 0,002 g/3 %0,067 verirdi. Basılı değer √3'e bölmeye (dikdörtgen dağılım) karşılık gelir; proje bunu kullanır.
 - QUAM A6 ('quam-a6-crude-fibre' projesi) yuvarlanmış s_R değerlerini (0,29; 0,40; 0,60) kullanır ve kurutma terimini yalnızca en düşük düzeyde dahil eder.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso21748-c4-crude-fibre.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso21748-c4-crude-fibre.json --lang tr`
 
 ### Çelikte karbon: [zaman + operatör] farklı ara kesinlik (ISO 5725-3 J.1)
 
@@ -2701,7 +2701,7 @@ ISO 5725-3:2023 J.1: her gün bir rutin numune ertesi gün başka bir analist ta
 
 - Korunan 27 çift saklanmıştır; çıkarılan iki çift açıklamada verilmiştir. Belirtilen Cochran istatistikleri Tablo J.1'den hesaplanmıştır (ISO 5725-3 yalnızca sonucu verir).
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso5725-3-j1-carbon-steel.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso5725-3-j1-carbon-steel.json --lang tr`
 
 ### Çelikte vanadyum: kademeli iç içe tasarım, düzey 1 (ISO 5725-3 J.2)
 
@@ -2725,7 +2725,7 @@ ISO 5725-3:2023 J.2: 20 laboratuvar, bir günde iki ve ertesi gün bir sonuç; v
 
 - ISO 5725-3:2023 Tablo J.2, ISO 5725-3:1994 Tablo D.2'den 15 girişte farklıdır (14'ü 3. düzeyde: 7–20. laboratuvarların 1. gündeki ikinci sonucu birincisinin tekrarıdır; birer tanesi 4. ve 5. düzeylerde); burada kullanılan 1. düzey her iki baskıda aynıdır. 1994 verileri Tablo J.5'i 1–5. düzeylerde tam olarak yeniden üretir (çekirdek testi staggered_nested_iso_5725_3_1994_levels_3_to_6). 6. düzeyde s₍₁₎² negatiftir: s_I(T) = s_r basılmıştır; ancak basılı s_R = 15,962 × 10⁻³ % negatif s₍₁₎²'yi tutar; her yerde s₍₁₎² = 0 alınırsa s_R = 16,331 × 10⁻³ % olur (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang tr`
 
 ### İçme suyunda nitrat: iki kesinlik aralığı
 
@@ -2750,7 +2750,7 @@ MUPR Örnek B1: 0,4 mg/L altında mutlak, üstünde bağıl kesinlik; 20 katkıl
 
 - Bulgu: rehber R̄'yi 0,972'ye yuvarlayarak |1 − R̄|/u = 0,982 yazar; R̄ = 0,9725 ile istatistik 0,963'tür. Sonuç aynıdır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-b1-nitrate.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-b1-nitrate.json --lang tr`
 
 ### Nitrat: birleştirilmiş kesinlik ve iki geri kazanım düzeyi
 
@@ -2774,7 +2774,7 @@ MUPR Örnek B2: birden fazla malzemeden birleştirilmiş kesinlik (ikisi için h
 
 - Rehber yuvarlanmış s_I(2) = 0,0250'yi 0,3033'e böler (%8,24); yuvarlanmamış %8,25. Grup 2 mutlak birleştirmeye girdiğinden bütçe etkilenmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-b2-pooled-precision.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-b2-pooled-precision.json --lang tr`
 
 ### Nitrat: 2 günde 3 tekrarın ortalaması olarak sonuç
 
@@ -2793,7 +2793,7 @@ MUPR Örnek B2, Eş. (B2.9): p günün her birinde n sonucun ortalamasının kes
 
 - c(NO₃⁻) = (57,5 ± 7,1) mg/L (k = 2,00)
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-b2-replicates-on-two-days.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-b2-replicates-on-two-days.json --lang tr`
 
 ### Nitrat: derişimin doğrusal fonksiyonu olarak kesinlik
 
@@ -2817,7 +2817,7 @@ MUPR Örnek B3: dört malzemenin ara kesinliği en küçük kareler ile s_I = a 
 
 - Bulgu: en küçük kareler kesim noktasını 0,02324 verir (basılı 0,0233); eğim 0,0128 ve r = 0,7266 uyumludur.
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-b3-linear-precision.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-b3-linear-precision.json --lang tr`
 
 ### Sedimentte arsenik: tek CRM
 
@@ -2837,7 +2837,7 @@ MUPR Örnek B4: birleştirilmiş bağıl kesinlik ve tek CRM'nin geri kazanımı
 
 - w(As) = (16,0 ± 1,9) mg/kg (k = 2,00)
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-b4-arsenic-one-crm.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-b4-arsenic-one-crm.json --lang tr`
 
 ### Arsenik: matrise bağlı geri kazanımlı CRM ve katkılı numuneler
 
@@ -2856,7 +2856,7 @@ MUPR Örnek B5: geri kazanımlar matrisle değiştiğinden standart sapmaları d
 
 - w(As) = (16,0 ± 6,3) mg/kg (k = 4,30)
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-b5-crm-and-spiked-samples.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-b5-crm-and-spiked-samples.json --lang tr`
 
 ### Sedimentte iz element: heterojenlik ve 22 yeterlilik testi
 
@@ -2884,7 +2884,7 @@ MUPR Örnek B6: homojen bir malzemeden kesinlik ve gerçek numunelerin heterojen
 - Bulgu: Eş. (B6.8) basılı haliyle düzeltilmiş sonucun kesinlik teriminde 1/R̿'yi atlar; program mutlak bileşenler için u(w/R̿)² = (s_I/R̿)² + (w u_R̿/R̿²)² kullanır. Aralık II'de (tümü bağıl) ikisi aynıdır.
 - Her tekil YT sonucunun standart sapması, Tablo B6.3'teki gibi homojen malzeme modelinden alınmıştır (7,5 mg/kg üzerinde %7,34, altında 7,5 × %7,34).
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-b6-sediment-22-pt.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-b6-sediment-22-pt.json --lang tr`
 
 ### İki CRM ve bir yeterlilik testi numunesinden geri kazanım
 
@@ -2904,7 +2904,7 @@ MUPR Örnek 2: orto-fosfat; üç referans malzemeden ortalama geri kazanım ve b
 
 - U = %7,4 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-ex2-reference-materials.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-ex2-reference-materials.json --lang tr`
 
 ### Katkılı nehir sularından geri kazanım
 
@@ -2924,7 +2924,7 @@ MUPR Örnek 3: doğal analit içeren iki katkılı numune (Eş. 10–11).
 
 - U = %20 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/mupr-ex3-spiked-samples.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/mupr-ex3-spiked-samples.json --lang tr`
 
 ### Kontrol sınırları ve yeterlilik testlerinden sudaki amonyum
 
@@ -2945,7 +2945,7 @@ Nordtest TR 537 §3.2 ve Ek 4: NH₄-N; u(Rw) kontrol grafiğinden, u(bias) alt�
 
 - U = %7 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-3-ammonium-pt.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-3-ammonium-pt.json --lang tr`
 
 ### Amonyum: kontrol numuneleri ve mükerrer ölçümlerden laboratuvar içi tekrar üretilebilirlik
 
@@ -2971,7 +2971,7 @@ Nordtest TR 537 §5.3 ve Ek 5: doğal numunelerin iki aralıktaki NH₄-N müker
 
 - Ek 5, 30 µg/L'nin altında 46 çift listeler; §5.3 n = 47 yazar. İstatistikler listelenen 46 çiftten yeniden hesaplanmıştır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-5.3-ammonium-duplicates.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-5.3-ammonium-duplicates.json --lang tr`
 
 ### Çözünmüş oksijen: mükerrer ölçümlerden tekrar üretilebilirlik
 
@@ -2990,7 +2990,7 @@ Nordtest TR 537 §5.3 ve Ek 6: deniz suyunda çözünmüş oksijen, 51 mükerrer
 
 - U = %1,2 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-5.3-oxygen-duplicates.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-5.3-oxygen-duplicates.json --lang tr`
 
 ### Tek sertifikalı referans malzemeden sapma
 
@@ -3013,7 +3013,7 @@ Nordtest TR 537 §6.1: 12 kez ölçülmüş bir CRM'den (11,5 ± 0,5) u(bias).
 
 - Bulgu (F5): el kitabı u(C_ref) = 0,25/11,5 = %2,16 yazar, oysa 0,25/11,5 = %2,17'dir; u(bias) = %4,1 sonucu %2,16'dan elde edilir, doğru değer %4,15'tir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-6.1-one-crm.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-6.1-one-crm.json --lang tr`
 
 ### Birden fazla sertifikalı referans malzemeden sapma
 
@@ -3032,7 +3032,7 @@ Nordtest TR 537 §6.1: üç CRM'den sapmaların karesel ortalamasının karekök
 
 - U = %6,3 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-6.1-three-crms.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-6.1-three-crms.json --lang tr`
 
 ### Yeterlilik testlerinden sapma
 
@@ -3055,7 +3055,7 @@ Nordtest TR 537 §6.2: altı yeterlilik testinden u(bias).
 
 - Bulgu: altı u(C_ref,i) değerinin ortalaması %2,60'tır; el kitabı adım tablosunda %2,7 yazar, ardından %2,6 kullanır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-6.2-proficiency-tests.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-6.2-proficiency-tests.json --lang tr`
 
 ### Geri kazanım deneylerinden sapma
 
@@ -3075,7 +3075,7 @@ Nordtest TR 537 §6.3: altı katkı geri kazanımından u(bias).
 
 - U = %7,1 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-6.3-recovery.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-6.3-recovery.json --lang tr`
 
 ### Atık suda BOİ: kontrol grafiği ve tek CRM
 
@@ -3099,7 +3099,7 @@ Nordtest TR 537 §8.2 Örnek A, Ek 7'deki ham kontrol verileriyle.
 
 - El kitabı s_bias için n = 19 yazar; Ek 7 burada kullanılan 18 çifti listeler. Ortalamalar çiftlerden hesaplanmıştır (ek bunları 1 mg/L'ye yuvarlanmış verir).
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-8-bod-crm.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-8-bod-crm.json --lang tr`
 
 ### Atık suda BOİ: kontrol grafiği ve yeterlilik testleri
 
@@ -3119,7 +3119,7 @@ Nordtest TR 537 §8.2 Örnek B: üç yeterlilik testinden u(bias) (Tablo 6, ham 
 
 - U = %10 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-8-bod-pt.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-8-bod-pt.json --lang tr`
 
 ### Sedimentte PCB: kontrol numunesi ve tek CRM
 
@@ -3142,7 +3142,7 @@ Nordtest TR 537 §8.3 Örnek C.
 
 - Verilen değerlerden b = %5,26 ve u(C_ref) = %4,61 ile u(bias) = %7,20 bulunur; el kitabı yuvarlanmış %5,3 ve %4,6 değerlerini kullanır (%7,22). Özet tablosu u(C_ref) = %4,7 ve u(bias) = %7,29 yazar.
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-8-pcb-crm.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-8-pcb-crm.json --lang tr`
 
 ### Sedimentte PCB: kontrol numunesi ve yeterlilik testleri
 
@@ -3161,7 +3161,7 @@ Nordtest TR 537 §8.3 Örnek D.
 
 - U = %23 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/chemistry/nordtest-8-pcb-pt.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/nordtest-8-pcb-pt.json --lang tr`
 
 ### Deniz sedimentlerinde krom, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
 
@@ -3189,7 +3189,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 
 - Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/palma2019-cr-marine-sediment.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/palma2019-cr-marine-sediment.json --lang tr`
 
 ### Deniz sedimentlerinde bakır, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
 
@@ -3217,7 +3217,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 
 - Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/palma2019-cu-marine-sediment.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/palma2019-cu-marine-sediment.json --lang tr`
 
 ### Deniz sedimentlerinde lityum, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
 
@@ -3245,7 +3245,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 
 - Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/palma2019-li-marine-sediment.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/palma2019-li-marine-sediment.json --lang tr`
 
 ### Deniz sedimentlerinde mangan, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
 
@@ -3273,7 +3273,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 
 - Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/palma2019-mn-marine-sediment.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/palma2019-mn-marine-sediment.json --lang tr`
 
 ### Deniz sedimentlerinde nikel, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
 
@@ -3301,7 +3301,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 
 - Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir.
 
-**Çalıştırma:** `uncertainty run library/chemistry/palma2019-ni-marine-sediment.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/palma2019-ni-marine-sediment.json --lang tr`
 
 ### Deniz sedimentlerinde kurşun, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
 
@@ -3330,7 +3330,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 - Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100den anlamlı olarak farklıdır (Formül 10), bu nedenle sonuçlar 1/R̄_w ile düzeltilir.
 - Kurşun için metin u′_P = %6,38, Tablo 9 ise %6,37 verir; √((5,583/1,128)² + 4,02²) = %6,38'dir. Metin 60 mg/kg'da u_c = 6,04 mg/kg verir; oysa %10,08 × 60 mg/kg = 6,05 mg/kg'dır.
 
-**Çalıştırma:** `uncertainty run library/chemistry/palma2019-pb-marine-sediment.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/palma2019-pb-marine-sediment.json --lang tr`
 
 ### Deniz sedimentlerinde çinko, iki aralıklı top-down modelde matris etkileri (Palma ve ark. 2019)
 
@@ -3358,7 +3358,7 @@ Palma, Morgado ve Bettencourt da Silva (2019), Tablo 9: ikili analizlerden, homo
 
 - Proje makalenin Tablo 9'da özetlenen bileşenlerini birleştirir; ham veriler (tüm ikili çiftler ve yeterlilik testi sonuçları) makalenin elektronik ekindedir. Geri kazanım %100 ile uyumludur, bu nedenle sonuçlar düzeltilmez.
 
-**Çalıştırma:** `uncertainty run library/chemistry/palma2019-zn-marine-sediment.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/palma2019-zn-marine-sediment.json --lang tr`
 
 ### Validasyon verilerinden ekmekte organofosforlu pestisitler
 
@@ -3383,7 +3383,7 @@ EURACHEM QUAM Örnek A4, top-down değerlendirme olarak: 15 mükerrer ölçümde
 
 - Bulgu: Tablo A4.2'nin türetilmiş sütunlarında yazım hataları vardır (0,075 yerine ortalama 0,75, −0,01 yerine fark −0,10, 0,01 yerine ortalama 0,10); istatistikler D1 ve D2'den yeniden hesaplanmıştır. Rehber 41 serbestlik derecesi için t_kritik = 2,021, yani t(40) kullanır (t(41) = 2,0195).
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a4-pesticides-topdown.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a4-pesticides-topdown.json --lang tr`
 
 ### Hayvan yeminde ham lif (ampirik yöntem)
 
@@ -3409,7 +3409,7 @@ EURACHEM QUAM Örnek A6: üç düzeyde ortak çalışmadan tekrar üretilebilirl
 
 - Bulgu: Tablo A6.5, %10 lifte U = 0,12 % m/m yazar; 2 × 0,6 = 1,2 % m/m'dir (yüzde sütunu, %12, doğrudur).
 
-**Çalıştırma:** `uncertainty run library/chemistry/quam-a6-crude-fibre.json --lang tr`
+**Çalıştırma:** `kapsam run library/chemistry/quam-a6-crude-fibre.json --lang tr`
 
 ## Elektrik ve RF
 
@@ -3432,7 +3432,7 @@ EA-4/02 S3: dört uçlu direncin, oran cihazı olarak sayısal multimetre kullan
 
 - R_X = (10000178 ± 17) mΩ; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/ea402-s3-resistor-10kohm.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/ea402-s3-resistor-10kohm.json --lang tr`
 
 ### Bir güç sensörünün 18 GHz'de kalibrasyonu
 
@@ -3458,7 +3458,7 @@ EA-4/02 S6: bir termistör güç sensörünün kalibrasyon faktörünün standar
 - Örneğin başlığında 19 GHz yazmaktadır; metin ve sonuç 18 GHz'e aittir.
 - Üç gözlemle p için t dağılımı ν = 2'dir ve sonlu varyansı yoktur; bu nedenle Monte Carlo standart sapması kararsızdır, kapsam aralığı ise iyi tanımlıdır (JCGM 101 6.4.9).
 
-**Çalıştırma:** `uncertainty run library/electrical/ea402-s6-power-sensor-18ghz.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/ea402-s6-power-sensor-18ghz.json --lang tr`
 
 ### Koaksiyel kademeli zayıflatıcının kalibrasyonu (30 dB)
 
@@ -3482,7 +3482,7 @@ EA-4/02 S7: koaksiyel zayıflatıcının 10 GHz'de 30 dB kademesi; uyumsuzluk S 
 
 - Bulgu: bütçe δL_ib'nin katkısını 0,0019 dB olarak verir, oysa standart belirsizliği 0,0003 dB'dir; basılı toplam 0,0223 dB bu 0,0019 değerini içerir (onsuz 0,0222 dB). Raporlanan sonuç değişmez.
 
-**Çalıştırma:** `uncertainty run library/electrical/ea402-s7-step-attenuator-30db.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/ea402-s7-step-attenuator-30db.json --lang tr`
 
 ### El tipi sayısal multimetrenin 100 V'ta kalibrasyonu
 
@@ -3502,7 +3502,7 @@ EA-4/02 S9: 3½ basamaklı multimetrenin gösterge hatası; çözünürlük teri
 
 - E_X = (0,10 ± 0,06) V; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/ea402-s9-dmm-100v.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/ea402-s9-dmm-100v.json --lang tr`
 
 ### Korelasyonlu V ve I'dan empedans büyüklüğü (GUM H.2)
 
@@ -3522,7 +3522,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 - Z = (254,26 ± 0,46) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/gum-h2-impedance.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/gum-h2-impedance.json --lang tr`
 
 ### Korelasyonlu V, I ve φ'den reaktans (GUM H.2)
 
@@ -3546,7 +3546,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 - Yuvarlanmamış verilerle 1. yaklaşım u_c(X) = 0,29558 Ω, 2. yaklaşım 0,29549 Ω verir; GUM Tablo H.3 0,295 bastığından tolerans 0,0006 Ω'dur.
 
-**Çalıştırma:** `uncertainty run library/electrical/gum-h2-reactance.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/gum-h2-reactance.json --lang tr`
 
 ### Korelasyonlu V, I ve φ'den direnç (GUM H.2)
 
@@ -3570,7 +3570,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 - Kovaryans terimleri R'nin varyansının büyük kısmını götürdüğünden u_c(R), korelasyon katsayılarının yuvarlanmasına duyarlıdır: Tablo H.2'de basılı iki basamaklı değerlerle yayılım yasası 0,0711 Ω yerine 0,0700 Ω verir (NIST Uncertainty Machine'i yeniden üreten 'num-10-resistance' projesi). X ve Z %0,1'den az değişir.
 
-**Çalıştırma:** `uncertainty run library/electrical/gum-h2-resistance.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/gum-h2-resistance.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,0
 
@@ -3592,7 +3592,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (50 ± 640) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x000.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,0, r = 0,9
 
@@ -3613,7 +3613,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (0,0 ± 0,0) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
 
@@ -3635,7 +3635,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (50 ± 850) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 12,7 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x000-correlated-higher-order.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,01
 
@@ -3657,7 +3657,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (150 ± 220) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x010.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,01, r = 0,9
 
@@ -3678,7 +3678,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (100 ± 200) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,01, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
 
@@ -3700,7 +3700,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (150 ± 240) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x010-correlated-higher-order.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,05
 
@@ -3722,7 +3722,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (2550 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x050.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,05, r = 0,9
 
@@ -3743,7 +3743,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (2500 ± 980) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated.json --lang tr`
 
 ### Karşılaştırma kaybı, x₁ = 0,05, r = 0,9, ilişkili girdiler için yüksek mertebe GUM terimleri
 
@@ -3765,7 +3765,7 @@ JCGM 101 9.4: mikrodalga güç ölçer kalibrasyonunda karşılaştırma kaybı 
 
 - dY = (2550 ± 990) 10⁻⁶; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm101-9.4-comparison-loss-x050-correlated-higher-order.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001 (JCGM 102 9.3)
 
@@ -3787,7 +3787,7 @@ JCGM 102:2011 9.3: x₁ = 0,001, x₂ = 0 tahminli karmaşık bir büyüklüğü
 - Theta = 0,0 rad, u(Theta) = 10 rad (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.3-polar-x001.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,001, r = 0,9 (JCGM 102 9.3)
 
@@ -3809,7 +3809,7 @@ JCGM 102:2011 9.3: x₁ = 0,001, x₂ = 0 tahminli karmaşık bir büyüklüğü
 - Theta = 0,0 rad, u(Theta) = 10 rad (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x001-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.3-polar-x001-correlated.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,01 (JCGM 102 9.3)
 
@@ -3831,7 +3831,7 @@ JCGM 102:2011 9.3: x₁ = 0,01, x₂ = 0 tahminli karmaşık bir büyüklüğün
 - Theta = 0,00 rad, u(Theta) = 1,0 rad (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.3-polar-x010.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,01, r = 0,9 (JCGM 102 9.3)
 
@@ -3853,7 +3853,7 @@ JCGM 102:2011 9.3: x₁ = 0,01, x₂ = 0 tahminli karmaşık bir büyüklüğün
 - Theta = 0,00 rad, u(Theta) = 1,0 rad (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x010-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.3-polar-x010-correlated.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,1 (JCGM 102 9.3)
 
@@ -3875,7 +3875,7 @@ JCGM 102:2011 9.3: x₁ = 0,1, x₂ = 0 tahminli karmaşık bir büyüklüğün 
 - Theta = 0,000 rad, u(Theta) = 0,10 rad (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.3-polar-x100.json --lang tr`
 
 ### Kartezyen koordinatlardan kutupsal koordinatlara, x₁ = 0,1, r = 0,9 (JCGM 102 9.3)
 
@@ -3897,7 +3897,7 @@ JCGM 102:2011 9.3: x₁ = 0,1, x₂ = 0 tahminli karmaşık bir büyüklüğün 
 - Theta = 0,000 rad, u(Theta) = 0,10 rad (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.3-polar-x100-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.3-polar-x100-correlated.json --lang tr`
 
 ### Eşzamanlı gösterge değerlerinden direnç, reaktans ve empedans (JCGM 102 9.4)
 
@@ -3925,7 +3925,7 @@ JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan ü�
 - ν = 3 olduğunda çok değişkenli t dağılımının dördüncü momenti yoktur; bu yüzden Monte Carlo standart sapmaları yavaş yakınsar: 10⁶ denemeyle 1–6 tohumları u(R) için 0,128 Ω ile 0,136 Ω, r(R, X) için −0,580 ile −0,600 arasında değerler verir. Monte Carlo değerlerinin toleransları bu yayılımı kapsar; basılı MCM satırı bu tür bir gerçekleşmedir.
 - Tablo 8, 6. takımı φ = 1,0445 rad olarak, yani 1–5. takımların yuvarlanmış ortalaması (1,04446) olarak basar. Yuvarlanmış değerle R'nin tahmini basılı 127,732 Ω yerine 127,7307 Ω olur; proje Tablo 9'daki değer olan 1,04446 rad'ı kullanır (araştırma günlüğü F51).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.4-resistance-reactance.json --lang tr`
 
 ### Eşzamanlı gösterge değerlerinden direnç, reaktans ve empedans, t kovaryansı (JCGM 102 9.4)
 
@@ -3954,7 +3954,7 @@ JCGM 102:2011 9.4 (GUM H.2'nin genişletilmesi): korelasyonlu ortalamalardan ü�
 - ν = 3 olduğunda çok değişkenli t dağılımının dördüncü momenti yoktur; bu yüzden Monte Carlo standart sapmaları yavaş yakınsar: 10⁶ denemeyle 1–6 tohumları u(R) için 0,128 Ω ile 0,136 Ω, r(R, X) için −0,580 ile −0,600 arasında değerler verir. Monte Carlo değerlerinin toleransları bu yayılımı kapsar; basılı MCM satırı bu tür bir gerçekleşmedir.
 - Tablo 8, 6. takımı φ = 1,0445 rad olarak, yani 1–5. takımların yuvarlanmış ortalaması (1,04446) olarak basar. Yuvarlanmış değerle R'nin tahmini basılı 127,732 Ω yerine 127,7307 Ω olur; proje Tablo 9'daki değer olan 1,04446 rad'ı kullanır (araştırma günlüğü F51).
 
-**Çalıştırma:** `uncertainty run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/jcgm102-9.4-resistance-reactance-alternative.json --lang tr`
 
 ### Baskın çözünürlük terimli dijital voltmetre (UKAS M3003 Ek C)
 
@@ -3978,7 +3978,7 @@ Uygulanan 1,000 00 V için 1,001 V okuyan bir DVM; 1 mV basamağının yuvarlanm
 
 - Araştırma günlüğü F61: C.5 sürüklenme ve sıcaklık sınırını ±50 V olarak yazar; hesap 0,05 mV, yani ±50 µV kullanır.
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-c5-dvm-dominant-rectangular.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-c5-dvm-dominant-rectangular.json --lang tr`
 
 ### Gerilim karşılaştırmasıyla 10 kΩ direnç (UKAS M3003 K.1)
 
@@ -4000,7 +4000,7 @@ Seri bağlı standart ve bilinmeyen 10 kΩ dirençler üzerindeki gerilimler tek
 
 - R_X = (10000,1050 ± 0,0089) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-k1-resistor-10kohm.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-k1-resistor-10kohm.json --lang tr`
 
 ### 18 GHz'de koaksiyel güç sensörü (UKAS M3003 K.2)
 
@@ -4022,7 +4022,7 @@ Bilinmeyen bir güç sensörünün kalibrasyon faktörü, izlenen bir kaynakta s
 
 - K_X = (93,2 ± 3,4) %; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-k2-power-sensor-18ghz.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-k2-power-sensor-18ghz.json --lang tr`
 
 ### 10 GHz'de 30 dB koaksiyel zayıflatıcı (UKAS M3003 K.3)
 
@@ -4047,7 +4047,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 - Araştırma günlüğü F57: K.3.6'daki yansıma ve saçılma katsayılarıyla E5 formülü 0,022 dB değil 0,0170 dB uyumsuzluk standart sapması verir; m3003-k3-attenuator-30db-mismatch-e5 projesine bakınız.
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-k3-attenuator-30db.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-k3-attenuator-30db.json --lang tr`
 
 ### E5 formülünden uyumsuzluk terimiyle 30 dB zayıflatıcı (UKAS M3003 K.3, E.9.5)
 
@@ -4069,7 +4069,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 - A_X = (30,050 ± 0,040) dB; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-k3-attenuator-30db-mismatch-e5.json --lang tr`
 
 ### 1 V kademesinde DMM: 0,95 V'taki bütçe (UKAS M3003 L.3)
 
@@ -4094,7 +4094,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 - Araştırma günlüğü F61: bütçe başlığı 'ΔI_DMM = 0,95 V'ta değerlendirilmiş' der, kastedilen I_DMM = 0,95 V'tur; L.3.15, [a² + b²]^½ yerine Q[a, b] = [a² + ab]^½ tanımlar; Ek Q'nun notu u(R) = w(R) × R yerine u(R) = u(R) × R yazar.
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-095v.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-l3-dmm-1v-range-095v.json --lang tr`
 
 ### Tam ölçekte 1 V kademesinde DMM: baskın şartname terimi için kapsam faktörü (UKAS M3003 L.3.20)
 
@@ -4114,7 +4114,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 - dI = (0 ± 11) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,90 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-l3-dmm-1v-range-1v-dominant.json --lang tr`
 
 ### 1 V kademesinde DMM: kademe formülünden 500 mV'taki belirsizlik (UKAS M3003 L.3)
 
@@ -4135,7 +4135,7 @@ Koaksiyel kademeli zayıflatıcının IF yer değiştirme ile kalibrasyonu; uyum
 
 - dI = (0,0 ± 6,2) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/m3003-l3-dmm-1v-range-500mv.json --lang tr`
 
 ### Mikrodalga kademeli zayıflatıcı, U biçimli girdiler (NIST TN 1900 E11)
 
@@ -4156,7 +4156,7 @@ TN 1900 E11: EA-4/02 S7 Monte Carlo yöntemiyle yeniden değerlendirilir; baskı
 - TN 1900, L_S'nin t₃ dağılımını standart sapması u = 0,0091 dB olacak şekilde ölçekler (ölçek 0,0091/√3 dB). JCGM 101 6.4.9 ise ölçek olarak s/√n = 0,0091 dB alır, yani standart sapma 0,0158 dB olur. Bir t girdisinin GUM belirsizliği ölçeği olduğundan GUM değerlendirmesi kapatılmıştır; EA-4/02 GUM sonucu 'ea402-s7-step-attenuator-30db' projesindedir.
 - TN 1900, sızıntı terimi δL_K'yı ±0,003 dB üzerinde arksinüs olarak modeller (u = 0,0021 dB) ve EA-4/02 S7.12'deki 0,0017 dB'in dikdörtgen dağılıma karşılık geldiğini, oysa EA-4/02'nin terimi U biçimli olarak nitelediğini belirtir.
 
-**Çalıştırma:** `uncertainty run library/electrical/nist-tn1900-e11-step-attenuator.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/nist-tn1900-e11-step-attenuator.json --lang tr`
 
 ### GUM Tablo H.2'nin yuvarlanmış değerleriyle direnç (NIST Uncertainty Machine §10)
 
@@ -4175,7 +4175,7 @@ GUM H.2: gerilim, akım ve faz açısının korelasyonlu eşzamanlı ölçümler
 
 - R = (127,73 ± 0,14) Ω; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/num-10-resistance.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/num-10-resistance.json --lang tr`
 
 ### Wheatstone köprüsü: kuvvetler çarpımı olmayan bir ölçüm modeli (Possolo & Meija 2022)
 
@@ -4198,7 +4198,7 @@ Dengede R_U/R_G = R_F/R_EH; R_EH = 1/(R_E⁻¹ + R_H⁻¹), paralel E ve H'nin o
 
 - Kitap, direncin pozitifliğine uyan lognormal modelin bu bağıl belirsizliklerde (%5'in altında) pratikte aynı sonucu verdiğini belirtir.
 
-**Çalıştırma:** `uncertainty run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang tr`
 
 ### Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1)
 
@@ -4218,7 +4218,7 @@ Mutlak belirsizlikli toplamsal model: kalibratör sertifikası, kayması ve çö
 
 - E = (212 ± 70) µV; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang tr`
+**Çalıştırma:** `kapsam run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang tr`
 
 ## Akış ve hacim
 
@@ -4247,7 +4247,7 @@ Mutlak belirsizlikli toplamsal model: kalibratör sertifikası, kayması ve çö
 
 - Araştırma günlüğü F62: 7.1.1.4'te belirtilen girdilerle (0,16 °C, 6 Pa — formülde 60 —, %0,6 bağıl nem ve 2,4·10⁻⁴ formül belirsizliği) hava yoğunluğu formülü 1,76·10⁻⁶ g/mL değil u(ρ_A) = 6,0·10⁻⁷ g/mL verir; 7.1.1.5 u(ρ_B) = 0,06/2 = 0,03 g/mL verirken Tablo 2 0,0346 g/mL (= 0,06/√3) kullanır; 7.1.1.3 u(ρ_W,t)'yi metinde 1,024·10⁻⁶ g/mL, formülde 1,24·10⁻⁶ g/mL yazar; β·ρ_W·u(t_W) = 8,9·10⁻⁷ g/mL'dir; Tablo 2 kütle için gerekçesiz ν = 50 verir. Hiçbiri u(V₂₀)'yi basılı basamaklarda değiştirmez.
 
-**Çalıştırma:** `uncertainty run library/flow/cg19-ex1-flask-1000ml.json --lang tr`
+**Çalıştırma:** `kapsam run library/flow/cg19-ex1-flask-1000ml.json --lang tr`
 
 ### 100 mL'lik cam piknometrenin gravimetrik kalibrasyonu (EURAMET cg-19 Örnek 2)
 
@@ -4274,7 +4274,7 @@ On kez tartılan 100 mL'lik piknometre; su 18,94 °C, hava 0,23 °C daha sıcak;
 
 - Araştırma günlüğü F62: Tablo 4 ν_eff(V₂₀) = 1727 verir; 7.2.5 ise Welch–Satterthwaite formülünün yeniden ürettiği ve k = 2,21'in karşılık geldiği 13 değerini verir. Örnek 1'deki gibi u(ρ_A) = 1,74·10⁻⁶ g/mL belirtilen girdilerden çıkmaz (4,8·10⁻⁷ g/mL).
 
-**Çalıştırma:** `uncertainty run library/flow/cg19-ex2-pycnometer-100ml.json --lang tr`
+**Çalıştırma:** `kapsam run library/flow/cg19-ex2-pycnometer-100ml.json --lang tr`
 
 ### Su sayacı kalibrasyonu: tek çalışmanın bağıl hatası
 
@@ -4293,7 +4293,7 @@ EA-4/02 S12 (ikinci bütçe): tek bir çalışma için sayacın bağıl gösterg
 
 - e_X = (0,0003 ± 0,0014); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-error.json --lang tr`
+**Çalıştırma:** `kapsam run library/flow/ea402-s12-water-meter-error.json --lang tr`
 
 ### Su sayacı kalibrasyonu: üç çalışmanın ortalaması
 
@@ -4312,7 +4312,7 @@ EA-4/02 S12 (üçüncü bütçe): üç çalışmanın ortalama bağıl hatası; 
 
 - e_Xav = (0,001 ± 0,002); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,28 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 1 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-mean-error.json --lang tr`
+**Çalıştırma:** `kapsam run library/flow/ea402-s12-water-meter-mean-error.json --lang tr`
 
 ### Su sayacı kalibrasyonu: referans hacim
 
@@ -4332,7 +4332,7 @@ EA-4/02 S12 (birinci bütçe): 2500 L/h'te bir konut tipi su sayacından geçen 
 
 - V_X = (199,93 ± 0,22) L; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/flow/ea402-s12-water-meter-volume.json --lang tr`
+**Çalıştırma:** `kapsam run library/flow/ea402-s12-water-meter-volume.json --lang tr`
 
 ### Standart basınç ve sıcaklığa indirgenmiş hacimsel debi (UKAS M3003 K.9)
 
@@ -4357,7 +4357,7 @@ EA-4/02 S12 (birinci bütçe): 2500 L/h'te bir konut tipi su sayacından geçen 
 
 - ν_eff = 130 ile %95,45 için kapsam faktörü 2,03'tür (Ek B tablosu: 100'de 2,025); bu U = 0,56 L/s verirdi; örnek k = 2 kullanır.
 
-**Çalıştırma:** `uncertainty run library/flow/m3003-k9-flowrate-standard-conditions.json --lang tr`
+**Çalıştırma:** `kapsam run library/flow/m3003-k9-flowrate-standard-conditions.json --lang tr`
 
 ### Pitot tüpüyle hava hızı (NIST TN 1900 E4)
 
@@ -4381,7 +4381,7 @@ TN 1900 E4 (Kline ve McClintock, 1953'ten): fark basıncı, hava basıncı ve s�
 
 - Verilen denklem ve girdilerle v = 57,48 m/s ve u(v) = 0,348 m/s bulunur. TN 1900 ise v = 40,64 m/s ve u(v) = 0,25 m/s basar; bunlar aynı değerlerin √2'ye bölünmüşüdür, yani 2 çarpanı olmadan v = √(ΔR_sT/p) bağıntısının sonucudur. Bağıl belirsizlik (%0,61) her ikisinde de aynıdır.
 
-**Çalıştırma:** `uncertainty run library/flow/nist-tn1900-e4-pitot-tube.json --lang tr`
+**Çalıştırma:** `kapsam run library/flow/nist-tn1900-e4-pitot-tube.json --lang tr`
 
 ## Genel (yöntem doğrulama)
 
@@ -4407,7 +4407,7 @@ Sekiz tork seviyesinden Y = βX'in eğimi β; SEKK kestiricisi (9.4) Y_i ortalam
 
 - Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).
 
-**Çalıştırma:** `uncertainty run library/general/gum5-e9-torque-slope-ols.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/gum5-e9-torque-slope-ols.json --lang tr`
 
 ### Tork sensörü kalibrasyonu, orijinden geçen doğru, GUF ile ağırlıklı en küçük kareler (JCGM GUM-5 Örnek 9)
 
@@ -4431,7 +4431,7 @@ Sekiz tork seviyesinden Y = βX'in eğimi β; AEKK kestiricisi (9.4) Y_i ortalam
 
 - Y₈ için n = 3'tür; t-dağılımı ν = 2 olur ve varyansı yoktur; bu nedenle Monte Carlo yöntemi çalıştırılmaz (JCGM 101 6.4.9.3).
 
-**Çalıştırma:** `uncertainty run library/general/gum5-e9-torque-slope-wls.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/gum5-e9-torque-slope-wls.json --lang tr`
 
 ### Normal dağılımlı girdilerle toplamsal model
 
@@ -4450,7 +4450,7 @@ JCGM 101 9.2.2: her biri N(0, 1) olan dört bağımsız girdi.
 
 - Y = (0,0 ± 3,9); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/general/jcgm101-9.2.2-additive-gaussian.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm101-9.2.2-additive-gaussian.json --lang tr`
 
 ### Dikdörtgen dağılımlı girdilerle toplamsal model
 
@@ -4474,7 +4474,7 @@ JCGM 101 9.2.3: her biri standart sapması 1 olan dikdörtgen dağılımlı dör
 
 - JCGM 101 Tablo 3, iki uyarlamalı çalışmasından birinde GUM aralığını doğrulanmış, diğerinde doğrulanmamış olarak verir (9.2.3.4): δ = 0,05'e karşı d ≈ 0,039 olduğunda sonucu uç noktalardaki Monte Carlo gürültüsü belirleyebilir.
 
-**Çalıştırma:** `uncertainty run library/general/jcgm101-9.2.3-additive-rectangular.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm101-9.2.3-additive-rectangular.json --lang tr`
 
 ### Baskın dikdörtgen girdili toplamsal model
 
@@ -4494,7 +4494,7 @@ JCGM 101 9.2.4: 9.2.3 ile aynı, ancak X4'ün standart sapması 10'dur.
 
 - Y = (0 ± 20); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm101-9.2.4-additive-dominant-rectangular.json --lang tr`
 
 ### Toplamalı iki değişkenli model, Gauss girdiler (JCGM 102 9.2.2)
 
@@ -4516,7 +4516,7 @@ JCGM 102:2011 9.2.2: ortak bir Gauss etkisini paylaşan iki çıktı; GUM sonuç
 - Y2 = 0,00, u(Y2) = 1,4 (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/general/jcgm102-9.2.2-additive-gaussian.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm102-9.2.2-additive-gaussian.json --lang tr`
 
 ### Toplamalı iki değişkenli model, dikdörtgen ortak etki (JCGM 102 9.2.3)
 
@@ -4539,7 +4539,7 @@ JCGM 102:2011 9.2.3: ortak etki X₃ dikdörtgen (standart sapma 1) olmak üzere
 - Y2 = 0,00, u(Y2) = 1,4 (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/general/jcgm102-9.2.3-additive-rectangular.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm102-9.2.3-additive-rectangular.json --lang tr`
 
 ### Toplamalı iki değişkenli model, baskın dikdörtgen ortak etki (JCGM 102 9.2.4)
 
@@ -4561,7 +4561,7 @@ JCGM 102:2011 9.2.4: ortak dikdörtgen etkinin standart sapması 3'tür; r(y₁,
 - Y2 = 0,00, u(Y2) = 3,2 (GUM)
 - %95 kapsam bölgesi (GUM): hiper-elipsoit (η − y)ᵀ U_y⁻¹ (η − y) ≤ k_p², k_p = 2,45; dikdörtgen k_q = 2,24
 
-**Çalıştırma:** `uncertainty run library/general/jcgm102-9.2.4-additive-dominant-rectangular.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm102-9.2.4-additive-dominant-rectangular.json --lang tr`
 
 ### Bir kabın patlama dayanımı: uygunluk olasılığı (JCGM 106 7.3)
 
@@ -4580,7 +4580,7 @@ JCGM 106:2012 7.3 Örnek 2: tek alt tolerans sınırı B ≥ 490 kPa, tahribatl�
 
 - container için B ≥ 490 kPa şartına uygunluk olasılığı: p_c = %99; basit kabul kuralına göre kabul.
 
-**Çalıştırma:** `uncertainty run library/general/jcgm106-7.3-bursting-strength.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm106-7.3-bursting-strength.json --lang tr`
 
 ### Zener diyotun kırılma gerilimi: uygunluk olasılığı (JCGM 106 7.3)
 
@@ -4599,7 +4599,7 @@ JCGM 106:2012 7.3 Örnek 1: tek üst tolerans sınırı V_b ≤ −5,40 V, ölç
 
 - diode için V_b ≤ -5,4 V şartına uygunluk olasılığı: p_c = %92; basit kabul kuralına göre kabul.
 
-**Çalıştırma:** `uncertainty run library/general/jcgm106-7.3-zener-diode.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm106-7.3-zener-diode.json --lang tr`
 
 ### Motor yağının kinematik viskozitesi: iki taraflı tolerans (JCGM 106 7.4)
 
@@ -4618,7 +4618,7 @@ JCGM 106:2012 7.4 Örnek: 100 °C'de SAE 40 yağ, 12,5 mm²/s ≤ Y ≤ 16,3 mm�
 
 - oil için 12,5 mm²/s ≤ Y ≤ 16,3 mm²/s şartına uygunluk olasılığı: p_c = %66; basit kabul kuralına göre kabul.
 
-**Çalıştırma:** `uncertainty run library/general/jcgm106-7.4-motor-oil-viscosity.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm106-7.4-motor-oil-viscosity.json --lang tr`
 
 ### Hayvansal ürünlerde nandrolon: tarama testi için karar sınırı (JCGM 106 8.3.3)
 
@@ -4633,7 +4633,7 @@ JCGM 106:2012 8.3.3 Örnek 2: eşik 2,00 µg/L; eşiğin aşılmış olma olası
 1. Derişimin olasılık yoğunluğu, ölçeği s = 0,20 µg/L ve serbestlik derecesi ν = 9 olan ölçeklenmiş ve kaydırılmış t dağılımıdır (JCGM 101 6.4.9).
 2. Koruma bandı g = t₀,₉₅;₉ × s = 1,83 × 0,20 = 0,37 µg/L ve karar sınırı A = T + g = 2,37 µg/L (korumalı ret).
 
-**Çalıştırma:** `uncertainty run library/general/jcgm106-8.3-nandrolone.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm106-8.3-nandrolone.json --lang tr`
 
 ### Hız sınırı denetimi: korumalı ret (JCGM 106 8.3.3)
 
@@ -4658,7 +4658,7 @@ JCGM 106:2012 8.3.3 Örnek 1: hız sınırı 100 km/h, bağıl standart belirsiz
 
 - Program koşulu z = Φ⁻¹(0,999) = 3,0902 ile tam çözer ve 106,59 km/h verir; standart 107 km/h'ye yuvarlar. 105 ve 108 km/h ölçülen hızlar kabul sınırının iki yanını gösterir.
 
-**Çalıştırma:** `uncertainty run library/general/jcgm106-8.3-speed-limit.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm106-8.3-speed-limit.json --lang tr`
 
 ### Bilyalı rulmanlar: istenen tüketici riski için kabul sınırı (JCGM 106 9.5.4)
 
@@ -4677,7 +4677,7 @@ JCGM 106:2012 9.5.4 Örnek: radyal hata hareketi ≤ 2 µm, ortalaması 1 µm ve
 
 - Metin kabul aralığını 0 ≤ Y_m ≤ A olarak verir ve R_C için Formül (23) alt sınır 0'ı içerir; ancak R_P için Formül (24) bunu dışarıda bırakır. Basılı R_P ≈ %7,5 değeri (24)'ten çıkar; alt kabul sınırı 0 ile R_P %8,9 olurdu (araştırma günlüğü F45). Proje Y_m ≤ A kabul aralığını kullanır; bu hem R_C'yi hem R_P'yi yeniden üretir (alt sınırın R_C'ye etkisi yoktur).
 
-**Çalıştırma:** `uncertainty run library/general/jcgm106-9.5-ball-bearings.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm106-9.5-ball-bearings.json --lang tr`
 
 ### Hassas dirençler: küresel tüketici ve üretici riskleri (JCGM 106 9.5.3)
 
@@ -4693,7 +4693,7 @@ JCGM 106:2012 9.5.3 Örnek: σ = 0,12 Ω olan bir süreçten 1500 Ω ± 0,2 Ω d
 2. w = 0,02 Ω = 0,25U simetrik koruma bantlarıyla korumalı kabul.
 3. Formül (19) ve (20) sayısal integrasyonla: R_C = %1 ve R_P = %7. 100 dirençten 83'ü doğru olarak kabul, 7'si yanlışlıkla ret, 9'u doğru olarak ret, 1'i yanlışlıkla kabul edilir; kabul edilenlerin %99'u uygundur.
 
-**Çalıştırma:** `uncertainty run library/general/jcgm106-9.5-precision-resistors.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/jcgm106-9.5-precision-resistors.json --lang tr`
 
 ### Geniş üçgen bölenli çarpım ve oran y = ab/c (NIST Uncertainty Machine §3)
 
@@ -4717,7 +4717,7 @@ NUM kılavuzu §3: normal a, dikdörtgen b ve bağıl belirsizliği %30 olan ü�
 
 - §3'ün metni GUM yönteminin y = 32,2 ve u(y) = 12,5 verdiğini söyler; ancak Şekil 1'de basılı NIST Uncertainty Machine çıktısı Gauss formülü için y = 28,8 ve u(y) = 8,7 verir (32,2 ve 13 Monte Carlo ortalaması ve standart sapmasıdır). Program Şekil 1'deki değerleri yeniden üretir.
 
-**Çalıştırma:** `uncertainty run library/general/num-3-ratio-abc.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/num-3-ratio-abc.json --lang tr`
 
 ### 1 mL mikropipetin sapması: toleransta eylem sınırlı grafik (Nordtest TR 569 Örnek 11)
 
@@ -4735,7 +4735,7 @@ Sabit hacimli 1 mL mikropipet on kez test edilir (Nordtest TR 626); ortalama hac
 
 - X-grafiği: merkez çizgisi 1,0000 mL; eylem sınırları 0,99000 1,0100 mL (toleransta eylem sınırları)
 
-**Çalıştırma:** `uncertainty run library/general/tr569-ex11-micropipette-tolerance.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/tr569-ex11-micropipette-tolerance.json --lang tr`
 
 ### Test belirsizlik oranından kabul sınırları: Dobbert'in yönetilen koruma bandı (yöntem 6), TUR = 2,5, %95 tolerans içi süreç için küresel riskler
 
@@ -4760,7 +4760,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,4, dolayısıyla TUR = 1/U₉₅ = 2,
 
 - TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
 
-**Çalıştırma:** `uncertainty run library/general/tur-guard-band-dobbert-tur2-5.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/tur-guard-band-dobbert-tur2-5.json --lang tr`
 
 ### Test belirsizlik oranından kabul sınırları: NCSLI RP-10 koruma bandı, TUR = 2,0, %95 tolerans içi süreç için küresel riskler
 
@@ -4784,7 +4784,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,5, dolayısıyla TUR = 1/U₉₅ = 2,
 
 - TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
 
-**Çalıştırma:** `uncertainty run library/general/tur-guard-band-rp10-tur2-0.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/tur-guard-band-rp10-tur2-0.json --lang tr`
 
 ### Test belirsizlik oranından kabul sınırları: karelerin toplamının kökü koruma bandı, TUR = 1,5, %95 tolerans içi süreç için küresel riskler
 
@@ -4808,7 +4808,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,6667, dolayısıyla TUR = 1/U₉₅ =
 
 - TUR, ANSI/NCSL Z540.3 uygulamasında ve Suncal'da olduğu gibi %95 genişletilmiş belirsizlik U₉₅ = 2u ile tanımlanır; JCGM 106 ölçüm yeterlilik indeksini C_m = T/(4u) kullanır, burada TUR'a eşittir.
 
-**Çalıştırma:** `uncertainty run library/general/tur-guard-band-rss-tur1-5.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/tur-guard-band-rss-tur1-5.json --lang tr`
 
 ### Taşıt emisyonlarında karbon monoksit, tekrar üretilebilirlik verilerinden (ISO 21748 C.1)
 
@@ -4832,7 +4832,7 @@ ISO 21748:2017 C.1: CO emisyonunun tip onay testi; sapma ve kesinlik kontrol alt
 
 - Burada laboratuvarın tekrarlanabilirliği s_r yerine konmamıştır (ISO 21748 C.1'deki gibi); lab_repeatability = 0,20 g/km ile 7.3.2, s′_R = √(s_L² + s_l²) = 0,26 g/km verirdi.
 
-**Çalıştırma:** `uncertainty run library/general/iso21748-c1-co-emissions.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/iso21748-c1-co-emissions.json --lang tr`
 
 ### Aerobik koloni sayımı, un: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
@@ -4856,7 +4856,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, un): ortak çalışmanın s_R ve s_r değerleri
 
 - ISO 21748 Tablo C.4 un için u = %6,4 ve C.3.7 U = %12,8 basar; ancak kendi girdileri √(2,4² + 5,0² + 3,0²) = %6,30 (yuvarlanmamış s_L ile %6,29) ve U = %12,6 verir. Tablo C.5'teki un aralıkları basılı %12,8'den çıkar. Proje yeniden hesaplanan değerleri kontrol eder.
 
-**Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/iso21748-c3-aerobic-plate-count-flour.json --lang tr`
 
 ### Aerobik koloni sayımı, karides: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
@@ -4876,7 +4876,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, karides): ortak çalışmanın s_R ve s_r değe
 
 - U = %16 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/iso21748-c3-aerobic-plate-count-shrimp.json --lang tr`
 
 ### Aerobik koloni sayımı, sebze: düzeltilmiş tekrar üretilebilirlik (ISO 21748 C.3)
 
@@ -4896,7 +4896,7 @@ ISO 21748:2017 C.3 (AOAC 990.12, sebze): ortak çalışmanın s_R ve s_r değerl
 
 - U = %18 (k = 2,00), ölçülen değere göre bağıl
 
-**Çalıştırma:** `uncertainty run library/general/iso21748-c3-aerobic-plate-count-vegetables.json --lang tr`
+**Çalıştırma:** `kapsam run library/general/iso21748-c3-aerobic-plate-count-vegetables.json --lang tr`
 
 ## Uzunluk
 
@@ -4917,7 +4917,7 @@ EA-4/02 S10: kumpas hatasının mastar bloğuyla ölçülmesi; iki dikdörtgen t
 
 - E_X = (100 ± 65) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/length/ea402-s10-vernier-calliper.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/ea402-s10-vernier-calliper.json --lang tr`
 
 ### 90 mm'lik halka mastarın kalibrasyonu
 
@@ -4942,7 +4942,7 @@ EA-4/02 S13: halka mastar çapının tek koordinatlı ölçüm makinesinde 40 mm
 - Bulgu (raporlanan değeri etkiler): bütçe, gözlemlerin ortalaması olan 49,999 536 mm yerine Δl = 49,999 55 mm ve −0,0037 µm yerine δl_P = +0,004 µm kullanarak d_X = 90,000 25 mm bulur ve 90,000 3 mm olarak raporlar. Verilerden d_X = 90,000 232 mm, yani (90,000 2 ± 0,000 9) mm elde edilir. 0,1 µm'lik fark U'nun çok içindedir.
 - Bulgular: Δl ortalaması 49,999 54 mm iken bütçe 49,999 55 kullanır; metin tek gözlemin standart sapması için s = 0,18 µm verir (veriden 0,33 µm, ortalama için 0,15 µm); √(0,15² + 0,25²) = 0,29 µm'dir (basılı 0,30); eş eksenlilik düzeltmesi −0,004 µm'dir (bütçede +0,000 004 mm).
 
-**Çalıştırma:** `uncertainty run library/length/ea402-s13-ring-gauge-90mm.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/ea402-s13-ring-gauge-90mm.json --lang tr`
 
 ### Halka mastar kalibrasyonu: sıcaklık düzeltmesi
 
@@ -4961,7 +4961,7 @@ EA-4/02 S13: halka mastar karşılaştırmasının sıcaklık alt bütçesi; sı
 
 - dl_T = (0,00 ± 0,30) µm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/length/ea402-s13-ring-gauge-temperature.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/ea402-s13-ring-gauge-temperature.json --lang tr`
 
 ### 50 mm'lik mastar bloğunun kalibrasyonu
 
@@ -4981,7 +4981,7 @@ EA-4/02 S4: 0 sınıfı çelik mastar bloğunun kalibre edilmiş standartla kar�
 
 - l_X = (49999926 ± 69) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/length/ea402-s4-gauge-block-50mm.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/ea402-s4-gauge-block-50mm.json --lang tr`
 
 ### Uç mastarı kalibrasyonu (GUM H.1)
 
@@ -5007,7 +5007,7 @@ JCGM 100 Ek H.1: 50 mm'lik bir uç mastarının kalibrasyonu; Welch–Satterthwa
 - GUM yuvarlanmış u_c = 32 nm değerini çarpar (2,92 × 32 = 93 nm); yuvarlanmamış 31,7 nm ile U = 92,5 nm bulunur. İkinci mertebe 11,7 ve 1,7 nm terimleri (H.1.7) eklendiğinde u_c 34 nm'ye çıkar.
 - Monte Carlo sonucu d'yi normal dağılımlı kabul eder; JCGM 101 9.5 (jcgm101-9.5-* projeleri) bunun yerine girdiler için t dağılımları ve eğrisel yamuk dağılımlar kullanır.
 
-**Çalıştırma:** `uncertainty run library/length/gum-h1-end-gauge.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/gum-h1-end-gauge.json --lang tr`
 
 ### Mastar kalibrasyonu, yaklaşık model
 
@@ -5028,7 +5028,7 @@ JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, e
 
 - dL = (838 ± 94) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/length/jcgm101-9.5-gauge-block-approximate.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/jcgm101-9.5-gauge-block-approximate.json --lang tr`
 
 ### Mastar kalibrasyonu, doğrusal olmayan model
 
@@ -5049,7 +5049,7 @@ JCGM 101 9.5: girdilere JCGM 101'in atadığı dağılımlarla (t, ark sinüs, e
 
 - dL = (838 ± 94) nm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,92 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %99 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/jcgm101-9.5-gauge-block-nonlinear.json --lang tr`
 
 ### Alüminyum deney numunesinin kalınlığı (UKAS M3003 K.10)
 
@@ -5074,7 +5074,7 @@ Bir numunenin merkezinde beş kalınlık okumasının ortalaması, kontrolsüz b
 
 - ν_eff = 50 ile %95,45 için kapsam faktörü 2,05'tir (Ek B); bu U = 0,020 mm verirdi; örnek k = 2 kullanır.
 
-**Çalıştırma:** `uncertainty run library/length/m3003-k10-sheet-thickness.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/m3003-k10-sheet-thickness.json --lang tr`
 
 ### 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6)
 
@@ -5099,7 +5099,7 @@ Standart mastar blokla karşılaştırma; iki sıcaklık etkisinin doğrusal top
 
 - Araştırma günlüğü F58: K.6.1 modeline göre Δt sıcaklık farkı Δα üzerinden değil ortalama genleşme katsayısı α üzerinden etki eder (L·α = 115 nm/°C, ±9,2 nm); Δα·ΔT çarpımının birinci mertebe duyarlılığı sıfırdır. m3003-k6-gauge-block-10mm-temperature-model projesine bakınız.
 
-**Çalıştırma:** `uncertainty run library/length/m3003-k6-gauge-block-10mm.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/m3003-k6-gauge-block-10mm.json --lang tr`
 
 ### Modelinin sıcaklık terimleriyle 10 mm'lik 2. sınıf mastar blok (UKAS M3003 K.6, EA-4/02 S4)
 
@@ -5120,7 +5120,7 @@ Standart mastar blokla karşılaştırma; iki sıcaklık etkisinin doğrusal top
 
 - L_X = (9,999940 ± 0,000082) mm; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/m3003-k6-gauge-block-10mm-temperature-model.json --lang tr`
 
 ### Normal girdilerle uç mastarı kalibrasyonu (NIST Uncertainty Machine §8)
 
@@ -5144,7 +5144,7 @@ NUM kılavuzu §8: GUM H.1'in birinci mertebe bütçesindeki altı girdiyle, hep
 
 - 'gum-h1-end-gauge' projesi GUM'un kendi değerlendirmesini yeniden üretir (θ ortalama ve çevrimsel kısmına ayrılır, Welch–Satterthwaite, k = 2,92).
 
-**Çalıştırma:** `uncertainty run library/length/num-8-end-gauge-gaussian.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/num-8-end-gauge-gaussian.json --lang tr`
 
 ### Silindirik depolama tankının hacmi: kuvvetler çarpımı, Gauss formülü ve Monte Carlo (Possolo & Meija 2022)
 
@@ -5163,7 +5163,7 @@ V = πR²H; R = 8,40(3) m ve H = 32,50(7) m.
 
 - V = (7200 ± 110) m³; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/length/possolo-meija-2022-storage-tank-volume.json --lang tr`
+**Çalıştırma:** `kapsam run library/length/possolo-meija-2022-storage-tank-volume.json --lang tr`
 
 ## Kütle
 
@@ -5188,7 +5188,7 @@ Kalibrasyon sırasında hava yoğunluğu bilinir (990 hPa, %50 bağıl nem, 21 �
 
 - E = (0,00070 ± 0,00033) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,25 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h1-100g-option2.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h1-100g-option2.json --lang tr`
 
 ### Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesi olmadan 220 g'da hata (EURAMET cg-18 H1, seçenek 1)
 
@@ -5211,7 +5211,7 @@ Kalibrasyondan önce ayarlanmamış ve hava yoğunluğu bilinmiyor: kaldırma ku
 
 - E = (0,0013 ± 0,0039) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option1.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h1-220g-max-option1.json --lang tr`
 
 ### Laboratuvar terazisi 220 g / 0,1 mg: ΔT = 5 K için kaldırma kuvveti terimiyle 220 g'da hata (EURAMET cg-18 H1, seçenek 1, 7.1.2-5e formülü)
 
@@ -5234,7 +5234,7 @@ Seçenek 1 gibi, ancak kaldırma kuvveti belirsizliği en kötü durum yerine od
 
 - E = (0,00130 ± 0,00098) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h1-220g-max-option1-delta-t.json --lang tr`
 
 ### Laboratuvar terazisi 220 g / 0,1 mg: kaldırma kuvveti düzeltmesiyle 220 g'da hata (EURAMET cg-18 H1, seçenek 2)
 
@@ -5257,7 +5257,7 @@ Kalibrasyon sırasında hava yoğunluğu bilinir (990 hPa, %50 bağıl nem, 21 �
 
 - E = (0,00130 ± 0,00046) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,04 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-max-option2.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h1-220g-max-option2.json --lang tr`
 
 ### Laboratuvar terazisi 220 g / 0,1 mg: sıfır yükte hata (EURAMET cg-18 H1)
 
@@ -5279,7 +5279,7 @@ Sıfır yükte yalnızca sıfırda yuvarlama ve tekrarlanabilirlik katkı verir;
 
 - E = (0,00000 ± 0,00034) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,87 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h1-220g-zero.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h1-220g-zero.json --lang tr`
 
 ### Terazi 220 g / 0,1 mg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H1.4/A)
 
@@ -5309,7 +5309,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 - Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
 - H1/A hataları 7.1.2-5e bütçesiyle (oda sıcaklığı değişimi), H2/A ise en tutucu 7.1.2-5d bütçesiyle uydurur; basılı a₁ ve u(a₁) yalnızca bu seçimlerle yeniden elde edilir.
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h1-a-weighing-result.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h1-a-weighing-result.json --lang tr`
 
 ### Terazi 220 g / 0,1 mg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H1.4/B)
 
@@ -5340,7 +5340,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 - Kılavuz u_bağıl(δR_Dara) = 5,774·10⁻⁷ basar. Deney noktaları arasındaki eğimler 0, −2·10⁻⁶, +2·10⁻⁶ ve −1,43·10⁻⁶'dır; dolayısıyla (q_E,maks − q_E,min)/√12 = 4·10⁻⁶/√12 = 1,155e-06 (7.4.4-5); basılı değer 2·10⁻⁶ genişliğe karşılık gelir. Proje formülü kullanır: β_W² = 6,433·10⁻¹² yerine 7,432e-12, U_gl(W) eğimi 4,479·10⁻⁶ yerine 4,851e-06, minimum tartım 0,0727 g yerine 0,07277 g (araştırma günlüğü F76).
 - Kılavuz a₁ = 3,895·10⁻⁷ değerini işaretsiz basar; hatalar (100 g ve 220 g'da −0,1 mg) a₁ = −3,895·10⁻⁷ verir. Genel belirsizliğe yalnızca |a₁| girer.
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h1-b-weighing-result.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h1-b-weighing-result.json --lang tr`
 
 ### Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesi olmadan 10 kg'da hata (EURAMET cg-18 H2, seçenek 1)
 
@@ -5363,7 +5363,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 
 - E = (0,0 ± 3,4) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,17 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-10kg-option1.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-60kg-10kg-option1.json --lang tr`
 
 ### Çok aralıklı terazi 60 kg, kalibrasyondan önce ayarlanmış: Max'ta hata (EURAMET cg-18 H2, ikinci durum)
 
@@ -5391,7 +5391,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 - Bütçedeki gibi mpe = 0,96 g ile u(m_ref) = 0,635 g ve u(E) = 5,729 g olur; tabloda 5,739 g basılıdır ve kendi girdilerinden √(5,694² + 0,635²) çıkmaz (F68).
 - Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-adjusted.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-60kg-max-adjusted.json --lang tr`
 
 ### Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesi olmadan Max'ta hata (EURAMET cg-18 H2, seçenek 1)
 
@@ -5419,7 +5419,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 - Bütçe 60 kg'lık deney yükü için mpe = 0,96 g kullanır (u(m_c) = 0,554 g, u(m_D) = 0,277 g, u(m_B) = 0,658 g); oysa üç adet 20 kg F2 ağırlığın mpe'si 3 × 0,30 g = 0,90 g'dır (OIML R111). Proje 0,90 g kullanır: u(m_ref) 0,904 g yerine 0,871 g, u(E) 5,978 g yerine 5,973 g olur (araştırma günlüğü F68).
 - Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-option1.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-60kg-max-option1.json --lang tr`
 
 ### Çok aralıklı terazi 60 kg: ΔT = 10 K için kaldırma kuvveti terimiyle Max'ta hata (EURAMET cg-18 H2, seçenek 1, 7.1.2-5e formülü)
 
@@ -5448,7 +5448,7 @@ Seçenek 1 gibi; kaldırma kuvveti belirsizliği odanın beklenen sıcaklık de�
 - Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
 - mpe = 0,96 g ile 7.1.2-5e formülü 60 kg'da 0,278 g ve 40 kg'da 0,180 g verir; tabloda 0,276 g ve 0,178 g basılıdır.
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-option1-delta-t.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-60kg-max-option1-delta-t.json --lang tr`
 
 ### Çok aralıklı terazi 60 kg: kaldırma kuvveti düzeltmesiyle Max'ta hata (EURAMET cg-18 H2, seçenek 2)
 
@@ -5476,7 +5476,7 @@ Kalibrasyon sırasındaki hava yoğunluğu CIPM formülünden hesaplanır ve kal
 - Bütçe 60 kg'lık deney yükü için mpe = 0,96 g kullanır (u(m_c) = 0,554 g, u(m_D) = 0,277 g, u(m_B) = 0,658 g); oysa üç adet 20 kg F2 ağırlığın mpe'si 3 × 0,30 g = 0,90 g'dır (OIML R111). Proje 0,90 g kullanır: u(m_ref) 0,904 g yerine 0,871 g, u(E) 5,978 g yerine 5,973 g olur (araştırma günlüğü F68).
 - Kılavuz k'yı GUM Tablo G.2'den bir alt tablo satırında okur (ν = 90'da ν = 50 satırından 2,05; ν = 172'de 2,025); program %95,45 için tam t-kantilini kullanır (2,03 ve 2,01).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-max-option2.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-60kg-max-option2.json --lang tr`
 
 ### Çok aralıklı terazi 60 kg: sıfır yükte hata (EURAMET cg-18 H2)
 
@@ -5498,7 +5498,7 @@ Bulunduğu hâliyle, kalibrasyondan önce ayarlanmadan kalibre edilen 60 kg'lık
 
 - E = (0,0 ± 3,1) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,52 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-60kg-zero.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-60kg-zero.json --lang tr`
 
 ### Çok aralıklı tartı aleti 12/30/60 kg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H2.4/A)
 
@@ -5530,7 +5530,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 - Kılavuz a₁ = 1,717·10⁻⁴ değerini işaretsiz basar; hatalar negatiftir (20 kg'da −5 g, 40 ve 60 kg'da −10 g).
 - H1/A hataları 7.1.2-5e bütçesiyle (oda sıcaklığı değişimi), H2/A ise en tutucu 7.1.2-5d bütçesiyle uydurur; basılı a₁ ve u(a₁) yalnızca bu seçimlerle yeniden elde edilir.
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-a-weighing-result.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-a-weighing-result.json --lang tr`
 
 ### Çok aralıklı tartı aleti 12/30/60 kg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H2.4/B)
 
@@ -5559,7 +5559,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 
 - Tartım sonucunun belirsizliği, varsayılan kullanım koşullarında kullanıcıya yönelik öneridir; kalibrasyon sonuçlarının parçası değildir (7.4).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h2-b-weighing-result.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h2-b-weighing-result.json --lang tr`
 
 ### Köprü kantar 30 t: 10 t standart ağırlıkta hata (EURAMET cg-18 H3)
 
@@ -5580,7 +5580,7 @@ Yük alıcısında 10 × 1000 kg standart ağırlık; bu yük m_ref, ikame yükl
 
 - E = (10 ± 19) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,32 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-10t-weights.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h3-30t-10t-weights.json --lang tr`
 
 ### Köprü kantar 30 t: ikame yüküyle 15 t'da hata (EURAMET cg-18 H3)
 
@@ -5608,7 +5608,7 @@ Yük alıcısında 10 × 1000 kg standart ağırlık; bu yük m_ref, ikame yükl
 - Kılavuzun ν_eff'i yalnızca yükteki göstergenin tekrarlanabilirliğini sayar; ikame yüklerini ayarlamada kullanılan göstergelerin tekrarlanabilirlik terimlerine (7.1.2-15) sonsuz serbestlik derecesi verilir. Program her birine ν = 5 verir (araştırma günlüğü F69).
 - Üç tekrarlanabilirlik terimini aynı s'nin tek bir tahmini (ν = 5) olarak saymak, Welch–Satterthwaite'in aynı s üç kez kullanıldığında gerektirdiği gibi, ν_eff = 12 ve k = 2,23 verir (U = 32,6 kg).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-15t-substitution.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h3-30t-15t-substitution.json --lang tr`
 
 ### Köprü kantar 30 t: iki ikame yüküyle Max'ta hata (EURAMET cg-18 H3)
 
@@ -5637,7 +5637,7 @@ Yük alıcısında 10 × 1000 kg standart ağırlık; bu yük m_ref, ikame yükl
 - Kılavuzun ν_eff'i yalnızca yükteki göstergenin tekrarlanabilirliğini sayar; ikame yüklerini ayarlamada kullanılan göstergelerin tekrarlanabilirlik terimlerine (7.1.2-15) sonsuz serbestlik derecesi verilir. Program her birine ν = 5 verir (araştırma günlüğü F69).
 - Bütçe her yükte s = 6,74 kg kullanır; oysa 24 160 kg'daki tekrarlanabilirlik deneyi s = 9,03 kg vermiştir. 20 t ve 30 t'daki üç gösterge için 9,03 kg ile 30 t'da u(E) 23,9 kg yerine 26,0 kg olurdu (F69).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-max-substitution.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h3-30t-max-substitution.json --lang tr`
 
 ### Köprü kantar 30 t: sıfır yükte hata (EURAMET cg-18 H3)
 
@@ -5658,7 +5658,7 @@ Açık havada, bulunduğu hâliyle kalibre edilen 30 000 kg / 10 kg'lık karayol
 
 - E = (0 ± 18) kg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,65 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h3-30t-zero.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h3-30t-zero.json --lang tr`
 
 ### Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmamış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/A)
 
@@ -5689,7 +5689,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 - Kılavuz u(a₁) = 0,0003627 basar; kalibrasyon bütçesinin u(E_j) değerleriyle ağırlıklı uyum (C2.2-18b), basılı u(E_j) ya da nominal yüklerle de, 0,0003637 verir (araştırma günlüğü F98). Proje yeniden hesaplanan değeri kullanır; β_W², birinci mertebe doğrular ve minimum tartım basılı basamaklardan daha az değişir.
 - Sürüklenmeden kaynaklanan ayar değişimi ΔE(Max)/(Max·√3) (7.4.3-6), H3.4/A'da Max'taki hatayı (30 kg), H3.4/B'de ilk muayenedeki mpe'yi (15 kg) alır. Kullanımdaki kısa yükleme sürelerinde sünme ve histerezis ilgili değildir; SF = 2 ile minimum tartım 6 950 kg (A) ve 2 542 kg'dır (B).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h3-a-weighing-result.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h3-a-weighing-result.json --lang tr`
 
 ### Köprü kantar 30 t / 10 kg, kalibrasyondan önce ayarlanmış: tartım sonucunun belirsizliği ve minimum tartım (EURAMET cg-18 H3.4/B)
 
@@ -5720,7 +5720,7 @@ Kalibrasyon sonuçlarından ve varsayılan kullanım koşullarından kullanımda
 - Kılavuz u(a₁) = 0,0001485 basar; kalibrasyon bütçesinin u(E_j) değerleriyle ağırlıklı uyum (C2.2-18b), basılı u(E_j) ya da nominal yüklerle de, 0,0001508 verir (araştırma günlüğü F98). Proje yeniden hesaplanan değeri kullanır; β_W², birinci mertebe doğrular ve minimum tartım basılı basamaklardan daha az değişir, β_W² (1,960·10⁻⁷ yerine 1,967·10⁻⁷) ve birinci mertebe eğim (6,113·10⁻⁴ yerine 6,128·10⁻⁴) dışında.
 - Sürüklenmeden kaynaklanan ayar değişimi ΔE(Max)/(Max·√3) (7.4.3-6), H3.4/A'da Max'taki hatayı (30 kg), H3.4/B'de ilk muayenedeki mpe'yi (15 kg) alır. Kullanımdaki kısa yükleme sürelerinde sünme ve histerezis ilgili değildir; SF = 2 ile minimum tartım 6 950 kg (A) ve 2 542 kg'dır (B).
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h3-b-weighing-result.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h3-b-weighing-result.json --lang tr`
 
 ### Terazi 400 g / 0,1 mg: hata yaklaşım fonksiyonu E = a₁I, ilk uyum (EURAMET cg-18 H4)
 
@@ -5749,7 +5749,7 @@ Korelasyonlu referans kütlelerle dokuz deney noktasından 400 g'lık bir terazi
 - Tablo H4.1 100, 150 ve 250 g'da e = 0,213, 0,274 ve 0,181 mg, Tablo H4.6/H4.8 ise 100,000 200, 150,000 267 ve 250,000 200 g göstergelerini verir; bütçe 0,113, 0,240 ve 0,081 mg (100,000 100, 150,000 233, 250,000 100 g) verir. Basılı a₁, U(â), χ²_obs ve artıklar bütçe değerlerinden çıkar; proje bunları kullanır (araştırma günlüğü F70).
 - 7.1.2-5b'nin kaldırma kuvveti 'varyansı' negatiftir: ρ_a1'de kalibre edilmiş ağırlıkların sertifika değerinde zaten bulunan u(ρ) payını çıkarır. Bu bir varyans değil kovaryans düzeltmesidir; u²(m_ref) pozitif kalır.
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h4-400g-error-function.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h4-400g-error-function.json --lang tr`
 
 ### Terazi 400 g / 0,1 mg: s_m = 0,05 mg ile hata yaklaşım fonksiyonu, χ² testi geçer (EURAMET cg-18 H4)
 
@@ -5778,7 +5778,7 @@ Korelasyonlu referans kütlelerle dokuz deney noktasından 400 g'lık bir terazi
 - Tablo H4.1 100, 150 ve 250 g'da e = 0,213, 0,274 ve 0,181 mg, Tablo H4.6/H4.8 ise 100,000 200, 150,000 267 ve 250,000 200 g göstergelerini verir; bütçe 0,113, 0,240 ve 0,081 mg (100,000 100, 150,000 233, 250,000 100 g) verir. Basılı a₁, U(â), χ²_obs ve artıklar bütçe değerlerinden çıkar; proje bunları kullanır (araştırma günlüğü F70).
 - 7.1.2-5b'nin kaldırma kuvveti 'varyansı' negatiftir: ρ_a1'de kalibre edilmiş ağırlıkların sertifika değerinde zaten bulunan u(ρ) payını çıkarır. Bu bir varyans değil kovaryans düzeltmesidir; u²(m_ref) pozitif kalır.
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.05.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h4-400g-error-function-sm-0.05.json --lang tr`
 
 ### Terazi 400 g / 0,1 mg: s_m = 0,25 mg ile hata yaklaşım fonksiyonu, artık testi geçer (EURAMET cg-18 H4)
 
@@ -5808,7 +5808,7 @@ Korelasyonlu referans kütlelerle dokuz deney noktasından 400 g'lık bir terazi
 - 7.1.2-5b'nin kaldırma kuvveti 'varyansı' negatiftir: ρ_a1'de kalibre edilmiş ağırlıkların sertifika değerinde zaten bulunan u(ρ) payını çıkarır. Bu bir varyans değil kovaryans düzeltmesidir; u²(m_ref) pozitif kalır.
 - Tablo H4.8, bütçe değerlerinden hesaplanmış artıkların yanında Tablo H4.1'in e değerlerini (0,213, 0,274, 0,181 mg) basar.
 
-**Çalıştırma:** `uncertainty run library/mass/cg18-h4-400g-error-function-sm-0.25.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/cg18-h4-400g-error-function-sm-0.25.json --lang tr`
 
 ### 10 kg'lık bir ağırlığın kalibrasyonu
 
@@ -5833,7 +5833,7 @@ EA-4/02 S2: OIML M1 sınıfı ağırlığın F2 standarda karşı kütle kompara
 
 - Bulgu: rehber üç anlamlı basamağa yuvarlanmış katkıları (14,43 yerine 14,4 mg) birleştirerek 29,2 mg ve U = 58 mg bulur; yuvarlanmamış değerlerle u = 29,26 mg ve U = 58,5 mg'dir (iki basamakta 59 mg).
 
-**Çalıştırma:** `uncertainty run library/mass/ea402-s2-weight-10kg.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/ea402-s2-weight-10kg.json --lang tr`
 
 ### ILAC P14 5.5 raporlama kuralı: raporlanabilecek en küçük belirsizlik olarak CMC (EA-4/02 S2 kütle, örnek CMC)
 
@@ -5859,7 +5859,7 @@ EA-4/02 S2'deki 10 kg kütle (U = 58 mg); akredite CMC'si örnek olarak 80 mg al
 
 - 80 mg'lık CMC, değerlendirilen U'yu aşacak biçimde seçilmiş varsayımsal bir değerdir; bir akreditasyon kapsamından alınmamıştır.
 
-**Çalıştırma:** `uncertainty run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/ilac-p14-cmc-floor-weight-10kg.json --lang tr`
 
 ### Kütle kalibrasyonu (birinci mertebe GUM)
 
@@ -5884,7 +5884,7 @@ JCGM 101 9.3: 100 g'lık bir ağırlığın referans ağırlıkla karşılaştı
 
 - JCGM 101 Tablo 6, M = 0,72 × 10⁶ ile en kısa aralığı [1,0834; 1,3825] olarak verir; çıktı dağılımı 1,2340 etrafında simetrik olduğundan burada çok daha az saçılımlı olan olasılıksal simetrik aralık kullanılmıştır.
 
-**Çalıştırma:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/jcgm101-9.3-mass-calibration.json --lang tr`
 
 ### Kütle kalibrasyonu (ikinci mertebe terimli GUM)
 
@@ -5905,7 +5905,7 @@ JCGM 101 9.3: aynı model, GUM 5.1.2'nin yüksek mertebe terimleriyle değerlend
 
 - dm = (1,23 ± 0,15) mg; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/jcgm101-9.3-mass-calibration-higher-order.json --lang tr`
 
 ### OIML M1 sınıfı 10 kg ağırlık (UKAS M3003 K.4)
 
@@ -5930,7 +5930,7 @@ Kütle karşılaştırıcısında F2 sınıfı bir standartla üç ara-okumalı 
 
 - Araştırma günlüğü F55: K.4.7, m = 10 karşılaştırma için ν = (m − 1) = 10 serbestlik derecesi yazar; bütçe m − 1 olan 9'u kullanır. Bütçenin altındaki not 10 okumadan söz eder.
 
-**Çalıştırma:** `uncertainty run library/mass/m3003-k4-weight-10kg.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/m3003-k4-weight-10kg.json --lang tr`
 
 ### 200 g'de 205 g kapasiteli tartı aleti (UKAS M3003 K.5)
 
@@ -5955,7 +5955,7 @@ Kütle karşılaştırıcısında F2 sınıfı bir standartla üç ara-okumalı 
 
 - Araştırma günlüğü F56: K.5.9'un u_i sütunundaki katkılar (0,05, 0,058, 0,029, 0,029, 0,115, 0,05 mg) 0,150 mg değil 0,153 mg verir; basılı değer, sürüklenme sınırı √3 yerine 2'ye bölünseydi elde edilirdi. K.5.1 modeline göre ve yalnızca standardın kütlesi W_S tam 200,0000 g alınırsa (K.5 sertifika değeri vermez) ΔI_X = I_X − W_S = 199,9999 g − 200 g = −0,10 mg iken raporlanan gösterge hatası +0,10 mg'dir.
 
-**Çalıştırma:** `uncertainty run library/mass/m3003-k5-weighing-machine-200g.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/m3003-k5-weighing-machine-200g.json --lang tr`
 
 ### Tartımla toz kütlesi (NIST TN 1900 E1)
 
@@ -5975,7 +5975,7 @@ TN 1900 E1: tek kefeli terazide üç tartımdan toz kütlesi; doğrusal model, G
 
 - m_P = (50,284 ± 0,014) g; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/mass/nist-tn1900-e1-weighing.json --lang tr`
+**Çalıştırma:** `kapsam run library/mass/nist-tn1900-e1-weighing.json --lang tr`
 
 ## Fiziksel özellikler
 
@@ -5998,7 +5998,7 @@ Sertifikalı aktivite, literatürden yarı ömür ve Δt = 2,73 a ile A₁ = A�
 
 - A_1 = (10,81 ± 0,11) kBq; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 1,96 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/physical/gum5-e14-radioactive-decay-bi207.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/gum5-e14-radioactive-decay-bi207.json --lang tr`
 
 ### Altı tahribatlı deneyden çelik halatın kopma kuvveti (JCGM GUM-5 Örnek 15)
 
@@ -6022,7 +6022,7 @@ F₀ = F̄ − B − B_ref − e_res − e_T: bir makaradan kesilen altı parça
 
 - GUM-5 15.5.2, 10,1 kN MCM standart sapması ve [9986,0; 10 025,3] kN aralığı basar. F için belirtilen t dağılımıyla (ölçek u(F̄) = 0,7 kN, ν = 5) MCM standart sapması √(u_c² − u²(F̄) + u²(F̄)·5/3) = 9,93 kN'dur; pratikte GUF değeri 9,9 kN'dur. 10,1 kN, ölçek olarak tek deneyin standart sapması s = 1,8 kN alınırsa çıkar: 10,14 kN (araştırma günlüğü F77).
 
-**Çalıştırma:** `uncertainty run library/physical/gum5-e15-wire-rope-breaking-force.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/gum5-e15-wire-rope-breaking-force.json --lang tr`
 
 ### Ziftin yumuşama noktası: eksik verilerle tekrarlanabilirlik ve tekrar üretilebilirlik (ISO 5725-2 Örnek C.2)
 
@@ -6050,7 +6050,7 @@ ISO 5725-2:2019 C.2: halka-bilye yöntemiyle ziftin yumuşama noktası; dört d�
 
 - Tablo C.12 4. düzeyde s_R = 1,915 °C verir; Formül (29)–(31) 1,9175 °C (1,918 °C) verir; bu REML Tablo C.13'ün değeridir (araştırma günlüğü F48). ISO 5725-2:1994 de aynı 1,915 °C değerini basar.
 
-**Çalıştırma:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/iso5725-2-c2-softening-point-pitch.json --lang tr`
 
 ### Ziftin yumuşama noktası: REML tahminleri (ISO 5725-2 Örnek C.2)
 
@@ -6076,7 +6076,7 @@ ISO 5725-2:2019 C.2.9: Örnek C.2 verilerinin kısıtlı en çok olabilirlikle (
 
 - Tablo C.13 4. düzeyde s_R = 1,918 °C verirken Tablo C.12 1,915 °C verir; dengeli hücrelerde her iki yöntem de 1,9175 °C verir (araştırma günlüğü F48).
 
-**Çalıştırma:** `uncertainty run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/iso5725-2-c2-softening-point-pitch-reml.json --lang tr`
 
 ### ¹³⁷Cs yarı ömrü: birbiriyle tutarsız 19 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
 
@@ -6103,7 +6103,7 @@ MacMahon vd. (2004) tarafından derlenen 19 yayımlanmış yarı ömür heteroje
 
 - Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır.
 
-**Çalıştırma:** `uncertainty run library/physical/koepke2017-half-life-cs137.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/koepke2017-half-life-cs137.json --lang tr`
 
 ### ⁹⁰Sr yarı ömrü: birbiriyle tutarsız 11 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
 
@@ -6130,7 +6130,7 @@ MacMahon vd. (2004) tarafından derlenen 11 yayımlanmış yarı ömür heteroje
 
 - Tablo 3'te birkaç kaynak aynı etiketi taşır (Fl65); burada tablodaki sıraya göre Fl65a, Fl65b olarak ayrılmıştır.
 
-**Çalıştırma:** `uncertainty run library/physical/koepke2017-half-life-sr90.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/koepke2017-half-life-sr90.json --lang tr`
 
 ### Newton çekim sabiti: 14 ölçümün uzlaşı değeri (DerSimonian–Laird ve doğrusal havuz; Koepke vd. 2017)
 
@@ -6160,7 +6160,7 @@ CODATA 2014 düzeltmesinde kullanılan 14 G ölçümü birbiriyle tutarsızdır 
 - Basılı DerSimonian–Laird değeri 6,673 80, Tablo 1'den yeniden hesaplanan 6,673 790 değerinin son basamağında bir birim yukarıdadır (araştırma günlüğü F93). Basılı aralık (6,673 20, 6,674 40), 10⁻⁴'e yuvarlanmış bootstrap yüzdelikleriyle uyuşur.
 - NIST-82 ile LANL-97 (0,351) ve HUST-05 ile HUST-09 (0,134) arasındaki korelasyonlar, Tablo 2'nin DerSimonian–Laird satırında olduğu gibi göz ardı edilir.
 
-**Çalıştırma:** `uncertainty run library/physical/koepke2017-newtonian-constant-g.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/koepke2017-newtonian-constant-g.json --lang tr`
 
 ### 16 ölçümden Newton çekim sabiti: Knapp–Hartung düzeltmeli DerSimonian–Laird, en çok olabilirlik, hiyerarşik Bayes ve doğrusal havuz (Merkatas vd. 2019)
 
@@ -6189,7 +6189,7 @@ Koepke vd. (2017) verileri; JILA-10 düzeltilmiş (6,672 60 ± 0,000 25) ve 2018
 
 - Uygulanmayanlar: Birge çarpımsal modelleri (BRE, BRM, BRQ), CODATA genişletmesi (MTE), Mandel–Paule, REML, Student-t etkileri, makalenin Laplace modeli (Laplace etkileri ve hataları) ve Bayesçi karışım modeli (BMM).
 
-**Çalıştırma:** `uncertainty run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/merkatas2019-newtonian-constant-g-shades.json --lang tr`
 
 ### 19 laboratuvarda ⁶⁰Co aktivitesi: birini dışarıda bırakan ve iki taraflı eşdeğerlik dereceleriyle uzlaşı değeri (NIST Consensus Builder §4.4)
 
@@ -6216,7 +6216,7 @@ Süren anahtar karşılaştırma BIPM.RI(II)-K1.Co-60'tan, NICOB kılavuzunda (�
 - Katılımcılar kılavuzun 19. örneğindeki sırayla Lab 1 – Lab 19 olarak kodlanmıştır. BIPM.RI(II)-K1.Co-60'ın resmî referans değeri ve eşdeğerlik dereceleri KCDB'dekilerdir; buradaki eşdeğerlik dereceleri yöntemleri aynı veri üzerinde gösterir.
 - Kılavuzda eşdeğerlik dereceleri yalnızca bir şekilde (Örnek 22) gösterilir; buradaki referans değerleri NICOB R kaynağının 10⁶ çekilişli numpy aktarımından gelir (araştırma günlüğü D86). 10⁵ çekilişli program U'da %1 içinde uyuşur.
 
-**Çalıştırma:** `uncertainty run library/physical/nicob-co60-activity-leave-one-out-bilateral.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/nicob-co60-activity-leave-one-out-bilateral.json --lang tr`
 
 ### Isıl genleşme katsayısı, normal girdiler, %95 (NIST TN 1900 E13)
 
@@ -6240,7 +6240,7 @@ TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki s�
 
 - Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
 
-**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-95.json --lang tr`
 
 ### Isıl genleşme katsayısı, normal girdiler, %99 (NIST TN 1900 E13)
 
@@ -6264,7 +6264,7 @@ TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki s�
 
 - Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
 
-**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-gaussian-99.json --lang tr`
 
 ### Isıl genleşme katsayısı, Student t₃ girdiler, %95 (NIST TN 1900 E13)
 
@@ -6285,7 +6285,7 @@ TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki s�
 - Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
 - TN 1900 her t₃ dağılımını standart sapması u olacak şekilde ölçekler (ölçek u/√3); JCGM 101 6.4.9 ise ölçek olarak s/√n = u alır. Bir t girdisinin GUM belirsizliği ölçeği olduğundan burada GUM değerlendirmesi kapatılmıştır; GUM sonucu normal girdili projelerdedir.
 
-**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-95.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-student-95.json --lang tr`
 
 ### Isıl genleşme katsayısı, Student t₃ girdiler, %99 (NIST TN 1900 E13)
 
@@ -6306,7 +6306,7 @@ TN 1900 E13: bir bakır çubuğun doğrusal ısıl genleşme katsayısı, iki s�
 - Eşlik eden nist-tn1900-e13-thermal-expansion-{gaussian,student}-{95,99} projeleri iki girdi modelini %95 ve %99'da karşılaştırır: t₃ girdilerle %95 aralığı normal girdilere göre daha kısa, %99 aralığı ise daha uzundur.
 - TN 1900 her t₃ dağılımını standart sapması u olacak şekilde ölçekler (ölçek u/√3); JCGM 101 6.4.9 ise ölçek olarak s/√n = u alır. Bir t girdisinin GUM belirsizliği ölçeği olduğundan burada GUM değerlendirmesi kapatılmıştır; GUM sonucu normal girdili projelerdedir.
 
-**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e13-thermal-expansion-student-99.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/nist-tn1900-e13-thermal-expansion-student-99.json --lang tr`
 
 ### Düşen bilyalı viskozimetre (NIST TN 1900 E3)
 
@@ -6331,7 +6331,7 @@ TN 1900 E3: bir NaOH çözeltisinin dinamik viskozitesi kalibrasyon sıvısıyla
 
 - TN 1900, NIST Uncertainty Machine'de uygulanan klasik yayılım formülünün 1,11 mPa s verdiğini ve bunun Monte Carlo değeriyle aynı olduğunu belirtir. Birinci mertebe yayılım yasası (GUM eş. 10) verilen model ve girdilere uygulandığında 1,027 mPa s; GUM 5.1.2'nin ikinci mertebe terimleriyle yaklaşık 1,10 mPa s verir. NIST Uncertainty Machine kılavuzu (sürüm 1.4, §9) aynı ifadeyi tekrarlar; ancak Şekil 5'te bastığı çıktı Gauss formülü için u(y) = 1 mPa s verir ve bu 1,027 mPa s ile tutarlıdır: metindeki 1,11 mPa s Monte Carlo değeridir.
 
-**Çalıştırma:** `uncertainty run library/physical/nist-tn1900-e3-falling-ball-viscometer.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/nist-tn1900-e3-falling-ball-viscometer.json --lang tr`
 
 ### CODATA 2010 değerlerinden Stefan–Boltzmann sabiti (NIST Uncertainty Machine §11)
 
@@ -6354,7 +6354,7 @@ NUM kılavuzu §11: 2010 CODATA değerlerinden σ = 32π⁵hR⁴R∞⁴/(15A_r(e
 
 - CODATA ayarlaması bu sabitleri korelasyonlu kılar; kılavuzda belirtildiği gibi korelasyonların hesaba katılması u(σ)'yı raporlanan basamakta değiştirmez. SI'nın 2019'daki yeniden tanımından beri h kesindir ve σ = 5,670 374 419… × 10⁻⁸ W m⁻² K⁻⁴ belirsizlik taşımaz.
 
-**Çalıştırma:** `uncertainty run library/physical/num-11-stefan-boltzmann.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/num-11-stefan-boltzmann.json --lang tr`
 
 ### Birbiriyle tutarsız 22 kestirimden Hubble–Lemaître sabiti: Laplace etkili Bayesçi uzlaşı (Possolo & Meija 2022)
 
@@ -6382,7 +6382,7 @@ H₀'ın son kestirimleri (Planck hariç) belirsizliklerinin öngördüğünden 
 - Etiketler kitabı izler; hst etiketli iki çalışma ilk yazarlarıyla ayrılmıştır (Riess 2019, Freedman 2019). Kitapta hafif asimetrik belirsizlikler sol ve sağ belirsizliklerin geometrik ortalamasıyla değiştirilmiştir.
 - Karşılaştırma için DerSimonian–Laird kestirimi (normal etkiler) de gösterilmiştir.
 
-**Çalıştırma:** `uncertainty run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang tr`
+**Çalıştırma:** `kapsam run library/physical/possolo-meija-2022-hubble-lemaitre-constant-laplace.json --lang tr`
 
 ## Basınç
 
@@ -6408,7 +6408,7 @@ Senaryo 1: referans düzeltmesi Δp_m = %0,05 p_std uygulanır, u(Δp_m) = 0,5 P
 
 - Tablo E2.2.2, 4–6. noktalar için U(e)'yi 0,0025, 0,0017 ve 0,0011 olarak basar; doğrusu 0,025, 0,017 ve 0,012'dir (U(f) doğru basılmıştır). Tablo E2.2.3, E2.2.5 ve E2.2.7, p_std değerlerinin sütununa 'p_UUC' başlığını verir. E2.2.6.1'deki çalışılmış örnek 13. nokta için σ = 0,002 kullanır; bu, Tablo E2.2.2'deki genişletilmiş U(f)'dir; u(f) = 0,001 ile p_c, tablodaki gibi %100'dür (araştırma günlüğü F88).
 
-**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang tr`
+**Çalıştırma:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-correction-applied.json --lang tr`
 
 ### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 3 (EMUE E2.2)
 
@@ -6428,7 +6428,7 @@ Senaryo 3: düzeltme ve belirsizliği yok sayılır. Kalibrasyonun 8. noktası (
 - f = (1,0020 ± 0,0059); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 - f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %84; basit kabul kuralına göre kabul.
 
-**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang tr`
+**Çalıştırma:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-correction-ignored.json --lang tr`
 
 ### Vakum ölçer kalibrasyonu, düzeltme çarpanı ve uygunluk olasılığı, senaryo 2 (EMUE E2.2)
 
@@ -6448,7 +6448,7 @@ Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05
 - f = (1,0020 ± 0,0071); genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 - f için 0,995 ≤ f ≤ 1,005 şartına uygunluk olasılığı: p_c = %78; basit kabul kuralına göre kabul.
 
-**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang tr`
+**Çalıştırma:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-correction-in-uncertainty.json --lang tr`
 
 ### Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon dahil (EMUE E2.2.7)
 
@@ -6468,7 +6468,7 @@ Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05
 - dp = (-0,6 ± 1,8) Pa; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 - dp için -1,2795 Pa ≤ dp ≤ 1,2795 Pa şartına uygunluk olasılığı: p_c = %75; basit kabul kuralına göre kabul.
 
-**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang tr`
+**Çalıştırma:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlated.json --lang tr`
 
 ### Vakum ölçer, ortak sıcaklık hatalı basınç farkı: korelasyon yok sayılmış (EMUE E2.2.7)
 
@@ -6488,7 +6488,7 @@ Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05
 - dp = (-0,6 ± 2,3) Pa; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 - dp için -1,2795 Pa ≤ dp ≤ 1,2795 Pa şartına uygunluk olasılığı: p_c = %67; basit kabul kuralına göre kabul.
 
-**Çalıştırma:** `uncertainty run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang tr`
+**Çalıştırma:** `kapsam run library/pressure/emue-e2.2-vacuum-gauge-sum-model-correlation-ignored.json --lang tr`
 
 ### Ölü ağırlık test cihazına karşı 2 MPa'da dijital basınç göstergesi (UKAS M3003 K.8)
 
@@ -6513,7 +6513,7 @@ Senaryo 2: düzeltme uygulanmaz, belirsizliğine katılır, u² = 0,5² + (%0,05
 
 - Araştırma günlüğü F60: K.8.5.1, 7,3 ppm'lik göreli kütle belirsizliğinin dikdörtgen dağılımın yarı genişliği olarak alınacağını söyler; bütçe ise onu k = 2 ile genişletilmiş belirsizlik olarak alır (u = 4,21 ppm yerine 3,65 ppm). u_c'ye etkisi son basılı basamağın altındadır (her iki durumda 43,0 ppm).
 
-**Çalıştırma:** `uncertainty run library/pressure/m3003-k8-pressure-indicator-2mpa.json --lang tr`
+**Çalıştırma:** `kapsam run library/pressure/m3003-k8-pressure-indicator-2mpa.json --lang tr`
 
 ## Sıcaklık
 
@@ -6538,7 +6538,7 @@ EA-4/02 S11: bloğun sıcaklığının kalibre edilmiş platin direnç termometr
 
 - Bulgu: rehber β = 0,43 için k = 1,81 verir; Eş. (S10.9) 1,80 verir. Raporlanan (180,1 ± 0,3) °C değişmez.
 
-**Çalıştırma:** `uncertainty run library/temperature/ea402-s11-block-calibrator-180c.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/ea402-s11-block-calibrator-180c.json --lang tr`
 
 ### Termokupl kalibrasyonu: bilinmeyenin emk'sı
 
@@ -6561,7 +6561,7 @@ EA-4/02 S5 (ikinci bütçe): kalibre edilen N tipi termokuplun 1000 °C'deki emk
 
 - Bulgu: δt'nin basılı katkısı (24,5 µV) 0,641 °C × 38,46 µV/°C = 24,65 µV ile tutarsızdır; basılı toplam 25,0 µV, 24,65 değerinden elde edilir. Δt'nin tahmini −0,5 °C'dir (basılı 0,5 °C); bu, belirtilen V_X = 36 248 − 19,2 = 36 229 µV sonucunu verir.
 
-**Çalıştırma:** `uncertainty run library/temperature/ea402-s5-thermocouple-emf.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/ea402-s5-thermocouple-emf.json --lang tr`
 
 ### Termokupl kalibrasyonu: fırın sıcaklığı
 
@@ -6580,7 +6580,7 @@ EA-4/02 S5 (birinci bütçe): 1000 °C'deki fırının sıcaklığının N tipi 
 
 - t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/temperature/ea402-s5-thermocouple-furnace.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/ea402-s5-thermocouple-furnace.json --lang tr`
 
 ### Direnç termometresiyle Celsius sıcaklığı, örtük model (JCGM 102 9.5.2)
 
@@ -6599,7 +6599,7 @@ JCGM 102:2011 9.5.2: termometrenin korelasyonlu kalibrasyon sabitleriyle ölçü
 
 - theta = 20,02317 °C, u(theta) = 0,0045 °C (GUM)
 
-**Çalıştırma:** `uncertainty run library/temperature/jcgm102-9.5.2-resistance-thermometer.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/jcgm102-9.5.2-resistance-thermometer.json --lang tr`
 
 ### Tek direnç termometresiyle on Celsius sıcaklığı, örtük model (JCGM 102 9.5.3)
 
@@ -6633,7 +6633,7 @@ JCGM 102:2011 9.5.3: aynı kalibre termometreyle ölçülen on sıcaklık, kalib
 
 - Tablo 15 yedinci sütunu θ7 yerine θ6 olarak adlandırır.
 
-**Çalıştırma:** `uncertainty run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/jcgm102-9.5.3-ten-temperatures.json --lang tr`
 
 ### Kalibre edilmiş PT100 probdan kaptaki gazın sıcaklığı (UKAS M3003 K.11, ikinci bütçe)
 
@@ -6654,7 +6654,7 @@ L probu kabın dışına bağlanır; düzeltmesi ΔT_u = 0,000 55·I_u + 0,419 �
 
 - T_g = (22,97 ± 0,17) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/temperature/m3003-k11-gas-temperature.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/m3003-k11-gas-temperature.json --lang tr`
 
 ### Kuru blokta referans proba karşı PT100 prob kalibrasyonu (UKAS M3003 K.11, birinci bütçe)
 
@@ -6675,7 +6675,7 @@ Laboratuvar probu L'nin 20,4 °C'de, kalibrasyon fonksiyonu ΔT_S = 0,000 01·I_
 
 - dT_L = (0,432 ± 0,084) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/temperature/m3003-k11-probe-calibration.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/m3003-k11-probe-calibration.json --lang tr`
 
 ### 1000 °C'de N tipi termoçift: tam bütçesiyle EMK (UKAS M3003 K.7)
 
@@ -6701,7 +6701,7 @@ K.7'nin iki bütçesi tek modelde: fırın sıcaklığı bilinmeyen termoçiftin
 
 - Araştırma günlüğü F59: raporlanan 36 230 µV EMK ölçeklemeyle, 36 248·1000/1000,5, elde edilir; belirsizlik bütçesi ise termoçiftin 38,5 µV/°C duyarlılığını kullanır, bu da 36 248 − 0,5·38,46 = 36 228,8 µV verir. Basılı u_c = 25,9 µV ve U = 51,9 µV yuvarlanmış duyarlılıklardan (38,5 ve 26,3) çıkar; tam değerler 25,84 µV ve 51,7 µV verir.
 
-**Çalıştırma:** `uncertainty run library/temperature/m3003-k7-thermocouple-emf.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/m3003-k7-thermocouple-emf.json --lang tr`
 
 ### 1000 °C'de termoçift kalibrasyonunda fırın sıcaklığı (UKAS M3003 K.7, birinci bütçe)
 
@@ -6721,7 +6721,7 @@ K.7'nin birinci kısmı: iki referans termoçiftten sıcak bağlantılardaki sı
 
 - t_X = (1000,5 ± 1,3) °C; genişletilmiş belirsizlik, birleşik standart belirsizliğin k = 2,00 kapsam faktörüyle çarpılmasıyla elde edilmiştir ve yaklaşık %95 kapsam olasılığına karşılık gelir. U 2 anlamlı basamağa yuvarlanmıştır: olağan yuvarlama; U'yu %5'ten fazla düşürecekse yukarı (EA-4/02 M:2022, 6.3).
 
-**Çalıştırma:** `uncertainty run library/temperature/m3003-k7-thermocouple-furnace.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/m3003-k7-thermocouple-furnace.json --lang tr`
 
 ### Günlük en yüksek sıcaklığın aylık ortalaması (NIST TN 1900 E2)
 
@@ -6746,5 +6746,5 @@ TN 1900 E2: 22 günlük okuma için t_i = τ + E_i gözlem denklemi; 21 serbestl
 - Monte Carlo standart sapması s/√m · √(ν/(ν − 2)) = 0,917 °C'dir ve u = 0,872 °C'den büyüktür, çünkü JCGM 101 6.4.9'un t dağılımının ölçeği s/√m'dir; kapsam aralıkları ise çakışır.
 - TN 1900 ayrıca dağılımdan bağımsız Wilcoxon aralığını, [23,6; 27,6] °C, verir; bu bir GUM ya da Monte Carlo sonucu olmadığından burada yeniden üretilmez.
 
-**Çalıştırma:** `uncertainty run library/temperature/nist-tn1900-e2-surface-temperature.json --lang tr`
+**Çalıştırma:** `kapsam run library/temperature/nist-tn1900-e2-surface-temperature.json --lang tr`
 

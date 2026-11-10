@@ -1,5 +1,6 @@
-Uncertainty Calculations (Belirsizlik Hesaplamaları)
+KAPSAM
 Measurement uncertainty evaluation software / Ölçüm belirsizliği hesaplama yazılımı
+(formerly Uncertainty Calculations / Belirsizlik Hesaplamaları)
 Copyright (C) 2026 İlker Ün, TÜBİTAK UME (ORCID 0000-0001-5089-4602)
 
 This program is free software: you can redistribute it and/or modify it
@@ -13,7 +14,7 @@ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 If you use this program or results obtained with it, please cite:
-  Ün, İ. Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement
-  uncertainty evaluation software, version 0.1.0. TÜBİTAK UME, 2026.
+  Ün, İ. KAPSAM: open-source software for the evaluation of measurement
+  uncertainty (GUM, Monte Carlo and top-down), version 0.1.0. TÜBİTAK UME, 2026.
   https://github.com/unilker/uncertainty
   (see CITATION.cff; to be replaced by the journal article once published)

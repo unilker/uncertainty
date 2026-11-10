@@ -1,0 +1,15 @@
+{
+  "title": "KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down)",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Ün, İlker",
+      "affiliation": "TÜBİTAK Ulusal Metroloji Enstitüsü (UME), Gebze, Kocaeli, Türkiye",
+      "orcid": "0000-0001-5089-4602"
+    }
+  ],
+  "license": "GPL-3.0-or-later",
+  "keywords": ["measurement uncertainty", "GUM", "Monte Carlo method", "JCGM 101", "JCGM 102", "software validation",
+               "worked examples", "consensus value", "ISO/IEC 17025", "metrology"],
+  "description": "Open-source software for the evaluation of measurement uncertainty: the GUM including its 2026 amendment, the Monte Carlo methods of JCGM 101 and 102, conformity assessment, top-down evaluation, proficiency testing, calibration with uncertainty in both variables, precision experiments, control charts, uncertainty from sampling, weighing instruments and consensus values, with reports in English and Turkish. Validated on 286 projects built from the worked examples of 38 guidance documents (1865 reference values), compared with Suncal (171 projects) and recalculated with spreadsheet formulas (189 projects). Rust engine, command-line tool and a Flutter application for desktop and mobile platforms."
+}

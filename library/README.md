@@ -1,14 +1,14 @@
 # Example library / Örnek kütüphanesi
 
 Every file is a complete project — a measurement model (GUM and Monte Carlo) or a
-top-down evaluation from raw validation data — (`uncertainty run <file>`) and contains the reference values of the
-published example with documented tolerances. `uncertainty check library` and `cargo test` rerun all of
+top-down evaluation from raw validation data — (`kapsam run <file>`) and contains the reference values of the
+published example with documented tolerances. `kapsam check library` and `cargo test` rerun all of
 them; a failing comparison fails the build. Notes in each file record where the published example is
 internally inconsistent (findings of `docs/research/research-log.md`).
 
 Her dosya eksiksiz bir projedir — bir ölçüm modeli (GUM ve Monte Carlo) ya da ham
-validasyon verilerinden top-down değerlendirme — (`uncertainty run <dosya>`) ve yayımlanmış örneğin referans değerlerini
-belgelenmiş toleranslarla içerir. `uncertainty check library` ve `cargo test` hepsini yeniden hesaplar;
+validasyon verilerinden top-down değerlendirme — (`kapsam run <dosya>`) ve yayımlanmış örneğin referans değerlerini
+belgelenmiş toleranslarla içerir. `kapsam check library` ve `cargo test` hepsini yeniden hesaplar;
 başarısız bir karşılaştırma derlemeyi başarısız kılar. Dosyalardaki notlar, yayımlanmış örneğin kendi içinde
 tutarsız olduğu yerleri kaydeder (`docs/research/research-log.md` bulguları).
 
@@ -440,10 +440,10 @@ belirtilen deneme sayısında ölçülen Monte Carlo saçılımının yaklaşık
 
 ## Adding an example / Örnek ekleme
 
-Start from `uncertainty template`, give the `metadata.id` the file name, cite the source, and put the
+Start from `kapsam template`, give the `metadata.id` the file name, cite the source, and put the
 published values with their rounding tolerance under `expected`. Explain every deviation from the source in
 `metadata.notes` (English and Turkish).
 
-`uncertainty template` çıktısından başlayın, `metadata.id` alanına dosya adını verin, kaynağı belirtin ve
+`kapsam template` çıktısından başlayın, `metadata.id` alanına dosya adını verin, kaynağı belirtin ve
 yayımlanmış değerleri yuvarlama toleranslarıyla `expected` altına yazın. Kaynaktan her sapmayı
 `metadata.notes` içinde (İngilizce ve Türkçe) açıklayın.

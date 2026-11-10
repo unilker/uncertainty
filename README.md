@@ -1,4 +1,10 @@
-# Uncertainty Calculations · Belirsizlik Hesaplamaları
+# KAPSAM
+
+<img src="app/assets/logo/logo.png" alt="KAPSAM logo" width="96" align="right">
+
+*Measurement uncertainty software · Ölçüm belirsizliği yazılımı.* The name is Turkish for *scope, coverage*,
+as in the coverage factor *k* and the coverage interval (*kapsam faktörü*, *kapsam aralığı*); it is read
+"KAP-sam". Until November 2026 the program was called *Uncertainty Calculations / Belirsizlik Hesaplamaları*.
 
 **EN** — Open software for evaluating measurement uncertainty with the GUM
 uncertainty framework (JCGM 100:2008) and the Monte Carlo method of GUM
@@ -108,7 +114,7 @@ Türkçe ve İngilizce.
 
 ```sh
 cargo build --release
-B=target/release/uncertainty
+B=target/release/kapsam
 $B template > my.json                                   # start a project / proje başlat
 $B template --topdown > td.json                         # top-down project from raw data
 $B template --proficiency > pt.json                     # proficiency test round (ISO 13528)
@@ -136,6 +142,11 @@ yeterlilik testi ve kalibrasyon (ISO 6143) düzenleyicileri, bütçe, grafikler 
 
 ## User guide / Kullanım rehberi
 
+**Beginner's guide / Başlangıç kılavuzu:** *Uncertainty from scratch / Sıfırdan belirsizlik*, built into the
+application and in [docs/guide/beginner](docs/guide/beginner/en/README.md) ([Türkçe](docs/guide/beginner/tr/README.md)):
+twelve chapters from the first idea to reporting, a plain-language step-by-step explanation of every project and a
+lesson with a level (beginner, intermediate, advanced) for every library example.
+
 [docs/guide](docs/guide/README.md) — in English and Turkish: getting started, the GUM uncertainty framework,
 the Monte Carlo method, top-down evaluation, reporting, the project file reference, an English–Turkish
 glossary, proficiency testing, calibration in both variables, conformity assessment, interlaboratory precision
@@ -162,6 +173,26 @@ cargo run --release --example mcm_dispersion   # Monte Carlo dispersion study
 
 The project is developed as a scientific publication; decisions, findings
 and sources are recorded in [docs/research/](docs/research/).
+
+## Privacy / Gizlilik
+
+This program will not transfer any information to other networked systems unless specifically requested by the
+user or the person installing or operating it. All calculations run on the user's computer; projects and reports
+are written only where the user saves or shares them.
+
+Bu program, kullanıcı ya da programı kuran veya çalıştıran kişi özellikle istemedikçe hiçbir bilgiyi başka ağ
+sistemlerine aktarmaz. Tüm hesaplar kullanıcının bilgisayarında yapılır; projeler ve raporlar yalnızca kullanıcının
+kaydettiği ya da paylaştığı yere yazılır.
+
+## Windows packages and antivirus / Windows paketleri ve antivirüs
+
+Windows packages are built from this repository by GitHub Actions ([package.yml](.github/workflows/package.yml))
+and are not yet code-signed, so endpoint protection may quarantine them as unknown files. See
+[docs/windows-code-signing.md](docs/windows-code-signing.md) for an exception and for signing.
+
+Windows paketleri bu depodan GitHub Actions ile derlenir ve henüz kod imzalı değildir; bu yüzden antivirüs
+programları onları bilinmeyen dosya olarak karantinaya alabilir. İstisna ve imzalama için:
+[docs/windows-code-signing.md](docs/windows-code-signing.md).
 
 ## Licence and citation / Lisans ve atıf
 

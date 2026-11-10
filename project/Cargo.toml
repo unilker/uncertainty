@@ -1,6 +1,6 @@
 [package]
 name = "uncertainty-project"
-description = "Project file format, analysis runner and report generation for Uncertainty Calculations"
+description = "Project file format, analysis runner and report generation for KAPSAM"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

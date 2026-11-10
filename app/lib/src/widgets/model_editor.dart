@@ -70,8 +70,20 @@ class _ModelEditorState extends State<ModelEditor> {
                 onChanged: widget.onChanged,
               ),
               StringField(map: _model['output'] as Map<String, dynamic>, field: 'unit', label: s['unit'], width: 120, onChanged: widget.onChanged),
-              NumberField(map: _model['output'] as Map<String, dynamic>, field: 'lower_bound', label: s['lower_bound'], width: 140, onChanged: widget.onChanged),
-              NumberField(map: _model['output'] as Map<String, dynamic>, field: 'upper_bound', label: s['upper_bound'], width: 140, onChanged: widget.onChanged),
+              NumberField(
+                map: _model['output'] as Map<String, dynamic>,
+                field: 'lower_bound',
+                label: s['lower_bound'],
+                width: 140,
+                onChanged: widget.onChanged,
+              ),
+              NumberField(
+                map: _model['output'] as Map<String, dynamic>,
+                field: 'upper_bound',
+                label: s['upper_bound'],
+                width: 140,
+                onChanged: widget.onChanged,
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -306,12 +318,13 @@ class _InputCardState extends State<InputCard> {
                     children: [
                       StringField(map: widget.input, field: 'name', label: s['name'], width: 140, keepEmpty: true, onChanged: widget.onChanged),
                       StringField(map: widget.input, field: 'unit', label: s['unit'], width: 100, onChanged: widget.onChanged),
-                      SizedBox(
+                      Labeled(
+                        label: s['distribution'],
                         width: 230,
                         child: DropdownButtonFormField<String>(
                           initialValue: distributionParameters.containsKey(type) ? type : null,
                           isExpanded: true,
-                          decoration: InputDecoration(labelText: s['distribution'], isDense: true),
+                          decoration: fieldDecoration(s['distribution']),
                           items: [for (final t in distributionParameters.keys) DropdownMenuItem(value: t, child: Text(s.distribution(t)))],
                           onChanged: (t) => t == null ? null : _setType(t),
                         ),

@@ -27,7 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
-  if (!window.Create(L"uncertainty_app", origin, size)) {
+  if (!window.Create(L"KAPSAM \u2014 \u00d6l\u00e7\u00fcm belirsizli\u011fi / Measurement uncertainty", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

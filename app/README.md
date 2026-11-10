@@ -1,4 +1,4 @@
-# Uncertainty Calculations — graphical interface / grafik arayüz
+# KAPSAM — graphical interface / grafik arayüz
 
 Flutter application (desktop and mobile) on top of the Rust engine. The
 interface edits the JSON project file and sends it to the engine through a
@@ -48,7 +48,7 @@ flutter test          # needs the engine in ../target/release (cargo build --rel
 flutter run -d linux
 ```
 
-Command line: `uncertainty_app [project.json] [--run] [--lang en|tr]` opens a
+Command line: `kapsam [project.json] [--run] [--lang en|tr]` opens a
 project (and calculates it).
 
 The example library is bundled as `assets/library.json`; after changing

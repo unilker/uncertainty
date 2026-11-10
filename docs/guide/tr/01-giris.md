@@ -1,6 +1,7 @@
 # 1. Giriş
 
-*Belirsizlik Hesaplamaları* (İngilizce: *Uncertainty Calculations*) ölçüm belirsizliğini üç yolla değerlendirir:
+**KAPSAM** ölçüm belirsizliğini üç yolla değerlendirir. (Ad, kapsam faktörü ve kapsam aralığından gelir; Kasım 2026'ya
+kadar programın adı *Belirsizlik Hesaplamaları* idi.)
 
 | Yaklaşım | Dayanak belgeler | Tipik kullanım |
 |---|---|---|
@@ -61,5 +62,5 @@ Program, ek atıf koşullarıyla (GPL §7) özgür yazılımdır (GPL-3.0-or-lat
 her yayın, rapor veya yazılım programa atıf yapmalıdır.** Programın ürettiği her rapor atıf metniyle biter;
 `ADDITIONAL-TERMS.md` ve `CITATION.cff` dosyalarına bakınız.
 
-> Ün, İ. *Uncertainty Calculations (Belirsizlik Hesaplamaları): measurement uncertainty evaluation software.*
+> Ün, İ. *KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down).*
 > TÜBİTAK UME. https://github.com/unilker/uncertainty

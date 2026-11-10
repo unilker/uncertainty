@@ -61,13 +61,14 @@ class _ConformityFieldsState extends State<ConformityFields> {
       children: [
         NumberField(key: const ValueKey('cf-lower'), map: m, field: 'lower', label: s['cf_lower'], width: 150, onChanged: widget.onChanged),
         NumberField(key: const ValueKey('cf-upper'), map: m, field: 'upper', label: s['cf_upper'], width: 150, onChanged: widget.onChanged),
-        SizedBox(
+        Labeled(
+          label: s['cf_rule'],
           width: 260,
           child: DropdownButtonFormField<String>(
             key: const Key('cf-rule'),
             isExpanded: true,
             initialValue: rule,
-            decoration: InputDecoration(labelText: s['cf_rule'], isDense: true),
+            decoration: fieldDecoration(s['cf_rule']),
             items: [
               for (final r in conformityRules)
                 DropdownMenuItem(
@@ -88,13 +89,14 @@ class _ConformityFieldsState extends State<ConformityFields> {
             },
           ),
         ),
-        SizedBox(
+        Labeled(
+          label: s['cf_tur'],
           width: 220,
           child: DropdownButtonFormField<String>(
             key: const Key('cf-tur'),
             isExpanded: true,
             initialValue: tur ?? 'none',
-            decoration: InputDecoration(labelText: s['cf_tur'], isDense: true),
+            decoration: fieldDecoration(s['cf_tur']),
             items: [
               for (final t in const ['none', 'rss', 'dobbert', 'rp10', 'test95']) DropdownMenuItem(value: t, child: Text(s['cf_tur_$t'])),
             ],
@@ -118,13 +120,14 @@ class _ConformityFieldsState extends State<ConformityFields> {
           ),
         ),
         if (tur != null)
-          SizedBox(
+          Labeled(
+            label: s['cf_tur_u95'],
             width: 220,
             child: DropdownButtonFormField<String>(
               key: const Key('cf-tur-u95'),
               isExpanded: true,
               initialValue: m['tur_u95'] as String? ?? 'k95',
-              decoration: InputDecoration(labelText: s['cf_tur_u95'], isDense: true),
+              decoration: fieldDecoration(s['cf_tur_u95']),
               items: [
                 for (final t in const ['k95', 'two_u']) DropdownMenuItem(value: t, child: Text(s['cf_tur_u95_$t'])),
               ],

@@ -1,5 +1,5 @@
 name: uncertainty_app
-description: "Uncertainty Calculations (Belirsizlik Hesaplamaları)"
+description: "KAPSAM — measurement uncertainty software (ölçüm belirsizliği yazılımı)"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -60,6 +60,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets/library.json
+    - assets/logo/logo.png
+    - assets/guide/lessons.json
+    - assets/guide/en/
+    - assets/guide/tr/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

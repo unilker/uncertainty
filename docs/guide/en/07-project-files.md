@@ -424,7 +424,7 @@ Carlo method; non-finite data.
 ## 7.16 `expected`
 
 Reference values for self-checking projects; every value is `{ "value": …, "tolerance": … }` and is checked by
-`uncertainty check`. `reference` is a text naming where the values come from.
+`kapsam check`. `reference` is a text naming where the values come from.
 
 * `gum`: `estimate`, `standard_uncertainty`, `expanded_uncertainty`, `coverage_factor`, `effective_dof`,
   `kragten_uncertainty`

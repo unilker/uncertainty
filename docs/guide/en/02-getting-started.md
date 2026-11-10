@@ -9,7 +9,7 @@ from source (Rust 1.75 or later):
 git clone https://github.com/unilker/uncertainty
 cd uncertainty
 cargo build --release
-# the tool is target/release/uncertainty
+# the tool is target/release/kapsam
 ```
 
 `cargo test` runs the validation suite, including every example of the library.
@@ -18,11 +18,11 @@ cargo build --release
 
 | Command | Purpose |
 |---|---|
-| `uncertainty run <project.json>` | evaluate a project and write a report |
-| `uncertainty check <files or directories>` | evaluate projects and compare them with their stored reference values (exit status 1 on failure) |
-| `uncertainty template [--topdown \| --proficiency \| --calibration \| --conformity \| --precision \| --multivariate \| --control-chart]` | print a minimal project file to start from |
-| `uncertainty catalogue <files or directories>` | write the worked-examples chapter of this guide |
-| `uncertainty --version`, `--help` | version, citation and help |
+| `kapsam run <project.json>` | evaluate a project and write a report |
+| `kapsam check <files or directories>` | evaluate projects and compare them with their stored reference values (exit status 1 on failure) |
+| `kapsam template [--topdown \| --proficiency \| --calibration \| --conformity \| --precision \| --multivariate \| --control-chart]` | print a minimal project file to start from |
+| `kapsam catalogue <files or directories>` | write the worked-examples chapter of this guide |
+| `kapsam --version`, `--help` | version, citation and help |
 
 Options of `run`:
 
@@ -54,7 +54,7 @@ own projects, given with `--lab`, are listed in a section of their own. It ends 
 the person who checked it. A laboratory would typically run
 
 ```sh
-uncertainty check library --lab my-projects --report validation-2026-10.html
+kapsam check library --lab my-projects --report validation-2026-10.html
 ```
 
 after installing a new version, and file the report. Every calculation report also ends with the software identity
@@ -68,8 +68,8 @@ The library example `library/chemistry/quam-a1-cadmium-standard.json` is EURACHE
 preparation of a cadmium calibration standard:
 
 ```sh
-uncertainty run library/chemistry/quam-a1-cadmium-standard.json -o a1.html
-uncertainty run library/chemistry/quam-a1-cadmium-standard.json --lang tr -o a1-tr.html
+kapsam run library/chemistry/quam-a1-cadmium-standard.json -o a1.html
+kapsam run library/chemistry/quam-a1-cadmium-standard.json --lang tr -o a1-tr.html
 ```
 
 The report contains, in this order:
@@ -92,8 +92,8 @@ The report contains, in this order:
 ## 2.4 Your own project
 
 ```sh
-uncertainty template > my-project.json            # measurement model
-uncertainty template --topdown > my-topdown.json  # top-down from validation data
+kapsam template > my-project.json            # measurement model
+kapsam template --topdown > my-topdown.json  # top-down from validation data
 ```
 
 Edit the file (any text editor; the format is described in [chapter 7](07-project-files.md)) and run it. A
@@ -101,4 +101,4 @@ misspelt field name or an inconsistent specification (for example both `sd` and 
 reported as an error rather than silently ignored.
 
 To keep reference values with a project — for example the results of a validation study — add an `expected`
-section; `uncertainty check` then verifies the project whenever the program or the file changes.
+section; `kapsam check` then verifies the project whenever the program or the file changes.
