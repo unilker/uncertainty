@@ -3669,3 +3669,25 @@ The references are renumbered in order of first citation (they were not: [35], [
 [1]–[58] in both languages. Two earlier slips are corrected: Röver, Knapp & Friede 2015 was cited for "the books and
 papers of Possolo" in Section 4.1 instead of Possolo & Bodnar 2018 and Possolo & Meija 2022; it is now cited in Section 2.4 for the modified Knapp–Hartung
 adjustment of the leave-one-out degrees of equivalence (D86), where it belongs.
+
+**D97. Monte Carlo propagation through the calibration fit (decision of the author, 2026-11-10).** The Suncal
+comparison (D93) left open which of two linearisations of the ISO 6143 covariance is closer when the fit is poor:
+KAPSAM's exact derivatives of the solution (full Hessian, A.2, A.6, A.7) or the Gauss–Newton approximation of Suncal's
+York and ODR fits, which differ by up to 0.77 % in u(b). `tools/research/benchmarks/calibration_mc.py` draws the
+calibration data of the eight calibration projects 10⁶ times from normal distributions with their uncertainties and
+covariances, repeats the fit (Formula A.3, the program's weights; vectorised damped Gauss–Newton, a draw counts when
+the step is below 10⁻⁹ u; no draw failed) and propagates the samples' responses (Lira, Measurement 44 (2011) 2156,
+stages two and three). Result (`docs/research/calibration-mc.md`, part of S4):
+
+- Where the linearisations differ (EMUE E3.3, Γ = 1.27; ISO 6143 B.3 power, Γ = 1.16) the Monte Carlo standard
+  deviations of the parameters are within 0.15 % of KAPSAM's (standard error 0.05–0.06 %, from 20 batches), and
+  0.6–0.8 % below the Gauss–Newton values. For the other fits all three agree within 0.12 %.
+- All 13 sample contents: Monte Carlo u(x) within 0.15 % of KAPSAM's.
+- ISO 6143 B.3 exponential function: r(b₀, b₁) = −0.999 997; the Monte Carlo s.d. of b₀ and b₁ are 1.4 % above both
+  linear values and their means shift by 0.06 u: a nonlinearity of the parameterisation that no linearisation
+  captures. The content of the sample, which depends on the well-determined combination, agrees to 0.04 %.
+- Numerical differentiation of the refit (central differences, step 10⁻⁴ u, A.2) reproduces the program's
+  derivatives to 1.2 × 10⁻⁴ (exponential function 3.9 × 10⁻⁴, where the step meets the ill-conditioning).
+
+The program keeps the full-Hessian covariance; the paper reports the result in Section 5 and in Table 6. A Monte
+Carlo option for calibrations in the program itself stays a limitation (Section 9).

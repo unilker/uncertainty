@@ -233,7 +233,7 @@ only in the reported statement.
   correctness rests on comparisons with values it did not produce — the results printed in the 38 documents, Suncal,
   the NICOB and NIST Uncertainty Machine manuals — and on the review of every discrepancy against the source
   document (Section 4.3). Table 6 states what each check shares with the program.
-- **Traceability of the development.** The repository contains a research log of every design decision (D1–D96)
+- **Traceability of the development.** The repository contains a research log of every design decision (D1–D97)
   and finding (F1–F100), the generators that write each library project from the numerical data of its source, and
   the scripts of every independent recomputation (`tools/research/`). Licensed documents are used only for their
   numerical data and are not distributed.
@@ -315,26 +315,31 @@ LibreOffice Calc at every change of the source code (supplementary material S7).
 ## 5. Validation results
 
 All 1865 reference values of the 286 projects are reproduced within their tolerances. The validation matrix
-(supplementary material S3) records 228 worked examples or variants as reproduced, 25 of them with a finding.
-Against Suncal (S4), the first-order standard uncertainties of the 135 measurement models agree to a relative
-6.4 × 10⁻¹², and the estimates are identical except in the two projects that request the second-order estimate
-term of the 2026 amendment (Δy = 0.5u and 0.1u by design; Suncal is first order). For the models with several
-outputs the standard uncertainties agree to 1.6 × 10⁻¹⁴ and the correlation coefficients to 3.1 × 10⁻¹⁴. In the
-79 Monte Carlo comparisons the standard deviations differ by at most 0.29 %; divided by the standard error of the
-difference — which combines the sampling errors of both programs and a correction for the kurtosis of the output —
-the largest |z| is 2.4, which for 79 independent comparisons has a probability of 0.75, so the dispersion is
-consistent with sampling error alone. The calibration parameters agree to 2 × 10⁻⁴ of their standard
-uncertainties; their standard uncertainties differ by up to 0.75 % when the fit is poor (largest weighted deviation
-Γ above 1), because Suncal's covariance is the Gauss–Newton approximation while KAPSAM propagates the input
-uncertainties through the minimum with the full Hessian (ISO 6143, Annex A); computed at KAPSAM's solution, the
-Gauss–Newton values agree with Suncal's to 6 × 10⁻⁵. Both covariances linearise the fit about its minimum; a
-Monte Carlo propagation of the distributions of the data through the least-squares solution avoids the
-linearisation and also gives the distribution of a value read from the fitted curve [53], and could show which
-of the two is closer when the fit is poor. The 32 conformance probabilities and global risks agree to
-1.4 × 10⁻¹⁰. The 189 verification workbooks of the library (135 measurement models, 39 top-down evaluations, 9
-proficiency tests and 6 precision experiments), recalculated in LibreOffice Calc, reproduce all 4678 compared values
-within their tolerances (S7); the largest difference is 0.44 of its tolerance, for the effective degrees of freedom
-of M3003 Example K1, in which the central differences enter to the fourth power.
+(supplementary material S3) records 228 worked examples or variants as reproduced, 25 of them with a finding. Against
+Suncal (S4), the first-order standard uncertainties of the 135 measurement models agree to a relative 6.4 × 10⁻¹², and
+the estimates are identical except in the two projects that request the second-order estimate term of the 2026
+amendment (Δy = 0.5u and 0.1u by design; Suncal is first order). For the models with several outputs the standard
+uncertainties agree to 1.6 × 10⁻¹⁴ and the correlation coefficients to 3.1 × 10⁻¹⁴. In the 79 Monte Carlo comparisons
+the standard deviations differ by at most 0.29 %; divided by the standard error of the difference — which combines the
+sampling errors of both programs and a correction for the kurtosis of the output — the largest |z| is 2.4, which for
+79 independent comparisons has a probability of 0.75, so the dispersion is consistent with sampling error alone. The
+calibration parameters agree to 2 × 10⁻⁴ of their standard uncertainties; their standard uncertainties differ by up to
+0.75 % when the fit is poor (largest weighted deviation Γ above 1), because Suncal's covariance is the Gauss–Newton
+approximation while KAPSAM propagates the input uncertainties through the minimum with the full Hessian (ISO 6143,
+Annex A); computed at KAPSAM's solution, the Gauss–Newton values agree with Suncal's to 6 × 10⁻⁵. Both covariances
+linearise the fit about its minimum. A Monte Carlo propagation of the calibration data through the least-squares
+solution [53], with 10⁶ draws for each of the eight calibration projects of the library (D97, S4), shows which
+linearisation holds: where the two differ (EMUE E3.3 and the power function of ISO 6143 B.3), the Monte Carlo standard
+deviations of the parameters differ from KAPSAM's by at most 0.15 % (standard error 0.05–0.06 %) and from the Gauss–Newton
+values by up to 0.8 %, and the standard uncertainties of all 13 sample contents agree with KAPSAM's within 0.15 %. The
+exception shows the limit of any linearisation: for the exponential function of ISO 6143 B.3, whose parameters b₀ and
+b₁ have a correlation of −0.999 997, the Monte Carlo standard deviations of b₀ and b₁ are 1.4 % larger than both
+linear values, whereas the content of the sample, which depends on their combination, agrees to 0.04 %. Numerical
+differentiation of the refit (ISO 6143 A.2) reproduces the derivatives of the program to 4 × 10⁻⁴. The 32 conformance
+probabilities and global risks agree to 1.4 × 10⁻¹⁰. The 189 verification workbooks of the library (135 measurement
+models, 39 top-down evaluations, 9 proficiency tests and 6 precision experiments), recalculated in LibreOffice Calc,
+reproduce all 4678 compared values within their tolerances (S7); the largest difference is 0.44 of its tolerance, for
+the effective degrees of freedom of M3003 Example K1, in which the central differences enter to the fourth power.
 
 <!-- table3 -->
 
@@ -575,6 +580,7 @@ submission.
 | Suncal 1.7.1 (Section 4.4, S4) | 171 projects | Sandia National Laboratories | the translation of the projects into Suncal models (our script) | the implementation: symbolic LPU, own Monte Carlo, York and ODR fits, risk integrals |
 | NIST Uncertainty Machine and NICOB manuals | the examples of the manuals | NIST | the inputs | the method, the implementation and the person |
 | numpy port of the NICOB R code | degrees of equivalence of the NICOB examples | this project | the port was written in this project | the implementation of the program; the algorithm is NICOB's |
+| Monte Carlo propagation through the calibration fit (Section 5, S4) | 8 projects, 10⁶ draws each | this project | the script and the model of ISO 6143 A.3 were written in this project | the linearisation: the fit is repeated for every draw |
 | Spreadsheet workbooks (Section 4.4, S7) | 189 projects, 4678 values | formulas: this project; arithmetic: LibreOffice Calc or Excel | the reading of the standards | the arithmetic; numerical instead of symbolic derivatives |
 | Recomputation of c1 findings by a metrologist (planned) | at least ten findings | a person who has not seen the code | the documents | everything else |
 
@@ -610,7 +616,7 @@ tables and figures are part of the repository and of its archived release [Zenod
 - **S1.** The 286 library projects: source document and section, field, evaluation type and number of compared values.
 - **S2.** The 100 findings with their classes, effect and status.
 - **S3.** The validation matrix: every worked example or variant and its result.
-- **S4.** The comparison with Suncal 1.7.1 (171 projects).
+- **S4.** The comparison with Suncal 1.7.1 (171 projects) and the Monte Carlo propagation through the calibration fit.
 - **S5.** A software validation report written by the program for the whole library.
 - **S6.** The guide *Uncertainty from scratch* with the step-by-step explanation of every example (English, 363 pages;
   the Turkish version is in the repository and in the application).

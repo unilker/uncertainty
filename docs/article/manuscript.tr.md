@@ -234,7 +234,7 @@ raporlanan ifadede yuvarlanır.
   onun üretmediği değerlerle yapılan karşılaştırmalara — 38 belgede basılı sonuçlar, Suncal, NICOB ve NIST
   Uncertainty Machine kılavuzları — ve her uyuşmazlığın kaynak belgeye karşı incelenmesine (Bölüm 4.3) dayanır.
   Tablo 6, her denetimin programla neyi paylaştığını gösterir.
-- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D96) ve bulgunun (F1–F100) araştırma
+- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D97) ve bulgunun (F1–F100) araştırma
   günlüğünü, her kütüphane projesini kaynağının sayısal verilerinden yazan üreteçleri ve her bağımsız yeniden hesabın
   betiklerini (`tools/research/`) içerir. Lisanslı belgeler yalnızca sayısal verileri için kullanılır ve dağıtılmaz.
 
@@ -313,10 +313,10 @@ izler (Bölüm 9). Kütüphanenin her dosyası, kaynak kodun her değişikliğin
 
 ## 5. Validasyon sonuçları
 
-286 projenin 1865 referans değerinin tamamı toleransları içinde yeniden üretilmektedir. Validasyon matrisi (ek malzeme S3) 228
-çözümlü örneği veya türevi yeniden üretilmiş olarak kaydeder; bunların 25'inde bir bulgu vardır. Suncal ile (S4)
-135 ölçüm modelinin birinci mertebe standart belirsizlikleri bağıl 6,4 × 10⁻¹² düzeyinde uyuşur; kestirimler, 2026
-değişikliğinin ikinci mertebe kestirim terimini isteyen iki proje dışında aynıdır (tasarım gereği Δy = 0,5u ve
+286 projenin 1865 referans değerinin tamamı toleransları içinde yeniden üretilmektedir. Validasyon matrisi (ek malzeme
+S3) 228 çözümlü örneği veya türevi yeniden üretilmiş olarak kaydeder; bunların 25'inde bir bulgu vardır. Suncal ile
+(S4) 135 ölçüm modelinin birinci mertebe standart belirsizlikleri bağıl 6,4 × 10⁻¹² düzeyinde uyuşur; kestirimler,
+2026 değişikliğinin ikinci mertebe kestirim terimini isteyen iki proje dışında aynıdır (tasarım gereği Δy = 0,5u ve
 0,1u; Suncal birinci mertebedir). Birden çok çıktılı modellerde standart belirsizlikler 1,6 × 10⁻¹⁴, korelasyon
 katsayıları 3,1 × 10⁻¹⁴ düzeyinde uyuşur. 79 Monte Carlo karşılaştırmasında standart sapmalar en çok %0,29 farklıdır;
 fark, her iki programın örnekleme hatalarını ve çıktının basıklığı için bir düzeltmeyi birleştiren farkın standart
@@ -324,15 +324,21 @@ hatasına bölündüğünde en büyük |z| 2,4'tür; 79 bağımsız karşılaşt
 yalnızca örnekleme hatasıyla tutarlıdır. Kalibrasyon parametreleri standart belirsizliklerinin 2 × 10⁻⁴'ü içinde
 uyuşur; standart belirsizlikleri ise uyum zayıfken (en büyük ağırlıklı sapma Γ 1'in üzerindeyken) %0,75'e kadar
 farklıdır, çünkü Suncal'ın kovaryansı Gauss–Newton yaklaşımıdır, KAPSAM ise girdi belirsizliklerini minimum
-noktasından tam Hessian ile yayar (ISO 6143, Ek A); KAPSAM'ın çözümünde hesaplanan Gauss–Newton değerleri Suncal'ınkilerle
-6 × 10⁻⁵ düzeyinde uyuşur. İki kovaryans da uydurmayı minimum çevresinde doğrusallaştırır; verilerin dağılımlarının
-en küçük kareler çözümü boyunca Monte Carlo ile yayılması doğrusallaştırmayı ortadan kaldırır, uydurulan eğriden
-okunan bir değerin dağılımını da verir [53] ve uyum zayıfken ikisinden hangisinin daha yakın olduğunu
-gösterebilir. 32 uygunluk olasılığı ve genel risk 1,4 × 10⁻¹⁰ düzeyinde uyuşur. Kütüphanenin 189
-doğrulama dosyası (135 ölçüm modeli, 39 yukarıdan aşağı değerlendirme, 9 yeterlilik testi ve 6 kesinlik deneyi),
-LibreOffice Calc'ta yeniden hesaplandığında karşılaştırılan 4678 değerin tamamını toleransları içinde yeniden üretir
-(S7); en büyük fark, merkezi farkların dördüncü kuvvetle girdiği M3003 Örnek K1'in etkin serbestlik derecesinde,
-toleransının 0,44'üdür.
+noktasından tam Hessian ile yayar (ISO 6143, Ek A); KAPSAM'ın çözümünde hesaplanan Gauss–Newton değerleri
+Suncal'ınkilerle 6 × 10⁻⁵ düzeyinde uyuşur. İki kovaryans da uydurmayı minimum çevresinde doğrusallaştırır.
+Kalibrasyon verilerinin en küçük kareler çözümü boyunca Monte Carlo ile yayılması [53], kütüphanenin sekiz kalibrasyon
+projesinin her biri için 10⁶ çekilişle (D97, S4), hangi doğrusallaştırmanın geçerli olduğunu gösterir: ikisinin
+ayrıldığı projelerde (EMUE E3.3 ve ISO 6143 B.3'ün üslü fonksiyonu) parametrelerin Monte Carlo standart sapmaları
+KAPSAM'ınkilerden en çok %0,15 (standart hata %0,05–0,06), Gauss–Newton değerlerinden ise %0,8'e kadar farklıdır; 13
+numune içeriğinin standart belirsizliklerinin hepsi KAPSAM'ınkilerle %0,15 içinde uyuşur. İstisna, her
+doğrusallaştırmanın sınırını gösterir: b₀ ile b₁ parametreleri arasındaki korelasyonun −0,999 997 olduğu ISO 6143 B.3
+üstel fonksiyonunda b₀ ve b₁'in Monte Carlo standart sapmaları iki doğrusal değerden de %1,4 büyüktür; bunların
+birleşimine bağlı olan numune içeriği ise %0,04 içinde uyuşur. Uydurmanın sayısal türevi (ISO 6143 A.2) programın
+türevlerini 4 × 10⁻⁴ içinde yeniden üretir. 32 uygunluk olasılığı ve genel risk 1,4 × 10⁻¹⁰ düzeyinde uyuşur.
+Kütüphanenin 189 doğrulama dosyası (135 ölçüm modeli, 39 yukarıdan aşağı değerlendirme, 9 yeterlilik testi ve 6
+kesinlik deneyi), LibreOffice Calc'ta yeniden hesaplandığında karşılaştırılan 4678 değerin tamamını toleransları
+içinde yeniden üretir (S7); en büyük fark, merkezi farkların dördüncü kuvvetle girdiği M3003 Örnek K1'in etkin
+serbestlik derecesinde, toleransının 0,44'üdür.
 
 <!-- table3 -->
 
@@ -570,6 +576,7 @@ görmemiş bir kişi tarafından yeniden hesaplanması dahil, planlanmaktadır.
 | Suncal 1.7.1 (Bölüm 4.4, S4) | 171 proje | Sandia National Laboratories | projelerin Suncal modellerine çevrilmesi (bizim betiğimiz) | uygulama: sembolik LPU, kendi Monte Carlo'su, York ve ODR uydurmaları, risk integralleri |
 | NIST Uncertainty Machine ve NICOB kılavuzları | kılavuzların örnekleri | NIST | girdiler | yöntem, uygulama ve kişi |
 | NICOB R kodunun numpy aktarımı | NICOB örneklerinin eşdeğerlik dereceleri | bu proje | aktarım bu projede yazıldı | programın uygulaması; algoritma NICOB'undur |
+| Kalibrasyon uydurması boyunca Monte Carlo yayılımı (Bölüm 5, S4) | 8 proje, her biri 10⁶ çekiliş | bu proje | betik ve ISO 6143 A.3 modeli bu projede yazıldı | doğrusallaştırma: uydurma her çekilişte yinelenir |
 | Elektronik tablo dosyaları (Bölüm 4.4, S7) | 189 proje, 4678 değer | formüller: bu proje; aritmetik: LibreOffice Calc ya da Excel | standartların okunuşu | aritmetik; sembolik yerine sayısal türevler |
 | c1 bulgularının bir metrologca yeniden hesaplanması (planlandı) | en az on bulgu | kodu görmemiş bir kişi | belgeler | geri kalan her şey |
 
@@ -607,7 +614,7 @@ deponun ve arşivlenmiş sürümünün parçasıdır [Zenodo DOI eklenecek].
 - **S1.** 286 kütüphane projesi: kaynak belge ve bölümü, alan, değerlendirme türü ve karşılaştırılan değer sayısı.
 - **S2.** 100 bulgu; sınıfları, etkileri ve durumlarıyla.
 - **S3.** Validasyon matrisi: her çözümlü örnek ya da türevi ve sonucu.
-- **S4.** Suncal 1.7.1 ile karşılaştırma (171 proje).
+- **S4.** Suncal 1.7.1 ile karşılaştırma (171 proje) ve kalibrasyon uydurması boyunca Monte Carlo yayılımı.
 - **S5.** Programın bütün kütüphane için yazdığı bir yazılım validasyon raporu.
 - **S6.** *Sıfırdan belirsizlik* kılavuzu ve her örneğin adım adım açıklaması (İngilizce, 363 sayfa; Türkçesi depoda ve
   uygulamanın içinde).
