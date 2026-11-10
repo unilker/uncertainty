@@ -27,6 +27,25 @@ The software is the instrument of this work, not its sole subject: the conclusio
 uncertainty evaluations and of the documents they rely on, which is why we submit to *Measurement* rather than to a
 software journal.
 
+The manuscript meets the requirements that the journal sets for its scope:
+
+1. **A contribution to measurement science.** It contributes methods and evidence on the evaluation of measurement
+   uncertainty and on the validation of uncertainty software (reference values with tolerances derived from the
+   printed digits, a classification of discrepancies fixed before the audit, independent recomputations), not
+   measurement results of another field.
+2. **Metrological terms.** Terms are used as defined in the VIM and the GUM, which are cited where the terms are
+   introduced (Section 2.1); the evaluation methods are those of the GUM suite and of the cited standards.
+3. **The state of the art.** Section 1 reviews the guidance documents and the existing software (the NIST
+   Uncertainty Machine, Suncal, the GUM Tree Calculator, METAS UncLib, the NIST Consensus Builder, the Mathmet survey
+   of 35 programs and the PTB case study of the validation of GUM software) and states how the work advances it: one
+   validated program for the evaluation types the laboratories need, validated on the worked examples of 38
+   documents rather than of the GUM alone, with the consequences for the examples themselves (Sections 6 and 7).
+
+The research paper has 26 pages with its figures, tables and references. As the journal uses double anonymized
+review, the manuscript, the figures and the supplementary material contain no information that identifies the
+author; the title page, which is a separate file, gives the author's details and the links to the repository and
+to the archived release.
+
 The work does not use machine learning or neural networks as a research method; all evaluations are the
 deterministic and Monte Carlo methods of the GUM suite and of the cited standards. An AI coding assistant was used
 to write code and to draft the text. This is stated in Section 3.4 and in the declaration on generative AI, and

@@ -25,20 +25,20 @@ CAPTIONS = {
                 "from the numerical data of 38 guidance documents; one engine, with the evaluation types and the documents "
                 "they implement, serves the command-line tool, the application and the reports. The results are compared "
                 "with the printed values and recalculated by spreadsheet formulas at every change of the code, and were "
-                "compared with Suncal and with a Monte Carlo propagation through the calibration fits for this release.",
+                "compared with Suncal and with a Monte Carlo propagation through the calibration fits for this release. Drawn by a script of the repository, which was written with an AI coding assistant (Section 3.4).",
         "fig2": "Figure 2. Results of a measurement model in the application (Eurachem QUAM Example A1, preparation of a "
                 "cadmium calibration standard): reported statement, GUM result, uncertainty budget and contributions to the "
                 "combined variance.",
-        "fig3": "Figure 3. (a) The 100 findings per source document by class; the confirmed findings that change a "
+        "fig3": "Figure 3. Findings in the worked examples. (a) The 100 findings per source document by class; the confirmed findings that change a "
                 "final printed result (c1) are counted at the left. Documents with fewer than three findings and no c1 "
                 "finding are combined, and a finding with two classes counts in both. (b) Effect of each of the 13 c1 "
                 "findings, relative to the printed expanded uncertainty: change of the estimate |Δy|/U and of the "
-                "uncertainty |ΔU|/U (docs/research/class-c-impact.tsv).",
+                "uncertainty |ΔU|/U (docs/research/class-c-impact.tsv). Drawn by a script of the repository, which was written with an AI coding assistant (Section 3.4).",
         "fig4": "Figure 4. The consensus procedure is part of the model. (a) The 16 values of the Newtonian constant of "
-                "gravitation analysed by Merkatas et al. [52] and the consensus values with 95 % intervals of four "
+                "gravitation analysed by Merkatas et al. [55] and the consensus values with 95 % intervals of four "
                 "procedures; the band is the range of the fourteen procedures of that paper. (b) Pairs of the 19 "
-                "participants of the ⁶⁰Co comparison of the NICOB manual [23] whose bilateral degree of equivalence "
-                "differs significantly from zero, by procedure, in the MRA and the leave-one-out version.",
+                "participants of the ⁶⁰Co comparison of the NICOB manual [24] whose bilateral degree of equivalence "
+                "differs significantly from zero, by procedure, in the MRA and the leave-one-out version. Drawn by a script of the repository, which was written with an AI coding assistant (Section 3.4).",
         "table2a": "**Table 2a.** Library projects by evaluation type.",
         "table2b": "**Table 2b.** Library projects by field.",
         "table3": "**Table 3.** From sources to findings; each step defined.",
@@ -50,20 +50,20 @@ CAPTIONS = {
                 "sayısal verilerinden yazar; değerlendirme türleri ve uyguladıkları belgelerle tek bir motor komut satırı "
                 "aracına, uygulamaya ve raporlara hizmet eder. Sonuçlar kodun her değişikliğinde basılı değerlerle "
                 "karşılaştırılır ve elektronik tablo formülleriyle yeniden hesaplanır; bu sürüm için ayrıca Suncal ile ve "
-                "kalibrasyon uydurmaları boyunca Monte Carlo yayılımıyla karşılaştırılmıştır (şekildeki metin İngilizcedir).",
+                "kalibrasyon uydurmaları boyunca Monte Carlo yayılımıyla karşılaştırılmıştır (şekildeki metin İngilizcedir). Şekil, bir yapay zekâ kodlama asistanıyla yazılmış bir depo betiğiyle çizilmiştir (Bölüm 3.4).",
         "fig2": "Şekil 2. Uygulamada bir ölçüm modelinin sonuçları (Eurachem QUAM Örnek A1, kadmiyum kalibrasyon "
                 "standardının hazırlanması): raporlanan sonuç, GUM sonucu, belirsizlik bütçesi ve birleşik varyansa "
                 "katkılar (ekran İngilizce arayüzle alınmıştır).",
-        "fig3": "Şekil 3. (a) Kaynak belge başına 100 bulgu, sınıfa göre; basılı bir nihai sonucu değiştiren doğrulanmış "
+        "fig3": "Şekil 3. Çözümlü örneklerdeki bulgular. (a) Kaynak belge başına 100 bulgu, sınıfa göre; basılı bir nihai sonucu değiştiren doğrulanmış "
                 "bulgular (c1) solda sayılmıştır. Üçten az bulgusu olan ve c1 bulgusu olmayan belgeler birleştirilmiştir; "
                 "iki sınıflı bir bulgu her ikisinde de sayılır. (b) 13 c1 bulgusunun her birinin, basılı genişletilmiş "
                 "belirsizliğe göre etkisi: kestirimdeki değişiklik |Δy|/U ve belirsizlikteki değişiklik |ΔU|/U "
-                "(docs/research/class-c-impact.tsv; şekildeki metin İngilizcedir).",
-        "fig4": "Şekil 4. Uzlaşı yöntemi modelin bir parçasıdır. (a) Merkatas ve ark.'nın [52] incelediği Newton kütle "
+                "(docs/research/class-c-impact.tsv; şekildeki metin İngilizcedir). Şekil, bir yapay zekâ kodlama asistanıyla yazılmış bir depo betiğiyle çizilmiştir (Bölüm 3.4).",
+        "fig4": "Şekil 4. Uzlaşı yöntemi modelin bir parçasıdır. (a) Merkatas ve ark.'nın [55] incelediği Newton kütle "
                 "çekim sabitinin 16 değeri ve dört yöntemin %95 aralıklı uzlaşı değerleri; gölgeli bant o makalenin on "
-                "dört yönteminin kapsadığı aralıktır. (b) NICOB kılavuzundaki [23] ⁶⁰Co karşılaştırmasının 19 katılımcısı "
+                "dört yönteminin kapsadığı aralıktır. (b) NICOB kılavuzundaki [24] ⁶⁰Co karşılaştırmasının 19 katılımcısı "
                 "arasında ikili eşdeğerlik derecesi sıfırdan anlamlı olarak farklı olan çiftler, yönteme göre, MRA ve "
-                "birini dışarıda bırakma sürümünde (şekildeki metin İngilizcedir).",
+                "birini dışarıda bırakma sürümünde (şekildeki metin İngilizcedir). Şekil, bir yapay zekâ kodlama asistanıyla yazılmış bir depo betiğiyle çizilmiştir (Bölüm 3.4).",
         "table2a": "**Tablo 2a.** Kütüphanedeki projeler, değerlendirme türüne göre.",
         "table2b": "**Tablo 2b.** Kütüphanedeki projeler, alana göre.",
         "table3": "**Tablo 3.** Kaynaklardan bulgulara; her adım tanımlanmıştır.",
@@ -150,6 +150,38 @@ def loose_lists(md):
     return "\n".join(out)
 
 
+SUBSCRIPTS = {"D*_j": "*D*\\*~*j*~", "E_n": "*E*~n~", "x_j": "*x*~*j*~", "u_j": "*u*~*j*~", "σ_j": "*σ*~*j*~",
+              "s_R": "*s*~R~", "s_r": "*s*~r~", "y_CO₂": "*y*~CO₂~", "d_X": "*d*~X~", "c_Cd": "*c*~Cd~", "U_U": "*U*~U~",
+              "U_L": "*U*~L~", "T_U": "*T*~U~", "T_L": "*T*~L~", "R_w": "*R*~w~", "pH_X": "pH~X~", "D_j": "*D*~*j*~",
+              "ν_eff": "*ν*~eff~"}
+_PROTECT = re.compile(r"```.*?```|`[^`\n]*`|https?://\S+|!\[[^\]]*\]\([^)]*\)|<!--.*?-->", re.S)
+_VAR = re.compile(r"(?<![\w*/\\.~-])([uUkyxnQ])(?=\s?=\s?[-−\d.(]|\s?=\s?[kuU]\b|\s?±|\(|₉₅|\s?[<>≤≥]\s?[\w(])")
+_AFTER = re.compile(r"(?<=[\d₉₅])u\b|(?<=\s)U/k\b")
+
+
+def math_italics(md):
+    """Variables in italics (Elsevier, math formulae): quantity symbols with subscripts and single-letter symbols
+    in a mathematical context, outside code, URLs, comments and the reference list."""
+    head, sep, refs = md.partition("\n## Reference")
+    if not sep:
+        head, sep, refs = md.partition("\n## Kaynaklar")
+    out, last = [], 0
+    for m in _PROTECT.finditer(head):
+        out.append(_italic(head[last:m.start()]))
+        out.append(m.group(0))
+        last = m.end()
+    out.append(_italic(head[last:]))
+    return "".join(out) + sep + refs
+
+
+def _italic(s):
+    for a, b in SUBSCRIPTS.items():
+        s = re.sub(r"(?<![\w*])" + re.escape(a) + r"(?![A-Za-z0-9])", lambda m: b, s)
+    s = _VAR.sub(r"*\1*", s)
+    s = _AFTER.sub(lambda m: "*U*/*k*" if m.group(0) == "U/k" else "*u*", s)
+    return s
+
+
 def assemble(lang, commit):
     src = ART / ("manuscript.md" if lang == "en" else "manuscript.tr.md")
     md = src.read_text(encoding="utf-8")
@@ -168,7 +200,7 @@ def assemble(lang, commit):
     rest = rest.replace("<!-- table3 -->", f"{cap['table3']}\n\n{tabs['table3']}")
     assert "<!--" not in rest, f"unreplaced marker in {src}"
     note = "*" + cap["note"].format(date=date.today().isoformat(), commit=commit) + "*\n\n"
-    return title, note + loose_lists(set_widths(rest))
+    return title, note + loose_lists(set_widths(math_italics(rest)))
 
 
 STYLE_FONT = '<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:eastAsia="Times New Roman" w:cs="Times New Roman" />'

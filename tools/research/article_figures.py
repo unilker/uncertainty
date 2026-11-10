@@ -373,8 +373,9 @@ def fig3():
 
 # --- Graphical abstract (Elsevier: at least 1328 x 531 px at 300 dpi, ratio 5:2, all text in the image) -------------
 def graphical_abstract():
+    """Drawn at its printed width of 13 cm (the guide: readable at a width of 13 cm), lettering at least 7 pt."""
     NAVY, NAVY2, CRED, GREEN = "#1b2f5e", "#e9edf6", "#b8321f", "#13805a"
-    fig, ax = plt.subplots(figsize=(6.64, 2.656))
+    fig, ax = plt.subplots(figsize=(130 / 25.4, 52 / 25.4))
     fig.subplots_adjust(0, 0, 1, 1)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 40)
@@ -385,34 +386,35 @@ def graphical_abstract():
                                     edgecolor=edge, facecolor=face))
 
     def txt(x, y, s, size, color=INK, weight="normal"):
-        ax.text(x, y, s, fontsize=size, color=color, fontweight=weight, ha="center", va="center", linespacing=1.25)
+        ax.text(x, y, s, fontsize=max(size, 7), color=color, fontweight=weight, ha="center", va="center",
+                linespacing=1.2)
 
-    card(2, 6, 27, 30, "#f6f5f2", "#c9c7c1")
-    txt(15.5, 29.5, "Worked examples", 8.5, INK2, "bold")
-    txt(15.5, 21.5, "38", 22, INK, "bold")
-    txt(15.5, 15.0, "guidance documents", 8, INK2)
-    txt(15.5, 10.0, "286 projects · 1865 printed values", 7, INK2)
-    card(36.5, 6, 27, 30, NAVY2, NAVY, 1.1)
-    ax.add_patch(FancyBboxPatch((36.5, 27.5), 27, 8.5, boxstyle="round,pad=0,rounding_size=1.6", linewidth=0,
+    card(1.5, 7, 28, 31, "#f6f5f2", "#c9c7c1")
+    txt(15.5, 33.0, "Worked examples", 8, INK2, "bold")
+    txt(15.5, 24.5, "38", 19, INK, "bold")
+    txt(15.5, 17.3, "guidance documents", 7.5, INK2)
+    txt(15.5, 11.2, "286 projects\n1865 printed values", 7, INK2)
+    card(36, 7, 28, 31, NAVY2, NAVY, 1.1)
+    ax.add_patch(FancyBboxPatch((36, 29.5), 28, 8.5, boxstyle="round,pad=0,rounding_size=1.6", linewidth=0,
                                 facecolor=NAVY))
-    ax.add_patch(plt.Rectangle((36.5, 27.5), 27, 3, facecolor=NAVY, linewidth=0))
-    txt(50, 31.8, "KAPSAM", 11, "white", "bold")
-    txt(50, 21.0, "recomputes every example\nat every change of the code", 8, NAVY)
-    txt(50, 11.0, "checked against Suncal\nand spreadsheet formulas", 7, NAVY)
-    card(71, 6, 27, 30, "#fbeeeb", CRED, 1.1)
-    txt(84.5, 29.5, "What it revealed", 8.5, CRED, "bold")
-    txt(84.5, 21.5, "13", 22, CRED, "bold")
-    txt(84.5, 15.0, "confirmed inconsistencies\nchange a final printed result", 8, INK)
-    txt(84.5, 9.0, "among 100 findings", 7, INK2)
-    for x0, x1 in ((29.6, 35.9), (64.1, 70.4)):
-        ax.add_patch(FancyArrowPatch((x0, 21), (x1, 21), arrowstyle="-|>", mutation_scale=12, linewidth=1.4,
+    ax.add_patch(plt.Rectangle((36, 29.5), 28, 3, facecolor=NAVY, linewidth=0))
+    txt(50, 33.8, "KAPSAM", 10, "white", "bold")
+    txt(50, 22.5, "recomputes every\nexample at every\ncode change", 7.5, NAVY)
+    txt(50, 11.5, "checked with Suncal\nand spreadsheets", 7, NAVY)
+    card(70.5, 7, 28, 31, "#fbeeeb", CRED, 1.1)
+    txt(84.5, 33.0, "What it revealed", 8, CRED, "bold")
+    txt(84.5, 24.5, "13", 19, CRED, "bold")
+    txt(84.5, 17.0, "confirmed inconsistencies\nchange a printed result", 7, INK)
+    txt(84.5, 10.8, "among 100 findings", 7, INK2)
+    for x0, x1 in ((30.0, 35.5), (64.5, 70.0)):
+        ax.add_patch(FancyArrowPatch((x0, 22.5), (x1, 22.5), arrowstyle="-|>", mutation_scale=10, linewidth=1.3,
                                      color=NAVY))
-    txt(50, 2.4, "Open source · GUM, Monte Carlo, top-down, proficiency testing, conformity, consensus values",
-        7, GREEN, "bold")
+    txt(50, 3.0, "Open source: GUM, Monte Carlo, top-down, proficiency testing, conformity, consensus", 7, GREEN,
+        "bold")
     fig.savefig(OUT / "graphical_abstract.pdf")
     fig.savefig(OUT / "graphical_abstract.png", dpi=600)
     plt.close(fig)
-    print("wrote", OUT / "graphical_abstract.pdf", "(3984 x 1594 px at 600 dpi)")
+    print("wrote", OUT / "graphical_abstract.pdf", "(13 cm wide; 3071 px at 600 dpi)")
 
 
 def tables():

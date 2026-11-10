@@ -3742,3 +3742,37 @@ that the figure is not reduced at 190 mm: 7.1–7.3 pt), RGB, colour-blind-safe 
 (`graphical_abstract()`, 3984 × 1594 px); (5) CRediT before the acknowledgements/funding, as in the manuscript.
 Journal-specific limits (abstract length, number of keywords, article length, reference style details) wait for the
 guide.
+
+**D103. The guide for authors of Measurement applied (2026-11-10).** The author supplied the guide (PDF of the
+ScienceDirect page, 20 pages, read in full). Requirements and what was done:
+
+- *Scope:* metrological terms as in the VIM and the GUM; the measurement context and a critical review of the state
+  of the art; the cover letter must say how the paper meets these. VIM (JCGM 200:2012) cited in Section 2.1; the cover
+  letter (EN, TR) gains a paragraph on the three requirements, the length and the anonymization.
+- *Article type:* research paper of at most 30 pages: the anonymized manuscript has 26 (1.5 spacing, figures and
+  tables in place, line and page numbers).
+- *Double anonymized peer review:* title page and anonymized manuscript are separate files; the manuscript and the
+  supplementary material must not identify the author. `tools/research/submission_package.py` now writes
+  `title-page.docx` (author, affiliation with postal address, corresponding author, acknowledgements, competing
+  interests, funding, CRediT, links for the editor) and `manuscript-anonymized.docx` (no author line, repository link,
+  DOI or name in [65], no CRediT, funding or competing-interest sections), rebuilds S1–S7 with the identifying strings
+  replaced (two library projects come from the institute's draft procedure), clears the document metadata, and scans
+  every file the reviewers see (no match).
+- *Abstract* ≤ 250 words without references (238), non-standard abbreviations defined (GUM spelled out; no committee
+  codes); *keywords* 1–7 (7); *highlights* 3–5, ≤ 85 characters, file name with "highlights"; *graphical abstract*
+  readable at 13 cm (now drawn at 13 cm, lettering ≥ 7 pt).
+- *Math:* variables in italics: `article_docx.math_italics` sets quantity symbols with subscripts and single-letter
+  symbols in a mathematical context in italics (outside code, URLs and the reference list).
+- *Figures:* separate files named Figure_1–4, captions with a brief title; generative AI and figures: the captions of
+  Figures 1, 3 and 4 state that they are drawn by a script written with an AI coding assistant.
+- *References:* numbered by first citation; DOIs; journal abbreviations (LTWA); software cited as software with
+  version, venue, date and identifier: Suncal 1.7.1 [21] beside its article [20], LibreOffice Calc 24.2 [50], NumPy
+  [57] and SciPy [58] (the libraries of the recomputations), the program itself [65] as "[software]"; web references
+  with the date of access ([24], [21], [50]).
+- *Declarations:* generative AI statement in its own section immediately before the references (done in D102);
+  CRediT, competing interests and funding on the title page; funding wording from the guide offered to the author.
+- *Research data, option C:* data deposited (Zenodo), link to be given in the submission system.
+- Spelling: British spelling throughout the body; "numpy" written NumPy.
+
+Open for the author: the e-mail and postal address on the title page, acknowledgements, the funding sentence, the
+competing-interest declaration, the recomputation of the c1 findings ("planned"), suggested reviewers.

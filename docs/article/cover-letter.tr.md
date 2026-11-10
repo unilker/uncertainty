@@ -28,6 +28,25 @@ kodunun her değişikliğinde belgelenmiş toleranslar içinde yeniden ürettiğ
 Yazılım bu çalışmanın aracıdır, tek konusu değildir: sonuçlar, belirsizlik değerlendirmelerinin ve dayandıkları
 belgelerin doğruluğuyla ilgilidir; bu nedenle makaleyi bir yazılım dergisine değil *Measurement*'a gönderiyoruz.
 
+Makale, derginin kapsamı için koyduğu koşulları karşılar:
+
+1. **Ölçüm bilimine katkı.** Makale, ölçüm belirsizliğinin değerlendirilmesine ve belirsizlik yazılımının
+   validasyonuna ilişkin yöntemler ve kanıtlar sunar (basılı basamaklardan türetilen toleranslarla referans değerler,
+   denetimden önce sabitlenmiş bir uyuşmazlık sınıflandırması, bağımsız yeniden hesaplamalar); başka bir alanın
+   ölçüm sonuçlarını değil.
+2. **Metroloji terimleri.** Terimler VIM'de ve GUM'da tanımlandığı biçimde kullanılır; ikisine de terimlerin
+   tanıtıldığı yerde atıf yapılır (Bölüm 2.1). Değerlendirme yöntemleri GUM ailesinin ve atıf yapılan standartların
+   yöntemleridir.
+3. **Mevcut durum.** Bölüm 1 kılavuz belgeleri ve mevcut yazılımları gözden geçirir (NIST Uncertainty Machine,
+   Suncal, GUM Tree Calculator, METAS UncLib, NIST Consensus Builder, Mathmet'in 35 programlık taraması ve PTB'nin
+   GUM yazılımı validasyonu vaka çalışması) ve çalışmanın bunu nasıl ilerlettiğini belirtir: laboratuvarların
+   ihtiyaç duyduğu değerlendirme türleri için tek bir doğrulanmış program; yalnızca GUM'un değil 38 belgenin çözümlü
+   örnekleri üzerinde validasyon ve bunun örneklerin kendisi için sonuçları (Bölüm 6 ve 7).
+
+Araştırma makalesi şekil, tablo ve kaynaklarıyla 26 sayfadır. Dergi çift kör hakemlik uyguladığından makale, şekiller
+ve ek malzeme yazarı tanıtan hiçbir bilgi içermez; yazarın bilgileri ile depo ve arşivlenmiş sürüm bağlantıları
+ayrı bir dosya olan kapak sayfasındadır.
+
 Çalışma, araştırma yöntemi olarak makine öğrenmesi ya da sinir ağları kullanmaz; bütün değerlendirmeler GUM
 ailesinin ve atıf yapılan standartların deterministik ve Monte Carlo yöntemleridir. Kod yazmak ve metni taslak
 olarak hazırlamak için bir yapay zekâ kodlama asistanı kullanılmıştır. Bu, Bölüm 3.4'te ve üretken yapay zekâ
