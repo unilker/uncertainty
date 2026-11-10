@@ -235,7 +235,7 @@ raporlanan ifadede yuvarlanır.
   onun üretmediği değerlerle yapılan karşılaştırmalara — 38 belgede basılı sonuçlar, Suncal, NICOB ve NIST
   Uncertainty Machine kılavuzları — ve her uyuşmazlığın kaynak belgeye karşı incelenmesine (Bölüm 4.3) dayanır.
   Tablo 6, her denetimin programla neyi paylaştığını gösterir.
-- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D101) ve bulgunun (F1–F100) araştırma
+- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D102) ve bulgunun (F1–F100) araştırma
   günlüğünü, her kütüphane projesini kaynağının sayısal verilerinden yazan üreteçleri ve her bağımsız yeniden hesabın
   betiklerini (`tools/research/`) içerir. Lisanslı belgeler yalnızca sayısal verileri için kullanılır ve dağıtılmaz.
 
@@ -626,13 +626,6 @@ deponun ve arşivlenmiş v0.1.0 sürümünün [60] parçasıdır, https://doi.or
 - **S7.** Kütüphanenin 189 elektronik tablo doğrulama dosyasının LibreOffice Calc'ta yeniden hesaplanması ve örnek
   olarak QUAM Örnek A1'in dosyası.
 
-## Makalenin hazırlanmasında üretken yapay zekâ ve yapay zekâ destekli teknolojilerin kullanımına ilişkin beyan
-
-Yazar, bu çalışmanın hazırlanması sırasında makale metnini taslak olarak yazmak ve düzenlemek, İngilizce ile Türkçe
-arasında çeviri yapmak ve tablo ile şekilleri üreten betikleri yazmak için Claude'u (Anthropic) kullanmıştır;
-yazılımın geliştirilmesindeki kullanımı Bölüm 3.4'te anlatılmıştır. Yazar, bu aracı kullandıktan sonra içeriği
-gerektiği ölçüde gözden geçirmiş ve düzenlemiştir ve yayının içeriğinin tüm sorumluluğunu üstlenir.
-
 ## CRediT yazar katkı beyanı
 
 İlker Ün: Kavramsallaştırma, Yöntem, Yazılım, Validasyon, Araştırma, Yazım – ilk taslak, Yazım – gözden geçirme ve
@@ -645,6 +638,15 @@ Yazar herhangi bir çıkar çatışması olmadığını beyan eder. [Doğrulanac
 ## Finansman
 
 [Eklenecek.]
+
+## Makalenin hazırlanmasında üretken yapay zekâ ve yapay zekâ destekli teknolojilerin kullanımına ilişkin beyan
+
+Yazar, bu çalışmanın hazırlanması sırasında makale metnini taslak olarak yazmak ve düzenlemek, İngilizce ile Türkçe
+arasında çeviri yapmak ve tablo ile şekilleri üreten betikleri yazmak için Claude'u (Anthropic) kullanmıştır;
+yazılımın geliştirilmesindeki kullanımı Bölüm 3.4'te anlatılmıştır. Hiçbir görsel üretken yapay zekâ aracıyla
+üretilmemiştir: Şekil 1, 3 ve 4 deponun bir betiğiyle (`tools/research/article_figures.py`) programın çıktısından
+çizilir, Şekil 2 uygulamanın ekran görüntüsüdür. Yazar, bu aracı kullandıktan sonra içeriği
+gerektiği ölçüde gözden geçirmiş ve düzenlemiştir ve yayının içeriğinin tüm sorumluluğunu üstlenir.
 
 ## Kaynaklar
 

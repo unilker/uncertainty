@@ -3726,3 +3726,19 @@ and the range of the fourteen procedures of Merkatas et al.; (b) the significant
 comparison as 19 × 19 matrices by procedure and version (MRA: DL 4, Bayes 3, Linear Pool 22; leave-one-out: 9, 7, 0),
 recomputed by the program from the library project. Sections 6.1 and 7.1 state the two new numbers (effect range of
 c1; no significant pair with the Linear Pool in the leave-one-out version).
+
+**D102. Elsevier's general author rules applied (2026-11-10).** The journal's own guide for authors
+(sciencedirect.com) refuses automated access (HTTP 403) and was not read; it is to be supplied by the author. Applied
+from Elsevier's general pages (elsevier.com, read 2026-11-10): (1) generative AI policy (updated June 2026): the
+declaration is a separate section at the end of the manuscript immediately before the references (moved there, after
+CRediT, competing interests and funding), and states that no image was generated with a generative AI tool (Figures
+1, 3, 4 are drawn by `article_figures.py` from the program's output; Figure 2 is a screenshot); (2) highlights: three
+to five, at most 85 characters, no acronyms or abbreviations, a separate Word file (rewritten: no GUM, ISO/IEC, c1);
+(3) artwork: fonts Arial/Helvetica, Times, Courier or Symbol (figures now in Liberation Sans, metric-compatible with
+Arial, embedded), printed lettering at least 7 pt at the final width (`save()` raises every text to 7 pt and checks
+that the figure is not reduced at 190 mm: 7.1–7.3 pt), RGB, colour-blind-safe palette, vector PDF for line art and
+600 dpi raster copies, figures as separate files and the captions listed at the end of the submission manuscript;
+(4) graphical abstract (optional): 5:2, at least 1328 × 531 px at 300 dpi, text in the image, Arial-type font
+(`graphical_abstract()`, 3984 × 1594 px); (5) CRediT before the acknowledgements/funding, as in the manuscript.
+Journal-specific limits (abstract length, number of keywords, article length, reference style details) wait for the
+guide.

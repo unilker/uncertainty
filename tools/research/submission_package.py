@@ -57,6 +57,9 @@ def manuscript(out, commit):
                 if item.filename == "word/styles.xml":
                     data = data.decode("utf-8").replace('w:line="360"', 'w:line="480"').encode("utf-8")
                 zout.writestr(item, data)
+        # Figure captions also as a list at the end of the manuscript (Elsevier artwork checklist).
+        cap = article_docx.CAPTIONS["en"]
+        md += "\n\n## Figure captions\n\n" + "\n\n".join(cap[k] for k in ("fig1", "fig2", "fig3", "fig4")) + "\n"
         src = Path(tmp) / "m.md"
         src.write_text(md, encoding="utf-8")
         subprocess.run(["pandoc", str(src), "-f", "markdown", "-o", str(out / "manuscript.docx"), "--reference-doc",
@@ -75,6 +78,9 @@ def figures(out):
             Image.open(png).convert("RGB").save(d / f"Figure{n}.tif", dpi=(300, 300), compression="tiff_lzw")
         else:
             shutil.copy(pdf, d / f"Figure{n}.pdf")
+    shutil.copy(ART / "figures" / "graphical_abstract.pdf", d / "GraphicalAbstract.pdf")
+    Image.open(ART / "figures" / "graphical_abstract.png").convert("RGB").save(
+        d / "GraphicalAbstract.tif", dpi=(600, 600), compression="tiff_lzw")
 
 
 def highlights(out):
@@ -112,9 +118,9 @@ def main():
     words = len(re.sub(r"\n## References.*", "", md, flags=re.S).split())
     (out / "CHECKLIST.md").write_text(
         f"# Submission checklist (generated from commit {commit})\n\n"
-        "Files: manuscript.docx (double spacing, line numbers), figures/Figure1-4, highlights.docx, cover-letter.docx, "
-        "supplementary/S1-S7. Measurement asks in addition for the declaration of competing interest (Elsevier's "
-        "online tool) and accepts an optional graphical abstract.\n\n"
+        "Files: manuscript.docx (double spacing, line numbers, figure captions listed at the end), figures/Figure1-4 "
+        "(vector PDF; Figure 2 TIFF), figures/GraphicalAbstract (PDF, TIFF), highlights.docx, cover-letter.docx, "
+        "supplementary/S1-S7. The declaration of competing interest is made with Elsevier's online tool.\n\n"
         f"Manuscript: about {words} words before the references.\n\n"
         "## Still open\n\n" + ("\n".join(found) if found else "Nothing found.") + "\n", encoding="utf-8")
     shutil.make_archive(str(out), "zip", out)

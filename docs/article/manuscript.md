@@ -234,7 +234,7 @@ only in the reported statement.
   correctness rests on comparisons with values it did not produce — the results printed in the 38 documents, Suncal,
   the NICOB and NIST Uncertainty Machine manuals — and on the review of every discrepancy against the source
   document (Section 4.3). Table 6 states what each check shares with the program.
-- **Traceability of the development.** The repository contains a research log of every design decision (D1–D101)
+- **Traceability of the development.** The repository contains a research log of every design decision (D1–D102)
   and finding (F1–F100), the generators that write each library project from the numerical data of its source, and
   the scripts of every independent recomputation (`tools/research/`). Licensed documents are used only for their
   numerical data and are not distributed.
@@ -629,13 +629,6 @@ tables and figures are part of the repository and of its archived release v0.1.0
 - **S7.** The recalculation of the 189 spreadsheet verification workbooks of the library in LibreOffice Calc, and
   the workbook of QUAM Example A1 as a sample.
 
-## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
-
-During the preparation of this work the author used Claude (Anthropic) in order to draft and edit the text of the
-manuscript, to translate between English and Turkish, and to write the scripts that produce its tables and figures;
-its use in developing the software is described in Section 3.4. After using this tool, the author reviewed and
-edited the content as needed and takes full responsibility for the content of the publication.
-
 ## CRediT authorship contribution statement
 
 İlker Ün: Conceptualization, Methodology, Software, Validation, Investigation, Writing – original draft, Writing –
@@ -648,6 +641,15 @@ The author declares no competing interests. [To be confirmed.]
 ## Funding
 
 [To be added.]
+
+## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
+
+During the preparation of this work the author used Claude (Anthropic) in order to draft and edit the text of the
+manuscript, to translate between English and Turkish, and to write the scripts that produce its tables and figures;
+its use in developing the software is described in Section 3.4. No image was generated with a generative AI tool: Figures
+1, 3 and 4 are drawn by a script of the repository (`tools/research/article_figures.py`) from the program's output, and
+Figure 2 is a screenshot of the application. After using this tool, the author reviewed and
+edited the content as needed and takes full responsibility for the content of the publication.
 
 ## References
 

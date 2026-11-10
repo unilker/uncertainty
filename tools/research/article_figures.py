@@ -30,18 +30,32 @@ SLOTS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
 INK, INK2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 
 plt.rcParams.update({
-    "font.family": "DejaVu Sans", "font.size": 8, "axes.edgecolor": INK2, "axes.labelcolor": INK,
+    "font.family": ["Liberation Sans", "DejaVu Sans"], "font.size": 8, "axes.edgecolor": INK2, "axes.labelcolor": INK,
     "xtick.color": INK2, "ytick.color": INK2, "axes.spines.top": False, "axes.spines.right": False,
     "axes.linewidth": 0.6, "xtick.major.width": 0.6, "ytick.major.width": 0.6, "legend.frameon": False,
     "pdf.fonttype": 42, "svg.fonttype": "none",
 })
 
 
+# Elsevier artwork sizing: printed lettering at least 7 pt (6 pt for sub- and superscripts) at the final width; a
+# full-width figure is 190 mm. Every text of a figure is raised to 7 pt, and the saved width is checked so that the
+# figure is not reduced when it is printed at 190 mm.
+MIN_PT, FULL_WIDTH_IN = 7.0, 190 / 25.4
+
+
 def save(fig, name):
+    import matplotlib.text
+    for t in fig.findobj(matplotlib.text.Text):
+        if t.get_text() and t.get_fontsize() < MIN_PT:
+            t.set_fontsize(MIN_PT)
+    fig.canvas.draw()
+    bbox = fig.get_tightbbox(fig.canvas.get_renderer())
+    scale = FULL_WIDTH_IN / bbox.width
+    assert scale >= 0.999, f"{name}: {bbox.width:.2f} in wide, would be reduced to {scale:.3f} at 190 mm"
     fig.savefig(OUT / f"{name}.pdf", bbox_inches="tight")
-    fig.savefig(OUT / f"{name}.png", dpi=300, bbox_inches="tight")
+    fig.savefig(OUT / f"{name}.png", dpi=600, bbox_inches="tight")
     plt.close(fig)
-    print("wrote", OUT / f"{name}.pdf")
+    print(f"wrote {OUT / name}.pdf; {bbox.width * 25.4:.0f} mm wide, smallest text {MIN_PT * scale:.1f} pt at 190 mm")
 
 
 def run_json(project):
@@ -221,7 +235,7 @@ def fig2():
                Patch(color=MUTED["a"], label="a: intermediate rounding"),
                Patch(color=MUTED["b"], label="b: misprint without effect"),
                Patch(color=MUTED["n"], label="n: no discrepancy")]
-    ax.legend(handles=handles, loc="lower right", bbox_to_anchor=(1.0, 0.07), fontsize=6.2, handlelength=1.0,
+    ax.legend(handles=handles, loc="lower right", bbox_to_anchor=(1.0, 0.10), fontsize=6.2, handlelength=1.0,
               borderaxespad=0.2)
     fig.text(0.01, 0.985, "(a) Findings by source document", fontsize=7.8, color=INK, va="top")
 
@@ -357,6 +371,50 @@ def fig3():
     save(fig, "fig4_procedures")
 
 
+# --- Graphical abstract (Elsevier: at least 1328 x 531 px at 300 dpi, ratio 5:2, all text in the image) -------------
+def graphical_abstract():
+    NAVY, NAVY2, CRED, GREEN = "#1b2f5e", "#e9edf6", "#b8321f", "#13805a"
+    fig, ax = plt.subplots(figsize=(6.64, 2.656))
+    fig.subplots_adjust(0, 0, 1, 1)
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 40)
+    ax.axis("off")
+
+    def card(x, y, w, h, face, edge, lw=0.9):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.6", linewidth=lw,
+                                    edgecolor=edge, facecolor=face))
+
+    def txt(x, y, s, size, color=INK, weight="normal"):
+        ax.text(x, y, s, fontsize=size, color=color, fontweight=weight, ha="center", va="center", linespacing=1.25)
+
+    card(2, 6, 27, 30, "#f6f5f2", "#c9c7c1")
+    txt(15.5, 29.5, "Worked examples", 8.5, INK2, "bold")
+    txt(15.5, 21.5, "38", 22, INK, "bold")
+    txt(15.5, 15.0, "guidance documents", 8, INK2)
+    txt(15.5, 10.0, "286 projects · 1865 printed values", 7, INK2)
+    card(36.5, 6, 27, 30, NAVY2, NAVY, 1.1)
+    ax.add_patch(FancyBboxPatch((36.5, 27.5), 27, 8.5, boxstyle="round,pad=0,rounding_size=1.6", linewidth=0,
+                                facecolor=NAVY))
+    ax.add_patch(plt.Rectangle((36.5, 27.5), 27, 3, facecolor=NAVY, linewidth=0))
+    txt(50, 31.8, "KAPSAM", 11, "white", "bold")
+    txt(50, 21.0, "recomputes every example\nat every change of the code", 8, NAVY)
+    txt(50, 11.0, "checked against Suncal\nand spreadsheet formulas", 7, NAVY)
+    card(71, 6, 27, 30, "#fbeeeb", CRED, 1.1)
+    txt(84.5, 29.5, "What it revealed", 8.5, CRED, "bold")
+    txt(84.5, 21.5, "13", 22, CRED, "bold")
+    txt(84.5, 15.0, "confirmed inconsistencies\nchange a final printed result", 8, INK)
+    txt(84.5, 9.0, "among 100 findings", 7, INK2)
+    for x0, x1 in ((29.6, 35.9), (64.1, 70.4)):
+        ax.add_patch(FancyArrowPatch((x0, 21), (x1, 21), arrowstyle="-|>", mutation_scale=12, linewidth=1.4,
+                                     color=NAVY))
+    txt(50, 2.4, "Open source · GUM, Monte Carlo, top-down, proficiency testing, conformity, consensus values",
+        7, GREEN, "bold")
+    fig.savefig(OUT / "graphical_abstract.pdf")
+    fig.savefig(OUT / "graphical_abstract.png", dpi=600)
+    plt.close(fig)
+    print("wrote", OUT / "graphical_abstract.pdf", "(3984 x 1594 px at 600 dpi)")
+
+
 def tables():
     """Tables 2 and 3 of the article, copied from numbers.md with their captions (docs/article/tables.md)."""
     md = Path("docs/article/numbers.md").read_text(encoding="utf-8")
@@ -379,3 +437,4 @@ if __name__ == "__main__":
     fig1()
     fig2()
     fig3()
+    graphical_abstract()
