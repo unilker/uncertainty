@@ -209,6 +209,13 @@ only in the reported statement.
 - **Identity of a result.** Every report states the program version, the git commit and date it was built from,
   the compiler, and the SHA-256 digest of the project as evaluated. A result can therefore be traced to its inputs
   and to a validated build (ISO/IEC 17025 7.5, 7.11).
+- **Development with an AI coding assistant.** The source code, the generators of the library projects, the
+  scripts of the recomputations and the formulas of the spreadsheet workbooks were written with an AI coding
+  assistant (Claude, Anthropic) under the author's direction, who chose the methods and the documents, defined the
+  reference values and tolerances, and reviewed the results. The assistant's output is treated as unverified:
+  correctness rests on comparisons with values it did not produce — the results printed in the 38 documents, Suncal,
+  the NICOB and NIST Uncertainty Machine manuals — and on the review of every discrepancy against the source
+  document (Section 4.3). Table 6 states what each check shares with the program.
 - **Traceability of the development.** The repository contains a research log of every design decision (D1–D94)
   and finding (F1–F100), the generators that write each library project from the numerical data of its source, and
   the scripts of every independent recomputation (`tools/research/`). Licensed documents are used only for their
@@ -259,7 +266,7 @@ and a 99th percentile of 0.98 (`numbers.md`).
 
 Before the audit of the findings, the classes were fixed (D12, D73): (a) intermediate rounding that changes a
 printed digit; (b) a misprint or transcription error without effect on the result; (c) an inconsistency; (n) no
-discrepancy (a methodological note or a full reproduction). After an internal pre-review (Section 9) the class-c
+discrepancy (a methodological note or a full reproduction). After a first internal review of the findings the class-c
 findings were further divided by their effect (D84): c1, a final printed result — the estimate, its uncertainty or
 the stated outcome — is not reproduced at its printed digits; c2, only an intermediate value is not; m, a
 difference of method or interpretation rather than an inconsistency; e, an error already corrected by a published
@@ -499,14 +506,27 @@ is one candidate — and recompute them before publication. The library of this 
 **What this validation does and does not show.** Reproducing published values verifies the implementation of
 documented methods; it does not validate a laboratory's own measurement procedure, which is why the validation
 report keeps the laboratory's projects in a section of their own (Section 8.2). Agreement with the published values
-can also hide a common-mode error when the program and the independent scripts read a standard the same way; the
-Suncal benchmark, the NICOB source code and the NIST Uncertainty Machine are the truly independent checks. The
-spreadsheet workbooks make the arithmetic independent of the program and every formula visible, but their formulas
-were written from the same reading of the standards; a laboratory's own validated spreadsheet applied to the same
-data would be a stronger check. An
-internal pre-review was carried out with an AI assistant (Section 10); an independent review by metrologists
-outside the project, including the recomputation of at least ten of the c1 findings by a person who has not seen
-the code, is planned before submission.
+can also hide a common-mode error when the program and a recomputation read a standard the same way. Table 6
+therefore separates two meanings of *independent*: a different implementation, and a different person. The values
+printed in the documents, Suncal and the examples of the NIST manuals were produced by others; the numpy port of the
+NICOB code, the scripts of the recomputations and the spreadsheet formulas are different implementations, written
+in the same project and with the same AI coding assistant as the program (Section 3.4), so they guard against
+arithmetic and coding errors but not against a misreading of a standard. The spreadsheet workbooks make the
+arithmetic independent of the program and every formula visible; a laboratory's own validated spreadsheet applied
+to the same data would be a stronger check. An independent review by metrologists outside the project, including
+the recomputation of at least ten of the c1 findings by a person who has not seen the code, is planned before
+submission.
+
+**Table 6.** The checks of the program and what makes each independent of it.
+
+| Check | Extent | Produced by | Shared with the program | Independent of the program in |
+|---|---|---|---|---|
+| Worked examples of the guidance (Section 5) | 286 projects, 1865 values | the authors of 38 documents | the inputs, transcribed into project files; the tolerances | the method, the implementation and the person |
+| Suncal 1.7.1 (Section 4.4, S4) | 171 projects | Sandia National Laboratories | the translation of the projects into Suncal models (our script) | the implementation: symbolic LPU, own Monte Carlo, York and ODR fits, risk integrals |
+| NIST Uncertainty Machine and NICOB manuals | the examples of the manuals | NIST | the inputs | the method, the implementation and the person |
+| numpy port of the NICOB R code | degrees of equivalence of the NICOB examples | this project | the port was written in this project | the implementation of the program; the algorithm is NICOB's |
+| Spreadsheet workbooks (Section 4.4, S7) | 189 projects, 4678 values | formulas: this project; arithmetic: LibreOffice Calc or Excel | the reading of the standards | the arithmetic; numerical instead of symbolic derivatives |
+| Recomputation of c1 findings by a metrologist (planned) | at least ten findings | a person who has not seen the code | the documents | everything else |
 
 **Reporting the findings.** The findings were not communicated to the issuing bodies before submission. The c1
 findings of Table 4 will be sent to them as technical notes after acceptance, so that the notes can refer to a
@@ -521,16 +541,14 @@ by metrologists who are native speakers. The use of the program in laboratories 
 systematically; a pilot with laboratories of the institute is planned. Licensed standards are used only for their
 numerical data.
 
-## 10. Software availability and use of AI tools
+## 10. Software availability
 
 KAPSAM is available under the GPL-3.0 licence at https://github.com/unilker/uncertainty; the version used for
-this paper is [release tag and Zenodo DOI to be added]; the pre-review used commit 809ebcf. `cargo test`
+this paper is [release tag and Zenodo DOI to be added]. `cargo test`
 reproduces every number of Sections 5–7, and the scripts in `tools/research/` regenerate the tables and figures.
 
-The code, the library generators, the independent recomputations, the guide and an internal pre-review were
-produced with an AI coding assistant (Claude, Anthropic) under the author's direction; the reference values come
-from the published documents, and the independent checks are those named in Section 9. [Wording to be adapted to
-the journal's policy.]
+The use of an AI coding assistant in the development is described in Section 3.4 and its limits for the
+independence of the checks in Section 9 (Table 6).
 
 ## Data availability
 
@@ -548,6 +566,13 @@ tables and figures are part of the repository and of its archived release [Zenod
   the Turkish version is in the repository and in the application).
 - **S7.** The recalculation of the 189 spreadsheet verification workbooks of the library in LibreOffice Calc, and
   the workbook of QUAM Example A1 as a sample.
+
+## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
+
+During the preparation of this work the author used Claude (Anthropic) in order to draft and edit the text of the
+manuscript, to translate between English and Turkish, and to write the scripts that produce its tables and figures;
+its use in developing the software is described in Section 3.4. After using this tool, the author reviewed and
+edited the content as needed and takes full responsibility for the content of the publication.
 
 ## CRediT authorship contribution statement
 

@@ -210,6 +210,13 @@ raporlanan ifadede yuvarlanır.
 - **Bir sonucun kimliği.** Her rapor program sürümünü, derlendiği git commit'ini ve tarihini, derleyiciyi ve
   değerlendirilen projenin SHA-256 özetini belirtir. Bir sonuç böylece girdilerine ve doğrulanmış bir derlemeye kadar
   izlenebilir (ISO/IEC 17025 7.5, 7.11).
+- **Bir yapay zekâ kodlama asistanıyla geliştirme.** Kaynak kod, kütüphane projelerinin üreteçleri, yeniden
+  hesaplama betikleri ve elektronik tablo dosyalarının formülleri, yazarın yönlendirmesiyle bir yapay zekâ kodlama
+  asistanıyla (Claude, Anthropic) yazılmıştır; yöntemleri ve belgeleri yazar seçmiş, referans değerlerini ve
+  toleransları tanımlamış ve sonuçları gözden geçirmiştir. Asistanın çıktısı doğrulanmamış kabul edilir: doğruluk,
+  onun üretmediği değerlerle yapılan karşılaştırmalara — 38 belgede basılı sonuçlar, Suncal, NICOB ve NIST
+  Uncertainty Machine kılavuzları — ve her uyuşmazlığın kaynak belgeye karşı incelenmesine (Bölüm 4.3) dayanır.
+  Tablo 6, her denetimin programla neyi paylaştığını gösterir.
 - **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D94) ve bulgunun (F1–F100) araştırma
   günlüğünü, her kütüphane projesini kaynağının sayısal verilerinden yazan üreteçleri ve her bağımsız yeniden hesabın
   betiklerini (`tools/research/`) içerir. Lisanslı belgeler yalnızca sayısal verileri için kullanılır ve dağıtılmaz.
@@ -260,7 +267,7 @@ laboratuvarın kendi projelerini ayrı bir bölümde verir.
 
 Bulguların denetiminden önce sınıflar sabitlendi (D12, D73): (a) basılı bir basamağı değiştiren ara yuvarlama; (b)
 sonuca etkisi olmayan baskı veya aktarma hatası; (c) tutarsızlık; (n) tutarsızlık yok (yöntemsel bir not veya tam
-yeniden üretim). İç ön incelemeden sonra (Bölüm 9) c sınıfı bulgular etkilerine göre ayrıca bölündü (D84): c1, basılı
+yeniden üretim). Bulguların ilk iç incelemesinden sonra c sınıfı bulgular etkilerine göre ayrıca bölündü (D84): c1, basılı
 bir nihai sonuç (kestirim, belirsizliği veya ifade edilen hüküm) basılı basamaklarında yeniden üretilemiyor; c2,
 yalnızca bir ara değer yeniden üretilemiyor; m, tutarsızlık değil yöntem veya yorum farkı; e, yayımlanmış bir
 düzeltmeyle giderilmiş hata. Bir bulgu, belgenin kendi verilerinden yapılan yeniden hesap açık soru bırakmadığında ya
@@ -496,13 +503,26 @@ adaydır) ve yayımdan önce yeniden hesaplamasını öneriyoruz. Bu çalışman
 **Bu validasyonun gösterdiği ve göstermediği.** Yayımlanmış değerleri yeniden üretmek, belgelenmiş yöntemlerin
 uygulanmasını doğrular; bir laboratuvarın kendi ölçüm yöntemini geçerli kılmaz. Validasyon raporunun
 laboratuvarın projelerini kendi bölümünde tutmasının nedeni budur (Bölüm 8.2). Yayımlanmış değerlerle uyum, program ve bağımsız
-betikler bir standardı aynı biçimde okuduğunda ortak kaynaklı bir hatayı da gizleyebilir; gerçekten bağımsız
-denetimler Suncal karşılaştırması, NICOB kaynak kodu ve NIST Uncertainty Machine'dir. Elektronik tablo dosyaları
-aritmetiği programdan bağımsız kılar ve her formülü görünür yapar, ancak formülleri standartların aynı okunuşuyla
-yazılmıştır; laboratuvarın kendi doğrulanmış elektronik tablosunun aynı verilere uygulanması daha güçlü bir denetim
-olur. Bir yapay zekâ asistanıyla iç
-ön inceleme yapılmıştır (Bölüm 10); göndermeden önce, proje dışındaki metrologlarca bağımsız bir inceleme, c1
-bulgularından en az onunun kodu görmemiş bir kişi tarafından yeniden hesaplanması dahil, planlanmaktadır.
+betikler bir standardı aynı biçimde okuduğunda ortak kaynaklı bir hatayı da gizleyebilir. Bu yüzden Tablo 6
+*bağımsız* sözcüğünün iki anlamını ayırır: farklı bir uygulama ve farklı bir kişi. Belgelerde basılı değerleri,
+Suncal'ı ve NIST kılavuzlarının örneklerini başkaları üretmiştir; NICOB kodunun numpy aktarımı, yeniden hesaplama
+betikleri ve elektronik tablo formülleri ise farklı uygulamalardır, ancak programla aynı projede ve aynı yapay zekâ
+kodlama asistanıyla yazılmıştır (Bölüm 3.4); bu nedenle aritmetik ve kodlama hatalarına karşı korur, bir standardın
+yanlış okunmasına karşı korumaz. Elektronik tablo dosyaları aritmetiği programdan bağımsız kılar ve her formülü
+görünür yapar; laboratuvarın kendi doğrulanmış elektronik tablosunun aynı verilere uygulanması daha güçlü bir denetim
+olur. Göndermeden önce, proje dışındaki metrologlarca bağımsız bir inceleme, c1 bulgularından en az onunun kodu
+görmemiş bir kişi tarafından yeniden hesaplanması dahil, planlanmaktadır.
+
+**Tablo 6.** Programın denetimleri ve her birini programdan bağımsız kılan nedir.
+
+| Denetim | Kapsam | Üreten | Programla ortak olan | Programdan bağımsız olduğu yön |
+|---|---|---|---|---|
+| Kılavuzların çözümlü örnekleri (Bölüm 5) | 286 proje, 1865 değer | 38 belgenin yazarları | proje dosyalarına aktarılan girdiler; toleranslar | yöntem, uygulama ve kişi |
+| Suncal 1.7.1 (Bölüm 4.4, S4) | 171 proje | Sandia National Laboratories | projelerin Suncal modellerine çevrilmesi (bizim betiğimiz) | uygulama: sembolik LPU, kendi Monte Carlo'su, York ve ODR uydurmaları, risk integralleri |
+| NIST Uncertainty Machine ve NICOB kılavuzları | kılavuzların örnekleri | NIST | girdiler | yöntem, uygulama ve kişi |
+| NICOB R kodunun numpy aktarımı | NICOB örneklerinin eşdeğerlik dereceleri | bu proje | aktarım bu projede yazıldı | programın uygulaması; algoritma NICOB'undur |
+| Elektronik tablo dosyaları (Bölüm 4.4, S7) | 189 proje, 4678 değer | formüller: bu proje; aritmetik: LibreOffice Calc ya da Excel | standartların okunuşu | aritmetik; sembolik yerine sayısal türevler |
+| c1 bulgularının bir metrologca yeniden hesaplanması (planlandı) | en az on bulgu | kodu görmemiş bir kişi | belgeler | geri kalan her şey |
 
 **Bulguların bildirilmesi.** Bulgular, gönderimden önce yayımcı kuruluşlara bildirilmemiştir. Tablo 4'teki c1
 bulguları, hakemli bir kayda atıf yapabilmeleri için makale kabul edildikten sonra kuruluşlara teknik not olarak
@@ -517,17 +537,15 @@ gözden geçirilmeleri gerekir. Programın laboratuvarlardaki kullanımı henüz
 enstitünün laboratuvarlarıyla bir pilot uygulama planlanmaktadır. Lisanslı standartlar yalnızca sayısal verileri
 için kullanılmıştır.
 
-## 10. Yazılımın erişilebilirliği ve yapay zekâ araçlarının kullanımı
+## 10. Yazılımın erişilebilirliği
 
 KAPSAM, GPL-3.0 lisansıyla https://github.com/unilker/uncertainty adresinde erişilebilir durumdadır; bu makalede
-kullanılan sürüm [sürüm etiketi ve Zenodo DOI eklenecek]; ön inceleme 809ebcf commit'ini kullanmıştır. `cargo test`
+kullanılan sürüm [sürüm etiketi ve Zenodo DOI eklenecek]. `cargo test`
 Bölüm 5–7'deki her sayıyı yeniden üretir; `tools/research/` içindeki betikler tabloları ve şekilleri yeniden
 oluşturur.
 
-Kod, kütüphane üreteçleri, bağımsız yeniden hesaplar, kılavuz ve bir iç ön inceleme, yazarın yönlendirmesiyle bir
-yapay zekâ kodlama asistanı (Claude, Anthropic) kullanılarak üretilmiştir; referans değerleri yayımlanmış
-belgelerden gelir ve bağımsız denetimler Bölüm 9'da adı geçenlerdir. [İfade derginin politikasına göre
-uyarlanacaktır.]
+Geliştirmede bir yapay zekâ kodlama asistanının kullanımı Bölüm 3.4'te, bunun denetimlerin bağımsızlığı
+açısından sınırları Bölüm 9'da (Tablo 6) anlatılmıştır.
 
 ## Veri erişilebilirliği
 
@@ -545,6 +563,13 @@ deponun ve arşivlenmiş sürümünün parçasıdır [Zenodo DOI eklenecek].
   uygulamanın içinde).
 - **S7.** Kütüphanenin 189 elektronik tablo doğrulama dosyasının LibreOffice Calc'ta yeniden hesaplanması ve örnek
   olarak QUAM Örnek A1'in dosyası.
+
+## Makalenin hazırlanmasında üretken yapay zekâ ve yapay zekâ destekli teknolojilerin kullanımına ilişkin beyan
+
+Yazar, bu çalışmanın hazırlanması sırasında makale metnini taslak olarak yazmak ve düzenlemek, İngilizce ile Türkçe
+arasında çeviri yapmak ve tablo ile şekilleri üreten betikleri yazmak için Claude'u (Anthropic) kullanmıştır;
+yazılımın geliştirilmesindeki kullanımı Bölüm 3.4'te anlatılmıştır. Yazar, bu aracı kullandıktan sonra içeriği
+gerektiği ölçüde gözden geçirmiş ve düzenlemiştir ve yayının içeriğinin tüm sorumluluğunu üstlenir.
 
 ## CRediT yazar katkı beyanı
 

@@ -3619,3 +3619,16 @@ NORMSINV, BETAINV), so the formulas work in every version and in LibreOffice.
   listing each workbook with its SHA-256 and an empty column for the person who opens it in Excel to record the
   outcome (initials, date). CI: a job `spreadsheets` installs LibreOffice Calc and runs
   `tools/research/spreadsheet_check.py` on the whole library at every push; the table goes to the job summary.
+
+**D95. Use of AI declared for Measurement; independence of the checks (decision of the author, 2026-11-10).**
+*Measurement* desk-rejects papers whose research method is machine learning unless they meet four criteria; the
+paper uses no such method, but its development with an AI coding assistant needs a precise statement. Changes:
+Section 3.4 gains a bullet on development with the assistant (its output treated as unverified; correctness rests on
+values it did not produce and on the review of every discrepancy against the source); Section 9 separates two
+meanings of *independent* (another implementation, another person) and adds Table 6 (each check, who produced it,
+what it shares with the program); the claim of an AI pre-review is removed (Sections 4.3, 9, 10); Section 10 keeps
+only the availability; the Elsevier declaration on generative AI in the manuscript preparation process is added
+before the CRediT statement. A cover letter (`docs/article/cover-letter.md`, Turkish translation
+`cover-letter.tr.md`) states that the work is not a machine-learning study and why it is submitted to *Measurement*.
+The recomputation of at least ten c1 findings by a metrologist who has not seen the code remains required before
+submission; it is the one check that is independent of both the program and the assistant.
