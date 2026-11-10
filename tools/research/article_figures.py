@@ -52,35 +52,96 @@ def run_json(project):
 
 # --- Fig. 1: architecture ----------------------------------------------------------------------------------------
 def fig1():
-    fig, ax = plt.subplots(figsize=(7.0, 3.3))
+    """Architecture: data pipeline (left), engine with its evaluation types (centre), interfaces (right) and the
+    validation that runs at every change (bottom band), drawn as one loop."""
+    NAVY, NAVY2, PAPER, LINE = "#1b2f5e", "#e9edf6", "#f6f5f2", "#c9c7c1"
+    GREEN, GREEN2 = "#13805a", "#e6f4ee"
+    fig, ax = plt.subplots(figsize=(7.2, 4.9))
+    fig.subplots_adjust(0, 0, 1, 1)
     ax.set_xlim(0, 100)
-    ax.set_ylim(0, 46)
+    ax.set_ylim(0, 68)
     ax.axis("off")
 
-    def box(x, y, w, h, title, body, accent=False):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.4,rounding_size=1.2", linewidth=0.8,
-                                    edgecolor=SLOTS[0] if accent else INK2, facecolor="#eef4fc" if accent else "#f6f5f2"))
-        ax.text(x + w / 2, y + h - 2.2, title, ha="center", va="top", fontsize=8, fontweight="bold", color=INK)
-        ax.text(x + w / 2, y + h - 6.2, body, ha="center", va="top", fontsize=6.6, color=INK2, linespacing=1.35)
+    def card(x, y, w, h, face=PAPER, edge=LINE, lw=0.7, r=1.0, z=1):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle=f"round,pad=0,rounding_size={r}", linewidth=lw,
+                                    edgecolor=edge, facecolor=face, zorder=z))
 
-    def arrow(x1, y1, x2, y2, text=None):
-        ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle="-|>", mutation_scale=8, linewidth=0.8, color=INK2))
-        if text:
-            ax.text((x1 + x2) / 2, (y1 + y2) / 2 + 1.2, text, ha="center", fontsize=6.2, color=INK2)
+    def arrow(p1, p2, color=INK2, lw=0.9):
+        ax.add_patch(FancyArrowPatch(p1, p2, arrowstyle="-|>", mutation_scale=8, linewidth=lw, color=color,
+                                     zorder=4, shrinkA=0, shrinkB=0))
 
-    box(2, 27, 25, 17, "Sources", "guidance documents,\nstandards, papers\n(numerical data only)")
-    box(37, 27, 26, 17, "Generators", "Python scripts write each\nproject with its source,\nexpected values, tolerances")
-    box(73, 27, 25, 17, "Project files", "JSON: inputs, metadata\n(EN/TR), reference values\n286 in the library")
-    box(35, 2, 30, 20, "Engine (Rust)", "core: GUM, MCM, JCGM 102, 106,\nconsensus, top-down, ISO 13528,\nISO 6143, ISO 5725, TR 569, UfS\nproject: run, check, reports", accent=True)
-    box(2, 2, 25, 20, "Tests", "cargo test reruns all\nprojects (1865 values);\nSuncal benchmark;\nindependent recomputations")
-    box(73, 2, 25, 20, "Interfaces", "CLI, C interface, app\n(desktop, mobile);\nreports in Markdown,\nHTML, PDF, JSON")
-    arrow(27.5, 35.5, 36.5, 35.5)
-    arrow(63.5, 35.5, 72.5, 35.5)
-    arrow(80, 26.5, 60, 22.6)
-    ax.text(73, 25.4, "evaluate", ha="right", fontsize=6.2, color=INK2)
-    arrow(65.5, 12, 72.5, 12)
-    arrow(34.5, 12, 27.5, 12)
-    ax.text(31, 14.6, "compare", ha="center", fontsize=6.2, color=INK2)
+    def label(x, y, text, size=5.4, color=INK2, weight="normal", ha="center", style="normal"):
+        ax.text(x, y, text, fontsize=size * 1.2, color=color, fontweight=weight, ha=ha, va="center", style=style,
+                linespacing=1.3, zorder=5)
+
+    for x, text in ((12.5, "LIBRARY"), (50, "ENGINE"), (87.5, "USE")):
+        label(x, 66.2, text, size=6.0, weight="bold")
+
+    def column(x0, items, stack_last=False):
+        for k, (y, title, body) in enumerate(items):
+            if stack_last and k == len(items) - 1:
+                card(x0 + 0.9, y - 0.9, 21, 11, face="white")
+                card(x0 + 0.45, y - 0.45, 21, 11, face="white")
+            card(x0, y, 21, 11, z=2)
+            label(x0 + 10.5, y + 8.0, title, size=6.6, color=INK, weight="bold")
+            label(x0 + 10.5, y + 3.7, body)
+
+    # Left: from the guidance to the project files.
+    column(2, [(51, "38 documents", "GUM suite, Eurachem, Nordtest,\nEA, UKAS, EURAMET, ISO, NIST"),
+               (37.5, "Generators", "Python scripts: the numbers\nand clause of each example"),
+               (24, "286 projects", "JSON: inputs, sources and\nreference values ± tolerance")], True)
+    arrow((12.5, 50.8), (12.5, 48.7))
+    arrow((12.5, 37.3), (12.5, 35.2))
+
+    # Centre: the engine and its evaluation types.
+    card(28.5, 20.0, 43, 43.5, face=NAVY2, edge=NAVY, lw=1.0, r=1.4)
+    ax.add_patch(FancyBboxPatch((28.5, 57.0), 43, 6.5, boxstyle="round,pad=0,rounding_size=1.4", linewidth=0,
+                                facecolor=NAVY, zorder=2))
+    ax.add_patch(plt.Rectangle((28.5, 57.0), 43, 2.0, facecolor=NAVY, linewidth=0, zorder=2))
+    label(50, 60.3, "KAPSAM engine  ·  Rust", size=7.6, color="white", weight="bold")
+    label(50, 54.3, "one engine for every interface, so that all give the same numbers", size=5.1, color=NAVY)
+    chips = [("GUM, LPU", "JCGM 100"), ("Monte Carlo", "JCGM 101"), ("Several outputs", "JCGM 102"),
+             ("Conformity", "JCGM 106"), ("Top-down", "Nordtest, MUPR"), ("Proficiency", "ISO 13528"),
+             ("Calibration", "ISO 6143"), ("Precision", "ISO 5725"), ("Control charts", "Nordtest TR 569"),
+             ("Sampling", "Eurachem UfS"), ("Weighing", "EURAMET cg-18"), ("Consensus", "NIST NICOB")]
+    cw, ch, gx, gy = 13.0, 6.2, 1.0, 1.0
+    for n, (name, ref) in enumerate(chips):
+        col, row = n % 3, n // 3
+        x = 29.5 + col * (cw + gx)
+        y = 45.2 - row * (ch + gy)
+        card(x, y, cw, ch, face="white", edge="#aeb8cf", lw=0.6, r=0.8, z=3)
+        label(x + cw / 2, y + 4.2, name, size=5.6, color=NAVY, weight="bold")
+        label(x + cw / 2, y + 1.8, ref, size=4.8)
+    label(50, 22.3, "each report names version, commit and SHA-256 of the project", size=5.0, color=NAVY,
+          style="italic")
+    arrow((23.3, 29.5), (28.2, 29.5), color=NAVY)
+    label(25.75, 31.3, "run", size=5.0, color=NAVY)
+
+    # Right: how it is used.
+    column(77, [(51, "Command line", "kapsam run, kapsam check;\nvalidation report (17025)"),
+                (37.5, "Application", "Windows, Linux, macOS,\nAndroid, iOS; guide, library"),
+                (24, "Reports, EN and TR", "Markdown, HTML, PDF, JSON;\nspreadsheet workbook (.xlsx)")])
+    for y in (56.5, 43.0, 29.5):
+        arrow((71.8, y), (76.7, y), color=NAVY)
+
+    # Bottom: the validation; two checks run at every change of the code, two are benchmarks of the release.
+    card(2, 1.0, 96, 15.0, face=GREEN2, edge=GREEN, lw=0.9, r=1.2)
+    label(50, 14.2, "VALIDATION", size=5.8, color=GREEN, weight="bold")
+    tiles = [("every change (CI)", "1865", "reference values of 286 projects,\nall within their tolerances"),
+             ("release benchmark", "171", "projects reproduced by an\nindependent program (Suncal)"),
+             ("every change (CI)", "189", "spreadsheet workbooks,\n4678 values (LibreOffice)"),
+             ("release benchmark", "8 × 10⁶", "Monte Carlo draws through the\nfit of 8 calibrations (ISO 6143)")]
+    tw, gap = 22.5, 1.3
+    for n, (when, big, text) in enumerate(tiles):
+        x = 3.15 + n * (tw + gap)
+        card(x, 2.0, tw, 10.4, face="white", edge="#b9dccb", lw=0.6, r=0.8, z=3)
+        label(x + tw / 2, 10.9, when.upper(), size=4.2, color=GREEN if "CI" in when else INK2, weight="bold")
+        label(x + tw / 2, 8.2, big, size=8.2, color=GREEN, weight="bold")
+        label(x + tw / 2, 4.3, text, size=4.9)
+    arrow((50, 19.7), (50, 16.3), color=GREEN, lw=1.0)
+    arrow((12.5, 22.8), (12.5, 16.3), color=GREEN, lw=1.0)
+    label(13.5, 19.6, "compare with the\nprinted results", size=4.9, color=GREEN, ha="left")
+    label(51.0, 18.0, "recompute", size=4.9, color=GREEN, ha="left")
     save(fig, "fig1_architecture")
 
 

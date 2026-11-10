@@ -21,8 +21,11 @@ FIG = ART / "figures"
 
 CAPTIONS = {
     "en": {
-        "fig1": "Figure 1. Architecture of the program: generators write the project files of the library from the numerical "
-                "data of their sources; one engine evaluates them for the command-line tool, the application and the tests.",
+        "fig1": "Figure 1. Architecture and validation of KAPSAM. Generators write the 286 project files of the library "
+                "from the numerical data of 38 guidance documents; one engine, with the evaluation types and the documents "
+                "they implement, serves the command-line tool, the application and the reports. The results are compared "
+                "with the printed values and recalculated by spreadsheet formulas at every change of the code, and were "
+                "compared with Suncal and with a Monte Carlo propagation through the calibration fits for this release.",
         "fig2": "Figure 2. Results of a measurement model in the application (Eurachem QUAM Example A1, preparation of a "
                 "cadmium calibration standard): reported statement, GUM result, uncertainty budget and contributions to the "
                 "combined variance.",
@@ -39,9 +42,11 @@ CAPTIONS = {
                 "numbered for comments.",
     },
     "tr": {
-        "fig1": "Şekil 1. Programın mimarisi: üreteçler kütüphanenin proje dosyalarını kaynaklarının sayısal verilerinden "
-                "yazar; tek bir motor onları komut satırı aracı, uygulama ve testler için değerlendirir (şekildeki metin "
-                "İngilizcedir).",
+        "fig1": "Şekil 1. KAPSAM'ın mimarisi ve validasyonu. Üreteçler kütüphanenin 286 proje dosyasını 38 kılavuz belgenin "
+                "sayısal verilerinden yazar; değerlendirme türleri ve uyguladıkları belgelerle tek bir motor komut satırı "
+                "aracına, uygulamaya ve raporlara hizmet eder. Sonuçlar kodun her değişikliğinde basılı değerlerle "
+                "karşılaştırılır ve elektronik tablo formülleriyle yeniden hesaplanır; bu sürüm için ayrıca Suncal ile ve "
+                "kalibrasyon uydurmaları boyunca Monte Carlo yayılımıyla karşılaştırılmıştır (şekildeki metin İngilizcedir).",
         "fig2": "Şekil 2. Uygulamada bir ölçüm modelinin sonuçları (Eurachem QUAM Örnek A1, kadmiyum kalibrasyon "
                 "standardının hazırlanması): raporlanan sonuç, GUM sonucu, belirsizlik bütçesi ve birleşik varyansa "
                 "katkılar (ekran İngilizce arayüzle alınmıştır).",
