@@ -3715,3 +3715,14 @@ v0.1.0 on GitHub (the session cannot push tags). Zenodo archived it: version DOI
 DOI (all versions) 10.5281/zenodo.24118311, record checked through the Zenodo API (title, version, author). The
 version DOI is cited as reference [60] in Section 10 and in the data availability statement, and is given in the
 cover letter; `CITATION.cff` carries both DOIs and the release date, the README a DOI badge.
+
+**D101. Figures 1, 3 and 4 redrawn (decision of the author, 2026-11-10).** Figure 1 shows the library pipeline, the
+engine with its evaluation types and the documents they implement, the interfaces and the validation band (worked
+examples and spreadsheets at every change; Suncal and the calibration Monte Carlo as release benchmarks). Figure 3:
+(a) findings per document with the 13 confirmed c1 findings marked and counted, the documents without c1 and with
+fewer than three findings combined; (b) the effect of each c1 finding, |Δy|/U and |ΔU|/U from
+`class-c-impact.tsv` (0.6 % of U for F58 to 34 U for F28). Figure 4: (a) the 16 values of G, four consensus values
+and the range of the fourteen procedures of Merkatas et al.; (b) the significant bilateral pairs of the ⁶⁰Co
+comparison as 19 × 19 matrices by procedure and version (MRA: DL 4, Bayes 3, Linear Pool 22; leave-one-out: 9, 7, 0),
+recomputed by the program from the library project. Sections 6.1 and 7.1 state the two new numbers (effect range of
+c1; no significant pair with the Linear Pool in the leave-one-out version).

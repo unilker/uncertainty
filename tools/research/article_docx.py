@@ -29,12 +29,16 @@ CAPTIONS = {
         "fig2": "Figure 2. Results of a measurement model in the application (Eurachem QUAM Example A1, preparation of a "
                 "cadmium calibration standard): reported statement, GUM result, uncertainty budget and contributions to the "
                 "combined variance.",
-        "fig3": "Figure 3. Findings per source document by class (a: intermediate rounding, b: misprint without "
-                "effect, c: inconsistency, n: no discrepancy); documents with fewer than three findings are combined, "
-                "and a finding with two classes counts in both.",
-        "fig4": "Figure 4. (a) Consensus value of the Newtonian constant of gravitation by procedure (16 results, "
-                "Merkatas et al. [52]), 95 % intervals. (b) Leave-one-out degrees of equivalence of the ⁶⁰Co activity "
-                "comparison of the NICOB manual [23] by procedure, with the number of significant bilateral pairs.",
+        "fig3": "Figure 3. (a) The 100 findings per source document by class; the confirmed findings that change a "
+                "final printed result (c1) are counted at the left. Documents with fewer than three findings and no c1 "
+                "finding are combined, and a finding with two classes counts in both. (b) Effect of each of the 13 c1 "
+                "findings, relative to the printed expanded uncertainty: change of the estimate |Δy|/U and of the "
+                "uncertainty |ΔU|/U (docs/research/class-c-impact.tsv).",
+        "fig4": "Figure 4. The consensus procedure is part of the model. (a) The 16 values of the Newtonian constant of "
+                "gravitation analysed by Merkatas et al. [52] and the consensus values with 95 % intervals of four "
+                "procedures; the band is the range of the fourteen procedures of that paper. (b) Pairs of the 19 "
+                "participants of the ⁶⁰Co comparison of the NICOB manual [23] whose bilateral degree of equivalence "
+                "differs significantly from zero, by procedure, in the MRA and the leave-one-out version.",
         "table2a": "**Table 2a.** Library projects by evaluation type.",
         "table2b": "**Table 2b.** Library projects by field.",
         "table3": "**Table 3.** From sources to findings; each step defined.",
@@ -50,13 +54,16 @@ CAPTIONS = {
         "fig2": "Şekil 2. Uygulamada bir ölçüm modelinin sonuçları (Eurachem QUAM Örnek A1, kadmiyum kalibrasyon "
                 "standardının hazırlanması): raporlanan sonuç, GUM sonucu, belirsizlik bütçesi ve birleşik varyansa "
                 "katkılar (ekran İngilizce arayüzle alınmıştır).",
-        "fig3": "Şekil 3. Kaynak belge başına bulgular, sınıfa göre (a: ara yuvarlama, b: etkisiz baskı hatası, "
-                "c: tutarsızlık, n: tutarsızlık yok); üçten az bulgusu olan belgeler birleştirilmiştir ve iki sınıflı "
-                "bir bulgu her ikisinde de sayılır (şekildeki metin İngilizcedir).",
-        "fig4": "Şekil 4. (a) Newton kütle çekim sabitinin yönteme göre uzlaşı değeri (16 sonuç, Merkatas ve ark. "
-                "[52]), %95 aralıkları. (b) NICOB kılavuzundaki [23] ⁶⁰Co aktivite karşılaştırmasının yönteme göre "
-                "birini dışarıda bırakma eşdeğerlik dereceleri ve anlamlı ikili çiftlerin sayısı (şekildeki metin "
-                "İngilizcedir).",
+        "fig3": "Şekil 3. (a) Kaynak belge başına 100 bulgu, sınıfa göre; basılı bir nihai sonucu değiştiren doğrulanmış "
+                "bulgular (c1) solda sayılmıştır. Üçten az bulgusu olan ve c1 bulgusu olmayan belgeler birleştirilmiştir; "
+                "iki sınıflı bir bulgu her ikisinde de sayılır. (b) 13 c1 bulgusunun her birinin, basılı genişletilmiş "
+                "belirsizliğe göre etkisi: kestirimdeki değişiklik |Δy|/U ve belirsizlikteki değişiklik |ΔU|/U "
+                "(docs/research/class-c-impact.tsv; şekildeki metin İngilizcedir).",
+        "fig4": "Şekil 4. Uzlaşı yöntemi modelin bir parçasıdır. (a) Merkatas ve ark.'nın [52] incelediği Newton kütle "
+                "çekim sabitinin 16 değeri ve dört yöntemin %95 aralıklı uzlaşı değerleri; gölgeli bant o makalenin on "
+                "dört yönteminin kapsadığı aralıktır. (b) NICOB kılavuzundaki [23] ⁶⁰Co karşılaştırmasının 19 katılımcısı "
+                "arasında ikili eşdeğerlik derecesi sıfırdan anlamlı olarak farklı olan çiftler, yönteme göre, MRA ve "
+                "birini dışarıda bırakma sürümünde (şekildeki metin İngilizcedir).",
         "table2a": "**Tablo 2a.** Kütüphanedeki projeler, değerlendirme türüne göre.",
         "table2b": "**Tablo 2b.** Kütüphanedeki projeler, alana göre.",
         "table3": "**Tablo 3.** Kaynaklardan bulgulara; her adım tanımlanmıştır.",

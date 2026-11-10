@@ -235,7 +235,7 @@ raporlanan ifadede yuvarlanır.
   onun üretmediği değerlerle yapılan karşılaştırmalara — 38 belgede basılı sonuçlar, Suncal, NICOB ve NIST
   Uncertainty Machine kılavuzları — ve her uyuşmazlığın kaynak belgeye karşı incelenmesine (Bölüm 4.3) dayanır.
   Tablo 6, her denetimin programla neyi paylaştığını gösterir.
-- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D100) ve bulgunun (F1–F100) araştırma
+- **Geliştirmenin izlenebilirliği.** Depo, her tasarım kararının (D1–D101) ve bulgunun (F1–F100) araştırma
   günlüğünü, her kütüphane projesini kaynağının sayısal verilerinden yazan üreteçleri ve her bağımsız yeniden hesabın
   betiklerini (`tools/research/`) içerir. Lisanslı belgeler yalnızca sayısal verileri için kullanılır ve dağıtılmaz.
 
@@ -363,7 +363,9 @@ c sınıfı bir bileşeni vardır. Bunlardan 13'ü basılı bir nihai sonucu de�
 7'si yalnızca ara değerleri etkiler (c2; ikisi düzeltmelerle kısmen giderilmiş), 5'i yöntem veya yorum farkıdır (m),
 1'i bilinen bir düzeltmedir (e) ve 5'i açıktır ve sayılmaz (Tablo 4). Bulgular belgelerin çoğunu ilgilendirir
 (Şekil 3): 2026 tarihli GUM-5 örneklerinde 13, Eurachem QUAM'da 11, UKAS M3003 ve EMUE derlemesinde 7'şer bulgu
-vardır (iki sınıflı bir bulgu her ikisinde de sayılmıştır).
+vardır (iki sınıflı bir bulgu her ikisinde de sayılmıştır). Doğrulanmış c1 bulguları basılı sonucu, genişletilmiş
+belirsizliğinin %0,6'sı (F58, U'da bir değişiklik) ile 34 katı (F28, kestirimde bir değişiklik; Şekil 3b) arasında
+değiştirir.
 
 <!-- fig3 -->
 
@@ -456,8 +458,8 @@ ve 6. laboratuvarların çifti.
 Eşdeğerlik dereceleri de yönteme aynı ölçüde bağlıdır. NICOB kılavuzundaki ⁶⁰Co aktivite karşılaştırmasının 19
 sonucu için (katılımcılar kodlanmıştır), ikili eşdeğerlik derecesi sıfırdan anlamlı olarak farklı olan çiftlerin
 sayısı 171 çift içinde DerSimonian–Laird ile MRA sürümünde 4, birini dışarıda bırakma sürümünde 9; Bayesçi modelle
-3 ve 7; MRA sürümünde Linear Pool ile 22'dir. Linear Pool'un ikili belirsizlikleri yalnızca iki katılımcının
-belirttiği belirsizlikleri içerir, karanlık belirsizliği içermez (Şekil 4). NICOB kodu ile kılavuzu, Linear Pool
+3 ve 7; MRA sürümünde Linear Pool ile 22, birini dışarıda bırakma sürümünde Linear Pool ile hiçtir (Şekil 4b). Linear Pool'un ikili belirsizlikleri yalnızca iki katılımcının
+belirttiği belirsizlikleri içerir, karanlık belirsizliği içermez. NICOB kodu ile kılavuzu, Linear Pool
 eşdeğerlik derecelerinin nasıl hesaplandığı konusunda farklıdır (F100); program kılavuzu uygular. Dolayısıyla bir
 katılımcının "anlamlı" eşdeğerlik derecesi sonuç kadar yöntem hakkında da bir ifadedir; yöntem, veriler görülmeden
 önce seçilmeli ve belirtilmelidir. Aynısı ölçüt için de geçerlidir: transfer standardından ve tekrarlanabilirlikten

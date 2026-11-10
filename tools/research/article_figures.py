@@ -25,7 +25,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch  # noqa: E402
 
 OUT = Path("docs/article/figures")
 OUT.mkdir(parents=True, exist_ok=True)
-EXE = "target/debug/kapsam"
+EXE = next((e for e in ("target/debug/kapsam", "target/release/kapsam") if Path(e).exists()), "target/debug/kapsam")
 SLOTS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
 INK, INK2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 
@@ -145,7 +145,26 @@ def fig1():
     save(fig, "fig1_architecture")
 
 
-# --- Fig. 3: findings per document by class ----------------------------------------------------------------------
+# --- Fig. 3: findings per document, and the effect of the confirmed c1 findings ------------------------------------
+C1_DOCS = {"JCGM GUM-5": "JCGM GUM-5:2026", "EMPIR EMUE": "EMPIR EMUE", "UKAS M3003": "UKAS M3003", "EA-4/02": "EA-4/02",
+           "NIST TN 1900": "NIST TN 1900", "ISO 21748": "ISO 21748", "ISO 5725": "ISO 5725", "ISO 6143": "ISO 6143"}
+
+
+def c1_findings():
+    """Confirmed c1 findings (docs/research/class-c-impact.tsv, D84): F, document of Fig. 3, label, |Δy|/U, |ΔU|/U."""
+    rows = [l.split("\t") for l in Path("docs/research/class-c-impact.tsv").read_text(encoding="utf-8").splitlines()[1:]]
+    out = []
+    for r in rows:
+        f, doc, impact, status, quantity = r[0], r[1], r[2], r[3], r[4]
+        if impact != "c1" or status == "open":
+            continue
+        key = next(k for k in C1_DOCS if doc.startswith(k))
+        num = lambda v: float(v) if re.fullmatch(r"[0-9.]+", v) else None  # noqa: E731
+        out.append((f, C1_DOCS[key], doc, num(r[7]), num(r[8])))
+    assert len(out) == 13, len(out)
+    return out
+
+
 def fig2():
     md = Path("docs/article/numbers.md").read_text(encoding="utf-8")
     sec = md.split("## Findings by document and class")[1].split("\n## ")[0]
@@ -155,80 +174,186 @@ def fig2():
         if m and m.group(1) != "Document":
             rows.append((m.group(1), *map(int, m.groups()[1:])))
     rows = [r for r in rows if r[0] not in ("summary", "methodological")]
-    rows.sort(key=lambda r: sum(r[1:]))
-    # Documents with fewer than three entries are folded into "Other documents".
-    big = [r for r in rows if sum(r[1:]) >= 3]
-    small = [r for r in rows if sum(r[1:]) < 3]
-    other = ("Other documents (%d)" % len(small), *[sum(r[k] for r in small) for k in range(1, 5)])
-    data = [other] + big
-    fig, ax = plt.subplots(figsize=(6.6, 0.24 * len(data) + 1.0))
-    names = [r[0] for r in data]
-    left = [0] * len(data)
-    labels = ["a: intermediate rounding", "b: misprint without effect", "c: inconsistency", "n: no discrepancy"]
-    for k in range(4):
-        vals = [r[k + 1] for r in data]
-        ax.barh(names, vals, left=left, color=SLOTS[k], edgecolor="white", linewidth=1.0, height=0.68, label=labels[k])
-        left = [a + b for a, b in zip(left, vals)]
-    for y, tot in enumerate(left):
-        ax.text(tot + 0.2, y, str(tot), va="center", fontsize=7, color=INK)
-    ax.set_xlabel("Findings (a finding with two classes counts in both)")
+    c1 = c1_findings()
+    c1_by_doc = {}
+    for _, doc, *_ in c1:
+        c1_by_doc[doc] = c1_by_doc.get(doc, 0) + 1
+    # Documents with at least three findings, or with a confirmed c1 finding, are shown; the others are combined.
+    shown = [r for r in rows if sum(r[1:]) >= 3 or r[0] in c1_by_doc]
+    rest = [r for r in rows if r not in shown]
+    shown.sort(key=lambda r: (sum(r[1:]), c1_by_doc.get(r[0], 0)))
+    other = (f"{len(rest)} further documents", *[sum(r[k] for r in rest) for k in range(1, 5)])
+
+    MUTED = {"a": "#c5d4ea", "b": "#e9dcc6", "n": "#dddcd7"}
+    CRED, CORANGE = "#b8321f", "#f0a079"
+    fig = plt.figure(figsize=(7.2, 4.7))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.25, 1], wspace=0.62, top=0.93)
+
+    ax = fig.add_subplot(gs[0])
+    data = [other] + shown
+    ys = [0] + [k + 1.6 for k in range(len(shown))]
+    for y, r in zip(ys, data):
+        a, b, c, n = r[1:]
+        k1 = c1_by_doc.get(r[0], 0)
+        segs = [(k1, CRED), (c - k1, CORANGE), (a, MUTED["a"]), (b, MUTED["b"]), (n, MUTED["n"])]
+        x = 0
+        for w, col in segs:
+            if w:
+                ax.barh(y, w, left=x, height=0.72, color=col, edgecolor="white", linewidth=0.8)
+                x += w
+        ax.text(x + 0.25, y, str(sum(r[1:])), va="center", fontsize=6.6, color=INK)
+        if k1:
+            ax.text(-0.35, y, f"{k1}", va="center", ha="right", fontsize=6.6, color=CRED, fontweight="bold")
+    ax.set_yticks(ys)
+    ax.set_yticklabels([r[0] for r in data], fontsize=6.8)
+    ax.get_yticklabels()[0].set_color(INK2)
+    ax.get_yticklabels()[0].set_style("italic")
+    ax.axhline(0.8, color=GRID, linewidth=0.8)
+    ax.set_xlim(0, 27)
+    ax.set_xlabel("Findings (a finding with two classes counts in both)", fontsize=7)
     ax.xaxis.grid(True, color=GRID, linewidth=0.6)
     ax.set_axisbelow(True)
+    ax.tick_params(axis="y", length=0, pad=14)
+    ax.text(-0.35, ys[-1] + 1.05, "c1", ha="right", va="center", fontsize=6.4, color=CRED, fontweight="bold")
+    from matplotlib.patches import Patch
+    handles = [Patch(color=CRED, label="c1: changes a final printed result"),
+               Patch(color=CORANGE, label="other c: c2, m, e, open"),
+               Patch(color=MUTED["a"], label="a: intermediate rounding"),
+               Patch(color=MUTED["b"], label="b: misprint without effect"),
+               Patch(color=MUTED["n"], label="n: no discrepancy")]
+    ax.legend(handles=handles, loc="lower right", bbox_to_anchor=(1.0, 0.07), fontsize=6.2, handlelength=1.0,
+              borderaxespad=0.2)
+    fig.text(0.01, 0.985, "(a) Findings by source document", fontsize=7.8, color=INK, va="top")
+
+    ax = fig.add_subplot(gs[1])
+    eff = sorted(c1, key=lambda r: max(v for v in r[3:] if v))
+    for y, (f, doc, label, dy, du) in enumerate(eff):
+        top = max(v for v in (dy, du) if v)
+        ax.plot([0.004, top], [y, y], color=GRID, linewidth=1.0, zorder=1)
+        if du:
+            ax.plot(du, y, "D", color=CRED, markersize=4.2, markeredgecolor="white", markeredgewidth=0.6, zorder=3)
+        if dy:
+            ax.plot(dy, y, "o", color=INK, markersize=4.6, markeredgecolor="white", markeredgewidth=0.6, zorder=3)
+    ax.set_xscale("log")
+    ax.set_xlim(0.004, 80)
+    ax.set_yticks(range(len(eff)))
+    ax.set_yticklabels([f"{r[0]}  {r[2]}" for r in eff], fontsize=6.2)
+    ax.axvline(1, color=INK2, linewidth=0.7, linestyle=(0, (3, 2)))
+    ax.text(1.12, len(c1) - 0.25, "one expanded uncertainty", fontsize=5.8, color=INK2, va="center")
+    ax.set_xticks([0.01, 0.1, 1, 10])
+    ax.set_xticklabels(["1 %", "10 %", "1", "10"])
+    ax.set_xlabel("Change of the printed result, relative to its U", fontsize=7)
+    ax.xaxis.grid(True, color=GRID, linewidth=0.6, which="major")
+    ax.set_axisbelow(True)
     ax.tick_params(axis="y", length=0)
-    ax.legend(loc="center right", fontsize=7, handlelength=1.2)
+    ax.set_ylim(-0.7, len(eff) + 0.2)
+    ax.plot([], [], "o", color=INK, markersize=4.6, label="estimate y: |Δy|/U")
+    ax.plot([], [], "D", color=CRED, markersize=4.2, label="uncertainty: |ΔU|/U")
+    ax.legend(loc="lower right", bbox_to_anchor=(1.0, 0.06), fontsize=6.2, handlelength=1.0)
+    fig.text(0.55, 0.985, "(b) How far the 13 confirmed c1 findings move the printed result", fontsize=7.8,
+             color=INK, va="top")
     save(fig, "fig3_findings_by_document")
 
 
-# --- Fig. 4: procedures --------------------------------------------------------------------------------------------
+# --- Fig. 4: the consensus procedure is part of the model ---------------------------------------------------------
 def fig3():
-    g = run_json("library/physical/merkatas2019-newtonian-constant-g-shades.json")
+    import numpy as np
+    from matplotlib.colors import ListedColormap
+    PROC = {"DL": SLOTS[0], "ML": "#7d5ba6", "Bayes": SLOTS[2], "LP": SLOTS[1]}
+    gp = "library/physical/merkatas2019-newtonian-constant-g-shades.json"
+    g = run_json(gp)
+    res = json.loads(Path(gp).read_text(encoding="utf-8"))["consensus"]["results"]
     dl, ml, by, lp = g["dersimonian_laird"], g["maximum_likelihood"], g["bayes"], g["linear_pool"]
-    proc = [
-        ("DerSimonian–Laird,\nKnapp–Hartung", dl["mean"], dl["expanded_knapp_hartung"]),
-        ("Maximum likelihood", ml["mean"], 1.959964 * ml["standard_uncertainty"]),
-        ("Hierarchical Bayes\n(exact grid)", by["mean"], None, by["interval"]),
-        ("Linear Pool", lp["mean"], None, lp["interval"]),
-    ]
-    co = run_json("library/physical/nicob-co60-activity-leave-one-out-bilateral.json")
-    sets = [("DerSimonian–Laird", co["degrees_of_equivalence"]), ("Linear Pool", co["linear_pool_degrees_of_equivalence"]),
-            ("Bayes", co["bayes_degrees_of_equivalence"])]
+    proc = [("DerSimonian–Laird", "DL", dl["mean"], dl["mean"] - dl["expanded_knapp_hartung"],
+             dl["mean"] + dl["expanded_knapp_hartung"], dl["u_knapp_hartung"]),
+            ("Max. likelihood", "ML", ml["mean"], ml["mean"] - 1.959964 * ml["standard_uncertainty"],
+             ml["mean"] + 1.959964 * ml["standard_uncertainty"], ml["standard_uncertainty"]),
+            ("Hierarchical Bayes", "Bayes", by["mean"], *by["interval"], by["standard_uncertainty"]),
+            ("Linear Pool", "LP", lp["mean"], *lp["interval"], lp["standard_uncertainty"])]
 
-    fig = plt.figure(figsize=(7.0, 4.4))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1, 2.1], wspace=0.35)
-    ax = fig.add_subplot(gs[0])
-    for i, p in enumerate(proc):
-        y = len(proc) - 1 - i
-        lo, hi = (p[1] - p[2], p[1] + p[2]) if p[2] is not None else p[3]
-        ax.plot([lo, hi], [y, y], color=SLOTS[0], linewidth=2, solid_capstyle="round")
-        ax.plot(p[1], y, "o", color=SLOTS[0], markersize=5, markeredgecolor="white", markeredgewidth=1)
-    ax.set_yticks(range(len(proc)))
-    ax.set_yticklabels([p[0] for p in proc][::-1], fontsize=7)
-    ax.set_xlabel("G / (10⁻¹¹ m³ kg⁻¹ s⁻²), 95 % interval")
+    fig = plt.figure(figsize=(7.2, 4.3))
+    outer = fig.add_gridspec(1, 2, width_ratios=[1.0, 1.25], wspace=0.12, left=0.13, right=0.99, top=0.90,
+                             bottom=0.11)
+    ax = fig.add_subplot(outer[0])
+    # The 16 measured values with 2u.
+    res = sorted(res, key=lambda r: r["value"])
+    y0, dy = 4.4, 0.30
+    for k, r in enumerate(res):
+        y = y0 + k * dy
+        ax.plot([r["value"] - 2 * r["u"], r["value"] + 2 * r["u"]], [y, y], color="#b9b7b1", linewidth=0.9)
+        ax.plot(r["value"], y, "o", color=INK2, markersize=2.4)
+    # Range of the fourteen procedures of Merkatas et al. (2019), Table 4 (manuscript Section 7.1).
+    ax.axvspan(6.67377, 6.67429, color="#ecebe6", zorder=0)
+    ax.text(6.67403, -0.75, "range of the 14 procedures\nof Merkatas et al.", fontsize=5.8, color=INK2, ha="center",
+            va="center")
+    ticks, labels = [y0 + 7.5 * dy], ["16 measured\nvalues (± 2u)"]
+    for k, (name, key, m, lo, hi, u) in enumerate(proc):
+        y = 3.2 - k * 0.95
+        ax.plot([lo, hi], [y, y], color=PROC[key], linewidth=2.8, solid_capstyle="round")
+        ax.plot(m, y, "o", color=PROC[key], markersize=5.5, markeredgecolor="white", markeredgewidth=1)
+        ax.text(hi + 0.00012, y, f"u = {u * 1e5:.0f}", fontsize=5.9, color=PROC[key], va="center")
+        ticks.append(y)
+        labels.append(name)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels(labels, fontsize=6.6)
+    for lab, key in zip(ax.get_yticklabels()[1:], [p[1] for p in proc]):
+        lab.set_color(PROC[key])
+        lab.set_fontweight("bold")
+    ax.get_yticklabels()[0].set_color(INK2)
+    ax.tick_params(axis="y", length=0)
+    ax.spines["left"].set_visible(False)
+    ax.set_xlim(6.6707, 6.6765)
+    ax.set_ylim(-1.5, y0 + 16 * dy)
+    ax.set_xticks([6.671, 6.673, 6.675])
+    ax.set_xlabel("G / (10⁻¹¹ m³ kg⁻¹ s⁻²), 95 % intervals; u in 10⁻⁵", fontsize=6.8)
     ax.xaxis.grid(True, color=GRID, linewidth=0.6)
     ax.set_axisbelow(True)
-    ax.tick_params(axis="y", length=0)
-    ax.set_title("(a) Consensus value of G, 16 results", fontsize=8, loc="left", color=INK)
+    fig.text(0.01, 0.975, "(a) G: one data set, four consensus values", fontsize=7.8,
+             color=INK, va="top")
 
-    ax = fig.add_subplot(gs[1])
-    names = [u["name"] for u in sets[0][1]["unilateral"]]
+    # (b) Significant bilateral degrees of equivalence of the 60Co comparison, by procedure and version.
+    cp = "library/physical/nicob-co60-activity-leave-one-out-bilateral.json"
+    spec = json.loads(Path(cp).read_text(encoding="utf-8"))
+    versions = {}
+    for loo in (False, True):
+        s = json.loads(json.dumps(spec))
+        s["consensus"]["leave_one_out"] = loo
+        s.pop("expected", None)
+        tmp = OUT / "_co60.json"
+        tmp.write_text(json.dumps(s), encoding="utf-8")
+        versions[loo] = run_json(str(tmp))
+        tmp.unlink()
+    names = [r["name"] for r in spec["consensus"]["results"]]
+    idx = {n: i for i, n in enumerate(names)}
+    inner = outer[1].subgridspec(2, 4, width_ratios=[0.16, 1, 1, 1], wspace=0.10, hspace=0.30)
+    keys = [("DerSimonian–Laird", "degrees_of_equivalence", "DL"),
+            ("Hierarchical Bayes", "bayes_degrees_of_equivalence", "Bayes"),
+            ("Linear Pool", "linear_pool_degrees_of_equivalence", "LP")]
     n = len(names)
-    for k, (label, s) in enumerate(sets):
-        sig = sum(1 for b in s["bilateral"] if b["significant"])
-        for j, u in enumerate(s["unilateral"]):
-            y = n - 1 - j + (1 - k) * 0.26
-            ax.plot([u["d"] - u["expanded"], u["d"] + u["expanded"]], [y, y], color=SLOTS[k], linewidth=1.6,
-                    solid_capstyle="round")
-            ax.plot(u["d"], y, "o", color=SLOTS[k], markersize=3.6, markeredgecolor="white", markeredgewidth=0.6,
-                    label=f"{label} ({sig} of {len(s['bilateral'])} pairs significant)" if j == 0 else None)
-    ax.axvline(0, color=INK2, linewidth=0.6)
-    ax.set_yticks(range(n))
-    ax.set_yticklabels(names[::-1], fontsize=6.5)
-    ax.set_xlabel("D*ⱼ = xⱼ − μ̂₋ⱼ / kBq, U95 %")
-    ax.xaxis.grid(True, color=GRID, linewidth=0.6)
-    ax.set_axisbelow(True)
-    ax.tick_params(axis="y", length=0)
-    ax.set_title("(b) ⁶⁰Co, 19 laboratories: leave-one-out degrees of equivalence", fontsize=8, loc="left", color=INK)
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.11), fontsize=6.8, ncol=1, handlelength=1.0)
+    for row, loo in enumerate((False, True)):
+        lab = fig.add_subplot(inner[row, 0])
+        lab.axis("off")
+        lab.text(0.5, 0.5, "leave-one-out" if loo else "MRA version", rotation=90, fontsize=6.6, color=INK,
+                 ha="center", va="center", fontweight="bold")
+        for col, (title, key, pk) in enumerate(keys):
+            a = fig.add_subplot(inner[row, col + 1])
+            m = np.full((n, n), np.nan)
+            sig = 0
+            for b in versions[loo][key]["bilateral"]:
+                i, j = sorted((idx[b["a"]], idx[b["b"]]))
+                m[j, i] = 1.0 if b["significant"] else 0.0
+                sig += b["significant"]
+            a.imshow(m, cmap=ListedColormap(["#efeee9", PROC[pk]]), vmin=0, vmax=1, interpolation="nearest")
+            a.set_xticks([])
+            a.set_yticks([])
+            for s_ in a.spines.values():
+                s_.set_visible(False)
+            a.text(n - 1.0, 1.0, f"{sig}", fontsize=13, fontweight="bold", color=PROC[pk], ha="right", va="top")
+            a.text(n - 1.0, 5.2, "of 171\npairs", fontsize=5.6, color=INK2, ha="right", va="top")
+            if row == 0:
+                a.set_title(title, fontsize=6.6, color=PROC[pk], fontweight="bold", pad=4)
+    fig.text(0.50, 0.975, "(b) ⁶⁰Co, 19 laboratories: pairs with a significant\n"
+             "     bilateral degree of equivalence (filled squares)", fontsize=7.8, color=INK, va="top")
     save(fig, "fig4_procedures")
 
 

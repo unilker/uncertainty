@@ -234,7 +234,7 @@ only in the reported statement.
   correctness rests on comparisons with values it did not produce — the results printed in the 38 documents, Suncal,
   the NICOB and NIST Uncertainty Machine manuals — and on the review of every discrepancy against the source
   document (Section 4.3). Table 6 states what each check shares with the program.
-- **Traceability of the development.** The repository contains a research log of every design decision (D1–D100)
+- **Traceability of the development.** The repository contains a research log of every design decision (D1–D101)
   and finding (F1–F100), the generators that write each library project from the numerical data of its source, and
   the scripts of every independent recomputation (`tools/research/`). Licensed documents are used only for their
   numerical data and are not distributed.
@@ -364,7 +364,9 @@ classes; 29 have a class-c component. Of these, 13 are confirmed inconsistencies
 result (c1), 7 affect only intermediate values (c2, two of them partly corrected by errata), 5 are differences of
 method or interpretation (m), 1 is a known erratum (e), and 5 are open and not counted (Table 4). The findings
 concern most of the documents (Figure 3): the GUM-5 examples of 2026 carry 13, the Eurachem QUAM 11, UKAS M3003 and
-the EMUE compendium 7 each (a finding with two classes counted in both).
+the EMUE compendium 7 each (a finding with two classes counted in both). The confirmed c1 findings move the printed
+result by between 0.6 % of its expanded uncertainty (F58, a change of U) and 34 expanded uncertainties (F28, a change
+of the estimate; Figure 3b).
 
 <!-- fig3 -->
 
@@ -458,7 +460,8 @@ The degrees of equivalence depend on the procedure as much. For the 19 results o
 the NICOB manual (participants coded), the number of pairs whose bilateral degree of equivalence differs
 significantly from zero is 4 of 171 with DerSimonian–Laird in the MRA version, 9 in the leave-one-out version,
 3 and 7 with the Bayesian model, and 22 with the Linear Pool in the MRA version, whose bilateral uncertainties
-contain only the stated uncertainties of the two participants and not the dark uncertainty (Figure 4). The NICOB
+contain only the stated uncertainties of the two participants and not the dark uncertainty, and none with the Linear
+Pool in the leave-one-out version (Figure 4b). The NICOB
 code and manual differ in how the Linear Pool degrees of equivalence are computed (F100); the program implements
 the manual. A participant's "significant" degree of equivalence is therefore a statement about the procedure as
 well as about the result, and the procedure should be chosen and stated before the data are seen. The same holds
