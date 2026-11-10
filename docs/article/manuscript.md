@@ -641,7 +641,7 @@ The author declares no competing interests. [To be confirmed.]
 
 ## Funding
 
-[To be added.]
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
 
 ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 

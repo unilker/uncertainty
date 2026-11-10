@@ -150,10 +150,7 @@ def title_page(out, title, parts):
                       "relationships that could have appeared to influence the work reported in this paper. [To be "
                       "confirmed by the author; the declaration is also made with Elsevier's declarations tool.]")
     doc.add_heading("Funding", level=2)
-    doc.add_paragraph("[choose one: “This research did not receive any specific grant from funding agencies in the "
-                      "public, commercial, or not-for-profit sectors.” or “This work was supported by the TÜBİTAK "
-                      "National Metrology Institute (TÜBİTAK UME).” — the guide asks for the name of the institute when the work "
-                      "is funded from its own resources.]")
+    doc.add_paragraph("This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.")
     doc.add_heading("CRediT authorship contribution statement", level=2)
     doc.add_paragraph(parts["CRediT authorship contribution statement"].replace("\n", " "))
     doc.add_heading("Software and data (for the editor)", level=2)

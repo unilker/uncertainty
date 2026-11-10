@@ -638,7 +638,7 @@ Yazar herhangi bir çıkar çatışması olmadığını beyan eder. [Doğrulanac
 
 ## Finansman
 
-[Eklenecek.]
+Bu araştırma kamu, ticari veya kâr amacı gütmeyen sektörlerdeki fon sağlayıcı kuruluşlardan belirli bir hibe almamıştır.
 
 ## Makalenin hazırlanmasında üretken yapay zekâ ve yapay zekâ destekli teknolojilerin kullanımına ilişkin beyan
 
