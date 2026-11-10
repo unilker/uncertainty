@@ -21,9 +21,13 @@ keywords:
   - metrology
   - analytical chemistry
   - uncertainty budget
+  - software validation
+  - ISO/IEC 17025
 abstract: >-
-  Open software for the evaluation of measurement uncertainty according to
-  the GUM uncertainty framework (JCGM 100:2008) and the Monte Carlo method of
-  GUM Supplement 1 (JCGM 101:2008), with bottom-up and top-down approaches for
-  analytical chemistry and calibration, a validated library of worked
-  examples, and Turkish and English user guides.
+  Open-source software for the evaluation of measurement uncertainty: the
+  GUM including its 2026 amendment, the Monte Carlo methods of JCGM 101 and
+  102, conformity assessment, top-down evaluation, proficiency testing,
+  calibration with uncertainty in both variables, precision experiments,
+  control charts, uncertainty from sampling, weighing instruments and
+  consensus values, with reports in English and Turkish. Validated on 286
+  projects built from the worked examples of 38 guidance documents.
