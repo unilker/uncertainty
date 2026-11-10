@@ -3784,3 +3784,11 @@ or the standard abbreviation. Used from now on: "TÜBİTAK National Metrology In
 Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye" (title page, cover letter), short form
 "…, 41470 Gebze, Kocaeli, Türkiye" (manuscript author line, CITATION.cff, .zenodo.json); the street address agrees with
 the CPEM 2026 papers of the institute.
+
+**D105. Suggested reviewers (decision of the author, 2026-11-10).** Five researchers whose recent work matches the
+paper and who are not authors of a document with a c1 finding nor developers of the software compared: B. D. Hall
+(MSL New Zealand), F. R. Pennecchi (INRiM), P. M. Harris (NPL), K. Shirono (NMIJ/AIST), G. Kok (VSL). C. Elster (PTB),
+first proposed, died on 16 April 2025 (dedication in Wübbeler et al., Meas. Sci. Technol. 36 (2025) 085501) and was
+replaced by G. Kok. The cover letters list names, affiliations and expertise; the e-mail addresses (taken from the
+correspondence addresses printed in their open-access papers) are entered in the submission system and are not
+stored in the repository.

@@ -58,8 +58,20 @@ The findings concern published guidance documents. They will be sent to the issu
 acceptance, so that the notes can refer to a peer-reviewed record.
 
 The manuscript has not been published and is not under consideration elsewhere. The author declares no competing
-interests. [Suggested reviewers, if the journal asks for them: name, affiliation, e-mail, reason — to be added by the
-author.]
+interests.
+
+Suggested reviewers (their e-mail addresses are entered in the submission system):
+
+1. Blair D. Hall, Measurement Standards Laboratory of New Zealand, Lower Hutt, New Zealand: developer of the GUM Tree Calculator; digital representation of measurement data.
+2. Francesca R. Pennecchi, Istituto Nazionale di Ricerca Metrologica (INRiM), Torino, Italy:
+   overview of uncertainty software and training in Mathmet; uncertainty propagation in nonlinear models; risks of
+   conformity decisions.
+3. Peter M. Harris, National Physical Laboratory (NPL), Teddington, United Kingdom: validation of
+   metrology software; Mathmet training on measurement uncertainty.
+4. Katsuhiro Shirono, National Metrology Institute of Japan (NMIJ), AIST, Tsukuba, Japan:
+   proficiency tests with uncertainty information; acceptance intervals in conformity assessment.
+5. Gertjan Kok, VSL, Delft, The Netherlands: measurement models and software for uncertainty
+   evaluation; Monte Carlo methods.
 
 Yours sincerely,
 

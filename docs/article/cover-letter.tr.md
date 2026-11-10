@@ -59,7 +59,19 @@ Bulgular yayımlanmış kılavuz belgelerle ilgilidir. Hakemli bir kayda atıf y
 sonra yayımcı kuruluşlara teknik not olarak iletilecektir.
 
 Makale daha önce yayımlanmamıştır ve başka bir yerde değerlendirmede değildir. Yazarın çıkar çatışması yoktur.
-[Dergi isterse önerilen hakemler: ad, kurum, e-posta, gerekçe — yazar tarafından eklenecek.]
+
+Önerilen hakemler (e-posta adresleri gönderim sistemine girilmiştir):
+
+1. Blair D. Hall, Measurement Standards Laboratory of New Zealand, Lower Hutt, Yeni Zelanda: GUM Tree Calculator'ın geliştiricisi; ölçüm verisinin dijital temsili.
+2. Francesca R. Pennecchi, Istituto Nazionale di Ricerca Metrologica (INRiM), Torino, İtalya:
+   Mathmet'te belirsizlik yazılımı ve eğitimi taraması; doğrusal olmayan modellerde belirsizlik yayılımı; uygunluk
+   kararlarının riskleri.
+3. Peter M. Harris, National Physical Laboratory (NPL), Teddington, Birleşik Krallık: metroloji
+   yazılımının validasyonu; Mathmet ölçüm belirsizliği eğitimi.
+4. Katsuhiro Shirono, National Metrology Institute of Japan (NMIJ), AIST, Tsukuba, Japonya:
+   belirsizlik bilgisiyle yeterlilik testleri; uygunluk değerlendirmesinde kabul aralıkları.
+5. Gertjan Kok, VSL, Delft, Hollanda: ölçüm modelleri ve belirsizlik değerlendirme yazılımı; Monte Carlo
+   yöntemleri.
 
 Saygılarımla,
 
