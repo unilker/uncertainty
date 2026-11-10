@@ -71,6 +71,24 @@ def read_check(desktop, path):
         doc.close(True)
 
 
+def recalculated_copy(src, dst, port=2005):
+    """Opens a workbook in LibreOffice, recalculates it and saves it as .xlsx with the computed values stored,
+    so that viewers that do not calculate (previews, phones) also show the results."""
+    soffice, desktop = connect(port)
+    try:
+        doc = desktop.loadComponentFromURL(uno.systemPathToFileUrl(os.path.abspath(src)), "_blank", 0,
+                                           (prop("Hidden", True),))
+        doc.calculateAll()
+        doc.storeToURL(uno.systemPathToFileUrl(os.path.abspath(dst)), (prop("FilterName", "Calc MS Excel 2007 XML"),))
+        doc.close(True)
+    finally:
+        try:
+            desktop.terminate()
+        except Exception:  # noqa: BLE001
+            pass
+        soffice.wait(timeout=30)
+
+
 def main():
     projects = []
     with tempfile.TemporaryDirectory() as tmp:
