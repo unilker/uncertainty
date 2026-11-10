@@ -45,7 +45,7 @@ def main(src, out, lang="en"):
     r.bold = True
     r.font.color.rgb = NAVY
     r.font.size = Pt(12)
-    for line in ["TÜBİTAK Ulusal Metroloji Enstitüsü (UME)", "Gebze, Kocaeli, Türkiye", "ORCID 0000-0001-5089-4602"]:
+    for line in ["TÜBİTAK National Metrology Institute (TÜBİTAK UME)", "TÜBİTAK Gebze Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1", "41470 Gebze, Kocaeli, Türkiye", "ORCID 0000-0001-5089-4602"]:
         head.add_run("\n" + line).font.size = Pt(10)
     today = date.today()
     d = doc.add_paragraph(f"{today.day} {MONTHS_TR[today.month - 1]} {today.year}" if lang == "tr"

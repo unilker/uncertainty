@@ -48,6 +48,8 @@ ANON = [
     ("10.5281/zenodo.24118312", WITHHELD), ("10.5281/zenodo.24118311", WITHHELD),
     ("https://github.com/unilker/uncertainty", f"repository link {WITHHELD}"),
     ("github.com/unilker/uncertainty", f"repository link {WITHHELD}"),
+    ("TÜBİTAK National Metrology Institute (TÜBİTAK UME), 41470 Gebze, Kocaeli, Türkiye", "[institute]"),
+    ("TÜBİTAK National Metrology Institute (TÜBİTAK UME)", "[institute]"),
     ("TÜBİTAK Ulusal Metroloji Enstitüsü (UME), Gebze, Kocaeli, Türkiye", "[institute]"),
     ("TÜBİTAK Ulusal Metroloji Enstitüsü (UME)", "[institute]"),
     ("TÜBİTAK UME, Belirsizlik Hesapları Prosedürü", "[institute], uncertainty procedure"),
@@ -132,9 +134,8 @@ def title_page(out, title, parts):
     p.add_run(" *")
     p = doc.add_paragraph()
     p.add_run("a").font.superscript = True
-    p.add_run(" TÜBİTAK Ulusal Metroloji Enstitüsü (UME), TÜBİTAK Gebze Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. "
-              "No: 1, 41470 Gebze, Kocaeli, Türkiye [confirm the postal address]")
-    doc.add_paragraph("* Corresponding author: İlker Ün, TÜBİTAK Ulusal Metroloji Enstitüsü (UME), address as above. "
+    p.add_run(" TÜBİTAK National Metrology Institute (TÜBİTAK UME), TÜBİTAK Gebze Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye")
+    doc.add_paragraph("* Corresponding author: İlker Ün, TÜBİTAK National Metrology Institute (TÜBİTAK UME), address as above. "
                       "E-mail: [e-mail of the corresponding author]. ORCID: 0000-0001-5089-4602.")
     doc.add_heading("Acknowledgements", level=2)
     doc.add_paragraph("[To be added by the author, or deleted: persons who helped with the research, language or "
@@ -145,8 +146,8 @@ def title_page(out, title, parts):
                       "confirmed by the author; the declaration is also made with Elsevier's declarations tool.]")
     doc.add_heading("Funding", level=2)
     doc.add_paragraph("[choose one: “This research did not receive any specific grant from funding agencies in the "
-                      "public, commercial, or not-for-profit sectors.” or “This work was supported by TÜBİTAK "
-                      "Ulusal Metroloji Enstitüsü (UME).” — the guide asks for the name of the institute when the work "
+                      "public, commercial, or not-for-profit sectors.” or “This work was supported by the TÜBİTAK "
+                      "National Metrology Institute (TÜBİTAK UME).” — the guide asks for the name of the institute when the work "
                       "is funded from its own resources.]")
     doc.add_heading("CRediT authorship contribution statement", level=2)
     doc.add_paragraph(parts["CRediT authorship contribution statement"].replace("\n", " "))

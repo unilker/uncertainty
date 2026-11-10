@@ -3776,3 +3776,11 @@ ScienceDirect page, 20 pages, read in full). Requirements and what was done:
 
 Open for the author: the e-mail and postal address on the title page, acknowledgements, the funding sentence, the
 competing-interest declaration, the recomputation of the c1 findings ("planned"), suggested reviewers.
+
+**D104. Affiliation in English (decision of the author, 2026-11-10).** The 2026 papers with a TÜBİTAK UME affiliation
+in Crossref (about 35: MDPI, IEEE, ACS, RSC, IOP, Wiley, AIP, De Gruyter, BIPM) use several forms; the English name
+with the abbreviation and postal code 41470 is the most common, and the Elsevier guide asks for the full standard name
+or the standard abbreviation. Used from now on: "TÜBİTAK National Metrology Institute (TÜBİTAK UME), TÜBİTAK Gebze
+Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye" (title page, cover letter), short form
+"…, 41470 Gebze, Kocaeli, Türkiye" (manuscript author line, CITATION.cff, .zenodo.json); the street address agrees with
+the CPEM 2026 papers of the institute.

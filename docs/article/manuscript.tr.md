@@ -7,7 +7,7 @@ ve araştırma günlüğünden (kararlar D…, bulgular F…) gelir; kaynakları
 karşılaştırılmıştır (D99). Şekil 1, 3, 4 ve Tablo 2–3 `tools/research/article_figures.py` ile üretilir; Şekil 2
 uygulamanın bir ekran görüntüsüdür. Öne çıkanlar `highlights.md`, ek malzeme `supplementary/` içindedir.*
 
-İlker Ün — TÜBİTAK Ulusal Metroloji Enstitüsü (UME), Gebze, Kocaeli, Türkiye
+İlker Ün — TÜBİTAK National Metrology Institute (TÜBİTAK UME), 41470 Gebze, Kocaeli, Türkiye
 
 ## Özet
 
