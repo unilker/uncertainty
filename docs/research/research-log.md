@@ -3632,3 +3632,40 @@ before the CRediT statement. A cover letter (`docs/article/cover-letter.md`, Tur
 `cover-letter.tr.md`) states that the work is not a machine-learning study and why it is submitted to *Measurement*.
 The recomputation of at least ten c1 findings by a metrologist who has not seen the code remains required before
 submission; it is the one check that is independent of both the program and the assistant.
+
+**D96. Ten papers from *Measurement* read and cited (decision of the author, 2026-11-10).** The author supplied the
+full texts of the ten candidates of `docs/article/measurement-literature.md` (licensed; used locally, not in the
+repository). Each was read in full and cited only for what it states:
+
+- Greif, Schrepf & Richter 2006 (PTB): validation as objective evidence that refined requirements are fulfilled; the
+  case study of a GUM-supporting program included the reproduction of the GUM appendix examples, with several
+  hundred black-box cases checked for value, significant digits and rounding. Cited in Section 1 as the closest
+  precedent of the library and in 8.2 for validation as the specification of testable requirements.
+- Désenfant & Priel 2006 and 2017 (LNE): the four routes to an uncertainty (modelling, single-laboratory validation,
+  interlaboratory validation, proficiency testing) and the statistical-model approach as a simplification of the
+  measurement model; a model uncertainty much smaller than interlaboratory spread points to a missing component.
+  Section 2.1.
+- Shirono et al. 2016: the two causes of inconsistent interlaboratory data (unknown random effect, unskilled
+  laboratories), different reference values from consistent-subset and random-effects models. Section 2.4.
+- Lira 2011: Monte Carlo propagation through a least-squares fit and the use of the curve (Section 5, Limitations);
+  its first example is CCQM-K25 PCB 28, the same six results as the library project
+  `nicob-pcb28-sediment-degrees-of-freedom` (checked value by value against Lira's Table 1). Section 7.1 now compares
+  the reference values of that comparison: KCRV 33.64 ng/g (u 0.60, the arithmetic mean), Lira 33.64 (0.35, equal
+  weights) and 34.05 (0.26, inverse-variance weights, ν = 2 laboratory without weight), the program's
+  DerSimonian–Laird with bootstrap 33.60 (0.75; τ̂ = 1.71, Q = 68.2 for 5 degrees of freedom) and Linear Pool 33.64
+  (1.51): a factor 5.8 in u. Lira's residuals flag laboratories 5 and 6; the leave-one-out DoE flags Laboratory 6 and
+  the bilateral DoE only the pair 5–6.
+- Huang 2019: argues against the scaled and shifted t of JCGM 101 (s.d. undefined for n < 4; U up to 50.9 % larger at
+  n = 4 in his example) and proposes N(x̄, s/(c₄√n)). Cited in 6.5 as a contested position, not as an endorsement.
+- Carobbi 2017: ISO 13528 assigned values ignore u(x_i), weighted means use only u(x_i); a modified Algorithm A.
+  Sections 7.1 and 9 (not implemented).
+- Frahm & Wright 2023: |E_n| ≤ 1 is easily passed when the comparison uncertainty is large; conclusiveness criteria B
+  and D, also for proficiency testing. Section 7.1 (not implemented).
+- Pendrill 2006 and Forbes 2006: rules of thumb for target uncertainty and guard bands examined in economic terms;
+  acceptance limits from the costs of decisions. Section 7.3 (the program reports the risks, it does not optimise
+  costs).
+
+The references are renumbered in order of first citation (they were not: [35], [36] came after [37]–[41]), now
+[1]–[58] in both languages. Two earlier slips are corrected: Röver, Knapp & Friede 2015 was cited for "the books and
+papers of Possolo" in Section 4.1 instead of Possolo & Bodnar 2018 and Possolo & Meija 2022; it is now cited in Section 2.4 for the modified Knapp–Hartung
+adjustment of the leave-one-out degrees of equivalence (D86), where it belongs.

@@ -56,7 +56,10 @@ implements a top-down evaluation for chemistry. A survey of 35 programs by the E
 found that only 54 % give some evidence of validation and that support for JCGM 102 is the largest gap [25]. None
 of these tools covers bottom-up and top-down evaluation, proficiency testing, conformity assessment and consensus
 values together, and none publishes a validation that recomputes the worked examples of the guidance it
-implements.
+implements. The closest precedent is the validation of a GUM-supporting program at PTB, whose requirements
+included the reproduction of the examples in the GUM appendices; several hundred black-box test cases checked each
+output for its value, its number of significant digits and its rounding [26]. We extend this approach from the
+GUM to 38 documents and make it a regression test that runs at every change of the code.
 
 This paper makes four contributions, which also give its structure.
 
@@ -77,37 +80,43 @@ This paper makes four contributions, which also give its structure.
 
 A project contains the input data of one of eleven evaluation types (Table 1). Each type implements the cited
 clauses of its guidance document; where a document leaves a choice open, the choice is an option of the project and
-is named in the report.
+is named in the report. The types cover the routes to an uncertainty that Désenfant and Priel distinguish: the
+modelling approach of the GUM, which they regard as the reference method, and the approaches from single-laboratory
+validation data, from interlaboratory precision studies and from proficiency testing [27]; these rest
+on a statistical model, a simplification of the measurement model in which some input quantities are merged
+[28]. A laboratory can therefore evaluate a method by more than one route with the same program; an
+uncertainty from a model that is much smaller than the spread seen in interlaboratory comparisons points to a
+missing component [27].
 
 **Table 1.** Evaluation types and the methods they implement (checked against the module documentation and
 `docs/research/iso17025-mapping.md`).
 
 | Project type | Methods | Main references |
 |---|---|---|
-| model | LPU of first and second order with correlations and ensembles; Welch–Satterthwaite; Kragten's spreadsheet; Monte Carlo (adaptive, shortest and symmetric intervals, half-width about the estimate); validation of the GUM result; bounded outputs | [2, 3, 6, 26] |
+| model | LPU of first and second order with correlations and ensembles; Welch–Satterthwaite; Kragten's spreadsheet; Monte Carlo (adaptive, shortest and symmetric intervals, half-width about the estimate); validation of the GUM result; bounded outputs | [2, 3, 6, 29] |
 | multivariate | LPU and Monte Carlo for several outputs, explicit and implicit models, coverage regions | [4] |
-| conformity | specific and global risks, guard bands (JCGM 106; test uncertainty ratio), lognormal processes, multicomponent items | [5, 27] |
-| topdown | precision and recovery from validation and QC data (Nordtest, MUPR, ISO 21748) | [9, 10, 28] |
-| proficiency | robust statistics, scores, homogeneity and stability (incl. a Bayesian between-unit model) | [15, 29] |
+| conformity | specific and global risks, guard bands (JCGM 106; test uncertainty ratio), lognormal processes, multicomponent items | [5, 30] |
+| topdown | precision and recovery from validation and QC data (Nordtest, MUPR, ISO 21748) | [9, 10, 31] |
+| proficiency | robust statistics, scores, homogeneity and stability (incl. a Bayesian between-unit model) | [15, 32] |
 | calibration | generalised least squares with uncertainty in both variables | [18] |
 | precision experiment | repeatability and reproducibility with outlier tests | [16, 17] |
 | control chart | X- and R-charts, limits, rules, long-term review | [11] |
-| sampling | duplicate method (classical ANOVA; range and log-transformed variants), fundamental sampling error; the robust ANOVA of the guide is not reproducible from its text (F63) | [30] |
+| sampling | duplicate method (classical ANOVA; range and log-transformed variants), fundamental sampling error; the robust ANOVA of the guide is not reproducible from its text (F63) | [33] |
 | error function | weighing instruments, error approximation and uncertainty in use | [14] |
-| consensus | DerSimonian–Laird with parametric bootstrap, Linear Pool, maximum likelihood, Bayesian random effects (Gaussian or Laplace); degrees of equivalence (MRA, leave-one-out, bilateral) | [23, 31, 32] |
+| consensus | DerSimonian–Laird with parametric bootstrap, Linear Pool, maximum likelihood, Bayesian random effects (Gaussian or Laplace); degrees of equivalence (MRA, leave-one-out, bilateral) | [23, 34, 35] |
 
 ### 2.2 Measurement models and the GUM
 
 Models are written as expressions; the parser differentiates them symbolically, so that sensitivity coefficients
 are exact and can be printed. The combined standard uncertainty includes correlations; the second-order term of
 the estimate introduced by the 2026 amendment of the GUM [6] is always computed and added on request, and the
-second-order variance terms for correlated normal inputs follow Mana and Pennecchi [26]. Inputs evaluated from the
+second-order variance terms for correlated normal inputs follow Mana and Pennecchi [29]. Inputs evaluated from the
 same data can be declared as an *ensemble*, which enters the Welch–Satterthwaite formula as one component with its
-common degrees of freedom (Willink [33]; the GUM Tree Calculator implements the same rule [21]). Expanded
+common degrees of freedom (Willink [36]; the GUM Tree Calculator implements the same rule [21]). Expanded
 uncertainties are rounded by the rule of EA-4/02 (ordinary rounding unless it lowers U by more than 5 %, then
 upwards) [12], by the rule of the Eurachem/CITAC MUPR guide [9] or always upwards; the statement names the rule.
 Calibration reports can apply the calibration and measurement capability as the smallest reportable uncertainty
-(ILAC P14 [34]).
+(ILAC P14 [37]).
 
 ### 2.3 Monte Carlo method
 
@@ -120,10 +129,17 @@ degrees of freedom (s/√n against √(ν/(ν − 2))·s/√n), so that a failed
 
 ### 2.4 Consensus values and degrees of equivalence
 
-The consensus module follows the NIST Consensus Builder [23, 32] and was checked against its R source code, which
-is public. The DerSimonian–Laird estimate [37] is given with the Knapp–Hartung adjustment [38] and with the
+Interlaboratory results can be mutually inconsistent for two reasons: an unknown effect that affects most of them,
+such as instability or inhomogeneity of the items or a vague definition of the measurand, or one or more
+laboratories that report outlying values or understated uncertainties [38]. The first calls for a
+random-effects model with a between-laboratory ("dark") uncertainty [34], the second for a consistent subset or the
+exclusion of outliers; the two kinds of model give different reference values for the same data, and Shirono et
+al. propose a method to detect a random effect [38].
+
+The consensus module follows the NIST Consensus Builder [23, 35] and was checked against its R source code, which
+is public. The DerSimonian–Laird estimate [39] is given with the Knapp–Hartung adjustment [40] and with the
 parametric bootstrap of NICOB, which draws the between-laboratory variance from the gamma approximation of
-Cochran's Q of Biggerstaff and Tweedie [39]. Reading the code showed two details that the manual does not state:
+Cochran's Q of Biggerstaff and Tweedie [41]. Reading the code showed two details that the manual does not state:
 the gamma is set at the untruncated moment estimate of τ², which is negative when Q < n − 1, and its variance
 differs in the linear term from the published formula; with τ̂ > 0 the difference is 0.1 % in u, with Q < n − 1 it
 is 13 % (D82). The program follows the code and keeps the published form for reference.
@@ -135,14 +151,15 @@ Laplace convolution is written in closed form and the posterior is evaluated on 
 depend on a seed; doubling the grid changes means, standard deviations and quantiles by less than 10⁻³ of the
 posterior standard deviation (D83). Degrees of equivalence are available for the DerSimonian–Laird, Linear Pool
 and Bayesian procedures, in the version of the CIPM MRA (D_j = x_j − μ̂) and in the leave-one-out version
-(D*_j = x_j − μ̂₋ⱼ), unilateral and bilateral (D86, D88).
+(D*_j = x_j − μ̂₋ⱼ), whose uncertainty uses the modified Knapp–Hartung adjustment of Röver et al. [42] as NICOB
+does, unilateral and bilateral (D86, D88).
 
 ### 2.5 Results near a physical bound
 
 A mass fraction cannot exceed 1 g/g. When y ± U crosses such a bound, the program truncates the interval at the
-bound and states the result as y +U_U/−U_L, as the IUPAC technical report on purity assignment allows [40]; with the
+bound and states the result as y +U_U/−U_L, as the IUPAC technical report on purity assignment allows [43]; with the
 Monte Carlo method it also reports the result restricted to the bound — the draws outside are discarded, which
-corresponds to a rectangular prior on the measurand [41] — with its estimate, standard deviation and coverage
+corresponds to a rectangular prior on the measurand [44] — with its estimate, standard deviation and coverage
 interval (D87).
 
 ## 3. Software design and implementation
@@ -190,8 +207,8 @@ proposal for publishing worked examples (Section 9).
 
 The expression language provides the usual arithmetic, powers and elementary functions; derivatives of first and
 second order are formed symbolically and simplified before evaluation. The random-number generator is the enhanced
-Wichmann–Hill generator recommended by JCGM 101 [3, 35], checked against its primary source; normal deviates come
-from the Box–Muller transform and gamma deviates from the method of Marsaglia and Tsang [36]. With a given seed a
+Wichmann–Hill generator recommended by JCGM 101 [3, 45], checked against its primary source; normal deviates come
+from the Box–Muller transform and gamma deviates from the method of Marsaglia and Tsang [46]. With a given seed a
 Monte Carlo evaluation is exactly repeatable. Bayesian consensus values are evaluated on deterministic grids
 (Section 2.4), so that they need no seed at all. All calculations are done in double precision; values are rounded
 only in the reported statement.
@@ -216,7 +233,7 @@ only in the reported statement.
   correctness rests on comparisons with values it did not produce — the results printed in the 38 documents, Suncal,
   the NICOB and NIST Uncertainty Machine manuals — and on the review of every discrepancy against the source
   document (Section 4.3). Table 6 states what each check shares with the program.
-- **Traceability of the development.** The repository contains a research log of every design decision (D1–D94)
+- **Traceability of the development.** The repository contains a research log of every design decision (D1–D96)
   and finding (F1–F100), the generators that write each library project from the numerical data of its source, and
   the scripts of every independent recomputation (`tools/research/`). Licensed documents are used only for their
   numerical data and are not distributed.
@@ -237,10 +254,10 @@ self-contained HTML with SVG charts, PDF (A4, fonts embedded) and JSON with all 
 ### 4.1 The library
 
 The library holds 286 projects from 38 documents: the GUM and its supplements and GUM-5, the Eurachem/CITAC,
-Nordtest, EA, UKAS and EURAMET guides, five ISO standards, NIST TN 1900 [42] and the Uncertainty Machine manual,
-the EMPIR EMUE compendium [43], the IUPAC brief guide [44], the BIPM qNMR reference data reports [45], the
-consensus papers of Koepke et al. [32] and Merkatas et al. [46], and the books and papers of Possolo and
-co-authors [47, 48]. By field, 144 projects are in chemistry, 36 in electrical, 31 in mass, 24 general, 16 in
+Nordtest, EA, UKAS and EURAMET guides, five ISO standards, NIST TN 1900 [47] and the Uncertainty Machine manual,
+the EMPIR EMUE compendium [48], the IUPAC brief guide [49], the BIPM qNMR reference data reports [50], the
+consensus papers of Koepke et al. [35] and Merkatas et al. [51], and the books and papers of Possolo and
+co-authors [32, 52]. By field, 144 projects are in chemistry, 36 in electrical, 31 in mass, 24 general, 16 in
 physical quantities, 12 in length, 10 in temperature, 7 in flow and 6 in pressure; by evaluation type, 134 are
 measurement models (118 with a Monte Carlo evaluation) and 152 cover the other ten types (Table 2; the full list is
 supplementary material S1).
@@ -310,7 +327,10 @@ consistent with sampling error alone. The calibration parameters agree to 2 × 1
 uncertainties; their standard uncertainties differ by up to 0.75 % when the fit is poor (largest weighted deviation
 Γ above 1), because Suncal's covariance is the Gauss–Newton approximation while KAPSAM propagates the input
 uncertainties through the minimum with the full Hessian (ISO 6143, Annex A); computed at KAPSAM's solution, the
-Gauss–Newton values agree with Suncal's to 6 × 10⁻⁵. The 32 conformance probabilities and global risks agree to
+Gauss–Newton values agree with Suncal's to 6 × 10⁻⁵. Both covariances linearise the fit about its minimum; a
+Monte Carlo propagation of the distributions of the data through the least-squares solution avoids the
+linearisation and also gives the distribution of a value read from the fitted curve [53], and could show which
+of the two is closer when the fit is poor. The 32 conformance probabilities and global risks agree to
 1.4 × 10⁻¹⁰. The 189 verification workbooks of the library (135 measurement models, 39 top-down evaluations, 9
 proficiency tests and 6 precision experiments), recalculated in LibreOffice Calc, reproduce all 4678 compared values
 within their tolerances (S7); the largest difference is 0.44 of its tolerance, for the effective degrees of freedom
@@ -319,9 +339,9 @@ of M3003 Example K1, in which the central differences enter to the fourth power.
 <!-- table3 -->
 
 The consensus module reproduces the published DerSimonian–Laird, bootstrap, Linear Pool, maximum-likelihood and
-hierarchical Bayesian values of Koepke et al. [32] for the Newtonian constant of gravitation and the half-lives
-of ¹³⁷Cs and ⁹⁰Sr, of IUPAC 2024 [44] for nickel in bovine liver and the molar mass of iridium, of Possolo and Meija
-[47] for the Hubble–Lemaître constant with Laplace effects (71.69 against 71.69 (km/s)/Mpc by Stan), and the
+hierarchical Bayesian values of Koepke et al. [35] for the Newtonian constant of gravitation and the half-lives
+of ¹³⁷Cs and ⁹⁰Sr, of IUPAC 2024 [49] for nickel in bovine liver and the molar mass of iridium, of Possolo and Meija
+[52] for the Hubble–Lemaître constant with Laplace effects (71.69 against 71.69 (km/s)/Mpc by Stan), and the
 consensus values of the NICOB manual for ⁶⁰Co and PCB 28 [23]. For the degrees of equivalence, which the manual
 shows only in figures, an independent port of the NICOB R code to numpy serves as reference: the D values agree
 exactly and the expanded uncertainties within 1.7 %, the Monte Carlo dispersion of 10⁵ draws.
@@ -388,23 +408,43 @@ exists, removes the ambiguity; where none exists, the number of draws should be 
 
 Five class-c findings turned out to be differences of method or interpretation. In GUM-5 Example 2 the two areas
 of analyte and internal standard come from the same three injections; their joint component of variance has two
-degrees of freedom by Willink's ensemble rule [33], whereas the example applies a generalised Welch–Satterthwaite
+degrees of freedom by Willink's ensemble rule [36], whereas the example applies a generalised Welch–Satterthwaite
 formula and obtains ν_eff = 4.8 (F79). With ν fixed at those two values the GUM interval covers 89 % and 96 % in a
 simulation of the measurement; with ν recomputed from each simulated data set, as a laboratory would, both readings
 cover 93–94 %. The choice matters for the coverage factor of a single result (2.6 against 4.1) but neither reading
 is an inconsistency. Two conventions for t-distributed inputs — the scaled and shifted t of JCGM 101 and the
 rescaled t of TN 1900 and the NIST Uncertainty Machine — likewise give different Monte Carlo results for the same
-data (F31, F35).
+data (F31, F35). The convention is itself debated: Huang [54] argues that the scaled and shifted t should not
+be used, because its standard deviation, √((n − 1)/(n − 3))·s/√n, exceeds s/√n and does not exist for fewer than
+four observations, and proposes a normal distribution with standard deviation s/(c₄√n); in his example the t
+convention gives an expanded uncertainty up to 51 % larger for n = 4. The program follows JCGM 101 and states the
+difference in the report (Section 2.3); a comparison of programs for Type A inputs must state the convention of
+each.
 
 ## 7. Choices that change the result
 
 ### 7.1 The consensus procedure is part of the model
 
-For the 16 values of the Newtonian constant of gravitation analysed by Merkatas et al. [46], the program reproduces
+For the 16 values of the Newtonian constant of gravitation analysed by Merkatas et al. [51], the program reproduces
 DerSimonian–Laird with the Knapp–Hartung adjustment (6.673 99 × 10⁻¹¹ m³ kg⁻¹ s⁻², u = 0.000 25), maximum
 likelihood (6.673 90, 0.000 25), the NICOB hierarchical Bayesian model (6.673 89, 0.000 27; exact grid instead of
 MCMC) and the Linear Pool (6.673 77, 0.001 17); the fourteen procedures of the paper span 6.673 77–6.674 29 with
 standard uncertainties from 0.000 11 to 0.001 17.
+
+The procedures differ above all in what determines the uncertainty of the reference value: the robust statistics of
+ISO 13528 compute it from the spread of the reported values alone, a weighted mean from the stated uncertainties
+alone, and random-effects procedures from both, through the dark uncertainty; Carobbi [55] proposed a version of
+Algorithm A that also uses the stated uncertainties. The six results for PCB 28 in sediment of the key comparison
+CCQM-K25, analysed in the NICOB manual [23] and by Lira [53], show how large the difference can be. The reported
+reference value, 33.64 ng/g with u = 0.60 ng/g, equals the arithmetic mean of the results [53]. Lira's least-squares
+fit of a constant to t distributions assigned to the results gives 33.64 ng/g with u = 0.35 ng/g with equal weights,
+and 34.05 ng/g with u = 0.26 ng/g with weights from the stated uncertainties, in which the laboratory with two degrees
+of freedom has no weight [53]; the program gives 33.60 ng/g with u = 0.75 ng/g by DerSimonian–Laird with the NICOB
+bootstrap (τ̂ = 1.7 ng/g) and 33.64 ng/g with u = 1.51 ng/g by the Linear Pool. For data this inconsistent (Cochran's
+Q = 68 with five degrees of freedom), the standard uncertainty of the reference value changes with the procedure by a
+factor of almost six. Lira's residuals mark Laboratories 5 and 6 as inconsistent with the rest; in the leave-one-out
+version of DerSimonian–Laird only Laboratory 6 differs significantly from the reference value, and of the 15 bilateral
+pairs only that of Laboratories 5 and 6.
 
 The degrees of equivalence depend on the procedure as much. For the 19 results of the ⁶⁰Co activity comparison in
 the NICOB manual (participants coded), the number of pairs whose bilateral degree of equivalence differs
@@ -413,7 +453,11 @@ significantly from zero is 4 of 171 with DerSimonian–Laird in the MRA version,
 contain only the stated uncertainties of the two participants and not the dark uncertainty (Figure 4). The NICOB
 code and manual differ in how the Linear Pool degrees of equivalence are computed (F100); the program implements
 the manual. A participant's "significant" degree of equivalence is therefore a statement about the procedure as
-well as about the result, and the procedure should be chosen and stated before the data are seen.
+well as about the result, and the procedure should be chosen and stated before the data are seen. The same holds
+for the criterion: a large comparison uncertainty, from the transfer standard and the repeatability, makes
+|E_n| ≤ 1 easy to pass, and Frahm and Wright [56] recommend criteria that classify such results as
+inconclusive, for proficiency testing as well as for comparisons; the program reports E_n and ζ scores, not these
+criteria.
 
 <!-- fig4 -->
 
@@ -423,7 +467,7 @@ For the purity of benzoic acid with an internal standard (BIPM ISRD-06, Table 6)
 U = 0.0015 g/g. Truncating y ± U at 1 g/g gives the printed 999.8 +0.2/−1.5 mg/g. The Monte Carlo result
 restricted to w ≤ 1 g/g keeps 62 % of the draws and gives 0.999 32 g/g, u = 0.000 49 g/g and the shortest 95 %
 interval [0.998 39, 1] g/g: a different estimate and a narrower interval. Both are defensible readings of the IUPAC
-guidance [40]; the report should say which was used.
+guidance [43]; the report should say which was used.
 
 ### 7.3 Guard bands from the test uncertainty ratio
 
@@ -431,7 +475,11 @@ In calibration, acceptance limits are often set from the test uncertainty ratio 
 U₉₅ = 2u, as Suncal does, makes TUR about 2 % lower than U₉₅ = k₉₅u for large degrees of freedom and higher for
 small ones; Dobbert's managed guard band gives acceptance limits outside the tolerance above TUR = 4.59 unless it
 is limited (D80). The program uses k₉₅u by default, keeps 2u as an option and limits the factor to 1 unless an
-agreed decision rule allows more.
+agreed decision rule allows more. Such rules — a target uncertainty of one third of the maximum permissible error,
+shared risk, guard bands — are conventions: Pendrill [57] examines them in economic terms, and Forbes
+[58] derives acceptance limits from the costs of wrong decisions. The program does not optimise costs, but it
+reports the specific and global consumer's and producer's risks of the chosen limits, which such an optimisation
+needs.
 
 ## 8. Use in laboratories
 
@@ -455,25 +503,27 @@ project types, the outputs and the clauses of ISO/IEC 17025 they relate to.
 
 ### 8.2 Validation of the software and technical records
 
-ISO/IEC 17025 7.11.2 requires a laboratory to validate the software it uses before use and after changes. The
-command `kapsam check library --lab my-projects --report validation.pdf` writes a software validation report
-that lists the program version, the commit, the compiler and the platform, the SHA-256 digest of every project file
-and of the set, and every comparison with its reference value and tolerance; the laboratory's own projects appear
-in a section of their own, because reproducing published examples verifies the implementation but not the
-laboratory's procedure (supplementary material S5 is such a report). A laboratory keeps its typical projects with
-their expected values and reruns them after every update of the program. For technical records (7.5) and data
-integrity (7.11.3), the project file, the report and the digest printed in the report together document an
-evaluation: anyone can later check that a filed report belongs to a given project file. With `--workbooks folder`
-the same command writes the spreadsheet verification workbook of every project that has one, and the report lists
-them with their digests and an empty column for the person who opens them in Excel to record the outcome; in the
-application the workbook of the open project is one menu entry away (*Verify in Excel*). A laboratory thus checks
-its own projects with its own spreadsheet program, which many assessors regard as the familiar form of software
+ISO/IEC 17025 7.11.2 requires a laboratory to validate the software it uses before use and after changes. Validation
+provides objective evidence that the requirements of the intended use are fulfilled, and much of it consists in
+specifying those requirements in testable form [26]. The command
+`kapsam check library --lab my-projects --report validation.pdf` writes a software validation report that lists the
+program version, the commit, the compiler and the platform, the SHA-256 digest of every project file and of the set,
+and every comparison with its reference value and tolerance; the laboratory's own projects appear in a section of
+their own, because reproducing published examples verifies the implementation but not the laboratory's procedure
+(supplementary material S5 is such a report). A laboratory keeps its typical projects with their expected values — its
+requirements in testable form — and reruns them after every update of the program. For technical records (7.5) and
+data integrity (7.11.3), the project file, the report and the digest printed in the report together document an
+evaluation: anyone can later check that a filed report belongs to a given project file. With `--workbooks folder` the
+same command writes the spreadsheet verification workbook of every project that has one, and the report lists them
+with their digests and an empty column for the person who opens them in Excel to record the outcome; in the
+application the workbook of the open project is one menu entry away (*Verify in Excel*). A laboratory thus checks its
+own projects with its own spreadsheet program, which many assessors regard as the familiar form of software
 validation.
 
 ### 8.3 Statements in reports and certificates
 
 The reported statement gives the value, U, k and the coverage probability, names the rounding rule and, for
-calibration, applies the CMC of the laboratory as the smallest reportable uncertainty (ILAC P14 [34]). A
+calibration, applies the CMC of the laboratory as the smallest reportable uncertainty (ILAC P14 [37]). A
 conformity assessment states the decision rule, the guard band and the specific risk of each result, as 7.8.6
 requires; the guard bands derived from the test uncertainty ratio are limited as described in Section 7.3. Results
 near a physical bound are stated with an asymmetric interval (Section 2.5).
@@ -532,14 +582,14 @@ submission.
 findings of Table 4 will be sent to them as technical notes after acceptance, so that the notes can refer to a
 peer-reviewed record, and their replies will be added to the public research log of the program.
 
-**Limitations.** Not implemented are the NICOB priors on σ_j for results with finite degrees of freedom, the
-degrees of equivalence with Laplace effects, time series (ARMA) and counting statistics, model averaging, and
-signed result packages; the PDF reports and the SHA-256 digests provide integrity checks but not signatures. The
-Windows packages are not yet code-signed, so endpoint protection may quarantine them as unknown files. The
-interface, the reports and the guide exist in English and Turkish; further languages are possible but need review
-by metrologists who are native speakers. The use of the program in laboratories has not yet been studied
-systematically; a pilot with laboratories of the institute is planned. Licensed standards are used only for their
-numerical data.
+**Limitations.** Not implemented are the NICOB priors on σ_j for results with finite degrees of freedom, the degrees
+of equivalence with Laplace effects, time series (ARMA) and counting statistics, model averaging, the modified
+Algorithm A of Carobbi [55], the Monte Carlo evaluation of calibration curves [53], and signed result packages; the
+PDF reports and the SHA-256 digests provide integrity checks but not signatures. The Windows packages are not yet
+code-signed, so endpoint protection may quarantine them as unknown files. The interface, the reports and the guide
+exist in English and Turkish; further languages are possible but need review by metrologists who are native speakers.
+The use of the program in laboratories has not yet been studied systematically; a pilot with laboratories of the
+institute is planned. Licensed standards are used only for their numerical data.
 
 ## 10. Software availability
 
@@ -639,48 +689,68 @@ The author declares no competing interests. [To be confirmed.]
 
 [25] F. R. Pennecchi, P. M. Harris, Mathmet Measurement Uncertainty Training activity — overview of courses, software, and classroom examples, Acta IMEKO 12(2) (2023) 1–6.
 
-[26] G. Mana, F. Pennecchi, Uncertainty propagation in non-linear measurement equations, Metrologia 44 (2007) 246–251. https://doi.org/10.1088/0026-1394/44/3/012
+[26] N. Greif, H. Schrepf, D. Richter, Software validation in metrology: a case study for a GUM-supporting software, Measurement 39 (2006) 849–855. https://doi.org/10.1016/j.measurement.2006.04.005
 
-[27] Eurachem/CITAC Guide, Use of uncertainty information in compliance assessment, 2nd ed., 2021.
+[27] M. Désenfant, M. Priel, Road map for measurement uncertainty evaluation, Measurement 39 (2006) 841–848. https://doi.org/10.1016/j.measurement.2006.04.008
 
-[28] ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation.
+[28] M. Désenfant, M. Priel, Reference and additional methods for measurement uncertainty evaluation, Measurement 95 (2017) 339–344. https://doi.org/10.1016/j.measurement.2016.10.022
 
-[29] A. Possolo, C. Bodnar, Approximate Bayesian evaluations of measurement uncertainty, Metrologia 55 (2018) 147–157. https://doi.org/10.1088/1681-7575/aaa5be
+[29] G. Mana, F. Pennecchi, Uncertainty propagation in non-linear measurement equations, Metrologia 44 (2007) 246–251. https://doi.org/10.1088/0026-1394/44/3/012
 
-[30] M. H. Ramsey, S. L. R. Ellison, P. Rostron (eds.), Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide: Measurement uncertainty arising from sampling, 2nd ed., 2019.
+[30] Eurachem/CITAC Guide, Use of uncertainty information in compliance assessment, 2nd ed., 2021.
 
-[31] M. Thompson, S. L. R. Ellison, Dark uncertainty, Accred. Qual. Assur. 16 (2011) 483–487. https://doi.org/10.1007/s00769-011-0803-0
+[31] ISO 21748:2017, Guidance for the use of repeatability, reproducibility and trueness estimates in measurement uncertainty evaluation.
 
-[32] A. Koepke, T. Lafarge, A. Possolo, B. Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62. https://doi.org/10.1088/1681-7575/aa6c0e
+[32] A. Possolo, C. Bodnar, Approximate Bayesian evaluations of measurement uncertainty, Metrologia 55 (2018) 147–157. https://doi.org/10.1088/1681-7575/aaa5be
 
-[33] R. Willink, A generalization of the Welch–Satterthwaite formula for use with correlated uncertainty components, Metrologia 44 (2007) 340–349. https://doi.org/10.1088/0026-1394/44/5/010
+[33] M. H. Ramsey, S. L. R. Ellison, P. Rostron (eds.), Eurachem/EUROLAB/CITAC/Nordtest/AMC Guide: Measurement uncertainty arising from sampling, 2nd ed., 2019.
 
-[34] ILAC P14:09/2020, ILAC Policy for Measurement Uncertainty in Calibration.
+[34] M. Thompson, S. L. R. Ellison, Dark uncertainty, Accred. Qual. Assur. 16 (2011) 483–487. https://doi.org/10.1007/s00769-011-0803-0
 
-[35] B. A. Wichmann, I. D. Hill, Generating good pseudo-random numbers, Comput. Stat. Data Anal. 51 (2006) 1614–1622.
+[35] A. Koepke, T. Lafarge, A. Possolo, B. Toman, Consensus building for interlaboratory studies, key comparisons, and meta-analysis, Metrologia 54 (2017) S34–S62. https://doi.org/10.1088/1681-7575/aa6c0e
 
-[36] G. Marsaglia, W. W. Tsang, A simple method for generating gamma variables, ACM Trans. Math. Softw. 26 (2000) 363–372.
+[36] R. Willink, A generalization of the Welch–Satterthwaite formula for use with correlated uncertainty components, Metrologia 44 (2007) 340–349. https://doi.org/10.1088/0026-1394/44/5/010
 
-[37] R. DerSimonian, N. Laird, Meta-analysis in clinical trials, Control. Clin. Trials 7 (1986) 177–188.
+[37] ILAC P14:09/2020, ILAC Policy for Measurement Uncertainty in Calibration.
 
-[38] G. Knapp, J. Hartung, Improved tests for a random effects meta-regression with a single covariate, Stat. Med. 22 (2003) 2693–2710.
+[38] K. Shirono, M. Shiro, H. Tanaka, K. Ehara, Proficiency tests with uncertainty information: detection of an unknown random effect, Measurement 83 (2016) 144–152. https://doi.org/10.1016/j.measurement.2016.01.002
 
-[39] B. J. Biggerstaff, R. L. Tweedie, Incorporating variability in estimates of heterogeneity in the random effects model in meta-analysis, Stat. Med. 16 (1997) 753–768.
+[39] R. DerSimonian, N. Laird, Meta-analysis in clinical trials, Control. Clin. Trials 7 (1986) 177–188.
 
-[40] S. Westwood et al., Methods for the SI-traceable value assignment of the purity of organic compounds (IUPAC Technical Report), Pure Appl. Chem. (published online 2022). https://doi.org/10.1515/pac-2020-0804 [verify volume and pages of the issue]
+[40] G. Knapp, J. Hartung, Improved tests for a random effects meta-regression with a single covariate, Stat. Med. 22 (2003) 2693–2710.
 
-[41] B. Toman, M. A. Nelson, K. A. Lippa, Chemical purity using quantitative ¹H-nuclear magnetic resonance: a hierarchical Bayesian approach for traceable calibrations, Metrologia 53 (2016) 1193–1203. https://doi.org/10.1088/0026-1394/53/5/1193
+[41] B. J. Biggerstaff, R. L. Tweedie, Incorporating variability in estimates of heterogeneity in the random effects model in meta-analysis, Stat. Med. 16 (1997) 753–768.
 
-[42] A. Possolo, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results, NIST Technical Note 1900, 2015. https://doi.org/10.6028/NIST.TN.1900
+[42] G. Röver, G. Knapp, T. Friede, Hartung–Knapp–Sidik–Jonkman approach and its modification for random-effects meta-analysis with few studies, BMC Med. Res. Methodol. 15 (2015) 99. https://doi.org/10.1186/s12874-015-0091-1
 
-[43] A. M. H. van der Veen, M. G. Cox (eds.), Good practice in evaluating measurement uncertainty — Compendium of examples, EMPIR 17NRM05 EMUE, 2021.
+[43] S. Westwood et al., Methods for the SI-traceable value assignment of the purity of organic compounds (IUPAC Technical Report), Pure Appl. Chem. (published online 2022). https://doi.org/10.1515/pac-2020-0804 [verify volume and pages of the issue]
 
-[44] A. Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134. https://doi.org/10.1515/pac-2022-1203
+[44] B. Toman, M. A. Nelson, K. A. Lippa, Chemical purity using quantitative ¹H-nuclear magnetic resonance: a hierarchical Bayesian approach for traceable calibrations, Metrologia 53 (2016) 1193–1203. https://doi.org/10.1088/0026-1394/53/5/1193
 
-[45] BIPM, Internal Standard Reference Data for qNMR, ISRD-01 to ISRD-08, Rapports BIPM 2018–2023.
+[45] B. A. Wichmann, I. D. Hill, Generating good pseudo-random numbers, Comput. Stat. Data Anal. 51 (2006) 1614–1622.
 
-[46] C. Merkatas, B. Toman, A. Possolo, S. Schlamminger, Shades of dark uncertainty and consensus value for the Newtonian constant of gravitation, Metrologia 56 (2019) 054001. https://doi.org/10.1088/1681-7575/ab3365
+[46] G. Marsaglia, W. W. Tsang, A simple method for generating gamma variables, ACM Trans. Math. Softw. 26 (2000) 363–372.
 
-[47] A. Possolo, J. Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo, 2022. https://doi.org/10.4224/1tqz-b038
+[47] A. Possolo, Simple Guide for Evaluating and Expressing the Uncertainty of NIST Measurement Results, NIST Technical Note 1900, 2015. https://doi.org/10.6028/NIST.TN.1900
 
-[48] G. Röver, G. Knapp, T. Friede, Hartung–Knapp–Sidik–Jonkman approach and its modification for random-effects meta-analysis with few studies, BMC Med. Res. Methodol. 15 (2015) 99. https://doi.org/10.1186/s12874-015-0091-1
+[48] A. M. H. van der Veen, M. G. Cox (eds.), Good practice in evaluating measurement uncertainty — Compendium of examples, EMPIR 17NRM05 EMUE, 2021.
+
+[49] A. Possolo et al., A brief guide to measurement uncertainty (IUPAC Technical Report), Pure Appl. Chem. 96 (2024) 113–134. https://doi.org/10.1515/pac-2022-1203
+
+[50] BIPM, Internal Standard Reference Data for qNMR, ISRD-01 to ISRD-08, Rapports BIPM 2018–2023.
+
+[51] C. Merkatas, B. Toman, A. Possolo, S. Schlamminger, Shades of dark uncertainty and consensus value for the Newtonian constant of gravitation, Metrologia 56 (2019) 054001. https://doi.org/10.1088/1681-7575/ab3365
+
+[52] A. Possolo, J. Meija, Measurement Uncertainty: A Reintroduction, 2nd ed., SIM, Montevideo, 2022. https://doi.org/10.4224/1tqz-b038
+
+[53] I. Lira, Monte Carlo evaluation of the uncertainty associated with the construction and use of a fitted curve, Measurement 44 (2011) 2156–2164. https://doi.org/10.1016/j.measurement.2011.07.021
+
+[54] H. Huang, Why the scaled and shifted t-distribution should not be used in the Monte Carlo method for estimating measurement uncertainty?, Measurement 136 (2019) 282–288. https://doi.org/10.1016/j.measurement.2018.12.089
+
+[55] C. F. M. Carobbi, A modified ISO 13528 robust analysis (Algorithm A) that takes measurement uncertainty into account, Measurement 110 (2017) 296–306. https://doi.org/10.1016/j.measurement.2017.07.006
+
+[56] E. Frahm, J. Wright, Evaluation of inter-laboratory comparison results: representative examples, Measurement 223 (2023) 113723. https://doi.org/10.1016/j.measurement.2023.113723
+
+[57] L. R. Pendrill, Optimised measurement uncertainty and decision-making when sampling by variables or by attribute, Measurement 39 (2006) 829–840. https://doi.org/10.1016/j.measurement.2006.04.014
+
+[58] A. B. Forbes, Measurement uncertainty and optimized conformance assessment, Measurement 39 (2006) 808–814. https://doi.org/10.1016/j.measurement.2006.04.007

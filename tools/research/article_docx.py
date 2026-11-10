@@ -30,7 +30,7 @@ CAPTIONS = {
                 "effect, c: inconsistency, n: no discrepancy); documents with fewer than three findings are combined, "
                 "and a finding with two classes counts in both.",
         "fig4": "Figure 4. (a) Consensus value of the Newtonian constant of gravitation by procedure (16 results, "
-                "Merkatas et al. [46]), 95 % intervals. (b) Leave-one-out degrees of equivalence of the ⁶⁰Co activity "
+                "Merkatas et al. [51]), 95 % intervals. (b) Leave-one-out degrees of equivalence of the ⁶⁰Co activity "
                 "comparison of the NICOB manual [23] by procedure, with the number of significant bilateral pairs.",
         "table2a": "**Table 2a.** Library projects by evaluation type.",
         "table2b": "**Table 2b.** Library projects by field.",
@@ -49,7 +49,7 @@ CAPTIONS = {
                 "c: tutarsızlık, n: tutarsızlık yok); üçten az bulgusu olan belgeler birleştirilmiştir ve iki sınıflı "
                 "bir bulgu her ikisinde de sayılır (şekildeki metin İngilizcedir).",
         "fig4": "Şekil 4. (a) Newton kütle çekim sabitinin yönteme göre uzlaşı değeri (16 sonuç, Merkatas ve ark. "
-                "[46]), %95 aralıkları. (b) NICOB kılavuzundaki [23] ⁶⁰Co aktivite karşılaştırmasının yönteme göre "
+                "[51]), %95 aralıkları. (b) NICOB kılavuzundaki [23] ⁶⁰Co aktivite karşılaştırmasının yönteme göre "
                 "birini dışarıda bırakma eşdeğerlik dereceleri ve anlamlı ikili çiftlerin sayısı (şekildeki metin "
                 "İngilizcedir).",
         "table2a": "**Tablo 2a.** Kütüphanedeki projeler, değerlendirme türüne göre.",
