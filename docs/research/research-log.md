@@ -3700,3 +3700,12 @@ for clinical laboratories; verified against Excel and an R script on randomly ge
 (software landscape: another tool that joins top-down and bottom-up evaluation; the statement that no tool covers
 the evaluation types of KAPSAM together still holds) and in Section 4.4 (spreadsheet and R recalculation as a check
 of software; the KAPSAM workbooks make it on data with published results). References renumbered, now [1]–[59].
+
+**D99. Bibliographic details checked against Crossref and DataCite (2026-11-10).** Every reference with a DOI was
+compared with its Crossref record (volume, first page, year); the rest were looked up. Changes: [20] Delker, NCSLI
+Measure 13(3) (2021) 45–60, doi 10.51843/measure.13.3.7, title as published ("open-source R software", also in the
+OSTI record 1830511); [44] Westwood et al., Pure Appl. Chem. 95 (2023) 1–77 (the issue; online 2022); [24]
+Bettencourt da Silva, Talanta 314 (2027) 130826 (issue of April 2027); DOIs added to DerSimonian & Laird, Knapp &
+Hartung, Biggerstaff & Tweedie, Wichmann & Hill, Marsaglia & Tsang and Pennecchi & Harris. Possolo & Meija 2022 is a
+DataCite DOI (SIM), record consistent. No [verify] mark remains. Standards and guides without DOIs are cited by
+their edition.
