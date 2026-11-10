@@ -544,7 +544,8 @@ tables and figures are part of the repository and of its archived release [Zenod
 - **S3.** The validation matrix: every worked example or variant and its result.
 - **S4.** The comparison with Suncal 1.7.1 (171 projects).
 - **S5.** A software validation report written by the program for the whole library.
-- **S6.** The guide *Uncertainty from scratch* (English and Turkish) with the step-by-step explanation of every example.
+- **S6.** The guide *Uncertainty from scratch* with the step-by-step explanation of every example (English, 363 pages;
+  the Turkish version is in the repository and in the application).
 - **S7.** The recalculation of the 189 spreadsheet verification workbooks of the library in LibreOffice Calc, and
   the workbook of QUAM Example A1 as a sample.
 

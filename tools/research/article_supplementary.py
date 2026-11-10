@@ -5,11 +5,11 @@
 
 S1  library projects with their source, field, evaluation type and number of compared values (CSV);
 S2  the findings F1-F100 with class, document, and for class c their effect and status (CSV);
-S3  the validation matrix (copy of docs/research/validation-matrix.md);
-S4  the comparison with Suncal (copy of docs/research/benchmark-suncal.md);
+S3  the validation matrix (PDF of docs/research/validation-matrix.md);
+S4  the comparison with Suncal (PDF of docs/research/benchmark-suncal.md);
 S5  the software validation report written by `kapsam check library` (PDF);
-S6  pointer to the beginner's guide and the step-by-step explanations (docs/guide/beginner);
-S7  the recalculation of the spreadsheet verification workbooks in LibreOffice (copy of
+S6  the beginner's guide and the step-by-step explanation of every example (PDF of docs/guide/beginner/en);
+S7  the recalculation of the spreadsheet verification workbooks in LibreOffice (PDF of
     docs/research/spreadsheet-check.md) and the workbook of QUAM Example A1.
 """
 import csv
@@ -18,6 +18,8 @@ import json
 import shutil
 import subprocess
 from pathlib import Path
+
+import supplementary_pdf as pdf  # same directory; needs pandoc and Node with Playwright
 
 OUT = Path("docs/article/supplementary")
 OUT.mkdir(parents=True, exist_ok=True)
@@ -64,34 +66,35 @@ with open("docs/research/finding-classes.tsv", encoding="utf-8") as fh, \
         n += 1
 print("S2:", n, "findings")
 
-# S3, S4
-shutil.copy("docs/research/validation-matrix.md", OUT / "S3_validation_matrix.md")
-shutil.copy("docs/research/benchmark-suncal.md", OUT / "S4_suncal_benchmark.md")
+# S3, S4 (PDF from the Markdown tables of docs/research)
+for old in OUT.glob("S[3467]_*.md"):
+    old.unlink()
+pdf.md_to_pdf(Path("docs/research/validation-matrix.md").read_text(encoding="utf-8"), OUT / "S3_validation_matrix.pdf",
+              "KAPSAM — Supplementary material S3: validation matrix", landscape=True)
+pdf.md_to_pdf(Path("docs/research/benchmark-suncal.md").read_text(encoding="utf-8"), OUT / "S4_suncal_benchmark.pdf",
+              "KAPSAM — Supplementary material S4: comparison with Suncal", landscape=True)
+print("S3, S4: PDF")
 
 # S5
 subprocess.run([EXE, "check", "library", "--report", str(OUT / "S5_validation_report.pdf"), "--lang", "en"],
                check=False, capture_output=True)
 print("S5:", (OUT / "S5_validation_report.pdf").exists())
 
-# S6
-(OUT / "S6_guide.md").write_text(
-    "# S6. The guide *Uncertainty from scratch*\n\n"
-    "The guide is part of the application and of the repository, in English and Turkish:\n\n"
-    "- chapters: `docs/guide/beginner/en/` and `docs/guide/beginner/tr/`;\n"
-    "- every library example explained step by step, grouped by lesson and level: "
-    "`docs/guide/beginner/en/examples.md` and `docs/guide/beginner/tr/examples.md`.\n\n"
-    "They are written by `app/tool/write_learning_docs.dart` from `app/assets/guide/` and the library.\n",
-    encoding="utf-8")
+# S6: the English beginner's guide and the explanation of every example, as one PDF
+pdf.md_to_pdf("# Uncertainty from scratch\n\n" + pdf.FRONT["en"] + "\n\n" + pdf.guide_markdown("en"), OUT / "S6_guide.pdf",
+              "KAPSAM — Supplementary material S6: Uncertainty from scratch", toc=True)
+print("S6: PDF")
 # S7
-shutil.copy("docs/research/spreadsheet-check.md", OUT / "S7_spreadsheet_check.md")
+pdf.md_to_pdf(Path("docs/research/spreadsheet-check.md").read_text(encoding="utf-8"), OUT / "S7_spreadsheet_check.pdf",
+              "KAPSAM — Supplementary material S7: spreadsheet verification", landscape=True)
 subprocess.run([EXE, "run", "library/chemistry/quam-a1-cadmium-standard.json", "--no-mcm", "-o",
                 str(OUT / "S7_workbook_quam_a1.xlsx")], check=True, capture_output=True)
 print("S7:", (OUT / "S7_workbook_quam_a1.xlsx").exists())
 (OUT / "README.md").write_text(
     "# Supplementary material\n\nWritten by `tools/research/article_supplementary.py`; do not edit by hand.\n\n"
     "- S1 `S1_library.csv`: the library projects\n- S2 `S2_findings.csv`: the findings\n"
-    "- S3 `S3_validation_matrix.md`: the validation matrix\n- S4 `S4_suncal_benchmark.md`: the comparison with Suncal\n"
+    "- S3 `S3_validation_matrix.pdf`: the validation matrix\n- S4 `S4_suncal_benchmark.pdf`: the comparison with Suncal\n"
     "- S5 `S5_validation_report.pdf`: the software validation report of the library\n"
-    "- S6 `S6_guide.md`: the beginner's guide and the explanation of every example\n"
-    "- S7 `S7_spreadsheet_check.md`: the recalculation of the spreadsheet verification workbooks, and "
+    "- S6 `S6_guide.pdf`: the beginner's guide and the step-by-step explanation of every example (English)\n"
+    "- S7 `S7_spreadsheet_check.pdf`: the recalculation of the spreadsheet verification workbooks, and "
     "`S7_workbook_quam_a1.xlsx`, the workbook of QUAM Example A1\n", encoding="utf-8")

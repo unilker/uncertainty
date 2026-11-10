@@ -541,7 +541,8 @@ deponun ve arşivlenmiş sürümünün parçasıdır [Zenodo DOI eklenecek].
 - **S3.** Validasyon matrisi: her çözümlü örnek ya da türevi ve sonucu.
 - **S4.** Suncal 1.7.1 ile karşılaştırma (171 proje).
 - **S5.** Programın bütün kütüphane için yazdığı bir yazılım validasyon raporu.
-- **S6.** *Sıfırdan belirsizlik* kılavuzu (İngilizce ve Türkçe) ve her örneğin adım adım açıklaması.
+- **S6.** *Sıfırdan belirsizlik* kılavuzu ve her örneğin adım adım açıklaması (İngilizce, 363 sayfa; Türkçesi depoda ve
+  uygulamanın içinde).
 - **S7.** Kütüphanenin 189 elektronik tablo doğrulama dosyasının LibreOffice Calc'ta yeniden hesaplanması ve örnek
   olarak QUAM Örnek A1'in dosyası.
 
