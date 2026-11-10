@@ -1,6 +1,6 @@
 # Durum ve sonraki adımlar / Status and next steps
 
-Son güncelleme: **2026-11-08**. Bu dosya çalışmaya ara verildiğinde nerede
+Son güncelleme: **2026-11-10**. Bu dosya çalışmaya ara verildiğinde nerede
 kalındığını ve sırada ne olduğunu kaydeder.
 
 - Ayrıntılı gerekçeler araştırma günlüğündedir: kararlar D…, bulgular F….
@@ -10,11 +10,40 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 | | |
 |---|---|
-| Kütüphane | **286** kendi kendini doğrulayan proje (`library/`); her biri kaynakla karşılaştırılır |
-| Testler | **218** Rust testi (bunlardan biri 284 projenin tamamını çalıştırır), **22** Flutter testi |
-| Rehber | TR/EN 16 bölüm + otomatik üretilen örnekler bölümü (`docs/guide/`) |
-| Proje bölümleri | `model`, `topdown`, `proficiency`, `calibration`, `precision_experiment`, `multivariate`, `control_chart`, `sampling`, `error_function`, `multicomponent_conformity`, `consensus` (+ `conformity`) |
-| Araştırma günlüğü | oturum 1–22, kararlar D1–D89, bulgular F1–F100 (dizin: `findings-index.md`) |
+| Program | **KAPSAM** (D92); Rust motoru (`core`, `project`), `kapsam` komut satırı aracı, C arayüzü, Flutter uygulaması (Windows, Linux, macOS, Android, iOS) |
+| Kütüphane | **286** kendi kendini doğrulayan proje, 38 belge, **1865** referans değer; hepsi tolerans içinde |
+| Bağımsız denetimler | Suncal 1.7.1 ile **171** proje (D93); **189** elektronik tablo doğrulama dosyası, 4678 değer, LibreOffice'te CI'da (D94); kalibrasyon uydurması boyunca Monte Carlo, 8 proje × 10⁶ (D97) |
+| Testler | **218** Rust testi, **28** Flutter testi; CI yeşil |
+| Rehber | *Uncertainty from scratch* / *Sıfırdan belirsizlik* (TR/EN), 123 ders, 286 örneğin açıklaması |
+| Araştırma günlüğü | kararlar D1–D99, bulgular F1–F100 (13 doğrulanmış c1) |
+| Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 6 tablo, 4 şekil, 59 kaynak (10'u *Measurement*); ek malzeme S1–S7; editöre mektup |
+| Dal | `claude/sleepy-hypatia-1522g6`; `main`'e birleştirme PR'ı: unilker/uncertainty#11 |
+
+## 1a. Makale gönderimi: kalanlar (2026-11-10)
+
+**Yazarın yapacakları (gönderimden önce):**
+
+1. Kodu görmemiş bir metroloğun en az 10 c1 bulgusunu yeniden hesaplaması; sonra Bölüm 9 ve Tablo 6'daki
+   "planned" ifadeleri sonuca göre değiştirilecek.
+2. Tablo 4'ün 13 satırını belgelerin güncel baskıları ve erratalarıyla karşılaştırmak (sonra Tablo 4 altındaki not
+   kalkar; gönderim paketi notu zaten çıkarır).
+3. Finansman ve çıkar çatışması beyanı; önerilen hakemler (editöre mektup); yazışma adresi ve e-posta (gönderim
+   paketindeki kapak sayfası yer tutucusu).
+4. Zenodo'da GitHub deposunu etkinleştirmek (Zenodo → GitHub → depo anahtarı).
+
+**Sonra (asistanla):**
+
+5. PR #11 birleştirilince `main` üzerinde `v0.1.0` etiketi; Package iş akışı sürümü paketlerle yayımlar
+   (`docs/release/v0.1.0.md`), Zenodo DOI verir; DOI makaleye (Bölüm 10, Veri erişilebilirliği), editöre mektuba ve
+   `CITATION.cff`'ye yazılır.
+6. Gönderim paketi: `python3 tools/research/submission_package.py OUT` (çift aralık ve satır numaralı makale,
+   ayrı şekiller, highlights, mektup, S1–S7, açık kalanların listesi `CHECKLIST.md`).
+
+**Kabulden sonra:** c1 bulgularının kuruluşlara teknik not olarak iletilmesi (D90); laboratuvar pilotu; Windows kod
+imzası.
+
+**Yazılımda ertelenenler:** ana ekranda validasyon kartı; kalibrasyon için Monte Carlo seçeneği; Carobbi'nin
+değiştirilmiş A algoritması; Frahm–Wright ölçütleri; NICOB σ_j önselleri; Laplace etkili eşdeğerlik dereceleri.
 
 ## 2. Oturum 22 (2026-11-08): ön inceleme ve düzeltmeler
 
@@ -200,8 +229,8 @@ Gönderimden önce yapılacaklar:
 
 - **Lisanslı belgeler.** Lisanslı standartlar ve ücretli makale PDF'leri
   depoya konmaz. Kütüphaneye yalnızca sayısal veriler ve sonuçlar, kaynak
-  gösterilerek alınır. Kılavuzlardaki tutarsızlıklar kurumlara bildirilmez,
-  makale için günlüğe yazılır.
+  gösterilerek alınır. Kılavuzlardaki tutarsızlıklar makale kabul edildikten sonra
+  kurumlara teknik not olarak iletilir (D90); o zamana kadar günlüğe yazılır.
 - **Kütüphane iş akışı.**
   1. `tools/generators/<betik>.py`
   2. `python3 tools/library_index.py`
