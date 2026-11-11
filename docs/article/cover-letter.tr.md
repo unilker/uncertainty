@@ -12,9 +12,9 @@ kılavuzlarının (Eurachem/CITAC, Nordtest, EA, UKAS, EURAMET, ISO) çözümlü
 kodunun her değişikliğinde belgelenmiş toleranslar içinde yeniden ürettiği 1865 basılı değer. Çalışma ölçüm bilimine
 üç yolla katkı sağlar:
 
-1. **Çözümlü örneklerin kendisi.** Yeniden hesaplama 100 bulgu ortaya çıkardı; bunların 13'ü, laboratuvarların her
+1. **Çözümlü örneklerin kendisi.** Yeniden hesaplama 100 bulgu ortaya çıkardı; bunların 12'si, laboratuvarların her
    gün kullandığı belgelerde basılı bir nihai sonucu (bir kestirimi, belirsizliğini ya da belirtilen bir kararı)
-   değiştiren doğrulanmış tutarsızlıklardır. Yayımcı kuruluşların örneklerinin girdilerini makinece okunabilir
+   değiştiren doğrulanmış tutarsızlıklardır; her biri kodu görmemiş bir metrolog tarafından yeniden üretilmiştir. Yayımcı kuruluşların örneklerinin girdilerini makinece okunabilir
    biçimde yayımlamalarını ve yayından önce yeniden hesaplamalarını öneriyor, kütüphaneyi bu amaçla sunuyoruz.
 2. **Sonucu değiştiren seçimler.** Bir anahtar karşılaştırmada uzlaşı yönteminin seçimi, eşdeğerlik derecelerini
    referans değer kadar değiştirmektedir; fiziksel bir sınıra yakın sonuçlar ve test belirsizlik oranından koruma

@@ -148,7 +148,7 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | ISO21748-C.4 | crude fibre, s_R by range + drying | u 0.31, 0.41, 0.59 %; U 0.6, 0.8, 1.2 % | same | ✅ (F38) |
 | ISO5725-3-J.1 | carbon in steel, 27 day-pairs | s_I(TO) 2.87 × 10⁻³ % | same | ✅ |
 | ISO5725-3-J.2 | vanadium, staggered-nested, levels 1–2 | SS, MS, s₀², s₍₁₎², s_r, s_I(T), s_R | same | ✅ |
-| ISO5725-3:1994-D.2 | vanadium, levels 3–6 from the 1994 data (core test) | Table D.5 = J.5: s_r, s_I(T), s_R | same at levels 3–5; level 6 s_R 16.331 against 15.962 (negative s₍₁₎² kept, D41) | ✅ (F40, D41) |
+| ISO5725-3:1994-D.2 | vanadium, levels 3–6 from the 1994 data (core test) | Table D.5 = J.5: s_r, s_I(T), s_R | same at levels 3–5; level 6 s_R 16.331 against 15.962 (negative s₍₁₎² kept, D41; the printed s_R equals the REML estimate, a difference of method, D108) | ✅ (F40, D41, D108) |
 
 ## JCGM 102:2011 — library projects and core tests
 

@@ -175,7 +175,7 @@ def c1_findings():
         key = next(k for k in C1_DOCS if doc.startswith(k))
         num = lambda v: float(v) if re.fullmatch(r"[0-9.]+", v) else None  # noqa: E731
         out.append((f, C1_DOCS[key], doc, num(r[7]), num(r[8])))
-    assert len(out) == 13, len(out)
+    assert len(out) == 12, len(out)
     return out
 
 
@@ -264,7 +264,7 @@ def fig2():
     ax.plot([], [], "o", color=INK, markersize=4.6, label="estimate y: |Δy|/U")
     ax.plot([], [], "D", color=CRED, markersize=4.2, label="uncertainty: |ΔU|/U")
     ax.legend(loc="lower right", bbox_to_anchor=(1.0, 0.06), fontsize=6.2, handlelength=1.0)
-    fig.text(0.55, 0.985, "(b) How far the 13 confirmed c1 findings move the printed result", fontsize=7.8,
+    fig.text(0.55, 0.985, f"(b) How far the {len(c1)} confirmed c1 findings move the printed result", fontsize=7.8,
              color=INK, va="top")
     save(fig, "fig3_findings_by_document")
 
@@ -403,7 +403,7 @@ def graphical_abstract():
     txt(50, 11.5, "checked with Suncal\nand spreadsheets", 7, NAVY)
     card(70.5, 7, 28, 31, "#fbeeeb", CRED, 1.1)
     txt(84.5, 33.0, "What it revealed", 8, CRED, "bold")
-    txt(84.5, 24.5, "13", 19, CRED, "bold")
+    txt(84.5, 24.5, str(len(c1_findings())), 19, CRED, "bold")
     txt(84.5, 17.0, "confirmed inconsistencies\nchange a printed result", 7, INK)
     txt(84.5, 10.8, "among 100 findings", 7, INK2)
     for x0, x1 in ((30.0, 35.5), (64.5, 70.0)):

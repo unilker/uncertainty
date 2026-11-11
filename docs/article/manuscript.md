@@ -21,8 +21,8 @@ consensus values and results near a physical bound, with reports in English and 
 projects built from the worked examples of 38 documents: the test suite recomputes all 1865 reference values at
 every change, an independent program, Suncal, reproduces the results of 171 of them, and spreadsheet formulas
 recalculated in LibreOffice those of 189.
-Recomputing the examples produced 100 findings, among them 13 confirmed inconsistencies that change a final printed
-result. The choice of consensus procedure changes the degrees of equivalence of a key comparison as much as its
+Recomputing the examples produced 100 findings, among them 12 confirmed inconsistencies that change a final printed
+result, each reproduced in an independent recomputation. The choice of consensus procedure changes the degrees of equivalence of a key comparison as much as its
 reference value. For laboratories, the program writes a software validation report for ISO/IEC 17025 and contains
 a guide that explains every example step by step. We argue that worked examples should be published with
 machine-readable inputs and checked by independent recomputation.
@@ -361,13 +361,19 @@ exactly and the expanded uncertainties within 1.7 %, the Monte Carlo dispersion 
 
 Recomputing the examples produced 100 findings (F1–F100; all listed in supplementary material S2). By class, 27
 are intermediate rounding, 25 misprints without effect, 23 inconsistencies, 13 no discrepancy, and 12 combine two
-classes; 29 have a class-c component. Of these, 13 are confirmed inconsistencies that change a final printed
-result (c1), 7 affect only intermediate values (c2, two of them partly corrected by errata), 5 are differences of
+classes; 29 have a class-c component. Of these, 12 are confirmed inconsistencies that change a final printed
+result (c1), 7 affect only intermediate values (c2, two of them partly corrected by errata), 6 are differences of
 method or interpretation (m), 1 is a known erratum (e), and 5 are open and not counted (Table 4). The findings
 concern most of the documents (Figure 3): the GUM-5 examples of 2026 carry 13, the Eurachem QUAM 11, UKAS M3003 and
 the EMUE compendium 7 each (a finding with two classes counted in both). The confirmed c1 findings move the printed
 result by between 0.6 % of its expanded uncertainty (F58, a change of U) and 34 expanded uncertainties (F28, a change
-of the estimate; Figure 3b).
+of the estimate; Figure 3b). All thirteen findings first classed as c1 were recomputed from the documents by a
+metrologist who had not seen the code (Section 9). Twelve were reproduced. The thirteenth, F40 (ISO 5725-3:2023,
+Table J.5, level 6), was moved to class m: the negative estimate of the day variance is set to zero for the printed
+s_I(T) = s_r = 9.545 × 10⁻³ % but kept in the printed s_R = 15.962 × 10⁻³ %, which equals the restricted maximum
+likelihood estimate; with the variance set to zero throughout, s_R = 16.33 × 10⁻³ %, and with it set to zero in the
+sum only, 16.78 × 10⁻³ %. The printed s_R is one of three defensible values, so the finding concerns the
+consistency of the row, not its result.
 
 <!-- fig3 -->
 
@@ -378,7 +384,6 @@ of the estimate; Figure 3b).
 | F21 | EA-4/02 S13 | d_X / mm | 90.0003 | 90.0002 | Δl and coaxiality correction of the budget differ from the data |
 | F28 | NIST TN 1900 E4 | v / (m/s) | 40.64 | 57.48 | printed = stated equation ÷ √2; reported independently by Delker [20] |
 | F39 | ISO 21748 C.3 | U(flour) / % | 12.8 | 12.6 | |
-| F40 | ISO 5725-3:2023 J.2 | s_R, level 6 | 15.962 | 16.33 | transcription errors in Table J.2 |
 | F42 | ISO 6143:2025 Ex. 3 | u(x) / (µmol/mol) | 0.013280 | 0.014246 | parameter uncertainties acknowledged as wrong by the standard; u(x) is not |
 | F56 | UKAS M3003 K.5 | U / mg | 0.30 | 0.31 | combined u of the printed components |
 | F57 | UKAS M3003 K.3 | U / dB | 0.049 | 0.040 | mismatch term |
@@ -386,11 +391,11 @@ of the estimate; Figure 3b).
 | F77 | GUM-5 Ex. 15 | MCM s.d. / kN | 10.1 | 9.93 | scale of the t input |
 | F78 | GUM-5 Ex. 1 | pH_X | 7.0109 | 7.0043 | estimate does not follow from the data |
 | F82 | GUM-5 Ex. 4 | u(y_CO₂) / (µmol/mol) | 5 | 4 | |
-| F87 | EMUE E3.4 | U / (mg/kg) | 2.8 | 2.9 | root mean square of the relative bias uncertainties |
-| F90 | EMUE E3.3 | u / (nmol/mol) | 4.7 | 4.47 | diagonal of the covariance matrix |
+| F87 | EMUE E3.4 | U / (mg/kg) | 2.8 | 2.9 | root mean square of the relative bias uncertainties (3.5 %, not 3.3 %) |
+| F90 | EMUE E3.3 | u / (nmol/mol) | 4.7 | 4.5 | 4.47 from the printed inputs, 4.52 from unrounded parameters |
 
-*Before submission, each row is to be checked against the current edition and published errata, and recomputed by
-a person who has not seen the code (Section 9).*
+*Each row was recomputed from the current edition of the document by a metrologist who had not seen the code
+(Sections 6.1 and 9).*
 
 ### 6.2 Intermediate rounding is ubiquitous
 
@@ -575,9 +580,12 @@ NICOB code, the scripts of the recomputations and the spreadsheet formulas are d
 in the same project and with the same AI coding assistant as the program (Section 3.4), so they guard against
 arithmetic and coding errors but not against a misreading of a standard. The spreadsheet workbooks make the
 arithmetic independent of the program and every formula visible; a laboratory's own validated spreadsheet applied
-to the same data would be a stronger check. An independent review by metrologists outside the project, including
-the recomputation of at least ten of the c1 findings by a person who has not seen the code, is planned before
-submission.
+to the same data would be a stronger check. The c1 findings were recomputed by a metrologist of the author's institute who is
+not an author and had not seen the code, from the documents alone, with hand calculation, Python and Monte Carlo
+simulation, and with every intermediate step written down. Twelve of the thirteen findings first classed as c1
+were reproduced; for the thirteenth, F40, the recomputation showed that the printed s_R follows from one of three
+defensible treatments of a negative variance, and the finding was reclassified (Section 6.1). A review of the program by
+metrologists outside the institute has not been made.
 
 **Table 6.** The checks of the program and what makes each independent of it.
 
@@ -589,7 +597,7 @@ submission.
 | NumPy port of the NICOB R code | degrees of equivalence of the NICOB examples | this project | the port was written in this project | the implementation of the program; the algorithm is NICOB's |
 | Monte Carlo propagation through the calibration fit (Section 5, S4) | 8 projects, 10⁶ draws each | this project | the script and the model of ISO 6143 A.3 were written in this project | the linearisation: the fit is repeated for every draw |
 | Spreadsheet workbooks (Section 4.4, S7) | 189 projects, 4678 values | formulas: this project; arithmetic: LibreOffice Calc or Excel | the reading of the standards | the arithmetic; numerical instead of symbolic derivatives |
-| Recomputation of c1 findings by a metrologist (planned) | at least ten findings | a person who has not seen the code | the documents | everything else |
+| Recomputation of the c1 findings by a metrologist (Section 6.1) | 13 findings, 12 reproduced | a metrologist of the same institute who had not seen the code | the documents | the method, the implementation and the person |
 
 **Reporting the findings.** The findings were not communicated to the issuing bodies before submission. The c1
 findings of Table 4 will be sent to them as technical notes after acceptance, so that the notes can refer to a

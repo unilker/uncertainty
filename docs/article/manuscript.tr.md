@@ -22,7 +22,8 @@ raporları İngilizce ve Türkçedir. 38 belgenin çözümlü örneklerinden olu
 test takımı her değişiklikte 1865 referans değerinin tamamını yeniden hesaplar; bağımsız bir program, Suncal,
 bunların 171'inin, LibreOffice'te yeniden hesaplanan elektronik tablo formülleri ise 189'unun sonuçlarını yeniden
 üretir. Örneklerin yeniden hesaplanması 100 bulgu ortaya
-çıkardı; bunların 13'ü basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır. Uzlaşı yönteminin seçimi
+çıkardı; bunların 12'si basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır ve her biri bağımsız bir
+yeniden hesaplamayla doğrulanmıştır. Uzlaşı yönteminin seçimi
 bir anahtar karşılaştırmanın eşdeğerlik derecelerini, referans değerini değiştirdiği ölçüde değiştirir.
 Laboratuvarlar için program ISO/IEC 17025'e uygun bir yazılım validasyon raporu yazar ve her örneği adım adım
 açıklayan bir kılavuz içerir. Çözümlü örneklerin makinece okunabilir girdilerle yayımlanması ve bağımsız yeniden
@@ -360,13 +361,18 @@ belirsizlikler 10⁵ çekilişin Monte Carlo dağılımı olan %1,7 içinde uyu�
 
 Örneklerin yeniden hesaplanması 100 bulgu (F1–F100; tamamı ek malzeme S2'dedir) ortaya çıkardı. Sınıflarına göre 27'si ara yuvarlama, 25'i
 etkisiz baskı hatası, 23'ü tutarsızlık, 13'ü tutarsızlık yok sınıfındadır ve 12'si iki sınıfı birleştirir; 29'unun
-c sınıfı bir bileşeni vardır. Bunlardan 13'ü basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır (c1),
-7'si yalnızca ara değerleri etkiler (c2; ikisi düzeltmelerle kısmen giderilmiş), 5'i yöntem veya yorum farkıdır (m),
+c sınıfı bir bileşeni vardır. Bunlardan 12'si basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır (c1),
+7'si yalnızca ara değerleri etkiler (c2; ikisi düzeltmelerle kısmen giderilmiş), 6'sı yöntem veya yorum farkıdır (m),
 1'i bilinen bir düzeltmedir (e) ve 5'i açıktır ve sayılmaz (Tablo 4). Bulgular belgelerin çoğunu ilgilendirir
 (Şekil 3): 2026 tarihli GUM-5 örneklerinde 13, Eurachem QUAM'da 11, UKAS M3003 ve EMUE derlemesinde 7'şer bulgu
 vardır (iki sınıflı bir bulgu her ikisinde de sayılmıştır). Doğrulanmış c1 bulguları basılı sonucu, genişletilmiş
 belirsizliğinin %0,6'sı (F58, U'da bir değişiklik) ile 34 katı (F28, kestirimde bir değişiklik; Şekil 3b) arasında
-değiştirir.
+değiştirir. İlk aşamada c1 sınıfına konan on üç bulgunun tamamı, kodu görmemiş bir metrolog tarafından
+belgelerden yeniden hesaplandı (Bölüm 9). On ikisi yeniden üretildi. On üçüncüsü, F40 (ISO 5725-3:2023, Tablo J.5,
+düzey 6), m sınıfına alındı: gün varyansının negatif kestirimi basılı s_I(T) = s_r = 9,545 × 10⁻³ % için sıfır
+alınmış, ancak kısıtlı en çok olabilirlik kestirimine eşit olan basılı s_R = 15,962 × 10⁻³ % değerinde tutulmuştur;
+varyans her yerde sıfır alınırsa s_R = 16,33 × 10⁻³ %, yalnızca toplamda sıfır alınırsa 16,78 × 10⁻³ % olur. Basılı
+s_R savunulabilir üç değerden biridir; bulgu satırın sonucunu değil, iç tutarlılığını ilgilendirir.
 
 <!-- fig3 -->
 
@@ -377,7 +383,6 @@ değiştirir.
 | F21 | EA-4/02 S13 | d_X / mm | 90,0003 | 90,0002 | bütçedeki Δl ve eş eksenlilik düzeltmesi verilerden farklı |
 | F28 | NIST TN 1900 E4 | v / (m/s) | 40,64 | 57,48 | basılı değer = verilen denklem ÷ √2; Delker [20] tarafından bağımsız olarak bildirilmiş |
 | F39 | ISO 21748 C.3 | U(un) / % | 12,8 | 12,6 | |
-| F40 | ISO 5725-3:2023 J.2 | s_R, düzey 6 | 15,962 | 16,33 | Tablo J.2'de aktarma hataları |
 | F42 | ISO 6143:2025 Örn. 3 | u(x) / (µmol/mol) | 0,013280 | 0,014246 | parametre belirsizliklerinin yanlış olduğu standartta kabul edilmiş; u(x) için edilmemiş |
 | F56 | UKAS M3003 K.5 | U / mg | 0,30 | 0,31 | basılı bileşenlerin birleşik u değeri |
 | F57 | UKAS M3003 K.3 | U / dB | 0,049 | 0,040 | uyumsuzluk terimi |
@@ -385,11 +390,10 @@ değiştirir.
 | F77 | GUM-5 Örn. 15 | MCM s.s. / kN | 10,1 | 9,93 | t girdisinin ölçeği |
 | F78 | GUM-5 Örn. 1 | pH_X | 7,0109 | 7,0043 | kestirim verilerden çıkmıyor |
 | F82 | GUM-5 Örn. 4 | u(y_CO₂) / (µmol/mol) | 5 | 4 | |
-| F87 | EMUE E3.4 | U / (mg/kg) | 2,8 | 2,9 | bağıl sapma belirsizliklerinin karesel ortalaması |
-| F90 | EMUE E3.3 | u / (nmol/mol) | 4,7 | 4,47 | kovaryans matrisinin köşegeni |
+| F87 | EMUE E3.4 | U / (mg/kg) | 2,8 | 2,9 | bağıl sapma belirsizliklerinin karesel ortalaması (%3,3 değil %3,5) |
+| F90 | EMUE E3.3 | u / (nmol/mol) | 4,7 | 4,5 | basılı girdilerle 4,47, yuvarlanmamış parametrelerle 4,52 |
 
-*Göndermeden önce her satır güncel baskı ve yayımlanmış düzeltmelerle karşılaştırılacak ve kodu görmemiş bir kişi
-tarafından yeniden hesaplanacaktır (Bölüm 9).*
+*Her satır, kodu görmemiş bir metrolog tarafından belgenin güncel baskısından yeniden hesaplandı (Bölüm 6.1 ve 9).*
 
 ### 6.2 Ara yuvarlama her yerde
 
@@ -571,8 +575,12 @@ betikleri ve elektronik tablo formülleri ise farklı uygulamalardır, ancak pro
 kodlama asistanıyla yazılmıştır (Bölüm 3.4); bu nedenle aritmetik ve kodlama hatalarına karşı korur, bir standardın
 yanlış okunmasına karşı korumaz. Elektronik tablo dosyaları aritmetiği programdan bağımsız kılar ve her formülü
 görünür yapar; laboratuvarın kendi doğrulanmış elektronik tablosunun aynı verilere uygulanması daha güçlü bir denetim
-olur. Göndermeden önce, proje dışındaki metrologlarca bağımsız bir inceleme, c1 bulgularından en az onunun kodu
-görmemiş bir kişi tarafından yeniden hesaplanması dahil, planlanmaktadır.
+olur. c1 bulguları, yazarın enstitüsünden, makalenin yazarı
+olmayan ve kodu görmemiş bir metrolog tarafından yalnızca belgelerden ve kendi araçlarıyla (el hesabı, Python,
+Monte Carlo) yeniden hesaplandı; ara adımlar yazıldı. İlk aşamada c1 sınıfına konan on üç bulgunun on ikisi yeniden
+üretildi; on üçüncüsü olan F40 için basılı s_R'nin, negatif bir varyansın savunulabilir üç ele alınışından birinden
+çıktığı gösterildi ve bulgu yeniden sınıflandırıldı (Bölüm 6.1). Programın enstitü dışındaki metrologlarca
+incelenmesi henüz yapılmamıştır.
 
 **Tablo 6.** Programın denetimleri ve her birini programdan bağımsız kılan nedir.
 
@@ -584,7 +592,7 @@ görmemiş bir kişi tarafından yeniden hesaplanması dahil, planlanmaktadır.
 | NICOB R kodunun NumPy aktarımı | NICOB örneklerinin eşdeğerlik dereceleri | bu proje | aktarım bu projede yazıldı | programın uygulaması; algoritma NICOB'undur |
 | Kalibrasyon uydurması boyunca Monte Carlo yayılımı (Bölüm 5, S4) | 8 proje, her biri 10⁶ çekiliş | bu proje | betik ve ISO 6143 A.3 modeli bu projede yazıldı | doğrusallaştırma: uydurma her çekilişte yinelenir |
 | Elektronik tablo dosyaları (Bölüm 4.4, S7) | 189 proje, 4678 değer | formüller: bu proje; aritmetik: LibreOffice Calc ya da Excel | standartların okunuşu | aritmetik; sembolik yerine sayısal türevler |
-| c1 bulgularının bir metrologca yeniden hesaplanması (planlandı) | en az on bulgu | kodu görmemiş bir kişi | belgeler | geri kalan her şey |
+| c1 bulgularının bir metrologca yeniden hesaplanması (Bölüm 6.1) | 13 bulgu, 12'si yeniden üretildi | aynı enstitüden, kodu görmemiş bir metrolog | belgeler | yöntem, uygulama ve kişi |
 
 **Bulguların bildirilmesi.** Bulgular, gönderimden önce yayımcı kuruluşlara bildirilmemiştir. Tablo 4'teki c1
 bulguları, hakemli bir kayda atıf yapabilmeleri için makale kabul edildikten sonra kuruluşlara teknik not olarak

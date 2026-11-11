@@ -10,9 +10,9 @@ recomputed these examples systematically: 286 projects built from the worked exa
 printed values that the software reproduces within documented tolerances at every change of its code. The work
 contributes to measurement science in three ways:
 
-1. **The worked examples themselves.** The recomputation produced 100 findings, among them 13 confirmed
+1. **The worked examples themselves.** The recomputation produced 100 findings, among them 12 confirmed
    inconsistencies that change a final printed result (an estimate, its uncertainty or a stated decision) in
-   documents that laboratories use every day. We propose that issuing bodies publish the inputs of their examples
+   documents that laboratories use every day; each was reproduced by a metrologist who had not seen the code. We propose that issuing bodies publish the inputs of their examples
    in machine-readable form and recompute them before publication, and we offer the library for that purpose.
 2. **Choices that change a result.** For a key comparison, the choice of the consensus procedure changes the
    degrees of equivalence as much as the reference value; results near a physical bound and guard bands from the

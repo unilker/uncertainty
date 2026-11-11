@@ -31,7 +31,7 @@ CAPTIONS = {
                 "combined variance.",
         "fig3": "Figure 3. Findings in the worked examples. (a) The 100 findings per source document by class; the confirmed findings that change a "
                 "final printed result (c1) are counted at the left. Documents with fewer than three findings and no c1 "
-                "finding are combined, and a finding with two classes counts in both. (b) Effect of each of the 13 c1 "
+                "finding are combined, and a finding with two classes counts in both. (b) Effect of each of the 12 c1 "
                 "findings, relative to the printed expanded uncertainty: change of the estimate |Δy|/U and of the "
                 "uncertainty |ΔU|/U (docs/research/class-c-impact.tsv). Drawn by a script of the repository, which was written with an AI coding assistant (Section 3.4).",
         "fig4": "Figure 4. The consensus procedure is part of the model. (a) The 16 values of the Newtonian constant of "
@@ -56,7 +56,7 @@ CAPTIONS = {
                 "katkılar (ekran İngilizce arayüzle alınmıştır).",
         "fig3": "Şekil 3. Çözümlü örneklerdeki bulgular. (a) Kaynak belge başına 100 bulgu, sınıfa göre; basılı bir nihai sonucu değiştiren doğrulanmış "
                 "bulgular (c1) solda sayılmıştır. Üçten az bulgusu olan ve c1 bulgusu olmayan belgeler birleştirilmiştir; "
-                "iki sınıflı bir bulgu her ikisinde de sayılır. (b) 13 c1 bulgusunun her birinin, basılı genişletilmiş "
+                "iki sınıflı bir bulgu her ikisinde de sayılır. (b) 12 c1 bulgusunun her birinin, basılı genişletilmiş "
                 "belirsizliğe göre etkisi: kestirimdeki değişiklik |Δy|/U ve belirsizlikteki değişiklik |ΔU|/U "
                 "(docs/research/class-c-impact.tsv; şekildeki metin İngilizcedir). Şekil, bir yapay zekâ kodlama asistanıyla yazılmış bir depo betiğiyle çizilmiştir (Bölüm 3.4).",
         "fig4": "Şekil 4. Uzlaşı yöntemi modelin bir parçasıdır. (a) Merkatas ve ark.'nın [55] incelediği Newton kütle "
@@ -90,7 +90,7 @@ TR_CELLS = {
     "F1–F100 of the research log (a, b, c, n; a finding may cover several examples)":
         "araştırma günlüğünün F1–F100 bulguları (a, b, c, n; bir bulgu birden çok örneği kapsayabilir)",
     "Class-c findings": "c sınıfı bulgular",
-    "of which c1 confirmed 13 (table above)": "bunların 13'ü doğrulanmış c1 (Tablo 4)",
+    "of which c1 confirmed 12 (table above)": "bunların 12'si doğrulanmış c1 (Tablo 4)",
     "Projects": "Projeler",
 }
 

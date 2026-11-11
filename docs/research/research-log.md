@@ -3829,3 +3829,39 @@ finding was rechecked from the documents' own printed numbers, without the progr
 
 All 13 stand. The form is not counted as an independent recomputation; in four rows its own arithmetic does not give
 the printed value. Evaluation for the author: `c1_ikinci_tur_degerlendirme.docx` (not in the repository).
+
+**D108. Third recomputation of the c1 findings: twelve reproduced independently, F40 reclassified (2026-11-11).** A
+second metrologist of the author's institute, not an author and without having seen the code, filled in the
+second-round form for all 13 findings from the documents alone (hand calculation, Python, NumPy/SciPy, Monte Carlo up
+to 10⁷ trials), with every intermediate step written down. Unlike D106 and D107, every row starts from the data:
+
+- Reproduced (recomputed value = the program's): F21 90.0002 mm (90.000 23), F28 57.48 m/s (u = 0.35), F39 12.6 %,
+  F42 0.014246 µmol/mol (own errors-in-variables fit, parameters, S_res and Γ as printed; the printed 0.013283 follows
+  from the printed B_LEAST covariances), F56 0.31 mg (u_c 0.1528), F57 0.040 dB (E5 → 0.0170 dB), F58 82.1 nm, F77
+  9.91 kN (normal) / 9.93 kN (t, ν = 5), F78 7.0043, F82 3.91 → 4 µmol/mol (20-input LPU), F87 2.87 → 2.9 mg/kg, F90
+  4.47 nmol/mol.
+- **F40 reclassified c1 → m.** At level 6, MS₀ = 617.90, MS₁ = 55.39, MS_e = 91.11 (× 10⁻⁶) give s₍₁₎² = −26.79 × 10⁻⁶.
+  The printed s_R = 15.962 × 10⁻³ % = √((MS₀ + MS₁ + MS_e)/3) is the formulas applied as printed and equals the
+  REML estimate with variances ≥ 0 (pooling MS₁ and MS_e, s_r = 8.559 × 10⁻³); 16.331 is s₍₁₎² = 0 throughout (the
+  program, D41); 16.781 is s₍₁₎² = 0 in the sum only (ISO 5725-2, 8.4.5.4). The printed row mixes treatments
+  (s_I(T) = s_r = 9.545 with s₍₁₎² = 0, s_R with it kept), but its s_R is one of three defensible values, so the finding
+  concerns the consistency of the row, not a final result. D107 ("all 13 stand") is corrected accordingly. The 2023
+  Table J.2 transcription errors (D41) are confirmed independently: levels 3–5 of Table J.5 cannot be reproduced
+  from the 2023 data.
+- **F90:** the printed (rounded) inputs of (E3.3.19) alone allow u = 4.14–4.78, since three large terms cancel;
+  with the unrounded parameters (full WTLS, `tools/research/emue/e33_wtls.py`) u = 4.52. The finding stands with
+  4.5; Table 4 gives both values.
+- **F87:** the 3.3 % called root mean square in the text is the arithmetic mean (3.28 %); RMS 3.50 %. With x = 27.8
+  (text) U = 2.87 → 2.9; with x_obs = 27.29 (Table E3.4.2) 2.82 → 2.8. The finding stands; its effect is at the last
+  digit.
+- Further remarks of the recomputer (not yet checked by the program): F82, the printed 5 follows with u(r) = 2 mg,
+  the weighing uncertainty of the 2024 committee draft; F77, 10.1 follows with the s.d. of a single observation
+  (1.8 kN) instead of the mean's; F57, 0.022 dB follows with s11b = 0.09; F56, 0.150 also follows if one of the two
+  rounding terms is left out (the same sum as the drift limit divided by 2); F40, laboratory 2 is a Cochran outlier
+  at level 6 (C = 0.585 > 0.496) and was kept (s_R = 14.7 without it); F21, δl_P enters the budget S13.10 with the
+  wrong sign.
+
+Counted as the independent recomputation of the c1 findings: 12 confirmed c1 (was 13), 6 m (was 5). Manuscript:
+abstract, Section 6.1 (new paragraph on F40), Table 4 (F40 removed, F87 and F90 notes, the "before submission" note
+replaced), Section 9 and Table 6 (no longer "planned"; a review outside the institute has not been made), Figure 3b,
+highlights and cover letters. The form and its evaluation stay outside the repository.
