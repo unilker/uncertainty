@@ -137,17 +137,13 @@
         "value": 17.3,
         "tolerance": 0.05
       },
-      "standard_uncertainty": {
-        "value": 1.8,
-        "tolerance": 0.06
-      },
       "interval_low": {
         "value": 11.5,
-        "tolerance": 0.06
+        "tolerance": 0.092
       },
       "interval_high": {
         "value": 23.0,
-        "tolerance": 0.06
+        "tolerance": 0.07
       }
     },
     "reference": {

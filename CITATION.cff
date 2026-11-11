@@ -5,16 +5,16 @@ message: >-
   ADDITIONAL-TERMS.md for redistributed or modified versions.
 type: software
 title: "KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down)"
-version: 0.1.0
-date-released: 2026-11-10
-doi: 10.5281/zenodo.24118312
+version: 0.1.1
+date-released: 2026-11-11
+doi: 10.5281/zenodo.24118311
 identifiers:
   - type: doi
     value: 10.5281/zenodo.24118311
     description: All versions (concept DOI)
   - type: doi
     value: 10.5281/zenodo.24118312
-    description: Version 0.1.0
+    description: Version 0.1.0 (the DOI of version 0.1.1 is assigned by Zenodo on release)
 license: GPL-3.0-or-later
 repository-code: "https://github.com/unilker/uncertainty"
 authors:
@@ -38,5 +38,6 @@ abstract: >-
   102, conformity assessment, top-down evaluation, proficiency testing,
   calibration with uncertainty in both variables, precision experiments,
   control charts, uncertainty from sampling, weighing instruments and
-  consensus values, with reports in English and Turkish. Validated on 286
-  projects built from the worked examples of 38 guidance documents.
+  consensus values, with reports in English and Turkish. Verified on 284
+  projects built from the worked examples of 36 sources, 25 of them guidance
+  documents and standards (1843 reference values).

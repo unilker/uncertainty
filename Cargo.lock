@@ -133,7 +133,7 @@ checksum = "d2df906b07856748fa3f6e0ad0cbaa047052d4a7dd609e231c4f72cee8c36f31"
 
 [[package]]
 name = "uncertainty-cli"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde_json",
  "uncertainty-core",
@@ -142,11 +142,11 @@ dependencies = [
 
 [[package]]
 name = "uncertainty-core"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "uncertainty-ffi"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde_json",
  "uncertainty-project",
@@ -154,7 +154,7 @@ dependencies = [
 
 [[package]]
 name = "uncertainty-project"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "miniz_oxide",
  "pdf-writer",

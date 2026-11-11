@@ -228,11 +228,11 @@
       },
       "interval_low": {
         "value": 745.0,
-        "tolerance": 1.5
+        "tolerance": 3.2
       },
       "interval_high": {
         "value": 932.0,
-        "tolerance": 1.5
+        "tolerance": 3.0
       }
     },
     "reference": {

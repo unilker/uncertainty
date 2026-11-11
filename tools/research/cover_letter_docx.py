@@ -56,8 +56,10 @@ def main(src, out, lang="en"):
     subject = doc.add_paragraph()
     subject.add_run("Konu: " if lang == "tr" else "Subject: ").bold = True
     subject.add_run("Makale başvurusu — " if lang == "tr" else "Submission of a research article — ")
-    subject.add_run("KAPSAM: open-source software for measurement uncertainty, validated against the worked examples "
-                    "of the guidance it implements").italic = True
+    # The title as in the manuscript (its first heading), so that the two cannot differ.
+    title = next(ln[2:].strip() for ln in open(src.replace("cover-letter.tr.md", "manuscript.md").replace(
+        "cover-letter.md", "manuscript.md"), encoding="utf-8") if ln.startswith("# "))
+    subject.add_run(title).italic = True
     doc.add_paragraph()
 
     signature = False
@@ -65,6 +67,28 @@ def main(src, out, lang="en"):
         if b.startswith(("Yours sincerely", "Saygılarımla")):
             signature = True
         lines = b.split("\n")
+        # A block that starts with a line of its own and continues with "- " items: the line, then a bulleted list.
+        if len(lines) > 1 and not lines[0].startswith("- ") and any(ln.startswith("- ") for ln in lines[1:]):
+            first = next(k for k, ln in enumerate(lines) if ln.startswith("- "))
+            p = doc.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            runs(p, " ".join(ln.strip() for ln in lines[:first]))
+            lines = lines[first:]
+        if lines[0].startswith("- "):
+            items, cur = [], ""
+            for ln in lines:
+                if ln.startswith("- "):
+                    if cur:
+                        items.append(cur)
+                    cur = ln[2:].strip()
+                else:
+                    cur += " " + ln.strip()
+            items.append(cur)
+            for it in items:
+                p = doc.add_paragraph(style="List Bullet")
+                p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                runs(p, it)
+            continue
         if re.match(r"^\d+\. ", lines[0]):
             items, cur = [], ""
             for ln in lines:

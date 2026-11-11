@@ -10,6 +10,8 @@ from openpyxl.utils import get_column_letter
 NAVY = "1B2F5E"
 RED = "D0101C"
 STRIPE = "F4F5F8"
+# Second line of every sheet; article_supplementary.py adds the build of the program (version and commit).
+SUBTITLE = "KAPSAM — https://github.com/unilker/uncertainty"
 
 
 def num(s):
@@ -28,7 +30,7 @@ def table(path, sheet, title, columns, rows, notes=(), total_row=None):
     thin = Side(style="thin", color="BBBBBB")
     border = Border(left=thin, right=thin, top=thin, bottom=thin)
     ws.cell(row=1, column=1, value=title).font = Font(bold=True, size=14, color=NAVY)
-    ws.cell(row=2, column=1, value="KAPSAM, TÜBİTAK UME — https://github.com/unilker/uncertainty").font = Font(
+    ws.cell(row=2, column=1, value=SUBTITLE).font = Font(
         italic=True, size=9, color="595959")
     head = 4
     for c, (name, width) in enumerate(columns, start=1):

@@ -269,15 +269,15 @@
        "level": 0.1,
        "value": {
         "value": 0.131049,
-        "tolerance": 1e-05
+        "tolerance": 0.00001
        },
        "standard_uncertainty": {
         "value": 0.099907,
-        "tolerance": 1e-05
+        "tolerance": 0.00001
        },
        "expanded_uncertainty": {
         "value": 0.209108,
-        "tolerance": 1e-05
+        "tolerance": 0.00001
        }
       },
       {
@@ -575,15 +575,15 @@
        "level": 0.1,
        "value": {
         "value": 0.133534,
-        "tolerance": 1e-05
+        "tolerance": 0.00001
        },
        "standard_uncertainty": {
         "value": 0.101619,
-        "tolerance": 1e-05
+        "tolerance": 0.00001
        },
        "expanded_uncertainty": {
         "value": 0.212692,
-        "tolerance": 1e-05
+        "tolerance": 0.00001
        }
       },
       {
@@ -785,11 +785,11 @@
     "gum": {
      "estimate": {
       "value": 0.9973,
-      "tolerance": 5.91e-05
+      "tolerance": 0.0000591
      },
      "standard_uncertainty": {
       "value": 0.00073,
-      "tolerance": 7.3e-06
+      "tolerance": 0.0000073
      }
     },
     "reference": {
@@ -978,7 +978,7 @@
      },
      "standard_uncertainty": {
       "value": 0.000396,
-      "tolerance": 1.58e-05
+      "tolerance": 0.0000158
      }
     },
     "reference": {
@@ -1057,7 +1057,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.7154,
-       "sd": 9e-05
+       "sd": 0.00009
       }
      },
      {
@@ -1167,7 +1167,7 @@
      },
      "standard_uncertainty": {
       "value": 0.000505,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -1246,7 +1246,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.1821,
-       "sd": 3e-05
+       "sd": 0.00003
       }
      },
      {
@@ -1356,7 +1356,7 @@
      },
      "standard_uncertainty": {
       "value": 0.000791,
-      "tolerance": 7.9e-06
+      "tolerance": 0.0000079
      }
     },
     "reference": {
@@ -1416,7 +1416,7 @@
     ],
     "sources": [
      {
-      "document": "BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/02",
+      "document": "BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/03",
       "section": "Table 6",
       "url": "https://www.bipm.org/en/publications/rapports-bipm"
      }
@@ -1554,15 +1554,15 @@
     "gum": {
      "estimate": {
       "value": 0.999774014,
-      "tolerance": 5e-09
+      "tolerance": 5e-9
      },
      "standard_uncertainty": {
       "value": 0.000744,
-      "tolerance": 1.49e-05
+      "tolerance": 0.0000149
      },
      "bounded_low": {
       "value": 0.9983,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "bounded_high": {
       "value": 1.0,
@@ -1580,19 +1580,19 @@
      },
      "bounded_estimate": {
       "value": 0.999319944,
-      "tolerance": 4e-06
+      "tolerance": 0.000004
      },
      "bounded_standard_uncertainty": {
       "value": 0.000487717,
-      "tolerance": 3e-06
+      "tolerance": 0.0000039
      },
      "bounded_low": {
       "value": 0.998394053,
-      "tolerance": 1.2e-05
+      "tolerance": 0.000013
      },
      "bounded_high": {
       "value": 1.0,
-      "tolerance": 1e-07
+      "tolerance": 1e-7
      }
     }
    }
@@ -1640,7 +1640,7 @@
     ],
     "sources": [
      {
-      "document": "BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/02",
+      "document": "BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/03",
       "section": "Table 4",
       "url": "https://www.bipm.org/en/publications/rapports-bipm"
      }
@@ -1777,7 +1777,7 @@
      },
      "standard_uncertainty": {
       "value": 0.000797,
-      "tolerance": 8e-06
+      "tolerance": 0.000008
      }
     },
     "reference": {
@@ -1829,7 +1829,7 @@
     ],
     "sources": [
      {
-      "document": "BIPM, Internal Standard Reference Data for qNMR: Sodium 4,4-dimethyl-4-silapentane-1-sulfonate-d6, ISRD-07, Rapport BIPM-2019/03",
+      "document": "BIPM, Internal Standard Reference Data for qNMR: Sodium 4,4-dimethyl-4-silapentane-1-sulfonate-d6, ISRD-07, Rapport BIPM-2019/04",
       "section": "Table 4",
       "url": "https://www.bipm.org/en/publications/rapports-bipm"
      }
@@ -1962,11 +1962,11 @@
     "gum": {
      "estimate": {
       "value": 0.9962,
-      "tolerance": 6.1e-05
+      "tolerance": 0.000061
      },
      "standard_uncertainty": {
       "value": 0.00119,
-      "tolerance": 1.19e-05
+      "tolerance": 0.0000119
      }
     },
     "reference": {
@@ -2018,7 +2018,7 @@
     ],
     "sources": [
      {
-      "document": "BIPM, Internal Standard Reference Data for qNMR: Sodium 4,4-dimethyl-4-silapentane-1-sulfonate-d6, ISRD-07, Rapport BIPM-2019/03",
+      "document": "BIPM, Internal Standard Reference Data for qNMR: Sodium 4,4-dimethyl-4-silapentane-1-sulfonate-d6, ISRD-07, Rapport BIPM-2019/04",
       "section": "Table 6",
       "url": "https://www.bipm.org/en/publications/rapports-bipm"
      }
@@ -2151,11 +2151,11 @@
     "gum": {
      "estimate": {
       "value": 0.9987,
-      "tolerance": 7.85e-05
+      "tolerance": 0.0000785
      },
      "standard_uncertainty": {
       "value": 0.00108,
-      "tolerance": 1.08e-05
+      "tolerance": 0.0000108
      }
     },
     "reference": {
@@ -2325,7 +2325,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.99992,
-       "sd": 2.5e-05
+       "sd": 0.000025
       }
      }
     ]
@@ -2340,11 +2340,11 @@
     "gum": {
      "estimate": {
       "value": 0.9988,
-      "tolerance": 8.49e-05
+      "tolerance": 0.0000849
      },
      "standard_uncertainty": {
       "value": 0.00031,
-      "tolerance": 6.2e-06
+      "tolerance": 0.0000062
      }
     },
     "reference": {
@@ -2505,21 +2505,21 @@
       "c_m = m": {
        "risk": {
         "value": 0.0029,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "accepted": true
       },
       "c_m = T_L": {
        "risk": {
         "value": 0.0117,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "accepted": true
       },
       "c_m = T_U": {
        "risk": {
         "value": 0.0002,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "accepted": true
       }
@@ -2634,7 +2634,7 @@
       },
       {
        "value": 4.1848,
-       "tolerance": 1e-05
+       "tolerance": 0.00001
       }
      ],
      "samples": {
@@ -2778,7 +2778,7 @@
       },
       {
        "value": 4.1848,
-       "tolerance": 1e-05
+       "tolerance": 0.00001
       }
      ],
      "samples": {
@@ -2800,7 +2800,7 @@
       },
       {
        "value": 0.07978,
-       "tolerance": 2e-06
+       "tolerance": 0.000002
       }
      ],
      "cov_params": [
@@ -2981,7 +2981,7 @@
     "gum": {
      "estimate": {
       "value": 27.8,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 1.4344,
@@ -3163,7 +3163,7 @@
     "gum": {
      "estimate": {
       "value": 27.8,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 1.3972,
@@ -3875,7 +3875,7 @@
        "accepted": true,
        "conformance_probability": {
         "value": 0.06555,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        }
       }
      }
@@ -4381,11 +4381,11 @@
     "gum": {
      "estimate": {
       "value": 7.0043,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0041,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
@@ -4623,11 +4623,11 @@
     "gum": {
      "estimate": {
       "value": 7.0043,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0032,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
@@ -4792,11 +4792,11 @@
     "gum": {
      "estimate": {
       "value": 7.0002,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0051,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -4939,11 +4939,11 @@
     "gum": {
      "estimate": {
       "value": 7.0002,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0041,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
@@ -5035,11 +5035,11 @@
      },
      "consumer_risk": {
       "value": 0.000103,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      },
      "producer_risk": {
       "value": 0.053702,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      }
     },
     "reference": {
@@ -5121,11 +5121,11 @@
      },
      "consumer_risk": {
       "value": 0.01801,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      },
      "producer_risk": {
       "value": 0.000554,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      }
     },
     "reference": {
@@ -5207,11 +5207,11 @@
      },
      "consumer_risk": {
       "value": 0.00579,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      },
      "producer_risk": {
       "value": 0.007392,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      }
     },
     "reference": {
@@ -5302,14 +5302,14 @@
       "ρ̂ = 0.190": {
        "conformance_probability": {
         "value": 0.857384,
-        "tolerance": 2e-06
+        "tolerance": 0.000002
        },
        "accepted": true
       },
       "ρ̂ = 0.225": {
        "conformance_probability": {
         "value": 0.11334,
-        "tolerance": 2e-06
+        "tolerance": 0.000002
        },
        "accepted": false
       }
@@ -5471,11 +5471,11 @@
     "proficiency": {
      "homogeneity": {
       "ms_between": {
-       "value": 3.25e-07,
+       "value": 3.25e-7,
        "tolerance": 5e-10
       },
       "ms_within": {
-       "value": 4.9e-07,
+       "value": 4.9e-7,
        "tolerance": 5e-10
       },
       "s_s": {
@@ -5484,23 +5484,23 @@
       },
       "u_bb_star": {
        "value": 0.000148089,
-       "tolerance": 1e-09
+       "tolerance": 1e-9
       },
       "tau_mean": {
        "value": 0.00014,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "tau_sd": {
        "value": 0.00011,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "tau_median": {
        "value": 0.000113,
-       "tolerance": 1e-06
+       "tolerance": 0.000001
       },
       "tau_q975": {
        "value": 0.0004,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "tau_mode": {
        "value": 0.0,
@@ -5508,23 +5508,23 @@
       },
       "tau_hpd_upper": {
        "value": 0.0003401,
-       "tolerance": 2.1257000000000003e-05
+       "tolerance": 0.000021257000000000003
       },
       "sigma_mean": {
        "value": 0.00069,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "sigma_hpd_lower": {
        "value": 0.0005527,
-       "tolerance": 2.1257000000000003e-05
+       "tolerance": 0.000021257000000000003
       },
       "sigma_hpd_upper": {
        "value": 0.0008503,
-       "tolerance": 2.1257000000000003e-05
+       "tolerance": 0.000021257000000000003
       },
       "mu_mean": {
        "value": 0.42514,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      }
     },
@@ -5696,11 +5696,11 @@
     "gum": {
      "estimate": {
       "value": 0.014,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.00202,
-      "tolerance": 1.5e-05
+      "tolerance": 0.000015
      },
      "effective_dof": {
       "value": 2.11,
@@ -5864,11 +5864,11 @@
     "gum": {
      "estimate": {
       "value": 0.014,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.00202,
-      "tolerance": 1.5e-05
+      "tolerance": 0.000015
      },
      "effective_dof": {
       "value": 5.2,
@@ -5997,11 +5997,11 @@
     "gum": {
      "estimate": {
       "value": 180.1557,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0038,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -6446,11 +6446,11 @@
        },
        "y_CH4": {
         "value": 0.026432,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_CO": {
         "value": 0.1121686,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_CO2": {
         "value": 200345.267,
@@ -6458,11 +6458,11 @@
        },
        "y_H2": {
         "value": 0.0199913,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_H2O": {
         "value": 0.3886571,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_N2": {
         "value": 799649.122,
@@ -6470,7 +6470,7 @@
        },
        "y_O2": {
         "value": 1.065841,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        }
       },
       "standard_uncertainty": {
@@ -6480,11 +6480,11 @@
        },
        "y_CH4": {
         "value": 0.0126684,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_CO": {
         "value": 0.0605337,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_CO2": {
         "value": 3.959638,
@@ -6492,11 +6492,11 @@
        },
        "y_H2": {
         "value": 0.0119948,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_H2O": {
         "value": 0.0206013,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        },
        "y_N2": {
         "value": 4.71764,
@@ -6504,7 +6504,7 @@
        },
        "y_O2": {
         "value": 0.52091,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        }
       },
       "correlations": [
@@ -6658,8 +6658,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 3.5368e-06,
-       "sd": 1.443591837e-06
+       "mean": 0.0000035368,
+       "sd": 0.000001443591837
       }
      },
      {
@@ -6671,8 +6671,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 3.0984e-06,
-       "sd": 3.419305714e-06
+       "mean": 0.0000030984,
+       "sd": 0.000003419305714
       }
      },
      {
@@ -6723,8 +6723,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 4.8654e-05,
-       "sd": 1.985877551e-05
+       "mean": 0.000048654,
+       "sd": 0.00001985877551
       }
      },
      {
@@ -6736,8 +6736,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 3.3578e-07,
-       "sd": 3.70557214e-07
+       "mean": 3.3578e-7,
+       "sd": 3.70557214e-7
       }
      }
     ]
@@ -6766,7 +6766,7 @@
     "mcm": {
      "estimate": {
       "value": 4282.1,
-      "tolerance": 3.0
+      "tolerance": 5.7
      },
      "standard_uncertainty": {
       "value": 835.2,
@@ -6892,8 +6892,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 3.5368e-06,
-       "sd": 1.443591837e-06
+       "mean": 0.0000035368,
+       "sd": 0.000001443591837
       }
      },
      {
@@ -6918,8 +6918,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 3.0984e-06,
-       "sd": 3.419305714e-06
+       "mean": 0.0000030984,
+       "sd": 0.000003419305714
       }
      },
      {
@@ -6970,8 +6970,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 4.8654e-05,
-       "sd": 1.985877551e-05
+       "mean": 0.000048654,
+       "sd": 0.00001985877551
       }
      },
      {
@@ -6996,8 +6996,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 3.3578e-07,
-       "sd": 3.70557214e-07
+       "mean": 3.3578e-7,
+       "sd": 3.70557214e-7
       }
      }
     ]
@@ -7668,30 +7668,30 @@
      "homogeneity": {
       "mean": {
        "value": 0.18715,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "s_x": {
        "value": 0.00398,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "s_w": {
        "value": 0.00556,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "s_s": {
        "value": 0.0006,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "criterion": {
        "value": 0.00842,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "sufficient": true
      },
      "stability": {
       "difference": {
        "value": 0.0066,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "sufficient": true
      }
@@ -7912,23 +7912,23 @@
     "proficiency": {
      "median": {
       "value": 0.262,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "made": {
       "value": 0.0386,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "niqr": {
       "value": 0.0402,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "robust_mean": {
       "value": 0.257,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "robust_sd": {
       "value": 0.0395,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "iterations": {
       "value": 6,
@@ -7936,23 +7936,23 @@
      },
      "mean": {
       "value": 0.2512,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "sd": {
       "value": 0.0672,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "assigned_value": {
       "value": 0.257,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "u_assigned": {
       "value": 0.0085,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "sd_pt": {
       "value": 0.0395,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "scores": {
       "1": {
@@ -8176,27 +8176,27 @@
     "proficiency": {
      "median": {
       "value": 0.262,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "made": {
       "value": 0.0386,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "niqr": {
       "value": 0.0402,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "assigned_value": {
       "value": 0.262,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "u_assigned": {
       "value": 0.0086,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "sd_pt": {
       "value": 0.0402,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -8455,15 +8455,15 @@
     "proficiency": {
      "assigned_value": {
       "value": 0.044,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "u_assigned": {
       "value": 0.0041,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "sd_pt": {
       "value": 0.0066,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "scores": {
       "L04": {
@@ -9015,11 +9015,11 @@
      },
      "robust_mean": {
       "value": 0.03161,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "robust_sd": {
       "value": 0.0164,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -11331,7 +11331,7 @@
      "components": {
       "s_I(TO)": {
        "value": 0.00287,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      }
     },
@@ -11514,7 +11514,7 @@
      "components": {
       "s_I(T)": {
        "value": 0.000603,
-       "tolerance": 5e-07
+       "tolerance": 5e-7
       }
      }
     },
@@ -11634,7 +11634,7 @@
      "params": [
       {
        "value": -0.35747,
-       "tolerance": 7.1494e-05
+       "tolerance": 0.000071494
       },
       {
        "value": 24.612,
@@ -11644,7 +11644,7 @@
      "u_params": [
       {
        "value": 0.15716,
-       "tolerance": 7.858e-05
+       "tolerance": 0.00007858
       },
       {
        "value": 0.48048,
@@ -11654,7 +11654,7 @@
      "cov_params": [
       {
        "value": -0.056921,
-       "tolerance": 2.84605e-05
+       "tolerance": 0.0000284605
       }
      ],
      "s_res": {
@@ -11674,7 +11674,7 @@
        },
        "u": {
         "value": 0.16377,
-        "tolerance": 8.1885e-05
+        "tolerance": 0.000081885
        }
       },
       "S2": {
@@ -11854,20 +11854,20 @@
      "params": [
       {
        "value": 0.0003981,
-       "tolerance": 3.981e-07
+       "tolerance": 3.981e-7
       },
       {
-       "value": 2.4285e-05,
-       "tolerance": 1.21425e-09
+       "value": 0.000024285,
+       "tolerance": 1.21425e-9
       }
      ],
      "u_params": [
       {
        "value": 0.0011463,
-       "tolerance": 1.1463000000000001e-06
+       "tolerance": 0.0000011463000000000001
       },
       {
-       "value": 2.5497e-08,
+       "value": 2.5497e-8,
        "tolerance": 2.5497e-11
       }
      ],
@@ -11885,7 +11885,7 @@
        },
        "u": {
         "value": 0.0020926,
-        "tolerance": 2.0926e-06
+        "tolerance": 0.0000020926
        }
       },
       "S2": {
@@ -11895,7 +11895,7 @@
        },
        "u": {
         "value": 0.010406,
-        "tolerance": 1.0406e-05
+        "tolerance": 0.000010406
        }
       }
      }
@@ -12037,20 +12037,20 @@
      "params": [
       {
        "value": 0.0003981,
-       "tolerance": 3.981e-07
+       "tolerance": 3.981e-7
       },
       {
-       "value": 2.4285e-05,
-       "tolerance": 1.21425e-09
+       "value": 0.000024285,
+       "tolerance": 1.21425e-9
       }
      ],
      "u_params": [
       {
        "value": 0.0011458,
-       "tolerance": 1.1458000000000001e-06
+       "tolerance": 0.0000011458000000000001
       },
       {
-       "value": 2.4159e-08,
+       "value": 2.4159e-8,
        "tolerance": 2.4159e-11
       }
      ],
@@ -12077,7 +12077,7 @@
        },
        "u": {
         "value": 0.0020244,
-        "tolerance": 2.0244e-06
+        "tolerance": 0.0000020244
        }
       },
       "S2": {
@@ -12087,7 +12087,7 @@
        },
        "u": {
         "value": 0.0099712,
-        "tolerance": 9.9712e-06
+        "tolerance": 0.0000099712
        }
       }
      }
@@ -12229,11 +12229,11 @@
      "params": [
       {
        "value": -0.00013111,
-       "tolerance": 2.6222000000000003e-07
+       "tolerance": 2.6222000000000003e-7
       },
       {
-       "value": 2.4401e-05,
-       "tolerance": 4.8802e-09
+       "value": 0.000024401,
+       "tolerance": 4.8802e-9
       },
       {
        "value": -4.0865e-13,
@@ -12243,10 +12243,10 @@
      "u_params": [
       {
        "value": 0.001175,
-       "tolerance": 2.35e-06
+       "tolerance": 0.00000235
       },
       {
-       "value": 5.901e-08,
+       "value": 5.901e-8,
        "tolerance": 1.1802e-10
       },
       {
@@ -12285,7 +12285,7 @@
        },
        "u": {
         "value": 0.0032911,
-        "tolerance": 3.2911e-06
+        "tolerance": 0.0000032911
        }
       },
       "S2": {
@@ -12295,7 +12295,7 @@
        },
        "u": {
         "value": 0.011761,
-        "tolerance": 1.1761000000000001e-05
+        "tolerance": 0.000011761000000000001
        }
       }
      }
@@ -12478,8 +12478,8 @@
        "tolerance": 0.09593800000000001
       },
       {
-       "value": 2.1283e-05,
-       "tolerance": 4.2566e-08
+       "value": 0.000021283,
+       "tolerance": 4.2566e-8
       }
      ],
      "u_params": [
@@ -12492,8 +12492,8 @@
        "tolerance": 0.015852500000000002
       },
       {
-       "value": 1.2739e-06,
-       "tolerance": 6.3695e-09
+       "value": 0.0000012739,
+       "tolerance": 6.3695e-9
       }
      ],
      "s_res": {
@@ -12513,7 +12513,7 @@
        },
        "u": {
         "value": 0.014246,
-        "tolerance": 4.2738e-05
+        "tolerance": 0.000042738
        }
       }
      }
@@ -12688,7 +12688,7 @@
       },
       {
        "value": 0.00051211,
-       "tolerance": 1.02422e-06
+       "tolerance": 0.00000102422
       },
       {
        "value": 0.08499,
@@ -12698,28 +12698,28 @@
      "u_params": [
       {
        "value": 0.018095,
-       "tolerance": 5.4285e-05
+       "tolerance": 0.000054285
       },
       {
-       "value": 2.4143e-05,
-       "tolerance": 7.242899999999999e-08
+       "value": 0.000024143,
+       "tolerance": 7.242899999999999e-8
       },
       {
        "value": 0.0050692,
-       "tolerance": 1.5207600000000002e-05
+       "tolerance": 0.000015207600000000002
       }
      ],
      "cov_params": [
       {
-       "value": -3.9719e-07,
-       "tolerance": 1.98595e-09
+       "value": -3.9719e-7,
+       "tolerance": 1.98595e-9
       },
       {
-       "value": 8.2385e-05,
-       "tolerance": 4.1192500000000003e-07
+       "value": 0.000082385,
+       "tolerance": 4.1192500000000003e-7
       },
       {
-       "value": -1.2233e-07,
+       "value": -1.2233e-7,
        "tolerance": 6.116500000000001e-10
       }
      ],
@@ -12740,7 +12740,7 @@
        },
        "u": {
         "value": 0.014169,
-        "tolerance": 2.8338e-05
+        "tolerance": 0.000028338
        }
       }
      }
@@ -13047,15 +13047,15 @@
      },
      "bayes_mean": {
       "value": 192.2171,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "bayes_u": {
       "value": 0.0004,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "bayes_tau_median": {
       "value": 0.0005,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -13260,7 +13260,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0500657,
-       "sd": 2.5e-06
+       "sd": 0.0000025
       }
      },
      {
@@ -13273,7 +13273,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0329035,
-       "sd": 3.4e-06
+       "sd": 0.0000034
       }
      }
     ]
@@ -13291,29 +13291,29 @@
       "estimate": {
        "x28": {
         "value": 0.9233873,
-        "tolerance": 5e-08
+        "tolerance": 5e-8
        },
        "x29": {
         "value": 0.04623,
-        "tolerance": 5e-08
+        "tolerance": 5e-8
        },
        "x30": {
         "value": 0.0303827,
-        "tolerance": 5e-08
+        "tolerance": 5e-8
        }
       },
       "standard_uncertainty": {
        "x28": {
-        "value": 3.6e-06,
-        "tolerance": 5e-08
+        "value": 0.0000036,
+        "tolerance": 5e-8
        },
        "x29": {
-        "value": 2.2e-06,
-        "tolerance": 5e-08
+        "value": 0.0000022,
+        "tolerance": 5e-8
        },
        "x30": {
-        "value": 3e-06,
-        "tolerance": 5e-08
+        "value": 0.000003,
+        "tolerance": 5e-8
        }
       },
       "correlations": [
@@ -13595,7 +13595,7 @@
       "distribution": {
        "type": "beta",
        "mean": 0.9999,
-       "sd": 5.8e-05
+       "sd": 0.000058
       }
      },
      {
@@ -13625,29 +13625,29 @@
     "gum": {
      "estimate": {
       "value": 1.0027,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0009,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
      "estimate": {
       "value": 1.0027,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0009,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "interval_low": {
       "value": 1.00103,
-      "tolerance": 2e-05
+      "tolerance": 0.00002
      },
      "interval_high": {
       "value": 1.00437,
-      "tolerance": 2e-05
+      "tolerance": 0.00002
      }
     },
     "reference": {
@@ -13800,7 +13800,7 @@
     "gum": {
      "estimate": {
       "value": 10.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.026,
@@ -13904,21 +13904,21 @@
     "gum": {
      "estimate": {
       "value": 0.99992,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "standard_uncertainty": {
-      "value": 3e-05,
-      "tolerance": 5e-07
+      "value": 0.00003,
+      "tolerance": 5e-7
      }
     },
     "mcm": {
      "interval_low": {
       "value": 0.999851,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      },
      "interval_high": {
       "value": 0.999968,
-      "tolerance": 1e-06
+      "tolerance": 0.000001
      }
     },
     "reference": {
@@ -14073,7 +14073,7 @@
        "level": 0.261,
        "expanded_uncertainty": {
         "value": 0.0676,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        }
       },
       {
@@ -14265,7 +14265,7 @@
      "components": {
       "s_I(P)⟨I⟩": {
        "value": 0.0285,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "s′_I(P)⟨II⟩": {
        "value": 7.73,
@@ -15577,7 +15577,7 @@
       },
       "s_r(h)⟨I⟩": {
        "value": 0.1912,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       }
      },
      "recovery": {
@@ -15966,7 +15966,7 @@
       "Lab 1": {
        "d": {
         "value": 0.811553765,
-        "tolerance": 1e-06
+        "tolerance": 0.000001
        },
        "expanded": {
         "value": 4.430996,
@@ -15976,7 +15976,7 @@
       "Lab 2": {
        "d": {
         "value": -0.842659061,
-        "tolerance": 1e-06
+        "tolerance": 0.000001
        },
        "expanded": {
         "value": 4.232114,
@@ -15986,7 +15986,7 @@
       "Lab 3": {
        "d": {
         "value": 1.096448262,
-        "tolerance": 1.0964482617635765e-06
+        "tolerance": 0.0000010964482617635765
        },
        "expanded": {
         "value": 4.323394,
@@ -15996,7 +15996,7 @@
       "Lab 4": {
        "d": {
         "value": -1.450911815,
-        "tolerance": 1.4509118149053533e-06
+        "tolerance": 0.0000014509118149053533
        },
        "expanded": {
         "value": 4.61989,
@@ -16006,7 +16006,7 @@
       "Lab 5": {
        "d": {
         "value": -2.074388969,
-        "tolerance": 2.074388969421477e-06
+        "tolerance": 0.000002074388969421477
        },
        "expanded": {
         "value": 4.215336,
@@ -16016,7 +16016,7 @@
       "Lab 6": {
        "d": {
         "value": 2.900904108,
-        "tolerance": 2.9009041083056244e-06
+        "tolerance": 0.0000029009041083056244
        },
        "expanded": {
         "value": 1.983316,
@@ -16028,7 +16028,7 @@
       "Lab 5|Lab 6": {
        "d": {
         "value": -4.975293078,
-        "tolerance": 4.975293077727101e-06
+        "tolerance": 0.000004975293077727101
        },
        "expanded": {
         "value": 4.591341,
@@ -16038,7 +16038,7 @@
       "Lab 1|Lab 2": {
        "d": {
         "value": 1.654212826,
-        "tolerance": 1.6542128256559252e-06
+        "tolerance": 0.0000016542128256559252
        },
        "expanded": {
         "value": 6.066654,
@@ -16222,21 +16222,21 @@
     "gum": {
      "estimate": {
       "value": 44.0094,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0007,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
      "interval_low": {
       "value": 44.008045,
-      "tolerance": 3e-05
+      "tolerance": 0.00003
      },
      "interval_high": {
       "value": 44.010755,
-      "tolerance": 3e-05
+      "tolerance": 0.00003
      },
      "gum_validated": false
     },
@@ -16513,7 +16513,7 @@
      "components": {
       "u(Rw)": {
        "value": 1.67,
-       "tolerance": 1e-09
+       "tolerance": 1e-9
       },
       "u(bias)": {
        "value": 2.73,
@@ -19871,7 +19871,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.063,
-       "sd": 3e-05
+       "sd": 0.00003
       }
      },
      {
@@ -19910,7 +19910,7 @@
       "distribution": {
        "type": "normal",
        "mean": 203.9730435,
-       "sd": 1.2e-06
+       "sd": 0.0000012
       }
      },
      {
@@ -19923,7 +19923,7 @@
       "distribution": {
        "type": "normal",
        "mean": 205.9744652,
-       "sd": 1.2e-06
+       "sd": 0.0000012
       }
      },
      {
@@ -19936,7 +19936,7 @@
       "distribution": {
        "type": "normal",
        "mean": 206.9758968,
-       "sd": 1.2e-06
+       "sd": 0.0000012
       }
      },
      {
@@ -19949,7 +19949,7 @@
       "distribution": {
        "type": "normal",
        "mean": 207.976652,
-       "sd": 1.2e-06
+       "sd": 0.0000012
       }
      }
     ]
@@ -19967,29 +19967,29 @@
       "estimate": {
        "ArPb": {
         "value": 207.1791,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        }
       },
       "standard_uncertainty": {
        "x204": {
-        "value": 6e-06,
-        "tolerance": 5e-07
+        "value": 0.000006,
+        "tolerance": 5e-7
        },
        "x206": {
-        "value": 3.7e-05,
-        "tolerance": 5e-07
+        "value": 0.000037,
+        "tolerance": 5e-7
        },
        "x207": {
-        "value": 1.9e-05,
-        "tolerance": 5e-07
+        "value": 0.000019,
+        "tolerance": 5e-7
        },
        "x208": {
-        "value": 4.5e-05,
-        "tolerance": 5e-07
+        "value": 0.000045,
+        "tolerance": 5e-7
        },
        "ArPb": {
         "value": 0.0001,
-        "tolerance": 2e-05
+        "tolerance": 0.00002
        }
       },
       "correlations": [
@@ -20161,7 +20161,7 @@
     "gum": {
      "estimate": {
       "value": 25,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 1.85,
@@ -20492,7 +20492,7 @@
      },
      "kragten_uncertainty": {
       "value": 0.8633,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -20669,7 +20669,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 1.00794,
-       "half_width": 7e-05
+       "half_width": 0.00007
       }
      },
      {
@@ -20742,11 +20742,11 @@
     "gum": {
      "estimate": {
       "value": 0.102136,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "expanded_uncertainty": {
       "value": 0.0002,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -20895,15 +20895,15 @@
     "gum": {
      "estimate": {
       "value": 0.102136,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "standard_uncertainty": {
-      "value": 9.9e-05,
-      "tolerance": 5e-07
+      "value": 0.000099,
+      "tolerance": 5e-7
      },
      "kragten_uncertainty": {
-      "value": 9.9e-05,
-      "tolerance": 5e-07
+      "value": 0.000099,
+      "tolerance": 5e-7
      }
     },
     "reference": {
@@ -21085,19 +21085,19 @@
     "gum": {
      "estimate": {
       "value": 0.101387,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "standard_uncertainty": {
       "value": 0.00018276,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "expanded_uncertainty": {
       "value": 0.0004,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "kragten_uncertainty": {
       "value": 0.00018276,
-      "tolerance": 1e-07
+      "tolerance": 1e-7
      }
     },
     "reference": {
@@ -21222,7 +21222,7 @@
     "gum": {
      "estimate": {
       "value": 1.1111,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.377,
@@ -21422,7 +21422,7 @@
        "level": 1.0,
        "value": {
         "value": 1.1111,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "standard_uncertainty": {
         "value": 0.377,
@@ -21605,11 +21605,11 @@
     "gum": {
      "estimate": {
       "value": 0.015065,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "standard_uncertainty": {
       "value": 0.001465,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "expanded_uncertainty": {
       "value": 0.003,
@@ -21617,7 +21617,7 @@
      },
      "kragten_uncertainty": {
       "value": 0.001465,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      }
     },
     "reference": {
@@ -21838,7 +21838,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.36544,
-       "sd": 5e-05
+       "sd": 0.00005
       }
      },
      {
@@ -21889,7 +21889,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.99999,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -21920,11 +21920,11 @@
     "gum": {
      "estimate": {
       "value": 0.092605,
-      "tolerance": 1e-06
+      "tolerance": 0.000001
      },
      "standard_uncertainty": {
-      "value": 2.8e-05,
-      "tolerance": 5e-07
+      "value": 0.000028,
+      "tolerance": 5e-7
      }
     },
     "reference": {
@@ -22051,7 +22051,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.092605,
-       "sd": 2.8e-05
+       "sd": 0.000028
       }
      },
      {
@@ -22283,7 +22283,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.00064,
-       "sd": 1.4142135623730951e-05
+       "sd": 0.000014142135623730951
       }
      },
      {
@@ -22331,8 +22331,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 4.5e-07,
-       "sd": 1.414213562373095e-07
+       "mean": 4.5e-7,
+       "sd": 1.414213562373095e-7
       }
      },
      {
@@ -22458,11 +22458,11 @@
     "gum": {
      "estimate": {
       "value": 0.053738,
-      "tolerance": 3e-06
+      "tolerance": 0.000003
      },
      "standard_uncertainty": {
       "value": 0.00018,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -22922,7 +22922,7 @@
     "control_chart": {
      "sd": {
       "value": 0.0458,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "lower_warning": {
       "value": 4.49,
@@ -23006,19 +23006,19 @@
     "control_chart": {
      "lower_warning": {
       "value": 4.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_warning": {
       "value": 6.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "lower_action": {
       "value": 3.5,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_action": {
       "value": 6.5,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      }
     },
     "reference": {
@@ -23154,7 +23154,7 @@
       },
       "s_r": {
        "value": 0.1541,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "s_between": {
        "value": 0.2246,
@@ -23233,19 +23233,19 @@
     "control_chart": {
      "lower_warning": {
       "value": 0.0748,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "upper_warning": {
       "value": 0.0788,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "lower_action": {
       "value": 0.0738,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "upper_action": {
       "value": 0.0798,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -23315,7 +23315,7 @@
      },
      "center": {
       "value": 0.559,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_warning": {
       "value": 1.4,
@@ -23552,11 +23552,11 @@
     "control_chart": {
      "lower_action": {
       "value": 15.3,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_action": {
       "value": 20.7,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      }
     },
     "reference": {
@@ -23702,23 +23702,23 @@
     "control_chart": {
      "sd": {
       "value": 2.4,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "lower_warning": {
       "value": 11.2,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_warning": {
       "value": 20.8,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "lower_action": {
       "value": 8.8,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_action": {
       "value": 23.2,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      }
     },
     "reference": {
@@ -23802,7 +23802,7 @@
     "control_chart": {
      "sd": {
       "value": 0.0975,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "upper_warning": {
       "value": 0.28,
@@ -24019,7 +24019,7 @@
       },
       "pooled_sd": {
        "value": 0.07545,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "t": {
        "value": 1.012,
@@ -24098,19 +24098,19 @@
     "control_chart": {
      "lower_warning": {
       "value": -0.051,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_warning": {
       "value": 0.129,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "lower_action": {
       "value": -0.096,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "upper_action": {
       "value": 0.174,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      }
     },
     "reference": {
@@ -24412,35 +24412,35 @@
     "sampling": {
      "mean": {
       "value": 4345.5625,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "s_between_target": {
       "value": 556.2804,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "s_sampling": {
       "value": 518.16089,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "s_analysis": {
       "value": 148.18063,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "s_total": {
       "value": 774.5296,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "percent_between_target": {
       "value": 51.583582,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "percent_sampling": {
       "value": 44.756204,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "percent_analysis": {
       "value": 3.6602174,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -24609,7 +24609,7 @@
     "sampling": {
      "mean": {
       "value": 317.8,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "s_between_target": {
       "value": 197.55,
@@ -24662,27 +24662,27 @@
       },
       "s_total": {
        "value": 0.82337,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "s_between_target": {
        "value": 0.66775,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       },
       "s_sampling": {
        "value": 0.4784,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "s_analysis": {
        "value": 0.0567,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "s_measurement": {
        "value": 0.4817,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "factor_sampling": {
        "value": 2.6032,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "factor_analysis": {
        "value": 1.12,
@@ -24690,11 +24690,11 @@
       },
       "factor_measurement": {
        "value": 2.6207,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       },
       "relative_measurement": {
        "value": 0.5111,
-       "tolerance": 5e-05
+       "tolerance": 0.00005
       }
      }
     },
@@ -25162,7 +25162,7 @@
      },
      "s_analysis": {
       "value": 28.80538,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "s_sampling": {
       "value": 17.224,
@@ -26072,218 +26072,6 @@
   }
  },
  {
-  "path": "library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json",
-  "project": {
-   "format": "uncertainty-calculations/project",
-   "version": 1,
-   "metadata": {
-    "id": "ume-procedure-19-2-qnmr-purity-internal-standard",
-    "field": "chemistry",
-    "title": {
-     "en": "Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2)",
-     "tr": "İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2)"
-    },
-    "description": {
-     "en": "Multiplicative model with relative uncertainties; the values are illustrative, not from a real measurement. The integration is a separate Type B component (±0.2 %, rectangular) beside the repeatability of the ratio.",
-     "tr": "Bağıl belirsizlikli çarpımsal model; değerler örnektir, gerçek bir ölçüme ait değildir. Entegrasyon, oranın tekrarlanabilirliğinin yanında ayrı bir B tipi bileşendir (±%0,2, dikdörtgen)."
-    },
-    "explanation": [
-     {
-      "en": "Relative standard uncertainties (10⁻⁶): repeatability 671, integration 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; combined 1575; ν_eff = 121.",
-      "tr": "Bağıl standart belirsizlikler (10⁻⁶): tekrarlanabilirlik 671, entegrasyon 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; birleşik 1575; ν_eff = 121."
-     },
-     {
-      "en": "P_a = 995.0 mg/g, u_c = 1.567 mg/g, U = 2u_c = 3.13 → 3.1 mg/g: P_a = (995.0 ± 3.1) mg/g (k = 2).",
-      "tr": "P_a = 995,0 mg/g, u_c = 1,567 mg/g, U = 2u_c = 3,13 → 3,1 mg/g: P_a = (995,0 ± 3,1) mg/g (k = 2)."
-     },
-     {
-      "en": "More than half of the variance comes from the integration and about a quarter from the purity of the internal standard (54 % and 23 %).",
-      "tr": "Varyansın yarısından fazlası entegrasyondan, yaklaşık dörtte biri iç standardın saflığından gelir (%54 ve %23)."
-     }
-    ],
-    "tags": [
-     "ume",
-     "procedure",
-     "qnmr",
-     "purity",
-     "relative-uncertainty"
-    ],
-    "notes": [
-     {
-      "en": "The numbers of ¹H nuclei are not legible in the procedure (the model is an embedded equation object); N_std/N_a = 2/3 is the only ratio that reproduces the printed 995.0 mg/g, consistent with maleic acid (M = 116.072 g/mol, 2 H) as internal standard and an analyte of M = 194.19 g/mol with a methyl singlet (e.g. caffeine).",
-      "tr": "¹H çekirdek sayıları prosedürde okunamıyor (model gömülü bir denklem nesnesidir); basılı 995,0 mg/g değerini veren tek oran N_std/N_a = 2/3'tür; iç standart maleik asit (M = 116,072 g/mol, 2 H) ve bir metil singleti olan M = 194,19 g/mol'lük bir analit (ör. kafein) ile uyumludur."
-     }
-    ],
-    "sources": [
-     {
-      "document": "TÜBİTAK UME, Belirsizlik Hesapları Prosedürü (draft, November 2026), author's own document",
-      "section": "Section 19.2"
-     }
-    ]
-   },
-   "model": {
-    "output": {
-     "name": "P_a",
-     "unit": "mg/g",
-     "expression": "R * f_int * (N_std/N_a) * (M_a/M_std) * (m_std/m_a) * P_std",
-     "description": {
-      "en": "Purity (mass fraction) of the analyte by ¹H qNMR",
-      "tr": "¹H qNMR ile analit saflığı (kütle kesri)"
-     }
-    },
-    "inputs": [
-     {
-      "name": "R",
-      "unit": "1",
-      "description": {
-       "en": "Integral ratio I_a/I_std, 5 independent samples, RSD 0.15 % (Type A)",
-       "tr": "İntegral oranı I_a/I_std, 5 bağımsız numune, %RSD 0,15 (A tipi)"
-      },
-      "distribution": {
-       "type": "t",
-       "mean": 1.40023,
-       "scale": 0.000939303,
-       "dof": 4
-      }
-     },
-     {
-      "name": "f_int",
-      "unit": "1",
-      "description": {
-       "en": "Integration (phase, baseline, limits), ±0.2 %",
-       "tr": "Entegrasyon (faz, taban çizgisi, sınırlar), ±%0,2"
-      },
-      "distribution": {
-       "type": "rectangular",
-       "value": 1,
-       "half_width": 0.002
-      }
-     },
-     {
-      "name": "N_std",
-      "unit": "1",
-      "description": {
-       "en": "¹H nuclei of the internal-standard signal (2, e.g. maleic acid)",
-       "tr": "İç standart sinyalinin ¹H çekirdek sayısı (2, ör. maleik asit)"
-      },
-      "distribution": {
-       "type": "constant",
-       "value": 2
-      }
-     },
-     {
-      "name": "N_a",
-      "unit": "1",
-      "description": {
-       "en": "¹H nuclei of the analyte signal (3, a methyl singlet)",
-       "tr": "Analit sinyalinin ¹H çekirdek sayısı (3, bir metil singleti)"
-      },
-      "distribution": {
-       "type": "constant",
-       "value": 3
-      }
-     },
-     {
-      "name": "M_a",
-      "unit": "g/mol",
-      "description": {
-       "en": "Molar mass of the analyte (IUPAC atomic weights)",
-       "tr": "Analitin mol kütlesi (IUPAC atom ağırlıkları)"
-      },
-      "distribution": {
-       "type": "rectangular",
-       "value": 194.19,
-       "half_width": 0.0070633
-      }
-     },
-     {
-      "name": "M_std",
-      "unit": "g/mol",
-      "description": {
-       "en": "Molar mass of the internal standard",
-       "tr": "İç standardın mol kütlesi"
-      },
-      "distribution": {
-       "type": "rectangular",
-       "value": 116.072,
-       "half_width": 0.0034177
-      }
-     },
-     {
-      "name": "m_std",
-      "unit": "mg",
-      "description": {
-       "en": "Mass of the internal standard, microbalance u = 2.0 µg",
-       "tr": "İç standart kütlesi, mikroterazi u = 2,0 µg"
-      },
-      "distribution": {
-       "type": "normal",
-       "mean": 6.512,
-       "sd": 0.002
-      }
-     },
-     {
-      "name": "m_a",
-      "unit": "mg",
-      "description": {
-       "en": "Mass of the analyte, microbalance u = 2.0 µg",
-       "tr": "Analit kütlesi, mikroterazi u = 2,0 µg"
-      },
-      "distribution": {
-       "type": "normal",
-       "mean": 10.215,
-       "sd": 0.002
-      }
-     },
-     {
-      "name": "P_std",
-      "unit": "mg/g",
-      "description": {
-       "en": "Purity of the internal-standard CRM, U = 1.5 mg/g (k = 2)",
-       "tr": "İç standart CRM saflığı, U = 1,5 mg/g (k = 2)"
-      },
-      "distribution": {
-       "type": "normal",
-       "mean": 999.4,
-       "expanded": 1.5,
-       "k": 2
-      }
-     }
-    ]
-   },
-   "analysis": {
-    "gum": {
-     "coverage_factor": 2
-    },
-    "mcm": null
-   },
-   "expected": {
-    "gum": {
-     "estimate": {
-      "value": 995.0,
-      "tolerance": 0.05
-     },
-     "standard_uncertainty": {
-      "value": 1.567,
-      "tolerance": 0.001
-     },
-     "expanded_uncertainty": {
-      "value": 3.13,
-      "tolerance": 0.005
-     },
-     "effective_dof": {
-      "value": 121,
-      "tolerance": 1
-     }
-    },
-    "reference": {
-     "en": "UME procedure, Section 19.2: P_a = 995.0 mg/g, relative u_c = 0.001 575, u_c = 1.567 mg/g, ν_eff = 121, U = 3.13 mg/g → (995.0 ± 3.1) mg/g (k = 2).",
-     "tr": "UME prosedürü, Bölüm 19.2: P_a = 995,0 mg/g, bağıl u_c = 0,001 575, u_c = 1,567 mg/g, ν_eff = 121, U = 3,13 mg/g → (995,0 ± 3,1) mg/g (k = 2)."
-    }
-   }
-  }
- },
- {
   "path": "library/electrical/ea402-s3-resistor-10kohm.json",
   "project": {
    "format": "uncertainty-calculations/project",
@@ -26391,7 +26179,7 @@
       "distribution": {
        "type": "triangular",
        "value": 1.0,
-       "half_width": 1e-06
+       "half_width": 0.000001
       }
      },
      {
@@ -27019,7 +26807,7 @@
     "gum": {
      "estimate": {
       "value": 0.1,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.03,
@@ -27591,7 +27379,7 @@
     "gum": {
      "estimate": {
       "value": 50.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 67.2681,
@@ -27601,7 +27389,7 @@
     "mcm": {
      "estimate": {
       "value": 50.006,
-      "tolerance": 0.2
+      "tolerance": 0.3
      },
      "standard_uncertainty": {
       "value": 67.278,
@@ -27613,7 +27401,7 @@
      },
      "interval_high": {
       "value": 185.095,
-      "tolerance": 1.1
+      "tolerance": 1.7
      }
     },
     "reference": {
@@ -27739,7 +27527,7 @@
     "mcm": {
      "estimate": {
       "value": 50.006,
-      "tolerance": 0.2
+      "tolerance": 0.3
      },
      "standard_uncertainty": {
       "value": 67.278,
@@ -27751,7 +27539,7 @@
      },
      "interval_high": {
       "value": 185.095,
-      "tolerance": 1.1
+      "tolerance": 1.7
      }
     },
     "reference": {
@@ -27869,7 +27657,7 @@
     "gum": {
      "estimate": {
       "value": 50.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 50.0,
@@ -27879,11 +27667,11 @@
     "mcm": {
      "estimate": {
       "value": 50.0,
-      "tolerance": 0.2
+      "tolerance": 0.22
      },
      "standard_uncertainty": {
       "value": 50.0,
-      "tolerance": 0.25
+      "tolerance": 0.33
      },
      "interval_low": {
       "value": 0.0,
@@ -28024,7 +27812,7 @@
     "gum": {
      "estimate": {
       "value": 150.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 120.5197,
@@ -28034,11 +27822,11 @@
     "mcm": {
      "estimate": {
       "value": 150.021,
-      "tolerance": 0.5
+      "tolerance": 0.7
      },
      "standard_uncertainty": {
       "value": 120.531,
-      "tolerance": 0.6
+      "tolerance": 1.0
      },
      "interval_low": {
       "value": 12.63,
@@ -28046,7 +27834,7 @@
      },
      "interval_high": {
       "value": 397.486,
-      "tolerance": 2.5
+      "tolerance": 4.8
      }
     },
     "reference": {
@@ -28172,11 +27960,11 @@
     "mcm": {
      "estimate": {
       "value": 150.021,
-      "tolerance": 0.5
+      "tolerance": 0.7
      },
      "standard_uncertainty": {
       "value": 120.531,
-      "tolerance": 0.6
+      "tolerance": 1.0
      },
      "interval_low": {
       "value": 12.63,
@@ -28184,7 +27972,7 @@
      },
      "interval_high": {
       "value": 397.486,
-      "tolerance": 2.5
+      "tolerance": 4.8
      }
     },
     "reference": {
@@ -28302,7 +28090,7 @@
     "gum": {
      "estimate": {
       "value": 150.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 112.0,
@@ -28312,11 +28100,11 @@
     "mcm": {
      "estimate": {
       "value": 150.0,
-      "tolerance": 0.5
+      "tolerance": 0.58
      },
      "standard_uncertainty": {
       "value": 111.803,
-      "tolerance": 0.4
+      "tolerance": 0.69
      },
      "interval_low": {
       "value": 0.0,
@@ -28324,7 +28112,7 @@
      },
      "interval_high": {
       "value": 366.005,
-      "tolerance": 1.5
+      "tolerance": 2.7
      }
     },
     "reference": {
@@ -28457,7 +28245,7 @@
     "gum": {
      "estimate": {
       "value": 2550.0000000000005,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 504.5047,
@@ -28471,11 +28259,11 @@
      },
      "standard_uncertainty": {
       "value": 504.542,
-      "tolerance": 1.2
+      "tolerance": 2.2
      },
      "interval_low": {
       "value": 1624.033,
-      "tolerance": 25.0
+      "tolerance": 28.0
      },
      "interval_high": {
       "value": 3554.431,
@@ -28609,11 +28397,11 @@
      },
      "standard_uncertainty": {
       "value": 504.542,
-      "tolerance": 1.2
+      "tolerance": 2.2
      },
      "interval_low": {
       "value": 1624.033,
-      "tolerance": 25.0
+      "tolerance": 28.0
      },
      "interval_high": {
       "value": 3554.431,
@@ -28735,7 +28523,7 @@
     "gum": {
      "estimate": {
       "value": 2550.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 502.0,
@@ -28749,15 +28537,15 @@
      },
      "standard_uncertainty": {
       "value": 502.494,
-      "tolerance": 1.0
+      "tolerance": 2.0
      },
      "interval_low": {
       "value": 1593.57,
-      "tolerance": 16.0
+      "tolerance": 19.0
      },
      "interval_high": {
       "value": 3548.57,
-      "tolerance": 17.0
+      "tolerance": 24.0
      }
     },
     "reference": {
@@ -28865,7 +28653,7 @@
       "estimate": {
        "R": {
         "value": 0.001,
-        "tolerance": 1e-09
+        "tolerance": 1e-9
        },
        "Theta": {
         "value": 0.0,
@@ -28901,7 +28689,7 @@
        },
        "Theta": {
         "value": -0.556,
-        "tolerance": 0.006
+        "tolerance": 0.0074
        }
       },
       "standard_uncertainty": {
@@ -28921,7 +28709,7 @@
          "Theta"
         ],
         "value": -0.07,
-        "tolerance": 0.004
+        "tolerance": 0.006
        }
       ]
      }
@@ -29024,7 +28812,7 @@
       "estimate": {
        "R": {
         "value": 0.001,
-        "tolerance": 1e-09
+        "tolerance": 1e-9
        },
        "Theta": {
         "value": 0.0,
@@ -29060,7 +28848,7 @@
        },
        "Theta": {
         "value": -0.001,
-        "tolerance": 0.006
+        "tolerance": 0.0083
        }
       },
       "standard_uncertainty": {
@@ -29080,7 +28868,7 @@
          "Theta"
         ],
         "value": 0.0,
-        "tolerance": 0.004
+        "tolerance": 0.0046
        }
       ]
      }
@@ -29190,7 +28978,7 @@
       "estimate": {
        "R": {
         "value": 0.01,
-        "tolerance": 1e-09
+        "tolerance": 1e-9
        },
        "Theta": {
         "value": 0.0,
@@ -29246,7 +29034,7 @@
          "Theta"
         ],
         "value": 0.352,
-        "tolerance": 0.004
+        "tolerance": 0.0053
        }
       ]
      }
@@ -29349,7 +29137,7 @@
       "estimate": {
        "R": {
         "value": 0.01,
-        "tolerance": 1e-09
+        "tolerance": 1e-9
        },
        "Theta": {
         "value": 0.0,
@@ -29395,7 +29183,7 @@
        },
        "Theta": {
         "value": 1.117,
-        "tolerance": 0.004
+        "tolerance": 0.0045
        }
       },
       "correlations": [
@@ -29405,7 +29193,7 @@
          "Theta"
         ],
         "value": 0.0,
-        "tolerance": 0.004
+        "tolerance": 0.005
        }
       ]
      }
@@ -29515,7 +29303,7 @@
       "estimate": {
        "R": {
         "value": 0.1,
-        "tolerance": 1e-09
+        "tolerance": 1e-9
        },
        "Theta": {
         "value": 0.0,
@@ -29674,7 +29462,7 @@
       "estimate": {
        "R": {
         "value": 0.1,
-        "tolerance": 1e-09
+        "tolerance": 1e-9
        },
        "Theta": {
         "value": 0.0,
@@ -29931,7 +29719,7 @@
          "Z"
         ],
         "value": 0.99251,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        }
       ]
      },
@@ -29949,39 +29737,7 @@
         "value": 254.26,
         "tolerance": 0.004
        }
-      },
-      "standard_uncertainty": {
-       "R": {
-        "value": 0.13,
-        "tolerance": 0.007
-       },
-       "X": {
-        "value": 0.536,
-        "tolerance": 0.012
-       },
-       "Z": {
-        "value": 0.429,
-        "tolerance": 0.008
-       }
-      },
-      "correlations": [
-       {
-        "between": [
-         "R",
-         "X"
-        ],
-        "value": -0.587,
-        "tolerance": 0.035
-       },
-       {
-        "between": [
-         "R",
-         "Z"
-        ],
-        "value": -0.482,
-        "tolerance": 0.045
-       }
-      ]
+      }
      }
     },
     "reference": {
@@ -30176,7 +29932,7 @@
          "Z"
         ],
         "value": 0.99251,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        }
       ]
      },
@@ -30194,39 +29950,7 @@
         "value": 254.26,
         "tolerance": 0.004
        }
-      },
-      "standard_uncertainty": {
-       "R": {
-        "value": 0.13,
-        "tolerance": 0.007
-       },
-       "X": {
-        "value": 0.536,
-        "tolerance": 0.012
-       },
-       "Z": {
-        "value": 0.429,
-        "tolerance": 0.008
-       }
-      },
-      "correlations": [
-       {
-        "between": [
-         "R",
-         "X"
-        ],
-        "value": -0.587,
-        "tolerance": 0.035
-       },
-       {
-        "between": [
-         "R",
-         "Z"
-        ],
-        "value": -0.482,
-        "tolerance": 0.045
-       }
-      ]
+      }
      }
     },
     "reference": {
@@ -30356,7 +30080,7 @@
     "gum": {
      "estimate": {
       "value": 1.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.305,
@@ -30504,7 +30228,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 2e-07
+       "half_width": 2e-7
       }
      },
      {
@@ -30516,7 +30240,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 2e-07
+       "half_width": 2e-7
       }
      },
      {
@@ -30551,15 +30275,15 @@
     "gum": {
      "estimate": {
       "value": 10000.105,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.00445,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "expanded_uncertainty": {
       "value": 0.0089,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -30974,11 +30698,11 @@
      },
      "standard_uncertainty": {
       "value": 0.02021836012775502,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "expanded_uncertainty": {
       "value": 0.04043672025551004,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      }
     },
     "reference": {
@@ -31175,7 +30899,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.0491,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "reference": {
@@ -32039,7 +31763,7 @@
      },
      "interval_high": {
       "value": 30.081,
-      "tolerance": 0.0005
+      "tolerance": 0.00052
      }
     },
     "reference": {
@@ -32182,7 +31906,7 @@
      },
      "standard_uncertainty": {
       "value": 0.07,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
@@ -32201,8 +31925,7 @@
      "interval_high": {
       "value": 127.869,
       "tolerance": 0.0015
-     },
-     "gum_validated": true
+     }
     },
     "reference": {
      "en": "GUM: law of propagation with the rounded inputs (0.0700 Ω); NIST Uncertainty Machine manual §10 (M = 10⁶): Gauss's formula u = 0.07 Ω; mean 127.732 Ω, sd 0.0699 Ω, 95 % interval (127.595, 127.869) Ω.",
@@ -32336,155 +32059,6 @@
     "reference": {
      "en": "Possolo & Meija (2022), p. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; contributions F 48 %, G 0.6 %, E 52 %, H 0.004 %.",
      "tr": "Possolo & Meija (2022), s. 25: R_U = 957 Ω, u(R_U) ≈ 7 Ω; katkılar F %48, G %0,6, E %52, H %0,004."
-    }
-   }
-  }
- },
- {
-  "path": "library/electrical/ume-procedure-19-1-dmm-10v-calibration.json",
-  "project": {
-   "format": "uncertainty-calculations/project",
-   "version": 1,
-   "metadata": {
-    "id": "ume-procedure-19-1-dmm-10v-calibration",
-    "field": "electrical",
-    "title": {
-     "en": "10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1)",
-     "tr": "Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1)"
-    },
-    "description": {
-     "en": "Additive model with absolute uncertainties: the error of indication E = V_DMM − V_ref with corrections for the calibrator certificate, its drift and the resolution.",
-     "tr": "Mutlak belirsizlikli toplamsal model: kalibratör sertifikası, kayması ve çözünürlük düzeltmeleriyle gösterge hatası E = V_DMM − V_ref."
-    },
-    "explanation": [
-     {
-      "en": "u_c = √(8.1² + 25.0² + 23.1² + 2.9²) = 35.1 µV; ν_eff = 3965 (Welch–Satterthwaite with ν = 11 for the readings); U = 2u_c = 70.2 µV.",
-      "tr": "u_c = √(8,1² + 25,0² + 23,1² + 2,9²) = 35,1 µV; ν_eff = 3965 (okumalar için ν = 11 ile Welch–Satterthwaite); U = 2u_c = 70,2 µV."
-     },
-     {
-      "en": "Dominant-component check of the procedure: the largest rectangular contribution u_R = 23.1 µV against the others u_N = 26.4 µV; u_N/u_R = 1.14 > 0.70, so k = 2 holds.",
-      "tr": "Prosedürün baskın bileşen kontrolü: en büyük dikdörtgen katkı u_R = 23,1 µV, diğerleri u_N = 26,4 µV; u_N/u_R = 1,14 > 0,70 olduğundan k = 2 uygundur."
-     },
-     {
-      "en": "Result: E = (0.21 ± 0.07) mV, or U = 7 µV/V relative to 10 V (k = 2, p ≈ 95 %).",
-      "tr": "Sonuç: E = (0,21 ± 0,07) mV; 10 V'a göre bağıl U = 7 µV/V (k = 2, p ≈ %95)."
-     }
-    ],
-    "tags": [
-     "ume",
-     "procedure",
-     "dmm",
-     "voltage",
-     "calibration",
-     "welch-satterthwaite"
-    ],
-    "notes": [],
-    "sources": [
-     {
-      "document": "TÜBİTAK UME, Belirsizlik Hesapları Prosedürü (draft, November 2026), author's own document",
-      "section": "Section 19.1"
-     }
-    ]
-   },
-   "model": {
-    "output": {
-     "name": "E",
-     "unit": "µV",
-     "expression": "x_DMM + d_res - d_cal - d_drift",
-     "description": {
-      "en": "Error of indication of the multimeter at 10 V DC, (23 ± 1) °C",
-      "tr": "Multimetrenin 10 V DC noktasındaki gösterge hatası, (23 ± 1) °C"
-     }
-    },
-    "inputs": [
-     {
-      "name": "x_DMM",
-      "unit": "µV",
-      "description": {
-       "en": "Mean of 12 readings minus 10 V (10.000 212 V; s = 27.9 µV)",
-       "tr": "12 okumanın ortalaması eksi 10 V (10,000 212 V; s = 27,9 µV)"
-      },
-      "distribution": {
-       "type": "t",
-       "mean": 212,
-       "scale": 8.054036,
-       "dof": 11
-      }
-     },
-     {
-      "name": "d_cal",
-      "unit": "µV",
-      "description": {
-       "en": "Calibrator certificate, U = 5 µV/V at 10 V (k = 2)",
-       "tr": "Kalibratör sertifikası, 10 V'ta U = 5 µV/V (k = 2)"
-      },
-      "distribution": {
-       "type": "normal",
-       "mean": 0,
-       "expanded": 50,
-       "k": 2
-      }
-     },
-     {
-      "name": "d_drift",
-      "unit": "µV",
-      "description": {
-       "en": "Annual drift of the calibrator, ±40 µV",
-       "tr": "Kalibratörün yıllık kayması, ±40 µV"
-      },
-      "distribution": {
-       "type": "rectangular",
-       "value": 0,
-       "half_width": 40
-      }
-     },
-     {
-      "name": "d_res",
-      "unit": "µV",
-      "description": {
-       "en": "Resolution of the multimeter, 10 µV",
-       "tr": "Multimetre çözünürlüğü, 10 µV"
-      },
-      "distribution": {
-       "type": "rectangular",
-       "value": 0,
-       "half_width": 5
-      }
-     }
-    ]
-   },
-   "analysis": {
-    "gum": {
-     "coverage_factor": 2
-    },
-    "mcm": {
-     "trials": 1000000,
-     "seed": 1,
-     "interval": "symmetric"
-    }
-   },
-   "expected": {
-    "gum": {
-     "estimate": {
-      "value": 212,
-      "tolerance": 0.5
-     },
-     "standard_uncertainty": {
-      "value": 35.1,
-      "tolerance": 0.05
-     },
-     "expanded_uncertainty": {
-      "value": 70.2,
-      "tolerance": 0.05
-     },
-     "effective_dof": {
-      "value": 4000,
-      "tolerance": 100
-     }
-    },
-    "reference": {
-     "en": "UME procedure, Section 19.1: u_c = 35.1 µV, ν_eff ≈ 4000, U = 70.2 µV (k = 2); E = 0.21 mV.",
-     "tr": "UME prosedürü, Bölüm 19.1: u_c = 35,1 µV, ν_eff ≈ 4000, U = 70,2 µV (k = 2); E = 0,21 mV."
     }
    }
   }
@@ -32647,7 +32221,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0,
-       "sd": 4.5e-07
+       "sd": 4.5e-7
       },
       "unit": "g/mL"
      },
@@ -32660,7 +32234,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 4.992e-06
+       "half_width": 0.000004992
       },
       "unit": "g/mL"
      },
@@ -32673,7 +32247,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0012,
-       "sd": 1.76e-06
+       "sd": 0.00000176
       },
       "unit": "g/mL"
      },
@@ -32698,8 +32272,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 1e-05,
-       "half_width": 5e-07
+       "value": 0.00001,
+       "half_width": 5e-7
       },
       "unit": "1/°C"
      },
@@ -32930,7 +32504,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0,
-       "sd": 4.5e-07
+       "sd": 4.5e-7
       },
       "unit": "g/mL"
      },
@@ -32943,7 +32517,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 4.992e-06
+       "half_width": 0.000004992
       },
       "unit": "g/mL"
      },
@@ -32956,7 +32530,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0012,
-       "sd": 1.74e-06
+       "sd": 0.00000174
       },
       "unit": "g/mL"
      },
@@ -32981,8 +32555,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 1e-05,
-       "half_width": 5e-07
+       "value": 0.00001,
+       "half_width": 5e-7
       },
       "unit": "1/°C"
      },
@@ -33032,7 +32606,7 @@
      },
      "standard_uncertainty": {
       "value": 0.00089,
-      "tolerance": 2e-05
+      "tolerance": 0.00002
      },
      "effective_dof": {
       "value": 13,
@@ -33170,11 +32744,11 @@
     "gum": {
      "estimate": {
       "value": 0.0003,
-      "tolerance": 6e-05
+      "tolerance": 0.00006
      },
      "standard_uncertainty": {
       "value": 0.00068,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -33279,7 +32853,7 @@
     "gum": {
      "standard_uncertainty": {
       "value": 0.00091,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      },
      "coverage_factor": {
       "value": 2.28,
@@ -33388,8 +32962,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 5.1e-05,
-       "half_width": 5e-07
+       "value": 0.000051,
+       "half_width": 5e-7
       }
      },
      {
@@ -33415,7 +32989,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.00015,
-       "half_width": 5e-06
+       "half_width": 0.000005
       }
      },
      {
@@ -33440,8 +33014,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 4.6e-07,
-       "half_width": 5e-09
+       "value": 4.6e-7,
+       "half_width": 5e-9
       }
      },
      {
@@ -34205,11 +33779,11 @@
     "gum": {
      "estimate": {
       "value": 1.0107,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0015,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "effective_dof": {
       "value": 2.72,
@@ -34217,7 +33791,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.00515,
-      "tolerance": 6e-05
+      "tolerance": 0.00006
      }
     },
     "reference": {
@@ -34413,11 +33987,11 @@
     "gum": {
      "estimate": {
       "value": 1.0085,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0008,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "effective_dof": {
       "value": 13.31,
@@ -34425,7 +33999,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.0016,
-      "tolerance": 6e-05
+      "tolerance": 0.00006
      }
     },
     "reference": {
@@ -34931,19 +34505,19 @@
     "mcm": {
      "estimate": {
       "value": 0.0,
-      "tolerance": 0.01
+      "tolerance": 0.012
      },
      "standard_uncertainty": {
       "value": 2.0,
-      "tolerance": 0.005
+      "tolerance": 0.0062
      },
      "interval_low": {
       "value": -3.92,
-      "tolerance": 0.02
+      "tolerance": 0.031
      },
      "interval_high": {
       "value": 3.92,
-      "tolerance": 0.02
+      "tolerance": 0.034
      },
      "gum_validated": true
     },
@@ -35075,11 +34649,11 @@
      },
      "interval_low": {
       "value": -3.8812,
-      "tolerance": 0.01
+      "tolerance": 0.019
      },
      "interval_high": {
       "value": 3.8812,
-      "tolerance": 0.01
+      "tolerance": 0.02
      },
      "gum_validated": true
     },
@@ -35353,21 +34927,21 @@
       "estimate": {
        "Y1": {
         "value": 0,
-        "tolerance": 0.00707
+        "tolerance": 0.0071
        },
        "Y2": {
         "value": 0,
-        "tolerance": 0.00707
+        "tolerance": 0.011
        }
       },
       "standard_uncertainty": {
        "Y1": {
         "value": 1.414,
-        "tolerance": 0.002121
+        "tolerance": 0.0042
        },
        "Y2": {
         "value": 1.414,
-        "tolerance": 0.002121
+        "tolerance": 0.0029
        }
       },
       "correlations": [
@@ -35377,12 +34951,12 @@
          "Y2"
         ],
         "value": 0.5,
-        "tolerance": 0.003
+        "tolerance": 0.0035
        }
       ],
       "k_ellipsoid": {
        "value": 2.45,
-       "tolerance": 0.01
+       "tolerance": 0.011
       },
       "k_rectangle": {
        "value": 2.21,
@@ -35544,17 +35118,17 @@
        },
        "Y2": {
         "value": 0,
-        "tolerance": 0.00707
+        "tolerance": 0.0074
        }
       },
       "standard_uncertainty": {
        "Y1": {
         "value": 1.414,
-        "tolerance": 0.002121
+        "tolerance": 0.0062
        },
        "Y2": {
         "value": 1.414,
-        "tolerance": 0.002121
+        "tolerance": 0.0045
        }
       },
       "correlations": [
@@ -35564,7 +35138,7 @@
          "Y2"
         ],
         "value": 0.5,
-        "tolerance": 0.003
+        "tolerance": 0.0042
        }
       ],
       "k_ellipsoid": {
@@ -35723,21 +35297,21 @@
       "estimate": {
        "Y1": {
         "value": 0,
-        "tolerance": 0.01581
+        "tolerance": 0.017
        },
        "Y2": {
         "value": 0,
-        "tolerance": 0.01581
+        "tolerance": 0.018
        }
       },
       "standard_uncertainty": {
        "Y1": {
         "value": 3.162,
-        "tolerance": 0.004743
+        "tolerance": 0.009
        },
        "Y2": {
         "value": 3.162,
-        "tolerance": 0.004743
+        "tolerance": 0.0082
        }
       },
       "correlations": [
@@ -36215,7 +35789,7 @@
      },
      "consumer_risk": {
       "value": 0.001,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      },
      "producer_risk": {
       "value": 0.075,
@@ -36437,7 +36011,7 @@
      },
      "standard_uncertainty": {
       "value": 13.0,
-      "tolerance": 0.5
+      "tolerance": 0.54
      },
      "interval_low": {
       "value": 18.2,
@@ -36615,23 +36189,23 @@
      },
      "guard_band_factor": {
       "value": 0.9141856345435068,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "acceptance_lower": {
       "value": -0.9141856345435068,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "acceptance_upper": {
       "value": 0.9141856345435068,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "consumer_risk": {
       "value": 0.0068831838402677575,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      },
      "producer_risk": {
       "value": 0.05216244734420719,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      }
     },
     "reference": {
@@ -36727,23 +36301,23 @@
      },
      "guard_band_factor": {
       "value": 0.75,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "acceptance_lower": {
       "value": -0.75,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "acceptance_upper": {
       "value": 0.75,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "consumer_risk": {
       "value": 0.0032131275699658632,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      },
      "producer_risk": {
       "value": 0.14003940375582652,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      }
     },
     "reference": {
@@ -36839,23 +36413,23 @@
      },
      "guard_band_factor": {
       "value": 0.7453559924999299,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "acceptance_lower": {
       "value": -0.7453559924999299,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "acceptance_upper": {
       "value": 0.7453559924999299,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "consumer_risk": {
       "value": 0.005678650991293455,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      },
      "producer_risk": {
       "value": 0.17700892756509434,
-      "tolerance": 2e-06
+      "tolerance": 0.000002
      }
     },
     "reference": {
@@ -36997,7 +36571,7 @@
     "gum": {
      "estimate": {
       "value": 100.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 32.0,
@@ -37206,7 +36780,7 @@
     "gum": {
      "estimate": {
       "value": 0.23229599999999992,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.411,
@@ -37303,8 +36877,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 1.15e-05,
-       "half_width": 1e-06
+       "value": 0.0000115,
+       "half_width": 0.000001
       }
      },
      {
@@ -37316,8 +36890,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 1.15e-05,
-       "half_width": 1e-06
+       "value": 0.0000115,
+       "half_width": 0.000001
       }
      },
      {
@@ -37329,8 +36903,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 1.15e-05,
-       "half_width": 1e-06
+       "value": 0.0000115,
+       "half_width": 0.000001
       }
      },
      {
@@ -37532,7 +37106,7 @@
       },
       "distribution": {
        "type": "constant",
-       "value": 1.15e-05
+       "value": 0.0000115
       }
      },
      {
@@ -37558,7 +37132,7 @@
       "distribution": {
        "type": "triangular",
        "value": 0.0,
-       "half_width": 2e-06
+       "half_width": 0.000002
       }
      },
      {
@@ -37738,8 +37312,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "value": 1.15e-05,
-       "half_width": 2e-06
+       "value": 0.0000115,
+       "half_width": 0.000002
       }
      },
      {
@@ -37778,7 +37352,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 1e-06
+       "half_width": 0.000001
       },
       "dof": 50
      },
@@ -37975,8 +37549,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "lower": 9.5e-06,
-       "upper": 1.35e-05
+       "lower": 0.0000095,
+       "upper": 0.0000135
       }
      },
      {
@@ -38014,9 +37588,9 @@
       },
       "distribution": {
        "type": "curvilinear_trapezoid",
-       "lower": -1e-06,
-       "upper": 1e-06,
-       "d": 1e-07
+       "lower": -0.000001,
+       "upper": 0.000001,
+       "d": 1e-7
       },
       "dof": 50
      },
@@ -38072,11 +37646,11 @@
      },
      "interval_low": {
       "value": 745.0,
-      "tolerance": 1.5
+      "tolerance": 3.2
      },
      "interval_high": {
       "value": 932.0,
-      "tolerance": 1.5
+      "tolerance": 3.0
      }
     },
     "reference": {
@@ -38221,8 +37795,8 @@
       },
       "distribution": {
        "type": "rectangular",
-       "lower": 9.5e-06,
-       "upper": 1.35e-05
+       "lower": 0.0000095,
+       "upper": 0.0000135
       }
      },
      {
@@ -38260,9 +37834,9 @@
       },
       "distribution": {
        "type": "curvilinear_trapezoid",
-       "lower": -1e-06,
-       "upper": 1e-06,
-       "d": 1e-07
+       "lower": -0.000001,
+       "upper": 0.000001,
+       "d": 1e-7
       },
       "dof": 50
      },
@@ -38318,11 +37892,11 @@
      },
      "interval_low": {
       "value": 745.0,
-      "tolerance": 1.5
+      "tolerance": 3.2
      },
      "interval_high": {
       "value": 932.0,
-      "tolerance": 1.5
+      "tolerance": 2.9
      }
     },
     "reference": {
@@ -38479,7 +38053,7 @@
       },
       "distribution": {
        "type": "constant",
-       "value": 3.57e-05
+       "value": 0.0000357
       },
       "unit": "mm/K"
      },
@@ -38511,11 +38085,11 @@
     "gum": {
      "estimate": {
       "value": 1.514,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "standard_uncertainty": {
       "value": 0.00963,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "effective_dof": {
       "value": 50,
@@ -38605,7 +38179,7 @@
       "distribution": {
        "type": "normal",
        "mean": 9.99994,
-       "expanded": 3e-05,
+       "expanded": 0.00003,
        "k": 2
       },
       "unit": "mm"
@@ -38619,7 +38193,7 @@
       "distribution": {
        "type": "triangular",
        "value": 0.0,
-       "half_width": 1.5e-05
+       "half_width": 0.000015
       },
       "unit": "mm"
      },
@@ -38632,7 +38206,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       },
       "unit": "mm"
      },
@@ -38645,7 +38219,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-06
+       "half_width": 0.000005
       },
       "unit": "mm"
      },
@@ -38669,7 +38243,7 @@
       },
       "distribution": {
        "type": "constant",
-       "value": 1.15e-05
+       "value": 0.0000115
       },
       "unit": "1/°C"
      },
@@ -38695,7 +38269,7 @@
       "distribution": {
        "type": "triangular",
        "value": 0.0,
-       "half_width": 2e-06
+       "half_width": 0.000002
       },
       "unit": "1/°C"
      },
@@ -38721,7 +38295,7 @@
       "distribution": {
        "type": "triangular",
        "value": 0.0,
-       "half_width": 4.2e-05
+       "half_width": 0.000042
       },
       "unit": "mm"
      },
@@ -38734,7 +38308,7 @@
       "distribution": {
        "type": "type_a_pooled",
        "mean": 0.0,
-       "pooled_sd": 1.6e-05,
+       "pooled_sd": 0.000016,
        "pooled_dof": 10,
        "n": 1
       },
@@ -38756,15 +38330,15 @@
     "gum": {
      "estimate": {
       "value": 9.99994,
-      "tolerance": 5e-09
+      "tolerance": 5e-9
      },
      "standard_uncertainty": {
-      "value": 4.1028e-05,
-      "tolerance": 5e-09
+      "value": 0.000041028,
+      "tolerance": 5e-9
      },
      "expanded_uncertainty": {
-      "value": 8.2055e-05,
-      "tolerance": 1e-08
+      "value": 0.000082055,
+      "tolerance": 1e-8
      }
     },
     "reference": {
@@ -38850,7 +38424,7 @@
       "distribution": {
        "type": "normal",
        "mean": 9.99994,
-       "expanded": 3e-05,
+       "expanded": 0.00003,
        "k": 2
       },
       "unit": "mm"
@@ -38864,7 +38438,7 @@
       "distribution": {
        "type": "triangular",
        "value": 0.0,
-       "half_width": 1.5e-05
+       "half_width": 0.000015
       },
       "unit": "mm"
      },
@@ -38877,7 +38451,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       },
       "unit": "mm"
      },
@@ -38890,7 +38464,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-06
+       "half_width": 0.000005
       },
       "unit": "mm"
      },
@@ -38903,7 +38477,7 @@
       "distribution": {
        "type": "triangular",
        "value": 0.0,
-       "half_width": 5.6e-06
+       "half_width": 0.0000056
       },
       "unit": "mm"
      },
@@ -38916,7 +38490,7 @@
       "distribution": {
        "type": "triangular",
        "value": 0.0,
-       "half_width": 4.2e-05
+       "half_width": 0.000042
       },
       "unit": "mm"
      },
@@ -38929,7 +38503,7 @@
       "distribution": {
        "type": "type_a_pooled",
        "mean": 0.0,
-       "pooled_sd": 1.6e-05,
+       "pooled_sd": 0.000016,
        "pooled_dof": 10,
        "n": 1
       },
@@ -38950,15 +38524,15 @@
     "gum": {
      "estimate": {
       "value": 9.99994,
-      "tolerance": 5e-09
+      "tolerance": 5e-9
      },
      "standard_uncertainty": {
-      "value": 4.07e-05,
-      "tolerance": 5e-08
+      "value": 0.0000407,
+      "tolerance": 5e-8
      },
      "expanded_uncertainty": {
-      "value": 8.15e-05,
-      "tolerance": 5e-08
+      "value": 0.0000815,
+      "tolerance": 5e-8
      }
     },
     "reference": {
@@ -39070,7 +38644,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0,
-       "sd": 5.8e-07
+       "sd": 5.8e-7
       }
      },
      {
@@ -39095,8 +38669,8 @@
       },
       "distribution": {
        "type": "normal",
-       "mean": 1.15e-05,
-       "sd": 1.2e-06
+       "mean": 0.0000115,
+       "sd": 0.0000012
       }
      },
      {
@@ -39141,11 +38715,11 @@
     "mcm": {
      "estimate": {
       "value": 50000837.9,
-      "tolerance": 0.16
+      "tolerance": 0.2
      },
      "standard_uncertainty": {
       "value": 33.9,
-      "tolerance": 0.1
+      "tolerance": 0.12
      },
      "interval_low": {
       "value": 50000749,
@@ -39266,7 +38840,7 @@
     "mcm": {
      "estimate": {
       "value": 7204,
-      "tolerance": 0.5
+      "tolerance": 0.6
      },
      "standard_uncertainty": {
       "value": 54,
@@ -39370,7 +38944,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -39398,7 +38972,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -39424,7 +38998,7 @@
       "distribution": {
        "type": "normal",
        "mean": 99.9999,
-       "sd": 2.5e-05
+       "sd": 0.000025
       }
      },
      {
@@ -39437,7 +39011,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 6.25e-05
+       "half_width": 0.0000625
       }
      },
      {
@@ -39512,7 +39086,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 7.967433714816835e-05
+       "half_width": 0.00007967433714816835
       }
      }
     ]
@@ -39530,7 +39104,7 @@
     "gum": {
      "standard_uncertainty": {
       "value": 0.000149,
-      "tolerance": 1e-06
+      "tolerance": 0.000001
      },
      "effective_dof": {
       "value": 11,
@@ -39542,7 +39116,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.00033,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -39642,7 +39216,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -39670,7 +39244,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -39696,7 +39270,7 @@
       "distribution": {
        "type": "normal",
        "mean": 220.0001,
-       "sd": 6.2e-05
+       "sd": 0.000062
       }
      },
      {
@@ -39740,11 +39314,11 @@
     "gum": {
      "estimate": {
       "value": 0.0013,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.000491,
-      "tolerance": 1e-06
+      "tolerance": 0.000001
      },
      "effective_dof": {
       "value": 1377,
@@ -39756,7 +39330,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.00098,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -39856,7 +39430,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -39884,7 +39458,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -39910,7 +39484,7 @@
       "distribution": {
        "type": "normal",
        "mean": 220.0001,
-       "sd": 6.2e-05
+       "sd": 0.000062
       }
      },
      {
@@ -39954,11 +39528,11 @@
     "gum": {
      "estimate": {
       "value": 0.0013,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.001971,
-      "tolerance": 1e-06
+      "tolerance": 0.000001
      },
      "coverage_factor": {
       "value": 2.0,
@@ -39966,7 +39540,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.00394,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -40066,7 +39640,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -40094,7 +39668,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -40120,7 +39694,7 @@
       "distribution": {
        "type": "normal",
        "mean": 220.0001,
-       "sd": 6.2e-05
+       "sd": 0.000062
       }
      },
      {
@@ -40226,7 +39800,7 @@
     "gum": {
      "standard_uncertainty": {
       "value": 0.000226,
-      "tolerance": 1e-06
+      "tolerance": 0.000001
      },
      "effective_dof": {
       "value": 62,
@@ -40238,7 +39812,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.00046,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -40334,7 +39908,7 @@
       "distribution": {
        "type": "rectangular",
        "value": 0.0,
-       "half_width": 5e-05
+       "half_width": 0.00005
       }
      },
      {
@@ -40371,7 +39945,7 @@
      },
      "standard_uncertainty": {
       "value": 0.000118,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "effective_dof": {
       "value": 4.5,
@@ -40383,7 +39957,7 @@
      },
      "expanded_uncertainty": {
       "value": 0.00034,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      }
     },
     "reference": {
@@ -40515,7 +40089,7 @@
       "load": 100.0
      },
      "temperature": {
-      "coefficient": 1.5e-06,
+      "coefficient": 0.0000015,
       "delta_t": 3.0
      },
      "tare": true,
@@ -40533,20 +40107,20 @@
     "error_function": {
      "coefficients": [
       {
-       "value": 6.7096087808629734e-06,
-       "tolerance": 1.00635e-08
+       "value": 0.0000067096087808629734,
+       "tolerance": 1.00635e-8
       }
      ],
      "u_coefficients": [
       {
-       "value": 1.242e-06,
-       "tolerance": 1.5000000000000002e-09
+       "value": 0.000001242,
+       "tolerance": 1.5000000000000002e-9
       }
      ],
      "in_use": {
       "alpha_squared": [
        {
-        "value": 1.467e-08,
+        "value": 1.467e-8,
         "tolerance": 2.934e-11
        }
       ],
@@ -40557,19 +40131,19 @@
       "expanded_at_lower": [
        {
         "value": 0.0002422,
-        "tolerance": 4.844e-07
+        "tolerance": 4.844e-7
        }
       ],
       "slope": [
        {
-        "value": 4.796e-06,
-        "tolerance": 9.592e-09
+        "value": 0.000004796,
+        "tolerance": 9.592e-9
        }
       ],
       "global_slope": [
        {
-        "value": 1.15e-05,
-        "tolerance": 2.3e-08
+        "value": 0.0000115,
+        "tolerance": 2.3e-8
        }
       ],
       "minimum_weight": {
@@ -40668,19 +40242,19 @@
      {
       "indication": 50.0,
       "error": 0.0,
-      "u_reference": 3e-05,
+      "u_reference": 0.00003,
       "u_indication": 0.000124
      },
      {
       "indication": 99.9998,
       "error": -0.0001,
-      "u_reference": 4.9e-05,
+      "u_reference": 0.000049,
       "u_indication": 0.000134
      },
      {
       "indication": 149.9999,
       "error": 0.0,
-      "u_reference": 7.9e-05,
+      "u_reference": 0.000079,
       "u_indication": 0.000149
      },
      {
@@ -40711,7 +40285,7 @@
       "load": 100.0
      },
      "temperature": {
-      "coefficient": 1.5e-06,
+      "coefficient": 0.0000015,
       "delta_t": 3.0
      },
      "tare": true,
@@ -40729,20 +40303,20 @@
     "error_function": {
      "coefficients": [
       {
-       "value": -3.898006384406255e-07,
+       "value": -3.898006384406255e-7,
        "tolerance": 5.8425e-10
       }
      ],
      "u_coefficients": [
       {
-       "value": 6.337e-07,
+       "value": 6.337e-7,
        "tolerance": 6.337e-10
       }
      ],
      "in_use": {
       "alpha_squared": [
        {
-        "value": 1.466e-08,
+        "value": 1.466e-8,
         "tolerance": 2.932e-11
        }
       ],
@@ -40753,24 +40327,24 @@
       "expanded_at_lower": [
        {
         "value": 0.0002422,
-        "tolerance": 4.844e-07
+        "tolerance": 4.844e-7
        }
       ],
       "slope": [
        {
-        "value": 4.461419963586391e-06,
+        "value": 0.000004461419963586391,
         "tolerance": 4.4614199635863906e-10
        }
       ],
       "global_slope": [
        {
-        "value": 4.851220602027016e-06,
+        "value": 0.000004851220602027016,
         "tolerance": 4.851220602027017e-10
        }
       ],
       "minimum_weight": {
        "value": 0.07277,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      }
     },
@@ -40982,7 +40556,7 @@
     "gum": {
      "estimate": {
       "value": 0.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 1.552,
@@ -41219,7 +40793,7 @@
     "gum": {
      "estimate": {
       "value": 0.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 5.739,
@@ -41460,7 +41034,7 @@
     "gum": {
      "estimate": {
       "value": -10.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 5.948,
@@ -41693,7 +41267,7 @@
     "gum": {
      "estimate": {
       "value": -10.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 5.978,
@@ -42283,7 +41857,7 @@
       "load": 20000.0
      },
      "temperature": {
-      "coefficient": 2e-06,
+      "coefficient": 0.000002,
       "delta_t": 3.0
      },
      "tare": true,
@@ -42301,13 +41875,13 @@
      "coefficients": [
       {
        "value": -0.00017173593372405338,
-       "tolerance": 2.5755000000000003e-07
+       "tolerance": 2.5755000000000003e-7
       }
      ],
      "u_coefficients": [
       {
-       "value": 6.459e-05,
-       "tolerance": 6.459000000000001e-08
+       "value": 0.00006459,
+       "tolerance": 6.459000000000001e-8
       }
      ],
      "in_use": {
@@ -42326,7 +41900,7 @@
        }
       ],
       "beta_squared": {
-       "value": 4.589e-08,
+       "value": 4.589e-8,
        "tolerance": 9.178e-11
       },
       "expanded_at_lower": [
@@ -42346,29 +41920,29 @@
       "slope": [
        {
         "value": 0.0002574,
-        "tolerance": 5.148e-07
+        "tolerance": 5.148e-7
        },
        {
         "value": 0.0003434,
-        "tolerance": 6.868e-07
+        "tolerance": 6.868e-7
        },
        {
         "value": 0.0003923,
-        "tolerance": 7.846e-07
+        "tolerance": 7.846e-7
        }
       ],
       "global_slope": [
        {
         "value": 0.0004291,
-        "tolerance": 8.582000000000001e-07
+        "tolerance": 8.582000000000001e-7
        },
        {
         "value": 0.0005151,
-        "tolerance": 1.0302000000000001e-06
+        "tolerance": 0.0000010302000000000001
        },
        {
         "value": 0.0005641,
-        "tolerance": 1.1282e-06
+        "tolerance": 0.0000011282
        }
       ],
       "minimum_weight": {
@@ -42538,7 +42112,7 @@
       "load": 20000.0
      },
      "temperature": {
-      "coefficient": 2e-06,
+      "coefficient": 0.000002,
       "delta_t": 3.0
      },
      "tare": true,
@@ -42561,8 +42135,8 @@
      ],
      "u_coefficients": [
       {
-       "value": 6.043e-05,
-       "tolerance": 6.043e-08
+       "value": 0.00006043,
+       "tolerance": 6.043e-8
       }
      ],
      "in_use": {
@@ -42581,7 +42155,7 @@
        }
       ],
       "beta_squared": {
-       "value": 2.449e-08,
+       "value": 2.449e-8,
        "tolerance": 4.898e-11
       },
       "expanded_at_lower": [
@@ -42601,29 +42175,29 @@
       "slope": [
        {
         "value": 0.0001706,
-        "tolerance": 3.412e-07
+        "tolerance": 3.412e-7
        },
        {
         "value": 0.0002355,
-        "tolerance": 4.71e-07
+        "tolerance": 4.71e-7
        },
        {
         "value": 0.0002744,
-        "tolerance": 5.488e-07
+        "tolerance": 5.488e-7
        }
       ],
       "global_slope": [
        {
         "value": 0.0001706,
-        "tolerance": 3.412e-07
+        "tolerance": 3.412e-7
        },
        {
         "value": 0.0002355,
-        "tolerance": 4.71e-07
+        "tolerance": 4.71e-7
        },
        {
         "value": 0.0002744,
-        "tolerance": 5.488e-07
+        "tolerance": 5.488e-7
        }
       ],
       "minimum_weight": {
@@ -42848,7 +42422,7 @@
     "gum": {
      "estimate": {
       "value": 10.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 7.98,
@@ -43234,7 +42808,7 @@
     "gum": {
      "estimate": {
       "value": 15.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 14.6,
@@ -43758,7 +43332,7 @@
     "gum": {
      "estimate": {
       "value": 30.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 23.85,
@@ -44058,7 +43632,7 @@
       "load": 10420.0
      },
      "temperature": {
-      "coefficient": 2e-06,
+      "coefficient": 0.000002,
       "delta_t": 40.0
      },
      "tare": true,
@@ -44077,13 +43651,13 @@
      "coefficients": [
       {
        "value": 0.0009377232154120183,
-       "tolerance": 1.40685e-06
+       "tolerance": 0.00000140685
       }
      ],
      "u_coefficients": [
       {
        "value": 0.0003636552733093706,
-       "tolerance": 3.636552733093706e-08
+       "tolerance": 3.636552733093706e-8
       }
      ],
      "in_use": {
@@ -44094,8 +43668,8 @@
        }
       ],
       "beta_squared": {
-       "value": 1.276e-06,
-       "tolerance": 2.552e-09
+       "value": 0.000001276,
+       "tolerance": 2.552e-9
       },
       "expanded_at_lower": [
        {
@@ -44106,13 +43680,13 @@
       "slope": [
        {
         "value": 0.00179,
-        "tolerance": 5e-06
+        "tolerance": 0.000005
        }
       ],
       "global_slope": [
        {
         "value": 0.00273,
-        "tolerance": 5.459999999999999e-06
+        "tolerance": 0.000005459999999999999
        }
       ],
       "minimum_weight": {
@@ -44273,7 +43847,7 @@
       "load": 10420.0
      },
      "temperature": {
-      "coefficient": 2e-06,
+      "coefficient": 0.000002,
       "delta_t": 40.0
      },
      "tare": true,
@@ -44292,13 +43866,13 @@
      "coefficients": [
       {
        "value": 0.0004286286173221675,
-       "tolerance": 6.420000000000001e-07
+       "tolerance": 6.420000000000001e-7
       }
      ],
      "u_coefficients": [
       {
        "value": 0.00015081644312966744,
-       "tolerance": 1.5081644312966744e-08
+       "tolerance": 1.5081644312966744e-8
       }
      ],
      "in_use": {
@@ -44309,7 +43883,7 @@
        }
       ],
       "beta_squared": {
-       "value": 1.966751601482375e-07,
+       "value": 1.966751601482375e-7,
        "tolerance": 1.966751601482375e-11
       },
       "expanded_at_lower": [
@@ -44321,13 +43895,13 @@
       "slope": [
        {
         "value": 0.0006127625289500886,
-        "tolerance": 6.127625289500887e-08
+        "tolerance": 6.127625289500887e-8
        }
       ],
       "global_slope": [
        {
         "value": 0.00104,
-        "tolerance": 2.08e-06
+        "tolerance": 0.00000208
        }
       ],
       "minimum_weight": {
@@ -44487,13 +44061,13 @@
      "coefficients": [
       {
        "value": 0.00084,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      ],
      "u_coefficients": [
       {
        "value": 0.00024,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      ],
      "chi_squared": {
@@ -44690,13 +44264,13 @@
      "coefficients": [
       {
        "value": 0.00084,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      ],
      "u_coefficients": [
       {
        "value": 0.00042,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      ],
      "chi_squared_passed": true,
@@ -44885,13 +44459,13 @@
      "coefficients": [
       {
        "value": 0.00083,
-       "tolerance": 5e-06
+       "tolerance": 0.000005
       }
      ],
      "u_coefficients": [
       {
        "value": 0.000226,
-       "tolerance": 5e-07
+       "tolerance": 5e-7
       }
      ],
      "chi_squared": {
@@ -45052,7 +44626,7 @@
     "gum": {
      "estimate": {
       "value": 25.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 29.2,
@@ -45227,7 +44801,7 @@
     "gum": {
      "estimate": {
       "value": 25.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 29.2,
@@ -45239,7 +44813,7 @@
      },
      "reported_expanded_uncertainty": {
       "value": 80.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      }
     },
     "reference": {
@@ -45405,11 +44979,11 @@
     "gum": {
      "estimate": {
       "value": 1.234,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.075,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
@@ -45419,7 +44993,7 @@
      },
      "interval_low": {
       "value": 1.08443,
-      "tolerance": 0.0006
+      "tolerance": 0.00078
      },
      "interval_high": {
       "value": 1.38359,
@@ -45584,17 +45158,17 @@
     "gum": {
      "estimate": {
       "value": 1.234,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "standard_uncertainty": {
       "value": 0.0539,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
      "estimate": {
       "value": 1.233998,
-      "tolerance": 0.0002
+      "tolerance": 0.00028
      },
      "standard_uncertainty": {
       "value": 0.075484,
@@ -45602,7 +45176,7 @@
      },
      "interval_low": {
       "value": 1.08443,
-      "tolerance": 0.0006
+      "tolerance": 0.00078
      },
      "interval_high": {
       "value": 1.38359,
@@ -45785,11 +45359,11 @@
      },
      "standard_uncertainty": {
       "value": 0.02456,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "expanded_uncertainty": {
       "value": 0.04912,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      }
     },
     "reference": {
@@ -45975,11 +45549,11 @@
     "gum": {
      "estimate": {
       "value": -0.1,
-      "tolerance": 1e-06
+      "tolerance": 0.000001
      },
      "standard_uncertainty": {
       "value": 0.15275,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "expanded_uncertainty": {
       "value": 0.3055,
@@ -46104,7 +45678,7 @@
      },
      "standard_uncertainty": {
       "value": 0.0071,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "mcm": {
@@ -46114,7 +45688,7 @@
      },
      "standard_uncertainty": {
       "value": 0.0071,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "interval_low": {
       "value": 50.27,
@@ -46123,8 +45697,7 @@
      "interval_high": {
       "value": 50.298,
       "tolerance": 0.0005
-     },
-     "gum_validated": true
+     }
     },
     "reference": {
      "en": "NIST TN 1900 E1: m_P = 50.284 g, u = 0.0071 g, 95 % interval [50.270, 50.298] g.",
@@ -46435,7 +46008,7 @@
      },
      "standard_uncertainty": {
       "value": 9.929,
-      "tolerance": 0.02
+      "tolerance": 0.026
      }
     },
     "reference": {
@@ -47868,7 +47441,7 @@
      {
       "name": "UWash-00",
       "value": 6.674255,
-      "u": 9.2e-05
+      "u": 0.000092
      },
      {
       "name": "BIPM-01",
@@ -47931,15 +47504,15 @@
     "consensus": {
      "mean": {
       "value": 6.6738,
-      "tolerance": 1.1e-05
+      "tolerance": 0.000011
      },
      "u": {
       "value": 0.00028,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "tau": {
       "value": 0.000946,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "q": {
       "value": 319.1,
@@ -47947,71 +47520,71 @@
      },
      "u_knapp_hartung": {
       "value": 0.0003066,
-      "tolerance": 1e-07
+      "tolerance": 1e-7
      },
      "bootstrap_u": {
       "value": 0.000279,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "interval_lower": {
       "value": 6.67322,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      },
      "interval_upper": {
       "value": 6.67435,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      },
      "linear_pool_mean": {
       "value": 6.67367,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "linear_pool_u": {
       "value": 0.00124,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "linear_pool_lower": {
       "value": 6.67118,
-      "tolerance": 3e-05
+      "tolerance": 0.00003
      },
      "linear_pool_upper": {
       "value": 6.67579,
-      "tolerance": 3e-05
+      "tolerance": 0.00003
      },
      "ml_mean": {
       "value": 6.67378,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "ml_u": {
       "value": 0.0003,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "bayes_mean": {
       "value": 6.67377,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "bayes_u": {
       "value": 0.00033,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "bayes_lower": {
       "value": 6.6731,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      },
      "bayes_upper": {
       "value": 6.67442,
-      "tolerance": 1.5e-05
+      "tolerance": 0.000015
      },
      "degrees_of_equivalence": {
       "UWash-00": {
        "d": {
         "value": 0.000465,
-        "tolerance": 5e-07
+        "tolerance": 5e-7
        }
       },
       "LENS-14": {
        "d": {
         "value": -0.00188,
-        "tolerance": 5e-07
+        "tolerance": 5e-7
        }
       }
      }
@@ -48105,7 +47678,7 @@
      {
       "name": "UWash-00",
       "value": 6.674255,
-      "u": 9.2e-05
+      "u": 0.000092
      },
      {
       "name": "BIPM-01",
@@ -48160,12 +47733,12 @@
      {
       "name": "HUST-TOS-18",
       "value": 6.674184,
-      "u": 7.8e-05
+      "u": 0.000078
      },
      {
       "name": "HUST-AAF-18",
       "value": 6.674484,
-      "u": 7.8e-05
+      "u": 0.000078
      }
     ],
     "linear_pool": true,
@@ -48178,59 +47751,59 @@
     "consensus": {
      "mean": {
       "value": 6.67399,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "u_knapp_hartung": {
       "value": 0.00025,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "tau": {
       "value": 0.00056,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "ml_mean": {
       "value": 6.6739,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "ml_u": {
       "value": 0.00025,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "bayes_mean": {
       "value": 6.67389,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      },
      "bayes_u": {
       "value": 0.00027,
-      "tolerance": 6e-06
+      "tolerance": 0.000006
      },
      "bayes_lower": {
       "value": 6.67333,
-      "tolerance": 2e-05
+      "tolerance": 0.00002
      },
      "bayes_upper": {
       "value": 6.67442,
-      "tolerance": 2e-05
+      "tolerance": 0.00002
      },
      "bayes_tau_median": {
       "value": 0.00095,
-      "tolerance": 2e-05
+      "tolerance": 0.00002
      },
      "linear_pool_mean": {
       "value": 6.67377,
-      "tolerance": 8e-06
+      "tolerance": 0.000008
      },
      "linear_pool_u": {
       "value": 0.00117,
-      "tolerance": 8e-06
+      "tolerance": 0.000008
      },
      "linear_pool_lower": {
       "value": 6.67127,
-      "tolerance": 3e-05
+      "tolerance": 0.00003
      },
      "linear_pool_upper": {
       "value": 6.67577,
-      "tolerance": 3e-05
+      "tolerance": 0.00003
      }
     },
     "reference": {
@@ -48438,7 +48011,7 @@
       "Lab 1": {
        "d": {
         "value": 16.506111654,
-        "tolerance": 1.650611165394457e-05
+        "tolerance": 0.00001650611165394457
        },
        "expanded": {
         "value": 29.636424,
@@ -48448,7 +48021,7 @@
       "Lab 6": {
        "d": {
         "value": -2.542078959,
-        "tolerance": 2.542078959493665e-06
+        "tolerance": 0.000002542078959493665
        },
        "expanded": {
         "value": 33.049935,
@@ -48458,7 +48031,7 @@
       "Lab 7": {
        "d": {
         "value": 30.299218886,
-        "tolerance": 3.0299218885996197e-05
+        "tolerance": 0.000030299218885996197
        },
        "expanded": {
         "value": 30.825541,
@@ -48468,7 +48041,7 @@
       "Lab 9": {
        "d": {
         "value": -27.482567421,
-        "tolerance": 2.748256742076319e-05
+        "tolerance": 0.00002748256742076319
        },
        "expanded": {
         "value": 26.403728,
@@ -48478,7 +48051,7 @@
       "Lab 12": {
        "d": {
         "value": 37.782496804,
-        "tolerance": 3.778249680414683e-05
+        "tolerance": 0.00003778249680414683
        },
        "expanded": {
         "value": 38.759897,
@@ -48488,7 +48061,7 @@
       "Lab 17": {
        "d": {
         "value": 40.003514136,
-        "tolerance": 4.000351413550288e-05
+        "tolerance": 0.00004000351413550288
        },
        "expanded": {
         "value": 52.855525,
@@ -48500,7 +48073,7 @@
       "Lab 1|Lab 9": {
        "d": {
         "value": 43.988679075,
-        "tolerance": 4.398867907470776e-05
+        "tolerance": 0.00004398867907470776
        },
        "expanded": {
         "value": 39.181111,
@@ -48510,7 +48083,7 @@
       "Lab 7|Lab 9": {
        "d": {
         "value": 57.781786307,
-        "tolerance": 5.778178630675938e-05
+        "tolerance": 0.00005778178630675938
        },
        "expanded": {
         "value": 40.248327,
@@ -48520,7 +48093,7 @@
       "Lab 7|Lab 15": {
        "d": {
         "value": 43.601404912,
-        "tolerance": 4.3601404911628374e-05
+        "tolerance": 0.000043601404911628374
        },
        "expanded": {
         "value": 43.598492,
@@ -48530,7 +48103,7 @@
       "Lab 7|Lab 16": {
        "d": {
         "value": 54.405604456,
-        "tolerance": 5.440560445644132e-05
+        "tolerance": 0.00005440560445644132
        },
        "expanded": {
         "value": 51.709294,
@@ -48540,7 +48113,7 @@
       "Lab 1|Lab 2": {
        "d": {
         "value": 13.530824164,
-        "tolerance": 1.3530824163843135e-05
+        "tolerance": 0.000013530824163843135
        },
        "expanded": {
         "value": 64.128396,
@@ -48656,7 +48229,7 @@
         "Lab 1": {
          "d": {
           "value": 16.569965903,
-          "tolerance": 1.656996590307881e-05
+          "tolerance": 0.00001656996590307881
          },
          "expanded": {
           "value": 32.150163,
@@ -48666,7 +48239,7 @@
         "Lab 6": {
          "d": {
           "value": -2.416515966,
-          "tolerance": 2.4165159655376553e-06
+          "tolerance": 0.0000024165159655376553
          },
          "expanded": {
           "value": 32.822918,
@@ -48676,7 +48249,7 @@
         "Lab 7": {
          "d": {
           "value": 30.290664453,
-          "tolerance": 3.029066445327771e-05
+          "tolerance": 0.00003029066445327771
          },
          "expanded": {
           "value": 32.450002,
@@ -48686,7 +48259,7 @@
         "Lab 9": {
          "d": {
           "value": -27.270882777,
-          "tolerance": 2.7270882777233052e-05
+          "tolerance": 0.000027270882777233052
          },
          "expanded": {
           "value": 27.751291,
@@ -48696,7 +48269,7 @@
         "Lab 12": {
          "d": {
           "value": 37.788392201,
-          "tolerance": 3.778839220115606e-05
+          "tolerance": 0.00003778839220115606
          },
          "expanded": {
           "value": 40.400492,
@@ -48706,7 +48279,7 @@
         "Lab 17": {
          "d": {
           "value": 40.052653499,
-          "tolerance": 4.0052653499134976e-05
+          "tolerance": 0.000040052653499134976
          },
          "expanded": {
           "value": 54.342726,
@@ -48718,7 +48291,7 @@
         "Lab 7|Lab 9": {
          "d": {
           "value": 57.561547231,
-          "tolerance": 5.756154723051076e-05
+          "tolerance": 0.00005756154723051076
          },
          "expanded": {
           "value": 42.414995,
@@ -48728,7 +48301,7 @@
         "Lab 9|Lab 12": {
          "d": {
           "value": -65.059274978,
-          "tolerance": 6.505927497838911e-05
+          "tolerance": 0.00006505927497838911
          },
          "expanded": {
           "value": 48.839662,
@@ -48738,7 +48311,7 @@
         "Lab 9|Lab 17": {
          "d": {
           "value": -67.323536276,
-          "tolerance": 6.732353627636803e-05
+          "tolerance": 0.00006732353627636803
          },
          "expanded": {
           "value": 60.763445,
@@ -49162,7 +48735,7 @@
        "type": "t",
        "mean": 1.4999,
        "dof": 3,
-       "scale": 5.7735026918962585e-05
+       "scale": 0.000057735026918962585
       }
      },
      {
@@ -49226,10 +48799,6 @@
      "estimate": {
       "value": 17.3,
       "tolerance": 0.05
-     },
-     "standard_uncertainty": {
-      "value": 1.8,
-      "tolerance": 0.06
      },
      "interval_low": {
       "value": 14.0,
@@ -49323,7 +48892,7 @@
        "type": "t",
        "mean": 1.4999,
        "dof": 3,
-       "scale": 5.7735026918962585e-05
+       "scale": 0.000057735026918962585
       }
      },
      {
@@ -49388,17 +48957,13 @@
       "value": 17.3,
       "tolerance": 0.05
      },
-     "standard_uncertainty": {
-      "value": 1.8,
-      "tolerance": 0.06
-     },
      "interval_low": {
       "value": 11.5,
-      "tolerance": 0.06
+      "tolerance": 0.092
      },
      "interval_high": {
       "value": 23.0,
-      "tolerance": 0.06
+      "tolerance": 0.07
      }
     },
     "reference": {
@@ -49587,7 +49152,7 @@
      },
      "interval_high": {
       "value": 8.39,
-      "tolerance": 0.02
+      "tolerance": 0.027
      },
      "gum_validated": false
     },
@@ -49677,7 +49242,7 @@
       "distribution": {
        "type": "normal",
        "mean": 8.3144621,
-       "sd": 7.5e-06
+       "sd": 0.0000075
       }
      },
      {
@@ -49690,7 +49255,7 @@
       "distribution": {
        "type": "normal",
        "mean": 10973731.568539,
-       "sd": 5.5e-05
+       "sd": 0.000055
       }
      },
      {
@@ -49734,25 +49299,25 @@
     "gum": {
      "estimate": {
       "value": 5.6703725,
-      "tolerance": 5e-08
+      "tolerance": 5e-8
      },
      "standard_uncertainty": {
-      "value": 2.05e-05,
-      "tolerance": 5e-07
+      "value": 0.0000205,
+      "tolerance": 5e-7
      }
     },
     "mcm": {
      "standard_uncertainty": {
-      "value": 2.05e-05,
-      "tolerance": 5e-07
+      "value": 0.0000205,
+      "tolerance": 5e-7
      },
      "interval_low": {
       "value": 5.670332,
-      "tolerance": 5e-07
+      "tolerance": 6.6e-7
      },
      "interval_high": {
       "value": 5.6704126,
-      "tolerance": 5e-07
+      "tolerance": 5e-7
      },
      "gum_validated": true
     },
@@ -50085,11 +49650,11 @@
     "gum": {
      "estimate": {
       "value": 1.0025,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "expanded_uncertainty": {
       "value": 0.0071,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "conformity": {
@@ -50207,11 +49772,11 @@
     "gum": {
      "estimate": {
       "value": 1.002,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "expanded_uncertainty": {
       "value": 0.0059,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "conformity": {
@@ -50342,11 +49907,11 @@
     "gum": {
      "estimate": {
       "value": 1.002,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "expanded_uncertainty": {
       "value": 0.0071,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      }
     },
     "conformity": {
@@ -51220,7 +50785,7 @@
     "gum": {
      "estimate": {
       "value": 180100.0,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 164.0,
@@ -51587,7 +51152,7 @@
     "gum": {
      "estimate": {
       "value": 1000.5,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.641,
@@ -51676,7 +51241,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0039096,
-       "sd": 2.7e-06
+       "sd": 0.0000027
       }
      },
      {
@@ -51684,8 +51249,8 @@
       "unit": "°C⁻²",
       "distribution": {
        "type": "normal",
-       "mean": -6e-07,
-       "sd": 1.1e-07
+       "mean": -6e-7,
+       "sd": 1.1e-7
       }
      },
      {
@@ -51702,7 +51267,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0780057,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      }
     ],
@@ -51736,13 +51301,13 @@
       "estimate": {
        "theta": {
         "value": 20.0232,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        }
       },
       "standard_uncertainty": {
        "theta": {
         "value": 0.0045,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        }
       }
      }
@@ -51890,7 +51455,7 @@
       "distribution": {
        "type": "normal",
        "mean": 0.0039096,
-       "sd": 2.7e-06
+       "sd": 0.0000027
       }
      },
      {
@@ -51898,8 +51463,8 @@
       "unit": "°C⁻²",
       "distribution": {
        "type": "normal",
-       "mean": -6e-07,
-       "sd": 1.1e-07
+       "mean": -6e-7,
+       "sd": 1.1e-7
       }
      },
      {
@@ -51916,7 +51481,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0000053,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51924,7 +51489,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0150054,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51932,7 +51497,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0300055,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51940,7 +51505,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0450056,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51948,7 +51513,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0600056,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51956,7 +51521,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0780057,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51964,7 +51529,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0900058,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51972,7 +51537,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.1050059,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51980,7 +51545,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.120006,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      },
      {
@@ -51988,7 +51553,7 @@
       "distribution": {
        "type": "normal",
        "mean": 1.0780057,
-       "sd": 5e-06
+       "sd": 0.000005
       }
      }
     ],
@@ -52022,85 +51587,85 @@
       "estimate": {
        "theta1": {
         "value": 0.01,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta2": {
         "value": 3.8491,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta3": {
         "value": 7.6928,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta4": {
         "value": 11.541,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta5": {
         "value": 15.3938,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta6": {
         "value": 20.0232,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta7": {
         "value": 23.1131,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta8": {
         "value": 26.9797,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta9": {
         "value": 30.8509,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta10": {
         "value": 20.0232,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        }
       },
       "standard_uncertainty": {
        "theta1": {
         "value": 0.0018,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta2": {
         "value": 0.0027,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta3": {
         "value": 0.004,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta4": {
         "value": 0.0046,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta5": {
         "value": 0.0047,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta6": {
         "value": 0.0045,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta7": {
         "value": 0.0046,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta8": {
         "value": 0.006,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta9": {
         "value": 0.0089,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        },
        "theta10": {
         "value": 0.0045,
-        "tolerance": 5e-05
+        "tolerance": 0.00005
        }
       },
       "correlations": [
@@ -52376,7 +51941,7 @@
      },
      "standard_uncertainty": {
       "value": 0.08638,
-      "tolerance": 5e-05
+      "tolerance": 0.00005
      },
      "expanded_uncertainty": {
       "value": 0.17276,
@@ -52560,11 +52125,11 @@
     "gum": {
      "standard_uncertainty": {
       "value": 0.04225,
-      "tolerance": 5e-06
+      "tolerance": 0.000005
      },
      "expanded_uncertainty": {
       "value": 0.08449,
-      "tolerance": 1e-05
+      "tolerance": 0.00001
      }
     },
     "reference": {
@@ -53156,7 +52721,7 @@
     "gum": {
      "estimate": {
       "value": 1000.5,
-      "tolerance": 1e-09
+      "tolerance": 1e-9
      },
      "standard_uncertainty": {
       "value": 0.641,

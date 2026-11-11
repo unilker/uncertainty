@@ -114,7 +114,12 @@ fn dl_mean(x: &[f64], u: &[f64]) -> f64 {
 
 /// Shape and scale of the Biggerstaff–Tweedie (1997) gamma approximation of
 /// the distribution of Cochran's Q for the between-laboratory variance τ²,
-/// from the exact mean and variance of Q with known u_j.
+/// from the exact mean and variance of Q with known u_j:
+/// E Q = (n − 1) + (S1 − S2/S1)τ² and
+/// Var Q = 2 tr[(AΣ)²] = 2(n − 1) + 4(S1 − S2/S1)τ² + 2(S2 − 2S3/S1 + S2²/S1²)τ⁴,
+/// with A = W − w wᵀ/S1 and Σ = W⁻¹ + τ²I (research log D112; an earlier
+/// version had 4(S1 − 2S2/S1 + S3/S1²)τ² as the linear term, which is not the
+/// variance of Q).
 pub fn q_gamma_approximation(u: &[f64], tau2: f64) -> (f64, f64) {
     let n = u.len() as f64;
     let (mut s1, mut s2, mut s3) = (0.0, 0.0, 0.0);
@@ -125,21 +130,18 @@ pub fn q_gamma_approximation(u: &[f64], tau2: f64) -> (f64, f64) {
         s3 += w * w * w;
     }
     let mean = (n - 1.0) + tau2 * (s1 - s2 / s1);
-    let var = 2.0 * (n - 1.0)
-        + 4.0 * tau2 * (s1 - 2.0 * s2 / s1 + s3 / (s1 * s1))
-        + 2.0 * tau2 * tau2 * (s2 - 2.0 * s3 / s1 + s2 * s2 / (s1 * s1));
+    let var =
+        2.0 * (n - 1.0) + 4.0 * tau2 * (s1 - s2 / s1) + 2.0 * tau2 * tau2 * (s2 - 2.0 * s3 / s1 + s2 * s2 / (s1 * s1));
     (mean * mean / var, var / mean)
 }
 
 /// Shape and scale of the gamma approximation of Q as the NIST Consensus
-/// Builder computes them (sampleFromTau2Dist.R, Koepke & Possolo 2016): at
-/// τ²_M, which may be negative (then E Q equals the observed Q), and with
-/// Var Q = 2(n − 1) + 4(S1 − S2/S1)τ² + 2(S2 − 2S3/S1 + S2²/S1²)τ⁴, whose
-/// linear term differs from Biggerstaff & Tweedie (1997) eq. (7) (see
-/// [`q_gamma_approximation`]). With τ² > 0 the two differ by about 0.1 % in u
-/// for Koepke's G; with Q < n − 1 the choice of τ²_M instead of 0 lowers u by
-/// about 13 % in a four-result example (research log D82). None when the mean
-/// or variance is not positive (NICOB would fail there); τ_k is then 0.
+/// Builder computes them (sampleFromTau2Dist.R, Koepke & Possolo 2016): the
+/// exact moments of [`q_gamma_approximation`], evaluated at τ²_M, which may be
+/// negative (then E Q equals the observed Q), instead of at the truncated
+/// τ̂²_DL = max(0, τ²_M). With Q < n − 1 this choice lowers u by about 13 % in
+/// a four-result example (research log D82, D112). None when the mean or
+/// variance is not positive (NICOB would fail there); τ_k is then 0.
 pub fn q_gamma_approximation_nicob(u: &[f64], tau2_m: f64) -> Option<(f64, f64)> {
     let n = u.len() as f64;
     let (mut s1, mut s2, mut s3) = (0.0, 0.0, 0.0);
@@ -1311,11 +1313,11 @@ mod tests {
         assert!((shape * scale - d.q).abs() < 1e-12, "E Q = Q");
         let b = dl_bootstrap(&x, &u, &[], 0.95, 200_000, 1).unwrap();
         assert!((b.u - 0.066_45).abs() < 0.0006, "{}", b.u);
-        // With τ² > 0 the NICOB variance differs little from eq. (7).
+        // With τ² > 0 (τ²_M = τ̂²_DL) the two forms coincide: NICOB differs only where τ²_M < 0.
         let t2 = dersimonian_laird(&G, &UG).unwrap().tau.powi(2);
         let (a1, s1) = q_gamma_approximation(&UG, t2);
         let (a2, s2) = q_gamma_approximation_nicob(&UG, t2).unwrap();
-        assert!((a1 * s1 - a2 * s2).abs() < 1e-9 && ((a1 * s1 * s1) / (a2 * s2 * s2) - 1.0).abs() < 0.01);
+        assert!((a1 - a2).abs() < 1e-9 * a1 && (s1 - s2).abs() < 1e-9 * s1);
     }
 
     #[test]
@@ -1373,6 +1375,23 @@ mod tests {
         let b01 = &p.bilateral[0];
         assert!((b01.expanded / (1.959_964 * (0.2f64.powi(2) + 0.3f64.powi(2)).sqrt()) - 1.0).abs() < 0.02);
         assert!((b01.b - (x[0] - x[1])).abs() < 1e-12);
+    }
+
+    #[test]
+    fn gamma_approximation_uses_the_exact_variance_of_q() {
+        // Var Q = 2 tr[(AΣ)²] with A = W − w wᵀ/S1 and Σ = diag(u²) + τ²I, computed directly.
+        let u = [0.36, 0.25, 0.5, 0.31, 0.78, 0.6];
+        let tau2 = 2.0;
+        let n = u.len();
+        let w: Vec<f64> = u.iter().map(|a| 1.0 / (a * a)).collect();
+        let s1: f64 = w.iter().sum();
+        let a = |i: usize, j: usize| if i == j { w[i] - w[i] * w[j] / s1 } else { -w[i] * w[j] / s1 };
+        let sig = |i: usize, j: usize| if i == j { u[i] * u[i] + tau2 } else { 0.0 };
+        let m: Vec<Vec<f64>> =
+            (0..n).map(|i| (0..n).map(|j| (0..n).map(|k| a(i, k) * sig(k, j)).sum()).collect()).collect();
+        let tr2: f64 = (0..n).map(|i| (0..n).map(|j| m[i][j] * m[j][i]).sum::<f64>()).sum();
+        let (shape, scale) = q_gamma_approximation(&u, tau2);
+        assert!((shape * scale * scale / (2.0 * tr2) - 1.0).abs() < 1e-12);
     }
 
     #[test]

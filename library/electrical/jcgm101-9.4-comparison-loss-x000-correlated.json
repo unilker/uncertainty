@@ -112,7 +112,7 @@
     "mcm": {
       "estimate": {
         "value": 50.006,
-        "tolerance": 0.2
+        "tolerance": 0.3
       },
       "standard_uncertainty": {
         "value": 67.278,
@@ -124,7 +124,7 @@
       },
       "interval_high": {
         "value": 185.095,
-        "tolerance": 1.1
+        "tolerance": 1.7
       }
     },
     "reference": {

@@ -4,7 +4,7 @@
     python3 tools/research/article_supplementary.py
 
 S1  library projects with their source, field, evaluation type and number of compared values (Excel);
-S2  the findings F1-F100 with class, document, and for class c their effect and status (Excel);
+S2  the findings with class, document, and for class c their effect and status (Excel);
 S3  the validation matrix (PDF of docs/research/validation-matrix.md);
 S4  the comparison with Suncal and the Monte Carlo propagation through the calibration fit (PDF of
     docs/research/benchmark-suncal.md and calibration-mc.md);
@@ -12,7 +12,10 @@ S5  the software validation report written by `kapsam check library` (PDF);
 S6  the beginner's guide and the step-by-step explanation of every example (PDF of docs/guide/beginner/en);
 S7  the recalculation of the spreadsheet verification workbooks in LibreOffice (PDF of
     docs/research/spreadsheet-check.md) and the workbook of QUAM Example A1, saved by LibreOffice with its
-    computed values so that previews show them (Excel recalculates it on opening).
+    computed values so that previews show them (Excel recalculates it on opening);
+S8  the recomputation record of the c1 findings and the errata check (PDF of docs/research/recomputation-record.md
+    and errata-check.md).
+Every file states the build of the program it was generated with (version, commit and date).
 """
 import csv
 import glob
@@ -30,6 +33,12 @@ import spreadsheet_check  # LibreOffice with its Python bridge (uno)
 OUT = Path("docs/article/supplementary")
 OUT.mkdir(parents=True, exist_ok=True)
 EXE = "target/release/kapsam"
+# The build of the program, e.g. "KAPSAM 0.1.1 (commit 0123456789ab, 2026-11-11)", stated in every supplementary file.
+BUILD = subprocess.run([EXE, "--version"], capture_output=True, text=True, check=True).stdout.splitlines()[0].strip()
+assert "-modified" not in BUILD, f"generate the supplementary material from a committed tree: {BUILD}"
+xlsx.SUBTITLE = f"Generated with {BUILD} — https://github.com/unilker/uncertainty"
+_md_to_pdf = pdf.md_to_pdf
+pdf.md_to_pdf = lambda md, out, header, **kw: _md_to_pdf(md, out, f"{header} — {BUILD}", **kw)  # noqa: E731
 SECTIONS = ["model", "multivariate", "topdown", "proficiency", "calibration", "conformity", "precision_experiment",
             "control_chart", "sampling", "error_function", "consensus", "multicomponent_conformity"]
 
@@ -67,7 +76,8 @@ xlsx.table(
                             "error_function (EURAMET cg-18), consensus, multicomponent_conformity."),
         ("Source document, section", "The worked example the project reproduces (the first source of the project)."),
         ("Kind of source", "guidance document or standard; BIPM reference data report; journal paper or book; "
-                           "unpublished procedure."),
+                           "test case constructed for this work (guard bands from the test uncertainty ratio, from "
+                           "the published formulas)."),
         ("Basis of the reference values", "printed values: every reference value is printed in the source and "
                                           "reproduced from its inputs within its rounding; printed values, some of them "
                                           "Monte Carlo or MCMC estimates: the tolerance includes their sampling error; "
@@ -101,7 +111,7 @@ for old in OUT.glob("S[12]_*.csv"):
     old.unlink()
 xlsx.table(
     OUT / "S2_findings.xlsx", "Findings",
-    "S2. The 100 findings of the recomputation",
+    f"S2. The {len(findings)} findings of the recomputation",
     [("F", 7), ("Class", 7), ("Title", 70), ("Document (class c)", 34), ("Effect", 8), ("Status", 12),
      ("Quantity", 24), ("Printed", 14), ("Recomputed", 14), ("Note", 60)],
     findings,
@@ -146,7 +156,7 @@ subprocess.run([EXE, "check", "library", "--report", str(OUT / "S5_validation_re
 print("S5:", (OUT / "S5_validation_report.pdf").exists())
 
 # S6: the English beginner's guide and the explanation of every example, as one PDF
-pdf.md_to_pdf("# Uncertainty from scratch\n\n" + pdf.FRONT["en"] + "\n\n" + pdf.guide_markdown("en"), OUT / "S6_guide.pdf",
+pdf.md_to_pdf("# Uncertainty from scratch\n\n" + pdf.FRONT["en"].format(n=len(rows)) + "\n\n" + pdf.guide_markdown("en"), OUT / "S6_guide.pdf",
               "KAPSAM — Supplementary material S6: Uncertainty from scratch", toc=True)
 print("S6: PDF")
 # S7
@@ -158,6 +168,12 @@ subprocess.run([EXE, "run", "library/chemistry/quam-a1-cadmium-standard.json", "
 spreadsheet_check.recalculated_copy(raw, OUT / "S7_workbook_quam_a1.xlsx")
 raw.unlink()
 print("S7:", (OUT / "S7_workbook_quam_a1.xlsx").exists())
+# S8: the recomputation record of the c1 findings and the errata check (second internal review, D112)
+errata = Path("docs/research/errata-check.md").read_text(encoding="utf-8").replace("# Errata", "## 5. Errata", 1)
+pdf.md_to_pdf(Path("docs/research/recomputation-record.md").read_text(encoding="utf-8") + "\n\n" + errata,
+              OUT / "S8_recomputation_record.pdf", "KAPSAM — Supplementary material S8: recomputation record",
+              landscape=True)
+print("S8: PDF")
 (OUT / "README.md").write_text(
     "# Supplementary material\n\nWritten by `tools/research/article_supplementary.py`; do not edit by hand.\n\n"
     "- S1 `S1_library.xlsx`: the library projects\n- S2 `S2_findings.xlsx`: the findings\n"
@@ -166,4 +182,7 @@ print("S7:", (OUT / "S7_workbook_quam_a1.xlsx").exists())
     "- S5 `S5_validation_report.pdf`: the software validation report of the library\n"
     "- S6 `S6_guide.pdf`: the beginner's guide and the step-by-step explanation of every example (English)\n"
     "- S7 `S7_spreadsheet_check.pdf`: the recalculation of the spreadsheet verification workbooks, and "
-    "`S7_workbook_quam_a1.xlsx`, the workbook of QUAM Example A1\n", encoding="utf-8")
+    "`S7_workbook_quam_a1.xlsx`, the workbook of QUAM Example A1\n"
+    "- S8 `S8_recomputation_record.pdf`: the recomputation record of the c1 findings (printed, program and "
+    "recomputed values; derivations) and the check of errata and amendments\n\n"
+    f"All files were generated with {BUILD}.\n", encoding="utf-8")

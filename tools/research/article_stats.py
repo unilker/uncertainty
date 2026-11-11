@@ -171,20 +171,23 @@ for f in sorted(glob.glob("library/*/*.json")):
     b = _sources.reference_basis(p)
     basis[b] += 1
     basis_values[b] += nchecks[f]
-out += ["", f"## Primary sources ({len(prim)}; the first source of each project)", "",
+out += ["", f"## Primary sources ({sum(1 for kk, _ in prim if kk != 'constructed')} documents and "
+              f"{kinds['constructed']} constructed test cases; the first source of each project)", "",
         "| Kind | Documents | Projects |", "|---|---:|---:|"]
-for k in ("guidance", "reference data", "paper or book", "unpublished"):
+for k in ("guidance", "reference data", "paper or book", "constructed", "unpublished"):
+    if not kinds[k]:
+        continue
     out.append(f"| {_sources.KIND_TEXT[k]} | {sum(1 for kk, _ in prim if kk == k)} | {kinds[k]} |")
 out += ["", "| Basis of the reference values | Projects | Values |", "|---|---:|---:|"]
 out += [f"| {k} | {v} | {basis_values[k] if checks else '—'} |" for k, v in basis.most_common()]
 # The counting chain (review item 12).
 n_find = max(int(x) for x in re.findall(r'^\*\*F(\d+)\.', log, re.M))
 out += ["", "## From sources to findings", "", "| Step | Count | Definition |", "|---|---:|---|",
-        f"| Primary sources | {len(prim)} | the first source of each project: "
+        f"| Primary sources | {sum(1 for kk, _ in prim if kk != 'constructed')} | the first source of each project: "
         f"{sum(1 for kk, _ in prim if kk == 'guidance')} guidance documents and standards, "
         f"{sum(1 for kk, _ in prim if kk == 'reference data')} BIPM reference data reports, "
-        f"{sum(1 for kk, _ in prim if kk == 'paper or book')} journal papers and books (one book), "
-        f"{sum(1 for kk, _ in prim if kk == 'unpublished')} unpublished procedure |",
+        f"{sum(1 for kk, _ in prim if kk == 'paper or book')} journal papers and books (one book); "
+        f"{kinds['constructed']} projects are test cases constructed for this work |",
         f"| Projects | {sum(sec.values())} | project files in `library/`; one worked example may give several (variants) |",
         f"| Validation-matrix rows ✅ | {len(rows)} | worked examples or variants reproduced; {len(exc)} carry a finding |",
         f"| Compared values | {len(checks) if checks else '—'} | reference values checked at every test run |",

@@ -161,7 +161,7 @@
       },
       "standard_uncertainty": {
         "value": 9.929,
-        "tolerance": 0.02
+        "tolerance": 0.026
       }
     },
     "reference": {

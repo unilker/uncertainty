@@ -1,6 +1,6 @@
 # Bütün örnekler adım adım
 
-Kütüphanedeki 286 örneğin her biri, uygulamanın **Genel** sekmesinde gösterilen açıklamayla. Örnekler derslerine ve düzeylerine göre gruplanmıştır.
+Kütüphanedeki 284 örneğin her biri, uygulamanın **Genel** sekmesinde gösterilen açıklamayla. Örnekler derslerine ve düzeylerine göre gruplanmıştır.
 
 ## Bir tozu tartmak (Başlangıç)
 
@@ -529,66 +529,6 @@ GUM yöntemiyle kaynak şunları verir:
 - standart belirsizlik u = 0,03 V
 
 Kaynak: EA-4/02 M:2022 S9.12–S9.14 (u = 0,030 V).
-
-**Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
-
-## 10 V'ta bir multimetre (TÜBİTAK UME) (Başlangıç)
-
-TÜBİTAK UME belirsizlik prosedüründen bir örnek: bir dijital multimetrenin 10 V DC'de kalibrasyonu. Kılavuzlarla aynı adımları izler ve elektriksel bir kalibrasyon sertifikası için iyi bir şablondur.
-
-<a id="ume-procedure-19-1-dmm-10v-calibration"></a>
-
-### Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1)
-
-`ume-procedure-19-1-dmm-10v-calibration`
-
-#### Bu proje ne hakkında?
-
-Mutlak belirsizlikli toplamsal model: kalibratör sertifikası, kayması ve çözünürlük düzeltmeleriyle gösterge hatası E = V_DMM − V_ref.
-
-
-#### Adım 1. Ne ölçüyoruz ve nasıl hesaplanıyor?
-
-Sonuç **E** (µV): Multimetrenin 10 V DC noktasındaki gösterge hatası, (23 ± 1) °C. Doğrudan ölçülmez; girdi büyüklüklerinden şu ölçüm modeliyle hesaplanır
-
-```
-E = x_DMM + d_res - d_cal - d_drift
-```
-
-
-#### Adım 2. Girdi büyüklükleri ve belirsizlikleri
-
-Modelde 4 girdi var. Her biri için bir en iyi değer (tahmin) ve gerçek değerin bu tahminden ne kadar uzakta olabileceğini anlatan bir **standart belirsizlik** u gerekir. Sayının nereden geldiği, u'nun nasıl bulunacağını belirler:
-
-1. **x_DMM**: 12 okumanın ortalaması eksi 10 V (10,000 212 V; s = 27,9 µV). En iyi değer 212 µV, standart belirsizlik u = 8,05 µV. Az sayıda veriye dayandığı için (ν = 11 serbestlik derecesi) Student t dağılımı kullanılır: kuyrukları normal dağılımdan kalındır ve kapsam faktörünü büyütür.
-2. **d_cal**: Kalibratör sertifikası, 10 V'ta U = 5 µV/V (k = 2). En iyi değer 0 µV. Kaynak (örneğin bir sertifika) genişletilmiş belirsizliği U = 50 µV, k = 2 olarak verir; bu yüzden standart belirsizlik u = U/k = 50/2 = 25,0 µV olur (normal dağılım).
-3. **d_drift**: Kalibratörün yıllık kayması, ±40 µV. Yalnızca sınırlar biliniyor: değer -40 ile 40 µV arasında (0 ± 40) ve aradaki hiçbir değer diğerinden daha olası değil (dikdörtgen dağılım; tolerans, üretici spesifikasyonu, gösterge çözünürlüğü ya da sürüklenme sınırı için tipiktir). Standart belirsizlik u = a/√3 = 40/√3 = 23,1 µV.
-4. **d_res**: Multimetre çözünürlüğü, 10 µV. Yalnızca sınırlar biliniyor: değer -5 ile 5 µV arasında (0 ± 5) ve aradaki hiçbir değer diğerinden daha olası değil (dikdörtgen dağılım; tolerans, üretici spesifikasyonu, gösterge çözünürlüğü ya da sürüklenme sınırı için tipiktir). Standart belirsizlik u = a/√3 = 5/√3 = 2,89 µV.
-
-
-#### Adım 3. Program ne hesaplıyor?
-
-1. Girdilerin tahminlerini denklemde yerine koyar: bu, sonucun tahminini verir.
-2. Her girdi için **duyarlılık katsayısını** c bulur: o girdi bir birim değişince sonuç ne kadar değişir (denklemin türevi).
-3. Her standart belirsizliği duyarlılık katsayısıyla çarpar: girdinin sonuç biriminden **katkısı** c·u.
-4. Katkıları, karelerinin toplamının karekökü olarak birleştirir (korelasyon terimleriyle birlikte): **birleşik standart belirsizlik** u_c.
-5. u_c'yi kapsam faktörü k = 2 ile çarpar: **genişletilmiş belirsizlik** U = k·u_c. Bu, gerçek değeri yüksek olasılıkla içeren bir aralık verir (k = 2 için yaklaşık %95).
-
-Ayrıca **Monte Carlo yöntemini** kullanır: her girdinin dağılımından 1 000 000 rastgele değer çeker, her çekiliş için sonucu hesaplar ve belirsizliği ile kapsam aralığını doğrudan bu 1 000 000 sonuçtan okur. İki yöntem uyuşuyorsa daha basit olan GUM sonucuna güvenilebilir.
-
-
-> **Deneyin:** **Hesapla**'ya basın ve **Sonuçlar**'ı açın. Belirsizlik bütçesindeki *varyans payı* sütunu hangi girdinin en çok etkilediğini gösterir: U'yu azaltmanın en etkili yolu o girdiyi iyileştirmektir. **Model** sekmesinde onun belirsizliğini değiştirip yeniden hesaplayarak etkisini görün.
-
-
-#### Son olarak: kaynak ne sonuç veriyor?
-
-GUM yöntemiyle kaynak şunları verir:
-
-- tahmin y = 212 µV
-- standart belirsizlik u = 35,1 µV
-- genişletilmiş belirsizlik U = 70,2 µV
-
-Kaynak: UME prosedürü, Bölüm 19.1: u_c = 35,1 µV, ν_eff ≈ 4000, U = 70,2 µV (k = 2); E = 0,21 mV.
 
 **Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
 
@@ -4235,7 +4175,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,4, dolayısıyla TUR = 1/U₉₅ = 2,
 
 #### Son olarak: kaynak ne sonuç veriyor?
 
-Kaynak: Suncal 1.7.1: koruma bandı çarpanı ve küresel riskler için PFA_norm/PFR_norm(itp = 0,95, TUR, GB).
+Kaynak: Koruma bandı çarpanı yayımlanmış formülden (Dobbert 2008; Delker & Peguero 2022); %95'i tolerans içinde olan normal bir süreç için JCGM 106:2012 9.5'in küresel tüketici ve üretici riskleri, SciPy ile sayısal integrasyonla (tools/research/conformity/tur_risks.py). Suncal 1.7.1 aynı değerleri verir.
 
 **Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
 
@@ -4259,7 +4199,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,5, dolayısıyla TUR = 1/U₉₅ = 2,
 
 #### Son olarak: kaynak ne sonuç veriyor?
 
-Kaynak: Suncal 1.7.1: koruma bandı çarpanı ve küresel riskler için PFA_norm/PFR_norm(itp = 0,95, TUR, GB).
+Kaynak: Koruma bandı çarpanı yayımlanmış formülden (Dobbert 2008; Delker & Peguero 2022); %95'i tolerans içinde olan normal bir süreç için JCGM 106:2012 9.5'in küresel tüketici ve üretici riskleri, SciPy ile sayısal integrasyonla (tools/research/conformity/tur_risks.py). Suncal 1.7.1 aynı değerleri verir.
 
 **Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
 
@@ -4283,7 +4223,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,6667, dolayısıyla TUR = 1/U₉₅ =
 
 #### Son olarak: kaynak ne sonuç veriyor?
 
-Kaynak: Suncal 1.7.1: koruma bandı çarpanı ve küresel riskler için PFA_norm/PFR_norm(itp = 0,95, TUR, GB).
+Kaynak: Koruma bandı çarpanı yayımlanmış formülden (Dobbert 2008; Delker & Peguero 2022); %95'i tolerans içinde olan normal bir süreç için JCGM 106:2012 9.5'in küresel tüketici ve üretici riskleri, SciPy ile sayısal integrasyonla (tools/research/conformity/tur_risks.py). Suncal 1.7.1 aynı değerleri verir.
 
 **Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
 
@@ -7560,7 +7500,7 @@ GUM yöntemiyle kaynak şunları verir:
 - tahmin y = 44,0094
 - standart belirsizlik u = 0,0007
 
-Kaynak: NIST TN 1900 E8: M_r(CO₂) = 44,0094, u = 0,0007, tam en kısa %95 aralığı [44,0080; 44,0108]; yuvarlanmamış uç noktalar 44,008045 ve 44,010755 yamuk dağılımdan çıkar (nota bakınız); tolerans M = 10⁶'da Monte Carlo saçılımının ≈ 5 katı.
+Kaynak: NIST TN 1900 E8: M_r(CO₂) = 44,0094, u = 0,0007, tam en kısa %95 aralığı [44,0080; 44,0108]; yuvarlanmamış uç noktalar 44,008045 ve 44,010755 yamuk dağılımdan çıkar (nota bakınız); tolerans: son basamağın yarım birimi artı tohumlar arası Monte Carlo saçılımının 5 katı (D110).
 
 **Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
 
@@ -9617,69 +9557,6 @@ Analiz fonksiyonu: **linear**. Program fonksiyonun noktalara uyup uymadığını
 #### Son olarak: kaynak ne sonuç veriyor?
 
 Kaynak: ISO 6143:2025 B.2.2, parametreler ile Tablo B.4 ve B.6 (B_LEAST).
-
-**Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
-
-## qNMR ile saflık (TÜBİTAK UME) (Orta)
-
-TÜBİTAK UME belirsizlik prosedüründen, iç standartlı nicel NMR için açıklayıcı bir bütçe.
-
-<a id="ume-procedure-19-2-qnmr-purity-internal-standard"></a>
-
-### İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2)
-
-`ume-procedure-19-2-qnmr-purity-internal-standard`
-
-#### Bu proje ne hakkında?
-
-Bağıl belirsizlikli çarpımsal model; değerler örnektir, gerçek bir ölçüme ait değildir. Entegrasyon, oranın tekrarlanabilirliğinin yanında ayrı bir B tipi bileşendir (±%0,2, dikdörtgen).
-
-
-#### Adım 1. Ne ölçüyoruz ve nasıl hesaplanıyor?
-
-Sonuç **P_a** (mg/g): ¹H qNMR ile analit saflığı (kütle kesri). Doğrudan ölçülmez; girdi büyüklüklerinden şu ölçüm modeliyle hesaplanır
-
-```
-P_a = R * f_int * (N_std/N_a) * (M_a/M_std) * (m_std/m_a) * P_std
-```
-
-
-#### Adım 2. Girdi büyüklükleri ve belirsizlikleri
-
-Modelde 9 girdi var. Her biri için bir en iyi değer (tahmin) ve gerçek değerin bu tahminden ne kadar uzakta olabileceğini anlatan bir **standart belirsizlik** u gerekir. Sayının nereden geldiği, u'nun nasıl bulunacağını belirler:
-
-1. **R**: İntegral oranı I_a/I_std, 5 bağımsız numune, %RSD 0,15 (A tipi). En iyi değer 1,40023 1, standart belirsizlik u = 0,000939 1. Az sayıda veriye dayandığı için (ν = 4 serbestlik derecesi) Student t dağılımı kullanılır: kuyrukları normal dağılımdan kalındır ve kapsam faktörünü büyütür.
-2. **f_int**: Entegrasyon (faz, taban çizgisi, sınırlar), ±%0,2. Yalnızca sınırlar biliniyor: değer 0,998 ile 1,002 1 arasında (1 ± 0,002) ve aradaki hiçbir değer diğerinden daha olası değil (dikdörtgen dağılım; tolerans, üretici spesifikasyonu, gösterge çözünürlüğü ya da sürüklenme sınırı için tipiktir). Standart belirsizlik u = a/√3 = 0,002/√3 = 0,00115 1.
-3. **N_std**: İç standart sinyalinin ¹H çekirdek sayısı (2, ör. maleik asit). Tam bilinen bir değer, 2 1; belirsizliği yok (örneğin tanımlı bir sabit ya da anma değeri).
-4. **N_a**: Analit sinyalinin ¹H çekirdek sayısı (3, bir metil singleti). Tam bilinen bir değer, 3 1; belirsizliği yok (örneğin tanımlı bir sabit ya da anma değeri).
-5. **M_a**: Analitin mol kütlesi (IUPAC atom ağırlıkları). Yalnızca sınırlar biliniyor: değer 194,18 ile 194,20 g/mol arasında (194,19 ± 0,0070633) ve aradaki hiçbir değer diğerinden daha olası değil (dikdörtgen dağılım; tolerans, üretici spesifikasyonu, gösterge çözünürlüğü ya da sürüklenme sınırı için tipiktir). Standart belirsizlik u = a/√3 = 0,0070633/√3 = 0,00408 g/mol.
-6. **M_std**: İç standardın mol kütlesi. Yalnızca sınırlar biliniyor: değer 116,07 ile 116,08 g/mol arasında (116,072 ± 0,0034177) ve aradaki hiçbir değer diğerinden daha olası değil (dikdörtgen dağılım; tolerans, üretici spesifikasyonu, gösterge çözünürlüğü ya da sürüklenme sınırı için tipiktir). Standart belirsizlik u = a/√3 = 0,0034177/√3 = 0,00197 g/mol.
-7. **m_std**: İç standart kütlesi, mikroterazi u = 2,0 µg. En iyi değer 6,512 mg, standart belirsizlik u = 0,002 mg (normal dağılım: tahmine yakın değerler en olasıdır; kalibrasyon sertifikaları ya da çok sayıda okumanın ortalaması için tipiktir).
-8. **m_a**: Analit kütlesi, mikroterazi u = 2,0 µg. En iyi değer 10,215 mg, standart belirsizlik u = 0,002 mg (normal dağılım: tahmine yakın değerler en olasıdır; kalibrasyon sertifikaları ya da çok sayıda okumanın ortalaması için tipiktir).
-9. **P_std**: İç standart CRM saflığı, U = 1,5 mg/g (k = 2). En iyi değer 999,4 mg/g. Kaynak (örneğin bir sertifika) genişletilmiş belirsizliği U = 1,5 mg/g, k = 2 olarak verir; bu yüzden standart belirsizlik u = U/k = 1,5/2 = 0,750 mg/g olur (normal dağılım).
-
-
-#### Adım 3. Program ne hesaplıyor?
-
-1. Girdilerin tahminlerini denklemde yerine koyar: bu, sonucun tahminini verir.
-2. Her girdi için **duyarlılık katsayısını** c bulur: o girdi bir birim değişince sonuç ne kadar değişir (denklemin türevi).
-3. Her standart belirsizliği duyarlılık katsayısıyla çarpar: girdinin sonuç biriminden **katkısı** c·u.
-4. Katkıları, karelerinin toplamının karekökü olarak birleştirir (korelasyon terimleriyle birlikte): **birleşik standart belirsizlik** u_c.
-5. u_c'yi kapsam faktörü k = 2 ile çarpar: **genişletilmiş belirsizlik** U = k·u_c. Bu, gerçek değeri yüksek olasılıkla içeren bir aralık verir (k = 2 için yaklaşık %95).
-
-
-> **Deneyin:** **Hesapla**'ya basın ve **Sonuçlar**'ı açın. Belirsizlik bütçesindeki *varyans payı* sütunu hangi girdinin en çok etkilediğini gösterir: U'yu azaltmanın en etkili yolu o girdiyi iyileştirmektir. **Model** sekmesinde onun belirsizliğini değiştirip yeniden hesaplayarak etkisini görün.
-
-
-#### Son olarak: kaynak ne sonuç veriyor?
-
-GUM yöntemiyle kaynak şunları verir:
-
-- tahmin y = 995 mg/g
-- standart belirsizlik u = 1,567 mg/g
-- genişletilmiş belirsizlik U = 3,13 mg/g
-
-Kaynak: UME prosedürü, Bölüm 19.2: P_a = 995,0 mg/g, bağıl u_c = 0,001 575, u_c = 1,567 mg/g, ν_eff = 121, U = 3,13 mg/g → (995,0 ± 3,1) mg/g (k = 2).
 
 **Hesapla**'ya bastığınızda program kendi sonuçlarını bu değerlerle karşılaştırır ve her birini toleransı içinde ya da dışında olarak işaretler (tolerans, basılı sayıların yuvarlanmasını hesaba katar). Kaynağın açıklayamadığı bir fark varsa **Notlar** bölümünde anlatılır.
 

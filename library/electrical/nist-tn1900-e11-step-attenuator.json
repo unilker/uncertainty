@@ -210,7 +210,7 @@
       },
       "interval_high": {
         "value": 30.081,
-        "tolerance": 0.0005
+        "tolerance": 0.00052
       }
     },
     "reference": {

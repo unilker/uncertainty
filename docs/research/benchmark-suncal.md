@@ -18,7 +18,7 @@ against sampling error alone (review 2026-11-08, item 15); several comparisons a
 
 The reference values of the three guard-band projects (tur-guard-band-*) no longer come from Suncal: they are computed from the published guard-band formulas and the JCGM 106 risk integrals with SciPy (`tools/research/conformity/tur_risks.py`, D110), so the comparison of those projects with Suncal is not circular.
 
-Suncal 1.7.1; 171 comparisons of 166 projects (135 measurement models, 12 multivariate models, 6 calibrations, 18 conformity assessments; 5 projects are compared both as a model and as a conformity assessment: emue-e2.2-vacuum-gauge-correction-applied, emue-e2.2-vacuum-gauge-correction-ignored, emue-e2.2-vacuum-gauge-correction-in-uncertainty, emue-e2.2-vacuum-gauge-sum-model-correlated, emue-e2.2-vacuum-gauge-sum-model-correlation-ignored).
+Suncal 1.7.1; 169 comparisons of 164 projects (133 measurement models, 12 multivariate models, 6 calibrations, 18 conformity assessments; 5 projects are compared both as a model and as a conformity assessment: emue-e2.2-vacuum-gauge-correction-applied, emue-e2.2-vacuum-gauge-correction-ignored, emue-e2.2-vacuum-gauge-correction-in-uncertainty, emue-e2.2-vacuum-gauge-sum-model-correlated, emue-e2.2-vacuum-gauge-sum-model-correlation-ignored).
 
 ## 1. Measurement models
 
@@ -64,7 +64,6 @@ Suncal 1.7.1; 171 comparisons of 166 projects (135 measurement models, 12 multiv
 | quam-a7-lead-double-idms | intermediates | 0.0537375 | +7.7e-14 | 0.00018 | -1.1e-16 | +1.11e-03 | +1.1 |
 | ufs-a6-cadmium-soil | — | 0.3192 | +1.9e-15 | 0.02943 | +2.2e-16 | — | — |
 | ufs-a6-phosphorus-soil | — | 115.8 | +0.0e+00 | 12.99 | -1.1e-16 | — | — |
-| ume-procedure-19-2-qnmr-purity-internal-standard | — | 995 | -7.3e-14 | 1.567 | +4.4e-16 | — | — |
 | ea402-s3-resistor-10kohm | — | 1.00002e+07 | +0.0e+00 | 8.328 | -6.4e-12 | — | — |
 | ea402-s6-power-sensor-18ghz | — | 0.933044 | -6.9e-15 | 0.01618 | -6.7e-16 | — | — |
 | ea402-s7-step-attenuator-30db | — | 30.0433 | +0.0e+00 | 0.02222 | +0.0e+00 | — | — |
@@ -91,7 +90,6 @@ Suncal 1.7.1; 171 comparisons of 166 projects (135 measurement models, 12 multiv
 | m3003-l3-dmm-1v-range-500mv | — | 0 | +0.0e+00 | 3.087 | +0.0e+00 | — | — |
 | num-10-resistance | correlations | 127.732 | +2.0e-13 | 0.06998 | -1.0e-15 | +1.90e-03 | +1.9 |
 | possolo-meija-2022-wheatstone-bridge | — | 956.993 | +0.0e+00 | 6.958 | +0.0e+00 | +2.36e-04 | +0.2 |
-| ume-procedure-19-1-dmm-10v-calibration | — | 212 | +0.0e+00 | 35.09 | +2.2e-16 | — | — |
 | cg19-ex1-flask-1000ml | intermediates | 999.622 | +6.8e-12 | 0.0168 | +2.2e-16 | — | — |
 | cg19-ex2-pycnometer-100ml | intermediates | 100.014 | +0.0e+00 | 0.0009002 | +0.0e+00 | — | — |
 | ea402-s12-water-meter-error | — | 0.000335126 | +0.0e+00 | 0.0006813 | +2.2e-16 | -3.72e-04 | -0.4 |
@@ -160,7 +158,7 @@ Suncal 1.7.1; 171 comparisons of 166 projects (135 measurement models, 12 multiv
 | m3003-k7-thermocouple-furnace | — | 1000.5 | +0.0e+00 | 0.6409 | +0.0e+00 | — | — |
 | nist-tn1900-e2-surface-temperature | — | 25.5909 | +0.0e+00 | 0.8725 | +2.2e-16 | — | — |
 
-max |u/u_Suncal − 1| = 6.4e-12; max |Δy|/u = 5.0e-01; with correlations or intermediates: 24; MC compared: 68, max |Δs.d.|/s.d. = 2.4e-03, max |z| = 2.4
+max |u/u_Suncal − 1| = 6.4e-12; max |Δy|/u = 5.0e-01; with correlations or intermediates: 24; MC compared: 68, max |Δs.d.|/s.d. = 2.4e-03, max |z| = 2.38
 
 ## 2. Models with several outputs (JCGM 102)
 

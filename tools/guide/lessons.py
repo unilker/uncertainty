@@ -64,11 +64,6 @@ lesson("ea402-s9", 1, "Calibrating a digital multimeter", "Bir dijital multimetr
        "largest term: a value shown with one decimal can be anywhere within half a digit.",
        "Bir el multimetresi 100 V'ta bir kalibratöre karşı denetlenir. Göstergenin çözünürlüğü çoğu zaman en büyük "
        "terimdir: tek ondalıkla gösterilen bir değer yarım basamak içinde herhangi bir yerde olabilir.")
-lesson("ume-procedure-19-1", 1, "A multimeter at 10 V (TÜBİTAK UME)", "10 V'ta bir multimetre (TÜBİTAK UME)",
-       "An example from the uncertainty procedure of TÜBİTAK UME: calibration of a digital multimeter at 10 V DC. It "
-       "follows the same steps as the guides and is a good template for an electrical calibration certificate.",
-       "TÜBİTAK UME belirsizlik prosedüründen bir örnek: bir dijital multimetrenin 10 V DC'de kalibrasyonu. Kılavuzlarla "
-       "aynı adımları izler ve elektriksel bir kalibrasyon sertifikası için iyi bir şablondur.")
 lesson("ea402-s4", 1, "Calibrating a gauge block", "Bir mastar bloğun kalibrasyonu",
        "A 50 mm gauge block is compared with a reference block. Temperature matters: a small difference in "
        "temperature or in expansion coefficient changes the length, which is why the budget has thermal terms.",
@@ -452,10 +447,6 @@ lesson("iso6143-b1", 2, "A straight-line calibration", "Doğrusal bir kalibrasyo
        "uncertainties on both axes.",
        "Referans gaz karışımlarından geçen bir doğruyla kalibre edilen UV soğurmalı azot monoksit; iki eksende de "
        "belirsizlik.")
-lesson("ume-procedure-19-2", 2, "Purity by qNMR (TÜBİTAK UME)", "qNMR ile saflık (TÜBİTAK UME)",
-       "An illustrative budget for quantitative NMR with an internal standard, from the TÜBİTAK UME uncertainty "
-       "procedure.",
-       "TÜBİTAK UME belirsizlik prosedüründen, iç standartlı nicel NMR için açıklayıcı bir bütçe.")
 lesson("ufs-a1", 2, "Sampling: nitrate in lettuce", "Numune alma: marulda nitrat",
        "The duplicate method: two samples from each of eight lots, each analysed twice. The sampling part of the "
        "uncertainty is larger than the analytical part.",

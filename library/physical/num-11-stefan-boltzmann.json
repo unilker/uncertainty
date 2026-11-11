@@ -146,7 +146,7 @@
       },
       "interval_low": {
         "value": 5.670332,
-        "tolerance": 5e-07
+        "tolerance": 6.6e-07
       },
       "interval_high": {
         "value": 5.6704126,

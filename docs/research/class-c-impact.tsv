@@ -3,29 +3,30 @@ F5	Nordtest TR 537 §6.1	c2	confirmed	u(bias) / %	4.1	4.15	—	—	component onl
 F10	Eurachem QUAM A2	c2	partly erratum	u(m_KHP) / mg; Table A2.4	0.13	0.12	0	0	u(m_KHP) corrected by QUAM_ERRATA_v2 (21.01.2019, p. 46); the u(V) column of Table A2.4 is not in the errata; reported result unchanged
 F12	Eurachem QUAM A3	c2	partly erratum	u_c in Table A3.1 / (mol/L)	0.00016	0.00019	0	—	the extra term in u(V_HCl) is corrected by QUAM_ERRATA_v2 (p. 55); Table A3.1 lists single-run inputs with the triplicate u_c (not in the errata); reported result unchanged
 F14	Eurachem QUAM A5	e	erratum	u(a_V) / dm²; u_c / (mg/dm²)	0.19; 0.001465	0.152; 0.00144	0	—	fully corrected by QUAM_ERRATA_v2 (pp. 72–80, amended Table A5.1); reported as a known erratum, not as a finding
-F21	EA-4/02 S13	c1	confirmed	d_X / mm	90.0003	90.0002	0.11	0	Δl and coaxiality correction of the budget differ from the data
+F21	EA-4/02 S13	c1	independently checked	d_X / mm	90.0003	90.0002	0.11	0	Δl and coaxiality correction of the budget differ from the data
 F28	NIST TN 1900 E4	c1	independently checked	v / (m/s)	40.64	57.48	34	—	printed = stated equation ÷ √2; reported independently by Delker (2021, footnote 1)
 F29	NIST TN 1900 E3	c1	open	u(μ_M) / (mPa s)	1.11	1.027	—	0.075	the NUM 'Gauss' value; how the NUM evaluates it is not documented
 F33	NIST Uncertainty Machine manual §3	c2	confirmed	u(y) in the text	12.5	8.7	—	—	the text disagrees with the program output in Figure 1, which is reproduced
-F39	ISO 21748 C.3	c1	confirmed	U(flour) / %	12.8	12.6	0	0.016	
-F40	ISO 5725-3:2023 J.2	m	independently checked	s_R at level 6	15.962	15.962–16.781	—	—	method (D108): s_I(T) = s_r = 9.545 sets the negative day variance to zero, s_R keeps it; s_R = 15.962 with the formulas as printed (= REML, whose s_r is 8.56), 16.331 with zero throughout, 16.781 with zero in the sum only (ISO 5725-2); laboratory 2 is a Cochran outlier at level 6 (C = 0.585 > 0.496) and is retained (s_R = 14.7 without it, D109); the 2023 Table J.2 differs from the 1994 data in 15 entries at levels 3–5 (D41, D109)
+F39	ISO 21748 C.3	c1	independently checked	U(flour) / %	12.8	12.6	0	0.016	
+F40	ISO 5725-3:2023 J.2	m	independently checked	s_R at level 6	15.962	15.962–16.781	—	—	method (D108): s_I(T) = s_r = 9.545 sets the negative day variance to zero, s_R keeps it; s_R = 15.962 with the formulas as printed (= REML, whose s_r is 8.56), 16.331 with zero throughout, 16.781 with zero in the sum only (ISO 5725-2); laboratory 2 is a Cochran outlier at level 6 (C = 0.585 > 0.496) and is retained (s_R = 14.7 without it, D109); the transcription errors of the 2023 Table J.2 are F101
 F41	ISO 6143:2025 Formula (12)	c2	confirmed	critical value at n = 10	2√3 u	2√2 u	—	—	formula inconsistent with the Note to 6.2.4
-F42	ISO 6143:2025 Example 3	c1	confirmed	u(x) / (µmol/mol)	0.013280	0.014246	0	0.068	the parameter uncertainties are acknowledged as wrong by the standard (B.2.4); u(x) is not
+F42	ISO 6143:2025 Example 3	c1	independently checked	u(x) / (µmol/mol)	0.013280	0.014246	0	0.068	the parameter uncertainties are acknowledged as wrong by the standard (B.2.4); u(x) is not
 F56	UKAS M3003 K.5	c1	independently checked	U / mg	0.30	0.31	0	0.033	sign of the result (−0.10 vs +0.10 mg) only under the assumption W_S = 200.0000 g (K.5 gives no certificate value); the printed u_c = 0.150 follows equally from the drift limit divided by 2 or from leaving out one rounding term (D109)
-F57	UKAS M3003 K.3	c1	confirmed	U / dB	0.049	0.040	0	0.18	mismatch term 0.022 dB vs E5 0.0170 dB; the printed 0.022 dB follows with s11 = 0.09 for one of the coefficients (D109)
-F58	UKAS M3003 K.6	c1	confirmed	U / nm	81.5	82.1	0	0.006	Δt through α, not Δα; small here, larger for longer blocks
+F57	UKAS M3003 K.3	c1	independently checked	U / dB	0.049	0.040	0	0.18	mismatch term 0.022 dB vs E5 0.0170 dB; the printed 0.022 dB follows with s11 = 0.09 for one of the coefficients (D109)
+F58	UKAS M3003 K.6	c1	independently checked	U / nm	81.5	82.0	0	0.006	the budget applies L·Δα to the temperature difference where the model of K.6.1 gives L·α; program U = 82.04 nm, recomputer 82.06 nm (82.1)
 F63	Eurachem UfS:2019 A1, A2	m	open	robust ANOVA	—	—	—	—	algorithm not published in the Guide; not reproducible, not an inconsistency
 F69	EURAMET cg-18 H3	m	confirmed	ν_eff	109	37 (12)	—	—	method: counting of the repeatability terms (U 29 → 30.3 kg)
 F73	Bettencourt da Silva (2026)	m	confirmed	u(R̄)	0.0401	0.0100	—	—	method: weighted mean with the arithmetic-mean uncertainty
-F77	JCGM GUM-5 Example 15	c1	confirmed	MCM s.d. / kN	10.1	9.93	—	0.017	scale of the t input
-F78	JCGM GUM-5 Example 1	c1	confirmed	pH_X	7.0109	7.0043	0.80	—	u 0.0041 vs 0.0032 depends on the correlation assumed (method)
-F79	JCGM GUM-5 Example 2	m	open	ν_eff	4.8	2.11	—	—	reading of eq. (2.3) against Willink's ensemble rule; coverage 94 % against 93 % with ν recomputed for each data set
+F77	JCGM GUM-5 Example 15	c1	independently checked	MCM s.d. / kN	10.1	9.93	—	0.017	scale of the t input
+F78	JCGM GUM-5 Example 1	c1	independently checked	pH_X	7.0109	7.0043	0.80	—	u 0.0041 vs 0.0032 depends on the correlation assumed (method)
+F79	JCGM GUM-5 Example 2	m	confirmed	ν_eff	4.8	2.11	—	—	eq. (2.3) is Willink's (2007) generalization for correlated estimates with independent variance estimates (his Section 4.2); for inputs estimated from the same simultaneous observations, as here, his Result 1 (Section 4.1) combines them into one component with n − 1 = 2 degrees of freedom (as summarized by Willink and Hall 2013): ν_eff 2.11, k 4.10 instead of 4.8, 2.6 (D112)
 F80	JCGM GUM-5 Example 10	m	independently checked	global and specific risks	—	—	—	—	the printed joint PDF reproduces every printed risk; modelling note
 F81	JCGM GUM-5 Example 12	c2	independently checked	mode of τ / (µmol/mol)	0.3	0	0	0	getmode returns the first draw; mean and median unaffected
 F82	JCGM GUM-5 Example 4	c1	independently checked	u(y_CO₂) / (µmol/mol)	5	4	—	0.20	Table 4.2 not from Table 4.1 (intermediate) also checked independently; the printed 5 follows with u(r̂_j) = 2 mg (4.50), cause not documented (D109)
 F85	JCGM GUM-5 Example 11	c1	open	â	65.0	65.45	0.14	—	data read from the figure
-F87	EMPIR EMUE E3.4	c2	confirmed	U / (mg/kg)	2.8	2.9	0	0.036	the root mean square of the relative bias uncertainties is 3.50 %, not 3.3 % (3.3 % is the arithmetic mean); the printed U = 2.8 mg/kg follows from u′ rounded to 5 % as the example rounds it, so the final result is unchanged (D110; was c1)
+F87	EMPIR EMUE E3.4	c2	independently checked	U / (mg/kg)	2.8	2.9	0	0.036	the root mean square of the relative bias uncertainties is 3.50 %, not 3.3 % (3.3 % is the arithmetic mean); the printed U = 2.8 mg/kg follows from u′ rounded to 5 % as the example rounds it, so the final result is unchanged (D110; was c1)
 F89	EMPIR EMUE E3.8	c2	confirmed	E_A, k₀, c_T	59.164 kJ/mol	56.64 kJ/mol	0	0	no effect on the result
-F90	EMPIR EMUE E3.3	c1	confirmed	u (validation) / (nmol/mol)	4.7	4.5	0.011	0.038	4.47 from the printed (rounded) inputs, 4.52 from unrounded parameters (full WTLS); the printed inputs alone allow 4.14–4.78 (D108)
+F90	EMPIR EMUE E3.3	c1	open	u (validation) / (nmol/mol)	4.7	4.5	—	0.038	the printed (rounded) inputs of (E3.3.19) allow 4.14–4.78, which contains the printed 4.7; the unrounded parameters of a full WTLS fit give 4.52 (4.35 without covariances, printed 4.5); open until the unrounded values of the example are known (D112)
 F92	IUPAC 2024 Example 4I	c1	open	c(NaCl) / (mmol/L)	10.024 (as printed)	9.976	—	—	sign of the endpoint correction; the convention of the source is not stated
 F97	BIPM ISRD-01 Table 6	c1	open	u_c / (g/g)	3.96 × 10⁻⁴	4.10 × 10⁻⁴	—	0.035	the components printed in the same table give 4.12 × 10⁻⁴, the printed inputs 4.10 × 10⁻⁴; open until it is known whether unrounded spreadsheet values explain the difference (D110)
+F101	ISO 5725-3:2023 J.2/J.5	c1	independently checked	s_r at level 5 / % ×10⁻³	6.237	14.715	—	—	Table J.2 of the 2023 edition differs from the 1994 data in 15 entries at levels 3–5; Table J.5 (levels 3–5) is reproduced from the 1994 data but not from the 2023 Table J.2 (level 5: s_r 14.715 against 6.237; level 3: 0.652 against 1.739) (D41, D109, D112)

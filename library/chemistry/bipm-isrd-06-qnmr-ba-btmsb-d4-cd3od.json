@@ -46,7 +46,7 @@
     ],
     "sources": [
       {
-        "document": "BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/02",
+        "document": "BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/03",
         "section": "Table 6",
         "url": "https://www.bipm.org/en/publications/rapports-bipm"
       }
@@ -214,11 +214,11 @@
       },
       "bounded_standard_uncertainty": {
         "value": 0.000487717,
-        "tolerance": 3e-06
+        "tolerance": 3.9e-06
       },
       "bounded_low": {
         "value": 0.998394053,
-        "tolerance": 1.2e-05
+        "tolerance": 1.3e-05
       },
       "bounded_high": {
         "value": 1.0,

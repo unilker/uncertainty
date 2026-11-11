@@ -188,7 +188,7 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(1200, 900));
     await tester.pumpWidget(UncertaintyApp(state: AppState('en')));
     await showLibrary(tester);
-    expect(find.textContaining('Example library (286'), findsOneWidget);
+    expect(find.textContaining('Example library (284'), findsOneWidget);
 
     await searchLibrary(tester, 'quam-a1-cadmium-standard-volume');
     await tester.pumpAndSettle();

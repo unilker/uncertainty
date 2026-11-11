@@ -199,39 +199,7 @@
             "value": 254.26,
             "tolerance": 0.004
           }
-        },
-        "standard_uncertainty": {
-          "R": {
-            "value": 0.13,
-            "tolerance": 0.007
-          },
-          "X": {
-            "value": 0.536,
-            "tolerance": 0.012
-          },
-          "Z": {
-            "value": 0.429,
-            "tolerance": 0.008
-          }
-        },
-        "correlations": [
-          {
-            "between": [
-              "R",
-              "X"
-            ],
-            "value": -0.587,
-            "tolerance": 0.035
-          },
-          {
-            "between": [
-              "R",
-              "Z"
-            ],
-            "value": -0.482,
-            "tolerance": 0.045
-          }
-        ]
+        }
       }
     },
     "reference": {

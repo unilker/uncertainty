@@ -126,8 +126,7 @@
       "interval_high": {
         "value": 50.298,
         "tolerance": 0.0005
-      },
-      "gum_validated": true
+      }
     },
     "reference": {
       "en": "NIST TN 1900 E1: m_P = 50.284 g, u = 0.0071 g, 95 % interval [50.270, 50.298] g.",

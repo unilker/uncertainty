@@ -1,6 +1,6 @@
 # All examples step by step
 
-Each of the 286 examples of the library, with the explanation shown on the **Overview** tab of the application. The examples are grouped by lesson and level.
+Each of the 284 examples of the library, with the explanation shown on the **Overview** tab of the application. The examples are grouped by lesson and level.
 
 ## Weighing a powder (Beginner)
 
@@ -529,66 +529,6 @@ With the GUM method the source gives:
 - standard uncertainty u = 0.03 V
 
 Reference: EA-4/02 M:2022 S9.12–S9.14 (u = 0.030 V).
-
-When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
-
-## A multimeter at 10 V (TÜBİTAK UME) (Beginner)
-
-An example from the uncertainty procedure of TÜBİTAK UME: calibration of a digital multimeter at 10 V DC. It follows the same steps as the guides and is a good template for an electrical calibration certificate.
-
-<a id="ume-procedure-19-1-dmm-10v-calibration"></a>
-
-### 10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1)
-
-`ume-procedure-19-1-dmm-10v-calibration`
-
-#### What is this project about?
-
-Additive model with absolute uncertainties: the error of indication E = V_DMM − V_ref with corrections for the calibrator certificate, its drift and the resolution.
-
-
-#### Step 1. What do we measure, and how is it calculated?
-
-The result is **E** in µV (Error of indication of the multimeter at 10 V DC, (23 ± 1) °C). It is not measured directly: it is calculated from the input quantities with the measurement model
-
-```
-E = x_DMM + d_res - d_cal - d_drift
-```
-
-
-#### Step 2. The input quantities and their uncertainties
-
-The model has 4 inputs. For each one we need a best value (estimate) and a **standard uncertainty** u, which says how far the true value could plausibly be from the estimate. Where the number comes from decides how u is obtained:
-
-1. **x_DMM**: Mean of 12 readings minus 10 V (10.000 212 V; s = 27.9 µV). Best value 212 µV with standard uncertainty u = 8.05 µV. Because it is based on few data (ν = 11 degrees of freedom), a Student t distribution is used: it has heavier tails than the normal distribution and makes the coverage factor larger.
-2. **d_cal**: Calibrator certificate, U = 5 µV/V at 10 V (k = 2). Best value 0 µV. The source (e.g. a certificate) gives the expanded uncertainty U = 50 µV with k = 2, so the standard uncertainty is u = U/k = 50/2 = 25.0 µV (normal distribution).
-3. **d_drift**: Annual drift of the calibrator, ±40 µV. Only limits are known: the value lies between -40 and 40 µV (0 ± 40), and no value inside is more likely than another (rectangular distribution; typical for a tolerance, a specification, the resolution of a display or a drift limit). The standard uncertainty is u = a/√3 = 40/√3 = 23.1 µV.
-4. **d_res**: Resolution of the multimeter, 10 µV. Only limits are known: the value lies between -5 and 5 µV (0 ± 5), and no value inside is more likely than another (rectangular distribution; typical for a tolerance, a specification, the resolution of a display or a drift limit). The standard uncertainty is u = a/√3 = 5/√3 = 2.89 µV.
-
-
-#### Step 3. What the program calculates
-
-1. It puts the estimates of the inputs into the equation: this gives the estimate of the result.
-2. For each input it finds the **sensitivity coefficient** c: how much the result changes when that input changes by one unit (the derivative of the equation).
-3. It multiplies each standard uncertainty by its sensitivity coefficient: the **contribution** c·u of the input, in the unit of the result.
-4. It combines the contributions as the square root of the sum of their squares (plus the correlation terms): the **combined standard uncertainty** u_c.
-5. It multiplies u_c by the coverage factor k = 2: the **expanded uncertainty** U = k·u_c, which gives an interval that contains the true value with a high probability (about 95 % for k = 2).
-
-It also uses the **Monte Carlo method**: it draws 1 000 000 random values of every input from its distribution, calculates the result for each draw, and reads the uncertainty and the coverage interval directly from the 1 000 000 results. If the two methods agree, the simpler GUM result can be trusted.
-
-
-> **Try:** Press **Calculate**, then open **Results**. In the uncertainty budget, the column *Share of variance* shows which input matters most: improving that input is the most effective way to reduce U. Change its uncertainty in the **Model** tab and calculate again to see the effect.
-
-
-#### Finally: what the source expects
-
-With the GUM method the source gives:
-
-- estimate y = 212 µV
-- standard uncertainty u = 35.1 µV
-- expanded uncertainty U = 70.2 µV
-
-Reference: UME procedure, Section 19.1: u_c = 35.1 µV, ν_eff ≈ 4000, U = 70.2 µV (k = 2); E = 0.21 mV.
 
 When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
 
@@ -4235,7 +4175,7 @@ Information about the production process (the spread of items before measurement
 
 #### Finally: what the source expects
 
-Reference: Suncal 1.7.1: guard-band factor and PFA_norm/PFR_norm(itp = 0.95, TUR, GB) for the global risks.
+Reference: Guard-band factor from the published formula (Dobbert 2008; Delker & Peguero 2022); global consumer's and producer's risks of JCGM 106:2012 9.5 for a normal process with 95 % in tolerance, by numerical integration in SciPy (tools/research/conformity/tur_risks.py). Suncal 1.7.1 gives the same values.
 
 When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
 
@@ -4259,7 +4199,7 @@ Information about the production process (the spread of items before measurement
 
 #### Finally: what the source expects
 
-Reference: Suncal 1.7.1: guard-band factor and PFA_norm/PFR_norm(itp = 0.95, TUR, GB) for the global risks.
+Reference: Guard-band factor from the published formula (Dobbert 2008; Delker & Peguero 2022); global consumer's and producer's risks of JCGM 106:2012 9.5 for a normal process with 95 % in tolerance, by numerical integration in SciPy (tools/research/conformity/tur_risks.py). Suncal 1.7.1 gives the same values.
 
 When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
 
@@ -4283,7 +4223,7 @@ Information about the production process (the spread of items before measurement
 
 #### Finally: what the source expects
 
-Reference: Suncal 1.7.1: guard-band factor and PFA_norm/PFR_norm(itp = 0.95, TUR, GB) for the global risks.
+Reference: Guard-band factor from the published formula (Dobbert 2008; Delker & Peguero 2022); global consumer's and producer's risks of JCGM 106:2012 9.5 for a normal process with 95 % in tolerance, by numerical integration in SciPy (tools/research/conformity/tur_risks.py). Suncal 1.7.1 gives the same values.
 
 When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
 
@@ -7560,7 +7500,7 @@ With the GUM method the source gives:
 - estimate y = 44.0094
 - standard uncertainty u = 0.0007
 
-Reference: NIST TN 1900 E8: M_r(CO₂) = 44.0094, u = 0.0007, exact shortest 95 % interval [44.0080, 44.0108], whose unrounded end points 44.008045 and 44.010755 follow from the trapezoidal distribution (see note); tolerance ≈ 5 × the Monte Carlo dispersion at M = 10⁶.
+Reference: NIST TN 1900 E8: M_r(CO₂) = 44.0094, u = 0.0007, exact shortest 95 % interval [44.0080, 44.0108], whose unrounded end points 44.008045 and 44.010755 follow from the trapezoidal distribution (see note); tolerance: half a unit of the last digit plus 5 × the Monte Carlo dispersion over seeds (D110).
 
 When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
 
@@ -9617,69 +9557,6 @@ For 3 samples, the measured response is converted into a content through the fit
 #### Finally: what the source expects
 
 Reference: ISO 6143:2025 B.2.2, parameters and Tables B.4 and B.6 (B_LEAST).
-
-When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
-
-## Purity by qNMR (TÜBİTAK UME) (Intermediate)
-
-An illustrative budget for quantitative NMR with an internal standard, from the TÜBİTAK UME uncertainty procedure.
-
-<a id="ume-procedure-19-2-qnmr-purity-internal-standard"></a>
-
-### Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2)
-
-`ume-procedure-19-2-qnmr-purity-internal-standard`
-
-#### What is this project about?
-
-Multiplicative model with relative uncertainties; the values are illustrative, not from a real measurement. The integration is a separate Type B component (±0.2 %, rectangular) beside the repeatability of the ratio.
-
-
-#### Step 1. What do we measure, and how is it calculated?
-
-The result is **P_a** in mg/g (Purity (mass fraction) of the analyte by ¹H qNMR). It is not measured directly: it is calculated from the input quantities with the measurement model
-
-```
-P_a = R * f_int * (N_std/N_a) * (M_a/M_std) * (m_std/m_a) * P_std
-```
-
-
-#### Step 2. The input quantities and their uncertainties
-
-The model has 9 inputs. For each one we need a best value (estimate) and a **standard uncertainty** u, which says how far the true value could plausibly be from the estimate. Where the number comes from decides how u is obtained:
-
-1. **R**: Integral ratio I_a/I_std, 5 independent samples, RSD 0.15 % (Type A). Best value 1.40023 1 with standard uncertainty u = 0.000939 1. Because it is based on few data (ν = 4 degrees of freedom), a Student t distribution is used: it has heavier tails than the normal distribution and makes the coverage factor larger.
-2. **f_int**: Integration (phase, baseline, limits), ±0.2 %. Only limits are known: the value lies between 0.998 and 1.002 1 (1 ± 0.002), and no value inside is more likely than another (rectangular distribution; typical for a tolerance, a specification, the resolution of a display or a drift limit). The standard uncertainty is u = a/√3 = 0.002/√3 = 0.00115 1.
-3. **N_std**: ¹H nuclei of the internal-standard signal (2, e.g. maleic acid). An exact value, 2 1, with no uncertainty (for example a defined constant or a nominal value).
-4. **N_a**: ¹H nuclei of the analyte signal (3, a methyl singlet). An exact value, 3 1, with no uncertainty (for example a defined constant or a nominal value).
-5. **M_a**: Molar mass of the analyte (IUPAC atomic weights). Only limits are known: the value lies between 194.18 and 194.20 g/mol (194.19 ± 0.0070633), and no value inside is more likely than another (rectangular distribution; typical for a tolerance, a specification, the resolution of a display or a drift limit). The standard uncertainty is u = a/√3 = 0.0070633/√3 = 0.00408 g/mol.
-6. **M_std**: Molar mass of the internal standard. Only limits are known: the value lies between 116.07 and 116.08 g/mol (116.072 ± 0.0034177), and no value inside is more likely than another (rectangular distribution; typical for a tolerance, a specification, the resolution of a display or a drift limit). The standard uncertainty is u = a/√3 = 0.0034177/√3 = 0.00197 g/mol.
-7. **m_std**: Mass of the internal standard, microbalance u = 2.0 µg. Best value 6.512 mg with standard uncertainty u = 0.002 mg (normal distribution: values near the estimate are the most likely; typical for a calibration certificate or for the mean of many readings).
-8. **m_a**: Mass of the analyte, microbalance u = 2.0 µg. Best value 10.215 mg with standard uncertainty u = 0.002 mg (normal distribution: values near the estimate are the most likely; typical for a calibration certificate or for the mean of many readings).
-9. **P_std**: Purity of the internal-standard CRM, U = 1.5 mg/g (k = 2). Best value 999.4 mg/g. The source (e.g. a certificate) gives the expanded uncertainty U = 1.5 mg/g with k = 2, so the standard uncertainty is u = U/k = 1.5/2 = 0.750 mg/g (normal distribution).
-
-
-#### Step 3. What the program calculates
-
-1. It puts the estimates of the inputs into the equation: this gives the estimate of the result.
-2. For each input it finds the **sensitivity coefficient** c: how much the result changes when that input changes by one unit (the derivative of the equation).
-3. It multiplies each standard uncertainty by its sensitivity coefficient: the **contribution** c·u of the input, in the unit of the result.
-4. It combines the contributions as the square root of the sum of their squares (plus the correlation terms): the **combined standard uncertainty** u_c.
-5. It multiplies u_c by the coverage factor k = 2: the **expanded uncertainty** U = k·u_c, which gives an interval that contains the true value with a high probability (about 95 % for k = 2).
-
-
-> **Try:** Press **Calculate**, then open **Results**. In the uncertainty budget, the column *Share of variance* shows which input matters most: improving that input is the most effective way to reduce U. Change its uncertainty in the **Model** tab and calculate again to see the effect.
-
-
-#### Finally: what the source expects
-
-With the GUM method the source gives:
-
-- estimate y = 995 mg/g
-- standard uncertainty u = 1.567 mg/g
-- expanded uncertainty U = 3.13 mg/g
-
-Reference: UME procedure, Section 19.2: P_a = 995.0 mg/g, relative u_c = 0.001 575, u_c = 1.567 mg/g, ν_eff = 121, U = 3.13 mg/g → (995.0 ± 3.1) mg/g (k = 2).
 
 When you press **Calculate**, the program compares its own results with these values and marks each one as within or outside its tolerance (the tolerance allows for the rounding of the printed numbers). Any difference that the source cannot explain is described under **Notes**.
 

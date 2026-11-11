@@ -1,6 +1,6 @@
 # Durum ve sonraki adımlar / Status and next steps
 
-Son güncelleme: **2026-11-11** (iç inceleme revizyonu, D110). Bu dosya çalışmaya ara verildiğinde nerede
+Son güncelleme: **2026-11-11** (iç incelemenin ikinci turu, D112). Bu dosya çalışmaya ara verildiğinde nerede
 kalındığını ve sırada ne olduğunu kaydeder.
 
 - Ayrıntılı gerekçeler araştırma günlüğündedir: kararlar D…, bulgular F….
@@ -11,13 +11,13 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | | |
 |---|---|
 | Program | **KAPSAM** (D92); Rust motoru (`core`, `project`), `kapsam` komut satırı aracı, C arayüzü, Flutter uygulaması (Windows, Linux, macOS, Android, iOS) |
-| Kütüphane | **286** kendi kendini doğrulayan proje, 38 belge, **1865** referans değer; hepsi tolerans içinde |
-| Bağımsız denetimler | Suncal 1.7.1 ile **171** proje (D93); **189** elektronik tablo doğrulama dosyası, 4678 değer, LibreOffice'te CI'da (D94); kalibrasyon uydurması boyunca Monte Carlo, 8 proje × 10⁶ (D97) |
-| Testler | **218** Rust testi, **28** Flutter testi; CI yeşil |
-| Rehber | *Uncertainty from scratch* / *Sıfırdan belirsizlik* (TR/EN), 123 ders, 286 örneğin açıklaması |
-| Araştırma günlüğü | kararlar D1–D111, bulgular F1–F100 (11 doğrulanmış c1; F40 m, F87 c2 sınıfına alındı) |
-| Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 8 tablo, 3 şekil, Ek A, 83 kaynak (10'u *Measurement*); ek malzeme S1–S7; editöre mektup |
-| Dal | `claude/sleepy-hypatia-1522g6`; PR unilker/uncertainty#11 birleştirildi; sürüm v0.1.0 |
+| Kütüphane | **284** kendi kendini doğrulayan proje, 36 kaynak (25 kılavuz ve standart) ve 3 kurulmuş sınama durumu, **1843** referans değer; hepsi tolerans içinde; Monte Carlo toleransları 20 bağımsız tohumla sınandı (D112) |
+| Bağımsız denetimler | Suncal 1.7.1 ile **164** proje, 169 karşılaştırma (D93); **187** elektronik tablo doğrulama dosyası, 4631 değer, LibreOffice'te CI'da (D94); kalibrasyon uydurması boyunca Monte Carlo, 8 proje × 10⁶ (D97) |
+| Testler | **223** Rust testi, **28** Flutter testi |
+| Rehber | *Uncertainty from scratch* / *Sıfırdan belirsizlik* (TR/EN), 121 ders, 284 örneğin açıklaması |
+| Araştırma günlüğü | kararlar D1–D112, bulgular F1–F101 (11 sonuçlanmış c1, hepsi bağımsız denetlenmiş; F90 açık; F79 m) |
+| Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 8 tablo, 3 şekil, Ek A, 82 kaynak; ek malzeme S1–S8; editöre mektup |
+| Dal | `claude/sleepy-hypatia-1522g6`; sürüm v0.1.1 (yayımlanacak; etiket GitHub arayüzünden) |
 
 ## 1a. Makale gönderimi: kalanlar (2026-11-10)
 
@@ -25,8 +25,7 @@ kalındığını ve sırada ne olduğunu kaydeder.
 
 1. ~~Kodu görmemiş bir metroloğun c1 bulgularını yeniden hesaplaması~~ tamam (D108): 13 bulgunun 12'si bağımsız olarak
    doğrulandı, F40 m sınıfına alındı; Bölüm 9, Tablo 4 ve Tablo 6 güncellendi.
-2. Tablo 4'ün 12 satırını belgelerin yayımlanmış erratalarıyla karşılaştırmak (yeniden hesap güncel baskılarla
-   yapıldı; erratalar ayrıca bakılmadı).
+2. ~~Erratalar~~ tamam (D112, `errata-check.md`).
 3. Finansman ve çıkar çatışması beyanı; önerilen hakemler (editöre mektup); yazışma adresi ve e-posta (gönderim
    paketindeki kapak sayfası yer tutucusu).
 4. ~~Zenodo'da GitHub deposunu etkinleştirmek~~ tamam.

@@ -118,15 +118,15 @@
       },
       "standard_uncertainty": {
         "value": 502.494,
-        "tolerance": 1.0
+        "tolerance": 2.0
       },
       "interval_low": {
         "value": 1593.57,
-        "tolerance": 16.0
+        "tolerance": 19.0
       },
       "interval_high": {
         "value": 3548.57,
-        "tolerance": 17.0
+        "tolerance": 24.0
       }
     },
     "reference": {

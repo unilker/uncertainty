@@ -69,7 +69,7 @@ def guide_markdown(lang="en"):
 
 FRONT = {
     "en": "Supplementary material S6. *Uncertainty from scratch*, the beginner's guide built into KAPSAM (chapters 1–13), "
-          "followed by the step-by-step explanation of each of the 286 library examples as the application shows it on "
+          "followed by the step-by-step explanation of each of the {n} library examples as the application shows it on "
           "the **Overview** tab. The same text, in English and Turkish, is in the repository under `docs/guide/beginner/` "
           "and inside the application (book icon on the home screen).",
 }
