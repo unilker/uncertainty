@@ -17,12 +17,14 @@ S7  the recalculation of the spreadsheet verification workbooks in LibreOffice (
 import csv
 import glob
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path
 
 import supplementary_pdf as pdf  # same directory; needs pandoc and Node with Playwright
 import supplementary_xlsx as xlsx  # same directory; needs openpyxl
+import sources  # same directory
 import spreadsheet_check  # LibreOffice with its Python bridge (uno)
 
 OUT = Path("docs/article/supplementary")
@@ -43,13 +45,16 @@ for f in sorted(glob.glob("library/*/*.json")):
     passed = sum(1 for c in checks if c.get("passed", True))
     total += len(checks)
     src = (m.get("sources") or [{}])[0]
+    _, skind = sources.primary(p)
     rows.append([m["id"], m["title"]["en"], m.get("field", ""), kind, src.get("document", ""), src.get("section", ""),
+                 sources.KIND_TEXT[skind], sources.reference_basis(p), p["expected"]["reference"]["en"],
                  len(checks), passed])
 xlsx.table(
     OUT / "S1_library.xlsx", "Library",
     "S1. The 286 projects of the KAPSAM library",
     [("ID", 34), ("Title", 60), ("Field", 14), ("Evaluation type", 18), ("Source document", 60),
-     ("Source section", 34), ("Compared values", 11), ("Within tolerance", 11)],
+     ("Source section", 34), ("Kind of source", 18), ("Basis of the reference values", 26),
+     ("Reference statement of the project", 70), ("Compared values", 11), ("Within tolerance", 11)],
     rows,
     notes=[
         ("ID", "File name of the project in library/<field>/ of the repository; the project can be opened in the "
@@ -60,11 +65,21 @@ xlsx.table(
                             "topdown, proficiency (ISO 13528), calibration (ISO 6143), conformity (JCGM 106), "
                             "precision_experiment (ISO 5725-2), control_chart (TR 569), sampling (UfS), "
                             "error_function (EURAMET cg-18), consensus, multicomponent_conformity."),
-        ("Source document, section", "The worked example the project reproduces."),
+        ("Source document, section", "The worked example the project reproduces (the first source of the project)."),
+        ("Kind of source", "guidance document or standard; BIPM reference data report; journal paper or book; "
+                           "unpublished procedure."),
+        ("Basis of the reference values", "printed values: every reference value is printed in the source and "
+                                          "reproduced from its inputs within its rounding; printed values, some of them "
+                                          "Monte Carlo or MCMC estimates: the tolerance includes their sampling error; "
+                                          "partly or wholly an independent recomputation: the source prints no value, or "
+                                          "a value that does not follow from its inputs (a finding), and the reference is "
+                                          "a recomputation by a script of the repository (NumPy, SciPy). Classified from "
+                                          "the reference statement in the next column."),
+        ("Reference statement", "The statement in the project file of where its reference values come from."),
         ("Compared values", "Number of results compared with the reference values of the source at every test run."),
         ("Within tolerance", "Number of those results within their documented tolerance."),
     ],
-    total_row=["Total", f"{len(rows)} projects", "", "", "", "", total, sum(r[7] for r in rows)],
+    total_row=["Total", f"{len(rows)} projects", "", "", "", "", "", "", "", total, sum(r[10] for r in rows)],
 )
 print("S1:", len(rows), "projects,", total, "compared values")
 
@@ -77,9 +92,11 @@ findings = []
 with open("docs/research/finding-classes.tsv", encoding="utf-8") as fh:
     for r in csv.DictReader(fh, delimiter="\t"):
         i = impact.get(r["F"], {})
-        findings.append([r["F"], r["class"], r["title"], i.get("document", ""), i.get("impact", ""),
-                         i.get("status", ""), i.get("quantity", ""), xlsx.num(i.get("printed", "")),
-                         xlsx.num(i.get("recomputed", "")), i.get("note", "")])
+        title = re.sub(r"\s*\((?:[^()]*\b(?:class|article|methodological)\b[^()]*)\)\.?", "", r["title"]).strip()
+        # printed and recomputed values are kept as text, so that their trailing zeros (printed digits) stay
+        findings.append([r["F"], r["class"], title, i.get("document", ""), i.get("impact", ""),
+                         i.get("status", ""), i.get("quantity", ""), i.get("printed", ""),
+                         i.get("recomputed", ""), i.get("note", "")])
 for old in OUT.glob("S[12]_*.csv"):
     old.unlink()
 xlsx.table(
@@ -89,7 +106,8 @@ xlsx.table(
      ("Quantity", 24), ("Printed", 14), ("Recomputed", 14), ("Note", 60)],
     findings,
     notes=[
-        ("F", "Number of the finding in the research log of the repository (docs/research/research-log.md)."),
+        ("F", "Number of the finding in the research log of the repository (docs/research/research-log.md), where "
+              "the derivation of each finding is given."),
         ("Class", "a: intermediate rounding that changes a printed digit; b: a misprint or transcription error "
                   "without effect on the result; c: an inconsistency; n: no discrepancy (a methodological note or a "
                   "full reproduction). Classes fixed before the audit (research log D12, D73)."),
@@ -97,8 +115,10 @@ xlsx.table(
                              "reproduced at its printed digits; c2: only an intermediate value is not; m: a difference "
                              "of method or interpretation rather than an inconsistency; e: already corrected by a "
                              "published erratum (D84)."),
-        ("Status", "confirmed: the recomputation from the document's own data leaves no open question, or it was "
-                   "reproduced independently."),
+        ("Status", "confirmed: the recomputation from the document's own data leaves no open question; independently "
+                   "checked: confirmed, and also reproduced by a person who had not seen the code or reported by "
+                   "another author; erratum or partly erratum: corrected, wholly or in part, by a published erratum; "
+                   "open: awaits a check against another source and is not counted."),
         ("Quantity, printed, recomputed", "The quantity concerned, the value printed in the document and the value "
                                           "recomputed from its data."),
     ],
@@ -108,7 +128,10 @@ print("S2:", len(findings), "findings")
 # S3, S4 (PDF from the Markdown tables of docs/research)
 for old in OUT.glob("S[3467]_*.md"):
     old.unlink()
-pdf.md_to_pdf(Path("docs/research/validation-matrix.md").read_text(encoding="utf-8"), OUT / "S3_validation_matrix.pdf",
+parts = [Path(f).read_text(encoding="utf-8") for f in ("docs/research/validation-matrix.md", "docs/research/near-tolerance.md",
+                                                        "docs/research/mc-seeds.md")]
+s3 = parts[0] + "\n\n" + "\n\n".join(q.replace("\n## ", "\n### ").replace("# ", "## ", 1) for q in parts[1:])
+pdf.md_to_pdf(s3, OUT / "S3_validation_matrix.pdf",
               "KAPSAM — Supplementary material S3: validation matrix", landscape=True)
 # S4: the comparison with Suncal and, as its last part, the Monte Carlo propagation through the calibration fit
 mc = Path("docs/research/calibration-mc.md").read_text(encoding="utf-8").replace("\n## ", "\n### ")

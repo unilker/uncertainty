@@ -14,9 +14,11 @@ their relative difference and by that difference divided by its sampling standar
 the kurtosis term corrects the standard error of a standard deviation for non-normal outputs, and is taken as 0
 for models with several outputs). The end of the comparison gives the probability that the largest of that many
 independent standard normal |z| values is at least as large as the one observed, so the dispersion can be judged
-against sampling error alone (review 2026-11-08, item 15).
+against sampling error alone (review 2026-11-08, item 15); several comparisons are variants of one model, so this is a guide rather than a test.
 
-Suncal 1.7.1; 171 projects compared (135 measurement models, 12 multivariate models, 6 calibrations, 18 conformity assessments).
+The reference values of the three guard-band projects (tur-guard-band-*) no longer come from Suncal: they are computed from the published guard-band formulas and the JCGM 106 risk integrals with SciPy (`tools/research/conformity/tur_risks.py`, D110), so the comparison of those projects with Suncal is not circular.
+
+Suncal 1.7.1; 171 comparisons of 166 projects (135 measurement models, 12 multivariate models, 6 calibrations, 18 conformity assessments; 5 projects are compared both as a model and as a conformity assessment: emue-e2.2-vacuum-gauge-correction-applied, emue-e2.2-vacuum-gauge-correction-ignored, emue-e2.2-vacuum-gauge-correction-in-uncertainty, emue-e2.2-vacuum-gauge-sum-model-correlated, emue-e2.2-vacuum-gauge-sum-model-correlation-ignored).
 
 ## 1. Measurement models
 
@@ -70,9 +72,9 @@ Suncal 1.7.1; 171 projects compared (135 measurement models, 12 multivariate mod
 | gum-h2-impedance | correlations | 254.26 | +0.0e+00 | 0.2363 | +2.2e-16 | -1.02e-03 | -1.0 |
 | gum-h2-reactance | correlations | 219.847 | +0.0e+00 | 0.2956 | +0.0e+00 | -5.26e-04 | -0.5 |
 | gum-h2-resistance | correlations | 127.732 | +2.0e-13 | 0.07107 | +8.9e-16 | +1.17e-03 | +1.2 |
-| jcgm101-9.4-comparison-loss-x000-correlated-higher-order | correlations | 50 | +0.0e+00 | 0 | +0.0e+00 | -2.06e-03 | -0.9 |
+| jcgm101-9.4-comparison-loss-x000-correlated-higher-order | correlations | 50 | — (u = 0) | 0 | +0.0e+00 | -2.06e-03 | -0.9 |
 | jcgm101-9.4-comparison-loss-x000-correlated | correlations | 0 | +0.0e+00 | 0 | +0.0e+00 | +8.55e-04 | +0.4 |
-| jcgm101-9.4-comparison-loss-x000 | — | 50 | +0.0e+00 | 0 | +0.0e+00 | +1.22e-03 | +0.7 |
+| jcgm101-9.4-comparison-loss-x000 | — | 50 | — (u = 0) | 0 | +0.0e+00 | +1.22e-03 | +0.7 |
 | jcgm101-9.4-comparison-loss-x010-correlated-higher-order | correlations | 150 | +5.0e-01 | 100 | +0.0e+00 | -9.38e-04 | -0.5 |
 | jcgm101-9.4-comparison-loss-x010-correlated | correlations | 100 | +0.0e+00 | 100 | +0.0e+00 | -2.01e-03 | -1.2 |
 | jcgm101-9.4-comparison-loss-x010 | — | 150 | +5.0e-01 | 100 | +0.0e+00 | +2.50e-04 | +0.2 |
@@ -231,7 +233,7 @@ max |u/u_Suncal − 1| = 1.6e-14; max |Δr| = 3.1e-14
 
 max relative difference = 1.4e-10 (32 values)
 
-Monte Carlo, all sections: 79 comparisons, max |z| = 2.4; P(max |z| ≥ 2.4 among 79 independent N(0, 1)) = 0.75
+Monte Carlo, all sections: 79 comparisons, max |z| = 2.38; P(max |z| ≥ 2.38 among 79 independent N(0, 1)) = 0.75. Several comparisons are variants of the same model, so they are not all independent; the probability is a guide, not a test.
 
 ## Not compared
 
@@ -248,10 +250,11 @@ Monte Carlo, all sections: 79 comparisons, max |z| = 2.4; P(max |z| ≥ 2.4 amon
 | jcgm102-9.5.3-ten-temperatures | ensembles or implicit model |
 | emue-e3.3-no2-analyser-dynamic-dilution | covariances between calibration points |
 | iso6143-b2-n2-natural-gas-covariances | covariances between calibration points |
+| emue-e2.1-multicomponent-medication | multicomponent conformity (no counterpart in Suncal) |
 | eurachem-compliance-b3-banned-substance-lognormal-exact | specific risks: lognormal measurement or posterior with a process prior |
 | eurachem-compliance-b3-banned-substance-lognormal | specific risks: lognormal measurement or posterior with a process prior |
 | gum5-e10-tspm-global-risks-acceptance-0.17 | global risks: uncertainty relative to the value |
 | gum5-e10-tspm-global-risks-acceptance-0.22 | global risks: uncertainty relative to the value |
 | gum5-e10-tspm-global-risks-shared-risk | global risks: uncertainty relative to the value |
-| gum5-e10-tspm-specific-risks | specific risks: lognormal measurement or posterior with a process prior |
-| gum5-e10-tspm-specific-risks | global risks: uncertainty relative to the value |
+| gum5-e10-tspm-specific-risks | specific risks: lognormal measurement or posterior with a process prior; global risks: uncertainty relative to the value |
+| jcgm106-8.3-nandrolone | decision rule without a conformance probability or global risk to compare (acceptance limit only) |

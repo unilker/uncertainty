@@ -4739,7 +4739,7 @@ A fixed 1 mL micropipette tested ten times (Nordtest TR 626); the mean volume is
 
 ### Acceptance limits from the test uncertainty ratio: Dobbert's managed guard band (method 6), TUR = 2.5, global risks for a 95 % in-tolerance process
 
-`tur-guard-band-dobbert-tur2-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+`tur-guard-band-dobbert-tur2-5` — JCGM 106:2012, 9.5 (global risks); Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
 
 Tolerance ±1 (normalised), U₉₅ = 2u = 0.4, so TUR = 1/U₉₅ = 2.5. GBF = 1 − M/TUR, M = 1.04 − exp(0.38 ln TUR − 0.54). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
 
@@ -4764,7 +4764,7 @@ Tolerance ±1 (normalised), U₉₅ = 2u = 0.4, so TUR = 1/U₉₅ = 2.5. GBF = 
 
 ### Acceptance limits from the test uncertainty ratio: NCSLI RP-10 guard band, TUR = 2.0, global risks for a 95 % in-tolerance process
 
-`tur-guard-band-rp10-tur2-0` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+`tur-guard-band-rp10-tur2-0` — JCGM 106:2012, 9.5 (global risks); Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
 
 Tolerance ±1 (normalised), U₉₅ = 2u = 0.5, so TUR = 1/U₉₅ = 2.0. GBF = 1.25 − 1/TUR (TUR ≤ 4). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
 
@@ -4788,7 +4788,7 @@ Tolerance ±1 (normalised), U₉₅ = 2u = 0.5, so TUR = 1/U₉₅ = 2.0. GBF = 
 
 ### Acceptance limits from the test uncertainty ratio: root-sum-square guard band, TUR = 1.5, global risks for a 95 % in-tolerance process
 
-`tur-guard-band-rss-tur1-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+`tur-guard-band-rss-tur1-5` — JCGM 106:2012, 9.5 (global risks); Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
 
 Tolerance ±1 (normalised), U₉₅ = 2u = 0.6667, so TUR = 1/U₉₅ = 1.5. GBF = √(1 − 1/TUR²). The process of the items is normal about the centre with 95 % of it within tolerance (s.d. 0.510213).
 

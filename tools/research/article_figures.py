@@ -101,7 +101,7 @@ def fig1():
             label(x0 + 10.5, y + 3.7, body)
 
     # Left: from the guidance to the project files.
-    column(2, [(51, "38 documents", "GUM suite, Eurachem, Nordtest,\nEA, UKAS, EURAMET, ISO, NIST"),
+    column(2, [(51, "37 sources", "25 guidance documents and\nstandards; papers, BIPM reports"),
                (37.5, "Generators", "Python scripts: the numbers\nand clause of each example"),
                (24, "286 projects", "JSON: inputs, sources and\nreference values ± tolerance")], True)
     arrow((12.5, 50.8), (12.5, 48.7))
@@ -175,23 +175,23 @@ def c1_findings():
         key = next(k for k in C1_DOCS if doc.startswith(k))
         num = lambda v: float(v) if re.fullmatch(r"[0-9.]+", v) else None  # noqa: E731
         out.append((f, C1_DOCS[key], doc, num(r[7]), num(r[8])))
-    assert len(out) == 12, len(out)
+    assert len(out) == 11, len(out)
     return out
 
 
 def fig2():
     md = Path("docs/article/numbers.md").read_text(encoding="utf-8")
-    sec = md.split("## Findings by document and class")[1].split("\n## ")[0]
-    rows = []
+    sec = md.split("## Findings by document, each finding once")[1].split("\n## ")[0]
+    rows, c1_by_doc = [], {}
     for line in sec.splitlines():
-        m = re.match(r"\| (.+?) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|$", line)
+        m = re.match(r"\| (.+?) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|$", line)
         if m and m.group(1) != "Document":
-            rows.append((m.group(1), *map(int, m.groups()[1:])))
+            k1, oc, a, b, n = map(int, m.groups()[1:6])
+            rows.append((m.group(1), a, b, k1 + oc, n))  # (document, a, b, c, n) with c including c1
+            if k1:
+                c1_by_doc[m.group(1)] = k1
     rows = [r for r in rows if r[0] not in ("summary", "methodological")]
     c1 = c1_findings()
-    c1_by_doc = {}
-    for _, doc, *_ in c1:
-        c1_by_doc[doc] = c1_by_doc.get(doc, 0) + 1
     # Documents with at least three findings, or with a confirmed c1 finding, are shown; the others are combined.
     shown = [r for r in rows if sum(r[1:]) >= 3 or r[0] in c1_by_doc]
     rest = [r for r in rows if r not in shown]
@@ -223,8 +223,8 @@ def fig2():
     ax.get_yticklabels()[0].set_color(INK2)
     ax.get_yticklabels()[0].set_style("italic")
     ax.axhline(0.8, color=GRID, linewidth=0.8)
-    ax.set_xlim(0, 27)
-    ax.set_xlabel("Findings (a finding with two classes counts in both)", fontsize=7)
+    ax.set_xlim(0, max(sum(r[1:]) for r in data) + 3)
+    ax.set_xlabel("Findings, each counted once (by its most severe class)", fontsize=7)
     ax.xaxis.grid(True, color=GRID, linewidth=0.6)
     ax.set_axisbelow(True)
     ax.tick_params(axis="y", length=0, pad=14)
@@ -255,8 +255,8 @@ def fig2():
     ax.axvline(1, color=INK2, linewidth=0.7, linestyle=(0, (3, 2)))
     ax.text(1.12, len(c1) - 0.25, "one expanded uncertainty", fontsize=5.8, color=INK2, va="center")
     ax.set_xticks([0.01, 0.1, 1, 10])
-    ax.set_xticklabels(["1 %", "10 %", "1", "10"])
-    ax.set_xlabel("Change of the printed result, relative to its U", fontsize=7)
+    ax.set_xticklabels(["0.01 U", "0.1 U", "1 U", "10 U"])
+    ax.set_xlabel("Change of the printed result, in units of its U", fontsize=7)
     ax.xaxis.grid(True, color=GRID, linewidth=0.6, which="major")
     ax.set_axisbelow(True)
     ax.tick_params(axis="y", length=0)
@@ -391,9 +391,9 @@ def graphical_abstract():
 
     card(1.5, 7, 28, 31, "#f6f5f2", "#c9c7c1")
     txt(15.5, 33.0, "Worked examples", 8, INK2, "bold")
-    txt(15.5, 24.5, "38", 19, INK, "bold")
-    txt(15.5, 17.3, "guidance documents", 7.5, INK2)
-    txt(15.5, 11.2, "286 projects\n1865 printed values", 7, INK2)
+    txt(15.5, 24.5, "25", 19, INK, "bold")
+    txt(15.5, 17.3, "guidance documents\nand standards", 7.5, INK2)
+    txt(15.5, 10.4, "286 projects\n1865 reference values", 7, INK2)
     card(36, 7, 28, 31, NAVY2, NAVY, 1.1)
     ax.add_patch(FancyBboxPatch((36, 29.5), 28, 8.5, boxstyle="round,pad=0,rounding_size=1.6", linewidth=0,
                                 facecolor=NAVY))
@@ -405,11 +405,11 @@ def graphical_abstract():
     txt(84.5, 33.0, "What it revealed", 8, CRED, "bold")
     txt(84.5, 24.5, str(len(c1_findings())), 19, CRED, "bold")
     txt(84.5, 17.0, "confirmed inconsistencies\nchange a printed result", 7, INK)
-    txt(84.5, 10.8, "among 100 findings", 7, INK2)
+    txt(84.5, 10.8, "among 100 findings;\nrecomputed by a metrologist", 7, INK2)
     for x0, x1 in ((30.0, 35.5), (64.5, 70.0)):
         ax.add_patch(FancyArrowPatch((x0, 22.5), (x1, 22.5), arrowstyle="-|>", mutation_scale=10, linewidth=1.3,
                                      color=NAVY))
-    txt(50, 3.0, "Open source: GUM, Monte Carlo, top-down, proficiency testing, conformity, consensus", 7, GREEN,
+    txt(50, 3.0, "Open source: GUM, Monte Carlo, top-down, proficiency testing, conformity, calibration", 7, GREEN,
         "bold")
     fig.savefig(OUT / "graphical_abstract.pdf")
     fig.savefig(OUT / "graphical_abstract.png", dpi=600)
@@ -424,9 +424,24 @@ def tables():
     def section(title):
         return md.split(f"## {title}")[1].split("\n## ")[0].strip()
 
+    names = {"model": "measurement model (GUM, Monte Carlo)", "topdown": "top-down evaluation",
+             "control_chart": "control chart", "conformity": "conformity assessment",
+             "multivariate": "several output quantities", "proficiency": "proficiency testing",
+             "consensus": "consensus value", "error_function": "error of indication of a weighing instrument",
+             "calibration": "calibration function", "sampling": "uncertainty from sampling",
+             "precision_experiment": "precision experiment",
+             "model + conformity": "measurement model with conformity assessment",
+             "multicomponent_conformity": "conformity of a multicomponent item"}
+    rows2 = [l for l in section("Projects by section").splitlines() if l.startswith("| ") and "Section" not in l]
+    t2 = ["| Evaluation type | Projects |", "|---|---:|"]
+    for l in rows2:
+        k, v = [x.strip() for x in l.strip("|").split("|")]
+        t2.append(f"| {names.get(k, k)} | {v} |")
     out = ["# Tables 2 and 3 of the article", "",
            "Generated by `tools/research/article_figures.py` from `numbers.md`; do not edit by hand.", "",
-           "**Table 2a.** Library projects by evaluation type.", "", section("Projects by section"), "",
+           "**Table 2a.** Library projects by evaluation type (the eleven types of Table 1; a measurement model with "
+           "a conformity assessment and the conformity of a multicomponent item are shown separately).", "",
+           "\n".join(t2), "",
            "**Table 2b.** Library projects by field.", "", section("Projects by field"), "",
            "**Table 3.** From sources to findings; each step defined.", "",
            section("From sources to findings"), ""]
@@ -438,5 +453,5 @@ if __name__ == "__main__":
     tables()
     fig1()
     fig2()
-    fig3()
+    # fig3() drew Figure 4 of the first draft (consensus procedures); that part was moved to a later paper (D110).
     graphical_abstract()

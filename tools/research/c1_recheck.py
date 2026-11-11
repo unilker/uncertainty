@@ -42,7 +42,7 @@ def findings():
     head = rows[0]
     out = [dict(zip(head, r)) for r in rows[1:]]
     out = [r for r in out if r["impact"] == "c1" and r["status"] != "open"]
-    assert len(out) == 12, len(out)  # F40 moved to class m in D108
+    assert len(out) == 11, len(out)  # F40 moved to class m (D108), F87 to c2 (D110)
     return out
 
 

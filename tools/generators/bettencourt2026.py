@@ -8,7 +8,7 @@ import json, math, statistics as st
 from pathlib import Path
 
 DOC = ("R. J. N. Bettencourt da Silva, User-friendly spreadsheet for implementing international guidance on the "
-       "evaluation of measurement uncertainty, Talanta (2026) 130826 (journal pre-proof)")
+       "evaluation of measurement uncertainty, Talanta 314 (2027) 130826")
 URL = "https://doi.org/10.1016/j.talanta.2026.130826"
 SECTION = "Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence"
 def T(en, tr): return {"en": en, "tr": tr}

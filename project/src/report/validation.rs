@@ -104,7 +104,7 @@ const V_EN: VLabels = VLabels {
     no_reference: "no reference values",
     error: "error",
     failures: "Values outside their tolerance",
-    note: "The column max ∣Δ∣/tol gives the largest ratio of the difference between computed and reference value to its tolerance in the file (≤ 1 passes). The tolerances reflect the rounding of the published values or, for Monte Carlo results, about five times the measured dispersion (research log D15).",
+    note: "The column max ∣Δ∣/tol gives the largest ratio of the difference between computed and reference value to its tolerance in the file (≤ 1 passes). The tolerances reflect the rounding of the published values; for Monte Carlo results they add about five times the dispersion of the result over seeds, so that the comparison holds for other seeds as well (research log D15, D110).",
     signature: "Checked by: ____________________   Date: ____________   Signature: ____________________",
 };
 
@@ -142,7 +142,7 @@ const V_TR: VLabels = VLabels {
     no_reference: "referans değer yok",
     error: "hata",
     failures: "Toleransı dışında kalan değerler",
-    note: "maks ∣Δ∣/tol sütunu, hesaplanan ile referans değer arasındaki farkın dosyadaki toleransa en büyük oranını verir (≤ 1 başarılıdır). Toleranslar yayımlanmış değerlerin yuvarlamasını veya Monte Carlo sonuçları için ölçülen saçılımın yaklaşık beş katını yansıtır (araştırma günlüğü D15).",
+    note: "maks ∣Δ∣/tol sütunu, hesaplanan ile referans değer arasındaki farkın dosyadaki toleransa en büyük oranını verir (≤ 1 başarılıdır). Toleranslar yayımlanmış değerlerin yuvarlamasını yansıtır; Monte Carlo sonuçlarında buna sonucun tohumlar arası saçılımının yaklaşık beş katı eklenir, böylece karşılaştırma başka tohumlarla da geçerlidir (araştırma günlüğü D15, D110).",
     signature: "Kontrol eden: ____________________   Tarih: ____________   İmza: ____________________",
 };
 
@@ -163,6 +163,10 @@ fn method_of(p: &Project) -> &'static str {
         "ISO 13528"
     } else if p.topdown.is_some() {
         "top-down"
+    } else if p.consensus.is_some() {
+        "consensus (NIST Consensus Builder)"
+    } else if p.multicomponent_conformity.is_some() {
+        "JCGM 106, multicomponent"
     } else if p.model.is_some() {
         if p.conformity.is_some() {
             "GUM/MCM + JCGM 106"

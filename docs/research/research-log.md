@@ -3901,3 +3901,58 @@ highlights and cover letters. The form and its evaluation stay outside the repos
 
 None of these changes a class or a count. The manuscript adds the Cochran remark to the paragraph on F40 (Section
 6.1).
+
+**D110. Revision after an internal review by three metrologists (2026-11-11).** Three reviewers (uncertainty methods;
+standards and accreditation; originality and suitability for the journal) read the submission package. Decisions of
+the author: one focused paper (the consensus, bound and guard-band discussion of former Section 7 is left for a later
+paper); the findings are reported to the issuing bodies after acceptance (D90 kept); the project files keep the
+numerical data of the examples; the recomputer's tools are stated as recorded (whether an AI assistant was used was
+not recorded). Changes:
+
+- *Counts and supplements.* The findings are partitioned by class and status (Table 5 of the manuscript). F87 moved
+  from c1 to c2: with the combined relative uncertainty rounded to 5 % as the example does, the printed U = 2.8 mg/kg
+  follows also from the correct root mean square, so a reasonable rounding path gives the printed result (the c1
+  criterion now requires that none does). F97 (BIPM qNMR budgets) gained an open c1 part for the combined uncertainty
+  of ISRD-01 Table 6 (3.96 against 4.10 × 10⁻⁴). Result: 30 class-c findings, 24 settled (11 c1, 8 c2, 4 m, 1 e),
+  6 open. F90: |Δy|/U 0.011, |ΔU|/U 0.038 (unrounded parameters); F58 recomputed 82.1 nm. S2 is regenerated with the
+  printed and recomputed values as text (trailing zeros kept), titles without working notes, and every status
+  defined; working notes were removed from the impact table (F28, F29, F79, F92).
+- *Sources.* Primary source of each project (`tools/research/sources.py`): 37 documents — 25 guidance documents and
+  standards (256 projects), 5 BIPM ISRD reports (9), 5 papers and a book (19), 1 unpublished procedure (2). S1 gives
+  the kind of source, the basis of the reference values (printed: 207 projects, 1239 values; printed with Monte Carlo
+  or MCMC estimates: 21, 149; partly or wholly independent recomputation: 58, 477) and the reference statement of
+  each project.
+- *Guard-band projects.* The reference values of the three TUR projects were Suncal's output (circular with the
+  Suncal comparison). They are now computed from the published guard-band formulas and the JCGM 106 risk integrals in
+  SciPy (`tools/research/conformity/tur_risks.py`); the values are identical, the reference statements changed.
+- *Monte Carlo tolerances.* `tools/research/mc_seeds.py` runs the 61 projects with Monte Carlo checks with ten other
+  seeds (2810 comparisons). First run: 20 outside tolerance from 7 values (GUM-5 E14 and E15, NUM §3 and §8,
+  TN 1900 E8, JCGM 102 9.4 correlations in two projects), whose tolerances had been set from the program's own seed;
+  in GUM-5 E14 the Monte Carlo mean differs from the printed GUM estimate by the nonlinearity of the model. Their
+  tolerances were reset to half a unit in the last digit plus five standard deviations over eleven seeds (generators
+  gum5.py, num.py, tn1900.py, jcgm102.py); second run: 0 outside, largest |Δ|/tolerance 0.98. The values with
+  |Δ| > 0.9 tolerance (74, 51 of them at half a unit) are listed in `docs/research/near-tolerance.md` (S3).
+- *Suncal comparison.* 171 comparisons of 166 projects (five EMUE E2.2 projects compared as models and as conformity
+  assessments); Δy/u shown as undefined where the first-order u is zero; the list of projects not compared completed
+  (multicomponent conformity, an acceptance-limit-only decision rule) and its duplicate merged; the probability of the
+  largest |z| (2.38, P = 0.75) is called a guide because many comparisons are variants of one model.
+- *Spreadsheet workbooks.* 3684 of the 4678 compared values are computed by spreadsheet formulas; 994 repeat an input
+  or a fixed factor (a cell that is a constant or a chain of bare references to one). Pipes in quantity names no
+  longer break the S7 table.
+- *Validation report.* Consensus projects are reported as "consensus (NIST Consensus Builder)" and the multicomponent
+  project as "JCGM 106, multicomponent" instead of "JCGM 106"; the note on tolerances states the seed rule.
+- *NICOB port.* The program's degrees of equivalence (10⁵ draws) vary between seeds by up to 0.8 % (PCB 28) and
+  0.44 % (⁶⁰Co) in U95 (relative standard deviation over 20 seeds); the differences from the port (1.7 % and 0.7 %)
+  are of that size.
+- *Manuscript.* Title "verified" instead of "validated"; related work (Greif and Schrepf 2013, TraCIM, GUM Workbench,
+  MUkit and ISO 11352, QUAM errata); former Section 7 removed with Figure 4; Sections 3 and 7 (former 8) shortened;
+  Section 5 as a table of comparisons with the interpretations corrected (the calibration differences do not follow
+  Γ; the Monte Carlo propagation lies closer to the full-Hessian values, about three standard errors from them);
+  Section 6.3 softened and its counts corrected (7 of 11 ¹H tables of six reports, nine of them in the library);
+  F79 presented as open; "pre-registered" removed; the ISO/IEC 17025 clauses corrected (7.11.6 added, 7.8.6 and the
+  proficiency-testing provider row corrected, ILAC G8, G17, ISO/IEC 17043, ISO 17034, ISO 33405 added); Appendix A
+  with the equations not stated in the guidance; a Conclusions section; references 65 → 83, all new ones checked
+  against Crossref or the publisher's page except the two software entries (GUM Workbench, MUkit) and the standards.
+- *Figures.* Figure 3a counts each finding once by its most severe class; Figure 3b axis in units of U; Figure 2
+  without the clipped column and chart; the AI sentence removed from the captions (it is in the declaration).
+- *Library.* Bettencourt da Silva (2026) cited as Talanta 314 (2027) 130826.

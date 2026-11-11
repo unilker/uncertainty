@@ -221,7 +221,7 @@
               "X"
             ],
             "value": -0.587,
-            "tolerance": 0.015
+            "tolerance": 0.035
           },
           {
             "between": [
@@ -229,7 +229,7 @@
               "Z"
             ],
             "value": -0.482,
-            "tolerance": 0.015
+            "tolerance": 0.045
           }
         ]
       }

@@ -338,31 +338,10 @@ recomputed by an independent script. The spreadsheet's own uncertainties differ 
 | loss x₁ = 0.01, r = 0.9 | 0.10 | 0.12 | 0.34 | 0.50 | 0.34 | 0.03 | 0.40 |
 | loss x₁ = 0.05, r = 0.9 | 0.48 | 0.23 | 5.0 | 4.9 | 1.0 | 0.77 | 0.97 |
 
-## Example library (project files)
+## Further examples (GUM-5, EMUE, IUPAC, consensus, qNMR and others)
 
-The GUM/MCM cases above are also stored as 38 self-checking project files (49 with the eleven NIST TN 1900 projects) in
-`library/` (see `library/README.md`), run by `project/tests/library.rs` and
-`kapsam check library` through the complete path a user takes (JSON →
-model → GUM/MCM → comparison → TR/EN reports). Reference-value policy: D15
-in the research log. EA-4/02 S13 in the library uses the raw observations
-(estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget.
-
-The top-down cases (Nordtest §3, §5.3, §6.1–6.3, §8 A–D; MUPR Ex. 2, 3, B1,
-B2, B4, B5, B6; QUAM A4, A6) are stored as 22 top-down project files that
-start from the raw data wherever the documents give them (duplicate pairs,
-control-chart results, replicate groups, PT rounds, the 22 PT results of B6).
-The two projects from Bettencourt da Silva (2026) start from the 20 mean
-recoveries of the spreadsheet (`"type": "given"`).
-Tolerances reflect the documents' printed rounding; where a guide computes
-from rounded intermediates the tolerance is widened and the reason stated in
-the file (MUPR B1 at 50 mg/L, B5 with t = 4.30; Nordtest §8 B, C).
-
-## Planned cases
-
-TN 1900 observation-equation examples (regression, random effects); TN 1900
-E5 (truncated Gaussian inputs); ISO/TS 28037 data sets (the GLS engine of ISO 6143 covers the method); MUPR Appendix C
-allowance as a project file; cross-checks against the NIST Uncertainty
-Machine (F29) and Suncal.
+| ID | Example | Published | Engine | Status |
+|---|---|---|---|---|
 | EUR-CA-B1–B3 | Eurachem/CITAC compliance guide 2021, Annex B Examples 1–3 and Table 1 | B1 16.2–17.8 % Ni, non-compliant; B2 204.1 ng/g, compliant; B3 3.6 (lognormal) / 3.2 (normal) ng/g; Table 1 51/149, 61/164, 18/182, 44/227 | 16.164–17.836; 204.09; 3.557 / 3.151 (exact s_G 3.498); Table 1 with k = 1.6449 (227.6) | ✅ except F86 |
 | EMUE-E3.4 | EMUE E3.4, metals in soil (ISO 21748, ruggedness coefficients, zero-intercept calibration) | Tables E3.4.1–2; u′(Pb)² = 0.002 526; (27.8 ± 2.8) mg/kg; calibration u_rel 0.019 | same to rounding; RMS of u(δ̂)/x_ref 3.50 % (printed 3.3 %) → ± 2.9 | ✅ except F87 |
 | EMUE-E2.1 | EMUE E2.1, total risks of a four-component medication | R*_tot 0.0029, 0.0117, 0.0002; R_tot 0.0018 | 0.002 88, 0.011 72, 0.000 21; 0.001 80 (program), 0.001 82 (numpy) | ✅ |
@@ -385,12 +364,20 @@ Machine (F29) and Suncal.
 | PM22-WB | Possolo & Meija 2022, Wheatstone bridge | 957 Ω, u ≈ 7 Ω; E 52 %, F 48 %, G 0.6 %, H 0.004 % | 957.2, 6.98; same shares | ✅ |
 | PM22-PB | Possolo & Meija 2022, atomic weight of lead in HIPB-1 (4 amount fractions and A_r) | u(x) 6, 37, 19, 45 × 10⁻⁶; r −0.02, +0.13, +0.18, −0.17, −0.90, −0.58; A_r 207.1791, U95 0.0002 | same u(x); r −0.011, 0.124, 0.177, −0.179, −0.895, −0.576; 207.17915, U95 0.000 17 | ✅ except F96 |
 | BIPM-ISRD-qNMR | BIPM ISRD-01, -02, -06, -07, -08: nine ¹H qNMR purity budgets | w_A and u_c of each table (e.g. ISRD-01 T4 0.9973, 7.30 × 10⁻⁴) | same w_A to rounding; u_c within 1 % except ISRD-01 T6 (4.10 vs 3.96 × 10⁻⁴) | ✅ except F97 |
-| PB18-CR | Possolo & Bodnar 2018 §4.4, chromium in soil (ISO Guide 35 C.1 data), ANOVA and hierarchical Bayes | REML 121.62 (0.95), τ 3.93, σ 2.87 mg/kg; MCMC 121.62 (1) mg/kg | 121.624; s_bb 3.930, s_r 2.874; Bayes grid 121.624 (0.9986) | ✅ |
+| PB18-CR | Possolo & Bodnar 2018 §4.4, chromium in soil (data of ISO Guide 35:2017 C.1, now ISO 33405:2024), ANOVA and hierarchical Bayes | REML 121.62 (0.95), τ 3.93, σ 2.87 mg/kg; MCMC 121.62 (1) mg/kg | 121.624; s_bb 3.930, s_r 2.874; Bayes grid 121.624 (0.9986) | ✅ |
 | MERKATAS19-G | Merkatas et al. 2019 Table 4, G from 16 results: DL (Knapp–Hartung), ML, NICOB Bayes, Linear Pool | DL 6.673 99 (0.000 25), τ 0.000 56; ML 6.673 90 (0.000 25); BG 6.673 89 (0.000 27); LOP 6.673 77 (0.001 17) | 6.673 993 (0.000 250), 0.000 556; 6.673 900 (0.000 252); 6.673 896 (0.000 271); 6.673 773 (0.001 168) | ✅ |
 | UME-PROC-19 | TÜBİTAK UME draft procedure, Examples 19.1 (DMM 10 V) and 19.2 (qNMR purity, illustrative) | 19.1 u_c 35.1 µV, ν_eff ≈ 4000, U 70.2 µV; 19.2 995.0 mg/g, u_c 1.567, ν_eff 121, U 3.13 mg/g | 35.09, 3965, 70.19; 995.00, 1.5669, 121.5, 3.134 | ✅ |
-| TUR-GB | TUR guard bands (Dobbert 2.5, RSS 1.5, RP-10 2.0) with a 95 % in-tolerance normal process | Suncal 1.7.1: GBF 0.914 186, 0.745 356, 0.75; PFA 0.6883 %, 0.5679 %, 0.3213 %; PFR 5.216 %, 17.70 %, 14.00 % | same to 2 × 10⁻⁶ | ✅ |
+| TUR-GB | TUR guard bands (Dobbert 2.5, RSS 1.5, RP-10 2.0) with a 95 % in-tolerance normal process | published formulas and JCGM 106 9.5 integrals in SciPy (D110; Suncal 1.7.1 agrees): GBF 0.914 186, 0.745 356, 0.75; PFA 0.6883 %, 0.5679 %, 0.3213 %; PFR 5.216 %, 17.70 %, 14.00 % | same to 2 × 10⁻⁶ | ✅ |
 | CG18-H3.4 | EURAMET cg-18 H3.4/A and /B, 30 t weighbridge in use (substitution loads, drift, ΔT = 40 K) | α² 62.133 / 25.333 kg²; β² 1.276 × 10⁻⁶ / 1.960 × 10⁻⁷; U = 16 kg + 1.79 × 10⁻³ R / 10.067 kg + 6.113 × 10⁻⁴ R; R_min 2169 / 1123 kg | 62.133 / 25.333; 1.276 × 10⁻⁶ / 1.967 × 10⁻⁷; 15.76 + 1.794 × 10⁻³ R / 10.066 + 6.128 × 10⁻⁴ R; 2169 / 1124 | ✅ except F98 |
 | KOEPKE17-CS | Koepke et al. 2017 Tables 3–4, half-life of ¹³⁷Cs (19 results) | DL 30.04 (0.04) a; LP 29.94 (0.93) a | 30.037 (0.045) a; 29.94 (0.93) a | ✅ |
 | KOEPKE17-SR | Koepke et al. 2017 Tables 3–4, half-life of ⁹⁰Sr (11 results) | DL 28.73 (0.11) a; LP 28.68 (0.77) a | 28.730 (0.110) a; 28.69 (0.77) a | ✅ |
 | NICOB-CO60 | NIST Consensus Builder manual §4.4, ⁶⁰Co, 19 laboratories: DL bootstrap, Linear Pool, Bayes; leave-one-out and bilateral DoE of DL, LP and Bayes (numpy port of the NICOB source, 10⁶ draws) | DL 7062, u 4, (7053, 7071) kBq; LP 7064, 29, (7012, 7127); Bayes 7062, 5, (7053, 7072); DoE: D exact (LP: within the MC error of the pool mean), U95 from the port | 7062.06, 4.33, (7053.4, 7070.7); 7063.8, 29.2, (7012.6, 7127.2); 7062.03, 4.59, (7053.1, 7071.4); U95 within 1.3 %; significant pairs as the port | ✅ |
 | NICOB-PCB28 | NIST Consensus Builder manual §4.2, PCB 28, 6 laboratories with ν (one ν = 2) | DL 33.6, u 0.77, (32.0, 35.2) ng/g; LP 33.6, 1.55, (31.4, 36.3) | 33.600, 0.751, (32.06, 35.15); 33.64, 1.51, (31.44, 36.28); DoE U95 within 1.7 % of the port | ✅ except F99 |
+
+## Example library (project files)
+
+All cases of this matrix are stored as self-checking project files in `library/` (286 projects; supplementary material S1), run by `project/tests/library.rs` and `kapsam check library` through the complete path a user takes (JSON → evaluation → comparison → TR/EN reports). Reference-value policy: D15 and D110 in the research log. EA-4/02 S13 in the library uses the raw observations (estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget. The 39 top-down projects start from the raw data wherever the documents give them (duplicate pairs, control-chart results, replicate groups, PT results); the two projects from Bettencourt da Silva (2026) start from the 20 mean recoveries of the spreadsheet (`"type": "given"`). Tolerances reflect the documents' printed rounding; where a guide computes from rounded intermediates the tolerance is widened and the reason stated in the file.
+
+## Not yet covered
+
+TN 1900 observation-equation examples (regression, random effects); TN 1900 E5 (truncated Gaussian inputs); the data sets of ISO/TS 28037 (the generalised least-squares engine of ISO 6143 covers the method); the allowance of MUPR Appendix C as a project file.

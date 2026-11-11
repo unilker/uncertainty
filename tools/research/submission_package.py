@@ -13,7 +13,7 @@ writes into OUT_DIR:
   continuous line numbers, page numbers, variables in italics, the figure captions also listed at the end, without
   the author's name, affiliation, repository link, DOI of the archived release, acknowledgements, CRediT, funding and
   competing-interest sections, and without document metadata;
-* figures/Figure_1-4 (vector PDF; Figure 2 a TIFF screenshot) and Graphical_abstract (PDF, TIFF);
+* figures/Figure_1-3 (vector PDF; Figure 2 a TIFF screenshot) and Graphical_abstract (PDF, TIFF);
 * highlights.docx;
 * cover-letter.docx (to the editor; not anonymized);
 * supplementary/S1-S7, anonymized;
@@ -77,7 +77,7 @@ IDENT = re.compile(r"TÜBİTAK|\bUME\b|ume-procedure|İlker|\bÜn\b|unilker|zeno
 OPEN = [r"\[Zenodo DOI[^\]]*\]", r"\[release tag[^\]]*\]", r"\[To be [^\]]*\]", r"\[Suggested reviewers[^\]]*\]",
         r"\(planned\)", r"is planned before\s+submission", r"\[verify[^\]]*\]", r"\[to be (?:added|confirmed)[^\]]*\]",
         r"\[confirm[^\]]*\]", r"\[e-mail[^\]]*\]", r"\[choose[^\]]*\]"]
-FIGURES = ["fig1_architecture", "fig2_application", "fig3_findings_by_document", "fig4_procedures"]
+FIGURES = ["fig1_architecture", "fig2_application", "fig3_findings_by_document"]
 
 
 def anon(text):
@@ -105,7 +105,7 @@ def clear_metadata(path, title):
 def manuscript(out, commit):
     title, md = article_docx.assemble("en", commit)
     paras = md.split("\n\n")
-    paras = [p for p in paras if not p.strip().startswith(("*Review copy", "*Second draft", "*Before submission"))
+    paras = [p for p in paras if not p.strip().startswith(("*Review copy", "*Second draft", "*Third draft", "*Before submission"))
              and not p.strip().startswith("İlker Ün —")]
     md = "\n\n".join(paras)
     parts = {}
@@ -113,7 +113,7 @@ def manuscript(out, commit):
         parts[h], md = section(md, h)
     md = anon(md)
     cap = article_docx.CAPTIONS["en"]
-    md += "\n\n## Figure captions\n\n" + "\n\n".join(cap[k] for k in ("fig1", "fig2", "fig3", "fig4")) + "\n"
+    md += "\n\n## Figure captions\n\n" + "\n\n".join(cap[k] for k in ("fig1", "fig2", "fig3")) + "\n"
     with tempfile.TemporaryDirectory() as tmp:
         ref = Path(tmp) / "ref.docx"
         article_docx.reference_docx(ref, "en")
@@ -190,6 +190,14 @@ def highlights(out):
     return items
 
 
+def s3_markdown():
+    """S3: the validation matrix, the values close to their tolerance and the Monte Carlo results under other seeds."""
+    parts = [Path(f).read_text(encoding="utf-8") for f in ("docs/research/validation-matrix.md",
+                                                            "docs/research/near-tolerance.md",
+                                                            "docs/research/mc-seeds.md")]
+    return parts[0] + "\n\n" + "\n\n".join(p.replace("\n## ", "\n### ").replace("# ", "## ", 1) for p in parts[1:])
+
+
 def supplementary(out):
     d = out / "supplementary"
     d.mkdir()
@@ -206,7 +214,7 @@ def supplementary(out):
         wb.save(d / name)
     shutil.copy(src / "S7_workbook_quam_a1.xlsx", d / "S7_workbook_quam_a1.xlsx")
     mc = Path("docs/research/calibration-mc.md").read_text(encoding="utf-8").replace("\n## ", "\n### ")
-    jobs = [("S3_validation_matrix.pdf", Path("docs/research/validation-matrix.md").read_text(encoding="utf-8"),
+    jobs = [("S3_validation_matrix.pdf", s3_markdown(),
              "KAPSAM — Supplementary material S3: validation matrix", True, False),
             ("S4_suncal_benchmark.pdf",
              Path("docs/research/benchmark-suncal.md").read_text(encoding="utf-8") + "\n\n#" + mc,
@@ -291,7 +299,7 @@ def main():
         ("No identifying information in the manuscript and supplementary material", not leaks,
          "scan below" if leaks else "no match"),
         ("Word file, single column, no underline or strikethrough", True, "pandoc reference document"),
-        ("Figures as separate files, logical names, captions with a brief title", True, "figures/Figure_1-4"),
+        ("Figures as separate files, logical names, captions with a brief title", True, "figures/Figure_1-3"),
         ("Declaration of generative AI immediately before the references", md.index("## Declaration of generative AI")
          < md.index("## References"), "section present"),
     ]
