@@ -211,8 +211,8 @@ duyarlıkta yapılır; değerler yalnızca raporlanan ifadede yuvarlanır.
 
 Yazılımın kalite güvencesi: biri 286 kütüphane projesinin tamamını değerlendiren 222 motor testi ve uygulamanın 28
 testi, kaynak kodun her değişikliğinde bir biçim denetimi, her uyarıyı hata sayan bir statik analiz ve elektronik
-tablo doğrulama dosyalarının LibreOffice Calc 24.2'de [67] yeniden hesaplanmasıyla birlikte çalışır (sürekli
-tümleştirme). Beş platformun paketleri aynı commit'ten derlenir. Her rapor program sürümünü, derlendiği git
+tablo doğrulama dosyalarının LibreOffice Calc'ta [67] yeniden hesaplanmasıyla birlikte çalışır (sürekli
+tümleştirme; sürüm, tümleştirme sunucusunun işletim sistemininkidir: yazım sırasında 26.2, ek malzeme için 24.2). Beş platformun paketleri aynı commit'ten derlenir. Her rapor program sürümünü, derlendiği git
 commit'ini ve tarihini, derleyiciyi ve değerlendirilen projenin SHA-256 özetini verir (ISO/IEC 17025 7.5, 7.11).
 Kaynak kod, kütüphane projelerinin üreteçleri, yeniden hesap betikleri ve elektronik tablo dosyalarının formülleri,
 yöntemleri ve belgeleri seçen, referans değerlerini ve toleransları belirleyen ve sonuçları gözden geçiren yazarın

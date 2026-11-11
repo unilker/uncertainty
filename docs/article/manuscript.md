@@ -210,7 +210,8 @@ distribution. All calculations are done in double precision; values are rounded 
 Quality assurance of the software: 222 automated tests of the engine, including one that evaluates all 286 library
 projects, and 28 tests of the application run at every change of the source code (continuous integration), together
 with a formatting check, a static analysis that treats every warning as an error and the recalculation of the
-spreadsheet verification workbooks in LibreOffice Calc 24.2 [67]. The packages for the five platforms are built from
+spreadsheet verification workbooks in LibreOffice Calc [67] (the version of the integration server's operating
+system, 26.2 at the time of writing; 24.2 for the supplementary material). The packages for the five platforms are built from
 the same commit. Every report states the program version, the git commit and date it was built from, the compiler and
 the SHA-256 digest of the project as evaluated (ISO/IEC 17025 7.5, 7.11). The source code, the generators of the
 library projects, the scripts of the recomputations and the formulas of the spreadsheet workbooks were written with an
