@@ -3809,3 +3809,23 @@ marked every printed value as reproduced. The form does not settle the findings 
 Not counted as an independent check; the manuscript keeps "planned". A second-round form (`--round2`) names for each
 finding the data to start from (raw data, equations, components) instead of the printed totals, without showing the
 program's values, and asks for the intermediate steps.
+
+**D107. Second round of the c1 recomputation; every finding rechecked from the documents (2026-11-11).** The second
+form (starting data named) again marks all 13 printed values as reproduced, mostly without intermediate numbers. Each
+finding was rechecked from the documents' own printed numbers, without the program:
+
+- From the documents themselves (downloaded 2026-11-11): TN 1900 E4 states v = √(2ΔR_sT/p) with the inputs → 57.48 m/s
+  (F28); GUM-5 1.9.1 itself computes pH_X = 7.0043 by the third interpolation and then prints 7.0109 (F78); GUM-5
+  15.3.1 and Table 15.1 → independent numpy Monte Carlo 9.930 kN, 10.14 kN only with scale s = 1.75 kN (F77); GUM-5
+  Table 4.6 with its correlation matrix and the sum-to-one constraint → u(CO₂) ≈ 4.1, and the printed r(CO₂, N₂) = −0.86
+  is consistent only with ≈ 4.1 (F82); EA-4/02 M:2022 S13.9 lists the five observations (mean 49.999 536 mm, the text
+  itself says 49.999 54) while the budget S13.10 uses 49.999 55 → d_X = 90.000 23 mm (F21).
+- Arithmetic of printed components: F39 √(2.4² + 5.0² + 3.0²) = 6.31 %; F56 unrounded 0.1528 mg → U = 0.3055 → 0.31
+  (0.150 only with the drift limit divided by 2); F57 formula E5 → 0.0170 dB; F58 2 × 40.7 = 81.4 and the model gives
+  41.0 nm → 82 nm; F87 RMS 3.49 % (mean 3.27 %) → U = 2.87 mg/kg; F90 the form's own 4.47 nmol/mol.
+- F40: ISO 5725-3:2023 states "If the difference is negative, set the estimate = 0"; the printed s_R keeps the negative
+  component that the same table sets to zero for s_I(T). F42: the form's 0.013283 follows from the parameter
+  uncertainties the standard itself calls incorrect, as the finding says.
+
+All 13 stand. The form is not counted as an independent recomputation; in four rows its own arithmetic does not give
+the printed value. Evaluation for the author: `c1_ikinci_tur_degerlendirme.docx` (not in the repository).
