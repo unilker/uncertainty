@@ -183,7 +183,7 @@ def models(skipped):
         if yo is None or uo is None:
             skipped.append((p["metadata"]["id"], "Monte Carlo only"))
             continue
-        r = {"id": p["metadata"]["id"], "features": features, "y": yo, "dy": (yo - ys) / us if us else 0.0, "u": uo,
+        r = {"id": p["metadata"]["id"], "features": features, "y": yo, "dy": (yo - ys) / us if us else 0.0, "dy_abs": abs(yo - ys), "u": uo,
              "du": uo / us - 1 if us else 0.0}
         mo = out.get("mcm")
         if ms is not None and mo is not None:
@@ -321,8 +321,20 @@ def conformity(skipped):
     for f in sorted(glob.glob("library/*/*.json")):
         p = json.load(open(f, encoding="utf-8"))
         c = p.get("conformity")
+        if p.get("multicomponent_conformity"):
+            skipped.append((p["metadata"]["id"], "multicomponent conformity (no counterpart in Suncal)"))
         if not c:
             continue
+        before, nskip = len(rows), len(skipped)
+        conformity_one(p, f, c, rows, skipped)
+        if len(rows) == before and len(skipped) == nskip:
+            skipped.append((p["metadata"]["id"], "decision rule without a conformance probability or global risk "
+                                                  "to compare (acceptance limit only)"))
+    return rows
+
+
+def conformity_one(p, f, c, rows, skipped):
+    if True:
         out = run(f)["conformity"]
         lo = out["tolerance"]["lower"]
         hi = out["tolerance"]["upper"]
@@ -342,7 +354,7 @@ def conformity(skipped):
         if gl and proc:
             if c.get("u") is None:
                 skipped.append((pid, "global risks: uncertainty relative to the value"))
-                continue
+                return
             if proc["distribution"] == "normal":
                 dp = stats.norm(proc["mean"], proc["sd"])
             elif proc["distribution"] == "gamma":
@@ -350,7 +362,7 @@ def conformity(skipped):
                 dp = stats.gamma(shape, scale=scale)
             else:
                 skipped.append((pid, f"global risks: {proc['distribution']} process"))
-                continue
+                return
             acc = out["acceptance"]
             gbl = 0.0 if acc["lower"] is None else acc["lower"] - lo_
             gbu = 0.0 if acc["upper"] is None else hi_ - acc["upper"]
@@ -366,9 +378,12 @@ def main():
     vrows = multivariate(skipped)
     crows = calibration(skipped)
     krows = conformity(skipped)
-    n_projects = len(mrows) + len(vrows) + len(crows) + len({r["id"] for r in krows})
-    print(f"Suncal {suncal.__version__}; {n_projects} projects compared ({len(mrows)} measurement models, {len(vrows)} "
-          f"multivariate models, {len(crows)} calibrations, {len({r['id'] for r in krows})} conformity assessments).\n")
+    ids = [r["id"] for r in mrows] + [r["id"] for r in vrows] + [r["id"] for r in crows] + sorted({r["id"] for r in krows})
+    both = sorted({r["id"] for r in mrows} & {r["id"] for r in krows})
+    print(f"Suncal {suncal.__version__}; {len(ids)} comparisons of {len(set(ids))} projects ({len(mrows)} measurement models, "
+          f"{len(vrows)} multivariate models, {len(crows)} calibrations, {len({r['id'] for r in krows})} conformity "
+          f"assessments; {len(both)} projects are compared both as a model and as a conformity assessment: "
+          f"{', '.join(both)}).\n")
 
     print("## 1. Measurement models\n")
     print("| Project | features | estimate | Δy/u | u (first order) | u/u_Suncal − 1 | MCM s.d./Suncal MC − 1 | z |")
@@ -376,7 +391,8 @@ def main():
     for r in mrows:
         mc = "—" if r.get("mc") is None else f"{r['mc']:+.2e}"
         z = "—" if r.get("z") is None else f"{r['z']:+.1f}"
-        print(f"| {r['id']} | {', '.join(r['features']) or '—'} | {r['y']:.6g} | {r['dy']:+.1e} | {r['u']:.4g} | "
+        dy = "— (u = 0)" if r["u"] == 0 and r["dy_abs"] else f"{r['dy']:+.1e}"
+        print(f"| {r['id']} | {', '.join(r['features']) or '—'} | {r['y']:.6g} | {dy} | {r['u']:.4g} | "
               f"{r['du']:+.1e} | {mc} | {z} |")
     du = [abs(r["du"]) for r in mrows]
     zs = [abs(r["z"]) for r in mrows if r.get("z") is not None]
@@ -422,14 +438,21 @@ def main():
 
     if zs:
         phi = 0.5 * math.erfc(max(zs) / math.sqrt(2))
-        print(f"\nMonte Carlo, all sections: {len(zs)} comparisons, max |z| = {max(zs):.1f}; "
-              f"P(max |z| ≥ {max(zs):.1f} among {len(zs)} independent N(0, 1)) = {1 - (1 - 2 * phi) ** len(zs):.2f}")
+        print(f"\nMonte Carlo, all sections: {len(zs)} comparisons, max |z| = {max(zs):.2f}; "
+              f"P(max |z| ≥ {max(zs):.2f} among {len(zs)} independent N(0, 1)) = {1 - (1 - 2 * phi) ** len(zs):.2f}. "
+              "Several comparisons are variants of the same model, so they are not all independent; the probability "
+              "is a guide, not a test.")
 
     print("\n## Not compared\n")
     print("| Project | reason |")
     print("|---|---|")
+    merged = {}
     for pid, why in skipped:
-        print(f"| {pid} | {why} |")
+        merged.setdefault(pid, [])
+        if why not in merged[pid]:
+            merged[pid].append(why)
+    for pid, whys in merged.items():
+        print(f"| {pid} | {'; '.join(whys)} |")
 
 
 if __name__ == "__main__":

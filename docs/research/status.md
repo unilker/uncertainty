@@ -1,6 +1,6 @@
 # Durum ve sonraki adımlar / Status and next steps
 
-Son güncelleme: **2026-11-10**. Bu dosya çalışmaya ara verildiğinde nerede
+Son güncelleme: **2026-11-11** (iç inceleme revizyonu, D110). Bu dosya çalışmaya ara verildiğinde nerede
 kalındığını ve sırada ne olduğunu kaydeder.
 
 - Ayrıntılı gerekçeler araştırma günlüğündedir: kararlar D…, bulgular F….
@@ -15,27 +15,26 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | Bağımsız denetimler | Suncal 1.7.1 ile **171** proje (D93); **189** elektronik tablo doğrulama dosyası, 4678 değer, LibreOffice'te CI'da (D94); kalibrasyon uydurması boyunca Monte Carlo, 8 proje × 10⁶ (D97) |
 | Testler | **218** Rust testi, **28** Flutter testi; CI yeşil |
 | Rehber | *Uncertainty from scratch* / *Sıfırdan belirsizlik* (TR/EN), 123 ders, 286 örneğin açıklaması |
-| Araştırma günlüğü | kararlar D1–D99, bulgular F1–F100 (13 doğrulanmış c1) |
-| Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 6 tablo, 4 şekil, 59 kaynak (10'u *Measurement*); ek malzeme S1–S7; editöre mektup |
-| Dal | `claude/sleepy-hypatia-1522g6`; `main`'e birleştirme PR'ı: unilker/uncertainty#11 |
+| Araştırma günlüğü | kararlar D1–D111, bulgular F1–F100 (11 doğrulanmış c1; F40 m, F87 c2 sınıfına alındı) |
+| Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 8 tablo, 3 şekil, Ek A, 83 kaynak (10'u *Measurement*); ek malzeme S1–S7; editöre mektup |
+| Dal | `claude/sleepy-hypatia-1522g6`; PR unilker/uncertainty#11 birleştirildi; sürüm v0.1.0 |
 
 ## 1a. Makale gönderimi: kalanlar (2026-11-10)
 
 **Yazarın yapacakları (gönderimden önce):**
 
-1. Kodu görmemiş bir metroloğun en az 10 c1 bulgusunu yeniden hesaplaması; sonra Bölüm 9 ve Tablo 6'daki
-   "planned" ifadeleri sonuca göre değiştirilecek.
-2. Tablo 4'ün 13 satırını belgelerin güncel baskıları ve erratalarıyla karşılaştırmak (sonra Tablo 4 altındaki not
-   kalkar; gönderim paketi notu zaten çıkarır).
+1. ~~Kodu görmemiş bir metroloğun c1 bulgularını yeniden hesaplaması~~ tamam (D108): 13 bulgunun 12'si bağımsız olarak
+   doğrulandı, F40 m sınıfına alındı; Bölüm 9, Tablo 4 ve Tablo 6 güncellendi.
+2. Tablo 4'ün 12 satırını belgelerin yayımlanmış erratalarıyla karşılaştırmak (yeniden hesap güncel baskılarla
+   yapıldı; erratalar ayrıca bakılmadı).
 3. Finansman ve çıkar çatışması beyanı; önerilen hakemler (editöre mektup); yazışma adresi ve e-posta (gönderim
    paketindeki kapak sayfası yer tutucusu).
-4. Zenodo'da GitHub deposunu etkinleştirmek (Zenodo → GitHub → depo anahtarı).
+4. ~~Zenodo'da GitHub deposunu etkinleştirmek~~ tamam.
 
 **Sonra (asistanla):**
 
-5. PR #11 birleştirilince `main` üzerinde `v0.1.0` etiketi; Package iş akışı sürümü paketlerle yayımlar
-   (`docs/release/v0.1.0.md`), Zenodo DOI verir; DOI makaleye (Bölüm 10, Veri erişilebilirliği), editöre mektuba ve
-   `CITATION.cff`'ye yazılır.
+5. ~~Sürüm v0.1.0 ve DOI~~ tamam (D100): 10.5281/zenodo.24118312 (sürüm), 10.5281/zenodo.24118311 (tüm sürümler);
+   makalede kaynak [60].
 6. Gönderim paketi: `python3 tools/research/submission_package.py OUT` (çift aralık ve satır numaralı makale,
    ayrı şekiller, highlights, mektup, S1–S7, açık kalanların listesi `CHECKLIST.md`).
 

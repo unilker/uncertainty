@@ -14,10 +14,19 @@ def project(folder, name, title, desc, expl, sec, tags, notes, body, analysis, e
          "metadata": {"id": pid, "title": title, "description": desc, "explanation": expl, "field": folder,
                       "sources": [{"document": DOC, "section": sec, "url": URL}], "tags": ["jcgm102", "multivariate"] + tags}}
     if notes: p["metadata"]["notes"] = notes
+    if name in EXTRA_SOURCES: p["metadata"]["sources"].append(EXTRA_SOURCES[name])
     p["multivariate"] = body
     p["analysis"] = analysis
     p["expected"] = {"multivariate": expected, "reference": ref}
     Path(f"library/{folder}/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n")
+
+# The same examples are reworked in GUM-5 (Example 13); the second source is kept with the project.
+GUM5 = "JCGM GUM-5:2026, Guide to the expression of uncertainty in measurement — Part 5: Examples"
+EXTRA_SOURCES = {
+    "9.5.2-resistance-thermometer": {"document": GUM5, "section": "Example 13, 13.2", "url": "https://doi.org/10.59161/YNLY8209"},
+    "9.5.3-ten-temperatures": {"document": GUM5, "section": "Example 13, 13.3, Tables 13.4 and 13.5",
+                               "url": "https://doi.org/10.59161/YNLY8209"},
+}
 
 def gum_mcm(trials=1_000_000, seed=1):
     return {"gum": {"coverage_probability": 0.95}, "mcm": {"trials": trials, "seed": seed, "validation_ndig": 2}}
@@ -121,7 +130,7 @@ imp_note = [T("With ν = 3 the multivariate t-distribution has no fourth moment,
               "Tablo 8, 6. takımı φ = 1,0445 rad olarak, yani 1–5. takımların yuvarlanmış ortalaması (1,04446) olarak basar. Yuvarlanmış değerle R'nin tahmini basılı 127,732 Ω yerine 127,7307 Ω olur; proje Tablo 9'daki değer olan 1,04446 rad'ı kullanır (araştırma günlüğü F51).")]
 mcm_imp = {"estimate": {"R": chk(127.732, 0.002), "X": chk(219.847, 0.004), "Z": chk(254.260, 0.004)},
            "standard_uncertainty": {"R": chk(0.130, 0.007), "X": chk(0.536, 0.012), "Z": chk(0.429, 0.008)},
-           "correlations": [{"between": ["R", "X"], "value": -0.587, "tolerance": 0.015}, {"between": ["R", "Z"], "value": -0.482, "tolerance": 0.015}]}
+           "correlations": [{"between": ["R", "X"], "value": -0.587, "tolerance": 0.035}, {"between": ["R", "Z"], "value": -0.482, "tolerance": 0.045}]}
 for kind, name, row, us in (("mean", "", "GUF", (0.058, 0.241, 0.193)), ("t", "-alternative", "Alt. GUF", (0.130, 0.540, 0.431))):
     ge = {"estimate": {"R": chk(127.732, 0.0005), "X": chk(219.847, 0.0005), "Z": chk(254.260, 0.0005)},
           "standard_uncertainty": {"R": chk(us[0], 0.0005), "X": chk(us[1], 0.0005), "Z": chk(us[2], 0.0005)},

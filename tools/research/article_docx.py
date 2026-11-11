@@ -21,38 +21,48 @@ FIG = ART / "figures"
 
 CAPTIONS = {
     "en": {
-        "fig1": "Figure 1. Architecture of the program: generators write the project files of the library from the numerical "
-                "data of their sources; one engine evaluates them for the command-line tool, the application and the tests.",
+        "fig1": "Figure 1. Architecture and verification of KAPSAM. Generators write the 286 project files of the library "
+                "from the numerical data of their sources (37 documents, 25 of them guidance documents and standards); one "
+                "engine, with the evaluation types and the documents they implement, serves the command-line tool, the "
+                "application and the reports. The results are compared with the reference values and recalculated by "
+                "spreadsheet formulas at every change of the code, and were compared with Suncal and with a Monte Carlo "
+                "propagation through the calibration fits for this release.",
         "fig2": "Figure 2. Results of a measurement model in the application (Eurachem QUAM Example A1, preparation of a "
-                "cadmium calibration standard): reported statement, GUM result, uncertainty budget and contributions to the "
-                "combined variance.",
-        "fig3": "Figure 3. Findings per source document by class (a: intermediate rounding, b: misprint without "
-                "effect, c: inconsistency, n: no discrepancy); documents with fewer than three findings are combined, "
-                "and a finding with two classes counts in both.",
-        "fig4": "Figure 4. (a) Consensus value of the Newtonian constant of gravitation by procedure (16 results, "
-                "Merkatas et al. [52]), 95 % intervals. (b) Leave-one-out degrees of equivalence of the ⁶⁰Co activity "
-                "comparison of the NICOB manual [23] by procedure, with the number of significant bilateral pairs.",
-        "table2a": "**Table 2a.** Library projects by evaluation type.",
+                "cadmium calibration standard): reported statement, GUM result and uncertainty budget. The table gives "
+                "the coverage probability of k = 2 for a normal distribution (95.45 %) and U unrounded; the statement "
+                "uses the conventional wording and U rounded by the rule it names. The budget has further columns (the "
+                "Kragten contributions) to the right, and the contributions to the variance are drawn below it.",
+        "fig3": "Figure 3. Findings in the worked examples. (a) The 100 findings per source document, each counted once, "
+                "by its most severe class; the confirmed findings that change a final printed result (c1) are counted "
+                "at the left. Documents with fewer than three findings and no c1 finding are combined. (b) Effect of "
+                "each of the 11 c1 findings, in units of the printed expanded uncertainty: change of the estimate "
+                "|Δy|/U and of the uncertainty |ΔU|/U.",
+        "table2a": "**Table 2a.** Library projects by evaluation type (the eleven types of Table 1; a measurement model "
+                   "with a conformity assessment and the conformity of a multicomponent item are shown separately).",
         "table2b": "**Table 2b.** Library projects by field.",
         "table3": "**Table 3.** From sources to findings; each step defined.",
         "note": "Review copy generated on {date} from commit {commit} (`docs/article/manuscript.md`). Lines are "
                 "numbered for comments.",
     },
     "tr": {
-        "fig1": "Şekil 1. Programın mimarisi: üreteçler kütüphanenin proje dosyalarını kaynaklarının sayısal verilerinden "
-                "yazar; tek bir motor onları komut satırı aracı, uygulama ve testler için değerlendirir (şekildeki metin "
-                "İngilizcedir).",
+        "fig1": "Şekil 1. KAPSAM'ın mimarisi ve doğrulanması. Üreteçler kütüphanenin 286 proje dosyasını kaynaklarının "
+                "(25'i kılavuz belge ve standart olan 37 belge) sayısal verilerinden yazar; değerlendirme türleri ve "
+                "uyguladıkları belgelerle tek bir motor komut satırı aracına, uygulamaya ve raporlara hizmet eder. "
+                "Sonuçlar kodun her değişikliğinde referans değerlerle karşılaştırılır ve elektronik tablo formülleriyle "
+                "yeniden hesaplanır; bu sürüm için ayrıca Suncal ile ve kalibrasyon uydurmaları boyunca Monte Carlo "
+                "yayılımıyla karşılaştırılmıştır (şekildeki metin İngilizcedir).",
         "fig2": "Şekil 2. Uygulamada bir ölçüm modelinin sonuçları (Eurachem QUAM Örnek A1, kadmiyum kalibrasyon "
-                "standardının hazırlanması): raporlanan sonuç, GUM sonucu, belirsizlik bütçesi ve birleşik varyansa "
-                "katkılar (ekran İngilizce arayüzle alınmıştır).",
-        "fig3": "Şekil 3. Kaynak belge başına bulgular, sınıfa göre (a: ara yuvarlama, b: etkisiz baskı hatası, "
-                "c: tutarsızlık, n: tutarsızlık yok); üçten az bulgusu olan belgeler birleştirilmiştir ve iki sınıflı "
-                "bir bulgu her ikisinde de sayılır (şekildeki metin İngilizcedir).",
-        "fig4": "Şekil 4. (a) Newton kütle çekim sabitinin yönteme göre uzlaşı değeri (16 sonuç, Merkatas ve ark. "
-                "[52]), %95 aralıkları. (b) NICOB kılavuzundaki [23] ⁶⁰Co aktivite karşılaştırmasının yönteme göre "
-                "birini dışarıda bırakma eşdeğerlik dereceleri ve anlamlı ikili çiftlerin sayısı (şekildeki metin "
-                "İngilizcedir).",
-        "table2a": "**Tablo 2a.** Kütüphanedeki projeler, değerlendirme türüne göre.",
+                "standardının hazırlanması): raporlanan sonuç, GUM sonucu ve belirsizlik bütçesi. Tablo, normal dağılım "
+                "için k = 2'nin kapsama olasılığını (%95,45) ve yuvarlanmamış U'yu verir; sonuç ifadesi alışılmış "
+                "ifadeyi ve adını verdiği kuralla yuvarlanmış U'yu kullanır. Bütçenin sağında başka sütunlar (Kragten "
+                "katkıları), altında varyansa katkıların grafiği vardır (ekran İngilizce arayüzle alınmıştır).",
+        "fig3": "Şekil 3. Çözümlü örneklerdeki bulgular. (a) Kaynak belge başına 100 bulgu, her biri bir kez ve en ağır "
+                "sınıfıyla sayılmıştır; basılı bir nihai sonucu değiştiren doğrulanmış bulgular (c1) solda sayılmıştır. "
+                "Üçten az bulgusu olan ve c1 bulgusu olmayan belgeler birleştirilmiştir. (b) 11 c1 bulgusunun her "
+                "birinin basılı genişletilmiş belirsizlik birimiyle etkisi: kestirimdeki değişiklik |Δy|/U ve "
+                "belirsizlikteki değişiklik |ΔU|/U (şekildeki metin İngilizcedir).",
+        "table2a": "**Tablo 2a.** Kütüphanedeki projeler, değerlendirme türüne göre (Tablo 1'in on bir türü; uygunluk "
+                   "değerlendirmeli ölçüm modeli ve çok bileşenli ürünün uygunluğu ayrı gösterilmiştir).",
         "table2b": "**Tablo 2b.** Kütüphanedeki projeler, alana göre.",
         "table3": "**Tablo 3.** Kaynaklardan bulgulara; her adım tanımlanmıştır.",
         "note": "Gözden geçirme kopyası; {date} tarihinde {commit} commit'inden üretilmiştir "
@@ -62,11 +72,21 @@ CAPTIONS = {
 
 # Turkish cells of Tables 2 and 3 (the evaluation types are file-format names and stay as they are).
 TR_CELLS = {
-    "Section": "Tür", "Projects": "Proje", "Field": "Alan", "Step": "Adım", "Count": "Sayı", "Definition": "Tanım",
+    "Evaluation type": "Değerlendirme türü", "Projects": "Proje", "Field": "Alan", "Step": "Adım", "Count": "Sayı",
+    "Definition": "Tanım",
+    "measurement model (GUM, Monte Carlo)": "ölçüm modeli (GUM, Monte Carlo)", "top-down evaluation": "yukarıdan aşağı değerlendirme",
+    "control chart": "kontrol grafiği", "conformity assessment": "uygunluk değerlendirmesi",
+    "several output quantities": "birden çok çıktı büyüklüğü", "proficiency testing": "yeterlilik testi",
+    "consensus value": "uzlaşı değeri", "error of indication of a weighing instrument": "tartı aletinin gösterge hatası",
+    "calibration function": "kalibrasyon fonksiyonu", "uncertainty from sampling": "numune almadan kaynaklanan belirsizlik",
+    "precision experiment": "kesinlik deneyi",
+    "measurement model with conformity assessment": "uygunluk değerlendirmeli ölçüm modeli",
+    "conformity of a multicomponent item": "çok bileşenli ürünün uygunluğu",
     "chemistry": "kimya", "electrical": "elektrik", "mass": "kütle", "general": "genel", "physical": "fiziksel",
     "length": "uzunluk", "temperature": "sıcaklık", "flow": "akış", "pressure": "basınç",
-    "Source documents": "Kaynak belgeler",
-    "documents cited as the source of at least one project": "en az bir projenin kaynağı olarak gösterilen belgeler",
+    "Primary sources": "Birincil kaynaklar",
+    "the first source of each project: 25 guidance documents and standards, 5 BIPM reference data reports, 6 journal papers and books (one book), 1 unpublished procedure":
+        "her projenin ilk kaynağı: 25 kılavuz belge ve standart, 5 BIPM referans veri raporu, 6 dergi makalesi ve kitap (biri kitap), 1 yayımlanmamış prosedür",
     "project files in `library/`; one worked example may give several (variants)":
         "`library/` içindeki proje dosyaları; bir çözümlü örnek birden çok proje verebilir (türevler)",
     "Validation-matrix rows ✅": "Validasyon matrisi satırları ✅",
@@ -78,14 +98,15 @@ TR_CELLS = {
     "F1–F100 of the research log (a, b, c, n; a finding may cover several examples)":
         "araştırma günlüğünün F1–F100 bulguları (a, b, c, n; bir bulgu birden çok örneği kapsayabilir)",
     "Class-c findings": "c sınıfı bulgular",
-    "of which c1 confirmed 13 (table above)": "bunların 13'ü doğrulanmış c1 (Tablo 4)",
-    "Projects": "Projeler",
+    "24 settled (11 c1, 8 c2, 4 m, 1 e; Table 6 lists the c1 findings), 6 open":
+        "24'ü sonuçlandı (11 c1, 8 c2, 4 m, 1 e; c1 bulguları Tablo 6'dadır), 6'sı açık",
 }
 
 # Relative column widths (pandoc reads them from the dashes of the separator line).
 WIDTHS = {
     "| Project type |": [16, 64, 20], "| Proje türü |": [16, 64, 20],
-    "| F | Document |": [6, 16, 17, 10, 15, 36], "| F | Belge |": [6, 16, 17, 10, 15, 36],
+    "| F | Document |": [5, 13, 15, 9, 9, 9, 40], "| F | Belge |": [5, 13, 15, 9, 9, 9, 40],
+    "| Class | Confirmed |": [10, 14, 14, 14, 14, 34], "| Sınıf | Doğrulanmış |": [10, 14, 14, 14, 14, 34],
     "| Step |": [22, 8, 70], "| Adım |": [22, 8, 70],
     "| Laboratory |": [14, 24, 17, 25, 20], "| Laboratuvar |": [14, 24, 17, 25, 20],
 }
@@ -138,6 +159,38 @@ def loose_lists(md):
     return "\n".join(out)
 
 
+SUBSCRIPTS = {"D*_j": "*D*\\*~*j*~", "E_n": "*E*~n~", "x_j": "*x*~*j*~", "u_j": "*u*~*j*~", "σ_j": "*σ*~*j*~",
+              "s_R": "*s*~R~", "s_r": "*s*~r~", "y_CO₂": "*y*~CO₂~", "d_X": "*d*~X~", "c_Cd": "*c*~Cd~", "U_U": "*U*~U~",
+              "U_L": "*U*~L~", "T_U": "*T*~U~", "T_L": "*T*~L~", "R_w": "*R*~w~", "pH_X": "pH~X~", "D_j": "*D*~*j*~",
+              "ν_eff": "*ν*~eff~"}
+_PROTECT = re.compile(r"```.*?```|`[^`\n]*`|https?://\S+|!\[[^\]]*\]\([^)]*\)|<!--.*?-->", re.S)
+_VAR = re.compile(r"(?<![\w*/\\.~-])([uUkyxnQ])(?=\s?=\s?[-−\d.(]|\s?=\s?[kuU]\b|\s?±|\(|₉₅|\s?[<>≤≥]\s?[\w(])")
+_AFTER = re.compile(r"(?<=[\d₉₅])u\b|(?<=\s)U/k\b")
+
+
+def math_italics(md):
+    """Variables in italics (Elsevier, math formulae): quantity symbols with subscripts and single-letter symbols
+    in a mathematical context, outside code, URLs, comments and the reference list."""
+    head, sep, refs = md.partition("\n## Reference")
+    if not sep:
+        head, sep, refs = md.partition("\n## Kaynaklar")
+    out, last = [], 0
+    for m in _PROTECT.finditer(head):
+        out.append(_italic(head[last:m.start()]))
+        out.append(m.group(0))
+        last = m.end()
+    out.append(_italic(head[last:]))
+    return "".join(out) + sep + refs
+
+
+def _italic(s):
+    for a, b in SUBSCRIPTS.items():
+        s = re.sub(r"(?<![\w*])" + re.escape(a) + r"(?![A-Za-z0-9])", lambda m: b, s)
+    s = _VAR.sub(r"*\1*", s)
+    s = _AFTER.sub(lambda m: "*U*/*k*" if m.group(0) == "U/k" else "*u*", s)
+    return s
+
+
 def assemble(lang, commit):
     src = ART / ("manuscript.md" if lang == "en" else "manuscript.tr.md")
     md = src.read_text(encoding="utf-8")
@@ -147,8 +200,7 @@ def assemble(lang, commit):
     tabs = tables_md()
     if lang == "tr":
         tabs = {k: translate_table(v) for k, v in tabs.items()}
-    figs = {"fig1": "fig1_architecture", "fig2": "fig2_application", "fig3": "fig3_findings_by_document",
-            "fig4": "fig4_procedures"}
+    figs = {"fig1": "fig1_architecture", "fig2": "fig2_application", "fig3": "fig3_findings_by_document"}
     for key, name in figs.items():
         img = (FIG / f"{name}.png").resolve()
         rest = rest.replace(f"<!-- {key} -->", f"![{cap[key]}]({img}){{width=16cm}}")
@@ -156,7 +208,7 @@ def assemble(lang, commit):
     rest = rest.replace("<!-- table3 -->", f"{cap['table3']}\n\n{tabs['table3']}")
     assert "<!--" not in rest, f"unreplaced marker in {src}"
     note = "*" + cap["note"].format(date=date.today().isoformat(), commit=commit) + "*\n\n"
-    return title, note + loose_lists(set_widths(rest))
+    return title, note + loose_lists(set_widths(math_italics(rest)))
 
 
 STYLE_FONT = '<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:eastAsia="Times New Roman" w:cs="Times New Roman" />'

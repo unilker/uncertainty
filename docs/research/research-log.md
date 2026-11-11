@@ -3709,3 +3709,259 @@ Bettencourt da Silva, Talanta 314 (2027) 130826 (issue of April 2027); DOIs adde
 Hartung, Biggerstaff & Tweedie, Wichmann & Hill, Marsaglia & Tsang and Pennecchi & Harris. Possolo & Meija 2022 is a
 DataCite DOI (SIM), record consistent. No [verify] mark remains. Standards and guides without DOIs are cited by
 their edition.
+
+**D100. Release v0.1.0 and its DOI (2026-11-10).** PR #11 merged into `main`; the author published the release
+v0.1.0 on GitHub (the session cannot push tags). Zenodo archived it: version DOI 10.5281/zenodo.24118312, concept
+DOI (all versions) 10.5281/zenodo.24118311, record checked through the Zenodo API (title, version, author). The
+version DOI is cited as reference [60] in Section 10 and in the data availability statement, and is given in the
+cover letter; `CITATION.cff` carries both DOIs and the release date, the README a DOI badge.
+
+**D101. Figures 1, 3 and 4 redrawn (decision of the author, 2026-11-10).** Figure 1 shows the library pipeline, the
+engine with its evaluation types and the documents they implement, the interfaces and the validation band (worked
+examples and spreadsheets at every change; Suncal and the calibration Monte Carlo as release benchmarks). Figure 3:
+(a) findings per document with the 13 confirmed c1 findings marked and counted, the documents without c1 and with
+fewer than three findings combined; (b) the effect of each c1 finding, |Δy|/U and |ΔU|/U from
+`class-c-impact.tsv` (0.6 % of U for F58 to 34 U for F28). Figure 4: (a) the 16 values of G, four consensus values
+and the range of the fourteen procedures of Merkatas et al.; (b) the significant bilateral pairs of the ⁶⁰Co
+comparison as 19 × 19 matrices by procedure and version (MRA: DL 4, Bayes 3, Linear Pool 22; leave-one-out: 9, 7, 0),
+recomputed by the program from the library project. Sections 6.1 and 7.1 state the two new numbers (effect range of
+c1; no significant pair with the Linear Pool in the leave-one-out version).
+
+**D102. Elsevier's general author rules applied (2026-11-10).** The journal's own guide for authors
+(sciencedirect.com) refuses automated access (HTTP 403) and was not read; it is to be supplied by the author. Applied
+from Elsevier's general pages (elsevier.com, read 2026-11-10): (1) generative AI policy (updated June 2026): the
+declaration is a separate section at the end of the manuscript immediately before the references (moved there, after
+CRediT, competing interests and funding), and states that no image was generated with a generative AI tool (Figures
+1, 3, 4 are drawn by `article_figures.py` from the program's output; Figure 2 is a screenshot); (2) highlights: three
+to five, at most 85 characters, no acronyms or abbreviations, a separate Word file (rewritten: no GUM, ISO/IEC, c1);
+(3) artwork: fonts Arial/Helvetica, Times, Courier or Symbol (figures now in Liberation Sans, metric-compatible with
+Arial, embedded), printed lettering at least 7 pt at the final width (`save()` raises every text to 7 pt and checks
+that the figure is not reduced at 190 mm: 7.1–7.3 pt), RGB, colour-blind-safe palette, vector PDF for line art and
+600 dpi raster copies, figures as separate files and the captions listed at the end of the submission manuscript;
+(4) graphical abstract (optional): 5:2, at least 1328 × 531 px at 300 dpi, text in the image, Arial-type font
+(`graphical_abstract()`, 3984 × 1594 px); (5) CRediT before the acknowledgements/funding, as in the manuscript.
+Journal-specific limits (abstract length, number of keywords, article length, reference style details) wait for the
+guide.
+
+**D103. The guide for authors of Measurement applied (2026-11-10).** The author supplied the guide (PDF of the
+ScienceDirect page, 20 pages, read in full). Requirements and what was done:
+
+- *Scope:* metrological terms as in the VIM and the GUM; the measurement context and a critical review of the state
+  of the art; the cover letter must say how the paper meets these. VIM (JCGM 200:2012) cited in Section 2.1; the cover
+  letter (EN, TR) gains a paragraph on the three requirements, the length and the anonymization.
+- *Article type:* research paper of at most 30 pages: the anonymized manuscript has 26 (1.5 spacing, figures and
+  tables in place, line and page numbers).
+- *Double anonymized peer review:* title page and anonymized manuscript are separate files; the manuscript and the
+  supplementary material must not identify the author. `tools/research/submission_package.py` now writes
+  `title-page.docx` (author, affiliation with postal address, corresponding author, acknowledgements, competing
+  interests, funding, CRediT, links for the editor) and `manuscript-anonymized.docx` (no author line, repository link,
+  DOI or name in [65], no CRediT, funding or competing-interest sections), rebuilds S1–S7 with the identifying strings
+  replaced (two library projects come from the institute's draft procedure), clears the document metadata, and scans
+  every file the reviewers see (no match).
+- *Abstract* ≤ 250 words without references (238), non-standard abbreviations defined (GUM spelled out; no committee
+  codes); *keywords* 1–7 (7); *highlights* 3–5, ≤ 85 characters, file name with "highlights"; *graphical abstract*
+  readable at 13 cm (now drawn at 13 cm, lettering ≥ 7 pt).
+- *Math:* variables in italics: `article_docx.math_italics` sets quantity symbols with subscripts and single-letter
+  symbols in a mathematical context in italics (outside code, URLs and the reference list).
+- *Figures:* separate files named Figure_1–4, captions with a brief title; generative AI and figures: the captions of
+  Figures 1, 3 and 4 state that they are drawn by a script written with an AI coding assistant.
+- *References:* numbered by first citation; DOIs; journal abbreviations (LTWA); software cited as software with
+  version, venue, date and identifier: Suncal 1.7.1 [21] beside its article [20], LibreOffice Calc 24.2 [50], NumPy
+  [57] and SciPy [58] (the libraries of the recomputations), the program itself [65] as "[software]"; web references
+  with the date of access ([24], [21], [50]).
+- *Declarations:* generative AI statement in its own section immediately before the references (done in D102);
+  CRediT, competing interests and funding on the title page; funding wording from the guide offered to the author.
+- *Research data, option C:* data deposited (Zenodo), link to be given in the submission system.
+- Spelling: British spelling throughout the body; "numpy" written NumPy.
+
+Open for the author: the e-mail and postal address on the title page, acknowledgements, the funding sentence, the
+competing-interest declaration, the recomputation of the c1 findings ("planned"), suggested reviewers.
+
+**D104. Affiliation in English (decision of the author, 2026-11-10).** The 2026 papers with a TÜBİTAK UME affiliation
+in Crossref (about 35: MDPI, IEEE, ACS, RSC, IOP, Wiley, AIP, De Gruyter, BIPM) use several forms; the English name
+with the abbreviation and postal code 41470 is the most common, and the Elsevier guide asks for the full standard name
+or the standard abbreviation. Used from now on: "TÜBİTAK National Metrology Institute (TÜBİTAK UME), TÜBİTAK Gebze
+Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye" (title page, cover letter), short form
+"…, 41470 Gebze, Kocaeli, Türkiye" (manuscript author line, CITATION.cff, .zenodo.json); the street address agrees with
+the CPEM 2026 papers of the institute.
+
+**D105. Suggested reviewers (decision of the author, 2026-11-10).** Five researchers whose recent work matches the
+paper and who are not authors of a document with a c1 finding nor developers of the software compared: B. D. Hall
+(MSL New Zealand), F. R. Pennecchi (INRiM), P. M. Harris (NPL), K. Shirono (NMIJ/AIST), G. Kok (VSL). C. Elster (PTB),
+first proposed, died on 16 April 2025 (dedication in Wübbeler et al., Meas. Sci. Technol. 36 (2025) 085501) and was
+replaced by G. Kok. The cover letters list names, affiliations and expertise; the e-mail addresses (taken from the
+correspondence addresses printed in their open-access papers) are entered in the submission system and are not
+stored in the repository.
+
+**D106. First round of the independent recomputation of the c1 findings (2026-11-11).** A colleague of the author's
+institute who has not seen the code filled in the blind form (`tools/research/c1_recheck.py`) for all 13 findings and
+marked every printed value as reproduced. The form does not settle the findings either way:
+
+- In nine rows the value was taken from a total or table printed in the document (F40 "matches the tabulated value",
+  F42 "from Table B.12", F56 u_c 0.150 mg and F57 u_c 0.0245 dB as printed, F21 from the values entered in the budget,
+  F77, F78, F82, F87 "reported value"), i.e. from the very values whose derivation each finding questions.
+- In four rows the recomputer's own numbers disagree with the printed result and agree with the program: F28, the
+  stated equation with the inputs written in the form gives 57.48 m/s (40.64 only without the factor 2); F39, the
+  components written (2.4, 5.0, 3.0 %) give 6.31 % and U = 12.6 %, not 6.4 % and 12.8 %; F58, "2 × 40.7 = 81.4"
+  written for the printed 81.5 nm; F90, "u(y) ≈ 4.47" written for the printed 4.7 nmol/mol.
+- The remark on F87 describes the example wrongly ("influenza medication or related"; it is Pb in C279a).
+
+Not counted as an independent check; the manuscript keeps "planned". A second-round form (`--round2`) names for each
+finding the data to start from (raw data, equations, components) instead of the printed totals, without showing the
+program's values, and asks for the intermediate steps.
+
+**D107. Second round of the c1 recomputation; every finding rechecked from the documents (2026-11-11).** The second
+form (starting data named) again marks all 13 printed values as reproduced, mostly without intermediate numbers. Each
+finding was rechecked from the documents' own printed numbers, without the program:
+
+- From the documents themselves (downloaded 2026-11-11): TN 1900 E4 states v = √(2ΔR_sT/p) with the inputs → 57.48 m/s
+  (F28); GUM-5 1.9.1 itself computes pH_X = 7.0043 by the third interpolation and then prints 7.0109 (F78); GUM-5
+  15.3.1 and Table 15.1 → independent numpy Monte Carlo 9.930 kN, 10.14 kN only with scale s = 1.75 kN (F77); GUM-5
+  Table 4.6 with its correlation matrix and the sum-to-one constraint → u(CO₂) ≈ 4.1, and the printed r(CO₂, N₂) = −0.86
+  is consistent only with ≈ 4.1 (F82); EA-4/02 M:2022 S13.9 lists the five observations (mean 49.999 536 mm, the text
+  itself says 49.999 54) while the budget S13.10 uses 49.999 55 → d_X = 90.000 23 mm (F21).
+- Arithmetic of printed components: F39 √(2.4² + 5.0² + 3.0²) = 6.31 %; F56 unrounded 0.1528 mg → U = 0.3055 → 0.31
+  (0.150 only with the drift limit divided by 2); F57 formula E5 → 0.0170 dB; F58 2 × 40.7 = 81.4 and the model gives
+  41.0 nm → 82 nm; F87 RMS 3.49 % (mean 3.27 %) → U = 2.87 mg/kg; F90 the form's own 4.47 nmol/mol.
+- F40: ISO 5725-3:2023 states "If the difference is negative, set the estimate = 0"; the printed s_R keeps the negative
+  component that the same table sets to zero for s_I(T). F42: the form's 0.013283 follows from the parameter
+  uncertainties the standard itself calls incorrect, as the finding says.
+
+All 13 stand. The form is not counted as an independent recomputation; in four rows its own arithmetic does not give
+the printed value. Evaluation for the author: `c1_ikinci_tur_degerlendirme.docx` (not in the repository).
+
+**D108. Third recomputation of the c1 findings: twelve reproduced independently, F40 reclassified (2026-11-11).** A
+second metrologist of the author's institute, not an author and without having seen the code, filled in the
+second-round form for all 13 findings from the documents alone (hand calculation, Python, NumPy/SciPy, Monte Carlo up
+to 10⁷ trials), with every intermediate step written down. Unlike D106 and D107, every row starts from the data:
+
+- Reproduced (recomputed value = the program's): F21 90.0002 mm (90.000 23), F28 57.48 m/s (u = 0.35), F39 12.6 %,
+  F42 0.014246 µmol/mol (own errors-in-variables fit, parameters, S_res and Γ as printed; the printed 0.013283 follows
+  from the printed B_LEAST covariances), F56 0.31 mg (u_c 0.1528), F57 0.040 dB (E5 → 0.0170 dB), F58 82.1 nm, F77
+  9.91 kN (normal) / 9.93 kN (t, ν = 5), F78 7.0043, F82 3.91 → 4 µmol/mol (20-input LPU), F87 2.87 → 2.9 mg/kg, F90
+  4.47 nmol/mol.
+- **F40 reclassified c1 → m.** At level 6, MS₀ = 617.90, MS₁ = 55.39, MS_e = 91.11 (× 10⁻⁶) give s₍₁₎² = −26.79 × 10⁻⁶.
+  The printed s_R = 15.962 × 10⁻³ % = √((MS₀ + MS₁ + MS_e)/3) is the formulas applied as printed and equals the
+  REML estimate with variances ≥ 0 (pooling MS₁ and MS_e, s_r = 8.559 × 10⁻³); 16.331 is s₍₁₎² = 0 throughout (the
+  program, D41); 16.781 is s₍₁₎² = 0 in the sum only (ISO 5725-2, 8.4.5.4). The printed row mixes treatments
+  (s_I(T) = s_r = 9.545 with s₍₁₎² = 0, s_R with it kept), but its s_R is one of three defensible values, so the finding
+  concerns the consistency of the row, not a final result. D107 ("all 13 stand") is corrected accordingly. The 2023
+  Table J.2 transcription errors (D41) are confirmed independently: levels 3–5 of Table J.5 cannot be reproduced
+  from the 2023 data.
+- **F90:** the printed (rounded) inputs of (E3.3.19) alone allow u = 4.14–4.78, since three large terms cancel;
+  with the unrounded parameters (full WTLS, `tools/research/emue/e33_wtls.py`) u = 4.52. The finding stands with
+  4.5; Table 4 gives both values.
+- **F87:** the 3.3 % called root mean square in the text is the arithmetic mean (3.28 %); RMS 3.50 %. With x = 27.8
+  (text) U = 2.87 → 2.9; with x_obs = 27.29 (Table E3.4.2) 2.82 → 2.8. The finding stands; its effect is at the last
+  digit.
+- Further remarks of the recomputer (not yet checked by the program): F82, the printed 5 follows with u(r) = 2 mg,
+  the weighing uncertainty of the 2024 committee draft; F77, 10.1 follows with the s.d. of a single observation
+  (1.8 kN) instead of the mean's; F57, 0.022 dB follows with s11b = 0.09; F56, 0.150 also follows if one of the two
+  rounding terms is left out (the same sum as the drift limit divided by 2); F40, laboratory 2 is a Cochran outlier
+  at level 6 (C = 0.585 > 0.496) and was kept (s_R = 14.7 without it); F21, δl_P enters the budget S13.10 with the
+  wrong sign.
+
+Counted as the independent recomputation of the c1 findings: 12 confirmed c1 (was 13), 6 m (was 5). Manuscript:
+abstract, Section 6.1 (new paragraph on F40), Table 4 (F40 removed, F87 and F90 notes, the "before submission" note
+replaced), Section 9 and Table 6 (no longer "planned"; a review outside the institute has not been made), Figure 3b,
+highlights and cover letters. The form and its evaluation stay outside the repository.
+
+**D109. The recomputer's further remarks (D108), checked from the documents (2026-11-11).**
+
+- **F40, laboratory 2 at level 6.** With the 1994 data (level 6 is the same in 2023) and laboratory 20 excluded,
+  Cochran's statistic on the day-1 differences w(1) is 0.585 for laboratory 2 against the critical values 0.496 (1 %)
+  and 0.403 (5 %) for p = 19, n = 2 (ISO 5725-2:1994, 8.1); on w(2) it is 0.479 (straggler). ISO 5725-3 C refers to
+  ISO 5725-2 7.3, under which an outlier is discarded "unless the panel for good reason decides to retain" it; the
+  example gives no reason, and laboratory 2 is excluded at level 2 only. Without it: s_r = 6.318, s_R = 14.725 ×
+  10⁻³ % (formulas as printed; 14.832 with s₍₁₎² = 0 throughout, 14.964 in the sum only), and s₍₁₎² is still
+  negative (−7.1 × 10⁻⁶). Recorded with F40 (class m).
+- **ISO 5725-3:2023 Table J.2 against the 1994 data: 15 entries**, 12 at level 3 (the second day-1 result of
+  laboratories 7–20 repeats the first; for laboratories 11 and 16 the two were equal already), 1 at level 4 (lab 18)
+  and 2 at level 5 (labs 2 and 3). D41 ("14 at level 3") and the library note ("one each at levels 4 and 5") are
+  corrected. With the 2023 data, level 5 gives s_r = 14.715 × 10⁻³ % against the printed 6.237.
+- **F82.** With u(r̂_j) = 2 mg for all three weighings, u(y_CO₂) = 4.50 → 5 and u(y_N₂) = 5.18 → 5, so the printed 5
+  could come from an earlier weighing uncertainty (the recomputer names the 2024 committee draft, which is not
+  available here). Table 4.1 gives r̂₀ = −152.0247 g and r̂₂ = 717.2743 g (printed −152.0243, 717.2740) and
+  u_rpt = s/√7 = 0.18, 0.40, 0.42 mg (printed 0.4, 0.7, 0.6 mg), as already recorded with F82; with these,
+  u(y_CO₂) = 3.91.
+- **F57.** E5 with s11 = 0.09 for one of the two coefficients (0.05 printed) gives 0.0219 dB, the printed 0.022 dB. One
+  possible cause; not identifiable from the example.
+- **F56.** Leaving out one of the two rounding terms (0.05/√3 mg) gives Σu_i² = 0.0225 mg², exactly as the drift limit
+  divided by 2 does, since (0.1/√3)² − 0.05² = (0.05/√3)². D107's "only with the drift limit divided by 2" is
+  corrected: the cause cannot be identified.
+- **F77.** A t input with scale 1.75–1.8 kN (the standard deviation of a single observation) gives 10.05 (normal) to
+  10.15 kN (t, ν = 5), as in D107.
+- **F21.** EA-4/02 S13.6 gives δl_P = −0.004 µm, the budget S13.10 enters +0.000 004 mm; the printed 90.000 25 mm is
+  40.0007 + 49.999 55 + 0.000 004. Already part of F21.
+- **F39.** With U = 12.6 % the flour interval of Table C.5 is 80 to 282 CFU (log₁₀ half-width 0.2742), not 79 to 285.
+- **F28.** The printed u(v) = 0.25 m/s and interval 40.15–41.14 m/s keep the relative uncertainty of 0.605 %, so they
+  scale with the estimate; no separate finding.
+- **F87.** Equation (E3.4.18) itself uses 0.033 for the root mean square and rounds u′ to "about 5 %"; the reported
+  27.8 mg/kg is not the mean 27.29 of Table E3.4.1. Already in the note of F87 (D108).
+
+None of these changes a class or a count. The manuscript adds the Cochran remark to the paragraph on F40 (Section
+6.1).
+
+**D110. Revision after an internal review by three metrologists (2026-11-11).** Three reviewers (uncertainty methods;
+standards and accreditation; originality and suitability for the journal) read the submission package. Decisions of
+the author: one focused paper (the consensus, bound and guard-band discussion of former Section 7 is left for a later
+paper); the findings are reported to the issuing bodies after acceptance (D90 kept); the project files keep the
+numerical data of the examples; the recomputer's tools are stated as recorded (whether an AI assistant was used was
+not recorded). Changes:
+
+- *Counts and supplements.* The findings are partitioned by class and status (Table 5 of the manuscript). F87 moved
+  from c1 to c2: with the combined relative uncertainty rounded to 5 % as the example does, the printed U = 2.8 mg/kg
+  follows also from the correct root mean square, so a reasonable rounding path gives the printed result (the c1
+  criterion now requires that none does). F97 (BIPM qNMR budgets) gained an open c1 part for the combined uncertainty
+  of ISRD-01 Table 6 (3.96 against 4.10 × 10⁻⁴). Result: 30 class-c findings, 24 settled (11 c1, 8 c2, 4 m, 1 e),
+  6 open. F90: |Δy|/U 0.011, |ΔU|/U 0.038 (unrounded parameters); F58 recomputed 82.1 nm. S2 is regenerated with the
+  printed and recomputed values as text (trailing zeros kept), titles without working notes, and every status
+  defined; working notes were removed from the impact table (F28, F29, F79, F92).
+- *Sources.* Primary source of each project (`tools/research/sources.py`): 37 documents — 25 guidance documents and
+  standards (256 projects), 5 BIPM ISRD reports (9), 5 papers and a book (19), 1 unpublished procedure (2). S1 gives
+  the kind of source, the basis of the reference values (printed: 207 projects, 1239 values; printed with Monte Carlo
+  or MCMC estimates: 21, 149; partly or wholly independent recomputation: 58, 477) and the reference statement of
+  each project.
+- *Guard-band projects.* The reference values of the three TUR projects were Suncal's output (circular with the
+  Suncal comparison). They are now computed from the published guard-band formulas and the JCGM 106 risk integrals in
+  SciPy (`tools/research/conformity/tur_risks.py`); the values are identical, the reference statements changed.
+- *Monte Carlo tolerances.* `tools/research/mc_seeds.py` runs the 61 projects with Monte Carlo checks with ten other
+  seeds (2810 comparisons). First run: 20 outside tolerance from 7 values (GUM-5 E14 and E15, NUM §3 and §8,
+  TN 1900 E8, JCGM 102 9.4 correlations in two projects), whose tolerances had been set from the program's own seed;
+  in GUM-5 E14 the Monte Carlo mean differs from the printed GUM estimate by the nonlinearity of the model. Their
+  tolerances were reset to half a unit in the last digit plus five standard deviations over eleven seeds (generators
+  gum5.py, num.py, tn1900.py, jcgm102.py); second run: 0 outside, largest |Δ|/tolerance 0.98. The values with
+  |Δ| > 0.9 tolerance (74, 51 of them at half a unit) are listed in `docs/research/near-tolerance.md` (S3).
+- *Suncal comparison.* 171 comparisons of 166 projects (five EMUE E2.2 projects compared as models and as conformity
+  assessments); Δy/u shown as undefined where the first-order u is zero; the list of projects not compared completed
+  (multicomponent conformity, an acceptance-limit-only decision rule) and its duplicate merged; the probability of the
+  largest |z| (2.38, P = 0.75) is called a guide because many comparisons are variants of one model.
+- *Spreadsheet workbooks.* 3684 of the 4678 compared values are computed by spreadsheet formulas; 994 repeat an input
+  or a fixed factor (a cell that is a constant or a chain of bare references to one). Pipes in quantity names no
+  longer break the S7 table.
+- *Validation report.* Consensus projects are reported as "consensus (NIST Consensus Builder)" and the multicomponent
+  project as "JCGM 106, multicomponent" instead of "JCGM 106"; the note on tolerances states the seed rule.
+- *NICOB port.* The program's degrees of equivalence (10⁵ draws) vary between seeds by up to 0.8 % (PCB 28) and
+  0.44 % (⁶⁰Co) in U95 (relative standard deviation over 20 seeds); the differences from the port (1.7 % and 0.7 %)
+  are of that size.
+- *Manuscript.* Title "verified" instead of "validated"; related work (Greif and Schrepf 2013, TraCIM, GUM Workbench,
+  MUkit and ISO 11352, QUAM errata); former Section 7 removed with Figure 4; Sections 3 and 7 (former 8) shortened;
+  Section 5 as a table of comparisons with the interpretations corrected (the calibration differences do not follow
+  Γ; the Monte Carlo propagation lies closer to the full-Hessian values, about three standard errors from them);
+  Section 6.3 softened and its counts corrected (7 of 11 ¹H tables of six reports, nine of them in the library);
+  F79 presented as open; "pre-registered" removed; the ISO/IEC 17025 clauses corrected (7.11.6 added, 7.8.6 and the
+  proficiency-testing provider row corrected, ILAC G8, G17, ISO/IEC 17043, ISO 17034, ISO 33405 added); Appendix A
+  with the equations not stated in the guidance; a Conclusions section; references 65 → 83, all new ones checked
+  against Crossref or the publisher's page except the two software entries (GUM Workbench, MUkit) and the standards.
+- *Figures.* Figure 3a counts each finding once by its most severe class; Figure 3b axis in units of U; Figure 2
+  without the clipped column and chart; the AI sentence removed from the captions (it is in the declaration).
+- *Library.* Bettencourt da Silva (2026) cited as Talanta 314 (2027) 130826.
+
+**D111. Tools of the recomputation of the c1 findings (2026-11-11).** Asked by the author, the recomputer (D108) stated
+that an AI assistant of the Claude family (Anthropic), the same family as the coding assistant of this project, was
+used in the recomputation. The manuscript now says so (Section 8, Table 8, the declaration on generative AI and the
+cover letters): the recomputation is independent of the program's code and of its author but not of the assistant, so
+a misreading of a document that the assistant tends to make could be common to both. Against this, most c1 findings
+rest on a few lines of arithmetic with the document's own printed numbers (Table 6); for F78 the document prints the
+correct intermediate value itself, and F28 was reported independently by Delker (2021). A recomputation without an AI
+assistant, or by a metrologist outside the institute, would remove this common mode.

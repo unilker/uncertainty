@@ -1,5 +1,7 @@
 # KAPSAM
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24118311.svg)](https://doi.org/10.5281/zenodo.24118311)
+
 <img src="app/assets/logo/logo.png" alt="KAPSAM logo" width="96" align="right">
 
 *Measurement uncertainty software · Ölçüm belirsizliği yazılımı.* The name is Turkish for *scope, coverage*,
@@ -203,3 +205,7 @@ If you use this software or its results, **please cite it** as given in
 
 Bu yazılımı veya sonuçlarını kullanıyorsanız lütfen
 [CITATION.cff](CITATION.cff) dosyasındaki şekilde **atıf yapınız**.
+
+Archived releases / Arşivlenmiş sürümler (Zenodo): all versions / tüm sürümler
+[10.5281/zenodo.24118311](https://doi.org/10.5281/zenodo.24118311); v0.1.0
+[10.5281/zenodo.24118312](https://doi.org/10.5281/zenodo.24118312).

@@ -38,6 +38,10 @@
     ],
     "sources": [
       {
+        "document": "JCGM 106:2012, Evaluation of measurement data — The role of measurement uncertainty in conformity assessment",
+        "section": "9.5 (global risks)"
+      },
+      {
         "document": "Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm)",
         "url": "https://pypi.org/project/suncal/"
       },
@@ -98,8 +102,8 @@
       }
     },
     "reference": {
-      "en": "Suncal 1.7.1: guard-band factor and PFA_norm/PFR_norm(itp = 0.95, TUR, GB) for the global risks.",
-      "tr": "Suncal 1.7.1: koruma bandı çarpanı ve küresel riskler için PFA_norm/PFR_norm(itp = 0,95, TUR, GB)."
+      "en": "Guard-band factor from the published formula (Dobbert 2008; Delker & Peguero 2022); global consumer's and producer's risks of JCGM 106:2012 9.5 for a normal process with 95 % in tolerance, by numerical integration in SciPy (tools/research/conformity/tur_risks.py). Suncal 1.7.1 gives the same values.",
+      "tr": "Koruma bandı çarpanı yayımlanmış formülden (Dobbert 2008; Delker & Peguero 2022); %95'i tolerans içinde olan normal bir süreç için JCGM 106:2012 9.5'in küresel tüketici ve üretici riskleri, SciPy ile sayısal integrasyonla (tools/research/conformity/tur_risks.py). Suncal 1.7.1 aynı değerleri verir."
     }
   }
 }

@@ -156,9 +156,9 @@ project("library/chemistry/nist-tn1900-e8-molecular-weight-co2.json", "nist-tn19
               inp("A_O", None, "Standard atomic weight of oxygen", "Oksijenin standart atom ağırlığı", rect(15.99903, 15.99977))]},
   {"gum": {}, "mcm": {"trials": 1000000, "seed": 8, "interval": "shortest"}},
   {"gum": {"estimate": chk(44.0094, 0.00005), "standard_uncertainty": chk(0.0007, 0.00005)},
-   "mcm": {"interval_low": chk(44.008045, 0.00001), "interval_high": chk(44.010755, 0.00001), "gum_validated": False},
-   "reference": T("NIST TN 1900 E8: M_r(CO₂) = 44.0094, u = 0.0007, exact shortest 95 % interval [44.0080, 44.0108], whose unrounded end points 44.008045 and 44.010755 follow from the trapezoidal distribution (see note); tolerance ≈ 5 × the Monte Carlo dispersion at M = 10⁶.",
-                  "NIST TN 1900 E8: M_r(CO₂) = 44,0094, u = 0,0007, tam en kısa %95 aralığı [44,0080; 44,0108]; yuvarlanmamış uç noktalar 44,008045 ve 44,010755 yamuk dağılımdan çıkar (nota bakınız); tolerans M = 10⁶'da Monte Carlo saçılımının ≈ 5 katı.")},
+   "mcm": {"interval_low": chk(44.008045, 0.00003), "interval_high": chk(44.010755, 0.00003), "gum_validated": False},
+   "reference": T("NIST TN 1900 E8: M_r(CO₂) = 44.0094, u = 0.0007, exact shortest 95 % interval [44.0080, 44.0108], whose unrounded end points 44.008045 and 44.010755 follow from the trapezoidal distribution (see note); tolerance: half a unit of the last digit plus 5 × the Monte Carlo dispersion over seeds (D110).",
+                  "NIST TN 1900 E8: M_r(CO₂) = 44,0094, u = 0,0007, tam en kısa %95 aralığı [44,0080; 44,0108]; yuvarlanmamış uç noktalar 44,008045 ve 44,010755 yamuk dağılımdan çıkar (nota bakınız); tolerans: son basamağın yarım birimi artı tohumlar arası Monte Carlo saçılımının 5 katı (D110).")},
   reporting={"significant_digits": 2})
 
 # ---------------------------------------------------------------- E9

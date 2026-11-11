@@ -2723,7 +2723,7 @@ ISO 5725-3:2023 J.2: 20 laboratuvar, bir günde iki ve ertesi gün bir sonuç; v
 
 **Notlar:**
 
-- ISO 5725-3:2023 Tablo J.2, ISO 5725-3:1994 Tablo D.2'den 15 girişte farklıdır (14'ü 3. düzeyde: 7–20. laboratuvarların 1. gündeki ikinci sonucu birincisinin tekrarıdır; birer tanesi 4. ve 5. düzeylerde); burada kullanılan 1. düzey her iki baskıda aynıdır. 1994 verileri Tablo J.5'i 1–5. düzeylerde tam olarak yeniden üretir (çekirdek testi staggered_nested_iso_5725_3_1994_levels_3_to_6). 6. düzeyde s₍₁₎² negatiftir: s_I(T) = s_r basılmıştır; ancak basılı s_R = 15,962 × 10⁻³ % negatif s₍₁₎²'yi tutar; her yerde s₍₁₎² = 0 alınırsa s_R = 16,331 × 10⁻³ % olur (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
+- ISO 5725-3:2023 Tablo J.2, ISO 5725-3:1994 Tablo D.2'den 15 girişte farklıdır (12'si 3. düzeyde: 7–20. laboratuvarların 1. gündeki ikinci sonucu birincisinin tekrarıdır; biri 4., ikisi 5. düzeyde); burada kullanılan 1. düzey her iki baskıda aynıdır. 1994 verileri Tablo J.5'i 1–5. düzeylerde tam olarak yeniden üretir (çekirdek testi staggered_nested_iso_5725_3_1994_levels_3_to_6). 6. düzeyde s₍₁₎² negatiftir: s_I(T) = s_r basılmıştır; ancak basılı s_R = 15,962 × 10⁻³ % negatif s₍₁₎²'yi tutar; her yerde s₍₁₎² = 0 alınırsa s_R = 16,331 × 10⁻³ % olur (araştırma günlüğü F40); basılı değer REML kestirimine eşittir (D108). 2. laboratuvar 6. düzeyde Cochran aykırısıdır (C = 0,585; %1 kritik değeri 0,496) ve gerekçe belirtilmeden tutulmuştur; çıkarılırsa s_R = 14,7 × 10⁻³ % olur (D109). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
 
 **Çalıştırma:** `kapsam run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang tr`
 
@@ -4739,7 +4739,7 @@ Sabit hacimli 1 mL mikropipet on kez test edilir (Nordtest TR 626); ortalama hac
 
 ### Test belirsizlik oranından kabul sınırları: Dobbert'in yönetilen koruma bandı (yöntem 6), TUR = 2,5, %95 tolerans içi süreç için küresel riskler
 
-`tur-guard-band-dobbert-tur2-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+`tur-guard-band-dobbert-tur2-5` — JCGM 106:2012, 9.5 (global risks); Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
 
 Tolerans ±1 (normalize), U₉₅ = 2u = 0,4, dolayısıyla TUR = 1/U₉₅ = 2,5. GBF = 1 − M/TUR, M = 1,04 − exp(0,38 ln TUR − 0,54). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
 
@@ -4764,7 +4764,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,4, dolayısıyla TUR = 1/U₉₅ = 2,
 
 ### Test belirsizlik oranından kabul sınırları: NCSLI RP-10 koruma bandı, TUR = 2,0, %95 tolerans içi süreç için küresel riskler
 
-`tur-guard-band-rp10-tur2-0` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+`tur-guard-band-rp10-tur2-0` — JCGM 106:2012, 9.5 (global risks); Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
 
 Tolerans ±1 (normalize), U₉₅ = 2u = 0,5, dolayısıyla TUR = 1/U₉₅ = 2,0. GBF = 1,25 − 1/TUR (TUR ≤ 4). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
 
@@ -4788,7 +4788,7 @@ Tolerans ±1 (normalize), U₉₅ = 2u = 0,5, dolayısıyla TUR = 1/U₉₅ = 2,
 
 ### Test belirsizlik oranından kabul sınırları: karelerin toplamının kökü koruma bandı, TUR = 1,5, %95 tolerans içi süreç için küresel riskler
 
-`tur-guard-band-rss-tur1-5` — Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
+`tur-guard-band-rss-tur1-5` — JCGM 106:2012, 9.5 (global risks); Sandia National Laboratories, Suncal 1.7.1 (suncal.risk.guardband_tur, risk.PFA_norm and PFR_norm); Delker & Peguero, Calculating guardbands for calibration and test (Sandia report, 2022)
 
 Tolerans ±1 (normalize), U₉₅ = 2u = 0,6667, dolayısıyla TUR = 1/U₉₅ = 1,5. GBF = √(1 − 1/TUR²). Ürünlerin süreci merkez etrafında normaldir ve %95'i tolerans içindedir (s.s. 0,510213).
 

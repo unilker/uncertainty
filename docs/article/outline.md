@@ -182,9 +182,10 @@ was reviewed and the commit of the release (the pre-review used 809ebcf; review 
 - [x] D12 audit of the finding classes (D73): every finding has a class in `finding-classes.tsv`.
 - [ ] Recheck the class-c findings against current editions and errata (F40, resolved in D41, is the model).
 - [x] Benchmark against Suncal (D74). NUM: manual examples only (web service).
-- [ ] Independent review by a metrologist outside the project (NMI or accredited laboratory). The pre-review of
-      2026-11-08 (`docs/research/review-2026-11-08.md`) was made with an AI assistant and does not count; at least
-      ten c1 findings to be recomputed by a person who has not seen the code (review item 14).
+- [x] Recomputation of the c1 findings by a person who has not seen the code (review item 14): done in D108,
+      12 of 13 reproduced, F40 reclassified as m.
+- [ ] Independent review by a metrologist outside the institute (NMI or accredited laboratory). The pre-review of
+      2026-11-08 (`docs/research/review-2026-11-08.md`) was made with an AI assistant and does not count.
 - [ ] Systematic literature search finished (task 41; `literature-search-2026-10.md`) and audits of worked
       examples by others cited.
 - [ ] Permissions: data-only use of licensed documents confirmed (`sources-provenance.md`); figures redrawn.

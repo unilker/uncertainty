@@ -1,9 +1,10 @@
 # Highlights
 
-Each at most 85 characters including spaces (Measurement, guide for authors).
+Each at most 85 characters including spaces, without acronyms or abbreviations (Elsevier, highlights); submitted
+as a separate Word file (`tools/research/submission_package.py`).
 
-- KAPSAM: open software for GUM, Monte Carlo, conformity, top-down and consensus
-- 286 worked examples from 38 documents are recomputed at every software change
-- Recomputation produced 100 findings; 13 change a final printed result
-- The consensus procedure changes the degrees of equivalence of a comparison
-- Built-in guide and ISO/IEC 17025 validation report support laboratories
+- Open-source software for model-based, Monte Carlo and top-down uncertainty evaluation
+- Worked examples of 25 guidance documents and standards are recomputed at every change
+- Recomputation produced 100 findings; 11 change a final printed result
+- A metrologist who had not seen the code reproduced the confirmed findings
+- Worked examples should be published with unrounded, machine-readable inputs

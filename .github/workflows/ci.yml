@@ -35,8 +35,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libreoffice-calc python3-uno
+      - name: Install LibreOffice Calc
+        # security.ubuntu.com has at times been unreachable from the runners (DNS failures, 2026-11-11); the
+        # security pocket is also served by the archive mirror, so a failed install is retried through it.
+        run: |
+          APT="-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30"
+          if ! (sudo apt-get $APT update && sudo apt-get $APT install -y --no-install-recommends libreoffice-calc python3-uno); then
+            echo "Retrying with the security pocket from azure.archive.ubuntu.com"
+            sudo sed -i 's#security\.ubuntu\.com#azure.archive.ubuntu.com#g' /etc/apt/apt-mirrors.txt /etc/apt/sources.list \
+              /etc/apt/sources.list.d/* 2>/dev/null || true
+            sudo apt-get $APT update
+            sudo apt-get $APT install -y --no-install-recommends libreoffice-calc python3-uno
+          fi
       - run: cargo build --release -p uncertainty-cli
       - run: /usr/bin/python3 tools/research/spreadsheet_check.py target/release/kapsam spreadsheet-check.md
       - if: always()
-        run: cat spreadsheet-check.md >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          if [ -f spreadsheet-check.md ]; then cat spreadsheet-check.md >> "$GITHUB_STEP_SUMMARY"; else echo "No spreadsheet check was run (see the failed step)." >> "$GITHUB_STEP_SUMMARY"; fi
