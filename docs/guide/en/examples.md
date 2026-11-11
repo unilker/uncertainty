@@ -2723,7 +2723,7 @@ ISO 5725-3:2023 J.2: 20 laboratories, two results on one day and one on the next
 
 **Notes:**
 
-- Table J.2 of ISO 5725-3:2023 differs from Table D.2 of ISO 5725-3:1994 in 15 entries (14 at level 3, where the second day-1 result of laboratories 7–20 repeats the first, and one each at levels 4 and 5); level 1, used here, is the same in both. The 1994 data reproduce Table J.5 exactly at levels 1–5 (core test staggered_nested_iso_5725_3_1994_levels_3_to_6). At level 6, s₍₁₎² is negative: s_I(T) = s_r is printed, but the printed s_R = 15.962 × 10⁻³ % keeps the negative s₍₁₎²; with s₍₁₎² = 0 throughout, s_R = 16.331 × 10⁻³ % (research log F40). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.
+- Table J.2 of ISO 5725-3:2023 differs from Table D.2 of ISO 5725-3:1994 in 15 entries (12 at level 3, where the second day-1 result of laboratories 7–20 repeats the first, one at level 4 and two at level 5); level 1, used here, is the same in both. The 1994 data reproduce Table J.5 exactly at levels 1–5 (core test staggered_nested_iso_5725_3_1994_levels_3_to_6). At level 6, s₍₁₎² is negative: s_I(T) = s_r is printed, but the printed s_R = 15.962 × 10⁻³ % keeps the negative s₍₁₎²; with s₍₁₎² = 0 throughout, s_R = 16.331 × 10⁻³ % (research log F40); the printed value equals the REML estimate (D108). Laboratory 2 is a Cochran outlier at level 6 (C = 0.585 against 0.496 at 1 %) and is retained without a stated reason; without it s_R = 14.7 × 10⁻³ % (D109). The column 'Average (%)' of Table J.5 carries a spurious factor 10⁻³.
 
 **Run:** `kapsam run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang en`
 

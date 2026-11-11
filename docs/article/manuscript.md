@@ -373,7 +373,8 @@ Table J.5, level 6), was moved to class m: the negative estimate of the day vari
 s_I(T) = s_r = 9.545 × 10⁻³ % but kept in the printed s_R = 15.962 × 10⁻³ %, which equals the restricted maximum
 likelihood estimate; with the variance set to zero throughout, s_R = 16.33 × 10⁻³ %, and with it set to zero in the
 sum only, 16.78 × 10⁻³ %. The printed s_R is one of three defensible values, so the finding concerns the
-consistency of the row, not its result.
+consistency of the row, not its result. The row also retains laboratory 2, a Cochran outlier at this level
+(C = 0.585 against 0.496 at 1 %), without a stated reason; without it, s_R = 14.7 × 10⁻³ %.
 
 <!-- fig3 -->
 

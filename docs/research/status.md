@@ -15,7 +15,7 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | Bağımsız denetimler | Suncal 1.7.1 ile **171** proje (D93); **189** elektronik tablo doğrulama dosyası, 4678 değer, LibreOffice'te CI'da (D94); kalibrasyon uydurması boyunca Monte Carlo, 8 proje × 10⁶ (D97) |
 | Testler | **218** Rust testi, **28** Flutter testi; CI yeşil |
 | Rehber | *Uncertainty from scratch* / *Sıfırdan belirsizlik* (TR/EN), 123 ders, 286 örneğin açıklaması |
-| Araştırma günlüğü | kararlar D1–D108, bulgular F1–F100 (12 doğrulanmış c1; F40 D108'de m sınıfına alındı) |
+| Araştırma günlüğü | kararlar D1–D109, bulgular F1–F100 (12 doğrulanmış c1; F40 D108'de m sınıfına alındı) |
 | Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 6 tablo, 4 şekil, 65 kaynak (10'u *Measurement*); ek malzeme S1–S7; editöre mektup |
 | Dal | `claude/sleepy-hypatia-1522g6`; PR unilker/uncertainty#11 birleştirildi; sürüm v0.1.0 |
 

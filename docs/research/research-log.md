@@ -3865,3 +3865,39 @@ Counted as the independent recomputation of the c1 findings: 12 confirmed c1 (wa
 abstract, Section 6.1 (new paragraph on F40), Table 4 (F40 removed, F87 and F90 notes, the "before submission" note
 replaced), Section 9 and Table 6 (no longer "planned"; a review outside the institute has not been made), Figure 3b,
 highlights and cover letters. The form and its evaluation stay outside the repository.
+
+**D109. The recomputer's further remarks (D108), checked from the documents (2026-11-11).**
+
+- **F40, laboratory 2 at level 6.** With the 1994 data (level 6 is the same in 2023) and laboratory 20 excluded,
+  Cochran's statistic on the day-1 differences w(1) is 0.585 for laboratory 2 against the critical values 0.496 (1 %)
+  and 0.403 (5 %) for p = 19, n = 2 (ISO 5725-2:1994, 8.1); on w(2) it is 0.479 (straggler). ISO 5725-3 C refers to
+  ISO 5725-2 7.3, under which an outlier is discarded "unless the panel for good reason decides to retain" it; the
+  example gives no reason, and laboratory 2 is excluded at level 2 only. Without it: s_r = 6.318, s_R = 14.725 ×
+  10⁻³ % (formulas as printed; 14.832 with s₍₁₎² = 0 throughout, 14.964 in the sum only), and s₍₁₎² is still
+  negative (−7.1 × 10⁻⁶). Recorded with F40 (class m).
+- **ISO 5725-3:2023 Table J.2 against the 1994 data: 15 entries**, 12 at level 3 (the second day-1 result of
+  laboratories 7–20 repeats the first; for laboratories 11 and 16 the two were equal already), 1 at level 4 (lab 18)
+  and 2 at level 5 (labs 2 and 3). D41 ("14 at level 3") and the library note ("one each at levels 4 and 5") are
+  corrected. With the 2023 data, level 5 gives s_r = 14.715 × 10⁻³ % against the printed 6.237.
+- **F82.** With u(r̂_j) = 2 mg for all three weighings, u(y_CO₂) = 4.50 → 5 and u(y_N₂) = 5.18 → 5, so the printed 5
+  could come from an earlier weighing uncertainty (the recomputer names the 2024 committee draft, which is not
+  available here). Table 4.1 gives r̂₀ = −152.0247 g and r̂₂ = 717.2743 g (printed −152.0243, 717.2740) and
+  u_rpt = s/√7 = 0.18, 0.40, 0.42 mg (printed 0.4, 0.7, 0.6 mg), as already recorded with F82; with these,
+  u(y_CO₂) = 3.91.
+- **F57.** E5 with s11 = 0.09 for one of the two coefficients (0.05 printed) gives 0.0219 dB, the printed 0.022 dB. One
+  possible cause; not identifiable from the example.
+- **F56.** Leaving out one of the two rounding terms (0.05/√3 mg) gives Σu_i² = 0.0225 mg², exactly as the drift limit
+  divided by 2 does, since (0.1/√3)² − 0.05² = (0.05/√3)². D107's "only with the drift limit divided by 2" is
+  corrected: the cause cannot be identified.
+- **F77.** A t input with scale 1.75–1.8 kN (the standard deviation of a single observation) gives 10.05 (normal) to
+  10.15 kN (t, ν = 5), as in D107.
+- **F21.** EA-4/02 S13.6 gives δl_P = −0.004 µm, the budget S13.10 enters +0.000 004 mm; the printed 90.000 25 mm is
+  40.0007 + 49.999 55 + 0.000 004. Already part of F21.
+- **F39.** With U = 12.6 % the flour interval of Table C.5 is 80 to 282 CFU (log₁₀ half-width 0.2742), not 79 to 285.
+- **F28.** The printed u(v) = 0.25 m/s and interval 40.15–41.14 m/s keep the relative uncertainty of 0.605 %, so they
+  scale with the estimate; no separate finding.
+- **F87.** Equation (E3.4.18) itself uses 0.033 for the root mean square and rounds u′ to "about 5 %"; the reported
+  27.8 mg/kg is not the mean 27.29 of Table E3.4.1. Already in the note of F87 (D108).
+
+None of these changes a class or a count. The manuscript adds the Cochran remark to the paragraph on F40 (Section
+6.1).

@@ -372,7 +372,9 @@ belgelerden yeniden hesaplandı (Bölüm 9). On ikisi yeniden üretildi. On üç
 düzey 6), m sınıfına alındı: gün varyansının negatif kestirimi basılı s_I(T) = s_r = 9,545 × 10⁻³ % için sıfır
 alınmış, ancak kısıtlı en çok olabilirlik kestirimine eşit olan basılı s_R = 15,962 × 10⁻³ % değerinde tutulmuştur;
 varyans her yerde sıfır alınırsa s_R = 16,33 × 10⁻³ %, yalnızca toplamda sıfır alınırsa 16,78 × 10⁻³ % olur. Basılı
-s_R savunulabilir üç değerden biridir; bulgu satırın sonucunu değil, iç tutarlılığını ilgilendirir.
+s_R savunulabilir üç değerden biridir; bulgu satırın sonucunu değil, iç tutarlılığını ilgilendirir. Satır, bu
+düzeyde Cochran aykırısı olan 2. laboratuvarı (C = 0,585; %1 kritik değeri 0,496) gerekçe belirtmeden tutar;
+çıkarılırsa s_R = 14,7 × 10⁻³ % olur.
 
 <!-- fig3 -->
 

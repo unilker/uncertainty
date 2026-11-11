@@ -8,11 +8,11 @@ F28	NIST TN 1900 E4	c1	independently checked	v / (m/s)	40.64	57.48	34	—	printe
 F29	NIST TN 1900 E3	c1	open	u(μ_M) / (mPa s)	1.11	1.027	—	0.075	the NUM 'Gauss' value; to be confirmed how the NUM evaluates it
 F33	NIST Uncertainty Machine manual §3	c2	confirmed	u(y) in the text	12.5	8.7	—	—	the text disagrees with the program output in Figure 1, which is reproduced
 F39	ISO 21748 C.3	c1	confirmed	U(flour) / %	12.8	12.6	0	0.016	
-F40	ISO 5725-3:2023 J.2	m	independently checked	s_R at level 6	15.962	15.962–16.781	—	—	method (D108): s_I(T) = s_r = 9.545 sets the negative day variance to zero, s_R keeps it; s_R = 15.962 with the formulas as printed (= REML, whose s_r is 8.56), 16.331 with zero throughout, 16.781 with zero in the sum only (ISO 5725-2); the 2023 Table J.2 also has transcription errors at levels 3–5 (D41)
+F40	ISO 5725-3:2023 J.2	m	independently checked	s_R at level 6	15.962	15.962–16.781	—	—	method (D108): s_I(T) = s_r = 9.545 sets the negative day variance to zero, s_R keeps it; s_R = 15.962 with the formulas as printed (= REML, whose s_r is 8.56), 16.331 with zero throughout, 16.781 with zero in the sum only (ISO 5725-2); laboratory 2 is a Cochran outlier at level 6 (C = 0.585 > 0.496) and is retained (s_R = 14.7 without it, D109); the 2023 Table J.2 differs from the 1994 data in 15 entries at levels 3–5 (D41, D109)
 F41	ISO 6143:2025 Formula (12)	c2	confirmed	critical value at n = 10	2√3 u	2√2 u	—	—	formula inconsistent with the Note to 6.2.4
 F42	ISO 6143:2025 Example 3	c1	confirmed	u(x) / (µmol/mol)	0.013280	0.014246	0	0.068	the parameter uncertainties are acknowledged as wrong by the standard (B.2.4); u(x) is not
-F56	UKAS M3003 K.5	c1	independently checked	U / mg	0.30	0.31	0	0.033	sign of the result (−0.10 vs +0.10 mg) only under the assumption W_S = 200.0000 g (K.5 gives no certificate value)
-F57	UKAS M3003 K.3	c1	confirmed	U / dB	0.049	0.040	0	0.18	mismatch term 0.022 dB vs E5 0.0170 dB
+F56	UKAS M3003 K.5	c1	independently checked	U / mg	0.30	0.31	0	0.033	sign of the result (−0.10 vs +0.10 mg) only under the assumption W_S = 200.0000 g (K.5 gives no certificate value); the printed u_c = 0.150 follows equally from the drift limit divided by 2 or from leaving out one rounding term (D109)
+F57	UKAS M3003 K.3	c1	confirmed	U / dB	0.049	0.040	0	0.18	mismatch term 0.022 dB vs E5 0.0170 dB; the printed 0.022 dB follows with s11 = 0.09 for one of the coefficients (D109)
 F58	UKAS M3003 K.6	c1	confirmed	U / nm	81.5	82	0	0.006	Δt through α, not Δα; small here, larger for longer blocks
 F63	Eurachem UfS:2019 A1, A2	m	open	robust ANOVA	—	—	—	—	algorithm not published in the Guide; not reproducible, not an inconsistency
 F69	EURAMET cg-18 H3	m	confirmed	ν_eff	109	37 (12)	—	—	method: counting of the repeatability terms (U 29 → 30.3 kg)
@@ -22,7 +22,7 @@ F78	JCGM GUM-5 Example 1	c1	confirmed	pH_X	7.0109	7.0043	0.80	—	u 0.0041 vs 0.
 F79	JCGM GUM-5 Example 2	m	open	ν_eff	4.8	2.11	—	—	reading of eq. (2.3) vs Willink's ensemble rule; coverage 94 % vs 93 % with ν recomputed per data set (D82); check Willink (2007)
 F80	JCGM GUM-5 Example 10	m	independently checked	global and specific risks	—	—	—	—	the printed joint PDF reproduces every printed risk; modelling note
 F81	JCGM GUM-5 Example 12	c2	independently checked	mode of τ / (µmol/mol)	0.3	0	0	0	getmode returns the first draw; mean and median unaffected
-F82	JCGM GUM-5 Example 4	c1	independently checked	u(y_CO₂) / (µmol/mol)	5	4	—	0.20	Table 4.2 not from Table 4.1 (intermediate) also checked independently
+F82	JCGM GUM-5 Example 4	c1	independently checked	u(y_CO₂) / (µmol/mol)	5	4	—	0.20	Table 4.2 not from Table 4.1 (intermediate) also checked independently; the printed 5 follows with u(r̂_j) = 2 mg (4.50), cause not documented (D109)
 F85	JCGM GUM-5 Example 11	c1	open	â	65.0	65.45	0.14	—	data read from the figure
 F87	EMPIR EMUE E3.4	c1	confirmed	U / (mg/kg)	2.8	2.9	0	0.036	root mean square 3.50 %, not 3.3 % (3.3 % is the arithmetic mean); with x_obs = 27.29 of Table E3.4.2 instead of 27.8, U = 2.82 (D108)
 F89	EMPIR EMUE E3.8	c2	confirmed	E_A, k₀, c_T	59.164 kJ/mol	56.64 kJ/mol	0	0	no effect on the result

@@ -2723,7 +2723,7 @@ ISO 5725-3:2023 J.2: 20 laboratuvar, bir günde iki ve ertesi gün bir sonuç; v
 
 **Notlar:**
 
-- ISO 5725-3:2023 Tablo J.2, ISO 5725-3:1994 Tablo D.2'den 15 girişte farklıdır (14'ü 3. düzeyde: 7–20. laboratuvarların 1. gündeki ikinci sonucu birincisinin tekrarıdır; birer tanesi 4. ve 5. düzeylerde); burada kullanılan 1. düzey her iki baskıda aynıdır. 1994 verileri Tablo J.5'i 1–5. düzeylerde tam olarak yeniden üretir (çekirdek testi staggered_nested_iso_5725_3_1994_levels_3_to_6). 6. düzeyde s₍₁₎² negatiftir: s_I(T) = s_r basılmıştır; ancak basılı s_R = 15,962 × 10⁻³ % negatif s₍₁₎²'yi tutar; her yerde s₍₁₎² = 0 alınırsa s_R = 16,331 × 10⁻³ % olur (araştırma günlüğü F40). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
+- ISO 5725-3:2023 Tablo J.2, ISO 5725-3:1994 Tablo D.2'den 15 girişte farklıdır (12'si 3. düzeyde: 7–20. laboratuvarların 1. gündeki ikinci sonucu birincisinin tekrarıdır; biri 4., ikisi 5. düzeyde); burada kullanılan 1. düzey her iki baskıda aynıdır. 1994 verileri Tablo J.5'i 1–5. düzeylerde tam olarak yeniden üretir (çekirdek testi staggered_nested_iso_5725_3_1994_levels_3_to_6). 6. düzeyde s₍₁₎² negatiftir: s_I(T) = s_r basılmıştır; ancak basılı s_R = 15,962 × 10⁻³ % negatif s₍₁₎²'yi tutar; her yerde s₍₁₎² = 0 alınırsa s_R = 16,331 × 10⁻³ % olur (araştırma günlüğü F40); basılı değer REML kestirimine eşittir (D108). 2. laboratuvar 6. düzeyde Cochran aykırısıdır (C = 0,585; %1 kritik değeri 0,496) ve gerekçe belirtilmeden tutulmuştur; çıkarılırsa s_R = 14,7 × 10⁻³ % olur (D109). Tablo J.5'teki 'Average (%)' sütunu fazladan bir 10⁻³ çarpanı taşır.
 
 **Çalıştırma:** `kapsam run library/chemistry/iso5725-3-j2-vanadium-steel.json --lang tr`
 
