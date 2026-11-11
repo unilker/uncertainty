@@ -3792,3 +3792,20 @@ first proposed, died on 16 April 2025 (dedication in Wübbeler et al., Meas. Sci
 replaced by G. Kok. The cover letters list names, affiliations and expertise; the e-mail addresses (taken from the
 correspondence addresses printed in their open-access papers) are entered in the submission system and are not
 stored in the repository.
+
+**D106. First round of the independent recomputation of the c1 findings (2026-11-11).** A colleague of the author's
+institute who has not seen the code filled in the blind form (`tools/research/c1_recheck.py`) for all 13 findings and
+marked every printed value as reproduced. The form does not settle the findings either way:
+
+- In nine rows the value was taken from a total or table printed in the document (F40 "matches the tabulated value",
+  F42 "from Table B.12", F56 u_c 0.150 mg and F57 u_c 0.0245 dB as printed, F21 from the values entered in the budget,
+  F77, F78, F82, F87 "reported value"), i.e. from the very values whose derivation each finding questions.
+- In four rows the recomputer's own numbers disagree with the printed result and agree with the program: F28, the
+  stated equation with the inputs written in the form gives 57.48 m/s (40.64 only without the factor 2); F39, the
+  components written (2.4, 5.0, 3.0 %) give 6.31 % and U = 12.6 %, not 6.4 % and 12.8 %; F58, "2 × 40.7 = 81.4"
+  written for the printed 81.5 nm; F90, "u(y) ≈ 4.47" written for the printed 4.7 nmol/mol.
+- The remark on F87 describes the example wrongly ("influenza medication or related"; it is Pb in C279a).
+
+Not counted as an independent check; the manuscript keeps "planned". A second-round form (`--round2`) names for each
+finding the data to start from (raw data, equations, components) instead of the printed totals, without showing the
+program's values, and asks for the intermediate steps.
