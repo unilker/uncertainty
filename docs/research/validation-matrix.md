@@ -2,10 +2,12 @@
 
 Every reference case is an automated test (`cargo test`). A case passes only
 if the engine reproduces the published value within the stated tolerance.
-For Monte Carlo outputs the tolerance is ≈ 5 standard deviations of the
-engine's own dispersion, measured with `core/examples/mcm_dispersion.rs`
-(20 independent seeds, M = 2 × 10⁶), plus the rounding of the published
-value. Where published MCM values carry their own sampling noise, the
+For the Monte Carlo outputs of the library projects the tolerance is at least
+the distance of the mean over eleven seeds from the reference value plus five
+standard deviations over those seeds (`tools/research/mc_tolerances.py`), tested
+with twenty further seeds (`tools/research/mc_seeds.py`; D112); the core tests
+use ≈ 5 standard deviations measured with `core/examples/mcm_dispersion.rs`
+(20 independent seeds, M = 2 × 10⁶) plus the rounding of the published value. Where published MCM values carry their own sampling noise, the
 primary reference is an analytic solution or an independent 2 × 10⁸-trial
 PCG64 run (`validation/reference_values.py` → `reference_values.json`).
 
