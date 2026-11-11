@@ -515,8 +515,13 @@ the scripts of the recomputations and the spreadsheet formulas are different imp
 project and with the same AI coding assistant as the program (Section 3), so they guard against arithmetic and coding
 errors but not against a misreading of a standard. The c1 findings were recomputed by a metrologist of the author's
 institute who is not an author and had not seen the code, from the documents alone and with the intermediate steps
-written down; the recomputer used hand calculation, Python and Monte Carlo simulation, and whether an AI assistant was
-used was not recorded. A review of the program by metrologists outside the institute has not been made.
+written down. The recomputer used hand calculation, Python and Monte Carlo simulation with the help of an AI assistant
+of the same family as the one used to write the program (Claude, Anthropic). The recomputation is therefore independent
+of the program's code and of its author, but not of the assistant: a misreading of a document that the assistant tends
+to make could be common to both. Against this, most c1 findings rest on a few lines of arithmetic with numbers printed
+in the document itself, which a reader can repeat by hand (Table 6); for F78 the document prints the correct
+intermediate value itself, and F28 was reported independently by Delker [23]. A review of the program by
+metrologists outside the institute has not been made.
 
 **Table 8.** The checks of the program and what makes each independent of it.
 
@@ -528,7 +533,7 @@ used was not recorded. A review of the program by metrologists outside the insti
 | NumPy port of the NICOB R code | degrees of equivalence of the NICOB examples | this project | the port was written in this project | the implementation of the program; the algorithm is NICOB's |
 | Monte Carlo propagation through the calibration fit (S4) | 8 projects, 10⁶ draws each | this project | the script and the model of ISO 6143 A.3 | the linearisation: the fit is repeated for every draw |
 | Spreadsheet workbooks (Section 4.4, S7) | 189 projects, 3684 computed values | formulas: this project; arithmetic: LibreOffice Calc | the reading of the standards | the arithmetic; numerical instead of symbolic derivatives |
-| Recomputation of the c1 findings (Section 6.1) | 13 findings | a metrologist of the same institute who had not seen the code | the documents | the implementation and the person; tools not fully recorded |
+| Recomputation of the c1 findings (Section 6.1) | 13 findings | a metrologist of the same institute who had not seen the code, with an AI assistant | the documents; an AI assistant of the same family (Claude) | the implementation and the person, not the assistant |
 
 **Reporting the findings.** The findings were not communicated to the issuing bodies before submission. The c1
 findings will be sent to them as technical notes after acceptance, so that the notes can refer to a peer-reviewed
@@ -623,7 +628,8 @@ This research did not receive any specific grant from funding agencies in the pu
 
 During the preparation of this work the author used Claude (Anthropic) in order to draft and edit the text of the
 manuscript, to translate between English and Turkish, and to write the scripts that produce its tables and figures;
-its use in developing the software is described in Section 3. No image was generated with a generative AI tool:
+its use in developing the software is described in Section 3. The colleague who recomputed the c1 findings also used
+an AI assistant (Claude, Anthropic; Section 8). No image was generated with a generative AI tool:
 Figures 1 and 3 are drawn by a script of the repository from the program's output, and Figure 2 is a screenshot of the
 application. After using this tool, the author reviewed and edited the content as needed and takes full responsibility
 for the content of the publication.

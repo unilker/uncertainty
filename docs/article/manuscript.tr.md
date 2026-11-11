@@ -509,9 +509,14 @@ Belgelerde basılı değerler, Suncal ve NIST kılavuzlarının örnekleri başk
 aktarımı, yeniden hesap betikleri ve elektronik tablo formülleri farklı uygulamalardır, ancak aynı projede ve programla
 aynı yapay zekâ kodlama asistanıyla yazılmıştır (Bölüm 3); bu nedenle aritmetik ve kodlama hatalarına karşı korurlar,
 bir standardın yanlış okunmasına karşı korumazlar. c1 bulguları, yazarın enstitüsünden, makalenin yazarı olmayan ve
-kodu görmemiş bir metrolog tarafından yalnızca belgelerden ve ara adımlar yazılarak yeniden hesaplandı; yeniden hesabı
-yapan kişi el hesabı, Python ve Monte Carlo benzetimi kullandı, bir yapay zekâ asistanı kullanılıp kullanılmadığı
-kaydedilmedi. Programın enstitü dışındaki metrologlarca incelenmesi yapılmamıştır.
+kodu görmemiş bir metrolog tarafından yalnızca belgelerden ve ara adımlar yazılarak yeniden hesaplandı. Yeniden hesabı
+yapan kişi el hesabı, Python ve Monte Carlo benzetimini, programı yazmakta kullanılanla aynı aileden bir yapay zekâ
+asistanının (Claude, Anthropic) yardımıyla kullandı. Bu nedenle yeniden hesap programın kodundan ve yazarından
+bağımsızdır, ancak asistandan bağımsız değildir: asistanın yapmaya yatkın olduğu bir belge yanlış okuması ikisinde de
+ortak olabilir. Buna karşılık c1 bulgularının çoğu, belgenin kendisinde basılı sayılarla yapılan ve okurun elle
+yineleyebileceği birkaç satırlık aritmetiğe dayanır (Tablo 6); F78'de doğru ara değeri belgenin kendisi basar, F28 ise
+Delker [23] tarafından bağımsız olarak bildirilmiştir. Programın enstitü dışındaki metrologlarca incelenmesi
+yapılmamıştır.
 
 **Tablo 8.** Programın denetimleri ve her birini programdan bağımsız kılan nedir.
 
@@ -523,7 +528,7 @@ kaydedilmedi. Programın enstitü dışındaki metrologlarca incelenmesi yapılm
 | NICOB R kodunun NumPy aktarımı | NICOB örneklerinin eşdeğerlik dereceleri | bu proje | aktarım bu projede yazıldı | programın uygulaması; algoritma NICOB'unkidir |
 | Kalibrasyon uydurması boyunca Monte Carlo yayılımı (S4) | 8 proje, her biri 10⁶ çekiliş | bu proje | betik ve ISO 6143 A.3 modeli | doğrusallaştırma: uydurma her çekilişte yinelenir |
 | Elektronik tablo dosyaları (Bölüm 4.4, S7) | 189 proje, 3684 hesaplanan değer | formüller: bu proje; aritmetik: LibreOffice Calc | standartların okunuşu | aritmetik; sembolik yerine sayısal türevler |
-| c1 bulgularının yeniden hesabı (Bölüm 6.1) | 13 bulgu | aynı enstitüden, kodu görmemiş bir metrolog | belgeler | uygulama ve kişi; araçlar tam kaydedilmedi |
+| c1 bulgularının yeniden hesabı (Bölüm 6.1) | 13 bulgu | aynı enstitüden, kodu görmemiş bir metrolog, bir yapay zekâ asistanıyla | belgeler; aynı aileden bir yapay zekâ asistanı (Claude) | uygulama ve kişi, asistan değil |
 
 **Bulguların bildirilmesi.** Bulgular göndermeden önce yayımcı kuruluşlara iletilmedi. c1 bulguları, notların hakem
 denetiminden geçmiş bir kayda atıf yapabilmesi için kabulden sonra teknik notlar olarak kuruluşlara gönderilecek ve
@@ -619,7 +624,8 @@ Bu araştırma kamu, ticari veya kâr amacı gütmeyen kesimlerdeki finansman ku
 
 Bu çalışmanın hazırlanması sırasında yazar, makale metnini taslak olarak yazmak ve düzenlemek, İngilizce ile Türkçe
 arasında çevirmek ve tablolarını ve şekillerini üreten betikleri yazmak için Claude'u (Anthropic) kullanmıştır;
-yazılımın geliştirilmesindeki kullanımı Bölüm 3'te anlatılmıştır. Hiçbir görsel üretken bir yapay zekâ aracıyla
+yazılımın geliştirilmesindeki kullanımı Bölüm 3'te anlatılmıştır. c1 bulgularını yeniden hesaplayan meslektaş da bir
+yapay zekâ asistanı (Claude, Anthropic; Bölüm 8) kullanmıştır. Hiçbir görsel üretken bir yapay zekâ aracıyla
 üretilmemiştir: Şekil 1 ve 3 deponun bir betiğiyle programın çıktısından çizilmiştir, Şekil 2 uygulamanın bir ekran
 görüntüsüdür. Bu aracı kullandıktan sonra yazar içeriği gerektiği gibi gözden geçirmiş ve düzenlemiştir; yayının
 içeriğinin tüm sorumluluğunu üstlenir.

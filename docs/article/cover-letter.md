@@ -12,7 +12,7 @@ its code. The work contributes to measurement science in two ways:
 (a) **The worked examples themselves.** The recomputation produced 100 findings. Eleven are confirmed inconsistencies
 that change a final printed result (an estimate or its uncertainty) in documents that laboratories use every day,
 five of them by more than a tenth of the expanded uncertainty; a metrologist who had not seen the code reproduced them
-from the documents. I propose that issuing bodies publish the inputs of their examples in machine-readable form and
+from the documents, with the help of an AI assistant, as the manuscript states (Section 8). I propose that issuing bodies publish the inputs of their examples in machine-readable form and
 recompute them before publication, and I offer the library for that purpose.
 
 (b) **The verification of measurement software.** The manuscript shows how uncertainty software can be verified for
@@ -44,7 +44,7 @@ for its name finds the author.
 
 The work does not use machine learning or neural networks as a research method; all evaluations are the
 deterministic and Monte Carlo methods of the GUM suite and of the cited standards. An AI coding assistant was used to
-write code and to draft the text. This is stated in Section 3 and in the declaration on generative AI, and Table 8
+write code and to draft the text, and the colleague who recomputed the c1 findings used one as well. This is stated in Section 3 and in the declaration on generative AI, and Table 8
 states which checks are independent of the program and of the assistant. Every number in the paper can be reproduced
 from the public repository and its archived release v0.1.0 (https://doi.org/10.5281/zenodo.24118312).
 

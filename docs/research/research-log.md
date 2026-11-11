@@ -3956,3 +3956,12 @@ not recorded). Changes:
 - *Figures.* Figure 3a counts each finding once by its most severe class; Figure 3b axis in units of U; Figure 2
   without the clipped column and chart; the AI sentence removed from the captions (it is in the declaration).
 - *Library.* Bettencourt da Silva (2026) cited as Talanta 314 (2027) 130826.
+
+**D111. Tools of the recomputation of the c1 findings (2026-11-11).** Asked by the author, the recomputer (D108) stated
+that an AI assistant of the Claude family (Anthropic), the same family as the coding assistant of this project, was
+used in the recomputation. The manuscript now says so (Section 8, Table 8, the declaration on generative AI and the
+cover letters): the recomputation is independent of the program's code and of its author but not of the assistant, so
+a misreading of a document that the assistant tends to make could be common to both. Against this, most c1 findings
+rest on a few lines of arithmetic with the document's own printed numbers (Table 6); for F78 the document prints the
+correct intermediate value itself, and F28 was reported independently by Delker (2021). A recomputation without an AI
+assistant, or by a metrologist outside the institute, would remove this common mode.
