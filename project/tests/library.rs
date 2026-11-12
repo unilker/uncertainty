@@ -125,3 +125,17 @@ fn pdf_font_covers_every_library_report() {
     let missing = report::pdf::missing_glyphs(&text);
     assert!(missing.is_empty(), "characters without a glyph: {missing:?}");
 }
+
+#[test]
+fn the_seed_on_the_command_line_reaches_the_consensus_bootstrap() {
+    // Research log D113: `--seed` used to change only model and multivariate Monte Carlo runs.
+    let root =
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("../library/chemistry/nicob-pcb28-sediment-degrees-of-freedom.json");
+    let p = parse(&std::fs::read_to_string(root).unwrap()).unwrap();
+    let u = |seed: u64| match run(&p, &Overrides { seed: Some(seed), ..Default::default() }).unwrap() {
+        uncertainty_project::Evaluation::Consensus(c) => c.bootstrap.expect("bootstrap").u,
+        _ => panic!("not a consensus project"),
+    };
+    assert_ne!(u(2), u(3));
+    assert_eq!(u(2), u(2));
+}

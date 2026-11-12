@@ -113,15 +113,15 @@
     "mcm": {
       "standard_uncertainty": {
         "value": 2.0,
-        "tolerance": 0.005
+        "tolerance": 0.009600000000000001
       },
       "interval_low": {
         "value": -3.8812,
-        "tolerance": 0.019
+        "tolerance": 0.016
       },
       "interval_high": {
         "value": 3.8812,
-        "tolerance": 0.02
+        "tolerance": 0.018000000000000002
       },
       "gum_validated": true
     },

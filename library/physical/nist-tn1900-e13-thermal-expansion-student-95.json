@@ -135,15 +135,15 @@
     "mcm": {
       "estimate": {
         "value": 17.3,
-        "tolerance": 0.05
+        "tolerance": 0.054
       },
       "interval_low": {
         "value": 14.0,
-        "tolerance": 0.06
+        "tolerance": 0.079
       },
       "interval_high": {
         "value": 20.5,
-        "tolerance": 0.06
+        "tolerance": 0.065
       }
     },
     "reference": {

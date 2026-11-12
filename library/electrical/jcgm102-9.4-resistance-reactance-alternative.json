@@ -201,7 +201,7 @@
           },
           "Z": {
             "value": 254.26,
-            "tolerance": 0.004
+            "tolerance": 0.0059
           }
         }
       }

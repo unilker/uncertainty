@@ -88,21 +88,23 @@ lines = ["# Monte Carlo results under other seeds", "",
          f"check was run with the ten seeds {SEEDS.start}–{SEEDS.stop - 1} instead of its own, and every Monte Carlo "
          "result was compared with its reference value and tolerance.", ""]
 lines += summary(ratios, fails, errors, SEEDS)
-lines += ["", "History (D110, D112): the first run of this test found 20 comparisons from 7 values outside their tolerance (at "
-          "most 1.26 times it): GUM-5 E14 and E15 (estimate), NUM §3 (lower interval end) and §8 (estimate), TN 1900 E8 "
-          "(upper interval end) and the correlations r(R, X) and r(R, Z) of JCGM 102 9.4 (two projects). Their "
-          "tolerances had been set from the program's own seed; they were reset to half a unit in the last printed "
-          "digit plus five times the standard deviation over eleven seeds (the project's own and 101–110), and the run "
-          "above was repeated. Because those seeds set the seven tolerances, the run above is not a test of them. A test with "
-          "the ten seeds 201–210 (second internal review, D112) then found 31 comparisons outside tolerance: 24 from "
-          "the Monte Carlo standard deviations and correlations of JCGM 102 9.4, whose inputs are t-distributed with "
-          "ν = 3 (no finite fourth moment), and 7 from tolerances that were narrower than the rule; and 3 changes of the "
-          "GUM validation outcome (NUM §10), which that run did not count. The rule was then "
-          "applied to every Monte Carlo value by `tools/research/mc_tolerances.py` from the project's own seed and the "
-          "seeds 101–110 only (69 tolerances widened, by at most 2.9 times); the Monte Carlo standard deviations and "
-          "correlations of JCGM 102 9.4 and TN 1900 E13 (t₃ inputs) and the GUM validation outcome of NUM §10 and "
-          "TN 1900 E1, which depends on the seed, are no longer reference values (14 values). The run above and the "
-          "runs below are with these tolerances."]
+lines += ["", "The rule (D113): tolerance = max(documented tolerance, h + 5 s), where the documented tolerance is the one "
+          "stated in the project (half a unit in the last printed digit and, for a reference that is itself a Monte Carlo "
+          "or MCMC estimate, its sampling error), h is half a unit in the last digit of the reference value and s is the "
+          "standard deviation of the program's result over the project's own seed and the seeds 101–110 "
+          "(`tools/research/mc_tolerances.py`). No term depends on the distance between the program's result and the "
+          "reference value. Because the seeds 101–110 enter the tolerance, the run above is not a test of it; the test "
+          "is the run with seeds that set no tolerance, below.", "",
+          "History. D110: the first run of this test found 20 comparisons from 7 values outside their tolerance; their "
+          "tolerances had been set from the program's own seed and were reset from eleven seeds. D112: a test with the "
+          "seeds 201–210 found 31 comparisons outside tolerance, 24 of them from the Monte Carlo standard deviations and "
+          "correlations of JCGM 102 9.4, whose inputs are t-distributed with ν = 3 (their sample standard deviations "
+          "have no finite variance), and 3 changes of the GUM validation outcome of NUM §10; these values were withdrawn "
+          "as reference values (14 values, finding F102), and a rule that added the program's distance from the "
+          "reference was applied to every value. D113: that distance term was removed (it lets any systematic "
+          "difference pass); the GUM-5 Example 14 comparison of the Monte Carlo result with the printed GUM estimate, "
+          "a different quantity, was withdrawn; and `--seed` now reaches the consensus bootstrap and the multicomponent "
+          "risks, which earlier runs of this test had left at their own seed."]
 lines += fail_table(fails)
 lines += ["", "## Seeds not used to set any tolerance", "",
           "The same projects with the twenty seeds 201–210 and 301–310 (D112), which were not used to set any "
@@ -116,7 +118,8 @@ for stem, prefix in RESET:
     if keys:
         lines.append(f"| {stem} | {', '.join(k[1] for k in keys)} | {q:.2f} |")
     else:
-        lines.append(f"| {stem} | {prefix}…) | withdrawn as reference values (t₃ inputs) |")
+        why = "t₃ inputs" if stem.startswith("jcgm102") else "compared with the printed GUM estimate"
+        lines.append(f"| {stem} | {prefix} | withdrawn as reference values ({why}) |")
 lines += fail_table(ff)
 Path("docs/research/mc-seeds.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 print("\n".join(lines))

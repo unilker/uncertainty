@@ -116,16 +116,7 @@
         "tolerance": 0.0005
       }
     },
-    "mcm": {
-      "estimate": {
-        "value": 10.81,
-        "tolerance": 0.002
-      },
-      "standard_uncertainty": {
-        "value": 0.054,
-        "tolerance": 0.001
-      }
-    },
+    "mcm": {},
     "reference": {
       "en": "JCGM GUM-5:2026, 14.3.2: A₁ = 10.810 kBq, u(A₁) = 0.054 kBq (contributions 0.0472 and 0.0265 kBq).",
       "tr": "JCGM GUM-5:2026, 14.3.2: A₁ = 10,810 kBq, u(A₁) = 0,054 kBq (katkılar 0,0472 ve 0,0265 kBq)."

@@ -192,11 +192,11 @@
       },
       "linear_pool_mean": {
         "value": 10935.59,
-        "tolerance": 5.0
+        "tolerance": 6.6000000000000005
       },
       "linear_pool_u": {
         "value": 339.68,
-        "tolerance": 4.1
+        "tolerance": 7.6000000000000005
       },
       "linear_pool_lower": {
         "value": 9705.1,

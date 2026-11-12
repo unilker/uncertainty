@@ -1,7 +1,7 @@
 # KAPSAM: uyguladığı kılavuzların çözümlü örnekleriyle doğrulanmış açık kaynak kodlu ölçüm belirsizliği yazılımı
 
-*Dördüncü taslağın Türkçe çevirisi, 2026-11-11; üç metroloğun iki turlu iç incelemesinden sonra gözden geçirilmiştir
-(araştırma günlüğü D110, D112). Asıl metin İngilizce olan `docs/article/manuscript.md` dosyasıdır; bu çeviri gözden geçirme içindir ve
+*Depo kopyasının Türkçe çevirisi, 2026-11-12; bir yapay zekâ asistanıyla üç uzmanlık profilinde yazılan, üç turlu bir
+gönderim öncesi incelemeden sonra gözden geçirilmiştir (araştırma günlüğü D110, D112, D113). Asıl metin İngilizce olan `docs/article/manuscript.md` dosyasıdır; bu çeviri gözden geçirme içindir ve
 her değişiklikte İngilizce metinle birlikte güncellenir. Sayılar `docs/article/numbers.md`
 (`tools/research/article_stats.py` ile üretilir), `docs/research/validation-matrix.md`, üretilen ek tablolar ve
 araştırma günlüğünden (kararlar D…, bulgular F…) gelir; kaynakların künyeleri Crossref ile karşılaştırılmıştır.
@@ -17,11 +17,11 @@ ve eklerinin yalnızca bir bölümünü kapsayan programlarla değerlendirir; y�
 örnekleri üzerinde öğrenir ve denetler. KAPSAM, Rust motoru, komut satırı aracı ve masaüstü ile mobil uygulaması olan
 açık kaynak kodlu bir programdır. 2026 değişikliğiyle birlikte GUM'u, eklerinin Monte Carlo yöntemlerini, uygunluk
 değerlendirmesini, yukarıdan aşağı değerlendirmeyi, yeterlilik testini, iki değişkende de belirsizlikli kalibrasyonu,
-kesinlik deneylerini ve sektör kılavuzlarının diğer yöntemlerini uygular. Program, 25'i kılavuz belge ve standart olan
-36 kaynağın çözümlü örneklerinden oluşturulan 284 proje üzerinde doğrulanmıştır: test takımı kodun her değişikliğinde
-1843 referans değerinin tamamını yeniden hesaplar, Suncal 164 projenin, LibreOffice'te yeniden hesaplanan elektronik
-tablo formülleri ise 187 projenin sonuçlarını yeniden üretir. Örneklerin yeniden hesaplanması 101 bulgu ortaya
-çıkardı. Bunların on biri basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır ve beşi sonucu
+kesinlik deneylerini ve sektör kılavuzlarının diğer yöntemlerini uygular. Program 284 proje üzerinde doğrulanmıştır;
+bunların 281'i, 25'i kılavuz belge ve standart olan 36 kaynağın çözümlü örneklerinden oluşturulmuştur. Test takımı
+kodun her değişikliğinde 1841 referans değerinin tamamını yeniden hesaplar; Suncal 164 projenin, LibreOffice'te
+yeniden hesaplanan elektronik tablo formülleri ise 187 projenin sonuçlarını yeniden üretir. Örneklerin yeniden
+hesaplanması 102 bulgu ortaya çıkardı. Bunların on biri basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklardır ve beşi sonucu
 genişletilmiş belirsizliğinin onda birinden fazla değiştirir; kodu görmemiş bir metrolog, bir yapay zekâ asistanıyla
 çalışarak bunları belgelerden yeniden üretmiştir. Çözümlü örneklerin makinece okunabilir girdilerle yayımlanması ve bağımsız yeniden hesaplamayla
 denetlenmesi gerektiğini savunuyoruz.
@@ -45,7 +45,7 @@ deneyleri [18, 19] ve gaz analizi [20] için ISO standartları.
 Bu belgelerin her biri örnekle öğretir. Yeni bir yöntem için bütçe kuran bir laboratuvar sayılarını bir çözümlü
 örnekle karşılaştırır; yazılımını doğrulayan bir laboratuvar da sonuçları basılı olan çözümlü örnekleri yeniden
 çalıştırır. Her iki kullanım da basılı sonuçların basılı girdilerden çıktığını varsayar. Bizim deneyimimizde ve başka
-programların geliştiricilerinin deneyiminde (Bölüm 6.4) bu çoğu zaman tam olarak böyle değildir, bazen de hiç değildir.
+programların geliştiricilerinin deneyiminde [23] bu çoğu zaman tam olarak böyle değildir, bazen de hiç değildir (Bölüm 6).
 
 **Yazılım ve doğrulanması.** NIST Uncertainty Machine [21, 22] açık modelleri GUM ile ve Monte Carlo ile
 değerlendirir; Sandia'nın bir Python paketi olan Suncal'ı [23, 24] buna sembolik LPU, eğri uydurma ve kalibrasyon için
@@ -72,11 +72,12 @@ Katkıları, aynı zamanda makalenin yapısını da veren şu üç başlıktır:
 
 1. **Program, KAPSAM** (Bölüm 2 ve 3): GUM ailesini ve başlıca sektör kılavuzlarını kapsar, her algoritmanın
    dayandığı maddeyi belirtir ve her sonucu girdilerine, yöntemine ve yazılımın tam derlemesine kadar izler.
-2. **Doğrulanması** (Bölüm 4 ve 5): 1843 referans değerli 284 kendi kendini denetleyen proje, referans değerlerin ve
+2. **Doğrulanması** (Bölüm 4 ve 5): 1841 referans değerli 284 kendi kendini denetleyen proje, referans değerlerin ve
    toleransların kendisinin denetimi, bağımsız bir programla, elektronik tablo formülleriyle ve Monte Carlo yayılımıyla
    karşılaştırmalar.
 3. **Yeniden hesabın çözümlü örnekler hakkında ortaya koydukları** (Bölüm 6): türüne ve basılı sonuca etkisine göre
-   sınıflandırılmış 101 bulgu; doğrulanmış tutarsızlıklar kodu görmemiş bir kişi tarafından yeniden hesaplanmıştır.
+   sınıflandırılmış 102 bulgu; doğrulanmış tutarsızlıklar kodu görmemiş bir kişi tarafından, bir yapay zekâ
+   asistanıyla çalışılarak yeniden hesaplanmıştır.
 
 Bölüm 7 programın ISO/IEC 17025 gerekliliklerine nasıl hizmet ettiğini özetler, Bölüm 8 doğrulamanın neyi gösterip
 neyi göstermediğini tartışır, Bölüm 9 sonuçları verir.
@@ -118,10 +119,10 @@ kesindir ve yazdırılabilir. Birleşik standart belirsizlik korelasyonları iç
 kestirimin ikinci mertebe terimi her zaman hesaplanır ve istenirse eklenir; bu durumda varyans, Mana ve Pennecchi'nin
 [41] korelasyonlu normal girdiler için ikinci ve üçüncü mertebe terimlerini de içerir (Ek A.1). Aynı verilerden
 değerlendirilen girdiler bir *topluluk* (ensemble) olarak tanımlanabilir; topluluk Welch–Satterthwaite formülüne
-ortak serbestlik derecesiyle tek bir bileşen olarak girer (Willink [50], Willink ve Hall'un özetlediği biçimiyle
-[51]; GUM Tree Calculator aynı kuralı uygular [25]; Ek A.2). Genişletilmiş belirsizlik EA-4/02'nin kuralıyla (U'yu %5'ten fazla düşürmedikçe olağan yuvarlama, aksi halde
-yukarı) [12], Eurachem/CITAC MUPR kılavuzunun kuralıyla [9] ya da her zaman yukarı yuvarlanır; sonuç ifadesi kuralı
-adıyla belirtir. Kalibrasyon raporlarında kalibrasyon ve ölçüm yeteneği (CMC) alt sınır olarak uygulanabilir, çünkü
+ortak serbestlik derecesiyle tek bir bileşen olarak girer (Willink [50, Bölüm 4.1], Willink ve Hall'un özetlediği
+biçimiyle [51, Bölüm 4]; GUM Tree Calculator aynı kuralı uygular [25]; Ek A.2). Genişletilmiş belirsizlik EA-4/02'nin
+kuralıyla (U'yu %5'ten fazla düşürmedikçe olağan yuvarlama, aksi halde yukarı) [12], Eurachem/CITAC MUPR kılavuzunun
+kuralıyla [9] ya da her zaman yukarı yuvarlanır; sonuç ifadesi kuralı adıyla belirtir. Kalibrasyon raporlarında kalibrasyon ve ölçüm yeteneği (CMC) alt sınır olarak uygulanabilir, çünkü
 raporlanan belirsizlik CMC'den küçük olamaz (ILAC P14 [52]).
 
 ### 2.3 Monte Carlo yöntemi
@@ -152,14 +153,14 @@ değiştirilmiş A Algoritması [55] uygulanmamıştır.
 Uzlaşı modülü NIST Consensus Builder'ı [28, 49] izler ve açık olan R kaynak koduyla karşılaştırılmıştır. Shirono ve
 arkadaşları birbiriyle tutarsız sonuçların iki nedenini ayırır [56]: laboratuvarların çoğunu etkileyen ve karanlık
 belirsizlikli bir rastgele etkiler modeli gerektiren ortak bir etki [48] ve aykırı laboratuvarlar. Modül rastgele
-etkiler modellerini sağlar; aykırı laboratuvarlar aşağıdaki birini dışarıda bırakan eşdeğerlik dereceleriyle
-belirlenir ve hiçbir sonuç kendiliğinden dışlanmaz. DerSimonian–Laird kestirimini [57] Knapp–Hartung düzeltmesiyle
-[58] ve laboratuvarlar arası varyansı Biggerstaff ve Tweedie'nin Cochran Q'su için gama yaklaşımından [59] çeken
-NICOB parametrik bootstrap'iyle verir. Kodun okunması, kılavuzunun belirtmediği bir ayrıntıyı, yaklaşımın hangi
-noktada değerlendirildiğini ortaya koydu (Ek A.3); program kodu izler. Laboratuvarlar arası standart sapma
-üzerinde yarı Cauchy önselli hiyerarşik Bayesçi model MCMC yerine deterministik ızgaralarda değerlendirilir (Ek A.4).
-Eşdeğerlik dereceleri CIPM MRA sürümünde ve belirsizliği NICOB'daki gibi Röver ve arkadaşlarının değiştirilmiş
-Knapp–Hartung düzeltmesini [60] kullanan birini dışarıda bırakma sürümünde, tek taraflı ve ikili olarak verilir.
+etkiler modellerini sağlar; aykırı laboratuvarlar bu paragrafın sonunda anlatılan, birini dışarıda bırakan
+eşdeğerlik dereceleriyle belirlenir ve hiçbir sonuç kendiliğinden dışlanmaz. Modül DerSimonian–Laird kestirimini [57]
+Knapp–Hartung düzeltmesiyle [58] ve laboratuvarlar arası varyansı Biggerstaff ve Tweedie'nin Cochran Q'su için gama
+yaklaşımından [59] çeken NICOB parametrik bootstrap'iyle verir. Kodun okunması, kılavuzunun belirtmediği bir ayrıntıyı,
+yaklaşımın hangi noktada değerlendirildiğini ortaya koydu (Ek A.3); program kodu izler. Laboratuvarlar arası standart
+sapma üzerinde yarı Cauchy önselli hiyerarşik Bayesçi model MCMC yerine deterministik ızgaralarda değerlendirilir
+(Ek A.4). Tek taraflı ve ikili eşdeğerlik dereceleri, CIPM MRA sürümünde ve belirsizliği NICOB'daki gibi Röver ve
+arkadaşlarının değiştirilmiş Knapp–Hartung düzeltmesini [60] kullanan birini dışarıda bırakma sürümünde verilir.
 
 Bir kütle kesri 1 g/g'yi aşamaz. y ± U böyle bir sınırı aştığında program aralığı sınırda keser ve sonucu, saflık
 atamasına ilişkin IUPAC teknik raporunun izin verdiği gibi [61], y +U_U/−U_L olarak ifade eder; Monte Carlo yöntemiyle
@@ -210,10 +211,13 @@ normal sayılar kesin olan Box–Muller dönüşümünden, gama sayıları Marsa
 çıktılı bir modelde her deneme bütün çıktıları ortak girdi dağılımının tek bir çekilişinden hesaplar. Tüm hesaplar çift
 duyarlıkta yapılır; değerler yalnızca raporlanan ifadede yuvarlanır.
 
-Yazılımın kalite güvencesi: biri 284 kütüphane projesinin tamamını değerlendiren 223 motor testi ve uygulamanın 28
+Yazılımın kalite güvencesi: biri 284 kütüphane projesinin tamamını değerlendiren 224 motor testi ve uygulamanın 28
 testi, kaynak kodun her değişikliğinde bir biçim denetimi, her uyarıyı hata sayan bir statik analiz ve elektronik
 tablo doğrulama dosyalarının LibreOffice Calc'ta [66] yeniden hesaplanmasıyla birlikte çalışır (sürekli
-tümleştirme; sürüm, tümleştirme sunucusunun işletim sistemininkidir: yazım sırasında 26.2, ek malzeme için 24.2). Beş platformun paketleri aynı commit'ten derlenir. Her rapor program sürümünü, derlendiği git
+tümleştirme sunucusunda 26.2 sürümü; ek malzeme 24.2 sürümüyle üretilmiştir ve iki sürüm de karşılaştırılan 4631
+değerin tamamını tolerans içinde verir). Bölüm 2 ve 3 ile Ek A'da programın ne yaptığına ilişkin her ifade, deponun bir
+tablosunda onu gerçekleştiren kod ve test ile eşlenmiştir; hiçbir değerlendirmenin kullanmadığı açık fonksiyonların da
+birim testleri vardır. Beş platformun paketleri aynı commit'ten derlenir. Her rapor program sürümünü, derlendiği git
 commit'ini ve tarihini, derleyiciyi ve değerlendirilen projenin SHA-256 özetini verir (ISO/IEC 17025 7.5, 7.11).
 Kaynak kod, kütüphane projelerinin üreteçleri, yeniden hesap betikleri ve elektronik tablo dosyalarının formülleri,
 yöntemleri ve belgeleri seçen, referans değerlerini ve toleransları belirleyen ve sonuçları gözden geçiren yazarın
@@ -236,13 +240,12 @@ tam duyarlıkta veren JSON olarak yazılır.
 Kütüphanede 284 proje vardır (Tablo 3). Birincil kaynakları, 253 projeyle 25 kılavuz belge ve standart — GUM, ekleri ve
 GUM-5, Eurachem/CITAC, Nordtest, EA, UKAS ve EURAMET kılavuzları, beş ISO standardı, NIST TN 1900 [67] ile NIST
 Uncertainty Machine ve Consensus Builder kılavuzları, EMPIR EMUE derlemesi [68] ve IUPAC kısa kılavuzu [69] —, 9
-projeyle qNMR üzerine beş BIPM referans veri raporu [70], 19 projeyle beş makale ve bir kitap (Palma ve ark. [71],
+projeyle qNMR üzerine beş BIPM referans veri raporu [70] (dizinin altıncı raporu yalnızca F97 için yeniden
+hesaplanmıştır), 19 projeyle beş makale ve bir kitap (Palma ve ark. [71],
 Bettencourt da Silva [31], Koepke ve ark. [49], Merkatas ve ark. [72], Possolo ve Bodnar [45], Possolo ve Meija
 [73]); test belirsizlik oranından koruma bantları üzerine üç proje, yayımlanmış koruma bandı formüllerinden bu çalışma
 için kurulmuş sınama durumlarıdır (Bölüm 4.4). Bu makalenin doğrulama savları 25 kılavuz belge ve standarda (253 proje,
-1672 referans değeri) dayanır; diğer kaynaklar test durumlarını genişletir. Önceki taslaklarda kullanılan, yayımlanmamış
-bir iç prosedüre ait iki proje, bir laboratuvarın kendi projelerine örnek olarak kütüphanenin dışında tutulmuştur
-(Bölüm 7). Alana göre 143 proje kimya, 35 elektrik, 31 kütle, 24 genel, 16 fiziksel büyüklükler, 12 uzunluk, 10
+1670 referans değeri) dayanır; diğer kaynaklar test durumlarını genişletir. Alana göre 143 proje kimya, 35 elektrik, 31 kütle, 24 genel, 16 fiziksel büyüklükler, 12 uzunluk, 10
 sıcaklık, 7 akış ve 6 basınç alanındadır; değerlendirme türüne göre 137'si bir ölçüm modeli içerir, diğerleri kalan on
 türü kapsar (Tablo 2; her projenin kaynağıyla tam listesi ek malzeme S1'dedir). Bir çözümlü örnek türevler olarak
 birden çok proje verebilir; 284 proje 227 çözümlü örneği veya türevi yeniden üretir.
@@ -258,40 +261,38 @@ toleransı son basamağının yarım birimidir. Basılı değer kendisi bir Mont
 toleransa eklenir. Kaynak hiçbir şey basmamışsa ya da girdilerinden çıkmayan bir değer basmışsa referans değeri,
 depodaki bir betiğin NumPy [74] ve SciPy [75] ile yaptığı bağımsız bir yeniden hesaptır ve tutarsızlık bir bulgu olarak
 kaydedilir; bir motorun kendi çıktısı hiçbir zaman kendi referansı olarak kullanılmaz. Her proje referans değerlerinin
-nereden geldiğini belirtir. Bu ifadelerden sınıflandırıldığında (S1) 205 projenin (1219 değer) referans değerleri
+nereden geldiğini belirtir. Bu ifadelerden sınıflandırıldığında (S1) 205 projenin (1217 değer) referans değerleri
 yalnızca basılı değerlerdir, 21 projeninkiler (147 değer) basılı Monte Carlo veya MCMC kestirimleri içerir, 58
 projeninkiler (477 değer) ise kısmen ya da tamamen bağımsız bir yeniden hesaptan gelir. Bu ifadeler değer başına değil
 proje başına yazıldığından 477, bir yeniden hesaba dayanan değerlerin sayısı için bir üst sınırdır.
 
-1843 referans değerinden 932'sinin toleransı son basamağın yarım birimi, 242'sinin en çok bir birimi kadardır; 267'si
-Monte Carlo değeridir ve 402'sinin nedeni projede belirtilen daha geniş bir toleransı vardır (örneğin iki anlamlı
-basamakla basılmış bir girdiden türetilen bir değer). Tüm değerlerde |Δ|/tolerans oranının ortancası 0,23, 99. yüzdeliği
-0,98'dir. |Δ|'sı toleransının 0,9'undan büyük olan 74 değerin 51'inin toleransı yarım birimdir: kesin değerleri basılı
-değerin yuvarlama sınırına yakındır (örneğin 93,155'in 93,16 olarak basılması). 74 değerin tamamı toleranslarının
-dayanağıyla ek malzeme S3'te listelenmiştir.
+1841 referans değerinden 932'sinin toleransı son basamağın yarım birimi, 242'sinin en çok bir birimi kadardır; 265'i
+Monte Carlo değeridir ve 402'sinin, nedeni projede belirtilen daha geniş bir toleransı vardır (örneğin iki anlamlı
+basamakla basılmış bir girdiden türetilen bir değer). Tüm değerlerde |Δ|/tolerans oranının ortancası 0,22, 99.
+yüzdeliği 0,98'dir. |Δ|'sı toleransının 0,9'undan büyük olan 73 değerin 51'inin toleransı yarım birimdir: kesin
+değerleri basılı değerin yuvarlama sınırına yakındır (örneğin 93,155'in 93,16 olarak basılması). 73 değerin tamamı
+toleranslarının dayanağıyla ek malzeme S3'te listelenmiştir.
 
-Bir Monte Carlo sonucu, en az referans değerinden uzaklığı artı tohumlar arası standart sapmasının beş katı olan bir
-toleransla karşılaştırılır; ikisi de projenin kendi tohumu ve 101–110 tohumları üzerinden alınır. Kural önce yalnızca bu
-tohumlarla tolerans dışına düşen değerlere uygulanmıştı (7 değer; bunlardan birinde, GUM-5 Örnek 14'te, Monte Carlo
-ortalaması basılı GUM kestiriminden modelin doğrusal olmayışı kadar farklıdır). On başka tohumla (201–210) yapılan
-sınama ardından 31 karşılaştırmayı tolerans dışında buldu: 24'ü, girdileri üç serbestlik dereceli t dağılımına uyan ve
-bu yüzden örneklem standart sapmalarının varyansı sonlu olmayan JCGM 102 Örnek 9.4'ün Monte Carlo standart sapmaları ve
-korelasyonlarından, 7'si kuraldan dar toleranslardan geldi. Bunun üzerine kural yalnızca on bir tohumdan her Monte Carlo
-değerine uygulandı (69 tolerans en çok 2,9 kat genişledi) ve 14 değer referans değeri olmaktan çıkarıldı: t₃ girdili
-iki örneğin (JCGM 102 9.4, TN 1900 E13) standart sapmaları ve korelasyonları ile GUM doğrulamasının sonucunun tohuma
-bağlı olduğu iki projedeki bu sonuç. Hiçbir toleransın belirlenmesinde kullanılmamış yirmi tohumla (201–210 ve
-301–310) 5340 karşılaştırmanın tamamı tolerans içindedir ve en büyük |Δ|/tolerans 0,93'tür (S3).
+Bir Monte Carlo sonucunun toleransı, programın sonucunun referans değerden ne kadar uzak olduğuna bağlı değildir.
+Tolerans, referans değerin belgelenmiş toleransı (son basamağın yarım birimi ve referans kendisi bir Monte Carlo veya
+MCMC kestirimiyse onun örnekleme hatası) ile son basamağın yarım birimi artı programın sonucunun on bir tohumdaki
+(projenin kendi tohumu ve 101–110) standart sapmasının beş katından büyük olanıdır. Bu tohumlar toleransları
+belirlediği için kural yirmi başka tohumla (201–210 ve 301–310) sınanmıştır: 265 değerin 5300 karşılaştırmasının tamamı tolerans içindedir ve en büyük |Δ|/tolerans 0,97'dir (S3). On altı değer referans değeri
+olarak kullanılmaz: örneklem standart sapmalarının varyansı sonlu olmayan, t₃ girdili iki örneğin (JCGM 102 Örnek 9.4
+ve TN 1900 E13) Monte Carlo standart sapmaları ve korelasyonları (F102); iki projede tohuma bağlı olan GUM doğrulaması
+sonucu; ve örneğin basmadığı ve farklı bir büyüklük olan GUM kestirimiyle karşılaştırılmış olan GUM-5 Örnek 14'ün Monte
+Carlo sonuçları. Kuralın geçmişi S3'te verilmiştir.
 
 ### 4.3 Tutarsızlıkların sınıflandırılması
 
 Bulguların denetiminden önce dört sınıf tanımlandı: (a) basılı bir basamağı değiştiren ara yuvarlama; (b) sonuca
 etkisi olmayan bir baskı veya aktarma hatası; (c) bir tutarsızlık; (n) tutarsızlık yok (yöntemsel bir not veya tam
-yeniden üretim). Bulguların ilk iç incelemesinden sonra c sınıfı bulgular etkilerine göre ayrıca bölündü: c1,
-tutarsızlık giderildiğinde basılı bir nihai sonuç — kestirim, belirsizliği veya belirtilen sonuç — belgenin kendi ara
-değer yuvarlamasıyla bile basılı basamaklarında değişir; c2, yalnızca bir ara değer değişir; m, bir tutarsızlık değil,
-yöntem veya yorum farkı; e, yayımlanmış bir düzeltmeyle zaten giderilmiş bir hata. Bu alt sınıflar bulgular
-toplandıktan sonra getirildi; dört bulgu daha sonra bağımsız yeniden hesap ve inceleme ışığında yeniden sınıflandırıldı
-veya bölündü (Bölüm 6.1). Belgenin kendi verilerinden yeniden hesap açık bir soru bırakmıyorsa bulgu doğrulanmış
+yeniden üretim). Bulguların ilk iç incelemesinden sonra c sınıfı bulgular etkilerine göre ayrıca bölündü: c1, basılı
+bir nihai sonuç — kestirim, belirsizliği veya belirtilen sonuç — ya tutarsızlık giderildiğinde, belgenin kendi ara değer
+yuvarlamasıyla bile basılı basamaklarında değişir ya da belgenin kendi basılı verilerinden çıkmaz; c2, tutarsızlık
+yalnızca bir ara değeri değiştirir; m, bir tutarsızlık değil, yöntem veya yorum farkı; e, yayımlanmış bir düzeltmeyle
+zaten giderilmiş bir hata. Bu alt sınıflar bulgular toplandıktan sonra getirildi; beş bulgu daha sonra bağımsız
+yeniden hesap ve inceleme ışığında yeniden sınıflandırıldı, bölündü veya genişletildi (Bölüm 6.1). Belgenin kendi verilerinden yeniden hesap açık bir soru bırakmıyorsa bulgu doğrulanmış
 sayılır; basılı sonucuna basılı girdilerin makul bir yuvarlanışıyla ulaşılabilen bir c1 bulgusu açıktır. Başka bir
 kaynakla denetlenmeyi bekleyen bulgular açıktır ve sayılmaz.
 
@@ -303,9 +304,9 @@ regresyonuyla karşılaştırılan iki değişkende de belirsizlikli 6 kalibrasy
 küresel risklerle karşılaştırılan 18 uygunluk değerlendirmesi. Beş proje hem model hem uygunluk değerlendirmesi olarak
 karşılaştırıldığından bunlar 164 projenin 169 karşılaştırmasıdır. Diğer proje türlerinin Suncal'da karşılığı yoktur.
 Test belirsizlik oranından koruma bantları üzerine üç projenin referans değerleri Suncal'dan alınmamış, yayımlanmış
-koruma bandı formüllerinden (Dobbert [53], RP-10 ve karekök toplam koruma bandı) ve JCGM 106'nın risk integrallerinden
-SciPy ile hesaplanmıştır; böylece bunların Suncal ile karşılaştırılması döngüsel değildir; bu üç proje bir kılavuzun
-çözümlü örneği değil, bu çalışma için kurulmuş sınama durumlarıdır.
+koruma bandı çarpanlarından (Dobbert'in yönetilen koruma bandı [53], 1,25 − 1/TUR ve √(1 − 1/TUR²)) ve JCGM 106'nın
+risk integrallerinden SciPy ile hesaplanmıştır; böylece bunların Suncal ile karşılaştırılması döngüsel değildir. Bu üç
+proje bir kılavuzun çözümlü örneği değil, bu çalışma için kurulmuş sınama durumlarıdır.
 
 Ölçüm modelleri, yeterlilik testleri, kesinlik deneyleri ve yukarıdan aşağı değerlendirmeler için KAPSAM ayrıca bir
 elektronik tablo doğrulama dosyası (.xlsx) yazar. Dosya projenin verilerini ve sıradan elektronik tablo formüllerini
@@ -320,7 +321,9 @@ veriler üzerinde yapar.
 
 ## 5. Doğrulama sonuçları
 
-284 projenin 1843 referans değerinin tamamı toleransları içinde yeniden üretilir. Validasyon matrisi (ek malzeme S3)
+284 projenin 1841 referans değerinin tamamı toleransları içinde yeniden üretilir. Bunların en az 1364'ü basılı
+değerdir, en çok 477'si bağımsız bir yeniden hesaba dayanır (Bölüm 4.2) ve 265 Monte Carlo değeri, programın tohumlar
+arası saçılımını içeren toleranslarla karşılaştırılır. Validasyon matrisi (ek malzeme S3)
 227 çözümlü örneği veya türevi yeniden üretilmiş olarak kaydeder; bunların 25'inde bulgu vardır. Tablo 4 bağımsız
 uygulamalarla karşılaştırmaları özetler.
 
@@ -359,13 +362,13 @@ sistematik olarak denetlenmemiştir.
 
 ### 6.1 Genel bakış
 
-Örneklerin yeniden hesaplanması 101 bulgu ortaya çıkardı (F1–F101; tamamı ek malzeme S2'de, c1 bulgularının
+Örneklerin yeniden hesaplanması 102 bulgu ortaya çıkardı (F1–F102; tamamı ek malzeme S2'de, c1 bulgularının
 türetilişleri S8'dedir). Sınıflarına göre 27'si yalnızca ara yuvarlama, 24'ü etkisiz baskı hatası, 24'ü tutarsızlık ve
-13'ü tutarsızlık yoktur; 13'ü iki sınıfı birleştirir (6'sı a ve b, 1'i a ve c, 6'sı b ve c). Otuz bir bulgunun c
+14'ü tutarsızlık yok sınıfındadır; 13'ü iki sınıfı birleştirir (6'sı a ve b, 1'i a ve c, 6'sı b ve c). Otuz bir bulgunun c
 sınıfı bir bileşeni vardır; Tablo 5 bunları etkiye ve duruma göre ayırır. Sonuçlanan 25 bulgudan 11'i basılı bir nihai
 sonucu değiştirir (c1), 8'i yalnızca bir ara değeri değiştirir (c2; ikisi düzeltmelerle kısmen giderilmiş), 5'i yöntem
-farkıdır (m) ve 1'i bilinen bir düzeltmedir (e); 6'sı açıktır ve sayılmaz. Her biri bir kez ve en ağır sınıfıyla sayıldığında bulgular
-belgelerin çoğunu ilgilendirir (Şekil 3a): GUM-5 ve Eurachem QUAM'da dokuzar, UKAS M3003'te yedi, EMUE derlemesinde
+farkıdır (m) ve 1'i bilinen bir düzeltmedir (e); 6'sı açıktır ve sayılmaz. Her biri bir kez ve en ağır sınıfıyla
+sayıldığında bulgular belgelerin çoğunu ilgilendirir (Şekil 3a): GUM-5 ve Eurachem QUAM'da dokuzar, UKAS M3003'te yedi, EMUE derlemesinde
 beş bulgu vardır. Üç bulgu, proje hazırlanırken yeniden hesaplanan ve kütüphanenin 36 kaynağının dışında kalan
 belgelere aittir (Magnusson ve Ellison [77], Mateos ve ark. [78], Delker [23]).
 
@@ -378,17 +381,17 @@ belgelere aittir (Magnusson ve Ellison [77], Mateos ve ark. [78], Delker [23]).
 | m | 3 | 2 | 0 | 1 | F40, F63, F69, F73, F79, F80 |
 | e | 0 | 0 | 1 | 0 | F14 |
 
-*Bağımsız denetlenmiş: doğrulanmış ve ayrıca kodu görmemiş bir kişi tarafından yeniden üretilmiş (S8) ya da başka bir
-yazar tarafından bildirilmiş.*
+*Bağımsız denetlenmiş: doğrulanmış ve ayrıca kodu görmemiş bir kişi tarafından, bir yapay zekâ asistanıyla çalışılarak
+yeniden üretilmiş (S8) ya da başka bir yazar tarafından bildirilmiş.*
 
 c1 bulguları basılı sonucu, genişletilmiş belirsizliğinin %0,6'sı (F58, U'da bir değişiklik) ile 34 katı (F28,
 kestirimde bir değişiklik) arasında değiştirir; beşi U'nun onda birinden fazla değiştirir (Şekil 3b, Tablo 6). İlk
 aşamada c1 sınıfına konan on üç bulgunun tamamı kodu görmemiş bir metrolog tarafından, bir yapay zekâ asistanıyla
 çalışılarak belgelerden yeniden hesaplandı (Bölüm 8). Ek malzeme S8 her biri için basılı değeri, programın değerini ve
-yeniden hesaplanan değeri verir. Yeniden hesaplanan değerler, üç durum dışında basılı basamaklarda programınkilerle
-uyuşur: F40'ta yeniden hesaplayan kişi aşağıda anlatılan üç ele alınışı verdi, F82'de ikisi belgenin farklı
-tablolarından başlar ve yuvarlamadan sonra uyuşur, F90'da ise ikisi de aşağıda anlatılan aralıktadır. Ardından dört
-bulgunun sınıfı değişti. F40'ta (ISO 5725-3:2023, Tablo J.5, düzey 6) basılı tekrarüretilebilirlik standart sapması
+yeniden hesaplanan değeri verir. Yeniden hesaplanan değerler, üç durum dışında basılı basamaklarda, F58'de ise
+0,02 nm içinde (82,04'e karşı 82,06 nm) programınkilerle uyuşur: F40'ta yeniden hesaplayan kişi aşağıda anlatılan üç
+ele alınışı verdi, F82'de ikisi belgenin farklı tablolarından başlar ve yuvarlamadan sonra uyuşur, F90'da ise ikisi de
+aşağıda anlatılan aralıktadır. Ardından beş bulgu yeniden sınıflandırıldı, bölündü veya genişletildi. F40'ta (ISO 5725-3:2023, Tablo J.5, düzey 6) basılı tekrarüretilebilirlik standart sapması
 negatif bir varyans kestiriminin savunulabilir üç ele alınışından biridir; bu nedenle bulgu satırın sonucunu değil iç
 tutarlılığını ilgilendirir ve m sınıfına alındı. F87'de (EMUE E3.4) bağıl sapma belirsizliklerinin karesel ortalaması
 basılı %3,3 değil %3,5'tir; ancak örneğin yaptığı gibi birleşik bağıl belirsizlik %5'e yuvarlanınca basılı
@@ -396,12 +399,14 @@ U = 2,8 mg/kg her iki durumda da çıkar; bulgu c2 sınıfına alındı. F90'da 
 4,14 ile 4,78 nmol/mol arasında bir validasyon belirsizliğine izin verir; bu aralık basılı 4,7'yi içerdiğinden c1
 ölçütü sağlanmaz ve bulgu açıktır. F101, F40'tan ayrıldı: ISO 5725-3:2023'ün Tablo J.2'si 1994 baskısının
 verilerinden 3–5. düzeylerde 15 hücrede farklıdır ve basılı Tablo J.5 1994 verilerinden çıkar, 2023 tablosundan
-çıkmaz. BIPM qNMR bütçelerine ilişkin F97'ye (Bölüm 6.3) açık bir c1 bölümü eklendi.
+çıkmaz; yani basılı sonuç belgenin kendi verilerinden çıkmaz. ⟦CORTR⟧ BIPM qNMR bütçelerine ilişkin F97'ye
+(Bölüm 6.3) açık bir c1 bölümü eklendi.
 
 <!-- fig3 -->
 
-**Tablo 6.** Basılı bir nihai sonucu değiştiren doğrulanmış tutarsızlıklar (c1 sınıfı). Etki: kestirimdeki (y) veya
-genişletilmiş belirsizlikteki (U) değişiklik, basılı U biriminde.
+**Tablo 6.** Basılı bir nihai sonucu değiştiren veya onu belgenin kendi verilerinden dayanaksız bırakan doğrulanmış
+tutarsızlıklar (c1 sınıfı). Etki: kestirimdeki (y) veya genişletilmiş belirsizlikteki (U) değişiklik, basılı U
+biriminde.
 
 | F | Belge | Büyüklük | Basılı | Yeniden hesaplanan | Etki | Neden | Önceden biliniyor mu? |
 |---|---|---|---|---|---|---|---|
@@ -415,17 +420,19 @@ genişletilmiş belirsizlikteki (U) değişiklik, basılı U biriminde.
 | F77 | GUM-5 Örn. 15 | MCM s.s. / kN | 10,1 | 9,93 | 0,02 U (U) | t girdisinin ölçeği | düzeltme yok |
 | F39 | ISO 21748 C.3 | U(un) / % | 12,8 | 12,6 | 0,02 U (U) | tablonun kendi bileşenleri %6,31 verir | düzeltme yok |
 | F58 | UKAS M3003 K.6 | U / nm | 81,5 | 82,0 | 0,006 U (U) | bütçe sıcaklık farkına L·Δα katsayısını uygular, verilen model ise L·α verir | düzeltme yok |
-| F101 | ISO 5725-3:2023 J.2, J.5 | s_r, düzey 5 / (% × 10⁻³) | 6,237 | 14,715 | — | Tablo J.2 1994 verilerinden 15 hücrede farklı; Tablo J.5 1994 verilerinden çıkar | düzeltme yok |
+| F101 | ISO 5725-3:2023 J.2, J.5 | s_r, düzey 5 / (% × 10⁻³) | 6,237 (Tablo J.5; 1994 verilerinden çıkar) | 2023 Tablo J.2'den 14,715 | — | veri tablosu J.2 1994 verilerinden 15 hücrede farklı; sonuç tablosu J.5 ondan çıkmaz | 2023 baskısında düzeltme yok ⟦CORTTR⟧ |
 
-*Her satır kodu görmemiş bir metrolog tarafından belgenin güncel baskısından yeniden hesaplanmıştır (S8, her satırın
-türetilişiyle); her satırda düzeltilmiş sonuç, belgenin kendi yuvarlamasıyla bile basılı basamaklarında basılı
-sonuçtan farklıdır. Düzeltme listeleri, düzeltmeler ve değişiklikler 11 Kasım 2026'da yayımcı kuruluşların
-sayfalarında denetlenmiştir (S8).*
+*Her satır kodu görmemiş bir metrolog tarafından, bir yapay zekâ asistanıyla çalışılarak belgenin güncel baskısından
+yeniden hesaplanmıştır (S8, her satırın türetilişiyle). F101 dışındaki her satırda düzeltilmiş sonuç, belgenin kendi
+yuvarlamasıyla bile basılı basamaklarında basılı sonuçtan farklıdır; F101'de basılı sonuç onunla birlikte basılan veri
+tablosundan çıkmaz ve satır iki tablodan hangisinin yanlış olduğunu söylemez. F42'de u(x)'teki bağıl değişiklik U'dakine
+eşittir. Düzeltme listeleri, düzeltmeler ve değişiklikler 11 Kasım 2026'da yayımcı kuruluşların sayfalarında
+denetlenmiştir (S8).*
 
 On bir bulgudan biri biliniyordu (F28, Delker [23] tarafından bildirilmiş), biri kısmen biliniyordur (F42: ISO 6143
 programının üstel fonksiyon için yanlış parametre belirsizlikleri verdiğini kendisi belirtir, ancak bunları u(x) için
 kullanır); ISO 6143'ün programının doğrusal olmayan fonksiyonlardaki başarımına ilişkin bir değişikliği DIS
-aşamasındadır ve bunun u(x)'i düzeltip düzeltmediği metni açıklanana kadar denetlenemez. Diğer dokuzu için hiçbir
+aşamasındadır ve ⟦DAMDTR⟧ Diğer dokuzu için hiçbir
 düzeltme listesi, düzeltme veya değişiklik yayımlanmamıştır. Dördü basılı sonucu U'nun yirmide birinden az değiştirir,
 F101 ise belirtilmiş bir U'su olmayan bir kesinlik kestirimini ilgilendirir; bunlar ölçüm için değil, örneğin basılı
 basamaklarına göre referans olarak kullanılması için önemlidir.
@@ -454,16 +461,21 @@ hesaplanamayan bir bütçe referans olamaz ve girdilerden yeniden hesap bunu hem
 
 Basılı Monte Carlo ve MCMC değerleri örnekleme hatası taşır ve birçok tutarsızlık bu büyüklüktedir: kesin değer
 0,185 a (yıl) iken 0,19 a olan bir Bayesçi standart sapma (F95), 5 × 10⁴ çekilişten korelasyonlar (F96), 10⁶ tekrardan
-0,752 ng/g iken 0,77 ng/g olan bir bootstrap standart belirsizliği (F99). Deterministik bir değerlendirme varsa
-belirsizliği ortadan kaldırır; yoksa çekiliş sayısı sonuçla birlikte basılmalıdır.
+0,752 ng/g iken 0,77 ng/g olan bir bootstrap standart belirsizliği (F99). Üç serbestlik dereceli t dağılımına uyan
+girdilerde çıktının örneklem standart sapmasının varyansı sonlu değildir; bu yüzden JCGM 102 Örnek 9.4'ün ve TN 1900
+E13'ün basılı Monte Carlo standart sapmaları ve korelasyonları hiçbir programla kararlı biçimde yeniden üretilemez
+(F102); JCGM 102 Örnek 9.4'te GUM belirsizlikleri ve korelasyonları ile Monte Carlo kestirimleri referans değeri olarak
+kalır. Deterministik bir değerlendirme varsa belirsizliği ortadan kaldırır; yoksa çekiliş sayısı sonuçla birlikte
+basılmalıdır.
 
 ### 6.5 Yöntem farkları
 
 Sonuçlanmış beş c sınıfı bulgu yöntem veya yorum farkıdır. GUM-5 Örnek 2'de analit ve iç standardın alanları aynı üç
 enjeksiyondan gelir. Willink, aynı eşzamanlı gözlemlerden kestirilen girdileri n − 1 serbestlik dereceli tek bir
-bileşende birleştirir [50, 51]; bu burada ν_eff = 2,11 ve k = 4,10 verir. Örnek, Willink'in varyansları
-bağımsız kestirilen korelasyonlu kestirimler için verdiği genellemeyi, kendi (2.3) denklemini uygular ve ν_eff = 4,8 ile
-k = 2,6 bulur (F79; iki formül Ek A.2'de). Basılı ortalamalar, standart sapmalar ve korelasyonla üçer çift
+bileşende birleştirir [50, Bölüm 4.1]; bu burada ν_eff = 2,11 ve k = 4,10 verir. Örnek ise kendi (2.3) denklemini,
+yani Willink'in varyansları bağımsız kestirilen korelasyonlu kestirimler için verdiği genellemeyi [50, Bölüm 4.2]
+uygular ve ν_eff = 4,8 ile k = 2,6 bulur (F79; iki formül Ek A.2'de; Willink ve Hall [51, Bölüm 4] iki durumu aynı
+biçimde ayırır). Basılı ortalamalar, standart sapmalar ve korelasyonla üçer çift
 enjeksiyonluk 4 × 10⁵ veri kümesinin benzetiminde, ν 4,8'de ve 2,11'de sabit tutulduğunda GUM aralığı %89 ve %96
 kapsar; ν bir laboratuvarın yapacağı gibi her veri kümesinden yeniden hesaplandığında her iki okuma da %93–94 kapsar
 (S2). Örnek, bağımsız varyans kestirimleri için olan kuralı aynı verilerden gelen kestirimlere uygular; seçim tek bir
@@ -566,17 +578,19 @@ sayım istatistikleri, model ortalaması, kalibrasyon eğrilerinin Monte Carlo i
 paketleri; PDF raporlar ve SHA-256 özetleri bütünlük denetimi sağlar, ancak imza sağlamaz. Windows paketleri henüz
 kod imzalı değildir. Proje dosyaları çözümlü örneklerin sayısal verilerini kaynak atfıyla içerir; belgelerin kendisi
 dağıtılmaz ve kodun lisansı atıf yapılan verilere ilişkin haklara uzanmaz. t₃ girdili modellerin Monte Carlo standart
-sapmaları, örnekleme dağılımlarının varyansı sonlu olmadığından referans değeri olarak kullanılmaz (Bölüm 4.2). Programın laboratuvarlarda kullanımı henüz incelenmemiştir.
+sapmaları, örnekleme dağılımlarının varyansı sonlu olmadığından referans değeri olarak kullanılmaz (Bölüm 4.2,
+F102). Programın laboratuvarlarda kullanımı henüz incelenmemiştir.
 
 ## 9. Sonuçlar
 
-KAPSAM GUM ailesini ve başlıca sektör kılavuzlarını tek bir motorda uygular ve 36 kaynağın çözümlü örneklerinden
-oluşturulan 284 proje üzerinde; 1843 referans değerinin her biri için belgelenmiş bir toleransla, toleransların
-belirlenmesinde kullanılmamış tohumlarla sınanmasıyla ve bağımsız bir programla, elektronik tablo formülleriyle ve
-Monte Carlo yayılımıyla karşılaştırmalarla doğrulanmıştır. Çözümlü örneklerin yeniden hesaplanması 101 bulgu ortaya
-çıkardı; on biri basılı bir nihai sonucu değiştirir, beşi sonucu genişletilmiş belirsizliğinin onda birinden fazla
-değiştirir ve kodu görmemiş bir kişi, bir yapay zekâ asistanıyla çalışarak bunları yeniden üretmiştir. Bulguların çoğu ölçümü etkilemeyen, ancak örnekleri basılı
-basamaklarına göre güvenilmez referanslar yapan ara yuvarlama veya baskı hatalarıdır. Bu nedenle çözümlü örnekler
+KAPSAM GUM ailesini ve başlıca sektör kılavuzlarını tek bir motorda uygular. Program, 281'i 36 kaynağın çözümlü
+örneklerinden oluşturulan 284 proje üzerinde; 1841 referans değerinin her biri için belgelenmiş bir toleransla, Monte
+Carlo toleranslarının belirlenmesinde kullanılmamış tohumlarla sınanmasıyla ve bağımsız bir programla, elektronik
+tablo formülleriyle ve Monte Carlo yayılımıyla karşılaştırmalarla doğrulanmıştır. Çözümlü örneklerin yeniden
+hesaplanması 102 bulgu ortaya çıkardı; on biri basılı bir nihai sonucu değiştirir veya onu belgenin kendi verilerinden
+dayanaksız bırakır, beşi sonucu genişletilmiş belirsizliğinin onda birinden fazla değiştirir ve kodu görmemiş bir kişi,
+bir yapay zekâ asistanıyla çalışarak bunları yeniden üretmiştir. Bulguların çoğu ölçümü etkilemeyen, ancak örnekleri
+basılı basamaklarına göre güvenilmez referanslar yapan ara yuvarlama veya baskı hatalarıdır. Bu nedenle çözümlü örnekler
 yuvarlanmamış, makinece okunabilir girdilerle yayımlanmalı ve yayından önce bağımsız yazılımla yeniden
 hesaplanmalıdır; bu çalışmanın kütüphanesi bir başlangıç noktasıdır.
 
@@ -591,9 +605,9 @@ parçasıdır; `cargo test` Bölüm 4 ve 5'teki her sayıyı yeniden üretir.
 
 - **S1.** 284 kütüphane projesi: kaynak belge ve bölüm, kaynağın türü, referans değerlerinin dayanağı, alan,
   değerlendirme türü ve karşılaştırılan değer sayısı.
-- **S2.** Sınıfları, etkileri ve durumlarıyla 101 bulgu.
+- **S2.** Sınıfları, etkileri ve durumlarıyla 102 bulgu.
 - **S3.** Validasyon matrisi: her çözümlü örnek veya türev ve sonucu; toleransına yakın değerler; başka tohumlarla
-  Monte Carlo sonuçları.
+  Monte Carlo sonuçları ve tolerans kuralının geçmişi.
 - **S4.** Suncal 1.7.1 ile karşılaştırma (164 projenin 169 karşılaştırması) ve kalibrasyon uydurması boyunca Monte
   Carlo yayılımı.
 - **S5.** Programın kütüphanenin tamamı için yazdığı yazılım validasyon raporu.
@@ -614,10 +628,12 @@ bağımsız girdiler için bu, GUM 5.1.2'nin notundaki ifadedir. Yüksek mertebe
 **A.2 Topluluklu etkin serbestlik derecesi.** Bir toplulukta olmayan girdilerin uᵢ(y) = cᵢu(xᵢ) bileşenleri
 Welch–Satterthwaite formülüne tek tek girer. ν_E serbestlik dereceli aynı verilerden kestirilen bir E topluluğunun
 girdileri tek bir bileşen olarak girer, u_E²(y) = Σ_{i,j∈E} cᵢcⱼu(xᵢ, xⱼ):
-ν_eff = u⁴(y) / (Σ_{i∉E} uᵢ⁴(y)/νᵢ + u_E⁴(y)/ν_E); topluluk bir kez sayılarak en çok Σνᵢ (Willink [50], GUM Tree
-Calculator [25]). Örnek 2'de kullanılan GUM-5 (2.3) denklemi
+ν_eff = u⁴(y) / (Σ_{i∉E} uᵢ⁴(y)/νᵢ + u_E⁴(y)/ν_E); topluluk bir kez sayılarak en çok Σνᵢ (Willink [50,
+Bölüm 4.1], GUM Tree Calculator [25]). GUM-5 Örnek 2'de analit ve iç standardın alanları ν_E = 2 olan bir topluluk
+oluşturur; bileşeni u_E² = 3,97 × 10⁻⁶ ng², toplam u² = 4,08 × 10⁻⁶ ng²'dir; diğer bileşenlerin serbestlik dereceleri
+büyük olduğundan ν_eff ≈ (4,08 × 10⁻⁶)²/((3,97 × 10⁻⁶)²/2) = 2,11'dir. Örnekte kullanılan GUM-5 (2.3) denklemi
 ν_eff = u⁴(y) / Σᵢ Σⱼ r²(xᵢ, xⱼ) cᵢ²cⱼ² u²(xᵢ)u²(xⱼ)/νᵢ'dir; Willink'in varyansları bağımsız kestirilen korelasyonlu
-kestirimler için genellemesidir [50, 51]. Eşit paylı, cᵢu(xᵢ) = a, r = 0,5 ve νᵢ = ν olan iki bileşen için
+kestirimler için genellemesidir [50, Bölüm 4.2]. Eşit paylı, cᵢu(xᵢ) = a, r = 0,5 ve νᵢ = ν olan iki bileşen için
 u⁴(y) = 9a⁴ ve payda 2,5a⁴/ν'dir; böylece (2.3) denklemi 3,6ν verir; aynı ν + 1 gözlemden gelen kestirimler için
 topluluk kuralı ise ν verir.
 
@@ -625,8 +641,9 @@ topluluk kuralı ise ν verir.
 Cochran istatistiği A = W − wwᵀ/S₁ ile Q = xᵀAx'tir ve laboratuvarlar arası varyansın moment kestirimi
 τ²_M = (Q − (K − 1))/(S₁ − S₂/S₁)'dir; Q < K − 1 iken negatiftir; DerSimonian–Laird kestirimi max(0, τ²_M)'dir.
 Rastgele etkiler modelinde, Σ = W⁻¹ + τ²I ile Q'nun kesin ortalaması E Q = (K − 1) + (S₁ − S₂/S₁)τ², varyansı
-Var Q = 2 tr[(AΣ)²] = 2(K − 1) + 4(S₁ − S₂/S₁)τ² + 2(S₂ − 2S₃/S₁ + S₂²/S₁²)τ⁴'tür; Biggerstaff ve Tweedie [59] gama
-yaklaşımlarını bu momentlerle kurar. NICOB'un kaynak kodu bunları kesilmemiş τ²_M'de değerlendirir; böylece ortalama
+Var Q = 2 tr[(AΣ)²] = 2(K − 1) + 4(S₁ − S₂/S₁)τ² + 2(S₂ − 2S₃/S₁ + S₂²/S₁²)τ⁴'tür; bunlar normal değişkenlerdeki
+karesel bir biçimin ortalama ve varyansından doğrudan çıkar (A ortak ortalamayı yok eder, A1 = 0). Bu iki momentli gama
+dağılımı Biggerstaff ve Tweedie'nin [59] yaklaşımıdır. NICOB'un kaynak kodu momentleri kesilmemiş τ²_M'de değerlendirir; böylece ortalama
 gözlenen Q'ya eşit olur; kılavuzu bunu belirtmez. Homojen bir kümede (Q < K − 1) bu, dört sonuçlu bir örnekte
 τ̂²_DL = 0'da değerlendirmeye göre u'yu %13 düşürür. Program kodu izler; bir birim testi programın varyansını doğrudan
 hesaplanan 2 tr[(AΣ)²] ile karşılaştırır.
@@ -656,7 +673,8 @@ Bu araştırma kamu, ticari veya kâr amacı gütmeyen kesimlerdeki finansman ku
 ## Makalenin hazırlanmasında üretken yapay zekâ ve yapay zekâ destekli teknolojilerin kullanımına ilişkin beyan
 
 Bu çalışmanın hazırlanması sırasında yazar, makale metnini taslak olarak yazmak ve düzenlemek, İngilizce ile Türkçe
-arasında çevirmek ve tablolarını ve şekillerini üreten betikleri yazmak için Claude'u (Anthropic) kullanmıştır;
+arasında çevirmek, tablolarını ve şekillerini üreten betikleri yazmak ve gönderim öncesinde makaleyi eleştirel olarak
+incelemek için Claude'u (Anthropic) kullanmıştır;
 yazılımın geliştirilmesindeki kullanımı Bölüm 3'te anlatılmıştır. c1 bulgularını yeniden hesaplayan meslektaş da bir
 yapay zekâ asistanı (Claude, Anthropic; Bölüm 8 ve S8) kullanmıştır. Hiçbir görsel üretken bir yapay zekâ aracıyla
 üretilmemiştir: Şekil 1 ve 3 deponun bir betiğiyle programın çıktısından çizilmiştir, Şekil 2 uygulamanın bir ekran
@@ -827,4 +845,4 @@ içeriğinin tüm sorumluluğunu üstlenir.
 
 [81] ISO 33405:2024, Reference materials — Approaches for characterization and assessment of homogeneity and stability.
 
-[82] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), v0.1.1 [software], Zenodo, 2026. https://doi.org/10.5281/zenodo.24118311 (all versions; v0.1.0: https://doi.org/10.5281/zenodo.24118312)
+[82] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), v0.1.1 [software], Zenodo, 2026. ⟦DOI⟧

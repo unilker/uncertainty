@@ -100,3 +100,4 @@ F98	a	EURAMET cg-18 H3.4/A and H3.4/B	EURAMET cg-18 H3.4/A and H3.4/B — u(a₁
 F99	n	NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).	NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).
 F100	n	NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).	NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).
 F101	c	ISO 5725-3 J.2	ISO 5725-3:2023 Table J.2 — transcription errors at levels 3–5 (15 entries against the 1994 data); Table J.5 is not reproducible from the printed Table J.2.
+F102	n	JCGM 102 9.4; NIST TN 1900 E13	JCGM 102 9.4 and NIST TN 1900 E13 — Monte Carlo standard deviations and correlations with t₃ inputs cannot be reproduced stably (class n, Monte Carlo dispersion without a finite variance).

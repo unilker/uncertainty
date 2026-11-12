@@ -128,11 +128,11 @@
     "mcm": {
       "interval_low": {
         "value": 23.8,
-        "tolerance": 0.05
+        "tolerance": 0.06
       },
       "interval_high": {
         "value": 27.4,
-        "tolerance": 0.05
+        "tolerance": 0.065
       }
     },
     "reference": {
