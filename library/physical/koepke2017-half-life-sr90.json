@@ -140,7 +140,7 @@
       },
       "bootstrap_u": {
         "value": 40.2,
-        "tolerance": 0.4
+        "tolerance": 0.72
       },
       "interval_lower": {
         "value": 10410.0,
@@ -152,11 +152,11 @@
       },
       "linear_pool_mean": {
         "value": 10475.37,
-        "tolerance": 4.5
+        "tolerance": 6.7
       },
       "linear_pool_u": {
         "value": 281.24,
-        "tolerance": 3.7
+        "tolerance": 7.5
       },
       "linear_pool_lower": {
         "value": 9923.1,
@@ -164,7 +164,7 @@
       },
       "linear_pool_upper": {
         "value": 11082.1,
-        "tolerance": 20.0
+        "tolerance": 56
       },
       "bayes_mean": {
         "value": 10486.33,

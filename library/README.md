@@ -13,10 +13,11 @@ başarısız bir karşılaştırma derlemeyi başarısız kılar. Dosyalardaki n
 tutarsız olduğu yerleri kaydeder (`docs/research/research-log.md` bulguları).
 
 Reference values: published values where the document reproduces from its own inputs; otherwise analytic
-solutions or independent high-precision Monte Carlo references (`validation/`). Monte Carlo tolerances are at
-least the distance of the mean over eleven seeds from the reference value plus five standard deviations over
-those seeds (`tools/research/mc_tolerances.py`), tested with twenty further seeds (`tools/research/mc_seeds.py`;
-research log D15, D110, D112).
+solutions or independent high-precision Monte Carlo references (`validation/`). Monte Carlo tolerances are the
+larger of the documented tolerance (half a unit in the last printed digit and the sampling error of a Monte Carlo
+reference) and half a unit plus five standard deviations of the result over eleven seeds
+(`tools/research/mc_tolerances.py`); they do not depend on the program's distance from the reference and are tested
+with twenty further seeds (`tools/research/mc_seeds.py`; research log D15, D110, D112, D113).
 
 Data: the project files contain the numerical data of the published worked examples, with a citation of their
 source, so that the examples can be recomputed; the documents themselves are not distributed. The GPL-3.0
@@ -25,9 +26,10 @@ the cited data, which remain with their sources. The projects of an unpublished 
 in `laboratory/`, outside this library.
 
 Referans değerler: belge kendi girdilerinden yeniden üretilebiliyorsa yayımlanmış değerler; aksi halde analitik
-çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransları en az,
-on bir tohumdaki ortalamanın referans değerinden uzaklığı artı bu tohumlardaki standart sapmanın beş katıdır;
-yirmi başka tohumla sınanır (araştırma günlüğü D112).
+çözümler veya bağımsız yüksek hassasiyetli Monte Carlo referansları (`validation/`). Monte Carlo toleransı, belgelenmiş
+tolerans (basılı son basamağın yarım birimi ve Monte Carlo referansının örnekleme hatası) ile yarım birim artı on bir
+tohumdaki standart sapmanın beş katından büyük olanıdır; programın referanstan uzaklığına bağlı değildir ve yirmi
+başka tohumla sınanır (araştırma günlüğü D113).
 
 **284 examples / örnek** (137 model, 39 top-down, 9 proficiency testing / yeterlilik testi, 8 calibration in both variables / iki değişkenli kalibrasyon, 6 interlaboratory precision / laboratuvarlar arası kesinlik, 17 multivariate / çok çıktılı, 22 control charts / kontrol grafiği, 7 sampling / numune alma, 9 error functions / hata fonksiyonu, 30 conformity assessment / uygunluk değerlendirmesi).
 

@@ -98,11 +98,11 @@
     "mcm": {
       "estimate": {
         "value": 7204,
-        "tolerance": 0.6
+        "tolerance": 0.75
       },
       "standard_uncertainty": {
         "value": 54,
-        "tolerance": 0.5
+        "tolerance": 0.73
       }
     },
     "reference": {

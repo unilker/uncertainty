@@ -133,21 +133,21 @@
         "estimate": {
           "Y1": {
             "value": 0,
-            "tolerance": 0.017
+            "tolerance": 0.033
           },
           "Y2": {
             "value": 0,
-            "tolerance": 0.018
+            "tolerance": 0.033
           }
         },
         "standard_uncertainty": {
           "Y1": {
             "value": 3.162,
-            "tolerance": 0.009
+            "tolerance": 0.0086
           },
           "Y2": {
             "value": 3.162,
-            "tolerance": 0.0082
+            "tolerance": 0.0079
           }
         },
         "correlations": [
@@ -157,7 +157,7 @@
               "Y2"
             ],
             "value": 0.9,
-            "tolerance": 0.003
+            "tolerance": 0.0038
           }
         ],
         "k_ellipsoid": {

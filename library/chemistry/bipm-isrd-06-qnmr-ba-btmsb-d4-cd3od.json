@@ -214,15 +214,15 @@
       },
       "bounded_standard_uncertainty": {
         "value": 0.000487717,
-        "tolerance": 3.9e-06
+        "tolerance": 3.6e-06
       },
       "bounded_low": {
         "value": 0.998394053,
-        "tolerance": 1.3e-05
+        "tolerance": 1.2e-05
       },
       "bounded_high": {
         "value": 1.0,
-        "tolerance": 1e-07
+        "tolerance": 1.4e-07
       }
     }
   }

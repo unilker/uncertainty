@@ -74,9 +74,17 @@ ANON = [
 ]
 IDENT = re.compile(r"TÜBİTAK|\bUME\b|ume-procedure|İlker|\bÜn\b|unilker|zenodo\.2411|0000-0001-5089-4602|Gebze",
                    re.I)
-OPEN = [r"\[Zenodo DOI[^\]]*\]", r"\[release tag[^\]]*\]", r"\[To be [^\]]*\]", r"\[Suggested reviewers[^\]]*\]",
+OPEN = [r"⟦[^⟧]*⟧", r"\[Zenodo DOI[^\]]*\]", r"\[release tag[^\]]*\]", r"\[To be [^\]]*\]", r"\[Suggested reviewers[^\]]*\]",
         r"\(planned\)", r"is planned before\s+submission", r"\[verify[^\]]*\]", r"\[to be (?:added|confirmed)[^\]]*\]",
         r"\[confirm[^\]]*\]", r"\[e-mail[^\]]*\]", r"\[choose[^\]]*\]"]
+# Numbers of earlier versions: searched in every file of the package.
+STALE = [r"\b286 (?:projects|library)", r"\b1865\b", r"\b1843\b", r"\b4678\b", r"\b3684\b", r"\b166 projects",
+         r"\b171 comparisons", r"\b189 (?:projects|spreadsheet|workbooks)", r"\b37 (?:sources|documents)",
+         r"\b10[01] findings", r"\bv0\.1\.0\b"]
+# Draft notes, references to the research log and repository paths: searched in the manuscript only (the supplementary
+# material may cite the public research log).
+STALE_MANUSCRIPT = [r"(?i)\b(?:first|second|third|fourth|fifth) draft\b", r"(?i)repository copy", r"docs/article/",
+                    r"research log D\d", r"✅"]
 FIGURES = ["fig1_architecture", "fig2_application", "fig3_findings_by_document"]
 
 
@@ -104,16 +112,17 @@ def clear_metadata(path, title):
 
 def manuscript(out, commit):
     title, md = article_docx.assemble("en", commit)
-    paras = md.split("\n\n")
-    paras = [p for p in paras if not p.strip().startswith(("*Review copy", "*Second draft", "*Third draft", "*Before submission"))
-             and not p.strip().startswith("İlker Ün —")]
-    md = "\n\n".join(paras)
+    # Nothing may stand between the title and the abstract: the draft note and the author line of the repository
+    # copy are dropped (third pre-submission review, G1), and the check below fails if anything else is left there.
+    head, rest = md.split("## Abstract", 1)
+    head_paras = [p for p in head.split("\n\n") if p.strip()]
+    md = "\n\n".join(p for p in head_paras if p.lstrip().startswith("# ")) + "\n\n## Abstract" + rest
+    assert not [p for p in md.split("## Abstract", 1)[0].split("\n\n") if p.strip() and not p.lstrip().startswith("# ")]
     parts = {}
     for h in ("CRediT authorship contribution statement", "Declaration of competing interest", "Funding"):
         parts[h], md = section(md, h)
     md = anon(md)
-    cap = article_docx.CAPTIONS["en"]
-    md += "\n\n## Figure captions\n\n" + "\n\n".join(cap[k] for k in ("fig1", "fig2", "fig3")) + "\n"
+    # The figures are embedded with their captions, so no separate list of captions is appended (S3.5).
     with tempfile.TemporaryDirectory() as tmp:
         ref = Path(tmp) / "ref.docx"
         article_docx.reference_docx(ref, "en")
@@ -291,6 +300,14 @@ def main():
         for pat in OPEN:
             for m in re.finditer(pat, text):
                 found.append(f"- {name}: `{' '.join(m.group(0).split())}`")
+    # Numbers of earlier versions and repository references that must not appear in any file of the package (G4).
+    stale = []
+    for f in sorted(out.rglob("*")):
+        if f.is_file() and f.name != "CHECKLIST.md":
+            text = text_of(f)
+            for pat in STALE + (STALE_MANUSCRIPT if f.name == "manuscript-anonymized.docx" else []):
+                for m in re.finditer(pat, text):
+                    stale.append(f"- {f.relative_to(out)}: `{m.group(0)}`")
     abstract = md.split("## Abstract", 1)[1].split("**Keywords:**", 1)[0]
     keywords = [k.strip() for k in md.split("**Keywords:**", 1)[1].split("\n\n", 1)[0].replace("\n", " ").split(";")]
     n_pages = pages(out / "manuscript-anonymized.docx")
@@ -307,6 +324,8 @@ def main():
          "scan below" if leaks else "no match"),
         ("Word file, single column, no underline or strikethrough", True, "pandoc reference document"),
         ("Figures as separate files, logical names, captions with a brief title", True, "figures/Figure_1-3"),
+        ("No numbers of earlier versions, draft notes or repository paths", not stale,
+         "scan below" if stale else "none found"),
         ("Declaration of generative AI immediately before the references", md.index("## Declaration of generative AI")
          < md.index("## References"), "section present"),
     ]
@@ -316,6 +335,7 @@ def main():
     lines += [f"| {r} | {'yes' if ok else 'NO'} | {d} |" for r, ok, d in checks]
     lines += ["", "## Identifying information in the files reviewers see", "", "\n".join(leaks) or "None found.", "",
               "## Still open (placeholders)", "", "\n".join(found) or "Nothing found.", "",
+              "## Numbers of earlier versions, draft notes, repository paths", "", "\n".join(stale) or "None found.", "",
               "## To do in the submission system", "",
               "- Declaration of competing interests with Elsevier's declarations tool (upload the Word file).",
               "- Link to the data set (research data, option C): the Zenodo DOI of the release.",

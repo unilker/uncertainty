@@ -198,7 +198,7 @@
     "mcm": {
       "estimate": {
         "value": 30.043,
-        "tolerance": 0.0005
+        "tolerance": 0.00059
       },
       "standard_uncertainty": {
         "value": 0.0224,
@@ -206,11 +206,11 @@
       },
       "interval_low": {
         "value": 30.006,
-        "tolerance": 0.0005
+        "tolerance": 0.00059
       },
       "interval_high": {
         "value": 30.081,
-        "tolerance": 0.00052
+        "tolerance": 0.0006600000000000001
       }
     },
     "reference": {

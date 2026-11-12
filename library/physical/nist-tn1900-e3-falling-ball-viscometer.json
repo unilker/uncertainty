@@ -171,11 +171,11 @@
       },
       "interval_low": {
         "value": 4.05,
-        "tolerance": 0.01
+        "tolerance": 0.011
       },
       "interval_high": {
         "value": 8.39,
-        "tolerance": 0.027
+        "tolerance": 0.022
       },
       "gum_validated": false
     },

@@ -517,11 +517,24 @@ pub fn run(p: &Project, overrides: &Overrides) -> Result<Evaluation, ProjectErro
     if let Some(spec) = &p.sampling {
         return Ok(Evaluation::Sampling(Box::new(sampling::evaluate(spec)?)));
     }
+    // The seed and the number of trials given on the command line apply to every Monte Carlo evaluation, the
+    // consensus bootstrap and the multicomponent risks included (research log D113).
     if let Some(spec) = &p.consensus {
-        return Ok(Evaluation::Consensus(Box::new(consensus::evaluate(spec)?)));
+        let mut spec = spec.clone();
+        if let Some(seed) = overrides.seed {
+            spec.seed = seed;
+        }
+        if let Some(trials) = overrides.trials {
+            spec.trials = trials;
+        }
+        return Ok(Evaluation::Consensus(Box::new(consensus::evaluate(&spec)?)));
     }
     if let Some(spec) = &p.multicomponent_conformity {
-        return Ok(Evaluation::Multicomponent(Box::new(multiconformity::evaluate(spec)?)));
+        let mut spec = spec.clone();
+        if let Some(seed) = overrides.seed {
+            spec.seed = seed;
+        }
+        return Ok(Evaluation::Multicomponent(Box::new(multiconformity::evaluate(&spec)?)));
     }
     if let Some(spec) = &p.error_function {
         return Ok(Evaluation::ErrorFunction(Box::new(weighing::evaluate(spec)?)));

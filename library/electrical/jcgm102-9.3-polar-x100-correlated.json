@@ -136,7 +136,7 @@
         "standard_uncertainty": {
           "R": {
             "value": 0.01,
-            "tolerance": 0.0006
+            "tolerance": 0.0006500000000000001
           },
           "Theta": {
             "value": 0.102,

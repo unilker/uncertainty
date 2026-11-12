@@ -8,11 +8,11 @@ değerlendirmenizi rica ederim.
 
 Akredite deney ve kalibrasyon laboratuvarları belirsizlik değerlendirmelerini GUM ailesinin ve sektör kılavuzlarının
 (Eurachem/CITAC, Nordtest, EA, UKAS, EURAMET, ISO) çözümlü örnekleri üzerinde öğrenir ve denetler. Bu örnekleri
-sistematik olarak yeniden hesapladım: 25'i kılavuz belge ve standart olan 36 kaynağın çözümlü örneklerinden
-oluşturulan 284 proje ve yazılımın, kodunun her değişikliğinde belgelenmiş toleranslar içinde yeniden ürettiği 1843
+sistematik olarak yeniden hesapladım: 281'i, 25'i kılavuz belge ve standart olan 36 kaynağın çözümlü örneklerinden
+oluşturulan 284 proje ve yazılımın, kodunun her değişikliğinde belgelenmiş toleranslar içinde yeniden ürettiği 1841
 referans değeri. Çalışma ölçüm bilimine iki yolla katkı sağlar:
 
-(a) **Çözümlü örneklerin kendisi.** Yeniden hesaplama 101 bulgu ortaya çıkardı. Bunların on biri, laboratuvarların her
+(a) **Çözümlü örneklerin kendisi.** Yeniden hesaplama 102 bulgu ortaya çıkardı. Bunların on biri, laboratuvarların her
 gün kullandığı belgelerde basılı bir nihai sonucu (bir kestirimi veya belirsizliğini) değiştiren doğrulanmış
 tutarsızlıklardır; beşi sonucu genişletilmiş belirsizliğin onda birinden fazla değiştirir; kodu görmemiş bir metrolog
 bunları, makalede belirtildiği gibi bir yapay zekâ asistanının yardımıyla, belgelerden yeniden üretmiştir (Bölüm 8); okurun elle yineleyebilmesi için her birinin türetilişi ek malzemede (S8) verilmiştir. Göndermeden önce ilgili her belgenin düzeltme listelerini, düzeltmelerini ve değişikliklerini denetledim (S8). Yayımcı kuruluşların örneklerinin girdilerini makinece okunabilir biçimde
@@ -44,7 +44,7 @@ sayfasındadır. Bu çalışmada tam anonimlik mümkün değildir: programın ad
 arşivlenmiş sürümü açıktır; adıyla yapılacak bir arama yazarı bulur.
 
 Çalışma araştırma yöntemi olarak makine öğrenmesi veya sinir ağları kullanmaz; tüm değerlendirmeler GUM ailesinin ve
-atıf yapılan standartların deterministik ve Monte Carlo yöntemleridir. Kod yazmak ve metnin taslağını hazırlamak için
+atıf yapılan standartların deterministik ve Monte Carlo yöntemleridir. Kod yazmak, metnin taslağını hazırlamak ve metni gözden geçirmek için
 bir yapay zekâ kodlama asistanı kullanılmıştır; c1 bulgularını yeniden hesaplayan meslektaş da bir asistan kullanmıştır. Bu, Bölüm 3'te ve üretken yapay zekâ beyanında belirtilmiştir; Tablo 8
 hangi denetimlerin programdan ve asistandan bağımsız olduğunu gösterir. Makaledeki her sayı açık depodan ve arşivlenmiş
 v0.1.1 sürümünden (https://doi.org/10.5281/zenodo.24118311, tüm sürümler) yeniden üretilebilir; ek malzemenin

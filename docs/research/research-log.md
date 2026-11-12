@@ -3902,7 +3902,8 @@ highlights and cover letters. The form and its evaluation stay outside the repos
 None of these changes a class or a count. The manuscript adds the Cochran remark to the paragraph on F40 (Section
 6.1).
 
-**D110. Revision after an internal review by three metrologists (2026-11-11).** Three reviewers (uncertainty methods;
+**D110. Revision after a pre-submission review (2026-11-11).** The review was written by an AI assistant (Claude,
+Anthropic) in three expert profiles, not by metrologists (corrected in D113). Three reviewer profiles (uncertainty methods;
 standards and accreditation; originality and suitability for the journal) read the submission package. Decisions of
 the author: one focused paper (the consensus, bound and guard-band discussion of former Section 7 is left for a later
 paper); the findings are reported to the issuing bodies after acceptance (D90 kept); the project files keep the
@@ -3966,7 +3967,7 @@ rest on a few lines of arithmetic with the document's own printed numbers (Table
 correct intermediate value itself, and F28 was reported independently by Delker (2021). A recomputation without an AI
 assistant, or by a metrologist outside the institute, would remove this common mode.
 
-## 2026-11-11 (session 24) — Second round of the internal review
+## 2026-11-11 (session 24) — Second round of the pre-submission review
 
 **F101. ISO 5725-3:2023 Table J.2 — transcription errors at levels 3–5 (class c, c1).** Split from F40 at the
 reviewers' request (D112). Table J.2 of the 2023 edition differs from Table D.2 of the 1994 edition in 15 entries: 12 at
@@ -3977,7 +3978,8 @@ level 3 s_r 0.652 against 1.739, level 5 s_r 14.715 against 6.237 (× 10⁻³ %)
 reproduced from the document's own data; the cause is the data table, not the evaluation. Confirmed independently by
 the recomputer of D108 (levels 3–5 of Table J.5 cannot be reproduced from the 2023 data). No corrigendum to ISO 5725-3:2023 was found (D112).
 
-**D112. Second round of the internal review (2026-11-11).** The three reviewers of D110 read the revised package and
+**D112. Second round of the pre-submission review (2026-11-11).** The three reviewer profiles of D110 (an AI assistant;
+D113) read the revised package and
 asked for nine changes before submission. Decisions and changes:
 
 - *c1 criterion (R1.1).* Rewritten: the inconsistency, once corrected, changes the final printed result at its
@@ -4045,3 +4047,69 @@ asked for nine changes before submission. Decisions and changes:
   report numbers of ISRD-06 and ISRD-07 corrected to Rapport BIPM-2019/03 and 2019/04 in the article, the generator
   and the four projects; Section 2.5 states that outlying laboratories are identified by the leave-one-out degrees
   of equivalence and none is excluded automatically.
+
+## 2026-11-12 (session 25) — Third round of the pre-submission review
+
+The three reviews of D110, D112 and this round were written by an AI assistant (Claude, Anthropic) in three expert
+profiles, as their last report states; earlier entries that called them "three metrologists" are corrected. They do
+not replace the journal's peer review or a reading by a metrologist with access to the source documents.
+
+**F102. JCGM 102 9.4 and NIST TN 1900 E13 — Monte Carlo standard deviations with t₃ inputs (class n, Monte Carlo
+dispersion without a finite variance).** With inputs from t-distributions with ν = 3 (JCGM 102 9.4: ν = n − N = 3;
+TN 1900 E13: t₃ inputs), the fourth moment of the output does not exist and the sample standard deviation of 10⁶
+trials has no finite variance. Single seeds give u(R) = 0.249 Ω (seed 207) against the printed 0.13 Ω. The printed
+Monte Carlo standard deviations and correlations of these examples cannot be reproduced stably by any program; they
+were withdrawn as reference values in D112 (the estimates, the GUM uncertainties and correlations and, for the t₃
+projects of E13, the intervals remain).
+
+**D113. Third round of the pre-submission review (2026-11-12).** Decisions of the author: F101 stays c1 with an
+extended definition (c1 now also covers a final printed result that does not follow from the document's own printed
+data), so the count stays 11; the author reads ISO 5725-3:1994/Cor 1:2001 and ISO 6143:2025/DAmd 1 through the
+national standards body before submission; the author is not an author of the BIPM ISRD reports (the review's
+statement was wrong); the declaration on generative AI keeps its wording and adds the pre-submission review.
+Changes:
+
+- *Seed override (S1.2, S2.4).* `--seed` and `--trials` did not reach the consensus bootstrap or the multicomponent
+  risks: `run` passed only model and multivariate evaluations the overrides. All seed tests before this entry
+  therefore left the consensus values at their own seed. Fixed in `project/src/lib.rs` with the test
+  `the_seed_on_the_command_line_reaches_the_consensus_bootstrap`.
+- *Monte Carlo tolerances (S1.2).* The D112 rule contained |mean − reference|, which lets any systematic difference
+  between the program and the reference pass. New rule (`tools/research/mc_tolerances.py`): tolerance =
+  max(documented tolerance, h + 5 s), with the documented tolerance as committed before D112 (half a unit in the last
+  printed digit and the sampling error of a Monte Carlo reference), h half a unit in the last digit of the reference
+  and s the standard deviation over the project's own seed and 101–110. Applied to all 265 Monte Carlo values
+  (consensus included, which now vary with the seed). Test with the seeds 201–210 and 301–310, which set no
+  tolerance: 0 of 5300 comparisons outside, largest |Δ|/tolerance 0.97 (`docs/research/mc-seeds.md`).
+- *GUM-5 Example 14.* Its Monte Carlo estimate and standard deviation were compared with the printed GUM values,
+  which the example gives for a different quantity (the Monte Carlo mean differs by the nonlinearity of the model);
+  both withdrawn. Library: 1841 reference values (1670 from guidance documents and standards).
+- *F102* (above) recorded as a finding; 102 findings, 14 in class n.
+- *Claims against code (S2.4).* `docs/research/claims-to-code.md` maps every statement of Sections 2, 3 and
+  Appendix A about what the program does to its code and test.
+- *Manuscript.* c1 definition extended; Table 6 gives both values of F101 and does not say which table is wrong; the
+  recomputer's AI assistant named in the introduction and in the footnotes of Tables 5 and 6; the F58 agreement
+  (82.04 against 82.06 nm) stated; five findings reclassified, split or extended (F40, F87, F90, F101, F97); Section
+  4.2 gives the final rule and the independent test, the history is in S3; Section 5 states how many values are
+  printed, recomputed and Monte Carlo; abstract and conclusions say that 281 of the 284 projects come from the worked
+  examples of the 36 sources; Willink cited with sections (4.1 and 4.2 of [50], 4 of [51]) and ν_eff = 2.11 derived in
+  Appendix A.2; Appendix A.3 derives the moments from the quadratic form and cites Biggerstaff and Tweedie only for
+  the gamma approximation; the sentence on the unpublished procedure removed; "(Section 6.4)" in the introduction
+  corrected; "below" in Section 2.5 replaced; the sixth BIPM report named; RP-10 replaced by its factor; the
+  LibreOffice versions of the integration server and of the supplements stated with their common result; Figure 1
+  "VERIFICATION"; Figure 3 legend inside panel (a); the checkmark in Table 3 replaced by words.
+- *Submission package (G1, G4).* The paragraphs between the title and the abstract of the repository copy (the draft
+  note and the author line) are dropped by `submission_package.py`, which asserts that nothing else is left there;
+  the list of figure captions at the end is no longer appended (the figures carry their captions); a new check
+  searches every file of the package for numbers of earlier versions, draft notes, repository paths and open
+  placeholders.
+- *ISO 5725-3:1994/Cor 1:2001 (S2.1), read 2026-11-12.* The author obtained the consolidated BSI copy of the 1994
+  edition with the technical corrigendum of 2001-10-15 (BS ISO 5725-3:1994, 15 March 2002). Its Table D.2 is identical,
+  entry by entry, to the data in `core/src/topdown.rs` (`VANADIUM_1994`, levels 2–6), and its Table D.5 is identical to
+  Table J.5 of the 2023 edition and follows from D.2 exactly. The 2023 Table J.2 differs from the corrected data in the
+  15 entries of D109 (12 at level 3, where the second day-1 result repeats the first). The data table of the 2023
+  edition is therefore most likely in error and the printed result is the consistent one; F101 stays c1 under the
+  extended definition (a printed result that does not follow from the document's own data). Whether the original
+  1994 printing differed in these cells cannot be seen from the consolidated copy.
+- *ISO 6143:2025/DAmd 1 (S2.2).* Not obtainable; the document the author found is the published BS EN ISO 6143:2025
+  (no corrigenda listed on 30 June 2025). The text says that the amendment could not be checked.
+- The licensed copies are not stored in the repository.

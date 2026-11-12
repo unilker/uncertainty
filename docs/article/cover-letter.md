@@ -5,11 +5,11 @@ worked examples of the guidance it implements"** for publication in *Measurement
 
 Accredited testing and calibration laboratories learn and check their uncertainty evaluations on the worked examples
 of the GUM suite and of the sector guides (Eurachem/CITAC, Nordtest, EA, UKAS, EURAMET, ISO). I recomputed these
-examples systematically: 284 projects built from the worked examples of 36 sources, 25 of them guidance documents and
-standards, with 1843 reference values that the software reproduces within documented tolerances at every change of
+examples systematically: 284 projects, 281 of them built from the worked examples of 36 sources, 25 of which are
+guidance documents and standards, with 1841 reference values that the software reproduces within documented tolerances at every change of
 its code. The work contributes to measurement science in two ways:
 
-(a) **The worked examples themselves.** The recomputation produced 101 findings. Eleven are confirmed inconsistencies
+(a) **The worked examples themselves.** The recomputation produced 102 findings. Eleven are confirmed inconsistencies
 that change a final printed result (an estimate or its uncertainty) in documents that laboratories use every day,
 five of them by more than a tenth of the expanded uncertainty; a metrologist who had not seen the code reproduced them
 from the documents, with the help of an AI assistant, as the manuscript states (Section 8), and the derivation of each
@@ -46,7 +46,7 @@ for its name finds the author.
 
 The work does not use machine learning or neural networks as a research method; all evaluations are the
 deterministic and Monte Carlo methods of the GUM suite and of the cited standards. An AI coding assistant was used to
-write code and to draft the text, and the colleague who recomputed the c1 findings used one as well. This is stated in Section 3 and in the declaration on generative AI, and Table 8
+write code, to draft and review the text, and the colleague who recomputed the c1 findings used one as well. This is stated in Section 3 and in the declaration on generative AI, and Table 8
 states which checks are independent of the program and of the assistant. Every number in the paper can be reproduced
 from the public repository and its archived release v0.1.1 (https://doi.org/10.5281/zenodo.24118311, all versions),
 with which every supplementary file was generated.

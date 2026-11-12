@@ -220,7 +220,7 @@
     "mcm": {
       "estimate": {
         "value": 4282.1,
-        "tolerance": 5.7
+        "tolerance": 5.0
       },
       "standard_uncertainty": {
         "value": 835.2,

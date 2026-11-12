@@ -140,8 +140,8 @@ def fig1():
 
     # Bottom: the validation; two checks run at every change of the code, two are benchmarks of the release.
     card(2, 1.0, 96, 15.0, face=GREEN2, edge=GREEN, lw=0.9, r=1.2)
-    label(50, 14.2, "VALIDATION", size=5.8, color=GREEN, weight="bold")
-    tiles = [("every change (CI)", "1843", "reference values of 284 projects,\nall within their tolerances"),
+    label(50, 14.2, "VERIFICATION", size=5.8, color=GREEN, weight="bold")
+    tiles = [("every change (CI)", "1841", "reference values of 284 projects,\nall within their tolerances"),
              ("release benchmark", "164", "projects reproduced by an\nindependent program (Suncal)"),
              ("every change (CI)", "187", "spreadsheet workbooks,\n4631 values (LibreOffice)"),
              ("release benchmark", "8 × 10⁶", "Monte Carlo draws through the\nfit of 8 calibrations (ISO 6143)")]
@@ -201,7 +201,7 @@ def fig2():
     MUTED = {"a": "#c5d4ea", "b": "#e9dcc6", "n": "#dddcd7"}
     CRED, CORANGE = "#b8321f", "#f0a079"
     fig = plt.figure(figsize=(7.2, 4.7))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.25, 1], wspace=0.62, top=0.93)
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.25, 1], wspace=0.72, top=0.93)
 
     ax = fig.add_subplot(gs[0])
     data = [other] + shown
@@ -230,17 +230,18 @@ def fig2():
     ax.tick_params(axis="y", length=0, pad=14)
     ax.text(-0.35, ys[-1] + 1.05, "c1", ha="right", va="center", fontsize=6.4, color=CRED, fontweight="bold")
     from matplotlib.patches import Patch
-    handles = [Patch(color=CRED, label="c1: changes a final printed result"),
+    handles = [Patch(color=CRED, label="c1: changes a printed result"),
                Patch(color=CORANGE, label="other c: c2, m, e, open"),
                Patch(color=MUTED["a"], label="a: intermediate rounding"),
-               Patch(color=MUTED["b"], label="b: misprint without effect"),
+               Patch(color=MUTED["b"], label="b: misprint, no effect"),
                Patch(color=MUTED["n"], label="n: no discrepancy")]
-    ax.legend(handles=handles, loc="lower right", bbox_to_anchor=(1.0, 0.10), fontsize=6.2, handlelength=1.0,
+    ax.legend(handles=handles, loc="lower right", bbox_to_anchor=(0.98, 0.10), fontsize=6.0, handlelength=1.0,
               borderaxespad=0.2)
     fig.text(0.01, 0.985, "(a) Findings by source document", fontsize=7.8, color=INK, va="top")
 
     ax = fig.add_subplot(gs[1])
-    # F101 (a precision estimate without a printed U) has no effect in units of U and is not drawn.
+    # F101 is not drawn: its printed result does not follow from the data table printed with it (but from the corrected
+    # 1994 data), so it has no effect in units of U.
     eff = sorted((r for r in c1 if r[3] or r[4]), key=lambda r: max(v for v in r[3:] if v))
     for y, (f, doc, label, dy, du) in enumerate(eff):
         top = max(v for v in (dy, du) if v)
@@ -394,7 +395,7 @@ def graphical_abstract():
     txt(15.5, 33.0, "Worked examples", 8, INK2, "bold")
     txt(15.5, 24.5, "25", 19, INK, "bold")
     txt(15.5, 17.3, "guidance documents\nand standards", 7.5, INK2)
-    txt(15.5, 10.4, "253 projects\n1672 reference values", 7, INK2)
+    txt(15.5, 10.4, "253 projects\n1670 reference values", 7, INK2)
     card(36, 7, 28, 31, NAVY2, NAVY, 1.1)
     ax.add_patch(FancyBboxPatch((36, 29.5), 28, 8.5, boxstyle="round,pad=0,rounding_size=1.6", linewidth=0,
                                 facecolor=NAVY))
@@ -406,7 +407,7 @@ def graphical_abstract():
     txt(84.5, 33.0, "What it revealed", 8, CRED, "bold")
     txt(84.5, 24.5, str(len(c1_findings())), 19, CRED, "bold")
     txt(84.5, 17.0, "confirmed inconsistencies\nchange a printed result", 7, INK)
-    txt(84.5, 10.8, "of 101 findings; recomputed\nby a metrologist with AI help", 7, INK2)
+    txt(84.5, 10.8, "of 102 findings; recomputed by\na metrologist with an AI assistant", 7, INK2)
     for x0, x1 in ((30.0, 35.5), (64.5, 70.0)):
         ax.add_patch(FancyArrowPatch((x0, 22.5), (x1, 22.5), arrowstyle="-|>", mutation_scale=10, linewidth=1.3,
                                      color=NAVY))

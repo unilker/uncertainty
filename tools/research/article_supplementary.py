@@ -60,7 +60,7 @@ for f in sorted(glob.glob("library/*/*.json")):
                  len(checks), passed])
 xlsx.table(
     OUT / "S1_library.xlsx", "Library",
-    "S1. The 286 projects of the KAPSAM library",
+    f"S1. The {len(rows)} projects of the KAPSAM library",
     [("ID", 34), ("Title", 60), ("Field", 14), ("Evaluation type", 18), ("Source document", 60),
      ("Source section", 34), ("Kind of source", 18), ("Basis of the reference values", 26),
      ("Reference statement of the project", 70), ("Compared values", 11), ("Within tolerance", 11)],
@@ -121,13 +121,14 @@ xlsx.table(
         ("Class", "a: intermediate rounding that changes a printed digit; b: a misprint or transcription error "
                   "without effect on the result; c: an inconsistency; n: no discrepancy (a methodological note or a "
                   "full reproduction). Classes fixed before the audit (research log D12, D73)."),
-        ("Effect (class c)", "c1: a final printed result (the estimate, its uncertainty or the stated outcome) is not "
-                             "reproduced at its printed digits; c2: only an intermediate value is not; m: a difference "
-                             "of method or interpretation rather than an inconsistency; e: already corrected by a "
-                             "published erratum (D84)."),
+        ("Effect (class c)", "c1: a final printed result (the estimate, its uncertainty or the stated outcome) changes "
+                             "at its printed digits when the inconsistency is corrected, even with the document's own "
+                             "rounding, or does not follow from the data printed in the document (D84, D112, D113); "
+                             "c2: only an intermediate value changes; m: a difference of method or interpretation "
+                             "rather than an inconsistency; e: already corrected by a published erratum."),
         ("Status", "confirmed: the recomputation from the document's own data leaves no open question; independently "
-                   "checked: confirmed, and also reproduced by a person who had not seen the code or reported by "
-                   "another author; erratum or partly erratum: corrected, wholly or in part, by a published erratum; "
+                   "checked: confirmed, and also reproduced by a person who had not seen the code, working with an AI "
+                   "assistant (S8), or reported by another author; erratum or partly erratum: corrected, wholly or in part, by a published erratum; "
                    "open: awaits a check against another source and is not counted."),
         ("Quantity, printed, recomputed", "The quantity concerned, the value printed in the document and the value "
                                           "recomputed from its data."),

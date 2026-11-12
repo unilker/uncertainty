@@ -176,19 +176,19 @@
       },
       "linear_pool_mean": {
         "value": 7064,
-        "tolerance": 1.0
+        "tolerance": 1.2000000000000002
       },
       "linear_pool_u": {
         "value": 29,
-        "tolerance": 0.7
+        "tolerance": 1.1
       },
       "linear_pool_lower": {
         "value": 7012,
-        "tolerance": 1.5
+        "tolerance": 1.9000000000000001
       },
       "linear_pool_upper": {
         "value": 7127,
-        "tolerance": 1.5
+        "tolerance": 1.8
       },
       "leave_one_out": {
         "Lab 1": {
@@ -326,7 +326,7 @@
             "Lab 1": {
               "d": {
                 "value": 14.116029075,
-                "tolerance": 0.5
+                "tolerance": 0.64
               },
               "expanded": {
                 "value": 60.640355,
@@ -366,7 +366,7 @@
             "Lab 12": {
               "d": {
                 "value": 36.224327523,
-                "tolerance": 0.5
+                "tolerance": 0.58
               },
               "expanded": {
                 "value": 64.826389,
@@ -388,7 +388,7 @@
             "Lab 1|Lab 9": {
               "d": {
                 "value": 42.24846001,
-                "tolerance": 0.7
+                "tolerance": 0.8
               },
               "expanded": {
                 "value": 86.039937,

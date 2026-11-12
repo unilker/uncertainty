@@ -137,21 +137,21 @@
         "estimate": {
           "Y1": {
             "value": 0,
-            "tolerance": 0.00707
+            "tolerance": 0.014
           },
           "Y2": {
             "value": 0,
-            "tolerance": 0.0074
+            "tolerance": 0.015
           }
         },
         "standard_uncertainty": {
           "Y1": {
             "value": 1.414,
-            "tolerance": 0.0062
+            "tolerance": 0.0064
           },
           "Y2": {
             "value": 1.414,
-            "tolerance": 0.0045
+            "tolerance": 0.0049
           }
         },
         "correlations": [
@@ -161,16 +161,16 @@
               "Y2"
             ],
             "value": 0.5,
-            "tolerance": 0.0042
+            "tolerance": 0.0068000000000000005
           }
         ],
         "k_ellipsoid": {
           "value": 2.38,
-          "tolerance": 0.01
+          "tolerance": 0.011
         },
         "k_rectangle": {
           "value": 2.15,
-          "tolerance": 0.01
+          "tolerance": 0.011
         }
       },
       "ellipsoid_validated": false,

@@ -123,11 +123,11 @@
     "mcm": {
       "interval_low": {
         "value": 1001.0,
-        "tolerance": 0.05
+        "tolerance": 0.057
       },
       "interval_high": {
         "value": 1004.4,
-        "tolerance": 0.05
+        "tolerance": 0.06
       },
       "gum_validated": false
     },

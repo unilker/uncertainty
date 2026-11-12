@@ -189,7 +189,7 @@ out += ["", "## From sources to findings", "", "| Step | Count | Definition |", 
         f"{sum(1 for kk, _ in prim if kk == 'paper or book')} journal papers and books (one book); "
         f"{kinds['constructed']} projects are test cases constructed for this work |",
         f"| Projects | {sum(sec.values())} | project files in `library/`; one worked example may give several (variants) |",
-        f"| Validation-matrix rows ✅ | {len(rows)} | worked examples or variants reproduced; {len(exc)} carry a finding |",
+        f"| Worked examples reproduced | {len(rows)} | worked examples or variants reproduced; {len(exc)} carry a finding |",
         f"| Compared values | {len(checks) if checks else '—'} | reference values checked at every test run |",
         f"| Findings | {n_find} | F1–F{n_find} of the research log (a, b, c, n; a finding may cover several examples) |",
         f"| Class-c findings | {len(imp_rows)} | {settled} settled ({n_c1} c1, {n_c2} c2, {n_m} m, {n_e} e; Table 6 lists the c1 findings), "

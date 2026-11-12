@@ -1,6 +1,6 @@
 # Durum ve sonraki adımlar / Status and next steps
 
-Son güncelleme: **2026-11-11** (iç incelemenin ikinci turu, D112). Bu dosya çalışmaya ara verildiğinde nerede
+Son güncelleme: **2026-11-12** (gönderim öncesi incelemenin üçüncü turu, D113). Bu dosya çalışmaya ara verildiğinde nerede
 kalındığını ve sırada ne olduğunu kaydeder.
 
 - Ayrıntılı gerekçeler araştırma günlüğündedir: kararlar D…, bulgular F….
@@ -11,11 +11,11 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | | |
 |---|---|
 | Program | **KAPSAM** (D92); Rust motoru (`core`, `project`), `kapsam` komut satırı aracı, C arayüzü, Flutter uygulaması (Windows, Linux, macOS, Android, iOS) |
-| Kütüphane | **284** kendi kendini doğrulayan proje, 36 kaynak (25 kılavuz ve standart) ve 3 kurulmuş sınama durumu, **1843** referans değer; hepsi tolerans içinde; Monte Carlo toleransları 20 bağımsız tohumla sınandı (D112) |
+| Kütüphane | **284** kendi kendini doğrulayan proje, 36 kaynak (25 kılavuz ve standart) ve 3 kurulmuş sınama durumu, **1841** referans değer; hepsi tolerans içinde; Monte Carlo toleransları programın referanstan uzaklığına bağlı olmayan kuralla, 20 bağımsız tohumla sınandı (D113) |
 | Bağımsız denetimler | Suncal 1.7.1 ile **164** proje, 169 karşılaştırma (D93); **187** elektronik tablo doğrulama dosyası, 4631 değer, LibreOffice'te CI'da (D94); kalibrasyon uydurması boyunca Monte Carlo, 8 proje × 10⁶ (D97) |
-| Testler | **223** Rust testi, **28** Flutter testi |
+| Testler | **224** Rust testi, **28** Flutter testi |
 | Rehber | *Uncertainty from scratch* / *Sıfırdan belirsizlik* (TR/EN), 121 ders, 284 örneğin açıklaması |
-| Araştırma günlüğü | kararlar D1–D112, bulgular F1–F101 (11 sonuçlanmış c1, hepsi bağımsız denetlenmiş; F90 açık; F79 m) |
+| Araştırma günlüğü | kararlar D1–D113, bulgular F1–F102 (11 sonuçlanmış c1, hepsi bağımsız denetlenmiş; F90 açık; F79 m) |
 | Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 8 tablo, 3 şekil, Ek A, 82 kaynak; ek malzeme S1–S8; editöre mektup |
 | Dal | `claude/sleepy-hypatia-1522g6`; sürüm v0.1.1 (yayımlanacak; etiket GitHub arayüzünden) |
 
