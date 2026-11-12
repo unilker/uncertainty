@@ -49,6 +49,7 @@ EMAIL = next((sys.argv[i + 1] for i, a in enumerate(sys.argv[:-1]) if a == "--em
 WITHHELD = "[withheld for double-anonymized review]"
 # Identifying strings and their anonymized form, longest first.
 ANON = [
+    ("https://doi.org/10.5281/zenodo.24161568", f"DOI {WITHHELD}"), ("10.5281/zenodo.24161568", WITHHELD),
     ("https://doi.org/10.5281/zenodo.24118312", f"DOI {WITHHELD}"),
     ("10.5281/zenodo.24118312", WITHHELD), ("10.5281/zenodo.24118311", WITHHELD),
     ("https://github.com/unilker/uncertainty", f"repository link {WITHHELD}"),
@@ -72,7 +73,7 @@ ANON = [
     ("0000-0001-5089-4602", WITHHELD),
     ("laboratories of the institute", "laboratories"),
 ]
-IDENT = re.compile(r"TÜBİTAK|\bUME\b|ume-procedure|İlker|\bÜn\b|unilker|zenodo\.2411|0000-0001-5089-4602|Gebze",
+IDENT = re.compile(r"TÜBİTAK|\bUME\b|ume-procedure|İlker|\bÜn\b|unilker|zenodo\.241|0000-0001-5089-4602|Gebze",
                    re.I)
 OPEN = [r"⟦[^⟧]*⟧", r"\[Zenodo DOI[^\]]*\]", r"\[release tag[^\]]*\]", r"\[To be [^\]]*\]", r"\[Suggested reviewers[^\]]*\]",
         r"\(planned\)", r"is planned before\s+submission", r"\[verify[^\]]*\]", r"\[to be (?:added|confirmed)[^\]]*\]",
@@ -159,8 +160,8 @@ def title_page(out, title, parts):
     doc.add_heading("CRediT authorship contribution statement", level=2)
     doc.add_paragraph(parts["CRediT authorship contribution statement"].replace("\n", " "))
     doc.add_heading("Software and data (for the editor)", level=2)
-    doc.add_paragraph("Repository: https://github.com/unilker/uncertainty. Archived release v0.1.1 (all versions, "
-                      "concept DOI): https://doi.org/10.5281/zenodo.24118311; v0.1.0: https://doi.org/10.5281/zenodo.24118312. "
+    doc.add_paragraph("Repository: https://github.com/unilker/uncertainty. Archived release v0.1.1: "
+                      "https://doi.org/10.5281/zenodo.24161568; all versions (concept DOI): https://doi.org/10.5281/zenodo.24118311. "
                       "These links are withheld in the anonymized manuscript; the data link is also given in the "
                       "submission system (research data, option C).")
     doc.core_properties.author = "İlker Ün"

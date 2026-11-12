@@ -11,4 +11,4 @@ Written by `tools/research/article_supplementary.py`; do not edit by hand.
 - S7 `S7_spreadsheet_check.pdf`: the recalculation of the spreadsheet verification workbooks, and `S7_workbook_quam_a1.xlsx`, the workbook of QUAM Example A1
 - S8 `S8_recomputation_record.pdf`: the recomputation record of the c1 findings (printed, program and recomputed values; derivations) and the check of errata and amendments
 
-All files were generated with KAPSAM 0.1.1 (commit 951eb6886563, 2026-11-11).
+All files were generated with KAPSAM 0.1.1 (commit 106a6f306436, 2026-11-12).
