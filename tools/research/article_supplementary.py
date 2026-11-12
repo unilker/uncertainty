@@ -60,7 +60,7 @@ for f in sorted(glob.glob("library/*/*.json")):
                  len(checks), passed])
 xlsx.table(
     OUT / "S1_library.xlsx", "Library",
-    "S1. The 286 projects of the KAPSAM library",
+    f"S1. The {len(rows)} projects of the KAPSAM library",
     [("ID", 34), ("Title", 60), ("Field", 14), ("Evaluation type", 18), ("Source document", 60),
      ("Source section", 34), ("Kind of source", 18), ("Basis of the reference values", 26),
      ("Reference statement of the project", 70), ("Compared values", 11), ("Within tolerance", 11)],

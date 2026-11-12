@@ -77,9 +77,14 @@ IDENT = re.compile(r"TÜBİTAK|\bUME\b|ume-procedure|İlker|\bÜn\b|unilker|zeno
 OPEN = [r"⟦[^⟧]*⟧", r"\[Zenodo DOI[^\]]*\]", r"\[release tag[^\]]*\]", r"\[To be [^\]]*\]", r"\[Suggested reviewers[^\]]*\]",
         r"\(planned\)", r"is planned before\s+submission", r"\[verify[^\]]*\]", r"\[to be (?:added|confirmed)[^\]]*\]",
         r"\[confirm[^\]]*\]", r"\[e-mail[^\]]*\]", r"\[choose[^\]]*\]"]
-STALE = [r"\b286 (?:projects|library)", r"\b1865\b", r"\b4678\b", r"\b3684\b", r"\b166 projects", r"\b171 comparisons",
-         r"\b189 (?:projects|spreadsheet|workbooks)", r"\b37 (?:sources|documents)", r"\b100 findings", r"\bv0\.1\.0\b",
-         r"(?i)\b(?:first|second|third|fourth) draft\b", r"docs/article/", r"research log D\d", r"✅"]
+# Numbers of earlier versions: searched in every file of the package.
+STALE = [r"\b286 (?:projects|library)", r"\b1865\b", r"\b1843\b", r"\b4678\b", r"\b3684\b", r"\b166 projects",
+         r"\b171 comparisons", r"\b189 (?:projects|spreadsheet|workbooks)", r"\b37 (?:sources|documents)",
+         r"\b10[01] findings", r"\bv0\.1\.0\b"]
+# Draft notes, references to the research log and repository paths: searched in the manuscript only (the supplementary
+# material may cite the public research log).
+STALE_MANUSCRIPT = [r"(?i)\b(?:first|second|third|fourth|fifth) draft\b", r"(?i)repository copy", r"docs/article/",
+                    r"research log D\d", r"✅"]
 FIGURES = ["fig1_architecture", "fig2_application", "fig3_findings_by_document"]
 
 
@@ -300,7 +305,7 @@ def main():
     for f in sorted(out.rglob("*")):
         if f.is_file() and f.name != "CHECKLIST.md":
             text = text_of(f)
-            for pat in STALE:
+            for pat in STALE + (STALE_MANUSCRIPT if f.name == "manuscript-anonymized.docx" else []):
                 for m in re.finditer(pat, text):
                     stale.append(f"- {f.relative_to(out)}: `{m.group(0)}`")
     abstract = md.split("## Abstract", 1)[1].split("**Keywords:**", 1)[0]
