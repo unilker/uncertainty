@@ -43,7 +43,7 @@ form. Class: after the recomputation and the second internal review.
 | F40 | ISO 5725-3:2023 J.5, level 6 | s_R / (% × 10⁻³) | 15.962 | 16.331 | 15.962, 16.331 or 16.781 | m | three defensible treatments of a negative variance (Section 4) |
 | F87 | EMUE E3.4 | U(Pb) / (mg/kg) | 2.8 | 2.9 | 2.87 → 2.9 | c2 | with u′ rounded to 5 %, as the example rounds, 2.8 follows too |
 | F90 | EMUE E3.3 | u (validation) / (nmol/mol) | 4.7 | 4.52 | 4.47 | open | the printed (rounded) inputs allow 4.14–4.78 |
-| F101 | ISO 5725-3:2023 J.2/J.5, level 5 | s_r / (% × 10⁻³) | 6.237 | 14.715 (2023 data); 6.237 (1994 data) | not reproducible from the 2023 data | c1 | the result table does not follow from the data table printed with it; which table is wrong is not stated |
+| F101 | ISO 5725-3:2023 J.2/J.5, level 5 | s_r / (% × 10⁻³) | 6.237 | 14.715 (2023 data); 6.237 (1994 data) | not reproducible from the 2023 data | c1 | the result table does not follow from the data table printed with it; it follows from the corrected 1994 data, so the 2023 data table is most likely in error |
 
 The recomputer's value equals the program's at the printed digits in all rows except F40, where it gives the three
 treatments, F82, where the two start from different tables of the document and agree after rounding, and F90, where
@@ -136,8 +136,11 @@ of the 1994 edition in 15 entries: 12 at level 3 (the second day-1 result of lab
 level 4 (laboratory 18) and 2 at level 5 (laboratories 2 and 3). Table J.5, carried over unchanged, is reproduced
 exactly from the 1994 data with the stated exclusions, but not from the 2023 Table J.2: at level 5, s_r = 14.715 ×
 10⁻³ % from the 2023 data against the printed 6.237 × 10⁻³ %; at level 3, 0.652 against 1.739. The printed results do
-not follow from the document's own data. Which of the two tables is wrong cannot be decided from the 2023 edition:
-⟦CORS8⟧
+not follow from the document's own data. The 1994 edition as corrected by its technical corrigendum (ISO 5725-3:1994/
+Cor 1:2001, consolidated BSI copy of 15 March 2002) prints Table D.2 identical to the data used here, and Table D.5,
+identical to the 2023 Table J.5, follows from it exactly. The 15 differing entries of the 2023 Table J.2 (12 of them
+repeat the first day-1 result at level 3) are therefore most likely transcription errors; the printed 6.237 is the
+consistent value.
 
 ## 4. Findings reclassified or open
 

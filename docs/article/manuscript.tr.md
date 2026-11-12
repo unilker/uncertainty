@@ -399,7 +399,10 @@ U = 2,8 mg/kg her iki durumda da çıkar; bulgu c2 sınıfına alındı. F90'da 
 4,14 ile 4,78 nmol/mol arasında bir validasyon belirsizliğine izin verir; bu aralık basılı 4,7'yi içerdiğinden c1
 ölçütü sağlanmaz ve bulgu açıktır. F101, F40'tan ayrıldı: ISO 5725-3:2023'ün Tablo J.2'si 1994 baskısının
 verilerinden 3–5. düzeylerde 15 hücrede farklıdır ve basılı Tablo J.5 1994 verilerinden çıkar, 2023 tablosundan
-çıkmaz; yani basılı sonuç belgenin kendi verilerinden çıkmaz. ⟦CORTR⟧ BIPM qNMR bütçelerine ilişkin F97'ye
+çıkmaz; yani basılı sonuç belgenin kendi verilerinden çıkmaz. Teknik düzeltmesiyle (ISO 5725-3:1994/Cor 1:2001) düzeltilmiş
+1994 baskısı, aynı sonuç tablosunun tam olarak çıktığı bir veri tablosu basar; 2023 veri tablosunun bundan farklı olan
+15 hücresi (12'si 3. düzeyde birinci gün ilk sonucunu yineler) bu nedenle büyük olasılıkla aktarım hatasıdır ve tutarlı
+olan basılı sonuçtur. BIPM qNMR bütçelerine ilişkin F97'ye
 (Bölüm 6.3) açık bir c1 bölümü eklendi.
 
 <!-- fig3 -->
@@ -420,19 +423,19 @@ biriminde.
 | F77 | GUM-5 Örn. 15 | MCM s.s. / kN | 10,1 | 9,93 | 0,02 U (U) | t girdisinin ölçeği | düzeltme yok |
 | F39 | ISO 21748 C.3 | U(un) / % | 12,8 | 12,6 | 0,02 U (U) | tablonun kendi bileşenleri %6,31 verir | düzeltme yok |
 | F58 | UKAS M3003 K.6 | U / nm | 81,5 | 82,0 | 0,006 U (U) | bütçe sıcaklık farkına L·Δα katsayısını uygular, verilen model ise L·α verir | düzeltme yok |
-| F101 | ISO 5725-3:2023 J.2, J.5 | s_r, düzey 5 / (% × 10⁻³) | 6,237 (Tablo J.5; 1994 verilerinden çıkar) | 2023 Tablo J.2'den 14,715 | — | veri tablosu J.2 1994 verilerinden 15 hücrede farklı; sonuç tablosu J.5 ondan çıkmaz | 2023 baskısında düzeltme yok ⟦CORTTR⟧ |
+| F101 | ISO 5725-3:2023 J.2, J.5 | s_r, düzey 5 / (% × 10⁻³) | 6,237 (Tablo J.5; 1994 verilerinden çıkar) | 2023 Tablo J.2'den 14,715 | — | veri tablosu J.2 1994 verilerinden 15 hücrede farklı; sonuç tablosu J.5 ondan çıkmaz | 2023 baskısında düzeltme yok; düzeltilmiş 1994 baskısı tutarlı veriyi basar |
 
 *Her satır kodu görmemiş bir metrolog tarafından, bir yapay zekâ asistanıyla çalışılarak belgenin güncel baskısından
 yeniden hesaplanmıştır (S8, her satırın türetilişiyle). F101 dışındaki her satırda düzeltilmiş sonuç, belgenin kendi
 yuvarlamasıyla bile basılı basamaklarında basılı sonuçtan farklıdır; F101'de basılı sonuç onunla birlikte basılan veri
-tablosundan çıkmaz ve satır iki tablodan hangisinin yanlış olduğunu söylemez. F42'de u(x)'teki bağıl değişiklik U'dakine
+tablosundan çıkmaz, ancak düzeltilmiş 1994 baskısının verilerinden çıkar; hata büyük olasılıkla 2023 veri tablosundadır. F42'de u(x)'teki bağıl değişiklik U'dakine
 eşittir. Düzeltme listeleri, düzeltmeler ve değişiklikler 11 Kasım 2026'da yayımcı kuruluşların sayfalarında
 denetlenmiştir (S8).*
 
 On bir bulgudan biri biliniyordu (F28, Delker [23] tarafından bildirilmiş), biri kısmen biliniyordur (F42: ISO 6143
 programının üstel fonksiyon için yanlış parametre belirsizlikleri verdiğini kendisi belirtir, ancak bunları u(x) için
 kullanır); ISO 6143'ün programının doğrusal olmayan fonksiyonlardaki başarımına ilişkin bir değişikliği DIS
-aşamasındadır ve ⟦DAMDTR⟧ Diğer dokuzu için hiçbir
+aşamasındadır; metni elde edilemediğinden u(x)'i düzeltip düzeltmediği denetlenmemiştir. Diğer dokuzu için hiçbir
 düzeltme listesi, düzeltme veya değişiklik yayımlanmamıştır. Dördü basılı sonucu U'nun yirmide birinden az değiştirir,
 F101 ise belirtilmiş bir U'su olmayan bir kesinlik kestirimini ilgilendirir; bunlar ölçüm için değil, örneğin basılı
 basamaklarına göre referans olarak kullanılması için önemlidir.
@@ -570,8 +573,8 @@ yapılmamıştır.
 denetiminden geçmiş bir kayda atıf yapabilmesi için kabulden sonra teknik notlar olarak kuruluşlara gönderilecek ve
 yanıtları programın açık araştırma günlüğüne eklenecektir. Göndermeden önce c1 bulgusu olan her belgenin düzeltme
 listeleri, düzeltmeleri ve değişiklikleri denetlendi (S8). ISO 6143 için programının doğrusal olmayan fonksiyonlardaki
-başarımına ilişkin bir değişiklik DIS aşamasındadır; metni ulusal ayna komite aracılığıyla incelenebilir ve F42'yi ele
-alıp almadığı denetlenmemiştir.
+başarımına ilişkin bir değişiklik DIS aşamasındadır; metni göndermeden önce elde edilemedi ve F42'yi ele alıp almadığı
+denetlenmemiştir.
 
 **Sınırlılıklar.** Uygulanmamış olanlar: sonlu serbestlik dereceli sonuçlar için NICOB önselleri, zaman serileri ve
 sayım istatistikleri, model ortalaması, kalibrasyon eğrilerinin Monte Carlo ile değerlendirilmesi [76] ve imzalı sonuç

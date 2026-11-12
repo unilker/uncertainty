@@ -4102,3 +4102,14 @@ Changes:
   the list of figure captions at the end is no longer appended (the figures carry their captions); a new check
   searches every file of the package for numbers of earlier versions, draft notes, repository paths and open
   placeholders.
+- *ISO 5725-3:1994/Cor 1:2001 (S2.1), read 2026-11-12.* The author obtained the consolidated BSI copy of the 1994
+  edition with the technical corrigendum of 2001-10-15 (BS ISO 5725-3:1994, 15 March 2002). Its Table D.2 is identical,
+  entry by entry, to the data in `core/src/topdown.rs` (`VANADIUM_1994`, levels 2–6), and its Table D.5 is identical to
+  Table J.5 of the 2023 edition and follows from D.2 exactly. The 2023 Table J.2 differs from the corrected data in the
+  15 entries of D109 (12 at level 3, where the second day-1 result repeats the first). The data table of the 2023
+  edition is therefore most likely in error and the printed result is the consistent one; F101 stays c1 under the
+  extended definition (a printed result that does not follow from the document's own data). Whether the original
+  1994 printing differed in these cells cannot be seen from the consolidated copy.
+- *ISO 6143:2025/DAmd 1 (S2.2).* Not obtainable; the document the author found is the published BS EN ISO 6143:2025
+  (no corrigenda listed on 30 June 2025). The text says that the amendment could not be checked.
+- The licensed copies are not stored in the repository.

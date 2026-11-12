@@ -38,7 +38,7 @@ CAPTIONS = {
                 "Documents with fewer than three findings and no c1 finding are combined. (b) Effect of the 10 c1 "
                 "findings whose result has a printed expanded uncertainty, in units of it: change of the estimate "
                 "|Δy|/U and of the uncertainty |ΔU|/U. F101 is not drawn: its printed result does not follow from the data "
-                "table printed with it, and which of the two tables is wrong is not known.",
+                "table printed with it, but from the data of the corrected 1994 edition.",
         "table2a": "**Table 2a.** Library projects by evaluation type (the eleven types of Table 1; a measurement model "
                    "with a conformity assessment and the conformity of a multicomponent item are shown separately).",
         "table2b": "**Table 2b.** Library projects by field.",
@@ -62,8 +62,8 @@ CAPTIONS = {
                 "sonucu değiştiren doğrulanmış bulgular (c1) solda sayılmıştır. Üçten az bulgusu olan ve c1 bulgusu "
                 "olmayan belgeler birleştirilmiştir. (b) Sonucunun basılı bir genişletilmiş belirsizliği olan 10 c1 "
                 "bulgusunun bu belirsizlik birimiyle etkisi: kestirimdeki değişiklik |Δy|/U ve belirsizlikteki "
-                "değişiklik |ΔU|/U. F101 çizilmemiştir: basılı sonucu onunla birlikte basılan veri tablosundan çıkmaz ve iki "
-                "tablodan hangisinin yanlış olduğu bilinmemektedir (şekildeki metin İngilizcedir).",
+                "değişiklik |ΔU|/U. F101 çizilmemiştir: basılı sonucu onunla birlikte basılan veri tablosundan değil, düzeltilmiş "
+                "1994 baskısının verilerinden çıkar (şekildeki metin İngilizcedir).",
         "table2a": "**Tablo 2a.** Kütüphanedeki projeler, değerlendirme türüne göre (Tablo 1'in on bir türü; uygunluk "
                    "değerlendirmeli ölçüm modeli ve çok bileşenli ürünün uygunluğu ayrı gösterilmiştir).",
         "table2b": "**Tablo 2b.** Kütüphanedeki projeler, alana göre.",

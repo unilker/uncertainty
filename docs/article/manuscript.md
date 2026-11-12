@@ -408,7 +408,10 @@ example rounds it, the printed U = 2.8 mg/kg follows either way; the finding was
 the printed, rounded inputs allow a validation uncertainty between 4.14 and 4.78 nmol/mol, which contains the printed
 4.7, so the c1 criterion is not met and the finding is open. F101 was split from F40: Table J.2 of ISO 5725-3:2023
 differs from the data of the 1994 edition in 15 entries at levels 3–5, and the printed Table J.5 follows from the 1994
-data but not from the 2023 table, so the printed result does not follow from the document's own data. ⟦COR⟧ F97, the
+data but not from the 2023 table, so the printed result does not follow from the document's own data. The 1994 edition as corrected by its technical
+corrigendum (ISO 5725-3:1994/Cor 1:2001) prints a data table from which the same result table follows exactly; the 15
+entries in which the 2023 data table differs from it (12 of them repeat the first day-1 result at level 3) are
+therefore most likely transcription errors, and the printed result is the consistent one. F97, the
 BIPM qNMR budgets (Section 6.3), was given an open c1 part.
 
 <!-- fig3 -->
@@ -428,18 +431,20 @@ own data (class c1). Effect: change of the estimate (y) or of the expanded uncer
 | F77 | GUM-5 Ex. 15 | MCM s.d. / kN | 10.1 | 9.93 | 0.02 U (U) | scale of the t input | no erratum |
 | F39 | ISO 21748 C.3 | U(flour) / % | 12.8 | 12.6 | 0.02 U (U) | the table's own components give 6.31 % | no corrigendum |
 | F58 | UKAS M3003 K.6 | U / nm | 81.5 | 82.0 | 0.006 U (U) | the budget applies the coefficient L·Δα to the temperature difference, where the stated model gives L·α | no erratum |
-| F101 | ISO 5725-3:2023 J.2, J.5 | s_r, level 5 / (% × 10⁻³) | 6.237 (Table J.5; follows from the 1994 data) | 14.715 from the 2023 Table J.2 | — | the data table J.2 differs from the 1994 data in 15 entries; the result table J.5 does not follow from it | no corrigendum to the 2023 edition ⟦CORT⟧ |
+| F101 | ISO 5725-3:2023 J.2, J.5 | s_r, level 5 / (% × 10⁻³) | 6.237 (Table J.5; follows from the 1994 data) | 14.715 from the 2023 Table J.2 | — | the data table J.2 differs from the 1994 data in 15 entries; the result table J.5 does not follow from it | no corrigendum to the 2023 edition; the corrected 1994 edition prints consistent data |
 
 *Every row was recomputed from the current edition of the document by a metrologist who had not seen the code, working
 with an AI assistant (S8, with the derivation of each row). In every row except F101 the corrected result differs from
 the printed one at its printed digits, even with the document's own rounding; in F101 the printed result does not
-follow from the data table printed with it, and the row does not say which of the two tables is wrong. For F42 the
+follow from the data table printed with it, but it follows from the data of the corrected 1994 edition, so that the
+error most likely lies in the 2023 data table. For F42 the
 relative change of u(x) equals that of U. Errata, corrigenda and amendments were checked on 11 November 2026 on the
 pages of the issuing bodies (S8).*
 
 Of the eleven, one was known (F28, reported by Delker [23]) and one is partly known (F42: ISO 6143 itself states that
 its program gives incorrect parameter uncertainties for the exponential function, but uses them for u(x)); an
-amendment of ISO 6143 on the performance of its program for nonlinear functions is at the DIS stage, and ⟦DAMD⟧ For the
+amendment of ISO 6143 on the performance of its program for nonlinear functions is at the DIS stage; its text could
+not be obtained, so whether it corrects u(x) has not been checked. For the
 other nine, no erratum, corrigendum or amendment was listed. Four move the printed result by less than a twentieth of
 U, and F101 concerns a precision estimate without a stated U; they matter not for the measurement but for the use of
 the example as a reference to its printed digits.
@@ -581,8 +586,8 @@ review of the program by metrologists outside the institute has not been made.
 findings will be sent to them as technical notes after acceptance, so that the notes can refer to a peer-reviewed
 record, and their replies will be added to the public research log of the program. Before submission, the errata,
 corrigenda and amendments of every document with a c1 finding were checked (S8). For ISO 6143, an amendment on the
-performance of its program for nonlinear functions is at the DIS stage; its text can be consulted through a national
-mirror committee, and whether it addresses F42 has not been checked.
+performance of its program for nonlinear functions is at the DIS stage; its text could not be obtained before
+submission, and whether it addresses F42 has not been checked.
 
 **Limitations.** Not implemented are the NICOB priors for results with finite degrees of freedom, time series and
 counting statistics, model averaging, the Monte Carlo evaluation of calibration curves [76] and signed result

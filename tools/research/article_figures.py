@@ -240,8 +240,8 @@ def fig2():
     fig.text(0.01, 0.985, "(a) Findings by source document", fontsize=7.8, color=INK, va="top")
 
     ax = fig.add_subplot(gs[1])
-    # F101 is not drawn: its printed result does not follow from the data table printed with it, and which table is
-    # wrong is not known, so it has no effect in units of U.
+    # F101 is not drawn: its printed result does not follow from the data table printed with it (but from the corrected
+    # 1994 data), so it has no effect in units of U.
     eff = sorted((r for r in c1 if r[3] or r[4]), key=lambda r: max(v for v in r[3:] if v))
     for y, (f, doc, label, dy, du) in enumerate(eff):
         top = max(v for v in (dy, du) if v)
