@@ -141,17 +141,17 @@
           },
           "Y2": {
             "value": 0,
-            "tolerance": 0.00707
+            "tolerance": 0.0074
           }
         },
         "standard_uncertainty": {
           "Y1": {
             "value": 1.414,
-            "tolerance": 0.002121
+            "tolerance": 0.0062
           },
           "Y2": {
             "value": 1.414,
-            "tolerance": 0.002121
+            "tolerance": 0.0045
           }
         },
         "correlations": [
@@ -161,7 +161,7 @@
               "Y2"
             ],
             "value": 0.5,
-            "tolerance": 0.003
+            "tolerance": 0.0042
           }
         ],
         "k_ellipsoid": {

@@ -8,19 +8,19 @@ değerlendirmenizi rica ederim.
 
 Akredite deney ve kalibrasyon laboratuvarları belirsizlik değerlendirmelerini GUM ailesinin ve sektör kılavuzlarının
 (Eurachem/CITAC, Nordtest, EA, UKAS, EURAMET, ISO) çözümlü örnekleri üzerinde öğrenir ve denetler. Bu örnekleri
-sistematik olarak yeniden hesapladım: 25'i kılavuz belge ve standart olan 37 kaynağın çözümlü örneklerinden
-oluşturulan 286 proje ve yazılımın, kodunun her değişikliğinde belgelenmiş toleranslar içinde yeniden ürettiği 1865
+sistematik olarak yeniden hesapladım: 25'i kılavuz belge ve standart olan 36 kaynağın çözümlü örneklerinden
+oluşturulan 284 proje ve yazılımın, kodunun her değişikliğinde belgelenmiş toleranslar içinde yeniden ürettiği 1843
 referans değeri. Çalışma ölçüm bilimine iki yolla katkı sağlar:
 
-(a) **Çözümlü örneklerin kendisi.** Yeniden hesaplama 100 bulgu ortaya çıkardı. Bunların on biri, laboratuvarların her
+(a) **Çözümlü örneklerin kendisi.** Yeniden hesaplama 101 bulgu ortaya çıkardı. Bunların on biri, laboratuvarların her
 gün kullandığı belgelerde basılı bir nihai sonucu (bir kestirimi veya belirsizliğini) değiştiren doğrulanmış
 tutarsızlıklardır; beşi sonucu genişletilmiş belirsizliğin onda birinden fazla değiştirir; kodu görmemiş bir metrolog
-bunları, makalede belirtildiği gibi bir yapay zekâ asistanının yardımıyla, belgelerden yeniden üretmiştir (Bölüm 8). Yayımcı kuruluşların örneklerinin girdilerini makinece okunabilir biçimde
+bunları, makalede belirtildiği gibi bir yapay zekâ asistanının yardımıyla, belgelerden yeniden üretmiştir (Bölüm 8); okurun elle yineleyebilmesi için her birinin türetilişi ek malzemede (S8) verilmiştir. Göndermeden önce ilgili her belgenin düzeltme listelerini, düzeltmelerini ve değişikliklerini denetledim (S8). Yayımcı kuruluşların örneklerinin girdilerini makinece okunabilir biçimde
 yayımlamalarını ve yayından önce yeniden hesaplamalarını öneriyor, kütüphaneyi bu amaçla sunuyorum.
 
 (b) **Ölçüm yazılımının doğrulanması.** Makale belirsizlik yazılımının ISO/IEC 17025 (7.11.2, 7.11.6) için nasıl
-doğrulanabileceğini gösterir: belgelenmiş toleranslı ve kökeni belirtilmiş referans değerleri, toleransların başka
-rastgele tohumlarla sınanması, bir tutarsızlık sınıflandırması, bağımsız bir program (Suncal, 166 proje), 189 projenin
+doğrulanabileceğini gösterir: belgelenmiş toleranslı ve kökeni belirtilmiş referans değerleri, toleransların belirlenmesinde
+kullanılmamış rastgele tohumlarla sınanması, bir tutarsızlık sınıflandırması, bağımsız bir program (Suncal, 164 proje), 187 projenin
 sıradan elektronik tablo formülleriyle yeniden hesaplanması ve bir laboratuvarın kendi projelerine uygulayabileceği bir
 validasyon raporu.
 
@@ -47,7 +47,8 @@ arşivlenmiş sürümü açıktır; adıyla yapılacak bir arama yazarı bulur.
 atıf yapılan standartların deterministik ve Monte Carlo yöntemleridir. Kod yazmak ve metnin taslağını hazırlamak için
 bir yapay zekâ kodlama asistanı kullanılmıştır; c1 bulgularını yeniden hesaplayan meslektaş da bir asistan kullanmıştır. Bu, Bölüm 3'te ve üretken yapay zekâ beyanında belirtilmiştir; Tablo 8
 hangi denetimlerin programdan ve asistandan bağımsız olduğunu gösterir. Makaledeki her sayı açık depodan ve arşivlenmiş
-v0.1.0 sürümünden (https://doi.org/10.5281/zenodo.24118312) yeniden üretilebilir.
+v0.1.1 sürümünden (https://doi.org/10.5281/zenodo.24118311, tüm sürümler) yeniden üretilebilir; ek malzemenin
+her dosyası bu sürümle üretilmiştir.
 
 Bulgular yayımlanmış kılavuz belgelerle ilgilidir. Hakemli bir kayda atıf yapabilmeleri için makale kabul edildikten
 sonra yayımcı kuruluşlara teknik not olarak iletilecektir.

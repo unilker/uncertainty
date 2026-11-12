@@ -21,8 +21,8 @@ FIG = ART / "figures"
 
 CAPTIONS = {
     "en": {
-        "fig1": "Figure 1. Architecture and verification of KAPSAM. Generators write the 286 project files of the library "
-                "from the numerical data of their sources (37 documents, 25 of them guidance documents and standards); one "
+        "fig1": "Figure 1. Architecture and verification of KAPSAM. Generators write the 284 project files of the library "
+                "from the numerical data of their sources (36 documents, 25 of them guidance documents and standards); one "
                 "engine, with the evaluation types and the documents they implement, serves the command-line tool, the "
                 "application and the reports. The results are compared with the reference values and recalculated by "
                 "spreadsheet formulas at every change of the code, and were compared with Suncal and with a Monte Carlo "
@@ -30,13 +30,13 @@ CAPTIONS = {
         "fig2": "Figure 2. Results of a measurement model in the application (Eurachem QUAM Example A1, preparation of a "
                 "cadmium calibration standard): reported statement, GUM result and uncertainty budget. The table gives "
                 "the coverage probability of k = 2 for a normal distribution (95.45 %) and U unrounded; the statement "
-                "uses the conventional wording and U rounded by the rule it names. The budget has further columns (the "
-                "Kragten contributions) to the right, and the contributions to the variance are drawn below it.",
-        "fig3": "Figure 3. Findings in the worked examples. (a) The 100 findings per source document, each counted once, "
-                "by its most severe class; the confirmed findings that change a final printed result (c1) are counted "
-                "at the left. Documents with fewer than three findings and no c1 finding are combined. (b) Effect of "
-                "each of the 11 c1 findings, in units of the printed expanded uncertainty: change of the estimate "
-                "|Δy|/U and of the uncertainty |ΔU|/U.",
+                "uses the conventional wording and U rounded by the rule it names.",
+        "fig3": "Figure 3. Findings in the worked examples. (a) The 97 findings that concern a source document, each "
+                "counted once, by its most severe class (the other four are general: methodological notes and "
+                "summaries); the confirmed findings that change a final printed result (c1) are counted at the left. "
+                "Documents with fewer than three findings and no c1 finding are combined. (b) Effect of the 10 c1 "
+                "findings whose result has a printed expanded uncertainty, in units of it: change of the estimate "
+                "|Δy|/U and of the uncertainty |ΔU|/U (F101 concerns a precision estimate without one).",
         "table2a": "**Table 2a.** Library projects by evaluation type (the eleven types of Table 1; a measurement model "
                    "with a conformity assessment and the conformity of a multicomponent item are shown separately).",
         "table2b": "**Table 2b.** Library projects by field.",
@@ -45,8 +45,8 @@ CAPTIONS = {
                 "numbered for comments.",
     },
     "tr": {
-        "fig1": "Şekil 1. KAPSAM'ın mimarisi ve doğrulanması. Üreteçler kütüphanenin 286 proje dosyasını kaynaklarının "
-                "(25'i kılavuz belge ve standart olan 37 belge) sayısal verilerinden yazar; değerlendirme türleri ve "
+        "fig1": "Şekil 1. KAPSAM'ın mimarisi ve doğrulanması. Üreteçler kütüphanenin 284 proje dosyasını kaynaklarının "
+                "(25'i kılavuz belge ve standart olan 36 belge) sayısal verilerinden yazar; değerlendirme türleri ve "
                 "uyguladıkları belgelerle tek bir motor komut satırı aracına, uygulamaya ve raporlara hizmet eder. "
                 "Sonuçlar kodun her değişikliğinde referans değerlerle karşılaştırılır ve elektronik tablo formülleriyle "
                 "yeniden hesaplanır; bu sürüm için ayrıca Suncal ile ve kalibrasyon uydurmaları boyunca Monte Carlo "
@@ -54,13 +54,14 @@ CAPTIONS = {
         "fig2": "Şekil 2. Uygulamada bir ölçüm modelinin sonuçları (Eurachem QUAM Örnek A1, kadmiyum kalibrasyon "
                 "standardının hazırlanması): raporlanan sonuç, GUM sonucu ve belirsizlik bütçesi. Tablo, normal dağılım "
                 "için k = 2'nin kapsama olasılığını (%95,45) ve yuvarlanmamış U'yu verir; sonuç ifadesi alışılmış "
-                "ifadeyi ve adını verdiği kuralla yuvarlanmış U'yu kullanır. Bütçenin sağında başka sütunlar (Kragten "
-                "katkıları), altında varyansa katkıların grafiği vardır (ekran İngilizce arayüzle alınmıştır).",
-        "fig3": "Şekil 3. Çözümlü örneklerdeki bulgular. (a) Kaynak belge başına 100 bulgu, her biri bir kez ve en ağır "
-                "sınıfıyla sayılmıştır; basılı bir nihai sonucu değiştiren doğrulanmış bulgular (c1) solda sayılmıştır. "
-                "Üçten az bulgusu olan ve c1 bulgusu olmayan belgeler birleştirilmiştir. (b) 11 c1 bulgusunun her "
-                "birinin basılı genişletilmiş belirsizlik birimiyle etkisi: kestirimdeki değişiklik |Δy|/U ve "
-                "belirsizlikteki değişiklik |ΔU|/U (şekildeki metin İngilizcedir).",
+                "ifadeyi ve adını verdiği kuralla yuvarlanmış U'yu kullanır (ekran İngilizce arayüzle alınmıştır).",
+        "fig3": "Şekil 3. Çözümlü örneklerdeki bulgular. (a) Bir kaynak belgeyi ilgilendiren 97 bulgu, her biri bir kez "
+                "ve en ağır sınıfıyla sayılmıştır (diğer dördü geneldir: yöntemsel notlar ve özetler); basılı bir nihai "
+                "sonucu değiştiren doğrulanmış bulgular (c1) solda sayılmıştır. Üçten az bulgusu olan ve c1 bulgusu "
+                "olmayan belgeler birleştirilmiştir. (b) Sonucunun basılı bir genişletilmiş belirsizliği olan 10 c1 "
+                "bulgusunun bu belirsizlik birimiyle etkisi: kestirimdeki değişiklik |Δy|/U ve belirsizlikteki "
+                "değişiklik |ΔU|/U (F101 böyle bir belirsizliği olmayan bir kesinlik kestirimini ilgilendirir; "
+                "şekildeki metin İngilizcedir).",
         "table2a": "**Tablo 2a.** Kütüphanedeki projeler, değerlendirme türüne göre (Tablo 1'in on bir türü; uygunluk "
                    "değerlendirmeli ölçüm modeli ve çok bileşenli ürünün uygunluğu ayrı gösterilmiştir).",
         "table2b": "**Tablo 2b.** Kütüphanedeki projeler, alana göre.",
@@ -85,8 +86,8 @@ TR_CELLS = {
     "chemistry": "kimya", "electrical": "elektrik", "mass": "kütle", "general": "genel", "physical": "fiziksel",
     "length": "uzunluk", "temperature": "sıcaklık", "flow": "akış", "pressure": "basınç",
     "Primary sources": "Birincil kaynaklar",
-    "the first source of each project: 25 guidance documents and standards, 5 BIPM reference data reports, 6 journal papers and books (one book), 1 unpublished procedure":
-        "her projenin ilk kaynağı: 25 kılavuz belge ve standart, 5 BIPM referans veri raporu, 6 dergi makalesi ve kitap (biri kitap), 1 yayımlanmamış prosedür",
+    "the first source of each project: 25 guidance documents and standards, 5 BIPM reference data reports, 6 journal papers and books (one book); 3 projects are test cases constructed for this work":
+        "her projenin ilk kaynağı: 25 kılavuz belge ve standart, 5 BIPM referans veri raporu, 6 dergi makalesi ve kitap (biri kitap); 3 proje bu çalışma için kurulmuş sınama durumudur",
     "project files in `library/`; one worked example may give several (variants)":
         "`library/` içindeki proje dosyaları; bir çözümlü örnek birden çok proje verebilir (türevler)",
     "Validation-matrix rows ✅": "Validasyon matrisi satırları ✅",

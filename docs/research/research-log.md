@@ -3477,7 +3477,7 @@ the JSON `linear_pool_degrees_of_equivalence` and `bayes_degrees_of_equivalence`
   Monte Carlo error. Not for Laplace effects.
 - Linear Pool: the definitions of the manual §A.5.3 (see F100).
 - Independent numpy check (`tools/research/consensus/nicob_doe.py`, 10⁶ draws) on ⁶⁰Co and PCB 28: U95 % within
-  1.3 %, Bayes D exact, Linear Pool D within the Monte Carlo error of the pool mean; significant bilateral pairs
+  1.3 % (rechecked in session 24 after the fix of D112: within 1.04 %), Bayes D exact, Linear Pool D within the Monte Carlo error of the pool mean; significant bilateral pairs
   ⁶⁰Co: LP MRA 22/171 (port 22), LP LOO 0 (0), Bayes MRA 3 (3), Bayes LOO 7 (6, one pair at the edge); PCB 28 LP
   MRA 6/15 (6), LOO 2 (2). The ⁶⁰Co project now also checks the Bayes consensus value of Exhibit 21: 7062.03,
   u 4.59, (7053.1, 7071.4) kBq against 7062, 5, (7053, 7072) (MCMC, printed to the unit).
@@ -3965,3 +3965,83 @@ a misreading of a document that the assistant tends to make could be common to b
 rest on a few lines of arithmetic with the document's own printed numbers (Table 6); for F78 the document prints the
 correct intermediate value itself, and F28 was reported independently by Delker (2021). A recomputation without an AI
 assistant, or by a metrologist outside the institute, would remove this common mode.
+
+## 2026-11-11 (session 24) — Second round of the internal review
+
+**F101. ISO 5725-3:2023 Table J.2 — transcription errors at levels 3–5 (class c, c1).** Split from F40 at the
+reviewers' request (D112). Table J.2 of the 2023 edition differs from Table D.2 of the 1994 edition in 15 entries: 12 at
+level 3 (the second day-1 result of laboratories 7–20 repeats the first, which for laboratories 11 and 16 changes
+nothing), 1 at level 4 (laboratory 18) and 2 at level 5 (laboratories 2 and 3). Table J.5, which the 2023 edition carries
+over unchanged, is reproduced exactly from the 1994 data with the stated exclusions, but not from the 2023 Table J.2:
+level 3 s_r 0.652 against 1.739, level 5 s_r 14.715 against 6.237 (× 10⁻³ %). The printed results are therefore not
+reproduced from the document's own data; the cause is the data table, not the evaluation. Confirmed independently by
+the recomputer of D108 (levels 3–5 of Table J.5 cannot be reproduced from the 2023 data). No corrigendum to ISO 5725-3:2023 was found (D112).
+
+**D112. Second round of the internal review (2026-11-11).** The three reviewers of D110 read the revised package and
+asked for nine changes before submission. Decisions and changes:
+
+- *c1 criterion (R1.1).* Rewritten: the inconsistency, once corrected, changes the final printed result at its
+  printed digits even with the document's own rounding. Applied to every row: F42 and F58 stay c1; **F90 is open**,
+  because the printed (rounded) inputs of (E3.3.19) allow 4.14–4.78 nmol/mol, which contains the printed 4.7; F101
+  (below) is c1. Settled c1: 11 (F21, F28, F39, F42, F56, F57, F58, F77, F78, F82, F101); open c1: F29, F85, F90, F92,
+  F97.
+- *Statuses (R1.8).* Every finding that the recomputer of D108 reproduced is now "independently checked" (all 11
+  settled c1, F40, F80, F81, F87).
+- *F101 (R2.2)* split from F40 (above): ISO 5725-3:2023 Table J.5 is not reproducible from its own Table J.2.
+- *F79 closed as m (R1.3).* GUM-5 eq. (2.3) was transcribed wrongly in Appendix A.2 of the D110 draft
+  ([Σⱼ r c u]² instead of Σᵢ Σⱼ r²c²c²u²u²/νᵢ); with the verbatim form the 3.6ν example holds. Eq. (2.3) is
+  Willink's (2007) generalisation for correlated estimates with independently estimated variances (his Section 4.2);
+  for estimates from the same simultaneous observations his Result 1 (Section 4.1) combines them into one component
+  with n − 1 degrees of freedom, as summarised by Willink and Hall (arXiv:1311.0343, 2013, not published in a
+  journal). The example applies the rule for independent variance estimates to estimates from the same data: a
+  difference of method, not an inconsistency.
+- *Variance of Q (R1.4).* Var Q = 2 tr[(AΣ)²] = 2(K − 1) + 4(S₁ − S₂/S₁)τ² + 2(S₂ − 2S₃/S₁ + S₂²/S₁²)τ⁴ is exact; the
+  NICOB manual attributes the exact moments to Biggerstaff and Tweedie (1997). The linear term
+  4(S₁ − 2S₂/S₁ + S₃/S₁²)τ² that D82 and the D110 draft attributed to their eq. (7) is not the variance of Q, and the
+  attribution is withdrawn (the paper was not available here to reread). The public function
+  `q_gamma_approximation` had that wrong term; it now has the exact variance, with a unit test against the matrix
+  expression. It was not used by any evaluation: the bootstrap uses `q_gamma_approximation_nicob`, which already had
+  the exact variance at τ²_M, so no result of the library changes. The "option" of the published form named in the
+  D110 draft did not exist and is removed from the text.
+- *Monte Carlo tolerances (R1.5).* The seeds 101–110 had set the seven tolerances reset in D110, so their rerun was
+  not a test. Seeds 201–210 found 31 comparisons outside tolerance (24 from the Monte Carlo standard deviations and
+  correlations of JCGM 102 9.4, t₃ inputs, whose sample standard deviations have no finite variance: u(R) 0.249 Ω
+  with seed 207 against 0.13; 7 from tolerances narrower than five standard deviations) and 3 seed-dependent GUM
+  validation outcomes (NUM §10), which mc_seeds.py did not count because their tolerance is 0. New script
+  `tools/research/mc_tolerances.py` applies one rule to every Monte Carlo value from the project's own seed and
+  101–110: tolerance ≥ |mean − reference| + 5 s.d. (69 tolerances widened, at most 2.9 times); 14 values withdrawn
+  as reference values (MCM u and r of JCGM 102 9.4, both projects; MCM u of TN 1900 E13 with t₃ inputs, two
+  projects; the GUM validation outcome of NUM §10 and TN 1900 E1, which fails with 6 and 1 of 31 seeds). Test with
+  the twenty seeds 201–210 and 301–310, not used to set any tolerance: 0 of 5340 comparisons outside, largest
+  |Δ|/tolerance 0.93. mc_seeds.py now counts a changed yes/no outcome as a failure. The generators keep the tolerances
+  they were written with: run mc_tolerances.py after regenerating a Monte Carlo project.
+- *Errata (R2.1).* The errata, corrigenda and amendments of every document with a settled c1 finding were checked on
+  2026-11-11 (`docs/research/errata-check.md`): none found except the known QUAM errata; ISO 6143:2025/DAmd 1
+  (B_LEAST performance for nonlinear functions) is at the DIS stage and its text was not consulted. Reporting to the
+  issuing bodies stays after acceptance (D90); the reviewers' suggestion to inform JCGM-WG1 of the GUM-5 findings
+  before its November meeting was not taken up.
+- *Version (R2.3).* 0.1.1 (Cargo, app, CITATION.cff, release notes `docs/release/v0.1.1.md`). Every supplementary
+  file now states the build it was generated with; the generator refuses a modified tree. The article cites the
+  concept DOI until Zenodo assigns the version DOI.
+- *S6 (R2.4)* regenerated from the guide (`app/tool/write_learning_docs.dart`), so the guard-band projects show
+  their current reference statements.
+- *Unpublished procedure (R2.5).* Its two projects moved to `laboratory/` (284 projects, 36 sources); the header of
+  the supplementary workbooks no longer names the institute.
+- *Source kinds (R1.6).* The three guard-band projects are "test cases constructed for this work" (253 projects and
+  1672 values from guidance documents and standards); the reference-value basis is stated per project, so 477 is an
+  upper bound for values resting on a recomputation.
+- *Recomputation record (R1.2, R2.6, R3.2).* New supplement S8 (`docs/research/recomputation-record.md` with the
+  errata check): printed, program and recomputed value of the 13 findings of the form and F101, the start given for
+  each, and the derivation of every settled c1 finding. The sentence "every recomputed value agreed" is replaced by
+  the three exceptions (F40, F82, F90). The text says what the form records: the recomputer wrote every step, the
+  author checked each step against the document; which steps the AI assistant performed is not recorded.
+- *Smaller items (R1.7, R3.1, R3.3, R3.5).* NICOB port: DL U95 within 0.7 % (⁶⁰Co) and 1.7 % (PCB 28), Linear Pool
+  and Bayes within 1.04 % (rechecked by laboratory code, after a first script compared unordered entries); Figure 3a
+  counts the 97 findings that concern a document; Figure 3b shows the 10 c1 findings with a printed U; S4 prints
+  max |z| to two decimals; the cover letter takes its subject line from the manuscript title and keeps its lists;
+  graphical abstract 253 projects and 1672 values; highlight 4 names the 11 findings; references: GUM Workbench
+  Professional 2.4 and MUkit 3.0.12 with their addresses, ISRD-03 (potassium hydrogen phthalate, Rapport
+  BIPM-2018/05), Willink and Hall 2013 added, Forbes 2006 and Frahm and Wright 2023 removed (82 references); the
+  report numbers of ISRD-06 and ISRD-07 corrected to Rapport BIPM-2019/03 and 2019/04 in the article, the generator
+  and the four projects; Section 2.5 states that outlying laboratories are identified by the leave-one-out degrees
+  of equivalence and none is excluded automatically.

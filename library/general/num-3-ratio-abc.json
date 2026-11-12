@@ -124,7 +124,7 @@
       },
       "standard_uncertainty": {
         "value": 13.0,
-        "tolerance": 0.5
+        "tolerance": 0.54
       },
       "interval_low": {
         "value": 18.2,

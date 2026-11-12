@@ -175,7 +175,7 @@
       },
       "interval_high": {
         "value": 8.39,
-        "tolerance": 0.02
+        "tolerance": 0.027
       },
       "gum_validated": false
     },

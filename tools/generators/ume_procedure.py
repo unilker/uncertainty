@@ -21,7 +21,9 @@ def write(field, pid, body, meta, expected, ref, analysis):
     p = {"format": "uncertainty-calculations/project", "version": 1,
          "metadata": {"id": pid, "field": field, **meta, "sources": [{"document": DOC, "section": section}]},
          **body, "analysis": analysis, "expected": {**expected, "reference": ref}}
-    Path(f"library/{field}/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # Kept outside library/: the procedure is an unpublished draft, so these projects are not verification
+    # cases of the library (research log D112); they serve as laboratory templates and --lab examples.
+    Path(f"laboratory/{pid}.json").write_text(json.dumps(p, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("wrote", pid)
 
 

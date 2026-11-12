@@ -28,10 +28,17 @@ DOCS = [
     (r"procedure|Prosedür", "unpublished procedure of a metrology institute", "unpublished"),
 ]
 KIND_TEXT = {"guidance": "guidance document or standard", "reference data": "BIPM reference data report",
-             "paper or book": "journal paper or book", "unpublished": "unpublished procedure"}
+             "paper or book": "journal paper or book", "constructed": "test case constructed for this work",
+             "unpublished": "unpublished procedure"}
+
+# Projects that are not worked examples of their cited source: test cases built for this work from published
+# formulas (the guard bands of Dobbert, RP-10 and root-sum-square are not in JCGM 106; D112).
+CONSTRUCTED = ("tur-guard-band-",)
 
 
 def primary(project):
+    if project["metadata"]["id"].startswith(CONSTRUCTED):
+        return "guard bands from the test uncertainty ratio", "constructed"
     doc = project["metadata"]["sources"][0]["document"]
     for pat, name, kind in DOCS:
         if re.search(pat, doc):

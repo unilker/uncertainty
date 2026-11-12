@@ -1,6 +1,6 @@
 # 13. Learning with the examples
 
-Each of the 286 examples of the library comes from a published guide, standard or paper, and the program recomputes them at every change. Below, the examples are grouped by level. Each group starts with what it teaches; click the name of an example to open it. The **Overview** tab of the opened example explains it step by step.
+Each of the 284 examples of the library comes from a published guide, standard or paper, and the program recomputes them at every change. Below, the examples are grouped by level. Each group starts with what it teaches; click the name of an example to open it. The **Overview** tab of the opened example explains it step by step.
 
 > **Tip:** If you are new, start with the first groups of the Beginner level; in each example press **Calculate** first, then compare the results with the explanation.
 
@@ -51,12 +51,6 @@ A 10 kΩ resistor is compared with a reference resistor. The model is a product,
 A hand-held multimeter is checked at 100 V against a calibrator. The resolution of the display is often the largest term: a value shown with one decimal can be anywhere within half a digit.
 
 - [Calibration of a hand-held digital multimeter at 100 V](examples.md#ea402-s9-dmm-100v)
-
-### A multimeter at 10 V (TÜBİTAK UME)
-
-An example from the uncertainty procedure of TÜBİTAK UME: calibration of a digital multimeter at 10 V DC. It follows the same steps as the guides and is a good template for an electrical calibration certificate.
-
-- [10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1)](examples.md#ume-procedure-19-1-dmm-10v-calibration)
 
 ### Calibrating a gauge block
 
@@ -643,12 +637,6 @@ Eight or more laboratories, several levels, replicate results: repeatability and
 Nitrogen monoxide by UV absorption calibrated with a straight line through reference gas mixtures, with uncertainties on both axes.
 
 - [NO in N₂ by UV absorption: straight-line analysis function (ISO 6143 Example 1)](examples.md#iso6143-b1-no-uv-linear)
-
-### Purity by qNMR (TÜBİTAK UME)
-
-An illustrative budget for quantitative NMR with an internal standard, from the TÜBİTAK UME uncertainty procedure.
-
-- [Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2)](examples.md#ume-procedure-19-2-qnmr-purity-internal-standard)
 
 ### Sampling: nitrate in lettuce
 

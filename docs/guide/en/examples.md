@@ -2,8 +2,8 @@
 
 This chapter is generated from the example library by `kapsam catalogue library --lang en`; every result is recomputed by the program from the inputs stored in the project file, and the test suite fails if this file is out of date. Monte Carlo results are not listed here: run a project to obtain them together with the full budget, charts and the comparison with the published reference values.
 
-- Chemistry (144)
-- Electrical and RF (36)
+- Chemistry (143)
+- Electrical and RF (35)
 - Flow and volume (7)
 - General (method validation) (24)
 - Length (12)
@@ -2548,30 +2548,6 @@ Mean concentration of an arable field of 0.32 ha (143 m × 22 m, 0–30 cm) from
 
 **Run:** `kapsam run library/chemistry/ufs-a6-phosphorus-soil.json --lang en`
 
-### Purity by ¹H qNMR with an internal standard: an illustrative budget (TÜBİTAK UME uncertainty procedure, Example 19.2)
-
-`ume-procedure-19-2-qnmr-purity-internal-standard` — TÜBİTAK UME, Section 19.2
-
-Multiplicative model with relative uncertainties; the values are illustrative, not from a real measurement. The integration is a separate Type B component (±0.2 %, rectangular) beside the repeatability of the ratio.
-
-**Approach:** GUM uncertainty framework (JCGM 100)
-
-**Steps:**
-
-1. Relative standard uncertainties (10⁻⁶): repeatability 671, integration 1155, P_std 750, m_std 307, m_a 196, M_a 21, M_std 17; combined 1575; ν_eff = 121.
-2. P_a = 995.0 mg/g, u_c = 1.567 mg/g, U = 2u_c = 3.13 → 3.1 mg/g: P_a = (995.0 ± 3.1) mg/g (k = 2).
-3. More than half of the variance comes from the integration and about a quarter from the purity of the internal standard (54 % and 23 %).
-
-**Result:**
-
-- P_a = (995.0 ± 3.1) mg/g, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
-
-**Notes:**
-
-- The numbers of ¹H nuclei are not legible in the procedure (the model is an embedded equation object); N_std/N_a = 2/3 is the only ratio that reproduces the printed 995.0 mg/g, consistent with maleic acid (M = 116.072 g/mol, 2 H) as internal standard and an analyte of M = 194.19 g/mol with a methyl singlet (e.g. caffeine).
-
-**Run:** `kapsam run library/chemistry/ume-procedure-19-2-qnmr-purity-internal-standard.json --lang en`
-
 ### Fluoranthene in river sediments, arithmetic mean recovery (MUPR Eq. 8–12) (Bettencourt da Silva 2026)
 
 `bettencourt2026-fluoranthene-arithmetic` — R. J. N. Bettencourt da Silva, Section 3.2; Supplementary Material 06, sheets Trueness, Performance Model and Analysis sequence
@@ -4199,26 +4175,6 @@ At balance R_U/R_G = R_F/R_EH, with R_EH = 1/(R_E⁻¹ + R_H⁻¹) the joint res
 - The book notes that a lognormal model, which respects the positivity of resistance, gives practically the same results at these relative uncertainties (below 5 %).
 
 **Run:** `kapsam run library/electrical/possolo-meija-2022-wheatstone-bridge.json --lang en`
-
-### 10 V DC calibration of a digital multimeter (TÜBİTAK UME uncertainty procedure, Example 19.1)
-
-`ume-procedure-19-1-dmm-10v-calibration` — TÜBİTAK UME, Section 19.1
-
-Additive model with absolute uncertainties: the error of indication E = V_DMM − V_ref with corrections for the calibrator certificate, its drift and the resolution.
-
-**Approach:** GUM uncertainty framework (JCGM 100) and Monte Carlo method (JCGM 101)
-
-**Steps:**
-
-1. u_c = √(8.1² + 25.0² + 23.1² + 2.9²) = 35.1 µV; ν_eff = 3965 (Welch–Satterthwaite with ν = 11 for the readings); U = 2u_c = 70.2 µV.
-2. Dominant-component check of the procedure: the largest rectangular contribution u_R = 23.1 µV against the others u_N = 26.4 µV; u_N/u_R = 1.14 > 0.70, so k = 2 holds.
-3. Result: E = (0.21 ± 0.07) mV, or U = 7 µV/V relative to 10 V (k = 2, p ≈ 95 %).
-
-**Result:**
-
-- E = (212 ± 70) µV, where the expanded uncertainty is the combined standard uncertainty multiplied by the coverage factor k = 2.00, corresponding to a coverage probability of approximately 95 %. U is rounded to 2 significant digits: ordinary rounding unless it lowers U by more than 5 %, then upwards (EA-4/02 M:2022, 6.3).
-
-**Run:** `kapsam run library/electrical/ume-procedure-19-1-dmm-10v-calibration.json --lang en`
 
 ## Flow and volume
 

@@ -101,9 +101,9 @@ def fig1():
             label(x0 + 10.5, y + 3.7, body)
 
     # Left: from the guidance to the project files.
-    column(2, [(51, "37 sources", "25 guidance documents and\nstandards; papers, BIPM reports"),
+    column(2, [(51, "36 sources", "25 guidance documents and\nstandards; papers, BIPM reports"),
                (37.5, "Generators", "Python scripts: the numbers\nand clause of each example"),
-               (24, "286 projects", "JSON: inputs, sources and\nreference values ± tolerance")], True)
+               (24, "284 projects", "JSON: inputs, sources and\nreference values ± tolerance")], True)
     arrow((12.5, 50.8), (12.5, 48.7))
     arrow((12.5, 37.3), (12.5, 35.2))
 
@@ -141,9 +141,9 @@ def fig1():
     # Bottom: the validation; two checks run at every change of the code, two are benchmarks of the release.
     card(2, 1.0, 96, 15.0, face=GREEN2, edge=GREEN, lw=0.9, r=1.2)
     label(50, 14.2, "VALIDATION", size=5.8, color=GREEN, weight="bold")
-    tiles = [("every change (CI)", "1865", "reference values of 286 projects,\nall within their tolerances"),
-             ("release benchmark", "171", "projects reproduced by an\nindependent program (Suncal)"),
-             ("every change (CI)", "189", "spreadsheet workbooks,\n4678 values (LibreOffice)"),
+    tiles = [("every change (CI)", "1843", "reference values of 284 projects,\nall within their tolerances"),
+             ("release benchmark", "164", "projects reproduced by an\nindependent program (Suncal)"),
+             ("every change (CI)", "187", "spreadsheet workbooks,\n4631 values (LibreOffice)"),
              ("release benchmark", "8 × 10⁶", "Monte Carlo draws through the\nfit of 8 calibrations (ISO 6143)")]
     tw, gap = 22.5, 1.3
     for n, (when, big, text) in enumerate(tiles):
@@ -240,7 +240,8 @@ def fig2():
     fig.text(0.01, 0.985, "(a) Findings by source document", fontsize=7.8, color=INK, va="top")
 
     ax = fig.add_subplot(gs[1])
-    eff = sorted(c1, key=lambda r: max(v for v in r[3:] if v))
+    # F101 (a precision estimate without a printed U) has no effect in units of U and is not drawn.
+    eff = sorted((r for r in c1 if r[3] or r[4]), key=lambda r: max(v for v in r[3:] if v))
     for y, (f, doc, label, dy, du) in enumerate(eff):
         top = max(v for v in (dy, du) if v)
         ax.plot([0.004, top], [y, y], color=GRID, linewidth=1.0, zorder=1)
@@ -253,7 +254,7 @@ def fig2():
     ax.set_yticks(range(len(eff)))
     ax.set_yticklabels([f"{r[0]}  {r[2]}" for r in eff], fontsize=6.2)
     ax.axvline(1, color=INK2, linewidth=0.7, linestyle=(0, (3, 2)))
-    ax.text(1.12, len(c1) - 0.25, "one expanded uncertainty", fontsize=5.8, color=INK2, va="center")
+    ax.text(1.12, len(eff) - 0.25, "one expanded uncertainty", fontsize=5.8, color=INK2, va="center")
     ax.set_xticks([0.01, 0.1, 1, 10])
     ax.set_xticklabels(["0.01 U", "0.1 U", "1 U", "10 U"])
     ax.set_xlabel("Change of the printed result, in units of its U", fontsize=7)
@@ -264,7 +265,7 @@ def fig2():
     ax.plot([], [], "o", color=INK, markersize=4.6, label="estimate y: |Δy|/U")
     ax.plot([], [], "D", color=CRED, markersize=4.2, label="uncertainty: |ΔU|/U")
     ax.legend(loc="lower right", bbox_to_anchor=(1.0, 0.06), fontsize=6.2, handlelength=1.0)
-    fig.text(0.55, 0.985, f"(b) How far the {len(c1)} confirmed c1 findings move the printed result", fontsize=7.8,
+    fig.text(0.55, 0.985, f"(b) How far {len(eff)} of the {len(c1)} c1 findings move the printed result", fontsize=7.8,
              color=INK, va="top")
     save(fig, "fig3_findings_by_document")
 
@@ -393,7 +394,7 @@ def graphical_abstract():
     txt(15.5, 33.0, "Worked examples", 8, INK2, "bold")
     txt(15.5, 24.5, "25", 19, INK, "bold")
     txt(15.5, 17.3, "guidance documents\nand standards", 7.5, INK2)
-    txt(15.5, 10.4, "286 projects\n1865 reference values", 7, INK2)
+    txt(15.5, 10.4, "253 projects\n1672 reference values", 7, INK2)
     card(36, 7, 28, 31, NAVY2, NAVY, 1.1)
     ax.add_patch(FancyBboxPatch((36, 29.5), 28, 8.5, boxstyle="round,pad=0,rounding_size=1.6", linewidth=0,
                                 facecolor=NAVY))
@@ -405,7 +406,7 @@ def graphical_abstract():
     txt(84.5, 33.0, "What it revealed", 8, CRED, "bold")
     txt(84.5, 24.5, str(len(c1_findings())), 19, CRED, "bold")
     txt(84.5, 17.0, "confirmed inconsistencies\nchange a printed result", 7, INK)
-    txt(84.5, 10.8, "among 100 findings;\nrecomputed by a metrologist", 7, INK2)
+    txt(84.5, 10.8, "of 101 findings; recomputed\nby a metrologist with AI help", 7, INK2)
     for x0, x1 in ((30.0, 35.5), (64.5, 70.0)):
         ax.add_patch(FancyArrowPatch((x0, 22.5), (x1, 22.5), arrowstyle="-|>", mutation_scale=10, linewidth=1.3,
                                      color=NAVY))

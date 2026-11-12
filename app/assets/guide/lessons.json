@@ -70,16 +70,6 @@
   "tr": "Bir el multimetresi 100 V'ta bir kalibratöre karşı denetlenir. Göstergenin çözünürlüğü çoğu zaman en büyük terimdir: tek ondalıkla gösterilen bir değer yarım basamak içinde herhangi bir yerde olabilir."
  },
  {
-  "prefix": "ume-procedure-19-1",
-  "level": 1,
-  "title": {
-   "en": "A multimeter at 10 V (TÜBİTAK UME)",
-   "tr": "10 V'ta bir multimetre (TÜBİTAK UME)"
-  },
-  "en": "An example from the uncertainty procedure of TÜBİTAK UME: calibration of a digital multimeter at 10 V DC. It follows the same steps as the guides and is a good template for an electrical calibration certificate.",
-  "tr": "TÜBİTAK UME belirsizlik prosedüründen bir örnek: bir dijital multimetrenin 10 V DC'de kalibrasyonu. Kılavuzlarla aynı adımları izler ve elektriksel bir kalibrasyon sertifikası için iyi bir şablondur."
- },
- {
   "prefix": "ea402-s4",
   "level": 1,
   "title": {
@@ -868,16 +858,6 @@
   },
   "en": "Nitrogen monoxide by UV absorption calibrated with a straight line through reference gas mixtures, with uncertainties on both axes.",
   "tr": "Referans gaz karışımlarından geçen bir doğruyla kalibre edilen UV soğurmalı azot monoksit; iki eksende de belirsizlik."
- },
- {
-  "prefix": "ume-procedure-19-2",
-  "level": 2,
-  "title": {
-   "en": "Purity by qNMR (TÜBİTAK UME)",
-   "tr": "qNMR ile saflık (TÜBİTAK UME)"
-  },
-  "en": "An illustrative budget for quantitative NMR with an internal standard, from the TÜBİTAK UME uncertainty procedure.",
-  "tr": "TÜBİTAK UME belirsizlik prosedüründen, iç standartlı nicel NMR için açıklayıcı bir bütçe."
  },
  {
   "prefix": "ufs-a1",

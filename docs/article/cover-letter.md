@@ -5,20 +5,22 @@ worked examples of the guidance it implements"** for publication in *Measurement
 
 Accredited testing and calibration laboratories learn and check their uncertainty evaluations on the worked examples
 of the GUM suite and of the sector guides (Eurachem/CITAC, Nordtest, EA, UKAS, EURAMET, ISO). I recomputed these
-examples systematically: 286 projects built from the worked examples of 37 sources, 25 of them guidance documents and
-standards, with 1865 reference values that the software reproduces within documented tolerances at every change of
+examples systematically: 284 projects built from the worked examples of 36 sources, 25 of them guidance documents and
+standards, with 1843 reference values that the software reproduces within documented tolerances at every change of
 its code. The work contributes to measurement science in two ways:
 
-(a) **The worked examples themselves.** The recomputation produced 100 findings. Eleven are confirmed inconsistencies
+(a) **The worked examples themselves.** The recomputation produced 101 findings. Eleven are confirmed inconsistencies
 that change a final printed result (an estimate or its uncertainty) in documents that laboratories use every day,
 five of them by more than a tenth of the expanded uncertainty; a metrologist who had not seen the code reproduced them
-from the documents, with the help of an AI assistant, as the manuscript states (Section 8). I propose that issuing bodies publish the inputs of their examples in machine-readable form and
+from the documents, with the help of an AI assistant, as the manuscript states (Section 8), and the derivation of each
+is given in the supplementary material (S8) so that a reader can repeat it by hand. Before submission I checked the
+errata, corrigenda and amendments of every document concerned (S8). I propose that issuing bodies publish the inputs of their examples in machine-readable form and
 recompute them before publication, and I offer the library for that purpose.
 
 (b) **The verification of measurement software.** The manuscript shows how uncertainty software can be verified for
 ISO/IEC 17025 (7.11.2, 7.11.6): reference values with documented tolerances and a stated origin, a test of the
-tolerances under other random seeds, a classification of discrepancies, an independent program (Suncal, 166
-projects), a recalculation of 189 projects with ordinary spreadsheet formulas, and a validation report that a
+tolerances with random seeds not used to set them, a classification of discrepancies, an independent program (Suncal, 164
+projects), a recalculation of 187 projects with ordinary spreadsheet formulas, and a validation report that a
 laboratory can apply to its own projects.
 
 The software is the instrument of this work, not its sole subject: the conclusions concern the correctness of
@@ -46,7 +48,8 @@ The work does not use machine learning or neural networks as a research method; 
 deterministic and Monte Carlo methods of the GUM suite and of the cited standards. An AI coding assistant was used to
 write code and to draft the text, and the colleague who recomputed the c1 findings used one as well. This is stated in Section 3 and in the declaration on generative AI, and Table 8
 states which checks are independent of the program and of the assistant. Every number in the paper can be reproduced
-from the public repository and its archived release v0.1.0 (https://doi.org/10.5281/zenodo.24118312).
+from the public repository and its archived release v0.1.1 (https://doi.org/10.5281/zenodo.24118311, all versions),
+with which every supplementary file was generated.
 
 The findings concern published guidance documents. They will be sent to the issuing bodies as technical notes after
 acceptance, so that the notes can refer to a peer-reviewed record.

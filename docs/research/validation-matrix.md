@@ -2,10 +2,12 @@
 
 Every reference case is an automated test (`cargo test`). A case passes only
 if the engine reproduces the published value within the stated tolerance.
-For Monte Carlo outputs the tolerance is ≈ 5 standard deviations of the
-engine's own dispersion, measured with `core/examples/mcm_dispersion.rs`
-(20 independent seeds, M = 2 × 10⁶), plus the rounding of the published
-value. Where published MCM values carry their own sampling noise, the
+For the Monte Carlo outputs of the library projects the tolerance is at least
+the distance of the mean over eleven seeds from the reference value plus five
+standard deviations over those seeds (`tools/research/mc_tolerances.py`), tested
+with twenty further seeds (`tools/research/mc_seeds.py`; D112); the core tests
+use ≈ 5 standard deviations measured with `core/examples/mcm_dispersion.rs`
+(20 independent seeds, M = 2 × 10⁶) plus the rounding of the published value. Where published MCM values carry their own sampling noise, the
 primary reference is an analytic solution or an independent 2 × 10⁸-trial
 PCG64 run (`validation/reference_values.py` → `reference_values.json`).
 
@@ -112,7 +114,7 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | TN-E8 | M_r(CO₂), two rectangular inputs | 44.0094, u 0.0007, exact [44.0080, 44.0108] | same (exact 44.008045, 44.010755) | ✅ (F32) |
 | TN-E9 | cadmium standard (QUAM A1, rectangular P, triangular V) | 1002.7 mg/L, u ≈ 0.9, [1001.0, 1004.4] | 0.864; same interval | ✅ (F30) |
 | TN-E11 | step attenuator (EA S7, arcsine δL_M, δL_D, δL_K; t₃ L_S) | 30.043 dB, u 0.0224 dB, [30.006, 30.081] | same (MCM only) | ✅ (F31) |
-| TN-E13 | thermal expansion, Gaussian / t₃ inputs, 95 % / 99 % | 1.73e-5, u 0.18e-5 K⁻¹; (1.38, 2.07), (1.27, 2.18), (1.40, 2.05), (1.15, 2.30) | same (4 projects) | ✅ (F31) |
+| TN-E13 | thermal expansion, Gaussian / t₃ inputs, 95 % / 99 % | 1.73e-5, u 0.18e-5 K⁻¹; (1.38, 2.07), (1.27, 2.18), (1.40, 2.05), (1.15, 2.30) | same (4 projects); the MCM standard deviation of the t₃ projects is shown but not checked (D112) | ✅ (F31) |
 
 ## NIST Uncertainty Machine manual v1.4 (2020) and GUM H.2 — library projects
 
@@ -120,7 +122,7 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 |---|---|---|---|---|
 | NUM-3 | y = ab/c, triangular divisor | Gauss 28.8, u 8.7; MCM 32.2, sd 13, (18.2, 67) | same | ✅ (F33) |
 | NUM-8 | end gauge, Gaussian inputs | Gauss u 31.7 nm; MCM sd 33.9 nm, 99 % (50 000 749, 50 000 927) | same; zero-sensitivity warning 13 % | ✅ |
-| NUM-10 | GUM H.2 R with rounded Table H.2 values | Gauss 0.07; MCM sd 0.0699, (127.595, 127.869) Ω | 0.0700; same | ✅ (F34) |
+| NUM-10 | GUM H.2 R with rounded Table H.2 values | Gauss 0.07; MCM sd 0.0699, (127.595, 127.869) Ω | 0.0700; same; the GUM validation outcome depends on the seed and is not checked (D112) | ✅ (F34) |
 | NUM-11 | Stefan–Boltzmann constant (CODATA 2010) | 5.670 3725e-8, u 2.05e-13 | same | ✅ |
 | GUM-H.2 | R, X, Z from the raw sets of Table H.2 | 0.071, 0.295, 0.236 Ω | 0.0711, 0.2956, 0.2363 | ✅ (F34) |
 | NUM-7, NUM-9 | thermal expansion (t₃), viscosity | = TN 1900 E13, E3 | see above | ✅ (F29, F35) |
@@ -162,7 +164,7 @@ Test files: `core/tests/gum_examples.rs`, `core/tests/jcgm101_examples.rs`,
 | JCGM102-9.2.3 | rectangular common effect | Table 4: MCM k_p 2.38, k_q 2.15; regions not validated | same | ✅ |
 | JCGM102-9.2.4 | dominant rectangular effect | Table 5: GUF 3.162, 0.900; MCM 2.28, 1.87 | same | ✅ |
 | JCGM102-9.3 | polar co-ordinates, six cases | Tables 6, 7 (MCM, M = 10⁷) | same (M = 10⁶) | ✅ |
-| JCGM102-9.4 | resistance, reactance, impedance | Table 11: GUF, Alt. GUF, MCM (t₃) | same; MCM within the seed-to-seed spread of t₃ | ✅ (F51) |
+| JCGM102-9.4 | resistance, reactance, impedance | Table 11: GUF, Alt. GUF, MCM (t₃) | same; MCM estimates within tolerance; the MCM standard deviations and correlations (t₃ inputs, no finite fourth moment) are shown but not checked (D112) | ✅ (F51) |
 | JCGM102-9.5.2 | resistance thermometer, implicit | θ 20.023 2 °C, u 0.004 5 °C | same | ✅ |
 | JCGM102-9.5.3 | ten temperatures, implicit | Tables 15, 16 | same | ✅ |
 
@@ -366,17 +368,17 @@ recomputed by an independent script. The spreadsheet's own uncertainties differ 
 | BIPM-ISRD-qNMR | BIPM ISRD-01, -02, -06, -07, -08: nine ¹H qNMR purity budgets | w_A and u_c of each table (e.g. ISRD-01 T4 0.9973, 7.30 × 10⁻⁴) | same w_A to rounding; u_c within 1 % except ISRD-01 T6 (4.10 vs 3.96 × 10⁻⁴) | ✅ except F97 |
 | PB18-CR | Possolo & Bodnar 2018 §4.4, chromium in soil (data of ISO Guide 35:2017 C.1, now ISO 33405:2024), ANOVA and hierarchical Bayes | REML 121.62 (0.95), τ 3.93, σ 2.87 mg/kg; MCMC 121.62 (1) mg/kg | 121.624; s_bb 3.930, s_r 2.874; Bayes grid 121.624 (0.9986) | ✅ |
 | MERKATAS19-G | Merkatas et al. 2019 Table 4, G from 16 results: DL (Knapp–Hartung), ML, NICOB Bayes, Linear Pool | DL 6.673 99 (0.000 25), τ 0.000 56; ML 6.673 90 (0.000 25); BG 6.673 89 (0.000 27); LOP 6.673 77 (0.001 17) | 6.673 993 (0.000 250), 0.000 556; 6.673 900 (0.000 252); 6.673 896 (0.000 271); 6.673 773 (0.001 168) | ✅ |
-| UME-PROC-19 | TÜBİTAK UME draft procedure, Examples 19.1 (DMM 10 V) and 19.2 (qNMR purity, illustrative) | 19.1 u_c 35.1 µV, ν_eff ≈ 4000, U 70.2 µV; 19.2 995.0 mg/g, u_c 1.567, ν_eff 121, U 3.13 mg/g | 35.09, 3965, 70.19; 995.00, 1.5669, 121.5, 3.134 | ✅ |
 | TUR-GB | TUR guard bands (Dobbert 2.5, RSS 1.5, RP-10 2.0) with a 95 % in-tolerance normal process | published formulas and JCGM 106 9.5 integrals in SciPy (D110; Suncal 1.7.1 agrees): GBF 0.914 186, 0.745 356, 0.75; PFA 0.6883 %, 0.5679 %, 0.3213 %; PFR 5.216 %, 17.70 %, 14.00 % | same to 2 × 10⁻⁶ | ✅ |
 | CG18-H3.4 | EURAMET cg-18 H3.4/A and /B, 30 t weighbridge in use (substitution loads, drift, ΔT = 40 K) | α² 62.133 / 25.333 kg²; β² 1.276 × 10⁻⁶ / 1.960 × 10⁻⁷; U = 16 kg + 1.79 × 10⁻³ R / 10.067 kg + 6.113 × 10⁻⁴ R; R_min 2169 / 1123 kg | 62.133 / 25.333; 1.276 × 10⁻⁶ / 1.967 × 10⁻⁷; 15.76 + 1.794 × 10⁻³ R / 10.066 + 6.128 × 10⁻⁴ R; 2169 / 1124 | ✅ except F98 |
 | KOEPKE17-CS | Koepke et al. 2017 Tables 3–4, half-life of ¹³⁷Cs (19 results) | DL 30.04 (0.04) a; LP 29.94 (0.93) a | 30.037 (0.045) a; 29.94 (0.93) a | ✅ |
 | KOEPKE17-SR | Koepke et al. 2017 Tables 3–4, half-life of ⁹⁰Sr (11 results) | DL 28.73 (0.11) a; LP 28.68 (0.77) a | 28.730 (0.110) a; 28.69 (0.77) a | ✅ |
-| NICOB-CO60 | NIST Consensus Builder manual §4.4, ⁶⁰Co, 19 laboratories: DL bootstrap, Linear Pool, Bayes; leave-one-out and bilateral DoE of DL, LP and Bayes (numpy port of the NICOB source, 10⁶ draws) | DL 7062, u 4, (7053, 7071) kBq; LP 7064, 29, (7012, 7127); Bayes 7062, 5, (7053, 7072); DoE: D exact (LP: within the MC error of the pool mean), U95 from the port | 7062.06, 4.33, (7053.4, 7070.7); 7063.8, 29.2, (7012.6, 7127.2); 7062.03, 4.59, (7053.1, 7071.4); U95 within 1.3 %; significant pairs as the port | ✅ |
+| NICOB-CO60 | NIST Consensus Builder manual §4.4, ⁶⁰Co, 19 laboratories: DL bootstrap, Linear Pool, Bayes; leave-one-out and bilateral DoE of DL, LP and Bayes (numpy port of the NICOB source, 10⁶ draws) | DL 7062, u 4, (7053, 7071) kBq; LP 7064, 29, (7012, 7127); Bayes 7062, 5, (7053, 7072); DoE: D exact (LP: within the MC error of the pool mean), U95 from the port | 7062.06, 4.33, (7053.4, 7070.7); 7063.8, 29.2, (7012.6, 7127.2); 7062.03, 4.59, (7053.1, 7071.4); DoE U95 within 0.7 % (DL) and 1.0 % (LP, Bayes) of the port; significant pairs as the port | ✅ |
 | NICOB-PCB28 | NIST Consensus Builder manual §4.2, PCB 28, 6 laboratories with ν (one ν = 2) | DL 33.6, u 0.77, (32.0, 35.2) ng/g; LP 33.6, 1.55, (31.4, 36.3) | 33.600, 0.751, (32.06, 35.15); 33.64, 1.51, (31.44, 36.28); DoE U95 within 1.7 % of the port | ✅ except F99 |
 
 ## Example library (project files)
 
-All cases of this matrix are stored as self-checking project files in `library/` (286 projects; supplementary material S1), run by `project/tests/library.rs` and `kapsam check library` through the complete path a user takes (JSON → evaluation → comparison → TR/EN reports). Reference-value policy: D15 and D110 in the research log. EA-4/02 S13 in the library uses the raw observations (estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget. The 39 top-down projects start from the raw data wherever the documents give them (duplicate pairs, control-chart results, replicate groups, PT results); the two projects from Bettencourt da Silva (2026) start from the 20 mean recoveries of the spreadsheet (`"type": "given"`). Tolerances reflect the documents' printed rounding; where a guide computes from rounded intermediates the tolerance is widened and the reason stated in the file.
+All cases of this matrix are stored as self-checking project files in `library/` (284 projects; supplementary material S1), run by `project/tests/library.rs` and `kapsam check library` through the complete path a user takes (JSON → evaluation → comparison → TR/EN reports). Reference-value policy: D15 and D110 in the research log. EA-4/02 S13 in the library uses the raw observations (estimate 0.2323 µm, F21), whereas the core test reproduces the printed budget. The 39 top-down projects start from the raw data wherever the documents give them (duplicate pairs, control-chart results, replicate groups, PT results); the two projects from Bettencourt da Silva (2026) start from the 20 mean recoveries of the spreadsheet (`"type": "given"`). The two projects of an unpublished laboratory procedure are kept in
+`laboratory/`, outside the library (D112). Tolerances reflect the documents' printed rounding; where a guide computes from rounded intermediates the tolerance is widened and the reason stated in the file.
 
 ## Not yet covered
 

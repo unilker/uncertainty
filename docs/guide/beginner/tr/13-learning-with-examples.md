@@ -1,6 +1,6 @@
 # 13. Örneklerle öğrenmek
 
-Kütüphanedeki 286 örneğin her biri yayımlanmış bir kılavuzdan, standarttan ya da makaleden alınmıştır ve program her değişiklikte onları yeniden hesaplar. Aşağıda örnekler zorluk düzeyine göre gruplanmıştır. Her grubun başında o grubun ne öğrettiği yazar; bir örneğin adına tıklayınca örnek açılır. Açılan örneğin **Genel** sekmesinde, örneğin adım adım açıklaması vardır.
+Kütüphanedeki 284 örneğin her biri yayımlanmış bir kılavuzdan, standarttan ya da makaleden alınmıştır ve program her değişiklikte onları yeniden hesaplar. Aşağıda örnekler zorluk düzeyine göre gruplanmıştır. Her grubun başında o grubun ne öğrettiği yazar; bir örneğin adına tıklayınca örnek açılır. Açılan örneğin **Genel** sekmesinde, örneğin adım adım açıklaması vardır.
 
 > **İpucu:** Yeni başlıyorsanız Başlangıç düzeyindeki ilk gruplarla başlayın, her örnekte önce **Hesapla** düğmesine basın, sonra sonuçları açıklamayla karşılaştırın.
 
@@ -51,12 +51,6 @@ Bir 10 kΩ direnç bir referans dirençle karşılaştırılır. Model bir çarp
 Bir el multimetresi 100 V'ta bir kalibratöre karşı denetlenir. Göstergenin çözünürlüğü çoğu zaman en büyük terimdir: tek ondalıkla gösterilen bir değer yarım basamak içinde herhangi bir yerde olabilir.
 
 - [El tipi sayısal multimetrenin 100 V'ta kalibrasyonu](examples.md#ea402-s9-dmm-100v)
-
-### 10 V'ta bir multimetre (TÜBİTAK UME)
-
-TÜBİTAK UME belirsizlik prosedüründen bir örnek: bir dijital multimetrenin 10 V DC'de kalibrasyonu. Kılavuzlarla aynı adımları izler ve elektriksel bir kalibrasyon sertifikası için iyi bir şablondur.
-
-- [Dijital multimetrenin 10 V DC kalibrasyonu (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.1)](examples.md#ume-procedure-19-1-dmm-10v-calibration)
 
 ### Bir mastar bloğun kalibrasyonu
 
@@ -643,12 +637,6 @@ Sekiz ya da daha fazla laboratuvar, birkaç düzey, tekrarlı sonuçlar: Cochran
 Referans gaz karışımlarından geçen bir doğruyla kalibre edilen UV soğurmalı azot monoksit; iki eksende de belirsizlik.
 
 - [N₂ içinde NO, UV absorpsiyonu: doğrusal analiz fonksiyonu (ISO 6143 Örnek 1)](examples.md#iso6143-b1-no-uv-linear)
-
-### qNMR ile saflık (TÜBİTAK UME)
-
-TÜBİTAK UME belirsizlik prosedüründen, iç standartlı nicel NMR için açıklayıcı bir bütçe.
-
-- [İç standartla ¹H qNMR saflık tayini: örnek bir bütçe (TÜBİTAK UME belirsizlik prosedürü, Örnek 19.2)](examples.md#ume-procedure-19-2-qnmr-purity-internal-standard)
 
 ### Numune alma: marulda nitrat
 

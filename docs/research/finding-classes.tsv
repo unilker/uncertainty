@@ -38,7 +38,7 @@ F36	b	ISO 13528 E.4	ISO 13528 E.4 — uncertainty flags not reproducible from 9.
 F37	n	Bimodal results and Algorithm A.	Bimodal results and Algorithm A.
 F38	b	ISO 21748 C.4.7	ISO 21748 C.4.7 — "dividing … by 3" (class b).
 F39	c	ISO 21748 C.3	ISO 21748 C.3 — flour (class c).
-F40	c	ISO 5725-3 J.2	ISO 5725-3 J.2 — Table J.5: transcription errors in the 2023 Table J.2 (levels 3–5) and the treatment of a negative variance at level 6.
+F40	c	ISO 5725-3 J.2	ISO 5725-3 J.5, level 6 — the negative day variance is set to zero for s_I(T) and kept in s_R (the transcription errors of Table J.2 are F101).
 F41	c	ISO 6143:2025 Formula (12)	ISO 6143:2025 Formula (12) — critical value of the drift test (class c).
 F42	c	ISO 6143:2025 Example 3	ISO 6143:2025 Example 3 — exponential function: parameter uncertainties and u(x) (class c; partly acknowledged by the standard).
 F43	b	Magnusson & Ellison (2008), Table 3	Magnusson & Ellison (2008), Table 3 — sign of Δ in SUMU (class b).
@@ -99,3 +99,4 @@ F97	b,c	BIPM ISRD qNMR budgets	BIPM ISRD qNMR budgets — internal inconsistenci
 F98	a	EURAMET cg-18 H3.4/A and H3.4/B	EURAMET cg-18 H3.4/A and H3.4/B — u(a₁) of the error function (class a, small).
 F99	n	NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).	NICOB manual Exhibit 7 — bootstrap u of PCB 28 (class n, Monte Carlo dispersion).
 F100	n	NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).	NICOB R code vs manual — Linear Pool degrees of equivalence (class n, methodological; for the article).
+F101	c	ISO 5725-3 J.2	ISO 5725-3:2023 Table J.2 — transcription errors at levels 3–5 (15 entries against the 1994 data); Table J.5 is not reproducible from the printed Table J.2.

@@ -16,7 +16,7 @@ writes into OUT_DIR:
 * figures/Figure_1-3 (vector PDF; Figure 2 a TIFF screenshot) and Graphical_abstract (PDF, TIFF);
 * highlights.docx;
 * cover-letter.docx (to the editor; not anonymized);
-* supplementary/S1-S7, anonymized;
+* supplementary/S1-S8, anonymized; every file states the build of the program (version and commit);
 * CHECKLIST.md: the requirements of the guide and how the package meets them, the placeholders still open, and the
   result of a scan of every anonymized file for identifying information;
 
@@ -150,8 +150,8 @@ def title_page(out, title, parts):
     doc.add_heading("CRediT authorship contribution statement", level=2)
     doc.add_paragraph(parts["CRediT authorship contribution statement"].replace("\n", " "))
     doc.add_heading("Software and data (for the editor)", level=2)
-    doc.add_paragraph("Repository: https://github.com/unilker/uncertainty. Archived release v0.1.0: "
-                      "https://doi.org/10.5281/zenodo.24118312 (all versions: https://doi.org/10.5281/zenodo.24118311). "
+    doc.add_paragraph("Repository: https://github.com/unilker/uncertainty. Archived release v0.1.1 (all versions, "
+                      "concept DOI): https://doi.org/10.5281/zenodo.24118311; v0.1.0: https://doi.org/10.5281/zenodo.24118312. "
                       "These links are withheld in the anonymized manuscript; the data link is also given in the "
                       "submission system (research data, option C).")
     doc.core_properties.author = "İlker Ün"
@@ -201,6 +201,9 @@ def s3_markdown():
 def supplementary(out):
     d = out / "supplementary"
     d.mkdir()
+    build = subprocess.run([EXE, "--version"], capture_output=True, text=True, check=True).stdout.splitlines()[0].strip()
+    assert "-modified" not in build, f"build the package from a committed tree: {build}"
+    n_projects = len(list(Path("library").glob("*/*.json")))
     src = ART / "supplementary"
     for name in ("S1_library.xlsx", "S2_findings.xlsx"):
         wb = openpyxl.load_workbook(src / name)
@@ -220,17 +223,21 @@ def supplementary(out):
              Path("docs/research/benchmark-suncal.md").read_text(encoding="utf-8") + "\n\n#" + mc,
              "KAPSAM — Supplementary material S4: comparison with Suncal", True, False),
             ("S7_spreadsheet_check.pdf", Path("docs/research/spreadsheet-check.md").read_text(encoding="utf-8"),
-             "KAPSAM — Supplementary material S7: spreadsheet verification", True, False)]
+             "KAPSAM — Supplementary material S7: spreadsheet verification", True, False),
+            ("S8_recomputation_record.pdf",
+             Path("docs/research/recomputation-record.md").read_text(encoding="utf-8") + "\n\n"
+             + Path("docs/research/errata-check.md").read_text(encoding="utf-8").replace("# Errata", "## 5. Errata", 1),
+             "KAPSAM — Supplementary material S8: recomputation record", True, False)]
     with tempfile.TemporaryDirectory() as tmp:
         val = Path(tmp) / "validation.md"
         subprocess.run([EXE, "check", "library", "--report", str(val), "--lang", "en"], check=False,
                        capture_output=True)
         jobs.append(("S5_validation_report.pdf", val.read_text(encoding="utf-8"),
                      "KAPSAM — Supplementary material S5: software validation report", False, False))
-    jobs.append(("S6_guide.pdf", "# Uncertainty from scratch\n\n" + spdf.FRONT["en"] + "\n\n" + spdf.guide_markdown("en"),
+    jobs.append(("S6_guide.pdf", "# Uncertainty from scratch\n\n" + spdf.FRONT["en"].format(n=n_projects) + "\n\n" + spdf.guide_markdown("en"),
                  "KAPSAM — Supplementary material S6: Uncertainty from scratch", False, True))
     for name, md, header, landscape, toc in jobs:
-        spdf.md_to_pdf(anon(md), d / name, header, landscape=landscape, toc=toc)
+        spdf.md_to_pdf(anon(md), d / name, f"{header} — {anon(build)}", landscape=landscape, toc=toc)
 
 
 def text_of(path):

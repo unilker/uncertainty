@@ -399,7 +399,7 @@ def main():
     mcs = [abs(r["mc"]) for r in mrows if r.get("mc") is not None]
     print(f"\nmax |u/u_Suncal − 1| = {max(du):.1e}; max |Δy|/u = {max(abs(r['dy']) for r in mrows):.1e}; "
           f"with correlations or intermediates: {sum(1 for r in mrows if r['features'])}; "
-          f"MC compared: {len(mcs)}, max |Δs.d.|/s.d. = {max(mcs):.1e}, max |z| = {max(zs):.1f}")
+          f"MC compared: {len(mcs)}, max |Δs.d.|/s.d. = {max(mcs):.1e}, max |z| = {max(zs):.2f}")
 
     print("\n## 2. Models with several outputs (JCGM 102)\n")
     print("| Project | outputs | max Δy/u | max |u/u_Suncal − 1| | max |Δr| | MCM s.d./Suncal MC − 1 (largest) | z |")

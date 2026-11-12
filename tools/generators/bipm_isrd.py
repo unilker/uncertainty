@@ -14,8 +14,8 @@ from isrd_budgets import T as TABLES  # noqa: E402
 DOCS = {
     "ISRD-01": ("BIPM, Internal Standard Reference Data for qNMR: Maleic Acid, ISRD-01, Rapport BIPM-2018/01", "https://www.bipm.org/en/publications/rapports-bipm"),
     "ISRD-02": ("BIPM, Internal Standard Reference Data for qNMR: Dimethyl Sulfone, ISRD-02, Rapport BIPM-2018/04", "https://www.bipm.org/en/publications/rapports-bipm"),
-    "ISRD-06": ("BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/02", "https://www.bipm.org/en/publications/rapports-bipm"),
-    "ISRD-07": ("BIPM, Internal Standard Reference Data for qNMR: Sodium 4,4-dimethyl-4-silapentane-1-sulfonate-d6, ISRD-07, Rapport BIPM-2019/03", "https://www.bipm.org/en/publications/rapports-bipm"),
+    "ISRD-06": ("BIPM, Internal Standard Reference Data for qNMR: 1,4-Bis(trimethylsilyl)benzene-d4, ISRD-06, Rapport BIPM-2019/03", "https://www.bipm.org/en/publications/rapports-bipm"),
+    "ISRD-07": ("BIPM, Internal Standard Reference Data for qNMR: Sodium 4,4-dimethyl-4-silapentane-1-sulfonate-d6, ISRD-07, Rapport BIPM-2019/04", "https://www.bipm.org/en/publications/rapports-bipm"),
     "ISRD-08": ("BIPM, Internal Standard Reference Data for qNMR: Benzoic Acid, ISRD-08, Rapport BIPM-2023/02", "https://www.bipm.org/en/publications/rapports-bipm"),
 }
 NAMES = {"MA": ("maleic acid", "maleik asit"), "DMSO2": ("dimethyl sulfone", "dimetil sülfon"), "DMTP": ("dimethyl terephthalate", "dimetil tereftalat"),
