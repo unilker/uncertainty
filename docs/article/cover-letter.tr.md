@@ -47,7 +47,7 @@ arşivlenmiş sürümü açıktır; adıyla yapılacak bir arama yazarı bulur.
 atıf yapılan standartların deterministik ve Monte Carlo yöntemleridir. Kod yazmak, metnin taslağını hazırlamak ve metni gözden geçirmek için
 bir yapay zekâ kodlama asistanı kullanılmıştır; c1 bulgularını yeniden hesaplayan meslektaş da bir asistan kullanmıştır. Bu, Bölüm 3'te ve üretken yapay zekâ beyanında belirtilmiştir; Tablo 8
 hangi denetimlerin programdan ve asistandan bağımsız olduğunu gösterir. Makaledeki her sayı açık depodan ve arşivlenmiş
-v0.1.1 sürümünden (https://doi.org/10.5281/zenodo.24118311, tüm sürümler) yeniden üretilebilir; ek malzemenin
+v0.1.1 sürümünden (https://doi.org/10.5281/zenodo.24161568) yeniden üretilebilir; ek malzemenin
 her dosyası bu sürümle üretilmiştir.
 
 Bulgular yayımlanmış kılavuz belgelerle ilgilidir. Hakemli bir kayda atıf yapabilmeleri için makale kabul edildikten

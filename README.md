@@ -207,5 +207,6 @@ Bu yazılımı veya sonuçlarını kullanıyorsanız lütfen
 [CITATION.cff](CITATION.cff) dosyasındaki şekilde **atıf yapınız**.
 
 Archived releases / Arşivlenmiş sürümler (Zenodo): all versions / tüm sürümler
-[10.5281/zenodo.24118311](https://doi.org/10.5281/zenodo.24118311) (v0.1.1 and later); v0.1.0
+[10.5281/zenodo.24118311](https://doi.org/10.5281/zenodo.24118311); v0.1.1
+[10.5281/zenodo.24161568](https://doi.org/10.5281/zenodo.24161568); v0.1.0
 [10.5281/zenodo.24118312](https://doi.org/10.5281/zenodo.24118312).

@@ -4113,3 +4113,8 @@ Changes:
 - *ISO 6143:2025/DAmd 1 (S2.2).* Not obtainable; the document the author found is the published BS EN ISO 6143:2025
   (no corrigenda listed on 30 June 2025). The text says that the amendment could not be checked.
 - The licensed copies are not stored in the repository.
+
+**D114. Release v0.1.1 (2026-11-12).** Tag `v0.1.1` on commit 106a6f3 (merge of the third review round), archived by
+Zenodo as 10.5281/zenodo.24161568 (all versions: 10.5281/zenodo.24118311). Reference [82] of the article, the cover
+letters, `CITATION.cff` and the README cite it. The supplementary material S1–S8 is generated with the binary built
+from this commit, so that every file states "KAPSAM 0.1.1 (commit 106a6f306436)".

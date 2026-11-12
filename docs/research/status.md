@@ -17,7 +17,7 @@ kalındığını ve sırada ne olduğunu kaydeder.
 | Rehber | *Uncertainty from scratch* / *Sıfırdan belirsizlik* (TR/EN), 121 ders, 284 örneğin açıklaması |
 | Araştırma günlüğü | kararlar D1–D113, bulgular F1–F102 (11 sonuçlanmış c1, hepsi bağımsız denetlenmiş; F90 açık; F79 m) |
 | Makale | `docs/article/manuscript.md` (EN, asıl metin) ve `manuscript.tr.md`; ~7000 sözcük düz metin, 8 tablo, 3 şekil, Ek A, 82 kaynak; ek malzeme S1–S8; editöre mektup |
-| Dal | `claude/sleepy-hypatia-1522g6`; sürüm v0.1.1 (yayımlanacak; etiket GitHub arayüzünden) |
+| Dal | `claude/sleepy-hypatia-1522g6`; sürüm v0.1.1 yayımlandı (etiket 106a6f3, DOI 10.5281/zenodo.24161568) |
 
 ## 1a. Makale gönderimi: kalanlar (2026-11-10)
 
