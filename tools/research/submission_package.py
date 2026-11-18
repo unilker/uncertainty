@@ -207,7 +207,7 @@ def figures(out):
             shutil.copy(ART / "figures" / f"{name}.pdf", d / f"Figure_{n}.pdf")
     shutil.copy(ART / "figures" / "graphical_abstract.pdf", d / "Graphical_abstract.pdf")
     Image.open(ART / "figures" / "graphical_abstract.png").convert("RGB").save(
-        d / "Graphical_abstract.tif", dpi=(600, 600), compression="tiff_lzw")
+        d / "Graphical_abstract.tif", dpi=(1200, 1200), compression="tiff_lzw")
 
 
 def declaration_of_interest(out, title):

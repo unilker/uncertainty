@@ -375,48 +375,126 @@ def fig3():
 
 # --- Graphical abstract (Elsevier: at least 1328 x 531 px at 300 dpi, ratio 5:2, all text in the image) -------------
 def graphical_abstract():
-    """Drawn at its printed width of 13 cm (the guide: readable at a width of 13 cm), lettering at least 7 pt."""
-    NAVY, NAVY2, CRED, GREEN = "#1b2f5e", "#e9edf6", "#b8321f", "#13805a"
-    fig, ax = plt.subplots(figsize=(130 / 25.4, 52 / 25.4))
-    fig.subplots_adjust(0, 0, 1, 1)
-    ax.set_xlim(0, 100)
-    ax.set_ylim(0, 40)
+    """Drawn at its printed width of 13 cm (the guide: readable at a width of 13 cm), lettering at least 7 pt; saved
+    as a vector PDF and at 1200 dpi (6142 x 2457 px). Coordinates are millimetres on the 130 x 52 mm page.
+
+    Every number is the article's: 284 projects, 36 sources and 1841 values (numbers.md, abstract), Suncal 164 and
+    spreadsheets 187 projects (abstract), 5300 comparisons with new seeds (Section 4), 102 findings (abstract), and the
+    eleven c1 findings with their shifts |dy|/U or |dU|/U read from class-c-impact.tsv (Figure 3b, Table 6)."""
+    import numpy as np
+    from matplotlib.patches import Circle, Rectangle
+
+    md = Path("docs/article/numbers.md").read_text(encoding="utf-8")
+    assert "1841 values compared in 284 projects" in md
+    c1 = c1_findings()
+    shifts = sorted(max(v for v in (dy, du) if v is not None) for _, _, _, dy, du in c1 if (dy, du) != (None, None))
+    big = [v for v in shifts if v > 0.1]
+    assert len(c1) == 11 and len(shifts) == 10 and len(big) == 5, (len(c1), shifts)
+
+    NAVY, SKY, PAPER = "#16295a", "#e3eaf6", "#f5f4f0"
+    RED, RED_L, GREEN, MUTED = "#c2361f", "#fcece8", "#12805a", "#55544f"
+    FONT = ["Carlito", "Liberation Sans", "DejaVu Sans"]
+    fig = plt.figure(figsize=(130 / 25.4, 52 / 25.4))
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, 130)
+    ax.set_ylim(0, 52)
     ax.axis("off")
 
-    def card(x, y, w, h, face, edge, lw=0.9):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.6", linewidth=lw,
-                                    edgecolor=edge, facecolor=face))
+    def t(x, y, s, size=7.5, color=INK, weight="normal", ha="center", va="center", **kw):
+        ax.text(x, y, s, fontsize=max(size, 7), color=color, fontweight=weight, ha=ha, va=va, family=FONT,
+                linespacing=1.1, **kw)
 
-    def txt(x, y, s, size, color=INK, weight="normal"):
-        ax.text(x, y, s, fontsize=max(size, 7), color=color, fontweight=weight, ha="center", va="center",
-                linespacing=1.2)
+    def card(x, y, w, h, face, edge=None, lw=0.0, r=2.2, z=1):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle=f"round,pad=0,rounding_size={r}", linewidth=lw,
+                                    edgecolor=edge or face, facecolor=face, zorder=z))
 
-    card(1.5, 7, 28, 31, "#f6f5f2", "#c9c7c1")
-    txt(15.5, 33.0, "Worked examples", 8, INK2, "bold")
-    txt(15.5, 24.5, "25", 19, INK, "bold")
-    txt(15.5, 17.3, "guidance documents\nand standards", 7.5, INK2)
-    txt(15.5, 10.4, "253 projects\n1670 reference values", 7, INK2)
-    card(36, 7, 28, 31, NAVY2, NAVY, 1.1)
-    ax.add_patch(FancyBboxPatch((36, 29.5), 28, 8.5, boxstyle="round,pad=0,rounding_size=1.6", linewidth=0,
-                                facecolor=NAVY))
-    ax.add_patch(plt.Rectangle((36, 29.5), 28, 3, facecolor=NAVY, linewidth=0))
-    txt(50, 33.8, "KAPSAM", 10, "white", "bold")
-    txt(50, 22.5, "recomputes every\nexample at every\ncode change", 7.5, NAVY)
-    txt(50, 11.5, "checked with Suncal\nand spreadsheets", 7, NAVY)
-    card(70.5, 7, 28, 31, "#fbeeeb", CRED, 1.1)
-    txt(84.5, 33.0, "What it revealed", 8, CRED, "bold")
-    txt(84.5, 24.5, str(len(c1_findings())), 19, CRED, "bold")
-    txt(84.5, 17.0, "confirmed inconsistencies\nchange a printed result", 7, INK)
-    txt(84.5, 10.8, "of 102 findings; recomputed by\na metrologist with an AI assistant", 7, INK2)
-    for x0, x1 in ((30.0, 35.5), (64.5, 70.0)):
-        ax.add_patch(FancyArrowPatch((x0, 22.5), (x1, 22.5), arrowstyle="-|>", mutation_scale=10, linewidth=1.3,
-                                     color=NAVY))
-    txt(50, 3.0, "Open source: GUM, Monte Carlo, top-down, proficiency testing, conformity, calibration", 7, GREEN,
-        "bold")
+    def tick(x, y, color=GREEN, r=1.45):
+        ax.add_patch(Circle((x, y), r, facecolor=color, edgecolor="none", zorder=5))
+        ax.plot([x - 0.7, x - 0.2, x + 0.75], [y + 0.05, y - 0.55, y + 0.6], color="white", lw=0.9,
+                solid_capstyle="round", solid_joinstyle="round", zorder=6)
+
+    # 1. Worked examples ----------------------------------------------------------------------------------------
+    L0, L1 = 2, 31
+    LC = (L0 + L1) / 2
+    card(L0, 3, L1 - L0, 46, PAPER, "#d4d2cb", 0.6)
+    t(LC, 45.0, "WORKED EXAMPLES", 7.5, MUTED, "bold")
+    for i, (dx, dy) in enumerate(((-3.0, -1.5), (0, 0), (3.0, 1.5))):     # a small stack of documents
+        x0, y0 = LC - 3.8 + dx, 32.2 + dy
+        ax.add_patch(FancyBboxPatch((x0, y0), 7.0, 8.6, boxstyle="round,pad=0,rounding_size=0.6", linewidth=0.6,
+                                    edgecolor="#9c9a93", facecolor="white", zorder=2 + i))
+        for k in range(5):
+            ax.plot([x0 + 1.2, x0 + (5.8 if k % 2 else 4.6)], [y0 + 7.0 - 1.35 * k] * 2, color="#c9c7c0", lw=0.7,
+                    zorder=2 + i)
+    t(LC, 24.6, "1841", 24, INK, "bold")
+    t(LC, 18.6, "reference values", 8, INK, "bold")
+    t(LC, 10.4, "in 284 projects, built from\n36 sources (25 guidance\ndocuments and standards)\nand 3 constructed test cases",
+      7, MUTED)
+
+    # 2. KAPSAM --------------------------------------------------------------------------------------------------
+    M0, M1 = 35.5, 79
+    MC = (M0 + M1) / 2
+    card(M0, 3, M1 - M0, 46, SKY, NAVY, 0.9)
+    card(M0, 38.8, M1 - M0, 10.2, NAVY)
+    ax.add_patch(Rectangle((M0, 38.8), M1 - M0, 3, facecolor=NAVY, linewidth=0, zorder=1))
+    t(MC, 45.3, "KAPSAM", 11, "white", "bold")
+    t(MC, 41.1, "open-source uncertainty software", 7.5, "#c8d3ea")
+    rng = np.random.default_rng(7)                                        # icon: Monte Carlo histogram and its pdf
+    bins, half, sx, base, sy = 11, 3.0, 2.9, 30.6, 15.5
+    h, edges = np.histogram(rng.normal(0, 1, 60000), bins=bins, range=(-half, half), density=True)
+    w = (edges[1] - edges[0]) * sx
+    for hv, e0 in zip(h, edges[:-1]):
+        ax.add_patch(Rectangle((MC + e0 * sx + 0.12 * w, base), 0.76 * w, hv * sy, facecolor="#a9bce2",
+                               edgecolor="none", zorder=2))
+    xs = np.linspace(-half, half, 200)
+    ax.plot(MC + xs * sx, base + np.exp(-xs ** 2 / 2) / np.sqrt(2 * np.pi) * sy, color=NAVY, lw=1.0, zorder=3)
+    ax.plot([MC - half * sx, MC + half * sx], [base, base], color=NAVY, lw=0.6, zorder=3)
+    t(MC, 26.4, "recomputes every value at every change of its code".replace("every change", "every\nchange"), 7.5, NAVY,
+      "bold")
+    checks = (("Suncal", "reproduces 164 projects"), ("Spreadsheet formulas", "reproduce 187 projects"),
+              ("New Monte Carlo seeds", "5300 of 5300 comparisons pass"))
+    for k, (head, tail) in enumerate(checks):
+        y = 18.2 - 5.4 * k
+        tick(M0 + 3.6, y)
+        t(M0 + 6.2, y + 1.05, head, 7.5, INK, "bold", ha="left")
+        t(M0 + 6.2, y - 1.55, tail, 7, MUTED, ha="left")
+
+    # 3. Findings --------------------------------------------------------------------------------------------------
+    R0, R1 = 83.5, 128
+    RC = (R0 + R1) / 2
+    card(R0, 3, R1 - R0, 46, RED_L, RED, 0.9)
+    t(RC, 45.0, "WHAT IT FOUND", 7.5, RED, "bold")
+    t(R0 + 11.0, 37.6, "102", 24, RED, "bold")
+    t(R0 + 21.0, 37.6, "findings in the\nworked examples", 7.5, INK, ha="left")
+    t(RC, 31.0, "11 affect a final printed result", 8, INK, "bold")
+    # strip: shift of the printed result in units of its expanded uncertainty U, log scale
+    lo, hi, x0, x1, ys = np.log10(0.003), np.log10(80), R0 + 2.6, R1 - 2.6, 24.0
+    X = lambda v: x0 + (np.log10(v) - lo) / (hi - lo) * (x1 - x0)  # noqa: E731
+    ax.add_patch(Rectangle((X(0.1), ys - 3.0), x1 - X(0.1), 6.2, facecolor="#f6cfc6", edgecolor="none", zorder=1))
+    ax.plot([x0, x1], [ys - 3.0] * 2, color="#a8948f", lw=0.6, zorder=2)
+    for v, lab in ((0.01, "0.01"), (0.1, "0.1"), (1, "1"), (10, "10")):
+        ax.plot([X(v)] * 2, [ys - 3.0, ys - 3.7], color="#a8948f", lw=0.6, zorder=2)
+        t(X(v), ys - 5.3, lab, 7, MUTED)
+    placed = []                                                           # dodge overlapping dots vertically
+    for v in shifts:
+        x, y = X(v), ys
+        for dy in (0, 1.9, -1.9, 3.0):
+            if all(abs(x - px) > 1.8 or abs(ys + dy - py) > 1.8 for px, py in placed):
+                y = ys + dy
+                break
+        placed.append((x, y))
+        ax.add_patch(Circle((x, y), 0.9, facecolor=RED if v > 0.1 else "white", edgecolor=RED, lw=0.7, zorder=4))
+    t(RC, ys - 8.2, "shift of the printed result / U (10 of 11)", 7, MUTED)
+    t(RC, 11.4, "5 move it by more than 0.1 U", 7.5, RED, "bold")
+    t(RC, 6.9, "all 11 recomputed by a metrologist\nblind to the code (with an AI assistant)", 7, MUTED)
+
+    for xc in ((L1 + M0) / 2, (M1 + R0) / 2):                            # connectors: a disc with a chevron
+        ax.add_patch(Circle((xc, 26.0), 2.3, facecolor=NAVY, edgecolor="white", lw=1.2, zorder=8))
+        ax.plot([xc - 0.6, xc + 0.7, xc - 0.6], [27.2, 26.0, 24.8], color="white", lw=1.3, solid_capstyle="round",
+                solid_joinstyle="round", zorder=9)
     fig.savefig(OUT / "graphical_abstract.pdf")
-    fig.savefig(OUT / "graphical_abstract.png", dpi=600)
+    fig.savefig(OUT / "graphical_abstract.png", dpi=1200)
     plt.close(fig)
-    print("wrote", OUT / "graphical_abstract.pdf", "(13 cm wide; 3071 px at 600 dpi)")
+    print("wrote", OUT / "graphical_abstract.pdf", "(13 cm wide; 6142 px at 1200 dpi)")
 
 
 def tables():
