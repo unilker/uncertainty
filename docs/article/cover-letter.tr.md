@@ -13,8 +13,8 @@ oluşturulan 284 proje ve yazılımın, kodunun her değişikliğinde belgelenmi
 referans değeri. Çalışma ölçüm bilimine iki yolla katkı sağlar:
 
 (a) **Çözümlü örneklerin kendisi.** Yeniden hesaplama 102 bulgu ortaya çıkardı. Bunların on biri, laboratuvarların her
-gün kullandığı belgelerde basılı bir nihai sonucu (bir kestirimi veya belirsizliğini) değiştiren doğrulanmış
-tutarsızlıklardır; beşi sonucu genişletilmiş belirsizliğin onda birinden fazla değiştirir; kodu görmemiş bir metrolog
+gün kullandığı belgelerde basılı bir nihai sonucu (bir kestirimi veya belirsizliğini) değiştiren ya da onu belgenin
+kendi verilerinden dayanaksız bırakan doğrulanmış tutarsızlıklardır; beşi sonucu genişletilmiş belirsizliğin onda birinden fazla değiştirir; kodu görmemiş bir metrolog
 bunları, makalede belirtildiği gibi bir yapay zekâ asistanının yardımıyla, belgelerden yeniden üretmiştir (Bölüm 8); okurun elle yineleyebilmesi için her birinin türetilişi ek malzemede (S8) verilmiştir. Göndermeden önce ilgili her belgenin düzeltme listelerini, düzeltmelerini ve değişikliklerini denetledim (S8). Yayımcı kuruluşların örneklerinin girdilerini makinece okunabilir biçimde
 yayımlamalarını ve yayından önce yeniden hesaplamalarını öneriyor, kütüphaneyi bu amaçla sunuyorum.
 
@@ -38,7 +38,7 @@ Makale, derginin kapsam için koyduğu koşulları karşılar:
   nasıl genişlettiğini belirtir: ölçekte (yalnızca GUM değil, 25 kılavuz belge ve standart), kodun her değişikliğinde
   çalışan bir regresyon testi olarak ve yeniden hesabın örneklerde bulduklarının sınıflandırılmasıyla.
 
-Araştırma makalesi şekil, tablo ve kaynaklarıyla 27 sayfadır (sınır 30 sayfa). Dergi çift kör hakemlik uyguladığından makale,
+Araştırma makalesi şekil, tablo ve kaynaklarıyla 29 sayfadır (sınır 30 sayfa). Dergi çift kör hakemlik uyguladığından makale,
 şekiller ve ek malzeme yazarın adını, kurumunu veya bağlantısını içermez; bunlar ayrı bir dosya olan başlık
 sayfasındadır. Bu çalışmada tam anonimlik mümkün değildir: programın adı Türkçedir, Türkçe bir arayüzü vardır ve
 arşivlenmiş sürümü açıktır; adıyla yapılacak bir arama yazarı bulur.

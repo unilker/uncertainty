@@ -10,7 +10,8 @@ guidance documents and standards, with 1841 reference values that the software r
 its code. The work contributes to measurement science in two ways:
 
 (a) **The worked examples themselves.** The recomputation produced 102 findings. Eleven are confirmed inconsistencies
-that change a final printed result (an estimate or its uncertainty) in documents that laboratories use every day,
+that change a final printed result (an estimate or its uncertainty), or leave it without support in the document's
+own data, in documents that laboratories use every day,
 five of them by more than a tenth of the expanded uncertainty; a metrologist who had not seen the code reproduced them
 from the documents, with the help of an AI assistant, as the manuscript states (Section 8), and the derivation of each
 is given in the supplementary material (S8) so that a reader can repeat it by hand. Before submission I checked the
@@ -38,7 +39,7 @@ The manuscript meets the requirements that the journal sets for its scope:
   scale (25 guidance documents and standards rather than the GUM alone), as a regression test at every change of the
   code, and with a classification of what the recomputation found in the examples.
 
-The research paper has 27 pages with its figures, tables and references (the limit is 30). As the journal uses double
+The research paper has 29 pages with its figures, tables and references (the limit is 30). As the journal uses double
 anonymized review, the manuscript, the figures and the supplementary material contain no name, affiliation or link
 of the author; the title page, which is a separate file, gives them. Complete anonymity is not possible for this
 work: the program has a Turkish name and a Turkish interface, and its archived release is public, so that a search
