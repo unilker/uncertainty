@@ -29,6 +29,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from datetime import date
 from pathlib import Path
 
 import openpyxl
@@ -209,6 +210,29 @@ def figures(out):
         d / "Graphical_abstract.tif", dpi=(600, 600), compression="tiff_lzw")
 
 
+def declaration_of_interest(out, title):
+    """The declaration of interest statement as a separate file, in the wording of Elsevier's declarations tool."""
+    doc = Document()
+    st = doc.styles["Normal"]
+    st.font.name, st.font.size = "Times New Roman", Pt(12)
+    doc.add_heading("Declaration of interests", level=1)
+    p = doc.add_paragraph()
+    p.add_run("Manuscript: ").bold = True
+    p.add_run(title).italic = True
+    doc.add_paragraph("☒ The author declares no known competing financial interests or personal relationships "
+                      "that could have appeared to influence the work reported in this paper.")
+    doc.add_paragraph("☐ The author declares the following financial interests/personal relationships which may be "
+                      "considered as potential competing interests:")
+    doc.add_paragraph("Funding: this research did not receive any specific grant from funding agencies in the public, "
+                      "commercial, or not-for-profit sectors.")
+    doc.add_paragraph("İlker Ün\nTÜBİTAK National Metrology Institute (TÜBİTAK UME), 41470 Gebze, Kocaeli, Türkiye\n"
+                      f"E-mail: {EMAIL}\nORCID: 0000-0001-5089-4602")
+    doc.add_paragraph(f"Date: {date.today().isoformat()}")
+    doc.core_properties.author = "İlker Ün"
+    doc.core_properties.title = "Declaration of interests"
+    doc.save(out / "declaration-of-interest.docx")
+
+
 def highlights(out):
     items = [ln[2:].strip() for ln in (ART / "highlights.md").read_text(encoding="utf-8").splitlines()
              if ln.startswith("- ")]
@@ -311,13 +335,14 @@ def main():
     tp = title_page(out, title, parts)
     figures(out)
     hl = highlights(out)
+    declaration_of_interest(out, title)
     cover_letter_docx.main(str(ART / "cover-letter.md"), str(out / "cover-letter.docx"), "en")
     supplementary(out)
 
     # Scan every file that reviewers see.
     leaks = []
     for f in sorted(out.rglob("*")):
-        if f.is_file() and f.name not in ("title-page.docx", "cover-letter.docx", "CHECKLIST.md"):
+        if f.is_file() and f.name not in ("title-page.docx", "cover-letter.docx", "declaration-of-interest.docx", "CHECKLIST.md"):
             for m in IDENT.finditer(text_of(f)):
                 leaks.append(f"- {f.relative_to(out)}: `{m.group(0)}`")
     letter = (ART / "cover-letter.md").read_text(encoding="utf-8")
