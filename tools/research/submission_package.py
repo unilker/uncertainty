@@ -233,6 +233,23 @@ def declaration_of_interest(out, title):
     doc.save(out / "declaration-of-interest.docx")
 
 
+ACKNOWLEDGEMENTS = ("The author thanks Dr. Burhanettin Yalçınkaya for a critical reading of the manuscript from the "
+                    "perspective of an independent metrologist.")
+
+
+def acknowledgements(out):
+    """The acknowledgements as a separate, editable file: in a double-anonymized submission they are not part of the
+    manuscript."""
+    doc = Document()
+    st = doc.styles["Normal"]
+    st.font.name, st.font.size = "Times New Roman", Pt(12)
+    doc.add_heading("Acknowledgements", level=1)
+    doc.add_paragraph(ACKNOWLEDGEMENTS)
+    doc.core_properties.author = "İlker Ün"
+    doc.core_properties.title = "Acknowledgements"
+    doc.save(out / "acknowledgements.docx")
+
+
 def highlights(out):
     items = [ln[2:].strip() for ln in (ART / "highlights.md").read_text(encoding="utf-8").splitlines()
              if ln.startswith("- ")]
@@ -336,13 +353,15 @@ def main():
     figures(out)
     hl = highlights(out)
     declaration_of_interest(out, title)
+    acknowledgements(out)
     cover_letter_docx.main(str(ART / "cover-letter.md"), str(out / "cover-letter.docx"), "en")
     supplementary(out)
 
     # Scan every file that reviewers see.
     leaks = []
     for f in sorted(out.rglob("*")):
-        if f.is_file() and f.name not in ("title-page.docx", "cover-letter.docx", "declaration-of-interest.docx", "CHECKLIST.md"):
+        if f.is_file() and f.name not in ("title-page.docx", "cover-letter.docx", "declaration-of-interest.docx", "acknowledgements.docx",
+                                                 "CHECKLIST.md"):
             for m in IDENT.finditer(text_of(f)):
                 leaks.append(f"- {f.relative_to(out)}: `{m.group(0)}`")
     letter = (ART / "cover-letter.md").read_text(encoding="utf-8")
