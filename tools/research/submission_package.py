@@ -233,8 +233,9 @@ def declaration_of_interest(out, title):
     doc.save(out / "declaration-of-interest.docx")
 
 
-ACKNOWLEDGEMENTS = ("The author thanks Dr. Burhanettin Yalçınkaya for a critical reading of the manuscript from the "
-                    "perspective of an independent metrologist.")
+ACKNOWLEDGEMENTS = ("The author thanks Dr. Burhanettin Yalçınkaya for independently recomputing, from the source "
+                    "documents and without access to the program's code, the findings that change a final printed "
+                    "result (Section 8 and supplementary material S8).")
 
 
 def acknowledgements(out):
