@@ -561,7 +561,7 @@ yapılmamıştır.
 
 | Denetim | Kapsam | Üreten | Programla paylaşılan | Programdan bağımsız olduğu nokta |
 |---|---|---|---|---|
-| Kılavuzların çözümlü örnekleri (Bölüm 5) | 284 proje, 1843 değer | kaynak belgelerin yazarları | proje dosyalarına aktarılan girdiler; toleranslar | yöntem, uygulama ve kişi |
+| Kılavuzların çözümlü örnekleri (Bölüm 5) | 284 proje, 1841 değer | kaynak belgelerin yazarları | proje dosyalarına aktarılan girdiler; toleranslar | yöntem, uygulama ve kişi |
 | Suncal 1.7.1 (Bölüm 4.4, S4) | 164 proje | Sandia National Laboratories | projelerin Suncal modellerine çevrilmesi (bu projenin bir betiği) | uygulama: sembolik LPU, kendi Monte Carlo'su, York ve ODR uydurmaları, risk integralleri |
 | NIST Uncertainty Machine ve NICOB kılavuzları | kılavuzların örnekleri | NIST | girdiler | yöntem, uygulama ve kişi |
 | NICOB R kodunun NumPy aktarımı | NICOB örneklerinin eşdeğerlik dereceleri | bu proje | aktarım bu projede yazıldı | programın uygulaması; algoritma NICOB'unkidir |
@@ -848,4 +848,4 @@ içeriğinin tüm sorumluluğunu üstlenir.
 
 [81] ISO 33405:2024, Reference materials — Approaches for characterization and assessment of homogeneity and stability.
 
-[82] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), v0.1.1 [software], Zenodo, 2026. ⟦DOI⟧
+[82] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), v0.1.1 [software], Zenodo, 2026. https://doi.org/10.5281/zenodo.24161568

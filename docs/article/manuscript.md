@@ -574,7 +574,7 @@ review of the program by metrologists outside the institute has not been made.
 
 | Check | Extent | Produced by | Shared with the program | Independent of the program in |
 |---|---|---|---|---|
-| Worked examples of the guidance (Section 5) | 284 projects, 1843 values | the authors of the source documents | the inputs, transcribed into project files; the tolerances | the method, the implementation and the person |
+| Worked examples of the guidance (Section 5) | 284 projects, 1841 values | the authors of the source documents | the inputs, transcribed into project files; the tolerances | the method, the implementation and the person |
 | Suncal 1.7.1 (Section 4.4, S4) | 164 projects | Sandia National Laboratories | the translation of the projects into Suncal models (a script of this project) | the implementation: symbolic LPU, own Monte Carlo, York and ODR fits, risk integrals |
 | NIST Uncertainty Machine and NICOB manuals | the examples of the manuals | NIST | the inputs | the method, the implementation and the person |
 | NumPy port of the NICOB R code | degrees of equivalence of the NICOB examples | this project | the port was written in this project | the implementation of the program; the algorithm is NICOB's |
@@ -862,4 +862,4 @@ for the content of the publication.
 
 [81] ISO 33405:2024, Reference materials — Approaches for characterization and assessment of homogeneity and stability.
 
-[82] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), v0.1.1 [software], Zenodo, 2026. ⟦DOI⟧
+[82] İ. Ün, KAPSAM: open-source software for the evaluation of measurement uncertainty (GUM, Monte Carlo and top-down), v0.1.1 [software], Zenodo, 2026. https://doi.org/10.5281/zenodo.24161568

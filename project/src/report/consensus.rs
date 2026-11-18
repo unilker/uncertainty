@@ -396,8 +396,8 @@ fn bilateral_section(s: &mut String, a: &ConsensusAnalysis, lang: Lang) {
             let _ = write!(s, " {name} |");
         }
         let _ = writeln!(s, "\n|---|{}", "---:|".repeat(n));
-        for i in 0..n {
-            let _ = write!(s, "| {} |", a.names[i]);
+        for (i, name) in a.names.iter().enumerate().take(n) {
+            let _ = write!(s, "| {name} |");
             for j in 0..n {
                 let cell = if i == j {
                     "—".to_string()

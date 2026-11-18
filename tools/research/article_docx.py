@@ -224,7 +224,7 @@ FOOTER = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
 
 
 def reference_docx(path, lang):
-    """pandoc's default reference document with Times New Roman, 1.5 spacing, ruled tables, A4, line numbers and
+    """pandoc's default reference document with Times New Roman 11 pt, 1.4 line spacing, ruled tables, A4, line numbers and
     a page-number footer."""
     default = subprocess.run(["pandoc", "--print-default-data-file", "reference.docx"], capture_output=True,
                              check=True).stdout
@@ -239,14 +239,17 @@ def reference_docx(path, lang):
                 s = re.sub(r'<w:color w:val="[0-9A-F]+" w:themeColor="accent1"( w:themeShade="[0-9A-F]+")? />', "", s)
                 s = s.replace('<w:sz w:val="24" />\n        <w:szCs w:val="24" />',
                               '<w:sz w:val="22" />\n        <w:szCs w:val="22" />', 1)
+                # No text below 11 pt (Measurement: "a minimum font size of 11-pt"); tables stay single-spaced.
+                s = re.sub(r'<w:(sz|szCs) w:val="(\d+)" ?/>',
+                           lambda m: f'<w:{m.group(1)} w:val="{max(int(m.group(2)), 22)}" />', s)
                 s = s.replace('w:val="en-US" w:eastAsia', f'w:val="{"tr-TR" if lang == "tr" else "en-GB"}" w:eastAsia', 1)
                 s = s.replace('<w:pPrDefault>\n      <w:pPr>\n        <w:spacing w:after="200" />',
-                              '<w:pPrDefault>\n      <w:pPr>\n        <w:spacing w:after="120" w:line="360" w:lineRule="auto" />', 1)
+                              '<w:pPrDefault>\n      <w:pPr>\n        <w:spacing w:after="120" w:line="336" w:lineRule="auto" />', 1)
                 s = s.replace('<w:spacing w:before="180" w:after="180" />',
-                              '<w:spacing w:before="0" w:after="120" w:line="360" w:lineRule="auto" />')
+                              '<w:spacing w:before="0" w:after="120" w:line="336" w:lineRule="auto" />')
                 s = re.sub(r'(<w:style [^>]*w:styleId="Compact">.*?)<w:spacing w:before="36" w:after="36" />'
                            r'(\s*</w:pPr>)', r'\1<w:spacing w:before="20" w:after="20" w:line="240" '
-                           r'w:lineRule="auto" />\2<w:rPr><w:sz w:val="18" /><w:szCs w:val="18" /></w:rPr>', s,
+                           r'w:lineRule="auto" />\2<w:rPr><w:sz w:val="22" /><w:szCs w:val="22" /></w:rPr>', s,
                            count=1, flags=re.S)
                 s = s.replace('<w:tblInd w:w="0" w:type="dxa" />\n      <w:tblCellMar>',
                               '<w:tblInd w:w="0" w:type="dxa" />\n      <w:tblBorders>'

@@ -24,6 +24,7 @@ and OUT_DIR.zip. Needs pandoc, python-docx, openpyxl, Pillow, LibreOffice (page 
 """
 import os
 import re
+import zipfile
 import shutil
 import subprocess
 import sys
@@ -49,6 +50,7 @@ EMAIL = next((sys.argv[i + 1] for i, a in enumerate(sys.argv[:-1]) if a == "--em
 WITHHELD = "[withheld for double-anonymized review]"
 # Identifying strings and their anonymized form, longest first.
 ANON = [
+    ("https://doi.org/10.5281/zenodo.24161568", f"DOI {WITHHELD}"), ("10.5281/zenodo.24161568", WITHHELD),
     ("https://doi.org/10.5281/zenodo.24118312", f"DOI {WITHHELD}"),
     ("10.5281/zenodo.24118312", WITHHELD), ("10.5281/zenodo.24118311", WITHHELD),
     ("https://github.com/unilker/uncertainty", f"repository link {WITHHELD}"),
@@ -72,7 +74,7 @@ ANON = [
     ("0000-0001-5089-4602", WITHHELD),
     ("laboratories of the institute", "laboratories"),
 ]
-IDENT = re.compile(r"TÜBİTAK|\bUME\b|ume-procedure|İlker|\bÜn\b|unilker|zenodo\.2411|0000-0001-5089-4602|Gebze",
+IDENT = re.compile(r"TÜBİTAK|\bUME\b|ume-procedure|İlker|\bÜn\b|unilker|zenodo\.241|0000-0001-5089-4602|Gebze",
                    re.I)
 OPEN = [r"⟦[^⟧]*⟧", r"\[Zenodo DOI[^\]]*\]", r"\[release tag[^\]]*\]", r"\[To be [^\]]*\]", r"\[Suggested reviewers[^\]]*\]",
         r"\(planned\)", r"is planned before\s+submission", r"\[verify[^\]]*\]", r"\[to be (?:added|confirmed)[^\]]*\]",
@@ -135,6 +137,20 @@ def manuscript(out, commit):
     return title, md, parts
 
 
+def min_11pt(path):
+    """Raises every font size below 11 pt in a Word file to 11 pt, in the styles and in the text (the journal's minimum
+    font size)."""
+    tmp = path.with_suffix(".tmp")
+    with zipfile.ZipFile(path) as zin, zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename.startswith("word/") and item.filename.endswith(".xml"):
+                data = re.sub(rb'<w:(sz|szCs) w:val="(\d+)"\s*/>',
+                              lambda m: b'<w:%s w:val="%d"/>' % (m.group(1), max(int(m.group(2)), 22)), data)
+            zout.writestr(item, data)
+    tmp.replace(path)
+
+
 def title_page(out, title, parts):
     doc = Document()
     st = doc.styles["Normal"]
@@ -151,6 +167,15 @@ def title_page(out, title, parts):
     p.add_run(" TÜBİTAK National Metrology Institute (TÜBİTAK UME), TÜBİTAK Gebze Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye")
     doc.add_paragraph("* Corresponding author: İlker Ün, TÜBİTAK National Metrology Institute (TÜBİTAK UME), address as above. "
                       f"E-mail: {EMAIL}. ORCID: 0000-0001-5089-4602.")
+    # The submission system asks for the abstract on the title page as well (Measurement, 2026-11-18).
+    md = (ART / "manuscript.md").read_text(encoding="utf-8")
+    abstract = " ".join(md.split("## Abstract", 1)[1].split("**Keywords:**", 1)[0].split())
+    keywords = " ".join(md.split("**Keywords:**", 1)[1].split("\n\n", 1)[0].split())
+    doc.add_heading("Abstract", level=2)
+    doc.add_paragraph(abstract)
+    k = doc.add_paragraph()
+    k.add_run("Keywords: ").bold = True
+    k.add_run(keywords)
     doc.add_heading("Declaration of competing interest", level=2)
     doc.add_paragraph("The author declares that there are no known competing financial interests or personal "
                       "relationships that could have appeared to influence the work reported in this paper.")
@@ -159,13 +184,14 @@ def title_page(out, title, parts):
     doc.add_heading("CRediT authorship contribution statement", level=2)
     doc.add_paragraph(parts["CRediT authorship contribution statement"].replace("\n", " "))
     doc.add_heading("Software and data (for the editor)", level=2)
-    doc.add_paragraph("Repository: https://github.com/unilker/uncertainty. Archived release v0.1.1 (all versions, "
-                      "concept DOI): https://doi.org/10.5281/zenodo.24118311; v0.1.0: https://doi.org/10.5281/zenodo.24118312. "
+    doc.add_paragraph("Repository: https://github.com/unilker/uncertainty. Archived release v0.1.1: "
+                      "https://doi.org/10.5281/zenodo.24161568; all versions (concept DOI): https://doi.org/10.5281/zenodo.24118311. "
                       "These links are withheld in the anonymized manuscript; the data link is also given in the "
                       "submission system (research data, option C).")
     doc.core_properties.author = "İlker Ün"
     doc.core_properties.title = "Title page"
     doc.save(out / "title-page.docx")
+
     return "\n".join(p.text for p in doc.paragraphs)
 
 
@@ -341,6 +367,8 @@ def main():
               "- Link to the data set (research data, option C): the Zenodo DOI of the release.",
               "- Choose whether to post the manuscript as a preprint on SSRN (optional).", ""]
     (out / "CHECKLIST.md").write_text("\n".join(lines), encoding="utf-8")
+    for f in out.glob("*.docx"):
+        min_11pt(f)
     shutil.make_archive(str(out), "zip", out)
     print(f"wrote {out}.zip; {n_pages} pages; {len(leaks)} identifying matches; {len(found)} open items")
 
