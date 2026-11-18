@@ -24,6 +24,7 @@ and OUT_DIR.zip. Needs pandoc, python-docx, openpyxl, Pillow, LibreOffice (page 
 """
 import os
 import re
+import zipfile
 import shutil
 import subprocess
 import sys
@@ -136,6 +137,20 @@ def manuscript(out, commit):
     return title, md, parts
 
 
+def min_11pt(path):
+    """Raises every font size below 11 pt in a Word file to 11 pt, in the styles and in the text (the journal's minimum
+    font size)."""
+    tmp = path.with_suffix(".tmp")
+    with zipfile.ZipFile(path) as zin, zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename.startswith("word/") and item.filename.endswith(".xml"):
+                data = re.sub(rb'<w:(sz|szCs) w:val="(\d+)"\s*/>',
+                              lambda m: b'<w:%s w:val="%d"/>' % (m.group(1), max(int(m.group(2)), 22)), data)
+            zout.writestr(item, data)
+    tmp.replace(path)
+
+
 def title_page(out, title, parts):
     doc = Document()
     st = doc.styles["Normal"]
@@ -152,6 +167,15 @@ def title_page(out, title, parts):
     p.add_run(" TÜBİTAK National Metrology Institute (TÜBİTAK UME), TÜBİTAK Gebze Yerleşkesi, Barış Mah. Dr. Zeki Acar Cad. No: 1, 41470 Gebze, Kocaeli, Türkiye")
     doc.add_paragraph("* Corresponding author: İlker Ün, TÜBİTAK National Metrology Institute (TÜBİTAK UME), address as above. "
                       f"E-mail: {EMAIL}. ORCID: 0000-0001-5089-4602.")
+    # The submission system asks for the abstract on the title page as well (Measurement, 2026-11-18).
+    md = (ART / "manuscript.md").read_text(encoding="utf-8")
+    abstract = " ".join(md.split("## Abstract", 1)[1].split("**Keywords:**", 1)[0].split())
+    keywords = " ".join(md.split("**Keywords:**", 1)[1].split("\n\n", 1)[0].split())
+    doc.add_heading("Abstract", level=2)
+    doc.add_paragraph(abstract)
+    k = doc.add_paragraph()
+    k.add_run("Keywords: ").bold = True
+    k.add_run(keywords)
     doc.add_heading("Declaration of competing interest", level=2)
     doc.add_paragraph("The author declares that there are no known competing financial interests or personal "
                       "relationships that could have appeared to influence the work reported in this paper.")
@@ -167,6 +191,7 @@ def title_page(out, title, parts):
     doc.core_properties.author = "İlker Ün"
     doc.core_properties.title = "Title page"
     doc.save(out / "title-page.docx")
+
     return "\n".join(p.text for p in doc.paragraphs)
 
 
@@ -342,6 +367,8 @@ def main():
               "- Link to the data set (research data, option C): the Zenodo DOI of the release.",
               "- Choose whether to post the manuscript as a preprint on SSRN (optional).", ""]
     (out / "CHECKLIST.md").write_text("\n".join(lines), encoding="utf-8")
+    for f in out.glob("*.docx"):
+        min_11pt(f)
     shutil.make_archive(str(out), "zip", out)
     print(f"wrote {out}.zip; {n_pages} pages; {len(leaks)} identifying matches; {len(found)} open items")
 
